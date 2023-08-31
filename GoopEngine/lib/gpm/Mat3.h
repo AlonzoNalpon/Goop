@@ -53,6 +53,8 @@ namespace gpm
 	template <typename T>
 	Mat<3, 3, T> operator*(Mat<3, 3, T> const& lhs, T rhs);
 	template <typename T>
+	Vec<3, T> operator*(Mat<3, 3, T> const& lhs, Vec<3, T> const& rhs);
+	template <typename T>
 	Mat<3, 3, T> operator/(Mat<3, 3, T> const& lhs, T rhs);
 	template <typename T>
 	bool operator==(Mat<3, 3, T> const& lhs, Mat<3, 3, T> const& rhs);

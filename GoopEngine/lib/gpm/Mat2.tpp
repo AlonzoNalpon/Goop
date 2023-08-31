@@ -188,6 +188,12 @@ Mat<2, 2, T> operator*(Mat<2, 2, T> const& lhs, T rhs)
 }
 
 template <typename T>
+Vec<2, T> operator*(Mat<2, 2, T> const& lhs, Vec<2, T> const& rhs)
+{
+  return { Dot(lhs.GetRow(0), rhs), Dot(lhs.GetRow(1), rhs) };
+}
+
+template <typename T>
 Mat<2, 2, T> operator/(Mat<2, 2, T> const& lhs, T rhs)
 {
   return { lhs[0] / rhs, lhs[1] / rhs };
