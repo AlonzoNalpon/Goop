@@ -1,27 +1,58 @@
 // Constructors
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T>::Mat()
 {
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     m_data[i]= ValueType();
   }
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
+Mat<Rows, Cols, T>::Mat(Vec<Rows, T> const& c0, Vec<Rows, T> const& c1)
+{
+  static_assert(Cols == 2, "Mat<Rows, Cols, T>: Constructor can only be called on a 2-column matrix");
+
+  m_data[0] = c0;
+  m_data[1] = c1;
+}
+
+template <size_type Rows, size_type Cols, typename T>
+Mat<Rows, Cols, T>::Mat(Vec<Rows, T> const& c0, Vec<Rows, T> const& c1,  Vec<Rows, T> const& c2)
+{
+  static_assert(Cols == 3, "Mat<Rows, Cols, T>: Constructor can only be called on a 3-column matrix");
+
+  m_data[0] = c0;
+  m_data[1] = c1;
+  m_data[2] = c2;
+}
+
+template <size_type Rows, size_type Cols, typename T>
+Mat<Rows, Cols, T>::Mat(Vec<Rows, T> const& c0, Vec<Rows, T> const& c1,
+    Vec<Rows, T> const& c2,  Vec<Rows, T> const& c3)
+{
+  static_assert(Cols == 4, "Mat<Rows, Cols, T>: Constructor can only be called on a 4-column matrix");
+
+  m_data[0] = c0;
+  m_data[1] = c1;
+  m_data[2] = c2;
+  m_data[3] = c3;
+}
+
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T>::Mat(Mat<Rows, Cols, T> const& rhs)
 {
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     m_data[i] = rhs[i];
   }
 }
 
 // Operator overloads
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator=(Mat<Rows, Cols, T> const& rhs)
 {
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     m_data[i] = rhs[i];
   }
@@ -29,10 +60,10 @@ Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator=(Mat<Rows, Cols, T> const& rhs)
   return *this;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator+=(T rhs)
 {
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     m_data[i] += rhs;
   }
@@ -40,10 +71,10 @@ Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator+=(T rhs)
   return *this;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator+=(Mat<Rows, Cols, T> const& rhs)
 {
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     m_data[i] += rhs[i];
   }
@@ -51,10 +82,10 @@ Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator+=(Mat<Rows, Cols, T> const& rhs
   return *this;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator-=(T rhs)
 {
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     m_data[i] -= rhs;
   }
@@ -62,10 +93,10 @@ Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator-=(T rhs)
   return *this;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator-=(Mat<Rows, Cols, T> const& rhs)
 {
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     m_data[i] -= rhs[i];
   }
@@ -73,10 +104,10 @@ Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator-=(Mat<Rows, Cols, T> const& rhs
   return *this;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator*=(T rhs)
 {
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     m_data[i] *= rhs;
   }
@@ -84,10 +115,10 @@ Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator*=(T rhs)
   return *this;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator/=(T rhs)
 {
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     m_data[i] /= rhs;
   }
@@ -95,11 +126,11 @@ Mat<Rows, Cols, T>& Mat<Rows, Cols, T>::operator/=(T rhs)
   return *this;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> Mat<Rows, Cols, T>::operator-() const
 {
   Mat<Rows, Cols, T> temp{ *this };
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     temp[i] = -temp[i];
   }
@@ -108,33 +139,33 @@ Mat<Rows, Cols, T> Mat<Rows, Cols, T>::operator-() const
 }
 
 // Accessors
-template <unsigned Rows, unsigned Cols, typename T>
-typename Mat<Rows, Cols, T>::ValueType& Mat<Rows, Cols, T>::operator[](unsigned rhs)
+template <size_type Rows, size_type Cols, typename T>
+typename Mat<Rows, Cols, T>::ValueType& Mat<Rows, Cols, T>::operator[](size_type rhs)
 {
   return *(m_data + rhs);
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
-typename Mat<Rows, Cols, T>::ValueType const& Mat<Rows, Cols, T>::operator[](unsigned rhs) const
+template <size_type Rows, size_type Cols, typename T>
+typename Mat<Rows, Cols, T>::ValueType const& Mat<Rows, Cols, T>::operator[](size_type rhs) const
 {
   return *(m_data + rhs);
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
-T& Mat<Rows, Cols, T>::At(unsigned row, unsigned col)
+template <size_type Rows, size_type Cols, typename T>
+T& Mat<Rows, Cols, T>::At(size_type row, size_type col)
 {
   return m_data[col][row];
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
-T const& Mat<Rows, Cols, T>::At(unsigned row, unsigned col) const
+template <size_type Rows, size_type Cols, typename T>
+T const& Mat<Rows, Cols, T>::At(size_type row, size_type col) const
 {
   return m_data[col][row];
 }
 
 // Member Functions
-template <unsigned Rows, unsigned Cols, typename T>
-typename Mat<Rows, Cols, T>::ValueType Mat<Rows, Cols, T>::GetCol(unsigned col) const
+template <size_type Rows, size_type Cols, typename T>
+typename Mat<Rows, Cols, T>::ValueType Mat<Rows, Cols, T>::GetCol(size_type col) const
 {
   if (col >= Cols)
   {
@@ -144,8 +175,8 @@ typename Mat<Rows, Cols, T>::ValueType Mat<Rows, Cols, T>::GetCol(unsigned col) 
   return m_data[col];
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
-Vec<Cols, T> Mat<Rows, Cols, T>::GetRow(unsigned row) const
+template <size_type Rows, size_type Cols, typename T>
+Vec<Cols, T> Mat<Rows, Cols, T>::GetRow(size_type row) const
 {
   if (row >= Rows)
   {
@@ -155,16 +186,16 @@ Vec<Cols, T> Mat<Rows, Cols, T>::GetRow(unsigned row) const
   return { m_data[0][row], m_data[1][row], m_data[2][row] };
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 void Mat<Rows, Cols, T>::Transpose()
 {
   static_assert(Rows == Cols, "member function Transpose() can only be called on a square matrix!");
   
   Mat<Rows, Cols, T> temp{ *this };
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     ValueType currCol{ GetCol(i) };
-    for (unsigned j{}; j < Rows; ++j)
+    for (size_type j{}; j < Rows; ++j)
     {
       temp[j][i] = currCol[j];
     }
@@ -173,11 +204,11 @@ void Mat<Rows, Cols, T>::Transpose()
 }
 
 // Non-member operator overloads
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator+(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> const& rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     temp[i] = lhs[i] + rhs[i];
   }
@@ -185,11 +216,11 @@ Mat<Rows, Cols, T> operator+(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> c
   return temp;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator+(Mat<Rows, Cols, T> const& lhs, T rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     temp[i] = lhs[i] + rhs;
   }
@@ -197,11 +228,11 @@ Mat<Rows, Cols, T> operator+(Mat<Rows, Cols, T> const& lhs, T rhs)
   return temp;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator-(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> const& rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     temp[i] = lhs[i] - rhs[i];
   }
@@ -209,11 +240,11 @@ Mat<Rows, Cols, T> operator-(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> c
   return temp;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator-(Mat<Rows, Cols, T> const& lhs, T rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     temp[i] = lhs[i] - rhs;
   }
@@ -221,11 +252,11 @@ Mat<Rows, Cols, T> operator-(Mat<Rows, Cols, T> const& lhs, T rhs)
   return temp;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator*(T lhs, Mat<Rows, Cols, T> const& rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     temp[i] = lhs * rhs[i];
   }
@@ -233,11 +264,11 @@ Mat<Rows, Cols, T> operator*(T lhs, Mat<Rows, Cols, T> const& rhs)
   return temp;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator*(Mat<Rows, Cols, T> const& lhs, T rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     temp[i] = rhs * lhs[i];
   }
@@ -245,11 +276,11 @@ Mat<Rows, Cols, T> operator*(Mat<Rows, Cols, T> const& lhs, T rhs)
   return temp;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator/(Mat<Rows, Cols, T> const& lhs, T rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     temp[i] = lhs[i] / rhs;
   }
@@ -257,10 +288,10 @@ Mat<Rows, Cols, T> operator/(Mat<Rows, Cols, T> const& lhs, T rhs)
   return temp;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 bool operator==(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> const& rhs)
 {
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     if (lhs[i] != rhs[i]) { return false; }
   }
@@ -268,10 +299,10 @@ bool operator==(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> const& rhs)
   return true;
 }
 
-template <unsigned Rows, unsigned Cols, typename T>
+template <size_type Rows, size_type Cols, typename T>
 bool operator!=(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> const& rhs)
 {
-  for (unsigned i{}; i < Cols; ++i)
+  for (size_type i{}; i < Cols; ++i)
   {
     if (lhs[i] != rhs[i]) { return true; }
   }

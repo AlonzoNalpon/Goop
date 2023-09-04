@@ -8,14 +8,14 @@ namespace gpm
     union { T x, r, s; };
     union { T y, g, t; };
 
-    // Constructors
+    // CONSTRUCTORS
     Vec();
     Vec(T _x, T _y);
     Vec(Vec<2, T> const& rhs);
     Vec(Vec<3, T> const& rhs);
     Vec(Vec<4, T> const& rhs);
 
-    // Operator overloads
+    // OPERATOR OVERLOADS
     Vec<2, T>& operator=(Vec<2, T> const& rhs);
     Vec<2, T>& operator+=(Vec<2, T> const& rhs);
     Vec<2, T>& operator+=(T rhs);
@@ -24,14 +24,18 @@ namespace gpm
     Vec<2, T>& operator*=(T rhs);
     Vec<2, T>& operator/=(T rhs);
     Vec<2, T> operator-() const;
-    T& operator[](unsigned rhs);
-    T const& operator[](unsigned rhs) const;
+    T& operator[](size_type rhs);
+    T const& operator[](size_type rhs) const;
 
-    //  Member functions
+    //  MEMBER FUNCTIONS
+    /*!***********************************************************************
+		\brief
+			Normalizes the current vector. Only supports floating-point types.
+		*************************************************************************/
     void Normalize();
   };
 
-  // Non-member operator overloads
+  // NON-MEMBER OPERATOR OVERLOADS
   template <typename T>
   Vec<2, T> operator+(Vec<2, T> const& lhs, Vec<2, T> const& rhs);
   template <typename T>

@@ -7,6 +7,8 @@
 
 namespace gpm
 {
+  using size_type = unsigned;
+  
   // base Vec template
   template <unsigned N, typename T>
   struct Vec
@@ -37,6 +39,6 @@ namespace gpm
 #include "Mat2.h"
 #include "Mat3.h"
 #include "Mat4.h"
-#include "MatOperations.h"
+#include "MatUtils.h"
 
 #endif
