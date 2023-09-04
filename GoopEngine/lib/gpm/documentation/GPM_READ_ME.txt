@@ -1,8 +1,8 @@
 /******** GOOP MATH LIBRARY (GPM) ********/
 
-U can check out VectorUtils.html, MatrixUtils.html shortcuts in Goop\GoopEngine\lib\gpm\documentation folder
+U can check out VectorUtils.html, MatrixUtils.html shortcuts in this folder
 to view the current list of functions
-and Vec2Struct.html, MatrixStruct.html to see the struct layout for Vecs and Mats
+and Vec2Struct.html, Mat3Struct.html to see the struct layout for Vecs and Mats
 
 BASIC USAGE
 -----------------------------

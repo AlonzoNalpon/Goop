@@ -114,10 +114,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0f20eaa0bd90ece10ba665d5a7503867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses the element of the matrix (const) at row, col (i.e x, y). Note that matrix is in row-major order. If out of range, throws std::out_of_range exception.  <a href="structgpm_1_1Mat.html#a0f20eaa0bd90ece10ba665d5a7503867">More...</a><br /></td></tr>
 <tr class="separator:a0f20eaa0bd90ece10ba665d5a7503867"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02e213898137db0631782141ae17c670"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgpm_1_1Mat.html#a3acc3ae7082c1a2fdec05ddce7e3c9ae">ValueType</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpm_1_1Mat.html#a02e213898137db0631782141ae17c670">operator[]</a> (<a class="el" href="namespacegpm.html#a8020324c173b85b1c3f5bf16a90fbb70">size_type</a> rhs)</td></tr>
-<tr class="memdesc:a02e213898137db0631782141ae17c670"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses a column of the matrix in the form of a vector. Note that matrix is in row-major order. If out of range, throws std::out_of_range exception.  <a href="structgpm_1_1Mat.html#a02e213898137db0631782141ae17c670">More...</a><br /></td></tr>
+<tr class="memdesc:a02e213898137db0631782141ae17c670"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses a column of the matrix in the form of a vector. Note that matrix is in row-major order.  <a href="structgpm_1_1Mat.html#a02e213898137db0631782141ae17c670">More...</a><br /></td></tr>
 <tr class="separator:a02e213898137db0631782141ae17c670"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e852be76e06030117f1757ae2efba3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgpm_1_1Mat.html#a3acc3ae7082c1a2fdec05ddce7e3c9ae">ValueType</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpm_1_1Mat.html#a7e852be76e06030117f1757ae2efba3a">operator[]</a> (<a class="el" href="namespacegpm.html#a8020324c173b85b1c3f5bf16a90fbb70">size_type</a> rhs) const</td></tr>
-<tr class="memdesc:a7e852be76e06030117f1757ae2efba3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses a row of the matrix in the form of a vector. Note that matrix is in row-major order. If out of range, throws std::out_of_range exception.  <a href="structgpm_1_1Mat.html#a7e852be76e06030117f1757ae2efba3a">More...</a><br /></td></tr>
+<tr class="memdesc:a7e852be76e06030117f1757ae2efba3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses a column of the matrix in the form of a vector (const). Note that matrix is in row-major order.  <a href="structgpm_1_1Mat.html#a7e852be76e06030117f1757ae2efba3a">More...</a><br /></td></tr>
 <tr class="separator:a7e852be76e06030117f1757ae2efba3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0846b60d7ede9fc9f9309d322ff0b9d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgpm_1_1Mat.html">Mat</a>&lt; Rows, Cols, T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgpm_1_1Mat.html#a0846b60d7ede9fc9f9309d322ff0b9d6">operator=</a> (<a class="el" href="structgpm_1_1Mat.html">Mat</a>&lt; Rows, Cols, T &gt; const &amp;rhs)</td></tr>
 <tr class="separator:a0846b60d7ede9fc9f9309d322ff0b9d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -652,11 +652,11 @@ template&lt;size_type Rows, size_type Cols, typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Accesses a column of the matrix in the form of a vector. Note that matrix is in row-major order. If out of range, throws std::out_of_range exception. </p>
+<p>Accesses a column of the matrix in the form of a vector. Note that matrix is in row-major order. </p>
 <hr  />
  <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">col</td><td>The column to return [0,Rows] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>The column to return [0,Cols] </td></tr>
   </table>
   </dd>
 </dl>
@@ -682,15 +682,15 @@ template&lt;size_type Rows, size_type Cols, typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Accesses a row of the matrix in the form of a vector. Note that matrix is in row-major order. If out of range, throws std::out_of_range exception. </p>
+<p>Accesses a column of the matrix in the form of a vector (const). Note that matrix is in row-major order. </p>
 <hr  />
  <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">row</td><td>The column to return [0,Rows] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>The column to return [0,Rows] </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Vector corresponding to the specified row of the matrix </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector (const) corresponding to the specified column of the matrix </dd></dl>
 
 </div>
 </div>

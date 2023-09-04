@@ -18,7 +18,8 @@ namespace gpm
 			Constructor taking in 4 sized-4 vectors with each vector corresponding
 			to a column.
 		*************************************************************************/
-    Mat(ValueType const& c0, ValueType const& c1, ValueType const& c2, ValueType const& c3);
+    Mat( ValueType const& col0, ValueType const& col1,
+				 ValueType const& col2, ValueType const& col3 );
 		Mat(Mat<4, 4, T> const& rhs);
 
 		// ACCESSORS
@@ -54,8 +55,7 @@ namespace gpm
 		\brief
 			Accesses a column of the matrix in the form of a vector.
 			Note that matrix is in row-major order.
-			If out of range, throws std::out_of_range exception.
-		\param[in] col
+		\param[in] rhs
 			The column to return [0,3]
 		\return
 			Vector corresponding to the specified column of the matrix
@@ -64,13 +64,12 @@ namespace gpm
 
 		/*!***********************************************************************
 		\brief
-			Accesses a row of the matrix in the form of a vector.
+			Accesses a column of the matrix in the form of a vector (const).
 			Note that matrix is in row-major order.
-			If out of range, throws std::out_of_range exception.
-		\param[in] row
+		\param[in] rhs
 			The column to return [0,3]
 		\return
-			Vector corresponding to the specified row of the matrix
+			Vector (const) corresponding to the specified column of the matrix
 		*************************************************************************/
 		ValueType const& operator[](size_type rhs) const;
 

@@ -15,7 +15,8 @@ Mat<4, 4, T>::Mat(Mat<4, 4, T> const& rhs)
 }
 
 template <typename T>
-Mat<4, 4, T>::Mat(ValueType const& c0, ValueType const& c1, ValueType const& c2, ValueType const& c3) 
+Mat<4, 4, T>::Mat(ValueType const& col0, ValueType const& col1,
+                  ValueType const& col2, ValueType const& col3) 
 {
   m_data[0] = c0;
   m_data[1] = c1;
