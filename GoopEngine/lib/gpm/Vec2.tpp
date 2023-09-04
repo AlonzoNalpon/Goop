@@ -72,12 +72,12 @@ Vec<2, T> Vec<2,T>::operator-() const
 }
 
 template <typename T>
-T& Vec<2, T>::operator[](unsigned rhs)
+T& Vec<2, T>::operator[](size_type rhs)
 {
   return *(&x + rhs);
 }
 template <typename T>
-T const& Vec<2, T>::operator[](unsigned rhs) const
+T const& Vec<2, T>::operator[](size_type rhs) const
 {
   return *(&x + rhs);
 }

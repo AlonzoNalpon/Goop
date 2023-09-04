@@ -112,12 +112,22 @@ typename Mat<2, 2, T>::ValueType const& Mat<2, 2, T>::operator[](unsigned rhs) c
 template <typename T>
 T& Mat<2, 2, T>::At(unsigned row, unsigned col)
 {
+  if ((col > 1 || col < 0) || (row > 1 || row < 0))
+  {
+    throw std::out_of_range("At: out of range");
+  }
+
   return m_data[col][row];
 }
 
 template <typename T>
 T const& Mat<2, 2, T>::At(unsigned row, unsigned col) const
 {
+  if ((col > 1 || col < 0) || (row > 1 || row < 0))
+  {
+    throw std::out_of_range("At: out of range");
+  }
+
   return m_data[col][row];
 }
 
@@ -125,7 +135,7 @@ T const& Mat<2, 2, T>::At(unsigned row, unsigned col) const
 template <typename T>
 typename Mat<2, 2, T>::ValueType Mat<2, 2, T>::GetCol(unsigned col) const
 {
-  if (col > 1)
+  if (col > 1 || col < 0)
   {
     throw std::out_of_range("GetCol: out of range");
   }
@@ -136,7 +146,7 @@ typename Mat<2, 2, T>::ValueType Mat<2, 2, T>::GetCol(unsigned col) const
 template <typename T>
 typename Mat<2, 2, T>::ValueType Mat<2, 2, T>::GetRow(unsigned row) const
 {
-  if (row > 1)
+  if (row > 1 || row < 0)
   {
     throw std::out_of_range("GetRow: out of range");
   }

@@ -10,19 +10,76 @@ namespace gpm
 
     ValueType m_data[2];
 
-    // Constructors
+    // CONSTRUCTORS
     Mat();
+
+    /*!***********************************************************************
+		\brief
+			Non-default constructor taking in 4 elements. They should be specified
+			in row-major order.
+		*************************************************************************/
     Mat(T m00, T m01, T m10, T m11);
-    Mat(Mat<2, 2, T> const& rhs);
+    
+    /*!***********************************************************************
+		\brief
+			Constructor taking in 2 sized-2 vectors with each vector corresponding
+			to a column.
+		*************************************************************************/
     Mat(ValueType const& col0, ValueType const& col1);
+    Mat(Mat<2, 2, T> const& rhs);
 
-		// Accessors
-		T& At(unsigned row, unsigned col);
-		T const& At(unsigned row, unsigned col) const;
-		ValueType& operator[](unsigned rhs);
-		ValueType const& operator[](unsigned rhs) const;
+		// ACCESSORS
+    /*!***********************************************************************
+		\brief
+			Accesses the element of the matrix at row, col (i.e x, y).
+			Note that matrix is in row-major order.
+      If out of range, throws std::out_of_range exception.
+		\param[in] row
+			The row of the element [0,1]
+		\param[in] col
+			The column of the element [0,1]
+		\return
+			The element of the matrix at (row, col)
+	*************************************************************************/
+		T& At(size_type row, size_type col);
 
-    // Operator overloads
+    /*!***********************************************************************
+		\brief
+			Accesses the element of the matrix (const) at row, col (i.e x, y).
+			Note that matrix is in row-major order.
+      If out of range, throws std::out_of_range exception.
+		\param[in] row
+			The row of the element [0,1]
+		\param[in] col
+			The column of the element [0,1]
+		\return
+			The element of the matrix (const) at (row, col)
+		*************************************************************************/
+		T const& At(size_type row, size_type col) const;
+
+    /*!***********************************************************************
+		\brief
+			Accesses a column of the matrix in the form of a vector.
+			Note that matrix is in row-major order.
+		\param[in] rhs
+			The column to return [0,1]
+		\return
+			Vector corresponding to the specified column of the matrix
+		*************************************************************************/
+		ValueType& operator[](size_type rhs);
+
+    /*!***********************************************************************
+		\brief
+			Accesses a column of the matrix in the form of a vector (const).
+			Note that matrix is in row-major order.
+		\param[in] rhs
+			The column to return [0,2]
+		\return
+			Vector (const) corresponding to the specified column of the matrix
+		*************************************************************************/
+		ValueType const& operator[](size_type rhs) const;
+
+    // OPERATOR OVERLOADS
     Mat<2, 2, T>& operator=(Mat<2, 2, T> const& rhs);
 		Mat<2, 2, T>& operator+=(T rhs);
 		Mat<2, 2, T>& operator+=(Mat<2, 2, T> const& rhs);
@@ -32,15 +89,41 @@ namespace gpm
 		Mat<2, 2, T>& operator/=(T rhs);
 		Mat<2, 2, T> operator-() const;
         
-    //  Member functions
-		ValueType GetCol(unsigned col) const;
-		ValueType GetRow(unsigned row) const;
+    //  MEMBER FUNCTIONS
+    /*!***********************************************************************
+		\brief
+			Returns a column of the matrix in the form of an rvalue vector.
+			Note that matrix is in row-major order.
+			If out of range, throws std::out_of_range exception.
+		\param[in] col
+			The column to return [0,1]
+		\return
+			Vector corresponding to the specified column of the matrix
+		*************************************************************************/
+		ValueType GetCol(size_type col) const;
+
+    /*!***********************************************************************
+		\brief
+			Returns a row of the matrix in the form of an rvalue vector.
+			Note that matrix is in row-major order.
+			If out of range, throws std::out_of_range exception.
+		\param[in] row
+			The column to return [0,1]
+		\return
+			Vector corresponding to the specified row of the matrix
+		*************************************************************************/
+		ValueType GetRow(size_type row) const;
+
+    /*!***********************************************************************
+		\brief
+			Transposes the current matrix
+		*************************************************************************/
 		void Transpose();
   };
 
   #include "Mat2.tpp"
 
-  // Non-member operator overloads
+  // NON-MEMBER OPERATOR OVERLOADS
   template <typename T>
   Mat<2, 2, T> operator+(Mat<2, 2, T> const& lhs, Mat<2, 2, T> const& rhs);
   template <typename T>

@@ -6,9 +6,18 @@ Mat<3, 3, T>::Mat()
 }
 
 template <typename T>
+Mat<3, 3, T>::Mat(T m00, T m01, T m02, T m10, 
+                  T m11, T m12, T m20, T m21, T m22)
+{
+  m_data[0] = { m00, m10, m20 };
+  m_data[1] = { m01, m11, m21 };
+  m_data[2] = { m02, m12, m22 };
+}
+
+template <typename T>
 Mat<3, 3, T>::Mat(Mat<3, 3, T> const& rhs)
 {
-  for (unsigned i{}; i < 3; ++i)
+  for (size_type i{}; i < 3; ++i)
   {
     m_data[i] = rhs[i];
   }
@@ -26,7 +35,7 @@ Mat<3, 3, T>::Mat(ValueType const& c0, ValueType const& c1,  ValueType const& c2
 template <typename T>
 Mat<3, 3, T>& Mat<3, 3, T>::operator=(Mat<3, 3, T> const& rhs)
 {
-  for (unsigned i{}; i < 3; ++i)
+  for (size_type i{}; i < 3; ++i)
   {
     m_data[i] = rhs[i];
   }
@@ -47,7 +56,7 @@ Mat<3, 3, T>& Mat<3, 3, T>::operator+=(T rhs)
 template <typename T>
 Mat<3, 3, T>& Mat<3, 3, T>::operator+=(Mat<3, 3, T> const& rhs)
 {
-  for (unsigned i{}; i < 3; ++i)
+  for (size_type i{}; i < 3; ++i)
   {
     m_data[i] += rhs[i];
   }
@@ -68,7 +77,7 @@ Mat<3, 3, T>& Mat<3, 3, T>::operator-=(T rhs)
 template <typename T>
 Mat<3, 3, T>& Mat<3, 3, T>::operator-=(Mat<3, 3, T> const& rhs)
 {
-  for (unsigned i{}; i < 3; ++i)
+  for (size_type i{}; i < 3; ++i)
   {
     m_data[i] -= rhs[i];
   }
@@ -104,32 +113,32 @@ Mat<3, 3, T> Mat<3, 3, T>::operator-() const
 
 // Accessors
 template <typename T>
-typename Mat<3, 3, T>::ValueType& Mat<3, 3, T>::operator[](unsigned rhs)
+typename Mat<3, 3, T>::ValueType& Mat<3, 3, T>::operator[](size_type rhs)
 {
   return *(m_data + rhs);
 }
 
 template <typename T>
-typename Mat<3, 3, T>::ValueType const& Mat<3, 3, T>::operator[](unsigned rhs) const
+typename Mat<3, 3, T>::ValueType const& Mat<3, 3, T>::operator[](size_type rhs) const
 {
   return *(m_data + rhs);
 }
 
 template <typename T>
-T& Mat<3, 3, T>::At(unsigned row, unsigned col)
+T& Mat<3, 3, T>::At(size_type row, size_type col)
 {
   return m_data[col][row];
 }
 
 template <typename T>
-T const& Mat<3, 3, T>::At(unsigned row, unsigned col) const
+T const& Mat<3, 3, T>::At(size_type row, size_type col) const
 {
   return m_data[col][row];
 }
 
 // Member Functions
 template <typename T>
-typename Mat<3, 3, T>::ValueType Mat<3, 3, T>::GetCol(unsigned col) const
+typename Mat<3, 3, T>::ValueType Mat<3, 3, T>::GetCol(size_type col) const
 {
   if (col > 2)
   {
@@ -140,7 +149,7 @@ typename Mat<3, 3, T>::ValueType Mat<3, 3, T>::GetCol(unsigned col) const
 }
 
 template <typename T>
-typename Mat<3, 3, T>::ValueType Mat<3, 3, T>::GetRow(unsigned row) const
+typename Mat<3, 3, T>::ValueType Mat<3, 3, T>::GetRow(size_type row) const
 {
   if (row > 2)
   {
@@ -210,7 +219,7 @@ Mat<3, 3, T> operator/(Mat<3, 3, T> const& lhs, T rhs)
 template <typename T>
 bool operator==(Mat<3, 3, T> const& lhs, Mat<3, 3, T> const& rhs)
 {
-  for (unsigned i{}; i < 3; ++i)
+  for (size_type i{}; i < 3; ++i)
   {
     if (lhs[i] != rhs[i]) { return false; }
   }
@@ -221,7 +230,7 @@ bool operator==(Mat<3, 3, T> const& lhs, Mat<3, 3, T> const& rhs)
 template <typename T>
 bool operator!=(Mat<3, 3, T> const& lhs, Mat<3, 3, T> const& rhs)
 {
-  for (unsigned i{}; i < 3; ++i)
+  for (size_type i{}; i < 3; ++i)
   {
     if (lhs[i] != rhs[i]) { return true; }
   }
