@@ -1,8 +1,10 @@
 /******** GOOP MATH LIBRARY (GPM) ********/
 
-U can check out VectorUtils.html, MatrixUtils.html shortcuts in this folder
-to view the current list of functions
-and Vec2Struct.html, Mat3Struct.html to see the struct layout for Vecs and Mats
+U can open up Goop/lib/gpm/documentation/html/index.html and navigate to Files > File List >
+MatUtils.h, VecUtils.h to view the current list of functions
+
+Go Classes > Class List to see the struct layout for Vecs and Mats
+(Vec<2, T> for Vec2, Mat<3, 3, T> for Mat3)
 
 BASIC USAGE
 -----------------------------
