@@ -79,7 +79,10 @@ namespace gpm
     The length of the vector squared
 	*************************************************************************/
   template<typename T>
-  T GetSquaredMagnitude(Vec<2, T> const& vector);
+  inline T GetSquaredMagnitude(Vec<2, T> const& vector)
+  {
+    return lhs.x * lhs.x + lhs.y * lhs.y;
+  }
 
   /*!***********************************************************************
 	\brief
@@ -91,7 +94,10 @@ namespace gpm
     The length of the vector squared
 	*************************************************************************/
   template<typename T>
-  T GetSquaredMagnitude(Vec<3, T> const& vector);
+  inline T GetSquaredMagnitude(Vec<3, T> const& vector)
+  {
+    return lhs.x * lhs.x + lhs.y * lhs.y + lhs.z * lhs.z;
+  }
 
   /*!***********************************************************************
 	\brief
@@ -103,7 +109,10 @@ namespace gpm
     The length of the vector squared
 	*************************************************************************/
   template<typename T>
-  T GetSquaredMagnitude(Vec<4, T> const& vector);
+  inline T GetSquaredMagnitude(Vec<4, T> const& vector)
+  {
+    return lhs.x * lhs.x + lhs.y * lhs.y + lhs.z * lhs.z + lhs.w * lhs.w;
+  }
 
   /*!***********************************************************************
 	\brief
@@ -116,7 +125,10 @@ namespace gpm
     The value of the dot product
 	*************************************************************************/
   template<typename T>
-  T Dot(Vec<2, T> const& lhs, Vec<2, T> const& rhs);
+  inline T Dot(Vec<2, T> const& lhs, Vec<2, T> const& rhs)
+  {
+    return lhs.x * rhs.x + lhs.y * rhs.y;
+  }
 
   /*!***********************************************************************
 	\brief
@@ -129,7 +141,10 @@ namespace gpm
     The value of the dot product
 	*************************************************************************/
   template<typename T>
-  T Dot(Vec<3, T> const& lhs, Vec<3, T> const& rhs);
+  inline T Dot(Vec<3, T> const& lhs, Vec<3, T> const& rhs)
+  {
+    return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
+  }
 
   /*!***********************************************************************
 	\brief
@@ -142,7 +157,10 @@ namespace gpm
     The value of the dot product
 	*************************************************************************/
   template<typename T>
-  T Dot(Vec<4, T> const& lhs, Vec<4, T> const& rhs);
+  inline T Dot(Vec<4, T> const& lhs, Vec<4, T> const& rhs)
+  {
+    return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z + lhs.w * rhs.w;
+  }
 
   /*!***********************************************************************
 	\brief
@@ -155,7 +173,14 @@ namespace gpm
     The value of the cross product
 	*************************************************************************/
   template<typename T>
-  Vec<3, T> Cross(Vec<3, T> const& lhs, Vec<3, T> const& rhs);
+  inline Vec<3, T> Cross(Vec<3, T> const& lhs, Vec<3, T> const& rhs)
+  {
+    return
+    { lhs.y * rhs.z - rhs.y * lhs.z,
+      rhs.x * lhs.z - lhs.x * rhs.z,
+      lhs.x * rhs.y - rhs.x * lhs.y };
+  }
+
 
   #include "VecUtils.tpp"
 

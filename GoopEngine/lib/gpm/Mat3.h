@@ -27,7 +27,7 @@ namespace gpm
 			Constructor taking in 3 sized-3 vectors with each vector corresponding
 			to a column.
 		*************************************************************************/
-    Mat(ValueType const& c0, ValueType const& c1, ValueType const& c2);
+    Mat(ValueType const& col0, ValueType const& col1, ValueType const& col2);
 		Mat(Mat<3, 3, T> const& rhs);
 
 		// ACCESSORS

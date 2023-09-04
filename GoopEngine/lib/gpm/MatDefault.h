@@ -71,9 +71,8 @@ namespace gpm
 		\brief
 			Accesses a column of the matrix in the form of a vector.
 			Note that matrix is in row-major order.
-			If out of range, throws std::out_of_range exception.
-		\param[in] col
-			The column to return [0,Rows]
+		\param[in] rhs
+			The column to return [0,Cols]
 		\return
 			Vector corresponding to the specified column of the matrix
 		*************************************************************************/
@@ -81,13 +80,12 @@ namespace gpm
 
 		/*!***********************************************************************
 		\brief
-			Accesses a row of the matrix in the form of a vector.
+			Accesses a column of the matrix in the form of a vector (const).
 			Note that matrix is in row-major order.
-			If out of range, throws std::out_of_range exception.
-		\param[in] row
+		\param[in] rhs
 			The column to return [0,Rows]
 		\return
-			Vector corresponding to the specified row of the matrix
+			Vector (const) corresponding to the specified column of the matrix
 		*************************************************************************/
 		ValueType const& operator[](size_type rhs) const;
 

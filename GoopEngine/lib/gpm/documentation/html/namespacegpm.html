@@ -492,6 +492,9 @@ Functions</h2></td></tr>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structgpm_1_1Vec.html">Vec</a>&lt;3, T&gt; gpm::Cross </td>
@@ -511,6 +514,11 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the cross product of 2 vectors. </p>
@@ -524,6 +532,16 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The value of the cross product </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="VecUtils_8h_source.html#l00176">176</a> of file <a class="el" href="VecUtils_8h_source.html">VecUtils.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  {</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    { lhs.y * rhs.z - rhs.y * lhs.z,</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;      rhs.x * lhs.z - lhs.x * rhs.z,</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;      lhs.x * rhs.y - rhs.x * lhs.y };</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Vec3_8h_source.html#l00008">gpm::Vec&lt; 3, T &gt;::x</a>, <a class="el" href="Vec3_8h_source.html#l00009">gpm::Vec&lt; 3, T &gt;::y</a>, and <a class="el" href="Vec3_8h_source.html#l00010">gpm::Vec&lt; 3, T &gt;::z</a>.</p>
+
 </div>
 </div>
 <a id="a0c0a5dd296569f09e746bfc99d29f9a0"></a>
@@ -533,6 +551,9 @@ template&lt;typename T &gt; </div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">T gpm::Dot </td>
@@ -552,6 +573,11 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the dot product of 2 vectors. </p>
@@ -564,6 +590,13 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The value of the dot product </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="VecUtils_8h_source.html#l00128">128</a> of file <a class="el" href="VecUtils_8h_source.html">VecUtils.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  {</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span> lhs.x * rhs.x + lhs.y * rhs.y;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Vec2_8h_source.html#l00008">gpm::Vec&lt; 2, T &gt;::x</a>, and <a class="el" href="Vec2_8h_source.html#l00009">gpm::Vec&lt; 2, T &gt;::y</a>.</p>
 
 </div>
 </div>
@@ -574,6 +607,9 @@ template&lt;typename T &gt; </div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">T gpm::Dot </td>
@@ -593,6 +629,11 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the dot product of 2 vectors. </p>
@@ -605,6 +646,13 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The value of the dot product </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="VecUtils_8h_source.html#l00144">144</a> of file <a class="el" href="VecUtils_8h_source.html">VecUtils.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">return</span> lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Vec3_8h_source.html#l00008">gpm::Vec&lt; 3, T &gt;::x</a>, <a class="el" href="Vec3_8h_source.html#l00009">gpm::Vec&lt; 3, T &gt;::y</a>, and <a class="el" href="Vec3_8h_source.html#l00010">gpm::Vec&lt; 3, T &gt;::z</a>.</p>
 
 </div>
 </div>
@@ -615,6 +663,9 @@ template&lt;typename T &gt; </div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">T gpm::Dot </td>
@@ -634,6 +685,11 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the dot product of 2 vectors. </p>
@@ -646,6 +702,13 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The value of the dot product </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="VecUtils_8h_source.html#l00160">160</a> of file <a class="el" href="VecUtils_8h_source.html">VecUtils.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  {</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordflow">return</span> lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z + lhs.w * rhs.w;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Vec4_8h_source.html#l00011">gpm::Vec&lt; 4, T &gt;::w</a>, <a class="el" href="Vec4_8h_source.html#l00008">gpm::Vec&lt; 4, T &gt;::x</a>, <a class="el" href="Vec4_8h_source.html#l00009">gpm::Vec&lt; 4, T &gt;::y</a>, and <a class="el" href="Vec4_8h_source.html#l00010">gpm::Vec&lt; 4, T &gt;::z</a>.</p>
 
 </div>
 </div>
@@ -746,6 +809,9 @@ template&lt;typename T &gt; </div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">T gpm::GetSquaredMagnitude </td>
@@ -755,6 +821,11 @@ template&lt;typename T &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the squared length of a <a class="el" href="structgpm_1_1Vec.html">gpm::Vec</a>. Use to avoid the square root function. </p>
@@ -767,6 +838,11 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The length of the vector squared </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="VecUtils_8h_source.html#l00082">82</a> of file <a class="el" href="VecUtils_8h_source.html">VecUtils.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">return</span> lhs.x * lhs.x + lhs.y * lhs.y;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a2638274ff1d3c5cb5e0f9f5035b4a705"></a>
@@ -776,6 +852,9 @@ template&lt;typename T &gt; </div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">T gpm::GetSquaredMagnitude </td>
@@ -785,6 +864,11 @@ template&lt;typename T &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the squared length of a <a class="el" href="structgpm_1_1Vec.html">gpm::Vec</a>. Use to avoid the square root function. </p>
@@ -797,6 +881,11 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The length of the vector squared </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="VecUtils_8h_source.html#l00097">97</a> of file <a class="el" href="VecUtils_8h_source.html">VecUtils.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">return</span> lhs.x * lhs.x + lhs.y * lhs.y + lhs.z * lhs.z;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a257d6f7fd58e11afa9c7a54f51a12971"></a>
@@ -806,6 +895,9 @@ template&lt;typename T &gt; </div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">T gpm::GetSquaredMagnitude </td>
@@ -815,6 +907,11 @@ template&lt;typename T &gt; </div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the squared length of a <a class="el" href="structgpm_1_1Vec.html">gpm::Vec</a>. Use to avoid the square root function. </p>
@@ -827,6 +924,11 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The length of the vector squared </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="VecUtils_8h_source.html#l00112">112</a> of file <a class="el" href="VecUtils_8h_source.html">VecUtils.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">return</span> lhs.x * lhs.x + lhs.y * lhs.y + lhs.z * lhs.z + lhs.w * lhs.w;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aa904c9b37d66e792bf6552704e4fa1b2"></a>

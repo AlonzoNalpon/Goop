@@ -24,11 +24,11 @@ Mat<3, 3, T>::Mat(Mat<3, 3, T> const& rhs)
 }
 
 template <typename T>
-Mat<3, 3, T>::Mat(ValueType const& c0, ValueType const& c1,  ValueType const& c2) 
+Mat<3, 3, T>::Mat(ValueType const& col0, ValueType const& col1,  ValueType const& col2) 
 {
-  m_data[0] = c0;
-  m_data[1] = c1;
-  m_data[2] = c2;
+  m_data[0] = col0;
+  m_data[1] = col1;
+  m_data[2] = col2;
 }
 
 // Operator overloads
