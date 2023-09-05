@@ -6,112 +6,112 @@ namespace gpm
   /*!***********************************************************************
 	\brief
 		Returns the normalized form of a gpm::Vec
-  \param[in] vector
+  \param[in] vect
     The vector to normalize
   \return
     The normalized vector
 	*************************************************************************/
   template<typename T>
-
-  Vec<2, T> Normalize(Vec<2, T> const& vector);
+  Vec<2, T> Normalize(Vec<2, T> const& vect);
+  
   /*!***********************************************************************
 	\brief
 		Returns the normalized form of a gpm::Vec
-  \param[in] vector
+  \param[in] vect
     The vector to normalize
   \return
     The normalized vector
 	*************************************************************************/
   template<typename T>
+  Vec<3, T> Normalize(Vec<3, T> const& vect);
 
-  Vec<3, T> Normalize(Vec<3, T> const& vector);
   /*!***********************************************************************
 	\brief
 		Returns the normalized form of a gpm::Vec
-  \param[in] vector
+  \param[in] vect
     The vector to normalize
   \return
     The normalized vector
 	*************************************************************************/
   template<typename T>
-  Vec<4, T> Normalize(Vec<4, T> const& vector);
+  Vec<4, T> Normalize(Vec<4, T> const& vect);
 
   /*!***********************************************************************
 	\brief
 		Returns the length of a gpm::Vec
-  \param[in] vector
+  \param[in] vect
     The vector to compute the length of
   \return
     The length of the vector
 	*************************************************************************/
   template<typename T>
-  T GetMagnitude(Vec<2, T> const& vector);
+  T GetMagnitude(Vec<2, T> const& vect);
 
   /*!***********************************************************************
 	\brief
 		Returns the length of a gpm::Vec
-  \param[in] vector
+  \param[in] vect
     The vector to compute the length of
   \return
     The length of the vector
 	*************************************************************************/
   template<typename T>
-  T GetMagnitude(Vec<3, T> const& vector);
+  T GetMagnitude(Vec<3, T> const& vect);
 
   /*!***********************************************************************
 	\brief
 		Returns the length of a gpm::Vec
-  \param[in] vector
+  \param[in] vect
     The vector to compute the length of
   \return
     The length of the vector
 	*************************************************************************/
   template<typename T>
-  T GetMagnitude(Vec<4, T> const& vector);
+  T GetMagnitude(Vec<4, T> const& vect);
 
   /*!***********************************************************************
 	\brief
 		Returns the squared length of a gpm::Vec. Use to avoid the square root
     function.
-  \param[in] vector
+  \param[in] vect
     The vector to compute the squared length of
   \return
     The length of the vector squared
 	*************************************************************************/
   template<typename T>
-  inline T GetSquaredMagnitude(Vec<2, T> const& vector)
+  inline T GetSquaredMagnitude(Vec<2, T> const& vect)
   {
-    return lhs.x * lhs.x + lhs.y * lhs.y;
+    return vect.x * vect.x + vect.y * vect.y;
   }
 
   /*!***********************************************************************
 	\brief
 		Returns the squared length of a gpm::Vec. Use to avoid the square root
     function.
-  \param[in] vector
+  \param[in] vect
     The vector to compute the squared length of
   \return
     The length of the vector squared
 	*************************************************************************/
   template<typename T>
-  inline T GetSquaredMagnitude(Vec<3, T> const& vector)
+  inline T GetSquaredMagnitude(Vec<3, T> const& vect)
   {
-    return lhs.x * lhs.x + lhs.y * lhs.y + lhs.z * lhs.z;
+    return vect.x * vect.x + vect.y * vect.y + vect.z * vect.z;
   }
 
   /*!***********************************************************************
 	\brief
 		Returns the squared length of a gpm::Vec. Use to avoid the square root
     function.
-  \param[in] vector
+  \param[in] vect
     The vector to compute the squared length of
   \return
     The length of the vector squared
 	*************************************************************************/
   template<typename T>
-  inline T GetSquaredMagnitude(Vec<4, T> const& vector)
+  inline T GetSquaredMagnitude(Vec<4, T> const& vect)
   {
-    return lhs.x * lhs.x + lhs.y * lhs.y + lhs.z * lhs.z + lhs.w * lhs.w;
+    return vect.x * vect.x + vect.y * vect.y + vect.z * vect.z + vect.w * vect.w;
   }
 
   /*!***********************************************************************

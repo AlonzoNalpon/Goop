@@ -16,60 +16,60 @@ namespace gpm
 		/*!***********************************************************************
 		\brief
 			Constructor taking in 4 sized-4 vectors with each vector corresponding
-			to a column.
+			to a row.
 		*************************************************************************/
-    Mat( ValueType const& col0, ValueType const& col1,
-				 ValueType const& col2, ValueType const& col3 );
+    Mat( ValueType const& row0, ValueType const& row1,
+				 ValueType const& row2, ValueType const& row3 );
 		Mat(Mat<4, 4, T> const& rhs);
 
 		// ACCESSORS
 		/*!***********************************************************************
 		\brief
-			Accesses the element of the matrix at row, col (i.e x, y).
+			Accesses the element of the matrix at col, row (i.e x, y).
 			Note that matrix is in row-major order.
 			If out of range, throws std::out_of_range exception.
-		\param[in] row
-			The row of the element [0,3]
 		\param[in] col
-			The column of the element [0,3]
+      The column of the element (horizontal axis) [0,3]
+    \param[in] row
+      The row of the element (vertical axis) [0,3]
 		\return
-			The element of the matrix at (row, col)
+			The element of the matrix at (col, row)
 	*************************************************************************/
-		T& At(size_type row, size_type col);
+		T& At(size_type col, size_type row);
 
 		/*!***********************************************************************
 		\brief
-			Accesses the element of the matrix (const) at row, col (i.e x, y).
+			Accesses the element of the matrix (const) at col, row (i.e x, y).
 			Note that matrix is in row-major order.
 			If out of range, throws std::out_of_range exception.
-		\param[in] row
-			The row of the element [0,3]
 		\param[in] col
-			The column of the element [0,3]
+      The column of the element (horizontal axis) [0,3]
+    \param[in] row
+      The row of the element (vertical axis) [0,3]
 		\return
-			The element of the matrix (const) at (row, col)
+			The element of the matrix (const) at (col, row)
 		*************************************************************************/
-		T const& At(size_type row, size_type col) const;
+		T const& At(size_type col, size_type row) const;
 
 		/*!***********************************************************************
 		\brief
-			Accesses a column of the matrix in the form of a vector.
+			Accesses a row of the matrix in the form of a vector.
 			Note that matrix is in row-major order.
 		\param[in] rhs
 			The column to return [0,3]
 		\return
-			Vector corresponding to the specified column of the matrix
+			Vector corresponding to the specified row of the matrix
 		*************************************************************************/
 		ValueType& operator[](size_type rhs);
 
 		/*!***********************************************************************
 		\brief
-			Accesses a column of the matrix in the form of a vector (const).
+			Accesses a row of the matrix in the form of a vector (const).
 			Note that matrix is in row-major order.
 		\param[in] rhs
 			The column to return [0,3]
 		\return
-			Vector (const) corresponding to the specified column of the matrix
+			Vector (const) corresponding to the specified row of the matrix
 		*************************************************************************/
 		ValueType const& operator[](size_type rhs) const;
 

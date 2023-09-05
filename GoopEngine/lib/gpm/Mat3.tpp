@@ -2,16 +2,19 @@
 template <typename T>
 Mat<3, 3, T>::Mat()
 {
-  m_data[0] = m_data[1] = m_data[2] = ValueType();
+  for (size_type i{}; i < 3; ++i)
+  {
+    m_data[i] = ValueType();
+  }
 }
 
 template <typename T>
 Mat<3, 3, T>::Mat(T m00, T m01, T m02, T m10, 
                   T m11, T m12, T m20, T m21, T m22)
 {
-  m_data[0] = { m00, m10, m20 };
-  m_data[1] = { m01, m11, m21 };
-  m_data[2] = { m02, m12, m22 };
+  m_data[0] = { m00, m01, m02 };
+  m_data[1] = { m10, m11, m12 };
+  m_data[2] = { m20, m21, m22 };
 }
 
 template <typename T>
@@ -24,11 +27,11 @@ Mat<3, 3, T>::Mat(Mat<3, 3, T> const& rhs)
 }
 
 template <typename T>
-Mat<3, 3, T>::Mat(ValueType const& col0, ValueType const& col1,  ValueType const& col2) 
+Mat<3, 3, T>::Mat(ValueType const& row0, ValueType const& row1,  ValueType const& row2) 
 {
-  m_data[0] = col0;
-  m_data[1] = col1;
-  m_data[2] = col2;
+  m_data[0] = row0;
+  m_data[1] = row1;
+  m_data[2] = row2;
 }
 
 // Operator overloads
@@ -125,15 +128,25 @@ typename Mat<3, 3, T>::ValueType const& Mat<3, 3, T>::operator[](size_type rhs) 
 }
 
 template <typename T>
-T& Mat<3, 3, T>::At(size_type row, size_type col)
+T& Mat<3, 3, T>::At(size_type col, size_type row)
 {
-  return m_data[col][row];
+  if ((col > 2 || col < 0) || (row > 2 || row < 0))
+  {
+    throw std::out_of_range("At: out of range");
+  }
+
+  return m_data[row][col];
 }
 
 template <typename T>
-T const& Mat<3, 3, T>::At(size_type row, size_type col) const
+T const& Mat<3, 3, T>::At(size_type col, size_type row) const
 {
-  return m_data[col][row];
+  if ((col > 2 || col < 0) || (row > 2 || row < 0))
+  {
+    throw std::out_of_range("At (const): out of range");
+  }
+
+  return m_data[row][col];
 }
 
 // Member Functions
@@ -145,7 +158,7 @@ typename Mat<3, 3, T>::ValueType Mat<3, 3, T>::GetCol(size_type col) const
     throw std::out_of_range("GetCol: out of range");
   }
 
-  return m_data[col];
+  return { m_data[0][col], m_data[1][col], m_data[2][col] };
 }
 
 template <typename T>
@@ -156,7 +169,7 @@ typename Mat<3, 3, T>::ValueType Mat<3, 3, T>::GetRow(size_type row) const
     throw std::out_of_range("GetRow: out of range");
   }
 
-  return { m_data[0][row], m_data[1][row], m_data[2][row] };
+  return m_data[row];
 }
 
 template <typename T>
@@ -207,7 +220,7 @@ Mat<3, 3, T> operator*(Mat<3, 3, T> const& lhs, T rhs)
 template <typename T>
 Vec<3, T> operator*(Mat<3, 3, T> const& lhs, Vec<3, T> const& rhs)
 {
-  return { Dot(lhs.GetRow(0), rhs), Dot(lhs.GetRow(1), rhs), Dot(lhs.GetRow(2), rhs) };
+  return { Dot(lhs[0], rhs), Dot(lhs[1], rhs), Dot(lhs[2], rhs) };
 }
 
 template <typename T>

@@ -15,13 +15,13 @@ Mat<4, 4, T>::Mat(Mat<4, 4, T> const& rhs)
 }
 
 template <typename T>
-Mat<4, 4, T>::Mat(ValueType const& col0, ValueType const& col1,
-                  ValueType const& col2, ValueType const& col3) 
+Mat<4, 4, T>::Mat(ValueType const& row0, ValueType const& row1,
+                  ValueType const& row2, ValueType const& row3) 
 {
-  m_data[0] = c0;
-  m_data[1] = c1;
-  m_data[2] = c2;
-  m_data[3] = c3;
+  m_data[0] = row0;
+  m_data[1] = row1;
+  m_data[2] = row2;
+  m_data[3] = row3;
 }
 
 // Operator overloads
@@ -39,10 +39,10 @@ Mat<4, 4, T>& Mat<4, 4, T>::operator=(Mat<4, 4, T> const& rhs)
 template <typename T>
 Mat<4, 4, T>& Mat<4, 4, T>::operator+=(T rhs)
 {
-  m_data[0] += rhs;
-  m_data[1] += rhs;
-  m_data[2] += rhs;
-  m_data[3] += rhs;
+  for (size_type i{}; i < 4; ++i)
+  {
+    m_data[i] += rhs;
+  }
 
   return *this;
 }
@@ -61,10 +61,10 @@ Mat<4, 4, T>& Mat<4, 4, T>::operator+=(Mat<4, 4, T> const& rhs)
 template <typename T>
 Mat<4, 4, T>& Mat<4, 4, T>::operator-=(T rhs)
 {
-  m_data[0] -= rhs;
-  m_data[1] -= rhs;
-  m_data[2] -= rhs;
-  m_data[3] -= rhs;
+  for (size_type i{}; i < 4; ++i)
+  {
+    m_data[i] -= rhs;
+  }
 
   return *this;
 }
@@ -83,10 +83,10 @@ Mat<4, 4, T>& Mat<4, 4, T>::operator-=(Mat<4, 4, T> const& rhs)
 template <typename T>
 Mat<4, 4, T>& Mat<4, 4, T>::operator*=(T rhs)
 {
-  m_data[0] *= rhs;
-  m_data[1] *= rhs;
-  m_data[2] *= rhs;
-  m_data[3] *= rhs;
+  for (size_type i{}; i < 4; ++i)
+  {
+    m_data[i] *= rhs;
+  }
 
   return *this;
 }
@@ -94,10 +94,10 @@ Mat<4, 4, T>& Mat<4, 4, T>::operator*=(T rhs)
 template <typename T>
 Mat<4, 4, T>& Mat<4, 4, T>::operator/=(T rhs)
 {
-  m_data[0] /= rhs;
-  m_data[1] /= rhs;
-  m_data[2] /= rhs;
-  m_data[3] /= rhs;
+  for (size_type i{}; i < 4; ++i)
+  {
+    m_data[i] /= rhs;
+  }
 
   return *this;
 }
@@ -122,15 +122,25 @@ typename Mat<4, 4, T>::ValueType const& Mat<4, 4, T>::operator[](size_type rhs) 
 }
 
 template <typename T>
-T& Mat<4, 4, T>::At(size_type row, size_type col)
+T& Mat<4, 4, T>::At(size_type col, size_type row)
 {
-  return m_data[col][row];
+  if ((col > 3 || col < 0) || (row > 3 || row < 0))
+  {
+    throw std::out_of_range("At: out of range");
+  }
+
+  return m_data[row][col];
 }
 
 template <typename T>
-T const& Mat<4, 4, T>::At(size_type row, size_type col) const
+T const& Mat<4, 4, T>::At(size_type col, size_type row) const
 {
-  return m_data[col][row];
+  if ((col > 3 || col < 0) || (row > 3 || row < 0))
+  {
+    throw std::out_of_range("At (const): out of range");
+  }
+
+  return m_data[row][col];
 }
 
 // Member Functions
@@ -142,7 +152,7 @@ typename Mat<4, 4, T>::ValueType Mat<4, 4, T>::GetCol(size_type col) const
     throw std::out_of_range("GetCol: out of range");
   }
 
-  return m_data[col];
+  return { m_data[0][col], m_data[1][col], m_data[2][col], m_data[3][col] };
 }
 
 template <typename T>
@@ -153,17 +163,17 @@ typename Mat<4, 4, T>::ValueType Mat<4, 4, T>::GetRow(size_type row) const
     throw std::out_of_range("GetRow: out of range");
   }
 
-  return { m_data[0][row], m_data[1][row], m_data[2][row], m_data[3][row] };
+  return m_data[row];
 }
 
 template <typename T>
 void Mat<4, 4, T>::Transpose()
 {
   Mat<4, 4, T> temp{ *this };
-  temp[0] = GetRow(0);
-  temp[1] = GetRow(1);
-  temp[2] = GetRow(2);
-  temp[3] = GetRow(3);
+  temp[0] = GetCol(0);
+  temp[1] = GetCol(1);
+  temp[2] = GetCol(2);
+  temp[3] = GetCol(3);
 
   *this = temp;
 }
@@ -208,8 +218,8 @@ Mat<4, 4, T> operator*(Mat<4, 4, T> const& lhs, T rhs)
 template <typename T>
 Vec<4, T> operator*(Mat<4, 4, T> const& lhs, Vec<4, T> const& rhs)
 {
-  return { Dot(lhs.GetRow(0), rhs), Dot(lhs.GetRow(1), rhs), 
-           Dot(lhs.GetRow(2), rhs), Dot(lhs.GetRow(3), rhs) };
+  return { Dot(lhs[0], rhs), Dot(lhs[1], rhs), 
+           Dot(lhs[2], rhs), Dot(lhs[3], rhs) };
 }
 
 template <typename T>

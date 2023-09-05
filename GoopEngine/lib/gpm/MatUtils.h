@@ -21,7 +21,7 @@ namespace gpm
 		The matrix to store the result
   \param[in] x
     The x-component of the scale
-  \param[in] x
+  \param[in] y
     The y-component of the scale
 	*************************************************************************/
   void MtxScale(Mat3& mtx, float x, float y);
@@ -44,7 +44,7 @@ namespace gpm
 		The matrix to store the result
   \param[in] x
     The x-component of the translate
-  \param[in] x
+  \param[in] y
     The y-component of the translate
 	*************************************************************************/
   void MtxTranslate(Mat3& mtx, float x, float y);
