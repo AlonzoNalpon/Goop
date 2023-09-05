@@ -37,6 +37,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.vcxproj.filters
+*.vcxproj
 
 # Build results
 #[Dd]ebug/
