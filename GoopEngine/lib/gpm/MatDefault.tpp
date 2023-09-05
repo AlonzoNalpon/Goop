@@ -2,47 +2,47 @@
 template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T>::Mat()
 {
-  for (size_type i{}; i < Cols; ++i)
+  for (size_type i{}; i < Rows; ++i)
   {
     m_data[i]= ValueType();
   }
 }
 
 template <size_type Rows, size_type Cols, typename T>
-Mat<Rows, Cols, T>::Mat(Vec<Rows, T> const& c0, Vec<Rows, T> const& c1)
+Mat<Rows, Cols, T>::Mat(Vec<Cols, T> const& row0, Vec<Cols, T> const& row1)
 {
-  static_assert(Cols == 2, "Mat<Rows, Cols, T>: Constructor can only be called on a 2-column matrix");
+  static_assert(Rows == 2, "Mat<Rows, Cols, T>: Constructor can only be called on a 2-row matrix");
 
-  m_data[0] = c0;
-  m_data[1] = c1;
+  m_data[0] = row0;
+  m_data[1] = row1;
 }
 
 template <size_type Rows, size_type Cols, typename T>
-Mat<Rows, Cols, T>::Mat(Vec<Rows, T> const& c0, Vec<Rows, T> const& c1,  Vec<Rows, T> const& c2)
+Mat<Rows, Cols, T>::Mat(Vec<Cols, T> const& row0, Vec<Cols, T> const& row1, Vec<Cols, T> const& row2)
 {
-  static_assert(Cols == 3, "Mat<Rows, Cols, T>: Constructor can only be called on a 3-column matrix");
+  static_assert(Rows == 3, "Mat<Rows, Cols, T>: Constructor can only be called on a 3-row matrix");
 
-  m_data[0] = c0;
-  m_data[1] = c1;
-  m_data[2] = c2;
+  m_data[0] = row0;
+  m_data[1] = row1;
+  m_data[2] = row2;
 }
 
 template <size_type Rows, size_type Cols, typename T>
-Mat<Rows, Cols, T>::Mat(Vec<Rows, T> const& c0, Vec<Rows, T> const& c1,
-    Vec<Rows, T> const& c2,  Vec<Rows, T> const& c3)
+Mat<Rows, Cols, T>::Mat(Vec<Cols, T> const& row0, Vec<Cols, T> const& row1, 
+		  Vec<Cols, T> const& row2, Vec<Cols, T> const& row3)
 {
-  static_assert(Cols == 4, "Mat<Rows, Cols, T>: Constructor can only be called on a 4-column matrix");
-
-  m_data[0] = c0;
-  m_data[1] = c1;
-  m_data[2] = c2;
-  m_data[3] = c3;
+  static_assert(Rows == 4, "Mat<Rows, Cols, T>: Constructor can only be called on a 4-row matrix");
+  
+  m_data[0] = row0;
+  m_data[1] = row1;
+  m_data[2] = row2;
+  m_data[3] = row3;
 }
 
 template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T>::Mat(Mat<Rows, Cols, T> const& rhs)
 {
-  for (size_type i{}; i < Cols; ++i)
+  for (size_type i{}; i < Rows; ++i)
   {
     m_data[i] = rhs[i];
   }
@@ -152,15 +152,25 @@ typename Mat<Rows, Cols, T>::ValueType const& Mat<Rows, Cols, T>::operator[](siz
 }
 
 template <size_type Rows, size_type Cols, typename T>
-T& Mat<Rows, Cols, T>::At(size_type row, size_type col)
+T& Mat<Rows, Cols, T>::At(size_type col, size_type row)
 {
-  return m_data[col][row];
+  if ((col >= Cols || col < 0) || (row >= Rows || row < 0))
+  {
+    throw std::out_of_range("At: out of range");
+  }
+  
+  return m_data[row][col];
 }
 
 template <size_type Rows, size_type Cols, typename T>
-T const& Mat<Rows, Cols, T>::At(size_type row, size_type col) const
+T const& Mat<Rows, Cols, T>::At(size_type col, size_type row) const
 {
-  return m_data[col][row];
+  if ((col >= Cols || col < 0) || (row >= Rows || row < 0))
+  {
+    throw std::out_of_range("At (const): out of range");
+  }
+  
+  return m_data[row][col];
 }
 
 // Member Functions
@@ -169,10 +179,10 @@ typename Mat<Rows, Cols, T>::ValueType Mat<Rows, Cols, T>::GetCol(size_type col)
 {
   if (col >= Cols)
   {
-    throw std::out_of_range("call to GetCol: out of range");
+    throw std::out_of_range("GetCol: out of range");
   }
 
-  return m_data[col];
+  return { m_data[0][col], m_data[1][col], m_data[2][col] };
 }
 
 template <size_type Rows, size_type Cols, typename T>
@@ -180,27 +190,10 @@ Vec<Cols, T> Mat<Rows, Cols, T>::GetRow(size_type row) const
 {
   if (row >= Rows)
   {
-    throw std::out_of_range("call to GetRow: out of range");
+    throw std::out_of_range("GetRow: out of range");
   }
 
-  return { m_data[0][row], m_data[1][row], m_data[2][row] };
-}
-
-template <size_type Rows, size_type Cols, typename T>
-void Mat<Rows, Cols, T>::Transpose()
-{
-  static_assert(Rows == Cols, "member function Transpose() can only be called on a square matrix!");
-  
-  Mat<Rows, Cols, T> temp{ *this };
-  for (size_type i{}; i < Cols; ++i)
-  {
-    ValueType currCol{ GetCol(i) };
-    for (size_type j{}; j < Rows; ++j)
-    {
-      temp[j][i] = currCol[j];
-    }
-  }
-  *this = temp;
+  return m_data[row];
 }
 
 // Non-member operator overloads
@@ -208,7 +201,7 @@ template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator+(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> const& rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (size_type i{}; i < Cols; ++i)
+  for (size_type i{}; i < Rows; ++i)
   {
     temp[i] = lhs[i] + rhs[i];
   }
@@ -220,7 +213,7 @@ template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator+(Mat<Rows, Cols, T> const& lhs, T rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (size_type i{}; i < Cols; ++i)
+  for (size_type i{}; i < Rows; ++i)
   {
     temp[i] = lhs[i] + rhs;
   }
@@ -232,7 +225,7 @@ template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator-(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> const& rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (size_type i{}; i < Cols; ++i)
+  for (size_type i{}; i < Rows; ++i)
   {
     temp[i] = lhs[i] - rhs[i];
   }
@@ -244,7 +237,7 @@ template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator-(Mat<Rows, Cols, T> const& lhs, T rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (size_type i{}; i < Cols; ++i)
+  for (size_type i{}; i < Rows; ++i)
   {
     temp[i] = lhs[i] - rhs;
   }
@@ -256,7 +249,7 @@ template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator*(T lhs, Mat<Rows, Cols, T> const& rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (size_type i{}; i < Cols; ++i)
+  for (size_type i{}; i < Rows; ++i)
   {
     temp[i] = lhs * rhs[i];
   }
@@ -268,9 +261,21 @@ template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator*(Mat<Rows, Cols, T> const& lhs, T rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (size_type i{}; i < Cols; ++i)
+  for (size_type i{}; i < Rows; ++i)
   {
     temp[i] = rhs * lhs[i];
+  }
+
+  return temp;
+}
+
+template <size_type Rows, size_type Cols, typename T>
+Vec<Rows, T> operator*(Mat<Rows, Cols, T> const& lhs, Vec<Rows, T> const& rhs)
+{
+  Vec<Rows, T> temp{};
+  for (size_type i{}; i < Rows; ++i)
+  {
+    temp[i] = Dot(lhs[i], rhs);
   }
 
   return temp;
@@ -280,7 +285,7 @@ template <size_type Rows, size_type Cols, typename T>
 Mat<Rows, Cols, T> operator/(Mat<Rows, Cols, T> const& lhs, T rhs)
 {
   Mat<Rows, Cols, T> temp{};
-  for (size_type i{}; i < Cols; ++i)
+  for (size_type i{}; i < Rows; ++i)
   {
     temp[i] = lhs[i] / rhs;
   }
@@ -291,7 +296,7 @@ Mat<Rows, Cols, T> operator/(Mat<Rows, Cols, T> const& lhs, T rhs)
 template <size_type Rows, size_type Cols, typename T>
 bool operator==(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> const& rhs)
 {
-  for (size_type i{}; i < Cols; ++i)
+  for (size_type i{}; i < Rows; ++i)
   {
     if (lhs[i] != rhs[i]) { return false; }
   }
@@ -302,7 +307,7 @@ bool operator==(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> const& rhs)
 template <size_type Rows, size_type Cols, typename T>
 bool operator!=(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> const& rhs)
 {
-  for (size_type i{}; i < Cols; ++i)
+  for (size_type i{}; i < Rows; ++i)
   {
     if (lhs[i] != rhs[i]) { return true; }
   }

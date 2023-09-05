@@ -8,8 +8,8 @@ Mat<2, 2, T>::Mat()
 template <typename T>
 Mat<2, 2, T>::Mat(T m00, T m01, T m10, T m11)
 {
-  m_data[0] = ValueType(m00, m10);
-  m_data[1] = ValueType(m01, m11);
+  m_data[0] = ValueType(m00, m01);
+  m_data[1] = ValueType(m10, m11);
 }
 
 template <typename T>
@@ -20,10 +20,10 @@ Mat<2, 2, T>::Mat(Mat<2, 2, T> const& rhs)
 }
 
 template <typename T>
-Mat<2, 2, T>::Mat(ValueType const& col0, ValueType const& col1) 
+Mat<2, 2, T>::Mat(ValueType const& row0, ValueType const& row1) 
 {
-  m_data[0] = col0;
-  m_data[1] = col1;
+  m_data[0] = row0;
+  m_data[1] = row1;
 }
 
 // Operator overloads
@@ -110,25 +110,25 @@ typename Mat<2, 2, T>::ValueType const& Mat<2, 2, T>::operator[](unsigned rhs) c
 }
 
 template <typename T>
-T& Mat<2, 2, T>::At(unsigned row, unsigned col)
+T& Mat<2, 2, T>::At(unsigned col, unsigned row)
 {
   if ((col > 1 || col < 0) || (row > 1 || row < 0))
   {
     throw std::out_of_range("At: out of range");
   }
 
-  return m_data[col][row];
+  return m_data[row][col];
 }
 
 template <typename T>
-T const& Mat<2, 2, T>::At(unsigned row, unsigned col) const
+T const& Mat<2, 2, T>::At(unsigned col, unsigned row) const
 {
   if ((col > 1 || col < 0) || (row > 1 || row < 0))
   {
-    throw std::out_of_range("At: out of range");
+    throw std::out_of_range("At (const): out of range");
   }
 
-  return m_data[col][row];
+  return m_data[row][col];
 }
 
 // Member Functions
@@ -140,7 +140,7 @@ typename Mat<2, 2, T>::ValueType Mat<2, 2, T>::GetCol(unsigned col) const
     throw std::out_of_range("GetCol: out of range");
   }
 
-  return { m_data[col] };
+  return { m_data[0][col], m_data[1][col] };
 }
 
 template <typename T>
@@ -151,7 +151,7 @@ typename Mat<2, 2, T>::ValueType Mat<2, 2, T>::GetRow(unsigned row) const
     throw std::out_of_range("GetRow: out of range");
   }
 
-  return { m_data[0][row], m_data[1][row] };
+  return m_data[row];
 }
 
 template <typename T>
@@ -200,7 +200,7 @@ Mat<2, 2, T> operator*(Mat<2, 2, T> const& lhs, T rhs)
 template <typename T>
 Vec<2, T> operator*(Mat<2, 2, T> const& lhs, Vec<2, T> const& rhs)
 {
-  return { Dot(lhs.GetRow(0), rhs), Dot(lhs.GetRow(1), rhs) };
+  return { Dot(lhs[0], rhs), Dot(lhs[1], rhs) };
 }
 
 template <typename T>
