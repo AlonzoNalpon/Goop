@@ -1,4 +1,3 @@
-#include "pch.h"
 #include <def.h>
 #include <iostream>
 #include "GLApp/Window/Window.h"

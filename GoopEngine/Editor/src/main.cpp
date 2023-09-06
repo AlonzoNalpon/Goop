@@ -1,6 +1,5 @@
 //#include <GLFW/glfw3.h>
 #include <iostream>
-#include "pch.h"
 #include "GLApp/Window/Window.h"
 int main(int argc, char* argv[])
 {
