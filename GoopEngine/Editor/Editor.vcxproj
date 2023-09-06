@@ -208,7 +208,6 @@
     <ClInclude Include="include\def.h" />
     <ClInclude Include="include\GLApp\Window\Window.h" />
     <ClInclude Include="include\pch.h" />
-    <ClInclude Include="include\stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

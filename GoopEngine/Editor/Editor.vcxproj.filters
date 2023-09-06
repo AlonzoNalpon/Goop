@@ -32,9 +32,6 @@
     <ClInclude Include="include\GLApp\Window\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>

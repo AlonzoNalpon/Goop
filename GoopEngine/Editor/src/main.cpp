@@ -2,7 +2,7 @@
 //#include <GLFW/glfw3.h>
 #include <iostream>
 #include "pch.h"
-
+#include "GLApp/Window/Window.h"
 int main(int argc, char* argv[])
 {
   //if (!glfwInit())
@@ -14,8 +14,8 @@ int main(int argc, char* argv[])
 
   //Goop::Window window(100, 100, L"WHAT");
   //window.CreateOGLWindow();
-
-  std::cout << "Hello World!" << std::endl;
+  windowSystem::Window window;
+  window.CreateWindow();
 
   return 1;
 }
