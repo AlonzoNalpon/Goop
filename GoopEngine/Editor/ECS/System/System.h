@@ -1,19 +1,16 @@
 #pragma once
-#include "ComponentBase.h"
+#include <set>
+#include "../Entity/Entity.h"
 
 namespace GE
 {
 	namespace ECS
 	{
-		class SystemBase
+		class System
 		{
-		private:
-			using ComponentType = int;
-			ComponentType m_id;
-
 		protected:
-			SystemBase();
-			~SystemBase();
+			System() = default;
+			~System() = default;
 
 		public:
 			void Awake();
@@ -29,6 +26,8 @@ namespace GE
 
 			void SetActive(bool active);
 			const bool& GetActive() const;
+
+			std::set<Entity> m_entities;
 		};
 	}
 }
