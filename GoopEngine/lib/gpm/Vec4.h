@@ -1,7 +1,7 @@
 #ifndef GOOP_VEC4_H
 #define GOOP_VEC4_H
 
-namespace gpm
+namespace GPM
 {
   template <typename T>
   struct Vec<4, T> {
@@ -60,6 +60,6 @@ namespace gpm
   bool operator!=(Vec<4, T> const& lhs, Vec<4, T> const& rhs);
 
   #include "Vec4.tpp"
-} // namespace gpm
+} // namespace GPM
 
 #endif

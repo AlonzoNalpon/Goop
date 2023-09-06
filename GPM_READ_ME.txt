@@ -16,9 +16,12 @@ Everything is under namespace "gpm", so prefix "gpm::" before any functions/obje
 Note: Only vec2s, 3s and 4s are supported.
 Any vector/matrix instantiated with > 4 rows/cols will yield an error from static_assert()
 
-For float-typed vectors and matrices u may use the following typedefs:
+For FLOAT-typed vectors and matrices u may use the following typedefs:
  - gpm::Vec2, gpm::Vec3, gpm::Vec4
  - gpm::Mat2, gpm::Mat3, gpm::Mat4
+For DOUBLE-typed vectors and matrices u may use the following typedefs:
+ - gpm::dVec2, gpm::dVec3, gpm::dVec4
+ - gpm::dMat2, gpm::dMat3, gpm::dMat4
 
 Similar to alpha engine, the following functions are available
  - MtxScale, MtxRotate, MtxTranslate

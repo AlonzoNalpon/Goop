@@ -1,7 +1,7 @@
 #ifndef GOOP_VEC2_H
 #define GOOP_VEC2_H
 
-namespace gpm
+namespace GPM
 {
   template <typename T>
   struct Vec<2, T> {
@@ -58,6 +58,6 @@ namespace gpm
   bool operator!=(Vec<2, T> const& lhs, Vec<2, T> const& rhs);
 
   #include "Vec2.tpp"
-} // namespace gpm
+} // namespace GPM
 
 #endif
