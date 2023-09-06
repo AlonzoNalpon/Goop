@@ -2,6 +2,7 @@
 #define DEF_H
 #include <iostream>
 #include <string>
+#include <gl/glew.h>
 using ubyte   = unsigned char;
 using uint32  = unsigned int;
 using i32     = int;
@@ -10,11 +11,11 @@ using f32     = float;
 using wchar   = wchar_t; // word (2 byte) chars
 
 namespace debugger {
-  void err_log(std::string const& msg) {
+  inline void err_log(std::string const& msg) {
     std::cout << "ERROR: " << msg << std::endl;
   }
 
-  void err_log_file(std::string const& msg) {
+  inline void err_log_file(std::string const& msg) {
     std::cout << "ERROR: " << msg << " | in "
       << __FILE__ << ": " << __FUNCTION__ << " | line:" << __LINE__ << std::endl;
   }

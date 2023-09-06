@@ -36,6 +36,9 @@ namespace windowSystem {
       std::exit(EXIT_FAILURE); // we must leave immediately!
     }
 
+    glfwSetErrorCallback(ErrorCallback);       // Error callback
+    glfwSetKeyCallback(m_window, KeyCallback); // key callback
+
 
     return true;
   }
@@ -43,6 +46,18 @@ namespace windowSystem {
   void Window::MakeCurrent()
   {
     glfwMakeContextCurrent(m_window);
+  }
+
+  GLFWwindow* Window::GetWindow()
+  {
+    return m_window;
+  }
+
+  void Window::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+  {
+    // For now, escape key will shut the thing down
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+      glfwSetWindowShouldClose(window, GLFW_TRUE);
   }
 
   void Window::ErrorCallback(int error, const char* desc)

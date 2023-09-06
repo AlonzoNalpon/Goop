@@ -9,12 +9,15 @@ namespace windowSystem {
     ~Window();
     bool CreateWindow();
     void MakeCurrent();
+    GLFWwindow* GetWindow();
+
+    static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
   protected:
     int m_windowWidth{}, m_windowHeight{}; //!< Dimensions of window
     const char* m_title{}; //!< title of window
     GLFWwindow* m_window{}; //!< pointer to window
   private:
-    void ErrorCallback(int error, const char* desc);
+    static void ErrorCallback(int error, const char* desc);
   };
 }
 #endif

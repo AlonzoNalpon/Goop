@@ -118,6 +118,9 @@
     <Import Project="..\prop-pages\standard-no_warnings.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -201,11 +204,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GLApp\GraphicsEngine\GraphicsEngine.cpp" />
     <ClCompile Include="src\GLApp\Window\Window.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\def.h" />
+    <ClInclude Include="include\GLApp\GraphicsTypes.h" />
+    <ClInclude Include="include\GLApp\Graphics\GraphicsEngine.h" />
     <ClInclude Include="include\GLApp\Window\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
