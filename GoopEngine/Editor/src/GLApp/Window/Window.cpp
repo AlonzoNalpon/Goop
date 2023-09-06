@@ -17,6 +17,17 @@ namespace windowSystem {
       ERR_LOG_FILE("Failed to initialize GLFW! Exiting now ...");
       std::exit(EXIT_FAILURE); // we must leave immediately!
     }
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+
+    // Window creation
+    m_window = glfwCreateWindow(m_windowWidth, m_windowHeight, m_title, nullptr, nullptr);
+    if (!m_window) {
+      ERR_LOG_FILE("OpenGL context creation has failed! Exiting now ...");
+      std::exit(EXIT_FAILURE); // we must leave immediately!
+    }
+    MakeCurrent();
+
     // Attempt to initialize glew
     GLenum errCode{ glewInit() };
     if (errCode != GLEW_OK) {
@@ -26,12 +37,6 @@ namespace windowSystem {
       std::exit(EXIT_FAILURE); // we must leave immediately!
     }
 
-    // Window creation
-    //m_window = glfwCreateWindow(m_windowWidth, m_windowHeight, m_title, nullptr, nullptr);
-    //if (!m_window) {
-    //  ERR_LOG_FILE("OpenGL context creation has failed! Exiting now ...");
-    //  std::exit(EXIT_FAILURE); // we must leave immediately!
-    //}
 
     return true;
   }
