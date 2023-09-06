@@ -1,4 +1,3 @@
-#include <GL/glew.h> // for access to OpenGL API declarations 
 //#include <GLFW/glfw3.h>
 #include <iostream>
 #include "pch.h"

@@ -1,6 +1,5 @@
 #ifndef DEF_H
 #define DEF_H
-#include "pch.h"
 #include <iostream>
 #include <string>
 using ubyte   = unsigned char;

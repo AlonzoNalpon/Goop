@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "def.h"
+#include <def.h>
 #include <iostream>
 #include "GLApp/Window/Window.h"
 #include <GL/glew.h>
