@@ -94,9 +94,11 @@ T const& Vec<4, T>::operator[](size_type rhs) const
 template <typename T>
 void Vec<4, T>::Normalize()
 {
+  #ifdef _DEBUG
   static_assert(std::is_floating_point<T>::value, "Normalize can only be called on floating point-typed Vectors");
+  #endif
   
-  T inverse_root = 1 / sqrtf(x * x + y * y + z * z + w * w);
+  T inverse_root = 1 / sqrt(x * x + y * y + z * z + w * w);
   x *= inverse_root;
   y *= inverse_root;
   z *= inverse_root;

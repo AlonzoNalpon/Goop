@@ -1,7 +1,7 @@
 #ifndef GOOP_VEC_UTILS_H
 #define GOOP_VEC_UTILS_H
 
-namespace gpm
+namespace GPM
 {
   /*!***********************************************************************
 	\brief
@@ -184,6 +184,6 @@ namespace gpm
 
   #include "VecUtils.tpp"
 
-} // namespace gpm
+} // namespace GPM
 
 #endif

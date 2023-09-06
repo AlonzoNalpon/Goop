@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <stdexcept>
 
-namespace gpm
+namespace GPM
 {
   using size_type = unsigned;
   
@@ -17,19 +17,25 @@ namespace gpm
     static_assert(!(N < 2 || N > 4) , "Vec<unsigned N, typename T>: only sizes 2, 3 and 4 are supported!");
   };
 
-  typedef Vec<2, float> Vec2;
-  typedef Vec<3, float> Vec3;
-  typedef Vec<4, float> Vec4;
+  using Vec2 = Vec<2, float>;
+  using Vec3 = Vec<3, float>;
+  using Vec4 = Vec<4, float>;
+  using dVec2 = Vec<2, double>;
+  using dVec3 = Vec<3, double>;
+  using dVec4 = Vec<4, double>;
 
   // base Mat template
   template <unsigned Rows, unsigned Cols, typename T>
   struct Mat;
 
-  typedef Mat<2, 2, float> Mat2;
-  typedef Mat<3, 3, float> Mat3;
-  typedef Mat<4, 4, float> Mat4;
+  using Mat2 = Mat<2, 2, float>;
+  using Mat3 = Mat<3, 3, float>;
+  using Mat4 = Mat<4, 4, float>;
+  using dMat2 = Mat<2, 2, double>;
+  using dMat3 = Mat<3, 3, double>;
+  using dMat4 = Mat<4, 4, double>;
 
-} // namespace gpm
+} // namespace GPM
 
 #include "Vec2.h"
 #include "Vec3.h"

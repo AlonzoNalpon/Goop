@@ -1,7 +1,7 @@
 #ifndef GOOP_MAT3_H
 #define GOOP_MAT3_H
 
-namespace gpm
+namespace GPM
 {
   template <typename T>
   struct Mat<3, 3, T>
@@ -147,6 +147,6 @@ namespace gpm
 	template <typename T>
 	bool operator!=(Mat<3, 3, T> const& lhs, Mat<3, 3, T> const& rhs);
 
-} // namespace gpm
+} // namespace GPM
 
 #endif

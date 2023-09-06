@@ -1,7 +1,7 @@
 #ifndef GOOP_MAT_DEFAULT_H
 #define GOOP_MAT_DEFAULT_H
 
-namespace gpm
+namespace GPM
 {
   template <size_type Rows, size_type Cols, typename T>
   struct Mat
@@ -149,6 +149,6 @@ bool operator==(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> const& rhs);
 template <size_type Rows, size_type Cols, typename T>
 bool operator!=(Mat<Rows, Cols, T> const& lhs, Mat<Rows, Cols, T> const& rhs);
 
-} // namespace gpm
+} // namespace GPM
 
 #endif
