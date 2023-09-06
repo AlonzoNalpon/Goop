@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 
   //Goop::Window window(100, 100, L"WHAT");
   //window.CreateOGLWindow();
-  windowSystem::Window window;
+  windowSystem::Window window{ 640, 480, "GOOP"};
   window.CreateWindow();
 
   return 1;
