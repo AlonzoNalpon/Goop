@@ -1,52 +1,54 @@
 #include "System.h"
 
+#ifdef _DEBUG
+#include <iostream>
+#endif
+
 using namespace GE::ECS;
-
-System::System()
-{
-}
-
-System::~System()
-{
-}
 
 void System::Awake()
 {
+#ifdef _DEBUG
+	std::cout << __FUNCSIG__ << " Called\n";
+#endif
 }
 
 void System::Start()
 {
+#ifdef _DEBUG
+	std::cout << __FUNCSIG__ << " Called\n";
+#endif
 }
 
 void System::Update()
 {
+#ifdef _DEBUG
+	std::cout << __FUNCSIG__ << " Called\n";
+#endif
 }
 
 void System::LateUpdate()
 {
+#ifdef _DEBUG
+	std::cout << __FUNCSIG__ << " Called\n";
+#endif
 }
 
 void System::FixedUpdate()
 {
+#ifdef _DEBUG
+	std::cout << __FUNCSIG__ << " Called\n";
+#endif
 }
 
-void System::OnDisable()
+void System::OnDestroyed()
 {
+#ifdef _DEBUG
+	std::cout << __FUNCSIG__ << " Called\n";
+#endif
 }
 
-void System::OnEnable()
+std::set<Entity>& System::GetEntities()
 {
-}
-
-void System::OnDestroy()
-{
-}
-
-void System::SetActive(bool active)
-{
-}
-
-const bool& System::GetActive() const
-{
-
+	return m_entities;
 }

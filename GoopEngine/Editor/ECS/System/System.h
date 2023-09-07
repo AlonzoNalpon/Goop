@@ -8,7 +8,7 @@ namespace GE
 	{
 		class System
 		{
-		protected:
+		public:
 			System() = default;
 			~System() = default;
 
@@ -20,13 +20,11 @@ namespace GE
 			void LateUpdate();
 			void FixedUpdate();
 
-			void OnDisable();
-			void OnEnable();
-			void OnDestroy();
+			void OnDestroyed();
 
-			void SetActive(bool active);
-			const bool& GetActive() const;
+			inline std::set<Entity>& GetEntities();
 
+		private:
 			std::set<Entity> m_entities;
 		};
 	}
