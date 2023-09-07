@@ -13,6 +13,9 @@ namespace GE
 		class ComponentManager
 		{
 		public:
+			ComponentManager() = default;
+			~ComponentManager();
+
 			template <typename T>
 			ComponentType GetComponentType();
 
@@ -43,4 +46,5 @@ namespace GE
 		};
 
 #include "ComponentManager.tpp"
+	}
 }
