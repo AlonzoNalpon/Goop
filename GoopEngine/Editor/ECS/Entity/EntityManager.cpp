@@ -17,7 +17,7 @@ EntityManager::~EntityManager()
 {
 }
 
-Entity EntityManager::CreateEntity()
+Entity& EntityManager::CreateEntity()
 {
 	Entity entity = m_availableEntities.front();
 	m_availableEntities.pop();
@@ -41,7 +41,7 @@ ComponentSignature EntityManager::GetComponentSignature(const Entity& entity) co
 	return m_entities[entity];
 }
 
-void EntityManager::SetComponentSignature(Entity& entity, ComponentSignature& signature)
+void EntityManager::SetComponentSignature(Entity& entity, const ComponentSignature& signature)
 {
 	m_entities[entity] = signature;
 }
