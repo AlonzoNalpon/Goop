@@ -74,6 +74,12 @@ T* EntityComponentSystem::RegisterSystem()
 }
 
 template <typename T>
+void EntityComponentSystem::RemoveSystem()
+{
+	m_systemManager->RemoveSystem<T>();
+}
+
+template <typename T>
 void EntityComponentSystem::SetSystemSignature(const ComponentSignature& signature)
 {
 	m_systemManager->SetSignature<T>(signature);

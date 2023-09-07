@@ -29,6 +29,8 @@ namespace GE
 			template <typename T>
 			T* RegisterSystem();
 			template <typename T>
+			void RemoveSystem();
+			template <typename T>
 			void SetSystemSignature(const ComponentSignature& signature);
 
 			void UpdateSystems();
