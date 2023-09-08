@@ -4,7 +4,6 @@
 #include "../Entity/Entity.h"
 #include "System.h"
 
-
 namespace GE
 {
 	namespace ECS

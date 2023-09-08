@@ -10,21 +10,20 @@ namespace GE
 		{
 		public:
 			System() = default;
-			~System() = default;
+			virtual ~System() = default;
 
-		public:
-			void Awake();
-			void Start();
+			virtual void Awake();
+			virtual void Start();
 
-			void Update();
-			void LateUpdate();
-			void FixedUpdate();
+			virtual void Update();
+			virtual void LateUpdate();
+			virtual void FixedUpdate();
 
-			void OnDestroyed();
+			virtual void OnDestroyed();
 
-			inline std::set<Entity>& GetEntities();
+			virtual std::set<Entity>& GetEntities();
 
-		private:
+		protected:
 			std::set<Entity> m_entities;
 		};
 	}
