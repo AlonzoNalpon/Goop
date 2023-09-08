@@ -59,6 +59,10 @@ void EntityComponentSystem::RemoveComponent(Entity& entity)
 	signature.set(m_componentManager->GetComponentSignature<T>(), false);
 	// Update entity's component signature
 	m_entityManager->SetComponentSignature(entity, signature);
+			
+	// Update all systems to remove entity if it does not have
+	// the components required to be used by the system 
+	m_systemManager->EntitySignatureChanged(entity, signature);
 }
 
 template <typename T>

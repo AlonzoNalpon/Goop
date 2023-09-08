@@ -79,18 +79,12 @@ void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignat
 		ComponentSignature& cmpSig{ m_signatures[system.first] };
 
 		// checks if the entity's has a component used by the system
-		if ((signature & cmpSig) == cmpSig)
+		if ((signature & cmpSig) != cmpSig)
 		{
-			// If this system doesn't have the entity in its list
-			// add to entity to system entity list
-			// std::set.insert() does nothing if object already exist
-			system.second->GetEntities().insert(entity);
-		}
-		else
-		{
-			// Entity does not the required component to run the system
+			// Entity does not have component to run this system
 			// remove it from system
 			// std::set.erase() does nothing if object does not exist
+			// no need for error handling
 			system.second->GetEntities().erase(entity);
 		}
 	}

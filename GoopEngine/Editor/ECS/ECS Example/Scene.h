@@ -74,7 +74,6 @@ struct Scene
 
 		// Example of unregistering from a system
 		//ecs->UnregisterEntityFromSystem<PrintingSystem>(entt2);
-
 	}
 
 	void Update()
