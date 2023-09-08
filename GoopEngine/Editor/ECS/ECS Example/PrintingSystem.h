@@ -29,7 +29,15 @@ public:
 			GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 
 			Text* txt = ecs.GetComponent<Text>(entt);
+			if (txt == nullptr)
+			{
+				continue;
+			}
 			Number* num = ecs.GetComponent<Number>(entt);
+			if (num == nullptr)
+			{
+				continue;
+			}
 
 			// Components can be individually toggled
 			if (txt->GetActive())
