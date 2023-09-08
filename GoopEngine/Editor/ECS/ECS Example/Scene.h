@@ -11,22 +11,32 @@ using namespace GE::ECS;
 
 struct Scene
 {
+	EntityComponentSystem* ecs;
+
 	void Start()
 	{
+		ecs = &EntityComponentSystem::GetInstance();
+
 		////////////////////////////////////////////////
 		// Initializing existing system and components
 		////////////////////////////////////////////////
+		// The order of registration effects the order which the components are updated
+		// use late update if your component relies on other systems to update them first
+		// Flipping this 2 should give different results.
 		ecs->RegisterSystem<PrintingSystem>();
 		ecs->RegisterSystem<AdditionSystem>();
 
 		ecs->RegisterComponent<Text>();
 		ecs->RegisterComponent<Number>();
 
-		// Get the signature of number component
-		ComponentSignature sig = ecs->GetComponentSignature<Number>();
+		ComponentSignature sig;
+		// Set the signature of number component
+		sig.set(ecs->GetComponentSignature<Number>(), true);
+
 		// Tell ECS that addition system has the signature
 		// that contains number component
 		ecs->SetSystemSignature<AdditionSystem>(sig);
+
 
 		// Add the signature of text component to first signature
 		sig.set(ecs->GetComponentSignature<Text>(), true);
@@ -53,7 +63,14 @@ struct Scene
 
 	void Update()
 	{
+		// NOTE: Entity 2 does not print!!!
 		ecs->UpdateSystems();
+
+		std::cout << "Entity 2 does not print. This is a manual check on Entity 2's numbers component\n";
+
+		EntityComponentSystem& ecs = EntityComponentSystem::GetInstance();
+		Number* num = ecs.GetComponent<Number>(1);
+		std::cout << "Entity's numbers are: " << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
 	}
 
 	void Exit()

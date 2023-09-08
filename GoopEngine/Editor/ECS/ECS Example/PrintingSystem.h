@@ -25,14 +25,16 @@ public:
 		std::cout << "I have entities with numbers of:\n";
 		for (auto& entt : m_entities)
 		{
-			Text* txt = ecs->GetComponent<Text>(entt);
-			Number* num = ecs->GetComponent<Number>(entt);
+			GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+
+			Text* txt = ecs.GetComponent<Text>(entt);
+			Number* num = ecs.GetComponent<Number>(entt);
 
 			std::stringstream ss;
 			ss << txt->text << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
 			txt->text = ss.str();
 
-			std::cout << txt->text << "\n";
+			std::cout << txt->text;
 		}
 		std::cout << "Printing system updated\n";
 	}

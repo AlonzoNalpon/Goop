@@ -22,7 +22,7 @@ public:
 	{
 		for (auto& entt : m_entities)
 		{
-			Number* num = ecs->GetComponent<Number>(entt);
+			Number* num = GE::ECS::EntityComponentSystem::GetInstance().GetComponent<Number>(entt);
 			num->total = num->a + num->b + num->c;
 		}
 		std::cout << "Addition system updated\n";
