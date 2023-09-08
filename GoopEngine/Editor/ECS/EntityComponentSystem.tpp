@@ -103,7 +103,7 @@ bool EntityComponentSystem::RegisterEntityToSystem(Entity& entity)
 }
 
 template <typename T>
-void EntityComponentSystem::UnregisterEntityFromSystem(Entity& entity)
+bool EntityComponentSystem::UnregisterEntityFromSystem(Entity& entity)
 {
-	m_systemManager->UnregisterEntityFromSystem<T>(entity);
+	return m_systemManager->UnregisterEntityFromSystem<T>(entity);
 }

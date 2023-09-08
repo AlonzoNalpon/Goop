@@ -78,6 +78,7 @@ bool SystemManager::RegisterEntityToSystem(Entity& entity)
 	const char* systemName = typeid(T).name();
 	if (m_systems.find(systemName) == m_systems.end())
 	{
+		// System does not exist
 		return false;
 	}
 
@@ -86,11 +87,17 @@ bool SystemManager::RegisterEntityToSystem(Entity& entity)
 }
 
 template <typename T>
-void SystemManager::UnregisterEntityFromSystem(Entity& entity)
+bool SystemManager::UnregisterEntityFromSystem(Entity& entity)
 {
-	// std::set.erase() does nothing if object does not exist
-	// no need for error handling
-	system.second->GetEntities().erase(entity);
+	const char* systemName = typeid(T).name();
+	if (m_systems.find(systemName) == m_systems.end())
+	{
+		// System does not exist
+		return false;
+	}
+
+	m_systems[systemName]->GetEntities().erase(entity);
+	return true;
 }
 
 void SystemManager::UpdateSystems()

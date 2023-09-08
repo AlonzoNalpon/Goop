@@ -38,7 +38,7 @@ namespace GE
 			template <typename T>
 			bool RegisterEntityToSystem(Entity& entity);
 			template <typename T>
-			void UnregisterEntityFromSystem(Entity& entity);
+			bool UnregisterEntityFromSystem(Entity& entity);
 
 			void UpdateSystems();
 
