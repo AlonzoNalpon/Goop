@@ -28,38 +28,40 @@ T* SystemManager::RegisterSystem()
 }
 
 template<typename T>
-void SystemManager::RemoveSystem()
+bool SystemManager::RemoveSystem()
 {
 	const char* systemName = typeid(T).name();
 
 	if (m_systems.find(systemName) == m_systems.end())
 	{
 		// Removing a system that does not exist
-		return;
+		return false;
 	}
 	if (m_signatures.find(systemName) == m_signatures.end())
 	{
 		// Somehow the signature for this system does not exist
-		return;
+		return false;
 	}
 
 	m_systems[systemName]->OnDestroyed();
 	m_systems.erase(systemName);
 	m_signatures.erase(systemName);
+	return true;
 }
 
 template <typename T>
-void SystemManager::SetSignature(const ComponentSignature& signature)
+bool SystemManager::SetSignature(const ComponentSignature& signature)
 {
 	const char* systemName = typeid(T).name();
 
 	if (m_systems.find(systemName) == m_systems.end())
 	{
 		// System signature set before system exist
-		return;
+		return false;
 	}
 
 	m_signatures[systemName] = signature;
+	return true;
 }
 
 void SystemManager::EntityDestroyed(const Entity& entity)
@@ -70,28 +72,24 @@ void SystemManager::EntityDestroyed(const Entity& entity)
 	}
 }
 
-void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignature& signature)
+template <typename T>
+bool SystemManager::RegisterEntityToSystem(Entity& entity)
 {
-	for (auto& system : m_systems)
+	const char* systemName = typeid(T).name;
+	if (m_systems.find(systemName) == m_systems.end())
 	{
-		ComponentSignature& cmpSig{ m_signatures[system.first] };
-
-		// checks if the entity's has a component used by the system
-		if ((signature & cmpSig) == cmpSig)
-		{
-			// If this system doesn't have the entity in its list
-			// add to entity to system entity list
-			// std::set.insert() does nothing if object already exist
-			system.second->GetEntities().insert(entity);
-		}
-		else
-		{
-			// Entity does not the required component to run the system
-			// remove it from system
-			// std::set.erase() does nothing if object does not exist
-			system.second->GetEntities().erase(entity);
-		}
+		return false;
 	}
+
+	m_systems[systemName]->GetEntities().insert(entity);
+}
+
+template <typename T>
+void SystemManager::UnregisterEntityFromSystem(Entity& entity)
+{
+	// std::set.erase() does nothing if object does not exist
+	// no need for error handling
+	system.second->GetEntities().erase(entity);
 }
 
 void SystemManager::UpdateSystems()

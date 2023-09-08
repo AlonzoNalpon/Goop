@@ -17,13 +17,14 @@ namespace GE
 			template <typename T>
 			T* RegisterSystem();
 			template <typename T>
-			void RemoveSystem();
-
+			bool RemoveSystem();
 			template <typename T>
-			void SetSignature(const ComponentSignature& signature);
-
+			bool SetSignature(const ComponentSignature& signature);
 			void EntityDestroyed(const Entity& entity);
-			void EntitySignatureChanged(Entity& entity, const ComponentSignature& signature);
+			template <typename T>
+			bool RegisterEntityToSystem(Entity& entity);
+			template <typename T>
+			void UnregisterEntityFromSystem(Entity& entity);
 
 			void UpdateSystems();
 			// Framerate controller to call this at fixed time intervals
