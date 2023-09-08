@@ -1,20 +1,21 @@
 #pragma once
+
 #include "Component/ComponentManager.h"
 #include "Entity/EntityManager.h"
 #include "System/SystemManager.h"
+#include "../Singleton/Singleton.h"
 
 // Interface for using the different ECS systems
 namespace GE
 {
 	namespace ECS
 	{
-		class EntityComponentSystem
+		class EntityComponentSystem : public Singleton<EntityComponentSystem>
 		{
 		public:
-			EntityComponentSystem() = default;
+			EntityComponentSystem();
 			~EntityComponentSystem();
 
-			void Init();
 			Entity CreateEntity();
 			void DestroyEntity(Entity& entity);
 

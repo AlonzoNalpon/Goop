@@ -1,3 +1,10 @@
+EntityComponentSystem::EntityComponentSystem()
+{
+	m_componentManager = new ComponentManager();
+	m_entityManager = new EntityManager(4092);
+	m_systemManager = new SystemManager();
+}
+
 EntityComponentSystem::~EntityComponentSystem()
 {
 	delete m_componentManager;
@@ -8,13 +15,6 @@ EntityComponentSystem::~EntityComponentSystem()
 
 	delete m_systemManager;
 	m_systemManager = nullptr;
-}
-
-void EntityComponentSystem::Init()
-{
-	m_componentManager = new ComponentManager();
-	m_entityManager = new EntityManager(4092);
-	m_systemManager = new SystemManager();
 }
 
 Entity EntityComponentSystem::CreateEntity()
@@ -46,6 +46,8 @@ void EntityComponentSystem::AddComponent(Entity& entity, T component)
 	signature.set(m_componentManager->GetComponentSignature<T>(), true);
 	// Update entity's component signature
 	m_entityManager->SetComponentSignature(entity, signature);
+
+	m_systemManager->EntitySignatureChanged(entity, signature);
 }
 
 template <typename T>
@@ -59,6 +61,8 @@ void EntityComponentSystem::RemoveComponent(Entity& entity)
 	signature.set(m_componentManager->GetComponentSignature<T>(), false);
 	// Update entity's component signature
 	m_entityManager->SetComponentSignature(entity, signature);
+
+	m_systemManager->EntitySignatureChanged(entity, signature);
 }
 
 template <typename T>
