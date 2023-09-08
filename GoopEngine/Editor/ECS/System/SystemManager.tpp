@@ -75,13 +75,14 @@ void SystemManager::EntityDestroyed(const Entity& entity)
 template <typename T>
 bool SystemManager::RegisterEntityToSystem(Entity& entity)
 {
-	const char* systemName = typeid(T).name;
+	const char* systemName = typeid(T).name();
 	if (m_systems.find(systemName) == m_systems.end())
 	{
 		return false;
 	}
 
 	m_systems[systemName]->GetEntities().insert(entity);
+	return true;
 }
 
 template <typename T>

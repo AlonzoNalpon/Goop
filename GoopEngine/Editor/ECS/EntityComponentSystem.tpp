@@ -46,8 +46,6 @@ void EntityComponentSystem::AddComponent(Entity& entity, T component)
 	signature.set(m_componentManager->GetComponentSignature<T>(), true);
 	// Update entity's component signature
 	m_entityManager->SetComponentSignature(entity, signature);
-
-	m_systemManager->EntitySignatureChanged(entity, signature);
 }
 
 template <typename T>
@@ -61,8 +59,6 @@ void EntityComponentSystem::RemoveComponent(Entity& entity)
 	signature.set(m_componentManager->GetComponentSignature<T>(), false);
 	// Update entity's component signature
 	m_entityManager->SetComponentSignature(entity, signature);
-
-	m_systemManager->EntitySignatureChanged(entity, signature);
 }
 
 template <typename T>
@@ -84,18 +80,30 @@ T* EntityComponentSystem::RegisterSystem()
 }
 
 template <typename T>
-void EntityComponentSystem::RemoveSystem()
+bool EntityComponentSystem::RemoveSystem()
 {
-	m_systemManager->RemoveSystem<T>();
+	return m_systemManager->RemoveSystem<T>();
 }
 
 template <typename T>
-void EntityComponentSystem::SetSystemSignature(const ComponentSignature& signature)
+bool EntityComponentSystem::SetSystemSignature(const ComponentSignature& signature)
 {
-	m_systemManager->SetSignature<T>(signature);
+	return m_systemManager->SetSignature<T>(signature);
 }
 
 void EntityComponentSystem::UpdateSystems()
 {
 	m_systemManager->UpdateSystems();
+}
+
+template <typename T>
+bool EntityComponentSystem::RegisterEntityToSystem(Entity& entity)
+{
+	return m_systemManager->RegisterEntityToSystem<T>(entity);
+}
+
+template <typename T>
+void EntityComponentSystem::UnregisterEntityFromSystem(Entity& entity)
+{
+	m_systemManager->UnregisterEntityFromSystem<T>(entity);
 }
