@@ -72,6 +72,30 @@ void SystemManager::EntityDestroyed(const Entity& entity)
 	}
 }
 
+void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignature& signature)
+{
+	for (auto& system : m_systems)
+	{
+		ComponentSignature& cmpSig{ m_signatures[system.first] };
+
+		// checks if the entity's has a component used by the system
+		if ((signature & cmpSig) == cmpSig)
+		{
+			// If this system doesn't have the entity in its list
+			// add to entity to system entity list
+			// std::set.insert() does nothing if object already exist
+			system.second->GetEntities().insert(entity);
+		}
+		else
+		{
+			// Entity does not the required component to run the system
+			// remove it from system
+			// std::set.erase() does nothing if object does not exist
+			system.second->GetEntities().erase(entity);
+		}
+	}
+}
+
 template <typename T>
 bool SystemManager::RegisterEntityToSystem(Entity& entity)
 {

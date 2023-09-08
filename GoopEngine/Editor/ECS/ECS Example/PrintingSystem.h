@@ -22,7 +22,11 @@ public:
 
 	void Update()
 	{
-		std::cout << "I have entities with numbers of:\n";
+		if (m_entities.size() > 0)
+		{
+			std::cout << "I have entities with numbers of:\n";
+		}
+
 		int i{};
 		for (auto& entt : m_entities)
 		{
@@ -40,11 +44,10 @@ public:
 			}
 
 			// Components can be individually toggled
-			if (txt->GetActive())
-			{
-				//txt->SetActive(false);
-				std::cout << "Text component is active in entity ID: " << i << "\n";
-			}
+			//if (txt->GetActive())
+			//{
+			//	txt->SetActive(false);
+			//}
 
 			std::stringstream ss;
 			ss << txt->text << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
