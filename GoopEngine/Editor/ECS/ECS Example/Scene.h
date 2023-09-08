@@ -23,8 +23,8 @@ struct Scene
 		// The order of registration effects the order which the components are updated
 		// use late update if your component relies on other systems to update them first
 		// Flipping this 2 should give different results.
-		ecs->RegisterSystem<PrintingSystem>();
 		ecs->RegisterSystem<AdditionSystem>();
+		ecs->RegisterSystem<PrintingSystem>();
 
 		ecs->RegisterComponent<Text>();
 		ecs->RegisterComponent<Number>();
@@ -68,7 +68,7 @@ struct Scene
 		ecs->RegisterEntityToSystem<PrintingSystem>(entt2);
 
 		// Example of unregistering from a system
-		//ecs->UnregisterEntityFromSystem<AdditionSystem>(entt2);
+		//ecs->UnregisterEntityFromSystem<PrintingSystem>(entt2);
 	}
 
 	void Update()
