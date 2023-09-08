@@ -23,6 +23,7 @@ public:
 	void Update()
 	{
 		std::cout << "I have entities with numbers of:\n";
+		int i{};
 		for (auto& entt : m_entities)
 		{
 			GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
@@ -30,11 +31,19 @@ public:
 			Text* txt = ecs.GetComponent<Text>(entt);
 			Number* num = ecs.GetComponent<Number>(entt);
 
+			// Components can be individually toggled
+			if (txt->GetActive())
+			{
+				//txt->SetActive(false);
+				std::cout << "Text component is active in entity ID: " << i << "\n";
+			}
+
 			std::stringstream ss;
 			ss << txt->text << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
 			txt->text = ss.str();
 
 			std::cout << txt->text;
+			++i;
 		}
 		std::cout << "Printing system updated\n";
 	}

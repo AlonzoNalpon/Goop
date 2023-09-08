@@ -47,9 +47,11 @@ struct Scene
 		////////////////////////////////////////////////
 		// Creating Entities w/ Components
 		////////////////////////////////////////////////
-		Number num1{0, 2, 4};
-		Number num2{1, 3, 5};
-		Text txt{ "My numbers are: " };
+		Number num1, num2;;
+		num1.a = 0, num1.b = 2, num1.c = 4;
+		num2.a = 0, num2.b = 2, num2.c = 4;
+		Text txt; 
+		txt.text = "My numbers are: ";
 		Entity entt1 = ecs->CreateEntity();
 		Entity entt2 = ecs->CreateEntity();
 
@@ -59,6 +61,7 @@ struct Scene
 		ecs->AddComponent(entt2, txt);
 		// Example of removing component
 		//ecs->RemoveComponent<Text>(entt2);
+		//ecs->DestroyEntity(entt1);
 	}
 
 	void Update()

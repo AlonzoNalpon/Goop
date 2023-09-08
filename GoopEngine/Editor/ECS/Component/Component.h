@@ -4,7 +4,8 @@ namespace GE
 {
 	namespace ECS
 	{
-		// Base for polymoprhic components
+		// Base for components to allow basic toggling feature
+		// Inheriting from this class is entirely optional
 		class Component
 		{
 		private:
