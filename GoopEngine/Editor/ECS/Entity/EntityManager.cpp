@@ -17,7 +17,7 @@ EntityManager::~EntityManager()
 {
 }
 
-Entity& EntityManager::CreateEntity()
+Entity EntityManager::CreateEntity()
 {
 	Entity entity = m_availableEntities.front();
 	m_availableEntities.pop();

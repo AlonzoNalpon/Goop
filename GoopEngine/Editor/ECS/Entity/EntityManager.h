@@ -24,7 +24,7 @@ namespace GE
 			EntityManager(unsigned int maxEntities);
 			~EntityManager();
 
-			Entity& CreateEntity();
+			Entity CreateEntity();
 			void DestroyEntity(Entity& entity);
 			ComponentSignature GetComponentSignature(const Entity& entity) const;
 			void SetComponentSignature(Entity& entity, const ComponentSignature& signature);

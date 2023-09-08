@@ -6,8 +6,9 @@ namespace GE
 {
 	namespace ECS
 	{
-		// Component signature is a bitflagm which is just an unsigned int
+		// Component signature is a bitflag which is just an unsigned int
 		// therefore ComponentType is the same basic data type
+		// Functionally the same as ComponentSignature
 		using ComponentType = unsigned int;
 
 		class ComponentManager
@@ -17,7 +18,10 @@ namespace GE
 			~ComponentManager();
 
 			template <typename T>
-			ComponentType GetComponentType();
+			ComponentType GetComponentSignature();
+
+			template <typename T>
+			void RegisterComponent();
 
 			template <typename T>
 			void AddComponent(Entity& entity, const T& component);
@@ -40,9 +44,6 @@ namespace GE
 
 			template <typename T>
 			ComponentArray<T>* GetComponentArray();
-
-			template <typename T>
-			void RegisterComponent();
 		};
 
 #include "ComponentManager.tpp"

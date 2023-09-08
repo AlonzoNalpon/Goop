@@ -17,7 +17,7 @@ void EntityComponentSystem::Init()
 	m_systemManager = new SystemManager();
 }
 
-Entity& EntityComponentSystem::CreateEntity()
+Entity EntityComponentSystem::CreateEntity()
 {
 	return m_entityManager->CreateEntity();
 }
@@ -30,6 +30,12 @@ void EntityComponentSystem::DestroyEntity(Entity& entity)
 }
 
 template <typename T>
+void EntityComponentSystem::RegisterComponent()
+{
+	m_componentManager->RegisterComponent<T>();
+}
+
+template <typename T>
 void EntityComponentSystem::AddComponent(Entity& entity, T component)
 {
 	m_componentManager->AddComponent(entity, component);
@@ -37,7 +43,7 @@ void EntityComponentSystem::AddComponent(Entity& entity, T component)
 	// Get the current entity's component bitflag
 	ComponentSignature signature = m_entityManager->GetComponentSignature(entity);
 	// Adds this new component's bitflag to new signature
-	signature.set(m_componentManager->GetComponentType<T>(), true);
+	signature.set(m_componentManager->GetComponentSignature<T>(), true);
 	// Update entity's component signature
 	m_entityManager->SetComponentSignature(entity, signature);
 }
@@ -50,27 +56,27 @@ void EntityComponentSystem::RemoveComponent(Entity& entity)
 	// Get the current entity's component bitflag
 	ComponentSignature signature = m_entityManager->GetComponentSignature(entity);
 	// Remove this new component bitflag from signature
-	signature.set(m_componentManager->GetComponentType<T>(), false);
+	signature.set(m_componentManager->GetComponentSignature<T>(), false);
 	// Update entity's component signature
 	m_entityManager->SetComponentSignature(entity, signature);
 }
 
 template <typename T>
-T& EntityComponentSystem::GetComponent(const Entity& entity)
+T* EntityComponentSystem::GetComponent(const Entity& entity)
 {
 	return m_componentManager->GetComponent<T>(entity);
 }
 
 template <typename T>
-ComponentType EntityComponentSystem::GetComponentType()
+ComponentType EntityComponentSystem::GetComponentSignature()
 {
-	return m_componentManager->GetComponentType<T>();
+	return m_componentManager->GetComponentSignature<T>();
 }
 
 template <typename T>
 T* EntityComponentSystem::RegisterSystem()
 {
-	m_systemManager->RegisterSystem<T>();
+	return m_systemManager->RegisterSystem<T>();
 }
 
 template <typename T>

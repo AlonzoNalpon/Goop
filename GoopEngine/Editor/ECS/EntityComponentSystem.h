@@ -15,17 +15,19 @@ namespace GE
 			~EntityComponentSystem();
 
 			void Init();
-			Entity& CreateEntity();
+			Entity CreateEntity();
 			void DestroyEntity(Entity& entity);
 
+			template <typename T>
+			void RegisterComponent();
 			template <typename T>
 			void AddComponent(Entity& entity, T component);
 			template <typename T>
 			void RemoveComponent(Entity& entity);
 			template <typename T>
-			T& GetComponent(const Entity& entity);
+			T* GetComponent(const Entity& entity);
 			template <typename T>
-			ComponentType GetComponentType();
+			ComponentType GetComponentSignature();
 			template <typename T>
 			T* RegisterSystem();
 			template <typename T>
