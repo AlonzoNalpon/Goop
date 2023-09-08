@@ -2,6 +2,10 @@ ComponentManager::~ComponentManager()
 {
 	for (auto& cmpArr : m_componentArrays)
 	{
+		if (cmpArr.second == nullptr)
+		{
+			continue;
+		}
 		delete[] cmpArr.second;
 		cmpArr.second = nullptr;
 	}
@@ -10,7 +14,14 @@ ComponentManager::~ComponentManager()
 template <typename T>
 ComponentType ComponentManager::GetComponentSignature()
 {
-	return m_componentTypes[typeid(T).name()];
+	const char* componentName = typeid(T).name();
+
+	if (m_componentTypes.find(componentName) == m_componentTypes.end())
+	{
+		throw;
+	}
+
+	return m_componentTypes[componentName];
 }
 
 template <typename T>
