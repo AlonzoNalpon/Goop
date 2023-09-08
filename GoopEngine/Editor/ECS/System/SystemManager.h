@@ -3,7 +3,7 @@
 #include <queue>
 #include "../Entity/Entity.h"
 #include "System.h"
-
+#include <iostream>
 namespace GE
 {
 	namespace ECS

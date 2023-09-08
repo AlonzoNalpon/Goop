@@ -43,6 +43,7 @@ void SystemManager::RemoveSystem()
 		return;
 	}
 
+	m_systems[systemName]->OnDestroyed();
 	m_systems.erase(systemName);
 	m_signatures.erase(systemName);
 }
