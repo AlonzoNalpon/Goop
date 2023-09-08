@@ -56,12 +56,19 @@ struct Scene
 		Entity entt2 = ecs->CreateEntity();
 
 		ecs->AddComponent(entt1, num1);
-
 		ecs->AddComponent(entt2, num2);
 		ecs->AddComponent(entt2, txt);
 		// Example of removing component
 		//ecs->RemoveComponent<Text>(entt2);
 		//ecs->DestroyEntity(entt1);
+
+		// Manually add entities u want to be updated by a system
+		ecs->RegisterEntityToSystem<AdditionSystem>(entt1);
+		ecs->RegisterEntityToSystem<AdditionSystem>(entt2);
+		ecs->RegisterEntityToSystem<PrintingSystem>(entt2);
+
+		// Example of unregistering from a system
+		//ecs->UnregisterEntityFromSystem<AdditionSystem>(entt2);
 	}
 
 	void Update()
