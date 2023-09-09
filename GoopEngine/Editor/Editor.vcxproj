@@ -204,11 +204,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ECS\Entity\EntityManager.cpp" />
+    <ClCompile Include="ECS\System\System.cpp" />
     <ClCompile Include="src\GLApp\GraphicsEngine\GraphicsEngine.cpp" />
     <ClCompile Include="src\GLApp\Window\Window.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ECS\Component\Component.h" />
+    <ClInclude Include="ECS\Component\ComponentArray.h" />
+    <ClInclude Include="ECS\Component\ComponentManager.h" />
+    <ClInclude Include="ECS\ECS Example\AdditionSystem.h" />
+    <ClInclude Include="ECS\ECS Example\NumberComponent.h" />
+    <ClInclude Include="ECS\ECS Example\PrintingSystem.h" />
+    <ClInclude Include="ECS\ECS Example\Scene.h" />
+    <ClInclude Include="ECS\ECS Example\TextComponent.h" />
+    <ClInclude Include="ECS\EntityComponentSystem.h" />
+    <ClInclude Include="ECS\Entity\Entity.h" />
+    <ClInclude Include="ECS\Entity\EntityManager.h" />
+    <ClInclude Include="ECS\System\System.h" />
+    <ClInclude Include="ECS\System\SystemManager.h" />
     <ClInclude Include="include\def.h" />
     <ClInclude Include="include\GLApp\GraphicsTypes.h" />
     <ClInclude Include="include\GLApp\Graphics\GraphicsEngine.h" />
