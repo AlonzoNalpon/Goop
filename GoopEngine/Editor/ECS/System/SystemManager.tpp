@@ -43,7 +43,13 @@ bool SystemManager::RemoveSystem()
 		return false;
 	}
 
-	m_systems[systemName]->OnDestroyed();
+	// Delete allocated system pointer
+	System* system = m_systems[systemName];
+	system->OnDestroyed();
+	delete system;
+	system = nullptr;
+
+	// Erase system from map
 	m_systems.erase(systemName);
 	m_signatures.erase(systemName);
 	return true;
