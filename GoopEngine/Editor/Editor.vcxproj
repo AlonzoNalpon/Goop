@@ -206,6 +206,7 @@
   <ItemGroup>
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
+    <ClCompile Include="src\Def.cpp" />
     <ClCompile Include="src\GLApp\GraphicsEngine\GraphicsEngine.cpp" />
     <ClCompile Include="src\GLApp\Window\Window.cpp" />
     <ClCompile Include="src\main.cpp" />

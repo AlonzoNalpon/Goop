@@ -8,7 +8,9 @@ namespace Graphics {
     GraphicsEngine();
     ~GraphicsEngine();
     void Init(Color clearColor);
+    Model GenerateQuad();
   protected:
+    Model m_spriteQuad{};
   private:
   };
 }
