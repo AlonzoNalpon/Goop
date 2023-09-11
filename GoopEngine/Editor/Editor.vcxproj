@@ -120,6 +120,20 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <LibraryPath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryPath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">
+    <LibraryPath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">
+    <LibraryPath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -204,6 +218,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssetManager\AssetManager.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
     <ClCompile Include="src\GLApp\GraphicsEngine\GraphicsEngine.cpp" />
@@ -211,6 +226,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssetManager\AssetManager.h" />
     <ClInclude Include="ECS\Component\Component.h" />
     <ClInclude Include="ECS\Component\ComponentArray.h" />
     <ClInclude Include="ECS\Component\ComponentManager.h" />
