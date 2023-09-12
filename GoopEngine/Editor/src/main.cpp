@@ -7,6 +7,14 @@
 #include "../ECS/ECS Example/Scene.h"
 #endif // ECS_TEST
 
+#define ASSET_M_TEST
+#ifdef ASSET_M_TEST
+#include "../AssetManager/AssetManager.h"
+void LoadImage()
+{
+}
+#endif //ASSET_M_TEST
+
 
 int main(int argc, char* argv[])
 {
@@ -35,5 +43,11 @@ int main(int argc, char* argv[])
   scn.Exit();
 #endif // ECS_TEST
 
+#ifdef ASSET_M_TEST
+  //Asset_M::LoadImage();
+  Asset_M::FilenameHarvester();
+  Asset_M::LoadChecker();
+  Asset_M::FreeImage();
+#endif
   return 1;
 }
