@@ -229,6 +229,29 @@
     <ClInclude Include="include\GLApp\GraphicsTypes.h" />
     <ClInclude Include="include\GLApp\Graphics\GraphicsEngine.h" />
     <ClInclude Include="include\GLApp\Window\Window.h" />
+    <ClInclude Include="Math\GEM.h" />
+    <ClInclude Include="Math\Mat2.h" />
+    <ClInclude Include="Math\Mat3.h" />
+    <ClInclude Include="Math\Mat4.h" />
+    <ClInclude Include="Math\MatDefault.h" />
+    <ClInclude Include="Math\MatOperations.h" />
+    <ClInclude Include="Math\MatUtils.h" />
+    <ClInclude Include="Math\Vec2.h" />
+    <ClInclude Include="Math\Vec3.h" />
+    <ClInclude Include="Math\Vec4.h" />
+    <ClInclude Include="Math\VecUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Math\Mat2.tpp" />
+    <None Include="Math\Mat3.tpp" />
+    <None Include="Math\Mat4.tpp" />
+    <None Include="Math\MatDefault.tpp" />
+    <None Include="Math\MatOperations.tpp" />
+    <None Include="Math\MatUtils.tpp" />
+    <None Include="Math\Vec2.tpp" />
+    <None Include="Math\Vec3.tpp" />
+    <None Include="Math\Vec4.tpp" />
+    <None Include="Math\VecUtils.tpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
