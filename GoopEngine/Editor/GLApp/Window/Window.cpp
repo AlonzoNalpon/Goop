@@ -1,6 +1,6 @@
 #include <Def.h>
 #include <iostream>
-#include "GLApp/Window/Window.h"
+#include <GLApp/Window/Window.h>
 namespace windowSystem {
   Window::Window(int width, int height, char const* title) :
     m_windowWidth{ width }, m_windowHeight{ height }, m_title{ title }, m_window {} {}
@@ -51,6 +51,16 @@ namespace windowSystem {
   GLFWwindow* Window::GetWindow()
   {
     return m_window;
+  }
+
+  int Window::GetWindowShouldClose()
+  {
+    return glfwWindowShouldClose(m_window);
+  }
+
+  void Window::SwapBuffers()
+  {
+    glfwSwapBuffers(m_window);
   }
 
   void Window::KeyCallback(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods*/)

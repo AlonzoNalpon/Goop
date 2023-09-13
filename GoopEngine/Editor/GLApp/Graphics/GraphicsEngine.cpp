@@ -6,12 +6,13 @@
 #define OGL_ERR_CALLBACK
 namespace Graphics {
 #ifdef OGL_ERR_CALLBACK
-  void GLAPIENTRY glDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
+  void GLAPIENTRY glDebugCallback(GLenum /*source*/, GLenum /*type*/, GLuint /*id*/, GLenum /*severity*/, GLsizei /*length*/, const GLchar* message, const void* /*userParam*/) {
     // Print the error message to the console
-    std::cerr << "OpenGL Error: " << message << std::endl;
+    std::cerr << "OpenGL Message: " << message << std::endl;
 }
 #endif
-
+  // Typedefs
+  using ShaderLT = std::map<std::string const, GLuint>;
   GraphicsEngine::GraphicsEngine()
   {
   }
@@ -20,7 +21,7 @@ namespace Graphics {
   {
   }
 
-  void GraphicsEngine::Init(Color clearColor)
+  void GraphicsEngine::Init(Colorf clearColor)
   {
 #ifdef OGL_ERR_CALLBACK
     glEnable(GL_DEBUG_OUTPUT);
@@ -29,22 +30,41 @@ namespace Graphics {
     glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
     glViewport(0, 0, 800, 800);
     m_spriteQuad = GenerateQuad();
+    ShaderCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"}};
+    m_spriteQuad.shader = CreateShader(spriteShaders, "sprite");
+    m_models.emplace_back(m_spriteQuad);
   }
+
+  void GraphicsEngine::Draw()
+  {
+    glClear(GL_COLOR_BUFFER_BIT);
+    for (auto const&mdl : m_models)
+    {
+      glBindVertexArray(mdl.vaoid);
+      glUseProgram(mdl.shader);
+      glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt);
+      glUseProgram(0);
+      glBindVertexArray(0);
+    }
+
+  }
+
   Model GraphicsEngine::GenerateQuad()
   {
     Model retval{};
     // Order of the quad's vtx data: bottom left, bottom right, top left, top right
-    Color const WHITE{ 1.f, 1.f, 1.f };
+    Colorf const WHITE{ 1.f, 1.f, 1.f };
     GL_Data data
     {
-      { { -0.5, -0.5 }, { 0.5, -0.5 },  { -0.5, 0.5}, { 0.5, 0.5 } }, // the position data of a quad
-      { WHITE,          WHITE,          WHITE,        WHITE }, // the color data of the quad
-      { {0.f, 0.f},     {1.f, 0.f},     {0.f, 1.f},   {1.f, 1.f} }, // the texture data of the quad
+      {{ -0.5, -0.5, .0 }, { 0.5, -0.5, .0 },  { -0.5, 0.5, .0}, { 0.5, 0.5, .0 }}, // the position data of a quad
+      { WHITE,          WHITE,          WHITE,        WHITE },                      // the color data of the quad
+      { {0.f, 0.f},     {1.f, 0.f},     {0.f, 1.f},   {1.f, 1.f} },                 // the texture data of the quad
     };
+
 
     GLuint vbo_hdl{}; // vertex buffer object handle
     glCreateBuffers(1, &vbo_hdl);
-    glNamedBufferStorage(vbo_hdl, data.DataSize(), nullptr, GL_NONE); // STATIC MODELS
+    glNamedBufferStorage(vbo_hdl, data.DataSize(), nullptr, GL_DYNAMIC_STORAGE_BIT); // STATIC MODELS
 
     // Assigning data ...
     GLsizeiptr data_offset{};
@@ -91,22 +111,39 @@ namespace Graphics {
     return retval;
   }
 
-  void GraphicsEngine::Draw(Model const&)
+  void GraphicsEngine::DrawMdl(Model const&)
   {
 
   }
 
-  GLuint GraphicsEngine::GetShader(std::string const& fileName)
+  GLuint GraphicsEngine::GetShaderPgm(std::string const& pgmName)
   {
-    using ShaderLT = std::map<std::string const, GLuint>;
     // Find the shader
-    ShaderLT::const_iterator res{ m_shaderLT.find(fileName) };
+    ShaderLT::const_iterator res{ m_shaderLT.find(pgmName) };
 
-    // If we cannot find the shader handle, make a new program
-    if (res == m_shaderLT.end()) 
+    // If we cannot find the shader handle, return 0
+    if (res == m_shaderLT.end())
+      return 0;
+    return res->second;
+  }
+
+  GLuint GraphicsEngine::CreateShader(ShaderCont const& container, std::string const& name)
+  {
+    ShaderProgram shdrPgm;
+    shdrPgm.CompileLinkValidate(container);
+
+    ShaderLT::const_iterator res{ m_shaderLT.find(name) };
+    // If we find a conflicting name, print an error
+    if (res != m_shaderLT.end())
     {
-
+      std::string errorStr{ "A shader program of this name already exists: " };
+      errorStr += name;
+      ERR_LOG_FILE(errorStr);
+      return 0;
     }
-    return GLuint();
+
+    m_shaderLT.emplace(name, shdrPgm.GetHandle());
+
+    return shdrPgm.GetHandle();
   }
 }

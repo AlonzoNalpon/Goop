@@ -5,7 +5,13 @@
 #include <vector>
 namespace Graphics {
   using ShaderCont = std::vector<std::pair<GLenum, std::string>>;
-  // Opengl shader program
+  
+  /*!
+   * \brief  
+   * A shader program that contains a handle and its linking status.
+   * It will not automatically delete the shader when destroyed. You must
+   * manually call DeleteShdrPgm()
+   */
   class ShaderProgram {
   public:
     ShaderProgram() : m_pgmHandle{}, m_isLinked{ GL_FALSE } {}
@@ -15,9 +21,9 @@ namespace Graphics {
     GLboolean Link();
     GLboolean Validate();
     GLboolean CompileLinkValidate(ShaderCont const&);
-
-  private:
+    GLuint    GetHandle() const;
     void DeleteShdrPgm();
+  private:
     GLuint    m_pgmHandle;    //!< shader program handle
     GLboolean m_isLinked;     //!< flag for program linked
   };

@@ -13,7 +13,7 @@ namespace Graphics {
       {
         ERR_LOG_FILE("Unable to create program handle");
         return GL_FALSE;
-      }
+      } 
     }
     GLuint shaderHandle{};
     // Create shader based on type
@@ -38,7 +38,7 @@ namespace Graphics {
 
     GLint compResult{};
     glGetShaderiv(shaderHandle, GL_COMPILE_STATUS, &compResult);
-    if (GL_FALSE == GL_COMPILE_STATUS)
+    if (GL_FALSE == compResult)
     {
       GLint logLen; // length of log string
       glGetShaderiv(shaderHandle, GL_INFO_LOG_LENGTH, &logLen);
@@ -78,7 +78,8 @@ namespace Graphics {
       }
     }
     // Getting the shader file
-    std::ifstream ifs{ filePath };
+    std::ifstream ifs{ SHADER_PATH + filePath };
+    std::cout << SHADER_PATH + filePath << std::endl;
     if (!ifs)
     {
       std::string errorStr{ "Unable to open shader file: " };
@@ -176,6 +177,11 @@ namespace Graphics {
 
     // Any additional printing goes here
     return GL_TRUE;
+  }
+
+  GLuint ShaderProgram::GetHandle() const
+  {
+      return m_pgmHandle;
   }
 
   void ShaderProgram::DeleteShdrPgm()

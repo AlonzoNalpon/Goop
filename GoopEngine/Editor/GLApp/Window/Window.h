@@ -10,9 +10,10 @@ namespace windowSystem {
     bool CreateWindow();
     void MakeCurrent();
     GLFWwindow* GetWindow();
-
-    static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+    int GetWindowShouldClose();
+    void SwapBuffers();
   protected:
+    static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
     int m_windowWidth{}, m_windowHeight{}; //!< Dimensions of window
     const char* m_title{}; //!< title of window
     GLFWwindow* m_window{}; //!< pointer to window

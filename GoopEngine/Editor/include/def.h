@@ -16,6 +16,10 @@ namespace debugger {
   void err_log_file(std::string const& msg);
 }
 
+#pragma region CONSTANTS
+std::string const SHADER_PATH{ "../Assets/Shaders/" };
+#pragma endregion
+
 #define ERR_LOG( msg ) debugger::err_log(msg) 
 #define ERR_LOG_FILE( msg ) debugger::err_log_file(msg)
 

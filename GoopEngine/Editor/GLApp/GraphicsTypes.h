@@ -5,20 +5,22 @@
 #include <bit>
 #include <vector>
 #include <initializer_list>
+#include <glm.hpp>
 namespace Graphics {
-
 // Minimize this region if you want to see the instances below templates
 #pragma region TEMPLATES
   // Color template for 
-#pragma warning(disable : 4201)
 
+
+#pragma warning(disable : 4201)   // anonymous structure in union
+#pragma warning(disable : 26495)  // union member not initialized warning
   template <typename T, std::endian endian = std::endian::native>
   union T_Colorf;
 
   template <typename T>
   union T_Colorf <T, std::endian::big>{
     struct {
-      T r, g, b, a;
+      T a, b, g, r;
     };
 
     T rgba[4];
@@ -31,13 +33,13 @@ namespace Graphics {
   template <typename T>
   union T_Colorf <T, std::endian::little> {
     struct {
-      T a, b, g, r;
+      T r, g, b, a;
     };
-
-    T rgba[4];
 
     T_Colorf(T r = {}, T g = {}, T b = {}, T a = {}) :
       r{ r }, g{ g }, b{ b }, a{ a } {}
+
+    T rgba[4];
   };
 
   template <typename T>
@@ -52,13 +54,15 @@ namespace Graphics {
       T_Rect(T width = {}, T height = {}) :
         width{ width }, height{ height } {}
     };
+#pragma warning(default : 26495) // union member not initialized warning
+#pragma warning(default : 4201)  // anonymous structure in union
 
   // For SoA 
   template <typename Vector3, typename Color3, typename UV2, template <typename> class Cont>
   struct T_GL_Data_Layout {
-    Cont<Vector3>  pos_vtx;
-    Cont<Color3>  clr_vtx;
-    Cont<UV2>   tex_vtx;
+    Cont<Vector3>   pos_vtx;
+    Cont<Color3>    clr_vtx;
+    Cont<UV2>       tex_vtx;
     T_GL_Data_Layout(std::initializer_list<Vector3> pos_data, 
                      std::initializer_list<Color3> clr_data, 
                      std::initializer_list<UV2> tex_data):
@@ -102,14 +106,13 @@ namespace Graphics {
     // All advanced effects here
 
   };
-#pragma warning(default : 4201)
 
 #pragma region TEMPORARY
   // TEMPORARY TYPES TO BE REPLACED
   template <typename T>
   struct T_Vec3 {
     T x, y, z;
-    T_Vec3(T x = 0, T y = 0, T z = 0) : x{ x }, y{ y }, z{ z } {}
+    T_Vec3(T x = {}, T y = {}, T z = {}) : x{ x }, y{ y }, z{ z } {}
   };
   template <typename T>
   struct T_Vec2 {
@@ -117,16 +120,16 @@ namespace Graphics {
     T_Vec2(T x = 0, T y = 0) : x{ x }, y{ y } {}
   };
 #pragma endregion // END TEMPORARY REGION
-  using Vec3 = T_Vec3<f32>;
-  using Dvec3 = T_Vec3<f64>;
-  using Vec2 = T_Vec2<f32>;
-  using Dvec2 = T_Vec2<f64>;
+  using Vec3  = glm::vec3;
+  using Dvec3 = glm::dvec3;
+  using Vec2  = glm::vec2;
+  using Dvec2 = glm::dvec2;
 #pragma endregion // END TEMPLATES REGION
-  using Color     = T_Colorf<f32>;
+  using Colorf    = T_Colorf<f32>;
   using Rect      = T_Rect<GLint>;
 
   // GL_Data contains attribute data for transfer. Thus, it should use single precision floats
-  using GL_Data   = T_GL_Data_Layout<Vec3, Color, Vec2, std::vector>;
+  using GL_Data   = T_GL_Data_Layout<Vec3, Colorf, Vec2, std::vector>;
 
   // holds model data (opaque pointers)
   struct Model {

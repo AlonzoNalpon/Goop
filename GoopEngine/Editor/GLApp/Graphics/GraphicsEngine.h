@@ -26,15 +26,28 @@ namespace Graphics {
       clearColor 
     \return
     ************************************************************************/
-    void Init(Color clearColor);
-    Model GenerateQuad();
-    void Draw(Model const&);
-    GLuint GetShader(std::string const&  fileName);
+    void Init(Colorf clearColor);
+
+    void Draw();
+
+    /*!*********************************************************************
+    \brief attempts to get handle to specified shader program
+    \params
+      pgmName the name of the shader program
+    \return the handle to the program. 0 indicated the program does not exist
+      
+    ************************************************************************/
+    GLuint GetShaderPgm(std::string const& pgmName);
+    GLuint CreateShader(ShaderCont const& container, std::string const& name);
   protected:
-    std::map<std::string const, GLuint> m_shaderLT; //!< LOOKUP TABLE: handles by strings
+    void DrawMdl(Model const&);
+    Model GenerateQuad();
+    std::map<std::string, GLuint> m_shaderLT; //!< LOOKUP TABLE: handles by strings
     std::map<GLuint, ShaderProgram> m_shaders; //!< shaders by ID
     Model m_spriteQuad{}; //!< basic primitive quad for sprites
 
+    // FOR DEBUGGING
+    std::vector<Model> m_models;
   private:
   };
 }
