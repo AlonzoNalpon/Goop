@@ -44,9 +44,10 @@ int main(int argc, char* argv[])
   //AssetManager::LoadImage();
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
   //am->LoadImage("Assets/VADIM.jpg");
-  am->LoadDirectory("Assets/");
-  am->GetName(3);
-  am->GetID(am->GetName(3));
+  //am->LoadDirectory("Assets/");
+  //am->GetName(3);
+  //am->GetID(am->GetName(3));
+  am->LoadDeseralizedData();
 #endif
   return 1;
 }

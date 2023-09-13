@@ -51,6 +51,7 @@ namespace GE
       int GetID(const std::string& name);
       ImageData GetData(int id);
       ImageData GetData(const std::string& name);
+      void LoadDeseralizedData();
 
     private:
       IDGenerator m_generator;

@@ -91,6 +91,21 @@ namespace GE
 
 			return id;
 		}
+
+		void AssetManager::LoadDeseralizedData()
+		{
+			std::map<std::string, std::string> deserialized_data;// = Deserialize(file);
+			deserialized_data["Character Sprite"] = "Assets/Knight.png";
+			deserialized_data["Monster 1"] = "Assets/Buta PIG.png";
+			deserialized_data["Monster 2"] = "Assets/Green Girl.png";
+			deserialized_data["Slash VFX"] = "Assets/redGirl.png";
+			deserialized_data["FONT"] = "Assets/Blue Tiles.png";
+			for (const std::pair<const std::string, std::string>& value : deserialized_data) {
+				std::string mapValue = value.second;
+				LoadImage(mapValue);
+				//std::cout << "Value: " << mapValue << std::endl;
+			}
+		}
 	}
 }
 //std::vector <std::pair<std::string, std::string>> vec = Deserialize(file);
