@@ -11,7 +11,13 @@
 #include "../ECS/ECS Example/Scene.h"
 #endif // ECS_TEST
 
-int main(int /*argc*/, char* /*argv*/[])
+#define ASSET_M_TEST
+#ifdef ASSET_M_TEST
+#include "../AssetManager/AssetManager.h"
+#endif //ASSET_M_TEST
+
+
+int main(int argc, char* argv[])
 {
   // Enable run-time memory check for debug builds.
 #if defined(DEBUG) | defined(_DEBUG)
@@ -48,5 +54,17 @@ int main(int /*argc*/, char* /*argv*/[])
   scn.Exit();
 #endif // ECS_TEST
 
+#ifdef ASSET_M_TEST
+  //AssetManager::LoadImage();
+  GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
+  //am->LoadImage("Assets/VADIM.jpg");
+  //am->LoadDirectory("Assets/");
+  //am->GetName(3);
+  //am->GetID(am->GetName(3));
+  am->LoadDeserializedData();
+  am->FreeImage("Assets/Knight.png");
+  am->FreeImage("Assets/Green Girl.png");
+  am->FreeImages();
+#endif
   return 1;
 }
