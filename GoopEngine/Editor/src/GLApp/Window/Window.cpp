@@ -1,4 +1,4 @@
-#include <def.h>
+#include <Def.h>
 #include <iostream>
 #include "GLApp/Window/Window.h"
 namespace windowSystem {
@@ -31,7 +31,7 @@ namespace windowSystem {
     GLenum errCode{ glewInit() };
     if (errCode != GLEW_OK) {
       std::string msg{ "Failed to initialize GLEW: " };
-      msg += errCode;
+      msg += std::to_string(errCode);
       ERR_LOG_FILE(msg);
       std::exit(EXIT_FAILURE); // we must leave immediately!
     }
@@ -53,14 +53,14 @@ namespace windowSystem {
     return m_window;
   }
 
-  void Window::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+  void Window::KeyCallback(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods*/)
   {
     // For now, escape key will shut the thing down
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
       glfwSetWindowShouldClose(window, GLFW_TRUE);
   }
 
-  void Window::ErrorCallback(int error, const char* desc)
+  void Window::ErrorCallback(int /*error*/, const char* desc)
   {
     ERR_LOG(desc);
   }

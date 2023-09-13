@@ -25,8 +25,10 @@ int main(int argc, char* argv[])
 
   //Goop::Window window(100, 100, L"WHAT");
   //window.CreateOGLWindow();
+#ifdef GRAPHICS_TEST
   windowSystem::Window window{ 640, 480, "GOOP"};
   window.CreateWindow();
+#endif
 
 #ifdef ECS_TEST
   Scene scn;
