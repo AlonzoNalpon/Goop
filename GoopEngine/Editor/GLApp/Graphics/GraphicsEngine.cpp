@@ -124,15 +124,16 @@ namespace Graphics {
     // If we cannot find the shader handle, return 0
     if (res == m_shaderLT.end())
       return 0;
-    return res->second;
+    return res->second; // return the handle
   }
 
   GLuint GraphicsEngine::CreateShader(ShaderCont const& container, std::string const& name)
   {
     ShaderProgram shdrPgm;
-    shdrPgm.CompileLinkValidate(container);
+    shdrPgm.CompileLinkValidate(container); 
 
     ShaderLT::const_iterator res{ m_shaderLT.find(name) };
+
     // If we find a conflicting name, print an error
     if (res != m_shaderLT.end())
     {
@@ -142,8 +143,9 @@ namespace Graphics {
       return 0;
     }
 
+    // Now we add the shader and its associated name as the key
     m_shaderLT.emplace(name, shdrPgm.GetHandle());
 
-    return shdrPgm.GetHandle();
+    return shdrPgm.GetHandle(); // return the handle
   }
 }

@@ -34,12 +34,29 @@ namespace Graphics {
     \brief attempts to get handle to specified shader program
     \params
       pgmName the name of the shader program
-    \return the handle to the program. 0 indicated the program does not exist
+    \return 
+      the handle to the program. 0 indicated the program does not exist
       
     ************************************************************************/
     GLuint GetShaderPgm(std::string const& pgmName);
+
+    /*!*********************************************************************
+    \brief
+      Creates a shader from a vector of shader information.
+      If a program of the same name is encountered, it will abort
+    \params
+      container
+        the container filled with associated shader type and shader paths
+      name
+        the name of the shader program to be created
+    \return
+      the shader program ID. 0 on failure.
+    ************************************************************************/
     GLuint CreateShader(ShaderCont const& container, std::string const& name);
+
+
   protected:
+
     void DrawMdl(Model const&);
     Model GenerateQuad();
     std::map<std::string, GLuint> m_shaderLT; //!< LOOKUP TABLE: handles by strings
