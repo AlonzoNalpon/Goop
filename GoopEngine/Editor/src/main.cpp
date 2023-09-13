@@ -10,9 +10,6 @@
 #define ASSET_M_TEST
 #ifdef ASSET_M_TEST
 #include "../AssetManager/AssetManager.h"
-void LoadImage()
-{
-}
 #endif //ASSET_M_TEST
 
 
@@ -44,10 +41,12 @@ int main(int argc, char* argv[])
 #endif // ECS_TEST
 
 #ifdef ASSET_M_TEST
-  //Asset_M::LoadImage();
-  Asset_M::FilenameHarvester();
-  Asset_M::LoadChecker();
-  Asset_M::FreeImage();
+  //AssetManager::LoadImage();
+  GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
+  //am->LoadImage("Assets/VADIM.jpg");
+  am->LoadDirectory("Assets/");
+  am->GetName(3);
+  am->GetID(am->GetName(3));
 #endif
   return 1;
 }

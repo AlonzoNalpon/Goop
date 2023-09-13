@@ -1,77 +1,96 @@
 #include <../AssetManager/AssetManager.h>
 #include <filesystem>
 #include <iostream>
-#include <vector>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-//#define ASSET_M_DEBUG
+#define ASSET_M_DEBUG
 
-namespace Asset_M {
-
-	std::vector<ImageData> loadedImages;
-
-	void LoadImage(const std::string& path, const std::string& filename)
+namespace GE
+{
+	namespace AssetManager
 	{
-		#ifdef ASSET_M_DEBUG
-		printf("Loading %s... ", filename.c_str()); 
-		#endif
-		std::string full_path = path + filename;
-		int width, height, channels;
-
-		unsigned char* img = stbi_load(full_path.c_str(), &width, &height, &channels, 0);
-		
-		if (img == NULL)
+		int IDGenerator::GenerateID()
 		{
-			printf("Error in loading image!!\n");
+			if (!m_recycled_id.empty())
+			{
+				int recycledID = *m_recycled_id.begin();
+				m_recycled_id.erase(recycledID);
+				return recycledID;
+			}
+			return m_next_id++;
 		}
-		else {
-			#ifdef ASSET_M_DEBUG
-			printf("Successfully loaded the image. (Width: %d px Height: %d px Channel: %d)\n", width, height, channels);
-			#endif
+		void IDGenerator::FreeID(int id)
+		{
+			m_recycled_id.insert(id);
 		}
 
-		ImageData imageData;
-		imageData.name = filename;
-		imageData.width = width;
-		imageData.height = height;
-		imageData.channels = channels;
-		imageData.data = img;
-
-		loadedImages.push_back(imageData);
-	}
-
-	void LoadChecker()
-	{
-		for (size_t i = 0; i < loadedImages.size(); ++i)
+		void ImageData::SetName(const std::string& name)
 		{
-			#ifdef ASSET_M_DEBUG
-			printf("Loaded asset's name: %s\n", loadedImages[i].name.c_str());
-			#endif
+			this->m_name = name;
 		}
-	}
 
-	void FreeImage()
-	{
-		for (size_t i = 0; i < loadedImages.size(); ++i)
+		void ImageData::SetInfo(int width, int height, int channels, unsigned char* data)
 		{
-			stbi_image_free(loadedImages[i].data);
-
-			#ifdef ASSET_M_DEBUG
-			printf("%s unloaded.\n", loadedImages[i].name.c_str());
-			#endif
+			this->m_width = width;
+			this->m_height = height;
+			this->m_channels = channels;
+			this->m_data = data;
 		}
-		loadedImages.clear();
-	}
 
-	void FilenameHarvester()
-	{
-		std::string path = "Assets/";
-		for (const auto& entry : std::filesystem::directory_iterator(path))
+		const std::string& AssetManager::GetName(int id)
 		{
-			std::filesystem::path p(entry.path());
-			LoadImage(path, p.filename().string());
+			printf("Get: %d and received: %s\n", id, m_loadedImages_ID_LU[id].c_str());
+			return m_loadedImages_ID_LU[id];
+		}
+		int AssetManager::GetID(const std::string& name)
+		{
+			printf("Get: %s and received: %d\n", name.c_str(), m_loadedImages_string_LU[name]);
+			return m_loadedImages_string_LU[name];
+
+		}
+		ImageData AssetManager::GetData(int id)
+		{
+			return m_loadedImages[id];
+		}
+		ImageData AssetManager::GetData(const std::string& name)
+		{
+			return m_loadedImages[GetID(name)];
+		}
+
+		void AssetManager::LoadDirectory(const std::string& path)
+		{
+			for (const auto& entry : std::filesystem::directory_iterator(path))
+			{
+				LoadImage(entry.path().string());
+			}
+		}
+
+		int AssetManager::LoadImage(const std::string& path)
+		{
+			int width, height, channels;
+			int id = m_generator.GenerateID();
+
+			unsigned char* img = stbi_load(path.c_str(), &width, &height, &channels, 0);
+
+			if (img == NULL)
+			{
+				printf("Error in loading image!!\n");
+			}
+			else {
+#ifdef ASSET_M_DEBUG
+				printf("Successfully loaded %s. (ID: %d Width: %d px Height: %d px Channel: %d)\n", path.c_str(), id, width, height, channels);
+#endif
+			}
+
+			ImageData imageData{id, path, width, height, channels, img};
+			m_loadedImages.insert(std::pair<int, ImageData>(id, imageData));
+			m_loadedImages_string_LU.insert(std::pair<std::string, int>(path, id));
+			m_loadedImages_ID_LU.insert(std::pair<int, std::string>(id, path));
+
+			return id;
 		}
 	}
 }
+//std::vector <std::pair<std::string, std::string>> vec = Deserialize(file);
