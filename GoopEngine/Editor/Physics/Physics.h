@@ -1,0 +1,7 @@
+namespace GE
+{
+	namespace Physics
+	{
+
+	}
+}
