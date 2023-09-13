@@ -1,14 +1,17 @@
 //#include <GLFW/glfw3.h>
 #include <iostream>
-#include "GLApp/Window/Window.h"
+#include <GLApp/Window/Window.h>
+#define GRAPHICS_TEST
+#ifdef GRAPHICS_TEST
+#include <GLApp/Graphics/GraphicsEngine.h>
 
+#endif
 #define ECS_TEST
 #ifdef ECS_TEST
 #include "../ECS/ECS Example/Scene.h"
 #endif // ECS_TEST
 
-
-int main(int argc, char* argv[])
+int main(int /*argc*/, char* /*argv*/[])
 {
   // Enable run-time memory check for debug builds.
 #if defined(DEBUG) | defined(_DEBUG)
@@ -25,8 +28,18 @@ int main(int argc, char* argv[])
 
   //Goop::Window window(100, 100, L"WHAT");
   //window.CreateOGLWindow();
-  windowSystem::Window window{ 640, 480, "GOOP"};
+#ifdef GRAPHICS_TEST
+  windowSystem::Window window{ 800, 800, "GOOP"};
   window.CreateWindow();
+  Graphics::GraphicsEngine gEngine;
+  
+  gEngine.Init(Graphics::Colorf{});
+
+  while (!window.GetWindowShouldClose()) {
+    gEngine.Draw();
+    window.SwapBuffers();
+  }
+#endif
 
 #ifdef ECS_TEST
   Scene scn;
