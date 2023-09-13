@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   Entity.h
+\author w.chinkibryan\@digipen.edu
+\date   9-September-2023
+\brief  
+  Basic defines for required for entities.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 
 #include <bitset>

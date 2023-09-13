@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   EntityManager.cpp
+\author w.chinkitbryan\@digipen.edu
+\date   9-September-2023
+\brief  
+  Definitions of EntityManager functions declared in EntityManager.h
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include "EntityManager.h"
 
 using namespace GE::ECS;

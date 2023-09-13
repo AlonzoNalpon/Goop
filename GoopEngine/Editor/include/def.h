@@ -11,14 +11,9 @@ using f32     = float;
 using wchar   = wchar_t; // word (2 byte) chars
 
 namespace debugger {
-  inline void err_log(std::string const& msg) {
-    std::cout << "ERROR: " << msg << std::endl;
-  }
+  void err_log(std::string const& msg);
 
-  inline void err_log_file(std::string const& msg) {
-    std::cout << "ERROR: " << msg << " | in "
-      << __FILE__ << ": " << __FUNCTION__ << " | line:" << __LINE__ << std::endl;
-  }
+  void err_log_file(std::string const& msg);
 }
 
 #define ERR_LOG( msg ) debugger::err_log(msg) 
