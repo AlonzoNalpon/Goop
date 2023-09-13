@@ -47,7 +47,10 @@ int main(int argc, char* argv[])
   //am->LoadDirectory("Assets/");
   //am->GetName(3);
   //am->GetID(am->GetName(3));
-  am->LoadDeseralizedData();
+  am->LoadDeserializedData();
+  am->FreeImage("Assets/Knight.png");
+  am->FreeImage("Assets/Green Girl.png");
+  am->FreeImages();
 #endif
   return 1;
 }

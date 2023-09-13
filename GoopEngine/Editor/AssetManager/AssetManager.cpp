@@ -1,3 +1,23 @@
+/*!*********************************************************************
+\file   AssetManager.cpp
+\author loh.j@digipen.edu
+\date   13-September-2023
+\brief
+	Asset Manager capable of:
+		- LoadDirectory
+				Loading all files located in directory
+
+		- LoadImage
+				Loading specific image from path
+
+		- GetData [WIP]
+				Get image data for alonzo.
+
+		- LoadDeserializedData [WIP]
+				Read filepath from deserialized data and load files.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <../AssetManager/AssetManager.h>
 #include <filesystem>
 #include <iostream>
@@ -39,14 +59,27 @@ namespace GE
 			this->m_data = data;
 		}
 
+		unsigned char* ImageData::GetData()
+		{
+			return this->m_data;
+		}
+
+		std::string ImageData::GetName()
+		{
+			return this->m_name;
+		}
+
+		int ImageData::GetID()
+		{
+			return this->m_id;
+		}
+
 		const std::string& AssetManager::GetName(int id)
 		{
-			printf("Get: %d and received: %s\n", id, m_loadedImages_ID_LU[id].c_str());
 			return m_loadedImages_ID_LU[id];
 		}
 		int AssetManager::GetID(const std::string& name)
 		{
-			printf("Get: %s and received: %d\n", name.c_str(), m_loadedImages_string_LU[name]);
 			return m_loadedImages_string_LU[name];
 
 		}
@@ -92,20 +125,69 @@ namespace GE
 			return id;
 		}
 
-		void AssetManager::LoadDeseralizedData()
+		std::vector<std::pair<std::string, std::string>> AssetManager::MOCK_Deserialize()
 		{
-			std::map<std::string, std::string> deserialized_data;// = Deserialize(file);
-			deserialized_data["Character Sprite"] = "Assets/Knight.png";
-			deserialized_data["Monster 1"] = "Assets/Buta PIG.png";
-			deserialized_data["Monster 2"] = "Assets/Green Girl.png";
-			deserialized_data["Slash VFX"] = "Assets/redGirl.png";
-			deserialized_data["FONT"] = "Assets/Blue Tiles.png";
+			std::map<std::string, std::string> data;
+			data["Character Sprite"] = "Assets/Knight.png";
+			data["Monster 1"] = "Assets/Buta PIG.png";
+			data["Monster 2"] = "Assets/Green Girl.png";
+			data["Slash VFX"] = "Assets/redGirl.png";
+			data["FONT"] = "Assets/Blue Tiles.png";
+
+			// Create a vector to hold the key-value pairs
+			std::vector<std::pair<std::string, std::string>> result;
+
+			// Iterate through the map and add key-value pairs to the vector
+			for (const auto& pair : data)
+			{
+				result.push_back(pair);
+			}
+
+			return result;
+		}
+
+		void AssetManager::LoadDeserializedData()
+		{
+			std::vector<std::pair<std::string, std::string>> deserialized_data = MOCK_Deserialize();
+			
 			for (const std::pair<const std::string, std::string>& value : deserialized_data) {
 				std::string mapValue = value.second;
 				LoadImage(mapValue);
-				//std::cout << "Value: " << mapValue << std::endl;
 			}
+		}
+
+		void AssetManager::FreeImages()
+		{
+			for (const auto& pair : m_loadedImages)
+			{
+				
+				int id = pair.first;
+				ImageData imageData = pair.second;
+				if (!imageData.GetData())
+				{
+					continue;
+				}
+				printf("Freeing Image: %s...\n", imageData.GetName().c_str());
+				// Free the loaded image data
+				stbi_image_free(imageData.GetData());
+
+				m_loadedImages_string_LU.erase(imageData.GetName());
+				m_loadedImages_ID_LU.erase(id);
+			}
+
+			// Clear the map of loaded images
+			m_loadedImages.clear();
+			m_loadedImages_string_LU.clear();
+			m_loadedImages_ID_LU.clear();
+			printf("Successfully cleared data.");
+		}
+
+		void AssetManager::FreeImage(const std::string& name)
+		{
+			stbi_image_free(GetData(name).GetData());
+			m_loadedImages.erase(GetData(name).GetID());
+			m_loadedImages_string_LU.erase(GetData(name).GetName());
+			m_loadedImages_ID_LU.erase(GetData(name).GetID());
 		}
 	}
 }
-//std::vector <std::pair<std::string, std::string>> vec = Deserialize(file);
