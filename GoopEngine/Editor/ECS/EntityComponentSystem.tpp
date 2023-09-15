@@ -106,9 +106,9 @@ void EntityComponentSystem::UnregisterComponentFromSystem()
 }
 
 template <typename T>
-bool EntityComponentSystem::SetSystemSignature(const ComponentSignature& signature)
+void EntityComponentSystem::SetSystemSignature(const ComponentSignature& signature)
 {
-	return m_systemManager->SetSignature<T>(signature);
+	m_systemManager->SetSignature<T>(signature);
 }
 
 void EntityComponentSystem::UpdateSystems()

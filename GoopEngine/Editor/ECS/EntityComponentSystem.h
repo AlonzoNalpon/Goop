@@ -135,12 +135,9 @@ namespace GE
 			
 			\param signature
 				Signature of all components used in the system.
-
-			\return
-				If successfully set the system signature.
 			********************************************************************/
 			template <typename T>
-			bool SetSystemSignature(const ComponentSignature& signature);
+			void SetSystemSignature(const ComponentSignature& signature);
 
 			/*!******************************************************************
 			\brief
