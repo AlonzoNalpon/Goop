@@ -25,6 +25,7 @@ namespace GE
 			  Defaulted constructor.			  
 			************************************************************************/
 			SystemManager() = default;
+
 			/*!*********************************************************************
 			\brief
 			  Properly frees all remaining systems from memory.		
@@ -40,6 +41,7 @@ namespace GE
 			************************************************************************/
 			template <typename T>
 			T* RegisterSystem();
+
 			/*!*********************************************************************
 			\brief
 			  Removes and destroys a system in the manager.
@@ -49,17 +51,31 @@ namespace GE
 			************************************************************************/
 			template <typename T>
 			bool RemoveSystem();
+
 			/*!******************************************************************
 			\brief
 			  Sets the component signature for the system. The component
 				signature is a bitfield (unsigned int) that shows what components
-				the system requires in an entity.
+				the system requires in an entity. If system does not exist, it
+				will be registered.
 
 			\param signature
 				Signature of all components used in the system.
 			********************************************************************/
 			template <typename T>
-			bool SetSignature(const ComponentSignature& signature);
+			void SetSignature(const ComponentSignature& signature);
+
+			/*!******************************************************************
+			\brief 
+			    Returns the component signature of a system. If a system does
+					not exist, it will be registered.
+
+			\return 
+				Component signature of the system
+			********************************************************************/
+			template <typename T>
+			ComponentSignature GetSignature();
+
 			/*!*********************************************************************
 			\brief
 			  Callback for when entity is destroyed. Unregisters an entity from the
@@ -69,6 +85,7 @@ namespace GE
 			  Entity that was destroyed.
 			************************************************************************/
 			void EntityDestroyed(const Entity& entity);
+
 			/*!*********************************************************************
 			\brief
 			  Updates the list of entities by checking if the new signature of the
@@ -95,6 +112,7 @@ namespace GE
 			********************************************************************/
 			template <typename T>
 			bool RegisterEntityToSystem(Entity& entity);
+
 			/*!******************************************************************
 			\brief
 				Unregisters an entity from a system. This removes the entity from
@@ -114,6 +132,7 @@ namespace GE
 			  Calls the update function for all systems in the manager.
 			************************************************************************/
 			void UpdateSystems();
+
 			/*!*********************************************************************
 			\brief
 			  Called by the framerate controller at a fixed time intervals. Usually

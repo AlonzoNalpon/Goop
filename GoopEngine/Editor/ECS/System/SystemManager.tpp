@@ -56,18 +56,29 @@ bool SystemManager::RemoveSystem()
 }
 
 template <typename T>
-bool SystemManager::SetSignature(const ComponentSignature& signature)
+void SystemManager::SetSignature(const ComponentSignature& signature)
 {
 	const char* systemName = typeid(T).name();
 
 	if (m_systems.find(systemName) == m_systems.end())
 	{
-		// System signature set before system exist
-		return false;
+		RegisterSystem<T>();
 	}
 
 	m_signatures[systemName] = signature;
-	return true;
+}
+
+template <typename T>
+ComponentSignature SystemManager::GetSignature()
+{
+	const char* systemName = typeid(T).name();
+
+	if (m_systems.find(systemName) == m_systems.end())
+	{
+		RegisterSystem<T>();
+	}
+
+	return m_signatures[systemName];
 }
 
 void SystemManager::EntityDestroyed(const Entity& entity)
