@@ -9,6 +9,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <unordered_map>
+#include <map>
 #include <queue>
 #include "../Entity/Entity.h"
 #include "System.h"
@@ -146,6 +147,12 @@ namespace GE
 			std::unordered_map<const char*, ComponentSignature> m_signatures;
 			std::unordered_map<const char*, System*> m_systems;
 			std::queue<const char*> m_uninitializedSystems;
+
+			// This is a iteratable container where systems keys are
+			// sorted in a order of lowest id to highest.
+			std::map<int, const char*> m_indexToSystem;
+			std::map<const char*, int> m_systemToIndex;
+			int m_systemIndex{};
 		};
 
 #include "SystemManager.tpp"

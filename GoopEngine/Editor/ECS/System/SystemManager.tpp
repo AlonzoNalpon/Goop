@@ -15,14 +15,18 @@ T* SystemManager::RegisterSystem()
 
 	if (m_systems.find(systemName) != m_systems.end())
 	{
-		// System exist unable to register
-		return nullptr;
+		// System exist, return a pointer to it
+		return static_cast<T*>(m_systems[systemName]);
 	}
 
 	T* system = new T();
 	system->Awake();
 	m_systems[systemName] = system;
 	m_uninitializedSystems.push(systemName);
+
+	m_systemToIndex[systemName] = m_systemIndex;
+	m_indexToSystem[m_systemIndex] = systemName;
+	++m_systemIndex;
 
 	return system;
 }
@@ -48,6 +52,10 @@ bool SystemManager::RemoveSystem()
 	system->OnDestroyed();
 	delete system;
 	system = nullptr;
+
+	int idxToRemove = m_systemToIndex[systemName];
+	m_systemToIndex.erase(systemName);
+	m_indexToSystem.erase(idxToRemove);
 
 	// Erase system from map
 	m_systems.erase(systemName);
@@ -140,14 +148,22 @@ void SystemManager::UpdateSystems()
 	// Initialize all systems
 	while (m_uninitializedSystems.size() > 0)
 	{
+		// Somehow system to initialize doesn't exist
+		if (m_systems.find(m_uninitializedSystems.front()) == m_systems.end())
+		{
+			m_uninitializedSystems.pop();
+			continue;
+		}
+
 		m_systems[m_uninitializedSystems.front()]->Start();
 		m_uninitializedSystems.pop();
 	}
 
-	for (auto& system : m_systems)
+	for (auto system : m_indexToSystem)
 	{
-		system.second->Update();
-		system.second->LateUpdate();
+		auto& systemName{ system.second };
+		m_systems[systemName]->Update();
+		m_systems[systemName]->LateUpdate();
 	}
 }
 
