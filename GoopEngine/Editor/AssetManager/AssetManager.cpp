@@ -64,6 +64,16 @@ namespace GE
 			return this->m_data;
 		}
 
+		unsigned int ImageData::GetWidth()
+		{
+			return this->m_width;
+		}
+
+		unsigned int ImageData::GetHeight()
+		{
+			return this->m_height;
+		}
+
 		std::string ImageData::GetName()
 		{
 			return this->m_name;
@@ -90,6 +100,12 @@ namespace GE
 		ImageData AssetManager::GetData(const std::string& name)
 		{
 			return m_loadedImages[GetID(name)];
+		}
+
+		void AssetManager::GetDimensions(int id, unsigned int& width, unsigned int& height)
+		{
+			width = m_loadedImages[id].GetWidth();
+			height = m_loadedImages[id].GetHeight();
 		}
 
 		void AssetManager::LoadDirectory(const std::string& path)

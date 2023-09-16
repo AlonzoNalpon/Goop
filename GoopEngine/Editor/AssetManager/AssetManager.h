@@ -55,6 +55,8 @@ namespace GE
       void SetName(const std::string& name);
       void SetInfo(int width, int height, int channels, unsigned char* data);
       unsigned char* GetData();
+      unsigned int GetWidth();
+      unsigned int GetHeight();
       std::string GetName();
       int GetID();
 
@@ -131,6 +133,8 @@ namespace GE
       ************************************************************************/
       ImageData GetData(const std::string& name);
 
+      void GetDimensions(int id, unsigned int& width, unsigned int& height);
+
       /*!*********************************************************************
       \brief
         [ WIP ] FOR CHENG EN!
@@ -160,7 +164,6 @@ namespace GE
       std::map<int, ImageData> m_loadedImages; // Map that contains all the loaded images data with an ID as a key.
       std::map<std::string, int> m_loadedImages_string_LU; // Lookup table for getting ID with filepath.
       std::map<int, std::string> m_loadedImages_ID_LU; // Lookup table for getting filepath with id.
-
     };
   }
 }
