@@ -18,7 +18,7 @@ ComponentType ComponentManager::GetComponentSignature()
 
 	if (m_componentTypes.find(componentName) == m_componentTypes.end())
 	{
-		throw;
+		RegisterComponent<T>();
 	}
 
 	return m_componentTypes[componentName];

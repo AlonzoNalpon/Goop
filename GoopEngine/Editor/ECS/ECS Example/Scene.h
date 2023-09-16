@@ -23,6 +23,8 @@ struct Scene
 		// The order of registration effects the order which the components are updated
 		// use late update if your component relies on other systems to update them first
 		// Flipping this 2 should give different results.
+//#define OLD_SIGNATURE
+#ifdef OLD_SIGNATURE
 		ecs->RegisterSystem<AdditionSystem>();
 		ecs->RegisterSystem<PrintingSystem>();
 
@@ -37,12 +39,16 @@ struct Scene
 		// that contains number component
 		ecs->SetSystemSignature<AdditionSystem>(sig);
 
-
 		// Add the signature of text component to first signature
 		sig.set(ecs->GetComponentSignature<Text>(), true);
 		// Tell ECS that printing system has the signature
 		// that contains text & number component
 		ecs->SetSystemSignature<PrintingSystem>(sig);
+#else // NEW_SIGNATURE
+		ecs->RegisterComponentToSystem<Number, AdditionSystem>();
+		ecs->RegisterComponentToSystem<Number, PrintingSystem>();
+		ecs->RegisterComponentToSystem<Text, PrintingSystem>();
+#endif // OLD_SIGNATURE
 
 		////////////////////////////////////////////////
 		// Creating Entities w/ Components
