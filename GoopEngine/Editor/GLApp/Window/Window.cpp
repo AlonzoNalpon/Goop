@@ -1,7 +1,7 @@
 #include <Def.h>
 #include <iostream>
 #include <GLApp/Window/Window.h>
-namespace windowSystem {
+namespace WindowSystem {
   Window::Window(int width, int height, char const* title) :
     m_windowWidth{ width }, m_windowHeight{ height }, m_title{ title }, m_window {} {}
   Window::~Window()
@@ -9,7 +9,7 @@ namespace windowSystem {
     glfwDestroyWindow(m_window);
     glfwTerminate();
   }
-  bool Window::CreateWindow()
+  bool Window::CreateAppWindow()
   {
     // Attempt to initialize GLFW
     if (!glfwInit()) {
@@ -38,7 +38,6 @@ namespace windowSystem {
 
     glfwSetErrorCallback(ErrorCallback);       // Error callback
     glfwSetKeyCallback(m_window, KeyCallback); // key callback
-
 
     return true;
   }
