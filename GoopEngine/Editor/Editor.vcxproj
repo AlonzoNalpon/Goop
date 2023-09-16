@@ -224,8 +224,10 @@
     <ClCompile Include="GLApp\Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="GLApp\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="GLApp\Window\Window.cpp" />
+    <ClCompile Include="GLApp\Graphics\SpriteAnimationManager.cpp" />
     <ClCompile Include="src\Def.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="GLApp\Graphics\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetManager\AssetManager.h" />
@@ -242,8 +244,13 @@
     <ClInclude Include="ECS\Entity\EntityManager.h" />
     <ClInclude Include="ECS\System\System.h" />
     <ClInclude Include="ECS\System\SystemManager.h" />
+    <ClInclude Include="GLApp\FlagsDef\SpriteAnimationFlags.h" />
     <ClInclude Include="GLApp\GraphicsTypes.h" />
     <ClInclude Include="GLApp\Graphics\GraphicsEngine.h" />
+    <ClInclude Include="GLApp\Graphics\Model.h" />
+    <ClInclude Include="GLApp\Graphics\SpriteAnimation.h" />
+    <ClInclude Include="GLApp\Graphics\SpriteData.h" />
+    <ClInclude Include="GLApp\RenderingHelpers.h" />
     <ClInclude Include="GLApp\Graphics\ShaderProgram.h" />
     <ClInclude Include="GLApp\Window\Window.h" />
     <ClInclude Include="include\def.h" />
@@ -258,6 +265,10 @@
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />
     <ClInclude Include="Math\VecUtils.h" />
+    <ClInclude Include="GLApp\Graphics\Texture.h" />
+    <ClInclude Include="GLApp\Graphics\SpriteAnimationManager.h" />
+    <ClInclude Include="Systems\Rendering\RendererComponent.h" />
+    <ClInclude Include="Systems\Rendering\RenderingSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\Mat2.tpp" />

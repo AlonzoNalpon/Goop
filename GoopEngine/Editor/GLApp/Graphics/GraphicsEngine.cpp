@@ -1,8 +1,10 @@
 #include <GLApp/Graphics/GraphicsEngine.h>
-
+#include <AssetManager/AssetManager.h>
 #include <GL/glew.h>
-
 #include <GLFW/glfw3.h>
+
+static GLuint texHandle;
+
 #define OGL_ERR_CALLBACK
 namespace Graphics {
 #ifdef OGL_ERR_CALLBACK
@@ -33,6 +35,19 @@ namespace Graphics {
     ShaderCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"}};
     m_spriteQuad.shader = CreateShader(spriteShaders, "sprite");
     m_models.emplace_back(m_spriteQuad);
+
+
+    // Now use textures
+    //auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
+    //int imageID = assetManager.LoadImage(ASSETS_PATH + "Knight.png");
+    //GE::AssetManager::ImageData imageData = assetManager.GetData(imageID);
+    //unsigned char* raw_image = imageData.GetData();
+    //glCreateTextures(GL_TEXTURE_2D, 1, &texHandle);
+    //// allocate GPU storage for texture image data loaded from file
+    //glTextureStorage2D(texHandle, 1, GL_RGBA8, imageData., height);
+    //// copy image data from client memory to GPU texture buffer memory
+    //glTextureSubImage2D(texobj_hdl, 0, 0, 0, width, height,
+    //  GL_RGBA, GL_UNSIGNED_BYTE, ptr_texels);
   }
 
   void GraphicsEngine::Draw()
@@ -53,7 +68,7 @@ namespace Graphics {
   {
     Model retval{};
     // Order of the quad's vtx data: bottom left, bottom right, top left, top right
-    Colorf const WHITE{ 1.f, 1.f, 1.f };
+    Colorf const WHITE{ 1.f, 1.f, 1.f, 1.f };
     GL_Data data
     {
       {{ -0.5, -0.5, .0 }, { 0.5, -0.5, .0 },  { -0.5, 0.5, .0}, { 0.5, 0.5, .0 }}, // the position data of a quad

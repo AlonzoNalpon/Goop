@@ -124,6 +124,7 @@ namespace Graphics {
   using Dvec3 = glm::dvec3;
   using Vec2  = glm::vec2;
   using Dvec2 = glm::dvec2;
+  using Ivec2 = glm::ivec2;
 #pragma endregion // END TEMPLATES REGION
   using Colorf    = T_Colorf<f32>;
   using Rect      = T_Rect<GLint>;
@@ -131,14 +132,7 @@ namespace Graphics {
   // GL_Data contains attribute data for transfer. Thus, it should use single precision floats
   using GL_Data   = T_GL_Data_Layout<Vec3, Colorf, Vec2, std::vector>;
 
-  // holds model data (opaque pointers)
-  struct Model {
-    GLenum primitive_type; // which OpenGL primitive to be rendered?
-    GLuint primitive_cnt;  // number of primitives
-    GLuint vaoid;          // handle to VAO
-    GLuint draw_cnt;       // vertex OR indices count
-    GLuint shader;         // shader handle
-  };
+  
 }
 
 #endif

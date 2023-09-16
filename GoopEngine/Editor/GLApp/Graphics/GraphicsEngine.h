@@ -11,6 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #ifndef GRAPHICS_ENGINE_H
 #define GRAPHICS_ENGINE_H
 #include <GLApp/GraphicsTypes.h>
+#include <GLApp/RenderingHelpers.h>
 #include <GLApp/Graphics/ShaderProgram.h>
 #include <map>
 namespace Graphics {
@@ -59,12 +60,21 @@ namespace Graphics {
 
     void DrawMdl(Model const&);
     Model GenerateQuad();
+
+    // SHADERS ARE ONLY TO BE QUERIED BY MODELS REQUESTING A HANDLE
+    // USERS MUST SPECIFY SHADER NAME WHILE CREATING A MODEL
     std::map<std::string, GLuint> m_shaderLT; //!< LOOKUP TABLE: handles by strings
     std::map<GLuint, ShaderProgram> m_shaders; //!< shaders by ID
+
+    std::map<std::string, GLuint> m_modelsLT; //!< LOOKUP TABLE: handles models by string
+    std::vector<Model> m_models; //!< models in a vector (models got their own shader)
+
+    // Textures are separated from models and are to be used with rendering components
+
+
     Model m_spriteQuad{}; //!< basic primitive quad for sprites
 
     // FOR DEBUGGING
-    std::vector<Model> m_models;
   private:
   };
 }
