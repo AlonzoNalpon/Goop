@@ -2,7 +2,7 @@
 
 namespace GE
 {
-  namespace Debugger
+  namespace DebuggingTools
   {
     class ErrorLogger
     {
