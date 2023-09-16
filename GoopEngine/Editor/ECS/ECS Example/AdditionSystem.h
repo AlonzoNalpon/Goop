@@ -18,17 +18,14 @@ public:
 		std::cout << "Addition system started\n";
 	}
 
-	void Update()
+	void Update(GE::ECS::Entity& entt)
 	{
-		for (auto& entt : m_entities)
+		Number* num = GE::ECS::EntityComponentSystem::GetInstance().GetComponent<Number>(entt);
+		if (num == nullptr)
 		{
-			Number* num = GE::ECS::EntityComponentSystem::GetInstance().GetComponent<Number>(entt);
-			if (num == nullptr)
-			{
-				continue;
-			}
-			num->total = num->a + num->b + num->c;
+			return;
 		}
+		num->total = num->a + num->b + num->c;
 		std::cout << "Addition system updated\n";
 	}
 
