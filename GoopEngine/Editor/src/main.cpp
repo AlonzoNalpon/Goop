@@ -1,11 +1,12 @@
 #include <pch.h>
 
+#define EXCEPTION_TEST
 #define ECS_TEST
 #ifdef ECS_TEST
 #include "../ECS/ECS Example/Scene.h"
 #endif // ECS_TEST
 
-#define GRAPHICS_TEST
+//#define GRAPHICS_TEST
 #ifdef GRAPHICS_TEST
 #include <GLApp/Window/Window.h>
 #include <GLApp/Graphics/GraphicsEngine.h>
@@ -41,10 +42,18 @@ int main(int /*argc*/, char* /*argv*/[])
   }
 #endif
 #ifdef ECS_TEST
-  Scene scn;
-  scn.Start();
-  scn.Update();
-  scn.Exit();
+  try
+  {
+    Scene scn;
+    scn.Start();
+    scn.Update();
+    scn.Exit();
+  }
+  catch (GE::Debug::IExceptionBase& e)
+  {
+    e.LogSource();
+    e.Log();
+  }
 #endif // ECS_TEST
 
   return 1;

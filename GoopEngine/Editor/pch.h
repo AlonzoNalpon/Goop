@@ -23,4 +23,5 @@
 // Engine
 #include "Math/GEM.h"
 #include "ECS/EntityComponentSystem.h"
-//#include "Debugger/Exception/Exception.h"
+#include "Debugger/Exception/Exception.h"
+#include "Debugger/ErrorLogger/ErrorLogger.h"

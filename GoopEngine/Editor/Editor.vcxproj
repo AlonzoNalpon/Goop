@@ -204,6 +204,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Debugger\ErrorLogger\ErrorLogger.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
     <ClCompile Include="GLApp\Graphics\GraphicsEngine.cpp" />
@@ -213,6 +214,9 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Debugger\ErrorLogger\ErrorLogger.h" />
+    <ClInclude Include="Debugger\Exception\Exception.h" />
+    <ClInclude Include="Debugger\Exception\ExceptionBase.h" />
     <ClInclude Include="ECS\Component\Component.h" />
     <ClInclude Include="ECS\Component\ComponentArray.h" />
     <ClInclude Include="ECS\Component\ComponentManager.h" />
@@ -245,6 +249,8 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Debugger\ErrorLogger\ErrorLogger.tpp" />
+    <None Include="Debugger\Exception\Exception.tpp" />
     <None Include="Math\Mat2.tpp" />
     <None Include="Math\Mat3.tpp" />
     <None Include="Math\Mat4.tpp" />
