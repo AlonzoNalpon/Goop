@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   FrameRateController.h
-\author han.q@digipen.edu
-\date   $DAY_OF_MONTH-$MONTHNAME_EN-$YEAR
+\author han.q\@digipen.edu
+\date   16 September 2023
 \brief
 	Frame rate controller system.
 
@@ -62,7 +62,7 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				.Function to Initialize the Frame Rate Controller. Call this in your Main init
+			  Function to Initialize the Frame Rate Controller. Call this in your Main init
 			\params
 				targetFPS 
 				FPS limit of your engine
@@ -75,9 +75,9 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				.Function to get the delta time
+			  Function to get the delta time
 			\return
-				 Delta time (Amount of time pass since previous frame)
+				Delta time (Amount of time pass since previous frame)
 			************************************************************************/
 			double GetDeltaTime();
 
@@ -85,9 +85,9 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				.Function to get the current FPS of the Engine
+			  Function to get the current FPS of the Engine
 			\return 
-				 Current FPS of the Engine
+			  Current FPS of the Engine
 			************************************************************************/
 			double GetFPS();
 
@@ -95,63 +95,63 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				.Function to Signfy the end of the current frame. Call this function before the end of each game loop
+			  Function to Signfy the end of the current frame. Call this function before the end of each game loop
 			************************************************************************/
 			void EndFrame();
 
 
 			/*!*********************************************************************
 			\brief
-				.Function to Signfy the start of a new frame. call this at the start of each game loop
+			  Function to Signfy the start of a new frame. call this at the start of each game loop
 			************************************************************************/
 			void StartFrame();
 
 
 			/*!*********************************************************************
 			\brief
-				.Function to get the current time
+			  Function to get the current time
 			\return
-				 The current time
+			  The current time
 			************************************************************************/
 			double GetCurrTime();
 
 			/*!*********************************************************************
 			\brief
-				.Function to get current frame's start time
+			  Function to get current frame's start time
 			\return
-				 starting time of current frame
+				starting time of current frame
 			************************************************************************/
 			double GetStartTime();
 
 
 			/*!*********************************************************************
 			\brief
-				.Function to get previous frame's start time
+				Function to get previous frame's start time
 			\return
-				 starting time of previous frame
+				starting time of previous frame
 			************************************************************************/
 			double GetPrevTime();
 
 
 			/*!*********************************************************************
 			\brief
-				.Function to get the number frames passed since last check
+			  Function to get the number frames passed since last check
 			\return
-				 Number of frames passed since the last time this function is called
+			  Number of frames passed since the last time this function is called
 			************************************************************************/
 			int GetFrameCount();
 
 
 			/*!*********************************************************************
 			\brief
-				.Function to reset the FrameRateController
+			  Function to reset the FrameRateController
 			************************************************************************/
 			void ResetFrameRateController();
 
 			
 			/*!*********************************************************************
 			\brief
-				.Function to set the engine's FPS limit
+			  Function to set the engine's FPS limit
 			\params
 				targetFPS
 				FPS limit of your engine
@@ -162,7 +162,7 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				.Function to set the engine's interval for FPS Check
+			  Function to set the engine's interval for FPS Check
 			\params
 				fpsCalInterval
 				Intervals between each FPS check (seconds)
