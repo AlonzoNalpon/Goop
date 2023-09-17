@@ -31,19 +31,33 @@ namespace GE
 {
 	namespace AssetManager
 	{
+		IDGenerator::~IDGenerator()
+		{
+			m_recycledID.clear();
+		}
+
 		int IDGenerator::GenerateID()
 		{
-			if (!m_recycled_id.empty())
+			if (!m_recycledID.empty())
 			{
-				int recycledID = *m_recycled_id.begin();
-				m_recycled_id.erase(recycledID);
+				int recycledID = *m_recycledID.begin();
+				m_recycledID.erase(recycledID);
 				return recycledID;
 			}
-			return m_next_id++;
+			return m_nextID++;
 		}
 		void IDGenerator::FreeID(int id)
 		{
-			m_recycled_id.insert(id);
+			m_recycledID.insert(id);
+		}
+
+		ImageData::~ImageData()
+		{
+			if (m_data != nullptr)
+			{
+				// Free the allocated image data
+				delete[] m_data;
+			}
 		}
 
 		void ImageData::SetName(const std::string& name)
@@ -84,13 +98,18 @@ namespace GE
 			return this->m_id;
 		}
 
+		AssetManager::~AssetManager()
+		{
+			FreeImages();
+		}
+
 		const std::string& AssetManager::GetName(int id)
 		{
-			return m_loadedImages_ID_LU[id];
+			return m_loadedImagesIDLookUp[id];
 		}
 		int AssetManager::GetID(const std::string& name)
 		{
-			return m_loadedImages_string_LU[name];
+			return m_loadedImagesStringLookUp[name];
 
 		}
 		ImageData AssetManager::GetData(int id)
@@ -135,8 +154,8 @@ namespace GE
 
 			ImageData imageData{id, path, width, height, channels, img};
 			m_loadedImages.insert(std::pair<int, ImageData>(id, imageData));
-			m_loadedImages_string_LU.insert(std::pair<std::string, int>(path, id));
-			m_loadedImages_ID_LU.insert(std::pair<int, std::string>(id, path));
+			m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(path, id));
+			m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(id, path));
 
 			return id;
 		}
@@ -187,14 +206,14 @@ namespace GE
 				// Free the loaded image data
 				stbi_image_free(imageData.GetData());
 
-				m_loadedImages_string_LU.erase(imageData.GetName());
-				m_loadedImages_ID_LU.erase(id);
+				m_loadedImagesStringLookUp.erase(imageData.GetName());
+				m_loadedImagesIDLookUp.erase(id);
 			}
 
 			// Clear the map of loaded images
 			m_loadedImages.clear();
-			m_loadedImages_string_LU.clear();
-			m_loadedImages_ID_LU.clear();
+			m_loadedImagesStringLookUp.clear();
+			m_loadedImagesIDLookUp.clear();
 			printf("Successfully cleared data.");
 		}
 
@@ -202,8 +221,8 @@ namespace GE
 		{
 			stbi_image_free(GetData(name).GetData());
 			m_loadedImages.erase(GetData(name).GetID());
-			m_loadedImages_string_LU.erase(GetData(name).GetName());
-			m_loadedImages_ID_LU.erase(GetData(name).GetID());
+			m_loadedImagesStringLookUp.erase(GetData(name).GetName());
+			m_loadedImagesIDLookUp.erase(GetData(name).GetID());
 		}
 	}
 }

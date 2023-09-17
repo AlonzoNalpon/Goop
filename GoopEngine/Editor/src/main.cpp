@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
   am->LoadDeserializedData();
   am->FreeImage("Assets/Knight.png");
   am->FreeImage("Assets/Green Girl.png");
-  am->FreeImages();
+  //am->FreeImages();
 #endif
   return 1;
 }
