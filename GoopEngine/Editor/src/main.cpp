@@ -1,15 +1,20 @@
 //#include <GLFW/glfw3.h>
 #include <iostream>
 #include <GLApp/Window/Window.h>
-#define GRAPHICS_TEST
+//#define GRAPHICS_TEST
 #ifdef GRAPHICS_TEST
 #include <GLApp/Graphics/GraphicsEngine.h>
-
 #endif
-#define ECS_TEST
+#define SERIALIZE_TEST
+//#define ECS_TEST
 #ifdef ECS_TEST
 #include "../ECS/ECS Example/Scene.h"
 #endif // ECS_TEST
+
+#ifdef SERIALIZE_TEST
+#include "../Serialization/Serializer.h"
+#include <iomanip>
+#endif
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -38,6 +43,22 @@ int main(int /*argc*/, char* /*argv*/[])
   while (!window.GetWindowShouldClose()) {
     gEngine.Draw();
     window.SwapBuffers();
+  }
+#endif
+ 
+#ifdef SERIALIZE_TEST
+  GE::Serialization::Serializer& serializer{ GE::Serialization::Serializer::GetInstance() };
+  std::map<std::string, std::string> assets;
+  std::string const fileName{ "bat_file_output.json" };
+  if (!serializer.Deserialize(fileName, assets))
+  {
+    std::cout << "Error deserializing " << fileName << "\n";
+  }
+
+  std::cout << "Deserialized " << fileName << ":\n";
+  for (std::pair<std::string, std::string> const& entry : assets)
+  {
+    std::cout << "Key: " << std::left << std::setw(10) << entry.first << " | Value: " << entry.second << "\n";
   }
 #endif
 
