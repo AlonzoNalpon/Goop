@@ -56,6 +56,10 @@ namespace GE
       /*!******************************************************************
       \brief 
         Creates an exception with all required values for a custom message.
+        Please throw the system in which the object throwing belongs to where
+        sufficient rather than individual class whenever appropriate.
+        This is to avoid too many unique thrown identifies which uses
+        more memory in the logger's map.
 
       \param[in] lvl
         Logging level
