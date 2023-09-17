@@ -1,7 +1,7 @@
 #include "FrameRateController.h"
 
 using namespace GE::FPS;
-.
+
 
 void FrameRateController::InitFrameRateController(int targetFPS, int fpsCalInterval)
 {

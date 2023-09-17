@@ -205,7 +205,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Debugger\ErrorLogger\ErrorLogger.cpp" />
-    <ClCompile Include="Debugger\Exception\Exception.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
     <ClCompile Include="FrameRateController\FrameRateController.cpp" />
