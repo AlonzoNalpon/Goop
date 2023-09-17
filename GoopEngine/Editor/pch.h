@@ -25,3 +25,5 @@
 #include "ECS/EntityComponentSystem.h"
 #include "Debugger/Exception/Exception.h"
 #include "Debugger/ErrorLogger/ErrorLogger.h"
+#include "FrameRateController/FrameRateController.h"
+#include "InputManager/KeyCode.h"
