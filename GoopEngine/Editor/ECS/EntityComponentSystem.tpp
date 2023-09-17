@@ -59,7 +59,7 @@ void EntityComponentSystem::RemoveComponent(Entity& entity)
 	signature.set(m_componentManager->GetComponentSignature<T>(), false);
 	// Update entity's component signature
 	m_entityManager->SetComponentSignature(entity, signature);
-			
+
 	// Update all systems to remove entity if it does not have
 	// the components required to be used by the system 
 	m_systemManager->EntitySignatureChanged(entity, signature);
@@ -89,10 +89,26 @@ bool EntityComponentSystem::RemoveSystem()
 	return m_systemManager->RemoveSystem<T>();
 }
 
-template <typename T>
-bool EntityComponentSystem::SetSystemSignature(const ComponentSignature& signature)
+template <typename C, typename S>
+void EntityComponentSystem::RegisterComponentToSystem()
 {
-	return m_systemManager->SetSignature<T>(signature);
+	ComponentSignature sysSig = m_systemManager->GetSignature<S>();
+	sysSig.set(m_componentManager->GetComponentSignature<C>(), true);
+	m_systemManager->SetSignature<S>(sysSig);
+}
+
+template <typename C, typename S>
+void EntityComponentSystem::UnregisterComponentFromSystem()
+{
+	ComponentSignature sysSig = m_systemManager->GetSignature<S>();
+	sysSig.set(m_componentManager->GetComponentSignature<C>(), false);
+	m_systemManager->SetSignature<S>(sysSig);
+}
+
+template <typename T>
+void EntityComponentSystem::SetSystemSignature(const ComponentSignature& signature)
+{
+	m_systemManager->SetSignature<T>(signature);
 }
 
 void EntityComponentSystem::UpdateSystems()

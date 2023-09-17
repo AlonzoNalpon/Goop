@@ -28,6 +28,7 @@ namespace GE
 			  Default constructor.
 			************************************************************************/
 			ComponentManager() = default;
+
 			/*!*********************************************************************
 			\brief
 			  Default destructor.
@@ -37,7 +38,7 @@ namespace GE
 			/*!*********************************************************************
 			\brief
 			  Get the individual true bit of the component as ComponentSignature
-				(unsigned int).
+				(unsigned int). If component does not exist, it will be registered.
 			  
 			\return
 			  ComponentSignature.

@@ -28,6 +28,7 @@ namespace GE
 			  Default constructor.
 			************************************************************************/
 			EntityComponentSystem();
+
 			/*!*********************************************************************
 			\brief
 			  Default destructor.
@@ -42,6 +43,7 @@ namespace GE
 			  A new entity
 			************************************************************************/
 			Entity CreateEntity();
+
 			/*!*********************************************************************
 			\brief
 			  Calls EntityManager's DestroyEntity function.
@@ -57,18 +59,21 @@ namespace GE
 			************************************************************************/
 			template <typename T>
 			void RegisterComponent();
+
 			/*!******************************************************************
 			\brief
 			  Calls ComponentManager's AddComponent Function.
 			********************************************************************/
 			template <typename T>
 			void AddComponent(Entity& entity, T component);
+
 			/*!******************************************************************
 			\brief
 			  Calls ComponentManager's RemoveComponent Function.
 			********************************************************************/
 			template <typename T>
 			void RemoveComponent(Entity& entity);
+
 			/*!*********************************************************************
 			\brief
 			  Calls ComponentManager's GetComponent Function.
@@ -79,6 +84,7 @@ namespace GE
 			************************************************************************/
 			template <typename T>
 			T* GetComponent(const Entity& entity);
+
 			/*!*********************************************************************
 			\brief
 			  Calls ComponentManager's GetComponentSignature Function.
@@ -88,6 +94,7 @@ namespace GE
 			************************************************************************/
 			template <typename T>
 			ComponentType GetComponentSignature();
+
 			/*!*********************************************************************
 			\brief
 			  Calls SystemManager's RegisterSystem function.
@@ -97,6 +104,7 @@ namespace GE
 			************************************************************************/
 			template <typename T>
 			T* RegisterSystem();
+
 			/*!*********************************************************************
 			\brief
 			  Calls SystemManager's RemoveSystem function.
@@ -106,18 +114,30 @@ namespace GE
 			************************************************************************/
 			template <typename T>
 			bool RemoveSystem();
+
+			/*!******************************************************************
+			\brief 
+			    Registers a component to a system.
+			********************************************************************/
+			template <typename C, typename S>
+			void RegisterComponentToSystem();
+
+			/*!******************************************************************
+			\brief
+					Unregisters a component from a system.
+			********************************************************************/
+			template <typename C, typename S>
+			void UnregisterComponentFromSystem();
+
 			/*!******************************************************************
 			\brief
 			  Calls SystemManager's SetSignature function.
 			
 			\param signature
 				Signature of all components used in the system.
-
-			\return
-				If successfully set the system signature.
 			********************************************************************/
 			template <typename T>
-			bool SetSystemSignature(const ComponentSignature& signature);
+			void SetSystemSignature(const ComponentSignature& signature);
 
 			/*!******************************************************************
 			\brief
@@ -131,6 +151,7 @@ namespace GE
 			********************************************************************/
 			template <typename T>
 			bool RegisterEntityToSystem(Entity& entity);
+
 			/*!******************************************************************
 			\brief
 				Calls SystemManager's UnregisterEntityFromSystem function.
@@ -149,7 +170,6 @@ namespace GE
 			  Calls SystemManager's UpdateSystems function.
 			************************************************************************/
 			void UpdateSystems();
-
 		private:
 			ComponentManager* m_componentManager;
 			EntityManager* m_entityManager;

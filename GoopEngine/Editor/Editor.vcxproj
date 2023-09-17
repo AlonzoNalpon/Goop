@@ -201,7 +201,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -209,6 +208,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile />
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -221,9 +221,10 @@
     <ClCompile Include="AssetManager\AssetManager.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
+    <ClCompile Include="GLApp\Graphics\GraphicsEngine.cpp" />
+    <ClCompile Include="GLApp\Graphics\ShaderProgram.cpp" />
+    <ClCompile Include="GLApp\Window\Window.cpp" />
     <ClCompile Include="src\Def.cpp" />
-    <ClCompile Include="src\GLApp\GraphicsEngine\GraphicsEngine.cpp" />
-    <ClCompile Include="src\GLApp\Window\Window.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -241,10 +242,11 @@
     <ClInclude Include="ECS\Entity\EntityManager.h" />
     <ClInclude Include="ECS\System\System.h" />
     <ClInclude Include="ECS\System\SystemManager.h" />
+    <ClInclude Include="GLApp\GraphicsTypes.h" />
+    <ClInclude Include="GLApp\Graphics\GraphicsEngine.h" />
+    <ClInclude Include="GLApp\Graphics\ShaderProgram.h" />
+    <ClInclude Include="GLApp\Window\Window.h" />
     <ClInclude Include="include\def.h" />
-    <ClInclude Include="include\GLApp\GraphicsTypes.h" />
-    <ClInclude Include="include\GLApp\Graphics\GraphicsEngine.h" />
-    <ClInclude Include="include\GLApp\Window\Window.h" />
     <ClInclude Include="Math\GEM.h" />
     <ClInclude Include="Math\Mat2.h" />
     <ClInclude Include="Math\Mat3.h" />
@@ -256,6 +258,7 @@
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />
     <ClInclude Include="Math\VecUtils.h" />
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\Mat2.tpp" />

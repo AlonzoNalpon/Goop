@@ -15,14 +15,18 @@ T* SystemManager::RegisterSystem()
 
 	if (m_systems.find(systemName) != m_systems.end())
 	{
-		// System exist unable to register
-		return nullptr;
+		// System exist, return a pointer to it
+		return static_cast<T*>(m_systems[systemName]);
 	}
 
 	T* system = new T();
 	system->Awake();
 	m_systems[systemName] = system;
 	m_uninitializedSystems.push(systemName);
+
+	m_systemToIndex[systemName] = m_systemIndex;
+	m_indexToSystem[m_systemIndex] = systemName;
+	++m_systemIndex;
 
 	return system;
 }
@@ -49,6 +53,10 @@ bool SystemManager::RemoveSystem()
 	delete system;
 	system = nullptr;
 
+	int idxToRemove = m_systemToIndex[systemName];
+	m_systemToIndex.erase(systemName);
+	m_indexToSystem.erase(idxToRemove);
+
 	// Erase system from map
 	m_systems.erase(systemName);
 	m_signatures.erase(systemName);
@@ -56,18 +64,29 @@ bool SystemManager::RemoveSystem()
 }
 
 template <typename T>
-bool SystemManager::SetSignature(const ComponentSignature& signature)
+void SystemManager::SetSignature(const ComponentSignature& signature)
 {
 	const char* systemName = typeid(T).name();
 
 	if (m_systems.find(systemName) == m_systems.end())
 	{
-		// System signature set before system exist
-		return false;
+		RegisterSystem<T>();
 	}
 
 	m_signatures[systemName] = signature;
-	return true;
+}
+
+template <typename T>
+ComponentSignature SystemManager::GetSignature()
+{
+	const char* systemName = typeid(T).name();
+
+	if (m_systems.find(systemName) == m_systems.end())
+	{
+		RegisterSystem<T>();
+	}
+
+	return m_signatures[systemName];
 }
 
 void SystemManager::EntityDestroyed(const Entity& entity)
@@ -129,14 +148,22 @@ void SystemManager::UpdateSystems()
 	// Initialize all systems
 	while (m_uninitializedSystems.size() > 0)
 	{
+		// Somehow system to initialize doesn't exist
+		if (m_systems.find(m_uninitializedSystems.front()) == m_systems.end())
+		{
+			m_uninitializedSystems.pop();
+			continue;
+		}
+
 		m_systems[m_uninitializedSystems.front()]->Start();
 		m_uninitializedSystems.pop();
 	}
 
-	for (auto& system : m_systems)
+	for (auto system : m_indexToSystem)
 	{
-		system.second->Update();
-		system.second->LateUpdate();
+		auto& systemName{ system.second };
+		m_systems[systemName]->UpdateEntities();
+		m_systems[systemName]->LateUpdate();
 	}
 }
 
