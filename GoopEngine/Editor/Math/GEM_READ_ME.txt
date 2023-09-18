@@ -1,6 +1,6 @@
-/******** GOOP MATH LIBRARY (GPM) ********/
+/******** GOOP ENGINE MATH LIBRARY (GEM) ********/
 
-U can open up Goop/lib/gpm/documentation/html/index.html and navigate to Files > File List >
+U can open up documentation/html/index.html and navigate to Files > File List >
 MatUtils.h, VecUtils.h to view the current list of functions
 
 Go Classes > Class List to see the struct layout for Vecs and Mats
@@ -8,25 +8,26 @@ Go Classes > Class List to see the struct layout for Vecs and Mats
 
 BASIC USAGE
 -----------------------------
-#include "gpm.h" to use
+#include "GEM.h" to use
+#include "Math/Mat3Utils.h" for Mat3 utility    // comes with "GEM.h"
 
-Everything is under namespace "gpm", so prefix "gpm::" before any functions/objects
- - E.g. gpm::Vec2, gpm::Vec3 etc.
+Everything is under namespace "GE::Math", so prefix "GE::Math::" before any functions/objects
+ - E.g. GE::Math::Vec2, GE::Math::Vec3 etc.
 
 Note: Only vec2s, 3s and 4s are supported.
 Any vector/matrix instantiated with > 4 rows/cols will yield an error from static_assert()
 
 For FLOAT-typed vectors and matrices u may use the following typedefs:
- - gpm::Vec2, gpm::Vec3, gpm::Vec4
- - gpm::Mat2, gpm::Mat3, gpm::Mat4
+ - GE::Math::Vec2, GE::Math::Vec3, GE::Math::Vec4
+ - GE::Math::Mat2, GE::Math::Mat3, GE::Math::Mat4
 For DOUBLE-typed vectors and matrices u may use the following typedefs:
- - gpm::dVec2, gpm::dVec3, gpm::dVec4
- - gpm::dMat2, gpm::dMat3, gpm::dMat4
+ - GE::Math::dVec2, GE::Math::dVec3, GE::Math::dVec4
+ - GE::Math::dMat2, GE::Math::dMat3, GE::Math::dMat4
 
 Similar to alpha engine, the following functions are available
  - MtxScale, MtxRotate, MtxTranslate
  - Cross, Dot
- - full list can be found in VectorUtils.html, MatrixUtils.html
+ - full list can be found in VectorUtils.html & MatrixUtils.html
 
 Vectors and Matrices have operators overloaded to support most operations,
 including multiplication
