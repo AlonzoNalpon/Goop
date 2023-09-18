@@ -220,8 +220,12 @@
   <ItemGroup>
     <ClCompile Include="AssetManager\AssetManager.cpp" />
     <ClCompile Include="Debugger\ErrorLogger\ErrorLogger.cpp" />
+    <ClCompile Include="ECS\Component\ComponentManager.cpp" />
+    <ClCompile Include="ECS\ECS Example\PrintingSystem.cpp" />
+    <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
+    <ClCompile Include="ECS\System\SystemManager.cpp" />
     <ClCompile Include="FrameRateController\FrameRateController.cpp" />
     <ClCompile Include="Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="Graphics\ShaderProgram.cpp" />

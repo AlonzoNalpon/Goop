@@ -1,16 +1,3 @@
-ComponentManager::~ComponentManager()
-{
-	for (auto& cmpArr : m_componentArrays)
-	{
-		if (cmpArr.second == nullptr)
-		{
-			continue;
-		}
-		delete[] cmpArr.second;
-		cmpArr.second = nullptr;
-	}
-}
-
 template <typename T>
 ComponentType ComponentManager::GetComponentSignature()
 {
@@ -55,14 +42,6 @@ template <typename T>
 T* ComponentManager::GetComponent(const Entity& entity)
 {
 	return GetComponentArray<T>()->GetData(entity);
-}
-
-void ComponentManager::EntityDestroyed(Entity& entity)
-{
-	for (auto& cmpArr : m_componentArrays)
-	{
-		cmpArr.second->EntityDestroyed(entity);
-	}
 }
 
 template <typename T>
