@@ -5,6 +5,11 @@
 #include "PrintingSystem.h"
 #include "TextComponent.h"
 #include "NumberComponent.h"
+#include "../../Physics/Physics.h"
+
+#include "../../Physics/Velocity.h"
+#include "../../Physics/Transform.h"
+#include "../../Physics/Gravity.h"
 
 using namespace GE::ECS;
 
@@ -83,6 +88,19 @@ struct Scene
 
 		// Example of unregistering from a system
 		//ecs->UnregisterEntityFromSystem<PrintingSystem>(entt2);
+
+		Entity entt3 = ecs->CreateEntity();
+		Velocity vel;
+		Transform trans;
+		Gravity grav;
+
+		ecs->RegisterComponentToSystem<Velocity, GE::Physics::PhysSys>();
+		ecs->RegisterComponentToSystem<Transform, GE::Physics::PhysSys>();
+		ecs->RegisterComponentToSystem<Gravity, GE::Physics::PhysSys>();
+		ecs->AddComponent(entt3, vel);
+		ecs->AddComponent(entt3, trans);
+		ecs->AddComponent(entt3, grav);
+		ecs->RegisterEntityToSystem<GE::Physics::PhysSys>(entt3);
 	}
 
 	void Update()

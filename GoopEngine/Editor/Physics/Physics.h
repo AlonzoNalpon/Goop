@@ -1,4 +1,8 @@
-#include <pch.h>
+#pragma once
+//#include <pch.h>
+#include "../ECS/EntityComponentSystem.h"
+//#include "../ECS/System/System.h"
+//#include "../FrameRateController/FrameRateController.h"
 
 namespace GE
 {
@@ -11,7 +15,7 @@ namespace GE
 			void Update();
 
 		private:
-			EntityComponentSystem* m_ecs;
+			//GE::ECS::EntityComponentSystem* m_ecs;
 		};
 	}
 }

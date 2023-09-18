@@ -4,7 +4,7 @@
 using namespace GE;
 using namespace GE::ECS;
 //AABB & mouse input
-bool Collision::CollSys::Collide(AABB& box, vec2& input)
+bool Collision::CollSys::Collide(AABB& box, dVec2& input)
 {
 	if (input.x <= box.m_max.x && input.x >= box.m_min.x)
 	{
@@ -36,33 +36,38 @@ void Collision::CollSys::Awake()
 
 void Collision::CollSys::Update()
 {
-	for (Entity updateEntity : m_entities) {
-		AABB& updateEntity = m_ecs->GetComponent<AABB>(entity1);
-		Transform& newCenter = m_ecs->GetComponent<Transform>(entity1);
-		UpdateAABB(updateEntity, newCenter.m_pos);
+	for (Entity entity : m_entities) 
+	{
+		//Velocity* updateVel = m_ecs->GetComponent<Velocity>(entity);
+
+		
+		AABB* updateEntity = m_ecs->GetComponent<AABB>(entity);
+		Transform* newCenter = m_ecs->GetComponent<Transform>(entity);
+		UpdateAABB(*updateEntity, newCenter->m_pos);
 	}
 	//loop through every entity & check against every OTHER entity if they collide either true
 	for (Entity entity1 : m_entities)
 	{
-		AABB& entity1Col = m_ecs->GetComponent<AABB>(entity1);
-		entity1Col.m_mouseCollided = Collide(entity1Col, vec2{ 0, 0 });
+		AABB* entity1Col = m_ecs->GetComponent<AABB>(entity1);
+		dVec2 temp{ 0, 0 };
+		entity1Col->m_mouseCollided = Collide(*entity1Col, temp);
 
 		for (Entity entity2 : m_entities) {
 			if (entity1 == entity2) {
 				continue;
 			}
 
-			AABB& entity2Col = m_ecs->GetComponent<AABB>(entity2);
-			entity1Col.m_collided = Collide(entity1Col, entity2Col) ? &entity2 : nullptr;
+			AABB* entity2Col = m_ecs->GetComponent<AABB>(entity2);
+			entity1Col->m_collided = Collide(*entity1Col, *entity2Col) ? &entity2 : nullptr;
 		}
 	}
 }
 
-void Collision::CollSys::UpdateAABB(AABB& entity, const vec2& newCenter) 
+void Collision::CollSys::UpdateAABB(AABB& entity, const dVec2& newCenter) 
 {
 	entity.m_center = newCenter;
-	entity.m_min.x = entity.m_centre.x - entity.m_width / 2.0f;
-	entity.m_min.y = entity.m_centre.y - entity.m_height / 2.0f;
-	entity.m_max.x = entity.m_centre.x + entity.m_width / 2.0f;
-	entity.m_max.y = entity.m_centre.y + entity.m_height / 2.0f;
+	entity.m_min.x = entity.m_center.x - entity.m_width / 2.0f;
+	entity.m_min.y = entity.m_center.y - entity.m_height / 2.0f;
+	entity.m_max.x = entity.m_center.x + entity.m_width / 2.0f;
+	entity.m_max.y = entity.m_center.y + entity.m_height / 2.0f;
 }

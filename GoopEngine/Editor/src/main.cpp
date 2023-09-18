@@ -1,6 +1,6 @@
 #include <pch.h>
 
-#define EXCEPTION_TEST
+//#define EXCEPTION_TEST
 #define ECS_TEST
 #ifdef ECS_TEST
 #include "../ECS/ECS Example/Scene.h"
@@ -11,6 +11,8 @@
 #include <GLApp/Window/Window.h>
 #include <GLApp/Graphics/GraphicsEngine.h>
 #endif
+
+#include "../Physics/Physics.h"
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -42,6 +44,7 @@ int main(int /*argc*/, char* /*argv*/[])
   }
 #endif
 #ifdef ECS_TEST
+
   try
   {
     Scene scn;
