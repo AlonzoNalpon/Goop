@@ -3,7 +3,6 @@
 #include <iostream>
 #include <Window/Window.h>
 
-
 //#define EXCEPTION_TEST
 #define ECS_TEST
 #ifdef ECS_TEST
@@ -40,9 +39,25 @@ int main(int /*argc*/, char* /*argv*/[])
 
   gEngine.Init(Graphics::Colorf{ .4f }); // Initialize the engine with this clear color
 
+  GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
+  im->InitInputManager(window.GetWindow());
+
+  GE::FPS::FrameRateController* fps_control = &(GE::FPS::FrameRateController::GetInstance());
+  fps_control->InitFrameRateController(60, 1);
+
+
+ 
+
+
+
   while (!window.GetWindowShouldClose()) {
+    GE::FPS::FrameRateController::GetInstance().StartFrame();
+    GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
+    im->UpdateInput();
+
     gEngine.Draw();
     window.SwapBuffers();
+    GE::FPS::FrameRateController::GetInstance().EndFrame();
   }
 
   am->FreeImages(); // cleanup the images

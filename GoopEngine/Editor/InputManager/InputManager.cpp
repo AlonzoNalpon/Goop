@@ -5,19 +5,19 @@
 
 using namespace GE::Input;
 
-int InputManager::m_width, InputManager::m_height;
+//Wint InputManager::m_width, InputManager::m_height;
 double InputManager::m_keyHeldTime;
-GE::Math::dVec2 InputManager::m_mousePos;
+MOUSE_POS InputManager::m_mousePos;
 KEY_MAP InputManager::m_keyReleased;
 KEY_MAP InputManager::m_keyHeld;
 KEY_MAP InputManager::m_keysTriggered;
 KEY_PRESS_ARRAY InputManager::m_keyFramesHeld;
 
 
-void InputManager::InitInputManager(GLFWwindow* window, int width, int height, double holdTime)
+void InputManager::InitInputManager(GLFWwindow* window, double holdTime)
 {
-	m_height = height;
-	m_width = width;
+	//m_height = height;
+	//m_width = width;
 	m_keyHeld.reset();
 	m_keysTriggered.reset();
 	m_keyFramesHeld.fill(0);
@@ -63,7 +63,7 @@ bool InputManager::IsKeyReleased(KEY_CODE key)
 	return (m_keyReleased[static_cast<int>(key)]);
 }
 
-GE::Math::dVec2  InputManager::GetMousePos()
+MOUSE_POS  InputManager::GetMousePos()
 {
 	return m_mousePos;
 }
@@ -83,8 +83,8 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scanCode, int ac
 // Mouse callback function
 void InputManager::MousePosCallback(GLFWwindow* window, double xpos, double ypos)
 {
-	m_mousePos.x = xpos;
-	m_mousePos.y = ypos;
+	m_mousePos.first = xpos;
+	m_mousePos.second = ypos;
 
 }
 

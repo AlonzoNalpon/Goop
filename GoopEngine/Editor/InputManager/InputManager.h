@@ -33,22 +33,23 @@
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
-#include <pch.h>
 
-#include <GL/glew.h> // for access to OpenGL API declarations 
+//#include "../Math/GEM.h"
+#include <GL/glew.h> // for access to OpenGL API declarations
 #include <GLFW/glfw3.h>
 
 //#include <glm/gtc/type_ptr.hpp> // for glm::value_ptr
 //#define _USE_MATH_DEFINES
-//#include <bitset>
-//#include <KeyCode.hpp>
-//#include <FrameRateController.h>
-//#include <array>
-//#include <map>
-//#include <vector>
-//#include <Singleton.h>
-//#include <string>
-//#include <iostream>
+
+#include <bitset>
+#include "KeyCode.h"
+#include "../FrameRateController/FrameRateController.h"
+#include "../Singleton/Singleton.h"
+#include <array>
+#include <map>
+#include <vector>
+#include <string>
+#include <iostream>
 
 
 namespace GE
@@ -57,14 +58,15 @@ namespace GE
 	{
 		using KEY_MAP = std::bitset<static_cast<size_t>(GPK_KEY_COUNT)>;
 		using KEY_PRESS_ARRAY = std::array<double, static_cast<size_t>(GPK_KEY_COUNT)>;
+		using MOUSE_POS = std::pair<double, double>;
 
 		class InputManager : public Singleton<InputManager>
 		{
 
 		private:
-			static int m_width, m_height;
+			//static int m_width, m_height;
 			static double m_keyHeldTime;
-			static GE::Math::dVec2 m_mousePos;
+			static MOUSE_POS m_mousePos;
 			static KEY_MAP m_keyReleased;
 			static KEY_MAP m_keyHeld;
 			static KEY_MAP m_keysTriggered;
@@ -132,7 +134,7 @@ namespace GE
 				double holdTime
 				duration a key needs to be pressed to be recognized as a held
 			************************************************************************/
-			void InitInputManager(GLFWwindow* window, int width, int height, double holdTime = 0.5);
+			void InitInputManager(GLFWwindow* window, double holdTime = 0.5);
 
 			/*!*********************************************************************
 			\brief
@@ -148,7 +150,7 @@ namespace GE
 			\return
 				returns the mouse's pos as dvec2
 			************************************************************************/
-			GE::Math::dVec2 GetMousePos();
+			std::pair<double, double> GetMousePos();
 
 
 

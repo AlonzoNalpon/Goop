@@ -11,10 +11,13 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 //#include <pch.h>
+#include <GL/glew.h> // for access to OpenGL API declarations 
+#include <GLFW/glfw3.h>
 
 /*!******************************************************************
 Define/Enums for Mouse Input
 ********************************************************************/
+
 #define GPK_MOUSE1												KEY_CODE::MOUSE_BUTTON_1
 #define GPK_MOUSE2												KEY_CODE::MOUSE_BUTTON_2
 #define GPK_MOUSE3												KEY_CODE::MOUSE_BUTTON_3

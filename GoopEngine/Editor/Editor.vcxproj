@@ -225,6 +225,7 @@
     <ClCompile Include="FrameRateController\FrameRateController.cpp" />
     <ClCompile Include="Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="Graphics\ShaderProgram.cpp" />
+    <ClCompile Include="InputManager\InputManager.cpp" />
     <ClCompile Include="Window\Window.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimationManager.cpp" />
     <ClCompile Include="src\Def.cpp" />
@@ -248,6 +249,8 @@
     <ClInclude Include="ECS\Entity\EntityManager.h" />
     <ClInclude Include="ECS\System\System.h" />
     <ClInclude Include="ECS\System\SystemManager.h" />
+    <ClInclude Include="InputManager\InputManager.h" />
+    <ClInclude Include="InputManager\KeyCode.h" />
     <ClInclude Include="SpriteAnimation\Def\SpriteAnimationFlags.h" />
     <ClInclude Include="FrameRateController\FrameRateController.h" />
     <ClInclude Include="Graphics\Def\GraphicsTypes.h" />
