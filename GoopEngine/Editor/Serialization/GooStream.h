@@ -8,7 +8,9 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include "rapidjson/document.h"
+#include <rapidjson/document.h>
+#include <rapidjson/prettywriter.h>
+#include <rapidjson/ostreamwrapper.h>
 #include <string>
 
 namespace GE
@@ -41,10 +43,10 @@ namespace GE
       inline bool Success() const noexcept { return m_status; }
 
       // Returns the number of elements currently in the stream
-      inline size_type GetCount() const noexcept { return m_elementCount; }
+      inline size_type GetCount() const noexcept { return m_data.MemberCount(); }
 
       // Returns true if stream is empty
-      inline bool IsEmpty() const noexcept { return m_elementCount == 0; }
+      inline bool IsEmpty() const noexcept { return m_data.Empty(); }
 
       // Sets the status flag of the stream back to its default value
       inline void Clear() noexcept { m_status = true; }
@@ -52,14 +54,17 @@ namespace GE
       // Empties the stream of its contents and resets all values
       void Reset() noexcept;
 
+      // Prints
+      //virtual std::string ToString() const;
+
     protected:
-      GooStream() : m_data{}, m_elementCount{} {}
+      using writer_type = rapidjson::PrettyWriter<rapidjson::OStreamWrapper>;
+
+      GooStream() : m_data{} {}
 
       rapidjson::Document m_data;
-      size_type m_elementCount;
       bool m_status = true;
     };
-    #include "GooStream.tpp"
     
     template <typename Type>
     class InGooStream : virtual public GooStream<Type>
@@ -75,10 +80,12 @@ namespace GE
     class OutGooStream : virtual public GooStream<Type>
     {
     public:
-      virtual bool Read(std::string const& json) = 0;
-      virtual bool Unload(Type& container) = 0;
+      virtual bool Read(Type const& container) = 0;
+      virtual bool Unload(std::string const& json, bool overwrite = true) = 0;
 
     protected:
     };
+
+    #include "GooStream.tpp"
   }
 }

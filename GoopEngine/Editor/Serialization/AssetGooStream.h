@@ -17,20 +17,25 @@ namespace GE
   {
 
     // GooStream for Assets
-    class AssetGooStream : public InGooStream<std::map<std::string, std::string>>
+    class AssetGooStream : public InGooStream<std::map<std::string,std::string>>,
+                                  OutGooStream<std::map<std::string,std::string>>
     {
     public:
       // Ctor reading json file into stream
       AssetGooStream(std::string const& json);
 
-      // Read from a json file. Contents of file are appended into GooStream.
+      // Read from a json file. Contents read are appended into GooStream.
       bool Read(std::string const& json) override;
+      // Read from a constructor. Contents read are appended into GooStream.
+      bool Read(container_type const& container) override;
 
-      // Unloads contents into a AssetGooStream::container_type object
+      // Unloads contents into a container
       bool Unload(container_type& container) override;
+      // Unloads contents into a file
+      bool Unload(std::string const& json, bool overwrite = true) override;
 
     private:
-      static std::string const ASSETS_DIR;
+      
     };
 
   }

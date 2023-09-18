@@ -1,5 +1,5 @@
 /*!*********************************************************************
-\file   AssetGooStream.cpp
+\file   SpriteGooStream.cpp
 \author chengen.lau\@digipen.edu
 \date   18-September-2023
 \brief  
@@ -7,7 +7,7 @@
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
-#include "AssetGooStream.h"
+#include "SpriteGooStream.h"
 #include <fstream>
 #include <rapidjson/istreamwrapper.h>
 #ifdef _DEBUG
@@ -16,19 +16,19 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 using namespace GE::Serialization;
 
-AssetGooStream::AssetGooStream(std::string const& json) : GooStream()
+SpriteGooStream::SpriteGooStream(std::string const& json) : GooStream()
 {
   Read(json);
 }
 
-bool AssetGooStream::Read(std::string const& json)
+bool SpriteGooStream::Read(std::string const& json)
 {
   std::ifstream ifs{ json };
   if (!ifs)
   {
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cout << "Error: Unable to load " << json << "\n";
-    #endif
+#endif
     return m_status = false;
   }
 
@@ -38,9 +38,9 @@ bool AssetGooStream::Read(std::string const& json)
   {
     ifs.close();
 
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cout << "JSON parse error: " << rapidjson::GetParseErrorFunc(m_data.GetParseError()) << "\n";
-    #endif
+#endif
     return m_status = false;
   }
 
@@ -50,26 +50,26 @@ bool AssetGooStream::Read(std::string const& json)
   {
     ifs.close();
 
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cerr << "JSON parse error: " << json << " is not in the right format " << "\n";
-    #endif
+#endif
     return m_status = false;
   }
 
-  #ifdef SERIALIZE_TEST
+#ifdef SERIALIZE_TEST
   std::cout << ASSETS_DIR + json << " successfully read" << "\n";
-  #endif
+#endif
 
   ifs.close();
   return m_status = true;
 }
 
-bool AssetGooStream::Read(container_type const& container)
+bool SpriteGooStream::Read(container_type const& container)
 {
   if (!m_status) {
-    #ifdef _DEBUG
-    std::cout << "AssetGooStream corrupted before unload\n";
-    #endif
+#ifdef _DEBUG
+    std::cout << "SpriteGooStream corrupted before unload\n";
+#endif
     return false;
   }
 
@@ -93,12 +93,12 @@ bool AssetGooStream::Read(container_type const& container)
   return m_status = true;
 }
 
-bool AssetGooStream::Unload(container_type& container)
+bool SpriteGooStream::Unload(container_type& container)
 {
   if (!m_status) {
-    #ifdef _DEBUG
-    std::cout << "AssetGooStream corrupted before unload\n";
-    #endif
+#ifdef _DEBUG
+    std::cout << "SpriteGooStream corrupted before unload\n";
+#endif
     return false;
   }
 
@@ -111,21 +111,21 @@ bool AssetGooStream::Unload(container_type& container)
   return m_status = true;
 }
 
-bool AssetGooStream::Unload(std::string const& json, bool overwrite)
+bool SpriteGooStream::Unload(std::string const& json, bool overwrite)
 {
   if (!m_status) {
-    #ifdef _DEBUG
-    std::cout << "AssetGooStream corrupted before unload\n";
-    #endif
+#ifdef _DEBUG
+    std::cout << "SpriteGooStream corrupted before unload\n";
+#endif
     return false;
   }
 
   std::ofstream ofs{ json, ((overwrite) ? std::ios::out : std::ios::app) };
   if (!ofs)
   {
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cout << "Unable to create output file " << json << "\n";
-    #endif
+#endif
     return m_status = false;
   }
 

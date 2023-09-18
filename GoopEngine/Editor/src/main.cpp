@@ -48,7 +48,7 @@ int main(int /*argc*/, char* /*argv*/[])
  
 #ifdef SERIALIZE_TEST
   std::map<std::string, std::string> assets;
-  std::string const fileName{ "bat_file_output.json" };
+  std::string const fileName{ "../Assets/AssetsToLoadTest/bat_file_output.json" };
   GE::Serialization::AssetGooStream ags{ fileName };
   if (!ags)
   {
