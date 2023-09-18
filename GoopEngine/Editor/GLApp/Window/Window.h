@@ -1,13 +1,14 @@
 #ifndef WINDOW_H
 #define WINDOW_H
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-namespace windowSystem {
+namespace WindowSystem {
   class Window {
   public:
     Window(int width, int height, char const*);
     ~Window();
-    bool CreateWindow();
+    bool CreateAppWindow();
     void MakeCurrent();
     GLFWwindow* GetWindow();
     int GetWindowShouldClose();

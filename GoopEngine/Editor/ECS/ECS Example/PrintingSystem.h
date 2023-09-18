@@ -20,42 +20,32 @@ public:
 		std::cout << "Printing system started\n";
 	}
 
-	void Update()
+	void Update(GE::ECS::Entity& entt)
 	{
-		if (m_entities.size() > 0)
+		GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+
+		Text* txt = ecs.GetComponent<Text>(entt);
+		if (txt == nullptr)
 		{
-			std::cout << "I have entities with numbers of:\n";
+			return;
+		}
+		Number* num = ecs.GetComponent<Number>(entt);
+		if (num == nullptr)
+		{
+			return;
 		}
 
-		int i{};
-		for (auto& entt : m_entities)
-		{
-			GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+		// Components can be individually toggled
+		//if (txt->GetActive())
+		//{
+		//	txt->SetActive(false);
+		//}
 
-			Text* txt = ecs.GetComponent<Text>(entt);
-			if (txt == nullptr)
-			{
-				continue;
-			}
-			Number* num = ecs.GetComponent<Number>(entt);
-			if (num == nullptr)
-			{
-				continue;
-			}
+		std::stringstream ss;
+		ss << txt->text << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
+		txt->text = ss.str();
 
-			// Components can be individually toggled
-			//if (txt->GetActive())
-			//{
-			//	txt->SetActive(false);
-			//}
-
-			std::stringstream ss;
-			ss << txt->text << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
-			txt->text = ss.str();
-
-			std::cout << txt->text;
-			++i;
-		}
+		std::cout << txt->text;
 		std::cout << "Printing system updated\n";
 	}
 
