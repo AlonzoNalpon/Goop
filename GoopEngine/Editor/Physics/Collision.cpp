@@ -19,7 +19,13 @@ bool Collision::CollSys::Collide(AABB& box, vec2& input)
 //AABB & AABB
 bool Collision::CollSys::Collide(AABB& box1, AABB& box2)
 {
-	
+	if (box1.m_botRight.x >= box2.m_botLeft.x && box1.m_botLeft.x <= box2.m_botRight.x)
+	{
+		if (box1.m_topRight.y >= box2.m_botLeft.y && box1.m_botRight.y <= box2.m_topLeft.y)
+		{
+			return true;
+		}
+	}
 	return false;
 }
 

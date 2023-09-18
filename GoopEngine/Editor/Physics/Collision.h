@@ -27,20 +27,12 @@ namespace GE
 		public:
 			//collision checks:
 			//AABB & mouse input
-			bool Collide(AABB& box, mouse& input);
+			bool Collide(AABB& box, vec2& input);
 
 			//AABB & AABB
 			bool Collide(AABB& box1, AABB& box2);
 
 		private:
-			vec2 m_leftBox1;
-			vec2 m_rightBox1;
-			vec2 m_topBox1;
-			vec2 m_botBox1;
-			vec2 m_leftBox2;
-			vec2 m_rightBox2;
-			vec2 m_topBox2;
-			vec2 m_botBox2;
 		};
 	}
 }
