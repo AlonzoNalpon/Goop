@@ -7,8 +7,9 @@ namespace
 {
 	Position movement(double acceleration, Position currPos) //calculating new pos within 1 frame i.e. dt
 	{
-		
+		//to test -> just print out position
 	}
+}
 
 using namespace GE::Physics;
 using namespace GE::Math;
@@ -21,6 +22,7 @@ virtual void PhysSys::Awake()
 
 virtual void PhysSys::Update()
 {
+	//update func passes curr entity
 	double dt = GetDeltaTime();
 	m_vel += dt * m_acc;
 }
