@@ -162,7 +162,7 @@ void SystemManager::UpdateSystems()
 	for (auto system : m_indexToSystem)
 	{
 		auto& systemName{ system.second };
-		m_systems[systemName]->UpdateEntities();
+		m_systems[systemName]->Update();
 		m_systems[systemName]->LateUpdate();
 	}
 }

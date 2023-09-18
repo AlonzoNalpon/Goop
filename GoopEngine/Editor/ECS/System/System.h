@@ -44,18 +44,11 @@ namespace GE
 			************************************************************************/
 			virtual void Start();
 
-			/*!******************************************************************
-			\brief 
-			    Only System manager should call this function. It interates all
-					m_entities and passes them individually into Update()
-			********************************************************************/
-			virtual void UpdateEntities() final;
-
 			/*!*********************************************************************
 			\brief
 			  Update function is called by the ECS and should process all entities.
 			************************************************************************/
-			virtual void Update(Entity& entity);
+			virtual void Update();
 
 			/*!*********************************************************************
 			\brief

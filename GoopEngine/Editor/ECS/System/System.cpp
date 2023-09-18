@@ -20,15 +20,7 @@ void System::Start()
 #endif
 }
 
-void GE::ECS::System::UpdateEntities()
-{
-	for (auto& entt : m_entities)
-	{
-		Update(const_cast<Entity&>(entt));
-	}
-}
-
-void System::Update(Entity& /*entity*/)
+void System::Update()
 {
 #ifdef _DEBUG
 	std::cout << __FUNCSIG__ << " Called\n";
