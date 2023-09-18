@@ -22,9 +22,9 @@
 
 // Engine
 #include "Math/GEM.h"
+#include "ECS/EntityComponentSystem.h"
 #include "ECS/Component/Component.h"
 #include "ECS/System/System.h"
-#include "FrameRateController/FrameRateController.h"
-#include "ECS/EntityComponentSystem.h"
 #include "Debugger/Exception/Exception.h"
 #include "Debugger/ErrorLogger/ErrorLogger.h"
+#include "FrameRateController/FrameRateController.h"

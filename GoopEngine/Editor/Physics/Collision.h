@@ -1,5 +1,8 @@
+#pragma once
 #include <pch.h>
 #include "BoxCollider.h"
+
+using namespace GE::Math;
 
 namespace GE
 {
@@ -10,7 +13,7 @@ namespace GE
 		public:
 			//collision checks:
 			//AABB & mouse input
-			bool Collide(AABB& box, vec2& input);
+			bool Collide(AABB& box, dVec2& input);
 
 			//AABB & AABB
 			bool Collide(AABB& box1, AABB& box2);
@@ -20,8 +23,8 @@ namespace GE
 			void Update();
 
 		private:
-			EntityComponentSystem* m_ecs;
-			void UpdateAABB(AABB& entity, const vec2& newCenter);
+			GE::ECS::EntityComponentSystem* m_ecs;
+			void UpdateAABB(AABB& entity, const dVec2& newCenter);
 		};
 	}
 }
