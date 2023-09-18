@@ -19,6 +19,12 @@
 #include "../AssetManager/AssetManager.h"
 #include <Window/Window.h>
 #include <Graphics/GraphicsEngine.h>
+
+#endif
+
+#define MEMORY_TEST
+#ifdef  MEMORY_TEST
+#include "../MemoryManager/MemoryManager.h"
 #endif
 
 int main(int /*argc*/, char* /*argv*/[])
@@ -46,8 +52,14 @@ int main(int /*argc*/, char* /*argv*/[])
   fps_control->InitFrameRateController(60, 1);
 
 
- 
+#ifdef  MEMORY_TEST
+  GE::Memory::MemoryManager* mm = &(GE::Memory::MemoryManager::GetInstance());
+  mm->InitializeAllAlocators(100000);
+  mm->TestAllAllocators();
+  
+#endif
 
+ 
 
 
   while (!window.GetWindowShouldClose()) {
