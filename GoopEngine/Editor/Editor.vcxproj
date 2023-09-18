@@ -221,7 +221,6 @@
     <ClCompile Include="AssetManager\AssetManager.cpp" />
     <ClCompile Include="Debugger\ErrorLogger\ErrorLogger.cpp" />
     <ClCompile Include="ECS\Component\ComponentManager.cpp" />
-    <ClCompile Include="ECS\ECS Example\PrintingSystem.cpp" />
     <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
