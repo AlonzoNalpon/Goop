@@ -1,9 +1,7 @@
 #pragma once
-//#include <pch.h>
-//#include "../ECS/Component/Component.h"
-#include "../Math/GEM.h"
+#include <pch.h>
 
-struct Transform //: public GE::ECS::Component
+struct Transform : public GE::ECS::Component
 {
 	using vec2 = GE::Math::dVec2;
 

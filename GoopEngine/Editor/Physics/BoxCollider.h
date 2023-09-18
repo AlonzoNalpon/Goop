@@ -1,12 +1,9 @@
 #pragma once
 #include <pch.h>
-//#include "../Math/GEM.h"
-//#include "../ECS/Component/Component.h"
-//#include "../ECS/EntityComponentSystem.h"
 
 using namespace GE::Math;
 
-struct AABB //: public GE::ECS::Component
+struct AABB : public GE::ECS::Component
 {
 	AABB(dVec2 center, double width, double height)
 	{
