@@ -11,7 +11,7 @@ namespace GE
 			void Update();
 
 		private:
-			
+			EntityComponentSystem* m_ecs;
 		};
 	}
 }

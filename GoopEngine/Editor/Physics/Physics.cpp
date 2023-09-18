@@ -14,8 +14,10 @@ void PhysSys::Awake()
 
 void PhysSys::Update()
 {
+	Mat3 test;
+	MtxIdentity(test);
 	//update func passes curr entity
-	double dt = GE::FPS::FrameRateController::GetDeltaTime();
+	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 	for (Entity entity : m_entities) {
 		Velocity& updateVel = m_ecs->GetComponent<Velocity>(entity);
 		Gravity& getGravity = m_ecs->GetComponent<Gravity>(entity);

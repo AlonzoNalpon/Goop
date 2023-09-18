@@ -211,6 +211,8 @@
     <ClCompile Include="GLApp\Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="GLApp\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="GLApp\Window\Window.cpp" />
+    <ClCompile Include="Physics\Collision.cpp" />
+    <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="src\Def.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
@@ -249,6 +251,12 @@
     <ClInclude Include="Math\Vec4.h" />
     <ClInclude Include="Math\VecUtils.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Physics\BoxCollider.h" />
+    <ClInclude Include="Physics\Collision.h" />
+    <ClInclude Include="Physics\Gravity.h" />
+    <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Physics\Transform.h" />
+    <ClInclude Include="Physics\Velocity.h" />
     <ClInclude Include="Singleton\Singleton.h" />
   </ItemGroup>
   <ItemGroup>
