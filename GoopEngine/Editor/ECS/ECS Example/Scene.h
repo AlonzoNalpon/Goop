@@ -1,11 +1,10 @@
 #pragma once
+#include <pch.h>
 
-#include "../EntityComponentSystem.h"
 #include "AdditionSystem.h"
 #include "PrintingSystem.h"
 #include "TextComponent.h"
 #include "NumberComponent.h"
-#include <vector>
 
 using namespace GE::ECS;
 
@@ -15,6 +14,10 @@ struct Scene
 
 	void Start()
 	{
+#ifdef EXCEPTION_TEST
+		throw GE::Debug::Exception<Scene>(GE::Debug::LEVEL_ERROR, "test", ERRLG_FUNC, ERRLG_LINE);
+#endif // EXCEPTION_TEST
+
 		ecs = &EntityComponentSystem::GetInstance();
 
 		////////////////////////////////////////////////

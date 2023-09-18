@@ -22,12 +22,6 @@ public:
 
 	void Update()
 	{
-		if (m_entities.size() > 0)
-		{
-			std::cout << "I have entities with numbers of:\n";
-		}
-
-		int i{};
 		for (auto& entt : m_entities)
 		{
 			GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
@@ -35,12 +29,12 @@ public:
 			Text* txt = ecs.GetComponent<Text>(entt);
 			if (txt == nullptr)
 			{
-				continue;
+				return;
 			}
 			Number* num = ecs.GetComponent<Number>(entt);
 			if (num == nullptr)
 			{
-				continue;
+				return;
 			}
 
 			// Components can be individually toggled
@@ -54,9 +48,8 @@ public:
 			txt->text = ss.str();
 
 			std::cout << txt->text;
-			++i;
+			std::cout << "Printing system updated\n";
 		}
-		std::cout << "Printing system updated\n";
 	}
 
 	void OnDestroyed()

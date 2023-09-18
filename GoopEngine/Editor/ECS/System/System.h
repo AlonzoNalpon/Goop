@@ -36,6 +36,7 @@ namespace GE
 				of the system
 			************************************************************************/
 			virtual void Awake();
+
 			/*!*********************************************************************
 			\brief
 			  This is the initialize function of the system and is called before the
@@ -48,12 +49,14 @@ namespace GE
 			  Update function is called by the ECS and should process all entities.
 			************************************************************************/
 			virtual void Update();
+
 			/*!*********************************************************************
 			\brief
 			  Late update function is called by the ECS after update. This function
 				is to allow for delayed processing where required.
 			************************************************************************/
 			virtual void LateUpdate();
+
 			/*!*********************************************************************
 			\brief
 			  This update should be called by the main game loop at fixed time

@@ -58,8 +58,9 @@ namespace GE
     bool operator==(Vec<2, T> const& lhs, Vec<2, T> const& rhs);
     template <typename T>
     bool operator!=(Vec<2, T> const& lhs, Vec<2, T> const& rhs);
+
+#include "Vec2.tpp"
   }
-  #include "Vec2.tpp"
 } // namespace GE
 
 #endif

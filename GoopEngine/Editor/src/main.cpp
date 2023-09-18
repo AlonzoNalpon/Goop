@@ -1,20 +1,32 @@
 //#include <GLFW/glfw3.h>
+#include <pch.h>
 #include <iostream>
-#include <GLApp/Window/Window.h>
-//#define GRAPHICS_TEST
-#ifdef GRAPHICS_TEST
-#include <GLApp/Graphics/GraphicsEngine.h>
-#endif
-#define SERIALIZE_TEST
-//#define ECS_TEST
+#include <Window/Window.h>
+
+
+//#define EXCEPTION_TEST
+#define ECS_TEST
 #ifdef ECS_TEST
 #include "../ECS/ECS Example/Scene.h"
 #endif // ECS_TEST
 
+#ifdef ASSET_M_TEST
+#include "../AssetManager/AssetManager.h"
+#endif //ASSET_M_TEST
+
+#define GRAPHICS_TEST
+#ifdef GRAPHICS_TEST
+
+#include "../AssetManager/AssetManager.h"
+#include <Window/Window.h>
+#include <Graphics/GraphicsEngine.h>
+#endif
+
+#define SERIALIZE_TEST
 #ifdef SERIALIZE_TEST
 #include <iomanip>
 #include "../Serialization/AssetGooStream.h"
-#endif
+#endif // SERIALIZE_TEST
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -23,29 +35,39 @@ int main(int /*argc*/, char* /*argv*/[])
 #define _CRTDBG_MAP_ALLOC
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
-
-  //if (!glfwInit())
-  //{
-  //  // Initialization failed!
-  //  std::cout << "Failed to initialize GLFW! Exiting now..." << std::endl;
-  //  std::exit(EXIT_FAILURE);
-  //}
-
-  //Goop::Window window(100, 100, L"WHAT");
-  //window.CreateOGLWindow();
 #ifdef GRAPHICS_TEST
-  windowSystem::Window window{ 800, 800, "GOOP"};
-  window.CreateWindow();
-  Graphics::GraphicsEngine gEngine;
-  
-  gEngine.Init(Graphics::Colorf{});
+  WindowSystem::Window window{ 800, 800, "GOOP"};
+  window.CreateAppWindow();
+  Graphics::GraphicsEngine gEngine;     
+  window.SetWindowTitle("GOOP ENGINE"); // this is how you set window title
+  // Now we get the asset manager
+  GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
+  am->LoadDeserializedData(); // load the images we need
+
+  gEngine.Init(Graphics::Colorf{ .4f }); // Initialize the engine with this clear color
 
   while (!window.GetWindowShouldClose()) {
     gEngine.Draw();
     window.SwapBuffers();
   }
+
+  am->FreeImages(); // cleanup the images
 #endif
- 
+#ifdef ECS_TEST
+  try
+  {
+    Scene scn;
+    scn.Start();
+    scn.Update();
+    scn.Exit();
+  }
+  catch (GE::Debug::IExceptionBase& e)
+  {
+    e.LogSource();
+    e.Log();
+  }
+#endif // ECS_TEST
+
 #ifdef SERIALIZE_TEST
   std::map<std::string, std::string> assets;
   std::string const fileName{ "../Assets/AssetsToLoadTest/bat_file_output.json" };
@@ -57,7 +79,7 @@ int main(int /*argc*/, char* /*argv*/[])
   if (!ags.Unload(assets))
   {
     std::cout << "Error unloading assets into container" << "\n";
-  }
+}
 
   std::cout << "Deserialized " << fileName << ":\n";
   for (std::pair<std::string, std::string> const& entry : assets)
@@ -66,12 +88,19 @@ int main(int /*argc*/, char* /*argv*/[])
   }
 #endif
 
-#ifdef ECS_TEST
-  Scene scn;
-  scn.Start();
-  scn.Update();
-  scn.Exit();
-#endif // ECS_TEST
+#ifdef ASSET_M_TEST
+  //AssetManager::LoadImage();
+  GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
+  //am->LoadImage("Assets/VADIM.jpg");
+  //am->LoadDirectory("Assets/");
+  //am->GetName(3);
+  //am->GetID(am->GetName(3));
+  am->LoadDeserializedData();
+  am->FreeImage("Assets/Knight.png");
+  am->FreeImage("Assets/Green Girl.png");
+  am->FreeImages();
+#endif
 
-  return 1;
+  
+  return 0;
 }

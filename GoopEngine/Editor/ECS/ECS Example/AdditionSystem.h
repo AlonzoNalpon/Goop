@@ -25,11 +25,11 @@ public:
 			Number* num = GE::ECS::EntityComponentSystem::GetInstance().GetComponent<Number>(entt);
 			if (num == nullptr)
 			{
-				continue;
+				return;
 			}
 			num->total = num->a + num->b + num->c;
+			std::cout << "Addition system updated\n";
 		}
-		std::cout << "Addition system updated\n";
 	}
 
 	void OnDestroyed()
