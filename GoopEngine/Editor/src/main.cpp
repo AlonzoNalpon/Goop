@@ -1,5 +1,13 @@
 #include <pch.h>
 
+//#include <GLFW/glfw3.h>
+#include <iostream>
+#include <GLApp/Window/Window.h>
+//#define GRAPHICS_TEST
+#ifdef GRAPHICS_TEST
+#include <GLApp/Graphics/GraphicsEngine.h>
+#endif
+#define SERIALIZE_TEST
 //#define ECS_TEST
 #ifdef ECS_TEST
 #include "../ECS/ECS Example/Scene.h"
@@ -16,6 +24,11 @@
 #include <GLApp/Graphics/GraphicsEngine.h>
 #endif
 
+
+#ifdef SERIALIZE_TEST
+#include <iomanip>
+#include "../Serialization/AssetGooStream.h"
+#endif
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -46,6 +59,27 @@ int main(int /*argc*/, char* /*argv*/[])
     window.SwapBuffers();
   }
 #endif
+ 
+#ifdef SERIALIZE_TEST
+  std::map<std::string, std::string> assets;
+  std::string const fileName{ "bat_file_output.json" };
+  GE::Serialization::AssetGooStream ags{ fileName };
+  if (!ags)
+  {
+    std::cout << "Error deserializing " << fileName << "\n";
+  }
+  if (!ags.Unload(assets))
+  {
+    std::cout << "Error unloading assets into container" << "\n";
+  }
+
+  std::cout << "Deserialized " << fileName << ":\n";
+  for (std::pair<std::string, std::string> const& entry : assets)
+  {
+    std::cout << "Key: " << std::left << std::setw(10) << entry.first << " | Value: " << entry.second << "\n";
+  }
+#endif
+
 #ifdef ECS_TEST
   Scene scn;
   scn.Start();
