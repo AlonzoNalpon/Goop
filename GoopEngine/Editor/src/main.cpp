@@ -12,8 +12,8 @@
 #endif // ECS_TEST
 
 #ifdef SERIALIZE_TEST
-#include "../Serialization/Serializer.h"
 #include <iomanip>
+#include "../Serialization/AssetGooStream.h"
 #endif
 
 int main(int /*argc*/, char* /*argv*/[])
@@ -47,12 +47,16 @@ int main(int /*argc*/, char* /*argv*/[])
 #endif
  
 #ifdef SERIALIZE_TEST
-  GE::Serialization::Serializer& serializer{ GE::Serialization::Serializer::GetInstance() };
   std::map<std::string, std::string> assets;
   std::string const fileName{ "bat_file_output.json" };
-  if (!serializer.Deserialize(fileName, assets))
+  GE::Serialization::AssetGooStream ags{ fileName };
+  if (!ags)
   {
     std::cout << "Error deserializing " << fileName << "\n";
+  }
+  if (!ags.Unload(assets))
+  {
+    std::cout << "Error unloading assets into container" << "\n";
   }
 
   std::cout << "Deserialized " << fileName << ":\n";

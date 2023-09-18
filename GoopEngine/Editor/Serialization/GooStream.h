@@ -1,26 +1,38 @@
+/*!*********************************************************************
+\file   GooStream.h
+\author chengen.lau\@digipen.edu
+\date   18-September-2023
+\brief  
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include "rapidjson/document.h"
 #include <string>
-#include <map>
 
 namespace GE
 {
   namespace Serialization
   {
     // Type of data to be serialized
-    /*enum class Stream_Type
+    /*enum class STREAM_MODE : uint8_t
     {
-      ASSET,
-      OBJECT,
-      CONFIG
+      IN,
+      OUT
     };*/
 
     // Encapsulates raw data used for
     // serialization and deserialization
+    template <typename Type>
     class GooStream
     {
     public:
       using size_type = size_t;
+      using container_type = Type;
+
+      GooStream(GooStream const&) = delete;
+      virtual ~GooStream() {}
 
       // Implicit conversion to indicate status
       inline operator bool() const noexcept { return m_status; }
@@ -47,26 +59,26 @@ namespace GE
       size_type m_elementCount;
       bool m_status = true;
     };
-
-    // GooStream for Assets
-    class AssetGooStream : public GooStream
+    #include "GooStream.tpp"
+    
+    template <typename Type>
+    class InGooStream : virtual public GooStream<Type>
     {
     public:
-      using size_type = size_t;
-      using container_type = std::map<std::string, std::string>;
+      virtual bool Read(std::string const& json) = 0;
+      virtual bool Unload(Type& container) = 0;
 
-      AssetGooStream() : GooStream() {}
-      // Reads json file into GooStream object
-      AssetGooStream(std::string const& json);
+    protected:
+    };
 
-      // Read from a json file. Stream is overwritten by new file
-      bool Read(std::string const& json);
+    template <typename Type>
+    class OutGooStream : virtual public GooStream<Type>
+    {
+    public:
+      virtual bool Read(std::string const& json) = 0;
+      virtual bool Unload(Type& container) = 0;
 
-      // Unloads contents into a AssetGooStream::container_type object
-      bool Unload(container_type& container);
-
-    private:
-      static std::string const ASSETS_DIR;
+    protected:
     };
   }
 }

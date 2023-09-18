@@ -209,8 +209,7 @@
     <ClCompile Include="GLApp\Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="GLApp\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="GLApp\Window\Window.cpp" />
-    <ClCompile Include="Serialization\GooStream.cpp" />
-    <ClCompile Include="Serialization\Serializer.cpp" />
+    <ClCompile Include="Serialization\AssetGooStream.cpp" />
     <ClCompile Include="src\Def.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
@@ -244,8 +243,8 @@
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />
     <ClInclude Include="Math\VecUtils.h" />
+    <ClInclude Include="Serialization\AssetGooStream.h" />
     <ClInclude Include="Serialization\GooStream.h" />
-    <ClInclude Include="Serialization\Serializer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\Mat2.tpp" />
