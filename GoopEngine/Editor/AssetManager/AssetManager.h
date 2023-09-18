@@ -92,7 +92,7 @@ namespace GE
       \return
         ID of the loaded image.
       ************************************************************************/
-      int LoadImage(const std::string& path);
+      int LoadImageW(const std::string& path);
 
       /*!*********************************************************************
       \brief

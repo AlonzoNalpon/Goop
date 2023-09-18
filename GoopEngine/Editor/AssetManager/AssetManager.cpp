@@ -117,11 +117,11 @@ namespace GE
 		{
 			for (const auto& entry : std::filesystem::directory_iterator(path))
 			{
-				LoadImage(entry.path().string());
+				LoadImageW(entry.path().string());
 			}
 		}
 
-		int AssetManager::LoadImage(const std::string& path)
+		int AssetManager::LoadImageW(const std::string& path)
 		{
 			int width, height, channels;
 			int id = m_generator.GenerateID();
@@ -174,7 +174,7 @@ namespace GE
 			
 			for (const std::pair<const std::string, std::string>& value : deserialized_data) {
 				std::string mapValue = value.second;
-				LoadImage(mapValue);
+				LoadImageW(mapValue);
 			}
 		}
 

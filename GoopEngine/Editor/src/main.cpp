@@ -37,6 +37,7 @@ int main(int /*argc*/, char* /*argv*/[])
   // Now we get the asset manager
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
   am->LoadDeserializedData(); // load the images we need
+  am->LoadImageW(ASSETS_PATH + "MineWorm.png");
 
   gEngine.Init(Graphics::Colorf{ .4f }); // Initialize the engine with this clear color
 
