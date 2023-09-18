@@ -1,25 +1,8 @@
-#include "../ECS/System/System.h"
-#include "../Math/GEM.h"
-
-using vec2 = GE::Math::dVec2;
+#include <pch.h>
+#include "BoxCollider.h"
 
 namespace GE
 {
-	//collision box -> AABB
-	struct AABB
-	{
-		vec2 m_topLeft;
-		vec2 m_topRight;
-		vec2 m_botRight;
-		vec2 m_botLeft;
-		double m_width;
-		double m_height;
-		vec2 m_min;
-		vec2 m_max;
-		vec2 m_center;
-		//can use AABB & position(center)
-	};
-
 	namespace Collision
 	{
 		class CollSys : public GE::ECS::System
@@ -32,7 +15,13 @@ namespace GE
 			//AABB & AABB
 			bool Collide(AABB& box1, AABB& box2);
 
+			void Awake();
+
+			void Update();
+
 		private:
+			EntityComponentSystem* m_ecs;
+			void UpdateAABB(AABB& entity, const vec2& newCenter);
 		};
 	}
 }

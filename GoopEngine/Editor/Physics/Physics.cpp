@@ -1,28 +1,26 @@
 #include "Physics.h"
 #include "Gravity.h"
-#include "Position.h"
+#include "Transform.h"
 #include "Velocity.h"
-
-namespace
-{
-	Position movement(double acceleration, Position currPos) //calculating new pos within 1 frame i.e. dt
-	{
-		//to test -> just print out position
-	}
-}
 
 using namespace GE::Physics;
 using namespace GE::Math;
+using namespace GE::ECS;
 
-virtual void PhysSys::Awake()
+void PhysSys::Awake()
 {
-	double m_deltaTime = 0.016; //set deltatime as this first -> change to QD's dt after
-	PhysSys::setDeltaTime(m_deltaTime);
+	m_ecs = &EntityComponentSystem::GetInstance();
 }
 
-virtual void PhysSys::Update()
+void PhysSys::Update()
 {
 	//update func passes curr entity
-	double dt = GetDeltaTime();
-	m_vel += dt * m_acc;
+	double dt = GE::FPS::FrameRateController::GetDeltaTime();
+	for (Entity entity : m_entities) {
+		Velocity& updateVel = m_ecs->GetComponent<Velocity>(entity);
+		Gravity& getGravity = m_ecs->GetComponent<Gravity>(entity);
+		updateVel.m_vel += dt * (updateVel.m_acc + getGravity.m_gravity);
+		Transform& updatePos = m_ecs->GetComponent<Transform>(entity);
+		updatePos.m_pos += dt * updateVel.m_vel;
+	}
 }

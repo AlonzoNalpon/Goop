@@ -1,14 +1,14 @@
 #include "Collision.h"
+#include "Transform.h"
 
 using namespace GE;
-using vec2 = GE::Math::dVec2;
-
+using namespace GE::ECS;
 //AABB & mouse input
 bool Collision::CollSys::Collide(AABB& box, vec2& input)
 {
-	if (input.x <= box.m_topRight.x && input.x >= box.m_topLeft.x)
+	if (input.x <= box.m_max.x && input.x >= box.m_min.x)
 	{
-		if (input.y <= box.m_topLeft.y && input.y >= box.m_botLeft.y)
+		if (input.y <= box.m_max.y && input.y >= box.m_min.y)
 		{
 			return true;
 		}
@@ -19,9 +19,9 @@ bool Collision::CollSys::Collide(AABB& box, vec2& input)
 //AABB & AABB
 bool Collision::CollSys::Collide(AABB& box1, AABB& box2)
 {
-	if (box1.m_botRight.x >= box2.m_botLeft.x && box1.m_botLeft.x <= box2.m_botRight.x)
+	if (box1.m_min.x <= box2.m_max.x && box1.m_max.x >= box2.m_min.x)
 	{
-		if (box1.m_topRight.y >= box2.m_botLeft.y && box1.m_botRight.y <= box2.m_topLeft.y)
+		if (box1.m_min.y <= box2.m_max.y && box1.m_max.y >= box2.m_min.y)
 		{
 			return true;
 		}
@@ -29,12 +29,40 @@ bool Collision::CollSys::Collide(AABB& box1, AABB& box2)
 	return false;
 }
 
-virtual void Collision::CollSys::Awake()
+void Collision::CollSys::Awake() 
 {
-
+	m_ecs = &EntityComponentSystem::GetInstance();
 }
 
-virtual void Collision::CollSys::Update()
+void Collision::CollSys::Update()
 {
+	for (Entity updateEntity : m_entities) {
+		AABB& updateEntity = m_ecs->GetComponent<AABB>(entity1);
+		Transform& newCenter = m_ecs->GetComponent<Transform>(entity1);
+		UpdateAABB(updateEntity, newCenter.m_pos);
+	}
+	//loop through every entity & check against every OTHER entity if they collide either true
+	for (Entity entity1 : m_entities)
+	{
+		AABB& entity1Col = m_ecs->GetComponent<AABB>(entity1);
+		entity1Col.m_mouseCollided = Collide(entity1Col, vec2{ 0, 0 });
 
+		for (Entity entity2 : m_entities) {
+			if (entity1 == entity2) {
+				continue;
+			}
+
+			AABB& entity2Col = m_ecs->GetComponent<AABB>(entity2);
+			entity1Col.m_collided = Collide(entity1Col, entity2Col) ? &entity2 : nullptr;
+		}
+	}
+}
+
+void Collision::CollSys::UpdateAABB(AABB& entity, const vec2& newCenter) 
+{
+	entity.m_center = newCenter;
+	entity.m_min.x = entity.m_centre.x - entity.m_width / 2.0f;
+	entity.m_min.y = entity.m_centre.y - entity.m_height / 2.0f;
+	entity.m_max.x = entity.m_centre.x + entity.m_width / 2.0f;
+	entity.m_max.y = entity.m_centre.y + entity.m_height / 2.0f;
 }
