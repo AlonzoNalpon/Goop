@@ -227,7 +227,6 @@
     <ClCompile Include="GLApp\Graphics\SpriteAnimationManager.cpp" />
     <ClCompile Include="src\Def.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="GLApp\Graphics\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetManager\AssetManager.h" />
