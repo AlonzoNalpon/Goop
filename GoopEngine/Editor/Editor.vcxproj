@@ -205,12 +205,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Debugger\ErrorLogger\ErrorLogger.cpp" />
+    <ClCompile Include="ECS\Component\ComponentManager.cpp" />
+    <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
+    <ClCompile Include="ECS\System\SystemManager.cpp" />
     <ClCompile Include="FrameRateController\FrameRateController.cpp" />
-    <ClCompile Include="GLApp\Graphics\GraphicsEngine.cpp" />
-    <ClCompile Include="GLApp\Graphics\ShaderProgram.cpp" />
-    <ClCompile Include="GLApp\Window\Window.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="src\Def.cpp" />
     <ClCompile Include="src\main.cpp" />
