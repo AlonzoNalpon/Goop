@@ -112,3 +112,21 @@ void InputManager::MouseScrollCallback(GLFWwindow* pwin, double xoffset, double 
 	////#endif
 }
 
+
+void InputManager::TestInputManager() {
+	InputManager* im = &(GE::Input::InputManager::GetInstance());
+	if (im->IsKeyTriggered(GPK_A)) {
+		std::cout << "Key A is Triggered\n";
+	}
+	if (im->IsKeyHeld(GPK_A)) {
+		std::cout << "Key A is Held\n";
+	}
+	if (im->IsKeyReleased(GPK_A)) {
+		std::cout << "Key A is Released\n";
+	}
+
+	if (im->IsKeyPressed(GPK_MOUSE_LEFT)) {
+		std::cout << "Mouse Pos: " << im->GetMousePos().first << "," << im->GetMousePos().second << "\n";
+	}
+}
+

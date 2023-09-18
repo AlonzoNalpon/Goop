@@ -21,6 +21,9 @@
 #include <Graphics/GraphicsEngine.h>
 #endif
 
+#define INPUT_TEST
+
+
 int main(int /*argc*/, char* /*argv*/[])
 {
   // Enable run-time memory check for debug builds.
@@ -45,7 +48,10 @@ int main(int /*argc*/, char* /*argv*/[])
   GE::FPS::FrameRateController* fps_control = &(GE::FPS::FrameRateController::GetInstance());
   fps_control->InitFrameRateController(60, 1);
 
-
+#ifdef INPUT_TEST
+  std::cout << "-------------------------------\n";
+  std::cout << "To test Input Manager you can:\n 1.click/hold/release key A.\n 2.Click Mouse Left Button to print Mouse Position\n ";
+#endif
  
 
 
@@ -54,6 +60,10 @@ int main(int /*argc*/, char* /*argv*/[])
     GE::FPS::FrameRateController::GetInstance().StartFrame();
     GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
     im->UpdateInput();
+    #ifdef INPUT_TEST
+    im->TestInputManager();
+    #endif
+
 
     gEngine.Draw();
     window.SwapBuffers();

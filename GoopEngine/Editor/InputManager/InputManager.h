@@ -225,6 +225,7 @@ namespace GE
 			************************************************************************/
 			static void MouseScrollCallback(GLFWwindow* pwin, double xoffset, double yoffset);
 
+			void TestInputManager();
 
 		};
 
