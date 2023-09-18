@@ -56,7 +56,7 @@ namespace GE
 			if (m_data != nullptr)
 			{
 				// Free the allocated image data
-				delete[] m_data;
+				//delete[] m_data;
 			}
 		}
 
@@ -120,6 +120,18 @@ namespace GE
 		{
 			return m_loadedImages[GetID(name)];
 		}
+
+		int AssetManager::GetConfigData(const std::string& key)
+		{
+			return std::stoi(m_configData[key]);
+		}
+
+		void AssetManager::LoadConfigData(const std::string& filepath)
+		{
+			//GOOSTREAM thing
+			
+		}
+
 
 		void AssetManager::GetDimensions(int id, unsigned int& width, unsigned int& height)
 		{

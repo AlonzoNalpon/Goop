@@ -1,6 +1,6 @@
 #include <pch.h>
 
-#define ECS_TEST
+//#define ECS_TEST
 #ifdef ECS_TEST
 #include "../ECS/ECS Example/Scene.h"
 #endif // ECS_TEST
@@ -10,7 +10,7 @@
 #include "../AssetManager/AssetManager.h"
 #endif //ASSET_M_TEST
 
-#define GRAPHICS_TEST
+//#define GRAPHICS_TEST
 #ifdef GRAPHICS_TEST
 #include <GLApp/Window/Window.h>
 #include <GLApp/Graphics/GraphicsEngine.h>

@@ -186,11 +186,11 @@ namespace GE
       \brief
         Loads the image and add them into the map of loaded images.
       \param
-        const std::string& path (Filepath of the image)
+        const std::string& filepath (Filepath of the image)
       \return
         ID of the loaded image.
       ************************************************************************/
-      int LoadImage(const std::string& path);
+      int LoadImage(const std::string& filepath);
 
       /*!*********************************************************************
       \brief
@@ -232,6 +232,10 @@ namespace GE
       ************************************************************************/
       ImageData GetData(const std::string& name);
 
+      int GetConfigData(const std::string& key);
+
+      void LoadConfigData(const std::string& filepath);
+
       /*!*********************************************************************
       \brief
         Gets dimensions of the data.
@@ -268,6 +272,7 @@ namespace GE
 
     private:
       IDGenerator m_generator; // Generates Unique ID to assign to loaded image data.
+      std::map<std::string, std::string> m_configData; // Map that contains config data.
       std::map<int, ImageData> m_loadedImages; // Map that contains all the loaded images data with an ID as a key.
       std::map<std::string, int> m_loadedImagesStringLookUp; // Lookup table for getting ID with filepath.
       std::map<int, std::string> m_loadedImagesIDLookUp; // Lookup table for getting filepath with id.
