@@ -13,6 +13,7 @@
 #endif
 
 #include "../Physics/Physics.h"
+#include "../Physics/Collision.h"
 
 int main(int /*argc*/, char* /*argv*/[])
 {

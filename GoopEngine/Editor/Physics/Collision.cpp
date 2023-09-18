@@ -3,8 +3,9 @@
 
 using namespace GE;
 using namespace GE::ECS;
+using namespace GE::Collision;
 //AABB & mouse input
-bool Collision::CollSys::Collide(AABB& box, dVec2& input)
+bool CollisionSystem::Collide(AABB& box, dVec2& input)
 {
 	if (input.x <= box.m_max.x && input.x >= box.m_min.x)
 	{
@@ -17,7 +18,7 @@ bool Collision::CollSys::Collide(AABB& box, dVec2& input)
 }
 
 //AABB & AABB
-bool Collision::CollSys::Collide(AABB& box1, AABB& box2)
+bool CollisionSystem::Collide(AABB& box1, AABB& box2)
 {
 	if (box1.m_min.x <= box2.m_max.x && box1.m_max.x >= box2.m_min.x)
 	{
@@ -29,12 +30,12 @@ bool Collision::CollSys::Collide(AABB& box1, AABB& box2)
 	return false;
 }
 
-void Collision::CollSys::Awake() 
+void CollisionSystem::Awake()
 {
 	m_ecs = &EntityComponentSystem::GetInstance();
 }
 
-void Collision::CollSys::Update()
+void CollisionSystem::Update()
 {
 	for (Entity entity : m_entities) 
 	{
@@ -63,7 +64,7 @@ void Collision::CollSys::Update()
 	}
 }
 
-void Collision::CollSys::UpdateAABB(AABB& entity, const dVec2& newCenter) 
+void CollisionSystem::UpdateAABB(AABB& entity, const dVec2& newCenter)
 {
 	entity.m_center = newCenter;
 	entity.m_min.x = entity.m_center.x - entity.m_width / 2.0f;

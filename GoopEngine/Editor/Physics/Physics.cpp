@@ -7,12 +7,12 @@
 using namespace GE::Physics;
 using namespace GE::ECS;
 
-void PhysSys::Awake()
+void PhysicsSystem::Awake()
 {
 	m_ecs = &EntityComponentSystem::GetInstance();
 }
 
-void PhysSys::Update()
+void PhysicsSystem::Update()
 {
 	//update func passes curr entity
 	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();

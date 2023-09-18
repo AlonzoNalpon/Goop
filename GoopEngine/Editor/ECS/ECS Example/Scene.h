@@ -6,6 +6,7 @@
 #include "TextComponent.h"
 #include "NumberComponent.h"
 #include "../../Physics/Physics.h"
+#include "../../Physics/Collision.h"
 
 #include "../../Physics/Velocity.h"
 #include "../../Physics/Transform.h"
@@ -94,13 +95,31 @@ struct Scene
 		Transform trans;
 		Gravity grav;
 
-		ecs->RegisterComponentToSystem<Velocity, GE::Physics::PhysSys>();
-		ecs->RegisterComponentToSystem<Transform, GE::Physics::PhysSys>();
-		ecs->RegisterComponentToSystem<Gravity, GE::Physics::PhysSys>();
+		Entity entt4 = ecs->CreateEntity();
+		Entity entt5 = ecs->CreateEntity();
+		Entity entt6 = ecs->CreateEntity();
+		Entity entt7 = ecs->CreateEntity();
+		Entity entt8 = ecs->CreateEntity();
+		AABB box1(dVec2{ 1, 2 }, 4, 3);
+		//AABB box2(dVec2{ 2, 2 }, 2, 2); //should collide
+		//AABB box3(dVec2{ 7, 2 }, 3, 2); //shouldnt collide
+		//dVec2 mouse1{ 3, 1 }; //should collide
+		//dVec2 mouse2{ 5, 4 };	//shouldnt collide
+
+		ecs->RegisterComponentToSystem<Velocity, GE::Physics::PhysicsSystem>();
+		ecs->RegisterComponentToSystem<Transform, GE::Physics::PhysicsSystem>();
+		ecs->RegisterComponentToSystem<Gravity, GE::Physics::PhysicsSystem>();
 		ecs->AddComponent(entt3, vel);
 		ecs->AddComponent(entt3, trans);
 		ecs->AddComponent(entt3, grav);
-		ecs->RegisterEntityToSystem<GE::Physics::PhysSys>(entt3);
+		ecs->RegisterEntityToSystem<GE::Physics::PhysicsSystem>(entt3);
+
+		ecs->RegisterComponentToSystem<AABB, GE::Collision::CollisionSystem>();
+		ecs->AddComponent(entt4, box1);
+		//ecs->AddComponent(entt5, box2);
+		/*ecs->AddComponent(entt6, box3);
+		ecs->AddComponent(entt7, mouse1);
+		ecs->AddComponent(entt8, mouse2);*/
 	}
 
 	void Update()
@@ -113,6 +132,17 @@ struct Scene
 		EntityComponentSystem& ecs = EntityComponentSystem::GetInstance();
 		Number* num = ecs.GetComponent<Number>(1);
 		std::cout << "Entity's numbers are: " << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
+
+		AABB* rect1 = ecs.GetComponent<AABB>(4);
+		//AABB* rect2 = ecs.GetComponent<AABB>(5);
+		std::string flag1{};
+		if (rect1->m_collided) {
+			flag1 = "true";
+		}
+		else {
+			flag1 = "false";
+		}
+		std::cout << "Box 1 collision flag: " << flag1 << std::endl; //<< ", " << "Box 2 collision flag: " << rect2->m_collided << std::endl;
 	}
 
 	void Exit()

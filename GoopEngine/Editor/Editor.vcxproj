@@ -211,6 +211,7 @@
     <ClCompile Include="ECS\System\System.cpp" />
     <ClCompile Include="ECS\System\SystemManager.cpp" />
     <ClCompile Include="FrameRateController\FrameRateController.cpp" />
+    <ClCompile Include="Physics\Collision.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="src\Def.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="Math\VecUtils.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Physics\BoxCollider.h" />
+    <ClInclude Include="Physics\Collision.h" />
     <ClInclude Include="Physics\Gravity.h" />
     <ClInclude Include="Physics\Physics.h" />
     <ClInclude Include="Physics\Transform.h" />

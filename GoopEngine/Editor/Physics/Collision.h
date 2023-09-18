@@ -8,7 +8,7 @@ namespace GE
 {
 	namespace Collision
 	{
-		class CollSys : public GE::ECS::System
+		class CollisionSystem : public GE::ECS::System
 		{
 		public:
 			//collision checks:
