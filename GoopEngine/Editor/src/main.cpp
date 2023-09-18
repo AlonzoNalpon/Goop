@@ -56,7 +56,7 @@ int main(int /*argc*/, char* /*argv*/[])
 
   //std::cout << "THE SIZE IS " << sizeof(unsigned long long) << std::endl;
 
-  gEngine.Init(Graphics::Colorf{}); // init the clear color to be BLACK
+  gEngine.Init(Graphics::Colorf{.4f}); // init the clear color to be BLACK
   while (!window.GetWindowShouldClose()) {
     gEngine.Draw();
     // WE ARE NOT POLLING FOR ANYTHING AT THE MOMENT
