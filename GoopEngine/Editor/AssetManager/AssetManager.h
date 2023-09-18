@@ -57,6 +57,7 @@ namespace GE
       unsigned char* GetData();
       unsigned int GetWidth();
       unsigned int GetHeight();
+      unsigned int GetChannels();
       std::string GetName();
       int GetID();
 

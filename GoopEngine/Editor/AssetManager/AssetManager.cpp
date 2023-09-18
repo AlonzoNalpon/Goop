@@ -74,6 +74,11 @@ namespace GE
 			return this->m_height;
 		}
 
+		unsigned int ImageData::GetChannels()
+		{
+			return this->m_channels;
+		}
+
 		std::string ImageData::GetName()
 		{
 			return this->m_name;
@@ -164,6 +169,7 @@ namespace GE
 
 		void AssetManager::LoadDeserializedData()
 		{
+			stbi_set_flip_vertically_on_load(true);
 			std::vector<std::pair<std::string, std::string>> deserialized_data = MOCK_Deserialize();
 			
 			for (const std::pair<const std::string, std::string>& value : deserialized_data) {

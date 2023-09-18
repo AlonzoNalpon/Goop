@@ -10,9 +10,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef SPRITE_ANIMATION_H
 #define SPRITE_ANIMATION_H
-#include <GLApp/GraphicsTypes.h>
-#include <GLApp/Graphics/SpriteData.h>
-#include <GLApp/FlagsDef/SpriteAnimationFlags.h>
+#include <Graphics/Def/GraphicsTypes.h>
+#include <Graphics/SpriteData.h>
+#include <SpriteAnimation/Def/SpriteAnimationFlags.h>
 namespace Graphics 
 {
   /*!

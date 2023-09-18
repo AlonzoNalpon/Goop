@@ -10,9 +10,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef GRAPHICS_ENGINE_H
 #define GRAPHICS_ENGINE_H
-#include <GLApp/GraphicsTypes.h>
-#include <GLApp/RenderingHelpers.h>
-#include <GLApp/Graphics/ShaderProgram.h>
+#include <Graphics/Def/GraphicsTypes.h>
+#include <Graphics/Def/RenderingHelpers.h>
+#include <Graphics/ShaderProgram.h>
 #include <map>
 namespace Graphics {
   // The graphics engine responsible for any opengl calls

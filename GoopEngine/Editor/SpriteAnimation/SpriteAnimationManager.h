@@ -12,7 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <vector>
 #include <map>
 #include <string>
-#include <GLApp/Graphics/SpriteAnimation.h>
+#include <SpriteAnimation/SpriteAnimation.h>
 namespace Graphics 
 {
   /*!

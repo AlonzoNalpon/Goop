@@ -12,8 +12,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 namespace Graphics
 {
   enum class SPRITE_ANIM_FLAGS : u32 {
-    LOOPING = 0x00000001, // Bit 0
-    //Bit1 = 0x00000002, // Bit 1
+    LOOPING         = 0x00000001, //0 - Looping the animation
+    REWIND_COMPLETE = 0x00000002, //1 - Rewind animation on complete
     //Bit2 = 0x00000004, // Bit 2
     //Bit3 = 0x00000008, // Bit 3
     //Bit4 = 0x00000010, // Bit 4

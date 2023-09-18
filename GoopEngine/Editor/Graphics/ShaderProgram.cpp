@@ -1,4 +1,4 @@
-#include <GLApp/Graphics/ShaderProgram.h>
+#include <Graphics/ShaderProgram.h>
 #include <Def.h>
 #include <fstream>
 #include <sstream>

@@ -1,12 +1,17 @@
-#include <GLApp/Graphics/GraphicsEngine.h>
+#include <Graphics/GraphicsEngine.h>
 #include <AssetManager/AssetManager.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-static GLuint texHandle;
 
 #define OGL_ERR_CALLBACK
+  
 namespace Graphics {
+  // 
+namespace {
+  SpriteData testSprite;
+  Texture    testTexture;
+}
 #ifdef OGL_ERR_CALLBACK
   void GLAPIENTRY glDebugCallback(GLenum /*source*/, GLenum /*type*/, GLuint /*id*/, GLenum /*severity*/, GLsizei /*length*/, const GLchar* message, const void* /*userParam*/) {
     // Print the error message to the console
@@ -38,29 +43,56 @@ namespace Graphics {
 
 
     // Now use textures
-    //auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
-    //int imageID = assetManager.LoadImage(ASSETS_PATH + "Knight.png");
-    //GE::AssetManager::ImageData imageData = assetManager.GetData(imageID);
-    //unsigned char* raw_image = imageData.GetData();
-    //glCreateTextures(GL_TEXTURE_2D, 1, &texHandle);
-    //// allocate GPU storage for texture image data loaded from file
-    //glTextureStorage2D(texHandle, 1, GL_RGBA8, imageData., height);
-    //// copy image data from client memory to GPU texture buffer memory
-    //glTextureSubImage2D(texobj_hdl, 0, 0, 0, width, height,
-    //  GL_RGBA, GL_UNSIGNED_BYTE, ptr_texels);
+    auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
+    GE::AssetManager::ImageData imageData = assetManager.GetData( ASSETS_PATH + "redGirl.png");
+    unsigned char* raw_image = imageData.GetData();
+    GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
+    GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };
+    glCreateTextures(GL_TEXTURE_2D, 1, &testTexture.texture);
+    // allocate GPU storage for texture image data loaded from file
+    glTextureStorage2D(testTexture.texture, 1, GL_RGBA8, width, height);
+    // copy image data from client memory to GPU texture buffer memory
+    glTextureSubImage2D(testTexture.texture, 0, 0, 0, width, height,
+      GL_RGBA, GL_UNSIGNED_BYTE, reinterpret_cast<GLfloat*>(imageData.GetData()));
+
+    // THESE ARE IMPORTANT TO HAVE
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
   }
 
   void GraphicsEngine::Draw()
   {
     glClear(GL_COLOR_BUFFER_BIT);
-    for (auto const&mdl : m_models)
+    auto const& mdl{ m_models.front() };
+    
+    
+    glBindTextureUnit(6, testTexture.texture);
+    glTextureParameteri(testTexture.texture, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTextureParameteri(testTexture.texture, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glUseProgram(mdl.shader);
+    //GLint tex_loc = glGetUniformLocation(mdl.shader, "uTex2d");
+    //glUniform1i(tex_loc, 6); // Binding to texture unit 0
+
+    glBindVertexArray(mdl.vaoid);
+    glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt);
+    
+    glBindVertexArray(0);
+    glUseProgram(0);
+    //glBindTextureUnit(6, 0);
+
+    /*for (auto const&mdl : m_models)
     {
+      GLint tex_loc = glGetUniformLocation(mdl.shader, "uTex2d");
+      glUniform1i(tex_loc, 0);
       glBindVertexArray(mdl.vaoid);
       glUseProgram(mdl.shader);
+      glBindTextureUnit(0, testTexture.texture);
       glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt);
+      glBindTextureUnit(0, 0);
       glUseProgram(0);
       glBindVertexArray(0);
-    }
+    }*/
 
   }
 
@@ -90,7 +122,7 @@ namespace Graphics {
     glNamedBufferSubData(vbo_hdl, data_offset, data.ClrDataSize(), data.clr_vtx.data());
     data_offset += data.ClrDataSize(); // add the offset of the position vtx size
     // Tex data ...
-    glNamedBufferSubData(vbo_hdl, data_offset, data.TexDataSize(), data.clr_vtx.data());
+    glNamedBufferSubData(vbo_hdl, data_offset, data.TexDataSize(), data.tex_vtx.data());
 
     data_offset = 0;
     GLuint vaoid{};

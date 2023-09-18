@@ -21,18 +21,18 @@ namespace Systems {
 		void Update()
 		{
 
-			for (auto& entt : m_entities)
-			{
-				using RenderComponent = Components::Renderer;
-				GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-
-				RenderComponent* txt = ecs.GetComponent<RenderComponent>(entt);
-				if (txt == nullptr)
-				{
-					continue;
-				}
-
-			}
+			//for (auto& entt : m_entities)
+			//{
+			//	using RenderComponent = Components::Renderer;
+			//	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+			//
+			//	RenderComponent* txt = ecs.GetComponent<RenderComponent>(entt);
+			//	if (txt == nullptr)
+			//	{
+			//		continue;
+			//	}
+			//
+			//}
 		}
 
 		void OnDestroyed()

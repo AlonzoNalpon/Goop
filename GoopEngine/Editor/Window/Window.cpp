@@ -1,6 +1,6 @@
 #include <Def.h>
 #include <iostream>
-#include <GLApp/Window/Window.h>
+#include <Window/Window.h>
 namespace WindowSystem {
   Window::Window(int width, int height, char const* title) :
     m_windowWidth{ width }, m_windowHeight{ height }, m_title{ title }, m_window {} {}
@@ -60,6 +60,11 @@ namespace WindowSystem {
   void Window::SwapBuffers()
   {
     glfwSwapBuffers(m_window);
+  }
+
+  void Window::SetWindowTitle(char const* name)
+  {
+    glfwSetWindowTitle(m_window, name);
   }
 
   void Window::KeyCallback(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods*/)

@@ -11,8 +11,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef RENDERING_HELPERS_H
 #define RENDERING_HELPERS_H
-#include <GLApp/Graphics/Model.h>         // models
-#include <GLApp/Graphics/SpriteData.h>       // textures
-#include <GLApp/Graphics/ShaderProgram.h> // shader programs
-#include <GLApp/Graphics/SpriteAnimation.h>
+#include <Graphics/Model.h>           // models
+#include <Graphics/SpriteData.h>      // textures
+#include <Graphics/ShaderProgram.h>   // shader programs
+#include <SpriteAnimation/SpriteAnimation.h> // Sprite animation to store unique animation data
 #endif

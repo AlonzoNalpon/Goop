@@ -13,6 +13,14 @@ namespace WindowSystem {
     GLFWwindow* GetWindow();
     int GetWindowShouldClose();
     void SwapBuffers();
+
+    /*!*********************************************************************
+    \brief Sets window title text.
+    \params
+      name the c string containing the new title
+    \return
+    ************************************************************************/
+    void SetWindowTitle(char const* name);
   protected:
     static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
     int m_windowWidth{}, m_windowHeight{}; //!< Dimensions of window

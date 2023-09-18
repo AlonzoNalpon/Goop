@@ -7,11 +7,11 @@ class.
   
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
-#include <GLApp/Graphics/SpriteAnimationManager.h>
+#include <SpriteAnimation/SpriteAnimationManager.h>
 
 namespace Graphics
 {
-  size_t const SpriteAnimationManager::INVALID_ID{ static_cast<size_t>(-1) };
+  size_t const SpriteAnimationManager::INVALID_ID{ static_cast<size_t>(-1) }; // the highest possible value
 
   size_t SpriteAnimationManager::GetAnimID(std::string const& name) const noexcept
   {
