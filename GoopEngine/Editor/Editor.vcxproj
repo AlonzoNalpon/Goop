@@ -120,20 +120,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <LibraryPath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">
-    <LibraryPath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">
-    <LibraryPath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -218,23 +204,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AssetManager\AssetManager.cpp" />
     <ClCompile Include="Debugger\ErrorLogger\ErrorLogger.cpp" />
-    <ClCompile Include="ECS\Component\ComponentManager.cpp" />
-    <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
-    <ClCompile Include="ECS\System\SystemManager.cpp" />
     <ClCompile Include="FrameRateController\FrameRateController.cpp" />
-    <ClCompile Include="Graphics\GraphicsEngine.cpp" />
-    <ClCompile Include="Graphics\ShaderProgram.cpp" />
-    <ClCompile Include="Window\Window.cpp" />
-    <ClCompile Include="SpriteAnimation\SpriteAnimationManager.cpp" />
+    <ClCompile Include="GLApp\Graphics\GraphicsEngine.cpp" />
+    <ClCompile Include="GLApp\Graphics\ShaderProgram.cpp" />
+    <ClCompile Include="GLApp\Window\Window.cpp" />
+    <ClCompile Include="Physics\Collision.cpp" />
+    <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="src\Def.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AssetManager\AssetManager.h" />
     <ClInclude Include="Debugger\ErrorLogger\ErrorLogger.h" />
     <ClInclude Include="Debugger\Exception\Exception.h" />
     <ClInclude Include="Debugger\Exception\ExceptionBase.h" />
@@ -251,16 +233,11 @@
     <ClInclude Include="ECS\Entity\EntityManager.h" />
     <ClInclude Include="ECS\System\System.h" />
     <ClInclude Include="ECS\System\SystemManager.h" />
-    <ClInclude Include="SpriteAnimation\Def\SpriteAnimationFlags.h" />
     <ClInclude Include="FrameRateController\FrameRateController.h" />
-    <ClInclude Include="Graphics\Def\GraphicsTypes.h" />
-    <ClInclude Include="Graphics\GraphicsEngine.h" />
-    <ClInclude Include="Graphics\Model.h" />
-    <ClInclude Include="SpriteAnimation\SpriteAnimation.h" />
-    <ClInclude Include="Graphics\SpriteData.h" />
-    <ClInclude Include="Graphics\Def\RenderingHelpers.h" />
-    <ClInclude Include="Graphics\ShaderProgram.h" />
-    <ClInclude Include="Window\Window.h" />
+    <ClInclude Include="GLApp\GraphicsTypes.h" />
+    <ClInclude Include="GLApp\Graphics\GraphicsEngine.h" />
+    <ClInclude Include="GLApp\Graphics\ShaderProgram.h" />
+    <ClInclude Include="GLApp\Window\Window.h" />
     <ClInclude Include="include\def.h" />
     <ClInclude Include="Math\GEM.h" />
     <ClInclude Include="Math\Mat2.h" />
@@ -273,11 +250,13 @@
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />
     <ClInclude Include="Math\VecUtils.h" />
-    <ClInclude Include="Graphics\Texture.h" />
-    <ClInclude Include="SpriteAnimation\SpriteAnimationManager.h" />
-    <ClInclude Include="Systems\Rendering\RendererComponent.h" />
-    <ClInclude Include="Systems\Rendering\RenderingSystem.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Physics\BoxCollider.h" />
+    <ClInclude Include="Physics\Collision.h" />
+    <ClInclude Include="Physics\Gravity.h" />
+    <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Physics\Transform.h" />
+    <ClInclude Include="Physics\Velocity.h" />
     <ClInclude Include="Singleton\Singleton.h" />
   </ItemGroup>
   <ItemGroup>
