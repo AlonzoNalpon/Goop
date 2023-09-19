@@ -8,7 +8,8 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include "GooStream.h"
+#include "IGooStream.h"
+#include "Serializer.h"
 #include <map>
 
 namespace GE
@@ -17,9 +18,8 @@ namespace GE
   {
 
     // GooStream for Assets
-    class AssetGooStream : public InGooStream<std::map<std::string,std::string>>,
-                                  OutGooStream<std::map<std::string,std::string>>,
-                                  JsonSerializer
+    class AssetGooStream : public IGooIStream<std::map<std::string,std::string>>,
+                                  IGooOStream<std::map<std::string,std::string>>
     {
     public:
       // Ctor reading json file into stream
@@ -35,8 +35,10 @@ namespace GE
       // Unloads contents into a file
       bool Unload(std::string const& json, bool overwrite = true) override;
 
+      // Empties the stream of its contents and resets all values
+      void Reset() noexcept override;
+
     private:
-      
     };
 
   }

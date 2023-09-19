@@ -3,24 +3,8 @@
 #include <iostream>
 #include <Window/Window.h>
 
-#define SERIALIZE_TEST
-#ifdef SERIALIZE_TEST
-#include <iomanip>
-#include "../Serialization/AssetGooStream.h"
-#include "../Serialization/SpriteGooStream.h"
-#ifdef _DEBUG
-// << overload for printing to ostream
-std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& sprite)
-{
-  os << "Name: " << sprite.m_id << "\nFile: " << sprite.m_filePath
-    << "\nSlices: " << sprite.m_slices << "\nStacks: " << sprite.m_stacks
-    << "\nFrames: " << sprite.m_frames;
-  return os;
-}
-#endif
-#endif // SERIALIZE_TEST
 
-//#define EXCEPTION_TEST
+#define EXCEPTION_TEST
 #define ECS_TEST
 #ifdef ECS_TEST
 #include "../ECS/ECS Example/Scene.h"
@@ -37,6 +21,23 @@ std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& 
 #include <Window/Window.h>
 #include <Graphics/GraphicsEngine.h>
 #endif
+
+#define SERIALIZE_TEST
+#ifdef SERIALIZE_TEST
+#include <iomanip>
+#include "../Serialization/AssetGooStream.h"
+#include "../Serialization/SpriteGooStream.h"
+#ifdef _DEBUG
+// << overload for printing to ostream
+std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& sprite)
+{
+  os << "Name: " << sprite.m_id << "\nFile: " << sprite.m_filePath
+    << "\nSlices: " << sprite.m_slices << "\nStacks: " << sprite.m_stacks
+    << "\nFrames: " << sprite.m_frames;
+  return os;
+}
+#endif
+#endif // SERIALIZE_TEST
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -78,6 +79,26 @@ int main(int /*argc*/, char* /*argv*/[])
   }
 #endif // ECS_TEST
 
+#ifdef SERIALIZE_TEST
+  GE::Serialization::SpriteGooStream::container_type assets;
+  std::string const fileName{ "../Assets/AssetsToLoadTest/sprites.txt" };
+  GE::Serialization::SpriteGooStream sgs{ fileName };
+  if (!sgs)
+  {
+    std::cout << "Error deserializing " << fileName << "\n";
+  }
+  if (!sgs.Unload(assets))
+  {
+    std::cout << "Error unloading assets into container" << "\n";
+}
+
+  std::cout << "Deserialized " << fileName << ":\n";
+  for (auto const& entry : assets)
+  {
+    std::cout << entry << "\n";
+  }
+#endif
+
 #ifdef ASSET_M_TEST
   //AssetManager::LoadImage();
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
@@ -91,25 +112,6 @@ int main(int /*argc*/, char* /*argv*/[])
   am->FreeImages();
 #endif
 
-#ifdef SERIALIZE_TEST
-    GE::Serialization::SpriteGooStream::container_type assets;
-  std::string const fileName{ "../Assets/AssetsToLoadTest/sprites.txt" };
-  GE::Serialization::SpriteGooStream sgs{ fileName };
-  if (!sgs)
-  {
-    std::cout << "Error deserializing " << fileName << "\n";
-  }
-  if (!sgs.Unload(assets))
-  {
-    std::cout << "Error unloading assets into container" << "\n";
-  }
-
-  std::cout << "Deserialized " << fileName << ":\n";
-  for (auto const& entry : assets)
-  {
-    std::cout << entry << "\n";
-  }
-#endif
   
   return 0;
 }

@@ -16,7 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 using namespace GE::Serialization;
 
-AssetGooStream::AssetGooStream(std::string const& json) : GooStream()
+AssetGooStream::AssetGooStream(std::string const& json) : GooStream(true)
 {
   Read(json);
 }
@@ -31,22 +31,23 @@ bool AssetGooStream::Read(std::string const& json)
     #endif
     return m_status = false;
   }
+  rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
 
   // parse into document object
   rapidjson::IStreamWrapper isw{ ifs };
-  if (m_data.ParseStream(isw).HasParseError())
+  if (data.ParseStream(isw).HasParseError())
   {
     ifs.close();
 
     #ifdef _DEBUG
-    std::cout << "JSON parse error: " << rapidjson::GetParseErrorFunc(m_data.GetParseError()) << "\n";
+    std::cout << "JSON parse error: " << rapidjson::GetParseErrorFunc(data.GetParseError()) << "\n";
     #endif
     return m_status = false;
   }
 
   // if data is not in the format of key-value pairs
   // i.e. "key": "value"
-  if (!m_data.IsObject())
+  if (!data.IsObject())
   {
     ifs.close();
 
@@ -61,6 +62,7 @@ bool AssetGooStream::Read(std::string const& json)
   #endif
 
   ifs.close();
+  m_elements = data.Size();
   return m_status = true;
 }
 
@@ -72,24 +74,26 @@ bool AssetGooStream::Read(container_type const& container)
     #endif
     return false;
   }
+  rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
 
   for (container_type::value_type const& entry : container)
   {
     const char* key{ entry.first.c_str() };
-    rapidjson::Value jsonKey{ key, m_data.GetAllocator() };
-    rapidjson::Value value{ entry.second.c_str(), m_data.GetAllocator() };
+    rapidjson::Value jsonKey{ key, data.GetAllocator() };
+    rapidjson::Value value{ entry.second.c_str(), data.GetAllocator() };
 
     // Append to m_data or overwrite if key already exists
-    if (!m_data.HasMember(key))
+    if (!data.HasMember(key))
     {
-      m_data.AddMember(jsonKey, value, m_data.GetAllocator());
+      data.AddMember(jsonKey, value, data.GetAllocator());
     }
     else
     {
-      m_data[key] = value;
+      data[key] = value;
     }
   }
 
+  m_elements = data.Size();
   return m_status = true;
 }
 
@@ -101,9 +105,10 @@ bool AssetGooStream::Unload(container_type& container)
     #endif
     return false;
   }
+  rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
 
-  for (rapidjson::Value::ConstMemberIterator it{ m_data.MemberBegin() };
-    it != m_data.MemberEnd(); ++it)
+  for (rapidjson::Value::ConstMemberIterator it{ data.MemberBegin() };
+    it != data.MemberEnd(); ++it)
   {
     container[it->name.GetString()] = it->value.GetString();
   }
@@ -119,6 +124,7 @@ bool AssetGooStream::Unload(std::string const& json, bool overwrite)
     #endif
     return false;
   }
+  rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
 
   std::ofstream ofs{ json, ((overwrite) ? std::ios::out : std::ios::app) };
   if (!ofs)
@@ -131,8 +137,14 @@ bool AssetGooStream::Unload(std::string const& json, bool overwrite)
 
   rapidjson::OStreamWrapper osw{ ofs };
   writer_type writer(osw);
-  m_data.Accept(writer);
+  data.Accept(writer);
 
   ofs.close();
   return m_status = true;
+}
+
+void AssetGooStream::Reset() noexcept
+{
+  std::get<rapidjson::Document>(m_data).Clear();
+  m_elements = 0;
 }
