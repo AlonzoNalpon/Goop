@@ -1,11 +1,13 @@
 //#include <GLFW/glfw3.h>
 #include <pch.h>
 #include <iostream>
-#include <GLApp/Window/Window.h>
+#include <Window/Window.h>
+
 //#define GRAPHICS_TEST
 #ifdef GRAPHICS_TEST
-#include <GLApp/Graphics/GraphicsEngine.h>
+#include <Graphics/GraphicsEngine.h>
 #endif
+
 //#define ECS_TEST
 #ifdef ECS_TEST
 #include "../ECS/ECS Example/Scene.h"
@@ -16,15 +18,14 @@
 #include "../AssetManager/AssetManager.h"
 #endif //ASSET_M_TEST
 
-#define GRAPHICS_TEST
+//#define GRAPHICS_TEST
 #ifdef GRAPHICS_TEST
-
 #include "../AssetManager/AssetManager.h"
 #include <Window/Window.h>
 #include <Graphics/GraphicsEngine.h>
 #endif
 
-#define SERIALIZE_TEST
+//#define SERIALIZE_TEST
 #ifdef SERIALIZE_TEST
 #include <iomanip>
 #include "../Serialization/AssetGooStream.h"
@@ -62,15 +63,16 @@ int main(int /*argc*/, char* /*argv*/[])
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
   am->LoadJSONData("../Assets/AssetsToLoadTest/Images.json", GE::AssetManager::IMAGES);
   am->LoadJSONData("../Assets/AssetsToLoadTest/Config.json", GE::AssetManager::CONFIG);
+  am->LoadJSONData("../Assets/AssetsToLoadTest/sprites.txt", GE::AssetManager::ANIMATION);
+  am->SpriteCheck();
 #endif
 
 #ifdef GRAPHICS_TEST
   WindowSystem::Window window{ am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), "GOOP"};
   window.CreateAppWindow();
   Graphics::GraphicsEngine gEngine;     
-  window.SetWindowTitle("GOOP ENGINE"); // this is how you set window title
+  window.SetWindowTitle(am->GetConfigData("Window Title", 0)); // this is how you set window title
   // Now we get the asset manager
-  GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
   am->LoadDeserializedData(); // load the images we need
 
   gEngine.Init(Graphics::Colorf{ .4f }); // Initialize the engine with this clear color

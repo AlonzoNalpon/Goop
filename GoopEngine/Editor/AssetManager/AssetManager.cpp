@@ -21,12 +21,15 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <../AssetManager/AssetManager.h>
 #include <filesystem>
 #include <iostream>
+#include <iomanip>
 #include "../Serialization/AssetGooStream.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-#define ASSET_MANAGER_DEBUG
+
+
+//#define ASSET_MANAGER_DEBUG
 using namespace GE::Serialization;
 
 namespace GE
@@ -105,50 +108,106 @@ namespace GE
 
 		const std::string& AssetManager::GetName(int id)
 		{
+			if (m_loadedImagesIDLookUp.find(id) == m_loadedImagesIDLookUp.end())
+				return;
+
 			return m_loadedImagesIDLookUp[id];
 		}
 		int AssetManager::GetID(const std::string& name)
 		{
+			if (m_loadedImagesStringLookUp.find(name) == m_loadedImagesStringLookUp.end())
+				return;
+
 			return m_loadedImagesStringLookUp[name];
 
 		}
 		ImageData AssetManager::GetData(int id)
 		{
+			if (m_loadedImages.find(id) == m_loadedImages.end())
+				return;
+
 			return m_loadedImages[id];
 		}
 		ImageData AssetManager::GetData(const std::string& name)
 		{
+			if (m_loadedImages.find(GetID(name)) == m_loadedImages.end())
+				return;
+
 			return m_loadedImages[GetID(name)];
 		}
 
+		// The AssetManager class method to load JSON data from a file
 		void AssetManager::LoadJSONData(const std::string& filepath, int flag)
 		{
-			AssetGooStream ags(filepath);
-			if (!ags)
+			// If the flag is set to IMAGES or CONFIG
+			if (flag == IMAGES || flag == CONFIG)
 			{
-				//throw exception
-			}
-
-			if (flag == IMAGES)
-			{
-				ags.Unload(m_filePath);
-				if (!ags.Success())
+				// Create an AssetGooStream object with the given file path
+				AssetGooStream ags(filepath);
+				// If the AssetGooStream object is not valid, throw an exception
+				if (!ags)
 				{
 					//throw exception
 				}
 
-				for (std::pair<std::string, std::string> const& entry : m_filePath)
+				// If the flag is set to IMAGES
+				if (flag == IMAGES)
 				{
-					LoadImage(ASSETS_DIR + entry.second);
+					// Unload the file path from the AssetGooStream object into m_filePath
+					ags.Unload(m_filePath);
+					// If the unloading was not successful, throw an exception
+					if (!ags.Success())
+					{
+						//throw exception
+					}
+
+					// For each entry in m_filePath, load the image from the ASSETS_DIR and the entry's second value
+					for (std::pair<std::string, std::string> const& entry : m_filePath)
+					{
+						LoadImage(ASSETS_DIR + entry.second);
+					}
+				}
+				// If the flag is set to CONFIG
+				if (flag == CONFIG)
+				{
+					// Unload the config data from the AssetGooStream object into m_configData
+					ags.Unload(m_configData);
+
+					// For each entry in m_configData, print out the key-value pair if ASSET_MANAGER_DEBUG is defined
+					for (std::pair<std::string, std::string> const& entry : m_configData)
+					{
+						#ifdef ASSET_MANAGER_DEBUG
+						std::cout << "\"" << entry.first << "\" : \"" << entry.second << "\"" << std::endl;
+						#endif    
+					}
 				}
 			}
-			if (flag == CONFIG)
+			// If the flag is set to ANIMATION
+			if (flag == ANIMATION)
 			{
-				ags.Unload(m_configData);
-
-				for (std::pair<std::string, std::string> const& entry : m_configData)
+				// Create a container for assets
+				GE::Serialization::SpriteGooStream::container_type assets;
+				std::string const fileName{ "../Assets/AssetsToLoadTest/sprites.txt" };
+				// Create a SpriteGooStream object with the given file name
+				GE::Serialization::SpriteGooStream sgs{ fileName };
+				// If the SpriteGooStream object is not valid, print an error message
+				if (!sgs)
 				{
-					std::cout << "\"" << entry.first << "\" : \"" << entry.second << "\"" << std::endl;
+					std::cout << "Error deserializing " << fileName << "\n";
+				}
+				// If unloading assets into the container was not successful, print an error message
+				if (!sgs.Unload(assets))
+				{
+					std::cout << "Error unloading assets into container" << "\n";
+				}
+
+				std::cout << "Deserialized " << fileName << ":\n";
+
+				// For each entry in assets, print out its details
+				for (auto const& entry : assets)
+				{
+					SpriteData loadedData{ entry.m_id, entry.m_filePath, entry.m_slices, entry.m_stacks, entry.m_frames };
+					m_loadedSpriteData.insert({ entry.m_id, loadedData });
 				}
 			}
 			#ifdef ASSET_MANAGER_DEBUG
@@ -156,18 +215,51 @@ namespace GE
 			#endif
 		}
 
+		void AssetManager::SpriteCheck()
+		{
+			for (auto const& entry : m_loadedSpriteData)
+			{
+				std::cout << "Name: " << entry.second.m_id << "\nFile: " << entry.second.m_filePath
+					<< "\nSlices: " << entry.second.m_slices << "\nStacks: " << entry.second.m_stacks
+					<< "\nFrames: " << entry.second.m_frames << "\n";
+			}
+		}
+
+		GE::Serialization::SpriteData AssetManager::GetSpriteData(std::string key)
+		{
+			if (m_loadedSpriteData.find(key) == m_loadedSpriteData.end())
+				return;
+
+			#ifdef ASSET_MANAGER_DEBUG
+			std::cout << "SPRITE DATA RETRIEVED: " << m_loadedSpriteData[key] << "\n";
+			#endif
+
+			return m_loadedSpriteData[key];
+		}
+
 		int AssetManager::GetConfigData(const std::string& key)
 		{
 			if (m_configData.find(key) == m_configData.end())
-			{
-				return 0;
-			}
+				return;
 
 			#ifdef ASSET_MANAGER_DEBUG
 			std::cout << "CONFIG DATA RETRIEVED: " << m_configData[key] << "\n";
 			#endif
 
 			return std::stoi(m_configData[key]);
+		}
+
+	const char* AssetManager::GetConfigData(const std::string& key, bool flag)
+		{
+			if (!flag) {}
+			if (m_configData.find(key) == m_configData.end())
+				return "Couldn't find config data.";
+
+			#ifdef ASSET_MANAGER_DEBUG
+			std::cout << "CONFIG DATA RETRIEVED: " << m_configData[key] << "\n";
+			#endif
+
+			return m_configData[key].c_str();
 		}
 
 

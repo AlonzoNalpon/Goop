@@ -26,7 +26,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <map>
 #include <unordered_set>
 #include "../Singleton/Singleton.h"
-
+#include "../Serialization/SpriteGooStream.h"
 
 namespace GE
 {
@@ -251,9 +251,20 @@ namespace GE
       \param
         const std::string& key (Key of the config data in the Config.json)
       \return
-        Integer for the config data (currently assumed only as an integer)
+        Integer data of the specific key
       ************************************************************************/
       int GetConfigData(const std::string& key);
+
+      /*!*********************************************************************
+      \brief
+        Gets the config data of the specific key.
+      \param
+        const std::string& key (Key of the config data in the Config.json)
+        bool flag (Just to be able to overload)
+      \return
+        String data of the specific key 
+      ************************************************************************/
+      const char* GetConfigData(const std::string& key, bool flag);
 
       /*!*********************************************************************
       \brief
@@ -289,6 +300,15 @@ namespace GE
       ************************************************************************/
       void FreeImage(const std::string& name);
 
+      /*!*********************************************************************
+      \brief
+        Check if the sprites has been loaded correctly by iterating through
+        the m_loadedSpriteData map and printing out the data.
+      ************************************************************************/
+      void SpriteCheck();
+
+      GE::Serialization::SpriteData GetSpriteData(std::string key);
+
     private:
       IDGenerator m_generator; // Generates Unique ID to assign to loaded image data.
       std::map<std::string, std::string> m_filePath; // name:filepath
@@ -296,6 +316,7 @@ namespace GE
       std::map<int, ImageData> m_loadedImages; // Map that contains all the loaded images data with an ID as a key.
       std::map<std::string, int> m_loadedImagesStringLookUp; // Lookup table for getting ID with filepath.
       std::map<int, std::string> m_loadedImagesIDLookUp; // Lookup table for getting filepath with id.
+      std::map<std::string, GE::Serialization::SpriteData> m_loadedSpriteData; // Map that contains loaded sprite with their data with their m_id as key.
     };
   }
 }
