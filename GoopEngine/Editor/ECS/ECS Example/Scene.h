@@ -91,9 +91,9 @@ struct Scene
 		//ecs->UnregisterEntityFromSystem<PrintingSystem>(entt2);
 
 		Entity entt3 = ecs->CreateEntity();
-		Velocity vel;
-		GE::Transform trans;
-		Gravity grav;
+		GE::Velocity vel({ 0, 0 }, { 0, 0 });
+		GE::Transform trans({ 3, 6 }, { 4, 4 }, 0.0);
+		GE::Gravity grav({ 0, 0 });
 
 		Entity entt4 = ecs->CreateEntity();
 		Entity entt5 = ecs->CreateEntity();
@@ -105,9 +105,9 @@ struct Scene
 		GE::AABB box3({ 7, 2 }, 3, 2); //shouldnt collide
 		GE::Transform transBox3({ 7, 2 }, { 3, 2 }, 0.0);
 
-		ecs->RegisterComponentToSystem<Velocity, GE::Physics::PhysicsSystem>();
+		ecs->RegisterComponentToSystem<GE::Velocity, GE::Physics::PhysicsSystem>();
 		ecs->RegisterComponentToSystem<GE::Transform, GE::Physics::PhysicsSystem>();
-		ecs->RegisterComponentToSystem<Gravity, GE::Physics::PhysicsSystem>();
+		ecs->RegisterComponentToSystem<GE::Gravity, GE::Physics::PhysicsSystem>();
 		ecs->AddComponent(entt3, vel);
 		ecs->AddComponent(entt3, trans);
 		ecs->AddComponent(entt3, grav);
