@@ -95,6 +95,8 @@ namespace GE
       ImageData(int id, std::string name, int width, int height, int channels, unsigned char* data) :
         m_id(id), m_name(name), m_width(width), m_height(height), m_channels(channels), m_data(data) {};
 
+      static ImageData Null();
+
       /*!*********************************************************************
       \brief
         Sets the name variable of the ImageData.

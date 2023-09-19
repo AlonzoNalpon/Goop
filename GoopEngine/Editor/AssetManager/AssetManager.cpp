@@ -58,6 +58,11 @@ namespace GE
 			m_recycledID.insert(id);
 		}
 
+		ImageData ImageData::Null()
+		{
+			return ImageData();
+		}
+
 		void ImageData::SetName(const std::string& name)
 		{
 			this->m_name = name;
@@ -109,14 +114,24 @@ namespace GE
 		const std::string& AssetManager::GetName(int id)
 		{
 			if (m_loadedImagesIDLookUp.find(id) == m_loadedImagesIDLookUp.end())
-				return;
+			{
+				#ifdef ASSET_MANAGER_DEBUG
+				std::cout << "DIDN'T FIND IMAGE DATA WITH ID: " << id << "\n";
+				#endif
+				return m_loadedImagesIDLookUp[id];
+			}
 
 			return m_loadedImagesIDLookUp[id];
 		}
 		int AssetManager::GetID(const std::string& name)
 		{
 			if (m_loadedImagesStringLookUp.find(name) == m_loadedImagesStringLookUp.end())
-				return;
+			{
+				#ifdef ASSET_MANAGER_DEBUG
+				std::cout << "DIDN'T FIND ID WITH KEY: " << name << "\n";
+				#endif
+				return m_loadedImagesStringLookUp[name];
+			}
 
 			return m_loadedImagesStringLookUp[name];
 
@@ -124,14 +139,24 @@ namespace GE
 		ImageData AssetManager::GetData(int id)
 		{
 			if (m_loadedImages.find(id) == m_loadedImages.end())
-				return;
+			{
+				#ifdef ASSET_MANAGER_DEBUG
+				std::cout << "DIDN'T FIND DATA WITH ID: " << id << "\n";
+				#endif
+				return ImageData::Null();
+			}
 
 			return m_loadedImages[id];
 		}
 		ImageData AssetManager::GetData(const std::string& name)
 		{
 			if (m_loadedImages.find(GetID(name)) == m_loadedImages.end())
-				return;
+			{
+				#ifdef ASSET_MANAGER_DEBUG
+				std::cout << "DIDN'T FIND DATA WITH ID: " << id << "\n";
+				#endif
+				return ImageData::Null();
+			}
 
 			return m_loadedImages[GetID(name)];
 		}
@@ -228,7 +253,10 @@ namespace GE
 		GE::Serialization::SpriteData AssetManager::GetSpriteData(std::string key)
 		{
 			if (m_loadedSpriteData.find(key) == m_loadedSpriteData.end())
-				return;
+				#ifdef ASSET_MANAGER_DEBUG
+				std::cout << "DIDN'T FIND SPRITE DATA WITH: " << key << "\n";
+				#endif
+				return m_loadedSpriteData[key];
 
 			#ifdef ASSET_MANAGER_DEBUG
 			std::cout << "SPRITE DATA RETRIEVED: " << m_loadedSpriteData[key] << "\n";
@@ -240,7 +268,7 @@ namespace GE
 		int AssetManager::GetConfigData(const std::string& key)
 		{
 			if (m_configData.find(key) == m_configData.end())
-				return;
+				return 0;
 
 			#ifdef ASSET_MANAGER_DEBUG
 			std::cout << "CONFIG DATA RETRIEVED: " << m_configData[key] << "\n";

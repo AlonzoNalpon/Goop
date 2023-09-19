@@ -3,11 +3,6 @@
 #include <iostream>
 #include <Window/Window.h>
 
-//#define GRAPHICS_TEST
-#ifdef GRAPHICS_TEST
-#include <Graphics/GraphicsEngine.h>
-#endif
-
 //#define ECS_TEST
 #ifdef ECS_TEST
 #include "../ECS/ECS Example/Scene.h"
@@ -64,7 +59,7 @@ int main(int /*argc*/, char* /*argv*/[])
   am->LoadJSONData("../Assets/AssetsToLoadTest/Images.json", GE::AssetManager::IMAGES);
   am->LoadJSONData("../Assets/AssetsToLoadTest/Config.json", GE::AssetManager::CONFIG);
   am->LoadJSONData("../Assets/AssetsToLoadTest/sprites.txt", GE::AssetManager::ANIMATION);
-  am->SpriteCheck();
+  //am->SpriteCheck();
 #endif
 
 #ifdef GRAPHICS_TEST
