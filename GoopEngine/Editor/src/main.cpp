@@ -1,6 +1,5 @@
-#include <pch.h>
-
 //#include <GLFW/glfw3.h>
+#include <pch.h>
 #include <iostream>
 #include <GLApp/Window/Window.h>
 //#define GRAPHICS_TEST
@@ -19,15 +18,28 @@
 
 #define GRAPHICS_TEST
 #ifdef GRAPHICS_TEST
-#include <GLApp/Window/Window.h>
-#include <GLApp/Graphics/GraphicsEngine.h>
+
+#include "../AssetManager/AssetManager.h"
+#include <Window/Window.h>
+#include <Graphics/GraphicsEngine.h>
 #endif
 
-//#define SERIALIZE_TEST
+#define SERIALIZE_TEST
 #ifdef SERIALIZE_TEST
 #include <iomanip>
 #include "../Serialization/AssetGooStream.h"
+#include "../Serialization/SpriteGooStream.h"
+#ifdef _DEBUG
+// << overload for printing to ostream
+std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& sprite)
+{
+  os << "Name: " << sprite.m_id << "\nFile: " << sprite.m_filePath
+    << "\nSlices: " << sprite.m_slices << "\nStacks: " << sprite.m_stacks
+    << "\nFrames: " << sprite.m_frames;
+  return os;
+}
 #endif
+#endif // SERIALIZE_TEST
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -55,33 +67,53 @@ int main(int /*argc*/, char* /*argv*/[])
 #ifdef GRAPHICS_TEST
   WindowSystem::Window window{ am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), "GOOP"};
   window.CreateAppWindow();
-  Graphics::GraphicsEngine gEngine;
-  
-  gEngine.Init(Graphics::Colorf{});
+  Graphics::GraphicsEngine gEngine;     
+  window.SetWindowTitle("GOOP ENGINE"); // this is how you set window title
+  // Now we get the asset manager
+  GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
+  am->LoadDeserializedData(); // load the images we need
+
+  gEngine.Init(Graphics::Colorf{ .4f }); // Initialize the engine with this clear color
 
   while (!window.GetWindowShouldClose()) {
     gEngine.Draw();
     window.SwapBuffers();
   }
+
+  am->FreeImages(); // cleanup the images
 #endif
- 
+#ifdef ECS_TEST
+  try
+  {
+    Scene scn;
+    scn.Start();
+    scn.Update();
+    scn.Exit();
+  }
+  catch (GE::Debug::IExceptionBase& e)
+  {
+    e.LogSource();
+    e.Log();
+  }
+#endif // ECS_TEST
+
 #ifdef SERIALIZE_TEST
-  std::map<std::string, std::string> assets;
-  std::string const fileName{ "../Assets/AssetsToLoadTest/bat_file_output.json" };
-  GE::Serialization::AssetGooStream ags{ fileName };
-  if (!ags)
+  GE::Serialization::SpriteGooStream::container_type assets;
+  std::string const fileName{ "../Assets/AssetsToLoadTest/sprites.txt" };
+  GE::Serialization::SpriteGooStream sgs{ fileName };
+  if (!sgs)
   {
     std::cout << "Error deserializing " << fileName << "\n";
   }
-  if (!ags.Unload(assets))
+  if (!sgs.Unload(assets))
   {
     std::cout << "Error unloading assets into container" << "\n";
-  }
+}
 
   std::cout << "Deserialized " << fileName << ":\n";
-  for (std::pair<std::string, std::string> const& entry : assets)
+  for (auto const& entry : assets)
   {
-    std::cout << "Key: " << std::left << std::setw(10) << entry.first << " | Value: " << entry.second << "\n";
+    std::cout << entry << "\n";
   }
 #endif
 

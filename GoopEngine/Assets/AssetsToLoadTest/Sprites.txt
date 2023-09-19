@@ -1,0 +1,6 @@
+Name	FilePath		Slices	Stacks	Frames
+blabla	directory/file.png	2	2	8	# Headers must be on line 1
+blah	directory/file2.png	1	1	4
+tetst	directory/kachow.png	3	1	10
+
+#You can add comments with '#' symbol

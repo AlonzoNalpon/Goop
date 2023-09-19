@@ -1,0 +1,16 @@
+[
+    {
+        "name": "blabla",
+        "filepath": "directory/file.png",
+        "slices": 2,
+        "stacks": 2,
+        "frames": 8
+    },
+    {
+        "name": "blah",
+        "filepath": "directory/file2.png",
+        "slices": 1,
+        "stacks": 1,
+        "frames": 4
+    }
+]

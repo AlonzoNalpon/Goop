@@ -16,9 +16,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 using namespace GE::Serialization;
 
-// static variables
-std::string const AssetGooStream::ASSETS_DIR{ "" };
-
 AssetGooStream::AssetGooStream(std::string const& json) : GooStream()
 {
   Read(json);
@@ -26,11 +23,11 @@ AssetGooStream::AssetGooStream(std::string const& json) : GooStream()
 
 bool AssetGooStream::Read(std::string const& json)
 {
-  std::ifstream ifs{ ASSETS_DIR + json };
+  std::ifstream ifs{ json };
   if (!ifs)
   {
     #ifdef _DEBUG
-    std::cout << "Error: Unable to load " << ASSETS_DIR + json << "\n";
+    std::cout << "Error: Unable to load " << json << "\n";
     #endif
     return m_status = false;
   }
@@ -47,25 +44,53 @@ bool AssetGooStream::Read(std::string const& json)
     return m_status = false;
   }
 
-  // if data is in the format of key-value pairs
+  // if data is not in the format of key-value pairs
   // i.e. "key": "value"
   if (!m_data.IsObject())
   {
     ifs.close();
 
     #ifdef _DEBUG
-    std::cerr << "JSON parse error: " << ASSETS_DIR + json << " is not in the right format " << "\n";
+    std::cerr << "JSON parse error: " << json << " is not in the right format " << "\n";
     #endif
     return m_status = false;
   }
 
-  m_elementCount = m_data.MemberCount();  // num. of pairs
+  #ifdef SERIALIZE_TEST
+  std::cout << json << " successfully read" << "\n";
+  #endif
+
   ifs.close();
   return m_status = true;
+}
 
-    #ifdef SERIALIZE_TEST
-  std::cout << ASSETS_DIR + json << " successfully read" << "\n";
+bool AssetGooStream::Read(container_type const& container)
+{
+  if (!m_status) {
+    #ifdef _DEBUG
+    std::cout << "AssetGooStream corrupted before unload\n";
     #endif
+    return false;
+  }
+
+  for (container_type::value_type const& entry : container)
+  {
+    const char* key{ entry.first.c_str() };
+    rapidjson::Value jsonKey{ key, m_data.GetAllocator() };
+    rapidjson::Value value{ entry.second.c_str(), m_data.GetAllocator() };
+
+    // Append to m_data or overwrite if key already exists
+    if (!m_data.HasMember(key))
+    {
+      m_data.AddMember(jsonKey, value, m_data.GetAllocator());
+    }
+    else
+    {
+      m_data[key] = value;
+    }
+  }
+
+  return m_status = true;
 }
 
 bool AssetGooStream::Unload(container_type& container)
@@ -80,8 +105,34 @@ bool AssetGooStream::Unload(container_type& container)
   for (rapidjson::Value::ConstMemberIterator it{ m_data.MemberBegin() };
     it != m_data.MemberEnd(); ++it)
   {
-    container[it->name.GetString()] = ASSETS_DIR + it->value.GetString();
+    container[it->name.GetString()] = it->value.GetString();
   }
 
+  return m_status = true;
+}
+
+bool AssetGooStream::Unload(std::string const& json, bool overwrite)
+{
+  if (!m_status) {
+    #ifdef _DEBUG
+    std::cout << "AssetGooStream corrupted before unload\n";
+    #endif
+    return false;
+  }
+
+  std::ofstream ofs{ json, ((overwrite) ? std::ios::out : std::ios::app) };
+  if (!ofs)
+  {
+    #ifdef _DEBUG
+    std::cout << "Unable to create output file " << json << "\n";
+    #endif
+    return m_status = false;
+  }
+
+  rapidjson::OStreamWrapper osw{ ofs };
+  writer_type writer(osw);
+  m_data.Accept(writer);
+
+  ofs.close();
   return m_status = true;
 }

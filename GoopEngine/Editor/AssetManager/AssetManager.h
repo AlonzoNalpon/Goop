@@ -138,6 +138,8 @@ namespace GE
       ************************************************************************/
       unsigned int GetHeight();
 
+      unsigned int GetChannels();
+
       /*!*********************************************************************
       \brief
         Gets the name of the current class object.
