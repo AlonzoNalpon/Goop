@@ -2,8 +2,6 @@
 #include <pch.h>
 #include "BoxCollider.h"
 
-using namespace GE::Math;
-
 namespace GE
 {
 	namespace Collision
@@ -13,7 +11,7 @@ namespace GE
 		public:
 			//collision checks:
 			//AABB & mouse input
-			bool Collide(AABB& box, dVec2& input);
+			bool Collide(AABB& box, Math::dVec2& input);
 
 			//AABB & AABB
 			bool Collide(AABB& box1, AABB& box2);
@@ -24,7 +22,7 @@ namespace GE
 
 		private:
 			GE::ECS::EntityComponentSystem* m_ecs;
-			void UpdateAABB(AABB& entity, const dVec2& newCenter);
+			void UpdateAABB(AABB& entity, const Math::dVec2& newCenter);
 		};
 	}
 }

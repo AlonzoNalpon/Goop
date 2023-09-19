@@ -1,6 +1,16 @@
 #include "Collision.h"
 #include "Transform.h"
 
+using namespace GE::Math;
+
+#ifdef _DEBUG
+std::ostream& operator<<(std::ostream& os, GE::Math::dVec2 const& vec)
+{
+	os << "(" << vec.x << ", " << vec.y << ")";
+	return os;
+}
+#endif
+
 using namespace GE;
 using namespace GE::ECS;
 using namespace GE::Collision;
@@ -44,14 +54,45 @@ void CollisionSystem::Update()
 		
 		AABB* updateEntity = m_ecs->GetComponent<AABB>(entity);
 		Transform* newCenter = m_ecs->GetComponent<Transform>(entity);
+		if (!updateEntity) {
+			std::cout << "updateEntity ERROR\n";
+		}
+		if (!newCenter) {
+			std::cout << "newCenter ERROR\n";
+		}
+		std::cout << "Centre: " << newCenter->m_pos << std::endl;
 		UpdateAABB(*updateEntity, newCenter->m_pos);
 	}
 	//loop through every entity & check against every OTHER entity if they collide either true
 	for (Entity entity1 : m_entities)
 	{
 		AABB* entity1Col = m_ecs->GetComponent<AABB>(entity1);
-		dVec2 temp{ 0, 0 };
-		entity1Col->m_mouseCollided = Collide(*entity1Col, temp);
+		//entity1Col->m_collided.clear();
+
+		GE::Math::dVec2 mouse1{ 3, 1 }; //should collide
+		GE::Math::dVec2 mouse2{ 5, 4 };	//shouldnt collide
+
+		if (entity1Col->m_mouseCollided = Collide(*entity1Col, mouse1)) {
+			std::cout << "Collided." << std::endl;
+			std::cout << "Box coordinates: " << entity1Col->m_center << std::endl;
+			std::cout << "Point coordinates: " << mouse1 << std::endl;
+		}
+		else {
+			std::cout << "Not collided." << std::endl;
+			std::cout << "Box coordinates: " << entity1Col->m_center << std::endl;
+			std::cout << "Point coordinates: " << mouse1 << std::endl;
+		}
+
+		if (entity1Col->m_mouseCollided = Collide(*entity1Col, mouse2)) {
+			std::cout << "Collided." << std::endl;
+			std::cout << "Box coordinates: " << entity1Col->m_center << std::endl;
+			std::cout << "Point coordinates: " << mouse2 << std::endl;
+		}
+		else {
+			std::cout << "Not collided." << std::endl;
+			std::cout << "Box coordinates: " << entity1Col->m_center << std::endl;
+			std::cout << "Point coordinates: " << mouse2 << std::endl;
+		}
 
 		for (Entity entity2 : m_entities) {
 			if (entity1 == entity2) {
@@ -59,7 +100,17 @@ void CollisionSystem::Update()
 			}
 
 			AABB* entity2Col = m_ecs->GetComponent<AABB>(entity2);
-			entity1Col->m_collided = Collide(*entity1Col, *entity2Col) ? &entity2 : nullptr;
+			if (Collide(*entity1Col, *entity2Col)) {
+				entity1Col->m_collided.insert(entity2Col);
+				std::cout << "Collided." << std::endl;
+				std::cout << "1st coordinates: " << entity1Col->m_center << std::endl;
+				std::cout << "2nd coordinates: " << entity2Col->m_center << std::endl;
+			}
+			else {
+				std::cout << "Not collided." << std::endl;
+				std::cout << "1st coordinates: " << entity1Col->m_center << std::endl;
+				std::cout << "2nd coordinates: " << entity2Col->m_center << std::endl;
+			}
 		}
 	}
 }
