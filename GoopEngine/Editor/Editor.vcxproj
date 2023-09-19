@@ -241,6 +241,7 @@
     <ClInclude Include="Debugger\ErrorLogger\ErrorLogger.h" />
     <ClInclude Include="Debugger\Exception\Exception.h" />
     <ClInclude Include="Debugger\Exception\ExceptionBase.h" />
+    <ClInclude Include="ECS\ComponentTypes.h" />
     <ClInclude Include="ECS\Component\Component.h" />
     <ClInclude Include="ECS\Component\ComponentArray.h" />
     <ClInclude Include="ECS\Component\ComponentManager.h" />
