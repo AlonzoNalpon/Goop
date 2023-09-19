@@ -21,118 +21,109 @@ SpriteGooStream::SpriteGooStream(std::string const& json) : GooStream()
   Read(json);
 }
 
-bool SpriteGooStream::Read(std::string const& json)
+bool SpriteGooStream::Read(std::string const& file)
 {
-  std::ifstream ifs{ json };
+  std::ifstream ifs{ file };
   if (!ifs)
   {
-#ifdef _DEBUG
-    std::cout << "Error: Unable to load " << json << "\n";
-#endif
+    #ifdef _DEBUG
+    std::cout << "Error: Unable to load " << file << "\n";
+    #endif
     return m_status = false;
   }
 
-  // parse into document object
-  rapidjson::IStreamWrapper isw{ ifs };
-  if (m_data.ParseStream(isw).HasParseError())
+  std::string line{};
+  std::getline(ifs, line);  // Skip first line
+  while (std::getline(ifs, line))
   {
-    ifs.close();
+    // skip line if comment
+    if (line.empty() || line.front() == CommentSymbol) { continue; }
 
-#ifdef _DEBUG
-    std::cout << "JSON parse error: " << rapidjson::GetParseErrorFunc(m_data.GetParseError()) << "\n";
-#endif
-    return m_status = false;
+    m_data << line << "\n";
+    ++m_elements;
   }
+  
 
-  // if data is in the format of key-value pairs
-  // i.e. "key": "value"
-  if (!m_data.IsObject())
-  {
-    ifs.close();
-
-#ifdef _DEBUG
-    std::cerr << "JSON parse error: " << json << " is not in the right format " << "\n";
-#endif
-    return m_status = false;
-  }
-
-#ifdef SERIALIZE_TEST
-  std::cout << ASSETS_DIR + json << " successfully read" << "\n";
-#endif
+  #ifdef SERIALIZE_TEST
+  std::cout << json << " successfully read" << "\n";
+  #endif
 
   ifs.close();
-  return m_status = true;
-}
-
-bool SpriteGooStream::Read(container_type const& container)
-{
-  if (!m_status) {
-#ifdef _DEBUG
-    std::cout << "SpriteGooStream corrupted before unload\n";
-#endif
-    return false;
-  }
-
-  for (container_type::value_type const& entry : container)
-  {
-    const char* key{ entry.first.c_str() };
-    rapidjson::Value jsonKey{ key, m_data.GetAllocator() };
-    rapidjson::Value value{ entry.second.c_str(), m_data.GetAllocator() };
-
-    // Append to m_data or overwrite if key already exists
-    if (!m_data.HasMember(key))
-    {
-      m_data.AddMember(jsonKey, value, m_data.GetAllocator());
-    }
-    else
-    {
-      m_data[key] = value;
-    }
-  }
-
   return m_status = true;
 }
 
 bool SpriteGooStream::Unload(container_type& container)
 {
   if (!m_status) {
-#ifdef _DEBUG
+    #ifdef _DEBUG
     std::cout << "SpriteGooStream corrupted before unload\n";
-#endif
+    #endif
     return false;
   }
+  std::string const ossData{ m_data.str() };
+  std::istringstream iss{ ossData };
 
-  for (rapidjson::Value::ConstMemberIterator it{ m_data.MemberBegin() };
-    it != m_data.MemberEnd(); ++it)
+  std::string line;
+  while (std::getline(iss, line))
   {
-    container[it->name.GetString()] = it->value.GetString();
+    SpriteData sprite{};
+    std::istringstream lineStream(line);
+    lineStream >> sprite.m_id >> sprite.m_filePath >> sprite.m_slices
+      >> sprite.m_stacks >> sprite.m_frames;
+    container.emplace_back(sprite);
   }
 
   return m_status = true;
 }
 
-bool SpriteGooStream::Unload(std::string const& json, bool overwrite)
-{
-  if (!m_status) {
-#ifdef _DEBUG
-    std::cout << "SpriteGooStream corrupted before unload\n";
-#endif
-    return false;
-  }
-
-  std::ofstream ofs{ json, ((overwrite) ? std::ios::out : std::ios::app) };
-  if (!ofs)
-  {
-#ifdef _DEBUG
-    std::cout << "Unable to create output file " << json << "\n";
-#endif
-    return m_status = false;
-  }
-
-  rapidjson::OStreamWrapper osw{ ofs };
-  writer_type writer(osw);
-  m_data.Accept(writer);
-
-  ofs.close();
-  return m_status = true;
-}
+//--------------------------------------------//
+// FOR FUTURE IF NEEDED: JSON format reading  //
+//--------------------------------------------//
+// JSON key values
+//static constexpr const char* JsonName = "name";
+//static constexpr const char* JsonFilePath = "filepath";
+//static constexpr const char* JsonSlices = "slices";
+//static constexpr const char* JsonStacks = "stacks";
+//static constexpr const char* JsonFrames = "frames";
+//bool SpriteGooStream::Read(std::string const& json)
+//{
+//  std::ifstream ifs{ json };
+//  if (!ifs)
+//  {
+//#ifdef _DEBUG
+//    std::cout << "Error: Unable to load " << json << "\n";
+//#endif
+//    return m_status = false;
+//  }
+//
+//  // parse into document object
+//  rapidjson::IStreamWrapper isw{ ifs };
+//  if (m_data.ParseStream(isw).HasParseError())
+//  {
+//    ifs.close();
+//
+//#ifdef _DEBUG
+//    std::cout << "JSON parse error: " << rapidjson::GetParseErrorFunc(m_data.GetParseError()) << "\n";
+//#endif
+//    return m_status = false;
+//  }
+//
+//  // if data is not in the format of arrays
+//  // i.e.{ {"": ""}, {"": ""}, {"": ""} }
+//  if (!m_data.IsArray())
+//  {
+//    ifs.close();
+//
+//#ifdef _DEBUG
+//    std::cerr << "JSON parse error: " << json << " is not in the right format " << "\n";
+//#endif
+//    return m_status = false;
+//  }
+//
+//#ifdef SERIALIZE_TEST
+//  std::cout << json << " successfully read" << "\n";
+//#endif
+//
+//  ifs.close();
+//  return m_status = true;
+//}

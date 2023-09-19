@@ -230,6 +230,7 @@
     <ClCompile Include="Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="Graphics\ShaderProgram.cpp" />
     <ClCompile Include="Math\Mat3Utils.cpp" />
+    <ClCompile Include="Serialization\SpriteGooStream.cpp" />
     <ClCompile Include="Window\Window.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimationManager.cpp" />
     <ClCompile Include="src\Def.cpp" />
@@ -254,6 +255,8 @@
     <ClInclude Include="ECS\System\System.h" />
     <ClInclude Include="ECS\System\SystemManager.h" />
     <ClInclude Include="Math\Mat3Utils.h" />
+    <ClInclude Include="Serialization\SpriteData.h" />
+    <ClInclude Include="Serialization\SpriteGooStream.h" />
     <ClInclude Include="SpriteAnimation\Def\SpriteAnimationFlags.h" />
     <ClInclude Include="FrameRateController\FrameRateController.h" />
     <ClInclude Include="Graphics\Def\GraphicsTypes.h" />

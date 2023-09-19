@@ -4,7 +4,7 @@
 #include <Window/Window.h>
 
 
-//#define EXCEPTION_TEST
+#define EXCEPTION_TEST
 #define ECS_TEST
 #ifdef ECS_TEST
 #include "../ECS/ECS Example/Scene.h"
@@ -14,7 +14,7 @@
 #include "../AssetManager/AssetManager.h"
 #endif //ASSET_M_TEST
 
-#define GRAPHICS_TEST
+//#define GRAPHICS_TEST
 #ifdef GRAPHICS_TEST
 
 #include "../AssetManager/AssetManager.h"
@@ -26,6 +26,17 @@
 #ifdef SERIALIZE_TEST
 #include <iomanip>
 #include "../Serialization/AssetGooStream.h"
+#include "../Serialization/SpriteGooStream.h"
+#ifdef _DEBUG
+// << overload for printing to ostream
+std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& sprite)
+{
+  os << "Name: " << sprite.m_id << "\nFile: " << sprite.m_filePath
+    << "\nSlices: " << sprite.m_slices << "\nStacks: " << sprite.m_stacks
+    << "\nFrames: " << sprite.m_frames;
+  return os;
+}
+#endif
 #endif // SERIALIZE_TEST
 
 int main(int /*argc*/, char* /*argv*/[])
@@ -69,22 +80,22 @@ int main(int /*argc*/, char* /*argv*/[])
 #endif // ECS_TEST
 
 #ifdef SERIALIZE_TEST
-  std::map<std::string, std::string> assets;
-  std::string const fileName{ "../Assets/AssetsToLoadTest/bat_file_output.json" };
-  GE::Serialization::AssetGooStream ags{ fileName };
-  if (!ags)
+  GE::Serialization::SpriteGooStream::container_type assets;
+  std::string const fileName{ "../Assets/AssetsToLoadTest/sprites.txt" };
+  GE::Serialization::SpriteGooStream sgs{ fileName };
+  if (!sgs)
   {
     std::cout << "Error deserializing " << fileName << "\n";
   }
-  if (!ags.Unload(assets))
+  if (!sgs.Unload(assets))
   {
     std::cout << "Error unloading assets into container" << "\n";
 }
 
   std::cout << "Deserialized " << fileName << ":\n";
-  for (std::pair<std::string, std::string> const& entry : assets)
+  for (auto const& entry : assets)
   {
-    std::cout << "Key: " << std::left << std::setw(10) << entry.first << " | Value: " << entry.second << "\n";
+    std::cout << entry << "\n";
   }
 #endif
 

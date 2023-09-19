@@ -44,7 +44,7 @@ bool AssetGooStream::Read(std::string const& json)
     return m_status = false;
   }
 
-  // if data is in the format of key-value pairs
+  // if data is not in the format of key-value pairs
   // i.e. "key": "value"
   if (!m_data.IsObject())
   {
@@ -57,7 +57,7 @@ bool AssetGooStream::Read(std::string const& json)
   }
 
   #ifdef SERIALIZE_TEST
-  std::cout << ASSETS_DIR + json << " successfully read" << "\n";
+  std::cout << json << " successfully read" << "\n";
   #endif
 
   ifs.close();

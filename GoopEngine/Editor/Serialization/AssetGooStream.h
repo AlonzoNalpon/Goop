@@ -18,7 +18,8 @@ namespace GE
 
     // GooStream for Assets
     class AssetGooStream : public InGooStream<std::map<std::string,std::string>>,
-                                  OutGooStream<std::map<std::string,std::string>>
+                                  OutGooStream<std::map<std::string,std::string>>,
+                                  JsonSerializer
     {
     public:
       // Ctor reading json file into stream

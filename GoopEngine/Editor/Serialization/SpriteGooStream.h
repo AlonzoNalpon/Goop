@@ -9,7 +9,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include "GooStream.h"
-#include <map>
+#include <vector>
+#include "SpriteData.h"
 
 namespace GE
 {
@@ -17,24 +18,21 @@ namespace GE
   {
 
     // GooStream for Assets
-    class SpriteGooStream : public InGooStream<std::map<std::string,std::string>>,
-                                  OutGooStream<std::map<std::string,std::string>>
+    class SpriteGooStream : public InGooStream<std::vector<SpriteData>>,
+                                   TextSerializer
     {
     public:
       // Ctor reading json file into stream
-      SpriteGooStream(std::string const& json);
+      SpriteGooStream(std::string const& file);
 
       // Read from a json file. Contents read are appended into GooStream.
-      bool Read(std::string const& json) override;
-      // Read from a constructor. Contents read are appended into GooStream.
-      bool Read(container_type const& container) override;
+      bool Read(std::string const& file) override;
 
       // Unloads contents into a container
       bool Unload(container_type& container) override;
-      // Unloads contents into a file
-      bool Unload(std::string const& json, bool overwrite = true) override;
 
     private:
+      static constexpr char CommentSymbol = '#';
     };
 
   }
