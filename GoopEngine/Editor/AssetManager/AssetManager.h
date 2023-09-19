@@ -32,6 +32,14 @@ namespace GE
 {
   namespace AssetManager
   {
+    enum {
+      IMAGES,
+      CONFIG,
+      ANIMATION,
+      AUDIO,
+      SCENE,
+      OBJECT
+    };
     // For generating unique IDs for loading of data.
     class IDGenerator
     {
@@ -86,12 +94,6 @@ namespace GE
       ************************************************************************/
       ImageData(int id, std::string name, int width, int height, int channels, unsigned char* data) :
         m_id(id), m_name(name), m_width(width), m_height(height), m_channels(channels), m_data(data) {};
-
-      /*!*********************************************************************
-      \brief
-        Destructor of the ImageData class, empty's the data if it contains data.
-      ************************************************************************/
-      ~ImageData();
 
       /*!*********************************************************************
       \brief
@@ -232,9 +234,24 @@ namespace GE
       ************************************************************************/
       ImageData GetData(const std::string& name);
 
-      int GetConfigData(const std::string& key);
+      /*!*********************************************************************
+      \brief
+        Loads the json data into the asset manager's map.
+      \param
+        const std::string& filepath (filepath of the json file)
+        int flag (flag for the type of data the json file contains)
+      ************************************************************************/
+      void LoadJSONData(const std::string& filepath, int flag);
 
-      void LoadConfigData(const std::string& filepath);
+      /*!*********************************************************************
+      \brief
+        Gets the config data of the specific key.
+      \param
+        const std::string& key (Key of the config data in the Config.json)
+      \return
+        Integer for the config data (currently assumed only as an integer)
+      ************************************************************************/
+      int GetConfigData(const std::string& key);
 
       /*!*********************************************************************
       \brief
@@ -272,7 +289,8 @@ namespace GE
 
     private:
       IDGenerator m_generator; // Generates Unique ID to assign to loaded image data.
-      std::map<std::string, std::string> m_configData; // Map that contains config data.
+      std::map<std::string, std::string> m_filePath; // name:filepath
+      std::map<std::string, std::string> m_configData;
       std::map<int, ImageData> m_loadedImages; // Map that contains all the loaded images data with an ID as a key.
       std::map<std::string, int> m_loadedImagesStringLookUp; // Lookup table for getting ID with filepath.
       std::map<int, std::string> m_loadedImagesIDLookUp; // Lookup table for getting filepath with id.

@@ -21,16 +21,20 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <../AssetManager/AssetManager.h>
 #include <filesystem>
 #include <iostream>
+#include "../Serialization/AssetGooStream.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-#define ASSET_M_DEBUG
+#define ASSET_MANAGER_DEBUG
+using namespace GE::Serialization;
 
 namespace GE
 {
 	namespace AssetManager
 	{
+		std::string const ASSETS_DIR{ "../Assets/AssetsToLoadTest/" };
+
 		IDGenerator::~IDGenerator()
 		{
 			m_recycledID.clear();
@@ -49,15 +53,6 @@ namespace GE
 		void IDGenerator::FreeID(int id)
 		{
 			m_recycledID.insert(id);
-		}
-
-		ImageData::~ImageData()
-		{
-			if (m_data != nullptr)
-			{
-				// Free the allocated image data
-				//delete[] m_data;
-			}
 		}
 
 		void ImageData::SetName(const std::string& name)
@@ -121,15 +116,53 @@ namespace GE
 			return m_loadedImages[GetID(name)];
 		}
 
-		int AssetManager::GetConfigData(const std::string& key)
+		void AssetManager::LoadJSONData(const std::string& filepath, int flag)
 		{
-			return std::stoi(m_configData[key]);
+			AssetGooStream ags(filepath);
+			if (!ags)
+			{
+				//throw exception
+			}
+
+			if (flag == IMAGES)
+			{
+				ags.Unload(m_filePath);
+				if (!ags.Success())
+				{
+					//throw exception
+				}
+
+				for (std::pair<std::string, std::string> const& entry : m_filePath)
+				{
+					LoadImage(ASSETS_DIR + entry.second);
+				}
+			}
+			if (flag == CONFIG)
+			{
+				ags.Unload(m_configData);
+
+				for (std::pair<std::string, std::string> const& entry : m_configData)
+				{
+					std::cout << "\"" << entry.first << "\" : \"" << entry.second << "\"" << std::endl;
+				}
+			}
+			#ifdef ASSET_MANAGER_DEBUG
+			printf("Loading success\n");
+			#endif
 		}
 
-		void AssetManager::LoadConfigData(const std::string& filepath)
+		int AssetManager::GetConfigData(const std::string& key)
 		{
-			//GOOSTREAM thing
-			
+			if (m_configData.find(key) == m_configData.end())
+			{
+				return 0;
+			}
+
+			#ifdef ASSET_MANAGER_DEBUG
+			std::cout << "CONFIG DATA RETRIEVED: " << m_configData[key] << "\n";
+			#endif
+
+			return std::stoi(m_configData[key]);
 		}
 
 
@@ -156,12 +189,14 @@ namespace GE
 
 			if (img == NULL)
 			{
-				printf("Error in loading image!!\n");
+				#ifdef ASSET_MANAGER_DEBUG
+				std::cout << "Error encountered while loading: " << path.c_str() << "\n";
+				#endif
 			}
 			else {
-#ifdef ASSET_M_DEBUG
+				#ifdef ASSET_MANAGER_DEBUG
 				printf("Successfully loaded %s. (ID: %d Width: %d px Height: %d px Channel: %d)\n", path.c_str(), id, width, height, channels);
-#endif
+				#endif
 			}
 
 			ImageData imageData{id, path, width, height, channels, img};
@@ -214,7 +249,9 @@ namespace GE
 				{
 					continue;
 				}
+				#ifdef ASSET_MANAGER_DEBUG
 				printf("Freeing Image: %s...\n", imageData.GetName().c_str());
+				#endif
 				// Free the loaded image data
 				stbi_image_free(imageData.GetData());
 
@@ -226,7 +263,10 @@ namespace GE
 			m_loadedImages.clear();
 			m_loadedImagesStringLookUp.clear();
 			m_loadedImagesIDLookUp.clear();
+
+			#ifdef ASSET_MANAGER_DEBUG
 			printf("Successfully cleared data.");
+			#endif
 		}
 
 		void AssetManager::FreeImage(const std::string& name)

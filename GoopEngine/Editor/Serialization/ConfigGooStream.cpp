@@ -17,7 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace GE::Serialization;
 
 // static variables
-std::string const ConfigGooStream::ASSETS_DIR{ "../Assets/AssetsToLoadTest/" };
+std::string const ConfigGooStream::ASSETS_DIR{ "" };
 
 AssetGooStream::AssetGooStream(std::string const& json) : GooStream()
 {
@@ -26,11 +26,11 @@ AssetGooStream::AssetGooStream(std::string const& json) : GooStream()
 
 bool AssetGooStream::Read(std::string const& json)
 {
-  std::ifstream ifs{ ASSETS_DIR + json };
+  std::ifstream ifs{ json };
   if (!ifs)
   {
     #ifdef _DEBUG
-    std::cout << "Error: Unable to load " << ASSETS_DIR + json << "\n";
+    std::cout << "Error: Unable to load " << json << "\n";
     #endif
     return m_status = false;
   }

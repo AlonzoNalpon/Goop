@@ -1,0 +1,10 @@
+{
+    "Window Width": "800",
+    "Window Height": "800",
+    "Memory Size": "100",
+    "FPS Limit": "60",
+    "FPS Check Interval": "1.0",
+    "Input Repeat Delay": "0.5",
+    "Stills": "../Assets/idk/stills.json",
+    "Animation Sprites": "../Assets/idk/animations.json"
+}

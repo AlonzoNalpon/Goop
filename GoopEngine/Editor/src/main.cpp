@@ -7,7 +7,6 @@
 #ifdef GRAPHICS_TEST
 #include <GLApp/Graphics/GraphicsEngine.h>
 #endif
-#define SERIALIZE_TEST
 //#define ECS_TEST
 #ifdef ECS_TEST
 #include "../ECS/ECS Example/Scene.h"
@@ -18,13 +17,13 @@
 #include "../AssetManager/AssetManager.h"
 #endif //ASSET_M_TEST
 
-//#define GRAPHICS_TEST
+#define GRAPHICS_TEST
 #ifdef GRAPHICS_TEST
 #include <GLApp/Window/Window.h>
 #include <GLApp/Graphics/GraphicsEngine.h>
 #endif
 
-
+//#define SERIALIZE_TEST
 #ifdef SERIALIZE_TEST
 #include <iomanip>
 #include "../Serialization/AssetGooStream.h"
@@ -47,8 +46,14 @@ int main(int /*argc*/, char* /*argv*/[])
 
   //Goop::Window window(100, 100, L"WHAT");
   //window.CreateOGLWindow();
+#ifdef ASSET_M_TEST
+  GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
+  am->LoadJSONData("../Assets/AssetsToLoadTest/Images.json", GE::AssetManager::IMAGES);
+  am->LoadJSONData("../Assets/AssetsToLoadTest/Config.json", GE::AssetManager::CONFIG);
+#endif
+
 #ifdef GRAPHICS_TEST
-  WindowSystem::Window window{ 800, 800, "GOOP"};
+  WindowSystem::Window window{ am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), "GOOP"};
   window.CreateAppWindow();
   Graphics::GraphicsEngine gEngine;
   
@@ -62,7 +67,7 @@ int main(int /*argc*/, char* /*argv*/[])
  
 #ifdef SERIALIZE_TEST
   std::map<std::string, std::string> assets;
-  std::string const fileName{ "bat_file_output.json" };
+  std::string const fileName{ "../Assets/AssetsToLoadTest/bat_file_output.json" };
   GE::Serialization::AssetGooStream ags{ fileName };
   if (!ags)
   {
@@ -86,18 +91,5 @@ int main(int /*argc*/, char* /*argv*/[])
   scn.Update();
   scn.Exit();
 #endif // ECS_TEST
-
-#ifdef ASSET_M_TEST
-  //AssetManager::LoadImage();
-  GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
-  //am->LoadImage("Assets/VADIM.jpg");
-  //am->LoadDirectory("Assets/");
-  //am->GetName(3);
-  //am->GetID(am->GetName(3));
-  am->LoadDeserializedData();
-  am->FreeImage("Assets/Knight.png");
-  am->FreeImage("Assets/Green Girl.png");
-  //am->FreeImages();
-#endif
   return 1;
 }

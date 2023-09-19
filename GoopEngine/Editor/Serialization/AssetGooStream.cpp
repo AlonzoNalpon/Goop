@@ -17,7 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace GE::Serialization;
 
 // static variables
-std::string const AssetGooStream::ASSETS_DIR{ "../Assets/AssetsToLoadTest/" };
+std::string const AssetGooStream::ASSETS_DIR{ "" };
 
 AssetGooStream::AssetGooStream(std::string const& json) : GooStream()
 {
