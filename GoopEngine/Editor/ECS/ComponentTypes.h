@@ -20,6 +20,8 @@ namespace GE
 			VELOCITY,
 			GRAVITY,
 			SPRITE,
+			MODEL,
+			ANIMATION,
 			COMPONENTS_TOTAL
 		};
 
@@ -32,6 +34,8 @@ namespace GE
 			{ VELOCITY, "Velocity" },
 			{ GRAVITY, "Gravity" },
 			{ SPRITE, "Sprite" },
+			{ MODEL, "Model" },
+			{ ANIMATION, "Animation" },
 		};
 
 		// Const map so only interated through ranged for,
@@ -43,6 +47,8 @@ namespace GE
 			{ "Velocity", VELOCITY },
 			{ "Gravity", GRAVITY },
 			{ "Sprite", SPRITE },
+			{ "Model", MODEL },
+			{ "Animation", ANIMATION },
 		};
 	}
 }
