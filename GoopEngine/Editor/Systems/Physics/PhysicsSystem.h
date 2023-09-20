@@ -3,16 +3,12 @@
 
 namespace GE
 {
-	namespace Physics
+	namespace Systems
 	{
 		class PhysicsSystem : public GE::ECS::System
 		{
 		public:
-			void Awake();
 			void Update();
-
-		private:
-			GE::ECS::EntityComponentSystem* m_ecs;
 		};
 	}
 }

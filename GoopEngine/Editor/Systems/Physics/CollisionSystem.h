@@ -1,10 +1,12 @@
 #pragma once
 #include <pch.h>
-#include "BoxCollider.h"
+#include <Component/BoxCollider.h>
+
+using namespace GE::Component;
 
 namespace GE
 {
-	namespace Collision
+	namespace Systems
 	{
 		class CollisionSystem : public GE::ECS::System
 		{
@@ -16,12 +18,9 @@ namespace GE
 			//AABB & AABB
 			bool Collide(AABB& box1, AABB& box2);
 
-			void Awake();
-
 			void Update();
 
 		private:
-			GE::ECS::EntityComponentSystem* m_ecs;
 			void UpdateAABB(AABB& entity, const Math::dVec2& newCenter);
 		};
 	}

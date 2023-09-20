@@ -14,8 +14,8 @@
 #include <Graphics/GraphicsEngine.h>
 #endif
 
-#include "../Physics/Physics.h"
-#include "../Physics/Collision.h"
+#include <Physics/PhysicsSystem.h>
+#include <Physics/CollisionSystem.h>
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -50,24 +50,12 @@ int main(int /*argc*/, char* /*argv*/[])
 
   gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
 
-  while (!window.GetWindowShouldClose())
-  {
-    fRC.StartFrame();
-    window.SetWindowTitle((std::string{"GOOP ENGINE | FPS: "} + std::to_string(fRC.GetFPS())).c_str()); // this is how you set window title
-    gEngine.Draw();
-    Graphics::GraphicsEngine::DrawLine({ 0,0 }, { 300, 0 }, { 1, 0, 0 }); // THIS IS HOW YOU DRAW A LINE (no need for calling getinstance)
-    window.SwapBuffers();
-    fRC.EndFrame();
-  }
-#endif
-#ifdef ECS_TEST
 
+#ifdef ECS_TEST
+  Scene scn;
   try
   {
-    Scene scn;
     scn.Start();
-    scn.Update();
-    scn.Exit();
   }
   catch (GE::Debug::IExceptionBase& e)
   {
@@ -75,6 +63,26 @@ int main(int /*argc*/, char* /*argv*/[])
     e.Log();
   }
 #endif // ECS_TEST
+
+  while (!window.GetWindowShouldClose())
+  {
+    fRC.StartFrame();
+    window.SetWindowTitle((std::string{"GOOP ENGINE | FPS: "} + std::to_string(fRC.GetFPS())).c_str()); // this is how you set window title
+#ifdef ECS_TEST
+    scn.Update();
+#endif // ECS_TEST
+    gEngine.Draw();
+    //Graphics::GraphicsEngine::DrawLine({ 0,0 }, { 300, 0 }, { 1, 0, 0 }); // THIS IS HOW YOU DRAW A LINE (no need for calling getinstance)
+    window.SwapBuffers();
+    fRC.EndFrame();
+  }
+#endif
+
+
+#ifdef ECS_TEST
+  scn.Exit();
+#endif // ECS_TEST
+
 
   return 1;
 }

@@ -1,5 +1,5 @@
-#include "Collision.h"
-#include "Transform.h"
+#include <Physics/CollisionSystem.h>
+#include <Component/Transform.h>
 
 using namespace GE::Math;
 
@@ -12,8 +12,10 @@ std::ostream& operator<<(std::ostream& os, GE::Math::dVec2 const& vec)
 #endif
 
 using namespace GE;
-using namespace GE::ECS;
-using namespace GE::Collision;
+using namespace ECS;
+using namespace Systems;
+using namespace Component;
+
 //AABB & mouse input
 bool CollisionSystem::Collide(AABB& box, dVec2& input)
 {
@@ -38,11 +40,6 @@ bool CollisionSystem::Collide(AABB& box1, AABB& box2)
 		}
 	}
 	return false;
-}
-
-void CollisionSystem::Awake()
-{
-	m_ecs = &EntityComponentSystem::GetInstance();
 }
 
 void CollisionSystem::Update()

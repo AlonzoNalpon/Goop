@@ -5,14 +5,20 @@
 #include "PrintingSystem.h"
 #include "TextComponent.h"
 #include "NumberComponent.h"
-#include "../../Physics/Physics.h"
-#include "../../Physics/Collision.h"
+#include <Physics/PhysicsSystem.h>
+#include <Physics/CollisionSystem.h>
 
-#include "../../Physics/Velocity.h"
-#include "../../Physics/Transform.h"
-#include "../../Physics/Gravity.h"
+#include <Component/Velocity.h>
+#include <Component/Transform.h>
+#include <Component/Gravity.h>
 
-using namespace GE::ECS;
+#include <PlayerController/PlayerControllerSystem.h>
+#include <Component/Tween.h>
+
+using namespace GE;
+using namespace ECS;
+using namespace Systems;
+using namespace Component;
 
 struct Scene
 {
@@ -21,7 +27,7 @@ struct Scene
 	void Start()
 	{
 #ifdef EXCEPTION_TEST
-		throw GE::Debug::Exception<Scene>(GE::Debug::LEVEL_ERROR, "test", ERRLG_FUNC, ERRLG_LINE);
+		throw Debug::Exception<Scene>(Debug::LEVEL_ERROR, "test", ERRLG_FUNC, ERRLG_LINE);
 #endif // EXCEPTION_TEST
 
 		ecs = &EntityComponentSystem::GetInstance();
@@ -91,39 +97,50 @@ struct Scene
 		//ecs->UnregisterEntityFromSystem<PrintingSystem>(entt2);
 
 		Entity entt3 = ecs->CreateEntity();
-		GE::Velocity vel({ 0, 0 }, { 0, 0 });
-		GE::Transform trans({ 3, 6 }, { 4, 4 }, 0.0);
-		GE::Gravity grav({ 0, 0 });
+		Velocity vel({ 0, 0 }, { 0, 0 });
+		Transform trans({ 3, 6 }, { 4, 4 }, 0.0);
+		Gravity grav({ 0, 0 });
 
 		Entity entt4 = ecs->CreateEntity();
 		Entity entt5 = ecs->CreateEntity();
 		Entity entt6 = ecs->CreateEntity();
-		GE::AABB box1({ 1, 2 }, 4, 3);
-		GE::AABB box2({ 2, 2 }, 2, 2); //should collide
-		GE::Transform transBox1({ 1, 2 }, { 4, 3 }, 0.0);
-		GE::Transform transBox2({ 2, 2 }, { 2, 2 }, 0.0);
-		GE::AABB box3({ 7, 2 }, 3, 2); //shouldnt collide
-		GE::Transform transBox3({ 7, 2 }, { 3, 2 }, 0.0);
+		AABB box1({ 1, 2 }, 4, 3);
+		AABB box2({ 2, 2 }, 2, 2); //should collide
+		Transform transBox1({ 1, 2 }, { 4, 3 }, 0.0);
+		Transform transBox2({ 2, 2 }, { 2, 2 }, 0.0);
+		AABB box3({ 7, 2 }, 3, 2); //shouldnt collide
+		Transform transBox3({ 7, 2 }, { 3, 2 }, 0.0);
 
-		ecs->RegisterComponentToSystem<GE::Velocity, GE::Physics::PhysicsSystem>();
-		ecs->RegisterComponentToSystem<GE::Transform, GE::Physics::PhysicsSystem>();
-		ecs->RegisterComponentToSystem<GE::Gravity, GE::Physics::PhysicsSystem>();
+		ecs->RegisterComponentToSystem<Velocity, PhysicsSystem>();
+		ecs->RegisterComponentToSystem<Transform, PhysicsSystem>();
+		ecs->RegisterComponentToSystem<Gravity, PhysicsSystem>();
 		ecs->AddComponent(entt3, vel);
 		ecs->AddComponent(entt3, trans);
 		ecs->AddComponent(entt3, grav);
-		ecs->RegisterEntityToSystem<GE::Physics::PhysicsSystem>(entt3);
+		ecs->RegisterEntityToSystem<PhysicsSystem>(entt3);
 
-		ecs->RegisterComponentToSystem<GE::AABB, GE::Collision::CollisionSystem>();
+		ecs->RegisterComponentToSystem<AABB, CollisionSystem>();
 		ecs->AddComponent(entt4, box1);
 		ecs->AddComponent(entt4, transBox1);
 		ecs->AddComponent(entt5, box2);
 		ecs->AddComponent(entt5, transBox2);
-		ecs->RegisterEntityToSystem<GE::Collision::CollisionSystem>(entt4);
-		ecs->RegisterEntityToSystem<GE::Collision::CollisionSystem>(entt5);
+		ecs->RegisterEntityToSystem<CollisionSystem>(entt4);
+		ecs->RegisterEntityToSystem<CollisionSystem>(entt5);
 		
 		ecs->AddComponent(entt6, box3);
 		ecs->AddComponent(entt6, transBox3);
-		ecs->RegisterEntityToSystem<GE::Collision::CollisionSystem>(entt6);
+		ecs->RegisterEntityToSystem<CollisionSystem>(entt6);
+
+		Entity player = ecs->CreateEntity();
+		Transform playerTrans({ 0, 0 }, { 1, 1 }, 0.0);
+		Tween tween(3.0);
+		tween.AddTween({ -1, 0 });
+		tween.AddTween({ -1, 1 });
+		tween.AddTween({ -2, 1 });
+		ecs->RegisterComponentToSystem<Tween, PlayerControllerSystem>();
+		ecs->AddComponent(player, playerTrans);
+		ecs->AddComponent(player, tween);
+		ecs->RegisterEntityToSystem<PlayerControllerSystem>(player);
 	}
 
 	void Update()
@@ -131,18 +148,29 @@ struct Scene
 		// NOTE: Entity 2 does not print!!!
 		ecs->UpdateSystems();
 
-		std::cout << "Entity 2 does not print. This is a manual check on Entity 2's numbers component\n";
+		static bool flag{true};
+		if (flag)
+		{
+			std::cout << "Entity 2 does not print. This is a manual check on Entity 2's numbers component\n";
 
-		EntityComponentSystem& ecs = EntityComponentSystem::GetInstance();
-		Number* num = ecs.GetComponent<Number>(1);
-		std::cout << "Entity's numbers are: " << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
+			Number* num = ecs->GetComponent<Number>(1);
+			std::cout << "Entity's numbers are: " << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
+
+			ecs->RemoveSystem<AdditionSystem>();
+			ecs->RemoveSystem<PrintingSystem>();
+			//Entity entt1 = 0;
+			//Entity entt2 = 1;
+			//ecs->DestroyEntity(entt1);
+			//ecs->DestroyEntity(entt2);
+			ecs->RemoveSystem<CollisionSystem>();
+			ecs->RemoveSystem<PhysicsSystem>();
+			flag = false;
+		}
 
 	}
 
 	void Exit()
 	{
 		// Example of removing systems
-		ecs->RemoveSystem<AdditionSystem>();
-		ecs->RemoveSystem<PrintingSystem>();
 	}
 };

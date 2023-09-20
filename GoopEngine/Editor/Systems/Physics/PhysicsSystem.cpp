@@ -1,16 +1,13 @@
 #include <pch.h>
-#include "Physics.h"
-#include "Gravity.h"
-#include "Transform.h"
-#include "Velocity.h"
+#include <Physics/PhysicsSystem.h>
+#include <Component/Velocity.h>
+#include <Component/Transform.h>
+#include <Component/Gravity.h>
 
-using namespace GE::Physics;
-using namespace GE::ECS;
-
-void PhysicsSystem::Awake()
-{
-	m_ecs = &EntityComponentSystem::GetInstance();
-}
+using namespace GE;
+using namespace ECS;
+using namespace Systems;
+using namespace Component;
 
 void PhysicsSystem::Update()
 {
