@@ -14,6 +14,9 @@ namespace WindowSystem {
     int GetWindowShouldClose();
     void SwapBuffers();
 
+    int GetWinWidth();
+    int GetWinHeight();
+
     /*!*********************************************************************
     \brief Sets window title text.
     \params

@@ -62,6 +62,16 @@ namespace WindowSystem {
     glfwSwapBuffers(m_window);
   }
 
+  int Window::GetWinWidth()
+  {
+      return m_windowWidth;
+  }
+
+  int Window::GetWinHeight()
+  {
+    return m_windowHeight;
+  }
+
   void Window::SetWindowTitle(char const* name)
   {
     glfwSetWindowTitle(m_window, name);

@@ -21,7 +21,7 @@ namespace Graphics {
    */
   struct SpriteData {
     Texture texture;        //!< texture object handle (contains the texture to refer to)
-    Vec2    texCoords;      //!< texture coordinates of sprite (important for tex atlas support)
+    gVec2    texCoords;      //!< texture coordinates of sprite (important for tex atlas support)
     GLuint  width, height;  //!< integral sprite dimensions in width and height (x and y)
     // It is possible that sprite data can have varying sizes which requires offsets. 
     // This is the place to put offset (in pixels based on dimensions).

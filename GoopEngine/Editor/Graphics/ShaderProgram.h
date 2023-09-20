@@ -29,6 +29,9 @@ namespace Graphics {
   public:
     ShaderProgram() : m_pgmHandle{}, m_isLinked{ GL_FALSE } {}
 
+
+  public: // All foundational methods to create and delete shader program
+
     GLboolean CompileFromString(GLenum shaderType, std::string const& shaderSrc);
     GLboolean CompileFromFile(GLenum shaderType, std::string const& filePath);
     GLboolean Link();

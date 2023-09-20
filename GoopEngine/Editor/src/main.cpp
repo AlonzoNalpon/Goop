@@ -16,7 +16,7 @@
 
 #define GRAPHICS_TEST
 #ifdef GRAPHICS_TEST
-
+#include <FrameRateController/FrameRateController.h>
 #include "../AssetManager/AssetManager.h"
 #include <Window/Window.h>
 #include <Graphics/GraphicsEngine.h>
@@ -30,20 +30,29 @@ int main(int /*argc*/, char* /*argv*/[])
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 #ifdef GRAPHICS_TEST
-  WindowSystem::Window window{ 800, 800, "GOOP"};
-  window.CreateAppWindow();
-  Graphics::GraphicsEngine gEngine;     
-  window.SetWindowTitle("GOOP ENGINE"); // this is how you set window title
+  
+  WindowSystem::Window window{ 800, 800, "GOOP"}; // WINDOW
+  window.CreateAppWindow();             // create the window
+  GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
+  Graphics::GraphicsEngine& gEngine{Graphics::GraphicsEngine::GetInstance()};     // my graphics engine
+  
+
+  fRC.InitFrameRateController(60);
   // Now we get the asset manager
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
   am->LoadDeserializedData(); // load the images we need
   am->LoadImageW(ASSETS_PATH + "MineWorm.png");
 
-  gEngine.Init(Graphics::Colorf{ .4f }); // Initialize the engine with this clear color
+  gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
 
-  while (!window.GetWindowShouldClose()) {
+  while (!window.GetWindowShouldClose())
+  {
+    fRC.StartFrame();
+    window.SetWindowTitle((std::string{"GOOP ENGINE | FPS: "} + std::to_string(fRC.GetFPS())).c_str()); // this is how you set window title
     gEngine.Draw();
+    Graphics::GraphicsEngine::DrawLine({ 0,0 }, { 300, 0 }, { 1, 0, 0 });
     window.SwapBuffers();
+    fRC.EndFrame();
   }
 
   am->FreeImages(); // cleanup the images

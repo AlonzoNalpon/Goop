@@ -120,17 +120,17 @@ namespace Graphics {
     T_Vec2(T x = 0, T y = 0) : x{ x }, y{ y } {}
   };
 #pragma endregion // END TEMPORARY REGION
-  using Vec3  = glm::vec3;
-  using Dvec3 = glm::dvec3;
-  using Vec2  = glm::vec2;
-  using Dvec2 = glm::dvec2;
-  using Ivec2 = glm::ivec2;
+  using gVec3  = glm::vec3;
+  using gDvec3 = glm::dvec3;
+  using gVec2  = glm::vec2;
+  using gDvec2 = glm::dvec2;
+  using gIvec2 = glm::ivec2;
 #pragma endregion // END TEMPLATES REGION
   using Colorf    = T_Colorf<f32>;
   using Rect      = T_Rect<GLint>;
 
   // GL_Data contains attribute data for transfer. Thus, it should use single precision floats
-  using GL_Data   = T_GL_Data_Layout<Vec3, Colorf, Vec2, std::vector>;
+  using GL_Data   = T_GL_Data_Layout<gVec3, Colorf, gVec2, std::vector>;
 
   
 }

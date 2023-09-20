@@ -14,11 +14,14 @@ layout (location=2) in vec2 aTexturePosition; // texture position attribute
 layout (location=0) out vec3 vColor;    // vertex color output
 layout (location=1) out vec2 vTexCoord; // texture coordinate output
 
+layout (location=0) uniform vec2 uTexPos; // the bottom left position of tex usually ranging from [0, 1]
+layout (location=1) uniform vec2 uTexDims;// the dimensions of the texture usually ranging from [0, 1]
+
 // UNIFORMS GO HERE
 void main() {
   gl_Position = vec4( aVertexPosition, 1.0);
   vColor      = aVertexColor;
-  vTexCoord   = aTexturePosition;
+  vTexCoord   = aTexturePosition * uTexDims + uTexPos;
 }
 
 // TUIAWBDUIYBA
