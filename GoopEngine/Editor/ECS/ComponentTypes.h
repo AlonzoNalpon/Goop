@@ -16,7 +16,7 @@ namespace GE
 		enum COMPONENT_TYPES
 		{
 			TRANSFORM = 0,
-			AABB,
+			BOXCOLLIDER,
 			VELOCITY,
 			GRAVITY,
 			SPRITE,
@@ -30,7 +30,7 @@ namespace GE
 		const std::map<COMPONENT_TYPES, std::string> componentsToString
 		{
 			{ TRANSFORM, "Transform" },
-			{ AABB, "AABB" },
+			{ BOXCOLLIDER, "BoxCollider" },
 			{ VELOCITY, "Velocity" },
 			{ GRAVITY, "Gravity" },
 			{ SPRITE, "Sprite" },
@@ -43,7 +43,7 @@ namespace GE
 		const std::map<std::string, COMPONENT_TYPES> stringToComponents
 		{
 			{ "Transform", TRANSFORM },
-			{ "AABB", AABB },
+			{ "BoxCollider", BOXCOLLIDER },
 			{ "Velocity", VELOCITY },
 			{ "Gravity", GRAVITY },
 			{ "Sprite", SPRITE },

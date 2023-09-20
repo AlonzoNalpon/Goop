@@ -1,5 +1,6 @@
 #pragma once
 #include <pch.h>
+#include <Graphics/GraphicsEngine.h>
 
 namespace GE
 {
@@ -25,6 +26,11 @@ namespace GE
 			//GE::ECS::Entity * m_collided;
 			std::set<AABB*> m_collided; //a set list of entities' pointers that current entity is collided with
 			bool m_mouseCollided;
+
+			void Render()
+			{
+				Graphics::GraphicsEngine::DrawLine(m_min, )
+			}
 		};
 	}
 }
