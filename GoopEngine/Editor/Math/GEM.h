@@ -4,6 +4,9 @@
 #include <math.h>
 #include <type_traits>
 #include <stdexcept>
+#ifdef _DEBUG
+#include <iostream>
+#endif
 
 namespace GE
 {
@@ -36,6 +39,19 @@ namespace GE
     using dMat2 = Mat<2, 2, double>;
     using dMat3 = Mat<3, 3, double>;
     using dMat4 = Mat<4, 4, double>;
+
+    #ifdef _DEBUG
+    template <unsigned N, typename T>
+    std::ostream& operator<<(std::ostream& os, Vec<N, T> const& vec)
+    {
+      os << "(";
+      for (unsigned i{}; i < N; ++i)
+      {
+        os << vec[i] << ((i == N - 1) ? ")" : ",");
+      }
+      return os;
+    }
+    #endif
   }
 } // namespace GE
 

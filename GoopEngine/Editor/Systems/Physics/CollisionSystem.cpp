@@ -3,14 +3,6 @@
 
 using namespace GE::Math;
 
-#ifdef _DEBUG
-std::ostream& operator<<(std::ostream& os, GE::Math::dVec2 const& vec)
-{
-	os << "(" << vec.x << ", " << vec.y << ")";
-	return os;
-}
-#endif
-
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
