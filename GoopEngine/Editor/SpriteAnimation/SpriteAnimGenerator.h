@@ -8,7 +8,7 @@ namespace Graphics{
   class SpriteAnimGenerator 
   {
   public:
-    static SpriteAnimation GenerateAnimData(SPRITE_ANIM_FORMAT format, GLint width, GLint height, GLint );
+    static SpriteAnimation GenerateAnimData(GLint hCuts, GLint vCuts, gObjID texture);
   private:
     static SpriteAnimation AnimDataLtR_TtB();
   };

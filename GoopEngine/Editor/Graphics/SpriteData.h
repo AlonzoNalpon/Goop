@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef SPRITE_DATA_H
 #define SPRITE_DATA_H
-#include <Graphics/Def/GraphicsTypes.h>
+#include <Graphics/SpriteSubData.h>
 #include <Graphics/Texture.h>
 namespace Graphics {
   /*!
@@ -20,12 +20,8 @@ namespace Graphics {
    * texture coordinates, and a texture handle..
    */
   struct SpriteData {
-    Texture texture;        //!< texture object handle (contains the texture to refer to)
-    gVec2    texCoords;      //!< texture coordinates of sprite (important for tex atlas support)
-    GLuint  width, height;  //!< integral sprite dimensions in width and height (x and y)
-    // It is possible that sprite data can have varying sizes which requires offsets. 
-    // This is the place to put offset (in pixels based on dimensions).
-    // pivot offset should be done in model space first before game object transform
+    SpriteSubData info;           //!< texture info including texcoords and dimensions
+    gObjID        texture;        //!< texture object handle (contains the texture to refer to)
   };
 }
 

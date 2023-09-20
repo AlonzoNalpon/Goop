@@ -11,7 +11,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 namespace Graphics
 {
-  size_t const SpriteAnimationManager::INVALID_ID{ static_cast<size_t>(-1) }; // the highest possible value
 
   size_t SpriteAnimationManager::GetAnimID(std::string const& name) const noexcept
   {
@@ -23,7 +22,7 @@ namespace Graphics
       ERR_LOG_FILE(error + name);
     }
 #endif
-    return it == m_animLookupTable.end() ? INVALID_ID : it->second; // return ID or INVALID_ID if not found
+    return it == m_animLookupTable.end() ? BAD_OBJ_ID : it->second; // return ID or BAD_OBJ_ID if not found
   }
 
   SpriteAnimation const& SpriteAnimationManager::GetAnim(size_t id) const

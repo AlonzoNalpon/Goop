@@ -11,7 +11,7 @@ namespace Graphics {
 
   struct Texture
   {
-    GLuint texture;         //!< the handle to the texture
+    GLuint textureHandle;         //!< the handle to the texture
     GLenum filtering;       //!< the filtering mode for the image
     GLenum format;          //!< format of data (RGBA)
     GLenum internalFormat;  //!< layout of pixel data in GPU(RGBA8)

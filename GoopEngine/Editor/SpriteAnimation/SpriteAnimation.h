@@ -19,12 +19,13 @@ namespace Graphics
    * \struct SpriteAnimation
    * \brief  
    * Sprite animation class to store animation data for
-   * reference by sprite animation instances
+   * reference by sprite animation instances.
+   * This info does not store texture (should be reading from sprite component)
    */
   struct SpriteAnimation {
-    f64                     speed;  //!< speed in frames per second
-    std::vector<SpriteData> frames; //!< every frame stored as sprite data
-    u32                     flags;   //!< refer to the enumerated flags
+    f64                         speed;  //!< speed in frames per second
+    std::vector<SpriteSubData>  frames; //!< every frame stored as sprite data
+    u32                         flags;   //!< refer to the enumerated flags
     // There's 4 free bytes of padding here for the taking
   };
 }

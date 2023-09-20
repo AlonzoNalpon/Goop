@@ -224,6 +224,8 @@
     <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
+    <ClCompile Include="Graphics\Renderer\Renderer.cpp" />
+    <ClCompile Include="Graphics\TextureManager.cpp" />
     <ClCompile Include="Serialization\AssetGooStream.cpp" />
     <ClCompile Include="ECS\System\SystemManager.cpp" />
     <ClCompile Include="FrameRateController\FrameRateController.cpp" />
@@ -264,6 +266,9 @@
     <ClInclude Include="ECS\Entity\EntityManager.h" />
     <ClInclude Include="ECS\System\System.h" />
     <ClInclude Include="ECS\System\SystemManager.h" />
+    <ClInclude Include="Graphics\Renderer\RenderData.h" />
+    <ClInclude Include="Graphics\Renderer\Renderer.h" />
+    <ClInclude Include="Graphics\SpriteSubData.h" />
     <ClInclude Include="Graphics\TextureManager.h" />
     <ClInclude Include="Math\Mat3Utils.h" />
     <ClInclude Include="Serialization\IGooStream.h" />

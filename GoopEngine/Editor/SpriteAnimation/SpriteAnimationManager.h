@@ -23,7 +23,6 @@ namespace Graphics
   class SpriteAnimationManager
   {
   public:
-    static size_t const           INVALID_ID;         //!< constant to represent invalid ID
 
   public: // METHODS
     /*!*********************************************************************
@@ -31,7 +30,7 @@ namespace Graphics
       .
     \params
       name  name of the animation to look for
-    \return the ID of the animation, or SpriteAnimationManager::INVALID_ID if cannot be found
+    \return the ID of the animation, or BAD_OBJ_ID (see GraphicsTypes.h) if cannot be found
       
     ************************************************************************/
     size_t                        GetAnimID(std::string const& name) const noexcept;
