@@ -288,7 +288,7 @@ namespace {
   void GraphicsEngine::DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr)
   {
 
-    glLineWidth(5.f);
+    glLineWidth(1.f);
     GraphicsEngine& gEngine{ GetInstance() };
     auto const& mdl{ gEngine.m_lineMdl };
     gVec2 newStart{ startPt.x / gEngine.m_vpWidth * 2, startPt.y / gEngine.m_vpHeight * 2};
