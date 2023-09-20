@@ -13,15 +13,15 @@ namespace GE
 		public:
 			//collision checks:
 			//AABB & mouse input
-			bool Collide(AABB& box, Math::dVec2& input);
+			bool Collide(BoxCollider& box, Math::dVec2& input);
 
 			//AABB & AABB
-			bool Collide(AABB& box1, AABB& box2);
+			bool Collide(BoxCollider& box1, BoxCollider& box2);
 
 			void Update();
 
 		private:
-			void UpdateAABB(AABB& entity, const Math::dVec2& newCenter);
+			void UpdateAABB(BoxCollider& entity, const Math::dVec2& newCenter);
 		};
 	}
 }

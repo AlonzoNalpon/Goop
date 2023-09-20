@@ -104,11 +104,11 @@ struct Scene
 		Entity entt4 = ecs->CreateEntity();
 		Entity entt5 = ecs->CreateEntity();
 		Entity entt6 = ecs->CreateEntity();
-		AABB box1({ 1, 2 }, 4, 3);
-		AABB box2({ 2, 2 }, 2, 2); //should collide
+		BoxCollider box1({ 1, 2 }, 4, 3);
+		BoxCollider box2({ 2, 2 }, 2, 2); //should collide
 		Transform transBox1({ 1, 2 }, { 4, 3 }, 0.0);
 		Transform transBox2({ 2, 2 }, { 2, 2 }, 0.0);
-		AABB box3({ 7, 2 }, 3, 2); //shouldnt collide
+		BoxCollider box3({ 7, 2 }, 3, 2); //shouldnt collide
 		Transform transBox3({ 7, 2 }, { 3, 2 }, 0.0);
 
 		ecs->RegisterComponentToSystem<Velocity, PhysicsSystem>();
@@ -119,7 +119,7 @@ struct Scene
 		ecs->AddComponent(entt3, grav);
 		ecs->RegisterEntityToSystem<PhysicsSystem>(entt3);
 
-		ecs->RegisterComponentToSystem<AABB, CollisionSystem>();
+		ecs->RegisterComponentToSystem<BoxCollider, CollisionSystem>();
 		ecs->AddComponent(entt4, box1);
 		ecs->AddComponent(entt4, transBox1);
 		ecs->AddComponent(entt5, box2);
