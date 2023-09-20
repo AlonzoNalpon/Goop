@@ -12,7 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #ifndef RENDERER_COMPONENT_H
 #define RENDERER_COMPONENT_H
 #include <ECS/Component/Component.h>
-#include <GLApp/GraphicsTypes.h>
+#include <Graphics/Def/GraphicsTypes.h>
 namespace Components {
 
   struct Renderer {

@@ -1,7 +1,7 @@
 #pragma once
-
-#include "../System/System.h"
-#include "../EntityComponentSystem.h"
+#include <pch.h>
+//#include "../System/System.h"
+//#include "../EntityComponentSystem.h"
 #include "NumberComponent.h"
 #include "TextComponent.h"
 #include <iostream>
@@ -20,33 +20,36 @@ public:
 		std::cout << "Printing system started\n";
 	}
 
-	void Update(GE::ECS::Entity& entt)
+	void Update()
 	{
-		GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-
-		Text* txt = ecs.GetComponent<Text>(entt);
-		if (txt == nullptr)
+		for (auto& entt : m_entities)
 		{
-			return;
+			GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+
+			Text* txt = ecs.GetComponent<Text>(entt);
+			if (txt == nullptr)
+			{
+				return;
+			}
+			Number* num = ecs.GetComponent<Number>(entt);
+			if (num == nullptr)
+			{
+				return;
+			}
+
+			// Components can be individually toggled
+			//if (txt->GetActive())
+			//{
+			//	txt->SetActive(false);
+			//}
+
+			std::stringstream ss;
+			ss << txt->text << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
+			txt->text = ss.str();
+
+			std::cout << txt->text;
+			std::cout << "Printing system updated\n";
 		}
-		Number* num = ecs.GetComponent<Number>(entt);
-		if (num == nullptr)
-		{
-			return;
-		}
-
-		// Components can be individually toggled
-		//if (txt->GetActive())
-		//{
-		//	txt->SetActive(false);
-		//}
-
-		std::stringstream ss;
-		ss << txt->text << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
-		txt->text = ss.str();
-
-		std::cout << txt->text;
-		std::cout << "Printing system updated\n";
 	}
 
 	void OnDestroyed()

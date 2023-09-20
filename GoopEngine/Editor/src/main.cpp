@@ -1,8 +1,4 @@
-//#include <GLFW/glfw3.h>
 #include <pch.h>
-#include <iostream>
-#include <Window/Window.h>
-
 
 //#define EXCEPTION_TEST
 #define ECS_TEST
@@ -10,17 +6,16 @@
 #include "../ECS/ECS Example/Scene.h"
 #endif // ECS_TEST
 
-#ifdef ASSET_M_TEST
-#include "../AssetManager/AssetManager.h"
-#endif //ASSET_M_TEST
-
-#define GRAPHICS_TEST
+//#define GRAPHICS_TEST
 #ifdef GRAPHICS_TEST
 #include <FrameRateController/FrameRateController.h>
 #include "../AssetManager/AssetManager.h"
 #include <Window/Window.h>
 #include <Graphics/GraphicsEngine.h>
 #endif
+
+#include "../Physics/Physics.h"
+#include "../Physics/Collision.h"
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -29,6 +24,16 @@ int main(int /*argc*/, char* /*argv*/[])
 #define _CRTDBG_MAP_ALLOC
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
+
+  //if (!glfwInit())
+  //{
+  //  // Initialization failed!
+  //  std::cout << "Failed to initialize GLFW! Exiting now..." << std::endl;
+  //  std::exit(EXIT_FAILURE);
+  //}
+
+  //Goop::Window window(100, 100, L"WHAT");
+  //window.CreateOGLWindow();
 #ifdef GRAPHICS_TEST
   
   WindowSystem::Window window{ 800, 800, "GOOP"}; // WINDOW
@@ -54,10 +59,9 @@ int main(int /*argc*/, char* /*argv*/[])
     window.SwapBuffers();
     fRC.EndFrame();
   }
-
-  am->FreeImages(); // cleanup the images
 #endif
 #ifdef ECS_TEST
+
   try
   {
     Scene scn;
@@ -72,19 +76,5 @@ int main(int /*argc*/, char* /*argv*/[])
   }
 #endif // ECS_TEST
 
-#ifdef ASSET_M_TEST
-  //AssetManager::LoadImage();
-  GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
-  //am->LoadImage("Assets/VADIM.jpg");
-  //am->LoadDirectory("Assets/");
-  //am->GetName(3);
-  //am->GetID(am->GetName(3));
-  am->LoadDeserializedData();
-  am->FreeImage("Assets/Knight.png");
-  am->FreeImage("Assets/Green Girl.png");
-  am->FreeImages();
-#endif
-
-  
-  return 0;
+  return 1;
 }
