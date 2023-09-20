@@ -1,7 +1,7 @@
 #pragma once
-
-#include "../System/System.h"
-#include "../EntityComponentSystem.h"
+#include <pch.h>
+//#include "../System/System.h"
+//#include "../EntityComponentSystem.h"
 #include "NumberComponent.h"
 #include "TextComponent.h"
 #include <iostream>

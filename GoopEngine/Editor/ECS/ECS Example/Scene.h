@@ -5,6 +5,12 @@
 #include "PrintingSystem.h"
 #include "TextComponent.h"
 #include "NumberComponent.h"
+#include "../../Physics/Physics.h"
+#include "../../Physics/Collision.h"
+
+#include "../../Physics/Velocity.h"
+#include "../../Physics/Transform.h"
+#include "../../Physics/Gravity.h"
 
 using namespace GE::ECS;
 
@@ -83,6 +89,41 @@ struct Scene
 
 		// Example of unregistering from a system
 		//ecs->UnregisterEntityFromSystem<PrintingSystem>(entt2);
+
+		Entity entt3 = ecs->CreateEntity();
+		GE::Velocity vel({ 0, 0 }, { 0, 0 });
+		GE::Transform trans({ 3, 6 }, { 4, 4 }, 0.0);
+		GE::Gravity grav({ 0, 0 });
+
+		Entity entt4 = ecs->CreateEntity();
+		Entity entt5 = ecs->CreateEntity();
+		Entity entt6 = ecs->CreateEntity();
+		GE::AABB box1({ 1, 2 }, 4, 3);
+		GE::AABB box2({ 2, 2 }, 2, 2); //should collide
+		GE::Transform transBox1({ 1, 2 }, { 4, 3 }, 0.0);
+		GE::Transform transBox2({ 2, 2 }, { 2, 2 }, 0.0);
+		GE::AABB box3({ 7, 2 }, 3, 2); //shouldnt collide
+		GE::Transform transBox3({ 7, 2 }, { 3, 2 }, 0.0);
+
+		ecs->RegisterComponentToSystem<GE::Velocity, GE::Physics::PhysicsSystem>();
+		ecs->RegisterComponentToSystem<GE::Transform, GE::Physics::PhysicsSystem>();
+		ecs->RegisterComponentToSystem<GE::Gravity, GE::Physics::PhysicsSystem>();
+		ecs->AddComponent(entt3, vel);
+		ecs->AddComponent(entt3, trans);
+		ecs->AddComponent(entt3, grav);
+		ecs->RegisterEntityToSystem<GE::Physics::PhysicsSystem>(entt3);
+
+		ecs->RegisterComponentToSystem<GE::AABB, GE::Collision::CollisionSystem>();
+		ecs->AddComponent(entt4, box1);
+		ecs->AddComponent(entt4, transBox1);
+		ecs->AddComponent(entt5, box2);
+		ecs->AddComponent(entt5, transBox2);
+		ecs->RegisterEntityToSystem<GE::Collision::CollisionSystem>(entt4);
+		ecs->RegisterEntityToSystem<GE::Collision::CollisionSystem>(entt5);
+		
+		ecs->AddComponent(entt6, box3);
+		ecs->AddComponent(entt6, transBox3);
+		ecs->RegisterEntityToSystem<GE::Collision::CollisionSystem>(entt6);
 	}
 
 	void Update()
@@ -95,6 +136,7 @@ struct Scene
 		EntityComponentSystem& ecs = EntityComponentSystem::GetInstance();
 		Number* num = ecs.GetComponent<Number>(1);
 		std::cout << "Entity's numbers are: " << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
+
 	}
 
 	void Exit()
