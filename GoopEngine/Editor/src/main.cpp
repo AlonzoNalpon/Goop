@@ -6,7 +6,7 @@
 #include "../ECS/ECS Example/Scene.h"
 #endif // ECS_TEST
 
-//#define GRAPHICS_TEST
+#define GRAPHICS_TEST
 #ifdef GRAPHICS_TEST
 #include <FrameRateController/FrameRateController.h>
 #include "../AssetManager/AssetManager.h"
@@ -55,7 +55,7 @@ int main(int /*argc*/, char* /*argv*/[])
     fRC.StartFrame();
     window.SetWindowTitle((std::string{"GOOP ENGINE | FPS: "} + std::to_string(fRC.GetFPS())).c_str()); // this is how you set window title
     gEngine.Draw();
-    Graphics::GraphicsEngine::DrawLine({ 0,0 }, { 300, 0 }, { 1, 0, 0 });
+    Graphics::GraphicsEngine::DrawLine({ 0,0 }, { 300, 0 }, { 1, 0, 0 }); // THIS IS HOW YOU DRAW A LINE (no need for calling getinstance)
     window.SwapBuffers();
     fRC.EndFrame();
   }
