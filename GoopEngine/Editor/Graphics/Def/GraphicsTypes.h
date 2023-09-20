@@ -125,6 +125,8 @@ namespace Graphics {
   using gVec2  = glm::vec2;
   using gDvec2 = glm::dvec2;
   using gIvec2 = glm::ivec2;
+
+  using gObjID = size_t;
 #pragma endregion // END TEMPLATES REGION
   using Colorf    = T_Colorf<f32>;
   using Rect      = T_Rect<GLint>;
@@ -132,7 +134,7 @@ namespace Graphics {
   // GL_Data contains attribute data for transfer. Thus, it should use single precision floats
   using GL_Data   = T_GL_Data_Layout<gVec3, Colorf, gVec2, std::vector>;
 
-  
+  constexpr gObjID BAD_OBJ_ID{ static_cast<gObjID>(-1) };
 }
 
 #endif
