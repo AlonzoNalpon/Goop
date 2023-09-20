@@ -224,6 +224,7 @@
     <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
+    <ClCompile Include="Serialization\AssetGooStream.cpp" />
     <ClCompile Include="ECS\System\SystemManager.cpp" />
     <ClCompile Include="FrameRateController\FrameRateController.cpp" />
     <ClCompile Include="Graphics\GraphicsEngine.cpp" />
@@ -233,6 +234,7 @@
     <ClCompile Include="Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Systems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Systems\PlayerController\PlayerControllerSystem.cpp" />
+    <ClCompile Include="Serialization\SpriteGooStream.cpp" />
     <ClCompile Include="Window\Window.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimationManager.cpp" />
     <ClCompile Include="src\Def.cpp" />
@@ -264,6 +266,9 @@
     <ClInclude Include="ECS\System\SystemManager.h" />
     <ClInclude Include="Graphics\TextureManager.h" />
     <ClInclude Include="Math\Mat3Utils.h" />
+    <ClInclude Include="Serialization\IGooStream.h" />
+    <ClInclude Include="Serialization\SpriteData.h" />
+    <ClInclude Include="Serialization\SpriteGooStream.h" />
     <ClInclude Include="SpriteAnimation\Def\SpriteAnimationFlags.h" />
     <ClInclude Include="FrameRateController\FrameRateController.h" />
     <ClInclude Include="Graphics\Def\GraphicsTypes.h" />
@@ -290,6 +295,8 @@
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Math\Vec4.h" />
     <ClInclude Include="Math\VecUtils.h" />
+    <ClInclude Include="Serialization\AssetGooStream.h" />
+    <ClInclude Include="Serialization\GooStream.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="SpriteAnimation\SpriteAnimationManager.h" />
     <ClInclude Include="Systems\Rendering\RendererComponent.h" />
