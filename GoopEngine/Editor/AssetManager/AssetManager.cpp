@@ -189,7 +189,7 @@ namespace GE
 					// For each entry in m_filePath, load the image from the ASSETS_DIR and the entry's second value
 					for (std::pair<std::string, std::string> const& entry : m_filePath)
 					{
-						LoadImage(ASSETS_DIR + entry.second);
+						LoadImageW(ASSETS_DIR + entry.second);
 					}
 				}
 				// If the flag is set to CONFIG
