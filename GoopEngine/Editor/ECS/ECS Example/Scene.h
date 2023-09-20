@@ -27,7 +27,10 @@ struct Scene
 	void Start()
 	{
 #ifdef EXCEPTION_TEST
-		throw Debug::Exception<Scene>(Debug::LEVEL_ERROR, "test", ERRLG_FUNC, ERRLG_LINE);
+		// Can throw in 2 ways, using ErrMsg macro or manually typing
+
+		//throw Debug::Exception<Scene>(Debug::LEVEL_ERROR, "test", ERRLG_FUNC, ERRLG_LINE);
+		throw Debug::Exception<Scene>(Debug::LEVEL_ERROR, ErrMsg("test"));
 #endif // EXCEPTION_TEST
 
 		ecs = &EntityComponentSystem::GetInstance();
@@ -157,7 +160,7 @@ struct Scene
 		{
 			//std::cout << "Entity 2 does not print. This is a manual check on Entity 2's numbers component\n";
 
-			Number* num = ecs->GetComponent<Number>(1);
+			//Number* num = ecs->GetComponent<Number>(1);
 			//std::cout << "Entity's numbers are: " << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
 
 			ecs->RemoveSystem<AdditionSystem>();

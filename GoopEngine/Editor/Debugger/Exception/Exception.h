@@ -15,13 +15,15 @@
 #define ERRLG_FUNC __FUNCTION__
 #define ERRLG_LINE __LINE__
 
+#define ErrMsg(msg) msg, ERRLG_FUNC, ERRLG_LINE
+
 namespace GE
 {
   namespace Debug
   {
     enum EXCEPTION_LEVEL
     {
-      LEVEL_INFO,     // Slap on the wrist level
+      LEVEL_INFO = 0,     // Slap on the wrist level
       LEVEL_WARN,     // This may be a potential issue
       LEVEL_ERROR,    // This can cause a crash
       LEVEL_CRITICAL, // This will cause a crash
