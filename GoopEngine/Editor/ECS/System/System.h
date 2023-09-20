@@ -12,10 +12,14 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <set>
 #include "../Entity/Entity.h"
 
+
+
 namespace GE
 {
 	namespace ECS
 	{
+		// Forward declare
+		class EntityComponentSystem;
 		class System
 		{
 		public:
@@ -78,6 +82,8 @@ namespace GE
 
 		protected:
 			std::set<Entity> m_entities;
+			EntityComponentSystem* m_ecs;
+
 		};
 	}
 }

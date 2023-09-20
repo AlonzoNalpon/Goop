@@ -1,4 +1,5 @@
 #include "System.h"
+#include "../EntityComponentSystem.h"
 
 #ifdef _DEBUG
 #include <iostream>
@@ -8,6 +9,7 @@ using namespace GE::ECS;
 
 void System::Awake()
 {
+	m_ecs = &EntityComponentSystem::GetInstance();
 #ifdef _DEBUG
 	std::cout << __FUNCSIG__ << " Called\n";
 #endif
