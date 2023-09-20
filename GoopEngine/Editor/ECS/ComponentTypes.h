@@ -13,15 +13,15 @@ namespace GE
 {
 	namespace ESC
 	{
-		enum COMPONENT_TYPES
+		enum class COMPONENT_TYPES
 		{
-			TRANSFORM = 0,
-			BOXCOLLIDER,
-			VELOCITY,
-			GRAVITY,
-			SPRITE,
-			MODEL,
-			ANIMATION,
+			TRANSFORM = 1,
+			BOXCOLLIDER = 2,
+			VELOCITY = 4,
+			GRAVITY = 8,
+			SPRITE = 16,
+			MODEL = 32,
+			ANIMATION = 64,
 			COMPONENTS_TOTAL
 		};
 
@@ -29,26 +29,26 @@ namespace GE
 		// or use the .at(<key>) function
 		const std::map<COMPONENT_TYPES, std::string> componentsToString
 		{
-			{ TRANSFORM, "Transform" },
-			{ BOXCOLLIDER, "BoxCollider" },
-			{ VELOCITY, "Velocity" },
-			{ GRAVITY, "Gravity" },
-			{ SPRITE, "Sprite" },
-			{ MODEL, "Model" },
-			{ ANIMATION, "Animation" },
+			{ COMPONENT_TYPES::TRANSFORM, "Transform" },
+			{ COMPONENT_TYPES::BOXCOLLIDER, "BoxCollider" },
+			{ COMPONENT_TYPES::VELOCITY, "Velocity" },
+			{ COMPONENT_TYPES::GRAVITY, "Gravity" },
+			{ COMPONENT_TYPES::SPRITE, "Sprite" },
+			{ COMPONENT_TYPES::MODEL, "Model" },
+			{ COMPONENT_TYPES::ANIMATION, "Animation" },
 		};
 
 		// Const map so only interated through ranged for,
 		// or use the .at(<key>) function
 		const std::map<std::string, COMPONENT_TYPES> stringToComponents
 		{
-			{ "Transform", TRANSFORM },
-			{ "BoxCollider", BOXCOLLIDER },
-			{ "Velocity", VELOCITY },
-			{ "Gravity", GRAVITY },
-			{ "Sprite", SPRITE },
-			{ "Model", MODEL },
-			{ "Animation", ANIMATION },
+			{ "Transform", COMPONENT_TYPES::TRANSFORM },
+			{ "BoxCollider", COMPONENT_TYPES::BOXCOLLIDER },
+			{ "Velocity", COMPONENT_TYPES::VELOCITY },
+			{ "Gravity", COMPONENT_TYPES::GRAVITY },
+			{ "Sprite", COMPONENT_TYPES::SPRITE },
+			{ "Model", COMPONENT_TYPES::MODEL },
+			{ "Animation", COMPONENT_TYPES::ANIMATION },
 		};
 	}
 }
