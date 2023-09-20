@@ -256,6 +256,7 @@
     <ClInclude Include="ECS\System\System.h" />
     <ClInclude Include="ECS\System\SystemManager.h" />
     <ClInclude Include="Math\Mat3Utils.h" />
+    <ClInclude Include="Serialization\IGooStream.h" />
     <ClInclude Include="Serialization\SpriteData.h" />
     <ClInclude Include="Serialization\SpriteGooStream.h" />
     <ClInclude Include="SpriteAnimation\Def\SpriteAnimationFlags.h" />

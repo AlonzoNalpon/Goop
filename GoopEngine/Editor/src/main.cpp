@@ -37,6 +37,24 @@ std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& 
 #endif
 #endif // SERIALIZE_TEST
 
+//#define EXCEPTION_TEST
+#define ECS_TEST
+#ifdef ECS_TEST
+#include "../ECS/ECS Example/Scene.h"
+#endif // ECS_TEST
+
+#ifdef ASSET_M_TEST
+#include "../AssetManager/AssetManager.h"
+#endif //ASSET_M_TEST
+
+//#define GRAPHICS_TEST
+#ifdef GRAPHICS_TEST
+
+#include "../AssetManager/AssetManager.h"
+#include <Window/Window.h>
+#include <Graphics/GraphicsEngine.h>
+#endif
+
 int main(int /*argc*/, char* /*argv*/[])
 {
   // Enable run-time memory check for debug builds.
@@ -105,7 +123,7 @@ int main(int /*argc*/, char* /*argv*/[])
   if (!sgs.Unload(assets))
   {
     std::cout << "Error unloading assets into container" << "\n";
-}
+  }
 
   std::cout << "Deserialized " << fileName << ":\n";
   for (auto const& entry : assets)

@@ -8,7 +8,8 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include "GooStream.h"
+#include "IGooStream.h"
+#include "Serializer.h"
 #include <vector>
 #include "SpriteData.h"
 
@@ -18,8 +19,7 @@ namespace GE
   {
 
     // GooStream for Assets
-    class SpriteGooStream : public InGooStream<std::vector<SpriteData>>,
-                                   TextSerializer
+    class SpriteGooStream : public IGooIStream<std::vector<SpriteData>>
     {
     public:
       // Ctor reading json file into stream
@@ -30,6 +30,9 @@ namespace GE
 
       // Unloads contents into a container
       bool Unload(container_type& container) override;
+
+      // Empties the stream of its contents and resets all values
+      void Reset() noexcept override;
 
     private:
       static constexpr char CommentSymbol = '#';

@@ -16,8 +16,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 using namespace GE::Serialization;
 
-SpriteGooStream::SpriteGooStream(std::string const& json) : GooStream()
+SpriteGooStream::SpriteGooStream(std::string const& json) : GooStream(false)
 {
+  m_elements = 0;
   Read(json);
 }
 
@@ -31,6 +32,7 @@ bool SpriteGooStream::Read(std::string const& file)
     #endif
     return m_status = false;
   }
+  std::ostringstream& data{ std::get<std::ostringstream>(m_data) };
 
   std::string line{};
   std::getline(ifs, line);  // Skip first line
@@ -39,7 +41,7 @@ bool SpriteGooStream::Read(std::string const& file)
     // skip line if comment
     if (line.empty() || line.front() == CommentSymbol) { continue; }
 
-    m_data << line << "\n";
+    data << line << "\n";
     ++m_elements;
   }
   
@@ -60,7 +62,8 @@ bool SpriteGooStream::Unload(container_type& container)
     #endif
     return false;
   }
-  std::string const ossData{ m_data.str() };
+  std::ostringstream& data{ std::get<std::ostringstream>(m_data) };
+  std::string const ossData{ data.str() };
   std::istringstream iss{ ossData };
 
   std::string line;
@@ -75,6 +78,13 @@ bool SpriteGooStream::Unload(container_type& container)
 
   return m_status = true;
 }
+
+void SpriteGooStream::Reset() noexcept
+{
+  std::ostringstream().swap(std::get<std::ostringstream>(m_data));
+  m_elements = 0;
+}
+
 
 //--------------------------------------------//
 // FOR FUTURE IF NEEDED: JSON format reading  //
