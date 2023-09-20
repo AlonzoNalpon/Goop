@@ -9,7 +9,7 @@ using namespace Systems;
 using namespace Component;
 
 //AABB & mouse input
-bool CollisionSystem::Collide(AABB& box, dVec2& input)
+bool CollisionSystem::Collide(BoxCollider& box, dVec2& input)
 {
 	if (input.x <= box.m_max.x && input.x >= box.m_min.x)
 	{
@@ -22,7 +22,7 @@ bool CollisionSystem::Collide(AABB& box, dVec2& input)
 }
 
 //AABB & AABB
-bool CollisionSystem::Collide(AABB& box1, AABB& box2)
+bool CollisionSystem::Collide(BoxCollider& box1, BoxCollider& box2)
 {
 	if (box1.m_min.x <= box2.m_max.x && box1.m_max.x >= box2.m_min.x)
 	{
@@ -41,7 +41,7 @@ void CollisionSystem::Update()
 		//Velocity* updateVel = m_ecs->GetComponent<Velocity>(entity);
 
 		
-		AABB* updateEntity = m_ecs->GetComponent<AABB>(entity);
+		BoxCollider* updateEntity = m_ecs->GetComponent<BoxCollider>(entity);
 		Transform* newCenter = m_ecs->GetComponent<Transform>(entity);
 		if (!updateEntity) {
 			std::cout << "updateEntity ERROR\n";
@@ -55,7 +55,7 @@ void CollisionSystem::Update()
 	//loop through every entity & check against every OTHER entity if they collide either true
 	for (Entity entity1 : m_entities)
 	{
-		AABB* entity1Col = m_ecs->GetComponent<AABB>(entity1);
+		BoxCollider* entity1Col = m_ecs->GetComponent<BoxCollider>(entity1);
 		//entity1Col->m_collided.clear();
 
 		GE::Math::dVec2 mouse1{ 3, 1 }; //should collide
@@ -88,7 +88,7 @@ void CollisionSystem::Update()
 				continue;
 			}
 
-			AABB* entity2Col = m_ecs->GetComponent<AABB>(entity2);
+			BoxCollider* entity2Col = m_ecs->GetComponent<BoxCollider>(entity2);
 			if (Collide(*entity1Col, *entity2Col)) {
 				entity1Col->m_collided.insert(entity2Col);
 				std::cout << "Collided." << std::endl;
@@ -104,7 +104,7 @@ void CollisionSystem::Update()
 	}
 }
 
-void CollisionSystem::UpdateAABB(AABB& entity, const dVec2& newCenter)
+void CollisionSystem::UpdateAABB(BoxCollider& entity, const dVec2& newCenter)
 {
 	entity.m_center = newCenter;
 	entity.m_min.x = entity.m_center.x - entity.m_width / 2.0f;
