@@ -38,22 +38,6 @@ std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& 
 #endif // SERIALIZE_TEST
 
 //#define EXCEPTION_TEST
-#define ECS_TEST
-#ifdef ECS_TEST
-#include "../ECS/ECS Example/Scene.h"
-#endif // ECS_TEST
-
-#ifdef ASSET_M_TEST
-#include "../AssetManager/AssetManager.h"
-#endif //ASSET_M_TEST
-
-//#define GRAPHICS_TEST
-#ifdef GRAPHICS_TEST
-
-#include "../AssetManager/AssetManager.h"
-#include <Window/Window.h>
-#include <Graphics/GraphicsEngine.h>
-#endif
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -76,14 +60,14 @@ int main(int /*argc*/, char* /*argv*/[])
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
   am->LoadJSONData("../Assets/AssetsToLoadTest/Images.json", GE::AssetManager::IMAGES);
   am->LoadJSONData("../Assets/AssetsToLoadTest/Config.json", GE::AssetManager::CONFIG);
-  am->LoadJSONData("../Assets/AssetsToLoadTest/sprites.txt", GE::AssetManager::ANIMATION);
+  am->LoadJSONData("../Assets/AssetsToLoadTest/Sprites.txt", GE::AssetManager::ANIMATION);
   //am->SpriteCheck();
 #endif
 
 #ifdef GRAPHICS_TEST
   WindowSystem::Window window{ am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), "GOOP"};
   window.CreateAppWindow();
-  Graphics::GraphicsEngine gEngine;     
+  Graphics::GraphicsEngine gEngine;
   window.SetWindowTitle(am->GetConfigData("Window Title", 0)); // this is how you set window title
   // Now we get the asset manager
   am->LoadDeserializedData(); // load the images we need
@@ -97,20 +81,6 @@ int main(int /*argc*/, char* /*argv*/[])
 
   am->FreeImages(); // cleanup the images
 #endif
-#ifdef ECS_TEST
-  try
-  {
-    Scene scn;
-    scn.Start();
-    scn.Update();
-    scn.Exit();
-  }
-  catch (GE::Debug::IExceptionBase& e)
-  {
-    e.LogSource();
-    e.Log();
-  }
-#endif // ECS_TEST
 
 #ifdef SERIALIZE_TEST
   GE::Serialization::SpriteGooStream::container_type assets;
@@ -133,10 +103,19 @@ int main(int /*argc*/, char* /*argv*/[])
 #endif
 
 #ifdef ECS_TEST
-  Scene scn;
-  scn.Start();
-  scn.Update();
-  scn.Exit();
+  try
+  {
+    Scene scn;
+    scn.Start();
+    scn.Update();
+    scn.Exit();
+  }
+  catch (GE::Debug::IExceptionBase& e)
+  {
+    e.LogSource();
+    e.Log();
+  }
 #endif // ECS_TEST
-  return 1;
+
+  return 0;
 }

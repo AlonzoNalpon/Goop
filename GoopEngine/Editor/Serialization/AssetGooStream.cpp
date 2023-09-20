@@ -18,6 +18,7 @@ using namespace GE::Serialization;
 
 AssetGooStream::AssetGooStream(std::string const& json) : GooStream(true)
 {
+  m_elements = 0;
   Read(json);
 }
 
@@ -62,7 +63,7 @@ bool AssetGooStream::Read(std::string const& json)
   #endif
 
   ifs.close();
-  m_elements = data.Size();
+  m_elements = data.MemberCount();
   return m_status = true;
 }
 
