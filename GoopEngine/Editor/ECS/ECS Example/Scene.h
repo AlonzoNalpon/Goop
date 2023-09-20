@@ -104,12 +104,12 @@ struct Scene
 		Entity entt4 = ecs->CreateEntity();
 		Entity entt5 = ecs->CreateEntity();
 		Entity entt6 = ecs->CreateEntity();
-		BoxCollider box1({ 1, 2 }, 4, 3);
-		BoxCollider box2({ 2, 2 }, 2, 2); //should collide
-		Transform transBox1({ 1, 2 }, { 4, 3 }, 0.0);
-		Transform transBox2({ 2, 2 }, { 2, 2 }, 0.0);
-		BoxCollider box3({ 7, 2 }, 3, 2); //shouldnt collide
-		Transform transBox3({ 7, 2 }, { 3, 2 }, 0.0);
+		Transform transBox1({ -100, 2 }, { 40, 30 }, 0.0);
+		Transform transBox2({ 200, 2 }, { 20, 20 }, 0.0);
+		Transform transBox3({ 300, 2 }, { 30, 20 }, 0.0);
+		BoxCollider box1(transBox1.m_pos, 1, 1);
+		BoxCollider box2(transBox2.m_pos, 1, 1); //should collide
+		BoxCollider box3(transBox3.m_pos, 1, 1); //shouldnt collide
 
 		ecs->RegisterComponentToSystem<Velocity, PhysicsSystem>();
 		ecs->RegisterComponentToSystem<Transform, PhysicsSystem>();
@@ -148,8 +148,8 @@ struct Scene
 		// NOTE: Entity 2 does not print!!!
 		ecs->UpdateSystems();
 
-		static bool flag{true};
-		if (flag)
+		//static bool flag{true};
+		//if (flag)
 		{
 			std::cout << "Entity 2 does not print. This is a manual check on Entity 2's numbers component\n";
 
@@ -162,9 +162,9 @@ struct Scene
 			//Entity entt2 = 1;
 			//ecs->DestroyEntity(entt1);
 			//ecs->DestroyEntity(entt2);
-			ecs->RemoveSystem<CollisionSystem>();
-			ecs->RemoveSystem<PhysicsSystem>();
-			flag = false;
+			//ecs->RemoveSystem<CollisionSystem>();
+			//ecs->RemoveSystem<PhysicsSystem>();
+			//flag = false;
 		}
 
 	}

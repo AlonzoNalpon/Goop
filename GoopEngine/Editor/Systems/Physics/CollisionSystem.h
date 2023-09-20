@@ -1,6 +1,7 @@
 #pragma once
 #include <pch.h>
 #include <Component/BoxCollider.h>
+#include <Component/Transform.h>
 
 using namespace GE::Component;
 
@@ -21,7 +22,7 @@ namespace GE
 			void Update();
 
 		private:
-			void UpdateAABB(BoxCollider& entity, const Math::dVec2& newCenter);
+			void UpdateAABB(BoxCollider& entity, const Math::dVec2& newCenter, Transform& scale);
 		};
 	}
 }

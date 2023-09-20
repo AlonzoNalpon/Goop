@@ -1,5 +1,4 @@
 #include <Physics/CollisionSystem.h>
-#include <Component/Transform.h>
 
 using namespace GE::Math;
 
@@ -50,13 +49,15 @@ void CollisionSystem::Update()
 			std::cout << "newCenter ERROR\n";
 		}
 		std::cout << "Centre: " << newCenter->m_pos << std::endl;
-		UpdateAABB(*updateEntity, newCenter->m_pos);
+		UpdateAABB(*updateEntity, newCenter->m_pos, *newCenter);
 	}
 	//loop through every entity & check against every OTHER entity if they collide either true
 	for (Entity entity1 : m_entities)
 	{
 		BoxCollider* entity1Col = m_ecs->GetComponent<BoxCollider>(entity1);
 		//entity1Col->m_collided.clear();
+
+		entity1Col->Render();
 
 		GE::Math::dVec2 mouse1{ 3, 1 }; //should collide
 		GE::Math::dVec2 mouse2{ 5, 4 };	//shouldnt collide
@@ -104,11 +105,11 @@ void CollisionSystem::Update()
 	}
 }
 
-void CollisionSystem::UpdateAABB(BoxCollider& entity, const dVec2& newCenter)
+void CollisionSystem::UpdateAABB(BoxCollider& entity, const dVec2& newCenter, Transform& scale)
 {
 	entity.m_center = newCenter;
-	entity.m_min.x = entity.m_center.x - entity.m_width / 2.0f;
-	entity.m_min.y = entity.m_center.y - entity.m_height / 2.0f;
-	entity.m_max.x = entity.m_center.x + entity.m_width / 2.0f;
-	entity.m_max.y = entity.m_center.y + entity.m_height / 2.0f;
+	entity.m_min.x = entity.m_center.x - (scale.m_scale.x * entity.m_width) / 2.0f;
+	entity.m_min.y = entity.m_center.y - (scale.m_scale.y * entity.m_height) / 2.0f;
+	entity.m_max.x = entity.m_center.x + (scale.m_scale.x * entity.m_width) / 2.0f;
+	entity.m_max.y = entity.m_center.y + (scale.m_scale.y * entity.m_height) / 2.0f;
 }
