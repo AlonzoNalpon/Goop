@@ -229,6 +229,8 @@
     <ClCompile Include="Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="Graphics\ShaderProgram.cpp" />
     <ClCompile Include="Math\Mat3Utils.cpp" />
+    <ClCompile Include="Physics\Collision.cpp" />
+    <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="Window\Window.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimationManager.cpp" />
     <ClCompile Include="src\Def.cpp" />
@@ -254,6 +256,12 @@
     <ClInclude Include="ECS\System\System.h" />
     <ClInclude Include="ECS\System\SystemManager.h" />
     <ClInclude Include="Math\Mat3Utils.h" />
+    <ClInclude Include="Physics\BoxCollider.h" />
+    <ClInclude Include="Physics\Collision.h" />
+    <ClInclude Include="Physics\Gravity.h" />
+    <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Physics\Transform.h" />
+    <ClInclude Include="Physics\Velocity.h" />
     <ClInclude Include="SpriteAnimation\Def\SpriteAnimationFlags.h" />
     <ClInclude Include="FrameRateController\FrameRateController.h" />
     <ClInclude Include="Graphics\Def\GraphicsTypes.h" />
