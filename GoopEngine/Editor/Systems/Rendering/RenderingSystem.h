@@ -4,41 +4,17 @@
 #include <ECS/System/System.h>										// System class to inherit
 #include <ECS/EntityComponentSystem.h>						// the ECS system
 #include <Systems/Rendering/RendererComponent.h>	// the component related to this system
-namespace Systems {
+namespace GE::Systems {
   class RenderSystem : public GE::ECS::System
   {
 	public:
-		void Awake()
-		{
-			std::cout << "Rendering system awoken\n";
-		}
+		void Awake();
 
-		void Start()
-		{
-			std::cout << "Rendering system started\n";
-		}
+		void Start();
 
-		void Update()
-		{
+		void Update();
 
-			//for (auto& entt : m_entities)
-			//{
-			//	using RenderComponent = Components::Renderer;
-			//	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-			//
-			//	RenderComponent* txt = ecs.GetComponent<RenderComponent>(entt);
-			//	if (txt == nullptr)
-			//	{
-			//		continue;
-			//	}
-			//
-			//}
-		}
-
-		void OnDestroyed()
-		{
-			std::cout << "Rendering system destroyed\n";
-		}
+		void OnDestroyed();
   };
 }
 

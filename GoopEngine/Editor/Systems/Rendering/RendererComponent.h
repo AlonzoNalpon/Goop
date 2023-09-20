@@ -13,12 +13,12 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #define RENDERER_COMPONENT_H
 #include <ECS/Component/Component.h>
 #include <Graphics/Def/GraphicsTypes.h>
-namespace Components {
-
-  struct Renderer {
-    Graphics::Vec3 position;  //!< The transform is supposed to be a component by physics but this is placeholder
-    GLuint texture;           //!< handle to a texture (for graphics engine) 0 for NO TEXTURE
+namespace GE::Components 
+{
+  struct Renderer : public GE::ECS::Component
+  {
     GLuint model;             //!< handle to a model that includes shader (for graphics engine)
+    // can easily add more for special effects
   };
 
 }
