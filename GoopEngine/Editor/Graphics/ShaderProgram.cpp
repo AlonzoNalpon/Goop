@@ -163,7 +163,7 @@ namespace Graphics {
     return GL_TRUE;
   }
 
-  GLboolean ShaderProgram::CompileLinkValidate(ShaderCont const& cont)
+  GLboolean ShaderProgram::CompileLinkValidate(ShaderInitCont const& cont)
   {
     for (auto const& elem : cont)
     {

@@ -16,7 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <string>
 #include <vector>
 namespace Graphics {
-  using ShaderCont = std::vector<std::pair<GLenum, std::string>>;
+  using ShaderInitCont = std::vector<std::pair<GLenum, std::string>>;
   
   /*!
    * \class ShaderProgram
@@ -36,7 +36,7 @@ namespace Graphics {
     GLboolean CompileFromFile(GLenum shaderType, std::string const& filePath);
     GLboolean Link();
     GLboolean Validate();
-    GLboolean CompileLinkValidate(ShaderCont const&);
+    GLboolean CompileLinkValidate(ShaderInitCont const&);
     GLuint    GetHandle() const;
     void      DeleteShdrPgm();
   private:

@@ -19,8 +19,8 @@ namespace {
 }
 #endif
   // Typedefs
-  using ShaderLT = std::map<std::string const, GLuint>;
-  GraphicsEngine::GraphicsEngine()
+  
+  GraphicsEngine::GraphicsEngine() : m_vpWidth{}, m_vpHeight{}
   {
   }
 
@@ -43,8 +43,8 @@ namespace {
 
     m_spriteQuadMdl = GenerateQuad();
     m_lineMdl       = GenerateLine();
-    ShaderCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"}};
-    ShaderCont debugLineShaders{ { GL_VERTEX_SHADER, "debug_line.vert" }, {GL_FRAGMENT_SHADER, "debug_line.frag"} };
+    ShaderInitCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"}};
+    ShaderInitCont debugLineShaders{ { GL_VERTEX_SHADER, "debug_line.vert" }, {GL_FRAGMENT_SHADER, "debug_line.frag"} };
 
     m_spriteQuadMdl.shader = CreateShader(spriteShaders, "sprite");
     m_lineMdl.shader       = CreateShader(debugLineShaders, "debug_line");
@@ -55,17 +55,17 @@ namespace {
 
 #pragma region TEXTURE_TEST
     // Now use textures
-    auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
-    GE::AssetManager::ImageData imageData = assetManager.GetData( ASSETS_PATH + "MineWorm.png");
-    unsigned char* raw_image = imageData.GetData();
-    GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
-    GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };
-    glCreateTextures(GL_TEXTURE_2D, 1, &testTexture.texture);
-    // allocate GPU storage for texture image data loaded from file
-    glTextureStorage2D(testTexture.texture, 1, GL_RGBA8, width, height);
-    // copy image data from client memory to GPU texture buffer memory
-    glTextureSubImage2D(testTexture.texture, 0, 0, 0, width, height,
-      GL_RGBA, GL_UNSIGNED_BYTE, reinterpret_cast<GLfloat*>(imageData.GetData()));
+    //auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
+    //GE::AssetManager::ImageData imageData = assetManager.GetData( ASSETS_PATH + "MineWorm.png");
+    //unsigned char* raw_image = imageData.GetData();
+    //GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
+    //GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };
+    //glCreateTextures(GL_TEXTURE_2D, 1, &testTexture.texture);
+    //// allocate GPU storage for texture image data loaded from file
+    //glTextureStorage2D(testTexture.texture, 1, GL_RGBA8, width, height);
+    //// copy image data from client memory to GPU texture buffer memory
+    //glTextureSubImage2D(testTexture.texture, 0, 0, 0, width, height,
+    //  GL_RGBA, GL_UNSIGNED_BYTE, reinterpret_cast<GLfloat*>(imageData.GetData()));
 #pragma endregion
 
 #pragma region SPRITE_ANIMATION_TEST
@@ -84,9 +84,9 @@ namespace {
 #pragma region UPDATE BLOCK
     double dt{ GE::FPS::FrameRateController::GetInstance().GetDeltaTime() };
 #pragma endregion
-    auto const& mdl{ m_models.front() };
-    
-    
+    //auto const& mdl{ m_models.front() };
+    //
+    //
     //glBindTextureUnit(6, testTexture.texture);
     //glTextureParameteri(testTexture.texture, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
     //glTextureParameteri(testTexture.texture, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
@@ -241,12 +241,18 @@ namespace {
     return retval;
   }
 
-  void GraphicsEngine::DrawMdl(Model const&)
+  void GraphicsEngine::DrawMdl(Model const& mdl)
+  {
+    // not implemented yet
+  }
+
+  void GraphicsEngine::DrawMdl(Model const& mdl, SpriteData const& sprite)
   {
 
   }
 
-  GLuint GraphicsEngine::GetShaderPgm(std::string const& pgmName)
+
+  gObjID GraphicsEngine::GetShaderPgm(std::string const& pgmName)
   {
     // Find the shader
     ShaderLT::const_iterator res{ m_shaderLT.find(pgmName) };
@@ -257,7 +263,7 @@ namespace {
     return res->second; // return the handle
   }
 
-  GLuint GraphicsEngine::CreateShader(ShaderCont const& container, std::string const& name)
+  GLuint GraphicsEngine::CreateShader(ShaderInitCont const& container, std::string const& name)
   {
     ShaderProgram shdrPgm;
     shdrPgm.CompileLinkValidate(container); 
@@ -279,7 +285,7 @@ namespace {
     return shdrPgm.GetHandle(); // return the handle
   }
 
-  void GraphicsEngine::DrawLine(gVec2 const& startPt, gVec2 const& endPt, Colorf clr)
+  void GraphicsEngine::DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr)
   {
 
     glLineWidth(5.f);
