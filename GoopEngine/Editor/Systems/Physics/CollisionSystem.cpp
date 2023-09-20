@@ -48,7 +48,7 @@ void CollisionSystem::Update()
 		if (!newCenter) {
 			std::cout << "newCenter ERROR\n";
 		}
-		std::cout << "Centre: " << newCenter->m_pos << std::endl;
+		//std::cout << "Centre: " << newCenter->m_pos << std::endl;
 		UpdateAABB(*updateEntity, newCenter->m_pos, *newCenter);
 	}
 	//loop through every entity & check against every OTHER entity if they collide either true
@@ -59,30 +59,30 @@ void CollisionSystem::Update()
 
 		entity1Col->Render();
 
-		GE::Math::dVec2 mouse1{ 3, 1 }; //should collide
-		GE::Math::dVec2 mouse2{ 5, 4 };	//shouldnt collide
+		//GE::Math::dVec2 mouse1{ 3, 1 }; //should collide
+		//GE::Math::dVec2 mouse2{ 5, 4 };	//shouldnt collide
 
-		if (entity1Col->m_mouseCollided = Collide(*entity1Col, mouse1)) {
-			std::cout << "Collided." << std::endl;
-			std::cout << "Box coordinates: " << entity1Col->m_center << std::endl;
-			std::cout << "Point coordinates: " << mouse1 << std::endl;
-		}
-		else {
-			std::cout << "Not collided." << std::endl;
-			std::cout << "Box coordinates: " << entity1Col->m_center << std::endl;
-			std::cout << "Point coordinates: " << mouse1 << std::endl;
-		}
+		//if (entity1Col->m_mouseCollided = Collide(*entity1Col, mouse1)) {
+		//	std::cout << "Collided." << std::endl;
+		//	std::cout << "Box coordinates: " << entity1Col->m_center << std::endl;
+		//	std::cout << "Point coordinates: " << mouse1 << std::endl;
+		//}
+		//else {
+		//	std::cout << "Not collided." << std::endl;
+		//	std::cout << "Box coordinates: " << entity1Col->m_center << std::endl;
+		//	std::cout << "Point coordinates: " << mouse1 << std::endl;
+		//}
 
-		if (entity1Col->m_mouseCollided = Collide(*entity1Col, mouse2)) {
-			std::cout << "Collided." << std::endl;
-			std::cout << "Box coordinates: " << entity1Col->m_center << std::endl;
-			std::cout << "Point coordinates: " << mouse2 << std::endl;
-		}
-		else {
-			std::cout << "Not collided." << std::endl;
-			std::cout << "Box coordinates: " << entity1Col->m_center << std::endl;
-			std::cout << "Point coordinates: " << mouse2 << std::endl;
-		}
+		//if (entity1Col->m_mouseCollided = Collide(*entity1Col, mouse2)) {
+		//	std::cout << "Collided." << std::endl;
+		//	std::cout << "Box coordinates: " << entity1Col->m_center << std::endl;
+		//	std::cout << "Point coordinates: " << mouse2 << std::endl;
+		//}
+		//else {
+		//	std::cout << "Not collided." << std::endl;
+		//	std::cout << "Box coordinates: " << entity1Col->m_center << std::endl;
+		//	std::cout << "Point coordinates: " << mouse2 << std::endl;
+		//}
 
 		for (Entity entity2 : m_entities) {
 			if (entity1 == entity2) {
@@ -97,9 +97,9 @@ void CollisionSystem::Update()
 				std::cout << "2nd coordinates: " << entity2Col->m_center << std::endl;
 			}
 			else {
-				std::cout << "Not collided." << std::endl;
+				/*std::cout << "Not collided." << std::endl;
 				std::cout << "1st coordinates: " << entity1Col->m_center << std::endl;
-				std::cout << "2nd coordinates: " << entity2Col->m_center << std::endl;
+				std::cout << "2nd coordinates: " << entity2Col->m_center << std::endl;*/
 			}
 		}
 	}

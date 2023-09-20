@@ -98,8 +98,9 @@ struct Scene
 
 		Entity entt3 = ecs->CreateEntity();
 		Velocity vel({ 0, 0 }, { 0, 0 });
-		Transform trans({ 3, 6 }, { 4, 4 }, 0.0);
+		Transform trans({ 250, 250 }, { 100, 50 }, 0.0);
 		Gravity grav({ 0, 0 });
+		BoxCollider box7(trans.m_pos, 1, 1);
 
 		Entity entt4 = ecs->CreateEntity();
 		Entity entt5 = ecs->CreateEntity();
@@ -131,6 +132,9 @@ struct Scene
 		ecs->AddComponent(entt6, transBox3);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt6);
 
+		ecs->AddComponent(entt3, box7);
+		ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
+
 		Entity player = ecs->CreateEntity();
 		Transform playerTrans({ 0, 0 }, { 1, 1 }, 0.0);
 		Tween tween(3.0);
@@ -151,10 +155,10 @@ struct Scene
 		//static bool flag{true};
 		//if (flag)
 		{
-			std::cout << "Entity 2 does not print. This is a manual check on Entity 2's numbers component\n";
+			//std::cout << "Entity 2 does not print. This is a manual check on Entity 2's numbers component\n";
 
 			Number* num = ecs->GetComponent<Number>(1);
-			std::cout << "Entity's numbers are: " << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
+			//std::cout << "Entity's numbers are: " << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
 
 			ecs->RemoveSystem<AdditionSystem>();
 			ecs->RemoveSystem<PrintingSystem>();

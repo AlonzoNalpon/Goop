@@ -35,7 +35,7 @@ void PlayerControllerSystem::Update()
 			double normalisedTime = tween->m_timeElapsed / tween->m_timePerTween;
 			trans->m_pos = Tweening(tween->m_originalPos, targetPos, normalisedTime);
 			tween->m_tweens.pop();
-			std::cout << "pop\n";
+			//std::cout << "pop\n";
 		}
 		else 
 		{
@@ -49,7 +49,7 @@ void PlayerControllerSystem::Update()
 		}
 		tween->m_timeElapsed += GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 
-		std::cout << "Player Position: [" << trans->m_pos.x << ", " << trans->m_pos.y << "]\n";
+		//std::cout << "Player Position: [" << trans->m_pos.x << ", " << trans->m_pos.y << "]\n";
 	}
 }
 
