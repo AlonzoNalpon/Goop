@@ -23,6 +23,7 @@
 #include <Graphics/GraphicsEngine.h>
 #endif
 
+
 #include <Physics/PhysicsSystem.h>
 #include <Physics/CollisionSystem.h>
 
@@ -43,6 +44,9 @@ std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& 
 #endif
 #endif // SERIALIZE_TEST
 
+#define INPUT_TEST
+
+
 int main(int /*argc*/, char* /*argv*/[])
 {
   // Enable run-time memory check for debug builds.
@@ -55,9 +59,8 @@ int main(int /*argc*/, char* /*argv*/[])
   
   GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
   Graphics::GraphicsEngine& gEngine{Graphics::GraphicsEngine::GetInstance()};     // my graphics engine
-  
-
   fRC.InitFrameRateController(60);
+
   // Now we get the asset manager
 #ifdef ASSET_M_TEST
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
@@ -74,10 +77,18 @@ int main(int /*argc*/, char* /*argv*/[])
   // Now we get the asset manager
   am->LoadDeserializedData(); // load the images we need
   am->LoadImageW(ASSETS_PATH + "MineWorm.png");
-
   gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
-
   am->FreeImages(); // cleanup the images
+#endif
+
+
+#ifdef INPUT_TEST
+
+  GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
+  im->InitInputManager(window.GetWindow());
+  std::cout << "-------------------------------\n";
+  std::cout << "To test Input Manager you can:\n 1.click/hold/release key A.\n 2.Click Mouse Left Button to print Mouse Position\n ";
+
 #endif
 
 #ifdef SERIALIZE_TEST
@@ -116,6 +127,9 @@ int main(int /*argc*/, char* /*argv*/[])
   while (!window.GetWindowShouldClose())
   {
     fRC.StartFrame();
+    #ifdef INPUT_TEST
+    
+    #endif
     window.SetWindowTitle((std::string{"GOOP ENGINE | FPS: "} + std::to_string(fRC.GetFPS())).c_str()); // this is how you set window title
     gEngine.Draw();
 #ifdef ECS_TEST
