@@ -1,5 +1,6 @@
 #include "InputManager.h"
-
+#include <imgui.h>
+#include <ImGui/backends/imgui_impl_glfw.h>
 
 #define UNREFERENCED_PARAMETER(P) (P)
 
@@ -75,14 +76,23 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scanCode, int ac
 {
 	UNREFERENCED_PARAMETER(scanCode);
 	UNREFERENCED_PARAMETER(mod);
+
+	ImGuiIO& io = ImGui::GetIO();
+	if (io.WantCaptureKeyboard)
+	{
+		ImGui_ImplGlfw_KeyCallback(window, key, scanCode, action, mod);
+	}
+
 	bool bit = !(GLFW_RELEASE == action);
 	m_keyReleased[key] = !bit;
-	m_keysTriggered[key] = (bit) ? true : 0;
+	m_keysTriggered[key] = bit;
 }
 
 // Mouse callback function
 void InputManager::MousePosCallback(GLFWwindow* window, double xpos, double ypos)
 {
+	ImGui_ImplGlfw_CursorPosCallback(window, xpos, ypos);
+
 	m_mousePos.first = xpos;
 	m_mousePos.second = ypos;
 
@@ -93,9 +103,16 @@ void InputManager::MouseButtonCallback(GLFWwindow* pwin, int button, int action,
 	UNREFERENCED_PARAMETER(pwin);
 	UNREFERENCED_PARAMETER(mod);
 
+	ImGuiIO& io = ImGui::GetIO();
 	bool bit = !(GLFW_RELEASE == action);
+
+	if (io.WantCaptureMouse)
+	{
+		ImGui_ImplGlfw_MouseButtonCallback(pwin, button, action, mod);
+	}
+
 	m_keyReleased[button] = !bit;
-	m_keysTriggered[button] = (bit) ? true : 0;
+	m_keysTriggered[button] = bit;
 
 }
 
@@ -104,6 +121,9 @@ void InputManager::MouseScrollCallback(GLFWwindow* pwin, double xoffset, double 
 	UNREFERENCED_PARAMETER(pwin);
 	UNREFERENCED_PARAMETER(xoffset);
 	UNREFERENCED_PARAMETER(yoffset);
+
+	ImGui_ImplGlfw_ScrollCallback(pwin, xoffset, yoffset);
+
 	//y_off = ((y_off + yoffset) > 4) ? 4 : ((y_off + yoffset) < -4) ? -4 : y_off + yoffset;
 	//std::cout << y_off << "\n";
 	////#ifdef _DEBUG

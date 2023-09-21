@@ -46,6 +46,10 @@ std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& 
 
 #define INPUT_TEST
 
+#include <ImGui/imgui.h>
+#include <ImGui/backends/imgui_impl_opengl3.h>
+#include <ImGui/backends/imgui_impl_glfw.h>
+
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -74,6 +78,20 @@ int main(int /*argc*/, char* /*argv*/[])
   WindowSystem::Window window{ am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), "GOOP"};
   window.CreateAppWindow();
   window.SetWindowTitle(am->GetConfigData("Window Title", 0)); // this is how you set window title
+
+  // Setup Dear ImGui context
+  IMGUI_CHECKVERSION();
+  ImGui::CreateContext();
+  ImGuiIO& io = ImGui::GetIO();
+  io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+
+  // Setup Dear ImGui style
+  ImGui::StyleColorsDark();
+
+  // Setup Platform/Renderer backends
+  ImGui_ImplGlfw_InitForOpenGL(window.GetWindow(), true);
+  ImGui_ImplOpenGL3_Init();
+
   // Now we get the asset manager
   am->LoadDeserializedData(); // load the images we need
   am->LoadImageW(ASSETS_PATH + "MineWorm.png");
@@ -127,16 +145,26 @@ int main(int /*argc*/, char* /*argv*/[])
   while (!window.GetWindowShouldClose())
   {
     fRC.StartFrame();
-    #ifdef INPUT_TEST
+
+#ifdef INPUT_TEST
     im->UpdateInput();
     im->TestInputManager();
-    #endif
+#endif
+
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+    ImGui::ShowDemoWindow();
+
     window.SetWindowTitle((std::string{"GOOP ENGINE | FPS: "} + std::to_string(fRC.GetFPS())).c_str()); // this is how you set window title
     gEngine.Draw();
 #ifdef ECS_TEST
     scn.Update();
 #endif // ECS_TEST
-    //Graphics::GraphicsEngine::DrawLine({ 0,0 }, { 300, 0 }, { 1, 0, 0 }); // THIS IS HOW YOU DRAW A LINE (no need for calling getinstance)
+
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
     window.SwapBuffers();
     fRC.EndFrame();
   }
@@ -146,6 +174,10 @@ int main(int /*argc*/, char* /*argv*/[])
   scn.Exit();
 #endif // ECS_TEST
 
+
+  ImGui_ImplOpenGL3_Shutdown();
+  ImGui_ImplGlfw_Shutdown();
+  ImGui::DestroyContext();
 
   return 1;
 }
