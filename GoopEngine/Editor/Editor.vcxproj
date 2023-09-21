@@ -226,6 +226,7 @@
     <ClCompile Include="ECS\System\System.cpp" />
     <ClCompile Include="Graphics\Renderer\Renderer.cpp" />
     <ClCompile Include="Graphics\TextureManager.cpp" />
+    <ClCompile Include="InputManager\InputManager.cpp" />
     <ClCompile Include="Serialization\AssetGooStream.cpp" />
     <ClCompile Include="ECS\System\SystemManager.cpp" />
     <ClCompile Include="FrameRateController\FrameRateController.cpp" />
@@ -270,6 +271,8 @@
     <ClInclude Include="Graphics\Renderer\Renderer.h" />
     <ClInclude Include="Graphics\SpriteSubData.h" />
     <ClInclude Include="Graphics\TextureManager.h" />
+    <ClInclude Include="InputManager\InputManager.h" />
+    <ClInclude Include="InputManager\KeyCode.h" />
     <ClInclude Include="Math\Mat3Utils.h" />
     <ClInclude Include="Serialization\IGooStream.h" />
     <ClInclude Include="Serialization\SpriteData.h" />

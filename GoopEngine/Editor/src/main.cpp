@@ -128,7 +128,8 @@ int main(int /*argc*/, char* /*argv*/[])
   {
     fRC.StartFrame();
     #ifdef INPUT_TEST
-    
+    im->UpdateInput();
+    im->TestInputManager();
     #endif
     window.SetWindowTitle((std::string{"GOOP ENGINE | FPS: "} + std::to_string(fRC.GetFPS())).c_str()); // this is how you set window title
     gEngine.Draw();
