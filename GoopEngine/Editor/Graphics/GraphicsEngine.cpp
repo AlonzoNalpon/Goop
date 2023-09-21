@@ -4,7 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <FrameRateController/FrameRateController.h>
 
-#define OGL_ERR_CALLBACK
+//#define OGL_ERR_CALLBACK
   
 namespace Graphics {
   
