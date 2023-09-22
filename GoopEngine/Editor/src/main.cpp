@@ -44,6 +44,11 @@ std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& 
 #endif
 #endif // SERIALIZE_TEST
 
+#define SCRIPT_TEST
+#ifdef SCRIPT_TEST
+#include <ScriptEngine/ScriptManager.h>
+#endif
+
 #define INPUT_TEST
 
 
@@ -89,6 +94,11 @@ int main(int /*argc*/, char* /*argv*/[])
   std::cout << "-------------------------------\n";
   std::cout << "To test Input Manager you can:\n 1.click/hold/release key A.\n 2.Click Mouse Left Button to print Mouse Position\n ";
 
+#endif
+
+#ifdef SCRIPT_TEST
+  GE::MONO::ScriptManager* sm = &(GE::MONO::ScriptManager::GetInstance());
+  sm->InitMono();
 #endif
 
 #ifdef SERIALIZE_TEST

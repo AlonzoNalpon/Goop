@@ -23,7 +23,7 @@ void GE::MONO::ScriptManager::InitMono()
   mono_domain_set(m_appDomain, true);
 
   //Retrieve the C#Assembly (.ddl file)
-  m_coreAssembly = LoadCSharpAssembly("../ScriptCores/bin/Debug/ScriptCores.dll");
+  m_coreAssembly = LoadCSharpAssembly("../ScriptCore/bin/Debug/ScriptCore.dll");
   PrintAssemblyTypes(m_coreAssembly);
 
 
