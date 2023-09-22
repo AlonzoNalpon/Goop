@@ -23,7 +23,7 @@ void GE::MONO::ScriptManager::InitMono()
   mono_domain_set(m_appDomain, true);
 
   //Retrieve the C#Assembly (.ddl file)
-  m_coreAssembly = LoadCSharpAssembly("../ScriptCore/bin/Debug/ScriptCore.dll");
+  m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Debug/GoopScripts.dll");
   PrintAssemblyTypes(m_coreAssembly);
 
 
@@ -112,6 +112,7 @@ void  GE::MONO::PrintAssemblyTypes(MonoAssembly* assembly)
   {
     uint32_t cols[MONO_TYPEDEF_SIZE];
     mono_metadata_decode_row(typeDefinitionsTable, i, cols, MONO_TYPEDEF_SIZE);
+    mono_class_get
 
     const char* nameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
     const char* name = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);

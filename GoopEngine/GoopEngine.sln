@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Editor", "Editor\Editor.vcxproj", "{44D1D130-92F4-4AD7-B6D7-8EF2C6CAD5E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptCore", "ScriptCore\ScriptCore.csproj", "{B9D438F2-1A6F-40CB-BC22-BA53184063B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoopScripts", "GoopScripts\GoopScripts.csproj", "{E9C280B8-3142-4AC5-973C-C3F433833545}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,22 +35,22 @@ Global
 		{44D1D130-92F4-4AD7-B6D7-8EF2C6CAD5E4}.Release|Any CPU.Build.0 = Release|x64
 		{44D1D130-92F4-4AD7-B6D7-8EF2C6CAD5E4}.Release|x64.ActiveCfg = Release|x64
 		{44D1D130-92F4-4AD7-B6D7-8EF2C6CAD5E4}.Release|x64.Build.0 = Release|x64
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Debug_Warnings_Allowed|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Debug_Warnings_Allowed|Any CPU.Build.0 = Debug|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Debug_Warnings_Allowed|x64.ActiveCfg = Debug|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Debug_Warnings_Allowed|x64.Build.0 = Debug|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Debug|x64.Build.0 = Debug|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Release_Warnings_Allowed|Any CPU.ActiveCfg = Release|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Release_Warnings_Allowed|Any CPU.Build.0 = Release|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Release_Warnings_Allowed|x64.ActiveCfg = Release|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Release_Warnings_Allowed|x64.Build.0 = Release|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Release|x64.ActiveCfg = Release|Any CPU
-		{B9D438F2-1A6F-40CB-BC22-BA53184063B9}.Release|x64.Build.0 = Release|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Debug_Warnings_Allowed|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Debug_Warnings_Allowed|Any CPU.Build.0 = Debug|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Debug_Warnings_Allowed|x64.ActiveCfg = Debug|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Debug_Warnings_Allowed|x64.Build.0 = Debug|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Debug|x64.Build.0 = Debug|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Release_Warnings_Allowed|Any CPU.ActiveCfg = Release|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Release_Warnings_Allowed|Any CPU.Build.0 = Release|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Release_Warnings_Allowed|x64.ActiveCfg = Release|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Release_Warnings_Allowed|x64.Build.0 = Release|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Release|x64.ActiveCfg = Release|Any CPU
+		{E9C280B8-3142-4AC5-973C-C3F433833545}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
