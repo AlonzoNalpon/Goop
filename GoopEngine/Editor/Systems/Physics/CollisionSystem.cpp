@@ -97,6 +97,9 @@ void CollisionSystem::Update()
 				std::cout << "2nd coordinates: " << entity2Col->m_center << std::endl;
 			}
 			else {
+				if (entity1Col->m_collided.count(entity2Col)) {
+					entity1Col->m_collided.erase(entity2Col);
+				}
 				/*std::cout << "Not collided." << std::endl;
 				std::cout << "1st coordinates: " << entity1Col->m_center << std::endl;
 				std::cout << "2nd coordinates: " << entity2Col->m_center << std::endl;*/
