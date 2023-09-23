@@ -5,7 +5,8 @@
 
 using namespace GE::Input;
 
-//Wint InputManager::m_width, InputManager::m_height;
+int InputManager::m_width;
+int InputManager::m_height;
 double InputManager::m_keyHeldTime;
 MOUSE_POS InputManager::m_mousePos;
 KEY_MAP InputManager::m_keyReleased;
@@ -14,10 +15,10 @@ KEY_MAP InputManager::m_keysTriggered;
 KEY_PRESS_ARRAY InputManager::m_keyFramesHeld;
 
 
-void InputManager::InitInputManager(GLFWwindow* window, double holdTime)
+void InputManager::InitInputManager(GLFWwindow* window, int width, int height, double holdTime)
 {
-	//m_height = height;
-	//m_width = width;
+	m_height = height;
+	m_width = width;
 	m_keyHeld.reset();
 	m_keysTriggered.reset();
 	m_keyFramesHeld.fill(0);
@@ -68,6 +69,14 @@ MOUSE_POS  InputManager::GetMousePos()
 	return m_mousePos;
 }
 
+
+MOUSE_POS  InputManager::GetMousePosWorld()
+{
+	MOUSE_POS worldPos = m_mousePos;
+	worldPos.first -= static_cast<double>(m_width)/2;
+	worldPos.second = (static_cast<double>(m_height) / 2)-worldPos.second;
+	return  worldPos;
+}
 
 
 
@@ -126,7 +135,7 @@ void InputManager::TestInputManager() {
 	}
 
 	if (im->IsKeyPressed(GPK_MOUSE_LEFT)) {
-		std::cout << "Mouse Pos: " << im->GetMousePos().first << "," << im->GetMousePos().second << "\n";
+		std::cout << "Mouse Pos: " << im->GetMousePosWorld().first << "," << im->GetMousePosWorld().second << "\n";
 	}
 }
 
