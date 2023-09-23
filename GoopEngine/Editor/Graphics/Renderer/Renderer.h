@@ -3,8 +3,8 @@
 #include <Graphics/Def/GraphicsTypes.h>
 #include <Graphics/Def/RenderingHelpers.h>
 #include <Graphics/Renderer/RenderData.h>
-#include <Graphics/GraphicsEngine.h>
-namespace Graphics::Renderer
+#include <Graphics/TextureManager.h>
+namespace Graphics::Rendering
 {
   /*!
    * \class Renderer
@@ -16,9 +16,11 @@ namespace Graphics::Renderer
    * reduced OGL call optimizations should be made in this implementation
    */
   class Renderer {
+    using ShaderLT = std::map<std::string const, gObjID>;
+    using ShaderCont = std::vector<ShaderProgram>;
   public:
-    Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, Graphics::GraphicsEngine::ShaderCont const& shaderCont);
-    void Init();
+    Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, ShaderCont const& shaderCont);
+    void Init(size_t renderCallSize = 2048);
     void RenderObject(gObjID mdl, SpriteData const& sprite);
     //void RenderObject(gObjID mdl, gObjID sprite);
     void Draw();
@@ -27,7 +29,7 @@ namespace Graphics::Renderer
 
     std::vector<Model> const&                     r_mdlContainer;
     TextureManager const&                         r_texManager;
-    Graphics::GraphicsEngine::ShaderCont const&   r_shaders;
+    ShaderCont const&                             r_shaders;
   };
 }
 #endif

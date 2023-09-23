@@ -17,12 +17,12 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Singleton/Singleton.h>
 #include <Math/GEM.h>
 namespace Graphics {
+    
   // The graphics engine responsible for any opengl calls
   class GraphicsEngine : public GE::Singleton<GraphicsEngine>{
-  public:
     using ShaderLT = std::map<std::string const, gObjID>;
     using ShaderCont = std::vector<ShaderProgram>;
-    
+  public:
     GraphicsEngine();
     ~GraphicsEngine();
     /*!*********************************************************************
@@ -83,19 +83,20 @@ namespace Graphics {
     Model GenerateLine();
     // SHADERS ARE ONLY TO BE QUERIED BY MODELS REQUESTING A HANDLE
     // USERS MUST SPECIFY SHADER NAME WHILE CREATING A MODEL
-    ShaderLT                        m_shaderLT; //!< LOOKUP TABLE: handles by strings
-    ShaderCont                      m_shaders; //!< shaders by ID
+    ShaderLT                        m_shaderLT;         //!< LOOKUP TABLE: handles by strings
+    ShaderCont                      m_shaders;          //!< shaders by ID
 
-    std::map<std::string, GLuint>   m_modelsLT; //!< LOOKUP TABLE: handles models by string
-    std::vector<Model>              m_models; //!< models in a vector (models got their own shader)
+    std::map<std::string, GLuint>   m_modelsLT;         //!< LOOKUP TABLE: handles models by string
+    std::vector<Model>              m_models;           //!< models in a vector (models got their own shader)
 
-    SpriteAnimationManager          m_animManager; //!< sprite animation manager
-    TextureManager                  m_textureManager; //!< texture manager
+    SpriteAnimationManager          m_animManager;      //!< sprite animation manager
+    TextureManager                  m_textureManager;   //!< texture manager
+    Rendering::Renderer             m_renderer;         //!< renderer in charge of all opengl draw calls
     // Textures are separated from models and are to be used with rendering components
 
 
-    Model                           m_spriteQuadMdl{}; //!< basic primitive quad for sprites
-    Model                           m_lineMdl{}; //!< basic primitive line
+    Model                           m_spriteQuadMdl{};  //!< basic primitive quad for sprites
+    Model                           m_lineMdl{};        //!< basic primitive line
     // FOR DEBUGGING
   private:
   };

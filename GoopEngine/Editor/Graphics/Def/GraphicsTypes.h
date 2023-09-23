@@ -120,13 +120,13 @@ namespace Graphics {
     T_Vec2(T x = 0, T y = 0) : x{ x }, y{ y } {}
   };
 #pragma endregion // END TEMPORARY REGION
-  using gVec3  = glm::vec3;
-  using gDvec3 = glm::dvec3;
-  using gVec2  = glm::vec2;
-  using gDvec2 = glm::dvec2;
-  using gIvec2 = glm::ivec2;
+  using gVec3  = glm::vec3;   //!< glm vector3
+  using gDvec3 = glm::dvec3;  //!< glm dvector3
+  using gVec2  = glm::vec2;   //!< glm vector2
+  using gDvec2 = glm::dvec2;  //!< glm dvector2
+  using gIvec2 = glm::ivec2;  //!< glm ivector2
 
-  using gObjID = size_t;
+  using gObjID = size_t; //!< This is a type indicating ID of a specific object (not guaranteed to be identical to their OpenGL ID)
 #pragma endregion // END TEMPLATES REGION
   using Colorf    = T_Colorf<f32>;
   using Rect      = T_Rect<GLint>;

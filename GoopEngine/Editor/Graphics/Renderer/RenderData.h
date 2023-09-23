@@ -2,7 +2,7 @@
 #define RENDER_DATA_H
 #include <Graphics/Def/GraphicsTypes.h>
 
-namespace Graphics::Renderer
+namespace Graphics::Rendering
 {
   /*!
    * \brief  struct containing info for rendering

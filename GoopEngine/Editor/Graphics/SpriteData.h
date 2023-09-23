@@ -22,6 +22,7 @@ namespace Graphics {
   struct SpriteData {
     SpriteSubData info;           //!< texture info including texcoords and dimensions
     gObjID        texture;        //!< texture object handle (contains the texture to refer to)
+    SpriteData(SpriteSubData spriteInfo, gObjID texID) : info{ spriteInfo }, texture{ texID } {}
   };
 }
 

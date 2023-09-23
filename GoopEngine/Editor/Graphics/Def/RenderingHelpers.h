@@ -18,4 +18,5 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/Texture.h>  // texture manager
 #include <SpriteAnimation/SpriteAnimation.h> // Sprite animation to store unique animation data
 #include <SpriteAnimation/SpriteAnimationManager.h> // sprite animation manager
+#include <Graphics/Renderer/Renderer.h> // Renderer for rendering objects
 #endif

@@ -138,6 +138,7 @@ struct Scene
 		ecs->AddComponent(entt3, box7);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
 
+
 		Entity player = ecs->CreateEntity();
 		Transform playerTrans({ 0, 0 }, { 1, 1 }, 0.0);
 		Tween tween(3.0);
@@ -148,6 +149,10 @@ struct Scene
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
 		ecs->RegisterEntityToSystem<PlayerControllerSystem>(player);
+
+#pragma region RENDERING_SYSTEM // Rendering should be last ( I think?!)
+
+#pragma endregion // end of rendering system block
 	}
 
 	void Update()

@@ -30,7 +30,7 @@ namespace Graphics
     return m_spriteAnimations[id]; // That's right. We're throwing if you give a bad ID
   }
 
-  size_t SpriteAnimationManager::CreateAnim(SpriteAnimation const& animation, std::string const& name)
+  gObjID SpriteAnimationManager::CreateAnim(SpriteAnimation && animation, std::string const& name)
   {
     auto it{ m_animLookupTable.find(name) };
 

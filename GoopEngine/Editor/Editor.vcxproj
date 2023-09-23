@@ -241,12 +241,14 @@
     <ClCompile Include="FrameRateController\FrameRateController.cpp" />
     <ClCompile Include="Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="Graphics\ShaderProgram.cpp" />
+    <ClCompile Include="SpriteAnimation\Def\SpriteAnimationFlags.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimGenerator.cpp" />
     <ClCompile Include="Math\Mat3Utils.cpp" />
     <ClCompile Include="Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Systems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Systems\PlayerController\PlayerControllerSystem.cpp" />
     <ClCompile Include="Serialization\SpriteGooStream.cpp" />
+    <ClCompile Include="Systems\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="Window\Window.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimationManager.cpp" />
     <ClCompile Include="src\Def.cpp" />
@@ -311,6 +313,7 @@
     <ClInclude Include="Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Systems\PlayerController\PlayerControllerSystem.h" />
+    <ClInclude Include="Systems\Rendering\SpriteAnimComponent.h" />
     <ClInclude Include="Window\Window.h" />
     <ClInclude Include="include\def.h" />
     <ClInclude Include="Math\GEM.h" />

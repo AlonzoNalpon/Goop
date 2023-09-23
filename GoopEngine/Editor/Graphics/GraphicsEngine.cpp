@@ -3,14 +3,19 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <FrameRateController/FrameRateController.h>
-
+#include <SpriteAnimation/SpriteAnimGenerator.h>
 //#define OGL_ERR_CALLBACK
   
 namespace Graphics {
   
 namespace {
-  SpriteData testSprite;
-  Texture    testTexture;
+  struct 
+  {
+    double currTime;
+    gObjID animID;
+    u32 currFrame;
+
+  }testAnim;
 }
 #ifdef OGL_ERR_CALLBACK
   void GLAPIENTRY glDebugCallback(GLenum /*source*/, GLenum /*type*/, GLuint /*id*/, GLenum /*severity*/, GLsizei /*length*/, const GLchar* message, const void* /*userParam*/) {
@@ -20,7 +25,7 @@ namespace {
 #endif
   // Typedefs
   
-  GraphicsEngine::GraphicsEngine() : m_vpWidth{}, m_vpHeight{}
+  GraphicsEngine::GraphicsEngine() : m_vpWidth{}, m_vpHeight{}, m_renderer{ m_models, m_textureManager, m_shaders }
   {
   }
 
@@ -47,29 +52,31 @@ namespace {
     ShaderInitCont debugLineShaders{ { GL_VERTEX_SHADER, "debug_line.vert" }, {GL_FRAGMENT_SHADER, "debug_line.frag"} };
 
     m_spriteQuadMdl.shader = CreateShader(spriteShaders, "sprite");
+    // Adding the basic shader for rendering lines etc...
     m_lineMdl.shader       = CreateShader(debugLineShaders, "debug_line");
     m_models.emplace_back(m_spriteQuadMdl);
     m_models.emplace_back(m_lineMdl);
 #pragma endregion
-    // Adding the basic shader for rendering lines etc...
+
+    m_renderer.Init();
 
 #pragma region TEXTURE_TEST
     // Now use textures
-    //auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
-    //GE::AssetManager::ImageData imageData = assetManager.GetData( ASSETS_PATH + "MineWorm.png");
-    //unsigned char* raw_image = imageData.GetData();
-    //GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
-    //GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };
-    //glCreateTextures(GL_TEXTURE_2D, 1, &testTexture.texture);
-    //// allocate GPU storage for texture image data loaded from file
-    //glTextureStorage2D(testTexture.texture, 1, GL_RGBA8, width, height);
-    //// copy image data from client memory to GPU texture buffer memory
-    //glTextureSubImage2D(testTexture.texture, 0, 0, 0, width, height,
-    //  GL_RGBA, GL_UNSIGNED_BYTE, reinterpret_cast<GLfloat*>(imageData.GetData()));
+    auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
+    GE::AssetManager::ImageData imageData = assetManager.GetData( ASSETS_PATH + "MineWorm.png");
+    unsigned char* raw_image = imageData.GetData();
+    GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
+    GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };
 #pragma endregion
 
 #pragma region SPRITE_ANIMATION_TEST
-    //SpriteAnimation 
+    testAnim.currTime = .0;
+    gObjID texObjID{ m_textureManager.AddTexture(width, height, raw_image) };
+    u32 animFlags{};
+    animFlags |= SPRITE_ANIM_FLAGS::LOOPING; // this animation will loop
+    testAnim.animID = m_animManager.CreateAnim(SpriteAnimGenerator::GenerateAnimData
+    (6, 1, width, height, .1f, animFlags, texObjID), "MineWorm");
+    
 #pragma endregion
 
     // THESE ARE IMPORTANT TO HAVE
@@ -84,6 +91,10 @@ namespace {
 #pragma region UPDATE BLOCK
     double dt{ GE::FPS::FrameRateController::GetInstance().GetDeltaTime() };
 #pragma endregion
+    // This block is just for reference
+    // TODO: DELETE
+    {
+
     //auto const& mdl{ m_models.front() };
     //
     //
@@ -123,7 +134,17 @@ namespace {
       glUseProgram(0);
       glBindVertexArray(0);
     }*/
-
+    }
+    testAnim.currTime += dt;
+    auto anim = m_animManager.GetAnim(testAnim.animID);
+    if (testAnim.currTime >= anim.speed) {
+      testAnim.currTime -= anim.speed;
+      if (++testAnim.currFrame == anim.frames.size())
+        testAnim.currFrame = 0;
+    }
+    SpriteData spriteData{ anim.frames[testAnim.currFrame], anim.texture };
+    m_renderer.RenderObject(0, spriteData);
+    m_renderer.Draw();
   }
 
   Model GraphicsEngine::GenerateQuad()
