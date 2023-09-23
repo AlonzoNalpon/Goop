@@ -29,10 +29,15 @@ namespace GE
 
 			void Render()
 			{
-				Graphics::GraphicsEngine::DrawLine(m_min, { m_max.x, m_min.y });
-				Graphics::GraphicsEngine::DrawLine({ m_max.x, m_min.y }, m_max);
-				Graphics::GraphicsEngine::DrawLine(m_max, { m_min.x, m_max.y });
-				Graphics::GraphicsEngine::DrawLine({ m_min.x, m_max.y }, m_min);
+				// Idk how to tell if i'm no longer collided with something else. Please do if free
+				Graphics::Colorf boxColor = 
+					(m_collided.size() > 1? // THIS IS SUPPOSED TO BE BOOL THAT INDICATES IS COLLIDING
+					Graphics::Colorf{1.f, 0.f, 0.f, 1.f}			// collided : red
+				: Graphics::Colorf{ 0.f, 1.f, 0.f, 1.f });	// not collided: green
+				Graphics::GraphicsEngine::DrawLine(m_min, { m_max.x, m_min.y }, boxColor);
+				Graphics::GraphicsEngine::DrawLine({ m_max.x, m_min.y }, m_max, boxColor);
+				Graphics::GraphicsEngine::DrawLine(m_max, { m_min.x, m_max.y }, boxColor);
+				Graphics::GraphicsEngine::DrawLine({ m_min.x, m_max.y }, m_min, boxColor);
 			}
 		};
 	}
