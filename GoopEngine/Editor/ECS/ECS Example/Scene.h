@@ -100,9 +100,9 @@ struct Scene
 		//ecs->UnregisterEntityFromSystem<PrintingSystem>(entt2);
 
 		Entity entt3 = ecs->CreateEntity();
-		Velocity vel({ 0, 0 }, { 0, 0 });
+		Velocity vel({ -5, 0 }, { 0, 0 });
 		Transform trans({ 250, 250 }, { 100, 50 }, 0.0);
-		Gravity grav({ 0, 0 });
+		Gravity grav({ 0, -20 });
 		BoxCollider box7(trans.m_pos, 1, 1);
 
 		Entity entt4 = ecs->CreateEntity();
