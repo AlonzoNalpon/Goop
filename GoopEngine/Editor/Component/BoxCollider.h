@@ -22,8 +22,6 @@ namespace GE
 			Math::dVec2 m_min;
 			Math::dVec2 m_max;
 			Math::dVec2 m_center;
-			//can use AABB & position(center)
-			//GE::ECS::Entity * m_collided;
 			std::set<BoxCollider*> m_collided; //a set list of entities' pointers that current entity is collided with
 			bool m_mouseCollided;
 
