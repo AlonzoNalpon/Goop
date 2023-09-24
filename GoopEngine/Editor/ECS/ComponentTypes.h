@@ -15,13 +15,13 @@ namespace GE
 	{
 		enum class COMPONENT_TYPES
 		{
-			TRANSFORM = 1,
-			BOXCOLLIDER = 2,
-			VELOCITY = 4,
-			GRAVITY = 8,
-			SPRITE = 16,
-			MODEL = 32,
-			ANIMATION = 64,
+			TRANSFORM = 0,
+			VELOCITY,
+			GRAVITY,
+			BOXCOLLIDER,
+			SPRITE,
+			MODEL,
+			ANIMATION,
 			COMPONENTS_TOTAL
 		};
 

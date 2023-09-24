@@ -36,7 +36,7 @@ void RegisterComponents()
   ecs.RegisterComponentToSystem<Transform, GE::Systems::PhysicsSystem>();   
   ecs.RegisterComponentToSystem<Velocity, GE::Systems::PhysicsSystem>();    
   ecs.RegisterComponentToSystem<GE::Gravity, GE::Systems::PhysicsSystem>();       //0000 0111
-  //ecs.RegisterComponentToSystem<BoxCollider, GE::Systems::CollisionSystem>();   //0000 1000
+  ecs.RegisterComponentToSystem<BoxCollider, GE::Systems::CollisionSystem>();   //0000 1000
 
   //ecs.RegisterComponentToSystem<Tween, GE::Systems::PlayerControllerSystem>();  //0001 0000
 
@@ -114,12 +114,7 @@ int ObjectFactory::LoadObject()
 void ObjectFactory::JoelTest()
 {
   RegisterComponents();
-  RegisterObject(CreateObject(m_objects["Object1"]));
-  RegisterObject(CreateObject(m_objects["Object1"]));
-  RegisterObject(CreateObject(m_objects["Object1"]));
-
-  //RegisterObject(CreateObject(m_objects["Object2"]));
-
+  RegisterObject(CreateObject(m_objects["Player"]));
 }
 
 void ObjectFactory::ObjectJsonLoader(std::string json_path)

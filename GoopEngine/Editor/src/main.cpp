@@ -32,6 +32,7 @@
 #include <iomanip>
 #include "../Serialization/AssetGooStream.h"
 #include "../Serialization/SpriteGooStream.h"
+#include "../ObjectFactory/ObjectFactory.h"
 #ifdef _DEBUG
 // << overload for printing to ostream
 std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& sprite)
@@ -102,23 +103,29 @@ int main(int /*argc*/, char* /*argv*/[])
 #endif
 
 #ifdef SERIALIZE_TEST
-  GE::Serialization::SpriteGooStream::container_type assets;
-  std::string const fileName{ "../Assets/AssetsToLoadTest/sprites.txt" };
-  GE::Serialization::SpriteGooStream sgs{ fileName };
-  if (!sgs)
-  {
-    std::cout << "Error deserializing " << fileName << "\n";
-  }
-  if (!sgs.Unload(assets))
-  {
-    std::cout << "Error unloading assets into container" << "\n";
-  }
+  GE::ObjectFactory::ObjectFactory::ObjectFactoryTest();
 
-  std::cout << "Deserialized " << fileName << ":\n";
-  for (auto const& entry : assets)
-  {
-    std::cout << entry << "\n";
-  }
+  GE::ObjectFactory::ObjectFactory& of = (GE::ObjectFactory::ObjectFactory::GetInstance());
+  of.ObjectJsonLoader("../Assets/AssetsToLoadTest/SERIALIZED.json");
+  of.JoelTest();
+
+  //GE::Serialization::SpriteGooStream::container_type assets;
+  //std::string const fileName{ "../Assets/AssetsToLoadTest/sprites.txt" };
+  //GE::Serialization::SpriteGooStream sgs{ fileName };
+  //if (!sgs)
+  //{
+  //  std::cout << "Error deserializing " << fileName << "\n";
+  //}
+  //if (!sgs.Unload(assets))
+  //{
+  //  std::cout << "Error unloading assets into container" << "\n";
+  //}
+
+  //std::cout << "Deserialized " << fileName << ":\n";
+  //for (auto const& entry : assets)
+  //{
+  //  std::cout << entry << "\n";
+  //}
 #endif
 
 #ifdef ECS_TEST
