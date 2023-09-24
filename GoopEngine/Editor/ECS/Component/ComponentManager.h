@@ -10,6 +10,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include "ComponentArray.h"
 #include <unordered_map>
+#include <sstream>
+#include "../../Debugger/ErrorLogger/ErrorLogger.h"
 
 namespace GE
 {
@@ -86,7 +88,7 @@ namespace GE
 
 			\return 
 				Pointer to entity's component.
-				Returns null if component does not exist.
+				Returns null if component does not exist or is inactive.
 			********************************************************************/
 			template <typename T>
 			T* GetComponent(const Entity& entity);

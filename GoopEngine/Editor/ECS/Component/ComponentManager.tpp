@@ -41,7 +41,16 @@ void ComponentManager::RemoveComponent(Entity& entity)
 template <typename T>
 T* ComponentManager::GetComponent(const Entity& entity)
 {
-	return GetComponentArray<T>()->GetData(entity);
+	T* component = GetComponentArray<T>()->GetData(entity);
+
+	if (component->GetActive())
+	{
+		return component;
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 
 template <typename T>

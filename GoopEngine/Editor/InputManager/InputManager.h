@@ -64,7 +64,7 @@ namespace GE
 		{
 
 		private:
-			//static int m_width, m_height;
+			static int m_width, m_height;
 			static double m_keyHeldTime;
 			static MOUSE_POS m_mousePos;
 			static KEY_MAP m_keyReleased;
@@ -134,7 +134,7 @@ namespace GE
 				double holdTime
 				duration a key needs to be pressed to be recognized as a held
 			************************************************************************/
-			void InitInputManager(GLFWwindow* window, double holdTime = 0.5);
+			void InitInputManager(GLFWwindow* window, int width, int height, double holdTime = 0.5);
 
 			/*!*********************************************************************
 			\brief
@@ -151,6 +151,15 @@ namespace GE
 				returns the mouse's pos as dvec2
 			************************************************************************/
 			std::pair<double, double> GetMousePos();
+
+			/*!*********************************************************************
+		\brief
+			.Function to get the mouse pos in the current frame
+
+		\return
+			returns the mouse's pos as dvec2
+		************************************************************************/
+			std::pair<double, double> GetMousePosWorld();
 
 
 

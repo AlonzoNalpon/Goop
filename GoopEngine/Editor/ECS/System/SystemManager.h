@@ -11,8 +11,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <unordered_map>
 #include <map>
 #include <queue>
+#include <sstream>
 #include "../Entity/Entity.h"
 #include "System.h"
+#include "../../Debugger/ErrorLogger/ErrorLogger.h"
 
 namespace GE
 {
