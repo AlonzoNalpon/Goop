@@ -12,6 +12,11 @@
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
 
+#include <Systems/Rendering/RenderingSystem.h>
+#include <Graphics/GraphicsEngine.h>
+#include <Component/Model.h>
+#include <Component/Sprite.h>
+#include <Component/SpriteAnim.h>
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
@@ -63,18 +68,15 @@ struct Scene
 		//ecs->UnregisterEntityFromSystem<(system)>(entt1);
 
 		Entity entt3 = ecs->CreateEntity();
-		Velocity vel({ -5, 0 }, { 0, 0 });
+		Velocity vel({ 0, 0 }, { 0, 0 });
 		Transform trans({ 250, 250 }, { 100, 50 }, 0.0);
 		Gravity grav({ 0, -20 });
 		BoxCollider box7(trans.m_pos, 1, 1);
 
-		Entity entt4 = ecs->CreateEntity();
 		Entity entt5 = ecs->CreateEntity();
 		Entity entt6 = ecs->CreateEntity();
-		Transform transBox1({ -100, 2 }, { 40, 30 }, 0.0);
 		Transform transBox2({ 200, 2 }, { 20, 20 }, 0.0);
 		Transform transBox3({ 300, 2 }, { 30, 20 }, 0.0);
-		BoxCollider box1(transBox1.m_pos, 1, 1);
 		BoxCollider box2(transBox2.m_pos, 1, 1); //should collide
 		BoxCollider box3(transBox3.m_pos, 1, 1); //shouldnt collide
 
@@ -82,11 +84,10 @@ struct Scene
 		ecs->RegisterComponentToSystem<Transform, PhysicsSystem>();
 		ecs->RegisterComponentToSystem<Gravity, PhysicsSystem>();
 
+		ecs->RegisterComponentToSystem<Transform, CollisionSystem>();
 		ecs->RegisterComponentToSystem<BoxCollider, CollisionSystem>();
 
-		ecs->RegisterComponentToSystem<Velocity, DraggableObjectSystem>();
 		ecs->RegisterComponentToSystem<Transform, DraggableObjectSystem>();
-		ecs->RegisterComponentToSystem<Gravity, DraggableObjectSystem>();
 		ecs->RegisterComponentToSystem<BoxCollider, DraggableObjectSystem>();
 
 		ecs->AddComponent(entt3, vel);
@@ -94,11 +95,8 @@ struct Scene
 		ecs->AddComponent(entt3, grav);
 		ecs->RegisterEntityToSystem<PhysicsSystem>(entt3);
 
-		ecs->AddComponent(entt4, box1);
-		ecs->AddComponent(entt4, transBox1);
 		ecs->AddComponent(entt5, box2);
 		ecs->AddComponent(entt5, transBox2);
-		ecs->RegisterEntityToSystem<CollisionSystem>(entt4);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt5);
 		
 		ecs->AddComponent(entt6, box3);
@@ -109,17 +107,31 @@ struct Scene
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
 		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt3);
 
-
 		Entity player = ecs->CreateEntity();
-		Transform playerTrans({ 0, 0 }, { 1, 1 }, 0.0);
+		Transform playerTrans({ -350, 350 }, { 150, 150 }, 0.0);
+		BoxCollider playerCollider(playerTrans.m_pos, 1, 1); //should collide
 		Tween tween(3.0);
-		tween.AddTween({ -1, 0 });
-		tween.AddTween({ -1, 1 });
-		tween.AddTween({ -2, 1 });
-		ecs->RegisterComponentToSystem<Tween, PlayerControllerSystem>();
+		tween.AddTween({ 0, 0 });
+		tween.AddTween({ 0, -350 });
+		tween.AddTween({ 350, 350 });
+		Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
+		GE::Component::Model mdl; // model data for the player sprite
+		mdl.mdlID = gEngine.GetModel();
+		GE::Component::Sprite sprite;
+		GE::Component::SpriteAnim anim;
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
+		ecs->AddComponent(player, mdl);
+		ecs->AddComponent(player, sprite);
+		ecs->AddComponent(player, anim);
+		ecs->AddComponent(player, playerCollider);
+		ecs->RegisterComponentToSystem<Tween, PlayerControllerSystem>();
+		ecs->RegisterComponentToSystem<GE::Component::Model, RenderSystem>();
+		ecs->RegisterComponentToSystem<GE::Component::Sprite, RenderSystem>();
+		ecs->RegisterComponentToSystem<GE::Component::SpriteAnim, RenderSystem>();
 		ecs->RegisterEntityToSystem<PlayerControllerSystem>(player);
+		ecs->RegisterEntityToSystem<RenderSystem>(player);
+		ecs->RegisterEntityToSystem<CollisionSystem>(player);
 
 #pragma region RENDERING_SYSTEM // Rendering should be last ( I think?!)
 

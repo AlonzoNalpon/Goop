@@ -25,7 +25,7 @@ namespace {
 #endif
   // Typedefs
   
-  GraphicsEngine::GraphicsEngine() : m_vpWidth{}, m_vpHeight{}, m_renderer{ m_models, m_textureManager, m_shaders }
+  GraphicsEngine::GraphicsEngine() : m_vpWidth{}, m_vpHeight{}, m_ar{}, m_renderer{ m_models, m_textureManager, m_shaders }
   {
   }
 
@@ -39,12 +39,22 @@ namespace {
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(glDebugCallback, nullptr);
 #endif
-#pragma region SHADER_MDL_INIT
     glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
     glViewport(0, 0, w, h);
-
     m_vpWidth = w;
     m_vpHeight = h;
+    m_ar = static_cast<GLfloat>(m_vpWidth) / m_vpHeight;
+    //Initialize renderer with a camera
+    {
+      Rendering::Camera orthoCam{ {0.f,0.f,3.f},                // pos
+                                  {},                         // target
+                                  {.0f, 1.f, 0.f},              // up vector
+                                  -w*0.5f, w*0.5f, -h * 0.5f, h * 0.5f,  // left right bottom top
+                                  0.1f, 10.f };               // near and far z planes
+      m_renderer.Init(orthoCam);
+    }
+#pragma region SHADER_MDL_INIT
+
 
     m_spriteQuadMdl = GenerateQuad();
     m_lineMdl       = GenerateLine();
@@ -58,7 +68,7 @@ namespace {
     m_models.emplace_back(m_lineMdl);
 #pragma endregion
 
-    m_renderer.Init();
+    
 
 #pragma region TEXTURE_TEST
     // Now use textures
@@ -135,6 +145,8 @@ namespace {
       glBindVertexArray(0);
     }*/
     }
+
+#if 0
     testAnim.currTime += dt;
     auto anim = m_animManager.GetAnim(testAnim.animID);
     if (testAnim.currTime >= anim.speed) {
@@ -143,7 +155,10 @@ namespace {
         testAnim.currFrame = 0;
     }
     SpriteData spriteData{ anim.frames[testAnim.currFrame], anim.texture };
-    m_renderer.RenderObject(0, spriteData);
+    constexpr f32 SCALE{ 1000.f };
+    Rendering::Transform xform{ {SCALE,SCALE,SCALE}, 0.f, {400.f, 0.f, 0.f} };
+    m_renderer.RenderObject(0, spriteData, xform);
+#endif
     m_renderer.Draw();
   }
 
@@ -304,6 +319,16 @@ namespace {
     m_shaderLT.emplace(name, shdrPgm.GetHandle());
 
     return shdrPgm.GetHandle(); // return the handle
+  }
+
+  Rendering::Renderer& GraphicsEngine::GetRenderer()
+  {
+    return m_renderer;
+  }
+
+  gObjID GraphicsEngine::GetModel()
+  {
+    return gObjID{};
   }
 
   void GraphicsEngine::DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr)

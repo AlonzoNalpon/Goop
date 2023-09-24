@@ -4,6 +4,7 @@
 #include <Graphics/Def/RenderingHelpers.h>
 #include <Graphics/Renderer/RenderData.h>
 #include <Graphics/TextureManager.h>
+#include <Graphics/Renderer/Camera.h>
 namespace Graphics::Rendering
 {
   /*!
@@ -20,16 +21,24 @@ namespace Graphics::Rendering
     using ShaderCont = std::vector<ShaderProgram>;
   public:
     Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, ShaderCont const& shaderCont);
-    void Init(size_t renderCallSize = 2048);
-    void RenderObject(gObjID mdl, SpriteData const& sprite);
+
+    void Init(Camera const& camera, size_t renderCallSize = 2048);
+    void RenderObject(gObjID mdl, SpriteData const& sprite, Transform const& transform);
     //void RenderObject(gObjID mdl, gObjID sprite);
     void Draw();
   private:
+    // Private methods
+
+    glm::mat4 CalculateTransform(gVec3 const& scale, GLfloat rotation, gVec3 const& pos) const;
+    glm::mat4 CalculateTransform(Transform const& xForm) const;
+  private:
     std::vector<RenderData> m_renderCalls;
 
-    std::vector<Model> const&                     r_mdlContainer;
-    TextureManager const&                         r_texManager;
-    ShaderCont const&                             r_shaders;
+    Camera                              m_camera;   //!< camera for rendering
+
+    std::vector<Model> const&           r_mdlContainer;
+    TextureManager const&               r_texManager;
+    ShaderCont const&                   r_shaders;
   };
 }
 #endif

@@ -62,6 +62,16 @@ namespace Graphics {
     ************************************************************************/
     GLuint CreateShader(ShaderInitCont const& container, std::string const& name);
 
+    /*!*********************************************************************
+    \brief Get a handle to the renderer
+      .
+    \params
+    \return the renderer held by graphics engine
+      
+    ************************************************************************/
+    Rendering::Renderer& GetRenderer();
+
+    gObjID GetModel();
   public: // DRAW PRIMITIVE METHODS
     /*!*********************************************************************
     \brief Draws a line in world coordinates (0,0 is center of screen)
@@ -76,6 +86,7 @@ namespace Graphics {
 
   protected:
     GLint m_vpWidth, m_vpHeight; //!< dimensions of viewport
+    GLfloat m_ar; //!< aspect ratio
     void DrawMdl(Model const& mdl);
     void DrawMdl(Model const& mdl, SpriteData const& sprite);
     void DrawMdl(Model const& mdl, SpriteData const& sprite, SpriteAnimation anim, GLuint frame);
@@ -99,6 +110,9 @@ namespace Graphics {
     Model                           m_lineMdl{};        //!< basic primitive line
     // FOR DEBUGGING
   private:
+  public: // getters
+    SpriteAnimationManager const& animManager{ m_animManager };
+    TextureManager const&         textureManager{ m_textureManager };
   };
 }
 #endif

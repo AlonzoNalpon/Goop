@@ -1,16 +1,17 @@
 #ifndef RENDERING_SYSTEM_H
 #define RENDERING_SYSTEM_H
+#include <pch.h>
 #include <iostream>
-#include <ECS/System/System.h>										// System class to inherit
-#include <ECS/EntityComponentSystem.h>						// the ECS system
-#include <Systems/Rendering/RendererComponent.h>	// the component related to this system
+
+// The involved components:
+#include <Component/Model.h>			// models (ALL MUST HAVE THIS)
+#include <Component/Sprite.h>			// sprite (ALL MUST HAVE THIS)
+#include <Component/SpriteAnim.h> // optional and will edit the sprite component
+#include <Component/Transform.h>
 namespace GE::Systems {
   class RenderSystem : public GE::ECS::System
   {
 	public:
-		void Awake();
-
-		void Start();
 
 		void Update();
 

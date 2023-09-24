@@ -47,6 +47,12 @@ ComponentType EntityComponentSystem::GetComponentSignature()
 }
 
 template <typename T>
+T* EntityComponentSystem::GetSystem()
+{
+	return m_systemManager->GetSystem<T>();
+}
+
+template <typename T>
 T* EntityComponentSystem::RegisterSystem()
 {
 	return m_systemManager->RegisterSystem<T>();
@@ -89,7 +95,8 @@ ComponentSignature EntityComponentSystem::GetSystemSignature()
 template <typename T>
 bool EntityComponentSystem::RegisterEntityToSystem(Entity& entity)
 {
-	return m_systemManager->RegisterEntityToSystem<T>(entity);
+	ComponentSignature sig = m_entityManager->GetComponentSignature(entity);
+	return m_systemManager->RegisterEntityToSystem<T>(entity, sig);
 }
 
 template <typename T>

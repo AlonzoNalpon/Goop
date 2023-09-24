@@ -1,6 +1,6 @@
 #include "InputManager.h"
-#include <imgui.h>
 #include <ImGui/backends/imgui_impl_glfw.h>
+
 
 #define UNREFERENCED_PARAMETER(P) (P)
 
@@ -36,11 +36,13 @@ void InputManager::InitInputManager(GLFWwindow* window, int width, int height, d
 void InputManager::UpdateInput()
 {
 	m_keyReleased.reset();
+	m_keysTriggered.reset();
 	glfwPollEvents();
 	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 	for (int i{ 0 }; i < static_cast<int>(GPK_KEY_COUNT); ++i)
 	{
-		m_keyFramesHeld[i] = (m_keysTriggered[i]) ? (m_keyFramesHeld[i] < m_keyHeldTime) ? m_keyFramesHeld[i] + dt : m_keyFramesHeld[i] : 0;
+
+		m_keyFramesHeld[i] = (m_keyReleased[i]) ? 0: (m_keyFramesHeld[i] > 0.f || m_keysTriggered[i]) ? (m_keyFramesHeld[i] < m_keyHeldTime) ? m_keyFramesHeld[i] + dt: m_keyFramesHeld[i]: 0;
 		m_keyHeld[i] = (m_keyFramesHeld[i] >= m_keyHeldTime);
 	}
 
@@ -48,7 +50,7 @@ void InputManager::UpdateInput()
 
 bool InputManager::IsKeyTriggered(KEY_CODE key)
 {
-	return (!m_keyHeld[static_cast<int>(key)] && m_keysTriggered[static_cast<int>(key)]);
+	return (m_keysTriggered[static_cast<int>(key)]);
 }
 bool InputManager::IsKeyHeld(KEY_CODE key)
 {
@@ -57,7 +59,7 @@ bool InputManager::IsKeyHeld(KEY_CODE key)
 
 bool InputManager::IsKeyPressed(KEY_CODE key)
 {
-	return (m_keyHeld[static_cast<int>(key)] || m_keysTriggered[static_cast<int>(key)]);
+	return (m_keyFramesHeld[static_cast<int>(key)] > 0.f);
 }
 
 bool InputManager::IsKeyReleased(KEY_CODE key)

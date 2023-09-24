@@ -224,6 +224,8 @@
     <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
+    <ClCompile Include="Graphics\Fonts\FontManager.cpp" />
+    <ClCompile Include="Graphics\Renderer\Camera.cpp" />
     <ClCompile Include="Graphics\Renderer\Renderer.cpp" />
     <ClCompile Include="Graphics\TextureManager.cpp" />
     <ClCompile Include="ImGui\backends\imgui_impl_glfw.cpp" />
@@ -261,6 +263,9 @@
     <ClInclude Include="AssetManager\AssetManager.h" />
     <ClInclude Include="Component\BoxCollider.h" />
     <ClInclude Include="Component\Gravity.h" />
+    <ClInclude Include="Component\Model.h" />
+    <ClInclude Include="Component\Sprite.h" />
+    <ClInclude Include="Component\SpriteAnim.h" />
     <ClInclude Include="Component\Transform.h" />
     <ClInclude Include="Component\Tween.h" />
     <ClInclude Include="Component\Velocity.h" />
@@ -277,6 +282,8 @@
     <ClInclude Include="ECS\Entity\EntityManager.h" />
     <ClInclude Include="ECS\System\System.h" />
     <ClInclude Include="ECS\System\SystemManager.h" />
+    <ClInclude Include="Graphics\Fonts\FontManager.h" />
+    <ClInclude Include="Graphics\Renderer\Camera.h" />
     <ClInclude Include="Graphics\Renderer\RenderData.h" />
     <ClInclude Include="Graphics\Renderer\Renderer.h" />
     <ClInclude Include="Graphics\SpriteSubData.h" />
@@ -317,7 +324,6 @@
     <ClInclude Include="Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Systems\PlayerController\PlayerControllerSystem.h" />
-    <ClInclude Include="Systems\Rendering\SpriteAnimComponent.h" />
     <ClInclude Include="EditorUI\ImGuiUI.h" />
     <ClInclude Include="Window\Window.h" />
     <ClInclude Include="include\def.h" />
@@ -335,7 +341,6 @@
     <ClInclude Include="Serialization\GooStream.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="SpriteAnimation\SpriteAnimationManager.h" />
-    <ClInclude Include="Systems\Rendering\RendererComponent.h" />
     <ClInclude Include="Systems\Rendering\RenderingSystem.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Singleton\Singleton.h" />
