@@ -39,6 +39,8 @@
 *.sln.docstates
 *.vcxproj.filters
 *.vcxproj
+*.ini
+*.editorconfig
 
 # Build results
 [Dd]ebug/
@@ -58,4 +60,3 @@ bld/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
-GoopEngine/Editor/imgui.ini

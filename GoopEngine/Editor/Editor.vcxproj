@@ -228,7 +228,6 @@
     <ClCompile Include="Graphics\TextureManager.cpp" />
     <ClCompile Include="ImGui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="ImGui\backends\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="ImGui\backends\imgui_impl_win32.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_demo.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
@@ -249,6 +248,7 @@
     <ClCompile Include="Systems\PlayerController\PlayerControllerSystem.cpp" />
     <ClCompile Include="Serialization\SpriteGooStream.cpp" />
     <ClCompile Include="Systems\Rendering\RenderingSystem.cpp" />
+    <ClCompile Include="EditorUI\ImGuiUI.cpp" />
     <ClCompile Include="Window\Window.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimationManager.cpp" />
     <ClCompile Include="src\Def.cpp" />
@@ -310,6 +310,7 @@
     <ClInclude Include="Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Systems\PlayerController\PlayerControllerSystem.h" />
     <ClInclude Include="Systems\Rendering\SpriteAnimComponent.h" />
+    <ClInclude Include="EditorUI\ImGuiUI.h" />
     <ClInclude Include="Window\Window.h" />
     <ClInclude Include="include\def.h" />
     <ClInclude Include="Math\GEM.h" />
