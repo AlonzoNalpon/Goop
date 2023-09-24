@@ -2,9 +2,9 @@
 \file   ObjectGooStream.h
 \author chengen.lau\@digipen.edu
 \date   22-September-2023
-\brief  
-  
- 
+\brief
+
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
@@ -20,7 +20,7 @@ namespace GE
 
     // GooStream for Assets
     class ObjectGooStream : public IGooIStream<std::map<std::string, ObjectFactory::ObjectData>>,
-                                  IGooOStream<std::map<std::string, ObjectFactory::ObjectData>>
+      IGooOStream<std::map<std::string, ObjectFactory::ObjectData>>
     {
     public:
       // Ctor reading json file into stream

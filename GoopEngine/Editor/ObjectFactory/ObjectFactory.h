@@ -1,7 +1,7 @@
 #pragma once
 #include <pch.h>
 #include "../ECS/ComponentTypes.h"
-#include <rapidjson/document.h>
+#include "../Serialization/Serialization.h"
 
 namespace GE
 {
