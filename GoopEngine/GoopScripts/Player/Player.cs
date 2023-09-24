@@ -32,7 +32,6 @@ namespace GoopScripts
 
     public virtual void Update()
     {
-      Console.WriteLine("TEST\n");
       // Logic for Update
       if (IsKeyPressed(KeyCode.W))
       {

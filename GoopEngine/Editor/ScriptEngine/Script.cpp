@@ -72,13 +72,11 @@ GE::MONO::Script::Script(MonoObject* objectInstance) :m_classObjInst{ objectInst
 
 GE::Math::dVec2 GE::MONO::Script::GetPlayPos()
 {
-  std::cout  << "GET: " << m_playPosition.x << "," << m_playPosition.y << "\n";
   return m_playPosition;
 }
 
 void GE::MONO::Script::SetPlayPos(GE::Math::dVec2 d)
 {
   m_playPosition = d;
-  std::cout << "SET: " << d.x << "," << d.y << "\n";
 }
 
