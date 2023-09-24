@@ -50,7 +50,7 @@ T* ComponentArray<T>::GetData(const Entity& entity)
 			// vector out of bounds
 			// index of an entity that should not exist
 			std::stringstream ss;
-			ss << "Getting component data of type " << typeid(T).name(); << " from entity ID " << entity << " when it should not exist!!";
+			ss << "Getting component data of type " << typeid(T).name() << " from entity ID " << entity << " when it should not exist!!";
 			GE::Debug::ErrorLogger::GetInstance().LogCritical<ComponentManager>(ss.str());
 			return nullptr;
 		}
@@ -61,7 +61,7 @@ T* ComponentArray<T>::GetData(const Entity& entity)
 	// Entity does not exist
 	// index of an entity that should not exist
 	std::stringstream ss;
-	ss << "Getting component data of type " << typeid(T).name(); << " from entity ID " << entity << " when it should not exist!!";
+	ss << "Getting component data of type " << typeid(T).name() << " from entity ID " << entity << " when it should not exist!!";
 	GE::Debug::ErrorLogger::GetInstance().LogCritical<ComponentManager>(ss.str());
 	return nullptr;
 }
