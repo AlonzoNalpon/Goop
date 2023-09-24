@@ -107,14 +107,17 @@ namespace GE
 			  Registers an entity to a system. This adds the entity to the 
 				system's entity list.
 
-			\param
+			\param entity
 				Entity to register.
+
+			\param singature
+				Signature of entitiy for validation
 
 			\return
 				Returns if it was registered successfully.
 			********************************************************************/
 			template <typename T>
-			bool RegisterEntityToSystem(Entity& entity);
+			bool RegisterEntityToSystem(Entity& entity, ComponentSignature& signature);
 
 			/*!******************************************************************
 			\brief
@@ -158,5 +161,4 @@ namespace GE
 		};
 
 #include "SystemManager.tpp"
-	}
 }

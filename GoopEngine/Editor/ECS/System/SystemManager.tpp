@@ -26,7 +26,7 @@ bool SystemManager::RemoveSystem()
 {
 	const char* systemName = typeid(T).name();
 
-	if (m_systems.find(systemName) == m_systems.end() || 
+	if (m_systems.find(systemName) == m_systems.end() ||
 		m_signatures.find(systemName) == m_signatures.end())
 	{
 		// Removing a system that does not exist
@@ -79,7 +79,7 @@ ComponentSignature SystemManager::GetSignature()
 }
 
 template <typename T>
-bool SystemManager::RegisterEntityToSystem(Entity& entity)
+bool SystemManager::RegisterEntityToSystem(Entity& entity, ComponentSignature& signature)
 {
 	const char* systemName = typeid(T).name();
 	if (m_systems.find(systemName) == m_systems.end())
@@ -92,9 +92,8 @@ bool SystemManager::RegisterEntityToSystem(Entity& entity)
 	}
 
 	ComponentSignature cmpSig{ GetSignature<T>() };
-
 	// checks if the entity's has a component used by the system
-	if ((m_signatures[systemName] & cmpSig) != cmpSig)
+	if ((signature & cmpSig) != cmpSig)
 	{
 		// Entity does not match system signature
 		std::stringstream ss;
@@ -106,6 +105,7 @@ bool SystemManager::RegisterEntityToSystem(Entity& entity)
 	m_systems[systemName]->GetEntities().insert(entity);
 	return true;
 }
+
 template <typename T>
 bool SystemManager::UnregisterEntityFromSystem(Entity& entity)
 {
@@ -121,4 +121,5 @@ bool SystemManager::UnregisterEntityFromSystem(Entity& entity)
 
 	m_systems[systemName]->GetEntities().erase(entity);
 	return true;
+}
 }

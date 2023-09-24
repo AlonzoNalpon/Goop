@@ -89,11 +89,13 @@ ComponentSignature EntityComponentSystem::GetSystemSignature()
 template <typename T>
 bool EntityComponentSystem::RegisterEntityToSystem(Entity& entity)
 {
-	return m_systemManager->RegisterEntityToSystem<T>(entity);
+	ComponentSignature sig = m_entityManager->GetComponentSignature(entity);
+	return m_systemManager->RegisterEntityToSystem<T>(entity, sig);
 }
 
 template <typename T>
 bool EntityComponentSystem::UnregisterEntityFromSystem(Entity& entity)
 {
 	return m_systemManager->UnregisterEntityFromSystem<T>(entity);
+}
 }
