@@ -119,7 +119,7 @@ bool ObjectGooStream::Read(container_type const& container)
     rapidjson::Value objVal{ rapidjson::kObjectType };  // create section for objects
     objVal.AddMember("Id", rapidjson::StringRef(obj.first.c_str()), data.GetAllocator()); // Add the name of the object
     // serialize component signature as a number
-    objVal.AddMember("Signature", static_cast<unsigned>(objData.m_signature.to_ulong()), data.GetAllocator());
+    objVal.AddMember("Signature", static_cast<unsigned>(objData.m_componentSignature.to_ulong()), data.GetAllocator());
 
     rapidjson::Value componentBlock{ rapidjson::kArrayType };  // create array for components
     for (ObjectFactory::ComponentMap::value_type const& component : objData.m_components) // for each component in the object
@@ -160,7 +160,7 @@ bool ObjectGooStream::Unload(container_type& container)
   {
     ObjectFactory::ObjectData objData{};
     ObjectFactory::ComponentMap& compMap{ objData.m_components };
-    objData.m_signature = obj["Signature"].GetUint();
+    objData.m_componentSignature = obj["Signature"].GetUint();
     
     const rapidjson::Value& componentsArray = obj["Components"];
     for (rapidjson::SizeType i{}; i < componentsArray.Size(); ++i)

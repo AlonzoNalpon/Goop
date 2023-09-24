@@ -36,6 +36,7 @@ namespace GE
 			{ COMPONENT_TYPES::SPRITE, "Sprite" },
 			{ COMPONENT_TYPES::MODEL, "Model" },
 			{ COMPONENT_TYPES::ANIMATION, "Animation" },
+
 		};
 
 		// Const map so only interated through ranged for,
