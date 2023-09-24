@@ -143,7 +143,7 @@ int main(int /*argc*/, char* /*argv*/[])
     im->TestInputManager();
 #endif
 
-    imgui.Update();
+    //imgui.Update();
 
     window.SetWindowTitle((std::string{"GOOP ENGINE | FPS: "} + std::to_string(fRC.GetFPS())).c_str()); // this is how you set window title
     gEngine.Draw();
@@ -151,7 +151,7 @@ int main(int /*argc*/, char* /*argv*/[])
     scn.Update();
 #endif // ECS_TEST
 
-    imgui.Render();
+    //imgui.Render();
 
     window.SwapBuffers();
     fRC.EndFrame();
