@@ -139,6 +139,9 @@ namespace GE
 			template <typename T>
 			void SetSystemSignature(const ComponentSignature& signature);
 
+			template <typename T>
+			ComponentSignature GetSystemSignature();
+
 			/*!******************************************************************
 			\brief
 			  Calls SystemManager's RegisterEntityToSystem function.

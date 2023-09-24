@@ -81,6 +81,12 @@ void EntityComponentSystem::SetSystemSignature(const ComponentSignature& signatu
 }
 
 template <typename T>
+ComponentSignature EntityComponentSystem::GetSystemSignature()
+{
+	return m_systemManager->GetSignature<T>();
+}
+
+template <typename T>
 bool EntityComponentSystem::RegisterEntityToSystem(Entity& entity)
 {
 	return m_systemManager->RegisterEntityToSystem<T>(entity);
