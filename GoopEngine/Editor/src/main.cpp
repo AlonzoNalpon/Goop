@@ -115,7 +115,6 @@ int main(int /*argc*/, char* /*argv*/[])
     static bool renderUI = false;
     if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_G))
     {
-      std::cout << "SDFSDFREUYGSDRYUFGREDGSDRGDRG\n";
       renderUI = !renderUI;
     }
 
