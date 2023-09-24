@@ -50,6 +50,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <vector>
 #include <string>
 #include <iostream>
+#include "../Math/GEM.h"
 
 
 namespace GE
@@ -58,7 +59,7 @@ namespace GE
 	{
 		using KEY_MAP = std::bitset<static_cast<size_t>(GPK_KEY_COUNT)>;
 		using KEY_PRESS_ARRAY = std::array<double, static_cast<size_t>(GPK_KEY_COUNT)>;
-		using MOUSE_POS = std::pair<double, double>;
+		using vec2 = GE::Math::dVec2;
 
 		class InputManager : public Singleton<InputManager>
 		{
@@ -66,7 +67,7 @@ namespace GE
 		private:
 			static int m_width, m_height;
 			static double m_keyHeldTime;
-			static MOUSE_POS m_mousePos;
+			static vec2 m_mousePos;
 			static KEY_MAP m_keyReleased;
 			static KEY_MAP m_keyHeld;
 			static KEY_MAP m_keysTriggered;
@@ -150,7 +151,7 @@ namespace GE
 			\return
 				returns the mouse's pos as dvec2
 			************************************************************************/
-			std::pair<double, double> GetMousePos();
+			vec2 GetMousePos();
 
 			/*!*********************************************************************
 		\brief
@@ -159,7 +160,7 @@ namespace GE
 		\return
 			returns the mouse's pos as dvec2
 		************************************************************************/
-			std::pair<double, double> GetMousePosWorld();
+			vec2 GetMousePosWorld();
 
 
 

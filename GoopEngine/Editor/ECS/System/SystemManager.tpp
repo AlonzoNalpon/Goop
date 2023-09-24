@@ -32,7 +32,7 @@ bool SystemManager::RemoveSystem()
 		// Removing a system that does not exist
 		std::stringstream ss;
 		ss << "Removing system " << systemName << " while it does not exist. No action taken";
-		GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str());
+		GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str(), false);
 		return false;
 	}
 
@@ -106,7 +106,6 @@ bool SystemManager::RegisterEntityToSystem(Entity& entity)
 	m_systems[systemName]->GetEntities().insert(entity);
 	return true;
 }
-
 template <typename T>
 bool SystemManager::UnregisterEntityFromSystem(Entity& entity)
 {
@@ -116,7 +115,7 @@ bool SystemManager::UnregisterEntityFromSystem(Entity& entity)
 		// System does not exist
 		std::stringstream ss;
 		ss << "Removing entity from system  " << systemName << " while it does not exist. No action taken";
-		GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>("Removing entity from system  " + systemName + " while it does not exist. No action taken");
+		GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str(), false);
 		return false;
 	}
 

@@ -35,9 +35,9 @@ void EntityComponentSystem::RemoveComponent(Entity& entity)
 }
 
 template <typename T>
-T* EntityComponentSystem::GetComponent(const Entity& entity)
+T* EntityComponentSystem::GetComponent(const Entity& entity, bool ignoreActive)
 {
-	return m_componentManager->GetComponent<T>(entity);
+	return m_componentManager->GetComponent<T>(entity, ignoreActive);
 }
 
 template <typename T>
@@ -78,6 +78,12 @@ template <typename T>
 void EntityComponentSystem::SetSystemSignature(const ComponentSignature& signature)
 {
 	m_systemManager->SetSignature<T>(signature);
+}
+
+template <typename T>
+ComponentSignature EntityComponentSystem::GetSystemSignature()
+{
+	return m_systemManager->GetSignature<T>();
 }
 
 template <typename T>

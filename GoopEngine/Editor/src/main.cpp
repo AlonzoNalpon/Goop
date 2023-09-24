@@ -46,10 +46,7 @@ std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& 
 
 #define INPUT_TEST
 
-#include <ImGui/imgui.h>
-#include <ImGui/backends/imgui_impl_opengl3.h>
-#include <ImGui/backends/imgui_impl_glfw.h>
-
+#include "../EditorUI/ImGuiUI.h"
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -79,18 +76,8 @@ int main(int /*argc*/, char* /*argv*/[])
   window.CreateAppWindow();
   window.SetWindowTitle(am->GetConfigData("Window Title", 0)); // this is how you set window title
 
-  // Setup Dear ImGui context
-  IMGUI_CHECKVERSION();
-  ImGui::CreateContext();
-  ImGuiIO& io = ImGui::GetIO();
-  io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-
-  // Setup Dear ImGui style
-  ImGui::StyleColorsDark();
-
-  // Setup Platform/Renderer backends
-  ImGui_ImplGlfw_InitForOpenGL(window.GetWindow(), true);
-  ImGui_ImplOpenGL3_Init();
+  GE::EditorGUI::ImGuiUI imgui;
+  imgui.Init(window);
 
   // Now we get the asset manager
   am->LoadDeserializedData(); // load the images we need
@@ -156,10 +143,7 @@ int main(int /*argc*/, char* /*argv*/[])
     im->TestInputManager();
 #endif
 
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
-    ImGui::ShowDemoWindow();
+    imgui.Update();
 
     window.SetWindowTitle((std::string{"GOOP ENGINE | FPS: "} + std::to_string(fRC.GetFPS())).c_str()); // this is how you set window title
     gEngine.Draw();
@@ -167,8 +151,7 @@ int main(int /*argc*/, char* /*argv*/[])
     scn.Update();
 #endif // ECS_TEST
 
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    imgui.Render();
 
     window.SwapBuffers();
     fRC.EndFrame();
@@ -179,10 +162,7 @@ int main(int /*argc*/, char* /*argv*/[])
   scn.Exit();
 #endif // ECS_TEST
 
-
-  ImGui_ImplOpenGL3_Shutdown();
-  ImGui_ImplGlfw_Shutdown();
-  ImGui::DestroyContext();
+  imgui.Exit();
 
   return 1;
 }

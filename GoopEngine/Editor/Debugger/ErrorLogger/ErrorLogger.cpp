@@ -76,8 +76,19 @@ ErrorLogger::~ErrorLogger()
 	std::rename(m_logDump->filename().c_str(), ss.str().c_str());
 }
 
+void ErrorLogger::SuppressLogMessages(bool flag)
+{
+	m_suppressLogWarning = flag;
+}
+
 std::string ErrorLogger::LogMessage(std::string msg, bool logToFile)
 {
+	// Don't log messages
+	if (m_suppressLogWarning)
+	{
+		return msg;
+	}
+
   if (logToFile)
   {
     m_fileLoggers[""]->info(msg);

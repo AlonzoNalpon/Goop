@@ -19,7 +19,7 @@ void ComponentArray<T>::Remove(const Entity& entity)
 		// No entity to remove
 		std::stringstream ss;
 		ss << "Removing entity ID " << entity << " while it does not exist. No action taken";
-		GE::Debug::ErrorLogger::GetInstance().LogMessage(ss.str());
+		GE::Debug::ErrorLogger::GetInstance().LogMessage<ComponentManager>(ss.str(), false);
 		return;
 	}
 
@@ -50,7 +50,7 @@ T* ComponentArray<T>::GetData(const Entity& entity)
 			// vector out of bounds
 			// index of an entity that should not exist
 			std::stringstream ss;
-			ss << "Getting data of entity ID " << entity << " when it should not exist!!";
+			ss << "Getting component data of type " << typeid(T).name() << " from entity ID " << entity << " when it should not exist!!";
 			GE::Debug::ErrorLogger::GetInstance().LogCritical<ComponentManager>(ss.str());
 			return nullptr;
 		}
@@ -61,7 +61,7 @@ T* ComponentArray<T>::GetData(const Entity& entity)
 	// Entity does not exist
 	// index of an entity that should not exist
 	std::stringstream ss;
-	ss << "Getting data of entity ID " << entity << " when it should not exist!!";
+	ss << "Getting component data of type " << typeid(T).name() << " from entity ID " << entity << " when it should not exist!!";
 	GE::Debug::ErrorLogger::GetInstance().LogCritical<ComponentManager>(ss.str());
 	return nullptr;
 }

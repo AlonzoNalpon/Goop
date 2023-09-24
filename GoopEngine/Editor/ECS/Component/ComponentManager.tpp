@@ -39,18 +39,23 @@ void ComponentManager::RemoveComponent(Entity& entity)
 }
 
 template <typename T>
-T* ComponentManager::GetComponent(const Entity& entity)
+T* ComponentManager::GetComponent(const Entity& entity, bool ignoreActive)
 {
-	T* component = GetComponentArray<T>()->GetData(entity);
+	if (ignoreActive)
+	{
+		return GetComponentArray<T>()->GetData(entity);
+	}
 
-	if (component->GetActive())
+	T* component = GetComponentArray<T>()->GetData(entity);
+	if (component && component->GetActive())
 	{
-		return component;
+		return component;		
 	}
-	else
-	{
-		return nullptr;
-	}
+
+	std::stringstream ss;
+	ss << "Component of type " << typeid(T).name() << " is inactive, unable to fetch. To override this check do GetComponent(entity, true).";
+	GE::Debug::ErrorLogger::GetInstance().LogMessage<ComponentManager>(ss.str(), false);
+	return nullptr;
 }
 
 template <typename T>
