@@ -1,7 +1,5 @@
 #pragma once
-//#include <pch.h>
-//#include "../ECS/Component/Component.h"
-#include "../Math/GEM.h"
+#include <pch.h>
 
 namespace GE
 {
