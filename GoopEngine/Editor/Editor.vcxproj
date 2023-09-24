@@ -227,6 +227,7 @@
     <ClCompile Include="Graphics\Renderer\Renderer.cpp" />
     <ClCompile Include="Graphics\TextureManager.cpp" />
     <ClCompile Include="InputManager\InputManager.cpp" />
+    <ClCompile Include="ScriptEngine\Script.cpp" />
     <ClCompile Include="ScriptEngine\ScriptManager.cpp" />
     <ClCompile Include="Serialization\AssetGooStream.cpp" />
     <ClCompile Include="ECS\System\SystemManager.cpp" />
@@ -248,6 +249,7 @@
     <ClInclude Include="AssetManager\AssetManager.h" />
     <ClInclude Include="Component\BoxCollider.h" />
     <ClInclude Include="Component\Gravity.h" />
+    <ClInclude Include="Component\ScriptHandler.h" />
     <ClInclude Include="Component\Transform.h" />
     <ClInclude Include="Component\Tween.h" />
     <ClInclude Include="Component\Velocity.h" />
@@ -275,6 +277,7 @@
     <ClInclude Include="InputManager\InputManager.h" />
     <ClInclude Include="InputManager\KeyCode.h" />
     <ClInclude Include="Math\Mat3Utils.h" />
+    <ClInclude Include="ScriptEngine\Script.h" />
     <ClInclude Include="ScriptEngine\ScriptManager.h" />
     <ClInclude Include="Serialization\IGooStream.h" />
     <ClInclude Include="Serialization\SpriteData.h" />

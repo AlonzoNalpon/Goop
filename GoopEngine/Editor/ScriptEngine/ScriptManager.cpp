@@ -1,11 +1,38 @@
 #include "ScriptManager.h"
 
+#include "Math/GEM.h"
+#include <InputManager/InputManager.h>
+
+
 //using namespace GE::MONO;
+
+//static bool CheckKeyTriggered(KEY_CODE key)
+//{
+//  GE::Input::InputManager
+//  return 
+//}
+
+
+static void SetVec2(GE::Math::dVec2 cvec)
+{
+  std::cout << "VEC NEW VALUE: " << cvec.x << "," << cvec.y << "\n";
+}
+
+
+
+static GE::Math::dVec2 GetVec2()
+{
+  GE::Math::dVec2 cvec{ 10.5,69.8 };
+  std::cout << "VEC OLD VALUE: " << cvec.x << "," << cvec.y << "\n";
+  return cvec;
+}
+
+
+
 
 void GE::MONO::ScriptManager::InitMono()
 {
   mono_set_assemblies_path("../lib/mono/4.5/");
-
   MonoDomain* rootDomain = mono_jit_init("GoopScriptRuntime");
   if (rootDomain == nullptr)
   {
@@ -22,9 +49,24 @@ void GE::MONO::ScriptManager::InitMono()
   m_appDomain = mono_domain_create_appdomain(str, nullptr);
   mono_domain_set(m_appDomain, true);
 
+
+  mono_add_internal_call("GoopScripts.Player::IsKeyTriggered", GE::Input::InputManager::GetInstance().IsKeyTriggered);
+  mono_add_internal_call("GoopScripts.Player::IsKeyHeld", GE::Input::InputManager::GetInstance().IsKeyHeld);
+  mono_add_internal_call("GoopScripts.Player::IsKeyPressed", GE::Input::InputManager::GetInstance().IsKeyPressed);
+  mono_add_internal_call("GoopScripts.Player::IsKeyReleased", GE::Input::InputManager::GetInstance().IsKeyReleased);
+  mono_add_internal_call("GoopScripts.Player::SetVec2", SetVec2);
+  mono_add_internal_call("GoopScripts.Player::GetVec2", GetVec2);
+
   //Retrieve the C#Assembly (.ddl file)
   m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Debug/GoopScripts.dll");
-  PrintAssemblyTypes(m_coreAssembly);
+  //PrintAssemblyTypes(m_coreAssembly);
+
+
+
+  //MonoObject* newobj = GE::MONO::ScriptManager::InstantiateClass("GoopScripts", "Player");
+  //Script test = Script(newobj);
+  //test.m_startMethod();
+
 
 
   //MonoClass* testingClass = GetClassInAssembly(m_coreAssembly, "", "CSharpTesting");
@@ -46,6 +88,13 @@ void GE::MONO::ScriptManager::InitMono()
   //std::cout << "AFt\n";
   //CallPrintFloatVarMethod(classInstance);
 
+}
+
+void GE::MONO::ScriptManager::UpdateMono()
+{
+  //MonoObject* newobj = GE::MONO::ScriptManager::InstantiateClass("GoopScripts", "Player");
+  //Script test = Script(newobj);
+  //test.CallUpdate();
 }
 
 char* GE::MONO::ReadBytes(const std::string& filepath, uint32_t* outSize)
@@ -102,24 +151,6 @@ MonoAssembly* GE::MONO::LoadCSharpAssembly(const std::string& assemblyPath)
 }
 
 
-void  GE::MONO::PrintAssemblyTypes(MonoAssembly* assembly)
-{
-  MonoImage* image = mono_assembly_get_image(assembly);
-  const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
-  int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
-
-  for (int32_t i = 0; i < numTypes; i++)
-  {
-    uint32_t cols[MONO_TYPEDEF_SIZE];
-    mono_metadata_decode_row(typeDefinitionsTable, i, cols, MONO_TYPEDEF_SIZE);
-    mono_class_get
-
-    const char* nameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
-    const char* name = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
-
-    printf("%s.%s\n", nameSpace, name);
-  }
-}
 
 MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* namespaceName, const char* className)
 {
@@ -129,11 +160,37 @@ MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* name
   if (klass == nullptr)
   {
     // Log error here
+    std::cout << "CANnot access\n";
     return nullptr;
   }
-
+  else {
+    //std::cout << "FOUNDDDDDD\n";
+  }
   return klass;
 }
+
+
+MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className)
+{
+  // Get a reference to the class we want to instantiate
+  MonoClass* testingClass = GetClassInAssembly(m_coreAssembly, namespaceName, className);
+
+  // Allocate an instance of our class
+  MonoObject* classInstance = mono_object_new(m_appDomain, testingClass);
+
+  if (classInstance == nullptr)
+  {
+  std::cout << "CANNOT CREATE CLASS INSTANCE\n";
+    // Log error here and abort
+  }
+
+  // Call the parameterless (default) constructor
+  mono_runtime_object_init(classInstance);
+  return classInstance;
+  //return nullptr;
+}
+
+
 
 void GE::MONO::CallIncrementFloatVarMethod(MonoObject* objectInstance, float value)
 {
@@ -167,23 +224,7 @@ void GE::MONO::CallIncrementFloatVarMethod(MonoObject* objectInstance, float val
   // TODO: Handle the exception
 }
 
-MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className)
-{
-  // Get a reference to the class we want to instantiate
-  MonoClass* testingClass = GetClassInAssembly(m_coreAssembly, "", "CSharpTesting");
 
-  // Allocate an instance of our class
-  MonoObject* classInstance = mono_object_new(m_appDomain, testingClass);
-
-  if (classInstance == nullptr)
-  {
-    // Log error here and abort
-  }
-
-  // Call the parameterless (default) constructor
-  mono_runtime_object_init(classInstance);
-  return classInstance;
-}
 
 void  GE::MONO::CallPrintFloatVarMethod(MonoObject* objectInstance)
 {
@@ -204,6 +245,24 @@ void  GE::MONO::CallPrintFloatVarMethod(MonoObject* objectInstance)
   mono_runtime_invoke(method, objectInstance, nullptr, &exception);
 
   // TODO: Handle the exception
+}
+
+
+void  GE::MONO::PrintAssemblyTypes(MonoAssembly* assembly)
+{
+  MonoImage* image = mono_assembly_get_image(assembly);
+  const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
+  int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
+
+  for (int32_t i = 0; i < numTypes; i++)
+  {
+    uint32_t cols[MONO_TYPEDEF_SIZE];
+    mono_metadata_decode_row(typeDefinitionsTable, i, cols, MONO_TYPEDEF_SIZE);
+    const char* nameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
+    const char* name = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
+
+    printf("%s.%s\n", nameSpace, name);
+  }
 }
 
 

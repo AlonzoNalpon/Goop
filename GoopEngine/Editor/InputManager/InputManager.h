@@ -83,7 +83,7 @@ namespace GE
 			\return
 				returns true is key is triggered
 			************************************************************************/
-			bool IsKeyTriggered(KEY_CODE);
+			static bool IsKeyTriggered(KEY_CODE);
 
 			/*!*********************************************************************
 			\brief
@@ -94,7 +94,7 @@ namespace GE
 			\return
 				returns true is key is held
 			************************************************************************/
-			bool IsKeyHeld(KEY_CODE);
+			static bool IsKeyHeld(KEY_CODE);
 
 			/*!*********************************************************************
 			\brief
@@ -105,7 +105,7 @@ namespace GE
 			\return
 				returns true is key is pressed. (key is either triggered or held)
 			************************************************************************/
-			bool IsKeyPressed(KEY_CODE);
+			static bool IsKeyPressed(KEY_CODE);
 
 			/*!*********************************************************************
 			\brief
@@ -116,7 +116,7 @@ namespace GE
 			\return
 				returns true is key is relased in this frame
 			************************************************************************/
-			bool IsKeyReleased(KEY_CODE);
+			static bool IsKeyReleased(KEY_CODE);
 
 			/*!*********************************************************************
 			\brief

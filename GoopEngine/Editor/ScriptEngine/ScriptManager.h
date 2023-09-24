@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <ScriptEngine/Script.h>
 
 
 namespace GE {
@@ -17,6 +18,7 @@ namespace GE {
 
 		public:
 			void InitMono();
+			void UpdateMono();
 			MonoObject* InstantiateClass(const char* namespaceName, const char* className);
 
 		};

@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 namespace GoopScripts.Input
 {
 
-  using 
-
   public enum KeyCode
   {
     /* Mouse buttons */
