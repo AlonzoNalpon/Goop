@@ -2,9 +2,9 @@
 \file   AssetGooStream.cpp
 \author chengen.lau\@digipen.edu
 \date   18-September-2023
-\brief  
-  
- 
+\brief
+
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include "AssetGooStream.h"
@@ -27,9 +27,9 @@ bool AssetGooStream::Read(std::string const& json)
   std::ifstream ifs{ json };
   if (!ifs)
   {
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cout << "Error: Unable to load " << json << "\n";
-    #endif
+#endif
     return m_status = false;
   }
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
@@ -40,9 +40,9 @@ bool AssetGooStream::Read(std::string const& json)
   {
     ifs.close();
 
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cout << "JSON parse error: " << rapidjson::GetParseErrorFunc(data.GetParseError()) << "\n";
-    #endif
+#endif
     return m_status = false;
   }
 
@@ -52,15 +52,15 @@ bool AssetGooStream::Read(std::string const& json)
   {
     ifs.close();
 
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cerr << "JSON parse error: " << json << " is not in the right format " << "\n";
-    #endif
+#endif
     return m_status = false;
   }
 
-  #ifdef SERIALIZE_TEST
+#ifdef SERIALIZE_TEST
   std::cout << json << " successfully read" << "\n";
-  #endif
+#endif
 
   ifs.close();
   m_elements = data.MemberCount();
@@ -70,9 +70,9 @@ bool AssetGooStream::Read(std::string const& json)
 bool AssetGooStream::Read(container_type const& container)
 {
   if (!m_status) {
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cout << "AssetGooStream corrupted before unload\n";
-    #endif
+#endif
     return false;
   }
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
@@ -101,9 +101,9 @@ bool AssetGooStream::Read(container_type const& container)
 bool AssetGooStream::Unload(container_type& container)
 {
   if (!m_status) {
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cout << "AssetGooStream corrupted before unload\n";
-    #endif
+#endif
     return false;
   }
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
@@ -120,9 +120,9 @@ bool AssetGooStream::Unload(container_type& container)
 bool AssetGooStream::Unload(std::string const& json, bool overwrite)
 {
   if (!m_status) {
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cout << "AssetGooStream corrupted before unload\n";
-    #endif
+#endif
     return false;
   }
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
@@ -130,22 +130,16 @@ bool AssetGooStream::Unload(std::string const& json, bool overwrite)
   std::ofstream ofs{ json, ((overwrite) ? std::ios::out : std::ios::app) };
   if (!ofs)
   {
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cout << "Unable to create output file " << json << "\n";
-    #endif
+#endif
     return m_status = false;
   }
 
   rapidjson::OStreamWrapper osw{ ofs };
-  writer_type writer(osw);
+  writer_type<rapidjson::OStreamWrapper> writer(osw);
   data.Accept(writer);
 
   ofs.close();
   return m_status = true;
-}
-
-void AssetGooStream::Reset() noexcept
-{
-  std::get<rapidjson::Document>(m_data).Clear();
-  m_elements = 0;
 }

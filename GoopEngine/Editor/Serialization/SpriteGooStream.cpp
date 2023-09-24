@@ -2,9 +2,9 @@
 \file   SpriteGooStream.cpp
 \author chengen.lau\@digipen.edu
 \date   18-September-2023
-\brief  
-  
- 
+\brief
+
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include "SpriteGooStream.h"
@@ -16,10 +16,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 using namespace GE::Serialization;
 
-SpriteGooStream::SpriteGooStream(std::string const& json) : GooStream(false)
+SpriteGooStream::SpriteGooStream(std::string const& file) : GooStream(false)
 {
   m_elements = 0;
-  Read(json);
+  Read(file);
 }
 
 bool SpriteGooStream::Read(std::string const& file)
@@ -27,9 +27,9 @@ bool SpriteGooStream::Read(std::string const& file)
   std::ifstream ifs{ file };
   if (!ifs)
   {
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cout << "Error: Unable to load " << file << "\n";
-    #endif
+#endif
     return m_status = false;
   }
   std::ostringstream& data{ std::get<std::ostringstream>(m_data) };
@@ -44,11 +44,11 @@ bool SpriteGooStream::Read(std::string const& file)
     data << line << "\n";
     ++m_elements;
   }
-  
 
-  #ifdef SERIALIZE_TEST
+
+#ifdef SERIALIZE_TEST
   std::cout << json << " successfully read" << "\n";
-  #endif
+#endif
 
   ifs.close();
   return m_status = true;
@@ -57,9 +57,9 @@ bool SpriteGooStream::Read(std::string const& file)
 bool SpriteGooStream::Unload(container_type& container)
 {
   if (!m_status) {
-    #ifdef _DEBUG
+#ifdef _DEBUG
     std::cout << "SpriteGooStream corrupted before unload\n";
-    #endif
+#endif
     return false;
   }
   std::ostringstream& data{ std::get<std::ostringstream>(m_data) };
@@ -77,12 +77,6 @@ bool SpriteGooStream::Unload(container_type& container)
   }
 
   return m_status = true;
-}
-
-void SpriteGooStream::Reset() noexcept
-{
-  std::ostringstream().swap(std::get<std::ostringstream>(m_data));
-  m_elements = 0;
 }
 
 

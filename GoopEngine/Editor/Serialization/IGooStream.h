@@ -3,9 +3,9 @@
 \file   IGooStream.h
 \author chengen.lau\@digipen.edu
 \date   20-September-2023
-\brief  
-  
- 
+\brief
+
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include "GooStream.h"
@@ -25,7 +25,7 @@ namespace GE
       virtual bool Unload(Type& container) = 0;
 
     protected:
-      using writer_type = rapidjson::PrettyWriter<rapidjson::OStreamWrapper>;
+
     };
 
     template <typename Type>
@@ -36,6 +36,8 @@ namespace GE
       virtual bool Unload(std::string const& file, bool overwrite = true) = 0;
 
     protected:
+      template <typename WrapperType>
+      using writer_type = rapidjson::PrettyWriter<WrapperType>;
     };
   }
 }

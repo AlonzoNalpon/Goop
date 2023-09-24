@@ -8,6 +8,7 @@ namespace GE
 	{
 		struct BoxCollider : public GE::ECS::Component
 		{
+			BoxCollider() = default;
 			BoxCollider(Math::dVec2 const& center, double width, double height) : m_width{ width }, m_height{ height },
 				m_min{ center.x - width / 2.0f, center.y - height / 2.0f },
 				m_max{ center.x + width / 2.0f, center.y + height / 2.0f }, m_center{ center },

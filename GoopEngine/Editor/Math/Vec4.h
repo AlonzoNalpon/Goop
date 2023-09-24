@@ -7,10 +7,12 @@ namespace GE
   {
     template <typename T>
     struct Vec<4, T> {
+      // ACCESSORS
       union { T x, r, s; };
       union { T y, g, t; };
       union { T z, b, p; };
       union { T w, a, q; };
+
       // CONSTRUCTORS
       Vec();
       Vec(T _x, T _y, T _z, T _w);
@@ -26,8 +28,19 @@ namespace GE
       Vec<4, T>& operator-=(T rhs);
       Vec<4, T>& operator*=(T rhs);
       Vec<4, T>& operator/=(T rhs);
+      Vec<4, T> operator-() const;
       T& operator[](size_type rhs);
       T const& operator[](size_type rhs) const;
+
+      /*!*********************************************************************
+      \brief
+        Initializes a vector with values from a string
+      \param rhs
+       The string containing the vector's data in the form of { x, y, z, w }
+      \return
+        The vector object
+      ************************************************************************/
+      Vec<4, T>& operator<<(std::string const& rhs);
 
       //  MEMBER FUNCTIONS
       /*!***********************************************************************
@@ -35,6 +48,12 @@ namespace GE
         Normalizes the current vector. Only supports floating-point types.
       *************************************************************************/
       void Normalize();
+
+      /*!***********************************************************************
+      \brief
+        Converts the vector into an std::string in the form of { x, y, z, w }
+      *************************************************************************/
+      std::string ToString() const;
     };
 
     // NON-MEMBER OPERATOR OVERLOADS

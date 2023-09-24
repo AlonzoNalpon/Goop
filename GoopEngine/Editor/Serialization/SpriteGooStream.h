@@ -1,13 +1,13 @@
+#pragma once
 /*!*********************************************************************
 \file   SpriteGooStream.h
 \author chengen.lau\@digipen.edu
 \date   18-September-2023
-\brief  
-  
- 
+\brief
+
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
-#pragma once
 #include "IGooStream.h"
 #include "Serializer.h"
 #include <vector>
@@ -30,9 +30,6 @@ namespace GE
 
       // Unloads contents into a container
       bool Unload(container_type& container) override;
-
-      // Empties the stream of its contents and resets all values
-      void Reset() noexcept override;
 
     private:
       static constexpr char CommentSymbol = '#';

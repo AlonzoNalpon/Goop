@@ -11,7 +11,7 @@
 
 namespace GE
 {
-	namespace ESC
+	namespace ECS
 	{
 		enum class COMPONENT_TYPES
 		{

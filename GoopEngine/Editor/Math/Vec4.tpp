@@ -80,6 +80,29 @@ Vec<4, T>& Vec<4, T>::operator/=(T rhs)
 }
 
 template <typename T>
+Vec<4, T>& Vec<4, T>::operator<<(std::string const& rhs)
+{
+  std::istringstream iss{ rhs.substr(1, rhs.size() - 3) };
+  char ch1, ch2, ch3;
+  iss >> x >> ch1 >> y >> ch2 >> z >> ch3 >> w;
+  if (iss.fail() || ch1 != ',' || ch2 != ',' || ch3 != ',')
+  {
+	#ifdef _DEBUG
+	//throw GE::Debug::Exception<Vec<2,T>>(GE::Debug::LEVEL_ERROR, ErrMsg("Invalid Vec2 string format"));
+	#endif
+	x = y = z = w = {};
+  }
+
+  return *this;
+}
+
+template <typename T>
+Vec<4, T> Vec<4,T>::operator-() const
+{
+  return { -x, -y, -z, -w };
+}
+
+template <typename T>
 T& Vec<4, T>::operator[](size_type rhs)
 {
   return *(&x + rhs);
@@ -104,6 +127,15 @@ void Vec<4, T>::Normalize()
   z *= inverse_root;
   w *= inverse_root;
 }
+
+template <typename T>
+std::string Vec<4, T>::ToString() const
+{
+	std::ostringstream oss{};
+	oss << "{ " << x << ", " << y  << ", " << z << ", " << w << " }";
+	return oss.str();
+}
+
 
 // Non-member operator overloads
 template <typename T>
