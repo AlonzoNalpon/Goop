@@ -145,6 +145,8 @@ namespace {
       glBindVertexArray(0);
     }*/
     }
+
+#if 0
     testAnim.currTime += dt;
     auto anim = m_animManager.GetAnim(testAnim.animID);
     if (testAnim.currTime >= anim.speed) {
@@ -156,6 +158,7 @@ namespace {
     constexpr f32 SCALE{ 1000.f };
     Rendering::Transform xform{ {SCALE,SCALE,SCALE}, 0.f, {400.f, 0.f, 0.f} };
     m_renderer.RenderObject(0, spriteData, xform);
+#endif
     m_renderer.Draw();
   }
 
@@ -316,6 +319,16 @@ namespace {
     m_shaderLT.emplace(name, shdrPgm.GetHandle());
 
     return shdrPgm.GetHandle(); // return the handle
+  }
+
+  Rendering::Renderer& GraphicsEngine::GetRenderer()
+  {
+    return m_renderer;
+  }
+
+  gObjID GraphicsEngine::GetModel()
+  {
+    return gObjID{};
   }
 
   void GraphicsEngine::DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr)

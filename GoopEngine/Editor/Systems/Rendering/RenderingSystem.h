@@ -3,13 +3,15 @@
 #include <pch.h>
 #include <iostream>
 
+// The involved components:
+#include <Component/Model.h>			// models (ALL MUST HAVE THIS)
+#include <Component/Sprite.h>			// sprite (ALL MUST HAVE THIS)
+#include <Component/SpriteAnim.h> // optional and will edit the sprite component
+#include <Component/Transform.h>
 namespace GE::Systems {
   class RenderSystem : public GE::ECS::System
   {
 	public:
-		void Awake();
-
-		void Start();
 
 		void Update();
 

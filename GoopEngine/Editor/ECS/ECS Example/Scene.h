@@ -12,6 +12,11 @@
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
 
+#include <Systems/Rendering/RenderingSystem.h>
+#include <Graphics/GraphicsEngine.h>
+#include <Component/Model.h>
+#include <Component/Sprite.h>
+#include <Component/SpriteAnim.h>
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
@@ -119,7 +124,21 @@ struct Scene
 		ecs->RegisterComponentToSystem<Tween, PlayerControllerSystem>();
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
+		// GRAPHICS COMPONENTS
+		Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
+		GE::Component::Model mdl; // model data for the player sprite
+		mdl.mdlID = gEngine.GetModel();
+		GE::Component::Sprite sprite;
+		GE::Component::SpriteAnim anim;
+		ecs->RegisterComponentToSystem<GE::Component::Model, RenderSystem>();
+		ecs->RegisterComponentToSystem<GE::Component::Sprite, RenderSystem>();
+		ecs->RegisterComponentToSystem<GE::Component::SpriteAnim, RenderSystem>();
+		ecs->AddComponent(player, mdl);
+		ecs->AddComponent(player, sprite);
+		ecs->AddComponent(player, anim);
+		// END OF GRAPHICS COMPONENTS
 		ecs->RegisterEntityToSystem<PlayerControllerSystem>(player);
+		ecs->RegisterEntityToSystem<RenderSystem>(player);
 
 #pragma region RENDERING_SYSTEM // Rendering should be last ( I think?!)
 

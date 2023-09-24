@@ -5,6 +5,7 @@ namespace GE::Component
 {
   struct Model : public GE::ECS::Component
   {
+    Graphics::gObjID mdlID; //!< identifier of the model
   };
 }
 #endif
