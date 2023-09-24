@@ -3,6 +3,7 @@
 
 #include <Physics/PhysicsSystem.h>
 #include <Physics/CollisionSystem.h>
+#include <DraggableObject/DraggableObjectSystem.h>
 
 #include <Component/Velocity.h>
 #include <Component/Transform.h>
@@ -80,12 +81,19 @@ struct Scene
 		ecs->RegisterComponentToSystem<Velocity, PhysicsSystem>();
 		ecs->RegisterComponentToSystem<Transform, PhysicsSystem>();
 		ecs->RegisterComponentToSystem<Gravity, PhysicsSystem>();
+
+		ecs->RegisterComponentToSystem<BoxCollider, CollisionSystem>();
+
+		ecs->RegisterComponentToSystem<Velocity, DraggableObjectSystem>();
+		ecs->RegisterComponentToSystem<Transform, DraggableObjectSystem>();
+		ecs->RegisterComponentToSystem<Gravity, DraggableObjectSystem>();
+		ecs->RegisterComponentToSystem<BoxCollider, DraggableObjectSystem>();
+
 		ecs->AddComponent(entt3, vel);
 		ecs->AddComponent(entt3, trans);
 		ecs->AddComponent(entt3, grav);
 		ecs->RegisterEntityToSystem<PhysicsSystem>(entt3);
 
-		ecs->RegisterComponentToSystem<BoxCollider, CollisionSystem>();
 		ecs->AddComponent(entt4, box1);
 		ecs->AddComponent(entt4, transBox1);
 		ecs->AddComponent(entt5, box2);
@@ -99,6 +107,7 @@ struct Scene
 
 		ecs->AddComponent(entt3, box7);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
+		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt3);
 
 
 		Entity player = ecs->CreateEntity();

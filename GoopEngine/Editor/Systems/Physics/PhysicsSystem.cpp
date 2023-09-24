@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <Physics/PhysicsSystem.h>
 #include <Component/Velocity.h>
 #include <Component/Transform.h>
@@ -17,11 +16,11 @@ void PhysicsSystem::Update()
 		//testing acceleration
 		Velocity* updateVel = m_ecs->GetComponent<Velocity>(entity);
 		Transform* updatePos = m_ecs->GetComponent<Transform>(entity);
-		//std::cout << "Entity's curr pos: " << updatePos->m_pos.x << ',' << updatePos->m_pos.y << std::endl;
-
 		Gravity* getGravity = m_ecs->GetComponent<Gravity>(entity);
-		updateVel->m_vel += dt * (updateVel->m_acc + getGravity->m_gravity);
-		updatePos->m_pos += dt * updateVel->m_vel;
-		//std::cout << "Entity's new pos: " << updatePos->m_pos.x << ',' << updatePos->m_pos.y << std::endl;
+
+		if (updateVel->GetActive() && getGravity->GetActive()) {
+			updateVel->m_vel += dt * (updateVel->m_acc + getGravity->m_gravity);
+			updatePos->m_pos += dt * updateVel->m_vel;
+		}
 	}
 }
