@@ -18,9 +18,12 @@ void PhysicsSystem::Update()
 		Transform* updatePos = m_ecs->GetComponent<Transform>(entity);
 		Gravity* getGravity = m_ecs->GetComponent<Gravity>(entity);
 
-		if (updateVel->GetActive() && getGravity->GetActive()) {
-			updateVel->m_vel += dt * (updateVel->m_acc + getGravity->m_gravity);
-			updatePos->m_pos += dt * updateVel->m_vel;
+		if (updateVel == NULL || getGravity == NULL)
+		{
+			continue;
 		}
+
+		updateVel->m_vel += dt * (updateVel->m_acc + getGravity->m_gravity);
+		updatePos->m_pos += dt * updateVel->m_vel;
 	}
 }
