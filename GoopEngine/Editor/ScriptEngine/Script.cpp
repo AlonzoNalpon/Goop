@@ -1,12 +1,13 @@
 #include "Script.h"
 
 
+ GE::Math::dVec2 GE::MONO::Script::m_playPosition;
+
 GE::MONO::Script::Script(MonoObject* objectInstance) :m_classObjInst{ objectInstance }
 {
 
   MonoClass* instanceClass = mono_object_get_class(m_classObjInst);
 
-  MonoMethod* 
 
   // Get a reference to the method in the class
   m_awakeMethod = mono_class_get_method_from_name(instanceClass, "Awake", 0);
@@ -67,3 +68,17 @@ GE::MONO::Script::Script(MonoObject* objectInstance) :m_classObjInst{ objectInst
 //{
 //  mono_runtime_invoke(m_lateUpdateMethod, m_classObjInst, nullptr, nullptr);
 //}
+
+
+GE::Math::dVec2 GE::MONO::Script::GetPlayPos()
+{
+  std::cout  << "GET: " << m_playPosition.x << "," << m_playPosition.y << "\n";
+  return m_playPosition;
+}
+
+void GE::MONO::Script::SetPlayPos(GE::Math::dVec2 d)
+{
+  m_playPosition = d;
+  std::cout << "SET: " << d.x << "," << d.y << "\n";
+}
+

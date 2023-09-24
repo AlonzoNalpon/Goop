@@ -111,10 +111,12 @@ struct Scene
 		Entity player = ecs->CreateEntity();
 		Transform playerTrans({ -350, 350 }, { 150, 150 }, 0.0);
 		BoxCollider playerCollider(playerTrans.m_pos, 1, 1); //should collide
+		std::initializer_list<std::pair<std::string, std::string>> scriptNames = { std::make_pair("GoopScripts", "Player") }; //Player Script 
 		Tween tween(3.0);
 		tween.AddTween({ 0, 0 });
 		tween.AddTween({ 0, -350 });
 		tween.AddTween({ 350, 350 });
+		ScriptHandler playerScripts(scriptNames);
 		Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 		GE::Component::Model mdl; // model data for the player sprite
 		mdl.mdlID = gEngine.GetModel();
@@ -122,11 +124,14 @@ struct Scene
 		GE::Component::SpriteAnim anim;
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
+		ecs->AddComponent(player, playerScripts);
 		ecs->AddComponent(player, mdl);
 		ecs->AddComponent(player, sprite);
 		ecs->AddComponent(player, anim);
 		ecs->AddComponent(player, playerCollider);
+
 		ecs->RegisterComponentToSystem<Tween, PlayerControllerSystem>();
+		ecs->RegisterComponentToSystem<ScriptHandler, PlayerControllerSystem>();
 		ecs->RegisterComponentToSystem<GE::Component::Model, RenderSystem>();
 		ecs->RegisterComponentToSystem<GE::Component::Sprite, RenderSystem>();
 		ecs->RegisterComponentToSystem<GE::Component::SpriteAnim, RenderSystem>();
@@ -134,13 +139,13 @@ struct Scene
 		ecs->RegisterEntityToSystem<RenderSystem>(player);
 		ecs->RegisterEntityToSystem<CollisionSystem>(player);
 
-		//Testing Script Component
-		Entity player2 = ecs->CreateEntity();
-		Transform player2Trans({ 0, 0 }, { 1, 1 }, 0.0);
-		std::initializer_list<std::pair<std::string, std::string>> scriptNames = { std::make_pair("GoopScripts", "Player") };
-		ScriptHandler player2Scripts(scriptNames); ;
-		ecs->AddComponent(player2, player2Trans);
-		ecs->AddComponent(player2, player2Scripts);
+		////Testing Script Component
+		//Entity player2 = ecs->CreateEntity();
+		//Transform player2Trans({ 0, 0 }, { 1, 1 }, 0.0);
+		//std::initializer_list<std::pair<std::string, std::string>> scriptNames = { std::make_pair("GoopScripts", "Player") };
+		//ScriptHandler player2Scripts(scriptNames); ;
+		//ecs->AddComponent(player2, player2Trans);
+		//ecs->AddComponent(player2, player2Scripts);
 
 #pragma region RENDERING_SYSTEM // Rendering should be last ( I think?!)
 

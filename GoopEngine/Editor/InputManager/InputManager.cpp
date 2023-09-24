@@ -42,7 +42,7 @@ void InputManager::UpdateInput()
 	for (int i{ 0 }; i < static_cast<int>(GPK_KEY_COUNT); ++i)
 	{
 
-		m_keyFramesHeld[i] = (m_keyReleased[i]) ? 0: (m_keyFramesHeld[i] > 0.f || m_keysTriggered[i]) ? (m_keyFramesHeld[i] < m_keyHeldTime) ? m_keyFramesHeld[i] + dt: m_keyFramesHeld[i]: 0;
+		m_keyFramesHeld[i] = (m_keyReleased[i]) ? 0: (m_keyFramesHeld[i] > 0.f || m_keysTriggered[i]) ? (m_keyFramesHeld[i] < m_keyHeldTime) ? m_keyFramesHeld[i] + dt: m_keyFramesHeld[i] : 0;
 		m_keyHeld[i] = (m_keyFramesHeld[i] >= m_keyHeldTime);
 	}
 
@@ -94,9 +94,8 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scanCode, int ac
 		ImGui_ImplGlfw_KeyCallback(window, key, scanCode, action, mod);
 	}
 
-	bool bit = !(GLFW_RELEASE == action);
-	m_keyReleased[key] = !bit;
-	m_keysTriggered[key] = bit;
+	m_keyReleased[key] = (GLFW_RELEASE == action);
+	m_keysTriggered[key] = (GLFW_PRESS == action);
 }
 
 // Mouse callback function
@@ -121,9 +120,8 @@ void InputManager::MouseButtonCallback(GLFWwindow* pwin, int button, int action,
 	{
 		ImGui_ImplGlfw_MouseButtonCallback(pwin, button, action, mod);
 	}
-
-	m_keyReleased[button] = !bit;
-	m_keysTriggered[button] = bit;
+	m_keyReleased[button] = (GLFW_RELEASE == action);
+	m_keysTriggered[button] = (GLFW_PRESS == action);
 
 }
 

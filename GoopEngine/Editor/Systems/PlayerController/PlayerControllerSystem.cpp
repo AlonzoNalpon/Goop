@@ -1,6 +1,6 @@
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
-#include <Component/Transform.h>
+
 
 using vec2 = GE::Math::dVec2;
 
@@ -17,6 +17,20 @@ void PlayerControllerSystem::Awake()
 void PlayerControllerSystem::Update() 
 {
 	for (Entity entity : m_entities) {
+
+
+		ScriptHandler* scriptHan = m_ecs->GetComponent<ScriptHandler>(entity);
+		if (scriptHan)
+		{
+			if (scriptHan->m_scriptMap.find("Player") != scriptHan->m_scriptMap.end()) {
+
+					Transform* trans = m_ecs->GetComponent<Transform>(entity);
+				  scriptHan->m_scriptMap["Player"].m_playPosition = trans->m_pos;
+					scriptHan->UpdateAllScripts();
+					trans->m_pos = scriptHan->m_scriptMap["Player"].m_playPosition;
+			}
+
+		}
 
 		Tween* tween = m_ecs->GetComponent<Tween>(entity);
 
@@ -49,6 +63,8 @@ void PlayerControllerSystem::Update()
 		}
 		tween->m_timeElapsed += GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 
+	
+
 		//std::cout << "Player Position: [" << trans->m_pos.x << ", " << trans->m_pos.y << "]\n";
 	}
 }
@@ -57,3 +73,5 @@ vec2 PlayerControllerSystem::Tweening(vec2 start, vec2 end, double normalisedTim
 {
 	return start + (normalisedTime * (end - start));
 }
+
+

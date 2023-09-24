@@ -12,7 +12,9 @@ namespace GoopScripts
 {
   public  class Player : MonoBehaviour
   {
-     
+
+
+    public int m_playerID;
      public virtual void Awake()
     {
       // Logic for Awake
@@ -30,18 +32,33 @@ namespace GoopScripts
 
     public virtual void Update()
     {
+      Console.WriteLine("TEST\n");
       // Logic for Update
-      if (IsKeyTriggered(KeyCode.A))
+      if (IsKeyPressed(KeyCode.W))
       {
-        Console.WriteLine("A IS TRIGGERED");
+        Vec2<double> pos = GetPlayerPos();
+        pos.y += 5.0f;
+        SetPlayerPos(pos);
+
       }
-      if (IsKeyHeld(KeyCode.A))
+      else if(IsKeyPressed(KeyCode.S))
       {
-        Console.WriteLine("A IS HELD");
+        Vec2<double> pos = GetPlayerPos();
+        pos.y -= 5.0f;
+        SetPlayerPos(pos);
       }
-      if (IsKeyReleased(KeyCode.A))
+
+      if (IsKeyPressed(KeyCode.A))
       {
-        Console.WriteLine("A IS RELEASED");
+        Vec2<double> pos = GetPlayerPos();
+        pos.x -= 5.0f;
+        SetPlayerPos(pos);
+      }
+      else if (IsKeyPressed(KeyCode.D))
+      {
+        Vec2<double> pos = GetPlayerPos();
+        pos.x += 5.0f;
+        SetPlayerPos(pos);
       }
     }
 
@@ -70,6 +87,12 @@ namespace GoopScripts
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern static bool IsKeyReleased(KeyCode k);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern static Vec2<double> GetPlayerPos();
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern static void SetPlayerPos(Vec2<double> d);
 
   }
 }

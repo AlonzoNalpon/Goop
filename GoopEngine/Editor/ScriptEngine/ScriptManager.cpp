@@ -54,6 +54,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Player::IsKeyHeld", GE::Input::InputManager::GetInstance().IsKeyHeld);
   mono_add_internal_call("GoopScripts.Player::IsKeyPressed", GE::Input::InputManager::GetInstance().IsKeyPressed);
   mono_add_internal_call("GoopScripts.Player::IsKeyReleased", GE::Input::InputManager::GetInstance().IsKeyReleased);
+  mono_add_internal_call("GoopScripts.Player::GetPlayerPos",GE::MONO::Script::GetPlayPos);
+  mono_add_internal_call("GoopScripts.Player::SetPlayerPos", GE::MONO::Script::SetPlayPos);
   mono_add_internal_call("GoopScripts.Player::SetVec2", SetVec2);
   mono_add_internal_call("GoopScripts.Player::GetVec2", GetVec2);
 
