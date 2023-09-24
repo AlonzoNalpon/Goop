@@ -78,9 +78,16 @@ namespace GE
 			\brief
 			  Calls ComponentManager's GetComponent Function.
 			
+			\param entity
+				Entity from which the component is gotten from.
+
+			\param ignoreActive
+				Sets the flag if you want to fetch component data regardless
+				of component's active status.
+
 			\return
 				Pointer to entity's component.
-				Returns null if component does not exist.
+				Returns null if component does not exist or is inactive.
 			************************************************************************/
 			template <typename T>
 			T* GetComponent(const Entity& entity, bool ignoreActive = false);
@@ -139,6 +146,13 @@ namespace GE
 			template <typename T>
 			void SetSystemSignature(const ComponentSignature& signature);
 
+			/*!******************************************************************
+			\brief 
+			  Call's SystemManager's GetSignature function.
+
+			\return 
+				Component signature of system
+			********************************************************************/
 			template <typename T>
 			ComponentSignature GetSystemSignature();
 

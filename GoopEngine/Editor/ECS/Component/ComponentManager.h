@@ -86,6 +86,10 @@ namespace GE
 			\param entity
 				Entity to get component from
 
+			\param ignoreActive
+				Flag for if you want to fetch component data regardless
+				of component's active status.
+
 			\return 
 				Pointer to entity's component.
 				Returns null if component does not exist or is inactive.
