@@ -43,14 +43,12 @@ T* ComponentManager::GetComponent(const Entity& entity)
 {
 	T* component = GetComponentArray<T>()->GetData(entity);
 
-	if (component->GetActive())
+	if (component && component->GetActive())
 	{
-		return component;
+		return component;		
 	}
-	else
-	{
-		return nullptr;
-	}
+
+	return nullptr;
 }
 
 template <typename T>
