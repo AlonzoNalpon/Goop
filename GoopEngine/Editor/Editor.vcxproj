@@ -316,7 +316,6 @@
     <ClInclude Include="Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Systems\PlayerController\PlayerControllerSystem.h" />
-    <ClInclude Include="Systems\Rendering\SpriteAnimComponent.h" />
     <ClInclude Include="Window\Window.h" />
     <ClInclude Include="include\def.h" />
     <ClInclude Include="Math\GEM.h" />
@@ -333,7 +332,6 @@
     <ClInclude Include="Serialization\GooStream.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="SpriteAnimation\SpriteAnimationManager.h" />
-    <ClInclude Include="Systems\Rendering\RendererComponent.h" />
     <ClInclude Include="Systems\Rendering\RenderingSystem.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Singleton\Singleton.h" />
