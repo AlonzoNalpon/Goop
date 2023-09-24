@@ -1,6 +1,5 @@
 #include "InputManager.h"
-#include <imgui.h>
-#include <ImGui/backends/imgui_impl_glfw.h>
+
 
 #define UNREFERENCED_PARAMETER(P) (P)
 
@@ -36,11 +35,13 @@ void InputManager::InitInputManager(GLFWwindow* window, int width, int height, d
 void InputManager::UpdateInput()
 {
 	m_keyReleased.reset();
+	m_keysTriggered.reset();
 	glfwPollEvents();
 	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 	for (int i{ 0 }; i < static_cast<int>(GPK_KEY_COUNT); ++i)
 	{
-		m_keyFramesHeld[i] = (m_keysTriggered[i]) ? (m_keyFramesHeld[i] < m_keyHeldTime) ? m_keyFramesHeld[i] + dt : m_keyFramesHeld[i] : 0;
+
+		m_keyFramesHeld[i] = (m_keyReleased[i]) ? 0: (m_keyFramesHeld[i] > 0.f || m_keysTriggered[i]) ? (m_keyFramesHeld[i] < m_keyHeldTime) ? m_keyFramesHeld[i] + dt: m_keyFramesHeld[i]: 0;
 		m_keyHeld[i] = (m_keyFramesHeld[i] >= m_keyHeldTime);
 	}
 
@@ -48,7 +49,7 @@ void InputManager::UpdateInput()
 
 bool InputManager::IsKeyTriggered(KEY_CODE key)
 {
-	return (!m_keyHeld[static_cast<int>(key)] && m_keysTriggered[static_cast<int>(key)]);
+	return (m_keysTriggered[static_cast<int>(key)]);
 }
 bool InputManager::IsKeyHeld(KEY_CODE key)
 {
@@ -57,7 +58,7 @@ bool InputManager::IsKeyHeld(KEY_CODE key)
 
 bool InputManager::IsKeyPressed(KEY_CODE key)
 {
-	return (m_keyHeld[static_cast<int>(key)] || m_keysTriggered[static_cast<int>(key)]);
+	return (m_keyFramesHeld[static_cast<int>(key)] > 0.f);
 }
 
 bool InputManager::IsKeyReleased(KEY_CODE key)
@@ -85,23 +86,13 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scanCode, int ac
 {
 	UNREFERENCED_PARAMETER(scanCode);
 	UNREFERENCED_PARAMETER(mod);
-
-	ImGuiIO& io = ImGui::GetIO();
-	if (io.WantCaptureKeyboard)
-	{
-		ImGui_ImplGlfw_KeyCallback(window, key, scanCode, action, mod);
-	}
-
-	bool bit = !(GLFW_RELEASE == action);
-	m_keyReleased[key] = !bit;
-	m_keysTriggered[key] = bit;
+	m_keyReleased[key] = (GLFW_RELEASE == action);
+	m_keysTriggered[key] = (GLFW_PRESS == action);
 }
 
 // Mouse callback function
 void InputManager::MousePosCallback(GLFWwindow* window, double xpos, double ypos)
 {
-	ImGui_ImplGlfw_CursorPosCallback(window, xpos, ypos);
-
 	m_mousePos.x = xpos;
 	m_mousePos.y = ypos;
 
@@ -112,16 +103,8 @@ void InputManager::MouseButtonCallback(GLFWwindow* pwin, int button, int action,
 	UNREFERENCED_PARAMETER(pwin);
 	UNREFERENCED_PARAMETER(mod);
 
-	ImGuiIO& io = ImGui::GetIO();
-	bool bit = !(GLFW_RELEASE == action);
-
-	if (io.WantCaptureMouse)
-	{
-		ImGui_ImplGlfw_MouseButtonCallback(pwin, button, action, mod);
-	}
-
-	m_keyReleased[button] = !bit;
-	m_keysTriggered[button] = bit;
+	m_keyReleased[button] = (GLFW_RELEASE == action);
+	m_keysTriggered[button] = (GLFW_PRESS == action);
 
 }
 
@@ -130,9 +113,6 @@ void InputManager::MouseScrollCallback(GLFWwindow* pwin, double xoffset, double 
 	UNREFERENCED_PARAMETER(pwin);
 	UNREFERENCED_PARAMETER(xoffset);
 	UNREFERENCED_PARAMETER(yoffset);
-
-	ImGui_ImplGlfw_ScrollCallback(pwin, xoffset, yoffset);
-
 	//y_off = ((y_off + yoffset) > 4) ? 4 : ((y_off + yoffset) < -4) ? -4 : y_off + yoffset;
 	//std::cout << y_off << "\n";
 	////#ifdef _DEBUG
