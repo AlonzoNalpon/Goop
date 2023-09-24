@@ -39,6 +39,8 @@
 *.sln.docstates
 *.vcxproj.filters
 *.vcxproj
+*.ini
+*.editorconfig
 
 # Build results
 [Dd]ebug/

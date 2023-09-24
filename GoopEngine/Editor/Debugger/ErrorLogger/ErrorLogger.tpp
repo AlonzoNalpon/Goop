@@ -61,6 +61,12 @@ ErrorLogger::LoggerPtr ErrorLogger::GetStreamLogger()
 template <typename T>
 std::string ErrorLogger::LogMessage(std::string msg, bool logToFile)
 {
+	// Don't log messages
+	if (m_suppressLogWarning)
+	{
+		return msg;
+	}
+
   if (logToFile)
   {
     LoggerPtr logger = GetFileLogger<T>();

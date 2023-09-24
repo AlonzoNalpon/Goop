@@ -11,11 +11,16 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved
 #include "../Entity/Entity.h"
 #include <vector>
 #include <unordered_map>
+#include <sstream>
+#include "../../Debugger/ErrorLogger/ErrorLogger.h"
 
 namespace GE
 {
 	namespace ECS
 	{
+		// Forward declare to log component manager error
+		class ComponentManager;
+
 		// Base class to allow for polymophic container
 		// of ComponentArrays in ComponentManager without 
 		// specifying template type

@@ -1,4 +1,6 @@
 #include "SystemManager.h"
+#include "../../Debugger/ErrorLogger/ErrorLogger.h"
+#include <sstream>
 
 using namespace GE::ECS;
 
@@ -34,6 +36,9 @@ void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignat
 			// std::set.erase() does nothing if object does not exist
 			// no need for error handling
 			system.second->GetEntities().erase(entity);
+			std::stringstream ss;
+			ss << "Entity ID " << entity << " does not match " << system.first << " siganture. Removed from entity list";
+			GE::Debug::ErrorLogger::GetInstance().LogWarning<SystemManager>(ss.str());
 		}
 	}
 }

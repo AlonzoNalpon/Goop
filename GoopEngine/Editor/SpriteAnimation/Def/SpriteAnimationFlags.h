@@ -8,6 +8,8 @@ for bitwise operations to query animation properties
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+#ifndef SPRITE_ANIMATION_FLAGS_H
+#define SPRITE_ANIMATION_FLAGS_H
 #include <def.h>
 namespace Graphics
 {
@@ -45,4 +47,7 @@ namespace Graphics
     //Bit30 = 0x40000000, // Bit 30
     //Bit31 = 0x80000000  // Bit 31
   };
+  u32 operator|(u32 lhs, SPRITE_ANIM_FLAGS rhs);
+  u32& operator|=(u32& lhs, SPRITE_ANIM_FLAGS rhs);
 }
+#endif

@@ -8,6 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include "EntityManager.h"
+#include "../../Debugger/ErrorLogger/ErrorLogger.h"
 
 using namespace GE::ECS;
 
@@ -39,6 +40,7 @@ Entity EntityManager::CreateEntity()
 
 void EntityManager::DestroyEntity(Entity& entity)
 {
+	GE::Debug::ErrorLogger::GetInstance().LogMessage<EntityManager>("Destroyed entity ID: " + entity, false);
 	// Clear component bitset signature
 	m_entities[entity].reset();
 	m_availableEntities.push(entity);

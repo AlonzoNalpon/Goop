@@ -3,8 +3,9 @@
 #include <Graphics/Def/GraphicsTypes.h>
 #include <Graphics/Def/RenderingHelpers.h>
 #include <Graphics/Renderer/RenderData.h>
-#include <Graphics/GraphicsEngine.h>
-namespace Graphics::Renderer
+#include <Graphics/TextureManager.h>
+#include <Graphics/Renderer/Camera.h>
+namespace Graphics::Rendering
 {
   /*!
    * \class Renderer
@@ -16,18 +17,28 @@ namespace Graphics::Renderer
    * reduced OGL call optimizations should be made in this implementation
    */
   class Renderer {
+    using ShaderLT = std::map<std::string const, gObjID>;
+    using ShaderCont = std::vector<ShaderProgram>;
   public:
-    Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, Graphics::GraphicsEngine::ShaderCont const& shaderCont);
-    void Init();
-    void RenderObject(gObjID mdl, SpriteData const& sprite);
+    Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, ShaderCont const& shaderCont);
+
+    void Init(Camera const& camera, size_t renderCallSize = 2048);
+    void RenderObject(gObjID mdl, SpriteData const& sprite, Transform const& transform);
     //void RenderObject(gObjID mdl, gObjID sprite);
     void Draw();
   private:
+    // Private methods
+
+    glm::mat4 CalculateTransform(gVec3 const& scale, GLfloat rotation, gVec3 const& pos) const;
+    glm::mat4 CalculateTransform(Transform const& xForm) const;
+  private:
     std::vector<RenderData> m_renderCalls;
 
-    std::vector<Model> const&                     r_mdlContainer;
-    TextureManager const&                         r_texManager;
-    Graphics::GraphicsEngine::ShaderCont const&   r_shaders;
+    Camera                              m_camera;   //!< camera for rendering
+
+    std::vector<Model> const&           r_mdlContainer;
+    TextureManager const&               r_texManager;
+    ShaderCont const&                   r_shaders;
   };
 }
 #endif

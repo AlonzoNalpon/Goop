@@ -10,6 +10,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include "ComponentArray.h"
 #include <unordered_map>
+#include <sstream>
+#include "../../Debugger/ErrorLogger/ErrorLogger.h"
 
 namespace GE
 {
@@ -84,12 +86,16 @@ namespace GE
 			\param entity
 				Entity to get component from
 
+			\param ignoreActive
+				Flag for if you want to fetch component data regardless
+				of component's active status.
+
 			\return 
 				Pointer to entity's component.
-				Returns null if component does not exist.
+				Returns null if component does not exist or is inactive.
 			********************************************************************/
 			template <typename T>
-			T* GetComponent(const Entity& entity);
+			T* GetComponent(const Entity& entity, bool ignoreActive);
 
 			/*!*********************************************************************
 			\brief

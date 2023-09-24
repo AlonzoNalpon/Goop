@@ -1,12 +1,9 @@
 #pragma once
 #include <pch.h>
 
-#include "AdditionSystem.h"
-#include "PrintingSystem.h"
-#include "TextComponent.h"
-#include "NumberComponent.h"
 #include <Physics/PhysicsSystem.h>
 #include <Physics/CollisionSystem.h>
+#include <DraggableObject/DraggableObjectSystem.h>
 
 #include <Component/Velocity.h>
 #include <Component/Transform.h>
@@ -15,6 +12,11 @@
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
 
+#include <Systems/Rendering/RenderingSystem.h>
+#include <Graphics/GraphicsEngine.h>
+#include <Component/Model.h>
+#include <Component/Sprite.h>
+#include <Component/SpriteAnim.h>
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
@@ -40,95 +42,61 @@ struct Scene
 		////////////////////////////////////////////////
 		// The order of registration effects the order which the components are updated
 		// use late update if your component relies on other systems to update them first
-		// Flipping this 2 should give different results.
-//#define OLD_SIGNATURE
-#ifdef OLD_SIGNATURE
-		ecs->RegisterSystem<AdditionSystem>();
-		ecs->RegisterSystem<PrintingSystem>();
-
-		ecs->RegisterComponent<Text>();
-		ecs->RegisterComponent<Number>();
-
-		ComponentSignature sig;
-		// Set the signature of number component
-		sig.set(ecs->GetComponentSignature<Number>(), true);
-
-		// Tell ECS that addition system has the signature
-		// that contains number component
-		ecs->SetSystemSignature<AdditionSystem>(sig);
-
-		// Add the signature of text component to first signature
-		sig.set(ecs->GetComponentSignature<Text>(), true);
-		// Tell ECS that printing system has the signature
-		// that contains text & number component
-		ecs->SetSystemSignature<PrintingSystem>(sig);
-#else // NEW_SIGNATURE
-		ecs->RegisterComponentToSystem<Number, AdditionSystem>();
-		ecs->RegisterComponentToSystem<Number, PrintingSystem>();
-		ecs->RegisterComponentToSystem<Text, PrintingSystem>();
-#endif // OLD_SIGNATURE
+		// Flipping this should give different results.
+		//ecs->RegisterComponentToSystem<(component), (system)>();
 
 		////////////////////////////////////////////////
 		// Creating Entities w/ Components
 		////////////////////////////////////////////////
-		Number num1, num2;;
-		num1.a = 0, num1.b = 2, num1.c = 4;
-		num2.a = 0, num2.b = 2, num2.c = 4;
-		Text txt; 
-		txt.text = "My numbers are: ";
-		Entity entt1 = ecs->CreateEntity();
+		//Entity entt1 = ecs->CreateEntity();
 		Entity entt2 = ecs->CreateEntity();
 
-		ecs->AddComponent(entt1, num1);
-		ecs->AddComponent(entt2, num2);
-		ecs->AddComponent(entt2, txt);
+		//ecs->AddComponent(entt1, (component));
 
 		// Manually add entities u want to be updated by a system
-		ecs->RegisterEntityToSystem<AdditionSystem>(entt1);
-		ecs->RegisterEntityToSystem<AdditionSystem>(entt2);
+		//ecs->RegisterEntityToSystem<(system)>(entt1);
 
 		// Subsequently you can destroy an entity, this will remove 
 		// the entity from all systems
 		//ecs->DestroyEntity(entt1);
 
-		ecs->RegisterEntityToSystem<PrintingSystem>(entt2);
 		// You can remove a component and it will unregister
 		// from all systems that require that component
-		//ecs->RemoveComponent<Text>(entt2);
+		//ecs->RemoveComponent<(component)>(entt2);
 
 		// Example of unregistering from a system
-		//ecs->UnregisterEntityFromSystem<PrintingSystem>(entt2);
+		//ecs->UnregisterEntityFromSystem<(system)>(entt1);
 
 		Entity entt3 = ecs->CreateEntity();
 		Velocity vel({ 0, 0 }, { 0, 0 });
 		Transform trans({ 250, 250 }, { 100, 50 }, 0.0);
-		Gravity grav({ 0, 0 });
+		Gravity grav({ 0, -20 });
 		BoxCollider box7(trans.m_pos, 1, 1);
 
-		Entity entt4 = ecs->CreateEntity();
 		Entity entt5 = ecs->CreateEntity();
 		Entity entt6 = ecs->CreateEntity();
-		Transform transBox1({ -100, 2 }, { 40, 30 }, 0.0);
 		Transform transBox2({ 200, 2 }, { 20, 20 }, 0.0);
 		Transform transBox3({ 300, 2 }, { 30, 20 }, 0.0);
-		BoxCollider box1(transBox1.m_pos, 1, 1);
 		BoxCollider box2(transBox2.m_pos, 1, 1); //should collide
 		BoxCollider box3(transBox3.m_pos, 1, 1); //shouldnt collide
 
 		ecs->RegisterComponentToSystem<Velocity, PhysicsSystem>();
 		ecs->RegisterComponentToSystem<Transform, PhysicsSystem>();
 		ecs->RegisterComponentToSystem<Gravity, PhysicsSystem>();
+
+		ecs->RegisterComponentToSystem<Transform, CollisionSystem>();
+		ecs->RegisterComponentToSystem<BoxCollider, CollisionSystem>();
+
+		ecs->RegisterComponentToSystem<Transform, DraggableObjectSystem>();
+		ecs->RegisterComponentToSystem<BoxCollider, DraggableObjectSystem>();
+
 		ecs->AddComponent(entt3, vel);
 		ecs->AddComponent(entt3, trans);
 		ecs->AddComponent(entt3, grav);
 		ecs->RegisterEntityToSystem<PhysicsSystem>(entt3);
 
-		ecs->RegisterComponentToSystem<BoxCollider, CollisionSystem>();
-		ecs->AddComponent(entt4, box1);
-		ecs->AddComponent(entt4, transBox1);
 		ecs->AddComponent(entt5, box2);
 		ecs->AddComponent(entt5, transBox2);
-		ecs->RegisterEntityToSystem<CollisionSystem>(entt4);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt5);
 		
 		ecs->AddComponent(entt6, box3);
@@ -137,43 +105,43 @@ struct Scene
 
 		ecs->AddComponent(entt3, box7);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
+		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt3);
 
 		Entity player = ecs->CreateEntity();
-		Transform playerTrans({ 0, 0 }, { 1, 1 }, 0.0);
+		Transform playerTrans({ -350, 350 }, { 150, 150 }, 0.0);
+		BoxCollider playerCollider(playerTrans.m_pos, 1, 1); //should collide
 		Tween tween(3.0);
-		tween.AddTween({ -1, 0 });
-		tween.AddTween({ -1, 1 });
-		tween.AddTween({ -2, 1 });
-		ecs->RegisterComponentToSystem<Tween, PlayerControllerSystem>();
+		tween.AddTween({ 0, 0 });
+		tween.AddTween({ 0, -350 });
+		tween.AddTween({ 350, 350 });
+		Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
+		GE::Component::Model mdl; // model data for the player sprite
+		mdl.mdlID = gEngine.GetModel();
+		GE::Component::Sprite sprite;
+		GE::Component::SpriteAnim anim;
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
+		ecs->AddComponent(player, mdl);
+		ecs->AddComponent(player, sprite);
+		ecs->AddComponent(player, anim);
+		ecs->AddComponent(player, playerCollider);
+		ecs->RegisterComponentToSystem<Tween, PlayerControllerSystem>();
+		ecs->RegisterComponentToSystem<GE::Component::Model, RenderSystem>();
+		ecs->RegisterComponentToSystem<GE::Component::Sprite, RenderSystem>();
+		ecs->RegisterComponentToSystem<GE::Component::SpriteAnim, RenderSystem>();
 		ecs->RegisterEntityToSystem<PlayerControllerSystem>(player);
+		ecs->RegisterEntityToSystem<RenderSystem>(player);
+		ecs->RegisterEntityToSystem<CollisionSystem>(player);
+
+#pragma region RENDERING_SYSTEM // Rendering should be last ( I think?!)
+
+#pragma endregion // end of rendering system block
 	}
 
 	void Update()
 	{
-		// NOTE: Entity 2 does not print!!!
+		// This should be done by app controller in main
 		ecs->UpdateSystems();
-
-		//static bool flag{true};
-		//if (flag)
-		{
-			//std::cout << "Entity 2 does not print. This is a manual check on Entity 2's numbers component\n";
-
-			//Number* num = ecs->GetComponent<Number>(1);
-			//std::cout << "Entity's numbers are: " << num->a << ", " << num->b << ", " << num->c << ". Total: " << num->total << "\n";
-
-			ecs->RemoveSystem<AdditionSystem>();
-			ecs->RemoveSystem<PrintingSystem>();
-			//Entity entt1 = 0;
-			//Entity entt2 = 1;
-			//ecs->DestroyEntity(entt1);
-			//ecs->DestroyEntity(entt2);
-			//ecs->RemoveSystem<CollisionSystem>();
-			//ecs->RemoveSystem<PhysicsSystem>();
-			//flag = false;
-		}
-
 	}
 
 	void Exit()

@@ -16,6 +16,10 @@ namespace WindowSystem {
       ERR_LOG_FILE("Failed to initialize GLFW! Exiting now ...");
       std::exit(EXIT_FAILURE); // we must leave immediately!
     }
+    // Set the window hint to make the window non-resizable
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+    // Set the opengl version
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 

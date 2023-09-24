@@ -1,4 +1,20 @@
 template <typename T>
+T* SystemManager::GetSystem()
+{	
+	const char* systemName = typeid(T).name();
+
+	if (m_systems.find(systemName) != m_systems.end())
+	{
+		return static_cast<T*>(m_systems[systemName]);	
+	}
+	
+	std::stringstream ss;
+	ss << "Fetching system " << systemName << " while it does not exist. No action taken";
+	GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str(), false);
+	return nullptr;
+}
+
+template <typename T>
 T* SystemManager::RegisterSystem()
 {
 	const char* systemName = typeid(T).name();
@@ -26,14 +42,13 @@ bool SystemManager::RemoveSystem()
 {
 	const char* systemName = typeid(T).name();
 
-	if (m_systems.find(systemName) == m_systems.end())
+	if (m_systems.find(systemName) == m_systems.end() ||
+		m_signatures.find(systemName) == m_signatures.end())
 	{
 		// Removing a system that does not exist
-		return false;
-	}
-	if (m_signatures.find(systemName) == m_signatures.end())
-	{
-		// Somehow the signature for this system does not exist
+		std::stringstream ss;
+		ss << "Removing system " << systemName << " while it does not exist. No action taken";
+		GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str(), false);
 		return false;
 	}
 
@@ -80,12 +95,26 @@ ComponentSignature SystemManager::GetSignature()
 }
 
 template <typename T>
-bool SystemManager::RegisterEntityToSystem(Entity& entity)
+bool SystemManager::RegisterEntityToSystem(Entity& entity, ComponentSignature& signature)
 {
 	const char* systemName = typeid(T).name();
 	if (m_systems.find(systemName) == m_systems.end())
 	{
 		// System does not exist
+		std::stringstream ss;
+		ss << "Failed to register entity ID " << entity << ". System " << systemName << " does not exist.";
+		GE::Debug::ErrorLogger::GetInstance().LogError<SystemManager>(ss.str());
+		return false;
+	}
+
+	ComponentSignature cmpSig{ GetSignature<T>() };
+	// checks if the entity's has a component used by the system
+	if ((signature & cmpSig) != cmpSig)
+	{
+		// Entity does not match system signature
+		std::stringstream ss;
+		ss << "Failed to register entity ID " << entity << ". Entity does not match " << systemName << " component signature.";
+		GE::Debug::ErrorLogger::GetInstance().LogError<SystemManager>(ss.str());
 		return false;
 	}
 
@@ -100,9 +129,13 @@ bool SystemManager::UnregisterEntityFromSystem(Entity& entity)
 	if (m_systems.find(systemName) == m_systems.end())
 	{
 		// System does not exist
+		std::stringstream ss;
+		ss << "Removing entity from system  " << systemName << " while it does not exist. No action taken";
+		GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str(), false);
 		return false;
 	}
 
 	m_systems[systemName]->GetEntities().erase(entity);
 	return true;
+}
 }

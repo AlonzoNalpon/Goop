@@ -25,99 +25,116 @@ namespace GE
 		public:
 			/*!*********************************************************************
 			\brief
-			  Default constructor.
+				Default constructor.
 			************************************************************************/
 			EntityComponentSystem();
 
 			/*!*********************************************************************
 			\brief
-			  Default destructor.
+				Default destructor.
 			************************************************************************/
 			~EntityComponentSystem();
 
 			/*!*********************************************************************
 			\brief
-			  Calls EntityManager's CreateEntity function.
-			  
+				Calls EntityManager's CreateEntity function.
+
 			\return
-			  A new entity
+				A new entity
 			************************************************************************/
 			Entity CreateEntity();
 
 			/*!*********************************************************************
 			\brief
-			  Calls EntityManager's DestroyEntity function.
+				Calls EntityManager's DestroyEntity function.
 
 			\params entity
-			  Entity to destroy.
+				Entity to destroy.
 			************************************************************************/
 			void DestroyEntity(Entity& entity);
 
 			/*!*********************************************************************
 			\brief
-			  Calls ComponentManager's RegisterComponent Function.
+				Calls ComponentManager's RegisterComponent Function.
 			************************************************************************/
 			template <typename T>
 			void RegisterComponent();
 
 			/*!******************************************************************
 			\brief
-			  Calls ComponentManager's AddComponent Function.
+				Calls ComponentManager's AddComponent Function.
 			********************************************************************/
 			template <typename T>
 			void AddComponent(Entity& entity, T component);
 
 			/*!******************************************************************
 			\brief
-			  Calls ComponentManager's RemoveComponent Function.
+				Calls ComponentManager's RemoveComponent Function.
 			********************************************************************/
 			template <typename T>
 			void RemoveComponent(Entity& entity);
 
 			/*!*********************************************************************
 			\brief
-			  Calls ComponentManager's GetComponent Function.
-			
+				Calls ComponentManager's GetComponent Function.
+
+			\param entity
+				Entity from which the component is gotten from.
+
+			\param ignoreActive
+				Sets the flag if you want to fetch component data regardless
+				of component's active status.
+
 			\return
 				Pointer to entity's component.
-				Returns null if component does not exist.
+				Returns null if component does not exist or is inactive.
 			************************************************************************/
 			template <typename T>
-			T* GetComponent(const Entity& entity);
+			T* GetComponent(const Entity& entity, bool ignoreActive = false);
 
 			/*!*********************************************************************
 			\brief
-			  Calls ComponentManager's GetComponentSignature Function.
-			  
+				Calls ComponentManager's GetComponentSignature Function.
+
 			\return
-			  A specific component's signature.
+				A specific component's signature.
 			************************************************************************/
 			template <typename T>
 			ComponentType GetComponentSignature();
 
+			/*!******************************************************************
+			\brief 
+			  Calls SystemManager's GetSystem function.
+
+			\return 
+				Pointer to a system of type T
+			********************************************************************/
+			template <typename T>
+			T* GetSystem();
+
 			/*!*********************************************************************
 			\brief
-			  Calls SystemManager's RegisterSystem function.
-			  
+				Calls SystemManager's RegisterSystem function.
+
 			\return
-			  A pointer to the system.
+				A pointer to the system.
 			************************************************************************/
 			template <typename T>
 			T* RegisterSystem();
 
 			/*!*********************************************************************
 			\brief
-			  Calls SystemManager's RemoveSystem function.
-			  
+				Calls SystemManager's RemoveSystem function.
+
 			\return
-			  If system was succesfully destroyed.			  
+				If system was succesfully destroyed.
 			************************************************************************/
 			template <typename T>
 			bool RemoveSystem();
 
 			/*!******************************************************************
-			\brief 
-			    Registers a component to a system.
+			\brief
+					Registers a component to a system.
 			********************************************************************/
 			template <typename C, typename S>
 			void RegisterComponentToSystem();
@@ -131,8 +148,8 @@ namespace GE
 
 			/*!******************************************************************
 			\brief
-			  Calls SystemManager's SetSignature function.
-			
+				Calls SystemManager's SetSignature function.
+
 			\param signature
 				Signature of all components used in the system.
 			********************************************************************/
@@ -141,7 +158,17 @@ namespace GE
 
 			/*!******************************************************************
 			\brief
-			  Calls SystemManager's RegisterEntityToSystem function.
+				Call's SystemManager's GetSignature function.
+
+			\return
+				Component signature of system
+			********************************************************************/
+			template <typename T>
+			ComponentSignature GetSystemSignature();
+
+			/*!******************************************************************
+			\brief
+				Calls SystemManager's RegisterEntityToSystem function.
 
 			\param entity
 				Entity to register.
@@ -167,7 +194,7 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-			  Calls SystemManager's UpdateSystems function.
+				Calls SystemManager's UpdateSystems function.
 			************************************************************************/
 			void UpdateSystems();
 		private:

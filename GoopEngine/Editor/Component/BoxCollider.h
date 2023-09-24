@@ -22,17 +22,20 @@ namespace GE
 			Math::dVec2 m_min;
 			Math::dVec2 m_max;
 			Math::dVec2 m_center;
-			//can use AABB & position(center)
-			//GE::ECS::Entity * m_collided;
 			std::set<BoxCollider*> m_collided; //a set list of entities' pointers that current entity is collided with
 			bool m_mouseCollided;
 
 			void Render()
 			{
-				Graphics::GraphicsEngine::DrawLine(m_min, { m_max.x, m_min.y });
-				Graphics::GraphicsEngine::DrawLine({ m_max.x, m_min.y }, m_max);
-				Graphics::GraphicsEngine::DrawLine(m_max, { m_min.x, m_max.y });
-				Graphics::GraphicsEngine::DrawLine({ m_min.x, m_max.y }, m_min);
+				// Idk how to tell if i'm no longer collided with something else. Please do if free (I DID IT)
+				Graphics::Colorf boxColor = 
+					(m_collided.size() > 1? // THIS IS SUPPOSED TO BE BOOL THAT INDICATES IS COLLIDING
+					Graphics::Colorf{1.f, 0.f, 0.f, 1.f}			// collided : red
+				: Graphics::Colorf{ 0.f, 1.f, 0.f, 1.f });	// not collided: green
+				Graphics::GraphicsEngine::DrawLine(m_min, { m_max.x, m_min.y }, boxColor);
+				Graphics::GraphicsEngine::DrawLine({ m_max.x, m_min.y }, m_max, boxColor);
+				Graphics::GraphicsEngine::DrawLine(m_max, { m_min.x, m_max.y }, boxColor);
+				Graphics::GraphicsEngine::DrawLine({ m_min.x, m_max.y }, m_min, boxColor);
 			}
 		};
 	}
