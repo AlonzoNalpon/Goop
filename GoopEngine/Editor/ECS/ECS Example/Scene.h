@@ -160,8 +160,8 @@ struct Scene
 		// NOTE: Entity 2 does not print!!!
 		ecs->UpdateSystems();
 
-		//static bool flag{true};
-		//if (flag)
+		static bool flag{true};
+		if (flag)
 		{
 			//std::cout << "Entity 2 does not print. This is a manual check on Entity 2's numbers component\n";
 
@@ -176,7 +176,7 @@ struct Scene
 			//ecs->DestroyEntity(entt2);
 			//ecs->RemoveSystem<CollisionSystem>();
 			//ecs->RemoveSystem<PhysicsSystem>();
-			//flag = false;
+			flag = false;
 		}
 
 	}
