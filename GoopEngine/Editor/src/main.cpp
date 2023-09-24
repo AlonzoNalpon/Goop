@@ -33,7 +33,8 @@ std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& 
     << "\nFrames: " << sprite.m_frames;
   return os;
 }
-
+#endif
+#endif
 #include "../EditorUI/ImGuiUI.h"
 
 int main(int /*argc*/, char* /*argv*/[])
