@@ -47,6 +47,12 @@ ComponentType EntityComponentSystem::GetComponentSignature()
 }
 
 template <typename T>
+T* EntityComponentSystem::GetSystem()
+{
+	return m_systemManager->GetSystem<T>();
+}
+
+template <typename T>
 T* EntityComponentSystem::RegisterSystem()
 {
 	return m_systemManager->RegisterSystem<T>();

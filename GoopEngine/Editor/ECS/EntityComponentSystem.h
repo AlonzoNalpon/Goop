@@ -102,6 +102,16 @@ namespace GE
 			template <typename T>
 			ComponentType GetComponentSignature();
 
+			/*!******************************************************************
+			\brief 
+			  Calls SystemManager's GetSystem function.
+
+			\return 
+				Pointer to a system of type T
+			********************************************************************/
+			template <typename T>
+			T* GetSystem();
+
 			/*!*********************************************************************
 			\brief
 				Calls SystemManager's RegisterSystem function.

@@ -1,4 +1,20 @@
 template <typename T>
+T* SystemManager::GetSystem()
+{	
+	const char* systemName = typeid(T).name();
+
+	if (m_systems.find(systemName) != m_systems.end())
+	{
+		return static_cast<T*>(m_systems[systemName]);	
+	}
+	
+	std::stringstream ss;
+	ss << "Fetching system " << systemName << " while it does not exist. No action taken";
+	GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str(), false);
+	return nullptr;
+}
+
+template <typename T>
 T* SystemManager::RegisterSystem()
 {
 	const char* systemName = typeid(T).name();

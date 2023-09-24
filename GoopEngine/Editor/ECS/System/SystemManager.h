@@ -35,6 +35,16 @@ namespace GE
 			************************************************************************/
 			~SystemManager();
 
+			/*!******************************************************************
+			\brief 
+			  Returns the instance of the entity
+
+			\return 
+				Pointer to system
+			********************************************************************/
+			template <typename T>
+			T* GetSystem();
+
 			/*!*********************************************************************
 			\brief
 			  Registers a system to the manager.
