@@ -56,7 +56,7 @@ namespace Graphics
     \return the ID of the added animation
       
     ************************************************************************/
-    gObjID                        CreateAnim(SpriteAnimation && animation, std::string const& name);
+    gObjID                        CreateAnim(SpriteAnimation const& animation, std::string const& name);
   private: // PRIVATE MEMBERS
     std::map<std::string, size_t> m_animLookupTable;  //!< a lookup to see name to ID
     std::vector<SpriteAnimation>  m_spriteAnimations; //!< all the unique sprite animations

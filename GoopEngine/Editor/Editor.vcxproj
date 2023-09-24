@@ -224,6 +224,7 @@
     <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
+    <ClCompile Include="Graphics\Fonts\FontManager.cpp" />
     <ClCompile Include="Graphics\Renderer\Renderer.cpp" />
     <ClCompile Include="Graphics\TextureManager.cpp" />
     <ClCompile Include="ImGui\backends\imgui_impl_glfw.cpp" />
@@ -278,6 +279,7 @@
     <ClInclude Include="ECS\Entity\EntityManager.h" />
     <ClInclude Include="ECS\System\System.h" />
     <ClInclude Include="ECS\System\SystemManager.h" />
+    <ClInclude Include="Graphics\Fonts\FontManager.h" />
     <ClInclude Include="Graphics\Renderer\RenderData.h" />
     <ClInclude Include="Graphics\Renderer\Renderer.h" />
     <ClInclude Include="Graphics\SpriteSubData.h" />
