@@ -14,6 +14,7 @@
 #include <Window/Window.h>
 #include <Graphics/GraphicsEngine.h>
 
+#include <ScriptEngine/ScriptManager.h>
 
 #include <Physics/PhysicsSystem.h>
 #include <Physics/CollisionSystem.h>
@@ -71,6 +72,10 @@ int main(int /*argc*/, char* /*argv*/[])
   im->InitInputManager(window.GetWindow(), am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), 0.1);
   GE::FPS::FrameRateController* fps_control = &(GE::FPS::FrameRateController::GetInstance());
   fps_control->InitFrameRateController(60, 1);
+
+
+  GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
+  scriptMan->InitMono();
 
 
 #ifdef SERIALIZE_TEST

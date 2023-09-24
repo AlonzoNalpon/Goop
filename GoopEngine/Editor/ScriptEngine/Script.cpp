@@ -43,6 +43,8 @@ GE::MONO::Script::Script(MonoObject* objectInstance) :m_classObjInst{ objectInst
   //  std::cout << "LateUpdate  found\n";
   //}
 
+  
+  mono_runtime_invoke(m_startMethod, m_classObjInst, nullptr, nullptr);
 }
 
 //

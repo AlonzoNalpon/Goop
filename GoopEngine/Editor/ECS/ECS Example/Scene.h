@@ -17,6 +17,7 @@
 #include <Component/Model.h>
 #include <Component/Sprite.h>
 #include <Component/SpriteAnim.h>
+#include <Component/ScriptHandler.h>
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
@@ -132,6 +133,14 @@ struct Scene
 		ecs->RegisterEntityToSystem<PlayerControllerSystem>(player);
 		ecs->RegisterEntityToSystem<RenderSystem>(player);
 		ecs->RegisterEntityToSystem<CollisionSystem>(player);
+
+		//Testing Script Component
+		Entity player2 = ecs->CreateEntity();
+		Transform player2Trans({ 0, 0 }, { 1, 1 }, 0.0);
+		std::initializer_list<std::pair<std::string, std::string>> scriptNames = { std::make_pair("GoopScripts", "Player") };
+		ScriptHandler player2Scripts(scriptNames); ;
+		ecs->AddComponent(player2, player2Trans);
+		ecs->AddComponent(player2, player2Scripts);
 
 #pragma region RENDERING_SYSTEM // Rendering should be last ( I think?!)
 

@@ -237,6 +237,8 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="ImGui\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="InputManager\InputManager.cpp" />
+    <ClCompile Include="ScriptEngine\Script.cpp" />
+    <ClCompile Include="ScriptEngine\ScriptManager.cpp" />
     <ClCompile Include="Serialization\AssetGooStream.cpp" />
     <ClCompile Include="ECS\System\SystemManager.cpp" />
     <ClCompile Include="FrameRateController\FrameRateController.cpp" />
@@ -262,6 +264,7 @@
     <ClInclude Include="Component\BoxCollider.h" />
     <ClInclude Include="Component\Gravity.h" />
     <ClInclude Include="Component\Model.h" />
+    <ClInclude Include="Component\ScriptHandler.h" />
     <ClInclude Include="Component\Sprite.h" />
     <ClInclude Include="Component\SpriteAnim.h" />
     <ClInclude Include="Component\Transform.h" />
@@ -300,6 +303,8 @@
     <ClInclude Include="InputManager\InputManager.h" />
     <ClInclude Include="InputManager\KeyCode.h" />
     <ClInclude Include="Math\Mat3Utils.h" />
+    <ClInclude Include="ScriptEngine\Script.h" />
+    <ClInclude Include="ScriptEngine\ScriptManager.h" />
     <ClInclude Include="Serialization\IGooStream.h" />
     <ClInclude Include="Serialization\SpriteData.h" />
     <ClInclude Include="Serialization\SpriteGooStream.h" />

@@ -21,6 +21,7 @@ namespace GE {
 	
 
 			Script(MonoObject* objectInstance);
+			Script() : m_classObjInst{ nullptr }, m_awakeMethod{ nullptr }, m_startMethod{ nullptr }, m_updateMethod{ nullptr }, m_lateUpdateMethod{ nullptr } {}
 			//void CallAwake();
 			//void CallStart();
 			//void CallUpdate();
