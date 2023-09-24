@@ -17,6 +17,9 @@ void ComponentArray<T>::Remove(const Entity& entity)
 	if (m_entityToIndexMap.find(entity) == m_entityToIndexMap.end())
 	{
 		// No entity to remove
+		std::stringstream ss;
+		ss << "Removing entity ID " << entity << " while it does not exist. No action taken";
+		GE::Debug::ErrorLogger::GetInstance().LogMessage(ss.str());
 		return;
 	}
 
@@ -45,6 +48,10 @@ T* ComponentArray<T>::GetData(const Entity& entity)
 		if (index >= m_components.size())
 		{
 			// vector out of bounds
+			// index of an entity that should not exist
+			std::stringstream ss;
+			ss << "Getting data of entity ID " << entity << " when it should not exist!!";
+			GE::Debug::ErrorLogger::GetInstance().LogCritical<ComponentManager>(ss.str());
 			return nullptr;
 		}
 
@@ -52,6 +59,10 @@ T* ComponentArray<T>::GetData(const Entity& entity)
 	}
 
 	// Entity does not exist
+	// index of an entity that should not exist
+	std::stringstream ss;
+	ss << "Getting data of entity ID " << entity << " when it should not exist!!";
+	GE::Debug::ErrorLogger::GetInstance().LogCritical<ComponentManager>(ss.str());
 	return nullptr;
 }
 
