@@ -91,7 +91,7 @@ namespace GE
 				Returns null if component does not exist or is inactive.
 			********************************************************************/
 			template <typename T>
-			T* GetComponent(const Entity& entity);
+			T* GetComponent(const Entity& entity, bool ignoreActive);
 
 			/*!*********************************************************************
 			\brief

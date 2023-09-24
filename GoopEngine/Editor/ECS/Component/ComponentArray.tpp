@@ -19,7 +19,7 @@ void ComponentArray<T>::Remove(const Entity& entity)
 		// No entity to remove
 		std::stringstream ss;
 		ss << "Removing entity ID " << entity << " while it does not exist. No action taken";
-		GE::Debug::ErrorLogger::GetInstance().LogMessage(ss.str());
+		GE::Debug::ErrorLogger::GetInstance().LogMessage<ComponentManager>(ss.str(), false);
 		return;
 	}
 
