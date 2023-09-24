@@ -76,6 +76,7 @@ namespace Graphics {
 
   protected:
     GLint m_vpWidth, m_vpHeight; //!< dimensions of viewport
+    GLfloat m_ar; //!< aspect ratio
     void DrawMdl(Model const& mdl);
     void DrawMdl(Model const& mdl, SpriteData const& sprite);
     void DrawMdl(Model const& mdl, SpriteData const& sprite, SpriteAnimation anim, GLuint frame);

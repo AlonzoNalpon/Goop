@@ -4,6 +4,13 @@
 
 namespace Graphics::Rendering
 {
+  struct Transform
+  {
+    gVec3     scale;
+    GLfloat   rotation;
+    gVec3     pos;
+  };
+
   /*!
    * \brief  struct containing info for rendering
    * .
@@ -12,6 +19,7 @@ namespace Graphics::Rendering
   {
     gObjID mdl;         //!< model data (ALL MODELS MUST USE THIS)
     SpriteData sprite;  //!< sprite data handle (optional)
+    Transform transform;//!< the transformation of the model
   };
 };
 

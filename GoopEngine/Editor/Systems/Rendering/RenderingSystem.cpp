@@ -1,5 +1,5 @@
 #include <Systems/Rendering/RenderingSystem.h>
-
+#include <Systems/Rendering/RendererComponent.h>	// the component related to this system
 
 namespace GE::Systems
 {
@@ -14,6 +14,10 @@ namespace GE::Systems
 
   void RenderSystem::Update()
   {
+    for (GE::ECS::Entity entity : m_entities)
+    {
+      
+    }
   }
 
   void RenderSystem::OnDestroyed()

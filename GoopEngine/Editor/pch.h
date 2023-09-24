@@ -32,3 +32,4 @@
 #include "Debugger/ErrorLogger/ErrorLogger.h"
 #include "FrameRateController/FrameRateController.h"
 #include "InputManager/InputManager.h"
+#include <Graphics/Def/GraphicsTypes.h>
