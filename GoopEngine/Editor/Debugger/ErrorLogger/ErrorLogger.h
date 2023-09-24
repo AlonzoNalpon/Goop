@@ -37,6 +37,8 @@ namespace GE
       // Map of loggers pointing to ostream sink
       std::map<std::string, LoggerPtr> m_streamLoggers;
 
+      bool m_suppressLogWarning;
+
       /*!******************************************************************
       \brief 
         Returns a shared pointer to a logger with a file sink of a type
@@ -67,6 +69,8 @@ namespace GE
         to match the current time of exit.
       ********************************************************************/
       ~ErrorLogger();
+
+      void SuppressLogMessages(bool flag);
 
       /*!******************************************************************
       \brief 
