@@ -5,7 +5,7 @@
 #include <Physics/CollisionSystem.h>
 #include <DraggableObject/DraggableObjectSystem.h>
 
-#include "OFTransformData.h"
+#include "SerializeComponents.h"
 #include "../Serialization/ObjectGooStream.h"
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;

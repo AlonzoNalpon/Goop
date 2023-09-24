@@ -305,9 +305,10 @@
     <ClInclude Include="Math\Mat3Utils.h" />
     <ClInclude Include="ObjectFactory\ObjectFactory.h" />
     <ClInclude Include="ObjectFactory\ObjectStructs.h" />
-    <ClInclude Include="ObjectFactory\OFTransformData.h" />
+    <ClInclude Include="ObjectFactory\SerializeComponents.h" />
     <ClInclude Include="Serialization\IGooStream.h" />
     <ClInclude Include="Serialization\ObjectGooStream.h" />
+    <ClInclude Include="Serialization\Serialization.h" />
     <ClInclude Include="Serialization\Serializer.h" />
     <ClInclude Include="Serialization\SpriteData.h" />
     <ClInclude Include="Serialization\SpriteGooStream.h" />

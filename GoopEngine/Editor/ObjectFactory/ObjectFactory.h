@@ -3,6 +3,7 @@
 #include "../ECS/ComponentTypes.h"
 #include <rapidjson/document.h>
 #include "ObjectStructs.h"
+#include "../Serialization/Serialization.h"
 
 namespace GE
 {
