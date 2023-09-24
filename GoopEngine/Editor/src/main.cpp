@@ -103,7 +103,6 @@ int main(int /*argc*/, char* /*argv*/[])
 #ifdef INPUT_TEST
 
   GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
-  im->InitInputManager(window.GetWindow());
   im->InitInputManager(window.GetWindow(),800,800);
 #endif
   GE::FPS::FrameRateController* fps_control = &(GE::FPS::FrameRateController::GetInstance());
