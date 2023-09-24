@@ -268,11 +268,7 @@
     <ClInclude Include="ECS\Component\Component.h" />
     <ClInclude Include="ECS\Component\ComponentArray.h" />
     <ClInclude Include="ECS\Component\ComponentManager.h" />
-    <ClInclude Include="ECS\ECS Example\AdditionSystem.h" />
-    <ClInclude Include="ECS\ECS Example\NumberComponent.h" />
-    <ClInclude Include="ECS\ECS Example\PrintingSystem.h" />
     <ClInclude Include="ECS\ECS Example\Scene.h" />
-    <ClInclude Include="ECS\ECS Example\TextComponent.h" />
     <ClInclude Include="ECS\EntityComponentSystem.h" />
     <ClInclude Include="ECS\Entity\Entity.h" />
     <ClInclude Include="ECS\Entity\EntityManager.h" />
