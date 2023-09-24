@@ -39,6 +39,10 @@ void ImGuiUI::Update()
   End();
 
   Begin("Asset Browser");
+  if (Button("Create Object1"))
+  {
+    // TODO
+  }
   End();
 
   Begin("Inspector");

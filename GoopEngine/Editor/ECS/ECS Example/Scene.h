@@ -68,7 +68,7 @@ struct Scene
 		//ecs->UnregisterEntityFromSystem<(system)>(entt1);
 
 		Entity entt3 = ecs->CreateEntity();
-		Velocity vel({ -5, 0 }, { 0, 0 });
+		Velocity vel({ 0, 0 }, { 0, 0 });
 		Transform trans({ 250, 250 }, { 100, 50 }, 0.0);
 		Gravity grav({ 0, -20 });
 		BoxCollider box7(trans.m_pos, 1, 1);
@@ -106,7 +106,6 @@ struct Scene
 		ecs->AddComponent(entt3, box7);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
 		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt3);
-
 
 		Entity player = ecs->CreateEntity();
 		Transform playerTrans({ -350, 350 }, { 150, 150 }, 0.0);
