@@ -104,6 +104,12 @@ int main(int /*argc*/, char* /*argv*/[])
 
   GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
   im->InitInputManager(window.GetWindow());
+  im->InitInputManager(window.GetWindow(),800,800);
+#endif
+  GE::FPS::FrameRateController* fps_control = &(GE::FPS::FrameRateController::GetInstance());
+  fps_control->InitFrameRateController(60, 1);
+
+#ifdef INPUT_TEST
   std::cout << "-------------------------------\n";
   std::cout << "To test Input Manager you can:\n 1.click/hold/release key A.\n 2.Click Mouse Left Button to print Mouse Position\n ";
 
