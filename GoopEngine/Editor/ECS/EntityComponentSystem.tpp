@@ -98,4 +98,3 @@ bool EntityComponentSystem::UnregisterEntityFromSystem(Entity& entity)
 {
 	return m_systemManager->UnregisterEntityFromSystem<T>(entity);
 }
-}
