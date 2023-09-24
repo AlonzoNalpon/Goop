@@ -46,8 +46,7 @@ namespace GE::Systems
       GLfloat scale{ 100.f }; // we are temporarily increasing the scale to this value for now
       renderer.RenderObject(model->mdlID, sprite->spriteData,
         Graphics::Rendering::Transform{
-          //{ transform->m_scale.x, transform->m_scale.y, 1.f},
-          { scale,scale, 1.f},
+          { transform->m_scale.x, transform->m_scale.y, 1.f},
             static_cast<GLfloat>(transform->m_rot),
             { static_cast<GLfloat>(transform->m_pos.x), static_cast<GLfloat>(transform->m_pos.y), 0.f }
         });
