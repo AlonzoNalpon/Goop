@@ -245,6 +245,7 @@
     <ClCompile Include="SpriteAnimation\Def\SpriteAnimationFlags.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimGenerator.cpp" />
     <ClCompile Include="Math\Mat3Utils.cpp" />
+    <ClCompile Include="Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Systems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Systems\PlayerController\PlayerControllerSystem.cpp" />
@@ -312,6 +313,7 @@
     <ClInclude Include="Graphics\Def\RenderingHelpers.h" />
     <ClInclude Include="Graphics\ShaderProgram.h" />
     <ClInclude Include="SpriteAnimation\SpriteAnimGenerator.h" />
+    <ClInclude Include="Systems\DraggableObject\DraggableObjectSystem.h" />
     <ClInclude Include="Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Systems\PlayerController\PlayerControllerSystem.h" />
