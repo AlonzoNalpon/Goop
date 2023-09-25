@@ -25,6 +25,11 @@
 #include "../Serialization/SpriteGooStream.h"
 #endif
 
+#define MEMORY_TEST
+#ifdef MEMORY_TEST
+#include "../MemoryManager/MemoryManager.h"
+#endif
+
 // << overload for printing to ostream
 std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& sprite)
 {
@@ -47,6 +52,11 @@ int main(int /*argc*/, char* /*argv*/[])
   GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
   Graphics::GraphicsEngine& gEngine{Graphics::GraphicsEngine::GetInstance()};     // my graphics engine
   fRC.InitFrameRateController(60);
+
+#ifdef MEMORY_TEST
+  GE::Memory::MemoryManager* memMan{ &(GE::Memory::MemoryManager::GetInstance()) };
+  memMan->InitializeAllAlocators(10000000);
+#endif
 
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
   am->LoadJSONData("../Assets/AssetsToLoadTest/Images.json", GE::AssetManager::IMAGES);
@@ -94,6 +104,10 @@ int main(int /*argc*/, char* /*argv*/[])
 #endif
   GE::Debug::ErrorLogger::GetInstance().SuppressLogMessages(true);
 
+#ifdef MEMORY_TEST
+  memMan->TestAllAllocators();
+#endif
+
   Scene scn;
   try
   {
@@ -110,7 +124,7 @@ int main(int /*argc*/, char* /*argv*/[])
     fRC.StartFrame();
 
     im->UpdateInput();
-    //im->TestInputManager();
+    im->TestInputManager();
 
     static bool renderUI = false;
     if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_G))
