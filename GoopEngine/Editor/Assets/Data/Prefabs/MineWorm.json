@@ -2,7 +2,8 @@
   "Name": "MineWorm",
   "Systems": [
     "Physics",
-    "Collision"
+    "Collision",
+    "DraggableObject"
   ],
   "Components": [
     {

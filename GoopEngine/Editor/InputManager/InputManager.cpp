@@ -94,9 +94,8 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scanCode, int ac
 		ImGui_ImplGlfw_KeyCallback(window, key, scanCode, action, mod);
 	}
 
-	bool bit = !(GLFW_RELEASE == action);
-	m_keyReleased[key] = !bit;
-	m_keysTriggered[key] = bit;
+	m_keyReleased[key] = (GLFW_RELEASE == action);
+	m_keysTriggered[key] = (GLFW_PRESS == action);
 }
 
 // Mouse callback function
@@ -122,8 +121,8 @@ void InputManager::MouseButtonCallback(GLFWwindow* pwin, int button, int action,
 		ImGui_ImplGlfw_MouseButtonCallback(pwin, button, action, mod);
 	}
 
-	m_keyReleased[button] = !bit;
-	m_keysTriggered[button] = bit;
+	m_keyReleased[button] = (GLFW_RELEASE == action);
+	m_keysTriggered[button] = (GLFW_PRESS == action);
 
 }
 
