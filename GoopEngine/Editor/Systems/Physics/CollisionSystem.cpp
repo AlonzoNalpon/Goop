@@ -79,9 +79,11 @@ void CollisionSystem::Update()
 			if (Collide(*entity1Col, *entity2Col)) 
 			{
 				entity1Col->m_collided.insert(entity2Col);
+				#ifdef _DEBUG
 				std::cout << "Collided." << std::endl;
 				std::cout << "1st coordinates: " << entity1Col->m_center << std::endl;
 				std::cout << "2nd coordinates: " << entity2Col->m_center << std::endl;
+				#endif
 			}
 
 			else 
