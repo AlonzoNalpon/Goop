@@ -10,9 +10,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SpriteGooStream.h"
 #include <fstream>
 #include <rapidjson/istreamwrapper.h>
-#ifdef _DEBUG
-#include <iostream>
-#endif
 
 using namespace GE::Serialization;
 
@@ -27,9 +24,10 @@ bool SpriteGooStream::Read(std::string const& file)
   std::ifstream ifs{ file };
   if (!ifs)
   {
-#ifdef _DEBUG
-    std::cout << "Error: Unable to load " << file << "\n";
-#endif
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + file);
+    #ifdef _DEBUG
+    std::cout << "SpriteGooStream: Unable to read " + file << std::endl;
+    #endif
     return m_status = false;
   }
   std::ostringstream& data{ std::get<std::ostringstream>(m_data) };
@@ -46,9 +44,9 @@ bool SpriteGooStream::Read(std::string const& file)
   }
 
 
-#ifdef SERIALIZE_TEST
+  #ifdef SERIALIZE_TEST
   std::cout << json << " successfully read" << "\n";
-#endif
+  #endif
 
   ifs.close();
   return m_status = true;
@@ -57,9 +55,13 @@ bool SpriteGooStream::Read(std::string const& file)
 bool SpriteGooStream::Unload(container_type& container)
 {
   if (!m_status) {
-#ifdef _DEBUG
-    std::cout << "SpriteGooStream corrupted before unload\n";
-#endif
+    std::ostringstream oss{ "SpriteGooStream corrupted before unloading into " };
+    oss << typeid(container).name();
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+
+    #ifdef _DEBUG
+    std::cout <<  oss.str() << std::endl;
+    #endif
     return false;
   }
   std::ostringstream& data{ std::get<std::ostringstream>(m_data) };

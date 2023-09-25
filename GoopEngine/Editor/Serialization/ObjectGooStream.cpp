@@ -14,8 +14,9 @@ bool ObjectGooStream::Read(std::string const& json)
   std::ifstream ifs{ json };
   if (!ifs)
   {
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + json);
     #ifdef _DEBUG
-    throw Debug::Exception<ObjectGooStream>(Debug::LEVEL_ERROR, ErrMsg("Unable to read" + json));
+    std::cout << "ObjectGooStream: Unable to read " + json << std::endl;
     #endif
     return m_status = false;
   }
@@ -26,10 +27,10 @@ bool ObjectGooStream::Read(std::string const& json)
   if (data.ParseStream(isw).HasParseError())
   {
     ifs.close();
+    GE::Debug::ErrorLogger::GetInstance().LogError("JSON parse error: " + json);
+
     #ifdef _DEBUG
-    std::string str{ "JSON parse error: " };
-    str += reinterpret_cast<const char*>(rapidjson::GetParseErrorFunc(data.GetParseError()));
-    throw Debug::Exception<ObjectGooStream>(Debug::LEVEL_ERROR, ErrMsg(str));
+    std::cout << "ObjectGooStream: Unable to read " << json << std::endl;
     #endif
     return m_status = false;
   }
@@ -38,8 +39,12 @@ bool ObjectGooStream::Read(std::string const& json)
   if (!data.IsArray())
   {
     ifs.close();
+    std::ostringstream oss{};
+    oss << json << ": root is not an Array";
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+
     #ifdef _DEBUG
-    throw Debug::Exception<ObjectGooStream>(Debug::LEVEL_ERROR, ErrMsg(json + ": root is not an array"));
+    std::cout << oss.str() << std::endl;
     #endif
     return m_status = false;
   }
@@ -51,28 +56,40 @@ bool ObjectGooStream::Read(std::string const& json)
 
     if (!obj.IsObject())
     {
+      std::ostringstream oss{};
+      oss << json << ": Element " << std::to_string(i) << " is not an object";
+      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
       #ifdef _DEBUG
-      throw Debug::Exception<ObjectGooStream>(Debug::LEVEL_ERROR, ErrMsg(json + ": Element" + std::to_string(i) + " is not an object"));
+      std::cout << oss.str() << std::endl;
       #endif
       return m_status = false;
     }
     if (!obj.HasMember("Id") || !obj["Id"].IsString())
     {
+      std::ostringstream oss{};
+      oss << json << ": Element " << std::to_string(i) << " does not have a valid \"Name\" field";
+      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
       #ifdef _DEBUG
-      throw Debug::Exception<ObjectGooStream>(Debug::LEVEL_ERROR, ErrMsg(json + ": Element" + std::to_string(i) + " does not have a valid \"Name\" field"));
+      std::cout << oss.str() << std::endl;
       #endif
       return m_status = false;
     }
     if (!obj.HasMember("Signature") || !obj["Signature"].IsInt())
     {
+      std::ostringstream oss{};
+      oss << json << ": Element " << std::to_string(i) << " does not have a valid \"Signature\" field";
+      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
       #ifdef _DEBUG
-      throw Debug::Exception<ObjectGooStream>(Debug::LEVEL_ERROR, ErrMsg(json + ": Element" + std::to_string(i) + " does not have a valid \"Signature\" field"));
+      std::cout << oss.str() << std::endl;
       #endif
       return m_status = false;
     }
     if (!obj.HasMember("Components") || !obj["Components"].IsArray()) {
+      std::ostringstream oss{};
+      oss << json << ": Element " << std::to_string(i) << " does not have a valid \"Components\" field";
+      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
       #ifdef _DEBUG
-      throw Debug::Exception<ObjectGooStream>(Debug::LEVEL_ERROR, ErrMsg(json + ": Element" + std::to_string(i) + " does not have a valid \"Components\" field"));
+      std::cout << oss.str() << std::endl;
       #endif
       return m_status = false;
     }
@@ -82,16 +99,18 @@ bool ObjectGooStream::Read(std::string const& json)
     {
       rapidjson::Value const& component{ componentArr[j] };
       if (!component.IsObject()) {
+        std::ostringstream oss{};
+        oss << json << ": Component " << std::to_string(j) << " of element " << std::to_string(i) << " is not an object";
+        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
         #ifdef _DEBUG
-        std::string const&& str{ json + ": Component " + std::to_string(j) + " of element " + std::to_string(i) + " is not an object" };
-        throw Debug::Exception<ObjectGooStream>(Debug::LEVEL_ERROR, ErrMsg(str));
+        std::cout << oss.str() << std::endl;
         #endif
         return m_status = false;
       }
     }
   }
 
-  #ifdef SERIALIZE_TEST
+  #ifdef _DEBUG
   std::cout << json << " successfully read" << "\n";
   #endif
 
@@ -104,8 +123,12 @@ bool ObjectGooStream::Read(container_type const& container)
 {
   if (!m_status) {
     m_status = false;
+    std::ostringstream oss{ "AssetGooStream corrupted before reading from " };
+    oss << typeid(container).name();
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+
     #ifdef _DEBUG
-    throw Debug::Exception<ObjectGooStream>(Debug::LEVEL_ERROR, ErrMsg("GooStream corrupted before read"));
+    std::cout << oss.str() << std::endl;
     #endif
     return false;
   }
@@ -149,8 +172,12 @@ bool ObjectGooStream::Unload(container_type& container)
 {
   if (!m_status) {
     m_status = false;
+    std::ostringstream oss{ "ObjectGooStream corrupted before unloading into " };
+    oss << typeid(container).name();
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+
     #ifdef _DEBUG
-    throw Debug::Exception<ObjectGooStream>(Debug::LEVEL_ERROR, ErrMsg("GooStream corrupted before read"));
+    std::cout << oss.str() << std::endl;
     #endif
     return false;
   }
@@ -186,8 +213,12 @@ bool ObjectGooStream::Unload(std::string const& json, bool overwrite)
 {
   if (!m_status) {
     m_status = false;
+    std::ostringstream oss{ "ObjectGooStream corrupted before unloading into " };
+    oss << json;
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+
     #ifdef _DEBUG
-    throw Debug::Exception<ObjectGooStream>(Debug::LEVEL_ERROR, ErrMsg("GooStream corrupted before unload"));
+    std::cout << oss.str() << std::endl;
     #endif
     return false;
   }
@@ -197,8 +228,12 @@ bool ObjectGooStream::Unload(std::string const& json, bool overwrite)
   if (!ofs)
   {
     m_status = false;
+    std::ostringstream oss{ "Unable to create output file " };
+    oss << json;
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+
     #ifdef _DEBUG
-    throw Debug::Exception<ObjectGooStream>(Debug::LEVEL_ERROR, ErrMsg("Unable to create output file" + json));
+    std::cout << oss.str() << std::endl;
     #endif
     return false;
   }

@@ -244,6 +244,7 @@
     <ClCompile Include="Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="Graphics\ShaderProgram.cpp" />
     <ClCompile Include="Serialization\ObjectGooStream.cpp" />
+    <ClCompile Include="Serialization\PrefabGooStream.cpp" />
     <ClCompile Include="SpriteAnimation\Def\SpriteAnimationFlags.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimGenerator.cpp" />
     <ClCompile Include="Math\Mat3Utils.cpp" />
@@ -306,6 +307,7 @@
     <ClInclude Include="ObjectFactory\SerializeComponents.h" />
     <ClInclude Include="Serialization\IGooStream.h" />
     <ClInclude Include="Serialization\ObjectGooStream.h" />
+    <ClInclude Include="Serialization\PrefabGooStream.h" />
     <ClInclude Include="Serialization\Serialization.h" />
     <ClInclude Include="Serialization\Serializer.h" />
     <ClInclude Include="Serialization\SpriteData.h" />

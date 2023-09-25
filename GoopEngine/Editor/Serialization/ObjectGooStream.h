@@ -18,7 +18,7 @@ namespace GE
   namespace Serialization
   {
 
-    // GooStream for Assets
+    // GooStream for Entities/Objects
     class ObjectGooStream : public IGooIStream<std::map<std::string, ObjectFactory::ObjectData>>,
       IGooOStream<std::map<std::string, ObjectFactory::ObjectData>>
     {

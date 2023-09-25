@@ -10,9 +10,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "AssetGooStream.h"
 #include <fstream>
 #include <rapidjson/istreamwrapper.h>
-#ifdef _DEBUG
-#include <iostream>
-#endif
 
 using namespace GE::Serialization;
 
@@ -27,9 +24,10 @@ bool AssetGooStream::Read(std::string const& json)
   std::ifstream ifs{ json };
   if (!ifs)
   {
-#ifdef _DEBUG
-    std::cout << "Error: Unable to load " << json << "\n";
-#endif
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + json);
+    #ifdef _DEBUG
+    std::cout << "AssetGooStream: Unable to read " + json << std::endl;
+    #endif
     return m_status = false;
   }
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
@@ -39,10 +37,11 @@ bool AssetGooStream::Read(std::string const& json)
   if (data.ParseStream(isw).HasParseError())
   {
     ifs.close();
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + json);
 
-#ifdef _DEBUG
-    std::cout << "JSON parse error: " << rapidjson::GetParseErrorFunc(data.GetParseError()) << "\n";
-#endif
+    #ifdef _DEBUG
+    std::cout << "AssetGooStream: Unable to read " << json << std::endl;
+    #endif
     return m_status = false;
   }
 
@@ -51,16 +50,19 @@ bool AssetGooStream::Read(std::string const& json)
   if (!data.IsObject())
   {
     ifs.close();
+    std::ostringstream oss{};
+    oss << "AssetGooStream: " << json << " is not in the right format ";
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
 
-#ifdef _DEBUG
-    std::cerr << "JSON parse error: " << json << " is not in the right format " << "\n";
-#endif
+    #ifdef _DEBUG
+    std::cout << oss.str() << std::endl;
+    #endif
     return m_status = false;
   }
 
-#ifdef SERIALIZE_TEST
+  #ifdef SERIALIZE_TEST
   std::cout << json << " successfully read" << "\n";
-#endif
+  #endif
 
   ifs.close();
   m_elements = data.MemberCount();
@@ -70,9 +72,13 @@ bool AssetGooStream::Read(std::string const& json)
 bool AssetGooStream::Read(container_type const& container)
 {
   if (!m_status) {
-#ifdef _DEBUG
-    std::cout << "AssetGooStream corrupted before unload\n";
-#endif
+    std::ostringstream oss{ "AssetGooStream corrupted before reading from " };
+    oss << typeid(container).name();
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+
+    #ifdef _DEBUG
+    std::cout << oss.str() << std::endl;
+    #endif
     return false;
   }
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
@@ -101,9 +107,13 @@ bool AssetGooStream::Read(container_type const& container)
 bool AssetGooStream::Unload(container_type& container)
 {
   if (!m_status) {
-#ifdef _DEBUG
-    std::cout << "AssetGooStream corrupted before unload\n";
-#endif
+    std::ostringstream oss{ "AssetGooStream corrupted before unloading into " };
+    oss << typeid(container).name();
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+
+    #ifdef _DEBUG
+    std::cout << oss.str() << std::endl;
+    #endif
     return false;
   }
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
@@ -120,9 +130,13 @@ bool AssetGooStream::Unload(container_type& container)
 bool AssetGooStream::Unload(std::string const& json, bool overwrite)
 {
   if (!m_status) {
-#ifdef _DEBUG
-    std::cout << "AssetGooStream corrupted before unload\n";
-#endif
+    std::ostringstream oss{ "AssetGooStream corrupted before unloading into " };
+    oss << json;
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+
+    #ifdef _DEBUG
+    std::cout << oss.str() << std::endl;
+    #endif
     return false;
   }
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
@@ -130,9 +144,13 @@ bool AssetGooStream::Unload(std::string const& json, bool overwrite)
   std::ofstream ofs{ json, ((overwrite) ? std::ios::out : std::ios::app) };
   if (!ofs)
   {
-#ifdef _DEBUG
-    std::cout << "Unable to create output file " << json << "\n";
-#endif
+    std::ostringstream oss{ "Unable to create output file " };
+    oss << json;
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+
+    #ifdef _DEBUG
+    std::cout << oss.str() << std::endl;
+    #endif
     return m_status = false;
   }
 

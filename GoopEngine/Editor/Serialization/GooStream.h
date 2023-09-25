@@ -12,6 +12,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rapidjson/document.h>
 #include <sstream>
 #include <variant>
+#ifdef _DEBUG
+#include <iostream>
+#endif
 
 namespace GE
 {

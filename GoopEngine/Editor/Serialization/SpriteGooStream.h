@@ -18,7 +18,7 @@ namespace GE
   namespace Serialization
   {
 
-    // GooStream for Assets
+    // GooStream for Sprites
     class SpriteGooStream : public IGooIStream<std::vector<SpriteData>>
     {
     public:

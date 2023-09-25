@@ -7,5 +7,7 @@
     "FPS Check Interval": "1.0",
     "Input Repeat Delay": "0.5",
     "Stills": "Assets/Data/Images.json",
-    "Animation Sprites": "Assets/Data/Sprites.txt"
+    "Animation Sprites": "Assets/Data/Sprites.txt",
+    "Scene": "Assets/Data/SERIALIZED.json",
+    "Prefabs":  "Assets/Data/Prefabs"
 }

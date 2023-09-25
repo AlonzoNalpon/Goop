@@ -50,5 +50,10 @@ namespace GE
 			{ "Model", COMPONENT_TYPES::MODEL },
 			{ "Animation", COMPONENT_TYPES::ANIMATION },
 		};
+
+		inline unsigned componentsToUInt(std::string const& component)
+		{
+			return static_cast<unsigned>(stringToComponents.at(component));
+		}
 	}
 }

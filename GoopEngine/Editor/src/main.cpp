@@ -23,6 +23,7 @@
 #include <iomanip>
 #include "../Serialization/AssetGooStream.h"
 #include "../Serialization/SpriteGooStream.h"
+#include "../Serialization/PrefabGooStream.h"
 #include "../ObjectFactory/ObjectFactory.h"
 #ifdef _DEBUG
 // << overload for printing to ostream
@@ -50,9 +51,9 @@ int main(int /*argc*/, char* /*argv*/[])
   fRC.InitFrameRateController(60);
 
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
-  am->LoadJSONData("../Assets/AssetsToLoadTest/Images.json", GE::AssetManager::IMAGES);
-  am->LoadJSONData("../Assets/AssetsToLoadTest/Config.json", GE::AssetManager::CONFIG);
-  am->LoadJSONData("../Assets/AssetsToLoadTest/Sprites.txt", GE::AssetManager::ANIMATION);
+  am->LoadJSONData("Assets/Data/Images.json", GE::AssetManager::IMAGES);
+  am->LoadJSONData("Assets/Data/Config.json", GE::AssetManager::CONFIG);
+  am->LoadJSONData("Assets/Data/Sprites.txt", GE::AssetManager::ANIMATION);
 
   WindowSystem::Window window{ am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), "GOOP"};
   window.CreateAppWindow();
@@ -78,9 +79,9 @@ int main(int /*argc*/, char* /*argv*/[])
   GE::ObjectFactory::ObjectFactory::ObjectFactoryTest();
 
   GE::ObjectFactory::ObjectFactory& of = (GE::ObjectFactory::ObjectFactory::GetInstance());
-  of.ObjectJsonLoader("../Assets/AssetsToLoadTest/SERIALIZED.json");
+  of.ObjectJsonLoader("Assets/Data/SERIALIZED.json");
   of.JoelTest();
-
+  GE::Serialization::PrefabGooStream::PrefabLoadTest();
   //GE::Serialization::SpriteGooStream::container_type assets;
   //std::string const fileName{ "../Assets/AssetsToLoadTest/sprites.txt" };
   //GE::Serialization::SpriteGooStream sgs{ fileName };
