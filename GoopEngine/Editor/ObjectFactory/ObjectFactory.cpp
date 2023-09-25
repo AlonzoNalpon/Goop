@@ -7,6 +7,8 @@
 
 #include "SerializeComponents.h"
 #include "../Serialization/ObjectGooStream.h"
+#include "../Serialization/PrefabGooStream.h"
+
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
 
@@ -106,15 +108,56 @@ GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data)
   return newData;
 }
 
-GE::ECS::Entity ObjectFactory::SpawnPrefab(std::string key)
+void ObjectFactory::LoadPrefabsFromFile()
+{
+  // TODO: SHOULD GET FILE FROM Config.json "Prefabs" IN FUTURE; retrived from AssetManager
+  const char* prefabsFile{ "Assets/Data/Prefabs/Prefabs.txt" };
+  std::ifstream ifs{ prefabsFile };
+  if (!ifs)
+  {
+    std::ostringstream oss{};
+    oss << "Unable to open" << prefabsFile;
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+  }
+
+  std::string filepath;
+  std::string prefabFile;
+  ifs >> filepath;
+  while (ifs >> prefabFile)
+  {
+    DeserializePrefab(filepath + prefabFile);
+  }
+}
+
+void ObjectFactory::DeserializePrefab(const std::string& filepath)
+{
+  GE::Serialization::PrefabGooStream pgs{ filepath };
+  if (!pgs)
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + filepath);
+  }
+
+  std::pair<std::string, PrefabData> prefab;
+  if (!pgs.Unload(prefab))
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to unload " + filepath);
+  }
+
+  // u probably wouldnt do this but prasanna went through this last week
+  // move the object into the map since we don't need it anymore
+  m_prefabs.insert(std::move(prefab));
+}
+
+GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
 {
   if (m_prefabs.find(key) == m_prefabs.end())
   {
     // throw exception
   }
-  PrefabData prefab = m_prefabs.at(key);
+  PrefabData& prefab = m_prefabs[key];
   ObjectData object{ prefab.m_componentSignature, prefab.m_components };
   Entity entity = CreateObject(object);
+  RegisterPrefab(entity, prefab.m_systemSignature);
   return entity;
 }
 
@@ -144,7 +187,7 @@ void ObjectFactory::JoelTest()
 
 
 
-void ObjectFactory::ObjectJsonLoader(std::string json_path)
+void ObjectFactory::ObjectJsonLoader(const std::string& json_path)
 {
   GE::Serialization::ObjectGooStream ogs(json_path);
   ogs.Unload(m_objects);
@@ -160,78 +203,6 @@ void ObjectFactory::ObjectJsonLoader(std::string json_path)
 // prints contents of map to console
 void ObjectFactory::ObjectFactoryTest() {
   std::map<std::string, ObjectData> m_objects;
-  Serialization::ObjectGooStream ogs{ "../Assets/AssetsToLoadTest/SERIALIZED.json" };
+  Serialization::ObjectGooStream ogs{ "Assets/Data/SERIALIZED.json" };
   ogs.Unload(m_objects);
-  /*ogs.Reset();
-  ogs.Read(m_objects);
-  ogs.Unload("../Assets/AssetsToLoadTest/SERIALIZED.json");*/
-
-  //// Create and fill up the first object
-  //ObjectData object1{};
-  //object1.m_componentSignature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::ANIMATION), true);
-  //object1.m_components[GE::ECS::COMPONENT_TYPES::ANIMATION]["Property1"] = "Value1";
-  //object1.m_components[GE::ECS::COMPONENT_TYPES::BOXCOLLIDER]["pos_x"] = "0";
-  //object1.m_components[GE::ECS::COMPONENT_TYPES::BOXCOLLIDER]["pos_y"] = "0";
-  //object1.m_components[GE::ECS::COMPONENT_TYPES::BOXCOLLIDER]["width"] = "1";
-  //object1.m_components[GE::ECS::COMPONENT_TYPES::BOXCOLLIDER]["height"] = "1";
-  //m_objects["Object1"] = object1;
-
-  //// Create and fill up the second object
-  //ObjectData object2{};
-  //object2.m_componentSignature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::TRANSFORM), true);
-  //object2.m_componentSignature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::GRAVITY), true);
-  //object2.m_components[GE::ECS::COMPONENT_TYPES::TRANSFORM]["pos_x"] = "39.2314";
-  //object2.m_components[GE::ECS::COMPONENT_TYPES::TRANSFORM]["pos_y"] = "5.12315";
-  //object2.m_components[GE::ECS::COMPONENT_TYPES::TRANSFORM]["scale_x"] = "39.2314";
-  //object2.m_components[GE::ECS::COMPONENT_TYPES::TRANSFORM]["scale_y"] = "5.12315";
-  //object2.m_components[GE::ECS::COMPONENT_TYPES::TRANSFORM]["rot"] = "5.12315";
-
-  //object2.m_components[GE::ECS::COMPONENT_TYPES::GRAVITY]["grav_x"] = "0";
-  //object2.m_components[GE::ECS::COMPONENT_TYPES::GRAVITY]["grav_y"] = "9.807";
-  //m_objects["Object2"] = object2;
-  //std::cout << "\n\n\n" << object2.m_componentSignature.to_ulong() << "\n\n\n";
-
-  //// Create and fill up the third object
-  //ObjectData object3{};
-  //object3.m_componentSignature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::VELOCITY), true);
-  //object3.m_componentSignature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::ANIMATION), true);
-  //object3.m_components[GE::ECS::COMPONENT_TYPES::VELOCITY]["acc_x"] = "0";
-  //object3.m_components[GE::ECS::COMPONENT_TYPES::VELOCITY]["acc_y"] = "0";
-  //object3.m_components[GE::ECS::COMPONENT_TYPES::VELOCITY]["vel_x"] = "0";
-  //object3.m_components[GE::ECS::COMPONENT_TYPES::VELOCITY]["vel_y"] = "0";
-
-  //object3.m_components[GE::ECS::COMPONENT_TYPES::ANIMATION]["Property6"] = "Value6";
-  //object3.m_components[GE::ECS::COMPONENT_TYPES::ANIMATION]["Property4446"] = "Value2346";
-  //object3.m_components[GE::ECS::COMPONENT_TYPES::ANIMATION]["Property466"] = "Value3436";
-  //m_objects["Object3"] = object3;
-
-  //GE::Serialization::ObjectGooStream ogs{"../Assets/AssetsToLoadTest/SERIALIZED.json"};
-  //ogs.Reset();
-  //ogs.Read(m_objects);
-  //ogs.Unload("../Assets/AssetsToLoadTest/SERIALIZED.json");
-
-
-  //std::cout << "=========OBJECT FACTORY SERIALIZE TEST=========\n";
-  //for (const auto& pair : m_objects) {
-  //  const std::string& objectName = pair.first;
-  //  const ObjectData& objectData = pair.second;
-
-  //  std::cout << "Object Name: " << objectName << std::endl;
-  //  std::cout << "Signature: " << objectData.m_componentSignature.to_ulong() << std::endl;
-
-  //  for (const auto& componentPair : objectData.m_components) {
-  //    GE::ECS::COMPONENT_TYPES componentType = componentPair.first;
-  //    const MemberMap& memberMap = componentPair.second;
-
-  //    std::cout << "Component Type: " << ECS::componentsToString.at(componentType) << std::endl;
-
-  //    for (const auto& memberPair : memberMap) {
-  //      const std::string& memberName = memberPair.first;
-  //      const std::string& memberValue = memberPair.second;
-
-  //      std::cout << "Member Name: " << memberName << ", Member Value: " << memberValue << std::endl;
-  //    }
-  //  }
-  //}
-  //std::cout << "===============================================\n";
 }

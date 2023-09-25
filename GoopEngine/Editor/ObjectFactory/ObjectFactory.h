@@ -12,24 +12,21 @@ namespace GE
     class ObjectFactory : public Singleton<ObjectFactory>
     {
     public:
-      void RegisterObject(GE::ECS::Entity object);
-
-      void RegisterPrefab(GE::ECS::Entity object, ECS::SystemSignature signature);
-
+      void LoadPrefabsFromFile();
+      GE::ECS::Entity SpawnPrefab(const std::string& key);
       GE::ECS::Entity CreateObject(ObjectData data);
 
-      GE::ECS::Entity SpawnPrefab(std::string);
-
-
       void JoelTest();
-
       int LoadObject();
-
-      void ObjectJsonLoader(std::string json_path);
+      void ObjectJsonLoader(const std::string& json_path);
 
       static void ObjectFactoryTest();
 
     private:
+      void RegisterObject(GE::ECS::Entity object);
+      void DeserializePrefab(const std::string& filepath);
+      void RegisterPrefab(GE::ECS::Entity object, ECS::SystemSignature signature);
+
       inline bool IsBitSet(ECS::ComponentSignature lhs, ECS::COMPONENT_TYPES rhs) const noexcept
       {
         return lhs[static_cast<unsigned>(rhs)];
@@ -40,8 +37,7 @@ namespace GE
       }
 
       std::map<std::string, ObjectData> m_objects;
-      std::map<std::string, PrefabData> m_prefabs;
-
+      std::unordered_map<std::string, PrefabData> m_prefabs;
     };
   }
 }

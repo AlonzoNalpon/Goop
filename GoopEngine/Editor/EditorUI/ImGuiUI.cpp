@@ -2,6 +2,7 @@
 #include <ImGui/imgui.h>
 #include <ImGui/backends/imgui_impl_opengl3.h>
 #include <ImGui/backends/imgui_impl_glfw.h>
+#include "../ObjectFactory/ObjectFactory.h"
 
 using namespace GE::EditorGUI;
 using namespace ImGui;
@@ -42,6 +43,7 @@ void ImGuiUI::Update()
   if (Button("Create Object1"))
   {
     // TODO
+    GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
   }
   End();
 
@@ -131,7 +133,7 @@ void ImGuiHelper::CreateDockSpace()
       if (MenuItem("Flag: NoDockingSplit", "", (dockspace_flags & ImGuiDockNodeFlags_NoDockingSplit) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoDockingSplit; }
       Separator();
 
-      EndMenu();
+      ImGui::EndMenu();
     }
 
     EndMenuBar();

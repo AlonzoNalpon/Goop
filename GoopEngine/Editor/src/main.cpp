@@ -74,6 +74,7 @@ int main(int /*argc*/, char* /*argv*/[])
   GE::FPS::FrameRateController* fps_control = &(GE::FPS::FrameRateController::GetInstance());
   fps_control->InitFrameRateController(60, 1);
 
+  GE::ObjectFactory::ObjectFactory::GetInstance().LoadPrefabsFromFile();
 
 #ifdef SERIALIZE_TEST
   GE::ObjectFactory::ObjectFactory::ObjectFactoryTest();

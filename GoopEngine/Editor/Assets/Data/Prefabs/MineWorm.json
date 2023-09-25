@@ -8,32 +8,32 @@
     {
       "Transform": {
         "m_pos": "{ 2.0, 4.0 }",
-        "m_scale": "{ 5.0, 3.0 }",
+        "m_scale": "{ 10.0, 10.0 }",
         "m_rot": 5.0
       }
     },
     {
       "Velocity": {
-        "acc_x": 0.0,
-        "acc_y": 0.0,
-        "vel_x": 0.0,
-        "vel_y": 0.0
+        "acc_x": 1.0,
+        "acc_y": 1.0,
+        "vel_x": 1.0,
+        "vel_y": 1.0
       }
     },
     {
       "Gravity": {
         "grav_x": 0.0,
-        "grav_y": 9.807
+        "grav_y": -20.807
       }
     },
     {
       "BoxCollider": {
-        "m_width": 0.0,
-        "m_height": 0.5,
+        "m_width": 10.0,
+        "m_height": 10.0,
         "m_min": "{ 5.0, 9.0 }",
         "m_max": "{ 3.0, 9.0 }",
         "m_center": "{ 6.0, 1.0 }",
-        "m_mouseCollided": true
+        "m_mouseCollided": false
       }
     }
   ]
