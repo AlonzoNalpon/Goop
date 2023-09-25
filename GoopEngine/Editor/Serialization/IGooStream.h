@@ -10,7 +10,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include "GooStream.h"
 #include <string>
-#include <rapidjson/prettywriter.h>
 #include <rapidjson/ostreamwrapper.h>
 
 namespace GE
@@ -36,8 +35,6 @@ namespace GE
       virtual bool Unload(std::string const& file, bool overwrite = true) = 0;
 
     protected:
-      template <typename WrapperType>
-      using writer_type = rapidjson::PrettyWriter<WrapperType>;
     };
   }
 }

@@ -14,7 +14,7 @@ namespace GE
     public:
       void RegisterObject(GE::ECS::Entity object);
 
-      void RegisterPrefab(GE::ECS::Entity object, SystemSignature signature);
+      void RegisterPrefab(GE::ECS::Entity object, ECS::SystemSignature signature);
 
       GE::ECS::Entity CreateObject(ObjectData data);
 
@@ -34,13 +34,13 @@ namespace GE
       {
         return lhs[static_cast<unsigned>(rhs)];
       }
-      inline bool IsBitSet(GE::ObjectFactory::SystemSignature lhs, ECS::SYSTEM_TYPES rhs) const noexcept
+      inline bool IsBitSet(GE::ECS::SystemSignature lhs, ECS::SYSTEM_TYPES rhs) const noexcept
       {
         return lhs[static_cast<unsigned>(rhs)];
       }
 
       std::map<std::string, ObjectData> m_objects;
-      std::map<std::string, Prefab> m_prefabs;
+      std::map<std::string, PrefabData> m_prefabs;
 
     };
   }

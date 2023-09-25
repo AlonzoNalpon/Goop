@@ -20,17 +20,17 @@ void ObjectFactory::RegisterObject(GE::ECS::Entity object)
 
 }
 
-void ObjectFactory::RegisterPrefab(GE::ECS::Entity object, SystemSignature signature)
+void ObjectFactory::RegisterPrefab(GE::ECS::Entity object, ECS::SystemSignature signature)
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
   
-  if (IsBitSet(signature, SYSTEM_TYPES::PHYSICS_SYSTEM))
+  if (IsBitSet(signature, SYSTEM_TYPES::PHYSICS))
     ecs.RegisterEntityToSystem<GE::Systems::PhysicsSystem>(object);
-  if (IsBitSet(signature, SYSTEM_TYPES::COLLISION_SYSTEM))
+  if (IsBitSet(signature, SYSTEM_TYPES::COLLISION))
     ecs.RegisterEntityToSystem<GE::Systems::CollisionSystem>(object);
-  if (IsBitSet(signature, SYSTEM_TYPES::DRAGGABLE_OBJECT_SYSTEM))
+  if (IsBitSet(signature, SYSTEM_TYPES::DRAGGABLE_OBJECT))
     ecs.RegisterEntityToSystem<GE::Systems::DraggableObjectSystem>(object);
-  if (IsBitSet(signature, SYSTEM_TYPES::PLAYER_CONTROLLER_SYSTEM))
+  if (IsBitSet(signature, SYSTEM_TYPES::PLAYER_CONTROLLER))
     ecs.RegisterEntityToSystem<GE::Systems::PlayerControllerSystem>(object);
 }
 
@@ -112,7 +112,7 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(std::string key)
   {
     // throw exception
   }
-  Prefab prefab = m_prefabs.at(key);
+  PrefabData prefab = m_prefabs.at(key);
   ObjectData object{ prefab.m_componentSignature, prefab.m_components };
   Entity entity = CreateObject(object);
   return entity;

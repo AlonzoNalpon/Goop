@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include "IGooStream.h"
 #include "Serializer.h"
-#include "../ObjectFactory/ObjectFactory.h"
+#include "../ObjectFactory/ObjectStructs.h"
 
 namespace GE
 {
@@ -18,7 +18,7 @@ namespace GE
   {
 
     // GooStream for Prefabs
-    class PrefabGooStream : public IGooIStream<GE::ObjectFactory::ObjectData>
+    class PrefabGooStream : public IGooIStream<std::pair<std::string, GE::ObjectFactory::PrefabData>>
     {
     public:
       // Ctor reading json file into stream
@@ -35,10 +35,12 @@ namespace GE
         PrefabGooStream pfs{ "Assets/Data/Prefabs/MineWorm.json" };
         if (!pfs) { return; }
 
-        GE::ObjectFactory::ObjectData obj{};
+        std::pair<std::string, GE::ObjectFactory::PrefabData> obj{};
         pfs.Unload(obj);
-
-        for (auto const& i : obj.m_components)
+        std::cout << obj.first << "\nComp Sig: " << obj.second.m_componentSignature 
+          << "\nSys Sig: " << obj.second.m_systemSignature << "\n";
+        std::cout << "Components:\n";
+        for (auto const& i : obj.second.m_components)
         {
           std::cout << GE::ECS::componentsToString.at(i.first) << ":\n" << i.second << "\n";
         }
