@@ -3,6 +3,7 @@
 
 #include <Physics/PhysicsSystem.h>
 #include <Physics/CollisionSystem.h>
+#include <DraggableObject/DraggableObjectSystem.h>
 
 #include "SerializeComponents.h"
 #include "../Serialization/ObjectGooStream.h"
@@ -13,12 +14,24 @@ void ObjectFactory::RegisterObject(GE::ECS::Entity object)
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
-  //if SYSTEM, REGISTER TO SYSTEM
-  // I will need a system signature in order to register the entity into the relevant system
   ecs.RegisterEntityToSystem<GE::Systems::PhysicsSystem>(object);
   //ecs.RegisterEntityToSystem<GE::Systems::CollisionSystem>(object);
   //ecs.RegisterEntityToSystem<GE::Systems::AdditionSystem>(object);
 
+}
+
+void ObjectFactory::RegisterPrefab(GE::ECS::Entity object, SystemSignature signature)
+{
+  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+  
+  if (IsBitSet(signature, SYSTEM_TYPES::PHYSICS_SYSTEM))
+    ecs.RegisterEntityToSystem<GE::Systems::PhysicsSystem>(object);
+  if (IsBitSet(signature, SYSTEM_TYPES::COLLISION_SYSTEM))
+    ecs.RegisterEntityToSystem<GE::Systems::CollisionSystem>(object);
+  if (IsBitSet(signature, SYSTEM_TYPES::DRAGGABLE_OBJECT_SYSTEM))
+    ecs.RegisterEntityToSystem<GE::Systems::DraggableObjectSystem>(object);
+  if (IsBitSet(signature, SYSTEM_TYPES::PLAYER_CONTROLLER_SYSTEM))
+    ecs.RegisterEntityToSystem<GE::Systems::PlayerControllerSystem>(object);
 }
 
 void RegisterComponents()
@@ -53,44 +66,56 @@ GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data)
     // throw GE::Debug::Exception<Scene>(GE::Debug::LEVEL_CRITICAL, "Couldn't load object data.", ERRLG_FUNC, ERRLG_Line);
   }
 
-  if (IsBitSet(data.m_signature, COMPONENT_TYPES::TRANSFORM))
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TRANSFORM))
   {
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::Transform>(data.m_components[GE::ECS::COMPONENT_TYPES::TRANSFORM]));
   }
-  if (IsBitSet(data.m_signature, COMPONENT_TYPES::BOXCOLLIDER))
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::BOXCOLLIDER))
   {
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::BoxCollider>(data.m_components[GE::ECS::COMPONENT_TYPES::BOXCOLLIDER]));
   }
-  if (IsBitSet(data.m_signature, COMPONENT_TYPES::VELOCITY))
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::VELOCITY))
   {
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::Velocity>(data.m_components[GE::ECS::COMPONENT_TYPES::VELOCITY]));
   }
-  if (IsBitSet(data.m_signature, COMPONENT_TYPES::GRAVITY))
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::GRAVITY))
   {
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Gravity>(data.m_components[GE::ECS::COMPONENT_TYPES::GRAVITY]));
   }
   //=========================================================================================
-  /*if (IsBitSet(data.m_signature, COMPONENT_TYPES::SPRITE))
+  /*if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SPRITE))
   {
     ecs.AddComponent(newData, COMPONENT_TYPES::SPRITE);
 
   }
-  if (IsBitSet(data.m_signature, COMPONENT_TYPES::MODEL))
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::MODEL))
   {
     ecs.AddComponent(newData, COMPONENT_TYPES::MODEL);
 
   }
-  if (IsBitSet(data.m_signature, COMPONENT_TYPES::ANIMATION))
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::ANIMATION))
   {
     ecs.AddComponent(newData, COMPONENT_TYPES::ANIMATION);
 
   }*/
 
   return newData;
+}
+
+GE::ECS::Entity ObjectFactory::SpawnPrefab(std::string key)
+{
+  if (m_prefabs.find(key) == m_prefabs.end())
+  {
+    // throw exception
+  }
+  Prefab prefab = m_prefabs.at(key);
+  ObjectData object{ prefab.m_componentSignature, prefab.m_components };
+  Entity entity = CreateObject(object);
+  return entity;
 }
 
 int ObjectFactory::LoadObject()
@@ -117,6 +142,8 @@ void ObjectFactory::JoelTest()
   RegisterObject(CreateObject(m_objects["Player"]));
 }
 
+
+
 void ObjectFactory::ObjectJsonLoader(std::string json_path)
 {
   GE::Serialization::ObjectGooStream ogs(json_path);
@@ -141,7 +168,7 @@ void ObjectFactory::ObjectFactoryTest() {
 
   //// Create and fill up the first object
   //ObjectData object1{};
-  //object1.m_signature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::ANIMATION), true);
+  //object1.m_componentSignature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::ANIMATION), true);
   //object1.m_components[GE::ECS::COMPONENT_TYPES::ANIMATION]["Property1"] = "Value1";
   //object1.m_components[GE::ECS::COMPONENT_TYPES::BOXCOLLIDER]["pos_x"] = "0";
   //object1.m_components[GE::ECS::COMPONENT_TYPES::BOXCOLLIDER]["pos_y"] = "0";
@@ -151,8 +178,8 @@ void ObjectFactory::ObjectFactoryTest() {
 
   //// Create and fill up the second object
   //ObjectData object2{};
-  //object2.m_signature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::TRANSFORM), true);
-  //object2.m_signature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::GRAVITY), true);
+  //object2.m_componentSignature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::TRANSFORM), true);
+  //object2.m_componentSignature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::GRAVITY), true);
   //object2.m_components[GE::ECS::COMPONENT_TYPES::TRANSFORM]["pos_x"] = "39.2314";
   //object2.m_components[GE::ECS::COMPONENT_TYPES::TRANSFORM]["pos_y"] = "5.12315";
   //object2.m_components[GE::ECS::COMPONENT_TYPES::TRANSFORM]["scale_x"] = "39.2314";
@@ -162,12 +189,12 @@ void ObjectFactory::ObjectFactoryTest() {
   //object2.m_components[GE::ECS::COMPONENT_TYPES::GRAVITY]["grav_x"] = "0";
   //object2.m_components[GE::ECS::COMPONENT_TYPES::GRAVITY]["grav_y"] = "9.807";
   //m_objects["Object2"] = object2;
-  //std::cout << "\n\n\n" << object2.m_signature.to_ulong() << "\n\n\n";
+  //std::cout << "\n\n\n" << object2.m_componentSignature.to_ulong() << "\n\n\n";
 
   //// Create and fill up the third object
   //ObjectData object3{};
-  //object3.m_signature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::VELOCITY), true);
-  //object3.m_signature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::ANIMATION), true);
+  //object3.m_componentSignature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::VELOCITY), true);
+  //object3.m_componentSignature.set(static_cast<size_t>(GE::ECS::COMPONENT_TYPES::ANIMATION), true);
   //object3.m_components[GE::ECS::COMPONENT_TYPES::VELOCITY]["acc_x"] = "0";
   //object3.m_components[GE::ECS::COMPONENT_TYPES::VELOCITY]["acc_y"] = "0";
   //object3.m_components[GE::ECS::COMPONENT_TYPES::VELOCITY]["vel_x"] = "0";
@@ -190,7 +217,7 @@ void ObjectFactory::ObjectFactoryTest() {
   //  const ObjectData& objectData = pair.second;
 
   //  std::cout << "Object Name: " << objectName << std::endl;
-  //  std::cout << "Signature: " << objectData.m_signature.to_ulong() << std::endl;
+  //  std::cout << "Signature: " << objectData.m_componentSignature.to_ulong() << std::endl;
 
   //  for (const auto& componentPair : objectData.m_components) {
   //    GE::ECS::COMPONENT_TYPES componentType = componentPair.first;

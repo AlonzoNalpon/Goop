@@ -281,6 +281,7 @@
     <ClInclude Include="ECS\EntityComponentSystem.h" />
     <ClInclude Include="ECS\Entity\Entity.h" />
     <ClInclude Include="ECS\Entity\EntityManager.h" />
+    <ClInclude Include="ECS\SystemTypes.h" />
     <ClInclude Include="ECS\System\System.h" />
     <ClInclude Include="ECS\System\SystemManager.h" />
     <ClInclude Include="Graphics\Fonts\FontManager.h" />
@@ -304,6 +305,7 @@
     <ClInclude Include="InputManager\KeyCode.h" />
     <ClInclude Include="Math\Mat3Utils.h" />
     <ClInclude Include="ObjectFactory\ObjectFactory.h" />
+    <ClInclude Include="ObjectFactory\ObjectStructs.h" />
     <ClInclude Include="ObjectFactory\SerializeComponents.h" />
     <ClInclude Include="Serialization\IGooStream.h" />
     <ClInclude Include="Serialization\ObjectGooStream.h" />
