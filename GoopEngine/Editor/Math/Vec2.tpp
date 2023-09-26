@@ -66,6 +66,23 @@ Vec<2, T>& Vec<2, T>::operator/=(T rhs)
 }
 
 template <typename T>
+Vec<2, T>& Vec<2, T>::operator<<(std::string const& rhs)
+{
+  std::istringstream iss{ rhs.substr(1, rhs.size() - 3) };
+  char ch;
+  iss >> x >> ch >> y;
+  if (iss.fail() || ch != ',')
+  {
+    #ifdef _DEBUG
+    //throw GE::Debug::Exception<Vec<2,T>>(GE::Debug::LEVEL_ERROR, ErrMsg("Invalid Vec2 string format"));
+    #endif
+    x = y = {};
+  }
+
+  return *this;
+}
+
+template <typename T>
 Vec<2, T> Vec<2,T>::operator-() const
 {
   return { -x, -y };
@@ -95,15 +112,23 @@ void Vec<2, T>::Normalize()
   y *= inverse_root;
 }
 
+template <typename T>
+std::string Vec<2, T>::ToString() const
+{
+    std::ostringstream oss{};
+    oss << "{ " << x << ", " << y << " }";
+    return oss.str();
+}
+
 // Non-member operator overloads
 template <typename T>
-Vec<2, T> operator+(Vec<2, T> const& lhs, Vec<2, T> const& rhs) \
+Vec<2, T> operator+(Vec<2, T> const& lhs, Vec<2, T> const& rhs)
 {
   return { lhs.x + rhs.x, lhs.y + rhs.y };
 }
 
 template <typename T>
-Vec<2, T> operator+(Vec<2, T> const& lhs, T rhs) \
+Vec<2, T> operator+(Vec<2, T> const& lhs, T rhs)
 {
   return { lhs.x + rhs, lhs.y + rhs };
 }

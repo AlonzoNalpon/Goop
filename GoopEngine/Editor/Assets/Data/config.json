@@ -1,0 +1,13 @@
+{
+    "Window Title": "Goop Engine",
+    "Window Width": "1600",
+    "Window Height": "900",
+    "Memory Size": "100000",
+    "FPS Limit": "60",
+    "FPS Check Interval": "1.0",
+    "Input Repeat Delay": "0.1",
+    "Stills": "Assets/Data/Images.json",
+    "Animation Sprites": "Assets/Data/Sprites.txt",
+    "Scene": "Assets/Data/SERIALIZED.json",
+    "Prefabs":  "Assets/Data/Prefabs/Prefabs.txt"
+}

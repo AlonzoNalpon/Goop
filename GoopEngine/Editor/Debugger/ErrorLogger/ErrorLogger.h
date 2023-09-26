@@ -28,9 +28,9 @@ namespace GE
       using LoggerPtr = std::shared_ptr<spdlog::logger>;
 
       // File sink
-      std::shared_ptr<spdlog::sinks::basic_file_sink_mt> m_logDump;
+      std::shared_ptr<spdlog::sinks::basic_file_sink_st> m_logDump;
       // Ostream sink
-      std::shared_ptr<spdlog::sinks::stdout_color_sink_mt> m_logger;
+      std::shared_ptr<spdlog::sinks::stdout_color_sink_st> m_logger;
 
       // Map of loggers pointing to file sink
       std::map<std::string, LoggerPtr> m_fileLoggers;
@@ -38,6 +38,7 @@ namespace GE
       std::map<std::string, LoggerPtr> m_streamLoggers;
 
       bool m_suppressLogWarning;
+      bool m_wroteToFile;
 
       /*!******************************************************************
       \brief 

@@ -20,7 +20,7 @@
 
 using namespace GE::Debug;
 
-ErrorLogger::ErrorLogger()
+ErrorLogger::ErrorLogger() : m_suppressLogWarning{ false }, m_wroteToFile{ false }
 {
 	// Get curret system time
 	std::chrono::system_clock::time_point currTime = std::chrono::system_clock::now();
@@ -34,8 +34,8 @@ ErrorLogger::ErrorLogger()
 	ss << std::put_time(localTime, "Logs/Log_%Y.%m.%d-%H.%M.%S.txt");
 
 	// Create sinks, where loggers will dump their info into
-	m_logDump = std::make_shared<spdlog::sinks::basic_file_sink_mt>(ss.str(), true);
-	m_logger = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+	m_logDump = std::make_shared<spdlog::sinks::basic_file_sink_st>(ss.str(), true);
+	m_logger = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
 
 	// Default file logger 
 	LoggerPtr defLogger = std::make_shared<spdlog::logger>("", m_logDump);
@@ -52,28 +52,44 @@ ErrorLogger::~ErrorLogger()
 	for (auto lp : m_fileLoggers)
 	{
 		lp.second->flush();
+		lp.second.reset();
 	}
 	for (auto lp : m_streamLoggers)
 	{
 		lp.second->flush();
+		lp.second.reset();
 	}
 
-	// Rename the created file with the current time of end of application
-	// This is so its easier to find the log file as it matches the time
-	// someone usually looks for in recent logs
-	
-	// Get curret system time
-	std::chrono::system_clock::time_point currTime = std::chrono::system_clock::now();
-	std::time_t currTime_t = std::chrono::system_clock::to_time_t(currTime);
+	// Save old file name before logger gets deleted
+	std::string oldName = m_logDump->filename().c_str();
+	// Manually delete all loggers to close file stream
+	m_fileLoggers.clear();
+	m_logDump.reset();
 
-	// Convert to format usable by put_time()
-	std::tm* localTime = std::localtime(&currTime_t);
+	// If did not write to file there will be an empty log file. Remove it
+	if (!m_wroteToFile)
+	{
+		std::remove(oldName.c_str());
+	}
+	else
+	{
+		// Rename the created file with the current time of end of application
+		// This is so its easier to find the log file as it matches the time
+		// someone usually looks for in recent logs
 
-	std::stringstream ss;
-	// not sure if file path should be changable by config file
-	ss << std::put_time(localTime, "Logs/Log_%Y.%m.%d-%H.%M.%S.txt");
+		// Get curret system time
+		std::chrono::system_clock::time_point currTime = std::chrono::system_clock::now();
+		std::time_t currTime_t = std::chrono::system_clock::to_time_t(currTime);
 
-	std::rename(m_logDump->filename().c_str(), ss.str().c_str());
+		// Convert to format usable by put_time()
+		std::tm* localTime = std::localtime(&currTime_t);
+
+		std::stringstream ss;
+		// not sure if file path should be changable by config file
+		ss << std::put_time(localTime, "Logs/Log_%Y.%m.%d-%H.%M.%S.txt");
+
+		std::rename(oldName.c_str(), ss.str().c_str());
+	}
 }
 
 void ErrorLogger::SuppressLogMessages(bool flag)
@@ -91,6 +107,7 @@ std::string ErrorLogger::LogMessage(std::string msg, bool logToFile)
 
   if (logToFile)
   {
+		m_wroteToFile = true;
     m_fileLoggers[""]->info(msg);
   }
   m_streamLoggers[""]->info(msg);
@@ -102,6 +119,7 @@ std::string ErrorLogger::LogWarning(std::string msg, bool logToFile)
 {
   if (logToFile)
   {
+		m_wroteToFile = true;
     m_fileLoggers[""]->warn(msg);
   }
   m_streamLoggers[""]->warn(msg);
@@ -113,6 +131,7 @@ std::string ErrorLogger::LogError(std::string msg, bool logToFile)
 {
   if (logToFile)
   {
+		m_wroteToFile = true;
     m_fileLoggers[""]->error(msg);
   }
   m_streamLoggers[""]->error(msg);
@@ -124,6 +143,7 @@ std::string ErrorLogger::LogCritical(std::string msg, bool logToFile)
 {
   if (logToFile)
   {
+		m_wroteToFile = true;
     m_fileLoggers[""]->critical(msg);
   }
   m_streamLoggers[""]->critical(msg);

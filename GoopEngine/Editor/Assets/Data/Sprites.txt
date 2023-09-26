@@ -1,0 +1,3 @@
+Name		FilePath               	Slices  Stacks	Frames
+MineWorm	Assets/MineWorm.png    	6       1	6    # Headers must be on line 1
+#You can add comments with '#' symbol

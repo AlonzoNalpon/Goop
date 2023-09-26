@@ -11,17 +11,17 @@
 
 namespace GE
 {
-	namespace ESC
+	namespace ECS
 	{
 		enum class COMPONENT_TYPES
 		{
-			TRANSFORM = 1,
-			BOXCOLLIDER = 2,
-			VELOCITY = 4,
-			GRAVITY = 8,
-			SPRITE = 16,
-			MODEL = 32,
-			ANIMATION = 64,
+			TRANSFORM = 0,
+			VELOCITY,
+			GRAVITY,
+			BOXCOLLIDER,
+			SPRITE,
+			MODEL,
+			ANIMATION,
 			COMPONENTS_TOTAL
 		};
 
@@ -36,6 +36,7 @@ namespace GE
 			{ COMPONENT_TYPES::SPRITE, "Sprite" },
 			{ COMPONENT_TYPES::MODEL, "Model" },
 			{ COMPONENT_TYPES::ANIMATION, "Animation" },
+
 		};
 
 		// Const map so only interated through ranged for,
@@ -50,5 +51,10 @@ namespace GE
 			{ "Model", COMPONENT_TYPES::MODEL },
 			{ "Animation", COMPONENT_TYPES::ANIMATION },
 		};
+
+		inline unsigned componentsToUInt(std::string const& component)
+		{
+			return static_cast<unsigned>(stringToComponents.at(component));
+		}
 	}
 }

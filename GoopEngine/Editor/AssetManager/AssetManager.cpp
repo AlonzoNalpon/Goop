@@ -36,7 +36,8 @@ namespace GE
 {
 	namespace AssetManager
 	{
-		std::string const ASSETS_DIR{ "../Assets/AssetsToLoadTest/" };
+		// should read this from Config.json in future
+		std::string const ASSETS_DIR{ "Assets/Data/" };
 
 		IDGenerator::~IDGenerator()
 		{
@@ -193,7 +194,7 @@ namespace GE
 					}
 				}
 				// If the flag is set to CONFIG
-				if (flag == CONFIG)
+				else if (flag == CONFIG)
 				{
 					// Unload the config data from the AssetGooStream object into m_configData
 					ags.Unload(m_configData);
@@ -212,7 +213,7 @@ namespace GE
 			{
 				// Create a container for assets
 				GE::Serialization::SpriteGooStream::container_type assets;
-				std::string const fileName{ "../Assets/AssetsToLoadTest/sprites.txt" };
+				std::string const fileName{ "Assets/Data/sprites.txt" };
 				// Create a SpriteGooStream object with the given file name
 				GE::Serialization::SpriteGooStream sgs{ fileName };
 				// If the SpriteGooStream object is not valid, print an error message

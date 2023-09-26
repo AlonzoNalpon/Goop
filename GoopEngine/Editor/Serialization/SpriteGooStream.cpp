@@ -2,24 +2,21 @@
 \file   SpriteGooStream.cpp
 \author chengen.lau\@digipen.edu
 \date   18-September-2023
-\brief  
-  
- 
+\brief
+
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include "SpriteGooStream.h"
 #include <fstream>
 #include <rapidjson/istreamwrapper.h>
-#ifdef _DEBUG
-#include <iostream>
-#endif
 
 using namespace GE::Serialization;
 
-SpriteGooStream::SpriteGooStream(std::string const& json) : GooStream(false)
+SpriteGooStream::SpriteGooStream(std::string const& file) : GooStream(false)
 {
   m_elements = 0;
-  Read(json);
+  Read(file);
 }
 
 bool SpriteGooStream::Read(std::string const& file)
@@ -27,8 +24,9 @@ bool SpriteGooStream::Read(std::string const& file)
   std::ifstream ifs{ file };
   if (!ifs)
   {
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + file);
     #ifdef _DEBUG
-    std::cout << "Error: Unable to load " << file << "\n";
+    std::cout << "SpriteGooStream: Unable to read " + file << std::endl;
     #endif
     return m_status = false;
   }
@@ -44,7 +42,7 @@ bool SpriteGooStream::Read(std::string const& file)
     data << line << "\n";
     ++m_elements;
   }
-  
+
 
   #ifdef SERIALIZE_TEST
   std::cout << json << " successfully read" << "\n";
@@ -57,8 +55,12 @@ bool SpriteGooStream::Read(std::string const& file)
 bool SpriteGooStream::Unload(container_type& container)
 {
   if (!m_status) {
+    std::ostringstream oss{ "SpriteGooStream corrupted before unloading into " };
+    oss << typeid(container).name();
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+
     #ifdef _DEBUG
-    std::cout << "SpriteGooStream corrupted before unload\n";
+    std::cout <<  oss.str() << std::endl;
     #endif
     return false;
   }
@@ -77,12 +79,6 @@ bool SpriteGooStream::Unload(container_type& container)
   }
 
   return m_status = true;
-}
-
-void SpriteGooStream::Reset() noexcept
-{
-  std::ostringstream().swap(std::get<std::ostringstream>(m_data));
-  m_elements = 0;
 }
 
 

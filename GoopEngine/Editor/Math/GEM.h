@@ -1,11 +1,15 @@
 #ifndef GOOP_MATH_H
 #define GOOP_MATH_H
+
 // may need to change includes in future
 #include <math.h>
 #include <type_traits>
 #include <stdexcept>
+#include <sstream>
+#include <string>
 #ifdef _DEBUG
 #include <iostream>
+#include <iomanip>
 #endif
 
 namespace GE

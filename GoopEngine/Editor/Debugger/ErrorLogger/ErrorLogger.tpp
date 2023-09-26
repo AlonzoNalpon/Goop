@@ -69,6 +69,7 @@ std::string ErrorLogger::LogMessage(std::string msg, bool logToFile)
 
   if (logToFile)
   {
+		m_wroteToFile = true;
     LoggerPtr logger = GetFileLogger<T>();
     logger->info(msg);
   }
@@ -83,6 +84,7 @@ std::string ErrorLogger::LogWarning(std::string msg, bool logToFile)
 {
   if (logToFile)
   {
+		m_wroteToFile = true;
     LoggerPtr logger = GetFileLogger<T>();
     logger->warn(msg);
   }
@@ -97,6 +99,7 @@ std::string ErrorLogger::LogError(std::string msg, bool logToFile)
 {
   if (logToFile)
   {
+		m_wroteToFile = true;
     LoggerPtr logger = GetFileLogger<T>();
     logger->error(msg);
   }
@@ -111,6 +114,7 @@ std::string ErrorLogger::LogCritical(std::string msg, bool logToFile)
 {
   if (logToFile)
   {
+		m_wroteToFile = true;
     LoggerPtr logger = GetFileLogger<T>();
     logger->critical(msg);
   }

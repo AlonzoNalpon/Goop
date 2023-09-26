@@ -1,12 +1,13 @@
 #ifndef GOOP_VEC3_H
 #define GOOP_VEC3_H
 
-namespace GE 
+namespace GE
 {
   namespace Math
   {
     template <typename T>
     struct Vec<3, T> {
+      // ACCESSORS
       union { T x, r, s; };
       union { T y, g, t; };
       union { T z, b, p; };
@@ -26,8 +27,19 @@ namespace GE
       Vec<3, T>& operator-=(T rhs);
       Vec<3, T>& operator*=(T rhs);
       Vec<3, T>& operator/=(T rhs);
+      Vec<3, T> operator-() const;
       T& operator[](size_type rhs);
       T const& operator[](size_type rhs) const;
+
+      /*!*********************************************************************
+      \brief
+        Initializes a vector with values from a string
+      \param rhs
+       The string containing the vector's data in the form of { x, y, z }
+      \return
+        The vector object
+      ************************************************************************/
+      Vec<3, T>& operator<<(std::string const& rhs);
 
       //  MEMBER FUNCTIONS
       /*!***********************************************************************
@@ -35,6 +47,12 @@ namespace GE
         Normalizes the current vector. Only supports floating-point types.
       *************************************************************************/
       void Normalize();
+
+      /*!***********************************************************************
+      \brief
+        Converts the vector into an std::string in the form of { x, y, z }
+      *************************************************************************/
+      std::string ToString() const;
     };
 
     // NON-MEMBER OPERATOR OVERLOADS

@@ -2,15 +2,20 @@
 \file   GooStream.h
 \author chengen.lau\@digipen.edu
 \date   18-September-2023
-\brief  
-  
- 
+\brief
+
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
+#include <pch.h>
 #include <rapidjson/document.h>
+#include <rapidjson/prettywriter.h>
 #include <sstream>
 #include <variant>
+#ifdef _DEBUG
+#include <iostream>
+#endif
 
 namespace GE
 {
@@ -44,15 +49,29 @@ namespace GE
       inline bool IsEmpty() const noexcept { return m_elements == 0; }
 
       // Empties the stream of its contents and resets all values
-      virtual void Reset() noexcept = 0;
+      void Reset() noexcept
+      {
+        m_elements = 0;
+        if (std::get_if<rapidjson::Document>(&m_data))
+        {
+          std::get<rapidjson::Document>(m_data).Clear();
+        }
+        else
+        {
+          std::ostringstream().swap(std::get<std::ostringstream>(m_data));
+        }
+      }
 
     protected:
+      template <typename WrapperType>
+      using writer_type = rapidjson::PrettyWriter<WrapperType>;
+
       GooStream(bool json)
       {
         if (json) m_data = rapidjson::Document(); else m_data = std::ostringstream();
         m_elements = 0;
       }
-      
+
       // GooStreams are either json or raw text-based
       std::variant<rapidjson::Document, std::ostringstream> m_data;
       size_type m_elements;

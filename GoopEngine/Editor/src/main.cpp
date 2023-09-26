@@ -23,8 +23,14 @@
 #include <iomanip>
 #include "../Serialization/AssetGooStream.h"
 #include "../Serialization/SpriteGooStream.h"
+#include "../Serialization/PrefabGooStream.h"
+#include "../ObjectFactory/ObjectFactory.h"
 #endif
-
+#define MEMORY_TEST
+#ifdef MEMORY_TEST
+#include "../MemoryManager/MemoryManager.h"
+#endif
+#ifdef _DEBUG
 // << overload for printing to ostream
 std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& sprite)
 {
@@ -33,7 +39,7 @@ std::ostream& operator<<(std::ostream& os, GE::Serialization::SpriteData const& 
     << "\nFrames: " << sprite.m_frames;
   return os;
 }
-
+#endif
 #include "../EditorUI/ImGuiUI.h"
 
 int main(int /*argc*/, char* /*argv*/[])
@@ -44,14 +50,23 @@ int main(int /*argc*/, char* /*argv*/[])
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 
-  GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
-  Graphics::GraphicsEngine& gEngine{Graphics::GraphicsEngine::GetInstance()};     // my graphics engine
-  fRC.InitFrameRateController(60);
 
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
-  am->LoadJSONData("../Assets/AssetsToLoadTest/Images.json", GE::AssetManager::IMAGES);
-  am->LoadJSONData("../Assets/AssetsToLoadTest/Config.json", GE::AssetManager::CONFIG);
-  am->LoadJSONData("../Assets/AssetsToLoadTest/Sprites.txt", GE::AssetManager::ANIMATION);
+  am->LoadJSONData("Assets/Data/Images.json", GE::AssetManager::IMAGES);
+  am->LoadJSONData("Assets/Data/Config.json", GE::AssetManager::CONFIG);
+  am->LoadJSONData("Assets/Data/Sprites.txt", GE::AssetManager::ANIMATION);
+
+
+  GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
+  Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };     // my graphics engine
+  fRC.InitFrameRateController(am->GetConfigData("FPS Limit"), am->GetConfigData("FPS Check Interval"));
+
+
+
+#ifdef MEMORY_TEST
+  GE::Memory::MemoryManager* memMan{ &(GE::Memory::MemoryManager::GetInstance()) };
+  memMan->InitializeAllAlocators(am->GetConfigData("Memory Size"));
+#endif
 
   WindowSystem::Window window{ am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), "GOOP"};
   window.CreateAppWindow();
@@ -68,31 +83,42 @@ int main(int /*argc*/, char* /*argv*/[])
 
 
   GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
-  im->InitInputManager(window.GetWindow(), am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), 0.1);
+  im->InitInputManager(window.GetWindow(), am->GetConfigData("Window Width"), am->GetConfigData("Window Height"),0.1);
   GE::FPS::FrameRateController* fps_control = &(GE::FPS::FrameRateController::GetInstance());
   fps_control->InitFrameRateController(60, 1);
 
+  GE::ObjectFactory::ObjectFactory::GetInstance().LoadPrefabsFromFile();
 
 #ifdef SERIALIZE_TEST
-  GE::Serialization::SpriteGooStream::container_type assets;
-  std::string const fileName{ "../Assets/AssetsToLoadTest/sprites.txt" };
-  GE::Serialization::SpriteGooStream sgs{ fileName };
-  if (!sgs)
-  {
-    std::cout << "Error deserializing " << fileName << "\n";
-  }
-  if (!sgs.Unload(assets))
-  {
-    std::cout << "Error unloading assets into container" << "\n";
-  }
+  GE::ObjectFactory::ObjectFactory::ObjectFactoryTest();
 
-  std::cout << "Deserialized " << fileName << ":\n";
-  for (auto const& entry : assets)
-  {
-    std::cout << entry << "\n";
-  }
+  GE::ObjectFactory::ObjectFactory& of = (GE::ObjectFactory::ObjectFactory::GetInstance());
+  of.ObjectJsonLoader("Assets/Data/SERIALIZED.json");
+  of.JoelTest();
+  GE::Serialization::PrefabGooStream::PrefabLoadTest();
+  //GE::Serialization::SpriteGooStream::container_type assets;
+  //std::string const fileName{ "../Assets/AssetsToLoadTest/sprites.txt" };
+  //GE::Serialization::SpriteGooStream sgs{ fileName };
+  //if (!sgs)
+  //{
+  //  std::cout << "Error deserializing " << fileName << "\n";
+  //}
+  //if (!sgs.Unload(assets))
+  //{
+  //  std::cout << "Error unloading assets into container" << "\n";
+  //}
+
+  //std::cout << "Deserialized " << fileName << ":\n";
+  //for (auto const& entry : assets)
+  //{
+  //  std::cout << entry << "\n";
+  //}
 #endif
   GE::Debug::ErrorLogger::GetInstance().SuppressLogMessages(true);
+
+#ifdef MEMORY_TEST
+  //memMan->TestAllAllocators();
+#endif
 
   Scene scn;
   try
@@ -110,7 +136,7 @@ int main(int /*argc*/, char* /*argv*/[])
     fRC.StartFrame();
 
     im->UpdateInput();
-    //im->TestInputManager();
+    im->TestInputManager();
 
     static bool renderUI = false;
     if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_G))
