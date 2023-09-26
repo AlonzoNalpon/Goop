@@ -21,7 +21,7 @@ namespace Graphics
 
   Texture const& TextureManager::GetTexture(gObjID id) const
   {
-    return m_textures[id]; // TODO: what happens if texture does not exist?
+    return m_textures[id];
   }
 
 }

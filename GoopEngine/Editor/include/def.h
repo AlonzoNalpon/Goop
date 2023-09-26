@@ -4,6 +4,7 @@
 #include <string>
 #include <gl/glew.h>
 using ubyte   = unsigned char;
+using uChar   = unsigned char;
 using uint32  = unsigned int;
 using i32     = int;
 using f64     = double;

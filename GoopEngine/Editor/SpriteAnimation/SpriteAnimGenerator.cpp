@@ -1,10 +1,11 @@
 #include <SpriteAnimation/SpriteAnimGenerator.h>
+#include <Debugger/Exception/Exception.h>
 namespace Graphics {
   SpriteAnimation SpriteAnimGenerator::GenerateAnimData(GLuint hFrames, GLuint vFrames, GLuint spriteW, GLuint spriteH, f64 speed, u32 flags, gObjID texture)
   {
     if (!hFrames || !vFrames || !spriteW || !spriteH)
     {
-      // TODO: THROW HERE
+      throw GE::Debug::Exception<SpriteAnimGenerator>(GE::Debug::LEVEL_ERROR, ErrMsg("Sprite animation has 0 frames/dimensions!"));
     }
     SpriteAnimation retval{ speed,{},flags,texture };
     retval.frames.reserve(hFrames * vFrames); // reserve the number of frames in this animation

@@ -16,7 +16,7 @@ namespace Graphics
   enum class SPRITE_ANIM_FLAGS : u32 {
     LOOPING         = 0x00000001, //0 - Looping the animation
     REWIND_COMPLETE = 0x00000002, //1 - Rewind animation on complete
-    COMPLETED       = 0x00000004, //2 - INSTANCE FLAG: completed animation (useless for looping)
+    //Bit2 = 0x00000004, // Bit 2
     //Bit3 = 0x00000008, // Bit 3
     //Bit4 = 0x00000010, // Bit 4
     //Bit5 = 0x00000020, // Bit 5
@@ -49,5 +49,7 @@ namespace Graphics
   };
   u32 operator|(u32 lhs, SPRITE_ANIM_FLAGS rhs);
   u32& operator|=(u32& lhs, SPRITE_ANIM_FLAGS rhs);
+  u32 operator&(u32 lhs, SPRITE_ANIM_FLAGS rhs);
+  u32& operator&=(u32& lhs, SPRITE_ANIM_FLAGS rhs);
 }
 #endif

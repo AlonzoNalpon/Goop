@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   GraphicsEngine.cpp
+\author a.nalpon@digipen.edu
+\date   24-September-2023
+\brief  This file contains the implementation of the graphics engine class.
+        This class houses everything required to render an opengl
+        framebuffer. ImGui is not included in this process.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <Graphics/GraphicsEngine.h>
 #include <AssetManager/AssetManager.h>
 #include <GL/glew.h>
@@ -101,51 +111,8 @@ namespace {
 #pragma region UPDATE BLOCK
     double dt{ GE::FPS::FrameRateController::GetInstance().GetDeltaTime() };
 #pragma endregion
-    // This block is just for reference
-    // TODO: DELETE
-    {
-
-    //auto const& mdl{ m_models.front() };
-    //
-    //
-    //glBindTextureUnit(6, testTexture.texture);
-    //glTextureParameteri(testTexture.texture, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-    //glTextureParameteri(testTexture.texture, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-    //glUseProgram(mdl.shader);
-    //// Setting uniform variables
-    //GLint const texPosLocation = 0;  // Layout location for uTexPos
-    //GLint const texDimsLocation = 1; // Layout location for uTexDims
-
-    //// Set the uniform values using the layout locations
-    ////glUniform2f(texDimsLocation, 0.5f, 0.5f);
-    //glUniform2f(texDimsLocation, 0.5f, 0.5f);
-    //glUniform2f(texPosLocation, 0.5f, 0.5f);
-
-    ////GLint tex_loc = glGetUniformLocation(mdl.shader, "uTex2d");
-    ////glUniform1i(tex_loc, 6); // Binding to texture unit 0
-
-    //glBindVertexArray(mdl.vaoid);
-    ////glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt);
-    //glDrawArrays(GL_LINES, 0, mdl.draw_cnt);
-    //
-    //glBindVertexArray(0);
-    //glUseProgram(0);
-    //glBindTextureUnit(6, 0);
-
-    /*for (auto const&mdl : m_models)
-    {
-      GLint tex_loc = glGetUniformLocation(mdl.shader, "uTex2d");
-      glUniform1i(tex_loc, 0);
-      glBindVertexArray(mdl.vaoid);
-      glUseProgram(mdl.shader);
-      glBindTextureUnit(0, testTexture.texture);
-      glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt);
-      glBindTextureUnit(0, 0);
-      glUseProgram(0);
-      glBindVertexArray(0);
-    }*/
-    }
-
+    
+    // use this for reference on animation inner workings
 #if 0
     testAnim.currTime += dt;
     auto anim = m_animManager.GetAnim(testAnim.animID);

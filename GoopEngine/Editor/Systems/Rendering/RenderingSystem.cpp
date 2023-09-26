@@ -1,8 +1,10 @@
 #include <Systems/Rendering/RenderingSystem.h>
 #include <FrameRateController/FrameRateController.h>
 #include <Graphics/GraphicsEngine.h>
+#include <math.h>
 namespace GE::Systems
 {
+  constexpr double pi= 3.14159265358979323846;
   void RenderSystem::Update()
   {
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
@@ -13,7 +15,7 @@ namespace GE::Systems
       Component::Model*       model{ m_ecs->GetComponent<Component::Model>(entity) };
       Component::Sprite*      sprite{ m_ecs->GetComponent<Component::Sprite>(entity) };
       Component::SpriteAnim*  animData{ m_ecs->GetComponent<Component::SpriteAnim>(entity) };
-      Component::Transform* transform{ m_ecs->GetComponent<Component::Transform>(entity) };
+      Component::Transform*   transform{ m_ecs->GetComponent<Component::Transform>(entity) };
       // Updating the sprite anim data (if any)
       if (animData)
       {
@@ -39,8 +41,11 @@ namespace GE::Systems
         sprite->spriteData.info = spriteAnim.frames[animData->currFrame];
       }
       
-      // Rendering
+      // Update rotation of transform
+      transform->m_rot = fmod(transform->m_rot + dt * 2.0, pi * 2.0);
+      //transform->m_rot = pi;
       
+      // Rendering
       Graphics::Rendering::Renderer& renderer{ gEngine.GetRenderer() };
       // Render the object
       GLfloat scale{ 100.f }; // we are temporarily increasing the scale to this value for now

@@ -19,7 +19,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 namespace Graphics {
     
   // The graphics engine responsible for any opengl calls
-  class GraphicsEngine : public GE::Singleton<GraphicsEngine>{
+  class GraphicsEngine : public GE::Singleton<GraphicsEngine>
+  {
     using ShaderLT = std::map<std::string const, gObjID>;
     using ShaderCont = std::vector<ShaderProgram>;
   public:
@@ -111,8 +112,8 @@ namespace Graphics {
     // FOR DEBUGGING
   private:
   public: // getters
-    SpriteAnimationManager const& animManager{ m_animManager };
-    TextureManager const&         textureManager{ m_textureManager };
+    SpriteAnimationManager const&   animManager{ m_animManager };       
+    TextureManager const&           textureManager{ m_textureManager };
   };
 }
 #endif

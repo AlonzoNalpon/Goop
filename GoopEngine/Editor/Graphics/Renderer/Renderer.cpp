@@ -4,7 +4,7 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include <gtc/quaternion.hpp> // For quaternion rotations
-#include <gtc/type_ptr.hpp >
+#include <gtc/type_ptr.hpp>
 namespace
 {
   enum
@@ -86,7 +86,7 @@ namespace Graphics::Rendering {
 
     // Apply rotation about z axis
     glm::quat rotationQuat = glm::angleAxis(rotation, glm::vec3(0.0f, 0.0f, 1.0f)); 
-    retval = glm::mat4_cast(rotationQuat) * retval;
+    retval = retval * glm::mat4_cast(rotationQuat);
 
     // Apply scaling
     retval = glm::scale(retval, scale);
