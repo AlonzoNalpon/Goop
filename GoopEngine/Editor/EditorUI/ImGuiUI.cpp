@@ -40,7 +40,7 @@ void ImGuiUI::Update()
   End();
 
   Begin("Asset Browser");
-  if (Button("Create Object1"))
+  if (Button("Create MineWorm"))
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
   }

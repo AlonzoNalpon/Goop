@@ -19,6 +19,7 @@ namespace GE
 			VELOCITY,
 			GRAVITY,
 			BOXCOLLIDER,
+			TWEEN,
 			SPRITE,
 			MODEL,
 			ANIMATION,

@@ -34,7 +34,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 
-//#include "../Math/GEM.h"
+#include "../Events/EventManager.h"
 #include <GL/glew.h> // for access to OpenGL API declarations
 #include <GLFW/glfw3.h>
 
@@ -51,7 +51,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <string>
 #include <iostream>
 #include "../Math/GEM.h"
-
 
 namespace GE
 {
@@ -73,19 +72,6 @@ namespace GE
 			static KEY_MAP m_keysTriggered;
 			static KEY_PRESS_ARRAY m_keyFramesHeld;
 
-
-		public:
-			/*!*********************************************************************
-			\brief
-				.Function to check if a key is triggered
-			\params
-				KEY_CODE key
-				Enum of the key you want to check
-			\return
-				returns true is key is triggered
-			************************************************************************/
-			bool IsKeyTriggered(KEY_CODE);
-
 			/*!*********************************************************************
 			\brief
 				.Function to check if a key is held
@@ -99,17 +85,6 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				.Function to check if a key is pressed
-			\params
-				KEY_CODE key
-				Enum of the key you want to check
-			\return
-				returns true is key is pressed. (key is either triggered or held)
-			************************************************************************/
-			bool IsKeyPressed(KEY_CODE);
-
-			/*!*********************************************************************
-			\brief
 				.Function to check if a key is released
 			\params
 				KEY_CODE key
@@ -119,6 +94,26 @@ namespace GE
 			************************************************************************/
 			bool IsKeyReleased(KEY_CODE);
 
+			/*template <typename T>
+			void CheckAndDispatch(KEY_CODE code)
+			{
+				if (IsKeyTriggered(code))
+				{
+					GE::Events::EventManager::GetInstance().Dispatch(T(code));
+				}
+			}*/
+		public:
+			
+			/*!*********************************************************************
+			\brief
+				.Function to check if a key is triggered
+			\params
+				KEY_CODE key
+				Enum of the key you want to check
+			\return
+				returns true is key is triggered
+			************************************************************************/
+			bool IsKeyTriggered(KEY_CODE);
 			/*!*********************************************************************
 			\brief
 				.Function to initialize the Input Manager (Call this function right after successfully initializing window)
@@ -146,6 +141,14 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+				This function dispatches the relavant input events based on the
+				updated key states after polling
+
+			************************************************************************/
+			void DispatchInputEvents();
+
+			/*!*********************************************************************
+			\brief
 				.Function to get the mouse pos in the current frame
 
 			\return
@@ -161,10 +164,6 @@ namespace GE
 			returns the mouse's pos as dvec2
 		************************************************************************/
 			vec2 GetMousePosWorld();
-
-
-
-
 
 			/*!*********************************************************************
 		\brief
@@ -235,7 +234,7 @@ namespace GE
 			************************************************************************/
 			static void MouseScrollCallback(GLFWwindow* pwin, double xoffset, double yoffset);
 
-			void TestInputManager();
+			//void TestInputManager();
 
 		};
 
@@ -243,3 +242,17 @@ namespace GE
 	}
 
 }
+
+
+
+// OLD FUNCTIONS ARCHIVE
+/*!*********************************************************************
+\brief
+	.Function to check if a key is pressed
+\params
+	KEY_CODE key
+	Enum of the key you want to check
+\return
+	returns true is key is pressed. (key is either triggered or held)
+************************************************************************/
+//bool IsKeyPressed(KEY_CODE);

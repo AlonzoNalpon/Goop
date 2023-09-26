@@ -31,7 +31,7 @@
                     "m_min": "{ 5.0, 9.0 }",
                     "m_max": "{ 3.0, 9.0 }",
                     "m_center": "{ 6.0, 1.0 }",
-                    "m_mouseCollided": true
+                    "m_mouseCollided": false
                 }
             }
         ]
@@ -69,7 +69,7 @@
                 "m_min": "{ 5.0, 9.0 }",
                 "m_max": "{ 3.0, 9.0 }",
                 "m_center": "{ 6.0, 1.0 }",
-                "m_mouseCollided": true
+                "m_mouseCollided": false
                 }
             }
         ]
