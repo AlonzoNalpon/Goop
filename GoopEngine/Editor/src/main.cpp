@@ -64,9 +64,10 @@ int main(int /*argc*/, char* /*argv*/[])
   am->LoadJSONData("Assets/Data/Config.json", GE::AssetManager::CONFIG);
   am->LoadJSONData("Assets/Data/Sprites.txt", GE::AssetManager::ANIMATION);
 
-  WindowSystem::Window window{ am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), "GOOP"};
+  WindowSystem::Window window{ am->GetConfigData<int>("Window Width").value(), am->GetConfigData<int>("Window Height").value(),
+    am->GetConfigData<const char*>("Window Title").value() };
   window.CreateAppWindow();
-  window.SetWindowTitle(am->GetConfigData("Window Title", 0)); // this is how you set window title
+  window.SetWindowTitle(am->GetConfigData<const char*>("Window Title").value()); // this is how you set window title
 
   GE::EditorGUI::ImGuiUI imgui;
   imgui.Init(window);
@@ -79,11 +80,14 @@ int main(int /*argc*/, char* /*argv*/[])
 
 
   GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
-  im->InitInputManager(window.GetWindow(), am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), 0.1);
+  im->InitInputManager(window.GetWindow(), am->GetConfigData<int>("Window Width").value(), am->GetConfigData<int>("Window Height").value(), 0.1);
   GE::FPS::FrameRateController* fps_control = &(GE::FPS::FrameRateController::GetInstance());
   fps_control->InitFrameRateController(60, 1);
 
+  // INIT FUNCTIONS
   GE::ObjectFactory::ObjectFactory::GetInstance().LoadPrefabsFromFile();
+  GE::ECS::EntityComponentSystem::GetInstance().RegisterSystem<GE::Systems::DraggableObjectSystem>();
+  GE::Events::EventManager::GetInstance().SubscribeAllListeners();
 
 #ifdef SERIALIZE_TEST
   GE::ObjectFactory::ObjectFactory::ObjectFactoryTest();
@@ -132,7 +136,7 @@ int main(int /*argc*/, char* /*argv*/[])
     fRC.StartFrame();
 
     im->UpdateInput();
-    im->TestInputManager();
+    //im->TestInputManager();
 
     static bool renderUI = false;
     if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_G))
@@ -145,7 +149,8 @@ int main(int /*argc*/, char* /*argv*/[])
       imgui.Update();
     }
 
-    window.SetWindowTitle((std::string{"GOOP ENGINE | FPS: "} + std::to_string(fRC.GetFPS())).c_str()); // this is how you set window title
+    std::string const title{ GE::AssetManager::AssetManager::GetInstance().GetConfigData<std::string>("Window Title").value() };
+    window.SetWindowTitle((title + " | FPS: " + std::to_string(fRC.GetFPS())).c_str()); // this is how you set window title
     gEngine.Draw();
     scn.Update();
 

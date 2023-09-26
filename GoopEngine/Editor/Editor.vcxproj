@@ -224,6 +224,8 @@
     <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
+    <ClCompile Include="Events\EventManager.cpp" />
+    <ClCompile Include="Events\Listener.cpp" />
     <ClCompile Include="Graphics\Fonts\FontManager.cpp" />
     <ClCompile Include="Graphics\Renderer\Camera.cpp" />
     <ClCompile Include="Graphics\Renderer\Renderer.cpp" />
@@ -287,6 +289,10 @@
     <ClInclude Include="ECS\SystemTypes.h" />
     <ClInclude Include="ECS\System\System.h" />
     <ClInclude Include="ECS\System\SystemManager.h" />
+    <ClInclude Include="Events\Event.h" />
+    <ClInclude Include="Events\EventManager.h" />
+    <ClInclude Include="Events\InputEvents.h" />
+    <ClInclude Include="Events\Listener.h" />
     <ClInclude Include="Graphics\Fonts\FontManager.h" />
     <ClInclude Include="Graphics\Renderer\Camera.h" />
     <ClInclude Include="Graphics\Renderer\RenderData.h" />
@@ -357,8 +363,10 @@
     <ClInclude Include="Singleton\Singleton.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AssetManager\AssetManager.tpp" />
     <None Include="Debugger\ErrorLogger\ErrorLogger.tpp" />
     <None Include="Debugger\Exception\Exception.tpp" />
+    <None Include="Events\EventManager.tpp" />
     <None Include="Math\documentation\html\annotated.html" />
     <None Include="Math\documentation\html\classes.html" />
     <None Include="Math\documentation\html\files.html" />

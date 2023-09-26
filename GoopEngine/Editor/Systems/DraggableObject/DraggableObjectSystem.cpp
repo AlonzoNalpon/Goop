@@ -4,6 +4,7 @@
 #include <Component/Transform.h>
 #include <Component/Velocity.h>
 #include <Component/Gravity.h>
+#include "../../Events/InputEvents.h"
 
 using namespace GE;
 using namespace ECS;
@@ -28,7 +29,7 @@ void DraggableObjectSystem::Update() {
 			Velocity* velocity = m_ecs->GetComponent<Velocity>(entity, true);
 
 			// check if should release
-			if (input->IsKeyReleased(GPK_MOUSE_LEFT))
+			if (!isDragging)
 			{
 				if (gravity)
 				{
@@ -55,7 +56,7 @@ void DraggableObjectSystem::Update() {
 				Velocity* velocity = m_ecs->GetComponent<Velocity>(entity, true);
 
 				InputManager* input = &(InputManager::GetInstance());
-				if (input->IsKeyHeld(GPK_MOUSE_LEFT))
+				if (isDragging)
 				{
 					if (gravity)
 					{
@@ -105,5 +106,29 @@ void DraggableObjectSystem::Update() {
 		//	gravity->SetActive(true);
 		//	velocity->SetActive(true);
 		//}
+	}
+}
+
+void DraggableObjectSystem::HandleEvent(Events::Event const* event)
+{
+	if (event->GetName() == "MouseHeld")
+	{
+		if (static_cast<Events::MouseHeldEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT) 
+		{ 
+			isDragging = true; 
+			#ifdef _DEBUG
+			std::cout << event->GetName() + " Event handled\n";
+			#endif
+		}
+	}
+	else if (event->GetName() == "MouseReleased")
+	{
+		if (static_cast<Events::MouseReleasedEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT)
+		{
+			isDragging = false;
+			#ifdef _DEBUG
+			std::cout << event->GetName() + " Event handled\n";
+			#endif
+		}
 	}
 }
