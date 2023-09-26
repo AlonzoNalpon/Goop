@@ -50,19 +50,23 @@ int main(int /*argc*/, char* /*argv*/[])
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 
-  GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
-  Graphics::GraphicsEngine& gEngine{Graphics::GraphicsEngine::GetInstance()};     // my graphics engine
-  fRC.InitFrameRateController(60);
-
-#ifdef MEMORY_TEST
-  GE::Memory::MemoryManager* memMan{ &(GE::Memory::MemoryManager::GetInstance()) };
-  memMan->InitializeAllAlocators(10000000);
-#endif
 
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
   am->LoadJSONData("Assets/Data/Images.json", GE::AssetManager::IMAGES);
   am->LoadJSONData("Assets/Data/Config.json", GE::AssetManager::CONFIG);
   am->LoadJSONData("Assets/Data/Sprites.txt", GE::AssetManager::ANIMATION);
+
+
+  GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
+  Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };     // my graphics engine
+  fRC.InitFrameRateController(am->GetConfigData("FPS Limit"), am->GetConfigData("FPS Check Interval"));
+
+
+
+#ifdef MEMORY_TEST
+  GE::Memory::MemoryManager* memMan{ &(GE::Memory::MemoryManager::GetInstance()) };
+  memMan->InitializeAllAlocators(am->GetConfigData("Memory Size"));
+#endif
 
   WindowSystem::Window window{ am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), "GOOP"};
   window.CreateAppWindow();
@@ -79,7 +83,7 @@ int main(int /*argc*/, char* /*argv*/[])
 
 
   GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
-  im->InitInputManager(window.GetWindow(), am->GetConfigData("Window Width"), am->GetConfigData("Window Height"), 0.1);
+  im->InitInputManager(window.GetWindow(), am->GetConfigData("Window Width"), am->GetConfigData("Window Height"),0.1);
   GE::FPS::FrameRateController* fps_control = &(GE::FPS::FrameRateController::GetInstance());
   fps_control->InitFrameRateController(60, 1);
 
@@ -113,7 +117,7 @@ int main(int /*argc*/, char* /*argv*/[])
   GE::Debug::ErrorLogger::GetInstance().SuppressLogMessages(true);
 
 #ifdef MEMORY_TEST
-  memMan->TestAllAllocators();
+  //memMan->TestAllAllocators();
 #endif
 
   Scene scn;

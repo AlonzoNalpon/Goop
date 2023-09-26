@@ -90,3 +90,16 @@ void FrameRateController::StartFrame()
 	}
 }
 
+
+void FrameRateController::StartSystemTimer()
+{
+	m_systemTimeStart = glfwGetTime();
+}
+
+
+void FrameRateController::StartSystemTimer(std::string systemName)
+{
+	double endTime = glfwGetTime();
+	m_fpsControllerMap[systemName] = (endTime - m_systemTimeStart);
+	m_systemTimeStart = endTime;
+}

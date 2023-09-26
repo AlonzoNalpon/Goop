@@ -56,5 +56,8 @@ void ListAllocator::PrintMemLeak()
 
 void ListAllocator::Free() {
 	BaseAllocator::m_start = nullptr;
-	delete[] BaseAllocator::m_originalStart;
+	if (BaseAllocator::m_originalStart != nullptr) {
+		delete[] BaseAllocator::m_originalStart;
+	}
+	
 }

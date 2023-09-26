@@ -130,7 +130,17 @@ namespace GE
 			std::vector<void*>g_objMem;
 
 		public:
-
+			~MemoryManager() {
+				if (g_useMyAllocator)
+				{
+					g_listAllocator.PrintMemLeak();
+				}
+				else
+				{
+					PrintMemLeak();
+				}
+				g_listAllocator.Free();
+			}
 			/************************************************************************/ /*!
 			\ brief
 			Initialize all the Allocators in the memory manager.

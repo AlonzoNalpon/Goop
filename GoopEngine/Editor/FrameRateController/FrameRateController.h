@@ -37,6 +37,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include <GL/glew.h> // for access to OpenGL API declarations 
 #include <GLFW/glfw3.h>
+#include <string>
+#include <map>
 #include "../Singleton/Singleton.h"
 
 namespace GE
@@ -54,7 +56,8 @@ namespace GE
 			double m_startTime{};
 			double m_fpsCalInterval{};
 			double m_fpsCheckTime{};
-
+			double m_systemTimeStart{};
+			std::map<std::string, double> m_fpsControllerMap;
 			
 
 		public:
@@ -169,7 +172,21 @@ namespace GE
 			************************************************************************/
 			void FPSCalInterval(int fpsCalInterval);
 
+			/*!*********************************************************************
+			\brief
+				Function to start the timer for system,
+			************************************************************************/
+			void StartSystemTimer();
 
+
+			/*!*********************************************************************
+		\brief
+			Function to end the timer for system and record down the amount of time taken by the system
+		\params
+			systemName
+			name of the system you want to check
+		************************************************************************/
+			void StartSystemTimer(std::string systemName);
 		};
 	}
 	
