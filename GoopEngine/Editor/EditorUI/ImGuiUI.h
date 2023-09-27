@@ -13,6 +13,9 @@ namespace GE::EditorGUI
 {
 	class ImGuiUI
 	{
+	private:
+		WindowSystem::Window* window;
+		GE::ECS::EntityComponentSystem* ecs;
 	public:
 		/*!******************************************************************
 		\brief 
