@@ -84,6 +84,18 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+			  Sets the active flag of an entity.
+
+			\param entity
+				Entity to set active.
+
+			\param active
+			  Flag to set.
+			************************************************************************/
+			void SetActiveEntity(Entity& entity, bool active);
+
+			/*!*********************************************************************
+			\brief
 			  Gets the component signature of the entity. The component signature
 				is a bitfield (unsigned int) indicating which components the entity has.
 

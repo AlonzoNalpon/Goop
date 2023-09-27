@@ -58,6 +58,18 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+				Calls EntityManager's SetActiveEntity function.
+
+			\param entity
+				Active flag of an entity.
+
+			\param bool
+				Active flag of an entity.
+			************************************************************************/
+			void SetIsActiveEntity(Entity& entity, bool active);
+
+			/*!*********************************************************************
+			\brief
 				Calls EntityManager's DestroyEntity function.
 
 			\params entity

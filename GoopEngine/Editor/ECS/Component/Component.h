@@ -16,6 +16,7 @@ namespace GE
 	namespace ECS
 	{
 		// Base for components to allow basic toggling feature
+		// Depreciated class. Do not use.
 		class Component
 		{
 		private:

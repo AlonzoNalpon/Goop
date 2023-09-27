@@ -31,6 +31,11 @@ bool GE::ECS::EntityComponentSystem::GetIsActiveEntity(Entity& entity)
 	return m_entityManager->IsActiveEntity(entity);
 }
 
+void GE::ECS::EntityComponentSystem::SetIsActiveEntity(Entity& entity, bool active)
+{
+	m_entityManager->SetActiveEntity(entity, active);
+}
+
 void EntityComponentSystem::DestroyEntity(Entity& entity)
 {
 	m_entityManager->DestroyEntity(entity);

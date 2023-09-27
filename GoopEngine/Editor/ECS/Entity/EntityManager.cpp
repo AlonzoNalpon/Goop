@@ -55,6 +55,11 @@ bool GE::ECS::EntityManager::IsActiveEntity(Entity& entity)
 	return m_mapOfActive[entity];
 }
 
+void GE::ECS::EntityManager::SetActiveEntity(Entity& entity, bool active)
+{
+	m_mapOfActive[entity] = active;
+}
+
 ComponentSignature EntityManager::GetComponentSignature(const Entity& entity) const
 {
 	return m_entities[entity];
