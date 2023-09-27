@@ -16,7 +16,6 @@ namespace GE::Systems
       Component::Sprite*      sprite{ m_ecs->GetComponent<Component::Sprite>(entity) };
       Component::Transform*   transform{ m_ecs->GetComponent<Component::Transform>(entity) };
       
-
       // Rendering
       Graphics::Rendering::Renderer& renderer{ gEngine.GetRenderer() };
       // Render the object
