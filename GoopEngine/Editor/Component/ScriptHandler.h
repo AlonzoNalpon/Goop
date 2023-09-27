@@ -14,13 +14,13 @@ namespace GE
 
 			std::map<std::string,Script> m_scriptMap;
 
-			ScriptHandler( const std::initializer_list<std::pair<std::string,std::string>>& scriptNames)
+			ScriptHandler( const std::initializer_list<std::pair<std::string,std::string>>& scriptNames, unsigned int& entity)
 			{
 				GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
 				for ( const std::pair<std::string, std::string>& s: scriptNames)
 				{
 					if (m_scriptMap.find(s.second) == m_scriptMap.end()) {
-						m_scriptMap[s.second] = Script(scriptMan->InstantiateClass(s.first.c_str(), s.second.c_str()));
+						m_scriptMap[s.second] = Script(scriptMan->InstantiateClassID(s.first.c_str(), s.second.c_str(),entity));
 					}
 				
 				}
@@ -30,7 +30,7 @@ namespace GE
 				if (m_scriptMap.find(scriptName.second) == m_scriptMap.end())
 				{
 					GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
-					//m_scriptMap[scriptName.second] = Script(scriptMan->InstantiateClass(scriptName.first.c_str(), scriptName.second.c_str()));
+					m_scriptMap[scriptName.second] = Script(scriptMan->InstantiateClass(scriptName.first.c_str(), scriptName.second.c_str()));
 				}
 			}
 
@@ -39,7 +39,7 @@ namespace GE
 			void UpdateAllScripts() 
 			{
 				for (const std::pair<std::string,Script>& cs : m_scriptMap) {
-					mono_runtime_invoke(cs.second.m_updateMethod, cs.second.m_classObjInst, nullptr, nullptr);
+					mono_runtime_invoke(cs.second.m_updateMethod, cs.second.m_classObjInst.get(), nullptr, nullptr);
 				}
 			}
 		};

@@ -12,8 +12,7 @@
 namespace GE {
 	namespace MONO {
 
-		//using MonoDomainPtr = std::shared_ptr<MonoDomain>;
-		//using MonoAssemblyPtr = std::shared_ptr <MonoAssembly>;
+		using MonoObjectSP = std::shared_ptr<MonoObject>;
 
 		class ScriptManager : public Singleton<ScriptManager> {
 			MonoDomain* m_rootDomain{ nullptr };
@@ -23,7 +22,6 @@ namespace GE {
 
 		public:
 			void InitMono();
-			void UpdateMono();
 			~ScriptManager();
 			MonoObject* InstantiateClass(const char* namespaceName, const char* className);
 			MonoObject* InstantiateClassID(const char* namespaceName, const char* className, unsigned int entityID);
