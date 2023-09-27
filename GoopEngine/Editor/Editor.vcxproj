@@ -247,6 +247,8 @@
     <ClCompile Include="MemoryManager\BaseAllocator.cpp" />
     <ClCompile Include="MemoryManager\ListAllocator.cpp" />
     <ClCompile Include="MemoryManager\MemoryManager.cpp" />
+    <ClCompile Include="ScriptEngine\Script.cpp" />
+    <ClCompile Include="ScriptEngine\ScriptManager.cpp" />
     <ClCompile Include="Serialization\AssetGooStream.cpp" />
     <ClCompile Include="ECS\System\SystemManager.cpp" />
     <ClCompile Include="FrameRateController\FrameRateController.cpp" />
@@ -326,6 +328,8 @@
     <ClInclude Include="MemoryManager\BaseAllocator.h" />
     <ClInclude Include="MemoryManager\ListAllocator.h" />
     <ClInclude Include="MemoryManager\MemoryManager.h" />
+    <ClInclude Include="ScriptEngine\Script.h" />
+    <ClInclude Include="ScriptEngine\ScriptManager.h" />
     <ClInclude Include="Serialization\IGooStream.h" />
     <ClInclude Include="Serialization\ObjectGooStream.h" />
     <ClInclude Include="Serialization\PrefabGooStream.h" />

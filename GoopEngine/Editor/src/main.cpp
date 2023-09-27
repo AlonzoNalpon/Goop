@@ -32,6 +32,7 @@
 #endif
 #include "../EditorUI/ImGuiUI.h"
 #include <time.h>
+#include <ScriptEngine/ScriptManager.h>
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -82,6 +83,10 @@ int main(int /*argc*/, char* /*argv*/[])
   im->InitInputManager(window.GetWindow(), am->GetConfigData<int>("Window Width").value(), am->GetConfigData<int>("Window Height").value(), 0.1);
   GE::FPS::FrameRateController* fps_control = &(GE::FPS::FrameRateController::GetInstance());
   fps_control->InitFrameRateController(60, 1);
+
+
+  GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
+  scriptMan->InitMono();
 
 #ifdef SERIALIZE_TEST
   GE::ObjectFactory::ObjectFactory::ObjectFactoryTest();
