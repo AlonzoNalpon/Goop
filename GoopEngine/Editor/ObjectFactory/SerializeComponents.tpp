@@ -68,3 +68,38 @@ GE::Gravity DeserializeComponent<GE::Gravity>(std::string const& componentData)
 
   return grav;
 }
+
+template<>
+GE::Component::Sprite DeserializeComponent<GE::Component::Sprite>(std::string const& componentData)
+{
+  Serialization::ComponentWrapper cw{ componentData };
+  Serialization::ComponentData data = cw.GetData();
+  auto & gEngine = Graphics::GraphicsEngine::GetInstance();
+  Sprite sprite;
+
+  sprite.spriteData.texture = gEngine.textureManager.GetTextureID(data["filename"].GetString());
+  return sprite;
+}
+
+template<>
+GE::Component::SpriteAnim DeserializeComponent<GE::Component::SpriteAnim>(std::string const& componentData)
+{
+  Serialization::ComponentWrapper cw{ componentData };
+  Serialization::ComponentData data = cw.GetData();
+  auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+  SpriteAnim spriteAnim;
+
+  spriteAnim.animID = gEngine.animManager.GetAnimID(data["name"].GetString());
+  return spriteAnim;
+}
+
+template<>
+GE::Component::Model DeserializeComponent<GE::Component::Model>(std::string const& componentData)
+{
+    Serialization::ComponentWrapper cw{ componentData };
+    Serialization::ComponentData data = cw.GetData();
+    Model model;
+
+    model.mdlID = data["id"].GetInt();
+    return model;
+}

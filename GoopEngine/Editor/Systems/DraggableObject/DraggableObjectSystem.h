@@ -20,7 +20,7 @@ namespace GE
 			void HandleEvent(Events::Event const* event) override;
 
 		private:
-			bool isDragging = false;
+			bool isHeld = false;
 		};
 	}
 }

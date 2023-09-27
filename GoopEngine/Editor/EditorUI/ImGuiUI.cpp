@@ -48,16 +48,20 @@ void ImGuiUI::Update()
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
   }
+  if (Button("Create Background"))
+  {
+    GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("Background");
+  }
   else if (Button("Create 2.5k Render"))
   {
     for (int i{}; i < 2500; ++i)
     {
-      GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("WormSprite");
+      GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
       GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
       if (trans)
       {
         double randX = (rand() % window->GetWinWidth()) - window->GetWinWidth() / 2;
-        double randY = (rand() % window->GetWinHeight()) - window->GetWinWidth() / 2;
+        double randY = (rand() % window->GetWinHeight()) - window->GetWinHeight() / 2;
         trans->m_pos = Math::dVec2(randX, randY);
       }
     }

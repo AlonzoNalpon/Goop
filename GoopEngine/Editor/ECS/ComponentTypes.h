@@ -21,8 +21,8 @@ namespace GE
 			BOXCOLLIDER,
 			TWEEN,
 			SPRITE,
+			SPRITEANIM,
 			MODEL,
-			ANIMATION,
 			COMPONENTS_TOTAL
 		};
 
@@ -35,9 +35,8 @@ namespace GE
 			{ COMPONENT_TYPES::VELOCITY, "Velocity" },
 			{ COMPONENT_TYPES::GRAVITY, "Gravity" },
 			{ COMPONENT_TYPES::SPRITE, "Sprite" },
-			{ COMPONENT_TYPES::MODEL, "Model" },
-			{ COMPONENT_TYPES::ANIMATION, "Animation" },
-
+			{ COMPONENT_TYPES::SPRITEANIM, "SpriteAnim" },
+			{ COMPONENT_TYPES::MODEL, "Model" }
 		};
 
 		// Const map so only interated through ranged for,
@@ -49,8 +48,8 @@ namespace GE
 			{ "Velocity", COMPONENT_TYPES::VELOCITY },
 			{ "Gravity", COMPONENT_TYPES::GRAVITY },
 			{ "Sprite", COMPONENT_TYPES::SPRITE },
-			{ "Model", COMPONENT_TYPES::MODEL },
-			{ "Animation", COMPONENT_TYPES::ANIMATION },
+			{ "SpriteAnim", COMPONENT_TYPES::SPRITEANIM },
+			{ "Model", COMPONENT_TYPES::MODEL }
 		};
 
 		inline unsigned componentsToUInt(std::string const& component)
