@@ -274,6 +274,7 @@
     <ClInclude Include="Component\BoxCollider.h" />
     <ClInclude Include="Component\Gravity.h" />
     <ClInclude Include="Component\Model.h" />
+    <ClInclude Include="Component\ScriptHandler.h" />
     <ClInclude Include="Component\Sprite.h" />
     <ClInclude Include="Component\SpriteAnim.h" />
     <ClInclude Include="Component\Transform.h" />

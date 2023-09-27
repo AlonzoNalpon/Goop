@@ -2,6 +2,7 @@
 
 #include <mono/jit/jit.h>
 #include <mono/metadata/assembly.h>
+#include <mono/metadata/object.h>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -11,8 +12,10 @@
 namespace GE {
 	namespace MONO {
 
+		using MonoObjectSP = std::shared_ptr<MonoObject>;
+
 		struct Script{
-			MonoObject* m_classObjInst;
+			MonoObjectSP m_classObjInst;
 			MonoMethod* m_awakeMethod;
 			MonoMethod* m_startMethod;
 			MonoMethod* m_updateMethod;

@@ -61,13 +61,6 @@ GE::MONO::ScriptManager::~ScriptManager()
  
 }
 
-void GE::MONO::ScriptManager::UpdateMono()
-{
-  //MonoObject* newobj = GE::MONO::ScriptManager::InstantiateClass("GoopScripts", "Player");
-  //Script test = Script(newobj);
-  //test.CallUpdate();
-}
-
 char* GE::MONO::ReadBytes(const std::string& filepath, uint32_t* outSize)
 {
   std::ifstream stream(filepath, std::ios::binary | std::ios::ate);
@@ -93,6 +86,8 @@ char* GE::MONO::ReadBytes(const std::string& filepath, uint32_t* outSize)
   *outSize = size;
   return buffer;
 }
+
+
 
 MonoAssembly* GE::MONO::LoadCSharpAssembly(const std::string& assemblyPath)
 {
@@ -129,6 +124,8 @@ MonoAssembly* GE::MONO::LoadCSharpAssembly(const std::string& assemblyPath)
 
   return assembly;
 }
+
+
 
 MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* namespaceName, const char* className)
 {
@@ -175,7 +172,6 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClassID(const char* namespaceNam
   if (classInstance == nullptr) {
      throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
   }
-
   return classInstance;
 }
 
