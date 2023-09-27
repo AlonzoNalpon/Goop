@@ -225,6 +225,7 @@
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
     <ClCompile Include="Graphics\Fonts\FontManager.cpp" />
+    <ClCompile Include="Graphics\Fonts\FontRenderer.cpp" />
     <ClCompile Include="Graphics\Renderer\Camera.cpp" />
     <ClCompile Include="Graphics\Renderer\Renderer.cpp" />
     <ClCompile Include="Graphics\TextureManager.cpp" />
@@ -289,6 +290,7 @@
     <ClInclude Include="ECS\System\SystemManager.h" />
     <ClInclude Include="Graphics\Fonts\Character.h" />
     <ClInclude Include="Graphics\Fonts\FontManager.h" />
+    <ClInclude Include="Graphics\Fonts\FontRenderer.h" />
     <ClInclude Include="Graphics\Renderer\Camera.h" />
     <ClInclude Include="Graphics\Renderer\RenderData.h" />
     <ClInclude Include="Graphics\Renderer\Renderer.h" />
