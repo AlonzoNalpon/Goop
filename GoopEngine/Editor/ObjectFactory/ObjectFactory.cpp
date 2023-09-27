@@ -102,40 +102,6 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   }
 }
 
-void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity srcObj) const
-{
-  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
-
-  if (ecs.GetComponent<Component::Transform>(srcObj))
-  {
-    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Transform>(srcObj));
-  }
-  if (ecs.GetComponent<Component::BoxCollider>(srcObj))
-  {
-    ecs.AddComponent(destObj, *ecs.GetComponent<Component::BoxCollider>(srcObj));
-  }
-  if (ecs.GetComponent<Component::Velocity>(srcObj))
-  {
-    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Velocity>(srcObj));
-  }
-  if (ecs.GetComponent<Component::Gravity>(srcObj))
-  {
-    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Gravity>(srcObj));
-  }
-  if (ecs.GetComponent<Component::Sprite>(srcObj))
-  {
-    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Sprite>(srcObj));
-  }
-  if (ecs.GetComponent<Component::SpriteAnim>(srcObj))
-  {
-    ecs.AddComponent(destObj, *ecs.GetComponent<Component::SpriteAnim>(srcObj));
-  }
-  if (ecs.GetComponent<Component::Model>(srcObj))
-  {
-    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Model>(srcObj));
-  }
-}
-
 void ObjectFactory::RegisterComponentsAndSystems() const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
@@ -281,7 +247,7 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
   {
     prefab.m_systemSignature[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
   }
-  RegisterPrefab(entity, prefab.m_systemSignature);
+  RegisterObjectToSystems(entity, prefab.m_systemSignature);
   return entity;
 }
 
