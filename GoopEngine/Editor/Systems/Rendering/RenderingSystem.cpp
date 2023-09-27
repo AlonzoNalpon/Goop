@@ -4,7 +4,7 @@
 #include <math.h>
 namespace GE::Systems
 {
-  constexpr double pi= 3.14159265358979323846;
+  constexpr double pi = 3.14159265358979323846;
   void RenderSystem::Update()
   {
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
@@ -43,7 +43,6 @@ namespace GE::Systems
       
       // Update rotation of transform
       transform->m_rot = fmod(transform->m_rot + dt * 2.0, pi * 2.0);
-      //transform->m_rot = pi;
       
       // Rendering
       Graphics::Rendering::Renderer& renderer{ gEngine.GetRenderer() };
