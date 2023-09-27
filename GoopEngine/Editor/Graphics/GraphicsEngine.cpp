@@ -91,15 +91,23 @@ namespace {
     unsigned char* raw_image = imageData.GetData();
     GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
     GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };
+
 #pragma endregion
 
 #pragma region SPRITE_ANIMATION_TEST
     testAnim.currTime = .0;
+<<<<<<< Updated upstream
     gObjID texObjID{ m_textureManager.AddTexture(width, height, raw_image) };
+=======
+    gObjID texObjID{ InitTexture("MineWorm.png", "MineWorm.png") };
+>>>>>>> Stashed changes
     u32 animFlags{};
     animFlags |= SPRITE_ANIM_FLAGS::LOOPING; // this animation will loop
-    testAnim.animID = m_animManager.CreateAnim(SpriteAnimGenerator::GenerateAnimData
-    (6, 1, width, height, .1f, animFlags, texObjID), "MineWorm");
+    testAnim.animID = CreateAnimation
+    ("MineWorm", 6u, 1u, 6u, .1, animFlags, texObjID);
+    
+   // m_animManager.CreateAnim(SpriteAnimGenerator::GenerateAnimData
+   // (6u, 1u, width, height, .1, animFlags, texObjID), "Shark");
     
 #pragma endregion
 
@@ -295,6 +303,25 @@ namespace {
   Rendering::Renderer& GraphicsEngine::GetRenderer()
   {
     return m_renderer;
+  }
+
+  gObjID GraphicsEngine::InitTexture(std::string const& name, std::string const& path)
+  {
+    // Now use textures
+    auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
+    GE::AssetManager::ImageData imageData = assetManager.GetData(ASSETS_PATH + path);
+    unsigned char* raw_image = imageData.GetData();
+    GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
+    GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };
+    return m_textureManager.AddTexture(path, width, height, raw_image);
+  }
+
+  gObjID GraphicsEngine::CreateAnimation(std::string const& name, GLuint slices, GLuint stacks, GLuint frames,
+    f64 speed, u32 flags,  gObjID textureID)
+  {
+    Texture const& tex  { m_textureManager.GetTexture(textureID) };
+    return m_animManager.CreateAnim(SpriteAnimGenerator::GenerateAnimData(slices, stacks, frames, tex.width, tex.height
+    , speed, flags, textureID), name);
   }
 
   gObjID GraphicsEngine::GetModel()

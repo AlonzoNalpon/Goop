@@ -20,14 +20,25 @@ namespace Graphics::Fonts
   class FontManager 
   {
     using FontMap         = std::map<uChar, Character>;
+<<<<<<< Updated upstream
     using FontData        = std::pair<std::string, FontMap>;
     using FontsContainer  = std::vector<FontData>;
   public:
     FontManager();
     bool LoadFont(std::string const& name, std::string const& path, GLint fontSize);
+=======
+    using FontsContainer  = std::vector<FontMap>;
+    using FontsLT         = std::map<std::string, gObjID>;
+  public:
+    void Init();
+    gObjID LoadFont(std::string const& name, std::string const& path, GLint fontSize);
+    gObjID GetFontID(std::string const& name);
+    Character const& GetCharacter(gObjID font, uChar ch);
+>>>>>>> Stashed changes
   private:
     FT_Library library;
     FontsContainer m_fonts; // !< all loaded fonts' glyphs stored here
+    FontsLT m_fontsLT; // !< all loaded fonts' glyphs stored here
   };
 }
 
