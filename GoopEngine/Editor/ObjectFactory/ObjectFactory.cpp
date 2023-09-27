@@ -16,7 +16,7 @@
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
 
-void ObjectFactory::RegisterObject(GE::ECS::Entity object)
+void ObjectFactory::RegisterObject(GE::ECS::Entity object) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
@@ -143,7 +143,7 @@ void ObjectFactory::RegisterComponentsAndSystems() const
 
 }
 
-GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data)
+GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
@@ -232,14 +232,14 @@ void ObjectFactory::DeserializePrefab(const std::string& filepath)
   m_prefabs.insert(std::move(prefab));
 }
 
-GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
+GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
 {
   if (m_prefabs.find(key) == m_prefabs.end())
   {
     // throw exception
     std::cout << "ERROR";
   }
-  PrefabData& prefab = m_prefabs[key];
+  PrefabData prefab = m_prefabs.at(key);
   ObjectData object{ prefab.m_componentSignature, prefab.m_components };
   Entity entity = CreateObject(object);
   if (IsBitSet(prefab.m_componentSignature, COMPONENT_TYPES::SPRITEANIM))
@@ -265,7 +265,7 @@ void ObjectFactory::CloneObject(ECS::Entity obj, Math::dVec2&& newPos)
   RegisterObjectToSystems(newObj, sysSig);
 }
 
-int ObjectFactory::LoadObject()
+int ObjectFactory::LoadObject() const
 {
   try
   {

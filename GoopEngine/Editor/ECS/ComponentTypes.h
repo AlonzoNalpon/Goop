@@ -28,7 +28,7 @@ namespace GE
 
 		// Const map so only interated through ranged for,
 		// or use the .at(<key>) function
-		const std::map<COMPONENT_TYPES, std::string> componentsToString
+		const std::unordered_map<COMPONENT_TYPES, std::string> componentsToString
 		{
 			{ COMPONENT_TYPES::TRANSFORM, "Transform" },
 			{ COMPONENT_TYPES::BOXCOLLIDER, "BoxCollider" },
@@ -41,7 +41,7 @@ namespace GE
 
 		// Const map so only interated through ranged for,
 		// or use the .at(<key>) function
-		const std::map<std::string, COMPONENT_TYPES> stringToComponents
+		const std::unordered_map<std::string, COMPONENT_TYPES> stringToComponents
 		{
 			{ "Transform", COMPONENT_TYPES::TRANSFORM },
 			{ "BoxCollider", COMPONENT_TYPES::BOXCOLLIDER },
