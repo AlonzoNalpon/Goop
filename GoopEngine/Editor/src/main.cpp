@@ -17,14 +17,14 @@
 
 #include <Physics/PhysicsSystem.h>
 #include <Physics/CollisionSystem.h>
+#include "../ObjectFactory/ObjectFactory.h"
 
-#define SERIALIZE_TEST
+//#define SERIALIZE_TEST
 #ifdef SERIALIZE_TEST
 #include <iomanip>
 #include "../Serialization/AssetGooStream.h"
 #include "../Serialization/SpriteGooStream.h"
 #include "../Serialization/PrefabGooStream.h"
-#include "../ObjectFactory/ObjectFactory.h"
 #endif
 #define MEMORY_TEST
 #ifdef MEMORY_TEST

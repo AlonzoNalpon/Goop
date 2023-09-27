@@ -1,7 +1,7 @@
 #pragma once
 #include <pch.h>
 
-namespace GE
+namespace GE::Component
 {
 	struct Gravity : public GE::ECS::Component
 	{

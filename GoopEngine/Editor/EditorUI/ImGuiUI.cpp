@@ -48,6 +48,13 @@ void ImGuiUI::Update()
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
   }
+  else if (Button("Clone Object"))
+  {
+    double randX = (rand() % window->GetWinWidth()) - window->GetWinWidth() / 2;
+    double randY = (rand() % window->GetWinHeight()) - window->GetWinHeight() / 2;
+    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(4, Math::dVec2(randX, randY));
+    std::cout << randX << ", " << randY << "\n";
+  }
   else if (Button("Create 2.5k Render"))
   {
     for (int i{}; i < 2500; ++i)
@@ -57,7 +64,7 @@ void ImGuiUI::Update()
       if (trans)
       {
         double randX = (rand() % window->GetWinWidth()) - window->GetWinWidth() / 2;
-        double randY = (rand() % window->GetWinHeight()) - window->GetWinWidth() / 2;
+        double randY = (rand() % window->GetWinHeight()) - window->GetWinHeight() / 2;
         trans->m_pos = Math::dVec2(randX, randY);
       }
     }
