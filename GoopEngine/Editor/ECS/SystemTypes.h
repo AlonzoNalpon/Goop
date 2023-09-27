@@ -12,6 +12,7 @@ namespace GE
 			DRAGGABLE_OBJECT,
 			PLAYER_CONTROLLER,
 			RENDERING,
+			SPRITE_ANIM,
 			TOTAL_SYSTEMS
 		};
 
@@ -26,7 +27,8 @@ namespace GE
 			{ SYSTEM_TYPES::COLLISION, "Collision" },
 			{ SYSTEM_TYPES::DRAGGABLE_OBJECT, "DraggableObject" },
 			{ SYSTEM_TYPES::PLAYER_CONTROLLER, "PlayerController" },
-			{ SYSTEM_TYPES::RENDERING, "Rendering" }
+			{ SYSTEM_TYPES::RENDERING, "Rendering" },
+			{ SYSTEM_TYPES::SPRITE_ANIM, "SpriteAnim" }
 		};
 
 		// Const map so only interated through ranged for,
@@ -37,7 +39,8 @@ namespace GE
 			{ "Collision", SYSTEM_TYPES::COLLISION },
 			{ "DraggableObject", SYSTEM_TYPES::DRAGGABLE_OBJECT },
 			{ "PlayerController", SYSTEM_TYPES::PLAYER_CONTROLLER },
-			{ "Rendering", SYSTEM_TYPES::RENDERING }
+			{ "Rendering", SYSTEM_TYPES::RENDERING },
+			{ "SpriteAnim", SYSTEM_TYPES::SPRITE_ANIM }
 		};
 	}
 }

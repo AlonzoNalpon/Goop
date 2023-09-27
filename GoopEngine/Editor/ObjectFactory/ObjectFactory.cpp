@@ -5,6 +5,7 @@
 #include <Physics/CollisionSystem.h>
 #include <DraggableObject/DraggableObjectSystem.h>
 #include <Rendering/RenderingSystem.h>
+#include <SpriteAnim/SpriteAnimSystem.h>
 
 #include "SerializeComponents.h"
 #include "../Serialization/ObjectGooStream.h"
@@ -37,6 +38,8 @@ void ObjectFactory::RegisterPrefab(GE::ECS::Entity object, ECS::SystemSignature 
     ecs.RegisterEntityToSystem<GE::Systems::PlayerControllerSystem>(object);
   if (IsBitSet(signature, SYSTEM_TYPES::RENDERING))
     ecs.RegisterEntityToSystem<GE::Systems::RenderSystem>(object);
+  if (IsBitSet(signature, SYSTEM_TYPES::SPRITE_ANIM))
+    ecs.RegisterEntityToSystem<GE::Systems::SpriteAnimSystem>(object);
 }
 
 void ObjectFactory::RegisterComponentsAndSystems() const
@@ -48,6 +51,7 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   ecs.RegisterSystem<GE::Systems::CollisionSystem>();
   ecs.RegisterSystem<GE::Systems::DraggableObjectSystem>();
   ecs.RegisterSystem<GE::Systems::PlayerControllerSystem>();
+  ecs.RegisterSystem<GE::Systems::SpriteAnimSystem>();
   ecs.RegisterSystem<GE::Systems::RenderSystem>();
 
   // Register components in order of COMPONENT_TYPES enum
@@ -69,6 +73,9 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   ecs.RegisterComponentToSystem<Sprite, GE::Systems::RenderSystem>();
   ecs.RegisterComponentToSystem<SpriteAnim, GE::Systems::RenderSystem>();
   ecs.RegisterComponentToSystem<Transform, GE::Systems::RenderSystem>();
+
+  ecs.RegisterComponentToSystem<SpriteAnim, GE::Systems::SpriteAnimSystem>();
+  ecs.RegisterComponentToSystem<Sprite, GE::Systems::SpriteAnimSystem>();
   
   //ecs.RegisterComponentToSystem<Tween, GE::Systems::PlayerControllerSystem>();
 
@@ -174,6 +181,10 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
   PrefabData& prefab = m_prefabs[key];
   ObjectData object{ prefab.m_componentSignature, prefab.m_components };
   Entity entity = CreateObject(object);
+  if (IsBitSet(prefab.m_componentSignature, COMPONENT_TYPES::SPRITEANIM))
+  {
+    prefab.m_systemSignature[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
+  }
   RegisterPrefab(entity, prefab.m_systemSignature);
   return entity;
 }
