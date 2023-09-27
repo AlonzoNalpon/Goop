@@ -82,27 +82,17 @@ namespace {
     m_models.emplace_back(m_lineMdl);
 #pragma endregion
 
-    
-
-#pragma region TEXTURE_TEST
-    // Now use textures
-    auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
-    GE::AssetManager::ImageData imageData = assetManager.GetData( ASSETS_PATH + "MineWorm.png");
-    unsigned char* raw_image = imageData.GetData();
-    GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
-    GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };
-
-#pragma endregion
+   
 
 #pragma region SPRITE_ANIMATION_TEST
     testAnim.currTime = .0;
     
-    gObjID texObjID{ InitTexture("MineWorm.png", "MineWorm.png") };
+    //gObjID texObjID{ InitTexture("MineWorm.png", "MineWorm.png") };
     
     u32 animFlags{};
     animFlags |= SPRITE_ANIM_FLAGS::LOOPING; // this animation will loop
-    testAnim.animID = CreateAnimation
-    ("MineWorm", 6u, 1u, 6u, .1, animFlags, texObjID);
+    //testAnim.animID = CreateAnimation
+    //("MineWorm", 6u, 1u, 6u, .1, animFlags, texObjID);
     
    // m_animManager.CreateAnim(SpriteAnimGenerator::GenerateAnimData
    // (6u, 1u, width, height, .1, animFlags, texObjID), "Shark");
@@ -307,15 +297,14 @@ namespace {
     return m_renderer;
   }
 
-  gObjID GraphicsEngine::InitTexture(std::string const& name, std::string const& path)
+  gObjID GraphicsEngine::InitTexture(std::string const& name, GE::AssetManager::ImageData const& imageData)
   {
     // Now use textures
     auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
-    GE::AssetManager::ImageData imageData = assetManager.GetData(ASSETS_PATH + path);
     unsigned char* raw_image = imageData.GetData();
     GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
     GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };
-    return m_textureManager.AddTexture(path, width, height, raw_image);
+    return m_textureManager.AddTexture(name, width, height, raw_image);
   }
 
   gObjID GraphicsEngine::CreateAnimation(std::string const& name, GLuint slices, GLuint stacks, GLuint frames,

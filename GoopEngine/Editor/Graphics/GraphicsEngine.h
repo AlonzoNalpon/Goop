@@ -75,7 +75,7 @@ namespace Graphics {
     ************************************************************************/
     Rendering::Renderer& GetRenderer();
 
-    gObjID InitTexture(std::string const& name, std::string const& path);
+    gObjID InitTexture(std::string const& name, GE::AssetManager::ImageData const& imageData);
 
     gObjID CreateAnimation(std::string const& name, GLuint slices, GLuint stacks, GLuint frames,
       f64 speed, u32 flags, gObjID textureID);

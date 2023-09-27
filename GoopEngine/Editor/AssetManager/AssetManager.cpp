@@ -22,6 +22,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <filesystem>
 #include <iostream>
 #include <iomanip>
+#include <Graphics/GraphicsEngine.h>
 #include "../Serialization/AssetGooStream.h"
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -77,32 +78,32 @@ namespace GE
 			this->m_data = data;
 		}
 
-		unsigned char* ImageData::GetData()
+		unsigned char* ImageData::GetData()const
 		{
 			return this->m_data;
 		}
 
-		unsigned int ImageData::GetWidth()
+		unsigned int ImageData::GetWidth()const
 		{
 			return this->m_width;
 		}
 
-		unsigned int ImageData::GetHeight()
+		unsigned int ImageData::GetHeight()const
 		{
 			return this->m_height;
 		}
 
-		unsigned int ImageData::GetChannels()
+		unsigned int ImageData::GetChannels()const
 		{
 			return this->m_channels;
 		}
 
-		std::string ImageData::GetName()
+		std::string const& ImageData::GetName()const
 		{
 			return this->m_name;
 		}
 
-		int ImageData::GetID()
+		int ImageData::GetID()const
 		{
 			return this->m_id;
 		}
@@ -137,34 +138,49 @@ namespace GE
 			return m_loadedImagesStringLookUp[name];
 
 		}
-		ImageData AssetManager::GetData(int id)
+		ImageData const& AssetManager::GetData(int id)
 		{
 			if (m_loadedImages.find(id) == m_loadedImages.end())
 			{
 				#ifdef ASSET_MANAGER_DEBUG
 				std::cout << "DIDN'T FIND DATA WITH ID: " << id << "\n";
 				#endif
-				return ImageData::Null();
+				//return ImageData::Null();
+				throw;
 			}
 
 			return m_loadedImages[id];
 		}
-		ImageData AssetManager::GetData(const std::string& name)
+		ImageData const& AssetManager::GetData(const std::string& name)
 		{
 			if (m_loadedImages.find(GetID(name)) == m_loadedImages.end())
 			{
 				#ifdef ASSET_MANAGER_DEBUG
 				std::cout << "DIDN'T FIND DATA WITH ID: " << id << "\n";
 				#endif
-				return ImageData::Null();
+				//return ImageData::Null();
+				throw;
 			}
 
 			return m_loadedImages[GetID(name)];
 		}
 
+		void AssetManager::LoadFiles()
+		{
+			LoadJSONData("Assets/Data/Images.json", GE::AssetManager::IMAGES);
+			LoadJSONData("Assets/Data/Sprites.txt", GE::AssetManager::ANIMATION);
+			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+			for (auto const& curr : m_loadedSpriteData)
+			{
+				gEngine.CreateAnimation(curr.first, curr.second.m_slices, curr.second.m_stacks
+					, curr.second.m_frames, 1.0, 0, gEngine.textureManager.GetTextureID(curr.second.m_filePath));
+			}
+		}
+
 		// The AssetManager class method to load JSON data from a file
 		void AssetManager::LoadJSONData(const std::string& filepath, int flag)
 		{
+			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 			// If the flag is set to IMAGES or CONFIG
 			if (flag == IMAGES || flag == CONFIG)
 			{
@@ -190,7 +206,10 @@ namespace GE
 					// For each entry in m_filePath, load the image from the ASSETS_DIR and the entry's second value
 					for (std::pair<std::string, std::string> const& entry : m_filePath)
 					{
-						LoadImageW(ASSETS_DIR + entry.second);
+						int id = LoadImageW(entry.second);
+						auto const& img = GetData(id);
+
+						gEngine.InitTexture(entry.first, GetData(id));
 					}
 				}
 				// If the flag is set to CONFIG

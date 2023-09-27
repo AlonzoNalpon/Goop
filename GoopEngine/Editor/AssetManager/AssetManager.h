@@ -122,7 +122,7 @@ namespace GE
       \return
         Data of the loaded image.
       ************************************************************************/
-      unsigned char* GetData();
+      unsigned char* GetData()const;
 
       /*!*********************************************************************
       \brief
@@ -130,7 +130,7 @@ namespace GE
       \return
         Width of the loaded image.
       ************************************************************************/
-      unsigned int GetWidth();
+      unsigned int GetWidth()const;
 
       /*!*********************************************************************
       \brief
@@ -138,9 +138,9 @@ namespace GE
       \return
         Height of the loaded image.
       ************************************************************************/
-      unsigned int GetHeight();
+      unsigned int GetHeight()const;
 
-      unsigned int GetChannels();
+      unsigned int GetChannels()const;
 
       /*!*********************************************************************
       \brief
@@ -148,7 +148,7 @@ namespace GE
       \return
         Name of the loaded image.
       ************************************************************************/
-      std::string GetName();
+      std::string const& GetName()const;
 
       /*!*********************************************************************
       \brief
@@ -156,7 +156,7 @@ namespace GE
       \return
         ID of the current class object.
       ************************************************************************/
-      int GetID();
+      int GetID()const;
 
     private:
       int m_id; // ID given to the file to be included in the asset manager map.
@@ -226,7 +226,7 @@ namespace GE
       \return
         Image data of file
       ************************************************************************/
-      ImageData GetData(int id);
+      ImageData const& GetData(int id);
 
       /*!*********************************************************************
       \brief
@@ -236,7 +236,7 @@ namespace GE
       \return
         Image data of file
       ************************************************************************/
-      ImageData GetData(const std::string& name);
+      ImageData const& GetData(const std::string& name);
 
       /*!*********************************************************************
       \brief
@@ -295,6 +295,8 @@ namespace GE
       ************************************************************************/
       void SpriteCheck();
 
+      void LoadFiles();
+
       GE::Serialization::SpriteData GetSpriteData(std::string key);
 
       #include "AssetManager.tpp"
@@ -307,6 +309,7 @@ namespace GE
       std::map<std::string, int> m_loadedImagesStringLookUp; // Lookup table for getting ID with filepath.
       std::map<int, std::string> m_loadedImagesIDLookUp; // Lookup table for getting filepath with id.
       std::map<std::string, GE::Serialization::SpriteData> m_loadedSpriteData; // Map that contains loaded sprite with their data with their m_id as key.
+
     };
   }
 }

@@ -43,10 +43,9 @@ int main(int /*argc*/, char* /*argv*/[])
 #endif
 
   // INIT FUNCTIONS
+
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
-  am->LoadJSONData("Assets/Data/Images.json", GE::AssetManager::IMAGES);
   am->LoadJSONData("Assets/Data/Config.json", GE::AssetManager::CONFIG);
-  am->LoadJSONData("Assets/Data/Sprites.txt", GE::AssetManager::ANIMATION);
 
   GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
   of.LoadPrefabsFromFile();
@@ -71,9 +70,10 @@ int main(int /*argc*/, char* /*argv*/[])
   imgui.Init(window);
 
   // Now we get the asset manager
-  am->LoadDeserializedData(); // load the images we need
-  am->LoadImageW(ASSETS_PATH + "MineWorm.png");
+  //am->LoadDeserializedData(); // load the images we need
+  //am->LoadImageW(ASSETS_PATH + "MineWorm.png");
   gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
+  am->LoadFiles();
   am->FreeImages(); // cleanup the images
 
 
