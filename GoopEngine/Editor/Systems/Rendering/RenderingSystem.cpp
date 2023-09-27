@@ -15,30 +15,7 @@ namespace GE::Systems
       Component::Model*       model{ m_ecs->GetComponent<Component::Model>(entity) };
       Component::Sprite*      sprite{ m_ecs->GetComponent<Component::Sprite>(entity) };
       Component::Transform*   transform{ m_ecs->GetComponent<Component::Transform>(entity) };
-      // Updating the sprite anim data (if any)
-      if (animData)
-      {
-        // get the sprite animation
-        Graphics::SpriteAnimation const& spriteAnim
-          { gEngine.animManager.GetAnim(animData->animID) };
-
-        // Updating sprite animation data
-        {
-          // Update the timer and see if frame should be changed
-          animData->currTime += dt;
-          if (animData->currTime >= spriteAnim.speed)
-          {
-            animData->currTime -= spriteAnim.speed; // reset speed for next frame
-            // move to next frame, or wrap back to start
-            u32 const newFrame{ (animData->currFrame + 1) };
-            animData->currFrame = (newFrame >= spriteAnim.frames.size() ?
-              0 : newFrame);
-          }
-        }
-
-        // setting the new sprite based on data
-        sprite->spriteData.info = spriteAnim.frames[animData->currFrame];
-      }
+      
       
       // Update rotation of transform
       //transform->m_rot = fmod(transform->m_rot + dt * 2.0, pi * 2.0);
