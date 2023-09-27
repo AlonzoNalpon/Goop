@@ -21,7 +21,6 @@ namespace GE::Systems
       //transform->m_rot = fmod(transform->m_rot + dt * 2.0, pi * 2.0);
       //transform->m_rot = pi;
       
-
       // Rendering
       Graphics::Rendering::Renderer& renderer{ gEngine.GetRenderer() };
       // Render the object

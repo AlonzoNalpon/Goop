@@ -3,7 +3,7 @@
 #include <pch.h>
 namespace GE::Component
 {
-  struct Model : public GE::ECS::Component
+  struct Model
   {
     Graphics::gObjID mdlID; //!< identifier of the model
   };

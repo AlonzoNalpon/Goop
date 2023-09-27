@@ -2,9 +2,8 @@
 #include <Component/BoxCollider.h>
 #include <Physics/CollisionSystem.h>
 #include <Component/Transform.h>
-#include <Component/Velocity.h>
-#include <Component/Gravity.h>
 #include "../../Events/InputEvents.h"
+#include "../Physics/PhysicsSystem.h"
 
 using namespace GE;
 using namespace ECS;
@@ -25,20 +24,11 @@ void DraggableObjectSystem::Update() {
 		if (dragging)
 		{
 			Transform* transform = m_ecs->GetComponent<Transform>(entity);
-			Gravity* gravity = m_ecs->GetComponent<Gravity>(entity, true);
-			Velocity* velocity = m_ecs->GetComponent<Velocity>(entity, true);
 
 			// check if should release
 			if (!isHeld)
 			{
-				if (gravity)
-				{
-					gravity->SetActive(true);
-				}
-				if (velocity)
-				{
-					velocity->SetActive(true);
-				}
+				m_ecs->RegisterEntityToSystem<GE::Systems::PhysicsSystem>(entity);
 
 				dragging = false;
 			}
@@ -52,20 +42,11 @@ void DraggableObjectSystem::Update() {
 			if (entity1Col->m_mouseCollided)
 			{
 				Transform* transform = m_ecs->GetComponent<Transform>(entity);
-				Gravity* gravity = m_ecs->GetComponent<Gravity>(entity, true);
-				Velocity* velocity = m_ecs->GetComponent<Velocity>(entity, true);
 
 				InputManager* input = &(InputManager::GetInstance());
 				if (isHeld)
 				{
-					if (gravity)
-					{
-						gravity->SetActive(false);
-					}
-					if (velocity)
-					{
-						velocity->SetActive(false);
-					}
+					m_ecs->UnregisterEntityFromSystem<GE::Systems::PhysicsSystem>(entity);
 
 					dragging = true;
 					transform->m_pos = input->GetMousePosWorld();

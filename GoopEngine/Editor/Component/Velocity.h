@@ -5,7 +5,7 @@ namespace GE
 {
 	namespace Component
 	{
-		struct Velocity : public GE::ECS::Component
+		struct Velocity
 		{
 			using vec2 = GE::Math::dVec2;
 

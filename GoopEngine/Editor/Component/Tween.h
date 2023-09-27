@@ -5,7 +5,7 @@ namespace GE
 {
 	namespace Component
 	{
-		struct Tween : public GE::ECS::Component
+		struct Tween
 		{
 			using vec2 = GE::Math::dVec2;
 

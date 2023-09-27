@@ -5,7 +5,7 @@ namespace GE
 {
 	namespace Component
 	{
-		struct Transform : public GE::ECS::Component
+		struct Transform
 		{
 			using vec2 = Math::dVec2;
 			Transform() : m_pos{}, m_scale{}, m_rot{} {}
