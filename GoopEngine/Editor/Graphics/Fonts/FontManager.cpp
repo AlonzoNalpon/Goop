@@ -1,5 +1,5 @@
 #include <Graphics/Fonts/FontManager.h>
-#include <Debugger/Exception/Exception.h>
+#include <DebugTools/Exception/Exception.h>
 namespace Graphics::Fonts
 {
   void FontManager::Init()

@@ -11,7 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ComponentArray.h"
 #include <unordered_map>
 #include <sstream>
-#include "../../Debugger/ErrorLogger/ErrorLogger.h"
+#include <DebugTools/ErrorLogger/ErrorLogger.h>
 
 namespace GE
 {

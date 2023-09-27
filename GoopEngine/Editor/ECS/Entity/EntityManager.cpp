@@ -8,7 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include "EntityManager.h"
-#include "../../Debugger/ErrorLogger/ErrorLogger.h"
+#include <DebugTools/ErrorLogger/ErrorLogger.h>
 
 using namespace GE::ECS;
 
