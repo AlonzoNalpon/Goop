@@ -11,6 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "Entity.h"
 #include <vector>
 #include <queue>
+#include <set>
 
 namespace GE
 {
@@ -20,15 +21,15 @@ namespace GE
 		{
 		public:
 			// Max entities in the game
-			// Exposed read only
-			const unsigned int m_maxEntities;
+			unsigned int m_maxEntities;
 		private:
 			// Current number of activiely used EntityIDs
 			unsigned int m_entitiesAlive;
 
-			std::vector<ComponentSignature> m_entities;
+			std::vector<ComponentSignature> m_entitySignatures;
 			std::queue<Entity> m_availableEntities;
 			std::vector<bool> m_mapOfActive;
+			std::set<Entity>m_entities;
 		public:
 			/*!*********************************************************************
 			\brief
@@ -93,6 +94,15 @@ namespace GE
 			  Flag to set.
 			************************************************************************/
 			void SetActiveEntity(Entity& entity, bool active);
+
+			/*!*********************************************************************
+			\brief
+			  Returns all currently active entities.
+			  
+			\return
+			  All currently active entities.
+			************************************************************************/
+			std::set<Entity>& GetEntities();
 
 			/*!*********************************************************************
 			\brief

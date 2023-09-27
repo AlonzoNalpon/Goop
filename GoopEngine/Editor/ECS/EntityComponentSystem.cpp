@@ -1,11 +1,12 @@
 #include "EntityComponentSystem.h"
+#include "../AssetManager/AssetManager.h"
 
 using namespace GE::ECS;
 
 EntityComponentSystem::EntityComponentSystem()
 {
 	m_componentManager = new ComponentManager();
-	m_entityManager = new EntityManager(4092);
+	m_entityManager = new EntityManager(GE::AssetManager::AssetManager::GetInstance().GetConfigData<int>("Max Entities").value());
 	m_systemManager = new SystemManager();
 }
 
@@ -41,6 +42,11 @@ void EntityComponentSystem::DestroyEntity(Entity& entity)
 	m_entityManager->DestroyEntity(entity);
 	m_componentManager->EntityDestroyed(entity);
 	m_systemManager->EntityDestroyed(entity);
+}
+
+std::set<Entity>& GE::ECS::EntityComponentSystem::GetEntities()
+{
+	return m_entityManager->GetEntities();
 }
 
 void EntityComponentSystem::UpdateSystems()

@@ -144,7 +144,8 @@ int main(int /*argc*/, char* /*argv*/[])
     }
 
     std::stringstream ss;
-    ss << GE::AssetManager::AssetManager::GetInstance().GetConfigData<std::string>("Window Title").value() << " | FPS: " << std::fixed << std::setfill('0') << std::setw(5) << std::setprecision(2) << fRC.GetFPS();
+    ss << GE::AssetManager::AssetManager::GetInstance().GetConfigData<std::string>("Window Title").value() << " | FPS: " << std::fixed
+      << std::setfill('0') << std::setw(5) << std::setprecision(2) << fRC.GetFPS() << " | Entities: " << EntityComponentSystem::GetInstance().GetEntities().size();
     for (auto system : fRC.GetSystemTimers())
     {
       ss << " | " << system.first << ": " << std::setw(4) << system.second.count() << "us";

@@ -79,6 +79,15 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+			  Calls EntityManager's GetEntities function.
+			  
+			\return
+			  Set of entity IDs
+			************************************************************************/
+			std::set<Entity>& GetEntities();
+
+			/*!*********************************************************************
+			\brief
 				Calls ComponentManager's RegisterComponent Function.
 			************************************************************************/
 			template <typename T>

@@ -9,5 +9,6 @@
     "Stills": "Assets/Data/Images.json",
     "Animation Sprites": "Assets/Data/Sprites.txt",
     "Scene": "Assets/Data/SERIALIZED.json",
-    "Prefabs": "Assets/Data/Prefabs/Prefabs.txt"
+    "Prefabs": "Assets/Data/Prefabs/Prefabs.txt",
+    "Max Entities": "4092"
 }
