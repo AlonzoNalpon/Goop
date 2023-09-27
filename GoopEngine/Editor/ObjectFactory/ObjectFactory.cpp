@@ -4,6 +4,7 @@
 #include <Physics/PhysicsSystem.h>
 #include <Physics/CollisionSystem.h>
 #include <DraggableObject/DraggableObjectSystem.h>
+#include <Rendering/RenderingSystem.h>
 
 #include "SerializeComponents.h"
 #include "../Serialization/ObjectGooStream.h"
@@ -34,6 +35,8 @@ void ObjectFactory::RegisterPrefab(GE::ECS::Entity object, ECS::SystemSignature 
     ecs.RegisterEntityToSystem<GE::Systems::DraggableObjectSystem>(object);
   if (IsBitSet(signature, SYSTEM_TYPES::PLAYER_CONTROLLER))
     ecs.RegisterEntityToSystem<GE::Systems::PlayerControllerSystem>(object);
+  if (IsBitSet(signature, SYSTEM_TYPES::RENDERING))
+    ecs.RegisterEntityToSystem<GE::Systems::RenderSystem>(object);
 }
 
 void ObjectFactory::RegisterComponentsAndSystems() const
@@ -41,10 +44,11 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
   // Register systems
-  GE::ECS::EntityComponentSystem::GetInstance().RegisterSystem<GE::Systems::DraggableObjectSystem>();
-  GE::ECS::EntityComponentSystem::GetInstance().RegisterSystem<GE::Systems::PhysicsSystem>();
-  GE::ECS::EntityComponentSystem::GetInstance().RegisterSystem<GE::Systems::PlayerControllerSystem>();
-  GE::ECS::EntityComponentSystem::GetInstance().RegisterSystem<GE::Systems::CollisionSystem>();
+  ecs.RegisterSystem<GE::Systems::PhysicsSystem>();
+  ecs.RegisterSystem<GE::Systems::CollisionSystem>();
+  ecs.RegisterSystem<GE::Systems::DraggableObjectSystem>();
+  ecs.RegisterSystem<GE::Systems::PlayerControllerSystem>();
+  ecs.RegisterSystem<GE::Systems::RenderSystem>();
 
   // Register components in order of COMPONENT_TYPES enum
   ecs.RegisterComponent<Transform>();
@@ -52,15 +56,20 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   ecs.RegisterComponent<Gravity>();
   ecs.RegisterComponent<BoxCollider>();
   ecs.RegisterComponent<Tween>();
-  //ecs.RegisterComponent<Sprite>();
-  //ecs.RegisterComponent<Model>();
-  //ecs.RegisterComponent<Animation>();
+  ecs.RegisterComponent<Sprite>();
+  ecs.RegisterComponent<SpriteAnim>();
+  ecs.RegisterComponent<Model>();
 
   ecs.RegisterComponentToSystem<Transform, GE::Systems::PhysicsSystem>();   
   ecs.RegisterComponentToSystem<Velocity, GE::Systems::PhysicsSystem>();    
-  ecs.RegisterComponentToSystem<GE::Gravity, GE::Systems::PhysicsSystem>();
+  ecs.RegisterComponentToSystem<Gravity, GE::Systems::PhysicsSystem>();
   ecs.RegisterComponentToSystem<BoxCollider, GE::Systems::CollisionSystem>();
 
+  ecs.RegisterComponentToSystem<Model, GE::Systems::RenderSystem>();
+  ecs.RegisterComponentToSystem<Sprite, GE::Systems::RenderSystem>();
+  ecs.RegisterComponentToSystem<SpriteAnim, GE::Systems::RenderSystem>();
+  ecs.RegisterComponentToSystem<Transform, GE::Systems::RenderSystem>();
+  
   //ecs.RegisterComponentToSystem<Tween, GE::Systems::PlayerControllerSystem>();
 
 }
@@ -96,22 +105,21 @@ GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data)
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Gravity>(data.m_components[GE::ECS::COMPONENT_TYPES::GRAVITY]));
   }
-  //=========================================================================================
-  /*if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SPRITE))
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SPRITE))
   {
-    ecs.AddComponent(newData, COMPONENT_TYPES::SPRITE);
-
+    ecs.AddComponent(newData,
+      DeserializeComponent<GE::Component::Sprite>(data.m_components[GE::ECS::COMPONENT_TYPES::SPRITE]));
+  }
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SPRITEANIM))
+  {
+    ecs.AddComponent(newData,
+      DeserializeComponent<GE::Component::SpriteAnim>(data.m_components[GE::ECS::COMPONENT_TYPES::SPRITEANIM]));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::MODEL))
   {
-    ecs.AddComponent(newData, COMPONENT_TYPES::MODEL);
-
+    ecs.AddComponent(newData,
+      DeserializeComponent<GE::Component::Model>(data.m_components[GE::ECS::COMPONENT_TYPES::MODEL]));
   }
-  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::ANIMATION))
-  {
-    ecs.AddComponent(newData, COMPONENT_TYPES::ANIMATION);
-
-  }*/
 
   return newData;
 }

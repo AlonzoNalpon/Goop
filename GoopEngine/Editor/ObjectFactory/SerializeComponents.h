@@ -4,6 +4,8 @@
 #include <Component/Velocity.h>
 #include <Component/Transform.h>
 #include <Component/Gravity.h>
+#include <Component/Sprite.h>
+#include <Component/SpriteAnim.h>
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
 
@@ -25,7 +27,17 @@ namespace GE
 
     template<>
     GE::Gravity DeserializeComponent<GE::Gravity>(std::string const& componentData);
+    
+    template<>
+    GE::Component::Sprite DeserializeComponent<GE::Component::Sprite>(std::string const& componentData);
+    
+    template<>
+    GE::Component::SpriteAnim DeserializeComponent<GE::Component::SpriteAnim>(std::string const& componentData);
 
+    template<>
+    GE::Component::Model DeserializeComponent<GE::Component::Model>(std::string const& componentData);
+
+    
     #include "SerializeComponents.tpp"
   }
 }

@@ -29,7 +29,7 @@ void DraggableObjectSystem::Update() {
 			Velocity* velocity = m_ecs->GetComponent<Velocity>(entity, true);
 
 			// check if should release
-			if (!isDragging)
+			if (!isHeld)
 			{
 				if (gravity)
 				{
@@ -56,7 +56,7 @@ void DraggableObjectSystem::Update() {
 				Velocity* velocity = m_ecs->GetComponent<Velocity>(entity, true);
 
 				InputManager* input = &(InputManager::GetInstance());
-				if (isDragging)
+				if (isHeld)
 				{
 					if (gravity)
 					{
@@ -72,6 +72,56 @@ void DraggableObjectSystem::Update() {
 				}
 			}
 		}
+		//if (dragging)
+		//{
+		//	Transform* transform = m_ecs->GetComponent<Transform>(entity);
+		//	Gravity* gravity = m_ecs->GetComponent<Gravity>(entity, true);
+		//	Velocity* velocity = m_ecs->GetComponent<Velocity>(entity, true);
+
+		//	// check if should release
+		//	if (!isHeld)
+		//	{
+		//		if (gravity)
+		//		{
+		//			gravity->SetActive(true);
+		//		}
+		//		if (velocity)
+		//		{
+		//			velocity->SetActive(true);
+		//		}
+
+		//		dragging = false;
+		//	}
+		//	else // if dragging set mouse pos
+		//	{
+		//		transform->m_pos = input->GetMousePosWorld();
+		//	}
+		//}
+		//else
+		//{
+		//	if (entity1Col->m_mouseCollided)
+		//	{
+		//		Transform* transform = m_ecs->GetComponent<Transform>(entity);
+		//		Gravity* gravity = m_ecs->GetComponent<Gravity>(entity, true);
+		//		Velocity* velocity = m_ecs->GetComponent<Velocity>(entity, true);
+
+		//		InputManager* input = &(InputManager::GetInstance());
+		//		if (isHeld)
+		//		{
+		//			if (gravity)
+		//			{
+		//				gravity->SetActive(false);
+		//			}
+		//			if (velocity)
+		//			{
+		//				velocity->SetActive(false);
+		//			}
+
+		//			dragging = true;
+		//			transform->m_pos = input->GetMousePosWorld();
+		//		}
+		//	}
+		//}
 
 		//Transform* transform = m_ecs->GetComponent<Transform>(entity);
 		//Gravity* gravity = m_ecs->GetComponent<Gravity>(entity);
@@ -115,7 +165,7 @@ void DraggableObjectSystem::HandleEvent(Events::Event const* event)
 	{
 		if (static_cast<Events::MouseHeldEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT) 
 		{ 
-			isDragging = true; 
+			isHeld = true;
 			#ifdef _DEBUG
 			std::cout << event->GetName() + " Event handled\n";
 			#endif
@@ -125,7 +175,7 @@ void DraggableObjectSystem::HandleEvent(Events::Event const* event)
 	{
 		if (static_cast<Events::MouseReleasedEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT)
 		{
-			isDragging = false;
+			isHeld = false;
 			#ifdef _DEBUG
 			std::cout << event->GetName() + " Event handled\n";
 			#endif
