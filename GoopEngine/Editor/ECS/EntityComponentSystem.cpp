@@ -6,7 +6,7 @@ using namespace GE::ECS;
 EntityComponentSystem::EntityComponentSystem()
 {
 	m_componentManager = new ComponentManager();
-	m_entityManager = new EntityManager(GE::AssetManager::AssetManager::GetInstance().GetConfigData<int>("Max Entities").value());
+	m_entityManager = new EntityManager(GE::AssetManager::AssetManager::GetInstance().GetConfigData<unsigned>("Max Entities").value());
 	m_systemManager = new SystemManager();
 }
 

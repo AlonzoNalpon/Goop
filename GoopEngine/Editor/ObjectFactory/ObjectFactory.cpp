@@ -11,6 +11,7 @@
 #include "../Serialization/ObjectGooStream.h"
 #include "../Serialization/PrefabGooStream.h"
 #include "../Systems/Rendering/RenderingSystem.h"
+#include "../AssetManager/AssetManager.h"
 
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
@@ -194,8 +195,7 @@ GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data)
 
 void ObjectFactory::LoadPrefabsFromFile()
 {
-  // TODO: SHOULD GET FILE FROM Config.json "Prefabs" IN FUTURE; retrived from AssetManager
-  const char* prefabsFile{ "Assets/Data/Prefabs/Prefabs.txt" };
+  const char* prefabsFile{ AssetManager::AssetManager::GetInstance().GetConfigData<const char*>("Prefabs").value() };
   std::ifstream ifs{ prefabsFile };
   if (!ifs)
   {

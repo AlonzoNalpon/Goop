@@ -48,15 +48,11 @@ void ImGuiUI::Update()
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
   }
-  if (Button("Create Background"))
-  {
-    GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("Background");
-  }
   else if (Button("Clone Object"))
   {
     double randX = (rand() % window->GetWinWidth()) - window->GetWinWidth() / 2;
     double randY = (rand() % window->GetWinHeight()) - window->GetWinHeight() / 2;
-    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(5, Math::dVec2(randX, randY));
+    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(6, Math::dVec2(randX, randY));
   }
   else if (Button("Create 2.5k Render"))
   {

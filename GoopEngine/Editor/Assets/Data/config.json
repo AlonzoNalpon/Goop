@@ -8,7 +8,7 @@
     "Input Repeat Delay": "0.1",
     "Stills": "Assets/Data/Images.json",
     "Animation Sprites": "Assets/Data/Sprites.txt",
-    "Scene": "Assets/Data/SERIALIZED.json",
+    "Scene": "Assets/Data/Scene.json",
     "Prefabs": "Assets/Data/Prefabs/Prefabs.txt",
     "Max Entities": "4092"
 }

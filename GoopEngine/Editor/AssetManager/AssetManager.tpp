@@ -29,6 +29,15 @@ std::optional<int> GetConfigData<int>(const std::string& key) const
 }
 
 template <>
+std::optional<unsigned> GetConfigData<unsigned>(const std::string& key) const
+{
+  if (m_configData.find(key) == m_configData.end())
+    return std::nullopt;
+
+  return std::stoul(m_configData.at(key));
+}
+
+template <>
 std::optional<double> GetConfigData<double>(const std::string& key) const
 {
   if (m_configData.find(key) == m_configData.end())

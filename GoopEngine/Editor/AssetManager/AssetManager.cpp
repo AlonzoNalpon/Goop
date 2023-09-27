@@ -168,8 +168,8 @@ namespace GE
 		void AssetManager::LoadFiles()
 		{
 			stbi_set_flip_vertically_on_load(true);
-			LoadJSONData("Assets/Data/Images.json", GE::AssetManager::IMAGES);
-			LoadJSONData("Assets/Data/Sprites.txt", GE::AssetManager::ANIMATION);
+			LoadJSONData(GetConfigData<std::string>("Stills").value(), GE::AssetManager::IMAGES);
+			LoadJSONData(GetConfigData<std::string>("Animation Sprites").value(), GE::AssetManager::ANIMATION);
 			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 			for (auto const& curr : m_loadedSpriteData)
 			{
@@ -233,7 +233,7 @@ namespace GE
 			{
 				// Create a container for assets
 				GE::Serialization::SpriteGooStream::container_type assets;
-				std::string const fileName{ "Assets/Data/sprites.txt" };
+				std::string const fileName{ GetConfigData<std::string>("Animation Sprites").value() };
 				// Create a SpriteGooStream object with the given file name
 				GE::Serialization::SpriteGooStream sgs{ fileName };
 				// If the SpriteGooStream object is not valid, print an error message

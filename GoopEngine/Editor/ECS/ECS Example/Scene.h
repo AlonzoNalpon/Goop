@@ -27,6 +27,24 @@ struct Scene
 {
 	EntityComponentSystem* ecs;
 
+	void MakeDraggableBox()
+	{
+		Entity entt3 = ecs->CreateEntity();
+		Velocity vel({ 0, 0 }, { 0, 0 });
+		Transform trans({ 0, 0 }, { 50, 50 }, 0.0);
+		Gravity grav({ 0, 0 });
+		BoxCollider box7(trans.m_pos, 1, 1);
+
+		ecs->AddComponent(entt3, vel);
+		ecs->AddComponent(entt3, trans);
+		ecs->AddComponent(entt3, grav);
+		ecs->RegisterEntityToSystem<PhysicsSystem>(entt3);
+
+		ecs->AddComponent(entt3, box7);
+		ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
+		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt3);
+	}
+
 	void Start()
 	{
 #ifdef EXCEPTION_TEST
@@ -69,6 +87,7 @@ struct Scene
 		//ecs->UnregisterEntityFromSystem<(system)>(entt1);
 		GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
 		of.SpawnPrefab("Background");
+		MakeDraggableBox();
 
 		Entity entt3 = ecs->CreateEntity();
 		Velocity vel({ 0, 0 }, { 0, 0 });
@@ -108,7 +127,7 @@ struct Scene
 
 		ecs->AddComponent(entt3, box7);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
-		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt3);
+		//ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt3);
 
 		Entity player = ecs->CreateEntity();
 		Transform playerTrans({ -350, 350 }, { 150, 150 }, 0.0);
