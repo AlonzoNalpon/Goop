@@ -225,7 +225,6 @@
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
     <ClCompile Include="Events\EventManager.cpp" />
-    <ClCompile Include="Events\Listener.cpp" />
     <ClCompile Include="Graphics\Fonts\FontManager.cpp" />
     <ClCompile Include="Graphics\Renderer\Camera.cpp" />
     <ClCompile Include="Graphics\Renderer\Renderer.cpp" />

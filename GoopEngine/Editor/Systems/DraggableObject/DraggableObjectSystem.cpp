@@ -111,7 +111,7 @@ void DraggableObjectSystem::Update() {
 
 void DraggableObjectSystem::HandleEvent(Events::Event const* event)
 {
-	if (event->GetName() == "MouseHeld")
+	if (event->GetCategory() == Events::EVENT_TYPE::MOUSE_HELD)
 	{
 		if (static_cast<Events::MouseHeldEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT) 
 		{ 
@@ -121,7 +121,7 @@ void DraggableObjectSystem::HandleEvent(Events::Event const* event)
 			#endif
 		}
 	}
-	else if (event->GetName() == "MouseReleased")
+	else if (event->GetCategory() == Events::EVENT_TYPE::MOUSE_RELEASED)
 	{
 		if (static_cast<Events::MouseReleasedEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT)
 		{

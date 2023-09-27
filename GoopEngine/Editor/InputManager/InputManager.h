@@ -72,6 +72,7 @@ namespace GE
 			static KEY_MAP m_keysTriggered;
 			static KEY_PRESS_ARRAY m_keyFramesHeld;
 
+		public:
 			/*!*********************************************************************
 			\brief
 				.Function to check if a key is held
@@ -102,8 +103,6 @@ namespace GE
 					GE::Events::EventManager::GetInstance().Dispatch(T(code));
 				}
 			}*/
-		public:
-			
 			/*!*********************************************************************
 			\brief
 				.Function to check if a key is triggered
