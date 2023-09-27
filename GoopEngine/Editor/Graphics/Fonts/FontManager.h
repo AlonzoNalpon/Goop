@@ -9,6 +9,7 @@
 #include <string>
 #include <def.h>
 #include <Graphics/Fonts/Character.h>
+#include <Graphics/Model.h>
 namespace Graphics::Fonts
 {
   /*!
@@ -20,11 +21,11 @@ namespace Graphics::Fonts
   class FontManager 
   {
     using FontMap         = std::map<uChar, Character>;
-    using FontData        = std::pair<std::string, FontMap>;
-    using FontsContainer  = std::vector<FontData>;
+    using FontsContainer  = std::map<gObjID, FontMap>;
   public:
-    FontManager();
-    bool LoadFont(std::string const& name, std::string const& path, GLint fontSize);
+    void Init();
+    gObjID LoadFont(std::string const& name, std::string const& path, GLint fontSize);
+    Character const& GetCharacter(gObjID font, uChar ch);
   private:
     FT_Library library;
     FontsContainer m_fonts; // !< all loaded fonts' glyphs stored here
