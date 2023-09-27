@@ -115,9 +115,13 @@ namespace {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
   }
 
-  void GraphicsEngine::Draw()
+  void GraphicsEngine::ClearBuffer()
   {
     glClear(GL_COLOR_BUFFER_BIT);
+  }
+
+  void GraphicsEngine::Draw()
+  {
 #pragma region UPDATE BLOCK
     double dt{ GE::FPS::FrameRateController::GetInstance().GetDeltaTime() };
 #pragma endregion

@@ -38,6 +38,8 @@ namespace Graphics {
     ************************************************************************/
     void Init(Colorf clearColor, GLint w, GLint h);
 
+    void ClearBuffer();
+
     void Draw();
 
     /*!*********************************************************************

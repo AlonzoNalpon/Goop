@@ -126,6 +126,7 @@ int main(int /*argc*/, char* /*argv*/[])
       imgui.Update();
       fRC.EndSystemTimer("ImGui Update");
     }
+    gEngine.ClearBuffer();
 
     fRC.StartSystemTimer();
     scn.Update();
