@@ -17,6 +17,7 @@
 #include <Component/Model.h>
 #include <Component/Sprite.h>
 #include <Component/SpriteAnim.h>
+#include <ObjectFactory/ObjectFactory.h>
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
@@ -66,6 +67,8 @@ struct Scene
 
 		// Example of unregistering from a system
 		//ecs->UnregisterEntityFromSystem<(system)>(entt1);
+		GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
+		of.SpawnPrefab("Background");
 
 		Entity entt3 = ecs->CreateEntity();
 		Velocity vel({ 0, 0 }, { 0, 0 });

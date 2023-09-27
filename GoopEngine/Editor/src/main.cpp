@@ -73,6 +73,7 @@ int main(int /*argc*/, char* /*argv*/[])
   //am->LoadDeserializedData(); // load the images we need
   //am->LoadImageW(ASSETS_PATH + "MineWorm.png");
   gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
+
   am->LoadFiles();
   am->FreeImages(); // cleanup the images
 

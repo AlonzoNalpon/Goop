@@ -167,6 +167,7 @@ namespace GE
 
 		void AssetManager::LoadFiles()
 		{
+			stbi_set_flip_vertically_on_load(true);
 			LoadJSONData("Assets/Data/Images.json", GE::AssetManager::IMAGES);
 			LoadJSONData("Assets/Data/Sprites.txt", GE::AssetManager::ANIMATION);
 			auto& gEngine = Graphics::GraphicsEngine::GetInstance();

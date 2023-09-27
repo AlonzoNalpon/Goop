@@ -7,18 +7,18 @@
     {
       "Transform": {
         "m_pos": "{ 2.0, 4.0 }",
-        "m_scale": "{ 1000.0, 600.0 }",
+        "m_scale": "{ 1600.0, 900.0 }",
         "m_rot": 0.0
       }
     },
     {
       "Sprite": {
-        "filename": "Zed Tiles"
+        "filename": "zBackground"
       }
     },
     {
       "SpriteAnim": {
-        "name": "Zed Tiles"
+        "name": "zBackground"
       }
     },
     {
