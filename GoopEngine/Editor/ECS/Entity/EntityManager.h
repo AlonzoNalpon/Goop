@@ -28,6 +28,7 @@ namespace GE
 
 			std::vector<ComponentSignature> m_entities;
 			std::queue<Entity> m_availableEntities;
+			std::vector<bool> m_mapOfActive;
 		public:
 			/*!*********************************************************************
 			\brief
@@ -44,6 +45,7 @@ namespace GE
 			  Num of max entities available.
 			************************************************************************/
 			EntityManager(unsigned int maxEntities);
+
 			/*!*********************************************************************
 			\brief
 			  Default destructor.
@@ -58,6 +60,7 @@ namespace GE
 			  A new entity.
 			************************************************************************/
 			Entity CreateEntity();
+
 			/*!*********************************************************************
 			\brief
 			  Frees an entity and returns it to the object pool.
@@ -66,6 +69,19 @@ namespace GE
 			  Entity to free
 			************************************************************************/
 			void DestroyEntity(Entity& entity);
+
+			/*!*********************************************************************
+			\brief
+			  Checks if an entity is active.
+
+			\param entity
+			  Entity to check.
+
+			\return
+			  Active flag of entity.
+			************************************************************************/
+			bool IsActiveEntity(Entity& entity);
+
 			/*!*********************************************************************
 			\brief
 			  Gets the component signature of the entity. The component signature
@@ -78,6 +94,7 @@ namespace GE
 			  Component signature of the entity
 			************************************************************************/
 			ComponentSignature GetComponentSignature(const Entity& entity) const;
+
 			/*!*********************************************************************
 			\brief
 			  Sets the component signature of the entity. The component signature

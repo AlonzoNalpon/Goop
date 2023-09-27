@@ -46,6 +46,18 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+			  Calls EntityManager's IsActiveEntity function.
+
+			\param entity
+			  Entity to check.
+
+			\return
+			  Active flag of an entity.
+			************************************************************************/
+			bool GetIsActiveEntity(Entity& entity);
+
+			/*!*********************************************************************
+			\brief
 				Calls EntityManager's DestroyEntity function.
 
 			\params entity
@@ -81,16 +93,12 @@ namespace GE
 			\param entity
 				Entity from which the component is gotten from.
 
-			\param ignoreActive
-				Sets the flag if you want to fetch component data regardless
-				of component's active status.
-
 			\return
 				Pointer to entity's component.
 				Returns null if component does not exist or is inactive.
 			************************************************************************/
 			template <typename T>
-			T* GetComponent(const Entity& entity, bool ignoreActive = false);
+			T* GetComponent(const Entity& entity);
 
 			/*!*********************************************************************
 			\brief

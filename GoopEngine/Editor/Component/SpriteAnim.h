@@ -3,7 +3,7 @@
 #include <pch.h>
 namespace GE::Component
 {
-  struct SpriteAnim : public GE::ECS::Component
+  struct SpriteAnim
   {
     f64 currTime{};
     Graphics::gObjID animID{}; // object ID

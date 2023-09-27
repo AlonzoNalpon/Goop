@@ -15,6 +15,7 @@ using namespace GE::ECS;
 EntityManager::EntityManager(unsigned int maxEntities) : 
 	m_maxEntities{ maxEntities }, m_entitiesAlive{0}
 {
+	m_mapOfActive.resize(maxEntities);
 	m_entities.resize(maxEntities);
 	// Push back full list of entities as available
 	for (Entity i{0}; i < m_entities.size(); ++i)
@@ -35,6 +36,7 @@ Entity EntityManager::CreateEntity()
 	m_entitiesAlive++;
 	// Clear component bitset signature
 	m_entities[entity].reset();
+	m_mapOfActive[entity] = true;
 	return entity;
 }
 
@@ -43,8 +45,14 @@ void EntityManager::DestroyEntity(Entity& entity)
 	GE::Debug::ErrorLogger::GetInstance().LogMessage<EntityManager>("Destroyed entity ID: " + entity, false);
 	// Clear component bitset signature
 	m_entities[entity].reset();
+	m_mapOfActive[entity] = false;
 	m_availableEntities.push(entity);
 	m_entitiesAlive--;
+}
+
+bool GE::ECS::EntityManager::IsActiveEntity(Entity& entity)
+{
+	return m_mapOfActive[entity];
 }
 
 ComponentSignature EntityManager::GetComponentSignature(const Entity& entity) const

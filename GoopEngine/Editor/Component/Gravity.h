@@ -3,7 +3,7 @@
 
 namespace GE
 {
-	struct Gravity : public GE::ECS::Component
+	struct Gravity
 	{
 		using vec2 = GE::Math::dVec2;
 

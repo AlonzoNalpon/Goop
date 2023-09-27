@@ -39,15 +39,10 @@ void ComponentManager::RemoveComponent(Entity& entity)
 }
 
 template <typename T>
-T* ComponentManager::GetComponent(const Entity& entity, bool ignoreActive)
+T* ComponentManager::GetComponent(const Entity& entity)
 {
-	if (ignoreActive)
-	{
-		return GetComponentArray<T>()->GetData(entity);
-	}
-
 	T* component = GetComponentArray<T>()->GetData(entity);
-	if (component && component->GetActive())
+	if (component)
 	{
 		return component;		
 	}

@@ -6,7 +6,7 @@ namespace GE
 {
 	namespace Component
 	{
-		struct BoxCollider : public GE::ECS::Component
+		struct BoxCollider
 		{
 			BoxCollider() = default;
 			BoxCollider(Math::dVec2 const& center, double width, double height) : m_width{ width }, m_height{ height },

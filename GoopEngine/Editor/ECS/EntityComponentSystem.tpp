@@ -35,9 +35,9 @@ void EntityComponentSystem::RemoveComponent(Entity& entity)
 }
 
 template <typename T>
-T* EntityComponentSystem::GetComponent(const Entity& entity, bool ignoreActive)
+T* EntityComponentSystem::GetComponent(const Entity& entity)
 {
-	return m_componentManager->GetComponent<T>(entity, ignoreActive);
+	return m_componentManager->GetComponent<T>(entity);
 }
 
 template <typename T>

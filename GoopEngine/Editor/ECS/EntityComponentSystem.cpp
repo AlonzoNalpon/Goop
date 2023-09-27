@@ -26,6 +26,11 @@ Entity EntityComponentSystem::CreateEntity()
 	return m_entityManager->CreateEntity();
 }
 
+bool GE::ECS::EntityComponentSystem::GetIsActiveEntity(Entity& entity)
+{
+	return m_entityManager->IsActiveEntity(entity);
+}
+
 void EntityComponentSystem::DestroyEntity(Entity& entity)
 {
 	m_entityManager->DestroyEntity(entity);
