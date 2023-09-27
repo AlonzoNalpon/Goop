@@ -42,7 +42,7 @@ namespace GE::Systems
       }
       
       // Update rotation of transform
-      transform->m_rot = fmod(transform->m_rot + dt * 2.0, pi * 2.0);
+      //transform->m_rot = fmod(transform->m_rot + dt * 2.0, pi * 2.0);
       //transform->m_rot = pi;
       
       // Rendering

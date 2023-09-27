@@ -169,6 +169,7 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
   if (m_prefabs.find(key) == m_prefabs.end())
   {
     // throw exception
+    std::cout << "ERROR";
   }
   PrefabData& prefab = m_prefabs[key];
   ObjectData object{ prefab.m_componentSignature, prefab.m_components };
