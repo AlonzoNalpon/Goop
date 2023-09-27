@@ -14,7 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <sstream>
 #include "../Entity/Entity.h"
 #include "System.h"
-#include "../../Debugger/ErrorLogger/ErrorLogger.h"
+#include <DebugTools/ErrorLogger/ErrorLogger.h>
 
 namespace GE
 {

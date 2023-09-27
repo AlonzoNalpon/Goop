@@ -38,6 +38,8 @@ namespace Graphics {
     ************************************************************************/
     void Init(Colorf clearColor, GLint w, GLint h);
 
+    void ClearBuffer();
+
     void Draw();
 
     /*!*********************************************************************
@@ -72,6 +74,11 @@ namespace Graphics {
       
     ************************************************************************/
     Rendering::Renderer& GetRenderer();
+
+    gObjID InitTexture(std::string const& name, std::string const& path);
+
+    gObjID CreateAnimation(std::string const& name, GLuint slices, GLuint stacks, GLuint frames,
+      f64 speed, u32 flags, gObjID textureID);
 
     gObjID GetModel();
   public: // DRAW PRIMITIVE METHODS

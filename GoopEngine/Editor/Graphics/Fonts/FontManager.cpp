@@ -1,5 +1,5 @@
 #include <Graphics/Fonts/FontManager.h>
-#include <Debugger/Exception/Exception.h>
+#include <DebugTools/Exception/Exception.h>
 namespace Graphics::Fonts
 {
   void FontManager::Init()
@@ -10,6 +10,7 @@ namespace Graphics::Fonts
       throw GE::Debug::Exception<FontManager>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Failed to initialize freetype!"));
     }
   }
+
 
   //bool FontManager::LoadFont(std::string const& name, std::string const& path, GLint fontSize)
   //{
@@ -35,6 +36,10 @@ namespace Graphics::Fonts
   //      throw GE::Debug::Exception<FontManager>(GE::Debug::LEVEL_ERROR, ErrMsg("Failed to load glyph: " + c));
   //      continue;
   //    }
+
+  //  }
+  //  return false; ????
+  //}
 
   //    // Generate a texture
   //    GLuint texHdl;

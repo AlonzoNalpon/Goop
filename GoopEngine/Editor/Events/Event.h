@@ -1,5 +1,5 @@
 #pragma once
-#include "../Debugger/ErrorLogger/ErrorLogger.h"
+#include <DebugTools/ErrorLogger/ErrorLogger.h>
 #include <string>
 #ifdef _DEBUG
 #include <iostream>

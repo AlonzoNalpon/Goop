@@ -1,11 +1,13 @@
 #include <Graphics/TextureManager.h>
-#include <Debugger/Exception/Exception.h>
+#include <DebugTools/Exception/Exception.h>
 namespace Graphics
 {
 
   gObjID TextureManager::AddTexture(std::string const& name, GLint w, GLint h, unsigned char const* imageData)
   {
     Texture newTexture{};
+    newTexture.height = h;
+    newTexture.width = w;
 
     glCreateTextures(GL_TEXTURE_2D, 1, &newTexture.textureHandle);
     // allocate GPU storage for texture image data loaded from file

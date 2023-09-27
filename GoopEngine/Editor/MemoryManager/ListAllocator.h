@@ -12,8 +12,8 @@ and the size of each free meory chunk
 #pragma once
 #include "./BaseAllocator.h"
 #include <initializer_list>
-#include "../Debugger/ErrorLogger/ErrorLogger.h"
-#include "../Debugger/Exception/Exception.h"
+#include <DebugTools/ErrorLogger/ErrorLogger.h>
+#include <DebugTools/Exception/Exception.h>
 #include <sstream>
 #include <Windows.h>
 #include <iostream>

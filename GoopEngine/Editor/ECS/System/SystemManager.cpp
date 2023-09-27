@@ -1,5 +1,5 @@
 #include "SystemManager.h"
-#include "../../Debugger/ErrorLogger/ErrorLogger.h"
+#include <DebugTools/ErrorLogger/ErrorLogger.h>
 #include "../../FrameRateController/FrameRateController.h"
 #include <sstream>
 
