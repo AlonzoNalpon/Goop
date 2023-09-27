@@ -14,23 +14,43 @@ namespace GE
 
 			std::map<std::string,Script> m_scriptMap;
 
-			ScriptHandler( const std::initializer_list<std::pair<std::string,std::string>>& scriptNames, unsigned int& entity)
+			ScriptHandler(const std::initializer_list<std::pair<std::string, std::string>>& scriptNames, unsigned int entityID)
 			{
 				GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
 				for ( const std::pair<std::string, std::string>& s: scriptNames)
 				{
-					if (m_scriptMap.find(s.second) == m_scriptMap.end()) {
-						m_scriptMap[s.second] = Script(scriptMan->InstantiateClassID(s.first.c_str(), s.second.c_str(),entity));
+					if (m_scriptMap.find(s.second) == m_scriptMap.end()) 
+					{
+						try
+						{
+							m_scriptMap[s.second] = Script(scriptMan->InstantiateClassID(s.first.c_str(), s.second.c_str(), entityID));
+						}
+						catch (GE::Debug::IExceptionBase& e)
+						{
+							e.LogSource();
+							e.Log();
+							throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + s.second, ERRLG_FUNC, ERRLG_LINE);
+						}
 					}
-				
+
 				}
 			}
 
-			void AddScript( const std::pair<std::string, std::string> &scriptName) {
+			void AddScript(const std::pair<std::string, std::string>& scriptName, unsigned int entityID) {
 				if (m_scriptMap.find(scriptName.second) == m_scriptMap.end())
 				{
 					GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
-					m_scriptMap[scriptName.second] = Script(scriptMan->InstantiateClass(scriptName.first.c_str(), scriptName.second.c_str()));
+					try
+					{
+						m_scriptMap[scriptName.second] = Script(scriptMan->InstantiateClassID(scriptName.first.c_str(), scriptName.second.c_str(), entityID));
+					}
+					catch (GE::Debug::IExceptionBase& e)
+					{
+						e.LogSource();
+						e.Log();
+						throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + scriptName.second, ERRLG_FUNC, ERRLG_LINE);
+					}
+			
 				}
 			}
 
