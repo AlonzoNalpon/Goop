@@ -219,7 +219,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetManager\AssetManager.cpp" />
-    <ClCompile Include="Debugger\ErrorLogger\ErrorLogger.cpp" />
+    <ClCompile Include="DebugTools\ErrorLogger\ErrorLogger.cpp" />
     <ClCompile Include="ECS\Component\ComponentManager.cpp" />
     <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
@@ -275,9 +275,9 @@
     <ClInclude Include="Component\Transform.h" />
     <ClInclude Include="Component\Tween.h" />
     <ClInclude Include="Component\Velocity.h" />
-    <ClInclude Include="Debugger\ErrorLogger\ErrorLogger.h" />
-    <ClInclude Include="Debugger\Exception\Exception.h" />
-    <ClInclude Include="Debugger\Exception\ExceptionBase.h" />
+    <ClInclude Include="DebugTools\ErrorLogger\ErrorLogger.h" />
+    <ClInclude Include="DebugTools\Exception\Exception.h" />
+    <ClInclude Include="DebugTools\Exception\ExceptionBase.h" />
     <ClInclude Include="ECS\ComponentTypes.h" />
     <ClInclude Include="ECS\Component\Component.h" />
     <ClInclude Include="ECS\Component\ComponentArray.h" />
@@ -366,8 +366,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AssetManager\AssetManager.tpp" />
-    <None Include="Debugger\ErrorLogger\ErrorLogger.tpp" />
-    <None Include="Debugger\Exception\Exception.tpp" />
+    <None Include="DebugTools\ErrorLogger\ErrorLogger.tpp" />
+    <None Include="DebugTools\Exception\Exception.tpp" />
     <None Include="Events\EventManager.tpp" />
     <None Include="Math\documentation\html\annotated.html" />
     <None Include="Math\documentation\html\classes.html" />

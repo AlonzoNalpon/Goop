@@ -96,11 +96,9 @@ namespace {
 
 #pragma region SPRITE_ANIMATION_TEST
     testAnim.currTime = .0;
-<<<<<<< Updated upstream
-    gObjID texObjID{ m_textureManager.AddTexture(width, height, raw_image) };
-=======
+    
     gObjID texObjID{ InitTexture("MineWorm.png", "MineWorm.png") };
->>>>>>> Stashed changes
+    
     u32 animFlags{};
     animFlags |= SPRITE_ANIM_FLAGS::LOOPING; // this animation will loop
     testAnim.animID = CreateAnimation

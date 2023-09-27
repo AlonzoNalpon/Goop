@@ -1,5 +1,5 @@
 #include <Graphics/TextureManager.h>
-#include <Debugger/Exception/Exception.h>
+#include <DebugTools/Exception/Exception.h>
 namespace Graphics
 {
 

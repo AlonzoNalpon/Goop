@@ -1,5 +1,5 @@
 #include <SpriteAnimation/SpriteAnimGenerator.h>
-#include <Debugger/Exception/Exception.h>
+#include <DebugTools/Exception/Exception.h>
 namespace Graphics {
   SpriteAnimation SpriteAnimGenerator::GenerateAnimData(GLuint slices, GLuint stacks, GLuint frames,
     GLuint spriteW, GLuint spriteH, f64 speed, u32 flags, gObjID texture)

@@ -3,6 +3,8 @@
 #include <ImGui/backends/imgui_impl_opengl3.h>
 #include <ImGui/backends/imgui_impl_glfw.h>
 #include "../ObjectFactory/ObjectFactory.h"
+#include "../Component/Transform.h"
+#include "../Component/BoxCollider.h"
 
 using namespace GE::EditorGUI;
 using namespace ImGui;
@@ -19,6 +21,8 @@ void ImGuiUI::Init(WindowSystem::Window& window)
   // Setup Dear ImGui style
   StyleColorsDark();
 
+  this->window = &window;
+  ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(window.GetWindow(), true);
   ImGui_ImplOpenGL3_Init();
@@ -43,6 +47,20 @@ void ImGuiUI::Update()
   if (Button("Create MineWorm"))
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
+  }
+  else if (Button("Create 2.5k Render"))
+  {
+    for (int i{}; i < 2500; ++i)
+    {
+      GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("WormSprite");
+      GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
+      if (trans)
+      {
+        double randX = (rand() % window->GetWinWidth()) - window->GetWinWidth() / 2;
+        double randY = (rand() % window->GetWinHeight()) - window->GetWinWidth() / 2;
+        trans->m_pos = Math::dVec2(randX, randY);
+      }
+    }
   }
   End();
 
