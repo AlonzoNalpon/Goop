@@ -16,6 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <map>
 #include <Singleton/Singleton.h>
 #include <Math/GEM.h>
+#include <Graphics/Fonts/FontManager.h>
 namespace Graphics {
     
   // The graphics engine responsible for any opengl calls
@@ -104,8 +105,9 @@ namespace Graphics {
     SpriteAnimationManager          m_animManager;      //!< sprite animation manager
     TextureManager                  m_textureManager;   //!< texture manager
     Rendering::Renderer             m_renderer;         //!< renderer in charge of all opengl draw calls
-    // Textures are separated from models and are to be used with rendering components
+    Fonts::FontManager              m_fontManager;      //!< font manager to store font data
 
+    // Textures are separated from models and are to be used with rendering components
 
     Model                           m_spriteQuadMdl{};  //!< basic primitive quad for sprites
     Model                           m_lineMdl{};        //!< basic primitive line

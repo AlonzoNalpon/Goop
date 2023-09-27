@@ -15,8 +15,8 @@ namespace
 
 namespace Graphics::Rendering {
   Renderer::Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, 
-    ShaderCont const& shaderCont)
-    : r_mdlContainer{ mdlContainer }, r_texManager{ texManager }, r_shaders{ shaderCont }
+    ShaderCont const& shaderCont, Fonts::FontManager const& fontManager)
+    : r_mdlContainer{ mdlContainer }, r_texManager{ texManager }, r_shaders{ shaderCont }, r_fontManager { fontManager }
   {
   }
 
