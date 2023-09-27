@@ -223,6 +223,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetManager\AssetManager.cpp" />
+    <ClCompile Include="AudioEngine\AudioEngine.cpp" />
     <ClCompile Include="DebugTools\ErrorLogger\ErrorLogger.cpp" />
     <ClCompile Include="ECS\Component\ComponentManager.cpp" />
     <ClCompile Include="ECS\EntityComponentSystem.cpp" />
@@ -274,6 +275,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetManager\AssetManager.h" />
+    <ClInclude Include="AudioEngine\AudioEngine.h" />
     <ClInclude Include="Component\BoxCollider.h" />
     <ClInclude Include="Component\Gravity.h" />
     <ClInclude Include="Component\Model.h" />
