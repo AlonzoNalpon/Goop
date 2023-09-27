@@ -56,13 +56,20 @@ void ImGuiUI::Update()
   {
     for (int i{}; i < 2500; ++i)
     {
-      GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
-      GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
-      if (trans)
+      try
       {
-        double randX = (rand() % window->GetWinWidth()) - window->GetWinWidth() / 2;
-        double randY = (rand() % window->GetWinHeight()) - window->GetWinHeight() / 2;
-        trans->m_pos = Math::dVec2(randX, randY);
+        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
+        GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
+        if (trans)
+        {
+          double randX = (rand() % window->GetWinWidth()) - window->GetWinWidth() / 2;
+          double randY = (rand() % window->GetWinHeight()) - window->GetWinHeight() / 2;
+          trans->m_pos = Math::dVec2(randX, randY);
+        }
+      }
+      catch (GE::Debug::IExceptionBase& ex)
+      {
+        ex.LogSource();
       }
     }
   }
