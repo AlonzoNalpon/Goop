@@ -6,7 +6,7 @@
   "Components": [
     {
       "Transform": {
-        "m_pos": "{ 2.0, 4.0 }",
+        "m_pos": "{ 0.0, 0.0 }",
         "m_scale": "{ 1600.0, 900.0 }",
         "m_rot": 0.0
       }
@@ -14,11 +14,6 @@
     {
       "Sprite": {
         "filename": "zBackground"
-      }
-    },
-    {
-      "SpriteAnim": {
-        "name": "zBackground"
       }
     },
     {

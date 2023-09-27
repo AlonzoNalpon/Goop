@@ -71,7 +71,6 @@ void ObjectFactory::RegisterComponentsAndSystems() const
 
   ecs.RegisterComponentToSystem<Model, GE::Systems::RenderSystem>();
   ecs.RegisterComponentToSystem<Sprite, GE::Systems::RenderSystem>();
-  ecs.RegisterComponentToSystem<SpriteAnim, GE::Systems::RenderSystem>();
   ecs.RegisterComponentToSystem<Transform, GE::Systems::RenderSystem>();
 
   ecs.RegisterComponentToSystem<SpriteAnim, GE::Systems::SpriteAnimSystem>();

@@ -1,7 +1,8 @@
 {
   "Name": "MineWorm",
   "Systems": [
-    "Rendering"
+    "Rendering",
+    "SpriteAnim"
   ],
   "Components": [
     {

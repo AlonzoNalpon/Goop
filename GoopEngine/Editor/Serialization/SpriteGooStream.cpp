@@ -74,7 +74,7 @@ bool SpriteGooStream::Unload(container_type& container)
     SpriteData sprite{};
     std::istringstream lineStream(line);
     lineStream >> sprite.m_id >> sprite.m_filePath >> sprite.m_slices
-      >> sprite.m_stacks >> sprite.m_frames;
+      >> sprite.m_stacks >> sprite.m_frames >> sprite.m_speed;
     container.emplace_back(sprite);
   }
 
