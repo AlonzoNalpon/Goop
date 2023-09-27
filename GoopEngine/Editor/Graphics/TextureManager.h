@@ -8,12 +8,14 @@
 namespace Graphics {
   class TextureManager{
   public:
-    gObjID AddTexture(GLint w, GLint h, unsigned char const* imageData);
+    gObjID AddTexture(std::string const& name, GLint w, GLint h, unsigned char const* imageData);
     void DestroyTextures();
 
     Texture const& GetTexture(gObjID id) const;
+    gObjID GetTextureID(std::string const& name) const;
   private:
     std::vector<Texture> m_textures;
+    std::map<std::string, gObjID> m_texturesLT;
   };
 }
 #endif

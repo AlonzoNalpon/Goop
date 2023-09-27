@@ -1,9 +1,9 @@
 #include <Graphics/TextureManager.h>
-
+#include <Debugger/Exception/Exception.h>
 namespace Graphics
 {
 
-  gObjID TextureManager::AddTexture(GLint w, GLint h, unsigned char const* imageData)
+  gObjID TextureManager::AddTexture(std::string const& name, GLint w, GLint h, unsigned char const* imageData)
   {
     Texture newTexture{};
 
@@ -16,12 +16,30 @@ namespace Graphics
 
     gObjID id{ m_textures.size() };
     m_textures.emplace_back(newTexture);
+
+    // Add the texture to the lookup table
+    if (m_texturesLT.find(name) != m_texturesLT.end())
+    {
+      throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL, 
+        ErrMsg("texture of this name already exists: " + name));
+    }
+    m_texturesLT[name] = id;
     return id;
   }
 
   Texture const& TextureManager::GetTexture(gObjID id) const
   {
     return m_textures[id];
+  }
+
+  gObjID TextureManager::GetTextureID(std::string const& name) const
+  {
+    if (m_texturesLT.find(name) == m_texturesLT.end())
+    {
+      throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
+        ErrMsg("No such texture found: " + name));
+    }
+    return m_texturesLT.at(name);
   }
 
 }
