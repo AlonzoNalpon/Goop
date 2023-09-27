@@ -95,7 +95,7 @@ namespace {
 
 #pragma region SPRITE_ANIMATION_TEST
     testAnim.currTime = .0;
-    gObjID texObjID{ m_textureManager.AddTexture(width, height, raw_image) };
+    gObjID texObjID{ m_textureManager.AddTexture("MineWorm.png", width, height, raw_image) };
     u32 animFlags{};
     animFlags |= SPRITE_ANIM_FLAGS::LOOPING; // this animation will loop
     testAnim.animID = m_animManager.CreateAnim(SpriteAnimGenerator::GenerateAnimData
