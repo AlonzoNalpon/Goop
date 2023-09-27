@@ -35,7 +35,8 @@ namespace {
 #endif
   // Typedefs
   
-  GraphicsEngine::GraphicsEngine() : m_vpWidth{}, m_vpHeight{}, m_ar{}, m_renderer{ m_models, m_textureManager, m_shaders }
+  GraphicsEngine::GraphicsEngine() : m_vpWidth{}, m_vpHeight{}, m_ar{}, 
+    m_renderer{ m_models, m_textureManager, m_shaders, m_fontManager }
   {
   }
 
@@ -56,13 +57,16 @@ namespace {
     m_ar = static_cast<GLfloat>(m_vpWidth) / m_vpHeight;
     //Initialize renderer with a camera
     {
-      Rendering::Camera orthoCam{ {0.f,0.f,3.f},                // pos
-                                  {},                         // target
-                                  {.0f, 1.f, 0.f},              // up vector
-                                  -w*0.5f, w*0.5f, -h * 0.5f, h * 0.5f,  // left right bottom top
-                                  0.1f, 10.f };               // near and far z planes
+      Rendering::Camera orthoCam{ {0.f,0.f,3.f},                          // pos
+                                  {},                                     // target
+                                  {.0f, 1.f, 0.f},                        // up vector
+                                  -w*0.5f, w*0.5f, -h * 0.5f, h * 0.5f,   // left right bottom top
+                                  0.1f, 10.f };                           // near and far z planes
       m_renderer.Init(orthoCam);
     }
+
+    // Initialize font manager
+    m_fontManager.Init();
 #pragma region SHADER_MDL_INIT
 
 

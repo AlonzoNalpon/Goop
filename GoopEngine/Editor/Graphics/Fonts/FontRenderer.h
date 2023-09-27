@@ -10,7 +10,7 @@ namespace Graphics::Rendering
   {
   public:
     FontRenderer();
-    void RenderText(glm::mat4 proj, std::string const& str, gVec2 pos, GLfloat scale, Colorf clr);
+    void RenderText(glm::mat4 const& proj, std::string const& str, gVec2 pos, GLfloat scale, Colorf clr);
   private:
     ShaderProgram m_fontShader; //!< shader for rendering the fonts
     GLuint        m_fontQuad;   //!< quad for rendering the fonts
