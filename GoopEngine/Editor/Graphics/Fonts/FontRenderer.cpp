@@ -11,7 +11,7 @@ namespace Graphics::Rendering
 
   void FontRenderer::RenderText(glm::mat4 proj, std::string const& str, gVec2 pos, GLfloat scale, Colorf clr)
   {
-   /* constexpr GLint U_PROJ{0}, U_TEXT{1}, U_CLR{2};
+    /*constexpr GLint U_PROJ{0}, U_TEXT{1}, U_CLR{2};
     glUseProgram(m_fontShader.GetHandle());
     glUniform3f(U_CLR, clr.r, clr.g, clr.b);
 
