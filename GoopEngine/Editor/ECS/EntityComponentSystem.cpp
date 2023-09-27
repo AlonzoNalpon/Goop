@@ -49,6 +49,11 @@ std::set<Entity>& GE::ECS::EntityComponentSystem::GetEntities()
 	return m_entityManager->GetEntities();
 }
 
+ComponentSignature GE::ECS::EntityComponentSystem::GetComponentSignature(Entity& entity)
+{
+	return m_entityManager->GetComponentSignature(entity);
+}
+
 void EntityComponentSystem::UpdateSystems()
 {
 	m_systemManager->UpdateSystems();

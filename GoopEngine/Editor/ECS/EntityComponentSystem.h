@@ -88,28 +88,28 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				Calls ComponentManager's RegisterComponent Function.
+				Calls ComponentManager's RegisterComponent function.
 			************************************************************************/
 			template <typename T>
 			void RegisterComponent();
 
 			/*!******************************************************************
 			\brief
-				Calls ComponentManager's AddComponent Function.
+				Calls ComponentManager's AddComponent function.
 			********************************************************************/
 			template <typename T>
 			void AddComponent(Entity& entity, T component);
 
 			/*!******************************************************************
 			\brief
-				Calls ComponentManager's RemoveComponent Function.
+				Calls ComponentManager's RemoveComponent function.
 			********************************************************************/
 			template <typename T>
 			void RemoveComponent(Entity& entity);
 
 			/*!*********************************************************************
 			\brief
-				Calls ComponentManager's GetComponent Function.
+				Calls ComponentManager's GetComponent function.
 
 			\param entity
 				Entity from which the component is gotten from.
@@ -123,13 +123,22 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				Calls ComponentManager's GetComponentSignature Function.
+				Calls ComponentManager's GetComponentSignature function.
 
 			\return
 				A specific component's signature.
 			************************************************************************/
 			template <typename T>
 			ComponentType GetComponentSignature();
+
+			/*!******************************************************************
+			\brief 
+			  Calls EntityManager's GetComponentSignature function.
+
+			\return 
+				The component signature makeup of an entity
+			********************************************************************/
+			ComponentSignature GetComponentSignature(Entity& entity);
 
 			/*!******************************************************************
 			\brief 
