@@ -1,5 +1,6 @@
 #include "SystemManager.h"
 #include "../../Debugger/ErrorLogger/ErrorLogger.h"
+#include "../../FrameRateController/FrameRateController.h"
 #include <sstream>
 
 using namespace GE::ECS;
@@ -59,12 +60,19 @@ void SystemManager::UpdateSystems()
 		m_uninitializedSystems.pop();
 	}
 
+	GE::FPS::FrameRateController::GetInstance().StartSystemTimer();
 	for (auto system : m_indexToSystem)
 	{
 		auto& systemName{ system.second };
 		m_systems[systemName]->Update();
+	}
+	GE::FPS::FrameRateController::GetInstance().EndSystemTimer("System Update");
+	for (auto system : m_indexToSystem)
+	{
+		auto& systemName{ system.second };
 		m_systems[systemName]->LateUpdate();
 	}
+	GE::FPS::FrameRateController::GetInstance().EndSystemTimer("System Late Update");
 }
 
 void SystemManager::UpdateSystemsFixed()

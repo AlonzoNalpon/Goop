@@ -31,9 +31,11 @@
 #include "../MemoryManager/MemoryManager.h"
 #endif
 #include "../EditorUI/ImGuiUI.h"
+#include <time.h>
 
 int main(int /*argc*/, char* /*argv*/[])
 {
+  srand(static_cast<unsigned int>(time(NULL)));
   // Enable run-time memory check for debug builds.
 #if defined(DEBUG) | defined(_DEBUG)
 #define _CRTDBG_MAP_ALLOC
@@ -108,8 +110,9 @@ int main(int /*argc*/, char* /*argv*/[])
   {
     fRC.StartFrame();
 
+    fRC.StartSystemTimer();
     im->UpdateInput();
-    //im->TestInputManager();
+    fRC.EndSystemTimer("Input System");
 
     static bool renderUI = false;
     if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_G))
@@ -119,18 +122,33 @@ int main(int /*argc*/, char* /*argv*/[])
 
     if (renderUI)
     {
+      fRC.StartSystemTimer();
       imgui.Update();
+      fRC.EndSystemTimer("ImGui Update");
     }
 
-    std::string const title{ GE::AssetManager::AssetManager::GetInstance().GetConfigData<std::string>("Window Title").value() };
-    window.SetWindowTitle((title + " | FPS: " + std::to_string(fRC.GetFPS())).c_str()); // this is how you set window title
-    gEngine.Draw();
+    fRC.StartSystemTimer();
     scn.Update();
+    fRC.EndSystemTimer("Scene Update");
+
+    fRC.StartSystemTimer();
+    gEngine.Draw();
+    fRC.EndSystemTimer("Draw");
 
     if (renderUI)
     {
+      fRC.StartSystemTimer();
       imgui.Render();
+      fRC.EndSystemTimer("ImGui Render");
     }
+
+    std::stringstream ss;
+    ss << GE::AssetManager::AssetManager::GetInstance().GetConfigData<std::string>("Window Title").value() << " | FPS: " << std::fixed << std::setfill('0') << std::setw(5) << std::setprecision(2) << fRC.GetFPS();
+    for (auto system : fRC.GetSystemTimers())
+    {
+      ss << " | " << system.first << ": " << std::setw(4) << system.second.count() << "us";
+    }
+    window.SetWindowTitle(ss.str().c_str()); // this is how you set window title
 
     window.SwapBuffers();
     fRC.EndFrame();

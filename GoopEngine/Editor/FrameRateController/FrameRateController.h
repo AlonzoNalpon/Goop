@@ -40,6 +40,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <string>
 #include <map>
 #include "../Singleton/Singleton.h"
+#include <chrono>
 
 namespace GE
 {
@@ -56,8 +57,8 @@ namespace GE
 			double m_startTime{};
 			double m_fpsCalInterval{};
 			double m_fpsCheckTime{};
-			double m_systemTimeStart{};
-			std::map<std::string, double> m_fpsControllerMap;
+			std::chrono::time_point<std::chrono::high_resolution_clock> m_systemTimeStart{};
+			std::map<std::string, std::chrono::microseconds> m_fpsControllerMap;
 			
 
 		public:
@@ -186,7 +187,16 @@ namespace GE
 			systemName
 			name of the system you want to check
 		************************************************************************/
-			void StartSystemTimer(std::string systemName);
+			void EndSystemTimer(std::string systemName);
+
+			/*!*********************************************************************
+			\brief
+			  Getter for map of system times.
+			  
+			\return
+			  FPS Controller system time map
+			************************************************************************/
+			const std::map<std::string, std::chrono::microseconds>& GetSystemTimers();
 		};
 	}
 	
