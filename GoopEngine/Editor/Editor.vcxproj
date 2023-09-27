@@ -372,7 +372,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AssetManager\AssetManager.tpp" />
-    <None Include="Assets\Data\Prefabs\Background.json" />
     <None Include="Debugger\ErrorLogger\ErrorLogger.tpp" />
     <None Include="Debugger\Exception\Exception.tpp" />
     <None Include="Events\EventManager.tpp" />

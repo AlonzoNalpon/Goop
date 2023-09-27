@@ -56,8 +56,7 @@ void ImGuiUI::Update()
   {
     double randX = (rand() % window->GetWinWidth()) - window->GetWinWidth() / 2;
     double randY = (rand() % window->GetWinHeight()) - window->GetWinHeight() / 2;
-    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(4, Math::dVec2(randX, randY));
-    std::cout << randX << ", " << randY << "\n";
+    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(5, Math::dVec2(randX, randY));
   }
   else if (Button("Create 2.5k Render"))
   {

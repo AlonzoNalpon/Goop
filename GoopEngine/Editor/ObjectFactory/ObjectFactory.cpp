@@ -136,7 +136,6 @@ void ObjectFactory::RegisterComponentsAndSystems() const
 
   ecs.RegisterComponentToSystem<Model, Systems::RenderSystem>();
   ecs.RegisterComponentToSystem<Sprite, Systems::RenderSystem>();
-  ecs.RegisterComponentToSystem<SpriteAnim, Systems::RenderSystem>();
   ecs.RegisterComponentToSystem<Transform, Systems::RenderSystem>();
   
   ecs.RegisterComponentToSystem<Tween, GE::Systems::PlayerControllerSystem>();
