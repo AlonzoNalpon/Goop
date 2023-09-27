@@ -14,7 +14,7 @@ namespace Graphics {
     GLuint    width, height;  //!< integral sprite pixel dimensions in width and height (x and y) (can be useful in the future)
     SpriteSubData(gVec2 _texCoords, gVec2 _texDims, GLuint _width, GLuint _height) : 
       texCoords{ _texCoords }, texDims{ _texDims }, width{ _width }, height{ _height } {}
-    SpriteSubData() : texCoords{}, texDims{}, width{}, height{} {}
+    SpriteSubData() : texCoords{}, texDims{1, 1}, width{}, height{} {}
     // It is possible that sprite data can have varying sizes which requires offsets. 
     // This is the place to put offset if it's to be implemented (in pixels based on dimensions).
     // pivot offset should be done in model space first before game object transform
