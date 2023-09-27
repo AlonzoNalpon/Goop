@@ -26,7 +26,7 @@ namespace GE
     GE::Component::Velocity DeserializeComponent<GE::Component::Velocity>(std::string const& componentData);
 
     template<>
-    GE::Gravity DeserializeComponent<GE::Gravity>(std::string const& componentData);
+    GE::Component::Gravity DeserializeComponent<GE::Component::Gravity>(std::string const& componentData);
     
     template<>
     GE::Component::Sprite DeserializeComponent<GE::Component::Sprite>(std::string const& componentData);
@@ -37,7 +37,12 @@ namespace GE
     template<>
     GE::Component::Model DeserializeComponent<GE::Component::Model>(std::string const& componentData);
 
-    
+    template<typename CompType>
+    void SerializeComponent(Serialization::ComponentWrapper const& wrapper)
+    {
+
+    }
+
     #include "SerializeComponents.tpp"
   }
 }

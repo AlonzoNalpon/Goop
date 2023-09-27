@@ -55,7 +55,7 @@ GE::Component::Velocity DeserializeComponent<GE::Component::Velocity>(std::strin
 }
 
 template<>
-GE::Gravity DeserializeComponent<GE::Gravity>(std::string const& componentData)
+GE::Component::Gravity DeserializeComponent<GE::Component::Gravity>(std::string const& componentData)
 {
   Serialization::ComponentWrapper cw{ componentData };
   Serialization::ComponentData data = cw.GetData();
@@ -88,6 +88,7 @@ GE::Component::SpriteAnim DeserializeComponent<GE::Component::SpriteAnim>(std::s
   Serialization::ComponentData data = cw.GetData();
   auto& gEngine = Graphics::GraphicsEngine::GetInstance();
   SpriteAnim spriteAnim;
+
 
   spriteAnim.animID = gEngine.animManager.GetAnimID(data["name"].GetString());
   return spriteAnim;
