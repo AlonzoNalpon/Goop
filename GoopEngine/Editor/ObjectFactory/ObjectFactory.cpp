@@ -36,24 +36,32 @@ void ObjectFactory::RegisterPrefab(GE::ECS::Entity object, ECS::SystemSignature 
     ecs.RegisterEntityToSystem<GE::Systems::PlayerControllerSystem>(object);
 }
 
-void RegisterComponents()
+void ObjectFactory::RegisterComponentsAndSystems() const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+
+  // Register systems
+  GE::ECS::EntityComponentSystem::GetInstance().RegisterSystem<GE::Systems::DraggableObjectSystem>();
+  GE::ECS::EntityComponentSystem::GetInstance().RegisterSystem<GE::Systems::PhysicsSystem>();
+  GE::ECS::EntityComponentSystem::GetInstance().RegisterSystem<GE::Systems::PlayerControllerSystem>();
+  GE::ECS::EntityComponentSystem::GetInstance().RegisterSystem<GE::Systems::CollisionSystem>();
+
+  // Register components in order of COMPONENT_TYPES enum
   ecs.RegisterComponent<Transform>();
   ecs.RegisterComponent<Velocity>();
-  ecs.RegisterComponent<GE::Gravity>();
+  ecs.RegisterComponent<Gravity>();
   ecs.RegisterComponent<BoxCollider>();
-  //ecs.RegisterComponent<Tween>();
+  ecs.RegisterComponent<Tween>();
   //ecs.RegisterComponent<Sprite>();
   //ecs.RegisterComponent<Model>();
   //ecs.RegisterComponent<Animation>();
 
   ecs.RegisterComponentToSystem<Transform, GE::Systems::PhysicsSystem>();   
   ecs.RegisterComponentToSystem<Velocity, GE::Systems::PhysicsSystem>();    
-  ecs.RegisterComponentToSystem<GE::Gravity, GE::Systems::PhysicsSystem>();       //0000 0111
-  ecs.RegisterComponentToSystem<BoxCollider, GE::Systems::CollisionSystem>();   //0000 1000
+  ecs.RegisterComponentToSystem<GE::Gravity, GE::Systems::PhysicsSystem>();
+  ecs.RegisterComponentToSystem<BoxCollider, GE::Systems::CollisionSystem>();
 
-  //ecs.RegisterComponentToSystem<Tween, GE::Systems::PlayerControllerSystem>();  //0001 0000
+  //ecs.RegisterComponentToSystem<Tween, GE::Systems::PlayerControllerSystem>();
 
 }
 
@@ -181,7 +189,6 @@ int ObjectFactory::LoadObject()
 
 void ObjectFactory::JoelTest()
 {
-  RegisterComponents();
   RegisterObject(CreateObject(m_objects["Player"]));
 }
 
@@ -203,6 +210,6 @@ void ObjectFactory::ObjectJsonLoader(const std::string& json_path)
 // prints contents of map to console
 void ObjectFactory::ObjectFactoryTest() {
   std::map<std::string, ObjectData> m_objects;
-  Serialization::ObjectGooStream ogs{ "Assets/Data/SERIALIZED.json" };
+  Serialization::ObjectGooStream ogs{ "Assets/Data/Scene.json" };
   ogs.Unload(m_objects);
 }

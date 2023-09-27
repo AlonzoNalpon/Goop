@@ -13,6 +13,7 @@ namespace GE
     {
     public:
       void LoadPrefabsFromFile();
+      void RegisterComponentsAndSystems() const;
       GE::ECS::Entity SpawnPrefab(const std::string& key);
       GE::ECS::Entity CreateObject(ObjectData data);
 

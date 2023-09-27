@@ -247,26 +247,12 @@ namespace GE
       ************************************************************************/
       void LoadJSONData(const std::string& filepath, int flag);
 
-      /*!*********************************************************************
-      \brief
-        Gets the config data of the specific key.
-      \param
-        const std::string& key (Key of the config data in the Config.json)
-      \return
-        Integer data of the specific key
-      ************************************************************************/
-      int GetConfigData(const std::string& key);
-
-      /*!*********************************************************************
-      \brief
-        Gets the config data of the specific key.
-      \param
-        const std::string& key (Key of the config data in the Config.json)
-        bool flag (Just to be able to overload)
-      \return
-        String data of the specific key 
-      ************************************************************************/
-      const char* GetConfigData(const std::string& key, bool flag);
+      /*template <>
+      std::optional<double> GetConfigData<double>(const std::string& key) const;
+      template <>
+      std::optional<const char*> GetConfigData<const char*>(const std::string& key) const;
+      template <>
+      std::optional<std::string> GetConfigData<std::string>(const std::string& key) const;*/
 
       /*!*********************************************************************
       \brief
@@ -310,6 +296,8 @@ namespace GE
       void SpriteCheck();
 
       GE::Serialization::SpriteData GetSpriteData(std::string key);
+
+      #include "AssetManager.tpp"
 
     private:
       IDGenerator m_generator; // Generates Unique ID to assign to loaded image data.

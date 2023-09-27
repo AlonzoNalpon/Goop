@@ -266,32 +266,6 @@ namespace GE
 			return m_loadedSpriteData[key];
 		}
 
-		int AssetManager::GetConfigData(const std::string& key)
-		{
-			if (m_configData.find(key) == m_configData.end())
-				return 0;
-
-			#ifdef ASSET_MANAGER_DEBUG
-			std::cout << "CONFIG DATA RETRIEVED: " << m_configData[key] << "\n";
-			#endif
-
-			return std::stoi(m_configData[key]);
-		}
-
-	const char* AssetManager::GetConfigData(const std::string& key, bool flag)
-		{
-			if (!flag) {}
-			if (m_configData.find(key) == m_configData.end())
-				return "Couldn't find config data.";
-
-			#ifdef ASSET_MANAGER_DEBUG
-			std::cout << "CONFIG DATA RETRIEVED: " << m_configData[key] << "\n";
-			#endif
-
-			return m_configData[key].c_str();
-		}
-
-
 		void AssetManager::GetDimensions(int id, unsigned int& width, unsigned int& height)
 		{
 			width = m_loadedImages[id].GetWidth();

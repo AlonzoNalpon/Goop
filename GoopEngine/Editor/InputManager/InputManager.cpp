@@ -1,10 +1,11 @@
 #include "InputManager.h"
 #include <ImGui/backends/imgui_impl_glfw.h>
-
+#include "../Events/InputEvents.h"
 
 #define UNREFERENCED_PARAMETER(P) (P)
 
 using namespace GE::Input;
+using namespace GE::Events;
 
 int InputManager::m_width;
 int InputManager::m_height;
@@ -46,6 +47,31 @@ void InputManager::UpdateInput()
 		m_keyHeld[i] = (m_keyFramesHeld[i] >= m_keyHeldTime);
 	}
 
+	DispatchInputEvents();
+}
+
+
+
+void InputManager::DispatchInputEvents()
+{
+	if (IsKeyHeld(GPK_MOUSE_LEFT))
+	{
+		EventManager::GetInstance().Dispatch(MouseHeldEvent(GPK_MOUSE_LEFT));
+	}
+	if (IsKeyTriggered(GPK_MOUSE_LEFT))
+	{
+		EventManager::GetInstance().Dispatch(MouseTriggeredEvent(GPK_MOUSE_LEFT));
+	}
+	else if (IsKeyReleased(GPK_MOUSE_LEFT))
+	{
+		EventManager::GetInstance().Dispatch(MouseReleasedEvent(GPK_MOUSE_LEFT));
+	}
+	//CheckAndDispatch<KeyTriggeredEvent>(GPK_G);
+	if (IsKeyTriggered(GPK_G))
+	{
+		EventManager::GetInstance().Dispatch(KeyTriggeredEvent(GPK_G));
+	}
+
 }
 
 bool InputManager::IsKeyTriggered(KEY_CODE key)
@@ -56,16 +82,16 @@ bool InputManager::IsKeyHeld(KEY_CODE key)
 {
 	return (m_keyHeld[static_cast<int>(key)]);
 }
-
-bool InputManager::IsKeyPressed(KEY_CODE key)
-{
-	return (m_keyFramesHeld[static_cast<int>(key)] > 0.f);
-}
-
 bool InputManager::IsKeyReleased(KEY_CODE key)
 {
 	return (m_keyReleased[static_cast<int>(key)]);
 }
+//bool InputManager::IsKeyPressed(KEY_CODE key)
+//{
+//	return (m_keyFramesHeld[static_cast<int>(key)] > 0.f);
+//}
+//
+
 
 vec2  InputManager::GetMousePos()
 {
@@ -143,20 +169,20 @@ void InputManager::MouseScrollCallback(GLFWwindow* pwin, double xoffset, double 
 }
 
 
-void InputManager::TestInputManager() {
-	InputManager* im = &(GE::Input::InputManager::GetInstance());
-	if (im->IsKeyTriggered(GPK_A)) {
-		std::cout << "Key A is Triggered\n";
-	}
-	if (im->IsKeyHeld(GPK_A)) {
-		std::cout << "Key A is Held\n";
-	}
-	if (im->IsKeyReleased(GPK_A)) {
-		std::cout << "Key A is Released\n";
-	}
-
-	if (im->IsKeyPressed(GPK_MOUSE_LEFT)) {
-		std::cout << "Mouse Pos: " << im->GetMousePosWorld().x << "," << im->GetMousePosWorld().y << "\n";
-	}
-}
+//void InputManager::TestInputManager() {
+//	InputManager* im = &(GE::Input::InputManager::GetInstance());
+//	if (im->IsKeyTriggered(GPK_A)) {
+//		std::cout << "Key A is Triggered\n";
+//	}
+//	if (im->IsKeyHeld(GPK_A)) {
+//		std::cout << "Key A is Held\n";
+//	}
+//	if (im->IsKeyReleased(GPK_A)) {
+//		std::cout << "Key A is Released\n";
+//	}
+//
+//	if (im->IsKeyPressed(GPK_MOUSE_LEFT)) {
+//		std::cout << "Mouse Pos: " << im->GetMousePosWorld().x << "," << im->GetMousePosWorld().y << "\n";
+//	}
+//}
 

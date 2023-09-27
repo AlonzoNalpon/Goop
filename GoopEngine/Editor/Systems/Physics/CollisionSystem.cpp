@@ -15,7 +15,6 @@ bool CollisionSystem::Collide(BoxCollider& box, dVec2& input)
 	{
 		if (input.y <= box.m_max.y && input.y >= box.m_min.y)
 		{
-			std::cout << "Collided" << std::endl;
 			return true;
 		}
 	}
@@ -79,11 +78,11 @@ void CollisionSystem::Update()
 			if (Collide(*entity1Col, *entity2Col)) 
 			{
 				entity1Col->m_collided.insert(entity2Col);
-				#ifdef _DEBUG
+				/*#ifdef _DEBUG
 				std::cout << "Collided." << std::endl;
 				std::cout << "1st coordinates: " << entity1Col->m_center << std::endl;
 				std::cout << "2nd coordinates: " << entity2Col->m_center << std::endl;
-				#endif
+				#endif*/
 			}
 
 			else 
