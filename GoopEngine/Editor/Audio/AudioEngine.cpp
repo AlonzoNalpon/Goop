@@ -174,13 +174,11 @@ float AudioEngine::VolumeTodb(float volume) const
   return 20.0f * log10f(volume);
 }
 
-int AudioEngine::ErrorCheck(FMOD_RESULT result)
+void AudioEngine::ErrorCheck(FMOD_RESULT result)
 {
   if (result != FMOD_OK) 
   {
     std::cout << "FMOD ERROR " << result << std::endl;
-    return 1;
+    return;
   }
-  //std::cout << "FMOD all good" << std::endl;
-  return 0;
 }
