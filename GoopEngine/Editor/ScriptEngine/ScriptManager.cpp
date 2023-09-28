@@ -1,3 +1,15 @@
+/*!*********************************************************************
+\file   ScriptManager.cpp
+\author han.q\@digipen.edu
+\date   28 September 2023
+\brief
+  Script Manager Singleton in charge of initializing and cleaning the Mono.
+  Provides function to retrieve C# class data
+  Adds internal call into mono to allow C# to call functions defined in cpp
+
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include "ScriptManager.h"
 
 
@@ -112,7 +124,7 @@ MonoAssembly* GE::MONO::LoadCSharpAssembly(const std::string& assemblyPath)
     const char* errorMessage = mono_image_strerror(status);
 
     delete[] fileData;
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Unable to open mono image", ERRLG_FUNC, ERRLG_LINE);
+    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, errorMessage, ERRLG_FUNC, ERRLG_LINE);
   }
 
   MonoAssembly* assembly = mono_assembly_load_from_full(image, assemblyPath.c_str(), &status, 0);
@@ -197,53 +209,35 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName,
   return classInstance;
 }
 
-void  GE::MONO::PrintAssemblyTypes(MonoAssembly* assembly)
-{
-  MonoImage* image = mono_assembly_get_image(assembly);
-  const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
-  int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
-
-  for (int32_t i = 0; i < numTypes; i++)
-  {
-    uint32_t cols[MONO_TYPEDEF_SIZE];
-    mono_metadata_decode_row(typeDefinitionsTable, i, cols, MONO_TYPEDEF_SIZE);
-    const char* nameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
-    const char* name = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
-
-    printf("%s.%s\n", nameSpace, name);
-  }
-}
 
 
-
-
-void GE::MONO::SetTransform(GE::ECS::Entity entity, GE::Component::Transform newChange)
+void GE::MONO::SetTransform(GE::ECS::Entity entity, GE::Component::Transform transformAdjustment)
 {
   GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-  if ((newChange.m_scale.x > 1.f) && (newChange.m_scale.y > 1.f))
+  if ((transformAdjustment.m_scale.x > 1.f) && (transformAdjustment.m_scale.y > 1.f))
   {
-    oldTransform->m_scale.x += (oldTransform->m_scale.x * newChange.m_scale.x * fpsControl->GetDeltaTime());
-    oldTransform->m_scale.y += (oldTransform->m_scale.y * newChange.m_scale.y * fpsControl->GetDeltaTime());
+    oldTransform->m_scale.x += (oldTransform->m_scale.x * transformAdjustment.m_scale.x * fpsControl->GetDeltaTime());
+    oldTransform->m_scale.y += (oldTransform->m_scale.y * transformAdjustment.m_scale.y * fpsControl->GetDeltaTime());
   }
-  else if((newChange.m_scale.x < 1.f) && (newChange.m_scale.y < 1.f))
+  else if((transformAdjustment.m_scale.x < 1.f) && (transformAdjustment.m_scale.y < 1.f))
   {
-    newChange.m_scale.x =  1.f / newChange.m_scale.x;
-    newChange.m_scale.y = 1.f / newChange.m_scale.y;
+    transformAdjustment.m_scale.x =  1.f / transformAdjustment.m_scale.x;
+    transformAdjustment.m_scale.y = 1.f / transformAdjustment.m_scale.y;
     double gcd = (oldTransform->m_scale.x >= oldTransform->m_scale.y) ? static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->m_scale.x), static_cast<int>(oldTransform->m_scale.y))) : static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->m_scale.y), static_cast<int>(oldTransform->m_scale.x)));  
-    oldTransform->m_scale.x = ((oldTransform->m_scale.x - (oldTransform->m_scale.x * newChange.m_scale.x * fpsControl->GetDeltaTime())) <= newChange.m_scale.x / gcd) ? (newChange.m_scale.x / gcd) : oldTransform->m_scale.x - (oldTransform->m_scale.x * newChange.m_scale.x * fpsControl->GetDeltaTime());
-    oldTransform->m_scale.y = ((oldTransform->m_scale.y - (oldTransform->m_scale.y * newChange.m_scale.y * fpsControl->GetDeltaTime())) <= newChange.m_scale.y / gcd) ? (newChange.m_scale.y / gcd) : oldTransform->m_scale.y - (oldTransform->m_scale.y * newChange.m_scale.y * fpsControl->GetDeltaTime());
+    oldTransform->m_scale.x = ((oldTransform->m_scale.x - (oldTransform->m_scale.x * transformAdjustment.m_scale.x * fpsControl->GetDeltaTime())) <= transformAdjustment.m_scale.x / gcd) ? (transformAdjustment.m_scale.x / gcd) : oldTransform->m_scale.x - (oldTransform->m_scale.x * transformAdjustment.m_scale.x * fpsControl->GetDeltaTime());
+    oldTransform->m_scale.y = ((oldTransform->m_scale.y - (oldTransform->m_scale.y * transformAdjustment.m_scale.y * fpsControl->GetDeltaTime())) <= transformAdjustment.m_scale.y / gcd) ? (transformAdjustment.m_scale.y / gcd) : oldTransform->m_scale.y - (oldTransform->m_scale.y * transformAdjustment.m_scale.y * fpsControl->GetDeltaTime());
   }
-  oldTransform->m_pos += (newChange.m_pos * fpsControl->GetDeltaTime());
-  oldTransform->m_rot += (newChange.m_rot * fpsControl->GetDeltaTime());
+  oldTransform->m_pos += (transformAdjustment.m_pos * fpsControl->GetDeltaTime());
+  oldTransform->m_rot += (transformAdjustment.m_rot * fpsControl->GetDeltaTime());
 }
 
 
 
 
-int GE::MONO::CalculateGCD(int a, int b)
+int GE::MONO::CalculateGCD(int large, int small)
 {
-  return b == 0 ? a : CalculateGCD(b, a % b);
+  return small == 0 ? large : CalculateGCD(small, large % small);
 }

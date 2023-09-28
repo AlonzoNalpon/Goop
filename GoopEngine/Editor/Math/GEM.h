@@ -45,6 +45,7 @@ namespace GE
     using dMat4 = Mat<4, 4, double>;
 
     #ifdef _DEBUG
+    // << operator overload for printing Vectors to ostream
     template <unsigned N, typename T>
     std::ostream& operator<<(std::ostream& os, Vec<N, T> const& vec)
     {
@@ -52,6 +53,21 @@ namespace GE
       for (unsigned i{}; i < N; ++i)
       {
         os << vec[i] << ((i == N - 1) ? ")" : ",");
+      }
+      return os;
+    }
+
+    // << operator overload for printing Matrices to ostream
+    template <unsigned N, unsigned M, typename T>
+    std::ostream& operator<<(std::ostream& os, Mat<N, M, T> const& mat)
+    {
+      os << std::setprecision(2) << std::fixed;
+      for (unsigned i{}; i < N; ++i)
+      {
+        for (unsigned j{}; j < M; ++j)
+        {
+          os << mat[i][j] << (j == M - 1 ? "\n" : " ");
+        }
       }
       return os;
     }

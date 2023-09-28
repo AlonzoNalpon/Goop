@@ -32,7 +32,7 @@ namespace GE
 
     private:
       // alias for function that handles events
-      using SubscriberList = std::vector<EventListener*>;
+      using SubscriberList = std::vector<IEventListener*>;
       using SubscriberMap = std::unordered_map<std::type_index, SubscriberList>;
 
       // list of subscribers for each event

@@ -1,4 +1,13 @@
 #pragma once
+/*!*********************************************************************
+\file   ScriptHandler.h
+\author c.phua\@digipen.edu
+\date   12 September 2023
+\brief
+	Component for storing all the scripts attached to the entity
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <ScriptEngine/ScriptManager.h>
 
@@ -14,6 +23,16 @@ namespace GE
 
 			std::map<std::string,Script> m_scriptMap;
 
+			/*!*********************************************************************
+			\brief
+				Non-default Constructor for Scripthandler. Initialize all the scripts instance and add it to the map
+
+			\params  scriptNames
+				list of the names of scriptes and their namespace
+
+			\params entityID
+			 ID of the entity this component belongs to
+			************************************************************************/
 			ScriptHandler(const std::initializer_list<std::pair<std::string, std::string>>& scriptNames, unsigned int entityID)
 			{
 				GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
@@ -36,6 +55,17 @@ namespace GE
 				}
 			}
 
+
+			/*!*********************************************************************
+			\brief
+				Function to add a script to the map 
+
+			\params  scriptNames
+				list of the names of scriptes and their namespace
+
+			\params entityID
+			 ID of the entity this component belongs to
+			************************************************************************/
 			void AddScript(const std::pair<std::string, std::string>& scriptName, unsigned int entityID) {
 				if (m_scriptMap.find(scriptName.second) == m_scriptMap.end())
 				{
@@ -54,8 +84,10 @@ namespace GE
 				}
 			}
 
-
-			
+			/*!*********************************************************************
+			\brief
+				function to update all the script attacehed to the entity
+			************************************************************************/
 			void UpdateAllScripts() 
 			{
 				for (const std::pair<std::string,Script>& cs : m_scriptMap) {

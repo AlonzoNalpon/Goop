@@ -1,3 +1,10 @@
+/*!******************************************************************
+\file   Singleton.h 
+\author w.chinkitbryam\@digipen.edu
+\date   6 September 2023
+\brief  
+  
+********************************************************************/
 #pragma once
 
 namespace GE
@@ -6,6 +13,10 @@ namespace GE
 	class Singleton
 	{
 	protected:
+		/*!******************************************************************
+		\brief 
+		  
+		********************************************************************/
 		Singleton() = default;
 		virtual ~Singleton() = default;
 		Singleton(const Singleton&) = delete;

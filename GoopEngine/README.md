@@ -7,18 +7,17 @@ clone entity in imgui
 
 *error logger can be seen by trying to spawn more entities than max entity set in config
 
-
 [ Physics ]
-trigger space -> step update physics once
+press space -> step update physics once
 hold space -> keep updating physics
 
-[Player Control]
+[Player Control MonoScript]
 Player is the interpolating sprite
 W,A,S,D -> Move player 
 E,R -> Rotate player clockwise/counter clockwise
 Scroll Mouse-> Increase/Decrease the size of the player
 
-*Player controller will ignore step update
+*For ease of use, player controller script will ignore step update
 
 
 

@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   BoxCollider.h
+\author c.phua\@digipen.edu
+\date   16 September 2023
+\brief
+	Component for AABB collider box.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+
 #pragma once
 #include <pch.h>
 #include <Graphics/GraphicsEngine.h>
@@ -8,7 +18,16 @@ namespace GE
 	{
 		struct BoxCollider
 		{
+			/*!*********************************************************************
+			\brief
+				Default contructor
+			************************************************************************/
 			BoxCollider() = default;
+
+			/*!*********************************************************************
+			\brief
+				Overload contructor
+			************************************************************************/
 			BoxCollider(Math::dVec2 const& center, double width, double height) : m_width{ width }, m_height{ height },
 				m_min{ center.x - width / 2.0f, center.y - height / 2.0f },
 				m_max{ center.x + width / 2.0f, center.y + height / 2.0f }, m_center{ center },
@@ -26,6 +45,10 @@ namespace GE
 			std::set<BoxCollider*> m_collided; //a set list of entities' pointers that current entity is collided with
 			bool m_mouseCollided;
 
+			/*!*********************************************************************
+			\brief
+				Drawing of collision box
+			************************************************************************/
 			void Render()
 			{
 				// Idk how to tell if i'm no longer collided with something else. Please do if free (I DID IT)

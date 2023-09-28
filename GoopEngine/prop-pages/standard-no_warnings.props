@@ -5,7 +5,7 @@
   <PropertyGroup>
     <_PropertySheetDisplayName>standard-no_warnings</_PropertySheetDisplayName>
     <IncludePath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)lib\stb-master;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\spdlog;$(ProjectDir)include;$(ProjectDir);$(SolutionDir)Editor\Systems;$(SolutionDir)Editor\Components;$(IncludePath);$(SolutionDir)lib\rapidjson-1.1.0;$(SolutionDir)Editor\ImGui;$(SolutionDir)DebugTools;$(SolutionDir)lib\mono\include</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\mono\lib\Debug;$(SolutionDir)lib\mono\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\mono\lib\DMono;$(SolutionDir)lib\mono\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
@@ -14,11 +14,11 @@
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
 copy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y
-xcopy "$(ProjectDir)GoopScripts\bin\Debug\GoopScripts.dll*" "$(TargetDir)GoopScripts.dll" /Y
 xcopy "$(ProjectDir)imgui.ini" "$(TargetDir)"/Y
 xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
-
 xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmod.dll" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(TargetDir)"/Y
 </Command>
     </PostBuildEvent>
     <ClCompile>
@@ -29,6 +29,10 @@ xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

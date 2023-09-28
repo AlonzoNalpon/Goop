@@ -46,7 +46,7 @@ int main(int /*argc*/, char* /*argv*/[])
   // INIT FUNCTIONS
 
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
-  am->LoadJSONData("Assets/Data/Config.json", GE::AssetManager::CONFIG);
+  am->LoadJSONData("../Assets/Data/Config.json", GE::AssetManager::CONFIG);
 
   GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
   of.LoadPrefabsFromFile();
@@ -56,7 +56,6 @@ int main(int /*argc*/, char* /*argv*/[])
   GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
   Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };     // my graphics engine
   fRC.InitFrameRateController(am->GetConfigData<int>("FPS Limit").value(), am->GetConfigData<int>("FPS Check Interval").value());
-  std::cout << "FPS:: " << am->GetConfigData<int>("FPS Limit").value() << "\n";
 
 #ifdef MEMORY_TEST
   GE::Memory::MemoryManager* memMan{ &(GE::Memory::MemoryManager::GetInstance()) };

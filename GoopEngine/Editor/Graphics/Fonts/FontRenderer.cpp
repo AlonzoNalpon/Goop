@@ -19,7 +19,7 @@ namespace Graphics::Rendering
     m_fontShader.CompileLinkValidate(fontShaders); // compile font shader
   }
 
-  void FontRenderer::RenderText(glm::mat4 const& proj, std::string const& str, gVec2 pos, GLfloat scale, Colorf clr)
+  void FontRenderer::RenderText(glm::mat4 const& /*proj*/, std::string const& /*str*/, gVec2 /*pos*/, GLfloat /*scale*/, Colorf /*clr*/)
   {
     /*constexpr GLint U_PROJ{0}, U_TEXT{1}, U_CLR{2};
     glUseProgram(m_fontShader.GetHandle());

@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   SerializeComponents.tpp
+\author loh.j@digipen.edu
+\date   28 September 2023
+\brief
+  Template functions to assign data into the components of the entity.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+
 template<typename CompType>
 CompType DeserializeComponent(std::string const& componentData)
 {
@@ -103,4 +113,23 @@ GE::Component::Model DeserializeComponent<GE::Component::Model>(std::string cons
 
     model.mdlID = data["id"].GetInt();
     return model;
+}
+
+// WIP
+template<>
+GE::Component::Tween DeserializeComponent<GE::Component::Tween>(std::string const& componentData)
+{
+    Serialization::ComponentWrapper cw{ componentData };
+    Serialization::ComponentData data = cw.GetData();
+    Tween tween{data[""].GetDouble()}; // time taken
+
+    //tween.m_tweens = data[""].Get___;
+    tween.m_timePerTween = data[""].GetDouble();
+    //tween.m_timeTaken = data[""].GetDouble();
+    tween.m_timeElapsed = data[""].GetDouble();
+    tween.m_originalPos.x = data[""].GetDouble();
+    tween.m_originalPos.y = data[""].GetDouble();
+    tween.m_started = data[""].GetDouble();
+    
+    return tween;
 }

@@ -2,7 +2,7 @@
 /*!*********************************************************************
 \file   InputManager.h
 \author han.q\@digipen.edu
-\date   17 September 2023
+\date   28 September 2023
 \brief
 	Input Manager for Engine
 
@@ -37,10 +37,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../Events/EventManager.h"
 #include <GL/glew.h> // for access to OpenGL API declarations
 #include <GLFW/glfw3.h>
-
-//#include <glm/gtc/type_ptr.hpp> // for glm::value_ptr
-//#define _USE_MATH_DEFINES
-
 #include <bitset>
 #include "KeyCode.h"
 #include "../FrameRateController/FrameRateController.h"
@@ -97,14 +93,7 @@ namespace GE
 			************************************************************************/
 			static bool IsKeyReleased(KEY_CODE);
 
-			/*template <typename T>
-			void CheckAndDispatch(KEY_CODE code)
-			{
-				if (IsKeyTriggered(code))
-				{
-					GE::Events::EventManager::GetInstance().Dispatch(T(code));
-				}
-			}*/
+		
 			/*!*********************************************************************
 			\brief
 				.Function to check if a key is triggered
@@ -118,17 +107,31 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				.Function to check if a key is triggered
+				.Function to check if a key is Pressed
 			\params
 				KEY_CODE key
 				Enum of the key you want to check
 			\return
-				returns true is key is triggered
+				returns true is key is Pressed
 			************************************************************************/
 			static bool IsKeyPressed(KEY_CODE);
 
+
+			/*!*********************************************************************
+			\brief
+				.Function to check the yoffset of the mouse scroll for the current frame
+			\return
+				yoffset of mouse scroll
+			************************************************************************/
 			static double GetMouseScrollVert();
 
+
+			/*!*********************************************************************
+			\brief
+			  .Function to check the xoffset of the mouse scroll for the current frame
+			\return
+				xoffset of  mouse scroll
+			************************************************************************/
 			static double GetMouseScrollHor();
 
 			/*!*********************************************************************
@@ -263,13 +266,11 @@ namespace GE
 
 
 // OLD FUNCTIONS ARCHIVE
-/*!*********************************************************************
-\brief
-	.Function to check if a key is pressed
-\params
-	KEY_CODE key
-	Enum of the key you want to check
-\return
-	returns true is key is pressed. (key is either triggered or held)
-************************************************************************/
-//bool IsKeyPressed(KEY_CODE);
+/*template <typename T>
+void CheckAndDispatch(KEY_CODE code)
+{
+	if (IsKeyTriggered(code))
+	{
+		GE::Events::EventManager::GetInstance().Dispatch(T(code));
+	}
+}*/

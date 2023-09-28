@@ -14,7 +14,7 @@ void EventManager::Subscribe(Listener* listener)
     return;
   }
 
-  subscribers.emplace_back(static_cast<EventListener*>(listener));
+  subscribers.emplace_back(static_cast<IEventListener*>(listener));
 
   #ifdef _DEBUG
   std::cout << "EventManager: " << typeid(EventType).name() 

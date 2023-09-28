@@ -1,5 +1,0 @@
-Assets/Data/Prefabs/
-
-MineWorm.json
-WormSprite.json
-Background.json

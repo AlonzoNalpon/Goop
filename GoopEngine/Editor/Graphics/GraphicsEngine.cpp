@@ -96,12 +96,12 @@ namespace {
 
   void GraphicsEngine::Draw()
   {
+#if 0
 #pragma region UPDATE BLOCK
     double dt{ GE::FPS::FrameRateController::GetInstance().GetDeltaTime() };
 #pragma endregion
     
     // use this for reference on animation inner workings
-#if 0
     testAnim.currTime += dt;
     auto anim = m_animManager.GetAnim(testAnim.animID);
     if (testAnim.currTime >= anim.speed) {
@@ -273,7 +273,6 @@ namespace {
   gObjID GraphicsEngine::InitTexture(std::string const& name, GE::AssetManager::ImageData const& imageData)
   {
     // Now use textures
-    auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
     unsigned char* raw_image = imageData.GetData();
     GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
     GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };

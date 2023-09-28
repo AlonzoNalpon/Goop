@@ -70,7 +70,7 @@ struct Scene
 		// Creating Entities w/ Components
 		////////////////////////////////////////////////
 		//Entity entt1 = ecs->CreateEntity();
-		Entity entt2 = ecs->CreateEntity();
+		//Entity entt2 = ecs->CreateEntity();
 
 		//ecs->AddComponent(entt1, (component));
 
@@ -103,16 +103,6 @@ struct Scene
 		Transform transBox3({ 300, 2 }, { 30, 20 }, 0.0);
 		BoxCollider box2(transBox2.m_pos, 1, 1); //should collide
 		BoxCollider box3(transBox3.m_pos, 1, 1); //shouldnt collide
-
-		/*ecs->RegisterComponentToSystem<Velocity, PhysicsSystem>();
-		ecs->RegisterComponentToSystem<Transform, PhysicsSystem>();
-		ecs->RegisterComponentToSystem<Gravity, PhysicsSystem>();
-
-		ecs->RegisterComponentToSystem<Transform, CollisionSystem>();
-		ecs->RegisterComponentToSystem<BoxCollider, CollisionSystem>();
-
-		ecs->RegisterComponentToSystem<Transform, DraggableObjectSystem>();
-		ecs->RegisterComponentToSystem<BoxCollider, DraggableObjectSystem>();*/
 
 		ecs->AddComponent(entt3, vel);
 		ecs->AddComponent(entt3, trans);
@@ -154,10 +144,6 @@ struct Scene
 		ecs->AddComponent(player, anim);
 		ecs->AddComponent(player, playerCollider);
 		ecs->AddComponent(player, scriptHan);
-		/*ecs->RegisterComponentToSystem<Tween, PlayerControllerSystem>();
-		ecs->RegisterComponentToSystem<GE::Component::Model, RenderSystem>();
-		ecs->RegisterComponentToSystem<GE::Component::Sprite, RenderSystem>();
-		ecs->RegisterComponentToSystem<GE::Component::SpriteAnim, RenderSystem>();*/
 		ecs->RegisterEntityToSystem<PlayerControllerSystem>(player);
 		ecs->RegisterEntityToSystem<RenderSystem>(player);
 		ecs->RegisterEntityToSystem<CollisionSystem>(player);

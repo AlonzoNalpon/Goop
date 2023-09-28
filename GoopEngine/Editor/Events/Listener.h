@@ -14,10 +14,10 @@ namespace GE
 {
   namespace Events
   {
-    class EventListener
+    class IEventListener
     {
     public:
-      virtual ~EventListener() {}
+      virtual ~IEventListener() {}
 
       virtual void HandleEvent(Event const* event) = 0;
 

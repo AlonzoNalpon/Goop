@@ -18,8 +18,6 @@ namespace GE::Systems
   void RenderSystem::Update()
   {
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
-    double dt{ FPS::FrameRateController::GetInstance().GetDeltaTime() };
-    f32 dtF{ static_cast<f32>(dt) };
     for (GE::ECS::Entity entity : m_entities)
     {
       // GET ALL THE COMPONENTS

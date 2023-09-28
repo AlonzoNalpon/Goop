@@ -4,24 +4,26 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_PropertySheetDisplayName>standard</_PropertySheetDisplayName>
-    <IncludePath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)lib\stb-master;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\spdlog;$(ProjectDir)include;$(ProjectDir);$(SolutionDir)Editor\Systems;$(SolutionDir)Editor\Components;$(SolutionDir)Editor\ImGui;$(SolutionDir)lib\rapidjson-1.1.0;$(SolutionDir)lib\freetype-2.13.2\include;$(SolutionDir)DebugTools;$(SolutionDir)lib\mono\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-2.13.2\dll\win64;$(SolutionDir)lib\mono\lib\Debug;$(SolutionDir)lib\mono\lib;$(LibraryPath)</LibraryPath>
-    <EnableMicrosoftCodeAnalysis>true</EnableMicrosoftCodeAnalysis>
+    <IncludePath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)lib\stb-master;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\spdlog;$(ProjectDir)include;$(ProjectDir);$(SolutionDir)Editor\Systems;$(SolutionDir)Editor\Components;$(SolutionDir)Editor\ImGui;$(SolutionDir)lib\rapidjson-1.1.0;$(SolutionDir)lib\freetype-2.13.2\include;$(SolutionDir)lib\fMOD\include;$(SolutionDir)lib\mono\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-2.13.2\dll\win64;$(SolutionDir)lib\fMOD\Librariesx64;$(SolutionDir)lib\mono\lib\Debug;$(SolutionDir)lib\mono\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3dll.lib;glfw3.lib;freetype.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3dll.lib;glfw3.lib;freetype.lib;fmod_vc.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
 copy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y
 xcopy "$(SolutionDir)lib\freetype-2.13.2\dll\win64\*" "$(TargetDir)\" /Y
-xcopy "$(ProjectDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q
-xcopy "$(ProjectDir)imgui.ini" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
+xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)\" /Y
+xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)\" /Y
 xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
-
 xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y
-</Command>
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmod.dll" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(TargetDir)"/Y
+cd "$(ProjectDir).."
+xcopy "$(SolutionDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q</Command>
     </PostBuildEvent>
     <ClCompile>
       <PreprocessorDefinitions>GLFW_DLL;DGLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -30,7 +32,17 @@ xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(ProjectDir)pch.h</PrecompiledHeaderOutputFile>
+      <CompileAsManaged>
+      </CompileAsManaged>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

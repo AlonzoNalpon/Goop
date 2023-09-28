@@ -5,6 +5,8 @@
 \brief  
   Contains the an enum of names matching components that exist for
 	the engine.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ********************************************************************/
 #pragma once
 #include <pch.h>
