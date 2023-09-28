@@ -9,7 +9,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include "IGooStream.h"
-#include "Serializer.h"
 #include <map>
 
 namespace GE

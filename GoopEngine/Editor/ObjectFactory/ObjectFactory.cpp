@@ -58,36 +58,37 @@ void ObjectFactory::RegisterObjectToSystems(GE::ECS::Entity object, ECS::SystemS
 void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity srcObj) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+  ECS::ComponentSignature const sig{ ecs.GetComponentSignature(srcObj) };
 
-  if (ecs.GetComponent<Component::Transform>(srcObj))
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::TRANSFORM))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Transform>(srcObj));
   }
-  if (ecs.GetComponent<Component::BoxCollider>(srcObj))
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::BOXCOLLIDER))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::BoxCollider>(srcObj));
   }
-  if (ecs.GetComponent<Component::Velocity>(srcObj))
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::VELOCITY))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Velocity>(srcObj));
   }
-  if (ecs.GetComponent<Component::Gravity>(srcObj))
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::GRAVITY))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Gravity>(srcObj));
   }
-  if (ecs.GetComponent<Component::Sprite>(srcObj))
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::SPRITE))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Sprite>(srcObj));
   }
-  if (ecs.GetComponent<Component::SpriteAnim>(srcObj))
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::SPRITEANIM))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::SpriteAnim>(srcObj));
   }
-  if (ecs.GetComponent<Component::Model>(srcObj))
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::MODEL))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Model>(srcObj));
   }
-  /*if (ecs.GetComponent<Component::Tween>(srcObj))
+  /*if (IsBitSet(sig, ECS::COMPONENT_TYPES::TWEEN))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Tween>(srcObj));
   }*/
@@ -256,7 +257,11 @@ void ObjectFactory::CloneObject(ECS::Entity obj, Math::dVec2&& newPos)
   {
     trans->m_pos = newPos;
   }
-  ECS::SystemSignature const sysSig{ GetObjectSystemSignature(obj) };
+  ECS::SystemSignature sysSig{ GetObjectSystemSignature(obj) };
+  if (ecs.GetComponentSignature(newObj)[static_cast<unsigned>(COMPONENT_TYPES::SPRITEANIM)])
+  {
+    sysSig[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
+  }
   RegisterObjectToSystems(newObj, sysSig);
 }
 

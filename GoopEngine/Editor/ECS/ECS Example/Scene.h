@@ -132,7 +132,8 @@ struct Scene
 		Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 		GE::Component::Model mdl; // model data for the player sprite
 		mdl.mdlID = gEngine.GetModel();
-		GE::Component::Sprite sprite;
+		Sprite sprite;
+		sprite.spriteData.texture = gEngine.textureManager.GetTextureID("MineWorm");
 		GE::Component::SpriteAnim anim;
 
 		GE::Component::ScriptHandler scriptHan = ScriptHandler({ {"GoopScripts","Player"} }, player);
@@ -148,6 +149,7 @@ struct Scene
 		ecs->RegisterEntityToSystem<RenderSystem>(player);
 		ecs->RegisterEntityToSystem<CollisionSystem>(player);
 		ecs->RegisterEntityToSystem<SpriteAnimSystem>(player);
+		GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
 	}
 
 	void Update()

@@ -9,7 +9,6 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include "IGooStream.h"
-#include "Serializer.h"
 #include <vector>
 #include "SpriteData.h"
 

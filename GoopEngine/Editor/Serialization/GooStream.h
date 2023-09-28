@@ -2,8 +2,38 @@
 \file   GooStream.h
 \author chengen.lau\@digipen.edu
 \date   18-September-2023
-\brief
+\brief  Base GooStream class, which is a serialization stream class 
+        for the Goop Engine that defines the functions and data
+        members that will be inherited. It functions similar to
+        std::fstream. Note that this base class cannot be
+        initialized and is only inherited from by other GooStreams.
 
+        USAGE:
+          - Every GooStream will contain either a rapidjson::Document
+            or std::ostringstream (through std::variant) to hold the 
+            serialized data depending on whether the data being read
+            or written is formatted in JSON
+
+          - Bool implicit conversion operator is defined to
+            return based on status of latest read/write operation
+
+          - Typically, depending on whether serialization or 
+            deserialization, or both are required, you would get
+            access to 2 functions Read() and Unload(). Read will
+            read data from a file/container while Unload outputs
+            the data into a file/container.
+
+          - Example usage:
+              std::map<std::string, std::string> assets;
+              AssetGooStream ags{ "assets.json" };
+              if (!ags)
+              {
+                // Error
+              }
+              if (!ags.Unload(assets))
+              {
+                // Error
+              }
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -13,9 +43,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rapidjson/prettywriter.h>
 #include <sstream>
 #include <variant>
-#ifdef _DEBUG
-#include <iostream>
-#endif
 
 namespace GE
 {
@@ -33,22 +60,43 @@ namespace GE
       GooStream(GooStream const&) = delete;
       virtual ~GooStream() {}
 
-      // Implicit conversion to indicate status
+      // Implicit conversion operator to indicate status
       inline operator bool() const noexcept { return m_status; }
 
-      // Returns the status of the stream based on the latest I/O operation
+      /*!*********************************************************************
+      \brief
+        Returns the status of the latest read/write operation
+      \return
+        True if the stream is in good state and false otherwise
+      ************************************************************************/
       inline bool Success() const noexcept { return m_status; }
 
-      // Sets the status flag of the stream back to its default value
+      /*!*********************************************************************
+      \brief
+        Sets the status flag of the stream back to its default value
+      ************************************************************************/
       inline void Clear() noexcept { m_status = true; }
 
-      // Returns the number of elements currently in the stream
+      /*!*********************************************************************
+      \brief
+        Returns the number of elements currently in the stream
+      \return
+        Number of elements
+      ************************************************************************/
       inline size_type GetCount() const noexcept { return m_elements; }
 
-      // Returns true if stream is empty
+      /*!*********************************************************************
+      \brief
+        Checks if the stream is empty
+      \return
+        True if the stream is empty and false otherwise
+      ************************************************************************/
       inline bool IsEmpty() const noexcept { return m_elements == 0; }
 
-      // Empties the stream of its contents and resets all values
+      /*!*********************************************************************
+      \brief
+        Empties the stream of its contents and resets all values
+      ************************************************************************/
       void Reset() noexcept
       {
         m_elements = 0;
@@ -66,6 +114,8 @@ namespace GE
       template <typename WrapperType>
       using writer_type = rapidjson::PrettyWriter<WrapperType>;
 
+      // Constructor taking in bool where 'true' means that
+      // the serialization type is in JSON
       GooStream(bool json)
       {
         if (json) m_data = rapidjson::Document(); else m_data = std::ostringstream();

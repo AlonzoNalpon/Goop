@@ -1,13 +1,24 @@
 {
-  "Name": "WormSprite",
+  "Name": "ButaPIG",
   "Systems": [
+    "Rendering"
   ],
   "Components": [
     {
       "Transform": {
-        "m_pos": "{ 2.0, 4.0 }",
-        "m_scale": "{ 10.0, 10.0 }",
-        "m_rot": 5.0
+        "m_pos": "{ 0.0, 0.0 }",
+        "m_scale": "{ 100.0, 75.0 }",
+        "m_rot": 0.0
+      }
+    },
+    {
+      "Sprite": {
+        "filename": "ButaPIG"
+      }
+    },
+    {
+      "Model": {
+        "id": 0
       }
     }
   ]

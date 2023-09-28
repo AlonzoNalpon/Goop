@@ -58,8 +58,8 @@ void ImGuiUI::Update()
   }
   else if (Button("Clone Object"))
   {
-    double randX = (rand() % window->GetWinWidth()) - window->GetWinWidth() / 2;
-    double randY = (rand() % window->GetWinHeight()) - window->GetWinHeight() / 2;
+    double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
+    double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
     GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(6, Math::dVec2(randX, randY));
   }
   else if (Button("Create 2.5k Render"))
@@ -68,12 +68,12 @@ void ImGuiUI::Update()
     {
       try
       {
-        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
+        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("ButaPIG");
         GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
         if (trans)
         {
-          double randX = (rand() % window->GetWinWidth()) - window->GetWinWidth() / 2;
-          double randY = (rand() % window->GetWinHeight()) - window->GetWinHeight() / 2;
+          double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
+          double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
           trans->m_pos = Math::dVec2(randX, randY);
         }
       }
@@ -88,21 +88,21 @@ void ImGuiUI::Update()
   Begin("Audio");
   if (Button("Play Scream Sound"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound("../Assets/JoelScream.wav", 0.75f);
+    Audio::AudioEngine::GetInstance().PlaySound("../Assets/JoelScream.wav", 0.70f);
   }
-  else if (Button("Play Beatbox Sound"))
+  else if (Button("DJ Drop Da Beat"))
   {
     Audio::AudioEngine::GetInstance().PlaySound("../Assets/ChengEnBeatbox.wav", 1.25f, true);
   }
-  else if (Button("Play Qur Sound"))
+  else if (Button("Play Qurr Sound"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound("../Assets/ChengEnQur.wav", 1.0f);
+    Audio::AudioEngine::GetInstance().PlaySound("../Assets/ChengEnQur.wav", 0.9f);
   }
   else if (Button("Stop Scream Sound"))
   {
     Audio::AudioEngine::GetInstance().StopSound("../Assets/JoelScream.wav");
   }
-  else if (Button("Stop Beatbox Sound"))
+  else if (Button("DJ Pick Up Da Beat"))
   {
     Audio::AudioEngine::GetInstance().StopSound("../Assets/ChengEnBeatbox.wav");
   }

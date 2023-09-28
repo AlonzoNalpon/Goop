@@ -1,8 +1,16 @@
+/*!*********************************************************************
+\file   SpriteData.h
+\author chengen.lau\@digipen.edu
+\date   29-September-2023
+\brief  Definition of SpriteData struct to encapsulate data of an
+        animation sprite / spritesheet. This is used during the
+        deserialization process to hand values over to the asset
+        manager.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include <string>
-#ifdef _DEBUG
-#include <iostream>
-#endif
 
 namespace GE
 {
