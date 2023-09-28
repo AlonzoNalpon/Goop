@@ -51,7 +51,7 @@ namespace Graphics
     {
       throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
         ErrMsg("No such texture found: " + name));
-      return BAD_OBJ_ID;
+      //return BAD_OBJ_ID;
     }
     return m_texturesLT.at(name);
   }

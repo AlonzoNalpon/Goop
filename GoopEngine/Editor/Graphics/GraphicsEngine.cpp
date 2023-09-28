@@ -255,7 +255,7 @@ namespace {
     {
       std::string errorStr{ "A shader program of this name already exists: " };
       errorStr += name;
-      ERR_LOG_FILE(errorStr);
+      std::cout << errorStr << std::endl;
       return 0;
     }
 
