@@ -18,9 +18,7 @@ copy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew
 xcopy "$(SolutionDir)lib\freetype-2.13.2\dll\win64\*" "$(TargetDir)\" /Y
 xcopy "$(ProjectDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q
 xcopy "$(ProjectDir)imgui.ini" "$(TargetDir)"/Y
-xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
 
-xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y
 </Command>
     </PostBuildEvent>
     <ClCompile>
@@ -31,6 +29,10 @@ xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <PreBuildEvent>
+      <Command>xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>
