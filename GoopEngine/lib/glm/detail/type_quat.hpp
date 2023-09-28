@@ -39,6 +39,7 @@ namespace glm
 #			endif
 #		endif
 
+#pragma warning(disable : 4201)
 #		if GLM_LANG & GLM_LANG_CXXMS_FLAG
 			union
 			{

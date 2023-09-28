@@ -17,7 +17,7 @@
 using namespace GE::EditorGUI;
 using namespace ImGui;
 
-void ImGuiUI::Init(WindowSystem::Window& window)
+void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
 {
   // Setup Dear ImGui context
   IMGUI_CHECKVERSION();
@@ -29,10 +29,10 @@ void ImGuiUI::Init(WindowSystem::Window& window)
   // Setup Dear ImGui style
   StyleColorsDark();
 
-  this->window = &window;
+  this->window = &prgmWindow;
   ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   // Setup Platform/Renderer backends
-  ImGui_ImplGlfw_InitForOpenGL(window.GetWindow(), true);
+  ImGui_ImplGlfw_InitForOpenGL(prgmWindow.GetWindow(), true);
   ImGui_ImplOpenGL3_Init();
 }
 

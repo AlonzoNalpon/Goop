@@ -24,7 +24,7 @@ namespace GE::EditorGUI
 		\param[in] window
 			Pointer to glfw window
 		********************************************************************/
-		void Init(WindowSystem::Window& window);
+		void Init(WindowSystem::Window& prgmWindow);
 
 		/*!******************************************************************
 		\brief 
