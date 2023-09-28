@@ -60,40 +60,45 @@ void PlayerControllerSystem::Update()
 		}
 		tween->m_timeElapsed += dt;
 
-		trans->m_rot = fmod(trans->m_rot + dt, pi * 2.0); // ROTATING PLAYER
+		
 		//std::cout << "Player Position: [" << trans->m_pos.x << ", " << trans->m_pos.y << "]\n";
 	}
 }
 
 void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 {
-	if (event->GetCategory() == Events::EVENT_TYPE::KEY_HELD)
-	{
-		KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
-		if (key == GPK_H)
+	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
+	for (Entity entity : m_entities) {
+		Transform* trans = m_ecs->GetComponent<Transform>(entity);
+		if (event->GetCategory() == Events::EVENT_TYPE::KEY_HELD)
 		{
-			
-			#ifdef _DEBUG
-			std::cout << event->GetName() + " Event handled\n";
-			#endif
+			KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
+			if (key == GPK_H)
+			{
+				constexpr double ROTATE_SPEED{ 2.0 };
+				trans->m_rot = fmod(trans->m_rot + dt * ROTATE_SPEED, pi * 2.0); // ROTATING PLAYER
+			}
+			if (key == GPK_J)
+			{
+				constexpr double SCALE_SPEED{ 30.0 };
+				constexpr double MAX_SCALE{ 200.0 };
+				constexpr double MIN_SCALE{ 100.0 };
+				trans->m_scale.x = fmod(trans->m_scale.x + dt * SCALE_SPEED, MAX_SCALE); // SCALING PLAYER
+				trans->m_scale.y = fmod(trans->m_scale.y + dt * SCALE_SPEED, MAX_SCALE); // SCALING PLAYER
+				trans->m_scale.x = fmax(trans->m_scale.x, MIN_SCALE);
+				trans->m_scale.y = fmax(trans->m_scale.y, MIN_SCALE);
+			}
 		}
-		else if (key == GPK_J)
+		else if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
 		{
-
-			#ifdef _DEBUG
-			std::cout << event->GetName() + " Event handled\n";
-			#endif
-		}
-	}
-	else if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
-	{
-		KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
-		if (key == GPK_K)
-		{
+			KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
+			if (key == GPK_K)
+			{
 			
-			#ifdef _DEBUG
-			std::cout << event->GetName() + " Event handled\n";
-			#endif
+				#ifdef _DEBUG
+				std::cout << event->GetName() + " Event handled\n";
+				#endif
+			}
 		}
 	}
 }
