@@ -24,6 +24,7 @@ namespace GE
 						try
 						{
 							m_scriptMap[s.second] = Script(scriptMan->InstantiateClassID(s.first.c_str(), s.second.c_str(), entityID));
+							std::cout << "END\n";
 						}
 						catch (GE::Debug::IExceptionBase& e)
 						{
@@ -34,6 +35,7 @@ namespace GE
 					}
 
 				}
+				std::cout << "END\n";
 			}
 
 			void AddScript(const std::pair<std::string, std::string>& scriptName, unsigned int entityID) {
@@ -59,7 +61,7 @@ namespace GE
 			void UpdateAllScripts() 
 			{
 				for (const std::pair<std::string,Script>& cs : m_scriptMap) {
-					mono_runtime_invoke(cs.second.m_updateMethod, cs.second.m_classObjInst.get(), nullptr, nullptr);
+					mono_runtime_invoke(cs.second.m_updateMethod, cs.second.m_classObjInst, nullptr, nullptr);
 				}
 			}
 		};

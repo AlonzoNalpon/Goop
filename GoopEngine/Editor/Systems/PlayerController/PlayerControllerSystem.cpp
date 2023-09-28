@@ -1,6 +1,7 @@
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
-#include <Component/Transform.h>
+#include <Component/ScriptHandler.h>
+
 
 using vec2 = GE::Math::dVec2;
 
@@ -17,6 +18,12 @@ void PlayerControllerSystem::Awake()
 void PlayerControllerSystem::Update() 
 {
 	for (Entity entity : m_entities) {
+
+		ScriptHandler* scriptHan = m_ecs->GetComponent<ScriptHandler>(entity);
+		if (scriptHan != nullptr)
+		{
+			scriptHan->UpdateAllScripts();
+		}
 
 		Tween* tween = m_ecs->GetComponent<Tween>(entity);
 
@@ -57,3 +64,4 @@ vec2 PlayerControllerSystem::Tweening(vec2 start, vec2 end, double normalisedTim
 {
 	return start + (normalisedTime * (end - start));
 }
+

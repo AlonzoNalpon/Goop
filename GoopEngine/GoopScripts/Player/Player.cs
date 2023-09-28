@@ -13,7 +13,7 @@ namespace GoopScripts
   public  class Player : MonoBehaviour
   {
 
-    public Player(int entityID) : base(entityID)
+    public Player(uint entityID) : base(entityID)
     {
       Console.WriteLine("C# ID: " + entityID.ToString());
       // Derived class-specific initialization can be done here
@@ -28,41 +28,34 @@ namespace GoopScripts
     public virtual void Start()
     {
       // Logic for Start
-      //Vec2<double> tt = GetVec2();
-      //tt.x = 1001.4;
-      //tt.y = 2021.123;
-      //SetVec2(tt);
-      //Console.WriteLine("LETSSSSSS FKINGGG GOOOOO\n");
     }
 
     public virtual void Update()
     {
+      Transform newChange = new Transform(); // All values are set to 0
       // Logic for Update
       if (IsKeyPressed(KeyCode.W))
       {
-        //Vec2<double> pos = GetPlayerPos();
-        //pos.y += 5.0f;
-        //SetPlayerPos(pos);
+        newChange.m_pos = new Vec2<double>(newChange.m_pos.x, 5.0) ;
 
       }
-      else if(IsKeyPressed(KeyCode.S))
+      else if (IsKeyPressed(KeyCode.S))
       {
-        //Vec2<double> pos = GetPlayerPos();
-        //pos.y -= 5.0f;
-        //SetPlayerPos(pos);
+        newChange.m_pos = new Vec2<double>(newChange.m_pos.x, -5.0);
       }
 
       if (IsKeyPressed(KeyCode.A))
       {
-        //Vec2<double> pos = GetPlayerPos();
-        //pos.x -= 5.0f;
-        //SetPlayerPos(pos);
+        newChange.m_pos = new Vec2<double>(-5.0, newChange.m_pos.y);
       }
       else if (IsKeyPressed(KeyCode.D))
       {
-        //Vec2<double> pos = GetPlayerPos();
-        //pos.x += 5.0f;
-        //SetPlayerPos(pos);
+        newChange.m_pos = new Vec2<double>(5.0, newChange.m_pos.y);
+      }
+
+      if(newChange.m_pos.x != 0.0 || newChange.m_pos.y != 0.0)
+      {
+        SetTransform(base.m_entityID, newChange);
       }
     }
 
@@ -71,14 +64,6 @@ namespace GoopScripts
       // Logic for lateUpdate
     }
 
-    //[MethodImplAttribute(MethodImplOptions.InternalCall)]
-    //extern static void CppFunction();
-
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static Vec2<double> GetVec2();
-
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static void SetVec2(Vec2<double> v);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern static bool IsKeyTriggered(KeyCode k);
@@ -87,13 +72,13 @@ namespace GoopScripts
     extern static bool IsKeyHeld(KeyCode k);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static bool IsKeyPressed(KeyCode k);
-
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern static bool IsKeyReleased(KeyCode k);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static Transform GetTransform();
+    extern static bool IsKeyPressed(KeyCode k);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern static void SetTransform(uint ID,Transform newValue);
 
   }
 }

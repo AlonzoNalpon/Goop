@@ -82,7 +82,7 @@ namespace GE
 			\return
 				returns true is key is held
 			************************************************************************/
-			bool IsKeyHeld(KEY_CODE);
+			static bool IsKeyHeld(KEY_CODE);
 
 			/*!*********************************************************************
 			\brief
@@ -93,7 +93,7 @@ namespace GE
 			\return
 				returns true is key is relased in this frame
 			************************************************************************/
-			bool IsKeyReleased(KEY_CODE);
+			static bool IsKeyReleased(KEY_CODE);
 
 			/*template <typename T>
 			void CheckAndDispatch(KEY_CODE code)
@@ -112,7 +112,19 @@ namespace GE
 			\return
 				returns true is key is triggered
 			************************************************************************/
-			bool IsKeyTriggered(KEY_CODE);
+			static bool IsKeyTriggered(KEY_CODE);
+
+			/*!*********************************************************************
+			\brief
+				.Function to check if a key is triggered
+			\params
+				KEY_CODE key
+				Enum of the key you want to check
+			\return
+				returns true is key is triggered
+			************************************************************************/
+			static bool IsKeyPressed(KEY_CODE);
+
 			/*!*********************************************************************
 			\brief
 				.Function to initialize the Input Manager (Call this function right after successfully initializing window)

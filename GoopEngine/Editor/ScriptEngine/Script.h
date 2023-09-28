@@ -15,7 +15,7 @@ namespace GE {
 		using MonoObjectSP = std::shared_ptr<MonoObject>;
 
 		struct Script{
-			MonoObjectSP m_classObjInst;
+			MonoObject* m_classObjInst;
 			MonoMethod* m_awakeMethod;
 			MonoMethod* m_startMethod;
 			MonoMethod* m_updateMethod;
@@ -24,7 +24,7 @@ namespace GE {
 	
 
 			Script( MonoObject* objectInstance);
-			Script() : m_classObjInst { nullptr }, m_awakeMethod{ nullptr }, m_startMethod{ nullptr }, m_updateMethod{ nullptr }, m_lateUpdateMethod{ nullptr } {}
+			Script() : m_classObjInst {nullptr }, m_awakeMethod{ nullptr }, m_startMethod{ nullptr }, m_updateMethod{ nullptr }, m_lateUpdateMethod{ nullptr } {}
 		};
 		
 	}
