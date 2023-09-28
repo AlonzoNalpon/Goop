@@ -22,7 +22,7 @@ namespace Graphics
     // Add the texture to the lookup table
     if (m_texturesLT.find(name) != m_texturesLT.end())
     {
-      throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL, 
+      throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
         ErrMsg("texture of this name already exists: " + name));
     }
     m_texturesLT[name] = id;

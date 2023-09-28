@@ -88,27 +88,27 @@ void ImGuiUI::Update()
   Begin("Audio");
   if (Button("Play Scream Sound"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound("Assets/JoelScream.wav", 0.75f);
+    Audio::AudioEngine::GetInstance().PlaySound("../Assets/JoelScream.wav", 0.75f);
   }
   else if (Button("Play Beatbox Sound"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound("Assets/ChengEnBeatbox.wav", 1.25f, true);
+    Audio::AudioEngine::GetInstance().PlaySound("../Assets/ChengEnBeatbox.wav", 1.25f, true);
   }
   else if (Button("Play Qur Sound"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound("Assets/ChengEnQur.wav", 1.0f);
+    Audio::AudioEngine::GetInstance().PlaySound("../Assets/ChengEnQur.wav", 1.0f);
   }
   else if (Button("Stop Scream Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopSound("Assets/JoelScream.wav");
+    Audio::AudioEngine::GetInstance().StopSound("../Assets/JoelScream.wav");
   }
   else if (Button("Stop Beatbox Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopSound("Assets/ChengEnBeatbox.wav");
+    Audio::AudioEngine::GetInstance().StopSound("../Assets/ChengEnBeatbox.wav");
   }
   else if (Button("Stop Qur Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopSound("Assets/ChengEnQur.wav");
+    Audio::AudioEngine::GetInstance().StopSound("../Assets/ChengEnQur.wav");
   }
   else if (Button("Stop All Sounds"))
   {

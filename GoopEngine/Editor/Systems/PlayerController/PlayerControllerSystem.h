@@ -8,7 +8,7 @@ namespace GE
 {
 	namespace Systems
 	{
-		class PlayerControllerSystem : public GE::ECS::System, public GE::Events::EventListener
+		class PlayerControllerSystem : public GE::ECS::System, public GE::Events::IEventListener
 		{
 		public:
 			void Awake();

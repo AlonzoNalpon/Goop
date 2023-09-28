@@ -370,7 +370,6 @@ xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)\" /Y</Command
     <ClInclude Include="Serialization\ObjectGooStream.h" />
     <ClInclude Include="Serialization\PrefabGooStream.h" />
     <ClInclude Include="Serialization\Serialization.h" />
-    <ClInclude Include="Serialization\Serializer.h" />
     <ClInclude Include="Serialization\SpriteData.h" />
     <ClInclude Include="Serialization\SpriteGooStream.h" />
     <ClInclude Include="SpriteAnimation\Def\SpriteAnimationFlags.h" />
