@@ -9,7 +9,7 @@ namespace GoopScripts
 {
   public struct Transform
   {
-    bool m_isActive { get; set; }
+
     public Vec2<double> m_pos  { get; set; }
     public Vec2<double> m_scale { get; set; }
     public double m_rot { get; set; }
@@ -19,7 +19,6 @@ namespace GoopScripts
       m_pos = pos;
       m_scale = scale;
       m_rot = rot;
-      m_isActive = true;
     }
   }
 }

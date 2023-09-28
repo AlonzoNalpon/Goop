@@ -12,8 +12,6 @@ namespace GoopScripts.Mono
     public MonoBehaviour(uint entityID)
     {
       m_entityID = entityID;
-      Console.WriteLine("ITSHERE\n");
-
     }
     //public virtual void Awake()
     //{

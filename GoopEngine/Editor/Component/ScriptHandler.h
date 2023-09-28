@@ -9,7 +9,7 @@ namespace GE
 
 		using namespace GE::MONO;
 
-		struct ScriptHandler : public GE::ECS::Component
+		struct ScriptHandler
 		{
 
 			std::map<std::string,Script> m_scriptMap;
@@ -24,7 +24,6 @@ namespace GE
 						try
 						{
 							m_scriptMap[s.second] = Script(scriptMan->InstantiateClassID(s.first.c_str(), s.second.c_str(), entityID));
-							std::cout << "END\n";
 						}
 						catch (GE::Debug::IExceptionBase& e)
 						{
@@ -35,7 +34,6 @@ namespace GE
 					}
 
 				}
-				std::cout << "END\n";
 			}
 
 			void AddScript(const std::pair<std::string, std::string>& scriptName, unsigned int entityID) {

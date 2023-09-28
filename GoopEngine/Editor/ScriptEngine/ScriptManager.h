@@ -12,6 +12,7 @@
 #include <InputManager/InputManager.h>
 #include "../Component/Transform.h"
 #include <DebugTools/Exception/Exception.h>
+#include <FrameRateController/FrameRateController.h>
 
 
 namespace GE {
@@ -40,6 +41,8 @@ namespace GE {
 
 
 		static void SetTransform(GE::ECS::Entity entity, GE::Component::Transform newChange);
-	}
 
+
+		int CalculateGCD(int a, int b);
+	}
 }

@@ -66,11 +66,13 @@ namespace GE
 		private:
 			static int m_width, m_height;
 			static double m_keyHeldTime;
+			static double m_scrollX, m_scrollY;
 			static vec2 m_mousePos;
 			static KEY_MAP m_keyReleased;
 			static KEY_MAP m_keyHeld;
 			static KEY_MAP m_keysTriggered;
 			static KEY_PRESS_ARRAY m_keyFramesHeld;
+
 
 		public:
 			/*!*********************************************************************
@@ -124,6 +126,10 @@ namespace GE
 				returns true is key is triggered
 			************************************************************************/
 			static bool IsKeyPressed(KEY_CODE);
+
+			static double GetMouseScrollVert();
+
+			static double GetMouseScrollHor();
 
 			/*!*********************************************************************
 			\brief

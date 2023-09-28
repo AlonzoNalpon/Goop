@@ -29,6 +29,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Player::IsKeyHeld", GE::Input::InputManager::GetInstance().IsKeyHeld);
   mono_add_internal_call("GoopScripts.Player::IsKeyReleased", GE::Input::InputManager::GetInstance().IsKeyReleased);
   mono_add_internal_call("GoopScripts.Player::IsKeyPressed", GE::Input::InputManager::GetInstance().IsKeyPressed);
+  mono_add_internal_call("GoopScripts.Player::GetMouseScrollY", GE::Input::InputManager::GetInstance().GetMouseScrollVert);
+  mono_add_internal_call("GoopScripts.Player::GetMouseScrollX", GE::Input::InputManager::GetInstance().GetMouseScrollHor);
   mono_add_internal_call("GoopScripts.Player::SetTransform", GE::MONO::SetTransform);
   //mono_add_internal_call("GoopScripts.Player::SetTransform", GE::ECS::SetMonoComponent<GE::Component::Transform>);
   //Retrieve the C#Assembly (.ddl file)
@@ -217,10 +219,31 @@ void  GE::MONO::PrintAssemblyTypes(MonoAssembly* assembly)
 
 void GE::MONO::SetTransform(GE::ECS::Entity entity, GE::Component::Transform newChange)
 {
+  GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
-  std::cout << newChange.m_pos.x << "," << newChange.m_pos.x << "\n";
-  oldTransform->m_pos += newChange.m_pos;
-  oldTransform->m_scale += newChange.m_scale;
-  oldTransform->m_rot += newChange.m_rot;
+
+  if ((newChange.m_scale.x > 1.f) && (newChange.m_scale.y > 1.f))
+  {
+    oldTransform->m_scale.x += (oldTransform->m_scale.x * newChange.m_scale.x * fpsControl->GetDeltaTime());
+    oldTransform->m_scale.y += (oldTransform->m_scale.y * newChange.m_scale.y * fpsControl->GetDeltaTime());
+  }
+  else if((newChange.m_scale.x < 1.f) && (newChange.m_scale.y < 1.f))
+  {
+    newChange.m_scale.x =  1.f / newChange.m_scale.x;
+    newChange.m_scale.y = 1.f / newChange.m_scale.y;
+    double gcd = (oldTransform->m_scale.x >= oldTransform->m_scale.y) ? static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->m_scale.x), static_cast<int>(oldTransform->m_scale.y))) : static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->m_scale.y), static_cast<int>(oldTransform->m_scale.x)));  
+    oldTransform->m_scale.x = ((oldTransform->m_scale.x - (oldTransform->m_scale.x * newChange.m_scale.x * fpsControl->GetDeltaTime())) <= newChange.m_scale.x / gcd) ? (newChange.m_scale.x / gcd) : oldTransform->m_scale.x - (oldTransform->m_scale.x * newChange.m_scale.x * fpsControl->GetDeltaTime());
+    oldTransform->m_scale.y = ((oldTransform->m_scale.y - (oldTransform->m_scale.y * newChange.m_scale.y * fpsControl->GetDeltaTime())) <= newChange.m_scale.y / gcd) ? (newChange.m_scale.y / gcd) : oldTransform->m_scale.y - (oldTransform->m_scale.y * newChange.m_scale.y * fpsControl->GetDeltaTime());
+  }
+  oldTransform->m_pos += (newChange.m_pos * fpsControl->GetDeltaTime());
+  oldTransform->m_rot += (newChange.m_rot * fpsControl->GetDeltaTime());
+}
+
+
+
+
+int GE::MONO::CalculateGCD(int a, int b)
+{
+  return b == 0 ? a : CalculateGCD(b, a % b);
 }

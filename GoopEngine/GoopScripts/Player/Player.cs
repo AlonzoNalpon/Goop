@@ -15,51 +15,61 @@ namespace GoopScripts
 
     public Player(uint entityID) : base(entityID)
     {
-      Console.WriteLine("C# ID: " + entityID.ToString());
       // Derived class-specific initialization can be done here
     }
 
 
-    public virtual void Awake()
+    public void Awake()
     {
       // Logic for Awake
     }
 
-    public virtual void Start()
+    public void Start()
     {
       // Logic for Start
     }
 
-    public virtual void Update()
+    public  void Update()
     {
       Transform newChange = new Transform(); // All values are set to 0
-      // Logic for Update
+      
+
+      //Movement logic
       if (IsKeyPressed(KeyCode.W))
       {
-        newChange.m_pos = new Vec2<double>(newChange.m_pos.x, 5.0) ;
+        newChange.m_pos = new Vec2<double>(newChange.m_pos.x, 200.0) ;
 
       }
       else if (IsKeyPressed(KeyCode.S))
       {
-        newChange.m_pos = new Vec2<double>(newChange.m_pos.x, -5.0);
+        newChange.m_pos = new Vec2<double>(newChange.m_pos.x, -200.0);
       }
 
       if (IsKeyPressed(KeyCode.A))
       {
-        newChange.m_pos = new Vec2<double>(-5.0, newChange.m_pos.y);
+        newChange.m_pos = new Vec2<double>(-200.0, newChange.m_pos.y);
       }
       else if (IsKeyPressed(KeyCode.D))
       {
-        newChange.m_pos = new Vec2<double>(5.0, newChange.m_pos.y);
+        newChange.m_pos = new Vec2<double>(200.0, newChange.m_pos.y);
       }
 
-      if(newChange.m_pos.x != 0.0 || newChange.m_pos.y != 0.0)
+      //Rotation logic
+      newChange.m_rot = (IsKeyPressed(KeyCode.R)) ? -10.0f: (IsKeyPressed(KeyCode.E)) ? 10.0f: 0.0f;
+
+
+      //Scale Logic
+      double scroll = GetMouseScrollY();
+      newChange.m_scale = (scroll > 0.0) ? new Vec2<double>(2, 2) : (scroll < 0.0) ? new Vec2<double>(0.5, 0.5) : new Vec2<double>(1.0, 1.0);
+
+
+      if(newChange.m_pos.x != 0.0 || newChange.m_pos.y != 0.0 || newChange.m_scale.x != 1.0 || newChange.m_scale.y != 1.0 || newChange.m_rot != 0.0f)
       {
         SetTransform(base.m_entityID, newChange);
       }
     }
 
-    public virtual void LateUpdate()
+    public void LateUpdate()
     {
       // Logic for lateUpdate
     }
@@ -79,6 +89,12 @@ namespace GoopScripts
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern static void SetTransform(uint ID,Transform newValue);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern static double GetMouseScrollY();
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern static double GetMouseScrollX();
 
   }
 }

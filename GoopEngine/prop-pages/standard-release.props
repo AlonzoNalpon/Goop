@@ -5,7 +5,7 @@
   <PropertyGroup>
     <_PropertySheetDisplayName>standard</_PropertySheetDisplayName>
     <IncludePath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)lib\stb-master;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\spdlog;$(ProjectDir)include;$(ProjectDir);$(SolutionDir)Editor\Systems;$(SolutionDir)Editor\Components;$(SolutionDir)Editor\ImGui;$(SolutionDir)lib\rapidjson-1.1.0;$(SolutionDir)lib\freetype-2.13.2\include;$(SolutionDir)DebugTools;$(SolutionDir)lib\mono\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-2.13.2\dll\win64;$(SolutionDir)lib\mono\lib\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-2.13.2\dll\win64;$(SolutionDir)lib\mono\lib\Debug;$(SolutionDir)lib\mono\lib;$(LibraryPath)</LibraryPath>
     <EnableMicrosoftCodeAnalysis>true</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup>
@@ -17,7 +17,10 @@
 copy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y
 xcopy "$(SolutionDir)lib\freetype-2.13.2\dll\win64\*" "$(TargetDir)\" /Y
 xcopy "$(ProjectDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q
+xcopy "$(ProjectDir)imgui.ini" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
 
+xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y
 </Command>
     </PostBuildEvent>
     <ClCompile>
