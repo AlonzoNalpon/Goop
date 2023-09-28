@@ -1,4 +1,14 @@
 /*!*********************************************************************
+\file   AssetManager.tpp
+\author loh.j@digipen.edu
+\date   28 September 2023
+\brief
+  Contains the template functions of GetConfigData.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+
+/*!*********************************************************************
 \brief
   Gets the config data of the specific key.
 \param

@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   SerializeComponents.h
+\author loh.j@digipen.edu
+\date   28 September 2023
+\brief
+  Header for SerializeComponents.tpp.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include <pch.h>
 #include "ObjectFactory.h"
@@ -9,41 +18,43 @@
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
 
-namespace GE
+namespace GE::ObjectFactory
 {
-  namespace ObjectFactory
-  {
-    template<typename CompType>
-    CompType DeserializeComponent(std::string const& componentData);
+  /*!*********************************************************************
+  \brief
+    Takes the data and assigns it into the entity data.
+  \param
+    string const& (Identifier of the data located in the json file)
+  \return
+    COMPONENT_TYPE object
+  ************************************************************************/
+  template<typename CompType>
+  CompType DeserializeComponent(std::string const& componentData);
     
-    template<>
-    GE::Component::Transform DeserializeComponent<GE::Component::Transform>(std::string const& componentData);
+  template<>
+  GE::Component::Transform DeserializeComponent<GE::Component::Transform>(std::string const& componentData);
 
-    template <>
-    GE::Component::BoxCollider DeserializeComponent<GE::Component::BoxCollider>(std::string const& componentData);
+  template <>
+  GE::Component::BoxCollider DeserializeComponent<GE::Component::BoxCollider>(std::string const& componentData);
 
-    template<>
-    GE::Component::Velocity DeserializeComponent<GE::Component::Velocity>(std::string const& componentData);
+  template<>
+  GE::Component::Velocity DeserializeComponent<GE::Component::Velocity>(std::string const& componentData);
 
-    template<>
-    GE::Component::Gravity DeserializeComponent<GE::Component::Gravity>(std::string const& componentData);
+  template<>
+  GE::Component::Gravity DeserializeComponent<GE::Component::Gravity>(std::string const& componentData);
     
-    template<>
-    GE::Component::Sprite DeserializeComponent<GE::Component::Sprite>(std::string const& componentData);
+  template<>
+  GE::Component::Sprite DeserializeComponent<GE::Component::Sprite>(std::string const& componentData);
     
-    template<>
-    GE::Component::SpriteAnim DeserializeComponent<GE::Component::SpriteAnim>(std::string const& componentData);
+  template<>
+  GE::Component::SpriteAnim DeserializeComponent<GE::Component::SpriteAnim>(std::string const& componentData);
 
-    template<>
-    GE::Component::Model DeserializeComponent<GE::Component::Model>(std::string const& componentData);
+  template<>
+  GE::Component::Model DeserializeComponent<GE::Component::Model>(std::string const& componentData);
 
-    template<typename CompType>
-    void SerializeComponent(Serialization::ComponentWrapper const& wrapper)
-    {
+  template<typename CompType>
+  void SerializeComponent(Serialization::ComponentWrapper const& wrapper) { }
 
-    }
-
-    #include "SerializeComponents.tpp"
-  }
+  #include "SerializeComponents.tpp"
 }
 
