@@ -1,5 +1,6 @@
 #pragma once
 #include <pch.h>
+#include <Component/Transform.h>
 
 using vec2 = GE::Math::dVec2;
 
@@ -17,5 +18,10 @@ namespace GE
 
 			vec2 Tweening(vec2 start, vec2 end, double normalisedTime);
 		};
+
 	}
 }
+
+
+
+

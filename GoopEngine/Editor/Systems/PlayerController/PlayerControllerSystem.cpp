@@ -7,6 +7,8 @@
 #include <Events/InputEvents.h>
 #include <Events/EventManager.h>
 #include <Graphics/GraphicsEngine.h>
+#include <Component/ScriptHandler.h>
+
 using vec2 = GE::Math::dVec2;
 
 using namespace GE;
@@ -51,6 +53,12 @@ void PlayerControllerSystem::Update()
 	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 
 	for (Entity entity : m_entities) {
+
+		ScriptHandler* scriptHan = m_ecs->GetComponent<ScriptHandler>(entity);
+		if (scriptHan != nullptr)
+		{
+			scriptHan->UpdateAllScripts();
+		}
 
 		Tween* tween = m_ecs->GetComponent<Tween>(entity);
 
@@ -144,3 +152,4 @@ vec2 PlayerControllerSystem::Tweening(vec2 start, vec2 end, double normalisedTim
 {
 	return start + (normalisedTime * (end - start));
 }
+
