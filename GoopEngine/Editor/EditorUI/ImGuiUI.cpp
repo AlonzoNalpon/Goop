@@ -95,15 +95,15 @@ void ImGuiUI::Update()
   }
   else if (Button("Stop Scream Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopChannel("Assets/JoelScream.wav");
+    Audio::AudioEngine::GetInstance().StopSound("Assets/JoelScream.wav");
   }
   else if (Button("Stop Beatbox Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopChannel("Assets/ChengEnBeatbox.wav");
+    Audio::AudioEngine::GetInstance().StopSound("Assets/ChengEnBeatbox.wav");
   }
   else if (Button("Stop Qur Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopChannel("Assets/ChengEnQur.wav");
+    Audio::AudioEngine::GetInstance().StopSound("Assets/ChengEnQur.wav");
   }
   else if (Button("Stop All Sounds"))
   {

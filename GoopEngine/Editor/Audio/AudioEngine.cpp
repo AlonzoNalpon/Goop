@@ -37,17 +37,17 @@ void Implementation::Update()
 
 Implementation* fMOD = nullptr;
 
-void AudioEngine::Init() 
+void AudioEngine::Init() const
 {
   fMOD = new Implementation;
 }
 
-void AudioEngine::Update() 
+void AudioEngine::Update() const
 {
   fMOD->Update();
 }
 
-void AudioEngine::LoadSound(const std::string& soundFile, bool isLooping, bool isStreaming)
+void AudioEngine::LoadSound(const std::string& soundFile, bool isLooping, bool isStreaming) const
 {
   std::cout << "Loading " << soundFile << std::endl;
 
@@ -79,7 +79,7 @@ void AudioEngine::LoadSound(const std::string& soundFile, bool isLooping, bool i
   }
 }
 
-void AudioEngine::UnLoadSound(const std::string& strSoundName)
+void AudioEngine::UnLoadSound(const std::string& strSoundName) const
 {
   auto soundFound = fMOD->m_sounds.find(strSoundName);
   if (soundFound == fMOD->m_sounds.end())
@@ -92,7 +92,7 @@ void AudioEngine::UnLoadSound(const std::string& strSoundName)
   fMOD->m_sounds.erase(soundFound);
 }
 
-void AudioEngine::PlaySound(const std::string& sound, float volumedB, bool isLooping, bool isStreaming)
+void AudioEngine::PlaySound(const std::string& sound, float volumedB, bool isLooping, bool isStreaming) const
 {
   int channelId = fMOD->m_nextChannelId++;
   Implementation::SoundMap::iterator soundFound = fMOD->m_sounds.find(sound);
@@ -121,7 +121,7 @@ void AudioEngine::PlaySound(const std::string& sound, float volumedB, bool isLoo
   }
 }
 
-void AudioEngine::StopChannel(std::string&& sound)
+void AudioEngine::StopSound(std::string&& sound) const
 {
   std::cout << "Stopping channel" << std::endl;
   Implementation::ChannelID const& channel = fMOD->m_playlist[sound];
@@ -129,7 +129,7 @@ void AudioEngine::StopChannel(std::string&& sound)
   fMOD->m_playlist.erase(sound);
 }
 
-void AudioEngine::StopAllChannels()
+void AudioEngine::StopAllChannels() const
 {
   std::cout << "Stopping all channels" << std::endl;
   for (int i{}; i < fMOD->m_channels.size(); ++i) {
@@ -138,7 +138,7 @@ void AudioEngine::StopAllChannels()
   fMOD->m_playlist.clear();
 }
 
-void AudioEngine::SetChannelVolume(int channelId, float volumedB)
+void AudioEngine::SetChannelVolume(int channelId, float volumedB) const
 {
   auto channelFound = fMOD->m_channels.find(channelId);
   if (channelFound == fMOD->m_channels.end())
@@ -159,17 +159,17 @@ bool AudioEngine::IsPlaying(int channelId) const
   return false;
 }
 
-float AudioEngine::dbToVolume(float dB)
+float AudioEngine::dbToVolume(float dB) const
 {
   return powf(10.0f, 0.05f * dB);
 }
 
-float AudioEngine::VolumeTodb(float volume)
+float AudioEngine::VolumeTodb(float volume) const
 {
   return 20.0f * log10f(volume);
 }
 
-int AudioEngine::ErrorCheck(FMOD_RESULT result) 
+int AudioEngine::ErrorCheck(FMOD_RESULT result)
 {
   if (result != FMOD_OK) 
   {
@@ -180,14 +180,8 @@ int AudioEngine::ErrorCheck(FMOD_RESULT result)
   return 0;
 }
 
-void AudioEngine::Shutdown() 
+void AudioEngine::Shutdown() const
 {
   std::cout << "Sound not found" << std::endl;
   delete fMOD;
 }
-
-//void AudioEngine::AudioTest()
-//{
-//  Init();
-//  
-//}

@@ -21,7 +21,7 @@ namespace GE
       ~Implementation();
       void Update();
 
-      FMOD::System* fm_system{ NULL };
+      FMOD::System* fm_system{ nullptr };
 
       ChannelID m_nextChannelId{};
       ChannelID m_numOfChannels{ 32 };
@@ -38,21 +38,22 @@ namespace GE
     //audio engine
     class AudioEngine : public Singleton<AudioEngine> {
     public:
-      static void Init();
-      static void Update();
-      static void Shutdown();
-      static int ErrorCheck(FMOD_RESULT result);
-      void LoadSound(const std::string& soundFile, bool isLooping, bool isStreaming);
-      void UnLoadSound(const std::string& sound);
-      void PlaySound(const std::string& sound, float volumedB = 0.0f, bool isLooping = false, bool isStreaming = true);
-      void StopChannel(std::string&& sound);
-      void StopAllChannels();
-      void SetChannelVolume(int channelId, float volumedB);
-      bool IsPlaying(int channelId) const;
-      float dbToVolume(float db);
-      float VolumeTodb(float volume);
+      void Init() const;
+      void Update() const;
+      void Shutdown() const;
+      void PlaySound(const std::string& sound, float volumedB = 0.0f, bool isLooping = false, bool isStreaming = true) const;
+      void StopSound(std::string&& sound) const;
+      void StopAllChannels() const;
+      void SetChannelVolume(int channelId, float volumedB) const;
 
-      //static void AudioTest();
+      static int ErrorCheck(FMOD_RESULT result);
+
+    private:
+      void LoadSound(const std::string& soundFile, bool isLooping, bool isStreaming) const;
+      void UnLoadSound(const std::string& sound) const;
+      bool IsPlaying(int channelId) const;
+      float dbToVolume(float db) const;
+      float VolumeTodb(float volume) const;
     };
 	}
 }
