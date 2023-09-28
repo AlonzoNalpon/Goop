@@ -38,9 +38,9 @@ namespace GE
     //audio engine
     class AudioEngine : public Singleton<AudioEngine> {
     public:
-      void Init() const;
+      AudioEngine();
+      ~AudioEngine();
       void Update() const;
-      void Shutdown() const;
       void PlaySound(const std::string& sound, float volumedB = 0.0f, bool isLooping = false, bool isStreaming = true) const;
       void StopSound(std::string&& sound) const;
       void StopAllChannels() const;

@@ -27,8 +27,6 @@ void ImGuiUI::Init(WindowSystem::Window& window)
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(window.GetWindow(), true);
   ImGui_ImplOpenGL3_Init();
-
-  Audio::AudioEngine::GetInstance().Init();
 }
 
 void ImGuiUI::Update()

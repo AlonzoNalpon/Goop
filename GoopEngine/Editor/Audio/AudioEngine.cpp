@@ -37,9 +37,14 @@ void Implementation::Update()
 
 Implementation* fMOD = nullptr;
 
-void AudioEngine::Init() const
+AudioEngine::AudioEngine()
 {
   fMOD = new Implementation;
+}
+
+AudioEngine::~AudioEngine()
+{
+  delete fMOD;
 }
 
 void AudioEngine::Update() const
@@ -178,10 +183,4 @@ int AudioEngine::ErrorCheck(FMOD_RESULT result)
   }
   //std::cout << "FMOD all good" << std::endl;
   return 0;
-}
-
-void AudioEngine::Shutdown() const
-{
-  std::cout << "Sound not found" << std::endl;
-  delete fMOD;
 }
