@@ -18,6 +18,8 @@ xcopy "$(ProjectDir)GoopScripts\bin\Debug\GoopScripts.dll*" "$(TargetDir)GoopScr
 xcopy "$(ProjectDir)imgui.ini" "$(TargetDir)"/Y
 xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
 xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmod.dll" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(TargetDir)"/Y
 </Command>
     </PostBuildEvent>
     <ClCompile>

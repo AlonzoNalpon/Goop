@@ -20,7 +20,9 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
 xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)\" /Y
 xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)\" /Y
 xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
-xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y</Command>
+xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmod.dll" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(TargetDir)"/Y</Command>
     </PostBuildEvent>
     <ClCompile>
       <PreprocessorDefinitions>GLFW_DLL;DGLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
