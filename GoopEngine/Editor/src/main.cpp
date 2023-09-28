@@ -121,12 +121,12 @@ int main(int /*argc*/, char* /*argv*/[])
       renderUI = !renderUI;
     }
 
+    fRC.StartSystemTimer();
     if (renderUI)
     {
-      fRC.StartSystemTimer();
       imgui.Update();
-      fRC.EndSystemTimer("ImGui Update");
     }
+    fRC.EndSystemTimer("ImGui Update");
     gEngine.ClearBuffer();
 
     fRC.StartSystemTimer();
@@ -137,12 +137,12 @@ int main(int /*argc*/, char* /*argv*/[])
     gEngine.Draw();
     fRC.EndSystemTimer("Draw");
 
+    fRC.StartSystemTimer();
     if (renderUI)
     {
-      fRC.StartSystemTimer();
       imgui.Render();
-      fRC.EndSystemTimer("ImGui Render");
     }
+    fRC.EndSystemTimer("ImGui Render");
 
     std::stringstream ss;
     ss << GE::AssetManager::AssetManager::GetInstance().GetConfigData<std::string>("Window Title").value() << " | FPS: " << std::fixed

@@ -10,6 +10,9 @@ using namespace Component;
 
 void PhysicsSystem::Update()
 {
+	auto& inputMan{ Input::InputManager::GetInstance() };
+	if (!(inputMan.IsKeyHeld(GPK_SPACE) || inputMan.IsKeyTriggered(GPK_SPACE)))
+		return;
 	//update func passes curr entity
 	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 	for (Entity entity : m_entities) {

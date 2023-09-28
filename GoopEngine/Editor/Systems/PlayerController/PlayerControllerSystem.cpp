@@ -16,6 +16,9 @@ void PlayerControllerSystem::Awake()
 
 void PlayerControllerSystem::Update() 
 {
+	auto& inputMan{ Input::InputManager::GetInstance() };
+	if (!(inputMan.IsKeyHeld(GPK_SPACE) || inputMan.IsKeyTriggered(GPK_SPACE)))
+		return;
 	for (Entity entity : m_entities) {
 
 		Tween* tween = m_ecs->GetComponent<Tween>(entity);
