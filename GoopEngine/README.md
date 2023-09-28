@@ -15,10 +15,16 @@ hold space -> keep updating physics
 Player is the interpolating sprite
 W,A,S,D -> Move player 
 E,R -> Rotate player clockwise/counter clockwise
-K -> change the player animation
 Scroll Mouse-> Increase/Decrease the size of the player
 
 *For ease of use, player controller script will ignore step update
 
+[ Multiple Animations ]
+K -> change the player animation
 
-
+[ Events ]
+InputManager polls for key/mouse triggers and holds
+When detected, it dispatches the event
+The PlayerController and DraggableObject Systems who are subscribed to the event
+receive the event and handles it
+Running in Debug mode will show dispatching and handling printed on key/mouse press
