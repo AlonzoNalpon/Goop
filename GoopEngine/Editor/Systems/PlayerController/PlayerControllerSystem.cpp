@@ -1,14 +1,14 @@
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
 #include <Component/Transform.h>
-
+#include <math.h>
 using vec2 = GE::Math::dVec2;
 
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
 using namespace Component;
-
+constexpr double pi = 3.14159265358979323846;
 void PlayerControllerSystem::Awake() 
 {
 	m_ecs = &EntityComponentSystem::GetInstance();
@@ -19,6 +19,9 @@ void PlayerControllerSystem::Update()
 	auto& inputMan{ Input::InputManager::GetInstance() };
 	if (!(inputMan.IsKeyHeld(GPK_SPACE) || inputMan.IsKeyTriggered(GPK_SPACE)))
 		return;
+
+	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
+
 	for (Entity entity : m_entities) {
 
 		Tween* tween = m_ecs->GetComponent<Tween>(entity);
@@ -50,8 +53,9 @@ void PlayerControllerSystem::Update()
 			double normalisedTime = tween->m_timeElapsed / tween->m_timePerTween;
 			trans->m_pos = Tweening(tween->m_originalPos, targetPos, normalisedTime);
 		}
-		tween->m_timeElapsed += GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
+		tween->m_timeElapsed += dt;
 
+		trans->m_rot = fmod(trans->m_rot + dt, pi * 2.0); // ROTATING PLAYER
 		//std::cout << "Player Position: [" << trans->m_pos.x << ", " << trans->m_pos.y << "]\n";
 	}
 }
