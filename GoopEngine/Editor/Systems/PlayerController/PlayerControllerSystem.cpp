@@ -2,6 +2,7 @@
 #include <Component/Tween.h>
 #include <Component/Transform.h>
 #include <Events/InputEvents.h>
+#include <Events/EventManager.h>
 
 using vec2 = GE::Math::dVec2;
 
@@ -13,6 +14,8 @@ using namespace Component;
 void PlayerControllerSystem::Awake() 
 {
 	m_ecs = &EntityComponentSystem::GetInstance();
+	Events::EventManager::GetInstance().Subscribe<Events::KeyHeldEvent>(this);
+	Events::EventManager::GetInstance().Subscribe<Events::KeyTriggeredEvent>(this);
 }
 
 void PlayerControllerSystem::Update() 
