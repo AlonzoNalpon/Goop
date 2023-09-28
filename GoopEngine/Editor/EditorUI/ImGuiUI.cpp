@@ -5,6 +5,7 @@
 #include "../ObjectFactory/ObjectFactory.h"
 #include "../Component/Transform.h"
 #include "../Component/BoxCollider.h"
+#include <Audio/AudioEngine.h>
 
 using namespace GE::EditorGUI;
 using namespace ImGui;
@@ -26,6 +27,8 @@ void ImGuiUI::Init(WindowSystem::Window& window)
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(window.GetWindow(), true);
   ImGui_ImplOpenGL3_Init();
+
+  Audio::AudioEngine::GetInstance().Init();
 }
 
 void ImGuiUI::Update()
@@ -75,6 +78,38 @@ void ImGuiUI::Update()
       }
     }
   }
+  End();
+
+  Begin("Audio");
+  if (Button("Play Scream Sound"))
+  {
+    Audio::AudioEngine::GetInstance().PlaySound("Assets/JoelScream.wav", 0.75f);
+  }
+  else if (Button("Play Beatbox Sound"))
+  {
+    Audio::AudioEngine::GetInstance().PlaySound("Assets/ChengEnBeatbox.wav", 1.25f, true);
+  }
+  else if (Button("Play Qur Sound"))
+  {
+    Audio::AudioEngine::GetInstance().PlaySound("Assets/ChengEnQur.wav", 1.0f);
+  }
+  else if (Button("Stop Scream Sound"))
+  {
+    Audio::AudioEngine::GetInstance().StopChannel("Assets/JoelScream.wav");
+  }
+  else if (Button("Stop Beatbox Sound"))
+  {
+    Audio::AudioEngine::GetInstance().StopChannel("Assets/ChengEnBeatbox.wav");
+  }
+  else if (Button("Stop Qur Sound"))
+  {
+    Audio::AudioEngine::GetInstance().StopChannel("Assets/ChengEnQur.wav");
+  }
+  else if (Button("Stop All Sounds"))
+  {
+    Audio::AudioEngine::GetInstance().StopAllChannels();
+  }
+  Audio::AudioEngine::GetInstance().Update();
   End();
 
   Begin("Inspector");

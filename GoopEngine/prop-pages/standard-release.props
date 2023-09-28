@@ -12,11 +12,12 @@
     <Link>
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3dll.lib;glfw3.lib;freetype.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <IncludePath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)lib\stb-master;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\spdlog;$(ProjectDir)include;$(ProjectDir);$(SolutionDir)Editor\Systems;$(SolutionDir)Editor\Components;$(SolutionDir)Editor\ImGui;$(SolutionDir)lib\rapidjson-1.1.0;$(SolutionDir)lib\freetype-2.13.2\include;$(SolutionDir)fMOD;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)lib\stb-master;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\spdlog;$(ProjectDir)include;$(ProjectDir);$(SolutionDir)Editor\Systems;$(SolutionDir)Editor\Components;$(SolutionDir)Editor\ImGui;$(SolutionDir)lib\rapidjson-1.1.0;$(SolutionDir)lib\freetype-2.13.2\include;$(SolutionDir)lib\fMOD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-2.13.2\dll\win64;$(SolutionDir)lib\fMOD\Librariesx64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3dll.lib;glfw3.lib;freetype.lib;fmod_vc.lib;fmodstudio_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3dll.lib;glfw3.lib;freetype.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
