@@ -7,6 +7,7 @@
     <IncludePath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)lib\stb-master;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\spdlog;$(ProjectDir)include;$(ProjectDir);$(SolutionDir)Editor\Systems;$(SolutionDir)Editor\Components;$(SolutionDir)Editor\ImGui;$(SolutionDir)lib\rapidjson-1.1.0;$(SolutionDir)lib\freetype-2.13.2\include;$(SolutionDir)DebugTools;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-2.13.2\dll\win64;$(LibraryPath)</LibraryPath>
     <EnableMicrosoftCodeAnalysis>true</EnableMicrosoftCodeAnalysis>
+    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
@@ -16,7 +17,8 @@
       <Command>copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
 copy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y
 xcopy "$(SolutionDir)lib\freetype-2.13.2\dll\win64\*" "$(TargetDir)\" /Y
-xcopy "$(ProjectDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q</Command>
+cd "$(ProjectDir).."
+xcopy "$(SolutionDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q</Command>
     </PostBuildEvent>
     <ClCompile>
       <PreprocessorDefinitions>GLFW_DLL;DGLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -25,6 +27,12 @@ xcopy "$(ProjectDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q</Command>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(ProjectDir)pch.h</PrecompiledHeaderOutputFile>
+      <CompileAsManaged>
+      </CompileAsManaged>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

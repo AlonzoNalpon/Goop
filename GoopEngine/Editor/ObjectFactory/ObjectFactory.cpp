@@ -236,9 +236,9 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
 {
   if (m_prefabs.find(key) == m_prefabs.end())
   {
-    // throw exception
-    std::cout << "ERROR";
+    throw GE::Debug::Exception<ObjectFactory>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
   }
+
   PrefabData prefab = m_prefabs.at(key);
   ObjectData object{ prefab.m_componentSignature, prefab.m_components };
   Entity entity = CreateObject(object);

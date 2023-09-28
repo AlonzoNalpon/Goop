@@ -37,9 +37,6 @@ namespace GE
 {
 	namespace AssetManager
 	{
-		// should read this from Config.json in future
-		std::string const ASSETS_DIR{ "Assets/Data/" };
-
 		IDGenerator::~IDGenerator()
 		{
 			m_recycledID.clear();
