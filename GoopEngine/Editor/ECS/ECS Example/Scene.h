@@ -13,6 +13,7 @@
 #include <Component/Tween.h>
 
 #include <Systems/Rendering/RenderingSystem.h>
+#include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <Graphics/GraphicsEngine.h>
 #include <Component/Model.h>
 #include <Component/Sprite.h>
@@ -154,16 +155,13 @@ struct Scene
 		ecs->RegisterEntityToSystem<PlayerControllerSystem>(player);
 		ecs->RegisterEntityToSystem<RenderSystem>(player);
 		ecs->RegisterEntityToSystem<CollisionSystem>(player);
-
-#pragma region RENDERING_SYSTEM // Rendering should be last ( I think?!)
-
-#pragma endregion // end of rendering system block
+		ecs->RegisterEntityToSystem<SpriteAnimSystem>(player);
 	}
 
 	void Update()
 	{
-		// This should be done by app controller in main
 		ecs->UpdateSystems();
+		// This should be done by app controller in main
 	}
 
 	void Exit()
