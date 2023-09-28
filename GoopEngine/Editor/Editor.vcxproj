@@ -298,6 +298,7 @@
     <ClInclude Include="Graphics\Fonts\FontManager.h" />
     <ClInclude Include="Graphics\Fonts\FontRenderer.h" />
     <ClInclude Include="Graphics\Renderer\Camera.h" />
+    <ClInclude Include="Graphics\Renderer\DebugRenderData.h" />
     <ClInclude Include="Graphics\Renderer\RenderData.h" />
     <ClInclude Include="Graphics\Renderer\Renderer.h" />
     <ClInclude Include="Graphics\SpriteSubData.h" />
