@@ -1,3 +1,10 @@
+/*!******************************************************************
+\file   ImGuiUI.cpp
+\author w.chinkitbryam\@digipen.edu
+\date   28 September 2023
+\brief
+  ImGui Editor UI Wrapper
+********************************************************************/
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
 #include <ImGui/backends/imgui_impl_opengl3.h>
@@ -5,11 +12,12 @@
 #include "../ObjectFactory/ObjectFactory.h"
 #include "../Component/Transform.h"
 #include "../Component/BoxCollider.h"
+#include <Audio/AudioEngine.h>
 
 using namespace GE::EditorGUI;
 using namespace ImGui;
 
-void ImGuiUI::Init(WindowSystem::Window& window)
+void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
 {
   // Setup Dear ImGui context
   IMGUI_CHECKVERSION();
@@ -21,10 +29,10 @@ void ImGuiUI::Init(WindowSystem::Window& window)
   // Setup Dear ImGui style
   StyleColorsDark();
 
-  this->window = &window;
+  this->window = &prgmWindow;
   ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   // Setup Platform/Renderer backends
-  ImGui_ImplGlfw_InitForOpenGL(window.GetWindow(), true);
+  ImGui_ImplGlfw_InitForOpenGL(prgmWindow.GetWindow(), true);
   ImGui_ImplOpenGL3_Init();
 }
 
@@ -75,6 +83,38 @@ void ImGuiUI::Update()
       }
     }
   }
+  End();
+
+  Begin("Audio");
+  if (Button("Play Scream Sound"))
+  {
+    Audio::AudioEngine::GetInstance().PlaySound("Assets/JoelScream.wav", 0.75f);
+  }
+  else if (Button("Play Beatbox Sound"))
+  {
+    Audio::AudioEngine::GetInstance().PlaySound("Assets/ChengEnBeatbox.wav", 1.25f, true);
+  }
+  else if (Button("Play Qur Sound"))
+  {
+    Audio::AudioEngine::GetInstance().PlaySound("Assets/ChengEnQur.wav", 1.0f);
+  }
+  else if (Button("Stop Scream Sound"))
+  {
+    Audio::AudioEngine::GetInstance().StopSound("Assets/JoelScream.wav");
+  }
+  else if (Button("Stop Beatbox Sound"))
+  {
+    Audio::AudioEngine::GetInstance().StopSound("Assets/ChengEnBeatbox.wav");
+  }
+  else if (Button("Stop Qur Sound"))
+  {
+    Audio::AudioEngine::GetInstance().StopSound("Assets/ChengEnQur.wav");
+  }
+  else if (Button("Stop All Sounds"))
+  {
+    Audio::AudioEngine::GetInstance().StopAllChannels();
+  }
+  Audio::AudioEngine::GetInstance().Update();
   End();
 
   Begin("Inspector");

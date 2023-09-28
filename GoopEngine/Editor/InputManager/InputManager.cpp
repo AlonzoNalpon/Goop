@@ -161,7 +161,6 @@ void InputManager::MouseButtonCallback(GLFWwindow* pwin, int button, int action,
 	UNREFERENCED_PARAMETER(mod);
 
 	ImGuiIO& io = ImGui::GetIO();
-	bool bit = !(GLFW_RELEASE == action);
 
 	if (io.WantCaptureMouse)
 	{

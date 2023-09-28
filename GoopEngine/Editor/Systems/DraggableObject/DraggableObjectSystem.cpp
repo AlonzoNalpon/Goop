@@ -43,7 +43,6 @@ void DraggableObjectSystem::Update() {
 			{
 				Transform* transform = m_ecs->GetComponent<Transform>(entity);
 
-				InputManager* input = &(InputManager::GetInstance());
 				if (isHeld)
 				{
 					m_ecs->UnregisterEntityFromSystem<GE::Systems::PhysicsSystem>(entity);

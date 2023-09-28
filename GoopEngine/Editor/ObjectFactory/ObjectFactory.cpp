@@ -26,7 +26,6 @@ using namespace GE::ECS;
 
 GE::ECS::SystemSignature ObjectFactory::GetObjectSystemSignature(GE::ECS::Entity obj) const
 {
-  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
   GE::ECS::SystemSignature sig{};
 
   SetBitIfFound<Systems::PhysicsSystem>(obj, sig, ECS::SYSTEM_TYPES::PHYSICS);

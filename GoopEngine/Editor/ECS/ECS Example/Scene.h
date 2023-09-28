@@ -70,7 +70,7 @@ struct Scene
 		// Creating Entities w/ Components
 		////////////////////////////////////////////////
 		//Entity entt1 = ecs->CreateEntity();
-		Entity entt2 = ecs->CreateEntity();
+		//Entity entt2 = ecs->CreateEntity();
 
 		//ecs->AddComponent(entt1, (component));
 

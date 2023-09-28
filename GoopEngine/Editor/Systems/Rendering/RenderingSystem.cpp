@@ -8,8 +8,6 @@ namespace GE::Systems
   void RenderSystem::Update()
   {
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
-    double dt{ FPS::FrameRateController::GetInstance().GetDeltaTime() };
-    f32 dtF{ static_cast<f32>(dt) };
     for (GE::ECS::Entity entity : m_entities)
     {
       Component::Model*       model{ m_ecs->GetComponent<Component::Model>(entity) };
@@ -24,7 +22,6 @@ namespace GE::Systems
       // Rendering
       Graphics::Rendering::Renderer& renderer{ gEngine.GetRenderer() };
       // Render the object
-      GLfloat scale{ 100.f }; // we are temporarily increasing the scale to this value for now
       renderer.RenderObject(model->mdlID, sprite->spriteData,
         Graphics::Rendering::Transform{
           { transform->m_scale.x, transform->m_scale.y, 1.f},

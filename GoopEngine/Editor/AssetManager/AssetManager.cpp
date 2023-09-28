@@ -132,7 +132,6 @@ namespace GE::AssetManager
 				for (std::pair<std::string, std::string> const& entry : m_filePath)
 				{
 					int id = LoadImageW(entry.second);
-					auto const& img = GetData(id);
 
 					gEngine.InitTexture(entry.first, GetData(id));
 				}
@@ -143,13 +142,13 @@ namespace GE::AssetManager
 				// Unload the config data from the AssetGooStream object into m_configData
 				ags.Unload(m_configData);
 
+#ifdef ASSET_MANAGER_DEBUG
 				// For each entry in m_configData, print out the key-value pair if ASSET_MANAGER_DEBUG is defined
 				for (std::pair<std::string, std::string> const& entry : m_configData)
 				{
-					#ifdef ASSET_MANAGER_DEBUG
 					std::cout << "\"" << entry.first << "\" : \"" << entry.second << "\"" << std::endl;
-					#endif    
 				}
+#endif    
 			}
 		}
 		// If the flag is set to ANIMATION

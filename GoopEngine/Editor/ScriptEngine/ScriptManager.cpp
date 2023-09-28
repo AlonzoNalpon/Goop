@@ -112,7 +112,7 @@ MonoAssembly* GE::MONO::LoadCSharpAssembly(const std::string& assemblyPath)
     const char* errorMessage = mono_image_strerror(status);
 
     delete[] fileData;
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Unable to open mono image", ERRLG_FUNC, ERRLG_LINE);
+    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, errorMessage, ERRLG_FUNC, ERRLG_LINE);
   }
 
   MonoAssembly* assembly = mono_assembly_load_from_full(image, assemblyPath.c_str(), &status, 0);
