@@ -2,6 +2,9 @@
 #include <Component/Tween.h>
 #include <Component/Transform.h>
 #include <math.h>
+#include <Events/InputEvents.h>
+#include <Events/EventManager.h>
+
 using vec2 = GE::Math::dVec2;
 
 using namespace GE;
@@ -12,6 +15,8 @@ constexpr double pi = 3.14159265358979323846;
 void PlayerControllerSystem::Awake() 
 {
 	m_ecs = &EntityComponentSystem::GetInstance();
+	Events::EventManager::GetInstance().Subscribe<Events::KeyHeldEvent>(this);
+	Events::EventManager::GetInstance().Subscribe<Events::KeyTriggeredEvent>(this);
 }
 
 void PlayerControllerSystem::Update() 
@@ -57,6 +62,39 @@ void PlayerControllerSystem::Update()
 
 		trans->m_rot = fmod(trans->m_rot + dt, pi * 2.0); // ROTATING PLAYER
 		//std::cout << "Player Position: [" << trans->m_pos.x << ", " << trans->m_pos.y << "]\n";
+	}
+}
+
+void PlayerControllerSystem::HandleEvent(Events::Event const* event)
+{
+	if (event->GetCategory() == Events::EVENT_TYPE::KEY_HELD)
+	{
+		KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
+		if (key == GPK_H)
+		{
+			
+			#ifdef _DEBUG
+			std::cout << event->GetName() + " Event handled\n";
+			#endif
+		}
+		else if (key == GPK_J)
+		{
+
+			#ifdef _DEBUG
+			std::cout << event->GetName() + " Event handled\n";
+			#endif
+		}
+	}
+	else if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
+	{
+		KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
+		if (key == GPK_K)
+		{
+			
+			#ifdef _DEBUG
+			std::cout << event->GetName() + " Event handled\n";
+			#endif
+		}
 	}
 }
 
