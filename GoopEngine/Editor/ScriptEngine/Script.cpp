@@ -1,5 +1,15 @@
 #include "Script.h"
+/*!*********************************************************************
+\file   Script.cpp
+\author han.q\@digipen.edu
+\date   28 September 2023
+\brief
+  Script Class to contain the data of a c# class.
+  It will store the pointer to the MonoObject and its 4 main methods
 
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 
 
 GE::MONO::Script::Script(MonoObject* objectInstance)

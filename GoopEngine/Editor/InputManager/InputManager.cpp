@@ -1,3 +1,37 @@
+/*!*********************************************************************
+\file   InputManager.cpp
+\author han.q\@digipen.edu
+\date   28 September 2023
+\brief
+	Input Manager for Engine
+
+
+	Setup:
+
+	1. // Include the header file in your files
+		 #include "../InputManager/InputManager.h"
+
+	2. // Initialize the Input Manager in your Game's Init after Create Window
+		 GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
+		 im->InitInputManager(GLHelper::ptr_window, GLHelper::width, GLHelper::height);
+
+	3. // Call theUpdateInput() function at the start of each game loop ( Start of Update function )
+			GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
+			im->UpdateInput();
+
+ ------------------------------------------------------------------------------------------------
+
+	How to use:
+
+	1. Get an instance of the Input Manager in your function/code:
+		 im->InitInputManager(GLHelper::ptr_window, GLHelper::width, GLHelper::height);
+
+	2. Access the function through the instance:
+		 bool isTriggered = im->IsKeyTriggered(GPK_MOUSE_LEFT);
+
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include "InputManager.h"
 #include <ImGui/backends/imgui_impl_glfw.h>
 #include "../Events/InputEvents.h"
