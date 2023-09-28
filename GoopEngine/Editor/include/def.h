@@ -19,7 +19,7 @@ namespace debugger {
 }
 
 #pragma region CONSTANTS
-std::string const ASSETS_PATH{ "Assets/" };
+std::string const ASSETS_PATH{ "../Assets/" };
 std::string const SHADER_PATH{ ASSETS_PATH + "Shaders/" };
 #pragma endregion
 
