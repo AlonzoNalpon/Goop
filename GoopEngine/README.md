@@ -15,6 +15,7 @@ hold space -> keep updating physics
 Player is the interpolating sprite
 W,A,S,D -> Move player 
 E,R -> Rotate player clockwise/counter clockwise
+K -> change the player animation
 Scroll Mouse-> Increase/Decrease the size of the player
 
 *For ease of use, player controller script will ignore step update

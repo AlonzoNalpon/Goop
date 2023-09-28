@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   KeyCode.cs
+\author han.q\@digipen.edu
+\date   28 September 2023
+\brief
+	This file is a copy of Keycode enums for Input Manager. The value of the key enums will be the same as 
+	GLFW defined keys. 
+
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

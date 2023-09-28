@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   Camera.cpp
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains the implementation for the camera class
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <Graphics/Renderer/Camera.h>
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>

@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   RenderingSystem.cpp
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains the implementation of the RenderingSystem.
+ECS related and communicates with Renderer in order to queue render requests
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <Systems/Rendering/RenderingSystem.h>
 #include <FrameRateController/FrameRateController.h>
 #include <Graphics/GraphicsEngine.h>
@@ -10,14 +20,11 @@ namespace GE::Systems
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
     for (GE::ECS::Entity entity : m_entities)
     {
+      // GET ALL THE COMPONENTS
       Component::Model*       model{ m_ecs->GetComponent<Component::Model>(entity) };
       Component::Sprite*      sprite{ m_ecs->GetComponent<Component::Sprite>(entity) };
       Component::Transform*   transform{ m_ecs->GetComponent<Component::Transform>(entity) };
       
-      
-      // Update rotation of transform
-      //transform->m_rot = fmod(transform->m_rot + dt * 2.0, pi * 2.0);
-      //transform->m_rot = pi;
       
       // Rendering
       Graphics::Rendering::Renderer& renderer{ gEngine.GetRenderer() };

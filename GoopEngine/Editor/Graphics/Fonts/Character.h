@@ -1,9 +1,24 @@
+/*!*********************************************************************
+\file   Character.h
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains definition of character struct for fonts
+        This is to be used with freetype's library
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef CHARACTER_H
 #define CHARACTER_H
 #include <Graphics/Def/GraphicsTypes.h>
 #include <def.h>
 namespace Graphics::Fonts
 {
+  /*!
+   * \struct Character
+   * \brief  
+   * struct to store character information from a font.
+   */
   struct Character 
   {
     GLuint textureID; //!< texture handle of glyph tex

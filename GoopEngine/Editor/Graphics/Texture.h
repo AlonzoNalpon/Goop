@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   Texture.h
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains the definition of the texture class
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef TEXTURE_H
 #define TEXTURE_H
 #include <Def.h>
@@ -11,10 +20,10 @@ namespace Graphics {
 
   struct Texture
   {
-    GLuint textureHandle;         //!< the handle to the texture
-    GLenum filtering;       //!< the filtering mode for the image
-    GLenum format;          //!< format of data (RGBA)
-    GLenum internalFormat;  //!< layout of pixel data in GPU(RGBA8)
+    GLuint textureHandle;     //!< the handle to the texture
+    GLenum filtering;         //!< the filtering mode for the image !NOT USED FOR NOW
+    GLenum format;            //!< format of data (RGBA) !NOT USED FOR NOW
+    GLenum internalFormat;    //!< layout of pixel data in GPU(RGBA8) !NOT USED FOR NOW
     GLuint width, height;     //!< dimensions of the image
   };
 }

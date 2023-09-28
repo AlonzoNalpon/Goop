@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   ShaderProgram.cpp
+\author a.nalpon@digipen.edu
+\date   28-September-2023
+\brief  This file contains the implementation of the shader program
+        class. This class is responsible for the compilation and
+        containing of the shader program
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <Graphics/ShaderProgram.h>
 #include <Def.h>
 #include <fstream>
@@ -11,7 +21,7 @@ namespace Graphics {
       m_pgmHandle = glCreateProgram();
       if (0 == m_pgmHandle) 
       {
-        ERR_LOG_FILE("Unable to create program handle");
+        std::cout << "Unable to create program handle" << std::endl;
         return GL_FALSE;
       } 
     }
@@ -28,7 +38,7 @@ namespace Graphics {
       // An unknown enumerated value specified!
       std::string errorStr{ "Incorrect shader type enum specified: " };
       errorStr += std::to_string(shaderType);
-      ERR_LOG_FILE(errorStr);
+      std::cout << errorStr << std::endl;
     }
     GLchar const* shdrCode[]{ shaderSrc.c_str() };
     glShaderSource(shaderHandle, 1, shdrCode, NULL);
@@ -53,7 +63,7 @@ namespace Graphics {
         errorStr += log;
         delete[] log;
       }
-      ERR_LOG_FILE(errorStr);
+      std::cout << errorStr << std::endl;
       return GL_FALSE; // return false after printing error
     }
 
@@ -73,7 +83,7 @@ namespace Graphics {
       m_pgmHandle = glCreateProgram();
       if (0 == m_pgmHandle)
       {
-        ERR_LOG_FILE("Unable to create program handle");
+        std::cout << "Unable to create program handle" << std::endl;
         return GL_FALSE;
       }
     }
@@ -84,7 +94,7 @@ namespace Graphics {
     {
       std::string errorStr{ "Unable to open shader file: " };
       errorStr += filePath;
-      ERR_LOG_FILE(errorStr);
+      std::cout << errorStr << std::endl;
       return GL_FALSE;
     }
     
@@ -125,7 +135,7 @@ namespace Graphics {
         errorStr += log;
         delete[] log;
       }
-      ERR_LOG_FILE(errorStr);
+      std::cout << errorStr << std::endl;
       return GL_FALSE; // return false after printing error
     }
     
@@ -157,7 +167,7 @@ namespace Graphics {
         errorStr += log;
         delete[] log;
       }
-      ERR_LOG_FILE(errorStr);
+      std::cout << errorStr << std::endl;
       return GL_FALSE; // return false after printing error
     }
     return GL_TRUE;

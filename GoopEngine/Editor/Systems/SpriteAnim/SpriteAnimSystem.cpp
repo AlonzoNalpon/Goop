@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   SpriteAnimSystem.cpp
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains the implementation of the SpriteAnimSystem
+class
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <FrameRateController/FrameRateController.h>
 #include <Graphics/GraphicsEngine.h>

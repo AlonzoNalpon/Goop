@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   Window.cpp
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains the implementation of the Window class
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <Def.h>
 #include <iostream>
 #include <Window/Window.h>
@@ -13,7 +22,7 @@ namespace WindowSystem {
   {
     // Attempt to initialize GLFW
     if (!glfwInit()) {
-      ERR_LOG_FILE("Failed to initialize GLFW! Exiting now ...");
+      std::cout << "Failed to initialize GLFW! Exiting now ..." << std::endl;
       std::exit(EXIT_FAILURE); // we must leave immediately!
     }
     // Set the window hint to make the window non-resizable
@@ -26,7 +35,7 @@ namespace WindowSystem {
     // Window creation
     m_window = glfwCreateWindow(m_windowWidth, m_windowHeight, m_title, nullptr, nullptr);
     if (!m_window) {
-      ERR_LOG_FILE("OpenGL context creation has failed! Exiting now ...");
+      std::cout << "OpenGL context creation has failed! Exiting now ..." << std::endl;
       std::exit(EXIT_FAILURE); // we must leave immediately!
     }
     MakeCurrent();
@@ -36,7 +45,7 @@ namespace WindowSystem {
     if (errCode != GLEW_OK) {
       std::string msg{ "Failed to initialize GLEW: " };
       msg += std::to_string(errCode);
-      ERR_LOG_FILE(msg);
+      std::cout << msg << std::endl;
       std::exit(EXIT_FAILURE); // we must leave immediately!
     }
 
@@ -90,6 +99,6 @@ namespace WindowSystem {
 
   void Window::ErrorCallback(int /*error*/, const char* desc)
   {
-    ERR_LOG(desc);
+    std::cout << "Error: " << desc << std::endl; // TODO: replace this with logger
   }
 }

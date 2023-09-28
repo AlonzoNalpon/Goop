@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   SpriteSubData.h
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains the definition to SpriteSubData struct
+for sprite information (as well as sprite animation frame information)
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef SPRITE_SUB_DATA
 #define SPRITE_SUB_DATA
 

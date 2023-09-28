@@ -29,7 +29,7 @@ namespace {
 }
 #ifdef OGL_ERR_CALLBACK
   void GLAPIENTRY glDebugCallback(GLenum /*source*/, GLenum /*type*/, GLuint /*id*/, GLenum /*severity*/, GLsizei /*length*/, const GLchar* message, const void* /*userParam*/) {
-    // Print the error message to the console
+    // Print the message to the console
     std::cerr << "OpenGL Message: " << message << std::endl;
 }
 #endif
@@ -82,22 +82,6 @@ namespace {
     m_models.emplace_back(m_lineMdl);
 #pragma endregion
 
-   
-
-#pragma region SPRITE_ANIMATION_TEST
-    testAnim.currTime = .0;
-    
-    //gObjID texObjID{ InitTexture("MineWorm.png", "MineWorm.png") };
-    
-    u32 animFlags{};
-    animFlags |= SPRITE_ANIM_FLAGS::LOOPING; // this animation will loop
-    //testAnim.animID = CreateAnimation
-    //("MineWorm", 6u, 1u, 6u, .1, animFlags, texObjID);
-    
-   // m_animManager.CreateAnim(SpriteAnimGenerator::GenerateAnimData
-   // (6u, 1u, width, height, .1, animFlags, texObjID), "Shark");
-    
-#pragma endregion
 
     // THESE ARE IMPORTANT TO HAVE
     glEnable(GL_BLEND);
@@ -248,17 +232,6 @@ namespace {
     return retval;
   }
 
-  void GraphicsEngine::DrawMdl(Model const& /*mdl*/)
-  {
-    // not implemented yet
-  }
-
-  void GraphicsEngine::DrawMdl(Model const& /*mdl*/, SpriteData const& /*sprite*/)
-  {
-
-  }
-
-
   gObjID GraphicsEngine::GetShaderPgm(std::string const& pgmName)
   {
     // Find the shader
@@ -282,7 +255,7 @@ namespace {
     {
       std::string errorStr{ "A shader program of this name already exists: " };
       errorStr += name;
-      ERR_LOG_FILE(errorStr);
+      std::cout << errorStr << std::endl;
       return 0;
     }
 
