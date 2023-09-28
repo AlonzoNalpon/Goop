@@ -1,3 +1,10 @@
+/*!******************************************************************
+\file   ImGuiUI.cpp
+\author w.chinkitbryam\@digipen.edu
+\date   28 September 2023
+\brief
+  ImGui Editor UI Wrapper
+********************************************************************/
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
 #include <ImGui/backends/imgui_impl_opengl3.h>
