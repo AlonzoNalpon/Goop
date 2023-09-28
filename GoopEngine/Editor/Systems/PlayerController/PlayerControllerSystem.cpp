@@ -1,6 +1,7 @@
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
 #include <Component/Transform.h>
+#include <Events/InputEvents.h>
 
 using vec2 = GE::Math::dVec2;
 
@@ -53,6 +54,39 @@ void PlayerControllerSystem::Update()
 		tween->m_timeElapsed += GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 
 		//std::cout << "Player Position: [" << trans->m_pos.x << ", " << trans->m_pos.y << "]\n";
+	}
+}
+
+void PlayerControllerSystem::HandleEvent(Events::Event const* event)
+{
+	if (event->GetCategory() == Events::EVENT_TYPE::KEY_HELD)
+	{
+		KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
+		if (key == GPK_H)
+		{
+			
+			#ifdef _DEBUG
+			std::cout << event->GetName() + " Event handled\n";
+			#endif
+		}
+		else if (key == GPK_J)
+		{
+
+			#ifdef _DEBUG
+			std::cout << event->GetName() + " Event handled\n";
+			#endif
+		}
+	}
+	else if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
+	{
+		KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
+		if (key == GPK_K)
+		{
+			
+			#ifdef _DEBUG
+			std::cout << event->GetName() + " Event handled\n";
+			#endif
+		}
 	}
 }
 

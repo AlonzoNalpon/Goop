@@ -54,24 +54,33 @@ void InputManager::UpdateInput()
 
 void InputManager::DispatchInputEvents()
 {
+	Events::EventManager& eventMan{ Events::EventManager::GetInstance() };
 	if (IsKeyHeld(GPK_MOUSE_LEFT))
 	{
-		EventManager::GetInstance().Dispatch(MouseHeldEvent(GPK_MOUSE_LEFT));
+		eventMan.Dispatch(MouseHeldEvent(GPK_MOUSE_LEFT));
 	}
 	if (IsKeyTriggered(GPK_MOUSE_LEFT))
 	{
-		EventManager::GetInstance().Dispatch(MouseTriggeredEvent(GPK_MOUSE_LEFT));
+		eventMan.Dispatch(MouseTriggeredEvent(GPK_MOUSE_LEFT));
 	}
 	else if (IsKeyReleased(GPK_MOUSE_LEFT))
 	{
-		EventManager::GetInstance().Dispatch(MouseReleasedEvent(GPK_MOUSE_LEFT));
+		eventMan.Dispatch(MouseReleasedEvent(GPK_MOUSE_LEFT));
 	}
 	//CheckAndDispatch<KeyTriggeredEvent>(GPK_G);
-	if (IsKeyTriggered(GPK_G))
-	{
-		EventManager::GetInstance().Dispatch(KeyTriggeredEvent(GPK_G));
-	}
 
+	if (IsKeyHeld(GPK_H))
+	{
+		eventMan.Dispatch(KeyHeldEvent(GPK_H));
+	}
+	if (IsKeyHeld(GPK_J))
+	{
+		eventMan.Dispatch(KeyHeldEvent(GPK_J));
+	}
+	if (IsKeyTriggered(GPK_K))
+	{
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_K));
+	}
 }
 
 bool InputManager::IsKeyTriggered(KEY_CODE key)
