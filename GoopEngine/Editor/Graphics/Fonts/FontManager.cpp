@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   FontManager.cpp
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains the implementation of the font manager class
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <Graphics/Fonts/FontManager.h>
 #include <DebugTools/Exception/Exception.h>
 namespace Graphics::Fonts

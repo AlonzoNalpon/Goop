@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   FontRenderer.h
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains the definition for the FontRenderer class.
+        This class is meant for rendering fonts with opengl calls
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef FONT_RENDERER_H
 #define FONT_RENDERER_H
 #include <string>
@@ -6,6 +16,11 @@
 
 namespace Graphics::Rendering
 {
+  /*!
+   * \class FontRenderer
+   * \brief  
+   * This class is responsible for rendering fonts using opengl api.
+   */
   class FontRenderer
   {
   public:

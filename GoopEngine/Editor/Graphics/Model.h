@@ -1,10 +1,19 @@
+/*!*********************************************************************
+\file   Model.h
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains the definition for the model structure
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef MODEL_H
 #define MODEL_H
 #include <Def.h>
 /*!
  * \struct Model
  * \brief  
- * This struct contains information required for rendering objects.
+ * This struct contains basic information required for rendering objects.
  * 
  */
 namespace Graphics

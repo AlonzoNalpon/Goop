@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   Renderer.h
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains the definition for Renderer class.
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef RENDERER_H
 #define RENDERER_H
 #include <Graphics/Def/GraphicsTypes.h>
@@ -21,27 +30,71 @@ namespace Graphics::Rendering
     using ShaderLT = std::map<std::string const, gObjID>;
     using ShaderCont = std::vector<ShaderProgram>;
   public:
+
+    
     Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, ShaderCont const& shaderCont
     , Fonts::FontManager const& fontManager);
 
+    /*!*********************************************************************
+    \brief
+      Initializes the renderer with a camera object and size for 
+      render call buffer.
+    \params
+      camera the camera information for the scene
+      renderCallSize the size of the container for render calls
+    \return
+    ************************************************************************/
     void Init(Camera const& camera, size_t renderCallSize = 2048);
+
+    /*!*********************************************************************
+    \brief
+      Queues an order to render object.
+    \params
+      mdl       the model of the object
+      sprite    the sprite of the object
+      transform the transform of the object
+    \return
+    ************************************************************************/
     void RenderObject(gObjID mdl, SpriteData const& sprite, Transform const& transform);
-    //void RenderObject(gObjID mdl, gObjID sprite);
+    
+    /*!*********************************************************************
+    \brief
+      Draws all object in render data container. Clears the container after.
+    \params
+    \return
+    ************************************************************************/
     void Draw();
   private:
     // Private methods
-
+    /*!*********************************************************************
+    \brief
+      Calculates the transform based on scale, rotation and position.
+    \params
+      scale
+      rotation
+      pos
+    \return the matrix result
+      
+    ************************************************************************/
     glm::mat4 CalculateTransform(gVec3 const& scale, GLfloat rotation, gVec3 const& pos) const;
+    /*!*********************************************************************
+    \brief
+      Calculates the transform based on Transform struct.
+    \params
+      xForm the transformation data
+    \return the matrix result
+      
+    ************************************************************************/
     glm::mat4 CalculateTransform(Transform const& xForm) const;
   private:
     std::vector<RenderData> m_renderCalls;
 
     Camera                              m_camera;   //!< camera for rendering
 
-    std::vector<Model> const&           r_mdlContainer;
-    TextureManager const&               r_texManager;
-    ShaderCont const&                   r_shaders;
-    Fonts::FontManager const&           r_fontManager;
+    std::vector<Model> const&           r_mdlContainer; //!< reference to the model container
+    TextureManager const&               r_texManager;   //!< reference to the texture manager
+    ShaderCont const&                   r_shaders;      //!< reference to the shader container
+    Fonts::FontManager const&           r_fontManager;  //!< reference to the font manager
   };
 }
 #endif

@@ -269,7 +269,6 @@
     <ClCompile Include="Systems\SpriteAnim\SpriteAnimSystem.cpp" />
     <ClCompile Include="Window\Window.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimationManager.cpp" />
-    <ClCompile Include="src\Def.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
