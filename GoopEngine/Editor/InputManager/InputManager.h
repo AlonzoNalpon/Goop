@@ -127,8 +127,22 @@ namespace GE
 			************************************************************************/
 			static bool IsKeyPressed(KEY_CODE);
 
+
+			/*!*********************************************************************
+			\brief
+				.Function to check the yoffset of the mouse scroll for the current frame
+			\return
+				yoffset of mouse scroll
+			************************************************************************/
 			static double GetMouseScrollVert();
 
+
+			/*!*********************************************************************
+			\brief
+			  .Function to check the xoffset of the mouse scroll for the current frame
+			\return
+				xoffset of  mouse scroll
+			************************************************************************/
 			static double GetMouseScrollHor();
 
 			/*!*********************************************************************

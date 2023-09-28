@@ -14,7 +14,6 @@
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
 copy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y
-xcopy "$(ProjectDir)GoopScripts\bin\Debug\GoopScripts.dll*" "$(TargetDir)GoopScripts.dll" /Y
 xcopy "$(ProjectDir)imgui.ini" "$(TargetDir)"/Y
 
 </Command>
