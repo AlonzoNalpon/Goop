@@ -1,10 +1,6 @@
 #include "ScriptManager.h"
 
-#include "Math/GEM.h"
-#include "../ECS/EntityComponentSystem.h"
-#include <InputManager/InputManager.h>
-#include "../Component/Transform.h"
-#include <DebugTools/Exception/Exception.h>
+
 
 
 using namespace GE::MONO;
@@ -29,12 +25,12 @@ void GE::MONO::ScriptManager::InitMono()
   m_appDomain = mono_domain_create_appdomain(str, nullptr);
   mono_domain_set(m_appDomain, true);
 
-  //mono_add_internal_call("GoopScripts.Player::IsKeyTriggered", GE::Input::InputManager::GetInstance().IsKeyTriggered);
-  //mono_add_internal_call("GoopScripts.Player::IsKeyHeld", GE::Input::InputManager::GetInstance().IsKeyHeld);
-  //mono_add_internal_call("GoopScripts.Player::IsKeyPressed", GE::Input::InputManager::GetInstance().IsKeyPressed);
-  //mono_add_internal_call("GoopScripts.Player::IsKeyReleased", GE::Input::InputManager::GetInstance().IsKeyReleased);
-  //mono_add_internal_call("GoopScripts.Player::GetTransform", GE::ECS::GetMonoComponent<GE::Component::Transform>);
-
+  mono_add_internal_call("GoopScripts.Player::IsKeyTriggered", GE::Input::InputManager::GetInstance().IsKeyTriggered);
+  mono_add_internal_call("GoopScripts.Player::IsKeyHeld", GE::Input::InputManager::GetInstance().IsKeyHeld);
+  mono_add_internal_call("GoopScripts.Player::IsKeyReleased", GE::Input::InputManager::GetInstance().IsKeyReleased);
+  mono_add_internal_call("GoopScripts.Player::IsKeyPressed", GE::Input::InputManager::GetInstance().IsKeyPressed);
+  mono_add_internal_call("GoopScripts.Player::SetTransform", GE::MONO::SetTransform);
+  //mono_add_internal_call("GoopScripts.Player::SetTransform", GE::ECS::SetMonoComponent<GE::Component::Transform>);
   //Retrieve the C#Assembly (.ddl file)
   try {
     m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Debug/GoopScripts.dll");
@@ -112,6 +108,7 @@ MonoAssembly* GE::MONO::LoadCSharpAssembly(const std::string& assemblyPath)
   if (status != MONO_IMAGE_OK)
   {
     const char* errorMessage = mono_image_strerror(status);
+
     delete[] fileData;
     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Unable to open mono image", ERRLG_FUNC, ERRLG_LINE);
   }
@@ -216,3 +213,14 @@ void  GE::MONO::PrintAssemblyTypes(MonoAssembly* assembly)
 }
 
 
+
+
+void GE::MONO::SetTransform(GE::ECS::Entity entity, GE::Component::Transform newChange)
+{
+  GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+  GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
+  std::cout << newChange.m_pos.x << "," << newChange.m_pos.x << "\n";
+  oldTransform->m_pos += newChange.m_pos;
+  oldTransform->m_scale += newChange.m_scale;
+  oldTransform->m_rot += newChange.m_rot;
+}

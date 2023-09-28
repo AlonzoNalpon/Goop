@@ -203,6 +203,24 @@ namespace GE
 			SystemManager* m_systemManager;
 		};
 
+		/*template <typename T>
+		static T GetMonoComponent(Entity entity)
+		{
+			EntityComponentSystem* ecs = &(EntityComponentSystem::GetInstance());
+			return ecs->GetComponent<T>(entity);
+		}
+
+		template <typename T>
+		static void SetMonoComponent(Entity entity, T newChange)
+		{
+			EntityComponentSystem* ecs = &(EntityComponentSystem::GetInstance());
+			ecs->GetComponent<T>(entity) += newChange;
+		}*/
+
+
+	
+
+
 #include "EntityComponentSystem.tpp"
 	}
 }

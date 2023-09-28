@@ -86,11 +86,11 @@ bool InputManager::IsKeyReleased(KEY_CODE key)
 {
 	return (m_keyReleased[static_cast<int>(key)]);
 }
-//bool InputManager::IsKeyPressed(KEY_CODE key)
-//{
-//	return (m_keyFramesHeld[static_cast<int>(key)] > 0.f);
-//}
-//
+bool InputManager::IsKeyPressed(KEY_CODE key)
+{
+	return (m_keyFramesHeld[static_cast<int>(key)] > 0.f);
+}
+
 
 
 vec2  InputManager::GetMousePos()

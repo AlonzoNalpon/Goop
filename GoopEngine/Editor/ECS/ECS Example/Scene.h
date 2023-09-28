@@ -8,6 +8,7 @@
 #include <Component/Velocity.h>
 #include <Component/Transform.h>
 #include <Component/Gravity.h>
+#include <Component/ScriptHandler.h>
 
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
@@ -111,12 +112,14 @@ struct Scene
 		Transform playerTrans({ -350, 350 }, { 150, 150 }, 0.0);
 		BoxCollider playerCollider(playerTrans.m_pos, 1, 1); //should collide
 		Tween tween(3.0);
+		ScriptHandler playerScript{ {{"GoopScripts","Player"}},player };
 		tween.AddTween({ 0, 0 });
 		tween.AddTween({ 0, -350 });
 		tween.AddTween({ 350, 350 });
 		Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 		GE::Component::Model mdl; // model data for the player sprite
 		mdl.mdlID = gEngine.GetModel();
+
 		GE::Component::Sprite sprite;
 		GE::Component::SpriteAnim anim;
 		ecs->AddComponent(player, playerTrans);
@@ -125,7 +128,9 @@ struct Scene
 		ecs->AddComponent(player, sprite);
 		ecs->AddComponent(player, anim);
 		ecs->AddComponent(player, playerCollider);
+		ecs->AddComponent(player, playerScript);
 		ecs->RegisterComponentToSystem<Tween, PlayerControllerSystem>();
+		ecs->RegisterComponentToSystem<ScriptHandler, PlayerControllerSystem>();
 		ecs->RegisterComponentToSystem<GE::Component::Model, RenderSystem>();
 		ecs->RegisterComponentToSystem<GE::Component::Sprite, RenderSystem>();
 		ecs->RegisterComponentToSystem<GE::Component::SpriteAnim, RenderSystem>();

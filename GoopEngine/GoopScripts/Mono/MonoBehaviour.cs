@@ -8,8 +8,8 @@ namespace GoopScripts.Mono
 {
   public class MonoBehaviour
   {
-    private int m_entityID;
-    public MonoBehaviour(int entityID)
+    protected uint m_entityID;
+    public MonoBehaviour(uint entityID)
     {
       m_entityID = entityID;
       Console.WriteLine("ITSHERE\n");

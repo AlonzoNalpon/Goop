@@ -7,6 +7,11 @@
 #include <fstream>
 #include <ScriptEngine/Script.h>
 #include <memory>
+#include "Math/GEM.h"
+#include "../ECS/EntityComponentSystem.h"
+#include <InputManager/InputManager.h>
+#include "../Component/Transform.h"
+#include <DebugTools/Exception/Exception.h>
 
 
 namespace GE {
@@ -34,5 +39,7 @@ namespace GE {
 		void PrintAssemblyTypes(MonoAssembly* assembly);
 
 
+		static void SetTransform(GE::ECS::Entity entity, GE::Component::Transform newChange);
 	}
+
 }
