@@ -16,7 +16,8 @@
 copy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y
 xcopy "$(ProjectDir)GoopScripts\bin\Debug\GoopScripts.dll*" "$(TargetDir)GoopScripts.dll" /Y
 xcopy "$(ProjectDir)imgui.ini" "$(TargetDir)"/Y
-
+xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y
 </Command>
     </PostBuildEvent>
     <ClCompile>
@@ -28,9 +29,8 @@ xcopy "$(ProjectDir)imgui.ini" "$(TargetDir)"/Y
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <PreBuildEvent>
-      <Command>xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
-
-xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />
