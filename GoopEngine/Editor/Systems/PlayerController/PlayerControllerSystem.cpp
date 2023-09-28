@@ -46,12 +46,6 @@ void GE::Systems::PlayerControllerSystem::Start()
 
 void PlayerControllerSystem::Update() 
 {
-	auto& inputMan{ Input::InputManager::GetInstance() };
-	if (!(inputMan.IsKeyHeld(GPK_SPACE) || inputMan.IsKeyTriggered(GPK_SPACE)))
-		return;
-
-	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
-
 	for (Entity entity : m_entities) {
 
 		ScriptHandler* scriptHan = m_ecs->GetComponent<ScriptHandler>(entity);
@@ -59,6 +53,15 @@ void PlayerControllerSystem::Update()
 		{
 			scriptHan->UpdateAllScripts();
 		}
+	}
+
+	auto& inputMan{ Input::InputManager::GetInstance() };
+	if (!(inputMan.IsKeyHeld(GPK_SPACE) || inputMan.IsKeyTriggered(GPK_SPACE)))
+		return;
+
+	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
+
+	for (Entity entity : m_entities) {
 
 		Tween* tween = m_ecs->GetComponent<Tween>(entity);
 
