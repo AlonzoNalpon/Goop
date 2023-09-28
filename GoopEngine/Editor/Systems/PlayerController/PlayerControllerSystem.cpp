@@ -1,22 +1,45 @@
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
+#include <Component/SpriteAnim.h>
+#include <Component/Sprite.h>
 #include <Component/Transform.h>
 #include <math.h>
 #include <Events/InputEvents.h>
 #include <Events/EventManager.h>
-
+#include <Graphics/GraphicsEngine.h>
 using vec2 = GE::Math::dVec2;
 
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
 using namespace Component;
+
+#pragma region PLAYER_TEST
 constexpr double pi = 3.14159265358979323846;
+// this is to show changes in animation through 2 different sprites: 
+// There's no animation controller system YET
+static Graphics::gObjID sharkAnimID{};	// this is the shark animation ID
+static Graphics::gObjID wormAnimID{};		// this is the worm animation ID
+static Graphics::gObjID wormSpriteID{};		// this is the worm animation ID
+static Graphics::gObjID sharkSpriteID{};		// this is the worm animation ID
+#pragma endregion
+
 void PlayerControllerSystem::Awake() 
 {
 	m_ecs = &EntityComponentSystem::GetInstance();
 	Events::EventManager::GetInstance().Subscribe<Events::KeyHeldEvent>(this);
 	Events::EventManager::GetInstance().Subscribe<Events::KeyTriggeredEvent>(this);
+
+}
+
+void GE::Systems::PlayerControllerSystem::Start()
+{
+	System::Start();
+	auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+	sharkAnimID = gEngine.animManager.GetAnimID("Shark");
+	wormAnimID = gEngine.animManager.GetAnimID("MineWorm");
+	wormSpriteID = gEngine.textureManager.GetTextureID("MineWorm");
+	sharkSpriteID = gEngine.textureManager.GetTextureID("Shark");
 }
 
 void PlayerControllerSystem::Update() 
@@ -70,6 +93,8 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 	for (Entity entity : m_entities) {
 		Transform* trans = m_ecs->GetComponent<Transform>(entity);
+		SpriteAnim* spriteAnim = m_ecs->GetComponent<SpriteAnim>(entity);
+		Sprite*	sprite = m_ecs->GetComponent<Sprite>(entity);
 		if (event->GetCategory() == Events::EVENT_TYPE::KEY_HELD)
 		{
 			KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
@@ -94,7 +119,19 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 			KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
 			if (key == GPK_K)
 			{
-			
+				spriteAnim->currFrame = 0;
+				spriteAnim->currTime = 0.0;
+				// changing sprite
+				if (spriteAnim->animID == sharkAnimID)
+				{
+					spriteAnim->animID = wormAnimID;
+					sprite->spriteData.texture = wormSpriteID;
+				}
+				else if (spriteAnim->animID == wormAnimID)
+				{
+					spriteAnim->animID = sharkAnimID;
+					sprite->spriteData.texture = sharkSpriteID;
+				}
 				#ifdef _DEBUG
 				std::cout << event->GetName() + " Event handled\n";
 				#endif

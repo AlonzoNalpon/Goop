@@ -11,8 +11,8 @@ namespace GE
 		{
 		public:
 			void Awake();
+			void Start();
 			void Update();
-
 			void HandleEvent(Events::Event const* event) override;
 
 			vec2 Tweening(vec2 start, vec2 end, double normalisedTime);
