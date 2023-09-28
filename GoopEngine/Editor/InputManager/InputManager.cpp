@@ -8,6 +8,8 @@ using namespace GE::Input;
 using namespace GE::Events;
 
 int InputManager::m_width;
+double InputManager::m_scrollX;
+double InputManager::m_scrollY;
 int InputManager::m_height;
 double InputManager::m_keyHeldTime;
 vec2 InputManager::m_mousePos;
@@ -38,6 +40,7 @@ void InputManager::UpdateInput()
 {
 	m_keyReleased.reset();
 	m_keysTriggered.reset();
+	m_scrollX = m_scrollY = 0;
 	glfwPollEvents();
 	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 	for (int i{ 0 }; i < static_cast<int>(GPK_KEY_COUNT); ++i)
@@ -95,11 +98,11 @@ bool InputManager::IsKeyReleased(KEY_CODE key)
 {
 	return (m_keyReleased[static_cast<int>(key)]);
 }
-//bool InputManager::IsKeyPressed(KEY_CODE key)
-//{
-//	return (m_keyFramesHeld[static_cast<int>(key)] > 0.f);
-//}
-//
+bool InputManager::IsKeyPressed(KEY_CODE key)
+{
+	return (m_keyFramesHeld[static_cast<int>(key)] > 0.f);
+}
+
 
 
 vec2  InputManager::GetMousePos()
@@ -117,6 +120,15 @@ vec2  InputManager::GetMousePosWorld()
 }
 
 
+double InputManager::GetMouseScrollVert()
+{
+	return m_scrollY;
+}
+
+double InputManager::GetMouseScrollHor()
+{
+	return m_scrollX;
+}
 
 void InputManager::KeyCallback(GLFWwindow* window, int key, int scanCode, int action, int mod)
 {
@@ -149,7 +161,6 @@ void InputManager::MouseButtonCallback(GLFWwindow* pwin, int button, int action,
 	UNREFERENCED_PARAMETER(mod);
 
 	ImGuiIO& io = ImGui::GetIO();
-	bool bit = !(GLFW_RELEASE == action);
 
 	if (io.WantCaptureMouse)
 	{
@@ -164,8 +175,8 @@ void InputManager::MouseButtonCallback(GLFWwindow* pwin, int button, int action,
 void InputManager::MouseScrollCallback(GLFWwindow* pwin, double xoffset, double yoffset)
 {
 	UNREFERENCED_PARAMETER(pwin);
-	UNREFERENCED_PARAMETER(xoffset);
-	UNREFERENCED_PARAMETER(yoffset);
+	m_scrollX = xoffset;
+	m_scrollY = yoffset;
 
 	ImGui_ImplGlfw_ScrollCallback(pwin, xoffset, yoffset);
 

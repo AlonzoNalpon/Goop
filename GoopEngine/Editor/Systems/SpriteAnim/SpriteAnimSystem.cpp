@@ -11,7 +11,6 @@ namespace GE::Systems
   {
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
     double dt{ FPS::FrameRateController::GetInstance().GetDeltaTime() };
-    f32 dtF{ static_cast<f32>(dt) };
     for (GE::ECS::Entity entity : m_entities)
     {
       //Component::Model* model{ m_ecs->GetComponent<Component::Model>(entity) };

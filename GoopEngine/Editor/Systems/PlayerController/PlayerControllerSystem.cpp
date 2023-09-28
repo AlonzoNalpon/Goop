@@ -7,6 +7,8 @@
 #include <Events/InputEvents.h>
 #include <Events/EventManager.h>
 #include <Graphics/GraphicsEngine.h>
+#include <Component/ScriptHandler.h>
+
 using vec2 = GE::Math::dVec2;
 
 using namespace GE;
@@ -44,6 +46,15 @@ void GE::Systems::PlayerControllerSystem::Start()
 
 void PlayerControllerSystem::Update() 
 {
+	for (Entity entity : m_entities) {
+
+		ScriptHandler* scriptHan = m_ecs->GetComponent<ScriptHandler>(entity);
+		if (scriptHan != nullptr)
+		{
+			scriptHan->UpdateAllScripts();
+		}
+	}
+
 	auto& inputMan{ Input::InputManager::GetInstance() };
 	if (!(inputMan.IsKeyHeld(GPK_SPACE) || inputMan.IsKeyTriggered(GPK_SPACE)))
 		return;
@@ -144,3 +155,4 @@ vec2 PlayerControllerSystem::Tweening(vec2 start, vec2 end, double normalisedTim
 {
 	return start + (normalisedTime * (end - start));
 }
+

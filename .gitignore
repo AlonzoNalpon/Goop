@@ -14,7 +14,6 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
 
 # Fortran module files
 *.mod
@@ -39,7 +38,6 @@
 *.sln.docstates
 *.vcxproj.filters
 *.vcxproj
-*.ini
 *.editorconfig
 
 # Build results

@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   ObjectFactory.cpp
+\author loh.j@digipen.edu
+\date   28 September 2023
+\brief
+  Parses in data and stores it in a map to be used in the future.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "ObjectFactory.h"
 
@@ -11,36 +20,13 @@
 #include "../Serialization/ObjectGooStream.h"
 #include "../Serialization/PrefabGooStream.h"
 #include "../Systems/Rendering/RenderingSystem.h"
-#include "../AssetManager/AssetManager.h"
 
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
 
-void ObjectFactory::RegisterObject(GE::ECS::Entity object) const
-{
-  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
-
-  ecs.RegisterEntityToSystem<GE::Systems::PhysicsSystem>(object);
-  //ecs.RegisterEntityToSystem<GE::Systems::CollisionSystem>(object);
-  //ecs.RegisterEntityToSystem<GE::Systems::AdditionSystem>(object);
-
-}
-
 GE::ECS::SystemSignature ObjectFactory::GetObjectSystemSignature(GE::ECS::Entity obj) const
 {
-  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
   GE::ECS::SystemSignature sig{};
-
-  /*std::set<ECS::Entity>& physics{ ecs.GetSystem<Systems::PhysicsSystem>()->GetEntities() };
-  if (physics.find(obj) != physics.end()) { sig[static_cast<unsigned>(ECS::SYSTEM_TYPES::PHYSICS)] = true; }
-  std::set<ECS::Entity>& draggable{ ecs.GetSystem<Systems::DraggableObjectSystem>()->GetEntities() };
-  if (draggable.find(obj) != draggable.end()) { sig[static_cast<unsigned>(ECS::SYSTEM_TYPES::DRAGGABLE_OBJECT)] = true; }
-  std::set<ECS::Entity>& render{ ecs.GetSystem<Systems::RenderSystem>()->GetEntities() };
-  if (render.find(obj) != render.end()) { sig[static_cast<unsigned>(ECS::SYSTEM_TYPES::RENDERING)] = true; }
-  std::set<ECS::Entity>& collision{ ecs.GetSystem<Systems::CollisionSystem>()->GetEntities() };
-  if (collision.find(obj) != collision.end()) { sig[static_cast<unsigned>(ECS::SYSTEM_TYPES::COLLISION)] = true; }
-  std::set<ECS::Entity>& playerController{ ecs.GetSystem<Systems::PlayerControllerSystem>()->GetEntities() };
-  if (playerController.find(obj) != playerController.end()) { sig[static_cast<unsigned>(ECS::SYSTEM_TYPES::PLAYER_CONTROLLER)] = true; }*/
 
   SetBitIfFound<Systems::PhysicsSystem>(obj, sig, ECS::SYSTEM_TYPES::PHYSICS);
   SetBitIfFound<Systems::DraggableObjectSystem>(obj, sig, ECS::SYSTEM_TYPES::DRAGGABLE_OBJECT);
@@ -101,6 +87,10 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Model>(srcObj));
   }
+  /*if (ecs.GetComponent<Component::Tween>(srcObj))
+  {
+    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Tween>(srcObj));
+  }*/
 }
 
 void ObjectFactory::RegisterComponentsAndSystems() const
@@ -189,6 +179,11 @@ GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data) const
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::Model>(data.m_components[GE::ECS::COMPONENT_TYPES::MODEL]));
   }
+  /*if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TWEEN))
+  {
+    ecs.AddComponent(newData,
+      DeserializeComponent<GE::Component::Tween>(data.m_components[GE::ECS::COMPONENT_TYPES::TWEEN]));
+  }*/
 
   return newData;
 }
@@ -283,23 +278,10 @@ int ObjectFactory::LoadObject() const
   return 0;
 }
 
-void ObjectFactory::JoelTest()
-{
-  RegisterObject(CreateObject(m_objects["Player"]));
-}
-
-
-
 void ObjectFactory::ObjectJsonLoader(const std::string& json_path)
 {
   GE::Serialization::ObjectGooStream ogs(json_path);
   ogs.Unload(m_objects);
-
-  /*for (auto const& value2 : m_objects["Object2"].m_components.at(GE::ECS::COMPONENT_TYPES::TRANSFORM))
-  {
-    std::cout << value2.first << "|" << value2.second << std::endl;
-  }*/
-  
 }
 
 // Reads objects from file and loads into map

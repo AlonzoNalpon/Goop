@@ -66,11 +66,13 @@ namespace GE
 		private:
 			static int m_width, m_height;
 			static double m_keyHeldTime;
+			static double m_scrollX, m_scrollY;
 			static vec2 m_mousePos;
 			static KEY_MAP m_keyReleased;
 			static KEY_MAP m_keyHeld;
 			static KEY_MAP m_keysTriggered;
 			static KEY_PRESS_ARRAY m_keyFramesHeld;
+
 
 		public:
 			/*!*********************************************************************
@@ -82,7 +84,7 @@ namespace GE
 			\return
 				returns true is key is held
 			************************************************************************/
-			bool IsKeyHeld(KEY_CODE);
+			static bool IsKeyHeld(KEY_CODE);
 
 			/*!*********************************************************************
 			\brief
@@ -93,7 +95,7 @@ namespace GE
 			\return
 				returns true is key is relased in this frame
 			************************************************************************/
-			bool IsKeyReleased(KEY_CODE);
+			static bool IsKeyReleased(KEY_CODE);
 
 			/*template <typename T>
 			void CheckAndDispatch(KEY_CODE code)
@@ -112,7 +114,37 @@ namespace GE
 			\return
 				returns true is key is triggered
 			************************************************************************/
-			bool IsKeyTriggered(KEY_CODE);
+			static bool IsKeyTriggered(KEY_CODE);
+
+			/*!*********************************************************************
+			\brief
+				.Function to check if a key is triggered
+			\params
+				KEY_CODE key
+				Enum of the key you want to check
+			\return
+				returns true is key is triggered
+			************************************************************************/
+			static bool IsKeyPressed(KEY_CODE);
+
+
+			/*!*********************************************************************
+			\brief
+				.Function to check the yoffset of the mouse scroll for the current frame
+			\return
+				yoffset of mouse scroll
+			************************************************************************/
+			static double GetMouseScrollVert();
+
+
+			/*!*********************************************************************
+			\brief
+			  .Function to check the xoffset of the mouse scroll for the current frame
+			\return
+				xoffset of  mouse scroll
+			************************************************************************/
+			static double GetMouseScrollHor();
+
 			/*!*********************************************************************
 			\brief
 				.Function to initialize the Input Manager (Call this function right after successfully initializing window)

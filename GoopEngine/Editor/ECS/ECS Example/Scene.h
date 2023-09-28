@@ -11,6 +11,7 @@
 
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
+#include <Component/ScriptHandler.h>
 
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
@@ -69,7 +70,7 @@ struct Scene
 		// Creating Entities w/ Components
 		////////////////////////////////////////////////
 		//Entity entt1 = ecs->CreateEntity();
-		Entity entt2 = ecs->CreateEntity();
+		//Entity entt2 = ecs->CreateEntity();
 
 		//ecs->AddComponent(entt1, (component));
 
@@ -123,6 +124,7 @@ struct Scene
 		Entity player = ecs->CreateEntity();
 		Transform playerTrans({ -350, 350 }, { 150, 150 }, 0.0);
 		BoxCollider playerCollider(playerTrans.m_pos, 1, 1); //should collide
+		
 		Tween tween(3.0);
 		tween.AddTween({ 0, 0 });
 		tween.AddTween({ 0, -350 });
@@ -132,12 +134,16 @@ struct Scene
 		mdl.mdlID = gEngine.GetModel();
 		GE::Component::Sprite sprite;
 		GE::Component::SpriteAnim anim;
+
+		GE::Component::ScriptHandler scriptHan = ScriptHandler({ {"GoopScripts","Player"} }, player);
+
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
 		ecs->AddComponent(player, mdl);
 		ecs->AddComponent(player, sprite);
 		ecs->AddComponent(player, anim);
 		ecs->AddComponent(player, playerCollider);
+		ecs->AddComponent(player, scriptHan);
 		ecs->RegisterEntityToSystem<PlayerControllerSystem>(player);
 		ecs->RegisterEntityToSystem<RenderSystem>(player);
 		ecs->RegisterEntityToSystem<CollisionSystem>(player);

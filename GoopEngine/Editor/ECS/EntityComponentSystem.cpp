@@ -58,3 +58,5 @@ void EntityComponentSystem::UpdateSystems()
 {
 	m_systemManager->UpdateSystems();
 }
+
+
