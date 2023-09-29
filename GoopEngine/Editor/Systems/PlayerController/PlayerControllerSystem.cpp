@@ -80,7 +80,6 @@ void PlayerControllerSystem::Update()
 			double normalisedTime = tween->m_timeElapsed / tween->m_timePerTween;
 			trans->m_pos = Tweening(tween->m_originalPos, targetPos, normalisedTime);
 			tween->m_tweens.pop();
-			//std::cout << "pop\n";
 		}
 		else 
 		{

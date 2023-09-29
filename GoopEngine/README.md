@@ -1,4 +1,8 @@
 
+[ Solution ]
+On startup, either select debug or release mode
+For target, set to x64 instead of "Any CPU"
+
 [ IMGUI ]
 G -> open imgui menu
 Spawn objects in imgui
