@@ -1,5 +1,6 @@
 
 [ Solution ]
+.NET Framework 4.8 MUST BE INSTALLED to run the project (for scripting)
 On startup, either select debug or release mode
 For target, set to x64 instead of "Any CPU"
 
