@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   Vec2.h
+\author chengen.lau\@digipen.edu
+\date   29-September-2023
+\brief  Specialized definition for Vector 4Ds from GEM library.
+        Contains accessors, constructors, member and non-member
+        operator overloads.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef GOOP_VEC4_H
 #define GOOP_VEC4_H
 

@@ -24,7 +24,7 @@ K -> change the player animation
 
 [ Events ]
 InputManager polls for key/mouse triggers and holds
-When detected, it dispatches the event
+When detected, it dispatches the event together with the key code
 The PlayerController and DraggableObject Systems who are subscribed to the event
-receive the event and handles it
+receive the event and handles it through their HandleEvent() function
 Running in Debug mode will show dispatching and handling printed on key/mouse press

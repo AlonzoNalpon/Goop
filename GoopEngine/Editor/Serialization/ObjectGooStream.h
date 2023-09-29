@@ -6,6 +6,9 @@
         of multiple entities (scene file), together with its individual
         components and their values. The class overrides both input
         and output functions.
+
+        For the format of the json file, you can refer to
+        Assets/Data/Scene.json
         For more details on usage, refer to GooStream.h
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
@@ -29,7 +32,10 @@ namespace GE
 
       /*!*********************************************************************
       \brief
-        Read from a json file. Contents read are appended into the stream
+        Read from a json file. Contents read are appended into the stream.
+        This function will check for the formatting for the file when reading
+        its contents. It ensures that the data is nested properly and that
+        each object contains the correct keys.
       \param json
         The file to read from
       \return

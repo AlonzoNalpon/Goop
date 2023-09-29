@@ -1,3 +1,16 @@
+/*!*********************************************************************
+\file   GEM.h
+\author chengen.lau\@digipen.edu
+\date   29-September-2023
+\brief  Main header file for templated Math Library. Supports Vectors 
+        of size 2, 3 and 4, and Matrices of any dimensions M*N within 
+        2-4 of any data type. Contains all relevant typedefs and 
+        includes for all classes involved. 
+
+        For more information on usage, refer to Math/GEM_READ_ME.txt
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef GOOP_MATH_H
 #define GOOP_MATH_H
 

@@ -2,9 +2,15 @@
 \file   PrefabGooStream.h
 \author chengen.lau\@digipen.edu
 \date   25-September-2023
-\brief  
-  
- 
+\brief  GooStream class used for deserializing of a prefab json file, 
+        together with the systems it is under, it's individual
+        components, and their values. The class overrides only input
+        functions.
+
+        For the format of the json file, you can refer to
+        Assets/Data/Prefabs/MineWorm.json
+        For more details on usage, refer to GooStream.h
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
@@ -23,12 +29,31 @@ namespace GE
       // Ctor reading json file into stream
       PrefabGooStream(std::string const& json);
 
-      // Read from a json file. Contents read are appended into GooStream.
+      /*!*********************************************************************
+      \brief
+        Read from a json file. Contents read are appended into the stream.
+        This function will check for the formatting for the file when reading
+        its contents. It ensures that the data is nested properly and that
+        the prefab contains the keys JsonNameKey, JsonSystemsKey and
+        JsonComponentsKey based on the static const char* private variables.
+      \param json
+        The file to read from
+      \return
+        True if the operation succeeded and false otherwise
+      ************************************************************************/
       bool Read(std::string const& json) override;
 
-      // Unloads contents into an object
+      /*!*********************************************************************
+      \brief
+        Unloads the contents of the stream into a container
+      \param json
+        The container to output to
+      \return
+        True if the operation succeeded and false otherwise
+      ************************************************************************/
       bool Unload(container_type& object) override;
 
+      // Test function for prefab loading
       static void PrefabLoadTest()
       {
         PrefabGooStream pfs{ "Assets/Data/Prefabs/MineWorm.json" };

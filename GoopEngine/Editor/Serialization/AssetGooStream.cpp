@@ -1,9 +1,15 @@
 /*!*********************************************************************
-\file   AssetGooStream.cpp
+\file   AssetGooStream.h
 \author chengen.lau\@digipen.edu
 \date   18-September-2023
-\brief
+\brief  GooStream class used for serializing / deserializing of an
+        asset file (config, images etc.). The json format read by
+        this stream must be in key-value pairs ("key": "value").
+        It overrides both input and output functions.
 
+        For the format of the json file, you can refer to
+        Assets/Data/Config.json
+        For more details on usage, refer to GooStream.h
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

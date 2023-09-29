@@ -1,9 +1,15 @@
 /*!*********************************************************************
-\file   SpriteGooStream.cpp
+\file   SpriteGooStream.h
 \author chengen.lau\@digipen.edu
 \date   18-September-2023
-\brief
+\brief  GooStream class used for deserializing of a text file containing
+        sprite animation data. The data of each sprite consists of its
+        slices, stacks and frames of the sprite sheet as well as the
+        animation speed. The class overrides only input functions.
 
+        For the format of the txt file, you can refer to
+        Assets/Data/Sprites.txt
+        For more details on usage, refer to GooStream.h
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

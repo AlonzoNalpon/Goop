@@ -2,9 +2,10 @@
 \file   InputEvents.h
 \author chengen.lau\@digipen.edu
 \date   27-September-2023
-\brief  
+\brief  Event subclasses for input. Currently defined for key triggers,
+        holds, and releases. They are dispatched from the Input Manager
+        class.
   
- 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
