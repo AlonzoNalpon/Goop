@@ -30,8 +30,8 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(TargetDir)"/Y
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />
