@@ -126,7 +126,7 @@ void AudioEngine::PlaySound(const std::string& sound, float volumedB, bool isLoo
   }
 }
 
-void AudioEngine::StopSound(std::string&& sound) const
+void AudioEngine::StopSound(const std::string& sound) const
 {
   std::cout << "Stopping channel" << std::endl;
   Implementation::ChannelID const& channel = fMOD->m_playlist[sound];

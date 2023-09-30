@@ -246,7 +246,7 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
   return entity;
 }
 
-void ObjectFactory::CloneObject(ECS::Entity obj, Math::dVec2&& newPos)
+void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 

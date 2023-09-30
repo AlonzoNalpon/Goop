@@ -101,7 +101,7 @@ namespace GE
       \param sound
         Sound filename.
       ************************************************************************/
-      void StopSound(std::string&& sound) const;
+      void StopSound(const std::string& sound) const;
 
       /*!*********************************************************************
       \brief
