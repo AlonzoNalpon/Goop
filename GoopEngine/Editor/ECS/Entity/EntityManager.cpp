@@ -9,15 +9,18 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include "EntityManager.h"
 #include <DebugTools/ErrorLogger/ErrorLogger.h>
+#include <DebugTools/Exception/Exception.h>
+#include <limits>
 
 using namespace GE::ECS;
 
 EntityManager::EntityManager(unsigned int maxEntities) : 
 	m_maxEntities{ maxEntities }, m_entitiesAlive{0}
 {
-	m_entities.resize(maxEntities);
+	m_mapOfActive.resize(maxEntities);
+	m_entitySignatures.resize(maxEntities);
 	// Push back full list of entities as available
-	for (Entity i{0}; i < m_entities.size(); ++i)
+	for (Entity i{0}; i < m_entitySignatures.size(); ++i)
 	{
 		m_availableEntities.push(i);
 	}
@@ -29,12 +32,20 @@ EntityManager::~EntityManager()
 
 Entity EntityManager::CreateEntity()
 {
+	// Cap hit
+	if (m_availableEntities.size() == 0)
+	{
+		throw GE::Debug::Exception<EntityManager>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Creating more entities than allowed"));
+	}
+
 	Entity entity = m_availableEntities.front();
 	m_availableEntities.pop();
 
 	m_entitiesAlive++;
 	// Clear component bitset signature
-	m_entities[entity].reset();
+	m_entitySignatures[entity].reset();
+	m_mapOfActive[entity] = true;
+	m_entities.insert(entity);
 	return entity;
 }
 
@@ -42,17 +53,34 @@ void EntityManager::DestroyEntity(Entity& entity)
 {
 	GE::Debug::ErrorLogger::GetInstance().LogMessage<EntityManager>("Destroyed entity ID: " + entity, false);
 	// Clear component bitset signature
-	m_entities[entity].reset();
+	m_entitySignatures[entity].reset();
+	m_mapOfActive[entity] = false;
 	m_availableEntities.push(entity);
+	m_entities.erase(entity);
 	m_entitiesAlive--;
+}
+
+bool GE::ECS::EntityManager::IsActiveEntity(Entity& entity)
+{
+	return m_mapOfActive[entity];
+}
+
+void GE::ECS::EntityManager::SetActiveEntity(Entity& entity, bool active)
+{
+	m_mapOfActive[entity] = active;
+}
+
+std::set<Entity>& GE::ECS::EntityManager::GetEntities()
+{
+	return m_entities;
 }
 
 ComponentSignature EntityManager::GetComponentSignature(const Entity& entity) const
 {
-	return m_entities[entity];
+	return m_entitySignatures[entity];
 }
 
 void EntityManager::SetComponentSignature(Entity& entity, const ComponentSignature& signature)
 {
-	m_entities[entity] = signature;
+	m_entitySignatures[entity] = signature;
 }

@@ -29,7 +29,7 @@ namespace {
 }
 #ifdef OGL_ERR_CALLBACK
   void GLAPIENTRY glDebugCallback(GLenum /*source*/, GLenum /*type*/, GLuint /*id*/, GLenum /*severity*/, GLsizei /*length*/, const GLchar* message, const void* /*userParam*/) {
-    // Print the error message to the console
+    // Print the message to the console
     std::cerr << "OpenGL Message: " << message << std::endl;
 }
 #endif
@@ -82,32 +82,6 @@ namespace {
     m_models.emplace_back(m_lineMdl);
 #pragma endregion
 
-    
-
-#pragma region TEXTURE_TEST
-    // Now use textures
-    auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
-    GE::AssetManager::ImageData imageData = assetManager.GetData( ASSETS_PATH + "MineWorm.png");
-    unsigned char* raw_image = imageData.GetData();
-    GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
-    GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };
-
-#pragma endregion
-
-#pragma region SPRITE_ANIMATION_TEST
-    testAnim.currTime = .0;
-    
-    gObjID texObjID{ InitTexture("MineWorm.png", "MineWorm.png") };
-    
-    u32 animFlags{};
-    animFlags |= SPRITE_ANIM_FLAGS::LOOPING; // this animation will loop
-    testAnim.animID = CreateAnimation
-    ("MineWorm", 6u, 1u, 6u, .1, animFlags, texObjID);
-    
-   // m_animManager.CreateAnim(SpriteAnimGenerator::GenerateAnimData
-   // (6u, 1u, width, height, .1, animFlags, texObjID), "Shark");
-    
-#pragma endregion
 
     // THESE ARE IMPORTANT TO HAVE
     glEnable(GL_BLEND);
@@ -115,15 +89,19 @@ namespace {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
   }
 
-  void GraphicsEngine::Draw()
+  void GraphicsEngine::ClearBuffer()
   {
     glClear(GL_COLOR_BUFFER_BIT);
+  }
+
+  void GraphicsEngine::Draw()
+  {
+#if 0
 #pragma region UPDATE BLOCK
     double dt{ GE::FPS::FrameRateController::GetInstance().GetDeltaTime() };
 #pragma endregion
     
     // use this for reference on animation inner workings
-#if 0
     testAnim.currTime += dt;
     auto anim = m_animManager.GetAnim(testAnim.animID);
     if (testAnim.currTime >= anim.speed) {
@@ -254,17 +232,6 @@ namespace {
     return retval;
   }
 
-  void GraphicsEngine::DrawMdl(Model const& mdl)
-  {
-    // not implemented yet
-  }
-
-  void GraphicsEngine::DrawMdl(Model const& mdl, SpriteData const& sprite)
-  {
-
-  }
-
-
   gObjID GraphicsEngine::GetShaderPgm(std::string const& pgmName)
   {
     // Find the shader
@@ -288,7 +255,7 @@ namespace {
     {
       std::string errorStr{ "A shader program of this name already exists: " };
       errorStr += name;
-      ERR_LOG_FILE(errorStr);
+      std::cout << errorStr << std::endl;
       return 0;
     }
 
@@ -303,15 +270,13 @@ namespace {
     return m_renderer;
   }
 
-  gObjID GraphicsEngine::InitTexture(std::string const& name, std::string const& path)
+  gObjID GraphicsEngine::InitTexture(std::string const& name, GE::AssetManager::ImageData const& imageData)
   {
     // Now use textures
-    auto& assetManager{ GE::AssetManager::AssetManager::GetInstance() };
-    GE::AssetManager::ImageData imageData = assetManager.GetData(ASSETS_PATH + path);
     unsigned char* raw_image = imageData.GetData();
     GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
     GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };
-    return m_textureManager.AddTexture(path, width, height, raw_image);
+    return m_textureManager.AddTexture(name, width, height, raw_image);
   }
 
   gObjID GraphicsEngine::CreateAnimation(std::string const& name, GLuint slices, GLuint stacks, GLuint frames,

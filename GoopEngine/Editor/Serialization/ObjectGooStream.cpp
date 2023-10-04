@@ -1,3 +1,18 @@
+/*!*********************************************************************
+\file   ObjectGooStream.cpp
+\author chengen.lau\@digipen.edu
+\date   22-September-2023
+\brief  GooStream class used for serializing / deserializing of a file
+        of multiple entities (scene file), together with its individual
+        components and their values. The class overrides both input
+        and output functions.
+
+        For the format of the json file, you can refer to
+        Assets/Data/Scene.json
+        For more details on usage, refer to GooStream.h
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include "ObjectGooStream.h"
 #include <rapidjson/istreamwrapper.h>
 

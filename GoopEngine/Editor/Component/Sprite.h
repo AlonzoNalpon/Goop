@@ -4,7 +4,7 @@
 #include <Graphics/SpriteData.h>
 namespace GE::Component
 {
-  struct Sprite : public GE::ECS::Component
+  struct Sprite
   {
     Graphics::SpriteData spriteData; //!< composed of sprite data
   };

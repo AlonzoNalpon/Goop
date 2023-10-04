@@ -14,7 +14,7 @@ void EventManager::Subscribe(Listener* listener)
     return;
   }
 
-  subscribers.emplace_back(static_cast<EventListener*>(listener));
+  subscribers.emplace_back(static_cast<IEventListener*>(listener));
 
   #ifdef _DEBUG
   std::cout << "EventManager: " << typeid(EventType).name() 
@@ -46,7 +46,7 @@ void EventManager::Unsubscribe(Listener* listener)
 }
 
 template <typename EventType>
-    void EventManager::Dispatch(EventType&& event)
+    void EventManager::Dispatch(EventType const& event)
     {
       SubscriberList& subscribers{ m_Subscribers[typeid(EventType)] };
       for (SubscriberList::iterator it{ subscribers.begin() }; it != subscribers.end();)

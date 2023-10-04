@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   Mat3.h
+\author chengen.lau\@digipen.edu
+\date   29-September-2023
+\brief  Specialized definition for 3x3 Matrices from GEM library.
+				Contains accessors, constructors, member and non-member
+				operator overloads.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef GOOP_MAT3_H
 #define GOOP_MAT3_H
 

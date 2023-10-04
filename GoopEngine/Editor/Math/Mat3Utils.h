@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   Mat3Utils.h
+\author chengen.lau\@digipen.edu
+\date   29-September-2023
+\brief  Matrix 3x3 utility functions (only for floats and doubles)
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include "GEM.h"
 

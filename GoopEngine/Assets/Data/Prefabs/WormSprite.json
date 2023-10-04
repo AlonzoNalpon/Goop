@@ -1,0 +1,25 @@
+{
+  "Name": "ButaPIG",
+  "Systems": [
+    "Rendering"
+  ],
+  "Components": [
+    {
+      "Transform": {
+        "m_pos": "{ 0.0, 0.0 }",
+        "m_scale": "{ 75.0, 50.0 }",
+        "m_rot": 0.0
+      }
+    },
+    {
+      "Sprite": {
+        "filename": "ButaPIG"
+      }
+    },
+    {
+      "Model": {
+        "id": 0
+      }
+    }
+  ]
+}

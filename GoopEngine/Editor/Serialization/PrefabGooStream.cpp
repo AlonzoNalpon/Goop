@@ -2,9 +2,15 @@
 \file   PrefabGooStream.cpp
 \author chengen.lau\@digipen.edu
 \date   25-September-2023
-\brief  
+\brief  GooStream class used for serializing / deserializing of a prefab
+        json file, together with the systems it is under, it's individual
+        components, and their values. The class overrides only input
+        functions.
+
+        For the format of the json file, you can refer to
+        Assets/Data/Prefabs/MineWorm.json
+        For more details on usage, refer to GooStream.h
   
- 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include "PrefabGooStream.h"

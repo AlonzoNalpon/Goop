@@ -1,3 +1,10 @@
+/*!******************************************************************
+\file   ImGuiUI.cpp
+\author w.chinkitbryam\@digipen.edu
+\date   28 September 2023
+\brief
+  ImGui Editor UI Wrapper
+********************************************************************/
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
 #include <ImGui/backends/imgui_impl_opengl3.h>
@@ -5,11 +12,12 @@
 #include "../ObjectFactory/ObjectFactory.h"
 #include "../Component/Transform.h"
 #include "../Component/BoxCollider.h"
+#include <Audio/AudioEngine.h>
 
 using namespace GE::EditorGUI;
 using namespace ImGui;
 
-void ImGuiUI::Init(WindowSystem::Window& window)
+void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
 {
   // Setup Dear ImGui context
   IMGUI_CHECKVERSION();
@@ -21,10 +29,10 @@ void ImGuiUI::Init(WindowSystem::Window& window)
   // Setup Dear ImGui style
   StyleColorsDark();
 
-  this->window = &window;
+  this->window = &prgmWindow;
   ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   // Setup Platform/Renderer backends
-  ImGui_ImplGlfw_InitForOpenGL(window.GetWindow(), true);
+  ImGui_ImplGlfw_InitForOpenGL(prgmWindow.GetWindow(), true);
   ImGui_ImplOpenGL3_Init();
 }
 
@@ -48,20 +56,65 @@ void ImGuiUI::Update()
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
   }
+  else if (Button("Clone Object"))
+  {
+    double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
+    double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
+    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(6, Math::dVec2(randX, randY));
+  }
   else if (Button("Create 2.5k Render"))
   {
     for (int i{}; i < 2500; ++i)
     {
-      GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("WormSprite");
-      GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
-      if (trans)
+      try
       {
-        double randX = (rand() % window->GetWinWidth()) - window->GetWinWidth() / 2;
-        double randY = (rand() % window->GetWinHeight()) - window->GetWinWidth() / 2;
-        trans->m_pos = Math::dVec2(randX, randY);
+        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("ButaPIG");
+        GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
+        if (trans)
+        {
+          double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
+          double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
+          trans->m_pos = Math::dVec2(randX, randY);
+        }
+      }
+      catch (GE::Debug::IExceptionBase& ex)
+      {
+        ex.LogSource();
       }
     }
   }
+  End();
+
+  Begin("Audio");
+  if (Button("Play Scream Sound"))
+  {
+    Audio::AudioEngine::GetInstance().PlaySound("../Assets/JoelScream.wav", 0.70f);
+  }
+  else if (Button("DJ Drop Da Beat"))
+  {
+    Audio::AudioEngine::GetInstance().PlaySound("../Assets/ChengEnBeatbox.wav", 1.25f, true);
+  }
+  else if (Button("Play Qurr Sound"))
+  {
+    Audio::AudioEngine::GetInstance().PlaySound("../Assets/ChengEnQur.wav", 0.9f);
+  }
+  else if (Button("Stop Scream Sound"))
+  {
+    Audio::AudioEngine::GetInstance().StopSound("../Assets/JoelScream.wav");
+  }
+  else if (Button("DJ Pick Up Da Beat"))
+  {
+    Audio::AudioEngine::GetInstance().StopSound("../Assets/ChengEnBeatbox.wav");
+  }
+  else if (Button("Stop Qur Sound"))
+  {
+    Audio::AudioEngine::GetInstance().StopSound("../Assets/ChengEnQur.wav");
+  }
+  else if (Button("Stop All Sounds"))
+  {
+    Audio::AudioEngine::GetInstance().StopAllChannels();
+  }
+  Audio::AudioEngine::GetInstance().Update();
   End();
 
   Begin("Inspector");

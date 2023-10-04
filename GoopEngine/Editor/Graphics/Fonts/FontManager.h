@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   FontManager.h
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains the definition of the font manager class
+      It's still under construction 
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef FONT_MANAGER_H
 #define FONT_MANAGER_H
 

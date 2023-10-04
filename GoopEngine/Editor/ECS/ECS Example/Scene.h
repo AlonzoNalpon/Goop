@@ -11,12 +11,15 @@
 
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
+#include <Component/ScriptHandler.h>
 
 #include <Systems/Rendering/RenderingSystem.h>
+#include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <Graphics/GraphicsEngine.h>
 #include <Component/Model.h>
 #include <Component/Sprite.h>
 #include <Component/SpriteAnim.h>
+#include <ObjectFactory/ObjectFactory.h>
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
@@ -25,6 +28,24 @@ using namespace Component;
 struct Scene
 {
 	EntityComponentSystem* ecs;
+
+	void MakeDraggableBox()
+	{
+		Entity entt3 = ecs->CreateEntity();
+		Velocity vel({ 0, 0 }, { 0, 0 });
+		Transform trans({ 0, 0 }, { 50, 50 }, 0.0);
+		Gravity grav({ 0, 0 });
+		BoxCollider box7(trans.m_pos, 1, 1);
+
+		ecs->AddComponent(entt3, vel);
+		ecs->AddComponent(entt3, trans);
+		ecs->AddComponent(entt3, grav);
+		ecs->RegisterEntityToSystem<PhysicsSystem>(entt3);
+
+		ecs->AddComponent(entt3, box7);
+		ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
+		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt3);
+	}
 
 	void Start()
 	{
@@ -49,7 +70,7 @@ struct Scene
 		// Creating Entities w/ Components
 		////////////////////////////////////////////////
 		//Entity entt1 = ecs->CreateEntity();
-		Entity entt2 = ecs->CreateEntity();
+		//Entity entt2 = ecs->CreateEntity();
 
 		//ecs->AddComponent(entt1, (component));
 
@@ -66,6 +87,9 @@ struct Scene
 
 		// Example of unregistering from a system
 		//ecs->UnregisterEntityFromSystem<(system)>(entt1);
+		GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
+		of.SpawnPrefab("Background");
+		MakeDraggableBox();
 
 		Entity entt3 = ecs->CreateEntity();
 		Velocity vel({ 0, 0 }, { 0, 0 });
@@ -79,16 +103,6 @@ struct Scene
 		Transform transBox3({ 300, 2 }, { 30, 20 }, 0.0);
 		BoxCollider box2(transBox2.m_pos, 1, 1); //should collide
 		BoxCollider box3(transBox3.m_pos, 1, 1); //shouldnt collide
-
-		ecs->RegisterComponentToSystem<Velocity, PhysicsSystem>();
-		ecs->RegisterComponentToSystem<Transform, PhysicsSystem>();
-		ecs->RegisterComponentToSystem<Gravity, PhysicsSystem>();
-
-		ecs->RegisterComponentToSystem<Transform, CollisionSystem>();
-		ecs->RegisterComponentToSystem<BoxCollider, CollisionSystem>();
-
-		ecs->RegisterComponentToSystem<Transform, DraggableObjectSystem>();
-		ecs->RegisterComponentToSystem<BoxCollider, DraggableObjectSystem>();
 
 		ecs->AddComponent(entt3, vel);
 		ecs->AddComponent(entt3, trans);
@@ -105,11 +119,12 @@ struct Scene
 
 		ecs->AddComponent(entt3, box7);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
-		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt3);
+		//ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt3);
 
 		Entity player = ecs->CreateEntity();
 		Transform playerTrans({ -350, 350 }, { 150, 150 }, 0.0);
 		BoxCollider playerCollider(playerTrans.m_pos, 1, 1); //should collide
+		
 		Tween tween(3.0);
 		tween.AddTween({ 0, 0 });
 		tween.AddTween({ 0, -350 });
@@ -117,31 +132,30 @@ struct Scene
 		Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 		GE::Component::Model mdl; // model data for the player sprite
 		mdl.mdlID = gEngine.GetModel();
-		GE::Component::Sprite sprite;
+		Sprite sprite;
+		sprite.spriteData.texture = gEngine.textureManager.GetTextureID("MineWorm");
 		GE::Component::SpriteAnim anim;
+
+		GE::Component::ScriptHandler scriptHan = ScriptHandler({ {"GoopScripts","Player"} }, player);
+
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
 		ecs->AddComponent(player, mdl);
 		ecs->AddComponent(player, sprite);
 		ecs->AddComponent(player, anim);
 		ecs->AddComponent(player, playerCollider);
-		ecs->RegisterComponentToSystem<Tween, PlayerControllerSystem>();
-		ecs->RegisterComponentToSystem<GE::Component::Model, RenderSystem>();
-		ecs->RegisterComponentToSystem<GE::Component::Sprite, RenderSystem>();
-		ecs->RegisterComponentToSystem<GE::Component::SpriteAnim, RenderSystem>();
+		ecs->AddComponent(player, scriptHan);
 		ecs->RegisterEntityToSystem<PlayerControllerSystem>(player);
 		ecs->RegisterEntityToSystem<RenderSystem>(player);
 		ecs->RegisterEntityToSystem<CollisionSystem>(player);
-
-#pragma region RENDERING_SYSTEM // Rendering should be last ( I think?!)
-
-#pragma endregion // end of rendering system block
+		ecs->RegisterEntityToSystem<SpriteAnimSystem>(player);
+		GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
 	}
 
 	void Update()
 	{
-		// This should be done by app controller in main
 		ecs->UpdateSystems();
+		// This should be done by app controller in main
 	}
 
 	void Exit()

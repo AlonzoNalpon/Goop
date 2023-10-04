@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   SerializeComponents.tpp
+\author loh.j@digipen.edu
+\date   28 September 2023
+\brief
+  Template functions to assign data into the components of the entity.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+
 template<typename CompType>
 CompType DeserializeComponent(std::string const& componentData)
 {
@@ -55,7 +65,7 @@ GE::Component::Velocity DeserializeComponent<GE::Component::Velocity>(std::strin
 }
 
 template<>
-GE::Gravity DeserializeComponent<GE::Gravity>(std::string const& componentData)
+GE::Component::Gravity DeserializeComponent<GE::Component::Gravity>(std::string const& componentData)
 {
   Serialization::ComponentWrapper cw{ componentData };
   Serialization::ComponentData data = cw.GetData();
@@ -67,4 +77,59 @@ GE::Gravity DeserializeComponent<GE::Gravity>(std::string const& componentData)
   // may not need to deserialize std::set<BoxCollider*> m_collided
 
   return grav;
+}
+
+template<>
+GE::Component::Sprite DeserializeComponent<GE::Component::Sprite>(std::string const& componentData)
+{
+  Serialization::ComponentWrapper cw{ componentData };
+  Serialization::ComponentData data = cw.GetData();
+  auto & gEngine = Graphics::GraphicsEngine::GetInstance();
+  Sprite sprite;
+
+  sprite.spriteData.texture = gEngine.textureManager.GetTextureID(data["filename"].GetString());
+  return sprite;
+}
+
+template<>
+GE::Component::SpriteAnim DeserializeComponent<GE::Component::SpriteAnim>(std::string const& componentData)
+{
+  Serialization::ComponentWrapper cw{ componentData };
+  Serialization::ComponentData data = cw.GetData();
+  auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+  SpriteAnim spriteAnim;
+
+
+  spriteAnim.animID = gEngine.animManager.GetAnimID(data["name"].GetString());
+  return spriteAnim;
+}
+
+template<>
+GE::Component::Model DeserializeComponent<GE::Component::Model>(std::string const& componentData)
+{
+    Serialization::ComponentWrapper cw{ componentData };
+    Serialization::ComponentData data = cw.GetData();
+    Model model;
+
+    model.mdlID = data["id"].GetInt();
+    return model;
+}
+
+// WIP
+template<>
+GE::Component::Tween DeserializeComponent<GE::Component::Tween>(std::string const& componentData)
+{
+    Serialization::ComponentWrapper cw{ componentData };
+    Serialization::ComponentData data = cw.GetData();
+    Tween tween{data[""].GetDouble()}; // time taken
+
+    //tween.m_tweens = data[""].Get___;
+    tween.m_timePerTween = data[""].GetDouble();
+    //tween.m_timeTaken = data[""].GetDouble();
+    tween.m_timeElapsed = data[""].GetDouble();
+    tween.m_originalPos.x = data[""].GetDouble();
+    tween.m_originalPos.y = data[""].GetDouble();
+    tween.m_started = data[""].GetDouble();
+    
+    return tween;
 }

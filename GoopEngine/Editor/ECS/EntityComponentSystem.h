@@ -46,6 +46,30 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+			  Calls EntityManager's IsActiveEntity function.
+
+			\param entity
+			  Entity to check.
+
+			\return
+			  Active flag of an entity.
+			************************************************************************/
+			bool GetIsActiveEntity(Entity& entity);
+
+			/*!*********************************************************************
+			\brief
+				Calls EntityManager's SetActiveEntity function.
+
+			\param entity
+				Active flag of an entity.
+
+			\param bool
+				Active flag of an entity.
+			************************************************************************/
+			void SetIsActiveEntity(Entity& entity, bool active);
+
+			/*!*********************************************************************
+			\brief
 				Calls EntityManager's DestroyEntity function.
 
 			\params entity
@@ -55,52 +79,66 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				Calls ComponentManager's RegisterComponent Function.
+			  Calls EntityManager's GetEntities function.
+			  
+			\return
+			  Set of entity IDs
+			************************************************************************/
+			std::set<Entity>& GetEntities();
+
+			/*!*********************************************************************
+			\brief
+				Calls ComponentManager's RegisterComponent function.
 			************************************************************************/
 			template <typename T>
 			void RegisterComponent();
 
 			/*!******************************************************************
 			\brief
-				Calls ComponentManager's AddComponent Function.
+				Calls ComponentManager's AddComponent function.
 			********************************************************************/
 			template <typename T>
 			void AddComponent(Entity& entity, T component);
 
 			/*!******************************************************************
 			\brief
-				Calls ComponentManager's RemoveComponent Function.
+				Calls ComponentManager's RemoveComponent function.
 			********************************************************************/
 			template <typename T>
 			void RemoveComponent(Entity& entity);
 
 			/*!*********************************************************************
 			\brief
-				Calls ComponentManager's GetComponent Function.
+				Calls ComponentManager's GetComponent function.
 
 			\param entity
 				Entity from which the component is gotten from.
-
-			\param ignoreActive
-				Sets the flag if you want to fetch component data regardless
-				of component's active status.
 
 			\return
 				Pointer to entity's component.
 				Returns null if component does not exist or is inactive.
 			************************************************************************/
 			template <typename T>
-			T* GetComponent(const Entity& entity, bool ignoreActive = false);
+			T* GetComponent(const Entity& entity);
 
 			/*!*********************************************************************
 			\brief
-				Calls ComponentManager's GetComponentSignature Function.
+				Calls ComponentManager's GetComponentSignature function.
 
 			\return
 				A specific component's signature.
 			************************************************************************/
 			template <typename T>
 			ComponentType GetComponentSignature();
+
+			/*!******************************************************************
+			\brief 
+			  Calls EntityManager's GetComponentSignature function.
+
+			\return 
+				The component signature makeup of an entity
+			********************************************************************/
+			ComponentSignature GetComponentSignature(Entity& entity);
 
 			/*!******************************************************************
 			\brief 
@@ -202,6 +240,24 @@ namespace GE
 			EntityManager* m_entityManager;
 			SystemManager* m_systemManager;
 		};
+
+		/*template <typename T>
+		static T GetMonoComponent(Entity entity)
+		{
+			EntityComponentSystem* ecs = &(EntityComponentSystem::GetInstance());
+			return ecs->GetComponent<T>(entity);
+		}
+
+		template <typename T>
+		static void SetMonoComponent(Entity entity, T newChange)
+		{
+			EntityComponentSystem* ecs = &(EntityComponentSystem::GetInstance());
+			ecs->GetComponent<T>(entity) += newChange;
+		}*/
+
+
+	
+
 
 #include "EntityComponentSystem.tpp"
 	}

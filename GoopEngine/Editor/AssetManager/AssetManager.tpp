@@ -1,4 +1,14 @@
 /*!*********************************************************************
+\file   AssetManager.tpp
+\author loh.j@digipen.edu
+\date   28 September 2023
+\brief
+  Contains the template functions of GetConfigData.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+
+/*!*********************************************************************
 \brief
   Gets the config data of the specific key.
 \param
@@ -26,6 +36,15 @@ std::optional<int> GetConfigData<int>(const std::string& key) const
   #endif
 
   return std::stoi(m_configData.at(key));
+}
+
+template <>
+std::optional<unsigned> GetConfigData<unsigned>(const std::string& key) const
+{
+  if (m_configData.find(key) == m_configData.end())
+    return std::nullopt;
+
+  return std::stoul(m_configData.at(key));
 }
 
 template <>

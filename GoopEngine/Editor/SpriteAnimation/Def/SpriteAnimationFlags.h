@@ -13,6 +13,12 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <def.h>
 namespace Graphics
 {
+  /*!
+   * \class SPRITE_ANIM_FLAGS
+   * \brief  
+   * animation flags for... animations?
+   * \note IT'S NOT BEING USED RIGHT NOW: WE HAVE NO ANIMATION CONTROLLER!
+   */
   enum class SPRITE_ANIM_FLAGS : u32 {
     LOOPING         = 0x00000001, //0 - Looping the animation
     REWIND_COMPLETE = 0x00000002, //1 - Rewind animation on complete

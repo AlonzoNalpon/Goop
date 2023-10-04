@@ -1,3 +1,16 @@
+/*!*********************************************************************
+\file   Event.h
+\author chengen.lau\@digipen.edu
+\date   29-September-2023
+\brief  Base event class for events/messaging system. All events inherit
+        from base class Event and will by default contain a name and a 
+        category. Each individual event will hold its own set of 
+        variables that will be passed to the listener when handling 
+        the event. (E.g. input events hold the key code for the key 
+        that was pressed)
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include <DebugTools/ErrorLogger/ErrorLogger.h>
 #include <string>
@@ -29,10 +42,29 @@ namespace GE
         std::cout << "Dispatched " + GetName() + " event\n";
         #endif
       }
+      
+      /*!*********************************************************************
+      \brief
+        Returns the name of the current event
+      \return
+        The name of the current event
+      ************************************************************************/
       virtual inline std::string GetName() const noexcept { return "Base Event"; }
 
+      /*!*********************************************************************
+      \brief
+        Returns the category of the current event
+      \return
+        The category of the current event
+      ************************************************************************/
       inline EVENT_TYPE GetCategory() const noexcept { return m_category; }
 
+      /*!*********************************************************************
+      \brief
+        Returns the status of the current event
+      \return
+        True if the event has already been handled and false otherwise
+      ************************************************************************/
       inline bool IsHandled() const noexcept { return m_handled; }
 
     protected:

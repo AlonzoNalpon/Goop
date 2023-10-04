@@ -17,14 +17,14 @@
 
 #include <Physics/PhysicsSystem.h>
 #include <Physics/CollisionSystem.h>
+#include "../ObjectFactory/ObjectFactory.h"
 
-#define SERIALIZE_TEST
+//#define SERIALIZE_TEST
 #ifdef SERIALIZE_TEST
 #include <iomanip>
 #include "../Serialization/AssetGooStream.h"
 #include "../Serialization/SpriteGooStream.h"
 #include "../Serialization/PrefabGooStream.h"
-#include "../ObjectFactory/ObjectFactory.h"
 #endif
 #define MEMORY_TEST
 #ifdef MEMORY_TEST
@@ -32,6 +32,7 @@
 #endif
 #include "../EditorUI/ImGuiUI.h"
 #include <time.h>
+#include <ScriptEngine/ScriptManager.h>
 
 int main(int /*argc*/, char* /*argv*/[])
 {
@@ -43,10 +44,9 @@ int main(int /*argc*/, char* /*argv*/[])
 #endif
 
   // INIT FUNCTIONS
+
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
-  am->LoadJSONData("Assets/Data/Images.json", GE::AssetManager::IMAGES);
-  am->LoadJSONData("Assets/Data/Config.json", GE::AssetManager::CONFIG);
-  am->LoadJSONData("Assets/Data/Sprites.txt", GE::AssetManager::ANIMATION);
+  am->LoadJSONData("../Assets/Data/Config.json", GE::AssetManager::CONFIG);
 
   GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
   of.LoadPrefabsFromFile();
@@ -56,7 +56,6 @@ int main(int /*argc*/, char* /*argv*/[])
   GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
   Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };     // my graphics engine
   fRC.InitFrameRateController(am->GetConfigData<int>("FPS Limit").value(), am->GetConfigData<int>("FPS Check Interval").value());
-
 
 #ifdef MEMORY_TEST
   GE::Memory::MemoryManager* memMan{ &(GE::Memory::MemoryManager::GetInstance()) };
@@ -71,9 +70,11 @@ int main(int /*argc*/, char* /*argv*/[])
   imgui.Init(window);
 
   // Now we get the asset manager
-  am->LoadDeserializedData(); // load the images we need
-  am->LoadImageW(ASSETS_PATH + "MineWorm.png");
+  //am->LoadDeserializedData(); // load the images we need
+  //am->LoadImageW(ASSETS_PATH + "MineWorm.png");
   gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
+
+  am->LoadFiles();
   am->FreeImages(); // cleanup the images
 
 
@@ -81,6 +82,10 @@ int main(int /*argc*/, char* /*argv*/[])
   im->InitInputManager(window.GetWindow(), am->GetConfigData<int>("Window Width").value(), am->GetConfigData<int>("Window Height").value(), 0.1);
   GE::FPS::FrameRateController* fps_control = &(GE::FPS::FrameRateController::GetInstance());
   fps_control->InitFrameRateController(60, 1);
+
+
+  GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
+  scriptMan->InitMono();
 
 #ifdef SERIALIZE_TEST
   GE::ObjectFactory::ObjectFactory::ObjectFactoryTest();
@@ -120,12 +125,13 @@ int main(int /*argc*/, char* /*argv*/[])
       renderUI = !renderUI;
     }
 
+    fRC.StartSystemTimer();
     if (renderUI)
     {
-      fRC.StartSystemTimer();
       imgui.Update();
-      fRC.EndSystemTimer("ImGui Update");
     }
+    fRC.EndSystemTimer("ImGui Update");
+    gEngine.ClearBuffer();
 
     fRC.StartSystemTimer();
     scn.Update();
@@ -135,15 +141,16 @@ int main(int /*argc*/, char* /*argv*/[])
     gEngine.Draw();
     fRC.EndSystemTimer("Draw");
 
+    fRC.StartSystemTimer();
     if (renderUI)
     {
-      fRC.StartSystemTimer();
       imgui.Render();
-      fRC.EndSystemTimer("ImGui Render");
     }
+    fRC.EndSystemTimer("ImGui Render");
 
     std::stringstream ss;
-    ss << GE::AssetManager::AssetManager::GetInstance().GetConfigData<std::string>("Window Title").value() << " | FPS: " << std::fixed << std::setfill('0') << std::setw(5) << std::setprecision(2) << fRC.GetFPS();
+    ss << GE::AssetManager::AssetManager::GetInstance().GetConfigData<std::string>("Window Title").value() << " | FPS: " << std::fixed
+      << std::setfill('0') << std::setw(5) << std::setprecision(2) << fRC.GetFPS() << " | Entities: " << EntityComponentSystem::GetInstance().GetEntities().size();
     for (auto system : fRC.GetSystemTimers())
     {
       ss << " | " << system.first << ": " << std::setw(4) << system.second.count() << "us";

@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   FontRenderer.cpp
+\author a.nalpon@digipen.edu
+\date   29-September-2023
+\brief  This file contains the implementation of the FontRenderer class.
+      It's still under construction
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <Graphics/Fonts/FontRenderer.h>
 #include <Graphics/Fonts/Character.h>
 namespace Graphics::Rendering
@@ -9,7 +19,7 @@ namespace Graphics::Rendering
     m_fontShader.CompileLinkValidate(fontShaders); // compile font shader
   }
 
-  void FontRenderer::RenderText(glm::mat4 const& proj, std::string const& str, gVec2 pos, GLfloat scale, Colorf clr)
+  void FontRenderer::RenderText(glm::mat4 const& /*proj*/, std::string const& /*str*/, gVec2 /*pos*/, GLfloat /*scale*/, Colorf /*clr*/)
   {
     /*constexpr GLint U_PROJ{0}, U_TEXT{1}, U_CLR{2};
     glUseProgram(m_fontShader.GetHandle());

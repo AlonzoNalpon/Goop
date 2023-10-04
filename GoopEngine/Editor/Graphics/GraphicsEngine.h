@@ -38,6 +38,8 @@ namespace Graphics {
     ************************************************************************/
     void Init(Colorf clearColor, GLint w, GLint h);
 
+    void ClearBuffer();
+
     void Draw();
 
     /*!*********************************************************************
@@ -73,11 +75,43 @@ namespace Graphics {
     ************************************************************************/
     Rendering::Renderer& GetRenderer();
 
-    gObjID InitTexture(std::string const& name, std::string const& path);
+    /*!*********************************************************************
+    \brief
+      Initializes a texture from data.
+    \params
+      name name of the texture to be stored
+      imageData image data
+    \return
+      
+    ************************************************************************/
+    gObjID InitTexture(std::string const& name, GE::AssetManager::ImageData const& imageData);
 
+    /*!*********************************************************************
+    \brief
+      Creates an animation dataset. Will assume frames from left to right, top to bottom.
+      ROW MAJOR
+    \params
+      name      the name of the animation
+      slices    slices in the sprite
+      stacks    stacks in the sprite
+      frames    number of frames in the sprite
+      speed     speed of the animation
+      flags     flags of the animation
+      textureID texture ID of the animation (which texture is this based on?)
+    \return
+      
+    ************************************************************************/
     gObjID CreateAnimation(std::string const& name, GLuint slices, GLuint stacks, GLuint frames,
       f64 speed, u32 flags, gObjID textureID);
 
+    /*!*********************************************************************
+    \brief
+      Gets basic model for all sprites.
+    \note if more models are made for gameobjects, this has to be changed
+    \params
+    \return the quad model for sprites
+      
+    ************************************************************************/
     gObjID GetModel();
   public: // DRAW PRIMITIVE METHODS
     /*!*********************************************************************
@@ -94,13 +128,27 @@ namespace Graphics {
   protected:
     GLint m_vpWidth, m_vpHeight; //!< dimensions of viewport
     GLfloat m_ar; //!< aspect ratio
-    void DrawMdl(Model const& mdl);
-    void DrawMdl(Model const& mdl, SpriteData const& sprite);
-    void DrawMdl(Model const& mdl, SpriteData const& sprite, SpriteAnimation anim, GLuint frame);
+
+    /*!*********************************************************************
+    \brief
+      Generates a quad with pos, color and texture coordinate attributes
+    \params
+    \return quad model
+      
+    ************************************************************************/
     Model GenerateQuad();
+
+    /*!*********************************************************************
+    \brief
+      Generates a line model. This is for debug draws
+    \params
+    \return line model
+      
+    ************************************************************************/
     Model GenerateLine();
     // SHADERS ARE ONLY TO BE QUERIED BY MODELS REQUESTING A HANDLE
     // USERS MUST SPECIFY SHADER NAME WHILE CREATING A MODEL
+
     ShaderLT                        m_shaderLT;         //!< LOOKUP TABLE: handles by strings
     ShaderCont                      m_shaders;          //!< shaders by ID
 
@@ -119,8 +167,8 @@ namespace Graphics {
     // FOR DEBUGGING
   private:
   public: // getters
-    SpriteAnimationManager const&   animManager{ m_animManager };       
-    TextureManager const&           textureManager{ m_textureManager };
+    SpriteAnimationManager const&   animManager{ m_animManager };      // read-only getter to animation manager 
+    TextureManager const&           textureManager{ m_textureManager };// read-only getter to texture manager
   };
 }
 #endif

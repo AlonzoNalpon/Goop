@@ -1,11 +1,12 @@
 #include "EntityComponentSystem.h"
+#include "../AssetManager/AssetManager.h"
 
 using namespace GE::ECS;
 
 EntityComponentSystem::EntityComponentSystem()
 {
 	m_componentManager = new ComponentManager();
-	m_entityManager = new EntityManager(4092);
+	m_entityManager = new EntityManager(GE::AssetManager::AssetManager::GetInstance().GetConfigData<unsigned>("Max Entities").value());
 	m_systemManager = new SystemManager();
 }
 
@@ -26,6 +27,16 @@ Entity EntityComponentSystem::CreateEntity()
 	return m_entityManager->CreateEntity();
 }
 
+bool GE::ECS::EntityComponentSystem::GetIsActiveEntity(Entity& entity)
+{
+	return m_entityManager->IsActiveEntity(entity);
+}
+
+void GE::ECS::EntityComponentSystem::SetIsActiveEntity(Entity& entity, bool active)
+{
+	m_entityManager->SetActiveEntity(entity, active);
+}
+
 void EntityComponentSystem::DestroyEntity(Entity& entity)
 {
 	m_entityManager->DestroyEntity(entity);
@@ -33,7 +44,19 @@ void EntityComponentSystem::DestroyEntity(Entity& entity)
 	m_systemManager->EntityDestroyed(entity);
 }
 
+std::set<Entity>& GE::ECS::EntityComponentSystem::GetEntities()
+{
+	return m_entityManager->GetEntities();
+}
+
+ComponentSignature GE::ECS::EntityComponentSystem::GetComponentSignature(Entity& entity)
+{
+	return m_entityManager->GetComponentSignature(entity);
+}
+
 void EntityComponentSystem::UpdateSystems()
 {
 	m_systemManager->UpdateSystems();
 }
+
+

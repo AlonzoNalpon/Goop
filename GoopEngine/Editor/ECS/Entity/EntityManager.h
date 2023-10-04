@@ -11,6 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "Entity.h"
 #include <vector>
 #include <queue>
+#include <set>
 
 namespace GE
 {
@@ -20,14 +21,15 @@ namespace GE
 		{
 		public:
 			// Max entities in the game
-			// Exposed read only
-			const unsigned int m_maxEntities;
+			unsigned int m_maxEntities;
 		private:
 			// Current number of activiely used EntityIDs
 			unsigned int m_entitiesAlive;
 
-			std::vector<ComponentSignature> m_entities;
+			std::vector<ComponentSignature> m_entitySignatures;
 			std::queue<Entity> m_availableEntities;
+			std::vector<bool> m_mapOfActive;
+			std::set<Entity>m_entities;
 		public:
 			/*!*********************************************************************
 			\brief
@@ -44,6 +46,7 @@ namespace GE
 			  Num of max entities available.
 			************************************************************************/
 			EntityManager(unsigned int maxEntities);
+
 			/*!*********************************************************************
 			\brief
 			  Default destructor.
@@ -58,6 +61,7 @@ namespace GE
 			  A new entity.
 			************************************************************************/
 			Entity CreateEntity();
+
 			/*!*********************************************************************
 			\brief
 			  Frees an entity and returns it to the object pool.
@@ -66,6 +70,40 @@ namespace GE
 			  Entity to free
 			************************************************************************/
 			void DestroyEntity(Entity& entity);
+
+			/*!*********************************************************************
+			\brief
+			  Checks if an entity is active.
+
+			\param entity
+			  Entity to check.
+
+			\return
+			  Active flag of entity.
+			************************************************************************/
+			bool IsActiveEntity(Entity& entity);
+
+			/*!*********************************************************************
+			\brief
+			  Sets the active flag of an entity.
+
+			\param entity
+				Entity to set active.
+
+			\param active
+			  Flag to set.
+			************************************************************************/
+			void SetActiveEntity(Entity& entity, bool active);
+
+			/*!*********************************************************************
+			\brief
+			  Returns all currently active entities.
+			  
+			\return
+			  All currently active entities.
+			************************************************************************/
+			std::set<Entity>& GetEntities();
+
 			/*!*********************************************************************
 			\brief
 			  Gets the component signature of the entity. The component signature
@@ -78,6 +116,7 @@ namespace GE
 			  Component signature of the entity
 			************************************************************************/
 			ComponentSignature GetComponentSignature(const Entity& entity) const;
+
 			/*!*********************************************************************
 			\brief
 			  Sets the component signature of the entity. The component signature
