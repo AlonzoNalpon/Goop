@@ -303,7 +303,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClCompile Include="Systems\SpriteAnim\SpriteAnimSystem.cpp" />
     <ClCompile Include="Window\Window.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimationManager.cpp" />
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetManager\AssetManager.h" />
@@ -321,11 +321,12 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="DebugTools\ErrorLogger\ErrorLogger.h" />
     <ClInclude Include="DebugTools\Exception\Exception.h" />
     <ClInclude Include="DebugTools\Exception\ExceptionBase.h" />
+    <ClInclude Include="def.h" />
     <ClInclude Include="ECS\ComponentTypes.h" />
     <ClInclude Include="ECS\Component\Component.h" />
     <ClInclude Include="ECS\Component\ComponentArray.h" />
     <ClInclude Include="ECS\Component\ComponentManager.h" />
-    <ClInclude Include="ECS\ECS Example\Scene.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="ECS\EntityComponentSystem.h" />
     <ClInclude Include="ECS\Entity\Entity.h" />
     <ClInclude Include="ECS\Entity\EntityManager.h" />
@@ -390,7 +391,6 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="EditorUI\ImGuiUI.h" />
     <ClInclude Include="Systems\SpriteAnim\SpriteAnimSystem.h" />
     <ClInclude Include="Window\Window.h" />
-    <ClInclude Include="include\def.h" />
     <ClInclude Include="Math\GEM.h" />
     <ClInclude Include="Math\Mat2.h" />
     <ClInclude Include="Math\Mat3.h" />
