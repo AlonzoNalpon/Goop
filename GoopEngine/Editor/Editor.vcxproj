@@ -300,6 +300,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClCompile Include="Serialization\SpriteGooStream.cpp" />
     <ClCompile Include="Systems\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="EditorUI\ImGuiUI.cpp" />
+    <ClCompile Include="Systems\RootTransform\RootTransformSystem.cpp" />
     <ClCompile Include="Systems\SpriteAnim\SpriteAnimSystem.cpp" />
     <ClCompile Include="Window\Window.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimationManager.cpp" />
@@ -312,6 +313,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="Component\BoxCollider.h" />
     <ClInclude Include="Component\Gravity.h" />
     <ClInclude Include="Component\Model.h" />
+    <ClInclude Include="Component\Root.h" />
     <ClInclude Include="Component\ScriptHandler.h" />
     <ClInclude Include="Component\Sprite.h" />
     <ClInclude Include="Component\SpriteAnim.h" />
@@ -389,6 +391,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Systems\PlayerController\PlayerControllerSystem.h" />
     <ClInclude Include="EditorUI\ImGuiUI.h" />
+    <ClInclude Include="Systems\RootTransform\RootTransformSystem.h" />
     <ClInclude Include="Systems\SpriteAnim\SpriteAnimSystem.h" />
     <ClInclude Include="Window\Window.h" />
     <ClInclude Include="Math\GEM.h" />

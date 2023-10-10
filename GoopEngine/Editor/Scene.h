@@ -20,6 +20,9 @@
 #include <Component/Sprite.h>
 #include <Component/SpriteAnim.h>
 #include <ObjectFactory/ObjectFactory.h>
+
+#include <Component/Root.h>
+#include <Systems/RootTransform/RootTransformSystem.h>
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
@@ -138,6 +141,7 @@ struct Scene
 
 		GE::Component::ScriptHandler scriptHan = ScriptHandler({ {"GoopScripts","Player"} }, player);
 
+		playerTrans.m_children.insert(entt3);
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
 		ecs->AddComponent(player, mdl);
@@ -150,6 +154,11 @@ struct Scene
 		ecs->RegisterEntityToSystem<CollisionSystem>(player);
 		ecs->RegisterEntityToSystem<SpriteAnimSystem>(player);
 		GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
+
+		Root root;
+		ecs->AddComponent(player, root);
+		ecs->RegisterSystem<RootTransformSystem>();
+		ecs->RegisterEntityToSystem<RootTransformSystem>(player);
 	}
 
 	void Update()
