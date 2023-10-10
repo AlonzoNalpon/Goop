@@ -235,6 +235,7 @@ namespace GE
 				Calls SystemManager's UpdateSystems function.
 			************************************************************************/
 			void UpdateSystems();
+
 		private:
 			ComponentManager* m_componentManager;
 			EntityManager* m_entityManager;

@@ -113,6 +113,19 @@ namespace GE
 			void EntitySignatureChanged(Entity& entity, const ComponentSignature& signature);
 
 			/*!******************************************************************
+			\brief 
+			  Updates all entities in all systems to remove them from active 
+				entity list
+
+			\param[in] entity
+				Entity to update
+
+			\param[in] newState
+				New active state
+			********************************************************************/
+			void EntityActiveStateChanged(Entity& entity, bool newState);
+
+			/*!******************************************************************
 			\brief
 			  Registers an entity to a system. This adds the entity to the 
 				system's entity list.
@@ -123,11 +136,14 @@ namespace GE
 			\param singature
 				Signature of entitiy for validation
 
+			\param activeState
+				Active state of the entitiy being registered
+
 			\return
 				Returns if it was registered successfully.
 			********************************************************************/
 			template <typename T>
-			bool RegisterEntityToSystem(Entity& entity, ComponentSignature& signature);
+			bool RegisterEntityToSystem(Entity& entity, ComponentSignature& signature, bool activeState = true);
 
 			/*!******************************************************************
 			\brief
@@ -155,6 +171,7 @@ namespace GE
 				reserved for physics calculations.
 			************************************************************************/
 			void UpdateSystemsFixed();
+
 		private:
 			// This is a map of unique signatures each system has
 			// a system signature consist of the signatures of all the

@@ -44,6 +44,14 @@ void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignat
 	}
 }
 
+void GE::ECS::SystemManager::EntityActiveStateChanged(Entity& entity, bool newState)
+{
+	for (auto& system : m_systems)
+	{
+		system.second->EntityActiveStateChanged(entity, newState);
+	}
+}
+
 void SystemManager::UpdateSystems()
 {
 	// Initialize all systems
@@ -61,13 +69,13 @@ void SystemManager::UpdateSystems()
 	}
 
 	GE::FPS::FrameRateController::GetInstance().StartSystemTimer();
-	for (auto system : m_indexToSystem)
+	for (auto& system : m_indexToSystem)
 	{
 		auto& systemName{ system.second };
 		m_systems[systemName]->Update();
 	}
 	GE::FPS::FrameRateController::GetInstance().EndSystemTimer("System Update");
-	for (auto system : m_indexToSystem)
+	for (auto& system : m_indexToSystem)
 	{
 		auto& systemName{ system.second };
 		m_systems[systemName]->LateUpdate();

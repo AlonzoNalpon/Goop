@@ -96,7 +96,7 @@ template <typename T>
 bool EntityComponentSystem::RegisterEntityToSystem(Entity& entity)
 {
 	ComponentSignature sig = m_entityManager->GetComponentSignature(entity);
-	return m_systemManager->RegisterEntityToSystem<T>(entity, sig);
+	return m_systemManager->RegisterEntityToSystem<T>(entity, sig, m_entityManager->IsActiveEntity(entity));
 }
 
 template <typename T>
