@@ -19,7 +19,9 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
 xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmod.dll" "$(TargetDir)"/Y
 xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(TargetDir)"/Y
 cd "$(ProjectDir).."
-xcopy "$(SolutionDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q</Command>
+xcopy "$(SolutionDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q
+xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
+xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y</Command>
     </PostBuildEvent>
     <ClCompile>
       <PreprocessorDefinitions>GLFW_DLL;DGLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -36,8 +38,8 @@ xcopy "$(SolutionDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q</Command>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <PreBuildEvent>
-      <Command>xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
-xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />
