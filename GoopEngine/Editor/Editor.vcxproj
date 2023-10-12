@@ -262,6 +262,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
+    <ClCompile Include="EditorUI\ToolBar.cpp" />
     <ClCompile Include="Events\EventManager.cpp" />
     <ClCompile Include="Graphics\Fonts\FontManager.cpp" />
     <ClCompile Include="Graphics\Fonts\FontRenderer.cpp" />
@@ -281,6 +282,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClCompile Include="MemoryManager\BaseAllocator.cpp" />
     <ClCompile Include="MemoryManager\ListAllocator.cpp" />
     <ClCompile Include="MemoryManager\MemoryManager.cpp" />
+    <ClCompile Include="EditorUI\SceneHeirachy.cpp" />
     <ClCompile Include="ScriptEngine\Script.cpp" />
     <ClCompile Include="ScriptEngine\ScriptManager.cpp" />
     <ClCompile Include="Serialization\AssetGooStream.cpp" />
@@ -328,6 +330,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="ECS\Component\Component.h" />
     <ClInclude Include="ECS\Component\ComponentArray.h" />
     <ClInclude Include="ECS\Component\ComponentManager.h" />
+    <ClInclude Include="EditorUI\ToolBar.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ECS\EntityComponentSystem.h" />
     <ClInclude Include="ECS\Entity\Entity.h" />
@@ -367,6 +370,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="MemoryManager\BaseAllocator.h" />
     <ClInclude Include="MemoryManager\ListAllocator.h" />
     <ClInclude Include="MemoryManager\MemoryManager.h" />
+    <ClInclude Include="EditorUI\SceneHeirachy.h" />
     <ClInclude Include="ScriptEngine\Script.h" />
     <ClInclude Include="ScriptEngine\ScriptManager.h" />
     <ClInclude Include="Serialization\IGooStream.h" />

@@ -12,6 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <vector>
 #include <queue>
 #include <set>
+#include <map>
 
 namespace GE
 {
@@ -29,7 +30,8 @@ namespace GE
 			std::vector<ComponentSignature> m_entitySignatures;
 			std::queue<Entity> m_availableEntities;
 			std::vector<bool> m_mapOfActive;
-			std::set<Entity>m_entities;
+			std::set<Entity> m_entities;
+			std::map<Entity, std::string> m_names;
 		public:
 			/*!*********************************************************************
 			\brief
@@ -94,6 +96,33 @@ namespace GE
 			  Flag to set.
 			************************************************************************/
 			void SetActiveEntity(Entity& entity, bool active);
+
+			/*!******************************************************************
+			\brief
+				Sets the entity's name
+
+			\param[in] entity
+				Entity in question
+
+			\param[in] std::string
+				New name for the entity
+
+			\return
+				Given name of an entity as a string
+			********************************************************************/
+			std::string SetEntityName(Entity& entity, std::string newName);
+
+			/*!******************************************************************
+			\brief 
+			  Returns the entity's name
+
+			\param[in] entity
+				Entity in question
+
+			\return
+				Given name of an entity as a string
+			********************************************************************/
+			std::string GetEntityName(Entity& entity);
 
 			/*!*********************************************************************
 			\brief

@@ -142,6 +142,7 @@ struct Scene
 		GE::Component::ScriptHandler scriptHan = ScriptHandler({ {"GoopScripts","Player"} }, player);
 
 		playerTrans.m_children.insert(entt3);
+		playerTrans.m_children.insert(entt5);
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
 		ecs->AddComponent(player, mdl);

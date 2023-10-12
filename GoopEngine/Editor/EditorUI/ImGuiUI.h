@@ -48,6 +48,7 @@ namespace GE::EditorGUI
 	class ImGuiHelper
 	{
 	public:
-		void static CreateDockSpace();
+		void static CreateDockSpace(const char* projectName);
+		void static EndDockSpace();
 	};
 }
