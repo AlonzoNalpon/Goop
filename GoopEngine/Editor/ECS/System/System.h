@@ -74,15 +74,30 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-			  Returns the list of entities registered to current system.
+			  Returns the set of entities registered to current system.
+
+			\return 
+				Set containting all active entities.
 			************************************************************************/
 			std::set<Entity>& GetEntities();
 
 			/*!*********************************************************************
 			\brief
-				Returns the list of inactive registered to current system.
+				Returns the set of inactive registered to current system.
+
+			\return 
+				Set containting all inactive entities.
 			************************************************************************/
 			std::set<Entity>& GetInActiveEntities();
+
+			/*!******************************************************************
+			\brief 
+			  Returns a set of all entities active or inactive.
+
+			\return 
+				Set containting all entities.
+			********************************************************************/
+			std::set<Entity>& GetAllEntities();
 
 			/*!******************************************************************
 			\brief
@@ -100,6 +115,7 @@ namespace GE
 		protected:
 			std::set<Entity> m_entities;
 			std::set<Entity> m_inactiveEntities;
+			std::set<Entity> m_allEntities;
 			EntityComponentSystem* m_ecs;
 		};
 	}

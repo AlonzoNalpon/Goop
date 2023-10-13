@@ -42,6 +42,11 @@ std::set<Entity>& System::GetInActiveEntities()
 	return m_inactiveEntities;
 }
 
+std::set<Entity>& System::GetAllEntities()
+{
+	return m_allEntities;
+}
+
 void System::EntityActiveStateChanged(Entity& entity, bool newState)
 {
 	// Only update sets if entity exist in system
