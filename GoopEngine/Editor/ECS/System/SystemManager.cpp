@@ -20,6 +20,8 @@ void SystemManager::EntityDestroyed(const Entity& entity)
 	for (auto& system : m_systems)
 	{
 		system.second->GetEntities().erase(entity);
+		system.second->GetInActiveEntities().erase(entity);
+		system.second->GetAllEntities().erase(entity);
 	}
 }
 
@@ -37,6 +39,8 @@ void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignat
 			// std::set.erase() does nothing if object does not exist
 			// no need for error handling
 			system.second->GetEntities().erase(entity);
+			system.second->GetInActiveEntities().erase(entity);
+			system.second->GetAllEntities().erase(entity);
 			std::stringstream ss;
 			ss << "Entity ID " << entity << " does not match " << system.first << " siganture. Removed from entity list";
 			GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str());
