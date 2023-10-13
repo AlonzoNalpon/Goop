@@ -39,7 +39,7 @@ void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignat
 			system.second->GetEntities().erase(entity);
 			std::stringstream ss;
 			ss << "Entity ID " << entity << " does not match " << system.first << " siganture. Removed from entity list";
-			GE::Debug::ErrorLogger::GetInstance().LogWarning<SystemManager>(ss.str());
+			GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str());
 		}
 	}
 }
