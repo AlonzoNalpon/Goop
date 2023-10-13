@@ -143,6 +143,12 @@ struct Scene
 
 		playerTrans.m_children.insert(entt3);
 		playerTrans.m_children.insert(entt5);
+		// This is bad code but temporary to properly assign children.
+		// this should not be used once we have proper scene node loading
+		auto childTrans = ecs->GetComponent<Transform>(entt3);
+		childTrans->m_parent = player;
+		childTrans = ecs->GetComponent<Transform>(entt5);
+		childTrans->m_parent = player;
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
 		ecs->AddComponent(player, mdl);
@@ -158,6 +164,7 @@ struct Scene
 
 		Root root;
 		ecs->AddComponent(player, root);
+		ecs->RegisterComponentToSystem<Root, RootTransformSystem>();
 		ecs->RegisterSystem<RootTransformSystem>();
 		ecs->RegisterEntityToSystem<RootTransformSystem>(player);
 	}
