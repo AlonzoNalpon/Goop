@@ -5,7 +5,7 @@
 
 void GE::Systems::RootTransformSystem::Update()
 {
-	for (GE::ECS::Entity entity : m_entities)
+	for (GE::ECS::Entity entity : m_allEntities)
 	{
 		// Assign own world transformation matrix
 		Math::dMat3 identity
