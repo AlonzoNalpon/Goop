@@ -282,7 +282,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClCompile Include="MemoryManager\BaseAllocator.cpp" />
     <ClCompile Include="MemoryManager\ListAllocator.cpp" />
     <ClCompile Include="MemoryManager\MemoryManager.cpp" />
-    <ClCompile Include="EditorUI\SceneHeirachy.cpp" />
+    <ClCompile Include="EditorUI\SceneHierachy.cpp" />
     <ClCompile Include="ScriptEngine\Script.cpp" />
     <ClCompile Include="ScriptEngine\ScriptManager.cpp" />
     <ClCompile Include="Serialization\AssetGooStream.cpp" />
@@ -370,7 +370,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="MemoryManager\BaseAllocator.h" />
     <ClInclude Include="MemoryManager\ListAllocator.h" />
     <ClInclude Include="MemoryManager\MemoryManager.h" />
-    <ClInclude Include="EditorUI\SceneHeirachy.h" />
+    <ClInclude Include="EditorUI\SceneHierachy.h" />
     <ClInclude Include="ScriptEngine\Script.h" />
     <ClInclude Include="ScriptEngine\ScriptManager.h" />
     <ClInclude Include="Serialization\IGooStream.h" />
