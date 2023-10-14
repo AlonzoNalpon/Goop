@@ -102,21 +102,21 @@ namespace
 	void ParentEntity(EntityComponentSystem& ecs, Entity& child, Entity* parent)
 	{
 		Entity oldParent = ecs.GetParentEntity(child);
+		// Has parent, remove self from parent
+		if (oldParent != INVALID_ID)
+		{
+			ecs.RemoveChildEntity(oldParent, child);
+		}
+
 		if (!parent)	// Child becoming root
 		{
 			// Remove reference to child from old parent if exist
 			ecs.SetParentEntity(child, INVALID_ID);
-			ecs.RemoveChildEntity(oldParent, child);
 		}
 		else
 		{
 			ecs.SetParentEntity(child, *parent);
 			ecs.AddChildEntity(*parent, child);
-			// Has parent, remove self from parent
-			if (oldParent != INVALID_ID)
-			{
-				ecs.RemoveChildEntity(oldParent, child);
-			}
 		}
 	}
 
