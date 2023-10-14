@@ -118,7 +118,7 @@ namespace
 		// End condition, parent has no parent
 		else
 		{
-			return ecs.GetIsActiveEntity(parent);
+			return ecs.GetIsActiveEntity(entity);
 		}
 	}
 }
