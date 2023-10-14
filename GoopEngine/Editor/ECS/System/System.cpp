@@ -1,11 +1,17 @@
 #include "System.h"
 #include "../EntityComponentSystem.h"
+#include <Component/Transform.h>
 
 #ifdef _DEBUG
 #include <iostream>
 #endif
 
 using namespace GE::ECS;
+
+namespace
+{
+	bool IsAncestorActive(Entity& entity, EntityComponentSystem& ecs);
+}
 
 void System::Awake()
 {
@@ -30,6 +36,21 @@ void System::FixedUpdate()
 
 void System::OnDestroyed()
 {
+}
+
+std::set<Entity>& GE::ECS::System::GetUpdatableEntities()
+{
+	m_updatables.clear();
+
+	for (Entity entity : m_entities)
+	{
+		if (IsAncestorActive(entity, *m_ecs))
+		{
+			m_updatables.insert(entity);
+		}
+	}
+
+	return m_updatables;
 }
 
 std::set<Entity>& System::GetEntities()
@@ -64,6 +85,29 @@ void System::EntityActiveStateChanged(Entity& entity, bool newState)
 		{
 			m_entities.erase(entity);
 			m_inactiveEntities.insert(entity);
+		}
+	}
+}
+
+namespace
+{
+	bool IsAncestorActive(Entity& entity, EntityComponentSystem& ecs)
+	{
+		Entity parent = ecs.GetParentEntity(entity);
+		if (parent != GE::ECS::INVALID_ID)
+		{
+			if (ecs.GetIsActiveEntity(parent))
+			{
+				return IsAncestorActive(entity, ecs);
+			}
+
+			// One of the parent is inactive, all children is considered inactive
+			return false;
+		}
+		// End condition, parent has no parent
+		else
+		{
+			return ecs.GetIsActiveEntity(parent);
 		}
 	}
 }

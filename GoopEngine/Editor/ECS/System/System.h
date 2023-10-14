@@ -72,6 +72,14 @@ namespace GE
 			************************************************************************/
 			virtual void OnDestroyed();
 
+			/*!******************************************************************
+			\brief 
+			  Gets a set of entities that this system should update
+			\return 
+				Set containing entities to update
+			********************************************************************/
+			std::set<Entity>& GetUpdatableEntities();
+
 			/*!*********************************************************************
 			\brief
 			  Returns the set of entities registered to current system.
@@ -117,6 +125,8 @@ namespace GE
 			std::set<Entity> m_inactiveEntities;
 			std::set<Entity> m_allEntities;
 			EntityComponentSystem* m_ecs;
+		private:
+			std::set<Entity> m_updatables;
 		};
 	}
 }
