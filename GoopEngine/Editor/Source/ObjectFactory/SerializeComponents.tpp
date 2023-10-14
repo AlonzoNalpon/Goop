@@ -65,21 +65,6 @@ GE::Component::Velocity DeserializeComponent<GE::Component::Velocity>(std::strin
 }
 
 template<>
-GE::Component::Gravity DeserializeComponent<GE::Component::Gravity>(std::string const& componentData)
-{
-  Serialization::ComponentWrapper cw{ componentData };
-  Serialization::ComponentData data = cw.GetData();
-
-  Gravity grav;
-  grav.m_gravity.x = data["grav_x"].GetDouble();
-  grav.m_gravity.y = data["grav_y"].GetDouble();
-
-  // may not need to deserialize std::set<BoxCollider*> m_collided
-
-  return grav;
-}
-
-template<>
 GE::Component::Sprite DeserializeComponent<GE::Component::Sprite>(std::string const& componentData)
 {
   Serialization::ComponentWrapper cw{ componentData };

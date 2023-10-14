@@ -238,6 +238,28 @@ namespace GE
 			template <typename T>
 			T* GetSystem();
 
+			/*!******************************************************************
+			\brief
+				Returns a map of systems, with keys being the typename of
+				a system
+
+			\return
+				Map of systems
+			********************************************************************/
+			std::unordered_map<const char*, System*>& GetSystems();
+
+			/*!******************************************************************
+			\brief
+				Returns a sorted map of systems values being the typename of a
+				system. Keys are ambigious and should not be used to iterate.
+				Only iterate with a ranged for as intergers maybe not be
+				in sequence.
+
+			\return
+				Map of systems names
+			********************************************************************/
+			std::map<int, const char*>& GetSystemIndexes();
+
 			/*!*********************************************************************
 			\brief
 				Calls SystemManager's RegisterSystem function.

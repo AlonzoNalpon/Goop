@@ -72,10 +72,6 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Velocity>(srcObj));
   }
-  if (IsBitSet(sig, ECS::COMPONENT_TYPES::GRAVITY))
-  {
-    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Gravity>(srcObj));
-  }
   if (IsBitSet(sig, ECS::COMPONENT_TYPES::SPRITE))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Sprite>(srcObj));
@@ -109,7 +105,6 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   // Register components in order of COMPONENT_TYPES enum
   ecs.RegisterComponent<Transform>();
   ecs.RegisterComponent<Velocity>();
-  ecs.RegisterComponent<Gravity>();
   ecs.RegisterComponent<BoxCollider>();
   ecs.RegisterComponent<Tween>();
   ecs.RegisterComponent<Sprite>();
@@ -117,8 +112,7 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   ecs.RegisterComponent<Model>();
 
   ecs.RegisterComponentToSystem<Transform, Systems::PhysicsSystem>();   
-  ecs.RegisterComponentToSystem<Velocity, Systems::PhysicsSystem>();    
-  ecs.RegisterComponentToSystem<Gravity, Systems::PhysicsSystem>();
+  ecs.RegisterComponentToSystem<Velocity, Systems::PhysicsSystem>();
 
   ecs.RegisterComponentToSystem<Transform, Systems::CollisionSystem>();
   ecs.RegisterComponentToSystem<BoxCollider, Systems::CollisionSystem>();
@@ -159,11 +153,6 @@ GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data) const
   {
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::Velocity>(data.m_components[GE::ECS::COMPONENT_TYPES::VELOCITY]));
-  }
-  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::GRAVITY))
-  {
-    ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::Gravity>(data.m_components[GE::ECS::COMPONENT_TYPES::GRAVITY]));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SPRITE))
   {

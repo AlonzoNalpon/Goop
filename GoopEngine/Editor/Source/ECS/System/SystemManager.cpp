@@ -15,6 +15,16 @@ SystemManager::~SystemManager()
 	}
 }
 
+std::unordered_map<const char*, System*>& GE::ECS::SystemManager::GetSystems()
+{
+	return m_systems;
+}
+
+std::map<int, const char*>& GE::ECS::SystemManager::GetSystemIndexes()
+{
+	return m_indexToSystem;
+}
+
 void SystemManager::EntityDestroyed(const Entity& entity)
 {
 	for (auto& system : m_systems)

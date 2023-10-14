@@ -7,7 +7,6 @@
 
 #include <Component/Velocity.h>
 #include <Component/Transform.h>
-#include <Component/Gravity.h>
 
 #include <PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
@@ -36,12 +35,10 @@ struct Scene
 		Entity entt = ecs->CreateEntity();
 		Velocity vel({ 0, 0 }, { 0, 0 });
 		Transform trans({ 0, 0 }, { 50, 50 }, 0.0);
-		Gravity grav({ 0, 0 });
 		BoxCollider box(trans.m_pos, 1, 1);
 
 		ecs->AddComponent(entt, vel);
 		ecs->AddComponent(entt, trans);
-		ecs->AddComponent(entt, grav);
 		ecs->AddComponent(entt, box);
 		ecs->RegisterEntityToSystem<PhysicsSystem>(entt);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt);
@@ -95,7 +92,6 @@ struct Scene
 		Entity entt2 = ecs->CreateEntity();
 		Velocity vel({ 0, 0 }, { 0, 0 });
 		Transform trans({ 250, 250 }, { 100, 50 }, 0.0);
-		Gravity grav({ 0, -20 });
 		BoxCollider box(trans.m_pos, 1, 1);
 
 		ecs->RegisterSystem<RootTransformSystem>();
@@ -109,7 +105,6 @@ struct Scene
 
 		ecs->AddComponent(entt2, vel);
 		ecs->AddComponent(entt2, trans);
-		ecs->AddComponent(entt2, grav);
 		ecs->AddComponent(entt2, box);
 		ecs->RegisterEntityToSystem<PhysicsSystem>(entt2);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt2);
