@@ -2,14 +2,25 @@
 #include "../EntityComponentSystem.h"
 #include <Component/Transform.h>
 
-#ifdef _DEBUG
-#include <iostream>
-#endif
-
 using namespace GE::ECS;
 
+// Anonymous namespace for help function
 namespace
 {
+	/*!*********************************************************************
+	\brief 
+	  Propergates upwards the entity parent tree until a parent is inactive
+		or the parent is root and returns the active state
+
+	\param[in] Entity
+		Entity to start from
+
+	\param[in] ecs
+		ECS context
+
+	return
+		State of ancestor
+	************************************************************************/
 	bool IsAncestorActive(Entity& entity, EntityComponentSystem& ecs);
 }
 

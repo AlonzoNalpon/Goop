@@ -62,6 +62,5 @@ void GE::Systems::RootTransformSystem::Propergate(GE::ECS::Entity& entity, const
 	for (GE::ECS::Entity childEntity : m_children)
 	{
 		Propergate(childEntity, trans.m_worldTransform);
-	}
-	
+	}	
 }
