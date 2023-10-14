@@ -23,7 +23,6 @@
 // Engine
 #include "Math/GEM.h"
 #include "Math/Mat3Utils.h"
-//#include "ECS/Component/Component.h"
 #include "ECS/System/System.h"
 #include "ECS/ComponentTypes.h"
 #include "ECS/EntityComponentSystem.h"

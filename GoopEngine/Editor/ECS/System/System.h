@@ -12,8 +12,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <set>
 #include "../Entity/Entity.h"
 
-
-
 namespace GE
 {
 	namespace ECS
@@ -76,14 +74,49 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-			  Returns the list of entities registered to current system.
+			  Returns the set of entities registered to current system.
+
+			\return 
+				Set containting all active entities.
 			************************************************************************/
-			virtual std::set<Entity>& GetEntities();
+			std::set<Entity>& GetEntities();
+
+			/*!*********************************************************************
+			\brief
+				Returns the set of inactive registered to current system.
+
+			\return 
+				Set containting all inactive entities.
+			************************************************************************/
+			std::set<Entity>& GetInActiveEntities();
+
+			/*!******************************************************************
+			\brief 
+			  Returns a set of all entities active or inactive.
+
+			\return 
+				Set containting all entities.
+			********************************************************************/
+			std::set<Entity>& GetAllEntities();
+
+			/*!******************************************************************
+			\brief
+				Updates all entities in the system to remove them from active
+				entity list
+
+			\param[in] entity
+				Entity to update
+
+			\param[in] newState
+				New active state
+			********************************************************************/
+			void EntityActiveStateChanged(Entity& entity, bool newState);
 
 		protected:
 			std::set<Entity> m_entities;
+			std::set<Entity> m_inactiveEntities;
+			std::set<Entity> m_allEntities;
 			EntityComponentSystem* m_ecs;
-
 		};
 	}
 }

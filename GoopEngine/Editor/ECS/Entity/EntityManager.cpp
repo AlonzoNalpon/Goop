@@ -46,6 +46,7 @@ Entity EntityManager::CreateEntity()
 	m_entitySignatures[entity].reset();
 	m_mapOfActive[entity] = true;
 	m_entities.insert(entity);
+	m_names[entity] = "Entity " + std::to_string(entity);
 	return entity;
 }
 
@@ -58,6 +59,7 @@ void EntityManager::DestroyEntity(Entity& entity)
 	m_availableEntities.push(entity);
 	m_entities.erase(entity);
 	m_entitiesAlive--;
+	m_names.erase(entity);
 }
 
 bool GE::ECS::EntityManager::IsActiveEntity(Entity& entity)
@@ -68,6 +70,32 @@ bool GE::ECS::EntityManager::IsActiveEntity(Entity& entity)
 void GE::ECS::EntityManager::SetActiveEntity(Entity& entity, bool active)
 {
 	m_mapOfActive[entity] = active;
+}
+
+std::string GE::ECS::EntityManager::SetEntityName(Entity& entity, std::string newName)
+{
+	// Entity should not exist
+	if (m_names.find(entity) == m_names.end())
+	{
+		throw GE::Debug::Exception<EntityManager>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Setting name of entity that should not exist"));
+	}
+	else
+	{
+		return m_names[entity] = newName;
+	}
+}
+
+std::string GE::ECS::EntityManager::GetEntityName(Entity& entity)
+{
+	// Entity should not exist
+	if (m_names.find(entity) == m_names.end())
+	{
+		throw GE::Debug::Exception<EntityManager>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Getting name of entity that should not exist"));
+	}
+	else
+	{
+		return m_names[entity];
+	}
 }
 
 std::set<Entity>& GE::ECS::EntityManager::GetEntities()

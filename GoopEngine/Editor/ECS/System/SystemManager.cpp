@@ -20,6 +20,8 @@ void SystemManager::EntityDestroyed(const Entity& entity)
 	for (auto& system : m_systems)
 	{
 		system.second->GetEntities().erase(entity);
+		system.second->GetInActiveEntities().erase(entity);
+		system.second->GetAllEntities().erase(entity);
 	}
 }
 
@@ -37,10 +39,20 @@ void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignat
 			// std::set.erase() does nothing if object does not exist
 			// no need for error handling
 			system.second->GetEntities().erase(entity);
+			system.second->GetInActiveEntities().erase(entity);
+			system.second->GetAllEntities().erase(entity);
 			std::stringstream ss;
 			ss << "Entity ID " << entity << " does not match " << system.first << " siganture. Removed from entity list";
-			GE::Debug::ErrorLogger::GetInstance().LogWarning<SystemManager>(ss.str());
+			GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str());
 		}
+	}
+}
+
+void GE::ECS::SystemManager::EntityActiveStateChanged(Entity& entity, bool newState)
+{
+	for (auto& system : m_systems)
+	{
+		system.second->EntityActiveStateChanged(entity, newState);
 	}
 }
 
@@ -61,13 +73,13 @@ void SystemManager::UpdateSystems()
 	}
 
 	GE::FPS::FrameRateController::GetInstance().StartSystemTimer();
-	for (auto system : m_indexToSystem)
+	for (auto& system : m_indexToSystem)
 	{
 		auto& systemName{ system.second };
 		m_systems[systemName]->Update();
 	}
 	GE::FPS::FrameRateController::GetInstance().EndSystemTimer("System Update");
-	for (auto system : m_indexToSystem)
+	for (auto& system : m_indexToSystem)
 	{
 		auto& systemName{ system.second };
 		m_systems[systemName]->LateUpdate();

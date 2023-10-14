@@ -47,7 +47,14 @@ namespace GE::EditorGUI
 
 	class ImGuiHelper
 	{
+	private:		
+		static GE::ECS::Entity m_selectedEntity;
 	public:
-		void static CreateDockSpace();
+		static void CreateDockSpace(const char* projectName);
+		static void EndDockSpace();
+
+		// Returns a copy intentially as it is a read only variable
+		static GE::ECS::Entity GetSelectedEntity();
+		static void SetSelectedEntity(GE::ECS::Entity& selectedEntity);
 	};
 }

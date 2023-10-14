@@ -95,7 +95,7 @@ ComponentSignature SystemManager::GetSignature()
 }
 
 template <typename T>
-bool SystemManager::RegisterEntityToSystem(Entity& entity, ComponentSignature& signature)
+bool SystemManager::RegisterEntityToSystem(Entity& entity, ComponentSignature& signature, bool activeState)
 {
 	const char* systemName = typeid(T).name();
 	if (m_systems.find(systemName) == m_systems.end())
@@ -118,7 +118,15 @@ bool SystemManager::RegisterEntityToSystem(Entity& entity, ComponentSignature& s
 		return false;
 	}
 
-	m_systems[systemName]->GetEntities().insert(entity);
+	if (activeState)
+	{
+		m_systems[systemName]->GetEntities().insert(entity);
+	}
+	else
+	{
+		m_systems[systemName]->GetInActiveEntities().insert(entity);
+	}
+	m_systems[systemName]->GetAllEntities().insert(entity);
 	return true;
 }
 
@@ -135,7 +143,10 @@ bool SystemManager::UnregisterEntityFromSystem(Entity& entity)
 		return false;
 	}
 
+	// Remove entity from both list
 	m_systems[systemName]->GetEntities().erase(entity);
+	m_systems[systemName]->GetInActiveEntities().erase(entity);
+	m_systems[systemName]->GetAllEntities().erase(entity);
 	return true;
 }
 }

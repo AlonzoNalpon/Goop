@@ -14,6 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "Entity/EntityManager.h"
 #include "System/SystemManager.h"
 #include "../Singleton/Singleton.h"
+#include <memory>
 
 // Interface for using the different ECS systems
 namespace GE
@@ -28,12 +29,6 @@ namespace GE
 				Default constructor.
 			************************************************************************/
 			EntityComponentSystem();
-
-			/*!*********************************************************************
-			\brief
-				Default destructor.
-			************************************************************************/
-			~EntityComponentSystem();
 
 			/*!*********************************************************************
 			\brief
@@ -76,6 +71,33 @@ namespace GE
 				Entity to destroy.
 			************************************************************************/
 			void DestroyEntity(Entity& entity);
+
+			/*!******************************************************************
+			\brief 
+			  Calls EntityManager's GetEntityName function.
+
+			\param[in] entity
+				Entity's name to get.
+
+			\return 
+				Name of the entity
+			********************************************************************/
+			std::string GetEntityName(Entity& entity);
+
+			/*!******************************************************************
+			\brief 
+			  Calls EntityManager's SetEntityName function.
+
+			\param[in] entity
+				Entity's name to change.
+
+			\param[in] newName
+				Entity's new name.
+
+			\return
+				New name of the entity
+			********************************************************************/
+			std::string SetEntityName(Entity& entity, std::string newName);
 
 			/*!*********************************************************************
 			\brief
@@ -235,10 +257,11 @@ namespace GE
 				Calls SystemManager's UpdateSystems function.
 			************************************************************************/
 			void UpdateSystems();
+
 		private:
-			ComponentManager* m_componentManager;
-			EntityManager* m_entityManager;
-			SystemManager* m_systemManager;
+			std::unique_ptr<ComponentManager> m_componentManager;
+			std::unique_ptr<EntityManager> m_entityManager;
+			std::unique_ptr<SystemManager> m_systemManager;
 		};
 
 		/*template <typename T>

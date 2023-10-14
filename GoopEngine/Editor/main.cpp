@@ -4,33 +4,33 @@
 #include <Window/Window.h>
 
 //#define EXCEPTION_TEST
-#include "../ECS/ECS Example/Scene.h"
+#include "Scene.h"
 
 #include <FrameRateController/FrameRateController.h>
 
-#include "../AssetManager/AssetManager.h"
+#include "AssetManager/AssetManager.h"
 
-#include "../AssetManager/AssetManager.h"
+#include "AssetManager/AssetManager.h"
 #include <Window/Window.h>
 #include <Graphics/GraphicsEngine.h>
 
 
 #include <Physics/PhysicsSystem.h>
 #include <Physics/CollisionSystem.h>
-#include "../ObjectFactory/ObjectFactory.h"
+#include "ObjectFactory/ObjectFactory.h"
 
 //#define SERIALIZE_TEST
 #ifdef SERIALIZE_TEST
 #include <iomanip>
-#include "../Serialization/AssetGooStream.h"
-#include "../Serialization/SpriteGooStream.h"
-#include "../Serialization/PrefabGooStream.h"
+#include "Serialization/AssetGooStream.h"
+#include "Serialization/SpriteGooStream.h"
+#include "Serialization/PrefabGooStream.h"
 #endif
 #define MEMORY_TEST
 #ifdef MEMORY_TEST
-#include "../MemoryManager/MemoryManager.h"
+#include "MemoryManager/MemoryManager.h"
 #endif
-#include "../EditorUI/ImGuiUI.h"
+#include "EditorUI/ImGuiUI.h"
 #include <time.h>
 #include <ScriptEngine/ScriptManager.h>
 
@@ -90,7 +90,7 @@ int main(int /*argc*/, char* /*argv*/[])
 #ifdef SERIALIZE_TEST
   GE::ObjectFactory::ObjectFactory::ObjectFactoryTest();
 
-  of.ObjectJsonLoader("Assets/Data/Scene.json");
+  of.ObjectJsonLoader("../Assets/Data/Scene.json");
   of.JoelTest();
   GE::Serialization::PrefabGooStream::PrefabLoadTest();
 #endif

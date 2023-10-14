@@ -262,6 +262,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="ECS\System\System.cpp" />
+    <ClCompile Include="EditorUI\ToolBar.cpp" />
     <ClCompile Include="Events\EventManager.cpp" />
     <ClCompile Include="Graphics\Fonts\FontManager.cpp" />
     <ClCompile Include="Graphics\Fonts\FontRenderer.cpp" />
@@ -281,6 +282,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClCompile Include="MemoryManager\BaseAllocator.cpp" />
     <ClCompile Include="MemoryManager\ListAllocator.cpp" />
     <ClCompile Include="MemoryManager\MemoryManager.cpp" />
+    <ClCompile Include="EditorUI\SceneHierachy.cpp" />
     <ClCompile Include="ScriptEngine\Script.cpp" />
     <ClCompile Include="ScriptEngine\ScriptManager.cpp" />
     <ClCompile Include="Serialization\AssetGooStream.cpp" />
@@ -300,10 +302,11 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClCompile Include="Serialization\SpriteGooStream.cpp" />
     <ClCompile Include="Systems\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="EditorUI\ImGuiUI.cpp" />
+    <ClCompile Include="Systems\RootTransform\RootTransformSystem.cpp" />
     <ClCompile Include="Systems\SpriteAnim\SpriteAnimSystem.cpp" />
     <ClCompile Include="Window\Window.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimationManager.cpp" />
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetManager\AssetManager.h" />
@@ -312,6 +315,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="Component\BoxCollider.h" />
     <ClInclude Include="Component\Gravity.h" />
     <ClInclude Include="Component\Model.h" />
+    <ClInclude Include="Component\Root.h" />
     <ClInclude Include="Component\ScriptHandler.h" />
     <ClInclude Include="Component\Sprite.h" />
     <ClInclude Include="Component\SpriteAnim.h" />
@@ -321,11 +325,13 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="DebugTools\ErrorLogger\ErrorLogger.h" />
     <ClInclude Include="DebugTools\Exception\Exception.h" />
     <ClInclude Include="DebugTools\Exception\ExceptionBase.h" />
+    <ClInclude Include="def.h" />
     <ClInclude Include="ECS\ComponentTypes.h" />
     <ClInclude Include="ECS\Component\Component.h" />
     <ClInclude Include="ECS\Component\ComponentArray.h" />
     <ClInclude Include="ECS\Component\ComponentManager.h" />
-    <ClInclude Include="ECS\ECS Example\Scene.h" />
+    <ClInclude Include="EditorUI\ToolBar.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="ECS\EntityComponentSystem.h" />
     <ClInclude Include="ECS\Entity\Entity.h" />
     <ClInclude Include="ECS\Entity\EntityManager.h" />
@@ -365,6 +371,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="MemoryManager\BaseAllocator.h" />
     <ClInclude Include="MemoryManager\ListAllocator.h" />
     <ClInclude Include="MemoryManager\MemoryManager.h" />
+    <ClInclude Include="EditorUI\SceneHierachy.h" />
     <ClInclude Include="ScriptEngine\Script.h" />
     <ClInclude Include="ScriptEngine\ScriptManager.h" />
     <ClInclude Include="Serialization\IGooStream.h" />
@@ -389,9 +396,9 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Systems\PlayerController\PlayerControllerSystem.h" />
     <ClInclude Include="EditorUI\ImGuiUI.h" />
+    <ClInclude Include="Systems\RootTransform\RootTransformSystem.h" />
     <ClInclude Include="Systems\SpriteAnim\SpriteAnimSystem.h" />
     <ClInclude Include="Window\Window.h" />
-    <ClInclude Include="include\def.h" />
     <ClInclude Include="Math\GEM.h" />
     <ClInclude Include="Math\Mat2.h" />
     <ClInclude Include="Math\Mat3.h" />
