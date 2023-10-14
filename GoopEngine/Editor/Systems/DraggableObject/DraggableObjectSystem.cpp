@@ -13,8 +13,9 @@ using namespace Math;
 using namespace Input;
 
 
-void DraggableObjectSystem::Update() {
-	for (Entity entity : m_entities)
+void DraggableObjectSystem::Update() 
+{
+	for (Entity entity : GetUpdatableEntities())
 	{
 		//mouse click check
 		BoxCollider* entity1Col = m_ecs->GetComponent<BoxCollider>(entity);

@@ -18,7 +18,7 @@ namespace GE::Systems
   void RenderSystem::Update()
   {
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
-    for (GE::ECS::Entity entity : m_entities)
+    for (GE::ECS::Entity entity : GetUpdatableEntities())
     {
       // GET ALL THE COMPONENTS
       Component::Model*       model{ m_ecs->GetComponent<Component::Model>(entity) };

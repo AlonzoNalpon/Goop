@@ -46,7 +46,7 @@ void GE::Systems::PlayerControllerSystem::Start()
 
 void PlayerControllerSystem::Update() 
 {
-	for (Entity entity : m_entities) {
+	for (Entity entity : GetUpdatableEntities()) {
 
 		ScriptHandler* scriptHan = m_ecs->GetComponent<ScriptHandler>(entity);
 		if (scriptHan != nullptr)
