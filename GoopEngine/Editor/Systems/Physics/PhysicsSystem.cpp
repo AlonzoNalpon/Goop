@@ -1,7 +1,6 @@
 #include <Physics/PhysicsSystem.h>
-#include <Component/Velocity.h>
 #include <Component/Transform.h>
-#include <Component/Gravity.h>
+#include <Component/Force.h>
 
 using namespace GE;
 using namespace ECS;
