@@ -36,7 +36,7 @@ bool CollisionSystem::Collide(BoxCollider& box1, BoxCollider& box2)
 
 void CollisionSystem::Update()
 {
-	for (Entity entity : m_entities) 
+	for (Entity entity : GetUpdatableEntities())
 	{
 		BoxCollider* updateEntity = m_ecs->GetComponent<BoxCollider>(entity);
 		Transform* newCenter = m_ecs->GetComponent<Transform>(entity);
@@ -52,7 +52,7 @@ void CollisionSystem::Update()
 	}
 
 	//loop through every entity & check against every OTHER entity if they collide either true
-	for (Entity entity1 : m_entities)
+	for (Entity entity1 : GetUpdatableEntities())
 	{
 		//mouse click check
 		BoxCollider* entity1Col = m_ecs->GetComponent<BoxCollider>(entity1);
@@ -66,7 +66,7 @@ void CollisionSystem::Update()
 		entity1Col->Render();
 
 		//obj collide check
-		for (Entity entity2 : m_entities) 
+		for (Entity entity2 : GetUpdatableEntities())
 		{
 			if (entity1 == entity2) 
 			{
