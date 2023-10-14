@@ -109,7 +109,7 @@ namespace
 		{
 			if (ecs.GetIsActiveEntity(parent))
 			{
-				return IsAncestorActive(entity, ecs);
+				return IsAncestorActive(parent, ecs);
 			}
 
 			// One of the parent is inactive, all children is considered inactive
