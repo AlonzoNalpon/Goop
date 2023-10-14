@@ -71,6 +71,7 @@ bool ObjectGooStream::Read(std::string const& json)
 
     if (!obj.IsObject())
     {
+      ifs.close();
       std::ostringstream oss{};
       oss << json << ": Element " << std::to_string(i) << " is not an object";
       GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
@@ -81,6 +82,7 @@ bool ObjectGooStream::Read(std::string const& json)
     }
     if (!obj.HasMember("Id") || !obj["Id"].IsString())
     {
+      ifs.close();
       std::ostringstream oss{};
       oss << json << ": Element " << std::to_string(i) << " does not have a valid \"Name\" field";
       GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
@@ -91,6 +93,7 @@ bool ObjectGooStream::Read(std::string const& json)
     }
     if (!obj.HasMember("Signature") || !obj["Signature"].IsInt())
     {
+      ifs.close();
       std::ostringstream oss{};
       oss << json << ": Element " << std::to_string(i) << " does not have a valid \"Signature\" field";
       GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
@@ -99,7 +102,9 @@ bool ObjectGooStream::Read(std::string const& json)
       #endif
       return m_status = false;
     }
-    if (!obj.HasMember("Components") || !obj["Components"].IsArray()) {
+    if (!obj.HasMember("Components") || !obj["Components"].IsArray())
+    {
+      ifs.close();
       std::ostringstream oss{};
       oss << json << ": Element " << std::to_string(i) << " does not have a valid \"Components\" field";
       GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
@@ -113,7 +118,9 @@ bool ObjectGooStream::Read(std::string const& json)
     for (rapidjson::SizeType j{}; j < componentArr.Size(); ++j)
     {
       rapidjson::Value const& component{ componentArr[j] };
-      if (!component.IsObject()) {
+      if (!component.IsObject())
+      {
+        ifs.close();
         std::ostringstream oss{};
         oss << json << ": Component " << std::to_string(j) << " of element " << std::to_string(i) << " is not an object";
         GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());

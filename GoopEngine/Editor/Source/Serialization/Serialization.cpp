@@ -24,6 +24,7 @@ namespace GE
       rapidjson::OStreamWrapper osw{ ofs };
       rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
       document.Accept(writer);*/
+      ofs.close();
     }
 
     std::vector<std::pair<std::string, ECS::ComponentSignature>> DeserializeSystems(std::string const& json)
@@ -61,6 +62,7 @@ namespace GE
           std::unordered_map<std::string, ECS::COMPONENT_TYPES>::const_iterator compType{ ECS::stringToComponents.find(component.GetString()) };
           if (compType == ECS::stringToComponents.cend())
           {
+            ifs.close();
             std::string str{ "Invalid component in " };
             str += json + ": " + component.GetString();
             throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg(str));

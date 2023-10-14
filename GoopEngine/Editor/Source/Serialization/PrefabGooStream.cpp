@@ -74,6 +74,7 @@ bool PrefabGooStream::Read(std::string const& json)
 
   if (!data.HasMember(JsonNameKey) || !data[JsonNameKey].IsString())
   {
+    ifs.close();
     std::ostringstream oss{};
     oss << json << " does not have a valid \"" << JsonNameKey << "\" field";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
@@ -86,6 +87,7 @@ bool PrefabGooStream::Read(std::string const& json)
 
   if (!data.HasMember(JsonComponentsKey) || !data[JsonSystemsKey].IsArray())
   {
+    ifs.close();
     std::ostringstream oss{};
     oss << json << " does not have a valid \"" << JsonSystemsKey << "\" field";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
@@ -98,6 +100,7 @@ bool PrefabGooStream::Read(std::string const& json)
 
   if (!data.HasMember(JsonComponentsKey) || !data[JsonComponentsKey].IsArray())
   {
+    ifs.close();
     std::ostringstream oss{};
     oss << json << " does not have a valid \"" << JsonComponentsKey << "\" field";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
@@ -112,7 +115,9 @@ bool PrefabGooStream::Read(std::string const& json)
   for (rapidjson::SizeType i{}; i < componentArr.Size(); ++i)
   {
     rapidjson::Value const& component{ componentArr[i] };
-    if (!component.IsObject()) {
+    if (!component.IsObject())
+    {
+      ifs.close();
       std::ostringstream oss{};
       oss << json << ": Component " << std::to_string(i) << " has invalid format";
       GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
