@@ -5,18 +5,22 @@
 
 void GE::Systems::RootTransformSystem::Update()
 {
-	for (GE::ECS::Entity entity : m_entities)
+	for (GE::ECS::Entity entity : m_ecs->GetEntities())
 	{
-		// Assign own world transformation matrix
-		Math::dMat3 identity
+		// This is a root entity
+		if (m_ecs->GetParentEntity(entity) == GE::ECS::INVALID_ID)
 		{
-			1, 0, 0,
-			0, 1, 0,
-			0, 0, 1
-		};
+			// Assign own world transformation matrix
+			Math::dMat3 identity
+			{
+				1, 0, 0,
+					0, 1, 0,
+					0, 0, 1
+			};
 
-		// Update recursively using entity's world transformation matrix
-		Propergate(entity, identity);
+			// Update recursively using entity's world transformation matrix
+			Propergate(entity, identity);
+		}
 	}
 }
 
@@ -47,16 +51,16 @@ void GE::Systems::RootTransformSystem::Propergate(GE::ECS::Entity& entity, const
 
 	trans.m_worldTransform = (T * R * S) * parentWorldTrans;
 
+	std::vector<GE::ECS::Entity>& m_children = m_ecs->GetChildEntities(entity);
 	// End condition no children
-	if (trans.m_children.size() == 0)
+	if (m_children.size() == 0)
 	{
 		return;
 	}
 
 	// Update all children based ownself's new world transform
-	for (GE::ECS::Entity childEntity : trans.m_children)
+	for (GE::ECS::Entity childEntity : m_children)
 	{
 		Propergate(childEntity, trans.m_worldTransform);
-	}
-	
+	}	
 }

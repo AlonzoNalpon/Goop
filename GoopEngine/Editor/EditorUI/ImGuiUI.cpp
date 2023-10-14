@@ -13,11 +13,14 @@
 #include "../Component/Transform.h"
 #include "../Component/BoxCollider.h"
 #include <Audio/AudioEngine.h>
-#include "SceneHeirachy.h"
+#include "SceneHierachy.h"
 #include "ToolBar.h"
 
 using namespace GE::EditorGUI;
 using namespace ImGui;
+
+// Initialize static
+GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
 
 void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
 {
@@ -49,7 +52,7 @@ void ImGuiUI::Update()
   ToolBar::CreateContent();
 
   Begin("Scene Heirachy");
-  SceneHeirachy::CreateContent();
+  SceneHierachy::CreateContent();
   End();
 
   Begin("Viewport");
@@ -176,4 +179,14 @@ void ImGuiHelper::CreateDockSpace(const char* projectName)
 void GE::EditorGUI::ImGuiHelper::EndDockSpace()
 {
   End();
+}
+
+GE::ECS::Entity GE::EditorGUI::ImGuiHelper::GetSelectedEntity()
+{
+  return m_selectedEntity;
+}
+
+void GE::EditorGUI::ImGuiHelper::SetSelectedEntity(GE::ECS::Entity& selectedEntity)
+{
+  m_selectedEntity = selectedEntity;
 }

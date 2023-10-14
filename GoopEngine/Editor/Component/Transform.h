@@ -23,21 +23,18 @@ namespace GE
 			\brief
 				Default contructor
 			************************************************************************/
-			Transform() : m_pos{}, m_scale{}, m_rot{}, m_parent{GE::ECS::INVALID_ID} {}
+			Transform() : m_pos{}, m_scale{}, m_rot{} {}
 
 			/*!*********************************************************************
 			\brief
 				Overload contructor
 			************************************************************************/
 			Transform(Math::dVec2 const& pos, Math::dVec2 const& scale, double rot)
-				: m_pos{ pos }, m_scale{ scale }, m_rot{ rot }, m_parent{GE::ECS::INVALID_ID} {}
+				: m_pos{ pos }, m_scale{ scale }, m_rot{ rot } {}
 
 			vec2 m_pos;
 			vec2 m_scale;
 			double m_rot;
-
-			GE::ECS::Entity m_parent;
-			std::set<GE::ECS::Entity> m_children;
 
 			Math::dMat3 m_worldTransform;
 		};

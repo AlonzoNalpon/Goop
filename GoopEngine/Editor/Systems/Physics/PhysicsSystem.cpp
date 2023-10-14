@@ -14,7 +14,7 @@ void PhysicsSystem::Update()
 		return;
 	//update func passes curr entity
 	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
-	for (Entity entity : m_entities) {
+	for (Entity entity : GetUpdatableEntities()) {
 		//testing acceleration
 		Velocity* updateVel = m_ecs->GetComponent<Velocity>(entity);
 		Transform* updatePos = m_ecs->GetComponent<Transform>(entity);

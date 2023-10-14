@@ -126,6 +126,7 @@ bool SystemManager::RegisterEntityToSystem(Entity& entity, ComponentSignature& s
 	{
 		m_systems[systemName]->GetInActiveEntities().insert(entity);
 	}
+	m_systems[systemName]->GetAllEntities().insert(entity);
 	return true;
 }
 
@@ -145,6 +146,7 @@ bool SystemManager::UnregisterEntityFromSystem(Entity& entity)
 	// Remove entity from both list
 	m_systems[systemName]->GetEntities().erase(entity);
 	m_systems[systemName]->GetInActiveEntities().erase(entity);
+	m_systems[systemName]->GetAllEntities().erase(entity);
 	return true;
 }
 }

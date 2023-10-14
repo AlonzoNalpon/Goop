@@ -24,6 +24,9 @@ EntityManager::EntityManager(unsigned int maxEntities) :
 	{
 		m_availableEntities.push(i);
 	}
+	m_parent.resize(maxEntities);
+	std::fill(m_parent.begin(), m_parent.end(), INVALID_ID);
+	m_children.resize(maxEntities);
 }
 
 EntityManager::~EntityManager()
@@ -70,6 +73,32 @@ bool GE::ECS::EntityManager::IsActiveEntity(Entity& entity)
 void GE::ECS::EntityManager::SetActiveEntity(Entity& entity, bool active)
 {
 	m_mapOfActive[entity] = active;
+}
+
+Entity GE::ECS::EntityManager::GetParentEntity(Entity& entity)
+{
+	return m_parent[entity];
+}
+
+void GE::ECS::EntityManager::SetParentEntity(Entity& parent, Entity& child)
+{
+	m_parent[child] = parent;
+}
+
+std::vector<Entity>& GE::ECS::EntityManager::GetChildEntities(Entity& parent)
+{
+	return m_children[parent];
+}
+
+void GE::ECS::EntityManager::AddChildEntity(Entity& parent, Entity& child)
+{
+	m_children[parent].push_back(child);
+}
+
+void GE::ECS::EntityManager::RemoveChildEntity(Entity& parent, Entity& child)
+{
+	std::vector<Entity>& children = m_children[parent];
+	m_children[parent].erase(std::find(children.begin(), children.end(), child));
 }
 
 std::string GE::ECS::EntityManager::SetEntityName(Entity& entity, std::string newName)

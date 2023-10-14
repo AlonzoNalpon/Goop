@@ -21,7 +21,6 @@
 #include <Component/SpriteAnim.h>
 #include <ObjectFactory/ObjectFactory.h>
 
-#include <Component/Root.h>
 #include <Systems/RootTransform/RootTransformSystem.h>
 using namespace GE;
 using namespace ECS;
@@ -34,20 +33,19 @@ struct Scene
 
 	void MakeDraggableBox()
 	{
-		Entity entt3 = ecs->CreateEntity();
+		Entity entt = ecs->CreateEntity();
 		Velocity vel({ 0, 0 }, { 0, 0 });
 		Transform trans({ 0, 0 }, { 50, 50 }, 0.0);
 		Gravity grav({ 0, 0 });
-		BoxCollider box7(trans.m_pos, 1, 1);
+		BoxCollider box(trans.m_pos, 1, 1);
 
-		ecs->AddComponent(entt3, vel);
-		ecs->AddComponent(entt3, trans);
-		ecs->AddComponent(entt3, grav);
-		ecs->RegisterEntityToSystem<PhysicsSystem>(entt3);
-
-		ecs->AddComponent(entt3, box7);
-		ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
-		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt3);
+		ecs->AddComponent(entt, vel);
+		ecs->AddComponent(entt, trans);
+		ecs->AddComponent(entt, grav);
+		ecs->AddComponent(entt, box);
+		ecs->RegisterEntityToSystem<PhysicsSystem>(entt);
+		ecs->RegisterEntityToSystem<CollisionSystem>(entt);
+		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt);
 	}
 
 	void Start()
@@ -94,35 +92,39 @@ struct Scene
 		of.SpawnPrefab("Background");
 		MakeDraggableBox();
 
-		Entity entt3 = ecs->CreateEntity();
+		Entity entt2 = ecs->CreateEntity();
 		Velocity vel({ 0, 0 }, { 0, 0 });
 		Transform trans({ 250, 250 }, { 100, 50 }, 0.0);
 		Gravity grav({ 0, -20 });
-		BoxCollider box7(trans.m_pos, 1, 1);
+		BoxCollider box(trans.m_pos, 1, 1);
 
-		Entity entt5 = ecs->CreateEntity();
-		Entity entt6 = ecs->CreateEntity();
+		ecs->RegisterSystem<RootTransformSystem>();
+
+		Entity entt3 = ecs->CreateEntity();
+		Entity entt4 = ecs->CreateEntity();
 		Transform transBox2({ 200, 2 }, { 20, 20 }, 0.0);
 		Transform transBox3({ 300, 2 }, { 30, 20 }, 0.0);
 		BoxCollider box2(transBox2.m_pos, 1, 1); //should collide
 		BoxCollider box3(transBox3.m_pos, 1, 1); //shouldnt collide
 
-		ecs->AddComponent(entt3, vel);
-		ecs->AddComponent(entt3, trans);
-		ecs->AddComponent(entt3, grav);
-		ecs->RegisterEntityToSystem<PhysicsSystem>(entt3);
+		ecs->AddComponent(entt2, vel);
+		ecs->AddComponent(entt2, trans);
+		ecs->AddComponent(entt2, grav);
+		ecs->AddComponent(entt2, box);
+		ecs->RegisterEntityToSystem<PhysicsSystem>(entt2);
+		ecs->RegisterEntityToSystem<CollisionSystem>(entt2);
+		//ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt2);
 
-		ecs->AddComponent(entt5, box2);
-		ecs->AddComponent(entt5, transBox2);
-		ecs->RegisterEntityToSystem<CollisionSystem>(entt5);
-		
-		ecs->AddComponent(entt6, box3);
-		ecs->AddComponent(entt6, transBox3);
-		ecs->RegisterEntityToSystem<CollisionSystem>(entt6);
-
-		ecs->AddComponent(entt3, box7);
+		ecs->AddComponent(entt3, box2);
+		ecs->AddComponent(entt3, transBox2);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
-		//ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt3);
+		
+		ecs->AddComponent(entt4, box3);
+		ecs->AddComponent(entt4, transBox3);
+		ecs->RegisterEntityToSystem<CollisionSystem>(entt4);
+
+		Entity worm = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
+		ecs->SetEntityName(worm, "MineWorm");
 
 		Entity player = ecs->CreateEntity();
 		Transform playerTrans({ -350, 350 }, { 150, 150 }, 0.0);
@@ -141,8 +143,6 @@ struct Scene
 
 		GE::Component::ScriptHandler scriptHan = ScriptHandler({ {"GoopScripts","Player"} }, player);
 
-		playerTrans.m_children.insert(entt3);
-		playerTrans.m_children.insert(entt5);
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
 		ecs->AddComponent(player, mdl);
@@ -154,12 +154,8 @@ struct Scene
 		ecs->RegisterEntityToSystem<RenderSystem>(player);
 		ecs->RegisterEntityToSystem<CollisionSystem>(player);
 		ecs->RegisterEntityToSystem<SpriteAnimSystem>(player);
-		GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
-
-		Root root;
-		ecs->AddComponent(player, root);
-		ecs->RegisterSystem<RootTransformSystem>();
-		ecs->RegisterEntityToSystem<RootTransformSystem>(player);
+		ecs->SetEntityName(player, "Player");
+		ecs->SetIsActiveEntity(entt3, false);
 	}
 
 	void Update()

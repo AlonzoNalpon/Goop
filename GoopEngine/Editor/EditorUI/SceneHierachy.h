@@ -7,10 +7,11 @@
 	entities
 ********************************************************************/
 #pragma once
+#include "ImGuiUI.h"
 
 namespace GE::EditorGUI
 {
-	class SceneHeirachy
+	class SceneHierachy
 	{
 	public:
 		static void CreateContent();
