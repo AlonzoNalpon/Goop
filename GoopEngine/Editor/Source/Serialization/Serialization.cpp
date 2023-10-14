@@ -40,7 +40,7 @@ namespace GE
         else
         {
           std::ostringstream oss{};
-          oss << "Unable to find " << elem.second << "in system signatures";
+          oss << "Unable to find " << elem.second << " in system signatures";
           Debug::ErrorLogger::GetInstance().LogError(oss.str());
         }
         // truncate front part of system class type name to extract the system name 

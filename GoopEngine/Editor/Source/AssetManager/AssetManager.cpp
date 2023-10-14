@@ -92,8 +92,8 @@ namespace GE::Assets
 	void AssetManager::LoadFiles()
 	{
 		stbi_set_flip_vertically_on_load(true);
-		LoadJSONData(GetConfigData<std::string>("Stills").value(), GE::Assets::IMAGES);
-		LoadJSONData(GetConfigData<std::string>("Animation Sprites").value(), GE::Assets::ANIMATION);
+		LoadJSONData(*GetConfigData<std::string>("Stills"), GE::Assets::IMAGES);
+		LoadJSONData(*GetConfigData<std::string>("Animation Sprites"), GE::Assets::ANIMATION);
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 		for (auto const& curr : m_loadedSpriteData)
 		{
@@ -127,11 +127,13 @@ namespace GE::Assets
 				{
 					//throw exception
 				}
-
+				// prefix assets path to each image filename
+				std::string const prefix = m_filePath["Path"];
+				m_filePath.erase("Path");
 				// For each entry in m_filePath, load the image from the ASSETS_DIR and the entry's second value
 				for (std::pair<std::string, std::string> const& entry : m_filePath)
 				{
-					int id = LoadImageW(entry.second);
+					int id = LoadImageW(prefix + entry.second);
 
 					gEngine.InitTexture(entry.first, GetData(id));
 				}
