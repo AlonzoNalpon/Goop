@@ -22,6 +22,7 @@ namespace GE::ECS
 		SPRITE_ANIM, // Sprite animation system type
 		DRAGGABLE_OBJECT, // Draggable object system type
 		PLAYER_CONTROLLER, // Player controller system type
+		ROOT_TRANSFORM,
 		TOTAL_SYSTEMS // Total number of system types
 	};
 
@@ -32,24 +33,26 @@ namespace GE::ECS
 	// or use the .at(<key>) function
 	const std::unordered_map<SYSTEM_TYPES, std::string> systemsToString
 	{
-		{ SYSTEM_TYPES::PHYSICS, "Physics" },
-		{ SYSTEM_TYPES::COLLISION, "Collision" },
-		{ SYSTEM_TYPES::DRAGGABLE_OBJECT, "DraggableObject" },
-		{ SYSTEM_TYPES::PLAYER_CONTROLLER, "PlayerController" },
-		{ SYSTEM_TYPES::RENDERING, "Rendering" },
-		{ SYSTEM_TYPES::SPRITE_ANIM, "SpriteAnim" }
+		{ SYSTEM_TYPES::PHYSICS, "PhysicsSystem" },
+		{ SYSTEM_TYPES::COLLISION, "CollisionSystem" },
+		{ SYSTEM_TYPES::DRAGGABLE_OBJECT, "DraggableObjectSystem" },
+		{ SYSTEM_TYPES::PLAYER_CONTROLLER, "PlayerControllerSystem" },
+		{ SYSTEM_TYPES::RENDERING, "RenderSystem" },
+		{ SYSTEM_TYPES::SPRITE_ANIM, "SpriteAnimSystem" },
+		{ SYSTEM_TYPES::ROOT_TRANSFORM, "RootTransformSystem" }
 	};
 
 	// Const map so only interated through ranged for,
 	// or use the .at(<key>) function
 	const std::unordered_map<std::string, SYSTEM_TYPES> stringToSystems
 	{
-		{ "Physics", SYSTEM_TYPES::PHYSICS },
-		{ "Collision", SYSTEM_TYPES::COLLISION },
-		{ "DraggableObject", SYSTEM_TYPES::DRAGGABLE_OBJECT },
-		{ "PlayerController", SYSTEM_TYPES::PLAYER_CONTROLLER },
-		{ "Rendering", SYSTEM_TYPES::RENDERING },
-		{ "SpriteAnim", SYSTEM_TYPES::SPRITE_ANIM }
+		{ "PhysicsSystem", SYSTEM_TYPES::PHYSICS },
+		{ "CollisionSystem", SYSTEM_TYPES::COLLISION },
+		{ "DraggableObjectSystem", SYSTEM_TYPES::DRAGGABLE_OBJECT },
+		{ "PlayerControllerSystem", SYSTEM_TYPES::PLAYER_CONTROLLER },
+		{ "RenderSystem", SYSTEM_TYPES::RENDERING },
+		{ "SpriteAnimSystem", SYSTEM_TYPES::SPRITE_ANIM },
+		{ "RootTransformSystem", SYSTEM_TYPES::ROOT_TRANSFORM }
 	};
 
 	/*!*********************************************************************

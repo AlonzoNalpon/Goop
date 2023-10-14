@@ -80,9 +80,9 @@ ComponentSignature GE::ECS::EntityComponentSystem::GetComponentSignature(Entity&
 	return m_entityManager->GetComponentSignature(entity);
 }
 
-std::unordered_map<const char*, System*>& GE::ECS::EntityComponentSystem::GetSystems()
+std::unordered_map<const char*, ComponentSignature>& GE::ECS::EntityComponentSystem::GetSystemSignatures()
 {
-	return m_systemManager->GetSystems();
+	return m_systemManager->GetSystemSignatures();
 }
 
 std::map<int, const char*>& GE::ECS::EntityComponentSystem::GetSystemIndexes()

@@ -1,7 +1,7 @@
 {
   "Name": "Background",
   "Systems": [
-    "Rendering"
+    "RenderSystem"
   ],
   "Components": [
     {

@@ -157,22 +157,32 @@ bool PrefabGooStream::Unload(container_type& object)
   // add json data to map and set object's component signature
   for (auto const& component : data[JsonComponentsKey].GetArray())
   {
-    ECS::COMPONENT_TYPES const compName{ ECS::stringToComponents.at(component.MemberBegin()->name.GetString())};
+    std::unordered_map<std::string, ECS::COMPONENT_TYPES>::const_iterator iter{ ECS::stringToComponents.find(component.MemberBegin()->name.GetString()) };
+    if (iter == ECS::stringToComponents.cend())
+    {
+      std::string str{ "Unable to find component " };
+      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg(str + component.MemberBegin()->name.GetString()));
+    }
     // set current component's bit in signature
-    object.second.m_componentSignature[static_cast<unsigned>(compName)] = true;
+    object.second.m_componentSignature[static_cast<unsigned>(iter->second)] = true;
 
     rapidjson::StringBuffer buffer{};
     writer_type<rapidjson::StringBuffer> writer{ buffer };
     component.Accept(writer);
-    object.second.m_components[compName] = buffer.GetString();
+    object.second.m_components[iter->second] = buffer.GetString();
   }
 
   // iterate through systems array and set bit in object's system signature
   for (auto const& system : data[JsonSystemsKey].GetArray())
   {
-    ECS::SYSTEM_TYPES const sysType{ ECS::stringToSystems.at(system.GetString()) };
+    std::unordered_map<std::string, ECS::SYSTEM_TYPES>::const_iterator iter{ ECS::stringToSystems.find(system.GetString()) };
+    if (iter == ECS::stringToSystems.cend())
+    {
+      std::string str{ "Unable to find system " };
+      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg(str + system.GetString()));
+    }
     // set current system's bit in signature
-    object.second.m_systemSignature[static_cast<unsigned>(sysType)] = true;
+    object.second.m_systemSignature[static_cast<unsigned>(iter->second)] = true;
   }
 
   return m_status = true;

@@ -14,6 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/DraggableObject/DraggableObjectSystem.h>
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
+#include <Systems/RootTransform/RootTransformSystem.h>
 
 #include "SerializeComponents.h"
 #include "../Serialization/ObjectGooStream.h"
@@ -33,6 +34,7 @@ GE::ECS::SystemSignature ObjectFactory::GetObjectSystemSignature(GE::ECS::Entity
   SetBitIfFound<Systems::RenderSystem>(obj, sig, ECS::SYSTEM_TYPES::RENDERING);
   SetBitIfFound<Systems::CollisionSystem>(obj, sig, ECS::SYSTEM_TYPES::COLLISION);
   SetBitIfFound<Systems::PlayerControllerSystem>(obj, sig, ECS::SYSTEM_TYPES::PLAYER_CONTROLLER);
+  SetBitIfFound<Systems::RootTransformSystem>(obj, sig, ECS::SYSTEM_TYPES::ROOT_TRANSFORM);
 
   return sig;
 }
@@ -53,6 +55,8 @@ void ObjectFactory::RegisterObjectToSystems(GE::ECS::Entity object, ECS::SystemS
     ecs.RegisterEntityToSystem<GE::Systems::RenderSystem>(object);
   if (IsBitSet(signature, SYSTEM_TYPES::SPRITE_ANIM))
     ecs.RegisterEntityToSystem<GE::Systems::SpriteAnimSystem>(object);
+  if (IsBitSet(signature, SYSTEM_TYPES::ROOT_TRANSFORM))
+    ecs.RegisterEntityToSystem<GE::Systems::RootTransformSystem>(object);
 }
 
 void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity srcObj) const
@@ -109,7 +113,7 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       ecs.RegisterComponent<GE::Component::SpriteAnim>();
       break;
     case COMPONENT_TYPES::SPRITE:
-      ecs.RegisterComponent<GE::Component::Transform>();
+      ecs.RegisterComponent<GE::Component::Sprite>();
       break;
     case COMPONENT_TYPES::MODEL:
       ecs.RegisterComponent<GE::Component::Model>();
@@ -132,7 +136,12 @@ void ObjectFactory::RegisterComponentsAndSystems() const
 
   for (std::pair<std::string, ECS::ComponentSignature> const& elem : systems)
   {
-    RegisterSystemWithEnum(ECS::stringToSystems.at(elem.first), elem.second);
+    std::unordered_map<std::string, ECS::SYSTEM_TYPES>::const_iterator iter{ ECS::stringToSystems.find(elem.first) };
+    if (iter == stringToSystems.cend())
+    {
+      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg("Unable to register system " + elem.first));
+    }
+    RegisterSystemWithEnum(iter->second, elem.second);
   }
 }
 
@@ -321,6 +330,10 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
   case SYSTEM_TYPES::SPRITE_ANIM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::SpriteAnimSystem>();
     RegisterComponentsToSystem<Systems::SpriteAnimSystem>(sig);
+    break;
+  case SYSTEM_TYPES::ROOT_TRANSFORM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::RootTransformSystem>();
+    RegisterComponentsToSystem<Systems::RootTransformSystem>(sig);
     break;
   default:
     throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown system type"));

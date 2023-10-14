@@ -18,12 +18,41 @@ namespace GE
         throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg("Unable to create output file " + json));
       }
       
-      /*document.SetObject();
+      document.SetObject();
+      std::map<int, const char*> const& systems{ ECS::EntityComponentSystem::GetInstance().GetSystemIndexes() };
+      std::unordered_map<const char*, ECS::ComponentSignature> const& signatures{ ECS::EntityComponentSystem::GetInstance().GetSystemSignatures() };
       // loop through systems
-      for (auto const& elem : )
+      for (auto const& elem : systems)
+      {
+        rapidjson::Value compArr{ rapidjson::kArrayType };
+
+        // get component names and append to rapidjson array
+        auto const iter{ signatures.find(elem.second) };
+        if (iter != signatures.cend())
+        {
+          std::vector<std::string> components{ ECS::ComponentSignatureToString(iter->second) };
+          for (std::string const& str : components)
+          {
+            rapidjson::Value compName{ str.c_str(), document.GetAllocator() };
+            compArr.PushBack(compName, document.GetAllocator());
+          }
+        }
+        else
+        {
+          std::ostringstream oss{};
+          oss << "Unable to find " << elem.second << "in system signatures";
+          Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        }
+        // truncate front part of system class type name to extract the system name 
+        // (extract "PlayerControllerSystem" from "class GE::Systems::PlayerControllerSystem")
+        std::string const sysName{ elem.second };
+        rapidjson::Value key{ sysName.substr(sysName.find_last_of(':') + 1, std::string::npos).c_str(), document.GetAllocator()};
+        document.AddMember(key, compArr, document.GetAllocator());
+      }
+
       rapidjson::OStreamWrapper osw{ ofs };
       rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
-      document.Accept(writer);*/
+      document.Accept(writer);
       ofs.close();
     }
 
