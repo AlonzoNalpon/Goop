@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include <pch.h>
 
-namespace GE::AssetManager
+namespace GE::Assets
 {
   // For generating unique IDs for loading of data.
   class IDGenerator

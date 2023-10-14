@@ -1,9 +1,26 @@
-[
-  "Physics": [
-    0,
-    1
+{
+  "DraggableObject": [
+    "Transform",
+    "BoxCollider"
   ],
   "PlayerController": [
-    0
+
+  ],
+  "Collision": [
+    "Transform",
+    "BoxCollider"
+  ],
+  "Physics": [
+    "Transform",
+    "Velocity",
+    "Gravity"
+  ],
+  "SpriteAnim": [
+    
+  ],
+  "Rendering": [
+    "Model",
+    "Sprite",
+    "Transform"
   ]
-]
+}

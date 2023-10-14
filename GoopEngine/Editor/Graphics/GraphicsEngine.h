@@ -84,7 +84,7 @@ namespace Graphics {
     \return
       
     ************************************************************************/
-    gObjID InitTexture(std::string const& name, GE::AssetManager::ImageData const& imageData);
+    gObjID InitTexture(std::string const& name, GE::Assets::ImageData const& imageData);
 
     /*!*********************************************************************
     \brief

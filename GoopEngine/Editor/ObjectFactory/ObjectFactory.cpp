@@ -7,7 +7,6 @@
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
-#include <pch.h>
 #include "ObjectFactory.h"
 
 #include <Physics/PhysicsSystem.h>
@@ -20,6 +19,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../Serialization/ObjectGooStream.h"
 #include "../Serialization/PrefabGooStream.h"
 #include "../Systems/Rendering/RenderingSystem.h"
+#include "../Serialization/Serialization.h"
 
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
@@ -98,40 +98,49 @@ void ObjectFactory::RegisterComponentsAndSystems() const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
-  // Register systems
-  ecs.RegisterSystem<GE::Systems::PhysicsSystem>();
-  ecs.RegisterSystem<GE::Systems::CollisionSystem>();
-  ecs.RegisterSystem<GE::Systems::DraggableObjectSystem>();
-  ecs.RegisterSystem<GE::Systems::PlayerControllerSystem>();
-  ecs.RegisterSystem<GE::Systems::SpriteAnimSystem>();
-  ecs.RegisterSystem<GE::Systems::RenderSystem>();
-
   // Register components in order of COMPONENT_TYPES enum
-  ecs.RegisterComponent<Transform>();
-  ecs.RegisterComponent<Velocity>();
-  ecs.RegisterComponent<Gravity>();
-  ecs.RegisterComponent<BoxCollider>();
-  ecs.RegisterComponent<Tween>();
-  ecs.RegisterComponent<Sprite>();
-  ecs.RegisterComponent<SpriteAnim>();
-  ecs.RegisterComponent<Model>();
+  for (auto const& elem : GE::ECS::componentsToString)
+  {
+    switch (elem.first)
+    {
+    case COMPONENT_TYPES::TRANSFORM:
+      ecs.RegisterComponent<GE::Component::Transform>();
+      break;
+    case COMPONENT_TYPES::BOXCOLLIDER:
+      ecs.RegisterComponent<GE::Component::BoxCollider>();
+      break;
+    case COMPONENT_TYPES::GRAVITY:
+      ecs.RegisterComponent<GE::Component::Gravity>();
+      break;
+    case COMPONENT_TYPES::SPRITEANIM:
+      ecs.RegisterComponent<GE::Component::SpriteAnim>();
+      break;
+    case COMPONENT_TYPES::SPRITE:
+      ecs.RegisterComponent<GE::Component::Transform>();
+      break;
+    case COMPONENT_TYPES::MODEL:
+      ecs.RegisterComponent<GE::Component::Model>();
+      break;
+    case COMPONENT_TYPES::VELOCITY:
+      ecs.RegisterComponent<GE::Component::Velocity>();
+      break;
+    case COMPONENT_TYPES::TWEEN:
+      ecs.RegisterComponent<GE::Component::Tween>();
+      break;
+    default:
+      throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown component type"));
+      break;
+    }
+  }
 
-  ecs.RegisterComponentToSystem<Transform, Systems::PhysicsSystem>();   
-  ecs.RegisterComponentToSystem<Velocity, Systems::PhysicsSystem>();    
-  ecs.RegisterComponentToSystem<Gravity, Systems::PhysicsSystem>();
+  // Register systems
+  std::string const systemsFile{ *Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
+  std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::DeserializeSystems(systemsFile) };
 
-  ecs.RegisterComponentToSystem<Transform, Systems::CollisionSystem>();
-  ecs.RegisterComponentToSystem<BoxCollider, Systems::CollisionSystem>();
-
-  ecs.RegisterComponentToSystem<Transform, Systems::DraggableObjectSystem>();
-  ecs.RegisterComponentToSystem<BoxCollider, Systems::DraggableObjectSystem>();
-
-  ecs.RegisterComponentToSystem<Model, Systems::RenderSystem>();
-  ecs.RegisterComponentToSystem<Sprite, Systems::RenderSystem>();
-  ecs.RegisterComponentToSystem<Transform, Systems::RenderSystem>();
-  
-  ecs.RegisterComponentToSystem<Tween, GE::Systems::PlayerControllerSystem>();
-
+  for (std::pair<std::string, ECS::ComponentSignature> const& elem : systems)
+  {
+    RegisterSystemWithEnum(ECS::stringToSystems.at(elem.first), elem.second);
+  }
 }
 
 GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data) const
@@ -191,7 +200,7 @@ GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data) const
 
 void ObjectFactory::LoadPrefabsFromFile()
 {
-  const char* prefabsFile{ AssetManager::AssetManager::GetInstance().GetConfigData<const char*>("Prefabs").value() };
+  const char* prefabsFile{ Assets::AssetManager::GetInstance().GetConfigData<const char*>("Prefabs").value() };
   std::ifstream ifs{ prefabsFile };
   if (!ifs)
   {
@@ -296,3 +305,38 @@ void ObjectFactory::ObjectFactoryTest() {
   Serialization::ObjectGooStream ogs{ "Assets/Data/Scene.json" };
   ogs.Unload(m_objects);
 }
+
+void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::ComponentSignature sig) const
+{
+  switch (name)
+  {
+  case SYSTEM_TYPES::COLLISION:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::CollisionSystem>();
+    RegisterComponentsToSystem<Systems::CollisionSystem>(sig);
+    break;
+  case SYSTEM_TYPES::DRAGGABLE_OBJECT:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::DraggableObjectSystem>();
+    RegisterComponentsToSystem<Systems::DraggableObjectSystem>(sig);
+    break;
+  case SYSTEM_TYPES::PHYSICS:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PhysicsSystem>();
+    RegisterComponentsToSystem<Systems::PhysicsSystem>(sig);
+    break;
+  case SYSTEM_TYPES::PLAYER_CONTROLLER:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PlayerControllerSystem>();
+    RegisterComponentsToSystem<Systems::PlayerControllerSystem>(sig);
+    break;
+  case SYSTEM_TYPES::RENDERING:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::RenderSystem>();
+    RegisterComponentsToSystem<Systems::RenderSystem>(sig);
+    break;
+  case SYSTEM_TYPES::SPRITE_ANIM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::SpriteAnimSystem>();
+    RegisterComponentsToSystem<Systems::SpriteAnimSystem>(sig);
+    break;
+  default:
+    throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown system type"));
+    break;
+  }
+}
+

@@ -30,7 +30,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 //#define ASSET_MANAGER_DEBUG
 using namespace GE::Serialization;
 
-namespace GE::AssetManager
+namespace GE::Assets
 {
 	AssetManager::~AssetManager()
 	{
@@ -92,8 +92,8 @@ namespace GE::AssetManager
 	void AssetManager::LoadFiles()
 	{
 		stbi_set_flip_vertically_on_load(true);
-		LoadJSONData(GetConfigData<std::string>("Stills").value(), GE::AssetManager::IMAGES);
-		LoadJSONData(GetConfigData<std::string>("Animation Sprites").value(), GE::AssetManager::ANIMATION);
+		LoadJSONData(GetConfigData<std::string>("Stills").value(), GE::Assets::IMAGES);
+		LoadJSONData(GetConfigData<std::string>("Animation Sprites").value(), GE::Assets::ANIMATION);
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 		for (auto const& curr : m_loadedSpriteData)
 		{

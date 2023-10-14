@@ -45,8 +45,8 @@ int main(int /*argc*/, char* /*argv*/[])
 
   // INIT FUNCTIONS
 
-  GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
-  am->LoadJSONData("../Assets/Data/Config.json", GE::AssetManager::CONFIG);
+  GE::Assets::AssetManager* am = &GE::Assets::AssetManager::GetInstance();
+  am->LoadJSONData("../Assets/Data/Config.json", GE::Assets::CONFIG);
 
   GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
   of.LoadPrefabsFromFile();
@@ -149,7 +149,7 @@ int main(int /*argc*/, char* /*argv*/[])
     fRC.EndSystemTimer("ImGui Render");
 
     std::stringstream ss;
-    ss << GE::AssetManager::AssetManager::GetInstance().GetConfigData<std::string>("Window Title").value() << " | FPS: " << std::fixed
+    ss << GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Window Title").value() << " | FPS: " << std::fixed
       << std::setfill('0') << std::setw(5) << std::setprecision(2) << fRC.GetFPS() << " | Entities: " << EntityComponentSystem::GetInstance().GetEntities().size();
     for (auto system : fRC.GetSystemTimers())
     {

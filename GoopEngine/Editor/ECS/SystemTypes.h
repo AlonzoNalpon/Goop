@@ -16,12 +16,12 @@ namespace GE::ECS
 	// Enum of all the system types available for our engine.
 	enum class SYSTEM_TYPES
 	{
-		PHYSICS = 0, // Physics system type
-		COLLISION, // Collision system type
-		DRAGGABLE_OBJECT, // Draggable object system type
-		PLAYER_CONTROLLER, // Player controller system type
+		COLLISION = 0, // Collision system type
+		PHYSICS, // Physics system type
 		RENDERING, // Rendering system type
 		SPRITE_ANIM, // Sprite animation system type
+		DRAGGABLE_OBJECT, // Draggable object system type
+		PLAYER_CONTROLLER, // Player controller system type
 		TOTAL_SYSTEMS // Total number of system types
 	};
 
@@ -30,7 +30,7 @@ namespace GE::ECS
 
 	// Const map so only interated through ranged for,
 	// or use the .at(<key>) function
-	const std::map<SYSTEM_TYPES, std::string> systemsToString
+	const std::unordered_map<SYSTEM_TYPES, std::string> systemsToString
 	{
 		{ SYSTEM_TYPES::PHYSICS, "Physics" },
 		{ SYSTEM_TYPES::COLLISION, "Collision" },
@@ -42,7 +42,7 @@ namespace GE::ECS
 
 	// Const map so only interated through ranged for,
 	// or use the .at(<key>) function
-	const std::map<std::string, SYSTEM_TYPES> stringToSystems
+	const std::unordered_map<std::string, SYSTEM_TYPES> stringToSystems
 	{
 		{ "Physics", SYSTEM_TYPES::PHYSICS },
 		{ "Collision", SYSTEM_TYPES::COLLISION },
@@ -51,4 +51,18 @@ namespace GE::ECS
 		{ "Rendering", SYSTEM_TYPES::RENDERING },
 		{ "SpriteAnim", SYSTEM_TYPES::SPRITE_ANIM }
 	};
+
+	/*!*********************************************************************
+	\brief
+		inline function to compare if the bit is true
+	\param
+		SystemSignature (system signature)
+		SYSTEM_TYPES (SYSTEM_TYPE)
+	\return
+		bool, true if bit is set.
+	************************************************************************/
+	inline bool IsBitSet(GE::ECS::SystemSignature lhs, ECS::SYSTEM_TYPES rhs) noexcept
+	{
+		return lhs[static_cast<unsigned>(rhs)];
+	}
 }

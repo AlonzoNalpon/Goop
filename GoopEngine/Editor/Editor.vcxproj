@@ -258,6 +258,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClCompile Include="Audio\AudioEngine.cpp" />
     <ClCompile Include="AssetManager\AssetStructs.cpp" />
     <ClCompile Include="DebugTools\ErrorLogger\ErrorLogger.cpp" />
+    <ClCompile Include="ECS\ComponentTypes.cpp" />
     <ClCompile Include="ECS\Component\ComponentManager.cpp" />
     <ClCompile Include="ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="ECS\Entity\EntityManager.cpp" />
@@ -292,6 +293,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClCompile Include="Graphics\ShaderProgram.cpp" />
     <ClCompile Include="Serialization\ObjectGooStream.cpp" />
     <ClCompile Include="Serialization\PrefabGooStream.cpp" />
+    <ClCompile Include="Serialization\Serialization.cpp" />
     <ClCompile Include="SpriteAnimation\Def\SpriteAnimationFlags.cpp" />
     <ClCompile Include="SpriteAnimation\SpriteAnimGenerator.cpp" />
     <ClCompile Include="Math\Mat3Utils.cpp" />

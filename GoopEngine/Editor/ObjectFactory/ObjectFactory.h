@@ -23,6 +23,14 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rapidjson/document.h>
 #include <ObjectFactory/ObjectStructs.h>
 #include <../Serialization/Serialization.h>
+#include <Component/Velocity.h>
+#include <Component/Transform.h>
+#include <Component/Gravity.h>
+#include <Component/Sprite.h>
+#include <Component/SpriteAnim.h>
+#include <Component/BoxCollider.h>
+#include <Component/Tween.h>
+#include <Component/Model.h>
 
 namespace GE::ObjectFactory
 {
@@ -132,6 +140,45 @@ namespace GE::ObjectFactory
 
     /*!*********************************************************************
     \brief
+      Registers components based on the given signature to a system
+      specified by template argument T
+    \param sig
+      The signature of the components to register
+    ************************************************************************/
+    template <typename T>
+    void RegisterComponentsToSystem(ECS::ComponentSignature sig) const
+    {
+      ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+
+      if (IsBitSet(sig, ECS::COMPONENT_TYPES::TRANSFORM))
+        ecs.RegisterComponentToSystem<GE::Component::Transform, T>();
+      if (IsBitSet(sig, ECS::COMPONENT_TYPES::BOXCOLLIDER))
+        ecs.RegisterComponentToSystem<GE::Component::BoxCollider, T>();
+      if (IsBitSet(sig, ECS::COMPONENT_TYPES::GRAVITY))
+        ecs.RegisterComponentToSystem<GE::Component::Gravity, T>();
+      if (IsBitSet(sig, ECS::COMPONENT_TYPES::SPRITEANIM))
+        ecs.RegisterComponentToSystem<GE::Component::SpriteAnim, T>();
+      if (IsBitSet(sig, ECS::COMPONENT_TYPES::SPRITE))
+        ecs.RegisterComponentToSystem<GE::Component::Sprite, T>();
+      if (IsBitSet(sig, ECS::COMPONENT_TYPES::MODEL))
+        ecs.RegisterComponentToSystem<GE::Component::Model, T>();
+      if (IsBitSet(sig, ECS::COMPONENT_TYPES::VELOCITY))
+        ecs.RegisterComponentToSystem<GE::Component::Velocity, T>();
+      if (IsBitSet(sig, ECS::COMPONENT_TYPES::TWEEN))
+        ecs.RegisterComponentToSystem<GE::Component::Tween, T>();
+    }
+
+    /*!*********************************************************************
+    \brief
+      This function registers a system to the system given the
+      enum. This has to be updated everytime a new system is introduced.
+    \param name
+      The enum corresponding to the system
+    ************************************************************************/
+    void RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::ComponentSignature sig) const;
+
+    /*!*********************************************************************
+    \brief
       If the entity has a specific signature, this function will
       set the bit as true
     \param 
@@ -144,32 +191,6 @@ namespace GE::ObjectFactory
     {
       std::set<ECS::Entity>& entities{ ECS::EntityComponentSystem::GetInstance().GetSystem<T>()->GetEntities() };
       if (entities.find(entity) != entities.end()) { sig[static_cast<unsigned>(type)] = true; }
-    }
-    /*!*********************************************************************
-    \brief
-      $BRIEF
-    \param 
-      ComponentSignature (component signature)
-      COMPONENT_TYPES (COMPONENT_TYPE)
-    \return
-      bool, true if bit is set.
-    ************************************************************************/
-    inline bool IsBitSet(ECS::ComponentSignature lhs, ECS::COMPONENT_TYPES rhs) const noexcept
-    {
-      return lhs[static_cast<unsigned>(rhs)];
-    }
-    /*!*********************************************************************
-    \brief
-      inline function to compare if the bit is true
-    \param
-      SystemSignature (system signature)
-      SYSTEM_TYPES (SYSTEM_TYPE)
-    \return
-      bool, true if bit is set.
-    ************************************************************************/
-    inline bool IsBitSet(GE::ECS::SystemSignature lhs, ECS::SYSTEM_TYPES rhs) const noexcept
-    {
-      return lhs[static_cast<unsigned>(rhs)];
     }
 
     std::map<std::string, ObjectData> m_objects; // Map of objects with pair of name, and ObjectData.

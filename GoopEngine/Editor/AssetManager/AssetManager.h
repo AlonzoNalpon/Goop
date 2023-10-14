@@ -26,7 +26,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../Singleton/Singleton.h"
 #include "../Serialization/SpriteGooStream.h"
 
-namespace GE::AssetManager
+namespace GE::Assets
 {
   enum {
     IMAGES,

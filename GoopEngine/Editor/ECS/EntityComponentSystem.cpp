@@ -6,7 +6,7 @@ using namespace GE::ECS;
 EntityComponentSystem::EntityComponentSystem()
 {
 	m_componentManager = std::make_unique<ComponentManager>();
-	std::optional<unsigned> maxEntitiesCnt = GE::AssetManager::AssetManager::GetInstance().GetConfigData<unsigned>("Max Entities");
+	std::optional<unsigned> maxEntitiesCnt = GE::Assets::AssetManager::GetInstance().GetConfigData<unsigned>("Max Entities");
 	// 4092 default if value not found
 	m_entityManager = std::make_unique<EntityManager>(maxEntitiesCnt ? maxEntitiesCnt.value() : 4092u);
 	m_systemManager = std::make_unique<SystemManager>();

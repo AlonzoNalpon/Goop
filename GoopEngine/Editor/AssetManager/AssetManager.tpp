@@ -10,7 +10,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 /*!*********************************************************************
 \brief
-  Gets the config data of the specific key.
+  Gets the config data of the specific key. Type of return value must
+  be specified as template argument.
 \param
   const std::string& key (Key of the config data in the Config.json)
 \return
