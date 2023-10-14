@@ -1,4 +1,4 @@
-../Assets/Data/Prefabs/
+./Assets/Data/Prefabs/
 
 MineWorm.json
 WormSprite.json

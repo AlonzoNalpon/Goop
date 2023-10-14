@@ -23,7 +23,7 @@ using u32     = unsigned int;
 using u64     = unsigned long long;
 
 #pragma region CONSTANTS
-std::string const ASSETS_PATH{ "../Assets/" };
+std::string const ASSETS_PATH{ "./Assets/" };
 std::string const SHADER_PATH{ ASSETS_PATH + "Shaders/" };
 #pragma endregion
 

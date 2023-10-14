@@ -46,7 +46,7 @@ int main(int /*argc*/, char* /*argv*/[])
   // INIT FUNCTIONS
 
   GE::AssetManager::AssetManager* am = &GE::AssetManager::AssetManager::GetInstance();
-  am->LoadJSONData("../Assets/Data/Config.json", GE::AssetManager::CONFIG);
+  am->LoadJSONData("./Assets/Data/config.json", GE::AssetManager::CONFIG);
 
   GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
   of.LoadPrefabsFromFile();
