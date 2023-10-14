@@ -46,31 +46,24 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Player::SetTransform", GE::MONO::SetTransform);
   //mono_add_internal_call("GoopScripts.Player::SetTransform", GE::ECS::SetMonoComponent<GE::Component::Transform>);
   //Retrieve the C#Assembly (.ddl file)
-  std::ifstream Dstream("../GoopScripts/bin/Debug/GoopScripts.dll", std::ios::binary | std::ios::ate);
-  std::ifstream Rstream("../GoopScripts/bin/Release/GoopScripts.dll", std::ios::binary | std::ios::ate);
-
-  if (Dstream) 
-  {
-    try {
-      m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Debug/GoopScripts.dll");
-    }
-    catch (GE::Debug::IExceptionBase& e) {
-      e.LogSource();
-      e.Log();
-    }
+  #ifdef _DEBUG
+  try {
+    m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Debug/GoopScripts.dll");
   }
-  else
-  {
-    try {
-      m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Release/GoopScripts.dll");
-    }
-    catch (GE::Debug::IExceptionBase& e) {
-      e.LogSource();
-      e.Log();
-    }
+  catch (GE::Debug::IExceptionBase& e) {
+    e.LogSource();
+    e.Log();
   }
-  
-
+#else
+  try {
+    m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Release/GoopScripts.dll");
+  }
+  catch (GE::Debug::IExceptionBase& e) {
+    e.LogSource();
+    e.Log();
+  }
+#endif
+ 
 }
 
 GE::MONO::ScriptManager::~ScriptManager()
