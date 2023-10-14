@@ -12,7 +12,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ObjectFactory.h"
 #include <Component/Velocity.h>
 #include <Component/Transform.h>
-#include <Component/Gravity.h>
 #include <Component/Sprite.h>
 #include <Component/SpriteAnim.h>
 #include <PlayerController/PlayerControllerSystem.h>
@@ -39,9 +38,6 @@ namespace GE::ObjectFactory
 
   template<>
   GE::Component::Velocity DeserializeComponent<GE::Component::Velocity>(std::string const& componentData);
-
-  template<>
-  GE::Component::Gravity DeserializeComponent<GE::Component::Gravity>(std::string const& componentData);
     
   template<>
   GE::Component::Sprite DeserializeComponent<GE::Component::Sprite>(std::string const& componentData);
