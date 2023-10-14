@@ -7,6 +7,13 @@ namespace GE
 	{
 		using vec2 = GE::Math::dVec2;
 
+		enum class Forces
+		{
+			LINEARFORCE,
+			DRAGFORCE,
+			GRAVITY,
+		};
+
 		struct LinearForce
 		{
 			/*!*********************************************************************
@@ -95,42 +102,32 @@ namespace GE
 		struct ForcesManager
 		{
 		public:
-			void AddForce(LinearForce linearForce) 
+			void AddForce(Forces force) 
 			{
 
 			}
 
-			void AddForce(DragForce dragForce) 
+			void RemoveForce(Forces force)
 			{
 
 			}
 
-			void RemoveForce(LinearForce linearForce) 
+			void ActivateForce(Forces force, bool active)
 			{
 
 			}
 
-			void RemoveForce(DragForce dragForce) 
+			double ValidateAge(Forces force)
 			{
 
 			}
 
-			void ActivateForce(bool active) 
+			double SetLifeTime(Forces force)
 			{
 
-			}
-
-			double ValidateAge() 
-			{
-			}
-
-			double SetLifeTime() 
-			{
 			}
 
 		private:
-			std::list<LinearForce> m_forces;
-
 			vec2 m_finalDirection;
 			vec2 m_sumMagnitude;
 		};
