@@ -313,6 +313,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="Audio\AudioEngine.h" />
     <ClInclude Include="AssetManager\AssetStructs.h" />
     <ClInclude Include="Component\BoxCollider.h" />
+    <ClInclude Include="Component\Forces.h" />
     <ClInclude Include="Component\Gravity.h" />
     <ClInclude Include="Component\Model.h" />
     <ClInclude Include="Component\Root.h" />

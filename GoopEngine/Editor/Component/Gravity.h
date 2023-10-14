@@ -1,5 +1,5 @@
 /*!*********************************************************************
-\file   BoxCollider.h
+\file   Gravity.h
 \author c.phua\@digipen.edu
 \date   12 September 2023
 \brief
