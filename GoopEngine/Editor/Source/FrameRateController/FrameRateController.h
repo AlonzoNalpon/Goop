@@ -49,14 +49,19 @@ namespace GE
 		class FrameRateController : public Singleton<FrameRateController>
 		{
 
-			int m_frameCount{};
-			int m_framePassed{};
+
 			double m_currentFPS{};
 			double m_targetFPS{};
-			double m_prevTime{};
+			double m_fixedDeltaTime{};
+			double m_accumulatedTime{};
+			double m_endTime{};
 			double m_startTime{};
 			double m_fpsCalInterval{};
 			double m_fpsCheckTime{};
+			int m_currNumberOfSteps{};
+			int m_frameCount{};
+			int m_framePassed{};
+
 			std::chrono::time_point<std::chrono::high_resolution_clock> m_systemTimeStart{};
 			std::map<std::string, std::chrono::microseconds> m_fpsControllerMap;
 			
@@ -75,6 +80,16 @@ namespace GE
 				Intervals between each FPS check (seconds)
 			************************************************************************/
 			void InitFrameRateController(int targetFPS, int fpsCalInterval = 1);
+
+
+
+			/*!*********************************************************************
+			\brief
+				Function to get the delta time
+			\return
+				Delta time (Amount of time pass since previous frame)
+			************************************************************************/
+			double GetFixedDeltaTime();
 
 
 			/*!*********************************************************************
@@ -134,7 +149,7 @@ namespace GE
 			\return
 				starting time of previous frame
 			************************************************************************/
-			double GetPrevTime();
+			double GetEndTime();
 
 
 			/*!*********************************************************************
