@@ -31,6 +31,12 @@ namespace GE
 			std::queue<Entity> m_availableEntities;
 			std::vector<bool> m_mapOfActive;
 			std::set<Entity> m_entities;
+
+			// Vector of entities where each index is an entity's parent id
+			std::vector<Entity> m_parent;
+			// Vector of entities where each index is an entity's children
+			std::vector<std::vector<Entity>> m_children;
+
 			std::map<Entity, std::string> m_names;
 		public:
 			/*!*********************************************************************
@@ -96,6 +102,66 @@ namespace GE
 			  Flag to set.
 			************************************************************************/
 			void SetActiveEntity(Entity& entity, bool active);
+
+			/*!******************************************************************
+			\brief 
+			  Returns the entity of the parent of an entity.
+
+			\param[in] entity
+				Entity whose parent we are checking.
+
+			\return 
+				Parent of the entity.
+			********************************************************************/
+			Entity GetParentEntity(Entity& entity);
+
+			/*!******************************************************************
+			\brief 
+			  Sets the parent of the an entitiy.
+
+			\param[in] parent
+				Entity which is becoming the parent
+
+			\param[in] entity
+				Entity whose parent you are setting
+			********************************************************************/
+			void SetParentEntity(Entity& parent, Entity& child);
+
+			/*!******************************************************************
+			\brief 
+			  Return a vector of all children belonging to an entity.
+
+			\param[in] parent
+				Entity whose children you are getting.
+
+			\return 
+				Vector of entities.
+			********************************************************************/
+			std::vector<Entity>& GetChildEntities(Entity& parent);
+
+			/*!******************************************************************
+			\brief 
+			  Adds an entity as a child.
+
+			\param[in] parent
+				Entity who you are adding a child to.
+
+			\param[in] child
+				Entity who is becoming a child of.
+			********************************************************************/
+			void AddChildEntity(Entity& parent, Entity& child);
+
+			/*!******************************************************************
+			\brief
+				Remove an entity as a child.
+
+			\param[in] parent
+				Entity who you are removing from.
+
+			\param[in] child
+				Entity who is being removed.
+			********************************************************************/
+			void RemoveChildEntity(Entity& parent, Entity& child);
 
 			/*!******************************************************************
 			\brief

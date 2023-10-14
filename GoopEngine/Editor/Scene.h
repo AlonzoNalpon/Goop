@@ -21,7 +21,6 @@
 #include <Component/SpriteAnim.h>
 #include <ObjectFactory/ObjectFactory.h>
 
-#include <Component/Root.h>
 #include <Systems/RootTransform/RootTransformSystem.h>
 using namespace GE;
 using namespace ECS;
@@ -39,17 +38,14 @@ struct Scene
 		Transform trans({ 0, 0 }, { 50, 50 }, 0.0);
 		Gravity grav({ 0, 0 });
 		BoxCollider box(trans.m_pos, 1, 1);
-		Root root{};
 
 		ecs->AddComponent(entt, vel);
 		ecs->AddComponent(entt, trans);
 		ecs->AddComponent(entt, grav);
 		ecs->AddComponent(entt, box);
-		ecs->AddComponent(entt, root);
 		ecs->RegisterEntityToSystem<PhysicsSystem>(entt);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt);
 		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt);
-		ecs->RegisterEntityToSystem<RootTransformSystem>(entt);
 	}
 
 	void Start()
@@ -102,9 +98,6 @@ struct Scene
 		Gravity grav({ 0, -20 });
 		BoxCollider box(trans.m_pos, 1, 1);
 
-		Root root{};
-		ecs->RegisterComponentToSystem<Root, RootTransformSystem>();
-		ecs->RegisterComponentToSystem<Transform, RootTransformSystem>();
 		ecs->RegisterSystem<RootTransformSystem>();
 
 		Entity entt3 = ecs->CreateEntity();
@@ -128,14 +121,10 @@ struct Scene
 		
 		ecs->AddComponent(entt4, box3);
 		ecs->AddComponent(entt4, transBox3);
-		ecs->AddComponent(entt4, root);
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt4);
-		ecs->RegisterEntityToSystem<RootTransformSystem>(entt4);
 
 		Entity worm = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
 		ecs->SetEntityName(worm, "MineWorm");
-		ecs->AddComponent(worm, root);
-		ecs->RegisterEntityToSystem<RootTransformSystem>(worm);
 
 		Entity player = ecs->CreateEntity();
 		Transform playerTrans({ -350, 350 }, { 150, 150 }, 0.0);
@@ -154,14 +143,6 @@ struct Scene
 
 		GE::Component::ScriptHandler scriptHan = ScriptHandler({ {"GoopScripts","Player"} }, player);
 
-		playerTrans.m_children.insert(entt2);
-		playerTrans.m_children.insert(entt3);
-		// This is bad code but temporary to properly assign children.
-		// this should not be used once we have proper scene node loading
-		auto childTrans = ecs->GetComponent<Transform>(entt2);
-		childTrans->m_parent = player;
-		childTrans = ecs->GetComponent<Transform>(entt3);
-		childTrans->m_parent = player;
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
 		ecs->AddComponent(player, mdl);
@@ -174,8 +155,6 @@ struct Scene
 		ecs->RegisterEntityToSystem<CollisionSystem>(player);
 		ecs->RegisterEntityToSystem<SpriteAnimSystem>(player);
 		ecs->SetEntityName(player, "Player");
-		ecs->AddComponent(player, root);
-		ecs->RegisterEntityToSystem<RootTransformSystem>(player);
 		ecs->SetIsActiveEntity(entt3, false);
 	}
 

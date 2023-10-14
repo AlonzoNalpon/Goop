@@ -28,6 +28,31 @@ void GE::ECS::EntityComponentSystem::SetIsActiveEntity(Entity& entity, bool acti
 	m_systemManager->EntityActiveStateChanged(entity, active);
 }
 
+Entity GE::ECS::EntityComponentSystem::GetParentEntity(Entity& entity)
+{
+	return m_entityManager->GetParentEntity(entity);
+}
+
+void GE::ECS::EntityComponentSystem::SetParentEntity(Entity& child, Entity parent)
+{
+	m_entityManager->SetParentEntity(parent, child);
+}
+
+std::vector<Entity>& GE::ECS::EntityComponentSystem::GetChildEntities(Entity& parent)
+{
+	return m_entityManager->GetChildEntities(parent);
+}
+
+void GE::ECS::EntityComponentSystem::AddChildEntity(Entity& parent, Entity& child)
+{
+	m_entityManager->AddChildEntity(parent, child);
+}
+
+void GE::ECS::EntityComponentSystem::RemoveChildEntity(Entity& parent, Entity& child)
+{
+	m_entityManager->RemoveChildEntity(parent, child);
+}
+
 void EntityComponentSystem::DestroyEntity(Entity& entity)
 {
 	m_entityManager->DestroyEntity(entity);

@@ -315,7 +315,6 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="Component\BoxCollider.h" />
     <ClInclude Include="Component\Gravity.h" />
     <ClInclude Include="Component\Model.h" />
-    <ClInclude Include="Component\Root.h" />
     <ClInclude Include="Component\ScriptHandler.h" />
     <ClInclude Include="Component\Sprite.h" />
     <ClInclude Include="Component\SpriteAnim.h" />

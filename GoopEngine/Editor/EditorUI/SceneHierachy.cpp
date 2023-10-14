@@ -9,8 +9,6 @@
 #include "SceneHierachy.h"
 #include <ImGui/imgui.h>
 #include <Systems/RootTransform/RootTransformSystem.h>
-#include <Component/Transform.h>
-#include <Component/Root.h>
 
 using namespace ImGui;
 using namespace GE::ECS;
@@ -84,16 +82,11 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 			EndDragDropTarget();
 		}
 
-		// Loops through all the root nodes (highest level entities that may contain child nodes)
-		for (Entity entity : ecs.GetSystem<GE::Systems::RootTransformSystem>()->GetAllEntities())
+		for (Entity entity : ecs.GetEntities())
 		{
-			try
+			if (ecs.GetParentEntity(entity) == INVALID_ID)
 			{
 				Propergate(entity, ecs, ecs.GetIsActiveEntity(entity) ? originalTextClr : inactiveTextClr);
-			}
-			catch (GE::Debug::IExceptionBase& e)
-			{
-				e.LogSource();
 			}
 		}
 		TreePop();
@@ -108,58 +101,22 @@ namespace
 {
 	void ParentEntity(EntityComponentSystem& ecs, Entity& child, Entity* parent)
 	{
-		// Child becomes root
-		if (!parent)
+		Entity oldParent = ecs.GetParentEntity(child);
+		if (!parent)	// Child becoming root
 		{
-			GE::Component::Transform* childTrans = ecs.GetComponent<GE::Component::Transform>(child);
-
-			if (!childTrans)
-			{
-				throw GE::Debug::Exception<GE::EditorGUI::SceneHierachy>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Node missing transform component."));
-			}
-
 			// Remove reference to child from old parent if exist
-			if (childTrans->m_parent != INVALID_ID)
-			{
-				ecs.GetComponent<GE::Component::Transform>(childTrans->m_parent)->m_children.erase(child);
-			}
-			// Remove parent
-			childTrans->m_parent = INVALID_ID;
-
-			// Comvert into a root node
-			GE::Component::Root root{};
-			ecs.AddComponent(child, root);
-			ecs.RegisterEntityToSystem<GE::Systems::RootTransformSystem>(child);
+			ecs.SetParentEntity(child, INVALID_ID);
+			ecs.RemoveChildEntity(oldParent, child);
 		}
 		else
 		{
-			// Handle the case that child is a root node and has no parent
-			GE::Component::Transform* childTrans = ecs.GetComponent<GE::Component::Transform>(child);
-			// Remove reference of child from old parent if exist
-			if (childTrans->m_parent != INVALID_ID)
+			ecs.SetParentEntity(child, *parent);
+			ecs.AddChildEntity(*parent, child);
+			// Has parent, remove self from parent
+			if (oldParent != INVALID_ID)
 			{
-				ecs.GetComponent<GE::Component::Transform>(childTrans->m_parent)->m_children.erase(child);
+				ecs.RemoveChildEntity(oldParent, child);
 			}
-			// Remove root component if exist
-			if (ecs.GetComponent<GE::Component::Root>(child))
-			{
-				ecs.RemoveComponent<GE::Component::Root>(child);
-			}
-
-			GE::Component::Transform* parentTrans = ecs.GetComponent<GE::Component::Transform>(*parent);
-
-			if (!parentTrans || !childTrans)
-			{
-				throw GE::Debug::Exception<GE::EditorGUI::SceneHierachy>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Node missing transform component."));
-			}
-
-			// Assign child to new parent
-			parentTrans->m_children.insert(child);
-
-			
-			// Assign new parent to child
-			childTrans->m_parent = *parent;
-
 		}
 	}
 
@@ -205,24 +162,16 @@ namespace
 			//////////////////////
 			// Create child nodes
 			//////////////////////
-			GE::Component::Transform* trans = ecs.GetComponent<GE::Component::Transform>(entity);
-			if (!trans)
-			{
-				// Make sure to pop newest node before exitting function
-				// not sure if this doesn't crash
-				TreePop();
-				throw GE::Debug::Exception<GE::Systems::RootTransformSystem>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Root node does not have transform component."));
-			}
-
 			// Recursive end condition
-			if (trans->m_children.size() == 0)
+			std::vector<Entity>& m_children = ecs.GetChildEntities(entity);
+			if (m_children.size() == 0)
 			{
 				// Make sure to pop newest node before exitting function
 				TreePop();
 				return;
 			}
 
-			for (Entity child : trans->m_children)
+			for (Entity child : m_children)
 			{
 				Propergate(child, ecs, ecs.GetIsActiveEntity(child) ? textClr : inactiveTextClr);
 			}

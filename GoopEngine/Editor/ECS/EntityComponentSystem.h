@@ -63,6 +63,72 @@ namespace GE
 			************************************************************************/
 			void SetIsActiveEntity(Entity& entity, bool active);
 
+			/*!******************************************************************
+			\brief
+				Calls EntityManager's GetParentEntity function.
+				Returns the entity of the parent of an entity.
+
+			\param[in] entity
+				Entity whose parent we are checking.
+
+			\return
+				Parent of the entity.
+			********************************************************************/
+			Entity GetParentEntity(Entity& entity);
+
+			/*!******************************************************************
+			\brief
+				Calls EntityManager's SetParentEntity function.
+				Sets the parent of the an entitiy.
+
+			\param[in] child
+				Entity whose parent you are setting.
+
+			\param[in] parent
+				Entity which is becoming the parent. Defaults to invalid
+				to indicate no parent.
+			********************************************************************/
+			void SetParentEntity(Entity& child, Entity parent = INVALID_ID);
+
+			/*!******************************************************************
+			\brief
+				Calls EntityManager's GetChildEntities function.
+				Return a vector of all children belonging to an entity.
+
+			\param[in] parent
+				Entity whose children you are getting.
+
+			\return
+				Vector of entities.
+			********************************************************************/
+			std::vector<Entity>& GetChildEntities(Entity& parent);
+
+			/*!******************************************************************
+			\brief
+				Calls EntityManager's AddChildEntities function.
+				Adds an entity as a child.
+
+			\param[in] parent
+				Entity who you are adding a child to.
+
+			\param[in] child
+				Entity who is becoming a child of.
+			********************************************************************/
+			void AddChildEntity(Entity& parent, Entity& child);
+
+			/*!******************************************************************
+			\brief
+				Calls EntityManager's RemoveChildEntities function.
+				Remove an entity as a child.
+
+			\param[in] parent
+				Entity who you are removing from.
+
+			\param[in] child
+				Entity who is being removed.
+			********************************************************************/
+			void RemoveChildEntity(Entity& parent, Entity& child);
+
 			/*!*********************************************************************
 			\brief
 				Calls EntityManager's DestroyEntity function.
