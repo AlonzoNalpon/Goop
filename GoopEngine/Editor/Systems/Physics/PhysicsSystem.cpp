@@ -1,6 +1,6 @@
 #include <Physics/PhysicsSystem.h>
 #include <Component/Transform.h>
-#include <Component/Force.h>
+#include <Component/Velocity.h>
 
 using namespace GE;
 using namespace ECS;
@@ -16,16 +16,24 @@ void PhysicsSystem::Update()
 	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 	for (Entity entity : GetUpdatableEntities()) {
 		//testing acceleration
-		Velocity* updateVel = m_ecs->GetComponent<Velocity>(entity);
-		Transform* updatePos = m_ecs->GetComponent<Transform>(entity);
-		Gravity* getGravity = m_ecs->GetComponent<Gravity>(entity);
+		Velocity* vel = m_ecs->GetComponent<Velocity>(entity);
+		Transform* pos = m_ecs->GetComponent<Transform>(entity);
 
-		if (updateVel == NULL || getGravity == NULL)
+		if (vel == NULL)
 		{
 			continue;
 		}
 
-		updateVel->m_vel += dt * (updateVel->m_acc + getGravity->m_gravity);
-		updatePos->m_pos += dt * updateVel->m_vel;
+		//check if forces' lifetime is up & remove it
+		for (LinearForce itr : vel->m_forces) {
+			
+		}
+
+		for (LinearForce itr : vel->m_forces) {
+			vel->m_sumMagnitude += itr.m_magnitude;
+		}
+
+		/*vel->m_vel += dt * (updateVel->m_acc + getGravity->m_gravity);
+		updatePos->m_pos += dt * updateVel->m_vel;*/
 	}
 }

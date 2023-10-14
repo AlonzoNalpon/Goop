@@ -320,6 +320,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="Component\SpriteAnim.h" />
     <ClInclude Include="Component\Transform.h" />
     <ClInclude Include="Component\Tween.h" />
+    <ClInclude Include="Component\Velocity.h" />
     <ClInclude Include="DebugTools\ErrorLogger\ErrorLogger.h" />
     <ClInclude Include="DebugTools\Exception\Exception.h" />
     <ClInclude Include="DebugTools\Exception\ExceptionBase.h" />
