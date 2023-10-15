@@ -53,9 +53,11 @@ namespace GE
 			double m_currentFPS{};
 			double m_targetFPS{};
 			double m_fixedDeltaTime{};
+			double m_currDeltaTime{};
 			double m_accumulatedTime{};
 			double m_endTime{};
 			double m_startTime{};
+			double m_prevStartTime{};
 			double m_fpsCalInterval{};
 			double m_fpsCheckTime{};
 			int m_currNumberOfSteps{};

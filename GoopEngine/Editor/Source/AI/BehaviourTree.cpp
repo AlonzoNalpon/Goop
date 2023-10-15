@@ -1,10 +1,10 @@
+#include <pch.h>
 #include <AI/BehaviourTree.h>
-
 
 
 using namespace GE::AI;
 
-void BehaviourTree::Tick()
+void GE::AI::BehaviourTree::Tick()
 {
 	m_rootNode->m_behvaiourUpdate(m_rootNode->m_children);
 }
@@ -19,7 +19,7 @@ NODE_STATES GE::AI::RootStart(std::vector<Node>& children)
 	return result;
 }
 
-void BehaviourTree::Init(std::vector<Node>& children)
+void GE::AI::BehaviourTree::Init(std::vector<Node>& children)
 {
 	m_rootNode = new Node();
 	m_rootNode->Init(children, RootStart, NODE_ROOT);

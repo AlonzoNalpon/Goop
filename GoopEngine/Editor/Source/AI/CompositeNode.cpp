@@ -1,4 +1,6 @@
+#include <pch.h>
 #include <AI/CompositeNode.h>
+
 
 using namespace GE::AI;
 

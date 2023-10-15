@@ -254,6 +254,10 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AI\ActionNode.cpp" />
+    <ClCompile Include="Source\AI\BehaviourTree.cpp" />
+    <ClCompile Include="Source\AI\CompositeNode.cpp" />
+    <ClCompile Include="Source\AI\Node.cpp" />
     <ClCompile Include="Source\AppController\AppController.cpp" />
     <ClCompile Include="Source\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Source\Audio\AudioEngine.cpp" />
@@ -354,6 +358,10 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClCompile Include="Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AI\ActionNode.h" />
+    <ClInclude Include="Source\AI\BehaviourTree.h" />
+    <ClInclude Include="Source\AI\CompositeNode.h" />
+    <ClInclude Include="Source\AI\Node.h" />
     <ClInclude Include="Source\AppController\AppController.h" />
     <ClInclude Include="Source\AssetManager\AssetManager.h" />
     <ClInclude Include="Source\Audio\AudioEngine.h" />
