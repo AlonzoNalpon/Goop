@@ -19,6 +19,15 @@ namespace WindowSystem {
     glfwDestroyWindow(m_window);
     glfwTerminate();
   }
+  Window& Window::operator=(const Window* other)
+  {
+    // Copy the value from the other object
+    this->m_windowWidth = other->m_windowWidth;
+    this->m_windowHeight = other->m_windowHeight;
+    this->m_title = other->m_title;
+    this->m_window = other->m_window;
+    return *this;
+  }
   bool Window::CreateAppWindow()
   {
     // Attempt to initialize GLFW

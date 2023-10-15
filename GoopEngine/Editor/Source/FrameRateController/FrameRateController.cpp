@@ -48,7 +48,10 @@ void FrameRateController::InitFrameRateController(int targetFPS, int fpsCalInter
 	m_framePassed = 0;
 	m_frameCount = 0;
 	m_endTime = 0.0;
-	m_startTime = 0.0;
+	m_startTime = glfwGetTime();
+	m_prevStartTime = 0.0;
+	m_currDeltaTime = 0.0;
+
 }
 
 void FrameRateController::ResetFrameRateController()
@@ -57,6 +60,7 @@ void FrameRateController::ResetFrameRateController()
 	m_frameCount = 0;
 	m_endTime = 0.0;
 	m_startTime = 0.0;
+	m_prevStartTime = 0.0;
 }
 
 int FrameRateController::GetFrameCount() 
@@ -84,7 +88,7 @@ double FrameRateController::GetFixedDeltaTime()
 
 double FrameRateController::GetDeltaTime()
 {
-	return m_endTime = m_startTime;
+	return m_currDeltaTime;
 }
 
 
@@ -121,6 +125,9 @@ void FrameRateController::EndFrame()
 
 void FrameRateController::StartFrame()
 {
+	m_prevStartTime = m_startTime;
+	m_startTime = glfwGetTime();
+	m_currDeltaTime = m_startTime - m_prevStartTime;
 	if (m_fpsCheckTime > m_fpsCalInterval) 
 	{
 		m_currentFPS = (static_cast<double>(m_framePassed) / m_fpsCheckTime);
@@ -128,13 +135,13 @@ void FrameRateController::StartFrame()
 		m_fpsCheckTime = 0.0;
 	}
 	m_currNumberOfSteps = 0;
-	m_accumulatedTime += (m_endTime = m_startTime);
+	m_accumulatedTime += (m_endTime - m_prevStartTime);
 	while (m_accumulatedTime >= m_fixedDeltaTime)
 	{
 		m_accumulatedTime -= m_fixedDeltaTime;
 		++m_currNumberOfSteps;
 	}
-	m_startTime = glfwGetTime();
+	
 }
 
 

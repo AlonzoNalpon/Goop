@@ -120,16 +120,17 @@ namespace GE
 			return tween;
 		}
 
-		/*template<>
+		template<>
 		GE::Component::ScriptHandler DeserializeComponent<GE::Component::ScriptHandler>(std::string const& componentData)
 		{
 		    Serialization::ComponentWrapper cw{ componentData };
 				std::vector<std::pair<std::string, std::string>> const vec{
 					cw.Get<std::vector<std::pair<std::string,std::string>>>("scripts")
 				};
-		    
-		    return Component::ScriptHandler(vec);
-		}*/
+				ECS::Entity current{ static_cast<ECS::Entity>(ECS::EntityComponentSystem::GetInstance().GetEntities().size()) };
+				if (current > 0) { --current; }
+		    return Component::ScriptHandler(vec, current);
+		}
 
 	}	// namespace ObjectFactory
 }	// namespace GE

@@ -8,6 +8,7 @@ namespace WindowSystem {
   public:
     Window(int width, int height, char const*);
     ~Window();
+    Window& operator=(const Window* other);
 
     /*!*********************************************************************
     \brief
