@@ -134,7 +134,9 @@ struct Scene
 		sprite.spriteData.texture = gEngine.textureManager.GetTextureID("MineWorm");
 		GE::Component::SpriteAnim anim;
 
-		GE::Component::ScriptHandler scriptHan = ScriptHandler({ {"GoopScripts","Player"} }, player);
+		std::vector <std::pair<std::string, std::string>> playerScripts{ {"GoopScripts","Player"} };
+
+		GE::Component::ScriptHandler scriptHan = ScriptHandler(playerScripts, player);
 
 		ecs->AddComponent(player, playerTrans);
 		ecs->AddComponent(player, tween);
