@@ -13,6 +13,7 @@
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+#include <pch.h>
 #include "SpriteGooStream.h"
 #include <fstream>
 #include <rapidjson/istreamwrapper.h>

@@ -7,6 +7,7 @@
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+#include <pch.h>
 #include "ObjectFactory.h"
 
 #include <Systems/Physics/PhysicsSystem.h>

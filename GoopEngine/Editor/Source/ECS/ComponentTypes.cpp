@@ -1,3 +1,4 @@
+#include <pch.h>
 #include "ComponentTypes.h"
 
 using namespace GE::ECS;

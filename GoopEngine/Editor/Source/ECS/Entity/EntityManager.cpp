@@ -7,6 +7,7 @@
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+#include <pch.h>
 #include "EntityManager.h"
 #include <DebugTools/ErrorLogger/ErrorLogger.h>
 #include <DebugTools/Exception/Exception.h>

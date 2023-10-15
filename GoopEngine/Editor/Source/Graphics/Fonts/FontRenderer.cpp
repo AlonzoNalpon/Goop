@@ -8,6 +8,7 @@
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+#include <pch.h>
 #include <Graphics/Fonts/FontRenderer.h>
 #include <Graphics/Fonts/Character.h>
 namespace Graphics::Rendering

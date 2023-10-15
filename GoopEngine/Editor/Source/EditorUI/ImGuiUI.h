@@ -6,7 +6,7 @@
   ImGui Editor UI Wrapper
 ********************************************************************/
 #pragma once
-#include <pch.h>
+#include <ECS/EntityComponentSystem.h>
 #include <Window/Window.h>
 
 namespace GE::EditorGUI

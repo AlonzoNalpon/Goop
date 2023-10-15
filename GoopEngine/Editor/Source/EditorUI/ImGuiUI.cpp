@@ -5,6 +5,7 @@
 \brief
   ImGui Editor UI Wrapper
 ********************************************************************/
+#include <pch.h>
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
 #include <ImGui/backends/imgui_impl_opengl3.h>

@@ -32,6 +32,7 @@
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+#include <pch.h>
 #include "InputManager.h"
 #include <ImGui/backends/imgui_impl_glfw.h>
 #include "../Events/InputEvents.h"

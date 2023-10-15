@@ -1,3 +1,4 @@
+#include <pch.h>
 #include "EntityComponentSystem.h"
 #include "../AssetManager/AssetManager.h"
 

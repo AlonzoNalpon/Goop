@@ -1,5 +1,6 @@
 #pragma once
-#include <pch.h>
+#include <Math/GEM.h>
+#include <ECS/System/System.h>
 
 namespace GE::Systems
 {

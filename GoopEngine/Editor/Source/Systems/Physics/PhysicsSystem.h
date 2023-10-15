@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 
 #pragma once
-#include <pch.h>
+#include <ECS/System/System.h>
 
 namespace GE
 {

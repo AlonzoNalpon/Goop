@@ -1,5 +1,6 @@
 #pragma once
-#include <pch.h>
+#include <ECS/System/System.h>
+#include <Events/EventManager.h>
 
 namespace GE
 {

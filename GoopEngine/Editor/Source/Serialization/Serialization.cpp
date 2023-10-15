@@ -1,3 +1,4 @@
+#include <pch.h>
 #include "Serialization.h"
 #include <fstream>
 #include <rapidjson/istreamwrapper.h>

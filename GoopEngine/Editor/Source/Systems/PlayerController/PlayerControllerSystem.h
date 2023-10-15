@@ -10,7 +10,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 
 #pragma once
-#include <pch.h>
+#include <Math/GEM.h>
+#include <ECS/System/System.h>
+#include <Events/EventManager.h>
 #include <Component/Transform.h>
 
 using vec2 = GE::Math::dVec2;

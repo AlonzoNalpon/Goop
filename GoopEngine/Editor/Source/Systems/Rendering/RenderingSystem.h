@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef RENDERING_SYSTEM_H
 #define RENDERING_SYSTEM_H
-#include <pch.h>
+#include <ECS/System/System.h>
 #include <iostream>
 
 // The involved components:

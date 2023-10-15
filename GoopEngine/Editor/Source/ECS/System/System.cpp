@@ -1,3 +1,4 @@
+#include <pch.h>
 #include "System.h"
 #include "../EntityComponentSystem.h"
 #include <Component/Transform.h>

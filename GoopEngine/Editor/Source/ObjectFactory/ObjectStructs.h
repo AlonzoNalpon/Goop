@@ -9,6 +9,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include "../ECS/SystemTypes.h"
+#include <any>
 
 namespace GE
 {

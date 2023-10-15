@@ -8,7 +8,6 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include <pch.h>
 #include "ObjectFactory.h"
 #include <Component/Velocity.h>
 #include <Component/Transform.h>

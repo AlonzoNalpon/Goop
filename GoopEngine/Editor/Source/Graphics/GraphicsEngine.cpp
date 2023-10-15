@@ -8,6 +8,7 @@
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+#include <pch.h>
 #include <Graphics/GraphicsEngine.h>
 #include <AssetManager/AssetManager.h>
 #include <GL/glew.h>

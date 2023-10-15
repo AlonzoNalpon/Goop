@@ -1,6 +1,4 @@
 #pragma once
-#include <pch.h>
-
 #include <Systems/Physics/PhysicsSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <Systems/DraggableObject/DraggableObjectSystem.h>

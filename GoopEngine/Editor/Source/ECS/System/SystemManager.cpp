@@ -1,3 +1,4 @@
+#include <pch.h>
 #include "SystemManager.h"
 #include <DebugTools/ErrorLogger/ErrorLogger.h>
 #include "../../FrameRateController/FrameRateController.h"

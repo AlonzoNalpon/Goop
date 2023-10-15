@@ -1,6 +1,7 @@
-#include <DraggableObject/DraggableObjectSystem.h>
+#include <pch.h>
+#include <Systems/DraggableObject/DraggableObjectSystem.h>
 #include <Component/BoxCollider.h>
-#include <Physics/CollisionSystem.h>
+#include <Systems/Physics/CollisionSystem.h>
 #include <Component/Transform.h>
 #include "../../Events/InputEvents.h"
 #include "../Physics/PhysicsSystem.h"

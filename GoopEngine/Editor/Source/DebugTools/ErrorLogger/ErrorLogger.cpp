@@ -10,7 +10,7 @@
 	his is so the log file is easier to find as the time is closer
 	o which one would be looking for the logs.
 ********************************************************************/
-
+#include <pch.h>
 #include "ErrorLogger.h"
 #include <spdlog/sinks/basic_file_sink.h>
 #include <chrono>

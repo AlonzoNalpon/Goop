@@ -5,7 +5,7 @@
 \brief  
   Defines tool bar behaviour and logic for the EditorGUI
 ********************************************************************/
-
+#include <pch.h>
 #include "ToolBar.h"
 #include <ImGui/imgui.h>
 #include <AssetManager/AssetManager.h>

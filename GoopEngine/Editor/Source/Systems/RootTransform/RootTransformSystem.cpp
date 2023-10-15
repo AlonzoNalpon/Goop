@@ -1,3 +1,4 @@
+#include <pch.h>
 #include "RootTransformSystem.h"
 #include <Component/Transform.h>
 #define _USE_MATH_DEFINES

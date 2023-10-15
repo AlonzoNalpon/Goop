@@ -7,6 +7,7 @@
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+#include <pch.h>
 #include <Graphics/Renderer/Camera.h>
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
@@ -14,8 +15,8 @@ namespace Graphics::Rendering
 {
   Camera::Camera(glm::vec3 pos, glm::vec3 tgt, glm::vec3 up, 
     GLfloat left, GLfloat right, GLfloat bottom, GLfloat top,
-    GLfloat near, GLfloat far) : m_view{ glm::lookAt(pos, tgt, up) },
-              m_proj{glm::ortho(left, right, bottom, top, near, far)}
+    GLfloat _near, GLfloat _far) : m_view{ glm::lookAt(pos, tgt, up) },
+              m_proj{glm::ortho(left, right, bottom, top, _near, _far)}
   {}
 
   Camera& Camera::operator=(Camera const& rhs)

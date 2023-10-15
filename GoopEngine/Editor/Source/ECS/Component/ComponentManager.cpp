@@ -1,3 +1,4 @@
+#include <pch.h>
 #include "ComponentManager.h"
 
 using namespace GE::ECS;
