@@ -21,12 +21,13 @@ namespace GE
 		enum class COMPONENT_TYPES
 		{
 			TRANSFORM = 0,
-			BOXCOLLIDER,
+			BOX_COLLIDER,
 			VELOCITY,
 			SPRITE,
-			SPRITEANIM,
+			SPRITE_ANIM,
 			MODEL,
 			TWEEN,
+			SCRIPT_HANDLER,
 			COMPONENTS_TOTAL
 		};
 
@@ -36,12 +37,13 @@ namespace GE
 		const std::map<COMPONENT_TYPES, std::string> componentsToString
 		{
 			{ COMPONENT_TYPES::TRANSFORM, "Transform" },
-			{ COMPONENT_TYPES::BOXCOLLIDER, "BoxCollider" },
+			{ COMPONENT_TYPES::BOX_COLLIDER, "BoxCollider" },
 			{ COMPONENT_TYPES::VELOCITY, "Velocity" },
 			{ COMPONENT_TYPES::SPRITE, "Sprite" },
-			{ COMPONENT_TYPES::SPRITEANIM, "SpriteAnim" },
+			{ COMPONENT_TYPES::SPRITE_ANIM, "SpriteAnim" },
 			{ COMPONENT_TYPES::MODEL, "Model" },
-			{ COMPONENT_TYPES::TWEEN, "Tween" }
+			{ COMPONENT_TYPES::TWEEN, "Tween" },
+			{ COMPONENT_TYPES::SCRIPT_HANDLER, "ScriptHandler" }
 		};
 
 		// Const map so only interated through ranged for,
@@ -49,12 +51,13 @@ namespace GE
 		const std::unordered_map<std::string, COMPONENT_TYPES> stringToComponents
 		{
 			{ "Transform", COMPONENT_TYPES::TRANSFORM },
-			{ "BoxCollider", COMPONENT_TYPES::BOXCOLLIDER },
+			{ "BoxCollider", COMPONENT_TYPES::BOX_COLLIDER },
 			{ "Velocity", COMPONENT_TYPES::VELOCITY },
 			{ "Sprite", COMPONENT_TYPES::SPRITE },
-			{ "SpriteAnim", COMPONENT_TYPES::SPRITEANIM },
+			{ "SpriteAnim", COMPONENT_TYPES::SPRITE_ANIM },
 			{ "Model", COMPONENT_TYPES::MODEL },
-			{ "Tween", COMPONENT_TYPES::TWEEN }
+			{ "Tween", COMPONENT_TYPES::TWEEN },
+			{ "ScriptHandler", COMPONENT_TYPES::SCRIPT_HANDLER }
 		};
 
 		/*!*********************************************************************

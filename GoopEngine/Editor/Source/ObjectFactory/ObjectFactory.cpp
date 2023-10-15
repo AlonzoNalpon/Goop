@@ -15,16 +15,22 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/DraggableObject/DraggableObjectSystem.h>
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
+#include <Systems/PlayerController/PlayerControllerSystem.h>
 #include <Systems/RootTransform/RootTransformSystem.h>
 
 #include "SerializeComponents.h"
 #include "../Serialization/ObjectGooStream.h"
 #include "../Serialization/PrefabGooStream.h"
 #include "../Systems/Rendering/RenderingSystem.h"
-#include "../Serialization/Serialization.h"
 
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
+
+void GE::ObjectFactory::ObjectFactory::Init()
+{
+  RegisterComponentsAndSystems();
+  LoadPrefabsFromFile();
+}
 
 GE::ECS::SystemSignature ObjectFactory::GetObjectSystemSignature(GE::ECS::Entity obj) const
 {
@@ -69,7 +75,7 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Transform>(srcObj));
   }
-  if (IsBitSet(sig, ECS::COMPONENT_TYPES::BOXCOLLIDER))
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::BOX_COLLIDER))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::BoxCollider>(srcObj));
   }
@@ -81,7 +87,7 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Sprite>(srcObj));
   }
-  if (IsBitSet(sig, ECS::COMPONENT_TYPES::SPRITEANIM))
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::SPRITE_ANIM))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::SpriteAnim>(srcObj));
   }
@@ -89,60 +95,13 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Model>(srcObj));
   }
-  /*if (IsBitSet(sig, ECS::COMPONENT_TYPES::TWEEN))
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::TWEEN))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Tween>(srcObj));
-  }*/
-}
-
-void ObjectFactory::RegisterComponentsAndSystems() const
-{
-  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
-
-  // Register components in order of COMPONENT_TYPES enum
-  for (auto const& elem : GE::ECS::componentsToString)
-  {
-    switch (elem.first)
-    {
-    case COMPONENT_TYPES::TRANSFORM:
-      ecs.RegisterComponent<GE::Component::Transform>();
-      break;
-    case COMPONENT_TYPES::BOXCOLLIDER:
-      ecs.RegisterComponent<GE::Component::BoxCollider>();
-      break;
-    case COMPONENT_TYPES::SPRITEANIM:
-      ecs.RegisterComponent<GE::Component::SpriteAnim>();
-      break;
-    case COMPONENT_TYPES::SPRITE:
-      ecs.RegisterComponent<GE::Component::Sprite>();
-      break;
-    case COMPONENT_TYPES::MODEL:
-      ecs.RegisterComponent<GE::Component::Model>();
-      break;
-    case COMPONENT_TYPES::VELOCITY:
-      ecs.RegisterComponent<GE::Component::Velocity>();
-      break;
-    case COMPONENT_TYPES::TWEEN:
-      ecs.RegisterComponent<GE::Component::Tween>();
-      break;
-    default:
-      throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown component type"));
-      break;
-    }
   }
-
-  // Register systems
-  std::string const systemsFile{ *Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
-  std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::DeserializeSystems(systemsFile) };
-
-  for (std::pair<std::string, ECS::ComponentSignature> const& elem : systems)
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::SCRIPT_HANDLER))
   {
-    std::unordered_map<std::string, ECS::SYSTEM_TYPES>::const_iterator iter{ ECS::stringToSystems.find(elem.first) };
-    if (iter == stringToSystems.cend())
-    {
-      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg("Unable to register system " + elem.first));
-    }
-    RegisterSystemWithEnum(iter->second, elem.second);
+    ecs.AddComponent(destObj, *ecs.GetComponent<Component::ScriptHandler>(srcObj));
   }
 }
 
@@ -152,20 +111,15 @@ GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data) const
 
   Entity newData = ecs.CreateEntity();
 
-  if (!newData)
-  {
-    // throw GE::Debug::Exception<Scene>(GE::Debug::LEVEL_CRITICAL, "Couldn't load object data.", ERRLG_FUNC, ERRLG_Line);
-  }
-
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TRANSFORM))
   {
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::Transform>(data.m_components[GE::ECS::COMPONENT_TYPES::TRANSFORM]));
   }
-  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::BOXCOLLIDER))
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::BOX_COLLIDER))
   {
     ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::BoxCollider>(data.m_components[GE::ECS::COMPONENT_TYPES::BOXCOLLIDER]));
+      DeserializeComponent<GE::Component::BoxCollider>(data.m_components[GE::ECS::COMPONENT_TYPES::BOX_COLLIDER]));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::VELOCITY))
   {
@@ -177,21 +131,28 @@ GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data) const
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::Sprite>(data.m_components[GE::ECS::COMPONENT_TYPES::SPRITE]));
   }
-  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SPRITEANIM))
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SPRITE_ANIM))
   {
     ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::SpriteAnim>(data.m_components[GE::ECS::COMPONENT_TYPES::SPRITEANIM]));
+      DeserializeComponent<GE::Component::SpriteAnim>(data.m_components[GE::ECS::COMPONENT_TYPES::SPRITE_ANIM]));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::MODEL))
   {
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::Model>(data.m_components[GE::ECS::COMPONENT_TYPES::MODEL]));
   }
-  /*if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TWEEN))
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TWEEN))
   {
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::Tween>(data.m_components[GE::ECS::COMPONENT_TYPES::TWEEN]));
-  }*/
+  }
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SCRIPT_HANDLER))
+  {
+    //ecs.AddComponent(newData,
+    //  DeserializeComponent<GE::Component::ScriptHandler>(data.m_components[GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER]));
+  }
+
+  RegisterObjectToSystems(newData, data.m_systemSignature);
 
   return newData;
 }
@@ -216,6 +177,60 @@ void ObjectFactory::LoadPrefabsFromFile()
   }
 }
 
+void ObjectFactory::RegisterComponentsAndSystems() const
+{
+  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+
+  // Register components in order of COMPONENT_TYPES enum
+  for (auto const& elem : GE::ECS::componentsToString)
+  {
+    switch (elem.first)
+    {
+    case COMPONENT_TYPES::TRANSFORM:
+      ecs.RegisterComponent<GE::Component::Transform>();
+      break;
+    case COMPONENT_TYPES::BOX_COLLIDER:
+      ecs.RegisterComponent<GE::Component::BoxCollider>();
+      break;
+    case COMPONENT_TYPES::SPRITE_ANIM:
+      ecs.RegisterComponent<GE::Component::SpriteAnim>();
+      break;
+    case COMPONENT_TYPES::SPRITE:
+      ecs.RegisterComponent<GE::Component::Sprite>();
+      break;
+    case COMPONENT_TYPES::MODEL:
+      ecs.RegisterComponent<GE::Component::Model>();
+      break;
+    case COMPONENT_TYPES::VELOCITY:
+      ecs.RegisterComponent<GE::Component::Velocity>();
+      break;
+    case COMPONENT_TYPES::TWEEN:
+      ecs.RegisterComponent<GE::Component::Tween>();
+      break;
+    case COMPONENT_TYPES::SCRIPT_HANDLER:
+      ecs.RegisterComponent<GE::Component::ScriptHandler>();
+      break;
+    default:
+      throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown component type"));
+      break;
+    }
+  }
+
+  // Register systems
+  std::string const systemsFile{ *Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
+  std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::DeserializeSystems(systemsFile) };
+
+  for (std::pair<std::string, ECS::ComponentSignature> const& elem : systems)
+  {
+    std::unordered_map<std::string, ECS::SYSTEM_TYPES>::const_iterator iter{ ECS::stringToSystems.find(elem.first) };
+    if (iter == stringToSystems.cend())
+    {
+      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg("Unable to register system " + elem.first));
+    }
+    RegisterSystemWithEnum(iter->second, elem.second);
+  }
+}
+
 void ObjectFactory::DeserializePrefab(const std::string& filepath)
 {
   GE::Serialization::PrefabGooStream pgs{ filepath };
@@ -224,7 +239,7 @@ void ObjectFactory::DeserializePrefab(const std::string& filepath)
     GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + filepath);
   }
 
-  std::pair<std::string, PrefabData> prefab;
+  std::pair<std::string, ObjectData> prefab;
   if (!pgs.Unload(prefab))
   {
     GE::Debug::ErrorLogger::GetInstance().LogError("Unable to unload " + filepath);
@@ -242,14 +257,12 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
     throw GE::Debug::Exception<ObjectFactory>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
   }
 
-  PrefabData prefab = m_prefabs.at(key);
-  ObjectData object{ prefab.m_componentSignature, prefab.m_components };
-  Entity entity = CreateObject(object);
-  if (IsBitSet(prefab.m_componentSignature, COMPONENT_TYPES::SPRITEANIM))
+  ObjectData prefab = m_prefabs.at(key);
+  Entity entity = CreateObject(prefab);
+  if (IsBitSet(prefab.m_componentSignature, COMPONENT_TYPES::SPRITE_ANIM))
   {
     prefab.m_systemSignature[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
   }
-  RegisterObjectToSystems(entity, prefab.m_systemSignature);
   return entity;
 }
 
@@ -265,14 +278,14 @@ void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
     trans->m_pos = newPos;
   }
   ECS::SystemSignature sysSig{ GetObjectSystemSignature(obj) };
-  if (ecs.GetComponentSignature(newObj)[static_cast<unsigned>(COMPONENT_TYPES::SPRITEANIM)])
+  if (ecs.GetComponentSignature(newObj)[static_cast<unsigned>(COMPONENT_TYPES::SPRITE_ANIM)])
   {
     sysSig[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
   }
   RegisterObjectToSystems(newObj, sysSig);
 }
 
-int ObjectFactory::LoadObject() const
+bool ObjectFactory::LoadObjects() const
 {
   try
   {
@@ -285,9 +298,9 @@ int ObjectFactory::LoadObject() const
   {
     e.LogSource();
     e.Log();
-    return 1;
+    return false;
   }
-  return 0;
+  return true;
 }
 
 void ObjectFactory::ObjectJsonLoader(const std::string& json_path)
@@ -296,12 +309,14 @@ void ObjectFactory::ObjectJsonLoader(const std::string& json_path)
   ogs.Unload(m_objects);
 }
 
-// Reads objects from file and loads into map
-// prints contents of map to console
+// Reads objects from scene file and loads into map
 void ObjectFactory::ObjectFactoryTest() {
-  std::map<std::string, ObjectData> m_objects;
   Serialization::ObjectGooStream ogs{ "Assets/Data/Scene.json" };
-  ogs.Unload(m_objects);
+  if (ogs)
+  {
+    ogs.Unload(m_objects);
+    LoadObjects();
+  }
 }
 
 void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::ComponentSignature sig) const

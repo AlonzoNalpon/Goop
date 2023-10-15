@@ -15,16 +15,15 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "PrefabGooStream.h"
-#include <fstream>
 #include <rapidjson/istreamwrapper.h>
 #include "../ECS/SystemTypes.h"
 
 using namespace GE::Serialization;
 
 // MUST CORRESPOND TO KEYS IN .json
-const char* const PrefabGooStream::JsonNameKey        = "Name";
-const char* const PrefabGooStream::JsonSystemsKey     = "Systems";
-const char* const PrefabGooStream::JsonComponentsKey  = "Components";
+const char PrefabGooStream::JsonNameKey[]       = "Name";
+const char PrefabGooStream::JsonSystemsKey[]    = "Systems";
+const char PrefabGooStream::JsonComponentsKey[] = "Components";
 
 PrefabGooStream::PrefabGooStream(std::string const& json) : GooStream(true)
 {

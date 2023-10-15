@@ -13,18 +13,21 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Transform.h>
 #include <Component/Sprite.h>
 #include <Component/SpriteAnim.h>
-#include <Systems/PlayerController/PlayerControllerSystem.h>
+#include <Component/BoxCollider.h>
 #include <Component/Tween.h>
+#include <Component/Model.h>
+#include <Component/ScriptHandler.h>
 
 namespace GE::ObjectFactory
 {
   /*!*********************************************************************
   \brief
-    Takes the data and assigns it into the entity data.
-  \param
-    string const& (Identifier of the data located in the json file)
+    Takes the raw data of a component (in string) and deserializes it
+    into values for the component
+  \param componentData
+    The data of the component in string
   \return
-    COMPONENT_TYPE object
+    The component initialized with the values from the file
   ************************************************************************/
   template<typename CompType>
   CompType DeserializeComponent(std::string const& componentData);
@@ -47,9 +50,7 @@ namespace GE::ObjectFactory
   template<>
   GE::Component::Model DeserializeComponent<GE::Component::Model>(std::string const& componentData);
 
-  template<typename CompType>
-  void SerializeComponent(Serialization::ComponentWrapper const& wrapper) { }
-
-  #include "SerializeComponents.tpp"
+  template<>
+  GE::Component::ScriptHandler DeserializeComponent<GE::Component::ScriptHandler>(std::string const& componentData);
 }
 

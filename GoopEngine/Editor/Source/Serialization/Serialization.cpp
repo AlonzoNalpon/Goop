@@ -1,10 +1,8 @@
 #include <pch.h>
 #include "Serialization.h"
-#include <fstream>
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/ostreamwrapper.h>
 #include <rapidjson/prettywriter.h>
-#include "../ECS/SystemTypes.h"
 
 namespace GE
 {

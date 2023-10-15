@@ -41,10 +41,8 @@ int main(int /*argc*/, char* /*argv*/[])
   {
     GE::Assets::AssetManager* am = &GE::Assets::AssetManager::GetInstance();
     am->LoadJSONData("./Assets/Data/Config.json", GE::Assets::CONFIG);
-
     GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
-    of.LoadPrefabsFromFile();
-    of.RegisterComponentsAndSystems();
+    of.Init();
     GE::Events::EventManager::GetInstance().SubscribeAllListeners();
 
     GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
@@ -62,15 +60,13 @@ int main(int /*argc*/, char* /*argv*/[])
 
     GE::EditorGUI::ImGuiUI imgui;
     imgui.Init(window);
-
+    gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
+    am->LoadFiles();
+    am->FreeImages(); // cleanup the images
+    of.ObjectFactoryTest();
     // Now we get the asset manager
     //am->LoadDeserializedData(); // load the images we need
     //am->LoadImageW(ASSETS_PATH + "MineWorm.png");
-    gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
-
-    am->LoadFiles();
-    am->FreeImages(); // cleanup the images
-
 
     GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
     im->InitInputManager(window.GetWindow(), *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), 0.1);
@@ -80,7 +76,6 @@ int main(int /*argc*/, char* /*argv*/[])
 
     GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
     scriptMan->InitMono();
-
     GE::Debug::ErrorLogger::GetInstance().SuppressLogMessages(true);
 
 #ifdef MEMORY_TEST

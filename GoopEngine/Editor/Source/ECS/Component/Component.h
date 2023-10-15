@@ -10,6 +10,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
+#include <string>
 
 namespace GE
 {
@@ -49,6 +50,8 @@ namespace GE
 				The state to set the component to.
 			************************************************************************/
 			inline void SetActive(const bool active) { m_isActive = active; }
+
+			virtual std::string Serialize() const {}
 		};
 	}
 }

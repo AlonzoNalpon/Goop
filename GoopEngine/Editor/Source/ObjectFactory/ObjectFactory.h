@@ -29,6 +29,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/BoxCollider.h>
 #include <Component/Tween.h>
 #include <Component/Model.h>
+#include <Component/ScriptHandler.h>
 
 namespace GE::ObjectFactory
 {
@@ -38,15 +39,11 @@ namespace GE::ObjectFactory
   public:
     /*!*********************************************************************
     \brief
-      Loads the prefab from the path specified in the config file.
+      Init function for the ObjectFactory. Registers systems and
+      components to the ECS and loads the files required
+    \return
     ************************************************************************/
-    void LoadPrefabsFromFile();
-
-    /*!*********************************************************************
-    \brief
-      Registers components and system for initializing the ECS.
-    ************************************************************************/
-    void RegisterComponentsAndSystems() const;
+    void Init();
 
     /*!*********************************************************************
     \brief
@@ -81,9 +78,9 @@ namespace GE::ObjectFactory
     \brief
       Loads the data from json data to the entity map.
     \return
-      0 if success, 1 if failed
+      True if successful, false if failed
     ************************************************************************/
-    int LoadObject() const;
+    bool LoadObjects() const;
 
     /*!*********************************************************************
     \brief
@@ -97,9 +94,21 @@ namespace GE::ObjectFactory
     \brief
       Verify that the object factory deserializes properly
     ************************************************************************/
-    static void ObjectFactoryTest();
+    void ObjectFactoryTest();
 
   private:
+    /*!*********************************************************************
+    \brief
+      Loads the prefab from the path specified in the config file.
+    ************************************************************************/
+    void LoadPrefabsFromFile();
+
+    /*!*********************************************************************
+    \brief
+      Registers components and system for initializing the ECS.
+    ************************************************************************/
+    void RegisterComponentsAndSystems() const;
+
     /*!*********************************************************************
     \brief
       Loads the data into the class map.
@@ -144,25 +153,7 @@ namespace GE::ObjectFactory
       The signature of the components to register
     ************************************************************************/
     template <typename T>
-    void RegisterComponentsToSystem(ECS::ComponentSignature sig) const
-    {
-      ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-
-      if (IsBitSet(sig, ECS::COMPONENT_TYPES::TRANSFORM))
-        ecs.RegisterComponentToSystem<GE::Component::Transform, T>();
-      if (IsBitSet(sig, ECS::COMPONENT_TYPES::BOXCOLLIDER))
-        ecs.RegisterComponentToSystem<GE::Component::BoxCollider, T>();
-      if (IsBitSet(sig, ECS::COMPONENT_TYPES::SPRITEANIM))
-        ecs.RegisterComponentToSystem<GE::Component::SpriteAnim, T>();
-      if (IsBitSet(sig, ECS::COMPONENT_TYPES::SPRITE))
-        ecs.RegisterComponentToSystem<GE::Component::Sprite, T>();
-      if (IsBitSet(sig, ECS::COMPONENT_TYPES::MODEL))
-        ecs.RegisterComponentToSystem<GE::Component::Model, T>();
-      if (IsBitSet(sig, ECS::COMPONENT_TYPES::VELOCITY))
-        ecs.RegisterComponentToSystem<GE::Component::Velocity, T>();
-      if (IsBitSet(sig, ECS::COMPONENT_TYPES::TWEEN))
-        ecs.RegisterComponentToSystem<GE::Component::Tween, T>();
-    }
+    void RegisterComponentsToSystem(ECS::ComponentSignature sig) const;
 
     /*!*********************************************************************
     \brief
@@ -190,6 +181,7 @@ namespace GE::ObjectFactory
     }
 
     std::map<std::string, ObjectData> m_objects; // Map of objects with pair of name, and ObjectData.
-    std::unordered_map<std::string, PrefabData> m_prefabs; // Map of prefabs with pair of name, and PrefabData.
+    std::unordered_map<std::string, ObjectData> m_prefabs; // Map of prefabs with pair of name, and ObjectData.
   };
+  #include "ObjectFactory.tpp"
 }

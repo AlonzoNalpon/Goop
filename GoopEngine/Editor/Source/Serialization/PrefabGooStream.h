@@ -23,7 +23,7 @@ namespace GE
   {
 
     // GooStream for Prefabs
-    class PrefabGooStream : public IGooIStream<std::pair<std::string, GE::ObjectFactory::PrefabData>>
+    class PrefabGooStream : public IGooIStream<std::pair<std::string, GE::ObjectFactory::ObjectData>>
     {
     public:
       // Ctor reading json file into stream
@@ -59,7 +59,7 @@ namespace GE
         PrefabGooStream pfs{ "Assets/Data/Prefabs/MineWorm.json" };
         if (!pfs) { return; }
 
-        std::pair<std::string, GE::ObjectFactory::PrefabData> obj{};
+        std::pair<std::string, GE::ObjectFactory::ObjectData> obj{};
         pfs.Unload(obj);
         std::cout << obj.first << "\nComp Sig: " << obj.second.m_componentSignature 
           << "\nSys Sig: " << obj.second.m_systemSignature << "\n";
@@ -71,7 +71,7 @@ namespace GE
       }
 
     private:
-      static const char* const JsonNameKey, *const JsonSystemsKey, *const JsonComponentsKey;
+      static const char JsonNameKey[], JsonSystemsKey[], JsonComponentsKey[];
     };
 
   }

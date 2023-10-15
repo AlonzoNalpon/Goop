@@ -1,75 +1,57 @@
 [
     {
         "Id": "Object1",
-        "Signature": 9,
+        "Systems": [
+            "RenderSystem",
+            "SpriteAnimSystem"
+        ],
         "Components": [
             {
-                "Transform": {
-                    "m_pos": "{ 2.0, 4.0 }",
-                    "m_scale": "{ 5.0, 3.0 }",
-                    "m_rot": 5.0
-                }
+              "Transform": {
+                "m_pos": "{ 300.0, 200.0 }",
+                "m_scale": "{ 150.0, 150.0 }",
+                "m_rot": 0.0
+              }
             },
             {
-                "Velocity": {
-                    "acc_x": 0.0,
-                    "acc_y": 0.0,
-                    "vel_x": 0.0,
-                    "vel_y": 0.0
-                }
+              "Sprite": {
+                "filename": "MineWorm"
+              }
             },
             {
-                "Gravity": {
-                    "grav_x": 0.0,
-                    "grav_y": 9.807
-                }
+              "SpriteAnim": {
+                "name": "MineWorm"
+              }
             },
             {
-                "BoxCollider": {
-                    "m_width": 0.0,
-                    "m_height": 0.5,
-                    "m_min": "{ 5.0, 9.0 }",
-                    "m_max": "{ 3.0, 9.0 }",
-                    "m_center": "{ 6.0, 1.0 }",
-                    "m_mouseCollided": false
-                }
+              "Model": {
+                "id": 0
+              }
             }
         ]
     },
     {
-        "Id": "Player",
-        "Signature": 15,
+        "Id": "Object2",
+        "Systems": [
+            "RenderSystem"
+        ],
         "Components": [
             {
-                "Transform": {
-                    "m_pos": "{ 2.0, 4.0 }",
-                    "m_scale": "{ 5.0, 3.0 }",
-                    "m_rot": 5.0
-                }
+              "Transform": {
+                "m_pos": "{ -100.0, -200.0 }",
+                "m_scale": "{ 75.0, 50.0 }",
+                "m_rot": 0.0
+              }
             },
             {
-                "Velocity": {
-                    "acc_x": 0.0,
-                    "acc_y": 0.0,
-                    "vel_x": 0.0,
-                    "vel_y": 0.0
-                }
+              "Sprite": {
+                "filename": "ButaPIG"
+              }
             },
             {
-                "Gravity": {
-                    "grav_x": 0.0,
-                    "grav_y": 9.807
-                }
-            },
-            {
-                "BoxCollider": {
-                "m_width": 0.0,
-                "m_height": 0.5,
-                "m_min": "{ 5.0, 9.0 }",
-                "m_max": "{ 3.0, 9.0 }",
-                "m_center": "{ 6.0, 1.0 }",
-                "m_mouseCollided": false
-                }
+              "Model": {
+                "id": 0
+              }
             }
         ]
     }

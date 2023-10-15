@@ -19,6 +19,11 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 using namespace GE::Serialization;
 
+// MUST CORRESPOND TO KEYS IN .json
+const char ObjectGooStream::JsonNameKey[]       = "Id";
+const char ObjectGooStream::JsonSystemsKey[]    = "Systems";
+const char ObjectGooStream::JsonComponentsKey[] = "Components";
+
 ObjectGooStream::ObjectGooStream(std::string const& json) : GooStream(true)
 {
   m_elements = 0;
@@ -81,7 +86,7 @@ bool ObjectGooStream::Read(std::string const& json)
       #endif
       return m_status = false;
     }
-    if (!obj.HasMember("Id") || !obj["Id"].IsString())
+    if (!obj.HasMember(JsonNameKey) || !obj[JsonNameKey].IsString())
     {
       ifs.close();
       std::ostringstream oss{};
@@ -92,22 +97,22 @@ bool ObjectGooStream::Read(std::string const& json)
       #endif
       return m_status = false;
     }
-    if (!obj.HasMember("Signature") || !obj["Signature"].IsInt())
+    if (!obj.HasMember(JsonSystemsKey) || !obj[JsonSystemsKey].IsArray())
     {
       ifs.close();
       std::ostringstream oss{};
-      oss << json << ": Element " << std::to_string(i) << " does not have a valid \"Signature\" field";
+      oss << json << ": Element " << std::to_string(i) << " does not have a valid \"" << JsonSystemsKey << "\" field";
       GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
       #ifdef _DEBUG
       std::cout << oss.str() << std::endl;
       #endif
       return m_status = false;
     }
-    if (!obj.HasMember("Components") || !obj["Components"].IsArray())
+    if (!obj.HasMember(JsonComponentsKey) || !obj[JsonComponentsKey].IsArray())
     {
       ifs.close();
       std::ostringstream oss{};
-      oss << json << ": Element " << std::to_string(i) << " does not have a valid \"Components\" field";
+      oss << json << ": Element " << std::to_string(i) << " does not have a valid \"" << JsonComponentsKey << "\" field";
       GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
       #ifdef _DEBUG
       std::cout << oss.str() << std::endl;
@@ -115,7 +120,7 @@ bool ObjectGooStream::Read(std::string const& json)
       return m_status = false;
     }
 
-    rapidjson::Value const& componentArr{ obj["Components"] };
+    rapidjson::Value const& componentArr{ obj[JsonComponentsKey] };
     for (rapidjson::SizeType j{}; j < componentArr.Size(); ++j)
     {
       rapidjson::Value const& component{ componentArr[j] };
@@ -163,9 +168,10 @@ bool ObjectGooStream::Read(container_type const& container)
   {
     ObjectFactory::ObjectData const& objData{ obj.second };
     rapidjson::Value objVal{ rapidjson::kObjectType };  // create section for objects
-    objVal.AddMember("Id", rapidjson::StringRef(obj.first.c_str()), data.GetAllocator()); // Add the name of the object
+    objVal.AddMember(JsonNameKey, rapidjson::StringRef(obj.first.c_str()), data.GetAllocator()); // Add the name of the object
     // serialize component signature as a number
-    objVal.AddMember("Signature", static_cast<unsigned>(objData.m_componentSignature.to_ulong()), data.GetAllocator());
+    //objVal.AddMember("Signature", static_cast<unsigned>(objData.m_componentSignature.to_ulong()), data.GetAllocator());
+    // create systems array
 
     rapidjson::Value componentBlock{ rapidjson::kArrayType };  // create array for components
     for (ObjectFactory::ComponentMap::value_type const& component : objData.m_components) // for each component in the object
@@ -184,7 +190,7 @@ bool ObjectGooStream::Read(container_type const& container)
       componentBlock.PushBack(componentObj, data.GetAllocator());
     }
 
-    objVal.AddMember("Components", componentBlock, data.GetAllocator());  // array label
+    objVal.AddMember(JsonComponentsKey, componentBlock, data.GetAllocator());  // array label
     data.PushBack(objVal, data.GetAllocator());
   }
 
@@ -210,15 +216,30 @@ bool ObjectGooStream::Unload(container_type& container)
   {
     ObjectFactory::ObjectData objData{};
     ObjectFactory::ComponentMap& compMap{ objData.m_components };
-    objData.m_componentSignature = obj["Signature"].GetUint();
+
+    // iterate through systems array and set bit in object's system signature
+    for (auto const& system : obj[JsonSystemsKey].GetArray())
+    {
+      std::unordered_map<std::string, ECS::SYSTEM_TYPES>::const_iterator iter{ ECS::stringToSystems.find(system.GetString()) };
+      if (iter == ECS::stringToSystems.cend())
+      {
+        std::string str{ "Unable to find system " };
+        throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg(str + system.GetString()));
+      }
+      // set current system's bit in signature
+      objData.m_systemSignature[static_cast<unsigned>(iter->second)] = true;
+    }
     
-    const rapidjson::Value& componentsArray = obj["Components"];
+    const rapidjson::Value& componentsArray = obj[JsonComponentsKey];
     for (rapidjson::SizeType i{}; i < componentsArray.Size(); ++i)
     {
       const rapidjson::Value& componentObject = componentsArray[i];
       for (rapidjson::Value::ConstMemberIterator iter{ componentObject.MemberBegin() }; iter != componentObject.MemberEnd(); ++iter)
       {
         ECS::COMPONENT_TYPES const name{ ECS::stringToComponents.at(iter->name.GetString()) };
+        // set current component's bit in signature
+        objData.m_componentSignature[static_cast<unsigned>(name)] = true;
+
         // Convert to json string and store in map
         rapidjson::StringBuffer buffer{};
         writer_type<rapidjson::StringBuffer> writer{ buffer };
@@ -226,7 +247,7 @@ bool ObjectGooStream::Unload(container_type& container)
         compMap[name] = buffer.GetString();
       }
     }
-    container.emplace(obj["Id"].GetString(), objData);
+    container.emplace(obj[JsonNameKey].GetString(), objData);
   }
 
   return m_status = true;

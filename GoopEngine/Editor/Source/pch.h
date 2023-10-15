@@ -27,6 +27,7 @@
 #include "ECS/ComponentTypes.h"
 #include "ECS/EntityComponentSystem.h"
 #include "ECS/ComponentTypes.h"
+#include "ECS/SystemTypes.h"
 #include <DebugTools/Exception/Exception.h>
 #include <DebugTools/ErrorLogger/ErrorLogger.h>
 #include "FrameRateController/FrameRateController.h"
