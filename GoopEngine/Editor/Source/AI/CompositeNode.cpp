@@ -16,6 +16,8 @@ NODE_STATES  GE::AI::SelectorUpdate(std::vector<Node>& children)
 			result = node.m_behvaiourUpdate(node.m_children);
 		}
 	}
+	std::string finalresult = (result == NODE_FAILURE) ? "FAIL" : "SUCCESS";
+	std::cout << "Selector final result: " << finalresult << "\n";
 	std::cout << "----------------------------------------------\n\n";
 	return result;
 }
@@ -32,6 +34,8 @@ NODE_STATES  GE::AI::SequenceUpdate(std::vector<Node>& children)
 			result = node.m_behvaiourUpdate(node.m_children);
 		}
 	}
+	std::string finalresult = (result == NODE_FAILURE) ? "FAIL" : "SUCCESS";
+	std::cout << "Sequence final result: " << finalresult << "\n";
 	std::cout << "]\n";
 	return result;
 }

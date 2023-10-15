@@ -128,7 +128,6 @@ void FrameRateController::StartFrame()
 	m_prevStartTime = m_startTime;
 	m_startTime = glfwGetTime();
 	m_currDeltaTime = m_startTime - m_prevStartTime;
-	std::cout << m_currDeltaTime << "\n";
 	if (m_fpsCheckTime > m_fpsCalInterval) 
 	{
 		m_currentFPS = (static_cast<double>(m_framePassed) / m_fpsCheckTime);

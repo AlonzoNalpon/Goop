@@ -20,5 +20,6 @@ namespace GE
 
 
 		NODE_STATES RootStart(std::vector<Node>&);
+		void TestTree();
 	}
 }

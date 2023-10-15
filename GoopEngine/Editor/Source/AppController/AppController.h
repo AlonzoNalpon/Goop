@@ -8,6 +8,7 @@
 #include <ScriptEngine/ScriptManager.h>
 #include <Scene.h>
 
+
 namespace GE::Application
 {
   // AppController singleton

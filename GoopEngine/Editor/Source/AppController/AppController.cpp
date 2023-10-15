@@ -44,6 +44,8 @@ namespace GE::Application
       scriptMan->InitMono();
 
       GE::Debug::ErrorLogger::GetInstance().SuppressLogMessages(true);
+
+      GE::AI::TestTree();
     }
     catch (GE::Debug::IExceptionBase& e)
     {
