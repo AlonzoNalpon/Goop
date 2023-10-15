@@ -11,18 +11,17 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include "ScriptManager.h"
-
-
-
+#include "../AssetManager/AssetManager.h"
 
 using namespace GE::MONO;
 
 
 void GE::MONO::ScriptManager::InitMono()
 {
+  Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
 
-  mono_set_assemblies_path("../lib/mono/4.5/");
-  MonoDomain* rootDomain = mono_jit_init("GoopJITRuntime");
+  mono_set_assemblies_path(*assetManager.GetConfigData<const char*>("MonoAssembly"));
+  MonoDomain* rootDomain = mono_jit_init(*assetManager.GetConfigData<const char*>("RootDomain"));
   if (rootDomain == nullptr)
   {
     GE::Debug::ErrorLogger::GetInstance().LogError("Unable to init Mono JIT", false);
@@ -33,8 +32,8 @@ void GE::MONO::ScriptManager::InitMono()
   m_rootDomain = rootDomain;
 
   //Create an App Domain
-  char str[] = "GoopAppDomain";
-  m_appDomain = mono_domain_create_appdomain(str, nullptr);
+  const char* str = *assetManager.GetConfigData<const char*>("AppDomain");
+  m_appDomain = mono_domain_create_appdomain(const_cast<char*>(str), nullptr);
   mono_domain_set(m_appDomain, true);
 
   mono_add_internal_call("GoopScripts.Player::IsKeyTriggered", GE::Input::InputManager::GetInstance().IsKeyTriggered);
@@ -48,7 +47,7 @@ void GE::MONO::ScriptManager::InitMono()
   //Retrieve the C#Assembly (.ddl file)
   #ifdef _DEBUG
   try {
-    m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Debug/GoopScripts.dll");
+    m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_D"));
   }
   catch (GE::Debug::IExceptionBase& e) {
     e.LogSource();
@@ -56,7 +55,7 @@ void GE::MONO::ScriptManager::InitMono()
   }
 #else
   try {
-    m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Release/GoopScripts.dll");
+    m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_R"));
   }
   catch (GE::Debug::IExceptionBase& e) {
     e.LogSource();

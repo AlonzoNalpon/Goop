@@ -1,14 +1,14 @@
 #pragma once
 #include <pch.h>
 
-#include <Physics/PhysicsSystem.h>
-#include <Physics/CollisionSystem.h>
-#include <DraggableObject/DraggableObjectSystem.h>
+#include <Systems/Physics/PhysicsSystem.h>
+#include <Systems/Physics/CollisionSystem.h>
+#include <Systems/DraggableObject/DraggableObjectSystem.h>
 
 #include <Component/Velocity.h>
 #include <Component/Transform.h>
 
-#include <PlayerController/PlayerControllerSystem.h>
+#include <Systems/PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
 #include <Component/ScriptHandler.h>
 

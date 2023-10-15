@@ -240,13 +240,13 @@ namespace GE
 
 			/*!******************************************************************
 			\brief
-				Returns a map of systems, with keys being the typename of
-				a system
+				Returns a map of system signatures, with keys being the typename
+				of a system
 
 			\return
 				Map of systems
 			********************************************************************/
-			std::unordered_map<const char*, System*>& GetSystems();
+			std::unordered_map<const char*, ComponentSignature>& GetSystemSignatures();
 
 			/*!******************************************************************
 			\brief

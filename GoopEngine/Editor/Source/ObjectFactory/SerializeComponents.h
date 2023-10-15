@@ -14,7 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Transform.h>
 #include <Component/Sprite.h>
 #include <Component/SpriteAnim.h>
-#include <PlayerController/PlayerControllerSystem.h>
+#include <Systems/PlayerController/PlayerControllerSystem.h>
 #include <Component/Tween.h>
 
 namespace GE::ObjectFactory

@@ -15,9 +15,9 @@ SystemManager::~SystemManager()
 	}
 }
 
-std::unordered_map<const char*, System*>& GE::ECS::SystemManager::GetSystems()
+std::unordered_map<const char*, ComponentSignature>& GE::ECS::SystemManager::GetSystemSignatures()
 {
-	return m_systems;
+	return m_signatures;
 }
 
 std::map<int, const char*>& GE::ECS::SystemManager::GetSystemIndexes()

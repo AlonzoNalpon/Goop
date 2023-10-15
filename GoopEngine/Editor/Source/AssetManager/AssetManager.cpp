@@ -30,7 +30,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 //#define ASSET_MANAGER_DEBUG
 using namespace GE::Serialization;
 
-namespace GE::AssetManager
+namespace GE::Assets
 {
 	AssetManager::~AssetManager()
 	{
@@ -92,8 +92,8 @@ namespace GE::AssetManager
 	void AssetManager::LoadFiles()
 	{
 		stbi_set_flip_vertically_on_load(true);
-		LoadJSONData(GetConfigData<std::string>("Stills").value(), GE::AssetManager::IMAGES);
-		LoadJSONData(GetConfigData<std::string>("Animation Sprites").value(), GE::AssetManager::ANIMATION);
+		LoadJSONData(*GetConfigData<std::string>("Stills"), GE::Assets::IMAGES);
+		LoadJSONData(*GetConfigData<std::string>("Animation Sprites"), GE::Assets::ANIMATION);
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 		for (auto const& curr : m_loadedSpriteData)
 		{
@@ -127,11 +127,13 @@ namespace GE::AssetManager
 				{
 					//throw exception
 				}
-
+				// prefix assets path to each image filename
+				std::string const prefix = m_filePath["Path"];
+				m_filePath.erase("Path");
 				// For each entry in m_filePath, load the image from the ASSETS_DIR and the entry's second value
 				for (std::pair<std::string, std::string> const& entry : m_filePath)
 				{
-					int id = LoadImageW(entry.second);
+					int id = LoadImageW(prefix + entry.second);
 
 					gEngine.InitTexture(entry.first, GetData(id));
 				}

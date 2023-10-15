@@ -8,6 +8,8 @@
 
 #include "ToolBar.h"
 #include <ImGui/imgui.h>
+#include <AssetManager/AssetManager.h>
+#include <Serialization/Serialization.h>
 
 using namespace ImGui;
 
@@ -31,7 +33,8 @@ void GE::EditorGUI::ToolBar::CreateContent()
 
       if (Button("Save"))
       {
-        // Save scene function
+        // Save systems back to original file
+        Serialization::SerializeSystems(*Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems"));
       }
       if (Button("Open"))
       {
