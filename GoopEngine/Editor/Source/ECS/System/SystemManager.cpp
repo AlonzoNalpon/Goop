@@ -83,19 +83,36 @@ void SystemManager::UpdateSystems()
 		m_uninitializedSystems.pop();
 	}
 
-	GE::FPS::FrameRateController::GetInstance().StartSystemTimer();
+	GE::FPS::FrameRateController& fpsC = GE::FPS::FrameRateController::GetInstance();
+	fpsC.StartSystemTimer();
+	// Use index to system here as index contains systems in the order which it should update in
 	for (auto& system : m_indexToSystem)
 	{
 		auto& systemName{ system.second };
 		m_systems[systemName]->Update();
 	}
-	GE::FPS::FrameRateController::GetInstance().EndSystemTimer("System Update");
+	fpsC.EndSystemTimer("System Update");
+
+	int steps = fpsC.GetSteps();
+	if (steps > 0)
+	{
+		for (auto& system : m_indexToSystem)
+		{
+			auto& systemName{ system.second };
+			for (int i{}; i < steps; ++i)
+			{
+				m_systems[systemName]->FixedUpdate();
+			}
+		}
+	}
+	fpsC.EndSystemTimer("System Fixed Update");
+
 	for (auto& system : m_indexToSystem)
 	{
 		auto& systemName{ system.second };
 		m_systems[systemName]->LateUpdate();
 	}
-	GE::FPS::FrameRateController::GetInstance().EndSystemTimer("System Late Update");
+	fpsC.EndSystemTimer("System Late Update");
 }
 
 void SystemManager::UpdateSystemsFixed()
