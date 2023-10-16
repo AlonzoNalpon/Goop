@@ -1,6 +1,7 @@
 /*!*********************************************************************
 \file   FrameRateController.h
 \author han.q\@digipen.edu
+\co-author w.chinkitbryan\@digipen.edu
 \date   28 September 2023
 \brief
 	Frame rate controller system.
