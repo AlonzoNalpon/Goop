@@ -22,7 +22,7 @@ namespace GE::Application
 
       GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
       Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };     // my graphics engine
-      fRC.InitFrameRateController(*am->GetConfigData<int>("FPS Limit"), *am->GetConfigData<int>("FPS Check Interval"));
+      fRC.InitFrameRateController(*am->GetConfigData<int>("FPS Limit"), *am->GetConfigData<int>("Steps Per Second"), *am->GetConfigData<int>("FPS Check Interval"));
 
       window = { *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), "GOOP" };
       window.CreateAppWindow();
@@ -36,8 +36,6 @@ namespace GE::Application
       of.ObjectFactoryTest();
       GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
       im->InitInputManager(window.GetWindow(), *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), 0.1);
-      GE::FPS::FrameRateController* fps_control = &(GE::FPS::FrameRateController::GetInstance());
-      fps_control->InitFrameRateController(60, 1);
 
       GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
       scriptMan->InitMono();

@@ -52,6 +52,7 @@ namespace GE
 
 			double m_currentFPS{};
 			double m_targetFPS{};
+			double m_targetFrameTime{};
 			double m_fixedDeltaTime{};
 			double m_currDeltaTime{};
 			double m_accumulatedTime{};
@@ -81,7 +82,7 @@ namespace GE
 				fpsCalInterval
 				Intervals between each FPS check (seconds)
 			************************************************************************/
-			void InitFrameRateController(int targetFPS, int fpsCalInterval = 1);
+			void InitFrameRateController(int targetFPS, int stepsPerSec = 60, int fpsCalInterval = 1);
 
 
 
@@ -165,6 +166,15 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+				Function to get the number of fixed delta time steps this frame
+			\return
+				Number of fixed delta time steps this frame
+			************************************************************************/
+			int GetSteps();
+
+
+			/*!*********************************************************************
+			\brief
 			  Function to reset the FrameRateController
 			************************************************************************/
 			void ResetFrameRateController();
@@ -179,6 +189,15 @@ namespace GE
 			************************************************************************/
 			void SetTargetFPS(int targetFPS);
 
+
+			/*!*********************************************************************
+			\brief
+				Function to set the engine's fixed delta time target
+			\params
+				stepsPerSecond
+				How many steps if fixed delta time per second
+			************************************************************************/
+			void SetStepsPerSecond(int stepsPerSecond);
 
 
 			/*!*********************************************************************

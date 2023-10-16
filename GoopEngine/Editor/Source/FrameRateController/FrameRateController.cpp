@@ -40,18 +40,24 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace GE::FPS;
 
 
-void FrameRateController::InitFrameRateController(int targetFPS, int fpsCalInterval)
+void FrameRateController::InitFrameRateController(int targetFPS, int stepsPerSec, int fpsCalInterval)
 {
 	m_targetFPS = static_cast<double>(targetFPS);
+	m_targetFrameTime = 1.0 / m_targetFPS;
 	m_fpsCalInterval = static_cast<double>(fpsCalInterval);
-	m_fixedDeltaTime = 1.0 / m_targetFPS;
+	m_fixedDeltaTime = 1.0 / stepsPerSec;
 	m_framePassed = 0;
 	m_frameCount = 0;
 	m_endTime = 0.0;
 	m_startTime = glfwGetTime();
 	m_prevStartTime = 0.0;
 	m_currDeltaTime = 0.0;
+	m_accumulatedTime = 0.0;
+}
 
+int GE::FPS::FrameRateController::GetSteps()
+{
+	return m_currNumberOfSteps;
 }
 
 void FrameRateController::ResetFrameRateController()
@@ -61,6 +67,7 @@ void FrameRateController::ResetFrameRateController()
 	m_endTime = 0.0;
 	m_startTime = 0.0;
 	m_prevStartTime = 0.0;
+	m_accumulatedTime = 0.0;
 }
 
 int FrameRateController::GetFrameCount() 
@@ -105,7 +112,12 @@ double FrameRateController::GetCurrTime()
 void FrameRateController::SetTargetFPS(int targetFPS) 
 {
 	m_targetFPS = static_cast<double>(targetFPS);
-	m_fixedDeltaTime = 1.0 / m_targetFPS;
+	m_targetFrameTime = 1.0 / m_targetFPS;
+}
+
+void GE::FPS::FrameRateController::SetStepsPerSecond(int stepsPerSecond)
+{
+	m_fixedDeltaTime = 1.0 / stepsPerSecond;
 }
 
 void FrameRateController::FPSCalInterval(int fpsCalInterval)
@@ -116,6 +128,10 @@ void FrameRateController::FPSCalInterval(int fpsCalInterval)
 
 void FrameRateController::EndFrame() 
 {
+	while ((glfwGetTime() - m_startTime) < m_targetFrameTime)
+	{
+		//Loops until we hit the target time per frame (if the game is too fast)
+	}
 	m_fpsCheckTime += (glfwGetTime() - m_startTime);
 	m_endTime = glfwGetTime();
 	++m_framePassed;
@@ -125,8 +141,19 @@ void FrameRateController::EndFrame()
 
 void FrameRateController::StartFrame()
 {
-	m_prevStartTime = m_startTime;
-	m_startTime = glfwGetTime();
+	static bool firstFrame = true;
+	// First frame don't take glfw initial start time as it includes glfw start up
+	// not simulation start up
+	if (firstFrame)
+	{
+		m_startTime = m_prevStartTime = glfwGetTime();
+		firstFrame = false;
+	}
+	else
+	{
+		m_prevStartTime = m_startTime;
+		m_startTime = glfwGetTime();
+	}
 	m_currDeltaTime = m_startTime - m_prevStartTime;
 	if (m_fpsCheckTime > m_fpsCalInterval) 
 	{
@@ -135,13 +162,12 @@ void FrameRateController::StartFrame()
 		m_fpsCheckTime = 0.0;
 	}
 	m_currNumberOfSteps = 0;
-	m_accumulatedTime += (m_endTime - m_prevStartTime);
+	m_accumulatedTime += m_currDeltaTime;
 	while (m_accumulatedTime >= m_fixedDeltaTime)
 	{
 		m_accumulatedTime -= m_fixedDeltaTime;
 		++m_currNumberOfSteps;
-	}
-	
+	}	
 }
 
 
