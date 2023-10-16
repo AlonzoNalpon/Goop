@@ -6,6 +6,9 @@
   ImGui Editor UI Wrapper
 ********************************************************************/
 #include <pch.h>
+
+//#define RUN_IMGUI_DEMO  // Uncomment to replace imgui window with demo
+
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
 #include <ImGui/backends/imgui_impl_opengl3.h>
@@ -16,8 +19,10 @@
 #include <Audio/AudioEngine.h>
 #include "SceneHierachy.h"
 #include "ToolBar.h"
+#include "DataViz/Visualizer.h"
 
 using namespace GE::EditorGUI;
+using namespace DataViz;
 using namespace ImGui;
 
 // Initialize static
@@ -47,6 +52,10 @@ void ImGuiUI::Update()
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   NewFrame();
+
+#ifdef RUN_IMGUI_DEMO
+  ImGui::ShowDemoWindow();
+#else
 
   ImGuiHelper::CreateDockSpace("Goop Engine");
 
@@ -93,6 +102,32 @@ void ImGuiUI::Update()
   }
   End();
 
+  if (Visualizer::IsPerformanceShown())
+  {
+    Visualizer::UpdatePerformanceTab();
+  }
+
+  if (Visualizer::IsMemoryShown())
+  {
+    ImGui::Begin("Memory Monitor");
+
+    //ImGui::PlotLines()
+
+    ImGui::End();
+  }
+
+#ifdef _DEBUG
+  static bool showOverlay = true;
+  ImGui::SetNextWindowPos(ImVec2(ImGui::GetWindowWidth() / 2.f, 10), ImGuiCond_Always);
+  ImGui::SetNextWindowSize(ImVec2(300, 30), ImGuiCond_Always);
+
+  ImGui::Begin("Overlay Window", &showOverlay, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
+
+  ImGui::Text("Mouse Pos: (%.2f, %.2f)", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+
+  ImGui::End();
+#endif
+
   Begin("Audio");
   if (Button("Play Scream Sound"))
   {
@@ -129,6 +164,8 @@ void ImGuiUI::Update()
   End();
 
   ImGuiHelper::EndDockSpace();
+
+#endif  // RUN_IMGUI_DEMO
 }
 
 void ImGuiUI::Render()

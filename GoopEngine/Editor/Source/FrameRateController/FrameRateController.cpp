@@ -55,7 +55,7 @@ void FrameRateController::InitFrameRateController(int targetFPS, int stepsPerSec
 	m_accumulatedTime = 0.0;
 }
 
-int GE::FPS::FrameRateController::GetSteps()
+int GE::FPS::FrameRateController::GetSteps() const noexcept
 {
 	return m_currNumberOfSteps;
 }
@@ -78,12 +78,12 @@ int FrameRateController::GetFrameCount()
 }
 
 
-double FrameRateController::GetStartTime()
+double FrameRateController::GetStartTime() const noexcept
 {
 	return m_startTime;
 }
 
-double FrameRateController::GetEndTime() 
+double FrameRateController::GetEndTime() const noexcept
 {
 	return m_endTime;
 }
@@ -93,18 +93,23 @@ double FrameRateController::GetFixedDeltaTime()
 	return m_fixedDeltaTime;
 }
 
-double FrameRateController::GetDeltaTime()
+double FrameRateController::GetDeltaTime() const noexcept
 {
 	return m_currDeltaTime;
 }
 
 
-double FrameRateController::GetFPS()
+double FrameRateController::GetFPS() const noexcept
 {
 	return m_currentFPS;
 }
 
-double FrameRateController::GetCurrTime()
+double FrameRateController::GetTargetFPS() const noexcept
+{
+	return m_targetFPS;
+}
+
+double FrameRateController::GetCurrTime() const noexcept
 {
 	return glfwGetTime();
 }
@@ -179,11 +184,11 @@ void FrameRateController::StartSystemTimer()
 void FrameRateController::EndSystemTimer(std::string systemName)
 {
 	auto endTime = std::chrono::high_resolution_clock::now();
-	m_fpsControllerMap[systemName] = std::chrono::duration_cast<std::chrono::microseconds>(endTime - m_systemTimeStart);
+	m_fpsControllerMap[systemName] = std::chrono::duration_cast<timeFormat>(endTime - m_systemTimeStart);
 	m_systemTimeStart = endTime;
 }
 
-const std::map<std::string, std::chrono::microseconds>& GE::FPS::FrameRateController::GetSystemTimers()
+const std::map<std::string, FrameRateController::timeFormat>& GE::FPS::FrameRateController::GetSystemTimers()
 {
 	return m_fpsControllerMap;
 }

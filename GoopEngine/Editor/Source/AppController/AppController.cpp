@@ -1,6 +1,6 @@
 #include <pch.h>
 #include <AppController/AppController.h>
-
+#include <EditorUI/DataViz/Visualizer.h>
 
 using namespace GE::ECS;
 
@@ -96,9 +96,15 @@ namespace GE::Application
           imgui.Render();
         }
         fRC.EndSystemTimer("ImGui Render");
+        
+        // update graph for system timers if window is shown
+        if (EditorGUI::DataViz::Visualizer::IsPerformanceShown())
+        {
+          EditorGUI::DataViz::Visualizer::UpdateSystemTimes();
+        }
 
         std::stringstream ss;
-        ss << GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Window Title").value() << " | FPS: " << std::fixed
+        ss << *GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Window Title") << " | FPS: " << std::fixed
           << std::setfill('0') << std::setw(5) << std::setprecision(2) << fRC.GetFPS() << " | Entities: " << EntityComponentSystem::GetInstance().GetEntities().size();
         for (auto system : fRC.GetSystemTimers())
         {
