@@ -6,6 +6,9 @@
   ImGui Editor UI Wrapper
 ********************************************************************/
 #include <pch.h>
+
+//#define RUN_IMGUI_DEMO  // Uncomment to replace imgui window with demo
+
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
 #include <ImGui/backends/imgui_impl_opengl3.h>
@@ -47,6 +50,10 @@ void ImGuiUI::Update()
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   NewFrame();
+
+#ifdef RUN_IMGUI_DEMO
+  ImGui::ShowDemoWindow();
+#else
 
   ImGuiHelper::CreateDockSpace("Goop Engine");
 
@@ -93,6 +100,10 @@ void ImGuiUI::Update()
   }
   End();
 
+  Begin("Performance");
+
+  End();
+
   Begin("Audio");
   if (Button("Play Scream Sound"))
   {
@@ -129,6 +140,8 @@ void ImGuiUI::Update()
   End();
 
   ImGuiHelper::EndDockSpace();
+
+#endif  // RUN_IMGUI_DEMO
 }
 
 void ImGuiUI::Render()
