@@ -268,6 +268,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClCompile Include="Source\ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="Source\ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="Source\ECS\System\System.cpp" />
+    <ClCompile Include="Source\EditorUI\DataViz\Visualizer.cpp" />
     <ClCompile Include="Source\EditorUI\ToolBar.cpp" />
     <ClCompile Include="Source\Events\EventManager.cpp" />
     <ClCompile Include="Source\Graphics\Fonts\FontManager.cpp" />
@@ -385,6 +386,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
     <ClInclude Include="Source\ECS\Component\Component.h" />
     <ClInclude Include="Source\ECS\Component\ComponentArray.h" />
     <ClInclude Include="Source\ECS\Component\ComponentManager.h" />
+    <ClInclude Include="Source\EditorUI\DataViz\Visualizer.h" />
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
     <ClInclude Include="Source\pch.h" />
     <ClInclude Include="Source\Scene.h" />

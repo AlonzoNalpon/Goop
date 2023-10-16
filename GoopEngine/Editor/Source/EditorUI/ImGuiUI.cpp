@@ -19,8 +19,10 @@
 #include <Audio/AudioEngine.h>
 #include "SceneHierachy.h"
 #include "ToolBar.h"
+#include "DataViz/Visualizer.h"
 
 using namespace GE::EditorGUI;
+using namespace DataViz;
 using namespace ImGui;
 
 // Initialize static
@@ -100,9 +102,31 @@ void ImGuiUI::Update()
   }
   End();
 
-  Begin("Performance");
+  if (Visualizer::IsPerformanceShown())
+  {
+    Visualizer::UpdatePerformanceTab();
+  }
 
-  End();
+  if (Visualizer::IsMemoryShown())
+  {
+    ImGui::Begin("Memory Monitor");
+
+    //ImGui::PlotLines()
+
+    ImGui::End();
+  }
+
+#ifdef _DEBUG
+  static bool showOverlay = true;
+  ImGui::SetNextWindowPos(ImVec2(ImGui::GetWindowWidth() / 2.f, 10), ImGuiCond_Always);
+  ImGui::SetNextWindowSize(ImVec2(300, 30), ImGuiCond_Always);
+
+  ImGui::Begin("Overlay Window", &showOverlay, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
+
+  ImGui::Text("Mouse Pos: (%.2f, %.2f)", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+
+  ImGui::End();
+#endif
 
   Begin("Audio");
   if (Button("Play Scream Sound"))

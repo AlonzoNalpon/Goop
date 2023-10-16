@@ -10,8 +10,10 @@
 #include <ImGui/imgui.h>
 #include <AssetManager/AssetManager.h>
 #include <Serialization/Serialization.h>
+#include <EditorUI/DataViz/Visualizer.h>
 
 using namespace ImGui;
+using namespace GE::EditorGUI::DataViz;
 
 void GE::EditorGUI::ToolBar::CreateContent()
 {
@@ -46,6 +48,24 @@ void GE::EditorGUI::ToolBar::CreateContent()
 
       ImGui::EndMenu();
     }
+    EndMenuBar();
+  }
+
+  if (BeginMenuBar())
+  {
+    if (BeginMenu("View"))
+    {
+      if (ImGui::MenuItem("Performance Visualizer", nullptr, Visualizer::IsPerformanceShown()))
+      {
+        Visualizer::TogglePerformanceTab();
+      }
+      if (ImGui::MenuItem("Memory Monitor", nullptr, Visualizer::IsMemoryShown()))
+      {
+        Visualizer::ToggleMemoryTab();
+      }
+      ImGui::EndMenu();
+    }
+
     EndMenuBar();
   }
 

@@ -48,28 +48,8 @@ namespace GE
 	{
 		class FrameRateController : public Singleton<FrameRateController>
 		{
-
-
-			double m_currentFPS{};
-			double m_targetFPS{};
-			double m_fixedDeltaTime{};
-			double m_currDeltaTime{};
-			double m_accumulatedTime{};
-			double m_endTime{};
-			double m_startTime{};
-			double m_prevStartTime{};
-			double m_fpsCalInterval{};
-			double m_fpsCheckTime{};
-			int m_currNumberOfSteps{};
-			int m_frameCount{};
-			int m_framePassed{};
-
-			std::chrono::time_point<std::chrono::high_resolution_clock> m_systemTimeStart{};
-			std::map<std::string, std::chrono::microseconds> m_fpsControllerMap;
-			
-
 		public:
-
+			using timeFormat = std::chrono::microseconds;
 
 			/*!*********************************************************************
 			\brief
@@ -214,6 +194,24 @@ namespace GE
 			  FPS Controller system time map
 			************************************************************************/
 			const std::map<std::string, std::chrono::microseconds>& GetSystemTimers();
+
+		private:
+			double m_currentFPS{};
+			double m_targetFPS{};
+			double m_fixedDeltaTime{};
+			double m_currDeltaTime{};
+			double m_accumulatedTime{};
+			double m_endTime{};
+			double m_startTime{};
+			double m_prevStartTime{};
+			double m_fpsCalInterval{};
+			double m_fpsCheckTime{};
+			int m_currNumberOfSteps{};
+			int m_frameCount{};
+			int m_framePassed{};
+
+			std::chrono::time_point<std::chrono::high_resolution_clock> m_systemTimeStart{};
+			std::map<std::string, timeFormat> m_fpsControllerMap;
 		};
 	}
 	

@@ -153,11 +153,11 @@ void FrameRateController::StartSystemTimer()
 void FrameRateController::EndSystemTimer(std::string systemName)
 {
 	auto endTime = std::chrono::high_resolution_clock::now();
-	m_fpsControllerMap[systemName] = std::chrono::duration_cast<std::chrono::microseconds>(endTime - m_systemTimeStart);
+	m_fpsControllerMap[systemName] = std::chrono::duration_cast<timeFormat>(endTime - m_systemTimeStart);
 	m_systemTimeStart = endTime;
 }
 
-const std::map<std::string, std::chrono::microseconds>& GE::FPS::FrameRateController::GetSystemTimers()
+const std::map<std::string, FrameRateController::timeFormat>& GE::FPS::FrameRateController::GetSystemTimers()
 {
 	return m_fpsControllerMap;
 }
