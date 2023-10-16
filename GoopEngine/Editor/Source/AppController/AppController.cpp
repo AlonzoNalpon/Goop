@@ -47,7 +47,6 @@ namespace GE::Application
     catch (GE::Debug::IExceptionBase& e)
     {
       e.LogSource();
-      e.Log();
     }
   }
   
@@ -114,7 +113,6 @@ namespace GE::Application
     catch (GE::Debug::IExceptionBase& e)
     {
       e.LogSource();
-      e.Log();
     }
   }
   
@@ -128,7 +126,6 @@ namespace GE::Application
     catch (GE::Debug::IExceptionBase& e)
     {
       e.LogSource();
-      e.Log();
     }
   }
 
