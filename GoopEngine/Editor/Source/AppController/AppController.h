@@ -12,7 +12,7 @@
 namespace GE::Application
 {
   // AppController singleton
-  class AppController
+  class AppController : public Singleton<AppController>
   {
   public:
     AppController();
