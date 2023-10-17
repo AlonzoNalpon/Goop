@@ -32,7 +32,7 @@ namespace GE::Application
       gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
 
       am->LoadFiles();
-      am->FreeImages(); // cleanup the images
+      //am->FreeImages(); // cleanup the images
       of.ObjectFactoryTest();
       GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
       im->InitInputManager(window.GetWindow(), *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), 0.1);
