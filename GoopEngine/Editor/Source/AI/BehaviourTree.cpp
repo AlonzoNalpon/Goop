@@ -31,36 +31,36 @@ void GE::AI::BehaviourTree::Init(std::vector<Node>& children)
 void GE::AI::TestTree()
 {
 
-  GE::AI::Node FailNode{};
-  GE::AI::Node ScriptNode{};
-  std::vector< GE::AI::Node>emptyVector;
-  FailNode.Init(emptyVector, GE::AI::FailNodeUpdate, GE::AI::NODE_ACTION);
-  ScriptNode.Init(emptyVector, GE::AI::ScriptUpdate, GE::AI::NODE_ACTION);
+  //GE::AI::Node FailNode{};
+  //GE::AI::Node ScriptNode{};
+  //std::vector< GE::AI::Node>emptyVector;
+  //FailNode.Init(emptyVector, GE::AI::FailNodeUpdate, GE::AI::NODE_ACTION);
+  //ScriptNode.Init(emptyVector, GE::AI::ScriptUpdate, GE::AI::NODE_ACTION);
 
-  std::vector< GE::AI::Node>Selector1{ ScriptNode,FailNode,FailNode };
-  std::vector< GE::AI::Node>Selector2{ FailNode,ScriptNode,FailNode };
-  std::vector< GE::AI::Node>Selector3{ FailNode,FailNode,ScriptNode };
-  std::vector< GE::AI::Node>SelectorF{ FailNode,FailNode,FailNode };
-  GE::AI::Node SelectorNode1{};
-  GE::AI::Node SelectorNode2{};
-  GE::AI::Node SelectorNode3{};
-  GE::AI::Node SelectorNodeF{};
-  SelectorNode1.Init(Selector1, GE::AI::SelectorUpdate, GE::AI::NODE_SELECTOR);
-  SelectorNode2.Init(Selector2, GE::AI::SelectorUpdate, GE::AI::NODE_SELECTOR);
-  SelectorNode3.Init(Selector3, GE::AI::SelectorUpdate, GE::AI::NODE_SELECTOR);
-  SelectorNodeF.Init(SelectorF, GE::AI::SelectorUpdate, GE::AI::NODE_SELECTOR);
+  //std::vector< GE::AI::Node>Selector1{ ScriptNode,FailNode,FailNode };
+  //std::vector< GE::AI::Node>Selector2{ FailNode,ScriptNode,FailNode };
+  //std::vector< GE::AI::Node>Selector3{ FailNode,FailNode,ScriptNode };
+  //std::vector< GE::AI::Node>SelectorF{ FailNode,FailNode,FailNode };
+  //GE::AI::Node SelectorNode1{};
+  //GE::AI::Node SelectorNode2{};
+  //GE::AI::Node SelectorNode3{};
+  //GE::AI::Node SelectorNodeF{};
+  //SelectorNode1.Init(Selector1, GE::AI::SelectorUpdate, GE::AI::NODE_SELECTOR);
+  //SelectorNode2.Init(Selector2, GE::AI::SelectorUpdate, GE::AI::NODE_SELECTOR);
+  //SelectorNode3.Init(Selector3, GE::AI::SelectorUpdate, GE::AI::NODE_SELECTOR);
+  //SelectorNodeF.Init(SelectorF, GE::AI::SelectorUpdate, GE::AI::NODE_SELECTOR);
 
-  std::vector< GE::AI::Node>Sequence1{ SelectorNode1,SelectorNode2,SelectorNode3,SelectorNodeF };
-  GE::AI::Node SequenceNode{};
-  SequenceNode.Init(Sequence1, GE::AI::SequenceUpdate, GE::AI::NODE_SEQUENCE);
+  //std::vector< GE::AI::Node>Sequence1{ SelectorNode1,SelectorNode2,SelectorNode3,SelectorNodeF };
+  //GE::AI::Node SequenceNode{};
+  //SequenceNode.Init(Sequence1, GE::AI::SequenceUpdate, GE::AI::NODE_SEQUENCE);
 
-  GE::AI::BehaviourTree aiTree{};
+  //GE::AI::BehaviourTree aiTree{};
 
 
-  std::vector< GE::AI::Node>treeChild{ SequenceNode };
-  aiTree.Init(treeChild);
-  aiTree.Tick();
-  aiTree.CleanUp();
+  //std::vector< GE::AI::Node>treeChild{ SequenceNode };
+  //aiTree.Init(treeChild);
+  //aiTree.Tick();
+  //aiTree.CleanUp();
 
   
 
