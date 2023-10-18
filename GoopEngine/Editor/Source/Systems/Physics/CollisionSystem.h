@@ -22,6 +22,16 @@ namespace GE
 {
 	namespace Systems
 	{
+		using vec2 = Math::dVec2;
+
+		class Partition : public GE::ECS::System
+		{
+		public:
+			vec2 min;
+			vec2 max;
+			std::vector<GE::ECS::Entity> m_entitiesInPartition;
+		};
+
 		class CollisionSystem : public GE::ECS::System
 		{
 		public:
@@ -58,6 +68,19 @@ namespace GE
 			************************************************************************/
 			void Update();
 
+			void ChangeRow(int newRow);
+			void ChangeCol(int newCol);
+
+			int& GetRow()
+			{
+				return m_rowsPartition;
+			}
+
+			int& GetCol()
+			{
+				return m_colsPartition;
+			}
+
 		private:
 			/*!*********************************************************************
 			\brief
@@ -70,6 +93,13 @@ namespace GE
 				Entity's size.
 			************************************************************************/
 			void UpdateAABB(BoxCollider& entity, const Math::dVec2& newCenter, Transform& scale);
+
+			int m_rowsPartition{ 1 };
+			int m_colsPartition{ 1 };
+
+			std::vector<Partition> m_partitions;
+
+			void CreatePartitions(int rows, int cols);
 		};
 	}
 }
