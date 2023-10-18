@@ -69,8 +69,10 @@ namespace {
     // Initialize font manager
     m_fontManager.Init();
 #pragma region SHADER_MDL_INIT
-
-
+    auto shaderPathOpt = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("ShaderPath");
+    if (!shaderPathOpt) {
+      throw 1; // lmao
+    }
     m_spriteQuadMdl = GenerateQuad();
     m_lineMdl       = GenerateLine();
     ShaderInitCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"}};
