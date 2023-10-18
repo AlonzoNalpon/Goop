@@ -27,6 +27,8 @@ using namespace GE::EditorGUI;
 using namespace DataViz;
 using namespace ImGui;
 
+#define RUN_IMGUI_DEMO
+
 // Initialize static
 GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
 
@@ -57,7 +59,7 @@ void ImGuiUI::Update()
 
 #ifdef RUN_IMGUI_DEMO
   ImGui::ShowDemoWindow();
-#else
+#endif
 
   ImGuiHelper::CreateDockSpace("Goop Engine");
 
@@ -166,8 +168,6 @@ void ImGuiUI::Update()
   End();
 
   ImGuiHelper::EndDockSpace();
-
-#endif  // RUN_IMGUI_DEMO
 }
 
 void ImGuiUI::Render()
