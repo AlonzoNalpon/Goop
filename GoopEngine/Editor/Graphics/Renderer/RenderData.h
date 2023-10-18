@@ -30,6 +30,7 @@ namespace Graphics::Rendering
       scale{ scale }, rotation{ rot }, pos{ pos } {}
   };
 
+
   /*!
    * \struct RenderData
    * \brief  struct containing info for rendering
@@ -40,6 +41,13 @@ namespace Graphics::Rendering
     gObjID mdl;         //!< model data (ALL MODELS MUST USE THIS). It has shader stored within
     SpriteData sprite;  //!< sprite data handle (optional)
     Transform transform;//!< the transformation of the model
+  };
+
+
+  struct DepthComp {
+    bool operator()(RenderData const& a, RenderData const& b)const {
+      return a.transform.pos.z > b.transform.pos.z;
+    }
   };
 };
 
