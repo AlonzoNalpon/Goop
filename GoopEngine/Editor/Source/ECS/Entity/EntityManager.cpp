@@ -3,7 +3,7 @@
 \author w.chinkitbryan\@digipen.edu
 \date   9-September-2023
 \brief  
-  Definitions of EntityManager functions declared in EntityManager.h
+  Contains the info of the actual entities. And acts as an object pool.
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -94,6 +94,7 @@ std::vector<Entity>& GE::ECS::EntityManager::GetChildEntities(Entity& parent)
 void GE::ECS::EntityManager::AddChildEntity(Entity& parent, Entity& child)
 {
 	m_children[parent].push_back(child);
+	SetParentEntity(parent, child);
 }
 
 void GE::ECS::EntityManager::RemoveChildEntity(Entity& parent, Entity& child)

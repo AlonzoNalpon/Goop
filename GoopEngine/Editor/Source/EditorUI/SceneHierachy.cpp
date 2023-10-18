@@ -1,10 +1,12 @@
-/*!******************************************************************
+/*!*********************************************************************
 \file   SceneHeirachy.cpp 
 \author w.chinkitbryam\@digipen.edu
 \date   13 October 2023
 \brief  
   Defines the behaviour and logic for the scene heirachy dock
-********************************************************************/
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "SceneHierachy.h"
 #include <ImGui/imgui.h>

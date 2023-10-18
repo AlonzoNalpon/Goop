@@ -1,10 +1,12 @@
-/*!******************************************************************
+/*!*********************************************************************
 \file   ImGuiUI.cpp
 \author w.chinkitbryam\@digipen.edu
 \date   28 September 2023
 \brief
   ImGui Editor UI Wrapper
-********************************************************************/
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 
 //#define RUN_IMGUI_DEMO  // Uncomment to replace imgui window with demo
