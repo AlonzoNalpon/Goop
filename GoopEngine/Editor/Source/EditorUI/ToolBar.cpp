@@ -1,10 +1,12 @@
-/*!******************************************************************
+/*!*********************************************************************
 \file   ToolBar.cpp 
 \author w.chinkitbryam\@digipen.edu
 \date   13 October 2023
 \brief  
   Defines tool bar behaviour and logic for the EditorGUI
-********************************************************************/
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "ToolBar.h"
 #include <ImGui/imgui.h>

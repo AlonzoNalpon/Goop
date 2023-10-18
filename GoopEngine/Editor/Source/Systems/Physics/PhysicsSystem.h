@@ -23,7 +23,7 @@ namespace GE
 			\brief
 				Updates velocity with respect to delta time.
 			************************************************************************/
-			void Update();
+			void FixedUpdate();
 		};
 	}
 }

@@ -106,9 +106,9 @@ void Visualizer::UpdateGraph()
 
   if (m_graphType == GRAPH_TYPE::HISTOGRAM)
   {
-    const char* averageStr{ ("Average: " + std::to_string(m_totalSystemTime / static_cast<float>(m_systemTimers.size())) + "us").c_str() };
+    std::string const averageStr{ "Average: " + std::to_string(m_totalSystemTime / static_cast<float>(m_systemTimers.size())) + "us" };
     ImGui::PlotHistogram("##PerformanceHistogram", m_systemTimers.data(), static_cast<int>(m_systemTimers.size()), 
-      0, averageStr, 0.f, m_maxGraphHeight, ImVec2(graphWidth, graphHeight));
+      0, averageStr.c_str(), 0.f, m_maxGraphHeight, ImVec2(graphWidth, graphHeight));
     
     // convert coords from histogram to window
     ImVec2 const rectMin{ GetItemRectMin() };
@@ -177,7 +177,7 @@ void Visualizer::UpdateSettings()
   }
 
   ImGui::Text("No. of Frames per Update");
-  ImGui::SliderInt("##FramesPerUpdateSlider", &m_framesPerUpdate, 1, 600);
+  ImGui::SliderInt("##FramesPerUpdateSlider", &m_framesPerUpdate, 1, 300);
 
   if (m_graphType == GRAPH_TYPE::HISTOGRAM)
   {
@@ -194,12 +194,12 @@ void Visualizer::UpdateFPSTab()
   ImGui::SetColumnWidth(1, GetWindowWidth() - graphWidth);
 
   const float sum{ std::accumulate(m_fpsHistory.begin(), m_fpsHistory.end(), 0.f) };
-  const char* averageStr{ ("Average: " + std::to_string(sum / static_cast<float>(m_fpsHistory.size()))).c_str()};
+  std::string const averageStr{ "Average: " + std::to_string(sum / static_cast<float>(m_fpsHistory.size())) };
 
   ImGui::Text("FPS Chart");
   ImGui::SameLine();
   ImGui::PlotLines("##FPSChart", m_fpsHistory.data(), m_fpsMaxCount,
-    0, averageStr, 0.f, static_cast<float>(FPS::FrameRateController::GetInstance().GetTargetFPS()) + 10.f, ImVec2(GetColumnWidth(), GetWindowHeight() * 0.7f));
+    0, averageStr.c_str(), 0.f, static_cast<float>(FPS::FrameRateController::GetInstance().GetTargetFPS()) + 10.f, ImVec2(GetColumnWidth(), GetWindowHeight() * 0.7f));
 
   ImGui::NextColumn();
 

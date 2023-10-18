@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   AppController.cpp
+\author loh.j@digipen.edu
+\date   18-September-2023
+\brief
+  The AppController class is the main controller for running the
+  application.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <AppController/AppController.h>
 #include <EditorUI/DataViz/Visualizer.h>
@@ -6,7 +16,13 @@ using namespace GE::ECS;
 
 namespace GE::Application
 {
-  AppController::AppController() : window{ 0, 0, nullptr }, imgui{} {}
+  AppController::AppController() :
+    window{ 0, 0, nullptr },
+    imgui{},
+    gEngine{ Graphics::GraphicsEngine::GetInstance() },
+    fRC{ GE::FPS::FrameRateController::GetInstance() },
+    im{ &GE::Input::InputManager::GetInstance() } 
+  {}
   
   void AppController::Init()
   {
@@ -20,8 +36,6 @@ namespace GE::Application
       of.Init();
       GE::Events::EventManager::GetInstance().SubscribeAllListeners();
 
-      GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
-      Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };     // my graphics engine
       fRC.InitFrameRateController(*am->GetConfigData<int>("FPS Limit"), *am->GetConfigData<int>("Steps Per Second"), *am->GetConfigData<int>("FPS Check Interval"));
 
       window = { *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), "GOOP" };
@@ -32,9 +46,7 @@ namespace GE::Application
       gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
 
       am->LoadFiles();
-      am->FreeImages(); // cleanup the images
       of.ObjectFactoryTest();
-      GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
       im->InitInputManager(window.GetWindow(), *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), 0.1);
 
       GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
@@ -54,10 +66,6 @@ namespace GE::Application
   {
     try
     {
-      GE::FPS::FrameRateController& fRC{ GE::FPS::FrameRateController::GetInstance() };
-      GE::Input::InputManager* im = &(GE::Input::InputManager::GetInstance());
-      Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
-
       scn.Start();
 
       while (!window.GetWindowShouldClose())

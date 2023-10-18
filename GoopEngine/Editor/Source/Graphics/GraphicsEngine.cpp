@@ -69,8 +69,10 @@ namespace {
     // Initialize font manager
     m_fontManager.Init();
 #pragma region SHADER_MDL_INIT
-
-
+    auto shaderPathOpt = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("ShaderPath");
+    if (!shaderPathOpt) {
+      throw 1; // lmao
+    }
     m_spriteQuadMdl = GenerateQuad();
     m_lineMdl       = GenerateLine();
     ShaderInitCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"}};
@@ -291,6 +293,16 @@ namespace {
   gObjID GraphicsEngine::GetModel()
   {
     return gObjID{};
+  }
+
+  GLint GraphicsEngine::GetVPWidth()
+  {
+    return m_vpWidth;
+  }
+
+  GLint GraphicsEngine::GetVPHeight()
+  {
+    return m_vpHeight;
   }
 
   void GraphicsEngine::DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr)

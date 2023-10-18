@@ -6,6 +6,8 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/quaternion.hpp> // For quaternion rotations
 #include <gtc/type_ptr.hpp>
+#include <algorithm>
+#include <functional>
 namespace
 {
   enum
@@ -35,6 +37,7 @@ namespace Graphics::Rendering {
 
   void Renderer::Draw()
   {
+    std::sort(m_renderCalls.begin(), m_renderCalls.end(), DepthComp());
     glm::mat4 camViewProj{ m_camera.ViewProjMtx() };
     // Draw
     for (auto const& obj : m_renderCalls)

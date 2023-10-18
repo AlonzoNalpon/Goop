@@ -8,13 +8,13 @@ using namespace ECS;
 using namespace Systems;
 using namespace Component;
 
-void PhysicsSystem::Update()
+void PhysicsSystem::FixedUpdate()
 {
-	auto& inputMan{ Input::InputManager::GetInstance() };
+	/*auto& inputMan{ Input::InputManager::GetInstance() };
 	if (!(inputMan.IsKeyHeld(GPK_SPACE) || inputMan.IsKeyTriggered(GPK_SPACE)))
-		return;
+		return;*/
 	//update func passes curr entity
-	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
+	double dt = GE::FPS::FrameRateController::GetInstance().GetFixedDeltaTime();
 	for (Entity entity : GetUpdatableEntities()) {
 		//testing acceleration
 		Velocity* vel = m_ecs->GetComponent<Velocity>(entity);
@@ -46,11 +46,12 @@ void PhysicsSystem::Update()
 			vel->m_sumMagnitude += vel->m_dragForce.m_magnitude;
 		}
 
+		if (vel->m_mass == 0) {
+			std::string message = "Dividing by 0: " + m_ecs->GetEntityName(entity) + " has mass of 0";
+			throw Debug::Exception<PhysicsSystem>(Debug::LEVEL_ERROR, ErrMsg(message));
+		}
 		vel->m_acc = vel->m_sumMagnitude * (1 / vel->m_mass);
 		vel->m_vel += dt * vel->m_acc;
 		pos->m_pos += dt * vel->m_vel;
-
-		/*vel->m_vel += dt * (updateVel->m_acc + getGravity->m_gravity);
-		updatePos->m_pos += dt * updateVel->m_vel;*/
 	}
 }

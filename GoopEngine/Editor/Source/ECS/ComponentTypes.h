@@ -1,4 +1,4 @@
-/*!******************************************************************
+/*!*********************************************************************
 \file   ComponentTypes.h 
 \author w.chinkitbryam\@digipen.edu
 \date   19 September 2023
@@ -7,7 +7,7 @@
 	the engine.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
-********************************************************************/
+************************************************************************/
 #pragma once
 #include <map>
 #include <unordered_map>
