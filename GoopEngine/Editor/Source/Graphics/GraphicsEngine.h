@@ -113,6 +113,9 @@ namespace Graphics {
       
     ************************************************************************/
     gObjID GetModel();
+
+    GLint GetVPWidth();
+    GLint GetVPHeight();
   public: // DRAW PRIMITIVE METHODS
     /*!*********************************************************************
     \brief Draws a line in world coordinates (0,0 is center of screen)
@@ -129,8 +132,6 @@ namespace Graphics {
     GLint m_vpWidth, m_vpHeight; //!< dimensions of viewport
     GLfloat m_ar; //!< aspect ratio
 
-    GLint GetVPWidth();
-    GLint GetVPHeight();
 
 
     /*!*********************************************************************

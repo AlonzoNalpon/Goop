@@ -295,6 +295,16 @@ namespace {
     return gObjID{};
   }
 
+  GLint GraphicsEngine::GetVPWidth()
+  {
+    return m_vpWidth;
+  }
+
+  GLint GraphicsEngine::GetVPHeight()
+  {
+    return m_vpHeight;
+  }
+
   void GraphicsEngine::DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr)
   {
 
@@ -320,16 +330,6 @@ namespace {
     glDrawArrays(GL_LINES, 0, 2);
     glBindVertexArray(0);
     glUseProgram(0);
-  }
-
-  GLint GraphicsEngine::GetVPWidth()
-  {
-      return m_vpWidth;
-  }
-
-  GLint GraphicsEngine::GetVPHeight()
-  {
-    return m_vpHeight;
   }
 
 }
