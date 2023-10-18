@@ -126,8 +126,16 @@ namespace Graphics {
     static void DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr = {1, 0, 0});
 
   protected:
-    GLint m_vpWidth, m_vpHeight; //!< dimensions of viewport
+
+    GLuint m_gbuffer; //!< g buffer for deferred rendering
+    GLuint m_framebuffer; //!< framebuffer for final image
+
+    GLint m_vpWidth;  //!< width of viewport
+    GLint m_vpHeight; //!< height of viewport
     GLfloat m_ar; //!< aspect ratio
+
+    void InitDeferred();
+    void ClearGBuffer();
 
     /*!*********************************************************************
     \brief

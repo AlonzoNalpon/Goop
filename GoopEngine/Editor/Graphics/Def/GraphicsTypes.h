@@ -82,15 +82,19 @@ namespace Graphics {
    * \brief  
    * the struct for vertex attribute arrays in SOA format.
    */
-  template <typename Vector3, typename Color3, typename UV2, template <typename> class Cont>
+  template <typename Vector3, typename Color3, typename Normal3, typename UV2, template <typename> class Cont>
   struct T_GL_Data_Layout {
+    using size_type = GLsizeiptr;
     Cont<Vector3>   pos_vtx;
     Cont<Color3>    clr_vtx;
+    Cont<Normal3>   nml_vtx;
     Cont<UV2>       tex_vtx;
     T_GL_Data_Layout(std::initializer_list<Vector3> pos_data, 
                      std::initializer_list<Color3> clr_data, 
+                     std::initializer_list<Normal3> nml_data,
                      std::initializer_list<UV2> tex_data):
-       pos_vtx{ pos_data }, clr_vtx{ clr_data }, tex_vtx{ tex_data }{}
+      pos_vtx{ pos_data }, clr_vtx{ clr_data }, nml_vtx{nml_data}, tex_vtx { tex_data } 
+    {}
 
     /*!*********************************************************************
     \brief
@@ -99,7 +103,7 @@ namespace Graphics {
     \return
       
     ************************************************************************/
-    static constexpr GLsizeiptr PosTypeSize() {
+    static constexpr size_type PosTypeSize() {
       return sizeof(Vector3);
     }
     /*!*********************************************************************
@@ -109,9 +113,21 @@ namespace Graphics {
     \return
       
     ************************************************************************/
-    static constexpr GLsizeiptr ClrTypeSize() {
+    static constexpr size_type ClrTypeSize() {
       return sizeof(Color3);
     }
+
+    /*!*********************************************************************
+    \brief
+      Get the size of each normal vertex.
+    \params
+    \return
+      
+    ************************************************************************/
+    static constexpr size_type NmlTypeSize() {
+      return sizeof(Normal3);
+    }
+
     /*!*********************************************************************
     \brief
       Get the size of each tex vertex.
@@ -119,7 +135,7 @@ namespace Graphics {
     \return
       
     ************************************************************************/
-    static constexpr GLsizeiptr TexTypeSize() {
+    static constexpr size_type TexTypeSize() {
       return sizeof(UV2);
     }
 
@@ -130,9 +146,9 @@ namespace Graphics {
     \return the total size of pos
       
     ************************************************************************/
-    GLsizeiptr PosDataSize() const
+    size_type PosDataSize() const
     {
-      return static_cast<GLsizeiptr>(pos_vtx.size() * PosTypeSize());
+      return static_cast<size_type>(pos_vtx.size() * PosTypeSize());
     }
 
     /*!*********************************************************************
@@ -142,9 +158,21 @@ namespace Graphics {
     \return the total size of clr
       
     ************************************************************************/
-    GLsizeiptr ClrDataSize() const
+    size_type ClrDataSize() const
     {
-      return static_cast<GLsizeiptr>(clr_vtx.size() * ClrTypeSize());
+      return static_cast<size_type>(clr_vtx.size() * ClrTypeSize());
+    }
+
+    /*!*********************************************************************
+    \brief
+      Return the total size of nml vertices in bytes.
+    \params
+    \return
+      
+    ************************************************************************/
+    size_type NmlDataSize() const
+    {
+      return static_cast<size_type>(nml_vtx.size() * NmlTypeSize());
     }
 
     /*!*********************************************************************
@@ -154,9 +182,9 @@ namespace Graphics {
     \return the total size of tex
       
     ************************************************************************/
-    GLsizeiptr TexDataSize() const
+    size_type TexDataSize() const
     {
-      return static_cast<GLsizeiptr>(tex_vtx.size() * TexTypeSize());
+      return static_cast<size_type>(tex_vtx.size() * TexTypeSize());
     }
     
     /*!*********************************************************************
@@ -166,10 +194,16 @@ namespace Graphics {
     \return the total size of all attributes
       
     ************************************************************************/
-    GLsizeiptr DataSize() const
+    size_type DataSize() const
     {
-      return  PosDataSize() + ClrDataSize() + TexDataSize();
+      return  PosDataSize() + ClrDataSize() + NmlDataSize() + TexDataSize();
     }
+  };
+
+  template <typename T>
+  struct T_DeferredShdrs {
+    T gPassShader;
+    T dPassShader;
   };
 
   /*!
@@ -191,13 +225,17 @@ namespace Graphics {
   using gDvec2 = glm::dvec2;  //!< glm dvector2
   using gIvec2 = glm::ivec2;  //!< glm ivector2
 
-  using gObjID = size_t; //!< This is a type indicating ID of a specific object (not guaranteed to be identical to their OpenGL ID)
+  using gObjID      = size_t; //!< This is a type indicating ID of a specific object (not guaranteed to be identical to their OpenGL ID)
 #pragma endregion // END TEMPLATES REGION
-  using Colorf    = T_Colorf<f32>; //!< color structure for single-precision floating point rgba values
-  using Rect      = T_Rect<GLint>; //!< rect structure to be measured in pixels
+  using Colorf        = T_Colorf<f32>; //!< color structure for single-precision floating point rgba values
+  using Rect          = T_Rect<GLint>; //!< rect structure to be measured in pixels
 
   // GL_Data contains attribute data for transfer. Thus, it should use single precision floats
-  using GL_Data   = T_GL_Data_Layout<gVec3, Colorf, gVec2, std::vector>; //!< our most common GL data type for shader attributes
+  // position, color, texcoordinates
+  using GL_Data       = T_GL_Data_Layout<gVec3, Colorf, gVec3, gVec2, std::vector>; //!< our most common GL data type for shader attributes
+
+  // For deferred rendering, multiple passes are required. The type for the shader program handles would be GLuint
+  using Render_Shdrs = T_DeferredShdrs<GLuint>;
 
   constexpr gObjID BAD_OBJ_ID{ static_cast<gObjID>(-1) }; // Our bad obj id will be the biggest number possible
 }

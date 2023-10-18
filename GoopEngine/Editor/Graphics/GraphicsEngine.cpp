@@ -55,16 +55,8 @@ namespace {
     m_vpWidth = w;
     m_vpHeight = h;
     m_ar = static_cast<GLfloat>(m_vpWidth) / m_vpHeight;
-    //Initialize renderer with a camera
-    {
-      Rendering::Camera orthoCam{ {0.f,0.f,3.f},                          // pos
-                                  {},                                     // target
-                                  {.0f, 1.f, 0.f},                        // up vector
-                                  -w*0.5f, w*0.5f, -h * 0.5f, h * 0.5f,   // left right bottom top
-                                  0.1f, 10.f };                           // near and far z planes
-      m_renderer.Init(orthoCam);
-    }
-
+    InitDeferred();
+    
     // Initialize font manager
     m_fontManager.Init();
 #pragma region SHADER_MDL_INIT
@@ -74,10 +66,27 @@ namespace {
     m_lineMdl       = GenerateLine();
     ShaderInitCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"}};
     ShaderInitCont debugLineShaders{ { GL_VERTEX_SHADER, "debug_line.vert" }, {GL_FRAGMENT_SHADER, "debug_line.frag"} };
+    ShaderInitCont geometryPassShaders{ {GL_VERTEX_SHADER, "geometry.vert"}, 
+      {GL_FRAGMENT_SHADER, "geometry.frag"}};
+    ShaderInitCont deferredPassShaders{ {GL_FRAGMENT_SHADER, "deferred.frag"} };
 
-    m_spriteQuadMdl.shader = CreateShader(spriteShaders, "sprite");
+
+    //m_spriteQuadMdl.shader = CreateShader(spriteShaders, "sprite");
     // Adding the basic shader for rendering lines etc...
-    m_lineMdl.shader       = CreateShader(debugLineShaders, "debug_line");
+    m_lineMdl.shader       = CreateShader(debugLineShaders,    "debug_line");
+    m_spriteQuadMdl.shader = CreateShader(geometryPassShaders, "geometry_pass");
+    GLuint deferredShader  = CreateShader(deferredPassShaders, "deferred_pass");
+
+    //Initialize renderer with a camera
+    {
+      Rendering::Camera orthoCam{ {0.f,0.f,3.f},                          // pos
+                                  {},                                     // target
+                                  {.0f, 1.f, 0.f},                        // up vector
+                                  -w*0.5f, w*0.5f, -h * 0.5f, h * 0.5f,   // left right bottom top
+                                  0.1f, 10.f };                           // near and far z planes
+      m_renderer.Init(orthoCam, deferredShader);
+    }
+
     m_models.emplace_back(m_spriteQuadMdl);
     m_models.emplace_back(m_lineMdl);
 #pragma endregion
@@ -117,6 +126,45 @@ namespace {
     m_renderer.Draw();
   }
 
+  void GraphicsEngine::InitDeferred()
+  {
+    glCreateFramebuffers(1, &m_gbuffer); // G buffer creation
+    glCreateFramebuffers(1, &m_framebuffer); // frame buffer creation
+    GLuint m_posTexture{};
+    GLuint m_normalTexture{};
+    GLuint m_albedoTexture{};
+    constexpr int INTERNAL_FMT{ GL_RGBA16F };
+    glCreateTextures(GL_TEXTURE_2D, 1, &m_posTexture); // create texture POSITION
+    glTextureStorage2D(m_posTexture, 1, INTERNAL_FMT, m_vpWidth, m_vpHeight); // allocate texture memory
+
+    glCreateTextures(GL_TEXTURE_2D, 1, &m_albedoTexture); // create texture ALBEDO
+    glTextureStorage2D(m_albedoTexture, 1, INTERNAL_FMT, m_vpWidth, m_vpHeight); // allocate texture memory
+
+    glCreateTextures(GL_TEXTURE_2D, 1, &m_normalTexture); // create texture NORMAL
+    glTextureStorage2D(m_normalTexture, 1, INTERNAL_FMT, m_vpWidth, m_vpHeight); // allocate texture memory
+
+    // Attaching the 3 textures to g buffer
+    glNamedFramebufferTexture(m_gbuffer, GL_COLOR_ATTACHMENT0, m_posTexture, 0);
+    glNamedFramebufferTexture(m_gbuffer, GL_COLOR_ATTACHMENT1, m_albedoTexture, 0);
+    glNamedFramebufferTexture(m_gbuffer, GL_COLOR_ATTACHMENT2, m_normalTexture, 0);
+
+    GLenum attachments[3] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
+    glNamedFramebufferDrawBuffers(m_gbuffer, 3, attachments); // these 3 attachments to be used for rendering
+
+#pragma region COMPLETENESS_TEST
+    if (glCheckNamedFramebufferStatus(m_gbuffer, GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
+    {
+      // Handle the framebuffer completeness error.
+      throw GE::Debug::Exception<GraphicsEngine>(GE::Debug::LEVEL_CRITICAL, ErrMsg("G buffer failed completeness test!"));
+    }
+    if (glCheckNamedFramebufferStatus(m_framebuffer, GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
+    {
+      // Handle the framebuffer completeness error.
+      throw GE::Debug::Exception<GraphicsEngine>(GE::Debug::LEVEL_CRITICAL, ErrMsg("framebuffer failed completeness test!"));
+    }
+#pragma endregion
+  }
+
   Model GraphicsEngine::GenerateQuad()
   {
     Model retval{};
@@ -126,6 +174,7 @@ namespace {
     {
       {{ -0.5, -0.5, .0 }, { 0.5, -0.5, .0 },  { -0.5, 0.5, .0}, { 0.5, 0.5, .0 }}, // the position data of a quad
       { WHITE,          WHITE,          WHITE,        WHITE },                      // the color data of the quad
+      { { 0.0, 0.0, 1.0 }, { 0.0, 0.0, 1.0 }, { 0.0, 0.0, 1.0 }, { 0.0, 0.0, 1.0 }},// the normal data of the quad
       { {0.f, 0.f},     {1.f, 0.f},     {0.f, 1.f},   {1.f, 1.f} },                 // the texture data of the quad
     };
 
@@ -141,7 +190,10 @@ namespace {
     data_offset += data.PosDataSize(); // add the offset of the position vtx size
     // Color data ...
     glNamedBufferSubData(vbo_hdl, data_offset, data.ClrDataSize(), data.clr_vtx.data());
-    data_offset += data.ClrDataSize(); // add the offset of the position vtx size
+    data_offset += data.ClrDataSize(); // add the offset of the color vtx size
+    // Normal data ...
+    glNamedBufferSubData(vbo_hdl, data_offset, data.NmlDataSize(), data.nml_vtx.data());
+    data_offset += data.NmlDataSize(); // add the offset for the normal vtx size
     // Tex data ...
     glNamedBufferSubData(vbo_hdl, data_offset, data.TexDataSize(), data.tex_vtx.data());
 
@@ -163,11 +215,18 @@ namespace {
     glVertexArrayAttribBinding(vaoid, 1, 1); // attrib idx 1: binding idx 1
     data_offset += data.ClrDataSize(); // add the size of all color vertices
 
-    // Texture data   LAYOUT LOCATION: 2
-    glEnableVertexArrayAttrib(vaoid, 2); // attrib 2 for tex coordinates
-    glVertexArrayVertexBuffer(vaoid, 2, vbo_hdl, data_offset, static_cast<GLsizei>(data.TexTypeSize()));
-    glVertexArrayAttribFormat(vaoid, 2, 2, GL_FLOAT, GL_FALSE, 0); // 2 values of type: float not normalized
+    // Normal data    LAYOUT LOCATION: 2
+    glEnableVertexArrayAttrib(vaoid, 2); // attrib 2 for normal
+    glVertexArrayVertexBuffer(vaoid, 2, vbo_hdl, data_offset, static_cast<GLsizei>(data.NmlTypeSize()));
+    glVertexArrayAttribFormat(vaoid, 2, 3, GL_FLOAT, GL_FALSE, 0); // 3 values of type: float not normalized
     glVertexArrayAttribBinding(vaoid, 2, 2); // attrib idx 2: binding idx 2
+    data_offset += data.NmlDataSize();
+
+    // Texture data   LAYOUT LOCATION: 3
+    glEnableVertexArrayAttrib(vaoid, 3); // attrib 3 for tex coordinates
+    glVertexArrayVertexBuffer(vaoid, 3, vbo_hdl, data_offset, static_cast<GLsizei>(data.TexTypeSize()));
+    glVertexArrayAttribFormat(vaoid, 3, 2, GL_FLOAT, GL_FALSE, 0); // 2 values of type: float not normalized
+    glVertexArrayAttribBinding(vaoid, 3, 3); // attrib idx 3: binding idx 3
 
     // We won't be using indices for the quad ...
     glBindVertexArray(0); // All done. Unbind vertex array
@@ -187,7 +246,8 @@ namespace {
     GL_Data data
     {
       {{ -0.5, 0.f, .0 }, { 0.5, 0.f, .0 }}, // the position data of a quad
-      { WHITE,          WHITE},                      // the color data of the quad
+      { WHITE,          WHITE},              // the color data of the quad
+      {},                                    // normal data
       {}
     };
 

@@ -33,7 +33,7 @@ namespace Graphics::Rendering
 
     
     Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, ShaderCont const& shaderCont
-    , Fonts::FontManager const& fontManager);
+    , Fonts::FontManager const& fontManager, GLuint gbuffer, GLuint framebuffer);
 
     /*!*********************************************************************
     \brief
@@ -44,7 +44,7 @@ namespace Graphics::Rendering
       renderCallSize the size of the container for render calls
     \return
     ************************************************************************/
-    void Init(Camera const& camera, size_t renderCallSize = 2048);
+    void Init(Camera const& camera, GLuint deferredShdr, size_t renderCallSize = 2048);
 
     /*!*********************************************************************
     \brief
@@ -90,11 +90,15 @@ namespace Graphics::Rendering
     std::vector<RenderData> m_renderCalls;
 
     Camera                              m_camera;   //!< camera for rendering
+    GLuint                              m_deferredShdr; //!< deferred shader for passing onto final framebuffer
 
     std::vector<Model> const&           r_mdlContainer; //!< reference to the model container
     TextureManager const&               r_texManager;   //!< reference to the texture manager
     ShaderCont const&                   r_shaders;      //!< reference to the shader container
     Fonts::FontManager const&           r_fontManager;  //!< reference to the font manager
+
+    GLuint const&                       r_gbuffer;
+    GLuint const&                       r_framebuffer;
   };
 }
 #endif
