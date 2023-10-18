@@ -102,18 +102,10 @@ void ImGuiUI::Update()
   }
   End();
 
+  
   if (Visualizer::IsPerformanceShown())
   {
-    Visualizer::UpdatePerformanceTab();
-  }
-
-  if (Visualizer::IsMemoryShown())
-  {
-    ImGui::Begin("Memory Monitor");
-
-    //ImGui::PlotLines()
-
-    ImGui::End();
+    Visualizer::UpdatePerformanceTab("Performance Visualizer");
   }
 
 #ifdef _DEBUG

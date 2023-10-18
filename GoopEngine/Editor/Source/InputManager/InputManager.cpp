@@ -105,7 +105,6 @@ void InputManager::DispatchInputEvents()
 	{
 		eventMan.Dispatch(MouseReleasedEvent(GPK_MOUSE_LEFT));
 	}
-	//CheckAndDispatch<KeyTriggeredEvent>(GPK_G);
 
 	if (IsKeyHeld(GPK_H))
 	{

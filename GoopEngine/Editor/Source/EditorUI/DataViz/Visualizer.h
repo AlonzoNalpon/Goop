@@ -20,16 +20,15 @@ namespace GE
     public:
       //static void Init();
       static void UpdateSystemTimes();
-      static void UpdatePerformanceTab();
+      static void UpdatePerformanceTab(const char* tabName);
+      //static void UpdateMemoryTab(const char* tabName);
 
       static inline void TogglePerformanceTab() noexcept { m_performanceTabActive = !m_performanceTabActive; }
-      static inline void ToggleMemoryTab() noexcept { m_memoryTabActive = !m_memoryTabActive; }
+      //static inline void ToggleMemoryTab() noexcept { m_memoryTabActive = !m_memoryTabActive; }
       
       // Getters
       static inline bool IsPerformanceShown() noexcept { return m_performanceTabActive; }
-      static inline bool IsMemoryShown() noexcept { return m_memoryTabActive; }
-      //static inline std::vector<const char*> const& GetSystemNames() noexcept { return m_systemsToGraph; }
-      //static inline std::vector<float> const& GetSystemTimers() noexcept { return m_systemTimers; }
+      //static inline bool IsMemoryShown() noexcept { return m_memoryTabActive; }
 
     private:
       static void UpdateGraph();
@@ -49,7 +48,7 @@ namespace GE
       static float m_maxGraphHeight, m_totalSystemTime;
       static float m_timePerUpdate;
       static bool m_performanceTabActive;
-      static bool m_memoryTabActive;
+      //static bool m_memoryTabActive;
     };
 
   } // namespace EditorGUI

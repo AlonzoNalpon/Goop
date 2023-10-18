@@ -59,10 +59,11 @@ void GE::EditorGUI::ToolBar::CreateContent()
       {
         Visualizer::TogglePerformanceTab();
       }
+      /* Guess we dont need this for now?
       if (ImGui::MenuItem("Memory Monitor", nullptr, Visualizer::IsMemoryShown()))
       {
         Visualizer::ToggleMemoryTab();
-      }
+      }*/
       ImGui::EndMenu();
     }
 

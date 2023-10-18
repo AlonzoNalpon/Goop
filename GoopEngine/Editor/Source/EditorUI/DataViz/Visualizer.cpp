@@ -1,19 +1,21 @@
 #include <pch.h>
 #include "Visualizer.h"
 #include <ImGui/imgui.h>
+#include <MemoryManager/MemoryManager.h>
+#include <numeric>
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
 using namespace ImGui;
 
 const float Visualizer::GraphColWidthPercentage{ 0.75f }, 
-            Visualizer::GraphRowHeightPercentage{ 0.7f };
+            Visualizer::GraphRowHeightPercentage{ 0.55f };
 
 int Visualizer::m_graphType{ static_cast<int>(GRAPH_TYPE::HISTOGRAM) };
 int Visualizer::m_framesPerUpdate{ 5 }, Visualizer::m_fpsMaxCount{ 10 };
 float Visualizer::m_maxGraphHeight{ 2000.f }, Visualizer::m_totalSystemTime{};
 float Visualizer::m_timePerUpdate{ 0.5f };
-bool Visualizer::m_performanceTabActive{ true }, Visualizer::m_memoryTabActive{ true };
+bool Visualizer::m_performanceTabActive{ true };// , Visualizer::m_memoryTabActive{ true };
 std::vector<const char*> Visualizer::m_systemsToGraph;
 std::vector<float> Visualizer::m_systemTimers;
 std::vector<float> Visualizer::m_fpsHistory(Visualizer::m_fpsMaxCount, 0.f);
@@ -32,8 +34,11 @@ void Visualizer::UpdateSystemTimes()
   if (framesElapsed >= m_framesPerUpdate)
   {
     std::map<std::string, FPS::FrameRateController::timeFormat> const& timers{ fRC.GetSystemTimers() };
+    // clear and reset maps if size changes
     if (m_systemsToGraph.size() != timers.size())
     {
+      m_systemsToGraph.clear();
+      m_systemTimers.clear();
       m_systemsToGraph.resize(timers.size());
       m_systemTimers.resize(timers.size());
     }
@@ -63,9 +68,9 @@ void Visualizer::UpdateSystemTimes()
   timeElapsed += fRC.GetDeltaTime();
 }
 
-void Visualizer::UpdatePerformanceTab()
+void Visualizer::UpdatePerformanceTab(const char* tabName)
 {
-  ImGui::Begin("Performance Visualizer");
+  ImGui::Begin(tabName);
 
   float const graphWidth{ GetWindowWidth() * GraphColWidthPercentage },
     graphHeight{ GetWindowHeight() * GraphRowHeightPercentage };
@@ -86,7 +91,11 @@ void Visualizer::UpdatePerformanceTab()
   ImGui::EndChild();
   ImGui::Columns(1);
   ImGui::Separator();
-  UpdateFPSTab();
+  ImGui::BeginChild("FPS", ImVec2(GetWindowWidth(), GetWindowHeight() - graphHeight), false, ImGuiWindowFlags_NoResize);
+  {
+    UpdateFPSTab();
+  }
+  ImGui::EndChild();
   ImGui::End();
 }
 
@@ -97,8 +106,9 @@ void Visualizer::UpdateGraph()
 
   if (m_graphType == GRAPH_TYPE::HISTOGRAM)
   {
+    const char* averageStr{ ("Average: " + std::to_string(m_totalSystemTime / static_cast<float>(m_systemTimers.size())) + "us").c_str() };
     ImGui::PlotHistogram("##PerformanceHistogram", m_systemTimers.data(), static_cast<int>(m_systemTimers.size()), 
-      0, nullptr, 0.f, m_maxGraphHeight, ImVec2(graphWidth, graphHeight));
+      0, averageStr, 0.f, m_maxGraphHeight, ImVec2(graphWidth, graphHeight));
     
     // convert coords from histogram to window
     ImVec2 const rectMin{ GetItemRectMin() };
@@ -174,8 +184,6 @@ void Visualizer::UpdateSettings()
     ImGui::Text("Graph Max Height");
     ImGui::SliderFloat("##GraphMaxHeightSlider", &m_maxGraphHeight, 1000.0f, 2500.0f);
   }
-
-  ImGui::Text("Average Time Taken: %.fus", m_totalSystemTime / static_cast<float>(m_systemTimers.size()));
 }
 
 void Visualizer::UpdateFPSTab()
@@ -185,11 +193,14 @@ void Visualizer::UpdateFPSTab()
   ImGui::SetColumnWidth(0, graphWidth);
   ImGui::SetColumnWidth(1, GetWindowWidth() - graphWidth);
 
+  const float sum{ std::accumulate(m_fpsHistory.begin(), m_fpsHistory.end(), 0.f) };
+  const char* averageStr{ ("Average: " + std::to_string(sum / static_cast<float>(m_fpsHistory.size()))).c_str()};
+
   ImGui::Text("FPS Chart");
   ImGui::SameLine();
   ImGui::PlotLines("##FPSChart", m_fpsHistory.data(), m_fpsMaxCount,
-    0, nullptr, 0.f, static_cast<float>(FPS::FrameRateController::GetInstance().GetTargetFPS()) + 10.f, ImVec2(GetColumnWidth(), GetWindowHeight() * (1.f - GraphRowHeightPercentage)));
-  
+    0, averageStr, 0.f, static_cast<float>(FPS::FrameRateController::GetInstance().GetTargetFPS()) + 10.f, ImVec2(GetColumnWidth(), GetWindowHeight() * 0.7f));
+
   ImGui::NextColumn();
 
   ImGui::Text("Time per Update");
@@ -208,6 +219,15 @@ void Visualizer::UpdateFPSTab()
     }
   }
 }
+
+//void Visualizer::UpdateMemoryTab(const char* tabName)
+//{
+//  Memory::MemoryManager::GetInstance().
+//
+//  ImGui::Begin(tabName);
+//  ImGui::ProgressBar()
+//  ImGui::End();
+//}
 
 bool GE::EditorGUI::DataViz::operator==(int lhs, GRAPH_TYPE rhs)
 {

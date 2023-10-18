@@ -36,12 +36,7 @@ namespace GE
     class Event
     {
     public:
-      Event(EVENT_TYPE type) : m_category{ type }
-      {
-        #ifdef _DEBUG
-        std::cout << "Dispatched " + GetName() + " event\n";
-        #endif
-      }
+      Event(EVENT_TYPE type) : m_category{ type } {}
       
       /*!*********************************************************************
       \brief
