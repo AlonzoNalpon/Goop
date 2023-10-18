@@ -50,13 +50,8 @@ void PhysicsSystem::FixedUpdate()
 			std::string message = "Dividing by 0: " + m_ecs->GetEntityName(entity) + " has mass of 0";
 			throw Debug::Exception<PhysicsSystem>(Debug::LEVEL_ERROR, ErrMsg(message));
 		}
-
-		std::cout << "Curr Pos: " << pos->m_pos << std::endl;
-
 		vel->m_acc = vel->m_sumMagnitude * (1 / vel->m_mass);
 		vel->m_vel += dt * vel->m_acc;
 		pos->m_pos += dt * vel->m_vel;
-		/*vel->m_vel += dt * (updateVel->m_acc + getGravity->m_gravity);
-		updatePos->m_pos += dt * updateVel->m_vel;*/
 	}
 }
