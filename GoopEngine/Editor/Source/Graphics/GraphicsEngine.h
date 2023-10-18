@@ -129,6 +129,10 @@ namespace Graphics {
     GLint m_vpWidth, m_vpHeight; //!< dimensions of viewport
     GLfloat m_ar; //!< aspect ratio
 
+    GLint GetVPWidth();
+    GLint GetVPHeight();
+
+
     /*!*********************************************************************
     \brief
       Generates a quad with pos, color and texture coordinate attributes

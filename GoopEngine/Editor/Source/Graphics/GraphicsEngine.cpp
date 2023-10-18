@@ -322,4 +322,14 @@ namespace {
     glUseProgram(0);
   }
 
+  GLint GraphicsEngine::GetVPWidth()
+  {
+      return m_vpWidth;
+  }
+
+  GLint GraphicsEngine::GetVPHeight()
+  {
+    return m_vpHeight;
+  }
+
 }
