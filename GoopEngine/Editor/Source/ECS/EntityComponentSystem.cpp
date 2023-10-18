@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   EntityComponentSystem.cpp
+\author w.chinkitbryan\@digipen.edu
+\date   9-September-2023
+\brief  
+  Main coordinator and interface for all the Entity Component System's 
+	sub system managers.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "EntityComponentSystem.h"
 #include "../AssetManager/AssetManager.h"

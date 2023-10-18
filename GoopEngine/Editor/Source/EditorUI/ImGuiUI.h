@@ -1,10 +1,12 @@
-/*!******************************************************************
+/*!*********************************************************************
 \file   ImGuiUI.h 
 \author w.chinkitbryam\@digipen.edu
 \date   24 September 2023
 \brief  
   ImGui Editor UI Wrapper
-********************************************************************/
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include <ECS/EntityComponentSystem.h>
 #include <Window/Window.h>

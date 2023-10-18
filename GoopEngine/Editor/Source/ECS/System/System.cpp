@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   System.cpp
+\author w.chinkitbryan\@digipen.edu
+\date   9-September-2023
+\brief  
+  System base class. This should be inherited by all systems, where the
+	functions will be called by the ECS.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "System.h"
 #include "../EntityComponentSystem.h"

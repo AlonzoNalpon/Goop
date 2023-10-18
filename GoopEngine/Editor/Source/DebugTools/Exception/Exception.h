@@ -1,10 +1,12 @@
-/*!******************************************************************
+/*!*********************************************************************
 \file   Exception.h
 \author w.chinkitbryam\@digipen.edu
 \date   17 September 2023
 \brief
   Custom exception class with spdlog integration.
-********************************************************************/
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 
 #pragma once
 #include "ExceptionBase.h"
