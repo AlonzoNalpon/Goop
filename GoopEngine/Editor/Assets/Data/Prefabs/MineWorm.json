@@ -1,0 +1,31 @@
+{
+  "Name": "MineWorm",
+  "Systems": [
+    "RenderSystem",
+    "SpriteAnimSystem"
+  ],
+  "Components": [
+    {
+      "Transform": {
+        "m_pos": "{ 2.0, 4.0 }",
+        "m_scale": "{ 150.0, 150.0 }",
+        "m_rot": 0.0
+      }
+    },
+    {
+      "Sprite": {
+        "filename": "MineWorm"
+      }
+    },
+    {
+      "SpriteAnim": {
+        "name": "MineWorm"
+      }
+    },
+    {
+      "Model": {
+        "id": 0
+      }
+    }
+  ]
+}

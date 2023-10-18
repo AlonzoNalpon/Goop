@@ -1,0 +1,23 @@
+{
+  "Window Title": "Goop Engine",
+  "Window Width": "1600",
+  "Window Height": "900",
+  "Memory Size": "100000",
+  "FPS Limit": "60",
+  "Steps Per Second" : "50",
+  "FPS Check Interval": "1.0",
+  "Input Repeat Delay": "0.1",
+  "Max Entities": "4092",
+  "Stills": "./Assets/Data/Images.json",
+  "Animation Sprites": "./Assets/Data/Sprites.txt",
+  "Sounds": "./Assets/Data/Sounds.json",
+  "Systems": "./Assets/Data/Systems.json",
+  "Scene": "./Assets/Data/Scene.json",
+  "Prefabs": "./Assets/Data/Prefabs/Prefabs.txt",
+  "ShaderPath": "./Assets/Shaders/",
+  "MonoAssembly": "../lib/mono/4.5/",
+  "CAssembly_D": "../GoopScripts/bin/Debug/GoopScripts.dll",
+  "CAssembly_R": "../GoopScripts/bin/Release/GoopScripts.dll",
+  "RootDomain": "GoopJITRuntime",
+  "AppDomain": "GoopAppDomain"
+}

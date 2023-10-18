@@ -1,0 +1,25 @@
+{
+  "Name": "Background",
+  "Systems": [
+    "RenderSystem"
+  ],
+  "Components": [
+    {
+      "Transform": {
+        "m_pos": "{ 0.0, 0.0 }",
+        "m_scale": "{ 1600.0, 900.0 }",
+        "m_rot": 0.0
+      }
+    },
+    {
+      "Sprite": {
+        "filename": "zBackground"
+      }
+    },
+    {
+      "Model": {
+        "id": 0
+      }
+    }
+  ]
+}
