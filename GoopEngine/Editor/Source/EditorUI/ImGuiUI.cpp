@@ -20,6 +20,7 @@
 #include "SceneHierachy.h"
 #include "ToolBar.h"
 #include "DataViz/Visualizer.h"
+#include <Systems/Physics/CollisionSystem.h>
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -66,6 +67,12 @@ void ImGuiUI::Update()
   End();
 
   Begin("Viewport");
+  End();
+
+  Begin("Collision Partitioning");
+  // for now will be here, can move somehwere else later
+  ImGui::InputInt("Change Row", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetRow(), 1);
+  ImGui::InputInt("Change Col", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetCol(), 1);
   End();
 
   Begin("Asset Browser");
