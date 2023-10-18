@@ -14,12 +14,11 @@
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
 copy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y
-xcopy "$(SolutionDir)lib\freetype-2.13.2\dll\win64\*" "$(TargetDir)\" /Y
-xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
-xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmod.dll" "$(TargetDir)"/Y
-xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(TargetDir)"/Y
-cd "$(ProjectDir).."
-xcopy "$(SolutionDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q</Command>
+copy "$(SolutionDir)lib\freetype-2.13.2\dll\win64\*" "$(TargetDir)\" /Y
+copy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
+copy "$(SolutionDir)lib\fMOD\Librariesx64\fmod.dll" "$(TargetDir)"/Y
+copy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(TargetDir)"/Y
+copy "$(SolutionDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q</Command>
     </PostBuildEvent>
     <ClCompile>
       <PreprocessorDefinitions>GLFW_DLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -30,8 +29,8 @@ xcopy "$(SolutionDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q</Command>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <PreBuildEvent>
-      <Command>xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)" /Y
-xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y</Command>
+      <Command>copy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)" /Y
+copy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />
