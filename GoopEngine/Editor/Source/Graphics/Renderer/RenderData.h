@@ -21,14 +21,20 @@ namespace Graphics::Rendering
    */
   struct Transform
   {
-    gVec3     scale;
-    GLfloat   rotation;
-    gVec3     pos;
-    Transform(GLfloat scale, GLfloat rot, gVec3 pos) : 
-      scale{ scale, scale, scale }, rotation{ rot }, pos{pos} {}
-    Transform(gVec3 const&scale, GLfloat rot, gVec3 const&pos) :
-      scale{ scale }, rotation{ rot }, pos{ pos } {}
+    //gVec3     scale;      // deprecated
+    //GLfloat   rotation;   // deprecated
+    //gVec3     pos;        // deprecated
+
+    //glm::mat4 mat;
+
+    //Transform(GLfloat scale, GLfloat rot, gVec3 pos) : 
+    //  scale{ scale, scale, scale }, rotation{ rot }, pos{pos} {}
+    //Transform(gVec3 const&scale, GLfloat rot, gVec3 const&pos) :
+    //  scale{ scale }, rotation{ rot }, pos{ pos } {}
+
+
   };
+
 
   /*!
    * \struct RenderData
@@ -39,7 +45,14 @@ namespace Graphics::Rendering
   {
     gObjID mdl;         //!< model data (ALL MODELS MUST USE THIS). It has shader stored within
     SpriteData sprite;  //!< sprite data handle (optional)
-    Transform transform;//!< the transformation of the model
+    glm::mat4 transform;//!< the transformation of the model
+  };
+
+
+  struct DepthComp {
+    bool operator()(RenderData const& a, RenderData const& b)const {
+      return a.transform[3][2] > b.transform[3][2];
+    }
   };
 };
 

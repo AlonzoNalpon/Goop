@@ -1,11 +1,16 @@
-/*!******************************************************************
+/*!*********************************************************************
 \file   ImGuiUI.cpp
 \author w.chinkitbryam\@digipen.edu
 \date   28 September 2023
 \brief
   ImGui Editor UI Wrapper
-********************************************************************/
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
+
+//#define RUN_IMGUI_DEMO  // Uncomment to replace imgui window with demo
+
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
 #include <ImGui/backends/imgui_impl_opengl3.h>
@@ -16,9 +21,14 @@
 #include <Audio/AudioEngine.h>
 #include "SceneHierachy.h"
 #include "ToolBar.h"
+#include "DataViz/Visualizer.h"
+#include <Systems/Physics/CollisionSystem.h>
 
 using namespace GE::EditorGUI;
+using namespace DataViz;
 using namespace ImGui;
+
+#define RUN_IMGUI_DEMO
 
 // Initialize static
 GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
@@ -48,6 +58,10 @@ void ImGuiUI::Update()
   ImGui_ImplGlfw_NewFrame();
   NewFrame();
 
+#ifdef RUN_IMGUI_DEMO
+  ImGui::ShowDemoWindow();
+#endif
+
   ImGuiHelper::CreateDockSpace("Goop Engine");
 
   ToolBar::CreateContent();
@@ -57,6 +71,12 @@ void ImGuiUI::Update()
   End();
 
   Begin("Viewport");
+  End();
+
+  Begin("Collision Partitioning");
+  // for now will be here, can move somehwere else later
+  ImGui::InputInt("Change Row", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetRow(), 1);
+  ImGui::InputInt("Change Col", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetCol(), 1);
   End();
 
   Begin("Asset Browser");
@@ -92,6 +112,24 @@ void ImGuiUI::Update()
     }
   }
   End();
+
+  
+  if (Visualizer::IsPerformanceShown())
+  {
+    Visualizer::UpdatePerformanceTab("Performance Visualizer");
+  }
+
+#ifdef _DEBUG
+  static bool showOverlay = true;
+  ImGui::SetNextWindowPos(ImVec2(ImGui::GetWindowWidth() / 2.f, 10), ImGuiCond_Always);
+  ImGui::SetNextWindowSize(ImVec2(300, 30), ImGuiCond_Always);
+
+  ImGui::Begin("Overlay Window", &showOverlay, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
+
+  ImGui::Text("Mouse Pos: (%.2f, %.2f)", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+
+  ImGui::End();
+#endif
 
   Begin("Audio");
   if (Button("Play Scream Sound"))

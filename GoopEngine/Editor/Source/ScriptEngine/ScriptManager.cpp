@@ -20,8 +20,17 @@ using namespace GE::MONO;
 void GE::MONO::ScriptManager::InitMono()
 {
   Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
-
-  mono_set_assemblies_path(*assetManager.GetConfigData<const char*>("MonoAssembly"));
+  std::ifstream file("../lib/mono/4.5/mscorlib.dll");
+  if (file.good())
+  {
+    mono_set_assemblies_path("../lib/mono/4.5/");
+  }
+  else
+  {
+    mono_set_assemblies_path(*assetManager.GetConfigData<const char*>("MonoAssembly"));
+  }
+ 
+ 
   MonoDomain* rootDomain = mono_jit_init(*assetManager.GetConfigData<const char*>("RootDomain"));
   if (rootDomain == nullptr)
   {
@@ -46,24 +55,44 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Player::SetTransform", GE::MONO::SetTransform);
   //mono_add_internal_call("GoopScripts.Player::SetTransform", GE::ECS::SetMonoComponent<GE::Component::Transform>);
   //Retrieve the C#Assembly (.ddl file)
-  #ifdef _DEBUG
-  try {
-    m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_D"));
+//  #ifdef _DEBUG
+//  try {
+//    m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_D"));
+//  }
+//  catch (GE::Debug::IExceptionBase& e) {
+//    e.LogSource();
+//    e.Log();
+//  }
+//#else
+//  try {
+//    m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_R"));
+//  }
+//  catch (GE::Debug::IExceptionBase& e) {
+//    e.LogSource();
+//    e.Log();
+//  }
+//#endif
+
+
+  std::ifstream filed("../GoopScripts/bin/Debug/GoopScripts.dll");
+  if (file.good())
+  {
+    m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Debug/GoopScripts.dll");
   }
-  catch (GE::Debug::IExceptionBase& e) {
-    e.LogSource();
-    e.Log();
+  else
+  {
+    std::ifstream filer("../GoopScripts/bin/Release/GoopScripts.dll");
+    if (filer.good())
+    {
+      m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Debug/GoopScripts.dll");
+    }
+    else
+    {
+      m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_R"));
+    }
+    
   }
-#else
-  try {
-    m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_R"));
-  }
-  catch (GE::Debug::IExceptionBase& e) {
-    e.LogSource();
-    e.Log();
-  }
-#endif
- 
+  
 }
 
 GE::MONO::ScriptManager::~ScriptManager()

@@ -4,6 +4,7 @@
   "Window Height": "900",
   "Memory Size": "100000",
   "FPS Limit": "60",
+  "Steps Per Second" : "50",
   "FPS Check Interval": "1.0",
   "Input Repeat Delay": "0.1",
   "Max Entities": "4092",
@@ -14,9 +15,9 @@
   "Scene": "./Assets/Data/Scene.json",
   "Prefabs": "./Assets/Data/Prefabs/Prefabs.txt",
   "ShaderPath": "./Assets/Shaders/",
-  "MonoAssembly": "../lib/mono/4.5/",
-  "CAssembly_D": "../GoopScripts/bin/Debug/GoopScripts.dll",
-  "CAssembly_R": "../GoopScripts/bin/Release/GoopScripts.dll",
+  "MonoAssembly": "./4.5/",
+  "CAssembly_D": "./GoopScripts.dll",
+  "CAssembly_R": "./GoopScripts.dll",
   "RootDomain": "GoopJITRuntime",
   "AppDomain": "GoopAppDomain"
 }

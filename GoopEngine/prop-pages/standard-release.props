@@ -12,16 +12,14 @@
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3dll.lib;glfw3.lib;freetype.lib;fmod_vc.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
-copy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y
-xcopy "$(SolutionDir)lib\freetype-2.13.2\dll\win64\*" "$(TargetDir)\" /Y
-xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
-xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmod.dll" "$(TargetDir)"/Y
-xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(TargetDir)"/Y
-cd "$(ProjectDir).."
-xcopy "$(SolutionDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q
-xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(TargetDir)"/Y
-xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y</Command>
+      <Command>xcopy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(SolutionDir)lib\freetype-2.13.2\dll\win64\freetype.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmod.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(SolutionDir)Editor\Assets\" "$(TargetDir)Assets\" /E /I /Y
+xcopy "$(SolutionDir)lib\mono\4.5" "$(TargetDir)4.5" /e /y /i /r
+copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
     </PostBuildEvent>
     <ClCompile>
       <PreprocessorDefinitions>GLFW_DLL;DGLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -38,8 +36,8 @@ xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(TargetDir)"/Y</Command
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(OutDir)" /s /r /y /q</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />

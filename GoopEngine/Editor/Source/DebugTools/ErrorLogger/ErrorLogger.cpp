@@ -1,4 +1,4 @@
-/*!******************************************************************
+/*!*********************************************************************
 \file   ErrorLogger.cpp 
 \author w.chinkitbryam\@digipen.edu
 \date   17 September 2023
@@ -9,7 +9,9 @@
 	Destructor will then rename the file to current time of call.
 	his is so the log file is easier to find as the time is closer
 	o which one would be looking for the logs.
-********************************************************************/
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "ErrorLogger.h"
 #include <spdlog/sinks/basic_file_sink.h>

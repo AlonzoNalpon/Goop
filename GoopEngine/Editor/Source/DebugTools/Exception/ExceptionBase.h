@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   ExceptionBase.h
+\author w.chinkitbryan\@digipen.edu
+\date   17 September 2023
+\brief  
+  Base exception class to allow for generic catch.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 
 #include <exception>

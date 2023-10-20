@@ -6,6 +6,8 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/quaternion.hpp> // For quaternion rotations
 #include <gtc/type_ptr.hpp>
+#include <algorithm>
+#include <functional>
 namespace
 {
   enum
@@ -27,14 +29,22 @@ namespace Graphics::Rendering {
     m_camera = camera;
   }
 
-  void Renderer::RenderObject(gObjID mdl, SpriteData const& sprite, Transform const&transform)
+  void Renderer::RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat3 const& trans)
   {
     // Add the model data
-    m_renderCalls.emplace_back(mdl, sprite, transform);
+    // Create a glm::mat4 and initialize it with values in a column-major order
+    float depthVal{};
+    m_renderCalls.emplace_back(mdl, sprite, glm::mat4(
+      static_cast<f32>(trans.At(0,0)), static_cast<f32>(trans.At(0,1)), 0.f,      0.f, // col 1
+      static_cast<f32>(trans.At(1,0)), static_cast<f32>(trans.At(1,1)), 0.f,      0.f, // col 2
+      0.f,                             0.f,                             1.f,      0.f, // col 3 THIS COLUMN IS INSERTED FOR DEPTH
+      static_cast<f32>(trans.At(2,0)), static_cast<f32>(trans.At(2,1)), depthVal, 1.f // col 4
+    )  );
   }
 
   void Renderer::Draw()
   {
+    std::sort(m_renderCalls.begin(), m_renderCalls.end(), DepthComp());
     glm::mat4 camViewProj{ m_camera.ViewProjMtx() };
     // Draw
     for (auto const& obj : m_renderCalls)
@@ -60,7 +70,7 @@ namespace Graphics::Rendering {
       // Pass the camera matrix
       glUniformMatrix4fv(uViewMatLocation, 1, GL_FALSE, glm::value_ptr(camViewProj));
       // Pass the model transform matrix
-      glm::mat4 mdlXForm{ CalculateTransform(obj.transform)};
+      glm::mat4 const& mdlXForm{ obj.transform };
       glUniformMatrix4fv(uMdlTransLocation, 1, GL_FALSE, glm::value_ptr(mdlXForm));
 
 
@@ -94,9 +104,9 @@ namespace Graphics::Rendering {
     return retval;
   }
 
-  glm::mat4 Renderer::CalculateTransform(Transform const& xForm) const
-  {
-    return CalculateTransform(xForm.scale, xForm.rotation, xForm.pos);
-  }
+  //glm::mat4 Renderer::CalculateTransform(Transform const& xForm) const
+  //{
+  //  return CalculateTransform(xForm.scale, xForm.rotation, xForm.pos);
+  //}
 
 }

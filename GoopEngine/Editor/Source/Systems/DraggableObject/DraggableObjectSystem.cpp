@@ -148,9 +148,6 @@ void DraggableObjectSystem::HandleEvent(Events::Event const* event)
 		if (static_cast<Events::MouseHeldEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT) 
 		{ 
 			isHeld = true;
-			#ifdef _DEBUG
-			std::cout << event->GetName() + " Event handled\n";
-			#endif
 		}
 	}
 	else if (event->GetCategory() == Events::EVENT_TYPE::MOUSE_RELEASED)
@@ -158,9 +155,6 @@ void DraggableObjectSystem::HandleEvent(Events::Event const* event)
 		if (static_cast<Events::MouseReleasedEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT)
 		{
 			isHeld = false;
-			#ifdef _DEBUG
-			std::cout << event->GetName() + " Event handled\n";
-			#endif
 		}
 	}
 }

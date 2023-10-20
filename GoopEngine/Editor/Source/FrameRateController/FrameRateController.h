@@ -1,6 +1,7 @@
 /*!*********************************************************************
 \file   FrameRateController.h
 \author han.q\@digipen.edu
+\co-author w.chinkitbryan\@digipen.edu
 \date   28 September 2023
 \brief
 	Frame rate controller system.
@@ -48,28 +49,8 @@ namespace GE
 	{
 		class FrameRateController : public Singleton<FrameRateController>
 		{
-
-
-			double m_currentFPS{};
-			double m_targetFPS{};
-			double m_fixedDeltaTime{};
-			double m_currDeltaTime{};
-			double m_accumulatedTime{};
-			double m_endTime{};
-			double m_startTime{};
-			double m_prevStartTime{};
-			double m_fpsCalInterval{};
-			double m_fpsCheckTime{};
-			int m_currNumberOfSteps{};
-			int m_frameCount{};
-			int m_framePassed{};
-
-			std::chrono::time_point<std::chrono::high_resolution_clock> m_systemTimeStart{};
-			std::map<std::string, std::chrono::microseconds> m_fpsControllerMap;
-			
-
 		public:
-
+			using timeFormat = std::chrono::microseconds;
 
 			/*!*********************************************************************
 			\brief
@@ -81,7 +62,7 @@ namespace GE
 				fpsCalInterval
 				Intervals between each FPS check (seconds)
 			************************************************************************/
-			void InitFrameRateController(int targetFPS, int fpsCalInterval = 1);
+			void InitFrameRateController(int targetFPS, int stepsPerSec = 60, int fpsCalInterval = 1);
 
 
 
@@ -100,9 +81,7 @@ namespace GE
 			\return
 				Delta time (Amount of time pass since previous frame)
 			************************************************************************/
-			double GetDeltaTime();
-
-
+			double GetDeltaTime() const noexcept;
 
 			/*!*********************************************************************
 			\brief
@@ -110,9 +89,15 @@ namespace GE
 			\return 
 			  Current FPS of the Engine
 			************************************************************************/
-			double GetFPS();
+			double GetFPS() const noexcept;
 
-
+			/*!*********************************************************************
+			\brief
+				Function to get the current target FPS of the Engine
+			\return
+				Current FPS of the Engine
+			************************************************************************/
+			double GetTargetFPS() const noexcept;
 
 			/*!*********************************************************************
 			\brief
@@ -134,7 +119,7 @@ namespace GE
 			\return
 			  The current time
 			************************************************************************/
-			double GetCurrTime();
+			double GetCurrTime() const noexcept;
 
 			/*!*********************************************************************
 			\brief
@@ -142,7 +127,7 @@ namespace GE
 			\return
 				starting time of current frame
 			************************************************************************/
-			double GetStartTime();
+			double GetStartTime() const noexcept;
 
 
 			/*!*********************************************************************
@@ -151,7 +136,7 @@ namespace GE
 			\return
 				starting time of previous frame
 			************************************************************************/
-			double GetEndTime();
+			double GetEndTime() const noexcept;
 
 
 			/*!*********************************************************************
@@ -161,6 +146,15 @@ namespace GE
 			  Number of frames passed since the last time this function is called
 			************************************************************************/
 			int GetFrameCount();
+
+
+			/*!*********************************************************************
+			\brief
+				Function to get the number of fixed delta time steps this frame
+			\return
+				Number of fixed delta time steps this frame
+			************************************************************************/
+			int GetSteps() const noexcept;
 
 
 			/*!*********************************************************************
@@ -179,6 +173,15 @@ namespace GE
 			************************************************************************/
 			void SetTargetFPS(int targetFPS);
 
+
+			/*!*********************************************************************
+			\brief
+				Function to set the engine's fixed delta time target
+			\params
+				stepsPerSecond
+				How many steps if fixed delta time per second
+			************************************************************************/
+			void SetStepsPerSecond(int stepsPerSecond);
 
 
 			/*!*********************************************************************
@@ -214,6 +217,25 @@ namespace GE
 			  FPS Controller system time map
 			************************************************************************/
 			const std::map<std::string, std::chrono::microseconds>& GetSystemTimers();
+
+		private:
+			double m_currentFPS{};
+			double m_targetFPS{};
+			double m_targetFrameTime{};
+			double m_fixedDeltaTime{};
+			double m_currDeltaTime{};
+			double m_accumulatedTime{};
+			double m_endTime{};
+			double m_startTime{};
+			double m_prevStartTime{};
+			double m_fpsCalInterval{};
+			double m_fpsCheckTime{};
+			int m_currNumberOfSteps{};
+			int m_frameCount{};
+			int m_framePassed{};
+
+			std::chrono::time_point<std::chrono::high_resolution_clock> m_systemTimeStart{};
+			std::map<std::string, timeFormat> m_fpsControllerMap;
 		};
 	}
 	

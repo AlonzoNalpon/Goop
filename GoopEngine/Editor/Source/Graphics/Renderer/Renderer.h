@@ -55,7 +55,7 @@ namespace Graphics::Rendering
       transform the transform of the object
     \return
     ************************************************************************/
-    void RenderObject(gObjID mdl, SpriteData const& sprite, Transform const& transform);
+    void RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat3 const& trans);
     
     /*!*********************************************************************
     \brief
@@ -85,7 +85,7 @@ namespace Graphics::Rendering
     \return the matrix result
       
     ************************************************************************/
-    glm::mat4 CalculateTransform(Transform const& xForm) const;
+    //glm::mat4 CalculateTransform(Transform const& xForm) const;
   private:
     std::vector<RenderData> m_renderCalls;
 
