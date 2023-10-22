@@ -17,8 +17,10 @@ void EventManager::Subscribe(Listener* listener)
   subscribers.emplace_back(static_cast<IEventListener*>(listener));
 
   #ifdef _DEBUG
-  std::cout << "EventManager: " << typeid(EventType).name() 
+  std::ostringstream oss{};
+  oss << "EventManager: " << typeid(EventType).name() 
   << " subscribed to " << typeid(EventType).name() << "\n";
+  Debug::ErrorLogger::GetInstance().LogMessage(oss.str());
   #endif
 }
 
@@ -30,8 +32,10 @@ void EventManager::Unsubscribe(Listener* listener)
   if (result == subscribers.end())
   {
     #ifdef _DEBUG
-    std::cout << "EventManager::Unsubscribe: " << typeid(Listener).name()
+    std::ostringstream oss{};
+    oss << "EventManager::Unsubscribe: " << typeid(Listener).name()
     << " is not currently subscribed to " << typeid(EventType).name() << "\n";
+    Debug::ErrorLogger::GetInstance().LogMessage(oss.str());
     #endif
 
     return;
@@ -40,8 +44,10 @@ void EventManager::Unsubscribe(Listener* listener)
   subscribers.erase(result);
 
   #ifdef _DEBUG
-  std::cout << "EventManager: " << typeid(Listener).name() << 
+  std::ostringstream oss{};
+  oss << "EventManager: " << typeid(Listener).name() << 
   " unsubscribed from " << typeid(EventType).name() << "\n";
+  Debug::ErrorLogger::GetInstance().LogMessage(oss.str());
   #endif
 }
 

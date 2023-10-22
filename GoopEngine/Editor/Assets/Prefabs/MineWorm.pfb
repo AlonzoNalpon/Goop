@@ -7,19 +7,19 @@
   "Components": [
     {
       "Transform": {
-        "m_pos": "{ 2.0, 4.0 }",
-        "m_scale": "{ 150.0, 150.0 }",
+        "m_pos": "{ 2.0, 4.0, 0.0 }",
+        "m_scale": "{ 150.0, 150.0, 1.0 }",
         "m_rot": 0.0
       }
     },
     {
       "Sprite": {
-        "filename": "MineWorm"
+        "filename": "SS_MineWorm"
       }
     },
     {
       "SpriteAnim": {
-        "name": "MineWorm"
+        "name": "SS_MineWorm"
       }
     },
     {

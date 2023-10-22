@@ -74,17 +74,17 @@ void GE::MONO::ScriptManager::InitMono()
 //#endif
 
 
-  std::ifstream filed("../GoopScripts/bin/Debug/GoopScripts.dll");
+  std::ifstream filed("../GoopScripts/GoopScripts.dll");
   if (file.good())
   {
-    m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Debug/GoopScripts.dll");
+    m_coreAssembly = LoadCSharpAssembly("../GoopScripts/GoopScripts.dll");
   }
   else
   {
-    std::ifstream filer("../GoopScripts/bin/Release/GoopScripts.dll");
+    std::ifstream filer("../GoopScripts/GoopScripts.dll");
     if (filer.good())
     {
-      m_coreAssembly = LoadCSharpAssembly("../GoopScripts/bin/Debug/GoopScripts.dll");
+      m_coreAssembly = LoadCSharpAssembly("../GoopScripts/GoopScripts.dll");
     }
     else
     {

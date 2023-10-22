@@ -4,7 +4,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-void GE::Systems::RootTransformSystem::Update()
+void GE::Systems::PreRootTransformSystem::Update()
 {
 	for (GE::ECS::Entity entity : m_ecs->GetEntities())
 	{
@@ -12,11 +12,12 @@ void GE::Systems::RootTransformSystem::Update()
 		if (m_ecs->GetParentEntity(entity) == GE::ECS::INVALID_ID)
 		{
 			// Assign own world transformation matrix
-			Math::dMat3 identity
+			Math::dMat4 identity
 			{
-				1, 0, 0,
-					0, 1, 0,
-					0, 0, 1
+				{ 1, 0, 0, 0 },
+				{ 0, 1, 0, 0 },
+				{ 0, 0, 1, 0 },
+				{ 0, 0, 0, 1 }
 			};
 
 			// Update recursively using entity's world transformation matrix
@@ -25,29 +26,32 @@ void GE::Systems::RootTransformSystem::Update()
 	}
 }
 
-void GE::Systems::RootTransformSystem::Propergate(GE::ECS::Entity& entity, const Math::dMat3& parentWorldTrans)
+void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::Entity& entity, const Math::dMat4& parentWorldTrans)
 {
 	// Compute own world transform matrix first
 	GE::Component::Transform& trans = *m_ecs->GetComponent<GE::Component::Transform>(entity);
 
-	Math::dMat3 T
+	Math::dMat4 T
 	{
-		1, 0, trans.m_pos.x,
-		0, 1, trans.m_pos.y,
-		0, 0, 1
+		{ 1, 0, 0, trans.m_pos.x },
+		{ 0, 1, 0, trans.m_pos.y },
+		{	0, 0, 1, trans.m_pos.z },
+		{ 0, 0, 0, 1 }
 	};
-	Math::dMat3 S
+	Math::dMat4 S
 	{
-		trans.m_scale.x, 0, 0,
-		0, trans.m_scale.y, 0,
-		0, 0, 1
+		{ trans.m_scale.x, 0, 0, 0 },
+		{ 0, trans.m_scale.y, 0, 0 },
+		{ 0, 0, 1, 0 },
+		{ 0, 0, 0, 1 }
 	};
 	double rad = trans.m_rot / 180.0 * M_PI;
-	Math::dMat3 R
+	Math::dMat4 R
 	{
-		std::cosh(rad), -std::sinh(rad), 0,
-		-std::sinh(rad), std::cosh(rad), 0,
-		0, 0, 1
+		{ std::cosh(rad), -std::sinh(rad), 0, 0},
+		{ -std::sinh(rad), std::cosh(rad), 0, 0},
+		{ 0, 0, 1, 0 },
+		{ 0, 0, 0, 1 }
 	};
 
 	trans.m_worldTransform = (T * R * S) * parentWorldTrans;

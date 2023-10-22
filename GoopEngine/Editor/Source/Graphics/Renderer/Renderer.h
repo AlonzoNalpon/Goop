@@ -55,7 +55,7 @@ namespace Graphics::Rendering
       transform the transform of the object
     \return
     ************************************************************************/
-    void RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat3 const& trans);
+    void RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat4 const& trans);
     
     /*!*********************************************************************
     \brief

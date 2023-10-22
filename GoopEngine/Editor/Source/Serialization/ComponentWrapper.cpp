@@ -186,6 +186,23 @@ Math::dVec2 ComponentWrapper::Get(const char* key) const
   }
 }
 
+template<> Math::dVec3 ComponentWrapper::Get(const char* key) const
+{
+  try
+  {
+    Math::dVec3 vec{};
+    return vec << (*m_ptr)[key].GetString();
+  }
+  catch (...)
+  {
+    std::ostringstream oss{};
+    oss << "ComponentWrapper: Unable to convert value of key " << key
+      << " to Math::dVec3";
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    return Math::dVec3();
+  }
+}
+
 template <>
 std::queue<Math::dVec2> ComponentWrapper::Get(const char* key) const
 {
@@ -207,6 +224,32 @@ std::queue<Math::dVec2> ComponentWrapper::Get(const char* key) const
     std::ostringstream oss{};
     oss << "ComponentWrapper: Unable to convert value of key " << key
       << " to std::queue<Math::dVec2>";
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    return {};
+  }
+}
+
+template <>
+std::queue<Math::dVec3> ComponentWrapper::Get(const char* key) const
+{
+  try
+  {
+    std::queue<Math::dVec3> ret{};
+    rapidjson::Value const& list{ (*m_ptr)[key] };
+    for (auto const& elem : list.GetArray())
+    {
+      Math::dVec3 vec{};
+      vec << elem.GetString();
+      ret.emplace(std::move(vec));
+    }
+
+    return ret;
+  }
+  catch (...)
+  {
+    std::ostringstream oss{};
+    oss << "ComponentWrapper: Unable to convert value of key " << key
+      << " to std::queue<Math::dVec3>";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return {};
   }
@@ -269,7 +312,7 @@ template<> std::vector<Component::LinearForce> ComponentWrapper::Get(const char*
       Math::dVec2 vec;
       vec << elem["m_magnitude"].GetString();
       ret.emplace_back(
-        vec, elem["m_lifetime"].GetDouble(), elem["m_age"].GetDouble(), elem["m_isActive"].GetBool()
+        vec, elem["m_lifetime"].GetDouble(), elem["m_isActive"].GetBool()
       );
     }
 

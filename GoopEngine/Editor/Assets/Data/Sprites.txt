@@ -1,4 +1,0 @@
-Name        FilePath        Slices  Stacks    Frames    Speed
-MineWorm    MineWorm        6       1        6        0.1        # Headers must be on line 1
-Shark        Shark            4        1        4        0.1    
-#You can add comments with '#' symbol

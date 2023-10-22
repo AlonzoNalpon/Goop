@@ -32,8 +32,8 @@ namespace GE
 
 			//read map, manipulate into trans, return
 			GE::Component::Transform trans;
-			trans.m_pos = cw.Get<Math::dVec2>("m_pos");
-			trans.m_scale = cw.Get<Math::dVec2>("m_scale");
+			trans.m_pos = cw.Get<Math::dVec3>("m_pos");
+			trans.m_scale = cw.Get<Math::dVec3>("m_scale");
 			trans.m_rot = cw.Get<double>("m_rot");
 
 			return trans;
@@ -110,11 +110,11 @@ namespace GE
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
 			Component::Tween tween{ 0 };
-			tween.m_tweens = cw.Get<std::queue<Math::dVec2>>("m_tweens");
+			tween.m_tweens = cw.Get<std::queue<Math::dVec3>>("m_tweens");
 			tween.m_timePerTween = cw.Get<double>("m_timePerTween");
 			tween.m_timeTaken = cw.Get<double>("m_timeTaken");
 			tween.m_timeElapsed = cw.Get<double>("m_timeElapsed");
-			tween.m_originalPos = cw.Get<Math::dVec2>("m_originalPos");
+			tween.m_originalPos = cw.Get<Math::dVec3>("m_originalPos");
 			tween.m_started = cw.Get<bool>("m_started");
 			
 			return tween;

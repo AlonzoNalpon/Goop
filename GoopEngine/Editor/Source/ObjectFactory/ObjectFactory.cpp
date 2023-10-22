@@ -10,6 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "ObjectFactory.h"
 
+#include <AssetManager/AssetManager.h>
 #include <Systems/Physics/PhysicsSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <Systems/DraggableObject/DraggableObjectSystem.h>
@@ -41,7 +42,7 @@ GE::ECS::SystemSignature ObjectFactory::GetObjectSystemSignature(GE::ECS::Entity
   SetBitIfFound<Systems::RenderSystem>(obj, sig, ECS::SYSTEM_TYPES::RENDERING);
   SetBitIfFound<Systems::CollisionSystem>(obj, sig, ECS::SYSTEM_TYPES::COLLISION);
   SetBitIfFound<Systems::PlayerControllerSystem>(obj, sig, ECS::SYSTEM_TYPES::PLAYER_CONTROLLER);
-  SetBitIfFound<Systems::RootTransformSystem>(obj, sig, ECS::SYSTEM_TYPES::ROOT_TRANSFORM);
+  SetBitIfFound<Systems::PreRootTransformSystem>(obj, sig, ECS::SYSTEM_TYPES::ROOT_TRANSFORM);
 
   return sig;
 }
@@ -63,7 +64,7 @@ void ObjectFactory::RegisterObjectToSystems(GE::ECS::Entity object, ECS::SystemS
   if (IsBitSet(signature, SYSTEM_TYPES::SPRITE_ANIM))
     ecs.RegisterEntityToSystem<GE::Systems::SpriteAnimSystem>(object);
   if (IsBitSet(signature, SYSTEM_TYPES::ROOT_TRANSFORM))
-    ecs.RegisterEntityToSystem<GE::Systems::RootTransformSystem>(object);
+    ecs.RegisterEntityToSystem<GE::Systems::PreRootTransformSystem>(object);
 }
 
 void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity srcObj) const
@@ -159,21 +160,9 @@ GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data) const
 
 void ObjectFactory::LoadPrefabsFromFile()
 {
-  const char* prefabsFile{ Assets::AssetManager::GetInstance().GetConfigData<const char*>("Prefabs").value() };
-  std::ifstream ifs{ prefabsFile };
-  if (!ifs)
+  for (auto const& prefab : Assets::AssetManager::GetInstance().GetPrefabs())
   {
-    std::ostringstream oss{};
-    oss << "Unable to open" << prefabsFile;
-    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-  }
-
-  std::string filepath;
-  std::string prefabFile;
-  ifs >> filepath;
-  while (ifs >> prefabFile)
-  {
-    DeserializePrefab(filepath + prefabFile);
+    DeserializePrefab(prefab.second);
   }
 }
 
@@ -247,7 +236,7 @@ void ObjectFactory::DeserializePrefab(const std::string& filepath)
 
   // u probably wouldnt do this but prasanna went through this last week
   // move the object into the map since we don't need it anymore
-  m_prefabs.insert(std::move(prefab));
+  m_prefabs.emplace(std::move(prefab));
 }
 
 GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
@@ -311,7 +300,7 @@ void ObjectFactory::ObjectJsonLoader(const std::string& json_path)
 
 // Reads objects from scene file and loads into map
 void ObjectFactory::ObjectFactoryTest() {
-  Serialization::ObjectGooStream ogs{ "Assets/Data/Scene.json" };
+  Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene("Scene") };
   if (ogs)
   {
     ogs.Unload(m_objects);
@@ -348,8 +337,8 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     RegisterComponentsToSystem<Systems::SpriteAnimSystem>(sig);
     break;
   case SYSTEM_TYPES::ROOT_TRANSFORM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::RootTransformSystem>();
-    RegisterComponentsToSystem<Systems::RootTransformSystem>(sig);
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PreRootTransformSystem>();
+    RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);
     break;
   default:
     throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown system type"));

@@ -172,6 +172,7 @@ copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
     <ClCompile Include="Source\EditorUI\DataViz\Visualizer.cpp" />
     <ClCompile Include="Source\EditorUI\ToolBar.cpp" />
     <ClCompile Include="Source\Events\EventManager.cpp" />
+    <ClCompile Include="Source\GameStateManager\GameStateManager.cpp" />
     <ClCompile Include="Source\Graphics\Fonts\FontManager.cpp" />
     <ClCompile Include="Source\Graphics\Fonts\FontRenderer.cpp" />
     <ClCompile Include="Source\Graphics\Renderer\Camera.cpp" />
@@ -242,6 +243,9 @@ copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Source\SceneManager\SceneManager.cpp" />
+    <ClCompile Include="Source\Scenes\SceneStart.cpp" />
+    <ClCompile Include="Source\Scenes\SceneTest.cpp" />
     <ClCompile Include="Source\ScriptEngine\Script.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptManager.cpp" />
     <ClCompile Include="Source\Serialization\AssetGooStream.cpp" />
@@ -263,6 +267,7 @@ copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
     <ClCompile Include="Source\Serialization\SpriteGooStream.cpp" />
     <ClCompile Include="Source\Systems\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="Source\EditorUI\ImGuiUI.cpp" />
+    <ClCompile Include="Source\Systems\RootTransform\PostRootTransformSystem.cpp" />
     <ClCompile Include="Source\Systems\RootTransform\RootTransformSystem.cpp" />
     <ClCompile Include="Source\Systems\SpriteAnim\SpriteAnimSystem.cpp" />
     <ClCompile Include="Source\Window\Window.cpp" />
@@ -298,8 +303,14 @@ copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
     <ClInclude Include="Source\ECS\Component\ComponentManager.h" />
     <ClInclude Include="Source\EditorUI\DataViz\Visualizer.h" />
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
+    <ClInclude Include="Source\GameStateManager\GameStateList.h" />
+    <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
+    <ClInclude Include="Source\ImTerm\misc.hpp" />
+    <ClInclude Include="Source\ImTerm\terminal.hpp" />
+    <ClInclude Include="Source\ImTerm\terminal_commands.hpp" />
+    <ClInclude Include="Source\ImTerm\terminal_helpers.hpp" />
+    <ClInclude Include="Source\ImTerm\utils.hpp" />
     <ClInclude Include="Source\pch.h" />
-    <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\ECS\EntityComponentSystem.h" />
     <ClInclude Include="Source\ECS\Entity\Entity.h" />
     <ClInclude Include="Source\ECS\Entity\EntityManager.h" />
@@ -339,6 +350,10 @@ copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
     <ClInclude Include="Source\MemoryManager\ListAllocator.h" />
     <ClInclude Include="Source\MemoryManager\MemoryManager.h" />
     <ClInclude Include="Source\EditorUI\SceneHierachy.h" />
+    <ClInclude Include="Source\SceneManager\SceneManager.h" />
+    <ClInclude Include="Source\Scenes\SceneBase.h" />
+    <ClInclude Include="Source\Scenes\SceneStart.h" />
+    <ClInclude Include="Source\Scenes\SceneTest.h" />
     <ClInclude Include="Source\ScriptEngine\Script.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptManager.h" />
     <ClInclude Include="Source\Serialization\ComponentWrapper.h" />
@@ -364,6 +379,7 @@ copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />
     <ClInclude Include="Source\EditorUI\ImGuiUI.h" />
+    <ClInclude Include="Source\Systems\RootTransform\PostRootTransformSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\RootTransformSystem.h" />
     <ClInclude Include="Source\Systems\SpriteAnim\SpriteAnimSystem.h" />
     <ClInclude Include="Source\Window\Window.h" />

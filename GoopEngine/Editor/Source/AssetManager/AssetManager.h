@@ -28,13 +28,14 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 namespace GE::Assets
 {
-  enum {
+  enum FileType {
     IMAGES,
     CONFIG,
     ANIMATION,
     AUDIO,
     SCENE,
-    OBJECT
+    PREFAB,
+    SHADERS
   };
     
   // AssetManager Singleton
@@ -70,6 +71,15 @@ namespace GE::Assets
 
     /*!*********************************************************************
     \brief
+      Loads the json data into the asset manager's map.
+    \param
+      const std::string& filepath (filepath of the json file)
+      int flag (flag for the type of data the json file contains)
+    ************************************************************************/
+    void LoadConfigData(const std::string& filepath);
+
+    /*!*********************************************************************
+    \brief
       Gets the key string of the Image in the map from key ID.
     \param
       int id (id of image)
@@ -87,6 +97,17 @@ namespace GE::Assets
       Key ID of the Image.
     ************************************************************************/
     int GetID(const std::string& name);
+
+    /*!*********************************************************************
+    \brief
+      Gets the filepath of a scene based on the specified name
+      (may need to make this function safer in future)
+    \param sceneName
+      The key or name of the scene
+    \return
+      The value at the entry of the specified key
+    ************************************************************************/
+    inline std::string GetScene(std::string const& sceneName) const noexcept { return m_scenes.at(sceneName); }
 
     /*!*********************************************************************
     \brief
@@ -110,22 +131,6 @@ namespace GE::Assets
 
     /*!*********************************************************************
     \brief
-      Loads the json data into the asset manager's map.
-    \param
-      const std::string& filepath (filepath of the json file)
-      int flag (flag for the type of data the json file contains)
-    ************************************************************************/
-    void LoadJSONData(const std::string& filepath, int flag);
-
-    /*template <>
-    std::optional<double> GetConfigData<double>(const std::string& key) const;
-    template <>
-    std::optional<const char*> GetConfigData<const char*>(const std::string& key) const;
-    template <>
-    std::optional<std::string> GetConfigData<std::string>(const std::string& key) const;*/
-
-    /*!*********************************************************************
-    \brief
       Gets dimensions of the data.
     \param
       int id (ID for the image data in the map)
@@ -141,12 +146,6 @@ namespace GE::Assets
       vector of key and data pair.
     ************************************************************************/
     std::vector <std::pair<std::string, std::string>> MOCK_Deserialize();
-
-    /*!*********************************************************************
-    \brief
-      Load data from deserialized map.
-    ************************************************************************/
-    void LoadDeserializedData();
 
     /*!*********************************************************************
     \brief
@@ -185,16 +184,44 @@ namespace GE::Assets
     ************************************************************************/
     GE::Serialization::SpriteData GetSpriteData(std::string key);
 
+    /*!*********************************************************************
+    \brief
+      Returns the map of prefab filepaths as a const reference
+    \return
+      The map of prefab filepaths
+    ************************************************************************/
+    inline std::unordered_map<std::string, std::string> const& GetPrefabs() const noexcept { return m_prefabs; }
+
     #include "AssetManager.tpp"
 
   private:
+    /*!*********************************************************************
+    \brief
+      Load data from deserialized map.
+    ************************************************************************/
+    void LoadImages();
+
+    /*!*********************************************************************
+    \brief
+      Load data required for each spritesheet (stacks, slices etc.)
+    ************************************************************************/
+    void LoadSpritesheets();
+
+    std::string const AudioFileExt{ ".wav" }, ImageFileExt{ ".png" }, ShaderFileExts{ ".vert.frag" };
     IDGenerator m_generator; // Generates Unique ID to assign to loaded image data.
-    std::map<std::string, std::string> m_filePath; // name:filepath
-    std::map<std::string, std::string> m_configData;
-    std::map<int, ImageData> m_loadedImages; // Map that contains all the loaded images data with an ID as a key.
-    std::map<std::string, int> m_loadedImagesStringLookUp; // Lookup table for getting ID with filepath.
-    std::map<int, std::string> m_loadedImagesIDLookUp; // Lookup table for getting filepath with id.
-    std::map<std::string, GE::Serialization::SpriteData> m_loadedSpriteData; // Map that contains loaded sprite with their data with their m_id as key.
+
+    // maps storing each type of file with format <name : filepath>
+    std::unordered_map<std::string, std::string> m_images;
+    std::unordered_map<std::string, std::string> m_audio;
+    std::unordered_map<std::string, std::string> m_prefabs;
+    std::unordered_map<std::string, std::string> m_scenes;
+    std::unordered_map<std::string, std::string> m_shaders;
+    std::unordered_map<std::string, std::string> m_configData;
+
+    std::unordered_map<int, ImageData> m_loadedImages; // Map that contains all the loaded images data with an ID as a key.
+    std::unordered_map<std::string, int> m_loadedImagesStringLookUp; // Lookup table for getting ID with filepath.
+    std::unordered_map<int, std::string> m_loadedImagesIDLookUp; // Lookup table for getting filepath with id.
+    std::unordered_map<std::string, GE::Serialization::SpriteData> m_loadedSpriteData; // Map that contains loaded sprite with their data with their m_id as key.
 
   };
 }
