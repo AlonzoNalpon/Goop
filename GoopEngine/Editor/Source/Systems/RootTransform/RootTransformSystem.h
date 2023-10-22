@@ -4,7 +4,7 @@
 
 namespace GE::Systems
 {
-	class RootTransformSystem : public GE::ECS::System
+	class PreRootTransformSystem : public GE::ECS::System
 	{
 		// Intentionally override this function as
 		// it has different behaviour as it will handle

@@ -52,7 +52,7 @@ void GE::Scenes::SceneTest::Init()
 	Transform trans({ 250, 250, 0 }, { 100, 50, 1 }, 0.0);
 	BoxCollider box(trans.m_pos, 100, 50);
 
-	ecs->RegisterSystem<RootTransformSystem>();
+	ecs->RegisterSystem<PreRootTransformSystem>();
 
 	Entity entt3 = ecs->CreateEntity();
 	Entity entt4 = ecs->CreateEntity();

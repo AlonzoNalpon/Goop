@@ -226,6 +226,8 @@ copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Source\ImTerm\example\terminal_commands.cpp" />
+    <ClCompile Include="Source\ImTerm\terminal_commands.cpp" />
     <ClCompile Include="Source\InputManager\InputManager.cpp" />
     <ClCompile Include="Source\ObjectFactory\ObjectFactory.cpp" />
     <ClCompile Include="Source\MemoryManager\BaseAllocator.cpp" />
@@ -267,6 +269,7 @@ copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
     <ClCompile Include="Source\Serialization\SpriteGooStream.cpp" />
     <ClCompile Include="Source\Systems\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="Source\EditorUI\ImGuiUI.cpp" />
+    <ClCompile Include="Source\Systems\RootTransform\PostRootTransformSystem.cpp" />
     <ClCompile Include="Source\Systems\RootTransform\RootTransformSystem.cpp" />
     <ClCompile Include="Source\Systems\SpriteAnim\SpriteAnimSystem.cpp" />
     <ClCompile Include="Source\Window\Window.cpp" />
@@ -304,6 +307,12 @@ copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
     <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
+    <ClInclude Include="Source\ImTerm\example\terminal_commands.hpp" />
+    <ClInclude Include="Source\ImTerm\misc.hpp" />
+    <ClInclude Include="Source\ImTerm\terminal.hpp" />
+    <ClInclude Include="Source\ImTerm\terminal_commands.hpp" />
+    <ClInclude Include="Source\ImTerm\terminal_helpers.hpp" />
+    <ClInclude Include="Source\ImTerm\utils.hpp" />
     <ClInclude Include="Source\pch.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\ECS\EntityComponentSystem.h" />
@@ -374,6 +383,7 @@ copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />
     <ClInclude Include="Source\EditorUI\ImGuiUI.h" />
+    <ClInclude Include="Source\Systems\RootTransform\PostRootTransformSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\RootTransformSystem.h" />
     <ClInclude Include="Source\Systems\SpriteAnim\SpriteAnimSystem.h" />
     <ClInclude Include="Source\Window\Window.h" />
