@@ -18,12 +18,11 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			LinearForce(vec2 mag, double lifetime, double age = 0.0, bool active = true) : m_magnitude{mag}, m_lifetime{lifetime},
-			m_age{age}, m_isActive {active} {}
+			LinearForce(vec2 mag, double lifetime, bool active = true) : m_magnitude{mag}, m_lifetime{lifetime},
+			m_isActive {active} {}
 
 			vec2 m_magnitude;
 			double m_lifetime;
-			double m_age;
 			bool m_isActive;
 		};
 
@@ -39,7 +38,7 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			DragForce(vec2 mag, bool active = true) : m_magnitude{ mag }, m_isActive{ active } {}
+			DragForce(vec2 mag, bool active = false) : m_magnitude{ mag }, m_isActive{ active } {}
 
 			vec2 m_magnitude;
 			bool m_isActive;
@@ -57,7 +56,7 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			Velocity(vec2 vel, vec2 acc, double mass, vec2 grav, DragForce drag = { { 1, 0} }, std::vector<LinearForce> forces = {}) :
+			Velocity(vec2 vel, vec2 acc, double mass, vec2 grav, DragForce drag, std::vector<LinearForce> forces = {}) :
 				m_vel{ vel }, m_acc{ acc }, m_mass{ mass }, m_gravity{ grav }, m_dragForce{ drag }, m_forces{ forces } {}
 
 			vec2 m_vel;
@@ -73,7 +72,7 @@ namespace GE
 			void AddForce(vec2 mag, double lifetime, bool active = true)
 			{
 				std::cout << "Adding force" << std::endl;
-				LinearForce force(mag, lifetime, 0.0, active);
+				LinearForce force(mag, lifetime, active);
 				m_forces.push_back(force);
 			}
 

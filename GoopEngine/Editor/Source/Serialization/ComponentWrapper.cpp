@@ -269,7 +269,7 @@ template<> std::vector<Component::LinearForce> ComponentWrapper::Get(const char*
       Math::dVec2 vec;
       vec << elem["m_magnitude"].GetString();
       ret.emplace_back(
-        vec, elem["m_lifetime"].GetDouble(), elem["m_age"].GetDouble(), elem["m_isActive"].GetBool()
+        vec, elem["m_lifetime"].GetDouble(), elem["m_isActive"].GetBool()
       );
     }
 
