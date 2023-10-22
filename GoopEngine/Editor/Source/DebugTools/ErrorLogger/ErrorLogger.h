@@ -27,20 +27,14 @@ namespace GE
     {
     private:
       // Alias
-      using LoggerPtr = std::shared_ptr<spdlog::logger>;
+      using LoggerPtr = std::unique_ptr<spdlog::logger>;
 
-      // File sink
-      std::shared_ptr<spdlog::sinks::basic_file_sink_st> m_logDump;
-      // Ostream sink
-      std::shared_ptr<spdlog::sinks::stdout_color_sink_st> m_logger;
+      // Logger
+      LoggerPtr m_logger;
+      LoggerPtr m_fileLogger;
 
-      // Map of loggers pointing to file sink
-      std::map<std::string, LoggerPtr> m_fileLoggers;
-      // Map of loggers pointing to ostream sink
-      std::map<std::string, LoggerPtr> m_streamLoggers;
-
-      bool m_suppressLogWarning;
       bool m_wroteToFile;
+      std::string m_fileName;
 
       /*!******************************************************************
       \brief 
@@ -73,6 +67,31 @@ namespace GE
       ********************************************************************/
       ~ErrorLogger();
 
+      /*!******************************************************************
+      \brief 
+        Adds a sink to the ostream logger.
+
+      \param[in] sink
+        Sink to add.
+      ********************************************************************/
+      void AddSink(spdlog::sink_ptr sink);
+
+      /*!******************************************************************
+      \brief
+        Adds a sink to the file logger.
+
+      \param[in] sink
+        Sink to add.
+      ********************************************************************/
+      void AddFileSink(spdlog::sink_ptr sink);
+
+      /*!******************************************************************
+      \brief 
+        Causes spdlog to ignore all logs of level log.
+
+      \param[in] flag
+        Flag to indicate supression.
+      ********************************************************************/
       void SuppressLogMessages(bool flag);
 
       /*!******************************************************************

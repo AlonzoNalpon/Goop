@@ -15,7 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Events/EventManager.h>
 #include <Component/Transform.h>
 
-using vec2 = GE::Math::dVec2;
+using vec3 = GE::Math::dVec3;
 
 namespace GE
 {
@@ -60,7 +60,7 @@ namespace GE
 			\param normalisedTime
 				Normalised time.
 			************************************************************************/
-			vec2 Tweening(vec2 start, vec2 end, double normalisedTime);
+			vec3 Tweening(vec3 start, vec3 end, double normalisedTime);
 		};
 
 	}

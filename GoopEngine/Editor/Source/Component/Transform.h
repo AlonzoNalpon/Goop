@@ -8,6 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
+#include <Math/GEM.h>
 
 namespace GE
 {
@@ -15,7 +16,7 @@ namespace GE
 	{
 		struct Transform
 		{
-			using vec2 = Math::dVec2;
+			using vec3 = Math::dVec3;
 
 			/*!*********************************************************************
 			\brief
@@ -27,14 +28,14 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			Transform(Math::dVec2 const& pos, Math::dVec2 const& scale, double rot)
+			Transform(Math::dVec3 const& pos, Math::dVec3 const& scale, double rot)
 				: m_pos{ pos }, m_scale{ scale }, m_rot{ rot } {}
 
-			vec2 m_pos;
-			vec2 m_scale;
+			vec3 m_pos;
+			vec3 m_scale;
 			double m_rot;
 
-			Math::dMat3 m_worldTransform;
+			Math::dMat4 m_worldTransform;
 		};
 	}
 }

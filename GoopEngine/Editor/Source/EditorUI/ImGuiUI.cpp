@@ -23,6 +23,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ToolBar.h"
 #include "DataViz/Visualizer.h"
 #include <Systems/Physics/CollisionSystem.h>
+#include "Console.h"
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -98,11 +99,13 @@ void ImGuiUI::Update()
       {
         GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("Buta PIG");
         GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
+        GE::Component::BoxCollider* box = ecs->GetComponent<GE::Component::BoxCollider>(entity);
         if (trans)
         {
           double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
           double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
           trans->m_pos = Math::dVec2(randX, randY);
+          box->m_center = trans->m_pos;
         }
       }
       catch (GE::Debug::IExceptionBase& ex)
@@ -164,6 +167,10 @@ void ImGuiUI::Update()
   End();
 
   Begin("Inspector");
+  End();
+
+  Begin("Console");
+  Console::CreateContent();
   End();
 
   ImGuiHelper::EndDockSpace();

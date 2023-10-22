@@ -22,7 +22,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 using namespace GE::Debug;
 
-ErrorLogger::ErrorLogger() : m_suppressLogWarning{ false }, m_wroteToFile{ false }
+ErrorLogger::ErrorLogger() : m_wroteToFile{ false }
 {
 	// Get curret system time
 	std::chrono::system_clock::time_point currTime = std::chrono::system_clock::now();
@@ -34,44 +34,26 @@ ErrorLogger::ErrorLogger() : m_suppressLogWarning{ false }, m_wroteToFile{ false
 	std::stringstream ss;
 	// not sure if file path should be changable by config file
 	ss << std::put_time(localTime, "Logs/Log_%Y.%m.%d-%H.%M.%S.txt");
+	m_fileName = ss.str();
 
-	// Create sinks, where loggers will dump their info into
-	m_logDump = std::make_shared<spdlog::sinks::basic_file_sink_st>(ss.str(), true);
-	m_logger = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
+	auto filesink = std::make_shared<spdlog::sinks::basic_file_sink_st>(m_fileName, true);
 
-	// Default file logger 
-	LoggerPtr defLogger = std::make_shared<spdlog::logger>("", m_logDump);
-	m_fileLoggers[""] = defLogger;
-
-	// Default stream logger
-	defLogger = std::make_shared<spdlog::logger>("", m_logger);
-	m_streamLoggers[""] = defLogger;
+	// Default logger will log only to ostream
+	m_logger = std::make_unique<spdlog::logger>("");
+	// File logger will log into ostream and file
+	m_fileLogger = std::make_unique<spdlog::logger>("", filesink);
 }
 
 ErrorLogger::~ErrorLogger()
 {
 	// Flush logs
-	for (auto lp : m_fileLoggers)
-	{
-		lp.second->flush();
-		lp.second.reset();
-	}
-	for (auto lp : m_streamLoggers)
-	{
-		lp.second->flush();
-		lp.second.reset();
-	}
-
-	// Save old file name before logger gets deleted
-	std::string oldName = m_logDump->filename().c_str();
-	// Manually delete all loggers to close file stream
-	m_fileLoggers.clear();
-	m_logDump.reset();
+	m_logger->flush();
+	m_logger.reset();
 
 	// If did not write to file there will be an empty log file. Remove it
 	if (!m_wroteToFile)
 	{
-		std::remove(oldName.c_str());
+		std::remove(m_fileName.c_str());
 	}
 	else
 	{
@@ -90,65 +72,91 @@ ErrorLogger::~ErrorLogger()
 		// not sure if file path should be changable by config file
 		ss << std::put_time(localTime, "Logs/Log_%Y.%m.%d-%H.%M.%S.txt");
 
-		std::rename(oldName.c_str(), ss.str().c_str());
+		std::rename(m_fileName.c_str(), ss.str().c_str());
 	}
+}
+
+void GE::Debug::ErrorLogger::AddSink(spdlog::sink_ptr sink)
+{
+	m_logger->sinks().push_back(sink);
+}
+
+void GE::Debug::ErrorLogger::AddFileSink(spdlog::sink_ptr sink)
+{
+	m_fileLogger->sinks().push_back(sink);
 }
 
 void ErrorLogger::SuppressLogMessages(bool flag)
 {
-	m_suppressLogWarning = flag;
+	if (flag)
+	{
+		m_logger->set_level(spdlog::level::warn);
+		m_fileLogger->set_level(spdlog::level::warn);
+	}
+	else
+	{
+		m_logger->set_level(spdlog::level::trace);
+		m_fileLogger->set_level(spdlog::level::trace);
+	}
 }
 
 std::string ErrorLogger::LogMessage(std::string msg, bool logToFile)
 {
 	// Don't log messages
-	if (m_suppressLogWarning)
-	{
-		return msg;
-	}
-
   if (logToFile)
   {
 		m_wroteToFile = true;
-    m_fileLoggers[""]->info(msg);
+		m_fileLogger->info(msg);
   }
-  m_streamLoggers[""]->info(msg);
+	else
+	{
+		m_logger->info(msg);
+	}
 
 	return msg;
 }
 
 std::string ErrorLogger::LogWarning(std::string msg, bool logToFile)
 {
-  if (logToFile)
-  {
+	if (logToFile)
+	{
 		m_wroteToFile = true;
-    m_fileLoggers[""]->warn(msg);
-  }
-  m_streamLoggers[""]->warn(msg);
+		m_fileLogger->warn(msg);
+	}
+	else
+	{
+		m_logger->warn(msg);
+	}
 
 	return msg;
 }
 
 std::string ErrorLogger::LogError(std::string msg, bool logToFile)
 {
-  if (logToFile)
-  {
+	if (logToFile)
+	{
 		m_wroteToFile = true;
-    m_fileLoggers[""]->error(msg);
-  }
-  m_streamLoggers[""]->error(msg);
+		m_fileLogger->error(msg);
+	}
+	else
+	{
+		m_logger->error(msg);
+	}
 
 	return msg;
 }
 
 std::string ErrorLogger::LogCritical(std::string msg, bool logToFile)
 {
-  if (logToFile)
-  {
+	if (logToFile)
+	{
 		m_wroteToFile = true;
-    m_fileLoggers[""]->critical(msg);
-  }
-  m_streamLoggers[""]->critical(msg);
+		m_fileLogger->critical(msg);
+	}
+	else
+	{
+		m_logger->critical(msg);
+	}
 
 	return msg;
 }

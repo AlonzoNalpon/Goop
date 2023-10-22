@@ -62,7 +62,9 @@ namespace GE
       template<> std::string Get(const char* key) const;
       template<> Math::Vec2 Get(const char* key) const;
       template<> Math::dVec2 Get(const char* key) const;
+      template<> Math::dVec3 Get(const char* key) const;
       template<> std::queue<Math::dVec2> Get(const char* key) const;
+      template<> std::queue<Math::dVec3> Get(const char* key) const;
       template<> std::vector<std::pair<std::string, std::string>>
                  Get(const char* key) const;
       template<> Component::DragForce Get(const char* key) const;

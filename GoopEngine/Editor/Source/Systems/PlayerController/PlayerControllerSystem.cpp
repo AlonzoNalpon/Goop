@@ -10,7 +10,7 @@
 #include <Graphics/GraphicsEngine.h>
 #include <Component/ScriptHandler.h>
 
-using vec2 = GE::Math::dVec2;
+using vec3 = GE::Math::dVec3;
 
 using namespace GE;
 using namespace ECS;
@@ -72,7 +72,7 @@ void PlayerControllerSystem::FixedUpdate()
 		}
 
 		Transform* trans = m_ecs->GetComponent<Transform>(entity);
-		vec2& targetPos = m_ecs->GetComponent<Tween>(entity)->m_tweens.front();
+		vec3& targetPos = m_ecs->GetComponent<Tween>(entity)->m_tweens.front();
 
 		if (tween->m_timeElapsed > tween->m_timePerTween) 
 		{
@@ -151,7 +151,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 	}
 }
 
-vec2 PlayerControllerSystem::Tweening(vec2 start, vec2 end, double normalisedTime)
+vec3 PlayerControllerSystem::Tweening(vec3 start, vec3 end, double normalisedTime)
 {
 	return start + (normalisedTime * (end - start));
 }
