@@ -31,11 +31,11 @@ struct Scene
 	void MakeDraggableBox()
 	{
 		Entity entt = ecs->CreateEntity();
-		Velocity vel({ 0, 0 }, { 0, 0 }, 1.0, { 9.8, 9.8 });
+		//Velocity vel({ 0, 0 }, { 0, 0 }, 1.0, { 9.8, 9.8 });
 		Transform trans({ 0, 0 }, { 50, 50 }, 0.0);
-		BoxCollider box(trans.m_pos, 1, 1);
+		BoxCollider box(trans.m_pos, 50, 50);
 
-		ecs->AddComponent(entt, vel);
+		//ecs->AddComponent(entt, vel);
 		ecs->AddComponent(entt, trans);
 		ecs->AddComponent(entt, box);
 		ecs->RegisterEntityToSystem<PhysicsSystem>(entt);
@@ -88,9 +88,9 @@ struct Scene
 		MakeDraggableBox();
 
 		Entity entt2 = ecs->CreateEntity();
-		Velocity vel({ 0, 0 }, { 0, 0 }, 1.0, { 9.8, 9.8 });
+		Velocity vel({ 0, 0 }, { 0, 0 }, 1.0, { 9.8, 9.8 }, DragForce({ 1, 0 }));
 		Transform trans({ 250, 250 }, { 100, 50 }, 0.0);
-		BoxCollider box(trans.m_pos, 1, 1);
+		BoxCollider box(trans.m_pos, 100, 50);
 
 		ecs->RegisterSystem<RootTransformSystem>();
 
@@ -98,8 +98,8 @@ struct Scene
 		Entity entt4 = ecs->CreateEntity();
 		Transform transBox2({ 200, 2 }, { 20, 20 }, 0.0);
 		Transform transBox3({ 300, 2 }, { 30, 20 }, 0.0);
-		BoxCollider box2(transBox2.m_pos, 1, 1); //should collide
-		BoxCollider box3(transBox3.m_pos, 1, 1); //shouldnt collide
+		BoxCollider box2(transBox2.m_pos, 20, 20); //should collide
+		BoxCollider box3(transBox3.m_pos, 30, 20); //shouldnt collide
 
 		ecs->AddComponent(entt2, vel);
 		ecs->AddComponent(entt2, trans);
@@ -108,7 +108,7 @@ struct Scene
 		ecs->RegisterEntityToSystem<CollisionSystem>(entt2);
 		//ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt2);
 
-		vel.AddForce({ 100, 0 }, 300.0);
+		//vel.AddForce({ 100, 0 }, 300.0);
 
 		ecs->AddComponent(entt3, box2);
 		ecs->AddComponent(entt3, transBox2);
@@ -123,7 +123,7 @@ struct Scene
 
 		Entity player = ecs->CreateEntity();
 		Transform playerTrans({ -350, 350 }, { 150, 150 }, 0.0);
-		BoxCollider playerCollider(playerTrans.m_pos, 1, 1); //should collide
+		BoxCollider playerCollider(playerTrans.m_pos, 150, 150); //should collide
 
 		Tween tween(3.0);
 		tween.AddTween({ 0, 0 });

@@ -68,9 +68,6 @@ namespace GE
 			************************************************************************/
 			void Update();
 
-			void ChangeRow(int newRow);
-			void ChangeCol(int newCol);
-
 			int& GetRow()
 			{
 				return m_rowsPartition;
@@ -92,7 +89,7 @@ namespace GE
 			\param scale
 				Entity's size.
 			************************************************************************/
-			void UpdateAABB(BoxCollider& entity, const Math::dVec2& newCenter, Transform& scale);
+			void UpdateAABB(BoxCollider& entity, const Math::dVec2& newCenter);
 
 			int m_rowsPartition{ 1 };
 			int m_colsPartition{ 1 };
