@@ -53,23 +53,26 @@ void CollisionSystem::Update()
 		{
 			std::cout << "newCenter ERROR\n";
 		}
-		UpdateAABB(*updateEntity, newCenter->m_pos, *newCenter);
+		UpdateAABB(*updateEntity, newCenter->m_pos);
 		updateEntity->Render();
 	}
 
 	//spatial partitioning -> uniform grid
 	CreatePartitions(m_rowsPartition, m_colsPartition);
-	for (Partition partition : m_partitions)
+	//std::cout << "Num of entities: " << list.size() << std::endl;
+	for (Partition& partition : m_partitions)
 	{
 		//drawing partition's border
 		Graphics::GraphicsEngine::DrawLine(partition.min, { partition.max.x, partition.min.y });
 		Graphics::GraphicsEngine::DrawLine({ partition.max.x, partition.min.y }, partition.max);
 
+		//std::cout << "Num of entities per partitiion: " << partition.m_entitiesInPartition.size() << std::endl;
+
 		if (partition.m_entitiesInPartition.empty()) {
 			continue;
 		}
 
-		for (Entity entity1 : partition.m_entitiesInPartition)
+		for (Entity& entity1 : partition.m_entitiesInPartition)
 		{
 			//mouse click check
 			BoxCollider* entity1Col = m_ecs->GetComponent<BoxCollider>(entity1);
@@ -107,23 +110,13 @@ void CollisionSystem::Update()
 	}
 }
 
-void CollisionSystem::ChangeRow(int newRow)
-{
-	m_rowsPartition = newRow;
-}
-
-void CollisionSystem::ChangeCol(int newCol)
-{
-	m_colsPartition = newCol;
-}
-
-void CollisionSystem::UpdateAABB(BoxCollider& entity, const dVec2& newCenter, Transform& scale)
+void CollisionSystem::UpdateAABB(BoxCollider& entity, const dVec2& newCenter)
 {
 	entity.m_center = newCenter;
-	entity.m_min.x = entity.m_center.x - (scale.m_scale.x * entity.m_width) / 2.0f;
-	entity.m_min.y = entity.m_center.y - (scale.m_scale.y * entity.m_height) / 2.0f;
-	entity.m_max.x = entity.m_center.x + (scale.m_scale.x * entity.m_width) / 2.0f;
-	entity.m_max.y = entity.m_center.y + (scale.m_scale.y * entity.m_height) / 2.0f;
+	entity.m_min.x = entity.m_center.x - entity.m_width / 2.0f;
+	entity.m_min.y = entity.m_center.y - entity.m_height / 2.0f;
+	entity.m_max.x = entity.m_center.x + entity.m_width / 2.0f;
+	entity.m_max.y = entity.m_center.y + entity.m_height / 2.0f;
 }
 
 void CollisionSystem::CreatePartitions(int rows, int cols)
