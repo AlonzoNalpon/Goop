@@ -1,7 +1,8 @@
 {
   "Name": "ButaPIG",
   "Systems": [
-    "RenderSystem"
+    "RenderSystem",
+    "CollisionSystem"
   ],
   "Components": [
     {
@@ -19,6 +20,16 @@
     {
       "Model": {
         "id": 0
+      }
+    },
+    {
+      "BoxCollider": {
+        "m_width": 75.0,
+        "m_height": 50.0,
+        "m_min": "{ 0, 0 }",
+        "m_max": "{ 0, 0 }",
+        "m_center": "{ 0, 0 }",
+        "m_mouseCollided": false
       }
     }
   ]
