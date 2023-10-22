@@ -52,8 +52,6 @@ namespace GE::Application
       GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
       scriptMan->InitMono();
 
-      GE::Debug::ErrorLogger::GetInstance().SuppressLogMessages(true);
-
       GE::AI::TestTree();
 
     }
