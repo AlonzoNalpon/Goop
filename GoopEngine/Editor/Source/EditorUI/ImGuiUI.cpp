@@ -96,7 +96,7 @@ void ImGuiUI::Update()
     {
       try
       {
-        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("ButaPIG");
+        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("Buta PIG");
         GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
         if (trans)
         {

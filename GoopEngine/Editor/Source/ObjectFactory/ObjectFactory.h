@@ -96,7 +96,6 @@ namespace GE::ObjectFactory
     ************************************************************************/
     void ObjectFactoryTest();
 
-  private:
     /*!*********************************************************************
     \brief
       Loads the prefab from the path specified in the config file.
@@ -109,6 +108,7 @@ namespace GE::ObjectFactory
     ************************************************************************/
     void RegisterComponentsAndSystems() const;
 
+  private:
     /*!*********************************************************************
     \brief
       Loads the data into the class map.

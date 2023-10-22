@@ -160,21 +160,9 @@ GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data) const
 
 void ObjectFactory::LoadPrefabsFromFile()
 {
-  const char* prefabsFile{ Assets::AssetManager::GetInstance().GetConfigData<const char*>("Prefabs").value() };
-  std::ifstream ifs{ prefabsFile };
-  if (!ifs)
+  for (auto const& prefab : Assets::AssetManager::GetInstance().GetPrefabs())
   {
-    std::ostringstream oss{};
-    oss << "Unable to open" << prefabsFile;
-    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-  }
-
-  std::string filepath;
-  std::string prefabFile;
-  ifs >> filepath;
-  while (ifs >> prefabFile)
-  {
-    DeserializePrefab(filepath + prefabFile);
+    DeserializePrefab(prefab.second);
   }
 }
 
@@ -248,7 +236,7 @@ void ObjectFactory::DeserializePrefab(const std::string& filepath)
 
   // u probably wouldnt do this but prasanna went through this last week
   // move the object into the map since we don't need it anymore
-  m_prefabs.insert(std::move(prefab));
+  m_prefabs.emplace(std::move(prefab));
 }
 
 GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
@@ -312,7 +300,7 @@ void ObjectFactory::ObjectJsonLoader(const std::string& json_path)
 
 // Reads objects from scene file and loads into map
 void ObjectFactory::ObjectFactoryTest() {
-  Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Scene").value() };
+  Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene("Scene") };
   if (ogs)
   {
     ogs.Unload(m_objects);

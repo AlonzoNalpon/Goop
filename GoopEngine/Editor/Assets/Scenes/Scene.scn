@@ -15,12 +15,12 @@
             },
             {
               "Sprite": {
-                "filename": "MineWorm"
+                "filename": "SS_MineWorm"
               }
             },
             {
               "SpriteAnim": {
-                "name": "MineWorm"
+                "name": "SS_MineWorm"
               }
             },
             {
@@ -45,7 +45,7 @@
             },
             {
               "Sprite": {
-                "filename": "ButaPIG"
+                "filename": "Buta PIG"
               }
             },
             {

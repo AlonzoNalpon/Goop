@@ -30,10 +30,10 @@ namespace GE::Application
     try
     {
       GE::Assets::AssetManager* am = &GE::Assets::AssetManager::GetInstance();
-      am->LoadJSONData("./Assets/Config.json", GE::Assets::CONFIG);
-
+      am->LoadConfigData("./Assets/Config.cfg");
       GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
-      of.Init();
+      of.RegisterComponentsAndSystems();
+
       GE::Events::EventManager::GetInstance().SubscribeAllListeners();
 
       fRC.InitFrameRateController(*am->GetConfigData<int>("FPS Limit"), *am->GetConfigData<int>("Steps Per Second"), *am->GetConfigData<int>("FPS Check Interval"));
@@ -41,11 +41,12 @@ namespace GE::Application
       window = { *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), "GOOP" };
       window.CreateAppWindow();
 
-      imgui.Init(window);
-
       gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
-
       am->LoadFiles();
+      of.LoadPrefabsFromFile();
+
+      imgui.Init(window);
+      
       of.ObjectFactoryTest();
       im.InitInputManager(window.GetWindow(), *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), 0.1);
 

@@ -17,7 +17,7 @@ xcopy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)" /s /
 xcopy "$(SolutionDir)lib\freetype-2.13.2\dll\win64\freetype.dll" "$(OutDir)" /s /r /y /q
 xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmod.dll" "$(OutDir)" /s /r /y /q
 xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(OutDir)" /s /r /y /q
-xcopy "$(SolutionDir)Editor\Assets\" "$(TargetDir)Assets\" /E /I /Y
+xcopy "$(ProjectDir)Assets\" "$(TargetDir)Assets\" /E /I /Y
 xcopy "$(SolutionDir)lib\mono\4.5" "$(TargetDir)4.5" /e /y /i /r
 copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
     </PostBuildEvent>

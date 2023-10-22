@@ -39,10 +39,10 @@ void GE::Systems::PlayerControllerSystem::Start()
 {
 	System::Start();
 	auto& gEngine = Graphics::GraphicsEngine::GetInstance();
-	sharkAnimID = gEngine.animManager.GetAnimID("Shark");
-	wormAnimID = gEngine.animManager.GetAnimID("MineWorm");
-	wormSpriteID = gEngine.textureManager.GetTextureID("MineWorm");
-	sharkSpriteID = gEngine.textureManager.GetTextureID("Shark");
+	sharkAnimID = gEngine.animManager.GetAnimID("SS_Shark");
+	wormAnimID = gEngine.animManager.GetAnimID("SS_MineWorm");
+	wormSpriteID = gEngine.textureManager.GetTextureID("SS_MineWorm");
+	sharkSpriteID = gEngine.textureManager.GetTextureID("SS_Shark");
 }
 
 void PlayerControllerSystem::FixedUpdate() 

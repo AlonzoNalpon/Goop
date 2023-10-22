@@ -23,8 +23,8 @@ namespace GE
   {
 
     // GooStream for Assets
-    class AssetGooStream : public IGooIStream<std::map<std::string, std::string>>,
-                                  IGooOStream<std::map<std::string, std::string>>
+    class AssetGooStream : public IGooIStream<std::unordered_map<std::string, std::string>>,
+                                  IGooOStream<std::unordered_map<std::string, std::string>>
     {
     public:
       // Ctor reading json file into stream

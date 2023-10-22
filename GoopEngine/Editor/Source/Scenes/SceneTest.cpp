@@ -79,7 +79,7 @@ void GE::Scenes::SceneTest::Init()
 	ecs->RegisterEntityToSystem<CollisionSystem>(entt4);
 
 	Entity worm = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
-	ecs->SetEntityName(worm, "MineWorm");
+	ecs->SetEntityName(worm, "SS_MineWorm");
 
 	Entity player = ecs->CreateEntity();
 	Transform playerTrans({ -350, 350 }, { 150, 150 }, 0.0);
@@ -93,7 +93,7 @@ void GE::Scenes::SceneTest::Init()
 	GE::Component::Model mdl; // model data for the player sprite
 	mdl.mdlID = gEngine.GetModel();
 	Sprite sprite;
-	sprite.spriteData.texture = gEngine.textureManager.GetTextureID("MineWorm");
+	sprite.spriteData.texture = gEngine.textureManager.GetTextureID("SS_MineWorm"); 
 	GE::Component::SpriteAnim anim;
 
 	std::vector <std::pair<std::string, std::string>> playerScripts{ {"GoopScripts", "Player"} };

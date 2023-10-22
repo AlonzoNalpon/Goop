@@ -24,6 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <filesystem>
 #include <Graphics/GraphicsEngine.h>
 #include "../Serialization/AssetGooStream.h"
+#include <filesystem>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -42,9 +43,9 @@ namespace GE::Assets
 	{
 		if (m_loadedImagesIDLookUp.find(id) == m_loadedImagesIDLookUp.end())
 		{
-			#ifdef ASSET_MANAGER_DEBUG
+#ifdef ASSET_MANAGER_DEBUG
 			std::cout << "DIDN'T FIND IMAGE DATA WITH ID: " << id << "\n";
-			#endif
+#endif
 			return m_loadedImagesIDLookUp[id];
 		}
 
@@ -54,9 +55,9 @@ namespace GE::Assets
 	{
 		if (m_loadedImagesStringLookUp.find(name) == m_loadedImagesStringLookUp.end())
 		{
-			#ifdef ASSET_MANAGER_DEBUG
+#ifdef ASSET_MANAGER_DEBUG
 			std::cout << "DIDN'T FIND ID WITH KEY: " << name << "\n";
-			#endif
+#endif
 			return m_loadedImagesStringLookUp[name];
 		}
 
@@ -67,9 +68,9 @@ namespace GE::Assets
 	{
 		if (m_loadedImages.find(id) == m_loadedImages.end())
 		{
-			#ifdef ASSET_MANAGER_DEBUG
+#ifdef ASSET_MANAGER_DEBUG
 			std::cout << "DIDN'T FIND DATA WITH ID: " << id << "\n";
-			#endif
+#endif
 			//return ImageData::Null();
 			throw;
 		}
@@ -80,9 +81,9 @@ namespace GE::Assets
 	{
 		if (m_loadedImages.find(GetID(name)) == m_loadedImages.end())
 		{
-			#ifdef ASSET_MANAGER_DEBUG
+#ifdef ASSET_MANAGER_DEBUG
 			std::cout << "DIDN'T FIND DATA WITH ID: " << id << "\n";
-			#endif
+#endif
 			//return ImageData::Null();
 			throw;
 		}
@@ -92,9 +93,53 @@ namespace GE::Assets
 
 	void AssetManager::LoadFiles()
 	{
+		// construct path object with relative path to project dir
+		std::filesystem::path assetsDir{ *GetConfigData<std::string>("Assets Dir") };
+		if (!std::filesystem::exists(assetsDir))
+		{
+			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open Assets Dir: " + assetsDir.string()));
+		}
+
+		// iterate through Assets dir and add all assets into their
+		// respective containers based on file type
+		std::string const prefabExt{ *GetConfigData<std::string>("Prefab File Extension") }, sceneExt{ *GetConfigData<std::string>("Scene File Extension") };
+		for (const auto& file : std::filesystem::recursive_directory_iterator(assetsDir))
+		{
+			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
+			
+			std::string const& currExt{ file.path().extension().string() };
+			if (currExt == AssetManager::ImageFileExt)	// image
+			{
+				m_images.emplace(file.path().stem().string(), file.path().string());
+			}
+			else if (currExt == AssetManager::AudioFileExt)	// sound
+			{
+				m_audio.emplace(file.path().stem().string(), file.path().string());
+			}
+			else if (currExt == prefabExt)	// prefab
+			{
+				m_prefabs.emplace(file.path().stem().string(), file.path().string());
+			}
+			else if (currExt == sceneExt)	// scene
+			{
+				m_scenes.emplace(file.path().stem().string(), file.path().string());
+			}
+			else if (AssetManager::ShaderFileExts.find(currExt) != std::string::npos)
+			{
+				m_shaders.emplace(file.path().stem().string(), file.path().string());
+			}
+			else
+			{
+				Debug::ErrorLogger::GetInstance().LogMessage("AssetManager: " + file.path().string() + " ignored on load");
+				//throw Debug::Exception<AssetManager>(Debug::LEVEL_INFO, ErrMsg(file.path().string() + " ignored on load"));
+			}
+		}
+
+		// @TODO: Should only load whats required by scene
+		LoadImages();
+		LoadSpritesheets();
+		
 		stbi_set_flip_vertically_on_load(true);
-		LoadJSONData(*GetConfigData<std::string>("Stills"), GE::Assets::IMAGES);
-		LoadJSONData(*GetConfigData<std::string>("Animation Sprites"), GE::Assets::ANIMATION);
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 		for (auto const& curr : m_loadedSpriteData)
 		{
@@ -104,91 +149,26 @@ namespace GE::Assets
 	}
 
 	// The AssetManager class method to load JSON data from a file
-	void AssetManager::LoadJSONData(const std::string& filepath, int flag)
+	void AssetManager::LoadConfigData(const std::string& filepath)
 	{
-		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
-		// If the flag is set to IMAGES or CONFIG
-		if (flag == IMAGES || flag == CONFIG)
+		// Create an AssetGooStream object with the given file path
+		AssetGooStream ags(filepath);
+		// If the AssetGooStream object is not valid, throw an exception
+		if (!ags)
 		{
-			// Create an AssetGooStream object with the given file path
-			AssetGooStream ags(filepath);
-			// If the AssetGooStream object is not valid, throw an exception
-			if (!ags)
-			{
-				//throw exception
-			}
-
-			// If the flag is set to IMAGES
-			if (flag == IMAGES)
-			{
-				// Unload the file path from the AssetGooStream object into m_filePath
-				ags.Unload(m_filePath);
-				// If the unloading was not successful, throw an exception
-				if (!ags.Success())
-				{
-					//throw exception
-				}
-				// prefix assets path to each image filename
-				std::string const prefix = m_filePath["Path"];
-				m_filePath.erase("Path");
-				// For each entry in m_filePath, load the image from the ASSETS_DIR and the entry's second value
-				for (std::pair<std::string, std::string> const& entry : m_filePath)
-				{
-					int id = LoadImageW(prefix + entry.second);
-
-					gEngine.InitTexture(entry.first, GetData(id));
-				}
-			}
-			// If the flag is set to CONFIG
-			else if (flag == CONFIG)
-			{
-				// Unload the config data from the AssetGooStream object into m_configData
-				ags.Unload(m_configData);
+			//throw exception
+		}
+		
+		// Unload the config data from the AssetGooStream object into m_configData
+		ags.Unload(m_configData);
 
 #ifdef ASSET_MANAGER_DEBUG
-				// For each entry in m_configData, print out the key-value pair if ASSET_MANAGER_DEBUG is defined
-				for (std::pair<std::string, std::string> const& entry : m_configData)
-				{
-					std::cout << "\"" << entry.first << "\" : \"" << entry.second << "\"" << std::endl;
-				}
+		// For each entry in m_configData, print out the key-value pair if ASSET_MANAGER_DEBUG is defined
+		for (std::pair<std::string, std::string> const& entry : m_configData)
+		{
+			std::cout << "\"" << entry.first << "\" : \"" << entry.second << "\"" << std::endl;
+		}
 #endif    
-			}
-		}
-		// If the flag is set to ANIMATION
-		if (flag == ANIMATION)
-		{
-			// Create a container for assets
-			GE::Serialization::SpriteGooStream::container_type assets;
-			std::string const fileName{ GetConfigData<std::string>("Animation Sprites").value() };
-			// Create a SpriteGooStream object with the given file name
-			GE::Serialization::SpriteGooStream sgs{ fileName };
-			// If the SpriteGooStream object is not valid, print an error message
-			if (!sgs)
-			{
-				std::cout << "Error deserializing " << fileName << "\n";
-			}
-			// If unloading assets into the container was not successful, print an error message
-			if (!sgs.Unload(assets))
-			{
-				std::cout << "Error unloading assets into container" << "\n";
-			}
-
-			std::cout << "Deserialized " << fileName << ":\n";
-
-			// For each entry in assets, print out its details
-			for (auto const& entry : assets)
-			{
-				SpriteData loadedData{ entry.m_id, entry.m_filePath, entry.m_slices, entry.m_stacks, entry.m_frames, entry.m_speed };
-				m_loadedSpriteData.insert({ entry.m_id, loadedData });
-			}
-		}
-		if (flag == SCENE)
-		{
-			std::string const fileName{ GetConfigData<std::string>("Scene").value() };
-		}
-		#ifdef ASSET_MANAGER_DEBUG
-		printf("Loading success\n");
-		#endif
 	}
 
 	void AssetManager::SpriteCheck()
@@ -204,14 +184,14 @@ namespace GE::Assets
 	GE::Serialization::SpriteData AssetManager::GetSpriteData(std::string key)
 	{
 		if (m_loadedSpriteData.find(key) == m_loadedSpriteData.end())
-			#ifdef ASSET_MANAGER_DEBUG
+#ifdef ASSET_MANAGER_DEBUG
 			std::cout << "DIDN'T FIND SPRITE DATA WITH: " << key << "\n";
-			#endif
-			return m_loadedSpriteData[key];
+#endif
+		return m_loadedSpriteData[key];
 
-		#ifdef ASSET_MANAGER_DEBUG
+#ifdef ASSET_MANAGER_DEBUG
 		std::cout << "SPRITE DATA RETRIEVED: " << m_loadedSpriteData[key] << "\n";
-		#endif
+#endif
 
 		return m_loadedSpriteData[key];
 	}
@@ -239,21 +219,21 @@ namespace GE::Assets
 
 		if (img == NULL)
 		{
-			#ifdef ASSET_MANAGER_DEBUG
+#ifdef ASSET_MANAGER_DEBUG
 			std::cout << "Error encountered while loading: " << path.c_str() << "\n";
-			#endif
+#endif
 		}
 		else {
-			#ifdef ASSET_MANAGER_DEBUG
+#ifdef ASSET_MANAGER_DEBUG
 			printf("Successfully loaded %s. (ID: %d Width: %d px Height: %d px Channel: %d)\n", path.c_str(), id, width, height, channels);
-			#endif
+#endif
 		}
 
-		ImageData imageData{id, path, width, height, channels, img};
+		ImageData imageData{ id, path, width, height, channels, img };
 		m_loadedImages.insert(std::pair<int, ImageData>(id, imageData));
 		m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(path, id));
 		m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(id, path));
-
+		 
 		return id;
 	}
 
@@ -278,14 +258,16 @@ namespace GE::Assets
 		return result;
 	}
 
-	void AssetManager::LoadDeserializedData()
+	void AssetManager::LoadImages()
 	{
 		stbi_set_flip_vertically_on_load(true);
-		std::vector<std::pair<std::string, std::string>> deserialized_data = MOCK_Deserialize();
-			
-		for (const std::pair<const std::string, std::string>& value : deserialized_data) {
-			std::string mapValue = value.second;
-			LoadImageW(mapValue);
+		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+
+		// Load all images in m_images
+		for (std::pair<std::string, std::string> const& image : m_images)
+		{
+			int id = LoadImageW(image.second);
+			gEngine.InitTexture(image.first, GetData(id));
 		}
 	}
 
@@ -293,16 +275,16 @@ namespace GE::Assets
 	{
 		for (const auto& pair : m_loadedImages)
 		{
-				
+
 			int id = pair.first;
 			ImageData imageData = pair.second;
 			if (!imageData.GetData())
 			{
 				continue;
 			}
-			#ifdef ASSET_MANAGER_DEBUG
+#ifdef ASSET_MANAGER_DEBUG
 			printf("Freeing Image: %s...\n", imageData.GetName().c_str());
-			#endif
+#endif
 			// Free the loaded image data
 			stbi_image_free(imageData.GetData());
 
@@ -315,9 +297,9 @@ namespace GE::Assets
 		m_loadedImagesStringLookUp.clear();
 		m_loadedImagesIDLookUp.clear();
 
-		#ifdef ASSET_MANAGER_DEBUG
+#ifdef ASSET_MANAGER_DEBUG
 		printf("Successfully cleared data.");
-		#endif
+#endif
 	}
 
 	void AssetManager::FreeImage(const std::string& name)
@@ -327,4 +309,32 @@ namespace GE::Assets
 		m_loadedImagesStringLookUp.erase(GetData(name).GetName());
 		m_loadedImagesIDLookUp.erase(GetData(name).GetID());
 	}
+
+	void AssetManager::LoadSpritesheets()
+	{
+		GE::Serialization::SpriteGooStream::container_type assets;
+		std::string const fileName{ *GetConfigData<std::string>("Sprite Config") };
+		// Create a SpriteGooStream object with the given file name
+		GE::Serialization::SpriteGooStream sgs{ fileName };
+		// If the SpriteGooStream object is not valid, print an error message
+		if (!sgs)
+		{
+			std::cout << "Error deserializing " << fileName << "\n";
+		}
+		// If unloading assets into the container was not successful, print an error message
+		if (!sgs.Unload(assets))
+		{
+			std::cout << "Error unloading assets into container" << "\n";
+		}
+
+		std::cout << "Deserialized " << fileName << ":\n";
+
+		// For each entry in assets, print out its details
+		for (auto const& entry : assets)
+		{
+			SpriteData loadedData{ entry.m_id, entry.m_filePath, entry.m_slices, entry.m_stacks, entry.m_frames, entry.m_speed };
+			m_loadedSpriteData.insert({ entry.m_id, loadedData });
+		}
+	}
+
 }
