@@ -29,16 +29,16 @@ namespace Graphics::Rendering {
     m_camera = camera;
   }
 
-  void Renderer::RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat3 const& trans)
+  void Renderer::RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat4 const& trans)
   {
     // Add the model data
     // Create a glm::mat4 and initialize it with values in a column-major order
     float depthVal{};
     m_renderCalls.emplace_back(mdl, sprite, glm::mat4(
-      static_cast<f32>(trans.At(0,0)), static_cast<f32>(trans.At(0,1)), 0.f,      0.f, // col 1
-      static_cast<f32>(trans.At(1,0)), static_cast<f32>(trans.At(1,1)), 0.f,      0.f, // col 2
-      0.f,                             0.f,                             1.f,      0.f, // col 3 THIS COLUMN IS INSERTED FOR DEPTH
-      static_cast<f32>(trans.At(2,0)), static_cast<f32>(trans.At(2,1)), depthVal, 1.f // col 4
+      static_cast<f32>(trans.At(0,0)), static_cast<f32>(trans.At(0,1)), static_cast<f32>(trans.At(0,2)), static_cast<f32>(trans.At(0,3)), // col 1
+      static_cast<f32>(trans.At(1,0)), static_cast<f32>(trans.At(1,1)), static_cast<f32>(trans.At(1,2)), static_cast<f32>(trans.At(1,3)), // col 2
+      static_cast<f32>(trans.At(2,0)), static_cast<f32>(trans.At(2,1)), static_cast<f32>(trans.At(2,2)), static_cast<f32>(trans.At(2,3)), // col 3
+      static_cast<f32>(trans.At(3,0)), static_cast<f32>(trans.At(3,1)), static_cast<f32>(trans.At(3,2)), static_cast<f32>(trans.At(3,3)) // col 4
     )  );
   }
 
