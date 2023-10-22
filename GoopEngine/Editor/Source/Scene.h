@@ -84,7 +84,8 @@ struct Scene
 		// Example of unregistering from a system
 		//ecs->UnregisterEntityFromSystem<(system)>(entt1);
 		GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
-		of.SpawnPrefab("Background");
+		//Entity bg = of.SpawnPrefab("Background");
+		//ecs->SetEntityName(bg, "Background");
 		MakeDraggableBox();
 
 		Entity entt2 = ecs->CreateEntity();

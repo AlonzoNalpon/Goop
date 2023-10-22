@@ -30,7 +30,7 @@ namespace GE::Application
     try
     {
       GE::Assets::AssetManager* am = &GE::Assets::AssetManager::GetInstance();
-      am->LoadJSONData("./Assets/Data/Config.json", GE::Assets::CONFIG);
+      am->LoadJSONData("./Assets/Config.json", GE::Assets::CONFIG);
 
       GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
       of.Init();

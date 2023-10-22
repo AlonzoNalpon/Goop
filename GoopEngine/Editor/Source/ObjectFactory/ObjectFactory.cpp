@@ -10,6 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "ObjectFactory.h"
 
+#include <AssetManager/AssetManager.h>
 #include <Systems/Physics/PhysicsSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <Systems/DraggableObject/DraggableObjectSystem.h>
@@ -311,7 +312,7 @@ void ObjectFactory::ObjectJsonLoader(const std::string& json_path)
 
 // Reads objects from scene file and loads into map
 void ObjectFactory::ObjectFactoryTest() {
-  Serialization::ObjectGooStream ogs{ "Assets/Data/Scene.json" };
+  Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Scene").value() };
   if (ogs)
   {
     ogs.Unload(m_objects);

@@ -1,0 +1,8 @@
+{
+  "Path": "./Assets/",
+  "Shark": "Spritesheet/Shark.png",
+  "MineWorm": "Spritesheet/MineWorm.png",
+  "Zed Tiles": "Zed Tiles.png",
+  "Background": "/Enviroment/zBackground.png",
+  "ButaPIG": "Sprite/Buta PIG.png"
+}
