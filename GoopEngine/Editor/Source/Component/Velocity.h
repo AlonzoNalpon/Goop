@@ -4,7 +4,7 @@ namespace GE
 {
 	namespace Component
 	{
-		using vec2 = GE::Math::dVec2;
+		using vec3 = GE::Math::dVec3;
 
 		struct LinearForce
 		{
@@ -18,10 +18,10 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			LinearForce(vec2 mag, double lifetime, bool active = true) : m_magnitude{mag}, m_lifetime{lifetime},
+			LinearForce(vec3 mag, double lifetime, bool active = true) : m_magnitude{mag}, m_lifetime{lifetime},
 			m_isActive {active} {}
 
-			vec2 m_magnitude;
+			vec3 m_magnitude;
 			double m_lifetime;
 			bool m_isActive;
 		};
@@ -38,9 +38,9 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			DragForce(vec2 mag, bool active = false) : m_magnitude{ mag }, m_isActive{ active } {}
+			DragForce(vec3 mag, bool active = false) : m_magnitude{ mag }, m_isActive{ active } {}
 
-			vec2 m_magnitude;
+			vec3 m_magnitude;
 			bool m_isActive;
 		};
 
@@ -56,22 +56,21 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			Velocity(vec2 vel, vec2 acc, double mass, vec2 grav, DragForce drag, std::vector<LinearForce> forces = {}) :
+			Velocity(vec3 vel, vec3 acc, double mass, vec3 grav, DragForce drag, std::vector<LinearForce> forces = {}) :
 				m_vel{ vel }, m_acc{ acc }, m_mass{ mass }, m_gravity{ grav }, m_dragForce{ drag }, m_forces{ forces } {}
 
-			vec2 m_vel;
-			vec2 m_acc;
+			vec3 m_vel;
+			vec3 m_acc;
 			double m_mass;
-			vec2 m_gravity;
+			vec3 m_gravity;
 			DragForce m_dragForce;
 			std::vector<LinearForce> m_forces;
 
-			vec2 m_sumMagnitude;
+			vec3 m_sumMagnitude;
 
 			//forces functions
-			void AddForce(vec2 mag, double lifetime, bool active = true)
+			void AddForce(vec3 mag, double lifetime, bool active = true)
 			{
-				std::cout << "Adding force" << std::endl;
 				LinearForce force(mag, lifetime, active);
 				m_forces.push_back(force);
 			}

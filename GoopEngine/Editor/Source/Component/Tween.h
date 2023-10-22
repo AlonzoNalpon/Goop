@@ -15,13 +15,13 @@ namespace GE
 	{
 		struct Tween
 		{
-			using vec2 = GE::Math::dVec2;
+			using vec3 = GE::Math::dVec3;
 
-			std::queue<vec2> m_tweens;
+			std::queue<vec3> m_tweens;
 			double m_timePerTween;
 			double m_timeTaken;
 			double m_timeElapsed;
-			vec2 m_originalPos;
+			vec3 m_originalPos;
 			bool m_started;
 
 			/*!*********************************************************************
@@ -38,7 +38,7 @@ namespace GE
 			\param target
 				New position to interpolate to.
 			************************************************************************/
-			void AddTween(vec2 target)
+			void AddTween(vec3 target)
 			{
 				m_tweens.emplace(target);
 				m_timePerTween = m_timeTaken / m_tweens.size();

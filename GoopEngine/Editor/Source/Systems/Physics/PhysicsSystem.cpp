@@ -27,11 +27,11 @@ void PhysicsSystem::FixedUpdate()
 
 		if (inputMan.IsKeyTriggered(GPK_COMMA))
 		{
-			vel->AddForce({ 1,0 }, 2);
+			vel->AddForce({ 1,0,0 }, 2);
 		}
 		if (inputMan.IsKeyTriggered(GPK_PERIOD))
 		{
-			vel->AddForce({ -5,0 }, 1);
+			vel->AddForce({ -5,0,0 }, 1);
 		}
 		if (inputMan.IsKeyTriggered(GPK_SEMICOLON))
 		{
@@ -48,8 +48,6 @@ void PhysicsSystem::FixedUpdate()
 			LinearForce& itr = vel->m_forces[i];
 			if (itr.m_isActive)
 			{
-				std::cout << "Force lifetime before: " << itr.m_lifetime << std::endl;
-
 				vel->m_sumMagnitude += itr.m_magnitude;
 				itr.m_lifetime -= dt;
 
@@ -58,15 +56,7 @@ void PhysicsSystem::FixedUpdate()
 					itr.m_isActive = false;
 					vel->m_forces.erase(vel->m_forces.begin() + i);
 				}
-
-				std::cout << "Force lifetime after: " << itr.m_lifetime << std::endl;
-				/*std::cout << "Delta time: " << dt << std::endl;
-				std::cout << "Force active: " << itr.m_isActive << std::endl;
-				std::cout << "Force age after: " << itr.m_age << std::endl;
-				std::cout << "Vel: " << vel->m_sumMagnitude.x << ", " << vel->m_sumMagnitude.y << std::endl;*/
 			}
-
-			/*std::cout << "Force " << i << std::endl;*/
 		}
 
 		if (vel->m_dragForce.m_isActive)

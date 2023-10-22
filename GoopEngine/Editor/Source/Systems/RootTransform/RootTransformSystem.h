@@ -11,6 +11,6 @@ namespace GE::Systems
 		// inactive entities as well
 		void Update();
 
-		void Propergate(GE::ECS::Entity& entity, const Math::dMat3& parentWorldTrans);
+		void Propergate(GE::ECS::Entity& entity, const Math::dMat4& parentWorldTrans);
 	};
 }
