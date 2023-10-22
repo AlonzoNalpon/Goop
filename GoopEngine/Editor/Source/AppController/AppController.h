@@ -16,7 +16,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <MemoryManager/MemoryManager.h>
 #include <EditorUI/ImGuiUI.h>
 #include <ScriptEngine/ScriptManager.h>
-#include <Scene.h>
+//#include <Scene.h>
+#include <GameStateManager/GameStateManager.h>
 
 
 namespace GE::Application
@@ -52,10 +53,10 @@ namespace GE::Application
 
   private:
     WindowSystem::Window window;
-    GE::EditorGUI::ImGuiUI imgui;
-    Scene scn;
-    GE::FPS::FrameRateController& fRC;
-    GE::Input::InputManager* im;
     Graphics::GraphicsEngine& gEngine;
+    GE::FPS::FrameRateController& fRC;
+    GE::EditorGUI::ImGuiUI imgui;
+    GE::Input::InputManager& im;
+    GE::GSM::GameStateManager gsm;
   };
 }

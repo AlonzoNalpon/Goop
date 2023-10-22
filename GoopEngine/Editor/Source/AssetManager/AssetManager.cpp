@@ -182,6 +182,10 @@ namespace GE::Assets
 				m_loadedSpriteData.insert({ entry.m_id, loadedData });
 			}
 		}
+		if (flag == SCENE)
+		{
+			std::string const fileName{ GetConfigData<std::string>("Scene").value() };
+		}
 		#ifdef ASSET_MANAGER_DEBUG
 		printf("Loading success\n");
 		#endif

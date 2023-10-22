@@ -18,10 +18,10 @@ namespace GE::Application
 {
   AppController::AppController() :
     window{ 0, 0, nullptr },
-    imgui{},
     gEngine{ Graphics::GraphicsEngine::GetInstance() },
     fRC{ GE::FPS::FrameRateController::GetInstance() },
-    im{ &GE::Input::InputManager::GetInstance() } 
+    im{ GE::Input::InputManager::GetInstance() },
+    gsm{}
   {}
   
   void AppController::Init()
@@ -47,7 +47,7 @@ namespace GE::Application
 
       am->LoadFiles();
       of.ObjectFactoryTest();
-      im->InitInputManager(window.GetWindow(), *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), 0.1);
+      im.InitInputManager(window.GetWindow(), *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), 0.1);
 
       GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
       scriptMan->InitMono();
@@ -55,6 +55,7 @@ namespace GE::Application
       GE::Debug::ErrorLogger::GetInstance().SuppressLogMessages(true);
 
       GE::AI::TestTree();
+
     }
     catch (GE::Debug::IExceptionBase& e)
     {
@@ -66,14 +67,16 @@ namespace GE::Application
   {
     try
     {
-      scn.Start();
+      GE::ECS::EntityComponentSystem *ecs = { &GE::ECS::EntityComponentSystem::GetInstance() };
+      //scn.Start();
+      gsm.Init();
 
       while (!window.GetWindowShouldClose())
       {
         fRC.StartFrame();
 
         fRC.StartSystemTimer();
-        im->UpdateInput();
+        im.UpdateInput();
         fRC.EndSystemTimer("Input System");
 
         static bool renderUI = false;
@@ -91,7 +94,8 @@ namespace GE::Application
         gEngine.ClearBuffer();
 
         fRC.StartSystemTimer();
-        scn.Update();
+        ecs->UpdateSystems();
+        //scn.Update();
         fRC.EndSystemTimer("Scene Update");
 
         fRC.StartSystemTimer();
@@ -134,7 +138,7 @@ namespace GE::Application
   {
     try
     {
-      scn.Exit();
+      gsm.Exit();
       imgui.Exit();
     }
     catch (GE::Debug::IExceptionBase& e)
