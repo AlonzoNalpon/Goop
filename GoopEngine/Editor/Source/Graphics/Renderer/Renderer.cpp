@@ -33,7 +33,6 @@ namespace Graphics::Rendering {
   {
     // Add the model data
     // Create a glm::mat4 and initialize it with values in a column-major order
-    float depthVal{};
     m_renderCalls.emplace_back(mdl, sprite, glm::mat4(
       static_cast<f32>(trans.At(0,0)), static_cast<f32>(trans.At(0,1)), static_cast<f32>(trans.At(0,2)), static_cast<f32>(trans.At(0,3)), // col 1
       static_cast<f32>(trans.At(1,0)), static_cast<f32>(trans.At(1,1)), static_cast<f32>(trans.At(1,2)), static_cast<f32>(trans.At(1,3)), // col 2
