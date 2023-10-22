@@ -226,8 +226,6 @@ copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Source\ImTerm\example\terminal_commands.cpp" />
-    <ClCompile Include="Source\ImTerm\terminal_commands.cpp" />
     <ClCompile Include="Source\InputManager\InputManager.cpp" />
     <ClCompile Include="Source\ObjectFactory\ObjectFactory.cpp" />
     <ClCompile Include="Source\MemoryManager\BaseAllocator.cpp" />
@@ -307,14 +305,12 @@ copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y</Command>
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
     <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
-    <ClInclude Include="Source\ImTerm\example\terminal_commands.hpp" />
     <ClInclude Include="Source\ImTerm\misc.hpp" />
     <ClInclude Include="Source\ImTerm\terminal.hpp" />
     <ClInclude Include="Source\ImTerm\terminal_commands.hpp" />
     <ClInclude Include="Source\ImTerm\terminal_helpers.hpp" />
     <ClInclude Include="Source\ImTerm\utils.hpp" />
     <ClInclude Include="Source\pch.h" />
-    <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\ECS\EntityComponentSystem.h" />
     <ClInclude Include="Source\ECS\Entity\Entity.h" />
     <ClInclude Include="Source\ECS\Entity\EntityManager.h" />
