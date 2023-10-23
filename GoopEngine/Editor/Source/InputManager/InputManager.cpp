@@ -118,6 +118,14 @@ void InputManager::DispatchInputEvents()
 	{
 		eventMan.Dispatch(KeyTriggeredEvent(GPK_K));
 	}
+	if (IsKeyTriggered(GPK_A))
+	{
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_A));
+	}
+	if (IsKeyTriggered(GPK_W))
+	{
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_W));
+	}
 }
 
 bool InputManager::IsKeyTriggered(KEY_CODE key)

@@ -55,13 +55,10 @@ void AudioEngine::Update() const
 
 void AudioEngine::LoadSound(const std::string& soundFile, bool isLooping, bool isStreaming) const
 {
-  std::cout << "Loading " << soundFile << std::endl;
-
   // Check if the sound is already loaded
   auto soundFound = fMOD->m_sounds.find(soundFile);
   if (soundFound != fMOD->m_sounds.end())
   {
-    std::cout << "Sound found" << std::endl;
     return;
   }
 
@@ -75,7 +72,6 @@ void AudioEngine::LoadSound(const std::string& soundFile, bool isLooping, bool i
   FMOD_RESULT result = fMOD->fm_system->createSound(soundFile.c_str(), mode, nullptr, &sound);
   if (result == FMOD_OK)
   {
-    std::cout << "Adding sound to sound map" << std::endl;
     fMOD->m_sounds[soundFile] = sound;
   }
   else
@@ -90,7 +86,6 @@ void AudioEngine::UnLoadSound(const std::string& strSoundName) const
   auto soundFound = fMOD->m_sounds.find(strSoundName);
   if (soundFound == fMOD->m_sounds.end())
   {
-    std::cout << "Sound not found" << std::endl;
     return;
   }
 
@@ -105,12 +100,10 @@ void AudioEngine::PlaySound(const std::string& sound, float volumedB, bool isLoo
 
   if (soundFound == fMOD->m_sounds.end()) //if sound not found, load sound
   {
-    std::cout << "Sound not found, loading sound" << std::endl;
     LoadSound(sound, isLooping, isStreaming);
     soundFound = fMOD->m_sounds.find(sound);
     if (soundFound == fMOD->m_sounds.end()) //if sound still not found, return 
     {
-      std::cout << "Sound still not in map" << std::endl;
       return;
     }
   }
@@ -119,7 +112,6 @@ void AudioEngine::PlaySound(const std::string& sound, float volumedB, bool isLoo
   AudioEngine::ErrorCheck(fMOD->fm_system->playSound(soundFound->second, nullptr, true, &channel));
   if (channel)
   {
-    std::cout << "Channel is playing " << channelId << std::endl;
     AudioEngine::ErrorCheck(channel->setVolume(dbToVolume(volumedB)));
     AudioEngine::ErrorCheck(channel->setPaused(false));
     fMOD->m_channels[channelId] = channel;
@@ -129,7 +121,6 @@ void AudioEngine::PlaySound(const std::string& sound, float volumedB, bool isLoo
 
 void AudioEngine::StopSound(const std::string& sound) const
 {
-  std::cout << "Stopping channel" << std::endl;
   Implementation::ChannelID const& channel = fMOD->m_playlist[sound];
   fMOD->m_channels[channel]->stop();
   fMOD->m_playlist.erase(sound);
@@ -137,7 +128,6 @@ void AudioEngine::StopSound(const std::string& sound) const
 
 void AudioEngine::StopAllChannels() const
 {
-  std::cout << "Stopping all channels" << std::endl;
   for (int i{}; i < fMOD->m_channels.size(); ++i) {
     fMOD->m_channels[i]->stop();
   }
