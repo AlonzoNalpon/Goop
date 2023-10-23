@@ -27,6 +27,7 @@ namespace {
 
   }testAnim;
 }
+#define OGL_ERR_CALLBACK
 #ifdef OGL_ERR_CALLBACK
   void GLAPIENTRY glDebugCallback(GLenum /*source*/, GLenum /*type*/, GLuint /*id*/, GLenum /*severity*/, GLsizei /*length*/, const GLchar* message, const void* /*userParam*/) {
     // Print the message to the console
@@ -36,7 +37,7 @@ namespace {
   // Typedefs
   
   GraphicsEngine::GraphicsEngine() : m_vpWidth{}, m_vpHeight{}, m_ar{}, 
-    m_renderer{ m_models, m_textureManager, m_shaders, m_fontManager }
+    m_renderer{ m_models, m_textureManager, m_shaders, m_fontManager, m_deferredInfo, m_viewportQuadMdl }
   {
   }
 
@@ -51,7 +52,7 @@ namespace {
     glDebugMessageCallback(glDebugCallback, nullptr);
 #endif
     glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
-    glViewport(0, 0, w, h);
+    
     m_vpWidth = w;
     m_vpHeight = h;
     m_ar = static_cast<GLfloat>(m_vpWidth) / m_vpHeight;
@@ -62,20 +63,21 @@ namespace {
 #pragma region SHADER_MDL_INIT
 
 
-    m_spriteQuadMdl = GenerateQuad();
+    m_spriteQuadMdl = GenerateUniformQuad(0.5f);
+    m_viewportQuadMdl = GenerateUniformQuad(1.f);
     m_lineMdl       = GenerateLine();
     ShaderInitCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"}};
     ShaderInitCont debugLineShaders{ { GL_VERTEX_SHADER, "debug_line.vert" }, {GL_FRAGMENT_SHADER, "debug_line.frag"} };
     ShaderInitCont geometryPassShaders{ {GL_VERTEX_SHADER, "geometry.vert"}, 
       {GL_FRAGMENT_SHADER, "geometry.frag"}};
-    ShaderInitCont deferredPassShaders{ {GL_FRAGMENT_SHADER, "deferred.frag"} };
+    ShaderInitCont deferredPassShaders{ { GL_VERTEX_SHADER, "deferred.vert" }, {GL_FRAGMENT_SHADER, "deferred.frag"} };
 
 
     //m_spriteQuadMdl.shader = CreateShader(spriteShaders, "sprite");
     // Adding the basic shader for rendering lines etc...
     m_lineMdl.shader       = CreateShader(debugLineShaders,    "debug_line");
     m_spriteQuadMdl.shader = CreateShader(geometryPassShaders, "geometry_pass");
-    GLuint deferredShader  = CreateShader(deferredPassShaders, "deferred_pass");
+    m_viewportQuadMdl.shader = CreateShader(deferredPassShaders, "deferred_pass");
 
     //Initialize renderer with a camera
     {
@@ -84,7 +86,7 @@ namespace {
                                   {.0f, 1.f, 0.f},                        // up vector
                                   -w*0.5f, w*0.5f, -h * 0.5f, h * 0.5f,   // left right bottom top
                                   0.1f, 10.f };                           // near and far z planes
-      m_renderer.Init(orthoCam, deferredShader);
+      m_renderer.Init(orthoCam);
     }
 
     m_models.emplace_back(m_spriteQuadMdl);
@@ -123,56 +125,75 @@ namespace {
     Rendering::Transform xform{ {SCALE,SCALE,SCALE}, 0.f, {400.f, 0.f, 0.f} };
     m_renderer.RenderObject(0, spriteData, xform);
 #endif
+    m_deferredInfo;
     m_renderer.Draw();
   }
 
   void GraphicsEngine::InitDeferred()
   {
-    glCreateFramebuffers(1, &m_gbuffer); // G buffer creation
-    glCreateFramebuffers(1, &m_framebuffer); // frame buffer creation
-    GLuint m_posTexture{};
-    GLuint m_normalTexture{};
-    GLuint m_albedoTexture{};
+    glCreateFramebuffers(1, &m_deferredInfo.gBuffer); // G buffer creation
+    glCreateFramebuffers(1, &m_deferredInfo.finalBuffer); // frame buffer creation
+    GLuint& posTexture    {m_deferredInfo.posTexture};
+    GLuint& albedoTexture {m_deferredInfo.albedoTexture};
+    GLuint& normalTexture {m_deferredInfo.normalTexture};
     constexpr int INTERNAL_FMT{ GL_RGBA16F };
-    glCreateTextures(GL_TEXTURE_2D, 1, &m_posTexture); // create texture POSITION
-    glTextureStorage2D(m_posTexture, 1, INTERNAL_FMT, m_vpWidth, m_vpHeight); // allocate texture memory
+    glCreateTextures(GL_TEXTURE_2D, 1, &posTexture); // create texture POSITION
+    glTextureStorage2D(posTexture, 1, INTERNAL_FMT, m_vpWidth, m_vpHeight); // allocate texture memory
+    
+    glCreateTextures(GL_TEXTURE_2D, 1, &albedoTexture); // create texture ALBEDO
+    glTextureStorage2D(albedoTexture, 1, INTERNAL_FMT, m_vpWidth, m_vpHeight); // allocate texture memory
 
-    glCreateTextures(GL_TEXTURE_2D, 1, &m_albedoTexture); // create texture ALBEDO
-    glTextureStorage2D(m_albedoTexture, 1, INTERNAL_FMT, m_vpWidth, m_vpHeight); // allocate texture memory
+    glCreateTextures(GL_TEXTURE_2D, 1, &normalTexture); // create texture NORMAL
+    glTextureStorage2D(normalTexture, 1, INTERNAL_FMT, m_vpWidth, m_vpHeight); // allocate texture memory
 
-    glCreateTextures(GL_TEXTURE_2D, 1, &m_normalTexture); // create texture NORMAL
-    glTextureStorage2D(m_normalTexture, 1, INTERNAL_FMT, m_vpWidth, m_vpHeight); // allocate texture memory
 
     // Attaching the 3 textures to g buffer
-    glNamedFramebufferTexture(m_gbuffer, GL_COLOR_ATTACHMENT0, m_posTexture, 0);
-    glNamedFramebufferTexture(m_gbuffer, GL_COLOR_ATTACHMENT1, m_albedoTexture, 0);
-    glNamedFramebufferTexture(m_gbuffer, GL_COLOR_ATTACHMENT2, m_normalTexture, 0);
+    glNamedFramebufferTexture(m_deferredInfo.gBuffer, GL_COLOR_ATTACHMENT0, posTexture, 0);
+    glNamedFramebufferTexture(m_deferredInfo.gBuffer, GL_COLOR_ATTACHMENT1, albedoTexture, 0);
+    glNamedFramebufferTexture(m_deferredInfo.gBuffer, GL_COLOR_ATTACHMENT2, normalTexture, 0);
 
     GLenum attachments[3] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
-    glNamedFramebufferDrawBuffers(m_gbuffer, 3, attachments); // these 3 attachments to be used for rendering
+    glNamedFramebufferDrawBuffers(m_deferredInfo.gBuffer, 3, attachments); // these 3 attachments to be used for rendering
 
+    // Now we add the depth buffer to the gbuffer
+    {
+      GLuint depthBufferGBuffer{}; // for gbuffer
+      glCreateRenderbuffers(1, &depthBufferGBuffer);
+      glNamedRenderbufferStorage(depthBufferGBuffer, GL_DEPTH24_STENCIL8, m_vpWidth, m_vpHeight);
+      glNamedFramebufferRenderbuffer(m_deferredInfo.gBuffer, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthBufferGBuffer);
+    }
 #pragma region COMPLETENESS_TEST
-    if (glCheckNamedFramebufferStatus(m_gbuffer, GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
+    if (glCheckNamedFramebufferStatus(m_deferredInfo.gBuffer, GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
     {
       // Handle the framebuffer completeness error.
       throw GE::Debug::Exception<GraphicsEngine>(GE::Debug::LEVEL_CRITICAL, ErrMsg("G buffer failed completeness test!"));
     }
-    if (glCheckNamedFramebufferStatus(m_framebuffer, GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
+
+    // Now we add the depth buffer to the framebuffer
+    {
+      GLuint depthBufferFinal; // for framebuffer
+      glCreateRenderbuffers(1, &depthBufferFinal);
+      glNamedRenderbufferStorage(depthBufferFinal, GL_DEPTH24_STENCIL8, m_vpWidth, m_vpHeight);
+      glNamedFramebufferRenderbuffer(m_deferredInfo.finalBuffer, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthBufferFinal);
+    }
+
+    if (glCheckNamedFramebufferStatus(m_deferredInfo.finalBuffer, GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
       // Handle the framebuffer completeness error.
       throw GE::Debug::Exception<GraphicsEngine>(GE::Debug::LEVEL_CRITICAL, ErrMsg("framebuffer failed completeness test!"));
     }
 #pragma endregion
+    glViewport(0, 0, m_vpWidth, m_vpHeight);
   }
 
-  Model GraphicsEngine::GenerateQuad()
+  Model GraphicsEngine::GenerateUniformQuad(f32 width)
   {
     Model retval{};
     // Order of the quad's vtx data: bottom left, bottom right, top left, top right
     Colorf const WHITE{ 1.f, 1.f, 1.f, 1.f };
     GL_Data data
     {
-      {{ -0.5, -0.5, .0 }, { 0.5, -0.5, .0 },  { -0.5, 0.5, .0}, { 0.5, 0.5, .0 }}, // the position data of a quad
+      {{ -width, -width, .0 }, { width, -width, .0 },  { -width, width, .0}, { width, width, .0 }}, // the position data of a quad
       { WHITE,          WHITE,          WHITE,        WHITE },                      // the color data of the quad
       { { 0.0, 0.0, 1.0 }, { 0.0, 0.0, 1.0 }, { 0.0, 0.0, 1.0 }, { 0.0, 0.0, 1.0 }},// the normal data of the quad
       { {0.f, 0.f},     {1.f, 0.f},     {0.f, 1.f},   {1.f, 1.f} },                 // the texture data of the quad

@@ -9,7 +9,8 @@ This is the basic sprite shader for rendering sprites
 #version 460 core
 layout (location=0) in vec3 aVertexPosition;  // vertex position attribute
 layout (location=1) in vec3 aVertexColor;     // vertex color attribute
-layout (location=2) in vec2 aTexturePosition; // texture position attribute
+layout (location=2) in vec3 aVertexNormal;    // vertex normal attribute
+layout (location=3) in vec2 aTexturePosition; // texture position attribute
 
 layout (location=0) out vec3 vColor;    // vertex color output
 layout (location=1) out vec2 vTexCoord; // texture coordinate output

@@ -236,6 +236,19 @@ namespace Graphics {
 
   // For deferred rendering, multiple passes are required. The type for the shader program handles would be GLuint
   using Render_Shdrs = T_DeferredShdrs<GLuint>;
+  
+  /*!
+   * \struct  GBufferAtt
+   * \brief  
+   * Handles to G buffer attachments.
+   */
+  struct DeferredInfo {
+    GLuint posTexture{};
+    GLuint normalTexture{};
+    GLuint albedoTexture{};
+    GLuint gBuffer{};
+    GLuint finalBuffer{};
+  };
 
   constexpr gObjID BAD_OBJ_ID{ static_cast<gObjID>(-1) }; // Our bad obj id will be the biggest number possible
 }

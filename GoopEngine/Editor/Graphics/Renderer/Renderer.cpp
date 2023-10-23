@@ -17,17 +17,17 @@ namespace
 
 namespace Graphics::Rendering {
   Renderer::Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, 
-    ShaderCont const& shaderCont, Fonts::FontManager const& fontManager, GLuint gbuffer, GLuint framebuffer)
+    ShaderCont const& shaderCont, Fonts::FontManager const& fontManager, DeferredInfo const& deferredInfo,
+    Model const& vpQuadMdl)
     : r_mdlContainer{ mdlContainer }, r_texManager{ texManager }, r_shaders{ shaderCont }, r_fontManager { fontManager },
-    r_gbuffer{ gbuffer }, r_framebuffer{ framebuffer }
+    r_deferredInfo{deferredInfo}, r_vpQuadMdl{vpQuadMdl}
   {
   }
 
-  void Renderer::Init(Camera const& camera, GLuint deferredShdr, size_t renderCallSize)
+  void Renderer::Init(Camera const& camera, size_t renderCallSize)
   {
     m_renderCalls.reserve(renderCallSize);
     m_camera = camera;
-    m_deferredShdr = deferredShdr;
   }
 
   void Renderer::RenderObject(gObjID mdl, SpriteData const& sprite, Transform const&transform)
@@ -86,16 +86,25 @@ namespace Graphics::Rendering {
       */
     }
 
-    std::sort(m_renderCalls.begin(), m_renderCalls.end(), DepthComp());
+    //std::sort(m_renderCalls.begin(), m_renderCalls.end(), DepthComp());
     glm::mat4 camViewProj{ m_camera.ViewProjMtx() };
 
     // Draw onto gbuffer (geometry pass)
-    glBindFramebuffer(GL_FRAMEBUFFER, r_gbuffer); // bind the G buffer
+    glBindFramebuffer(GL_FRAMEBUFFER, r_deferredInfo.gBuffer); // bind the G buffer
+
     for (auto const& obj : m_renderCalls)
     {
+      constexpr GLuint TEXTURE_BINDING{ 7 };
       Model const& mdl{ r_mdlContainer[obj.mdl] };  
       
       glUseProgram(mdl.shader); // USE SHADER PROGRAM
+      if (obj.sprite.texture != BAD_OBJ_ID)
+      {
+        Texture const& texObj{ r_texManager.GetTexture(obj.sprite.texture) };
+        glBindTextureUnit(TEXTURE_BINDING, texObj.textureHandle);
+        glTextureParameteri(texObj.textureHandle, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+        glTextureParameteri(texObj.textureHandle, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+      }
 
       // Setting uniform variables
       constexpr GLint uTexPosLocation   = 0;  // Layout location for uTexPos
@@ -116,26 +125,39 @@ namespace Graphics::Rendering {
       //glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt); // I leave this here as a reference for future optimizations
       glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt);
       glBindVertexArray(0);         // unbind vertex array object
-    
+      
       glUseProgram(0);        // UNUSE SHADER PROGRAM
       if (obj.sprite.texture != BAD_OBJ_ID)
       {
-        glBindTextureUnit(7, 0);
+        glBindTextureUnit(TEXTURE_BINDING, 0);
       }
     }
     // Deferred pass
-    glBindFramebuffer(GL_FRAMEBUFFER, r_framebuffer); // bind the final framebuffer
-    for (auto const& obj : m_renderCalls)
     {
-      if (obj.sprite.texture != BAD_OBJ_ID)
-      {
-        Texture const& texObj{ r_texManager.GetTexture(obj.sprite.texture) };
-        glBindTextureUnit(7, texObj.textureHandle);
-        glTextureParameteri(texObj.textureHandle, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-        glTextureParameteri(texObj.textureHandle, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-      }
-    }
+      constexpr GLuint POSITN_BINDING{ 0 };
+      constexpr GLuint ALBEDO_BINDING{ 1 };
+      constexpr GLuint NORMAL_BINDING{ 2 };
 
+      glBindTextureUnit(POSITN_BINDING, r_deferredInfo.posTexture);
+      glBindTextureUnit(ALBEDO_BINDING, r_deferredInfo.albedoTexture);
+      glBindTextureUnit(NORMAL_BINDING, r_deferredInfo.normalTexture);
+
+      glBindFramebuffer(GL_FRAMEBUFFER, 0); // remove
+      //glBindFramebuffer(GL_FRAMEBUFFER, r_framebuffer); // bind the final framebuffer
+      Model const& mdl = r_vpQuadMdl;
+      glUseProgram(mdl.shader);
+
+      // UNIFORMS
+      glBindVertexArray(mdl.vaoid); // bind vertex array object to draw
+
+      glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt);
+
+      glBindTextureUnit(POSITN_BINDING, 0);
+      glBindTextureUnit(ALBEDO_BINDING, 0);
+      glBindTextureUnit(NORMAL_BINDING, 0);
+      glUseProgram(0);        // UNUSE SHADER PROGRAM
+      glBindVertexArray(0);         // unbind vertex array object
+    }
     m_renderCalls.clear(); // reset
   }
 

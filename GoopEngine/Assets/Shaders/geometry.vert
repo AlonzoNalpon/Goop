@@ -19,7 +19,7 @@ layout (location=3) uniform mat4 uMdlMtx;       // transformation for the model
 void main() {
   
   mat4 MVP    = uViewProjMtx * uMdlMtx;
-  vPosition   = MVP * vec4(aVertexPosition, 1.0);
+  vPosition   = vec3(MVP * vec4(aVertexPosition, 1.0));
   vAlbedo     = aVertexColor;
   vNormal     = normalize(mat3(transpose(inverse(uMdlMtx))) * aVertexNormal);
   vTexCoord   = aTexturePosition * uTexDims + uTexPos;

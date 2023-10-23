@@ -126,9 +126,9 @@ namespace Graphics {
     static void DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr = {1, 0, 0});
 
   protected:
-
-    GLuint m_gbuffer; //!< g buffer for deferred rendering
-    GLuint m_framebuffer; //!< framebuffer for final image
+    DeferredInfo m_deferredInfo; //!< g buffer, attachments and final framebuffer
+    //GLuint m_gbuffer; //!< g buffer for deferred rendering
+    //GLuint m_framebuffer; //!< framebuffer for final image
 
     GLint m_vpWidth;  //!< width of viewport
     GLint m_vpHeight; //!< height of viewport
@@ -144,7 +144,7 @@ namespace Graphics {
     \return quad model
       
     ************************************************************************/
-    Model GenerateQuad();
+    Model GenerateUniformQuad(f32 width = 0.5f);
 
     /*!*********************************************************************
     \brief
@@ -171,6 +171,7 @@ namespace Graphics {
     // Textures are separated from models and are to be used with rendering components
 
     Model                           m_spriteQuadMdl{};  //!< basic primitive quad for sprites
+    Model                           m_viewportQuadMdl{};//!< viewport quad model for rendering g buffer onto framebuffer
     Model                           m_lineMdl{};        //!< basic primitive line
     // FOR DEBUGGING
   private:
