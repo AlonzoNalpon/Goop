@@ -65,7 +65,7 @@ namespace {
                                   0.1f, 1000.f };                           // near and far z planes
       m_renderer.Init(orthoCam);
     }
-
+    InitFrameBuffer();
     // Initialize font manager
     m_fontManager.Init();
 #pragma region SHADER_MDL_INIT
@@ -90,6 +90,29 @@ namespace {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+  }
+
+  void GraphicsEngine::InitFrameBuffer()
+  {
+    glGenFramebuffers(1, &m_framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
+
+
+    glGenTextures(1, &m_renderTexture);
+    glBindTexture(GL_TEXTURE_2D, m_renderTexture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_vpWidth, m_vpHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_renderTexture, 0);
+
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+      // Handle error
+    }
+  }
+
+  GLuint GraphicsEngine::GetRenderTexture()
+  {
+    return m_renderTexture;
   }
 
   void GraphicsEngine::ClearBuffer()
@@ -117,7 +140,11 @@ namespace {
     Rendering::Transform xform{ {SCALE,SCALE,SCALE}, 0.f, {400.f, 0.f, 0.f} };
     m_renderer.RenderObject(0, spriteData, xform);
 #endif
+    glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
+    ClearBuffer();
+    glViewport(0, 0, m_vpWidth, m_vpHeight);
     m_renderer.Draw();
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
   }
 
   Model GraphicsEngine::GenerateQuad()

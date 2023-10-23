@@ -50,7 +50,7 @@ void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
   ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(prgmWindow.GetWindow(), true);
-  ImGui_ImplOpenGL3_Init();
+  ImGui_ImplOpenGL3_Init("#version 460 core");
 }
 
 void ImGuiUI::Update()
@@ -72,6 +72,13 @@ void ImGuiUI::Update()
   End();
 
   Begin("Viewport");
+  auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+  GLuint texture = gEngine.GetRenderTexture();
+  ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+  // Define the UV coordinates for the flipped rendering
+  ImVec2 uv0 = ImVec2(1.0f, 0.0f); // Top-right
+  ImVec2 uv1 = ImVec2(0.0f, 1.0f); // Bottom-left
+  ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
   End();
 
   Begin("Collision Partitioning");
