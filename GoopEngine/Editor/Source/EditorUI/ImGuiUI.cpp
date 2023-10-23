@@ -24,6 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "DataViz/Visualizer.h"
 #include <Systems/Physics/CollisionSystem.h>
 #include "Console.h"
+#include "Inspector.h"
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -174,6 +175,7 @@ void ImGuiUI::Update()
   End();
 
   Begin("Inspector");
+  Inspector::CreateContent();
   End();
 
   Begin("Console");
