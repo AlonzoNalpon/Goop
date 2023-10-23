@@ -53,13 +53,13 @@ void GE::Systems::RootTransformSystem::Propergate(GE::ECS::Entity& entity, const
 	double rad = trans->m_rot / 180.0 * M_PI;
 	Math::dMat4 R
 	{
-		{ std::cosh(rad), std::sinh(rad), 0, 0},
-		{ -std::sinh(rad), std::cosh(rad), 0, 0},
+		{ std::cos(rad), -std::sin(rad), 0, 0},
+		{ std::sin(rad), std::cos(rad), 0, 0},
 		{ 0, 0, 1, 0 },
 		{ 0, 0, 0, 1 }
 	};
 
-	trans->m_worldTransform = trans->m_parentWorldTransform * T * R * S;
+	trans->m_worldTransform = trans->m_parentWorldTransform * (T * R * S);
 
 	std::vector<GE::ECS::Entity>& m_children = m_ecs->GetChildEntities(entity);
 	// End condition no children
