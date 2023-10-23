@@ -13,7 +13,7 @@
 #include <Systems/Physics/CollisionSystem.h>
 #include <Systems/DraggableObject/DraggableObjectSystem.h>
 #include <Systems/PlayerController/PlayerControllerSystem.h>
-#include <Systems/RootTransform/RootTransformSystem.h>
+#include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 

@@ -17,7 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <Systems/PlayerController/PlayerControllerSystem.h>
-#include <Systems/RootTransform/RootTransformSystem.h>
+#include <Systems/RootTransform/PreRootTransformSystem.h>
 
 #include "SerializeComponents.h"
 #include "../Serialization/ObjectGooStream.h"
