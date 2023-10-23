@@ -44,29 +44,18 @@ void GE::EditorGUI::Inspector::CreateContent()
 			{
 			case GE::ECS::COMPONENT_TYPES::TRANSFORM:
 			{
-				// Can use InputFloat3 also
 				auto trans = ecs.GetComponent<Transform>(entity);
 				if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 				{
+					Separator();
 					float contentSize = GetWindowSize().x;
 					// 10 characters
 					float charSize = CalcTextSize("0123456789").x;
-					float inputWidth = (contentSize - charSize) / 3;
-
-					//Text("Position");
-					//SameLine(contentSize.x - (inputWidth * 3));
-					//SetNextItemWidth(inputWidth);
-					//if (InputDouble("##X", &trans->m_pos.x, 0, 0, "%.2f"));
-					//SameLine();
-					//SetNextItemWidth(inputWidth);
-					//if (InputDouble("##Y", &trans->m_pos.y, 0, 0, "%.2f"));
-					//SameLine();
-					//SetNextItemWidth(inputWidth);
-					//if (InputDouble("##Z", &trans->m_pos.z, 0, 0, "%.2f"));
+					// Honestly no idea why -30 makes all 3 input fields match in size but sure
+					float inputWidth = (contentSize - charSize - 30) / 3;
 
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					// Not sure why my 3rd Input size is smaller
 
 					TableNextColumn();
 					Text("Position");
