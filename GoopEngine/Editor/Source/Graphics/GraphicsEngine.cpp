@@ -62,7 +62,7 @@ namespace {
                                   {},                                     // target
                                   {.0f, 1.f, 0.f},                        // up vector
                                   -w*0.5f, w*0.5f, -h * 0.5f, h * 0.5f,   // left right bottom top
-                                  0.1f, 10.f };                           // near and far z planes
+                                  0.1f, -1000.f };                           // near and far z planes
       m_renderer.Init(orthoCam);
     }
 
