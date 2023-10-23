@@ -111,6 +111,17 @@ namespace GE::Assets
 
     /*!*********************************************************************
     \brief
+      Gets the filepath of an audio file based on the specified name
+      (may need to make this function safer in future)
+    \param soundName
+      The key or name of the scene
+    \return
+      The value at the entry of the specified key
+    ************************************************************************/
+    inline std::string GetSound(std::string const& soundName) const noexcept { return m_audio.at(soundName); }
+
+    /*!*********************************************************************
+    \brief
       Gets image data to be used in rendering of image.
     \param
       int id (id of image)

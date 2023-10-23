@@ -1,6 +1,7 @@
 #include <pch.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <Graphics/GraphicsEngine.h>
+#include <Audio/AudioEngine.h>
 
 using namespace GE::Math;
 
@@ -96,6 +97,7 @@ void CollisionSystem::Update()
 				if (Collide(*entity1Col, *entity2Col))
 				{
 					entity1Col->m_collided.insert(entity2Col);
+					Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("damage_taken"), 1.50f);
 				}
 
 				else

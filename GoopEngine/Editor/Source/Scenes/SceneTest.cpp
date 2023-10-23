@@ -17,6 +17,8 @@
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 
+#include <Audio/AudioEngine.h>
+
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
@@ -45,6 +47,8 @@ void GE::Scenes::SceneTest::Load()
 
 void GE::Scenes::SceneTest::Init()
 {
+	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 1.0f, true);
+
 	of->SpawnPrefab("Background");
 	MakeDraggableBox();
 	Entity entt2 = ecs->CreateEntity();
