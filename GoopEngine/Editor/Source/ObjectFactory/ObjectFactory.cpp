@@ -17,7 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <Systems/PlayerController/PlayerControllerSystem.h>
-#include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Systems/RootTransform/RootTransformSystem.h>
 
 #include "SerializeComponents.h"
 #include "../Serialization/ObjectGooStream.h"
@@ -42,7 +42,7 @@ GE::ECS::SystemSignature ObjectFactory::GetObjectSystemSignature(GE::ECS::Entity
   SetBitIfFound<Systems::RenderSystem>(obj, sig, ECS::SYSTEM_TYPES::RENDERING);
   SetBitIfFound<Systems::CollisionSystem>(obj, sig, ECS::SYSTEM_TYPES::COLLISION);
   SetBitIfFound<Systems::PlayerControllerSystem>(obj, sig, ECS::SYSTEM_TYPES::PLAYER_CONTROLLER);
-  SetBitIfFound<Systems::PreRootTransformSystem>(obj, sig, ECS::SYSTEM_TYPES::ROOT_TRANSFORM);
+  SetBitIfFound<Systems::RootTransformSystem>(obj, sig, ECS::SYSTEM_TYPES::ROOT_TRANSFORM);
 
   return sig;
 }
@@ -64,7 +64,7 @@ void ObjectFactory::RegisterObjectToSystems(GE::ECS::Entity object, ECS::SystemS
   if (IsBitSet(signature, SYSTEM_TYPES::SPRITE_ANIM))
     ecs.RegisterEntityToSystem<GE::Systems::SpriteAnimSystem>(object);
   if (IsBitSet(signature, SYSTEM_TYPES::ROOT_TRANSFORM))
-    ecs.RegisterEntityToSystem<GE::Systems::PreRootTransformSystem>(object);
+    ecs.RegisterEntityToSystem<GE::Systems::RootTransformSystem>(object);
 }
 
 void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity srcObj) const
@@ -337,8 +337,8 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     RegisterComponentsToSystem<Systems::SpriteAnimSystem>(sig);
     break;
   case SYSTEM_TYPES::ROOT_TRANSFORM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PreRootTransformSystem>();
-    RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::RootTransformSystem>();
+    RegisterComponentsToSystem<Systems::RootTransformSystem>(sig);
     break;
   default:
     throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown system type"));

@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "SceneHierachy.h"
 #include <ImGui/imgui.h>
-#include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Systems/RootTransform/RootTransformSystem.h>
 
 using namespace ImGui;
 using namespace GE::ECS;

@@ -13,7 +13,7 @@
 #include <Systems/Physics/CollisionSystem.h>
 #include <Systems/DraggableObject/DraggableObjectSystem.h>
 #include <Systems/PlayerController/PlayerControllerSystem.h>
-#include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Systems/RootTransform/RootTransformSystem.h>
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 
@@ -52,7 +52,7 @@ void GE::Scenes::SceneTest::Init()
 	Transform trans({ 250, 250, 0 }, { 100, 50, 1 }, 0.0);
 	BoxCollider box(trans.m_pos, 100, 50);
 
-	ecs->RegisterSystem<PreRootTransformSystem>();
+	ecs->RegisterSystem<RootTransformSystem>();
 
 	Entity entt3 = ecs->CreateEntity();
 	Entity entt4 = ecs->CreateEntity();

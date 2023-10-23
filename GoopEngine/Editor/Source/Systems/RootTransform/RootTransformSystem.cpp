@@ -1,10 +1,10 @@
 #include <pch.h>
-#include "PreRootTransformSystem.h"
+#include "RootTransformSystem.h"
 #include <Component/Transform.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-void GE::Systems::PreRootTransformSystem::Update()
+void GE::Systems::RootTransformSystem::Update()
 {
 	for (GE::ECS::Entity entity : m_ecs->GetEntities())
 	{
@@ -26,7 +26,7 @@ void GE::Systems::PreRootTransformSystem::Update()
 	}
 }
 
-void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::Entity& entity, const Math::dMat4& parentWorldTrans)
+void GE::Systems::RootTransformSystem::Propergate(GE::ECS::Entity& entity, const Math::dMat4& parentWorldTrans)
 {
 	// Compute own world transform matrix first
 	GE::Component::Transform& trans = *m_ecs->GetComponent<GE::Component::Transform>(entity);
