@@ -94,7 +94,6 @@ std::vector<Entity>& GE::ECS::EntityManager::GetChildEntities(Entity& parent)
 void GE::ECS::EntityManager::AddChildEntity(Entity& parent, Entity& child)
 {
 	m_children[parent].push_back(child);
-	SetParentEntity(parent, child);
 }
 
 void GE::ECS::EntityManager::RemoveChildEntity(Entity& parent, Entity& child)
