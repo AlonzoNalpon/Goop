@@ -51,7 +51,7 @@ namespace Graphics::Rendering
 
   struct DepthComp {
     bool operator()(RenderData const& a, RenderData const& b)const {
-      return a.transform[3][2] > b.transform[3][2];
+      return a.transform[3][2] < b.transform[3][2];
     }
   };
 };
