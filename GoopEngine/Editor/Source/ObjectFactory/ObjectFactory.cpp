@@ -106,11 +106,12 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   }
 }
 
-GE::ECS::Entity ObjectFactory::CreateObject(ObjectData data) const
+GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData data) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
   Entity newData = ecs.CreateEntity();
+  ecs.SetEntityName(newData, name);
 
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TRANSFORM))
   {
@@ -247,7 +248,7 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
   }
 
   ObjectData prefab = m_prefabs.at(key);
-  Entity entity = CreateObject(prefab);
+  Entity entity = CreateObject(key, prefab);
   if (IsBitSet(prefab.m_componentSignature, COMPONENT_TYPES::SPRITE_ANIM))
   {
     prefab.m_systemSignature[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
@@ -265,6 +266,7 @@ void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
   Entity newObj = ecs.CreateEntity();
+  ecs.SetEntityName(newObj, ecs.GetEntityName(obj) + " (Copy)");
   CloneComponents(newObj, obj);
   Component::Transform* trans{ ecs.GetComponent<Component::Transform>(newObj) };
   if (trans) 
@@ -285,7 +287,7 @@ bool ObjectFactory::LoadObjects(std::set<GE::ECS::Entity>& map) const
   {
     for (auto const& value : m_objects)
     {
-      map.emplace(CreateObject(value.second));
+      map.emplace(CreateObject(value.first, value.second));
     }
   }
   catch (GE::Debug::IExceptionBase& e)
@@ -303,7 +305,7 @@ bool ObjectFactory::LoadObjects() const
   {
     for (auto const& value : m_objects)
     {
-      CreateObject(value.second);
+      CreateObject(value.first, value.second);
     }
   }
   catch (GE::Debug::IExceptionBase& e)

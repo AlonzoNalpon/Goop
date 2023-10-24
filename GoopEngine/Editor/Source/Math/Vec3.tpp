@@ -12,6 +12,9 @@ template <typename T>
 Vec<3, T>::Vec(Vec<2, T> const& rhs) : x{rhs.x}, y{rhs.y}, z{} {}
 
 template <typename T>
+Vec<3, T>::Vec(Vec<2, T> const& rhs, T _z) : x{rhs.x}, y{rhs.y}, z{_z} {}
+
+template <typename T>
 Vec<3, T>::Vec(Vec<4, T> const& rhs) : x{rhs.x}, y{rhs.y}, z{rhs.z} {}
 
 // Operator overloads

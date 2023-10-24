@@ -216,7 +216,7 @@ namespace GE
 			\return
 			  FPS Controller system time map
 			************************************************************************/
-			const std::map<std::string, std::chrono::microseconds>& GetSystemTimers();
+			const std::map<std::string, std::chrono::microseconds>& GetSystemTimers() noexcept;
 
 		private:
 			double m_currentFPS{};

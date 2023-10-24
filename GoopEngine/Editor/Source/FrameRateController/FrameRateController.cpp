@@ -36,6 +36,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "FrameRateController.h"
+#include <EditorUI/DataViz/Visualizer.h>
 
 using namespace GE::FPS;
 
@@ -141,6 +142,9 @@ void FrameRateController::EndFrame()
 	m_endTime = glfwGetTime();
 	++m_framePassed;
 	++m_frameCount;
+
+	// update graph for system timers if window is shown
+	EditorGUI::DataViz::Visualizer::UpdateSystemTimes();
 }
 
 
@@ -188,7 +192,7 @@ void FrameRateController::EndSystemTimer(std::string systemName)
 	m_systemTimeStart = endTime;
 }
 
-const std::map<std::string, FrameRateController::timeFormat>& GE::FPS::FrameRateController::GetSystemTimers()
+const std::map<std::string, FrameRateController::timeFormat>& GE::FPS::FrameRateController::GetSystemTimers() noexcept
 {
 	return m_fpsControllerMap;
 }

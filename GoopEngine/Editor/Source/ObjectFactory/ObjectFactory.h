@@ -65,7 +65,7 @@ namespace GE::ObjectFactory
     \return
       Entity (Created entity)
     ************************************************************************/
-    GE::ECS::Entity CreateObject(ObjectData data) const;
+    GE::ECS::Entity CreateObject(std::string const& name, ObjectData data) const;
 
     /*!*********************************************************************
     \brief

@@ -158,11 +158,11 @@ void ImGuiUI::Update()
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
   }
-  else if (Button("Clone Object"))
+  else if (Button("Clone Latest Object"))
   {
     double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
     double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
-    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(1, Math::dVec2(randX, randY));
+    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(ecs->GetEntities().size() - 1, Math::dVec2(randX, randY));
   }
   else if (Button("Create 2.5k Render"))
   {
@@ -192,7 +192,7 @@ void ImGuiUI::Update()
   
   if (Visualizer::IsPerformanceShown())
   {
-    Visualizer::UpdatePerformanceTab("Performance Visualizer");
+    Visualizer::CreateContent("Performance Visualizer");
   }
 
 #ifdef _DEBUG

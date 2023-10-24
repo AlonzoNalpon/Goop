@@ -25,11 +25,14 @@ namespace GE
       // CONSTRUCTORS
       Vec();
       Vec(T _x, T _y, T _z);
+      Vec(Vec<3, T>&& rhs) = default;
       Vec(Vec<3, T> const& rhs);
       Vec(Vec<2, T> const& rhs);
+      Vec(Vec<2, T> const& rhs, T _z);
       Vec(Vec<4, T> const& rhs);
 
       // OPERATOR OVERLOADS
+      Vec<3, T>& operator=(Vec<3, T>&& rhs) = default;
       Vec<3, T>& operator=(Vec<3, T> const& rhs);
       Vec<3, T>& operator+=(Vec<3, T> const& rhs);
       Vec<3, T>& operator+=(T rhs);
