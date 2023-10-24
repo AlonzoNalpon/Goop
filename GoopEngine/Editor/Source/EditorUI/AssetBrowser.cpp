@@ -1,18 +1,21 @@
 #include <pch.h>
 #include "AssetBrowser.h"
+#include <AssetManager/AssetManager.h>
 #include <ImGui/imgui.h>
 #include <filesystem>
-#include <AssetManager/AssetManager.h>
 
 using namespace ImGui;
 using namespace GE::Assets;
 
 namespace
 {
+	std::filesystem::path m_currDir;
+	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" };
+
 	void Traverse(std::filesystem::path filepath, ImColor textClr);
 }
 
-void GE::EditorGUI::AssetBrowser::CreateContent()
+void GE::EditorGUI::AssetBrowser::CreateContentDir()
 {
 	AssetManager& assetManager = AssetManager::GetInstance();
 
@@ -42,6 +45,48 @@ void GE::EditorGUI::AssetBrowser::CreateContent()
 	}
 }
 
+void GE::EditorGUI::AssetBrowser::CreateContentView()
+{
+	AssetManager& assetManager = AssetManager::GetInstance();
+
+	if (m_currDir.empty())
+	{
+		return;
+	}
+
+	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
+	{
+		std::string const& extension{ file.path().extension().string() };
+		if (extension == m_imageFile)	// image
+		{
+			//print img
+			ImGui::Image(assetManager.GetData());
+			//name of image
+		}
+		else if (extension == m_audioFile)	// sound
+		{
+			//print img of maybe a audio file logo?
+			//name of audio
+		}
+		else if (extension == m_prefabFile)	// prefab
+		{
+			//name of prefab
+		}
+		else if (extension == m_sceneFile)	// scene
+		{
+			//name of scene
+		}
+		else if (m_shaderFile.find(extension) != std::string::npos)
+		{
+			//name of shader
+		}
+		else
+		{
+			Debug::ErrorLogger::GetInstance().LogMessage("AssetBrowser: " + file.path().string() + " ignored & not in view.");
+		}
+	}
+}
+
 namespace
 {
 	void Traverse(std::filesystem::path filepath, ImColor textClr)
@@ -51,6 +96,12 @@ namespace
 
 		if (TreeNodeEx(filepath.filename().string().c_str(), ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen))
 		{
+			//if folder is clicked
+			if (IsItemClicked())
+			{
+				m_currDir = filepath;
+			}
+
 			//Create child nodes
 			if (!std::filesystem::exists(filepath))
 			{
