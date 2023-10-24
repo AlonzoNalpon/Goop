@@ -137,7 +137,7 @@ void ImGuiUI::Update()
   End();
 
   Begin("Asset Browser(Tree)");
-  AssetBrowser::CreateContent();
+  AssetBrowser::CreateContentDir();
   End();
 
   
