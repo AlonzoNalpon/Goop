@@ -55,6 +55,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 		ecs.SetIsActiveEntity(entity, isActive);
 	}
 	SameLine(); Text(ecs.GetEntityName(entity).c_str());
+	Text(("Entity ID: " + std::to_string(entity)).c_str());
 
 	for (int i{}; i < GE::ECS::MAX_COMPONENTS; ++i)
 	{

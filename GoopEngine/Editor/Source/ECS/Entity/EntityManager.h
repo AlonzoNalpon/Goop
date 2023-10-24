@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include "Entity.h"
 #include <vector>
-#include <queue>
+#include <deque>
 #include <set>
 #include <map>
 
@@ -28,7 +28,7 @@ namespace GE
 			unsigned int m_entitiesAlive;
 
 			std::vector<ComponentSignature> m_entitySignatures;
-			std::queue<Entity> m_availableEntities;
+			std::deque<Entity> m_availableEntities;
 			std::vector<bool> m_mapOfActive;
 			std::set<Entity> m_entities;
 
