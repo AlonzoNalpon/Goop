@@ -8,8 +8,5 @@ namespace GE::EditorGUI
 	{
 	public:
 		static void CreateContent();
-
-	private:
-		void Propergate(std::string filename, ImColor textClr);
 	};
 }
