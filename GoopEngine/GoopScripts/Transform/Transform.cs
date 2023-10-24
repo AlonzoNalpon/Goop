@@ -22,9 +22,9 @@ namespace GoopScripts
   public struct Transform
   {
 
-    public Vec2<double> Pos  { get; set; }
-    public Vec2<double> Scale { get; set; }
-    public double Rot { get; set; }
+    public Vec3<double> Pos  { get; set; }
+    public Vec3<double> Scale { get; set; }
+    public Vec3<double> Rot { get; set; }
 
     /*!*********************************************************************
      \brief
@@ -41,7 +41,7 @@ namespace GoopScripts
      \params rot
       Transform's rotation value
      ************************************************************************/
-    public Transform(Vec2<double> pos, Vec2<double> scale, double rot)
+    public Transform(Vec3<double> pos, Vec3<double> scale, Vec3<double> rot)
     {
       Pos = pos;
       Scale = scale;

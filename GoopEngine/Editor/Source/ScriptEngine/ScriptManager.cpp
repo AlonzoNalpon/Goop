@@ -269,8 +269,9 @@ void GE::MONO::SetTransform(GE::ECS::Entity entity, GE::Component::Transform tra
     oldTransform->m_scale.x = ((oldTransform->m_scale.x - (oldTransform->m_scale.x * transformAdjustment.m_scale.x * fpsControl->GetDeltaTime())) <= transformAdjustment.m_scale.x / gcd) ? (transformAdjustment.m_scale.x / gcd) : oldTransform->m_scale.x - (oldTransform->m_scale.x * transformAdjustment.m_scale.x * fpsControl->GetDeltaTime());
     oldTransform->m_scale.y = ((oldTransform->m_scale.y - (oldTransform->m_scale.y * transformAdjustment.m_scale.y * fpsControl->GetDeltaTime())) <= transformAdjustment.m_scale.y / gcd) ? (transformAdjustment.m_scale.y / gcd) : oldTransform->m_scale.y - (oldTransform->m_scale.y * transformAdjustment.m_scale.y * fpsControl->GetDeltaTime());
   }
-  oldTransform->m_pos += (transformAdjustment.m_pos * fpsControl->GetDeltaTime());
-  oldTransform->m_rot += (transformAdjustment.m_rot * fpsControl->GetDeltaTime());
+  oldTransform->m_pos.x += (transformAdjustment.m_pos.x * fpsControl->GetDeltaTime());
+  oldTransform->m_pos.y += (transformAdjustment.m_pos.y * fpsControl->GetDeltaTime());
+  oldTransform->m_rot.z += (transformAdjustment.m_rot.z * fpsControl->GetDeltaTime());
 }
 
 
