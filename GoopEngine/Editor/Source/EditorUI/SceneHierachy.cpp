@@ -12,6 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ImGui/imgui.h>
 #include <Systems/RootTransform/RootTransformSystem.h>
 #include <Component/Transform.h>
+#include "../ObjectFactory/ObjectFactory.h"
 
 using namespace ImGui;
 using namespace GE::ECS;
@@ -27,6 +28,8 @@ namespace
 	// Style setting
 	ImColor originalTextClr;
 	ImColor inactiveTextClr{ 125, 125, 125 };
+
+	std::vector<Entity> entitiesToDestroy;
 
 	/*!*********************************************************************
 	\brief 
@@ -96,6 +99,12 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 		TreePop();
 	}
 
+	for (Entity entity : entitiesToDestroy)
+	{
+		ecs.DestroyEntity(entity);
+	}
+	entitiesToDestroy.clear();
+
 	// Reset colour
 	style.Colors[ImGuiCol_Text] = originalTextClr;
 }
@@ -159,6 +168,23 @@ namespace
 			if (IsItemClicked())
 			{
 				GE::EditorGUI::ImGuiHelper::SetSelectedEntity(entity);
+			}
+			if (IsItemClicked(ImGuiMouseButton_Right))
+			{
+				OpenPopup("EntityManip");
+			}
+			if (BeginPopup("EntityManip"))
+			{
+				if (Selectable("Duplicate"))
+				{
+					GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity, ecs.GetComponent<GE::Component::Transform>(entity)->m_pos);
+				}
+
+				if (Selectable("Delete"))
+				{
+					entitiesToDestroy.push_back(entity);
+				}
+				EndPopup();
 			}
 
 			////////////////////////////////////
