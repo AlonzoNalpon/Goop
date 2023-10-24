@@ -35,6 +35,7 @@ using namespace ImGui;
 
 // Initialize static
 GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
+bool ImGuiHelper::m_frameEnded = true;
 
 void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
 {
@@ -60,6 +61,7 @@ void ImGuiUI::Update()
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   NewFrame();
+  ImGuiHelper::SetFrameEnded(false);
 
 #ifdef RUN_IMGUI_DEMO
   ImGui::ShowDemoWindow();
@@ -264,6 +266,7 @@ void ImGuiUI::Render()
 {
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());
+  ImGuiHelper::SetFrameEnded(true);
 }
 
 void ImGuiUI::Exit()
@@ -319,4 +322,14 @@ GE::ECS::Entity GE::EditorGUI::ImGuiHelper::GetSelectedEntity()
 void GE::EditorGUI::ImGuiHelper::SetSelectedEntity(GE::ECS::Entity& selectedEntity)
 {
   m_selectedEntity = selectedEntity;
+}
+
+bool GE::EditorGUI::ImGuiHelper::GetFrameEnded()
+{
+  return m_frameEnded;
+}
+
+void GE::EditorGUI::ImGuiHelper::SetFrameEnded(bool frameEnded)
+{
+  m_frameEnded = frameEnded;
 }

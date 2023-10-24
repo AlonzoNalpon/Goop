@@ -1,103 +1,117 @@
 /*!*********************************************************************
+<<<<<<< HEAD
+\file   Mat4Utils.h
+\author chengen.lau\@digipen.edu
+\date   29-September-2023
+=======
 \file   Mat3Utils.h
 \author chengen.lau\@digipen.edu
 \date   23-October-2023
+>>>>>>> main
 \brief  Matrix 4x4 utility functions (only for floats and doubles)
 
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#include "Mat4Utils.h"
 
-void GE::Math::MtxIdentity(Mat4& mtx)
+using namespace GE::Math;
+
+
+void GE::Math::MtxInverse(Mat<4, 4, float>& result, Mat<4, 4, float> const& mtx)
 {
-  mtx[0] = Mat4::ValueType(1.f, 0.f, 0.f, 0.f);
-  mtx[1] = Mat4::ValueType(0.f, 1.f, 0.f, 0.f);
-  mtx[2] = Mat4::ValueType(0.f, 0.f, 1.f, 0.f);
-  mtx[3] = Mat4::ValueType(0.f, 0.f, 0.f, 1.f);
+  Mat<4, 4, float> const temp{ mtx };
+
+  float const A2323 = temp[2][2] * temp[3][3] - temp[2][3] * temp[3][2];
+  float const A1323 = temp[2][1] * temp[3][3] - temp[2][3] * temp[3][1];
+  float const A1223 = temp[2][1] * temp[3][2] - temp[2][2] * temp[3][1];
+  float const A0323 = temp[2][0] * temp[3][3] - temp[2][3] * temp[3][0];
+  float const A0223 = temp[2][0] * temp[3][2] - temp[2][2] * temp[3][0];
+  float const A0123 = temp[2][0] * temp[3][1] - temp[2][1] * temp[3][0];
+  float const A2313 = temp[1][2] * temp[3][3] - temp[1][3] * temp[3][2];
+  float const A1313 = temp[1][1] * temp[3][3] - temp[1][3] * temp[3][1];
+  float const A1213 = temp[1][1] * temp[3][2] - temp[1][2] * temp[3][1];
+  float const A2312 = temp[1][2] * temp[2][3] - temp[1][3] * temp[2][2];
+  float const A1312 = temp[1][1] * temp[2][3] - temp[1][3] * temp[2][1];
+  float const A1212 = temp[1][1] * temp[2][2] - temp[1][2] * temp[2][1];
+  float const A0313 = temp[1][0] * temp[3][3] - temp[1][3] * temp[3][0];
+  float const A0213 = temp[1][0] * temp[3][2] - temp[1][2] * temp[3][0];
+  float const A0312 = temp[1][0] * temp[2][3] - temp[1][3] * temp[2][0];
+  float const A0212 = temp[1][0] * temp[2][2] - temp[1][2] * temp[2][0];
+  float const A0113 = temp[1][0] * temp[3][1] - temp[1][1] * temp[3][0];
+  float const A0112 = temp[1][0] * temp[2][1] - temp[1][1] * temp[2][0];
+
+  float const det{ temp[0].x * (temp[1].y * A2323 - temp[1].z * A1323 + temp[1].w * A1223)
+    - temp[0].y * (temp[1].x * A2323 - temp[1].z * A0323 + temp[1].w * A0223)
+    + temp[0].z * (temp[1].x * A1323 - temp[1].y * A0323 + temp[1].w * A0123)
+    - temp[0].w * (temp[1].x * A1223 - temp[1].y * A0223 + temp[1].z * A0123) };
+
+  if (det == 0.f) { throw std::runtime_error("division by zero"); }
+  float const invDet{ 1.f / det };
+
+  result[0].x = invDet * (temp[1].y * A2323 - temp[1].z * A1323 + temp[1].w * A1223);
+  result[0].y = invDet * -(temp[0].y * A2323 - temp[0].z * A1323 + temp[0].w * A1223);
+  result[0].z = invDet * (temp[0].y * A2313 - temp[0].z * A1313 + temp[0].w * A1213);
+  result[0].w = invDet * -(temp[0].y * A2312 - temp[0].z * A1312 + temp[0].w * A1212);
+  result[1].x = invDet * -(temp[1].x * A2323 - temp[1].z * A0323 + temp[1].w * A0223);
+  result[1].y = invDet * (temp[0].x * A2323 - temp[0].z * A0323 + temp[0].w * A0223);
+  result[1].z = invDet * -(temp[0].x * A2313 - temp[0].z * A0313 + temp[0].w * A0213);
+  result[1].w = invDet * (temp[0].x * A2312 - temp[0].z * A0312 + temp[0].w * A0212);
+  result[2].x = invDet * (temp[1].x * A1323 - temp[1].y * A0323 + temp[1].w * A0123);
+  result[2].y = invDet * -(temp[0].x * A1323 - temp[0].y * A0323 + temp[0].w * A0123);
+  result[2].z = invDet * (temp[0].x * A1313 - temp[0].y * A0313 + temp[0].w * A0113);
+  result[2].w = invDet * -(temp[0].x * A1312 - temp[0].y * A0312 + temp[0].w * A0112);
+  result[3].x = invDet * -(temp[1].x * A1223 - temp[1].y * A0223 + temp[1].z * A0123);
+  result[3].y = invDet * (temp[0].x * A1223 - temp[0].y * A0223 + temp[0].z * A0123);
+  result[3].z = invDet * -(temp[0].x * A1213 - temp[0].y * A0213 + temp[0].z * A0113);
+  result[3].w = invDet * (temp[0].x * A1212 - temp[0].y * A0212 + temp[0].z * A0112);
 }
 
-void GE::Math::MtxIdentity(dMat4& mtx)
+void GE::Math::MtxInverse(Mat<4, 4, double>& result, Mat<4, 4, double> const& mtx)
 {
-  mtx[0] = dMat4::ValueType(1.0, 0.0, 0.0, 0.0);
-  mtx[1] = dMat4::ValueType(0.0, 1.0, 0.0, 0.0);
-  mtx[2] = dMat4::ValueType(0.0, 0.0, 1.0, 0.0);
-  mtx[3] = dMat4::ValueType(0.0, 0.0, 0.0, 1.0);
-}
+  Mat<4, 4, double> const temp{ mtx };
 
-void GE::Math::MtxInverse(Mat4& result, dMat4 const& mtx)
-{
-  double const det{ MtxDeterminant(mtx) };
+  double const A2323 = temp[2][2] * temp[3][3] - temp[2][3] * temp[3][2];
+  double const A1323 = temp[2][1] * temp[3][3] - temp[2][3] * temp[3][1];
+  double const A1223 = temp[2][1] * temp[3][2] - temp[2][2] * temp[3][1];
+  double const A0323 = temp[2][0] * temp[3][3] - temp[2][3] * temp[3][0];
+  double const A0223 = temp[2][0] * temp[3][2] - temp[2][2] * temp[3][0];
+  double const A0123 = temp[2][0] * temp[3][1] - temp[2][1] * temp[3][0];
+  double const A2313 = temp[1][2] * temp[3][3] - temp[1][3] * temp[3][2];
+  double const A1313 = temp[1][1] * temp[3][3] - temp[1][3] * temp[3][1];
+  double const A1213 = temp[1][1] * temp[3][2] - temp[1][2] * temp[3][1];
+  double const A2312 = temp[1][2] * temp[2][3] - temp[1][3] * temp[2][2];
+  double const A1312 = temp[1][1] * temp[2][3] - temp[1][3] * temp[2][1];
+  double const A1212 = temp[1][1] * temp[2][2] - temp[1][2] * temp[2][1];
+  double const A0313 = temp[1][0] * temp[3][3] - temp[1][3] * temp[3][0];
+  double const A0213 = temp[1][0] * temp[3][2] - temp[1][2] * temp[3][0];
+  double const A0312 = temp[1][0] * temp[2][3] - temp[1][3] * temp[2][0];
+  double const A0212 = temp[1][0] * temp[2][2] - temp[1][2] * temp[2][0];
+  double const A0113 = temp[1][0] * temp[3][1] - temp[1][1] * temp[3][0];
+  double const A0112 = temp[1][0] * temp[2][1] - temp[1][1] * temp[2][0];
+
+  double const det{ temp[0].x * (temp[1].y * A2323 - temp[1].z * A1323 + temp[1].w * A1223)
+    - temp[0].y * (temp[1].x * A2323 - temp[1].z * A0323 + temp[1].w * A0223)
+    + temp[0].z * (temp[1].x * A1323 - temp[1].y * A0323 + temp[1].w * A0123)
+    - temp[0].w * (temp[1].x * A1223 - temp[1].y * A0223 + temp[1].z * A0123) };
+
   if (det == 0.0) { throw std::runtime_error("division by zero"); }
+  double const invDet{ 1.0 / det };
 
-  // Calculate the adjugate of the input matrix
-  dMat4 adjugate;
-  for (int row = 0; row < 4; ++row) {
-    for (int col = 0; col < 4; ++col) {
-      // Calculate the cofactor for this element
-      dMat3 submatrix;
-      int sub_row = 0, sub_col = 0;
-      for (int i = 0; i < 4; ++i) {
-        if (i == row) continue;
-        for (int j = 0; j < 4; ++j) {
-          if (j == col) continue;
-          submatrix[sub_row][sub_col] = mtx[i][j];
-          sub_col++;
-        }
-        sub_row++;
-      }
-      double cofactor = ((row + col) % 2 == 0) ? MtxDeterminant(submatrix) : -MtxDeterminant(submatrix);
-
-      // Fill in the adjugate matrix
-      adjugate[row][col] = cofactor;
-    }
-  }
-
-  // Calculate the inverse by dividing the adjugate by the determinant
-  double invDet = 1.0 / det;
-  for (int row = 0; row < 4; ++row) {
-    for (int col = 0; col < 4; ++col) {
-      result[row][col] = static_cast<float>(adjugate[row][col] * invDet);
-    }
-  }
-}
-
-void GE::Math::MtxInverse(dMat4& result, dMat4 const& mtx)
-{
-  double const det{ MtxDeterminant(mtx) };
-  if (det == 0.0) { throw std::runtime_error("division by zero"); }
-
-  // Calculate the adjugate of the input matrix
-  dMat4 adjugate;
-  for (int row = 0; row < 4; ++row) {
-    for (int col = 0; col < 4; ++col) {
-      // Calculate the cofactor for this element
-      dMat3 submatrix;
-      int sub_row = 0, sub_col = 0;
-      for (int i = 0; i < 4; ++i) {
-        if (i == row) continue;
-        for (int j = 0; j < 4; ++j) {
-          if (j == col) continue;
-          submatrix[sub_row][sub_col] = mtx[i][j];
-          sub_col++;
-        }
-        sub_row++;
-      }
-      double val1 = MtxDeterminant(submatrix);
-      //double cofactor = ((row + col) % 2 == 0) ? MtxDeterminant(submatrix) : -MtxDeterminant(submatrix);
-      double cofactor = ((row + col) % 2 == 0) ? val1 : -val1;
-
-      // Fill in the adjugate matrix
-      adjugate[row][col] = cofactor;
-    }
-  }
-
-  // Calculate the inverse by dividing the adjugate by the determinant
-  double invDet = 1.0 / det;
-  for (int row = 0; row < 4; ++row) {
-    for (int col = 0; col < 4; ++col) {
-      result[row][col] = adjugate[row][col] * invDet;
-    }
-  }
+  result[0].x = invDet * (temp[1].y * A2323 - temp[1].z * A1323 + temp[1].w * A1223);
+  result[0].y = invDet * -(temp[0].y * A2323 - temp[0].z * A1323 + temp[0].w * A1223);
+  result[0].z = invDet * (temp[0].y * A2313 - temp[0].z * A1313 + temp[0].w * A1213);
+  result[0].w = invDet * -(temp[0].y * A2312 - temp[0].z * A1312 + temp[0].w * A1212);
+  result[1].x = invDet * -(temp[1].x * A2323 - temp[1].z * A0323 + temp[1].w * A0223);
+  result[1].y = invDet * (temp[0].x * A2323 - temp[0].z * A0323 + temp[0].w * A0223);
+  result[1].z = invDet * -(temp[0].x * A2313 - temp[0].z * A0313 + temp[0].w * A0213);
+  result[1].w = invDet * (temp[0].x * A2312 - temp[0].z * A0312 + temp[0].w * A0212);
+  result[2].x = invDet * (temp[1].x * A1323 - temp[1].y * A0323 + temp[1].w * A0123);
+  result[2].y = invDet * -(temp[0].x * A1323 - temp[0].y * A0323 + temp[0].w * A0123);
+  result[2].z = invDet * (temp[0].x * A1313 - temp[0].y * A0313 + temp[0].w * A0113);
+  result[2].w = invDet * -(temp[0].x * A1312 - temp[0].y * A0312 + temp[0].w * A0112);
+  result[3].x = invDet * -(temp[1].x * A1223 - temp[1].y * A0223 + temp[1].z * A0123);
+  result[3].y = invDet * (temp[0].x * A1223 - temp[0].y * A0223 + temp[0].z * A0123);
+  result[3].z = invDet * -(temp[0].x * A1213 - temp[0].y * A0213 + temp[0].z * A0113);
+  result[3].w = invDet * (temp[0].x * A1212 - temp[0].y * A0212 + temp[0].z * A0112);
 }

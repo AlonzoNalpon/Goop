@@ -6,12 +6,28 @@ Mat<4, 4, T>::Mat()
 }
 
 template <typename T>
+Mat<4, 4, T>::Mat(T m00, T m01, T m02, T m03, T m10, T m11, T m12, T m13,
+				T m20, T m21, T m22, T m23, T m30, T m31, T m32, T m33)
+{
+  m_data[0].x = m00; m_data[0].y = m01; m_data[0].z = m02; m_data[0].w = m03;
+  m_data[1].x = m10; m_data[1].y = m11; m_data[1].z = m12; m_data[1].w = m13;
+  m_data[2].x = m20; m_data[2].y = m21; m_data[2].z = m22; m_data[2].w = m23;
+  m_data[3].x = m30; m_data[3].y = m31; m_data[3].z = m32; m_data[3].w = m33;
+}
+
+template <typename T>
 Mat<4, 4, T>::Mat(Mat<4, 4, T> const& rhs)
 {
   for (size_type i{}; i < 4; ++i)
   {
     m_data[i] = rhs[i];
   }
+}
+
+template <typename T>
+Mat<4, 4, T>::Mat(Mat<4, 4, T>&& rhs)
+{
+  std::swap(m_data, rhs.m_data);
 }
 
 template <typename T>
@@ -22,6 +38,15 @@ Mat<4, 4, T>::Mat(ValueType const& row0, ValueType const& row1,
   m_data[1] = row1;
   m_data[2] = row2;
   m_data[3] = row3;
+}
+
+template <typename T>
+Mat<4, 4, T>::Mat(ValueType&& row0, ValueType&& row1, ValueType&& row2, ValueType&& row3)
+{
+  m_data[0] = std::move(row0);
+  m_data[1] = std::move(row1);
+  m_data[2] = std::move(row2);
+  m_data[3] = std::move(row3);
 }
 
 // Operator overloads

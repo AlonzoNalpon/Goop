@@ -2,23 +2,32 @@
 #include <GameStateManager/GameStateManager.h>
 using namespace GE::GSM;
 
-GE::GSM::GameStateManager::GameStateManager()
+void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
 {
-	currScene = "SceneTest";
-	nextScene = "SceneTest";
+	if (sm.GetCurrentScene() == next_scene)
+	{
+		sm.RestartScene();
+	}
+	else
+	{
+		sm.SetNextScene(next_scene);
+	}
+}
+
+void GE::GSM::GameStateManager::Restart()
+{
+	sm.RestartScene();
 }
 
 void GameStateManager::Init()
 {
 	sm.Init();
-	Update();
+	sm.LoadScene();
+	sm.InitScene();
 }
 
 void GameStateManager::Update()
 {
-	sm.SetNextScene(nextScene);
-	sm.LoadScene();
-	sm.InitScene();
 }
 
 void GE::GSM::GameStateManager::Exit()

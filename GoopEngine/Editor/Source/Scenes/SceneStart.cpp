@@ -1,24 +1,33 @@
-#include "pch.h"
+#include <pch.h>
 #include "SceneStart.h"
 
-using namespace GE::Scenes;
+using namespace GE;
+using namespace ECS;
+using namespace Systems;
+using namespace Component;
 
-void SceneStart::Load()
+void GE::Scenes::SceneStart::Load()
 {
-
+  ecs = { &GE::ECS::EntityComponentSystem::GetInstance() };
+  of = { &GE::ObjectFactory::ObjectFactory::GetInstance() };
+	of->LoadSceneJson("SceneStart");
 }
 
-void SceneStart::Init()
+void GE::Scenes::SceneStart::Init()
 {
-
+	of->LoadSceneObjects(m_entities);
+	//ecs->SetEntityName(background, "MainMenu");
 }
 
-void SceneStart::Unload()
+void GE::Scenes::SceneStart::Unload()
 {
-
+	for (auto entity : m_entities) {
+		ecs->DestroyEntity(entity);
+	}
+	m_entities.clear();
 }
 
-void SceneStart::Free()
+void GE::Scenes::SceneStart::Free()
 {
-
+	of->EmptyMap();
 }

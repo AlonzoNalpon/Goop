@@ -23,7 +23,7 @@ EntityManager::EntityManager(unsigned int maxEntities) :
 	// Push back full list of entities as available
 	for (Entity i{0}; i < m_entitySignatures.size(); ++i)
 	{
-		m_availableEntities.push(i);
+		m_availableEntities.push_back(i);
 	}
 	m_parent.resize(maxEntities);
 	std::fill(m_parent.begin(), m_parent.end(), INVALID_ID);
@@ -43,7 +43,7 @@ Entity EntityManager::CreateEntity()
 	}
 
 	Entity entity = m_availableEntities.front();
-	m_availableEntities.pop();
+	m_availableEntities.pop_front();
 
 	m_entitiesAlive++;
 	// Clear component bitset signature
@@ -56,14 +56,21 @@ Entity EntityManager::CreateEntity()
 
 void EntityManager::DestroyEntity(Entity& entity)
 {
-	GE::Debug::ErrorLogger::GetInstance().LogMessage<EntityManager>("Destroyed entity ID: " + entity, false);
+	GE::Debug::ErrorLogger::GetInstance().LogMessage<EntityManager>("Destroyed entity " + GetEntityName(entity), false);
 	// Clear component bitset signature
 	m_entitySignatures[entity].reset();
 	m_mapOfActive[entity] = false;
-	m_availableEntities.push(entity);
+	m_availableEntities.push_front(entity);
 	m_entities.erase(entity);
 	m_entitiesAlive--;
 	m_names.erase(entity);
+	m_parent[entity] = INVALID_ID;
+
+	// Recursively destroy all children
+	for (Entity childEntity : m_children[entity])
+	{
+		DestroyEntity(childEntity);
+	}
 }
 
 bool GE::ECS::EntityManager::IsActiveEntity(Entity& entity)

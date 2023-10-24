@@ -52,7 +52,9 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Player::IsKeyPressed", GE::Input::InputManager::GetInstance().IsKeyPressed);
   mono_add_internal_call("GoopScripts.Player::GetMouseScrollY", GE::Input::InputManager::GetInstance().GetMouseScrollVert);
   mono_add_internal_call("GoopScripts.Player::GetMouseScrollX", GE::Input::InputManager::GetInstance().GetMouseScrollHor);
-  mono_add_internal_call("GoopScripts.Player::SetTransform", GE::MONO::SetTransform);
+  mono_add_internal_call("GoopScripts.Player::SetPosition", GE::MONO::SetPosition);
+  mono_add_internal_call("GoopScripts.Player::SetScale", GE::MONO::SetScale);
+  mono_add_internal_call("GoopScripts.Player::SetRotation", GE::MONO::SetRotation);
   //mono_add_internal_call("GoopScripts.Player::SetTransform", GE::ECS::SetMonoComponent<GE::Component::Transform>);
   //Retrieve the C#Assembly (.ddl file)
 //  #ifdef _DEBUG
@@ -250,28 +252,50 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName,
 
 
 
-void GE::MONO::SetTransform(GE::ECS::Entity entity, GE::Component::Transform transformAdjustment)
+void GE::MONO::SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment)
 {
   GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-  if ((transformAdjustment.m_scale.x > 1.f) && (transformAdjustment.m_scale.y > 1.f))
-  {
-    oldTransform->m_scale.x += (oldTransform->m_scale.x * transformAdjustment.m_scale.x * fpsControl->GetDeltaTime());
-    oldTransform->m_scale.y += (oldTransform->m_scale.y * transformAdjustment.m_scale.y * fpsControl->GetDeltaTime());
-  }
-  else if((transformAdjustment.m_scale.x < 1.f) && (transformAdjustment.m_scale.y < 1.f))
-  {
-    transformAdjustment.m_scale.x =  1.f / transformAdjustment.m_scale.x;
-    transformAdjustment.m_scale.y = 1.f / transformAdjustment.m_scale.y;
-    double gcd = (oldTransform->m_scale.x >= oldTransform->m_scale.y) ? static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->m_scale.x), static_cast<int>(oldTransform->m_scale.y))) : static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->m_scale.y), static_cast<int>(oldTransform->m_scale.x)));  
-    oldTransform->m_scale.x = ((oldTransform->m_scale.x - (oldTransform->m_scale.x * transformAdjustment.m_scale.x * fpsControl->GetDeltaTime())) <= transformAdjustment.m_scale.x / gcd) ? (transformAdjustment.m_scale.x / gcd) : oldTransform->m_scale.x - (oldTransform->m_scale.x * transformAdjustment.m_scale.x * fpsControl->GetDeltaTime());
-    oldTransform->m_scale.y = ((oldTransform->m_scale.y - (oldTransform->m_scale.y * transformAdjustment.m_scale.y * fpsControl->GetDeltaTime())) <= transformAdjustment.m_scale.y / gcd) ? (transformAdjustment.m_scale.y / gcd) : oldTransform->m_scale.y - (oldTransform->m_scale.y * transformAdjustment.m_scale.y * fpsControl->GetDeltaTime());
-  }
-  oldTransform->m_pos += (transformAdjustment.m_pos * fpsControl->GetDeltaTime());
-  oldTransform->m_rot += (transformAdjustment.m_rot * fpsControl->GetDeltaTime());
+
+  oldTransform->m_pos.x += (PosAdjustment.x * fpsControl->GetDeltaTime());
+  oldTransform->m_pos.y += (PosAdjustment.y * fpsControl->GetDeltaTime());
 }
+
+
+
+void GE::MONO::SetScale(GE::ECS::Entity entity, GE::Math::dVec3 scaleAdjustment)
+{
+  GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
+  GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+  GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
+
+  if ((scaleAdjustment.x > 1.f) && (scaleAdjustment.y > 1.f))
+  {
+    oldTransform->m_scale.x += (oldTransform->m_scale.x * scaleAdjustment.x * fpsControl->GetDeltaTime());
+    oldTransform->m_scale.y += (oldTransform->m_scale.y * scaleAdjustment.y * fpsControl->GetDeltaTime());
+  }
+  else if ((scaleAdjustment.x < 1.f) && (scaleAdjustment.y < 1.f))
+  {
+    scaleAdjustment.x = 1.f / scaleAdjustment.x;
+    scaleAdjustment.y = 1.f / scaleAdjustment.y;
+    double gcd = (oldTransform->m_scale.x >= oldTransform->m_scale.y) ? static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->m_scale.x), static_cast<int>(oldTransform->m_scale.y))) : static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->m_scale.y), static_cast<int>(oldTransform->m_scale.x)));
+    oldTransform->m_scale.x = ((oldTransform->m_scale.x - (oldTransform->m_scale.x * scaleAdjustment.x * fpsControl->GetDeltaTime())) <= scaleAdjustment.x / gcd) ? (scaleAdjustment.x / gcd) : oldTransform->m_scale.x - (oldTransform->m_scale.x * scaleAdjustment.x * fpsControl->GetDeltaTime());
+    oldTransform->m_scale.y = ((oldTransform->m_scale.y - (oldTransform->m_scale.y * scaleAdjustment.y * fpsControl->GetDeltaTime())) <= scaleAdjustment.y / gcd) ? (scaleAdjustment.y / gcd) : oldTransform->m_scale.y - (oldTransform->m_scale.y * scaleAdjustment.y * fpsControl->GetDeltaTime());
+  }
+
+}
+
+void GE::MONO::SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 rotAdjustment)
+{
+  GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
+  GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+  GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
+
+  oldTransform->m_rot.z += (rotAdjustment.z * fpsControl->GetDeltaTime());
+}
+
 
 
 

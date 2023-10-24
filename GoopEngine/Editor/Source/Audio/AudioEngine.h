@@ -13,12 +13,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #define _AUDIO_ENGINE_H_
 
 #include <fmod.hpp>
-#include <pch.h>
 #include <string>
 #include <map>
 #include <iostream>
-
-#endif
 
 namespace GE 
 {
@@ -181,3 +178,5 @@ namespace GE
     };
 	}
 }
+
+#endif

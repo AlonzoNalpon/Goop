@@ -34,24 +34,22 @@ T MtxDeterminant(Mat<3, 3, T> const& mtx)
 template <typename T>
 T MtxDeterminant(Mat<4, 4, T> const& mtx)
 {
-  T det = 0;
+  T det{};
+  Mat<3, 3, T> subMtx{};
+  for (size_type i{}; i < 4; ++i)
+  {
+    for (size_type j{}; j < 3; ++j)
+    {
+      size_type col{};
+      for (size_type k = 0; k < 4; ++k)
+      {
+        if (k == i) { continue; }
 
-  for (int i = 0; i < 4; ++i) {
-    // Create a submatrix by removing the i-th row and 0-th column
-    Mat<3, 3, T> submatrix;
-    for (int row = 0; row < 3; ++row) {
-      for (int col = 1; col < 4; ++col) {
-        submatrix[row][col - 1] = mtx[row][col];
+        subMtx[j][col] = mtx[j + 1][k];
+        ++col;
       }
     }
-
-    // Calculate the cofactor for this element and recursively find the determinant of the submatrix
-    T cofactor = (i % 2 == 0) ? mtx[0][i] : -mtx[0][i];
-    T submatrix_det = MtxDeterminant(submatrix);
-
-    // Add the contribution of this element to the determinant
-    det += cofactor * submatrix_det;
+     det += mtx[0][i] * MtxDeterminant(subMtx) * (i % 2 == 0 ? 1 : -1);
   }
-
   return det;
 }

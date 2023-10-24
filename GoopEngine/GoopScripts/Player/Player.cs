@@ -68,35 +68,45 @@ namespace GoopScripts
       //Movement logic
       if (IsKeyPressed(KeyCode.W))
       {
-        newChange.Pos = new Vec2<double>(newChange.Pos.X, 200.0) ;
+        newChange.Pos = new Vec3<double>(newChange.Pos.X, 200.0,0.0) ;
 
       }
       else if (IsKeyPressed(KeyCode.S))
       {
-        newChange.Pos = new Vec2<double>(newChange.Pos.X, -200.0);
+        newChange.Pos = new Vec3<double>(newChange.Pos.X, -200.0, 0.0);
       }
 
       if (IsKeyPressed(KeyCode.A))
       {
-        newChange.Pos = new Vec2<double>(-200.0, newChange.Pos.Y);
+        newChange.Pos = new Vec3<double>(-200.0, newChange.Pos.Y, 0.0);
       }
       else if (IsKeyPressed(KeyCode.D))
       {
-        newChange.Pos = new Vec2<double>(200.0, newChange.Pos.Y);
+        newChange.Pos = new Vec3<double>(200.0, newChange.Pos.Y, 0.0);
       }
 
       //Rotation logic
-      newChange.Rot = (IsKeyPressed(KeyCode.R)) ? -10.0f: (IsKeyPressed(KeyCode.E)) ? 10.0f: 0.0f;
+      newChange.Rot = (IsKeyPressed(KeyCode.R)) ? new Vec3<double>(0, 0, 200.0) : (IsKeyPressed(KeyCode.E)) ? new Vec3<double>(0, 0, -200.0) : new Vec3<double>(0, 0, 0);
 
 
-      //Scale Logic
-      double scroll = GetMouseScrollY();
-      newChange.Scale = (scroll > 0.0) ? new Vec2<double>(2, 2) : (scroll < 0.0) ? new Vec2<double>(0.5, 0.5) : new Vec2<double>(1.0, 1.0);
+      newChange.Scale = (IsKeyPressed(KeyCode.T)) ? new Vec3<double>(2, 2,1) : (IsKeyPressed(KeyCode.Y)) ? new Vec3<double>(0.5, 0.5,1) : new Vec3<double>(1.0, 1.0,1);
 
 
-      if(newChange.Pos.X != 0.0 || newChange.Pos.Y != 0.0 || newChange.Scale.X != 1.0 || newChange.Scale.Y != 1.0 || newChange.Rot != 0.0f)
+      if(newChange.Pos.X != 0.0 || newChange.Pos.Y != 0.0)
       {
-        SetTransform(base.m_entityID, newChange);
+        SetPosition(base.m_entityID, newChange.Pos);
+      }
+
+
+      if (newChange.Scale.X != 1.0 || newChange.Scale.Y != 0.0)
+      {
+        SetScale(base.m_entityID, newChange.Scale);
+      }
+
+
+      if (newChange.Rot.Z != 0.0f)
+      {
+        SetRotation(base.m_entityID, newChange.Rot);
       }
     }
 
@@ -172,7 +182,37 @@ namespace GoopScripts
 			values to be added to the entity's transform
 		************************************************************************/
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static void SetTransform(uint ID,Transform newValue);
+    extern static void SetPosition(uint ID, Vec3<double> newPos);
+
+    /*!*********************************************************************
+		\brief
+			function to Set the value of an entity's trnsform component. This function will be added as internal call
+			to allow c# script to set entities' transform
+
+		\params ID
+			ID of the entity
+
+		\params newValue
+			values to be added to the entity's transform
+		************************************************************************/
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern static void SetRotation(uint ID, Vec3<double> newRot);
+
+
+    /*!*********************************************************************
+		\brief
+			function to Set the value of an entity's trnsform component. This function will be added as internal call
+			to allow c# script to set entities' transform
+
+		\params ID
+			ID of the entity
+
+		\params newValue
+			values to be added to the entity's transform
+		************************************************************************/
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern static void SetScale(uint ID, Vec3<double> newScale);
+
 
 
     /*!*********************************************************************

@@ -23,30 +23,21 @@ void GE::EditorGUI::ToolBar::CreateContent()
   {
     if (BeginMenu("File"))
     {
-      // Sets the current context style to be invisible buttons
-      ImGuiStyle& style = GetStyle();
-      style.Colors[ImGuiCol_Button] = ImVec4(0, 0, 0, 0);
-      style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0, 0, 0, 0);
-      style.Colors[ImGuiCol_ButtonActive] = ImVec4(0, 0, 0, 0);
-
-      if (Button("New Scene"))
+      if (Selectable("New Scene"))
       {
         // Creates a new empty scene JSON
         // Loads it
       }
 
-      if (Button("Save"))
+      if (Selectable("Save"))
       {
         // Save systems back to original file
         Serialization::SerializeSystems(*Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems"));
       }
-      if (Button("Open"))
+      if (Selectable("Open"))
       {
         // Load scene function
       }
-
-      // Reset the style to the default
-      style = ImGuiStyle();
 
       ImGui::EndMenu();
     }

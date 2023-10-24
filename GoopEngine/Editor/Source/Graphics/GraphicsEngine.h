@@ -130,7 +130,7 @@ namespace Graphics {
       clr the color of the line
     \return
     ************************************************************************/
-    static void DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr = {1, 0, 0});
+    void DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr = {1, 0, 0});
 
   protected:
     GLint m_vpWidth, m_vpHeight; //!< dimensions of viewport

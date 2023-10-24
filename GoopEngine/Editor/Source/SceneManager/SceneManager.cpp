@@ -10,22 +10,56 @@ void SceneManager::Init()
   Scenes.emplace("SceneTest", std::make_unique<GE::Scenes::SceneTest>());
 
   // Testing
-  CurrentScene = "SceneTest";
+  m_nextScene = m_currentScene = "Start";
 }
 
 void SceneManager::LoadScene()
 {
-  Scenes[CurrentScene]->Load();
+  Scenes[m_currentScene]->Load();
 }
 
 void SceneManager::InitScene()
 {
-  Scenes[CurrentScene]->Init();
+  Scenes[m_currentScene]->Init();
+}
+
+void SceneManager::UnloadScene()
+{
+  Scenes[m_currentScene]->Unload();
+}
+
+void SceneManager::FreeScene()
+{
+  Scenes[m_currentScene]->Free();
 }
 
 void SceneManager::SetNextScene(std::string nextScene)
 {
   // Make sure nextScene is a valid scene string then set it.
-  CurrentScene = nextScene;
-  LoadScene();
+  if (Scenes.find(nextScene) == Scenes.end())
+  {
+    throw GE::Debug::Exception<SceneManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load scene: " + nextScene));
+  }
+  this->UnloadScene();
+  this->FreeScene();
+  Scenes[m_currentScene]->Free();
+  m_nextScene = m_currentScene = nextScene;
+  LoadScene(); 
+  InitScene();
+}
+
+void GE::Scenes::SceneManager::RestartScene()
+{
+  Scenes[m_currentScene]->Unload();
+  Scenes[m_currentScene]->Init();
+}
+
+std::string SceneManager::GetCurrentScene()
+{
+  return this->m_currentScene;
+}
+
+std::string GE::Scenes::SceneManager::GetNextScene()
+{
+  return this->m_nextScene;
 }

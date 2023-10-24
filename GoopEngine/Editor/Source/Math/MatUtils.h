@@ -29,7 +29,7 @@ namespace GE
 
     /*!***********************************************************************
     \brief
-      Takes in a gpm::Mat3 returns its determinant
+      Takes in a gpm::Mat3 and returns its determinant
     \param[in] mtx
       The input matrix
     *************************************************************************/
@@ -38,7 +38,7 @@ namespace GE
 
     /*!***********************************************************************
     \brief
-      Takes in a gpm::Mat4 returns its determinant
+      Takes in a gpm::Mat4 and returns its determinant
     \param[in] mtx
       The input matrix
     *************************************************************************/
