@@ -47,7 +47,7 @@ void GE::Scenes::SceneTest::Load()
 
 void GE::Scenes::SceneTest::Init()
 {
-	//Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 1.0f, true);
+	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
 
 	//of->SpawnPrefab("Background");
 	//MakeDraggableBox();
