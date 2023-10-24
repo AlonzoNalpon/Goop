@@ -30,8 +30,13 @@ namespace GE
 				Constructor taking in 4 sized-4 vectors with each vector corresponding
 				to a row.
 			*************************************************************************/
+			Mat(T m00, T m01, T m02, T m03, T m10, T m11, T m12, T m13,
+				T m20, T m21, T m22, T m23, T m30, T m31, T m32, T m33);
+			Mat(ValueType&& row0, ValueType&& row1,
+				ValueType&& row2, ValueType&& row3);
 			Mat(ValueType const& row0, ValueType const& row1,
 				ValueType const& row2, ValueType const& row3);
+			Mat(Mat<4, 4, T>&& rhs);
 			Mat(Mat<4, 4, T> const& rhs);
 
 			// ACCESSORS

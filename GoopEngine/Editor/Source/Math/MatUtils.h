@@ -29,12 +29,21 @@ namespace GE
 
     /*!***********************************************************************
     \brief
-      Takes in a gpm::Mat3 returns its determinant
+      Takes in a gpm::Mat3 and returns its determinant
     \param[in] mtx
       The input matrix
     *************************************************************************/
     template <typename T>
     T MtxDeterminant(Mat<3, 3, T> const& mtx);
+
+    /*!***********************************************************************
+    \brief
+      Takes in a gpm::Mat4 and returns its determinant
+    \param[in] mtx
+      The input matrix
+    *************************************************************************/
+    template <typename T>
+    T MtxDeterminant(Mat<4, 4, T> const& mtx);
 
     #include "MatUtils.tpp"
   }
