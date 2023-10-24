@@ -28,8 +28,15 @@ using namespace GE::Component;
 
 namespace
 {
-	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth);
-	void InputDouble1(std::string propertyName, double& property);
+	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled = false);
+	void InputDouble1(std::string propertyName, double& property, bool disabled = false);
+	void InputCheckBox(std::string propertyName, bool& property, bool disabled = false);
+
+	template <typename T>
+	void InputList(std::vector<T>& list, float fieldWidth, bool disabled = false);
+
+	template <>
+	void InputList(std::vector<GE::Component::LinearForce>& list, float fieldWidth, bool disabled);
 }
 
 void GE::EditorGUI::Inspector::CreateContent()
@@ -42,10 +49,20 @@ void GE::EditorGUI::Inspector::CreateContent()
 	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 	GE::ECS::ComponentSignature sig = ecs.GetComponentSignature(entity);
 
+	bool isActive{ecs.GetIsActiveEntity(entity)};
+	if (Checkbox("##", &isActive))
+	{
+		ecs.SetIsActiveEntity(entity, isActive);
+	}
+	SameLine(); Text(ecs.GetEntityName(entity).c_str());
+
 	for (int i{}; i < GE::ECS::MAX_COMPONENTS; ++i)
 	{
 		if (sig[i])		
 		{
+			float contentSize = GetWindowSize().x;
+			// 15 characters for property name
+			float charSize = CalcTextSize("012345678901234").x;
 			switch (static_cast<GE::ECS::COMPONENT_TYPES>(i))
 			{
 			case GE::ECS::COMPONENT_TYPES::TRANSFORM:
@@ -53,13 +70,10 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto trans = ecs.GetComponent<Transform>(entity);
 				if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					Separator();
-					float contentSize = GetWindowSize().x;
-					// 10 characters
-					float charSize = CalcTextSize("0123456789").x;
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
 					float inputWidth = (contentSize - charSize - 30) / 3;
 
+					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 					InputDouble3("Position", trans->m_pos, inputWidth);					
@@ -74,12 +88,45 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 			case GE::ECS::COMPONENT_TYPES::BOX_COLLIDER:
 			{
-				//auto trans = ecs.GetComponent<BoxCollider>(entity);
+				auto col = ecs.GetComponent<BoxCollider>(entity);
+				if (ImGui::CollapsingHeader("Collider", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					Separator();
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					InputDouble1("Width", col->m_width);
+					TableNextRow();
+					InputDouble1("Height", col->m_height);
+					EndTable();
+					Separator();
+				}
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::VELOCITY:
 			{
-				//auto trans = ecs.GetComponent<Velocity>(entity);
+				auto vel = ecs.GetComponent<Velocity>(entity);
+				if (ImGui::CollapsingHeader("Forces", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					// Honestly no idea why -30 makes all 3 input fields match in size but sure
+					float inputWidth = (contentSize - charSize - 30) / 3;
+
+					Separator();
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					InputDouble3("Velocity", vel->m_vel, inputWidth, true);
+					TableNextRow();
+					InputDouble3("Accelaration", vel->m_acc, inputWidth, true);
+					TableNextRow();
+					InputDouble3("Gravity", vel->m_gravity, inputWidth);
+					TableNextRow();
+					InputDouble3("Drag", vel->m_dragForce.m_magnitude, inputWidth);
+					TableNextRow();
+					InputCheckBox("Drag Active", vel->m_dragForce.m_isActive);
+					TableNextRow();
+					InputList(vel->m_forces, inputWidth);
+					EndTable();
+					Separator();
+				}
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::SPRITE:
@@ -117,23 +164,60 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 namespace
 {
-	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth)
+	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled)
 	{
+		BeginDisabled(disabled);
 		TableNextColumn();
 		Text(propertyName.c_str());
+		propertyName = "##" + propertyName;
 		TableNextColumn();
 		SetNextItemWidth(fieldWidth);
-		InputDouble(("##" + propertyName + "X").c_str(), &property.x, 0, 0, "%.2f");
-		SameLine(0, 3); SetNextItemWidth(fieldWidth); InputDouble(("##" + propertyName + "Y").c_str(), &property.y, 0, 0, "%.2f");
-		SameLine(0, 3); SetNextItemWidth(fieldWidth); InputDouble(("##" + propertyName + "Z").c_str(), &property.z, 0, 0, "%.2f");
+		InputDouble((propertyName + "X").c_str(), &property.x, 0, 0, "%.2f");
+		SameLine(0, 3); SetNextItemWidth(fieldWidth); InputDouble((propertyName + "Y").c_str(), &property.y, 0, 0, "%.2f");
+		SameLine(0, 3); SetNextItemWidth(fieldWidth); InputDouble((propertyName + "Z").c_str(), &property.z, 0, 0, "%.2f");
+		EndDisabled();
 	}
 
-	void InputDouble1(std::string propertyName, double& property)
+	void InputDouble1(std::string propertyName, double& property, bool disabled)
 	{
+		BeginDisabled(disabled);
 		TableNextColumn();
 		Text(propertyName.c_str());
 		TableNextColumn();
 		SetNextItemWidth(GetWindowSize().x);
 		InputDouble(("##" + propertyName).c_str(), &property, 0, 0, "%.2f");
+		EndDisabled();
+	}
+
+	void InputCheckBox(std::string propertyName, bool& property, bool disabled)
+	{
+		BeginDisabled(disabled);
+		TableNextColumn();
+		Text(propertyName.c_str());
+		TableNextColumn();
+		Checkbox(("##" + propertyName).c_str(), &property);
+		EndDisabled();
+	}
+
+	template <>
+	void InputList(std::vector<GE::Component::LinearForce>& list, float fieldWidth, bool disabled)
+	{
+		BeginDisabled(disabled);
+		TableNextColumn();
+		if (TreeNode("Forces"))
+		{
+			Separator();
+			TableNextRow();
+			int i{};
+			for (auto& force : list)
+			{
+				InputDouble3("Force " + std::to_string(i++), force.m_magnitude, fieldWidth, disabled);
+				InputDouble1("Lifetime", force.m_lifetime);
+				InputCheckBox("Force Active", force.m_isActive);
+				Separator();
+			}
+			TreePop();
+		}
+		EndDisabled();
 	}
 }
