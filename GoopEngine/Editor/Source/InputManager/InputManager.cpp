@@ -118,9 +118,9 @@ void InputManager::DispatchInputEvents()
 	{
 		eventMan.Dispatch(KeyTriggeredEvent(GPK_K));
 	}
-	if (IsKeyTriggered(GPK_A))
+	if (IsKeyTriggered(GPK_E))
 	{
-		eventMan.Dispatch(KeyTriggeredEvent(GPK_A));
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_E));
 	}
 	if (IsKeyTriggered(GPK_W))
 	{

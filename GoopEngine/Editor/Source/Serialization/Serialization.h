@@ -15,6 +15,7 @@ namespace GE
 {
   namespace Serialization
   {
+
     void SerializeSystems(std::string const& json);
 
     /*!*********************************************************************
@@ -32,7 +33,8 @@ namespace GE
     \return
       std::vector of systems to their respective components
     ************************************************************************/
-    std::vector<std::pair<std::string, ECS::ComponentSignature>> DeserializeSystems(std::string const& json);   
-  
+    std::vector<std::pair<std::string, ECS::ComponentSignature>> DeserializeSystems(std::string const& json);
+
+
   } // namespace Serialization
 } // namespace GE

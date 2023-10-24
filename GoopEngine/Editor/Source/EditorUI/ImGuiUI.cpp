@@ -24,6 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "DataViz/Visualizer.h"
 #include <Systems/Physics/CollisionSystem.h>
 #include "Console.h"
+#include "Inspector.h"
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -178,29 +179,34 @@ void ImGuiUI::Update()
 #endif
 
   Begin("Audio");
-  if (Button("Play Scream Sound"))
+  Assets::AssetManager const& aM{ Assets::AssetManager::GetInstance() };
+  if (Button("Play BGM"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound("Assets/JoelScream.wav", 0.70f);
+    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("bgm1"), 0.5f, true);
+  }
+  else if (Button("Play Scream Sound"))
+  {
+    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("JoelScream"), 0.70f);
   }
   else if (Button("DJ Drop Da Beat"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound("Assets/ChengEnBeatbox.wav", 1.25f, true);
+    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("ChengEnBeatbox"), 1.25f, true);
   }
   else if (Button("Play Qurr Sound"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound("Assets/ChengEnQur.wav", 0.9f);
+    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("ChengEnQur"), 0.9f);
   }
   else if (Button("Stop Scream Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopSound("Assets/JoelScream.wav");
+    Audio::AudioEngine::GetInstance().StopSound(aM.GetSound("JoelScream"));
   }
   else if (Button("DJ Pick Up Da Beat"))
   {
-    Audio::AudioEngine::GetInstance().StopSound("Assets/ChengEnBeatbox.wav");
+    Audio::AudioEngine::GetInstance().StopSound(aM.GetSound("ChengEnBeatbox"));
   }
   else if (Button("Stop Qur Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopSound("Assets/ChengEnQur.wav");
+    Audio::AudioEngine::GetInstance().StopSound(aM.GetSound("ChengEnQur"));
   }
   else if (Button("Stop All Sounds"))
   {
@@ -210,6 +216,7 @@ void ImGuiUI::Update()
   End();
 
   Begin("Inspector");
+  Inspector::CreateContent();
   End();
 
   Begin("Console");
