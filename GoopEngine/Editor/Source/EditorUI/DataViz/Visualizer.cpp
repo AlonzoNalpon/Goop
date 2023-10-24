@@ -115,6 +115,9 @@ void Visualizer::UpdateGraph()
     float const averageYPos{ rectMin.y + (1.f - averageSysTime / m_maxGraphHeight) * (GetItemRectSize().y)};
     ImVec2 const lineStart(rectMin.x, averageYPos), lineEnd(GetItemRectMax().x, averageYPos);
 
+    if (m_systemTimers.empty())
+      return;
+
     ImGui::Columns(static_cast<int>(m_systemTimers.size()));
     // Render names below histogram
     for (int i = 0; i < static_cast<int>(m_systemTimers.size()); ++i)

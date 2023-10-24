@@ -78,17 +78,8 @@ namespace GE::Application
         im.UpdateInput();
         fRC.EndSystemTimer("Input System");
 
-        static bool renderUI = false;
-        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_G))
-        {
-          renderUI = !renderUI;
-        }
-
         fRC.StartSystemTimer();
-        if (renderUI)
-        {
-          imgui.Update();
-        }
+        imgui.Update();
         fRC.EndSystemTimer("ImGui Update");
         gEngine.ClearBuffer();
 
@@ -102,10 +93,7 @@ namespace GE::Application
         fRC.EndSystemTimer("Draw");
 
         fRC.StartSystemTimer();
-        if (renderUI)
-        {
-          imgui.Render();
-        }
+        imgui.Render();
         fRC.EndSystemTimer("ImGui Render");
         
         // update graph for system timers if window is shown
