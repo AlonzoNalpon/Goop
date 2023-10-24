@@ -26,6 +26,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "Console.h"
 #include "Inspector.h"
 #include "SceneControls.h"
+#include "AssetBrowser.h"
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -134,6 +135,11 @@ void ImGuiUI::Update()
     }
   }
   End();
+
+  Begin("Asset Browser(Tree)");
+  AssetBrowser::CreateContent();
+  End();
+
   
   if (Visualizer::IsPerformanceShown())
   {
