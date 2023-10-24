@@ -21,8 +21,15 @@ namespace Graphics::Rendering
   class Camera
   {
   private:
-    glm::mat4 m_view;   //!< view matrix of camera
-    glm::mat4 m_proj;  //!< perspective matrix of camera
+    glm::mat4 m_view;     //!< view matrix of camera
+    glm::mat4 m_proj;     //!< perspective matrix of camera
+    gVec3     m_position; //!< position of camera
+    gVec3     m_tgt;
+    gVec3     m_up;
+    GLfloat   m_left;
+    GLfloat   m_right;
+    GLfloat   m_bottom;
+    GLfloat   m_top;
 
   public:
     Camera() = default;
@@ -43,7 +50,7 @@ namespace Graphics::Rendering
       
     \return
     ************************************************************************/
-    Camera(glm::vec3 pos, glm::vec3 tgt, glm::vec3 up,
+    Camera(gVec3 pos, gVec3 tgt, gVec3 up,
       GLfloat left, GLfloat right, GLfloat bottom, GLfloat top,
       GLfloat near, GLfloat far);
 
@@ -56,7 +63,7 @@ namespace Graphics::Rendering
       up    new up vector of camera
     \return
     ************************************************************************/
-    void UpdateViewMtx(glm::vec3 pos, glm::vec3 tgt, glm::vec3 up);
+    void UpdateViewMtx(gVec3 pos, gVec3 tgt, gVec3 up);
 
     /*!*********************************************************************
     \brief
@@ -67,9 +74,13 @@ namespace Graphics::Rendering
       
     ************************************************************************/
     glm::mat4 ViewProjMtx() const;
+
+    void DisplaceCam(gVec3 displacement);
   public: // getters
-    glm::mat4 const& view{ m_view }; //!< getter to view matrix
-    glm::mat4 const& proj{ m_proj }; //!< getter to projection matrix
+    glm::mat4 const&  view{ m_view }; //!< getter to view matrix
+    glm::mat4 const&  proj{ m_proj }; //!< getter to projection matrix
+    gVec3 const&      position{ m_position };
+    gVec3 const&      up_vector{ m_up };
   };
 
 }

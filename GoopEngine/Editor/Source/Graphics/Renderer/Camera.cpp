@@ -13,10 +13,17 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <gtc/matrix_transform.hpp>
 namespace Graphics::Rendering
 {
-  Camera::Camera(glm::vec3 pos, glm::vec3 tgt, glm::vec3 up, 
+  Camera::Camera(gVec3 pos, gVec3 tgt, gVec3 up,
     GLfloat left, GLfloat right, GLfloat bottom, GLfloat top,
     GLfloat _near, GLfloat _far) : m_view{ glm::lookAt(pos, tgt, up) },
-              m_proj{glm::ortho(left, right, bottom, top, _near, _far)}
+    m_proj{ glm::ortho(left, right, bottom, top, _near, _far) },
+    m_position{ pos },
+    m_tgt{ tgt },
+    m_up{ up },
+    m_left{ left },
+    m_right{ right },
+    m_bottom{ bottom },
+    m_top{ top }
   {}
 
   Camera& Camera::operator=(Camera const& rhs)
@@ -26,12 +33,19 @@ namespace Graphics::Rendering
     return *this;
   }
 
-  void Camera::UpdateViewMtx(glm::vec3 pos, glm::vec3 tgt, glm::vec3 up)
+  void Camera::UpdateViewMtx(gVec3 pos, gVec3 tgt, gVec3 up)
   {
     m_view = glm::lookAt(pos, tgt, up);
   }
+
   glm::mat4 Camera::ViewProjMtx() const
   {
     return m_proj * m_view;
+  }
+  void Camera::DisplaceCam(gVec3 displacement)
+  {
+    m_position += displacement;
+    m_tgt += displacement;
+    UpdateViewMtx(m_position, m_tgt, m_up);
   }
 }

@@ -72,13 +72,49 @@ void ImGuiUI::Update()
   End();
 
   Begin("Viewport");
-  auto& gEngine = Graphics::GraphicsEngine::GetInstance();
-  GLuint texture = gEngine.GetRenderTexture();
-  ImVec2 viewportSize = ImGui::GetContentRegionAvail();
-  // Define the UV coordinates for the flipped rendering
-  ImVec2 uv0 = ImVec2(1.0f, 0.0f); // Top-right
-  ImVec2 uv1 = ImVec2(0.0f, 1.0f); // Bottom-left
-  ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
+  {
+#pragma region VIEWPORT_RENDERING
+    auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+    GLuint texture = gEngine.GetRenderTexture();
+
+    // Calculate the UV coordinates based on viewport position and size
+    // Get the size of the GLFW window
+    ImGuiIO& io = ImGui::GetIO();
+    ImVec2 windowSize{io.DisplaySize.x, io.DisplaySize.y};
+    ImVec2 viewportSize     = ImGui::GetContentRegionAvail();  // Get the top-left position of the viewport
+    ImVec2 viewportPosition = ImGui::GetCursorScreenPos();
+    ImVec2 viewportEnd = ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y);
+    ImVec2 uv0;
+    ImVec2 uv1;
+  
+    uv0.x = 1.f + (viewportEnd.x - windowSize.x) / windowSize.x;
+    uv1.y = -(viewportPosition.y) / windowSize.y;
+    uv0.y = -(1.f + (viewportEnd.y - windowSize.y) / windowSize.y);
+    uv1.x = (viewportPosition.x) / windowSize.x;
+    // render the image
+    ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
+#pragma endregion
+#pragma region VIEWPORT_INPUT
+  if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y))) {
+    constexpr int MIDDLE_MOUSE{ 2 };
+    //auto& renderer = gEngine.GetRenderer();
+    static bool middleMouseHeld{};
+    if (ImGui::IsMouseDown(MIDDLE_MOUSE)) {
+      ImVec2 mousePosition = ImGui::GetMousePos();
+      mousePosition.y = windowSize.y - mousePosition.y;
+      // Middle mouse button is pressed
+      std::cout << "WORLD POSITION at: " << mousePosition.x << "| " << mousePosition.y << std::endl;
+
+    }
+    else {
+      middleMouseHeld = false;
+    }
+  }
+
+  
+  
+  }
+#pragma endregion
   End();
 
   Begin("Collision Partitioning");
