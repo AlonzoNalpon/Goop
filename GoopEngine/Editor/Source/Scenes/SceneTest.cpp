@@ -67,7 +67,6 @@ void GE::Scenes::SceneTest::Init()
 	ecs->RegisterEntityToSystem<CollisionSystem>(player);
 	ecs->RegisterEntityToSystem<SpriteAnimSystem>(player);
 	ecs->SetEntityName(player, "Player");
-	//ecs->SetIsActiveEntity(entt3, false);
 }
 
 void GE::Scenes::SceneTest::Unload()

@@ -7,6 +7,7 @@ namespace GE::Scenes
   {
   public:
     void Load() override;
+    void Load(std::string scene_name);
     void Init() override;
     void Unload() override;
     void Free() override;

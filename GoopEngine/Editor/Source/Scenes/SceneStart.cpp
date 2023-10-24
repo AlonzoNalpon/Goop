@@ -13,10 +13,16 @@ void GE::Scenes::SceneStart::Load()
 	of->LoadSceneJson("SceneStart");
 }
 
+void GE::Scenes::SceneStart::Load(std::string scene_name)
+{
+	ecs = { &GE::ECS::EntityComponentSystem::GetInstance() };
+	of = { &GE::ObjectFactory::ObjectFactory::GetInstance() };
+	of->LoadSceneJson(scene_name);
+}
+
 void GE::Scenes::SceneStart::Init()
 {
 	of->LoadSceneObjects(m_entities);
-	//ecs->SetEntityName(background, "MainMenu");
 }
 
 void GE::Scenes::SceneStart::Unload()
