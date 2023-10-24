@@ -18,15 +18,17 @@ namespace
 
 namespace Graphics::Rendering {
   Renderer::Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, 
-    ShaderCont const& shaderCont, Fonts::FontManager const& fontManager)
-    : r_mdlContainer{ mdlContainer }, r_texManager{ texManager }, r_shaders{ shaderCont }, r_fontManager { fontManager }
+    ShaderCont const& shaderCont, Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight)
+    : r_mdlContainer{ mdlContainer }, r_texManager{ texManager }, r_shaders{ shaderCont }, r_fontManager { fontManager },
+    r_vpWidth{ vpWidth }, r_vpHeight{ vpHeight }
   {
   }
 
-  void Renderer::Init(Camera const& camera, size_t renderCallSize)
+  void Renderer::Init(Camera const& camera, gObjID lineMdlID, size_t renderCallSize)
   {
     m_renderCalls.reserve(renderCallSize);
     m_camera = camera;
+    m_lineMdlObj = lineMdlID;
   }
 
   void Renderer::RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat4 const& trans)
@@ -39,6 +41,11 @@ namespace Graphics::Rendering {
       static_cast<f32>(trans.At(2,0)), static_cast<f32>(trans.At(2,1)), static_cast<f32>(trans.At(2,2)), static_cast<f32>(trans.At(2,3)), // col 3
       static_cast<f32>(trans.At(3,0)), static_cast<f32>(trans.At(3,1)), static_cast<f32>(trans.At(3,2)), static_cast<f32>(trans.At(3,3)) // col 4
     )  );
+  }
+
+  void Renderer::RenderLineDebug(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf const& clr)
+  {
+    m_lineRenderCalls.emplace_back(startPt, endPt, clr);
   }
 
   void Renderer::Draw()
@@ -85,7 +92,35 @@ namespace Graphics::Rendering {
       }
     }
 
+    // RENDERING LINES FRO DEBUGGING
+    {
+      constexpr GLint uEndPtsLocation = 0;
+      constexpr GLint uColorLocation = 1;
+      constexpr GLint uViewProjMtxLocation = 2;
+      auto const& mdl{ r_mdlContainer[m_lineMdlObj]};
+      glUseProgram(mdl.shader);
+
+      // Pass the camera matrix
+      glUniformMatrix4fv(uViewProjMtxLocation, 1, GL_FALSE, glm::value_ptr(camViewProj));
+      for (auto const& obj : m_lineRenderCalls)
+      {
+        glLineWidth(1.f);
+        
+        glBindVertexArray(mdl.vaoid);
+
+        // Set the uniform values using the layout locations
+        glUniform4f(uEndPtsLocation, static_cast<GLfloat>(obj.startPt.x), 
+          static_cast<GLfloat>(obj.startPt.y), 
+          static_cast<GLfloat>(obj.endPt.x), 
+          static_cast<GLfloat>(obj.endPt.y));
+        glUniform3f(uColorLocation, obj.clr.r, obj.clr.g, obj.clr.b);
+        glDrawArrays(GL_LINES, 0, 2);
+        glBindVertexArray(0);
+      }
+      glUseProgram(0); // we're done
+    }
     m_renderCalls.clear(); // reset
+    m_lineRenderCalls.clear(); // reset debug
   }
 
   Camera& Renderer::GetCamera()

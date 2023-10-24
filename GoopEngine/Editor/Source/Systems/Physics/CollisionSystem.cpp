@@ -54,9 +54,10 @@ void CollisionSystem::Update()
 	CreatePartitions(m_rowsPartition, m_colsPartition);
 	for (Partition& partition : m_partitions)
 	{
+		auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 		//drawing partition's border
-		Graphics::GraphicsEngine::DrawLine(partition.min, { partition.max.x, partition.min.y });
-		Graphics::GraphicsEngine::DrawLine({ partition.max.x, partition.min.y }, partition.max);
+		gEngine.DrawLine(partition.min, { partition.max.x, partition.min.y });
+		gEngine.DrawLine({ partition.max.x, partition.min.y }, partition.max);
 
 		if (partition.m_entitiesInPartition.empty()) 
 		{
