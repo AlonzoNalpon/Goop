@@ -11,6 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SceneHierachy.h"
 #include <ImGui/imgui.h>
 #include <Systems/RootTransform/RootTransformSystem.h>
+#include <Component/Transform.h>
 
 using namespace ImGui;
 using namespace GE::ECS;
@@ -57,7 +58,7 @@ namespace
 	\param[in] textClr
 		Colour of the text of the node
 	********************************************************************/
-	void Propergate(Entity entity, EntityComponentSystem& ecs, ImColor textClr);
+	void Propergate(Entity entity, EntityComponentSystem& ecs, ImGuiTreeNodeFlags flag, ImColor textClr);
 }
 
 void GE::EditorGUI::SceneHierachy::CreateContent()
@@ -70,7 +71,8 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 	// TODO
 	// Scene should be replace with scene file name
 	static const char* sceneName = "Scene";
-	if (TreeNodeEx(sceneName, ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen))
+	ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+	if (TreeNodeEx(sceneName, treeFlags))
 	{
 		// Allow user to turn an entity into a root level
 		if (BeginDragDropTarget())
@@ -88,7 +90,7 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 		{
 			if (ecs.GetParentEntity(entity) == INVALID_ID)
 			{
-				Propergate(entity, ecs, ecs.GetIsActiveEntity(entity) ? originalTextClr : inactiveTextClr);
+				Propergate(entity, ecs, treeFlags, ecs.GetIsActiveEntity(entity) ? originalTextClr : inactiveTextClr);
 			}
 		}
 		TreePop();
@@ -112,17 +114,36 @@ namespace
 
 		if (!parent)	// Child becoming root
 		{
+			if (oldParent != INVALID_ID)
+			{
+				GE::Component::Transform& childTrans = *ecs.GetComponent<GE::Component::Transform>(child);
+				GE::Component::Transform& parentTrans = *ecs.GetComponent<GE::Component::Transform>(oldParent);
+
+				childTrans.m_pos = childTrans.m_parentWorldTransform * GE::Math::dVec4(childTrans.m_pos, 1.0);
+				childTrans.m_scale = { childTrans.m_scale.x * parentTrans.m_scale.x,childTrans.m_scale.y * parentTrans.m_scale.y, 1.0 };
+				childTrans.m_rot = childTrans.m_rot + parentTrans.m_rot;
+			}
+
 			// Remove reference to child from old parent if exist
 			ecs.SetParentEntity(child, INVALID_ID);
 		}
 		else
 		{
+			GE::Component::Transform& childTrans = *ecs.GetComponent<GE::Component::Transform>(child);
+			GE::Component::Transform& parentTrans = *ecs.GetComponent<GE::Component::Transform>(*parent);
+
+			GE::Math::dMat4 invP;
+			GE::Math::MtxInverse(invP, parentTrans.m_worldTransform);
+			childTrans.m_pos = invP * GE::Math::dVec4(childTrans.m_pos, 1.0);
+			childTrans.m_scale = { childTrans.m_scale.x / parentTrans.m_scale.x,childTrans.m_scale.y / parentTrans.m_scale.y, 1.0 };
+			childTrans.m_rot = childTrans.m_rot - parentTrans.m_rot;
+
 			ecs.SetParentEntity(child, *parent);
-			ecs.AddChildEntity(*parent, child);
+		  ecs.AddChildEntity(*parent, child);
 		}
 	}
 
-	void Propergate(Entity entity, EntityComponentSystem& ecs, ImColor textClr)
+	void Propergate(Entity entity, EntityComponentSystem& ecs, ImGuiTreeNodeFlags flag, ImColor textClr)
 	{
 		// Abit inefficient to call get in a recursive but
 		// the only other method is to decalre heap memory in a
@@ -133,7 +154,7 @@ namespace
 		/////////////////////
 		// Create own node
 		/////////////////////
-		if (TreeNodeEx(GetName(entity), ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen))
+		if (TreeNodeEx(GetName(entity), flag))
 		{
 			if (IsItemClicked())
 			{
@@ -175,7 +196,7 @@ namespace
 
 			for (Entity child : m_children)
 			{
-				Propergate(child, ecs, ecs.GetIsActiveEntity(child) ? textClr : inactiveTextClr);
+				Propergate(child, ecs, flag, ecs.GetIsActiveEntity(child) ? textClr : inactiveTextClr);
 			}
 
 			TreePop();

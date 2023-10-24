@@ -1,10 +1,17 @@
 /*!*********************************************************************
 \file   Mat4Utils.h
 \author chengen.lau\@digipen.edu
+<<<<<<< HEAD
 \date   29-September-2023
 \brief  Matrix 3x3 utility functions (only for floats and doubles)
   
  
+=======
+\date   23-October-2023
+\brief  Matrix 4x4 utility functions (only for floats and doubles)
+
+
+>>>>>>> main
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
@@ -17,6 +24,7 @@ namespace GE
 
     /*!***********************************************************************
     \brief
+<<<<<<< HEAD
       Takes in a gpm::Mat3 and turns it into an identity matrix
     \param[in] mtx
       The matrix to store the result
@@ -118,6 +126,39 @@ namespace GE
       The matrix to inverse
     \return
       The inverse of the matrix
+=======
+      Takes in a gpm::Mat4 and turns it into an identity matrix
+    \param[in] mtx
+      The matrix to store the result
+    *************************************************************************/
+    void MtxIdentity(Mat4& mtx);
+
+    /*!***********************************************************************
+    \brief
+      Takes in a gpm::dMat4 and turns it into an identity matrix
+    \param[in] mtx
+      The matrix to store the result
+    *************************************************************************/
+    void MtxIdentity(dMat4& mtx);
+
+    /*!***********************************************************************
+    \brief
+      Takes in a gpm::dMat4 and sets the result to the inverse of mtx
+    \param[in] result
+      The matrix to store the result
+    \param[in] mtx
+      The matrix to inverse
+    *************************************************************************/
+    void MtxInverse(Mat4& result, dMat4 const& mtx);
+
+    /*!***********************************************************************
+    \brief
+      Takes in a gpm::dMat4 and sets the result to the inverse of mtx
+    \param[in] result
+      The matrix to store the result
+    \param[in] mtx
+      The matrix to inverse
+>>>>>>> main
     *************************************************************************/
     void MtxInverse(dMat4& result, dMat4 const& mtx);
 

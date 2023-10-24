@@ -34,7 +34,7 @@ namespace GE
 			GE::Component::Transform trans;
 			trans.m_pos = cw.Get<Math::dVec3>("m_pos");
 			trans.m_scale = cw.Get<Math::dVec3>("m_scale");
-			trans.m_rot = cw.Get<double>("m_rot");
+			trans.m_rot = cw.Get<Math::dVec3>("m_rot");
 
 			return trans;
 		}
@@ -77,8 +77,17 @@ namespace GE
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
 			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+			auto& am = GE::Assets::AssetManager::GetInstance();
 			Component::Sprite sprite;
 
+			try {
+				am.GetData(cw.Get<std::string>("filename"));
+			}
+			catch (GE::Debug::IExceptionBase&)
+			{
+				int id = am.LoadImageW(cw.Get<std::string>("filename"));
+				gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
+			}
 			sprite.spriteData.texture = gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename"));
 			return sprite;
 		}
@@ -88,7 +97,17 @@ namespace GE
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
 			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+			// auto& am = GE::Assets::AssetManager::GetInstance();
 			Component::SpriteAnim spriteAnim;
+
+			/*try {
+				am.GetData(cw.Get<std::string>("name"));
+			}
+			catch (GE::Debug::IExceptionBase& e)
+			{
+				int id = am.LoadImageW(cw.Get<std::string>("filename"));
+				gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
+			}*/
 
 			spriteAnim.animID = gEngine.animManager.GetAnimID(cw.Get<std::string>("name"));
 			return spriteAnim;

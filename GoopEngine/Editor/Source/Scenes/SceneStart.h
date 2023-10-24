@@ -11,5 +11,8 @@ namespace GE::Scenes
     void Unload() override;
     void Free() override;
   private:
+    GE::ECS::EntityComponentSystem* ecs;
+    GE::ObjectFactory::ObjectFactory* of;
+    std::set<GE::ECS::Entity> m_entities;
   };
 }

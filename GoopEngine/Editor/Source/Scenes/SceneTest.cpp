@@ -17,6 +17,8 @@
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 
+#include <Audio/AudioEngine.h>
+
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
@@ -26,7 +28,7 @@ void GE::Scenes::SceneTest::MakeDraggableBox()
 {
 		Entity entt = ecs->CreateEntity();
 		Velocity vel({ 0, 0, 0 }, { 0, 0, 0 }, 1.0, { 9.8, 9.8, 0 }, DragForce( {2, 2, 0}, 1));
-		Transform trans({ 0, 0, 0 }, { 50, 50, 1 }, 0.0);
+		Transform trans({ 0, 0, 0 }, { 50, 50, 1 }, { 0.0, 0.0, 0.0 });
 		BoxCollider box(trans.m_pos, 50, 50);
 
 		ecs->AddComponent(entt, vel);
@@ -45,19 +47,23 @@ void GE::Scenes::SceneTest::Load()
 
 void GE::Scenes::SceneTest::Init()
 {
+	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
+
 	of->SpawnPrefab("Background");
 	MakeDraggableBox();
 	Entity entt2 = ecs->CreateEntity();
 	Velocity vel({ 0, 0 , 0}, { 0, 0, 0 }, 1.0, { 9.8, 9.8, 0 }, DragForce({ 1, 0, 0 }));
-	Transform trans({ 250, 250, 0 }, { 100, 50, 1 }, 0.0);
+	vel.AddForce({ 100, 0, 0 }, 10);
+	vel.AddForce({ -50, 200, 0 }, 20);
+	Transform trans({ 250, 250, 0 }, { 100, 50, 1 }, { 0.0, 0.0, 0.0 });
 	BoxCollider box(trans.m_pos, 100, 50);
 
-	ecs->RegisterSystem<PreRootTransformSystem>();
+	ecs->RegisterSystem<RootTransformSystem>();
 
 	Entity entt3 = ecs->CreateEntity();
 	Entity entt4 = ecs->CreateEntity();
-	Transform transBox2({ 200, 2, 0 }, { 20, 20, 1 }, 0.0);
-	Transform transBox3({ 300, 2, 0 }, { 30, 20, 1 }, 0.0);
+	Transform transBox2({ 200, 2, 0 }, { 20, 20, 1 }, { 0.0, 0.0, 0.0 });
+	Transform transBox3({ 300, 2, 0 }, { 30, 20, 1 }, { 0.0, 0.0, 0.0 });
 	BoxCollider box2(transBox2.m_pos, 20, 20); //should collide
 	BoxCollider box3(transBox3.m_pos, 30, 20); //shouldnt collide
 
@@ -82,11 +88,11 @@ void GE::Scenes::SceneTest::Init()
 	ecs->SetEntityName(worm, "SS_MineWorm");
 
 	Entity player = ecs->CreateEntity();
-	Transform playerTrans({ -350, 350, 0 }, { 150, 150, 1 }, 0.0);
+	Transform playerTrans({ -350, 350, 0 }, { 150, 150, 1 }, { 0.0, 0.0, 45.0 });
 	BoxCollider playerCollider(playerTrans.m_pos, 150, 150); //should collide
 
 	Tween tween(3.0);
-	tween.AddTween({ 0, 0, 0 });
+	tween.AddTween({ -900, 0, 0 });
 	tween.AddTween({ 0, -350, 0 });
 	tween.AddTween({ 350, 350, 0 });
 	Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
@@ -112,7 +118,7 @@ void GE::Scenes::SceneTest::Init()
 	ecs->RegisterEntityToSystem<CollisionSystem>(player);
 	ecs->RegisterEntityToSystem<SpriteAnimSystem>(player);
 	ecs->SetEntityName(player, "Player");
-	ecs->SetIsActiveEntity(entt3, false);
+	//ecs->SetIsActiveEntity(entt3, false);
 }
 
 void GE::Scenes::SceneTest::Unload()

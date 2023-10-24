@@ -48,10 +48,20 @@ namespace Graphics::Rendering
     glm::mat4 transform;//!< the transformation of the model
   };
 
+  /*!
+   * \struct LineRenderData
+   * \brief  
+   * struct containing info for rendering lines.
+   */
+  struct LineRenderData {
+    GE::Math::dVec2 startPt;
+    GE::Math::dVec2 endPt;
+    Colorf clr;
+  };
 
   struct DepthComp {
     bool operator()(RenderData const& a, RenderData const& b)const {
-      return a.transform[3][2] > b.transform[3][2];
+      return a.transform[3][2] < b.transform[3][2];
     }
   };
 };

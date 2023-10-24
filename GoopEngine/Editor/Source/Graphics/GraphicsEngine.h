@@ -38,6 +38,10 @@ namespace Graphics {
     ************************************************************************/
     void Init(Colorf clearColor, GLint w, GLint h);
 
+    void InitFrameBuffer();
+
+    GLuint GetRenderTexture();
+
     void ClearBuffer();
 
     void Draw();
@@ -126,7 +130,7 @@ namespace Graphics {
       clr the color of the line
     \return
     ************************************************************************/
-    static void DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr = {1, 0, 0});
+    void DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr = {1, 0, 0});
 
   protected:
     GLint m_vpWidth, m_vpHeight; //!< dimensions of viewport
@@ -153,6 +157,9 @@ namespace Graphics {
     Model GenerateLine();
     // SHADERS ARE ONLY TO BE QUERIED BY MODELS REQUESTING A HANDLE
     // USERS MUST SPECIFY SHADER NAME WHILE CREATING A MODEL
+
+    GLuint                          m_framebuffer;
+    GLuint                          m_renderTexture;
 
     ShaderLT                        m_shaderLT;         //!< LOOKUP TABLE: handles by strings
     ShaderCont                      m_shaders;          //!< shaders by ID

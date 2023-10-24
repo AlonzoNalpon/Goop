@@ -9,6 +9,7 @@
 #include <Events/EventManager.h>
 #include <Graphics/GraphicsEngine.h>
 #include <Component/ScriptHandler.h>
+#include <Audio/AudioEngine.h>
 
 using vec3 = GE::Math::dVec3;
 
@@ -112,7 +113,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 			if (key == GPK_H)
 			{
 				constexpr double ROTATE_SPEED{ 2.0 };
-				trans->m_rot = fmod(trans->m_rot + dt * ROTATE_SPEED, pi * 2.0); // ROTATING PLAYER
+				trans->m_rot.z = fmod(trans->m_rot.z + dt * ROTATE_SPEED, pi * 2.0); // ROTATING PLAYER
 			}
 			if (key == GPK_J)
 			{
@@ -127,6 +128,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 		}
 		else if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
 		{
+			Assets::AssetManager const& aM{ Assets::AssetManager::GetInstance() };
 			KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
 			if (key == GPK_K)
 			{
@@ -146,6 +148,14 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 				#ifdef _DEBUG
 				std::cout << event->GetName() + " Event handled\n";
 				#endif
+			}
+			if (key == GPK_E)
+			{
+				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("slash"), 1.0f);
+			}
+			if (key == GPK_W)
+			{
+				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("woosh2"), 1.0f);
 			}
 		}
 	}

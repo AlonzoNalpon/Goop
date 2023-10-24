@@ -47,7 +47,7 @@ namespace GE::Application
 
       imgui.Init(window);
       
-      of.ObjectFactoryTest();
+      // of.ObjectFactoryTest();
       im.InitInputManager(window.GetWindow(), *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), 0.1);
 
       GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
@@ -78,23 +78,23 @@ namespace GE::Application
         im.UpdateInput();
         fRC.EndSystemTimer("Input System");
 
-        static bool renderUI = false;
-        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_G))
-        {
-          renderUI = !renderUI;
-        }
-
         fRC.StartSystemTimer();
-        if (renderUI)
-        {
-          imgui.Update();
-        }
+        imgui.Update();
         fRC.EndSystemTimer("ImGui Update");
         gEngine.ClearBuffer();
 
         fRC.StartSystemTimer();
+        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_RIGHT))
+        {
+          gsm.SetNextScene("SceneTest");
+        }
+        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_LEFT))
+        {
+          gsm.SetNextScene("Start");
+        }
+        gsm.Update();
+
         ecs->UpdateSystems();
-        //scn.Update();
         fRC.EndSystemTimer("Scene Update");
 
         fRC.StartSystemTimer();
@@ -102,10 +102,7 @@ namespace GE::Application
         fRC.EndSystemTimer("Draw");
 
         fRC.StartSystemTimer();
-        if (renderUI)
-        {
-          imgui.Render();
-        }
+        imgui.Render();
         fRC.EndSystemTimer("ImGui Render");
         
         // update graph for system timers if window is shown

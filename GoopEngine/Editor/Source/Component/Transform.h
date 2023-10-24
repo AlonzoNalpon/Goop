@@ -28,13 +28,14 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			Transform(Math::dVec3 const& pos, Math::dVec3 const& scale, double rot)
+			Transform(Math::dVec3 const& pos, Math::dVec3 const& scale, Math::dVec3 const& rot)
 				: m_pos{ pos }, m_scale{ scale }, m_rot{ rot } {}
 
 			vec3 m_pos;
 			vec3 m_scale;
-			double m_rot;
+			vec3 m_rot;
 
+			Math::dMat4 m_parentWorldTransform;
 			Math::dMat4 m_worldTransform;
 		};
 	}

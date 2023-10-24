@@ -1,6 +1,7 @@
 #include <pch.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <Graphics/GraphicsEngine.h>
+#include <Audio/AudioEngine.h>
 
 using namespace GE::Math;
 
@@ -45,30 +46,21 @@ void CollisionSystem::Update()
 	{
 		BoxCollider* updateEntity = m_ecs->GetComponent<BoxCollider>(entity);
 		Transform* newCenter = m_ecs->GetComponent<Transform>(entity);
-		if (!updateEntity) 
-		{
-			std::cout << "updateEntity ERROR\n";
-		}
-		if (!newCenter) 
-		{
-			std::cout << "newCenter ERROR\n";
-		}
 		UpdateAABB(*updateEntity, newCenter->m_pos);
 		updateEntity->Render();
 	}
 
 	//spatial partitioning -> uniform grid
 	CreatePartitions(m_rowsPartition, m_colsPartition);
-	//std::cout << "Num of entities: " << list.size() << std::endl;
 	for (Partition& partition : m_partitions)
 	{
+		auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 		//drawing partition's border
-		Graphics::GraphicsEngine::DrawLine(partition.min, { partition.max.x, partition.min.y });
-		Graphics::GraphicsEngine::DrawLine({ partition.max.x, partition.min.y }, partition.max);
+		gEngine.DrawLine(partition.min, { partition.max.x, partition.min.y });
+		gEngine.DrawLine({ partition.max.x, partition.min.y }, partition.max);
 
-		//std::cout << "Num of entities per partitiion: " << partition.m_entitiesInPartition.size() << std::endl;
-
-		if (partition.m_entitiesInPartition.empty()) {
+		if (partition.m_entitiesInPartition.empty()) 
+		{
 			continue;
 		}
 
@@ -96,8 +88,8 @@ void CollisionSystem::Update()
 				if (Collide(*entity1Col, *entity2Col))
 				{
 					entity1Col->m_collided.insert(entity2Col);
+					//Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("damage_taken"), 1.50f);
 				}
-
 				else
 				{
 					if (entity1Col->m_collided.count(entity2Col))

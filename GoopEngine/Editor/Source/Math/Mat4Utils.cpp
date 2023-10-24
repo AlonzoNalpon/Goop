@@ -1,7 +1,13 @@
 /*!*********************************************************************
+<<<<<<< HEAD
 \file   Mat4Utils.h
 \author chengen.lau\@digipen.edu
 \date   29-September-2023
+=======
+\file   Mat3Utils.h
+\author chengen.lau\@digipen.edu
+\date   23-October-2023
+>>>>>>> main
 \brief  Matrix 4x4 utility functions (only for floats and doubles)
 
 
@@ -64,7 +70,7 @@ void GE::Math::MtxInverse(Mat<4, 4, float>& result, Mat<4, 4, float> const& mtx)
 void GE::Math::MtxInverse(Mat<4, 4, double>& result, Mat<4, 4, double> const& mtx)
 {
   Mat<4, 4, double> const temp{ mtx };
-  
+
   double const A2323 = temp[2][2] * temp[3][3] - temp[2][3] * temp[3][2];
   double const A1323 = temp[2][1] * temp[3][3] - temp[2][3] * temp[3][1];
   double const A1223 = temp[2][1] * temp[3][2] - temp[2][2] * temp[3][1];
@@ -88,7 +94,7 @@ void GE::Math::MtxInverse(Mat<4, 4, double>& result, Mat<4, 4, double> const& mt
     - temp[0].y * (temp[1].x * A2323 - temp[1].z * A0323 + temp[1].w * A0223)
     + temp[0].z * (temp[1].x * A1323 - temp[1].y * A0323 + temp[1].w * A0123)
     - temp[0].w * (temp[1].x * A1223 - temp[1].y * A0223 + temp[1].z * A0123) };
-  
+
   if (det == 0.0) { throw std::runtime_error("division by zero"); }
   double const invDet{ 1.0 / det };
 

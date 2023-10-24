@@ -37,7 +37,7 @@ namespace {
   // Typedefs
   
   GraphicsEngine::GraphicsEngine() : m_vpWidth{}, m_vpHeight{}, m_ar{}, 
-    m_renderer{ m_models, m_textureManager, m_shaders, m_fontManager }
+    m_renderer{ m_models, m_textureManager, m_shaders, m_fontManager, m_vpWidth, m_vpHeight }
   {
   }
 
@@ -56,16 +56,8 @@ namespace {
     m_vpWidth = w;
     m_vpHeight = h;
     m_ar = static_cast<GLfloat>(m_vpWidth) / m_vpHeight;
-    //Initialize renderer with a camera
-    {
-      Rendering::Camera orthoCam{ {0.f,0.f,3.f},                          // pos
-                                  {},                                     // target
-                                  {.0f, 1.f, 0.f},                        // up vector
-                                  -w*0.5f, w*0.5f, -h * 0.5f, h * 0.5f,   // left right bottom top
-                                  0.1f, 10.f };                           // near and far z planes
-      m_renderer.Init(orthoCam);
-    }
-
+    
+    InitFrameBuffer();
     // Initialize font manager
     m_fontManager.Init();
 #pragma region SHADER_MDL_INIT
@@ -82,6 +74,17 @@ namespace {
     // Adding the basic shader for rendering lines etc...
     m_lineMdl.shader       = CreateShader(debugLineShaders, "debug_line");
     m_models.emplace_back(m_spriteQuadMdl);
+
+    //Initialize renderer with a camera
+    {
+      Rendering::Camera orthoCam{ {0.f,0.f,3.f},                          // pos
+                                  {},                                     // target
+                                  {.0f, 1.f, 0.f},                        // up vector
+                                  -w * 0.5f, w * 0.5f, -h * 0.5f, h * 0.5f,   // left right bottom top
+                                  0.1f, 1000.f };                         // near and far z planes
+      m_renderer.Init(orthoCam, m_models.size());
+    }
+
     m_models.emplace_back(m_lineMdl);
 #pragma endregion
 
@@ -90,6 +93,29 @@ namespace {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+  }
+
+  void GraphicsEngine::InitFrameBuffer()
+  {
+    glGenFramebuffers(1, &m_framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
+
+
+    glGenTextures(1, &m_renderTexture);
+    glBindTexture(GL_TEXTURE_2D, m_renderTexture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_vpWidth, m_vpHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_renderTexture, 0);
+
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+      // Handle error
+    }
+  }
+
+  GLuint GraphicsEngine::GetRenderTexture()
+  {
+    return m_renderTexture;
   }
 
   void GraphicsEngine::ClearBuffer()
@@ -117,7 +143,11 @@ namespace {
     Rendering::Transform xform{ {SCALE,SCALE,SCALE}, 0.f, {400.f, 0.f, 0.f} };
     m_renderer.RenderObject(0, spriteData, xform);
 #endif
+    glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
+    ClearBuffer();
+    glViewport(0, 0, m_vpWidth, m_vpHeight);
     m_renderer.Draw();
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
   }
 
   Model GraphicsEngine::GenerateQuad()
@@ -307,29 +337,7 @@ namespace {
 
   void GraphicsEngine::DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr)
   {
-
-    glLineWidth(1.f);
-    GraphicsEngine& gEngine{ GetInstance() };
-    auto const& mdl{ gEngine.m_lineMdl };
-    gVec2 newStart{ startPt.x / gEngine.m_vpWidth * 2, startPt.y / gEngine.m_vpHeight * 2};
-    gVec2 newEnd{ endPt.x / gEngine.m_vpWidth * 2, endPt.y / gEngine.m_vpHeight * 2};
-    //auto handle{ gEngine.m_shaders[gEngine.m_lineShdrPgm].GetHandle() };
-    glBindVertexArray(mdl.vaoid);
-    glUseProgram(gEngine.m_lineMdl.shader);
-
-    // Setting uniform variables
-    //GLint const endPtsULocation = 0;  // Layout location for endPoints
-    //GLint const colorULocation = 1; // Layout location for uTexDims
-
-    int endPtsULocation = glGetUniformLocation(gEngine.m_lineMdl.shader, "uEndPts");
-    int colorULocation = glGetUniformLocation(gEngine.m_lineMdl.shader, "uColor");
-
-    // Set the uniform values using the layout locations
-    glUniform4f(endPtsULocation, newStart.x, newStart.y, newEnd.x, newEnd.y);
-    glUniform3f(colorULocation, clr.r, clr.g, clr.b);
-    glDrawArrays(GL_LINES, 0, 2);
-    glBindVertexArray(0);
-    glUseProgram(0);
+    m_renderer.RenderLineDebug(startPt, endPt, clr);
   }
 
 }

@@ -24,6 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "DataViz/Visualizer.h"
 #include <Systems/Physics/CollisionSystem.h>
 #include "Console.h"
+#include "Inspector.h"
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -50,7 +51,7 @@ void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
   ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(prgmWindow.GetWindow(), true);
-  ImGui_ImplOpenGL3_Init();
+  ImGui_ImplOpenGL3_Init("#version 460 core");
 }
 
 void ImGuiUI::Update()
@@ -72,6 +73,78 @@ void ImGuiUI::Update()
   End();
 
   Begin("Viewport");
+  {
+    // TODO: MOVE TO A CLASS WHEN WORKING
+#pragma region VIEWPORT_RENDERING
+    auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+    GLuint texture = gEngine.GetRenderTexture();
+
+    // Calculate the UV coordinates based on viewport position and size
+    // Get the size of the GLFW window
+    ImGuiIO& io = ImGui::GetIO();
+    ImVec2 windowSize{io.DisplaySize.x, io.DisplaySize.y};
+    ImVec2 viewportSize     = ImGui::GetContentRegionAvail();  // Get the top-left position of the viewport
+    ImVec2 viewportPosition = ImGui::GetCursorScreenPos();
+    ImVec2 viewportEnd = ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y);
+    ImVec2 uv0;
+    ImVec2 uv1;
+  
+    uv0.x = 1.f + (viewportEnd.x - windowSize.x) / windowSize.x;
+    uv1.y = -(viewportPosition.y) / windowSize.y;
+    uv0.y = -(1.f + (viewportEnd.y - windowSize.y) / windowSize.y);
+    uv1.x = (viewportPosition.x) / windowSize.x;
+    // render the image
+    ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
+#pragma endregion
+#pragma region VIEWPORT_INPUT
+  auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
+  if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y))) {
+
+    // If the middle mouse button is down (for moving camera)
+    {
+      constexpr int MIDDLE_MOUSE{ 2 };        // constant for middle mouse key
+      static bool middleMouseHeld{};          // flag for middle mouse held down
+      if (ImGui::IsMouseDown(MIDDLE_MOUSE)) 
+      {
+        ImVec2 mousePosition = ImGui::GetMousePos();
+        mousePosition.y = windowSize.y - mousePosition.y;
+        static Graphics::gVec2 prevPos; // previous mouse position
+
+        Graphics::gVec2 currPos{ mousePosition.x, mousePosition.y }; // current position of mouse in float
+
+        if (middleMouseHeld) // check if it's not the first frame button is held
+        {
+          Graphics::gVec2 displacement{ prevPos-currPos };  // displacement of camera
+          Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
+          camera.DisplaceCam({ displacement.x, displacement.y, 0.f });
+          prevPos = { currPos };
+        }
+        else // else this is the first frame we are holding it down
+        {
+          prevPos = { currPos };
+          middleMouseHeld = true;
+        }
+      }
+      else {
+        middleMouseHeld = false;
+      }
+    }
+    // If the mousewheel is scrolled (for zooming camera)
+    {
+      float scrollValue = io.MouseWheel;
+      constexpr float MULTIPLIER = 10.f;
+      if (scrollValue)
+      {
+        Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
+        camera.ZoomCamera(scrollValue * MULTIPLIER);
+      }
+    }
+  }
+
+  
+  
+  }
+#pragma endregion
   End();
 
   Begin("Collision Partitioning");
@@ -89,7 +162,7 @@ void ImGuiUI::Update()
   {
     double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
     double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
-    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(6, Math::dVec2(randX, randY));
+    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(1, Math::dVec2(randX, randY));
   }
   else if (Button("Create 2.5k Render"))
   {
@@ -97,7 +170,7 @@ void ImGuiUI::Update()
     {
       try
       {
-        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("Buta PIG");
+        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("ButaPIG");
         GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
         GE::Component::BoxCollider* box = ecs->GetComponent<GE::Component::BoxCollider>(entity);
         if (trans)
@@ -135,29 +208,34 @@ void ImGuiUI::Update()
 #endif
 
   Begin("Audio");
-  if (Button("Play Scream Sound"))
+  Assets::AssetManager const& aM{ Assets::AssetManager::GetInstance() };
+  if (Button("Play BGM"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound("./Assets/JoelScream.wav", 0.70f);
+    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("bgm1"), 0.5f, true);
+  }
+  else if (Button("Play Scream Sound"))
+  {
+    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("JoelScream"), 0.70f);
   }
   else if (Button("DJ Drop Da Beat"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound("./Assets/ChengEnBeatbox.wav", 1.25f, true);
+    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("ChengEnBeatbox"), 1.25f, true);
   }
   else if (Button("Play Qurr Sound"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound("./Assets/ChengEnQur.wav", 0.9f);
+    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("ChengEnQur"), 0.9f);
   }
   else if (Button("Stop Scream Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopSound("./Assets/JoelScream.wav");
+    Audio::AudioEngine::GetInstance().StopSound(aM.GetSound("JoelScream"));
   }
   else if (Button("DJ Pick Up Da Beat"))
   {
-    Audio::AudioEngine::GetInstance().StopSound("./Assets/ChengEnBeatbox.wav");
+    Audio::AudioEngine::GetInstance().StopSound(aM.GetSound("ChengEnBeatbox"));
   }
   else if (Button("Stop Qur Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopSound("./Assets/ChengEnQur.wav");
+    Audio::AudioEngine::GetInstance().StopSound(aM.GetSound("ChengEnQur"));
   }
   else if (Button("Stop All Sounds"))
   {
@@ -167,6 +245,7 @@ void ImGuiUI::Update()
   End();
 
   Begin("Inspector");
+  Inspector::CreateContent();
   End();
 
   Begin("Console");

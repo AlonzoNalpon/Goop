@@ -33,7 +33,7 @@ namespace Graphics::Rendering
 
     
     Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, ShaderCont const& shaderCont
-    , Fonts::FontManager const& fontManager);
+    , Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight);
 
     /*!*********************************************************************
     \brief
@@ -44,7 +44,7 @@ namespace Graphics::Rendering
       renderCallSize the size of the container for render calls
     \return
     ************************************************************************/
-    void Init(Camera const& camera, size_t renderCallSize = 2048);
+    void Init(Camera const& camera, gObjID lineMdlID, size_t renderCallSize = 2048);
 
     /*!*********************************************************************
     \brief
@@ -57,6 +57,8 @@ namespace Graphics::Rendering
     ************************************************************************/
     void RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat4 const& trans);
     
+    void RenderLineDebug(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf const& clr);
+
     /*!*********************************************************************
     \brief
       Draws all object in render data container. Clears the container after.
@@ -64,6 +66,15 @@ namespace Graphics::Rendering
     \return
     ************************************************************************/
     void Draw();
+
+    /*!*********************************************************************
+    \brief
+      Gets reference to camera object.
+    \params
+    \return
+      
+    ************************************************************************/
+    Camera& GetCamera();
   private:
     // Private methods
     /*!*********************************************************************
@@ -87,7 +98,8 @@ namespace Graphics::Rendering
     ************************************************************************/
     //glm::mat4 CalculateTransform(Transform const& xForm) const;
   private:
-    std::vector<RenderData> m_renderCalls;
+    std::vector<RenderData>     m_renderCalls;     //!< container for all render calls
+    std::vector<LineRenderData> m_lineRenderCalls; //!< DEBUG drawing lines with colors
 
     Camera                              m_camera;   //!< camera for rendering
 
@@ -95,6 +107,11 @@ namespace Graphics::Rendering
     TextureManager const&               r_texManager;   //!< reference to the texture manager
     ShaderCont const&                   r_shaders;      //!< reference to the shader container
     Fonts::FontManager const&           r_fontManager;  //!< reference to the font manager
+    GLint const&                        r_vpWidth;
+    GLint const&                        r_vpHeight;
+
+    // primitive models
+    gObjID                              m_lineMdlObj;   //!< handle to line model
   };
 }
 #endif

@@ -118,6 +118,14 @@ void InputManager::DispatchInputEvents()
 	{
 		eventMan.Dispatch(KeyTriggeredEvent(GPK_K));
 	}
+	if (IsKeyTriggered(GPK_E))
+	{
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_E));
+	}
+	if (IsKeyTriggered(GPK_W))
+	{
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_W));
+	}
 }
 
 bool InputManager::IsKeyTriggered(KEY_CODE key)
@@ -174,6 +182,10 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scanCode, int ac
 	{
 		ImGui_ImplGlfw_KeyCallback(window, key, scanCode, action, mod);
 	}
+
+	// returns -1 when keyboard functions such as change laptop brightness happens
+	if (key < 0)
+		return;
 
 	m_keyReleased[key] = (GLFW_RELEASE == action);
 	m_keysTriggered[key] = (GLFW_PRESS == action);
