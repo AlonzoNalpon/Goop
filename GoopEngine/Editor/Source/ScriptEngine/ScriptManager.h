@@ -137,7 +137,9 @@ namespace GE {
 		\params transformAdjustment
 			values to be added to the entity's transform
 		************************************************************************/
-		static void SetTransform(GE::ECS::Entity entity, GE::Component::Transform transformAdjustment);
+		static void SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
+		static void SetScale(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
+		static void SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
 
 		/*!*********************************************************************
 		\brief
