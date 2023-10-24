@@ -34,7 +34,7 @@ namespace GE
 			GE::Component::Transform trans;
 			trans.m_pos = cw.Get<Math::dVec3>("m_pos");
 			trans.m_scale = cw.Get<Math::dVec3>("m_scale");
-			trans.m_rot = cw.Get<double>("m_rot");
+			trans.m_rot = cw.Get<Math::dVec3>("m_rot");
 
 			return trans;
 		}
