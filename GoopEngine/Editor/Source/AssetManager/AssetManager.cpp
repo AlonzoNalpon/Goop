@@ -137,10 +137,7 @@ namespace GE::Assets
 
 		// @TODO: Should only load whats required by scene
 		LoadImages();
-		std::cout << "THIS WORKS.\n";
-
 		LoadSpritesheets();
-		std::cout << "THIS WORKS2.\n";
 
 		stbi_set_flip_vertically_on_load(true);
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
@@ -149,8 +146,6 @@ namespace GE::Assets
 			gEngine.CreateAnimation(curr.first, curr.second.m_slices, curr.second.m_stacks
 				, curr.second.m_frames, curr.second.m_speed, 0, gEngine.textureManager.GetTextureID(curr.second.m_filePath));
 		}
-		std::cout << "THIS WORKS3.\n";
-
 	}
 
 	// The AssetManager class method to load JSON data from a file

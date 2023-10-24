@@ -255,6 +255,11 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
   return entity;
 }
 
+void GE::ObjectFactory::ObjectFactory::EmptyMap()
+{
+  m_objects.clear();
+}
+
 void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
@@ -272,6 +277,24 @@ void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
     sysSig[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
   }
   RegisterObjectToSystems(newObj, sysSig);
+}
+
+bool ObjectFactory::LoadObjects(std::set<GE::ECS::Entity>& map) const
+{
+  try
+  {
+    for (auto const& value : m_objects)
+    {
+      map.emplace(CreateObject(value.second));
+    }
+  }
+  catch (GE::Debug::IExceptionBase& e)
+  {
+    e.LogSource();
+    e.Log();
+    return false;
+  }
+  return true;
 }
 
 bool ObjectFactory::LoadObjects() const
@@ -305,6 +328,20 @@ void ObjectFactory::ObjectFactoryTest() {
   {
     ogs.Unload(m_objects);
     LoadObjects();
+  }
+}
+
+void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity> &map)
+{
+  LoadObjects(map);
+}
+
+void ObjectFactory::LoadSceneJson(std::string filename)
+{
+  Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene(filename) };
+  if (ogs)
+  {
+    ogs.Unload(m_objects);
   }
 }
 

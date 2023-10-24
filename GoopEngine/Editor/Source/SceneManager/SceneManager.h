@@ -19,6 +19,7 @@ namespace GE::Scenes
     void UnloadScene();
     void FreeScene();
     void SetNextScene(std::string nextScene);
+    void RestartScene();
     std::string GetCurrentScene();
     std::string GetNextScene();
 

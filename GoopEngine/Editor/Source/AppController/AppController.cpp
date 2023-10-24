@@ -92,6 +92,10 @@ namespace GE::Application
         {
           gsm.SetNextScene("Start");
         }
+        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_UP))
+        {
+          gsm.Restart();
+        }
         gsm.Update();
 
         ecs->UpdateSystems();

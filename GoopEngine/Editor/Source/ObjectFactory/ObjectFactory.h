@@ -55,6 +55,8 @@ namespace GE::ObjectFactory
     ************************************************************************/
     GE::ECS::Entity SpawnPrefab(const std::string& key) const;
     
+
+    void EmptyMap();
     /*!*********************************************************************
     \brief
       Creates an entity with the given object.
@@ -82,6 +84,8 @@ namespace GE::ObjectFactory
     ************************************************************************/
     bool LoadObjects() const;
 
+    bool LoadObjects(std::set<GE::ECS::Entity>& map) const;
+
     /*!*********************************************************************
     \brief
       Loads the json file into the map.
@@ -95,6 +99,10 @@ namespace GE::ObjectFactory
       Verify that the object factory deserializes properly
     ************************************************************************/
     void ObjectFactoryTest();
+
+    void LoadSceneObjects(std::set<GE::ECS::Entity>& map);
+
+    void LoadSceneJson(std::string filename);
 
     /*!*********************************************************************
     \brief

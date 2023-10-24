@@ -10,14 +10,11 @@ namespace GE::GSM
     GE::Scenes::SceneManager sm;
 
   public:
-    GameStateManager();
-
     void SetNextScene(std::string next_scene);
+    void Restart();
 
     void Init();
-
     void Update();
-
     void Exit();
   };
 }

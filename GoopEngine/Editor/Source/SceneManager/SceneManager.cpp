@@ -10,7 +10,7 @@ void SceneManager::Init()
   Scenes.emplace("SceneTest", std::make_unique<GE::Scenes::SceneTest>());
 
   // Testing
-  m_nextScene = m_currentScene = "SceneTest";
+  m_nextScene = m_currentScene = "Start";
 }
 
 void SceneManager::LoadScene()
@@ -44,8 +44,14 @@ void SceneManager::SetNextScene(std::string nextScene)
   this->FreeScene();
   Scenes[m_currentScene]->Free();
   m_nextScene = m_currentScene = nextScene;
-  LoadScene();
+  LoadScene(); 
   InitScene();
+}
+
+void GE::Scenes::SceneManager::RestartScene()
+{
+  Scenes[m_currentScene]->Unload();
+  Scenes[m_currentScene]->Init();
 }
 
 std::string SceneManager::GetCurrentScene()
