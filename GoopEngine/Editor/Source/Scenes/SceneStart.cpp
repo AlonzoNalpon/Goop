@@ -24,6 +24,7 @@ void GE::Scenes::SceneStart::Unload()
 	for (auto entity : m_entities) {
 		ecs->DestroyEntity(entity);
 	}
+	m_entities.clear();
 }
 
 void GE::Scenes::SceneStart::Free()
