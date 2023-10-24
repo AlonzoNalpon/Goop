@@ -11,6 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include <AppController/AppController.h>
 #include <EditorUI/DataViz/Visualizer.h>
+#include "../EditorUI/ImGuiUI.h"
 
 using namespace GE::ECS;
 
@@ -64,13 +65,14 @@ namespace GE::Application
   
   void AppController::Run()
   {
-    try
-    {
-      GE::ECS::EntityComponentSystem *ecs = { &GE::ECS::EntityComponentSystem::GetInstance() };
-      //scn.Start();
-      gsm.Init();
+    GE::ECS::EntityComponentSystem *ecs = { &GE::ECS::EntityComponentSystem::GetInstance() };
+    //scn.Start();
+    gsm.Init();
 
-      while (!window.GetWindowShouldClose())
+    while (!window.GetWindowShouldClose())
+    {
+      // Try catch in the loop so the program can still run
+      try
       {
         fRC.StartFrame();
 
@@ -81,9 +83,9 @@ namespace GE::Application
         fRC.StartSystemTimer();
         imgui.Update();
         fRC.EndSystemTimer("ImGui Update");
+
         gEngine.ClearBuffer();
 
-        fRC.StartSystemTimer();
         if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_RIGHT))
         {
           gsm.SetNextScene("SceneTest");
@@ -98,7 +100,15 @@ namespace GE::Application
         }
         gsm.Update();
 
-        ecs->UpdateSystems();
+        fRC.StartSystemTimer();
+        try
+        {
+          ecs->UpdateSystems();
+        }
+        catch (GE::Debug::IExceptionBase& e)
+        {
+          e.LogSource();
+        }
         fRC.EndSystemTimer("Scene Update");
 
         fRC.StartSystemTimer();
@@ -108,7 +118,7 @@ namespace GE::Application
         fRC.StartSystemTimer();
         imgui.Render();
         fRC.EndSystemTimer("ImGui Render");
-        
+
         // update graph for system timers if window is shown
         if (EditorGUI::DataViz::Visualizer::IsPerformanceShown())
         {
@@ -127,10 +137,18 @@ namespace GE::Application
         window.SwapBuffers();
         fRC.EndFrame();
       }
-    }
-    catch (GE::Debug::IExceptionBase& e)
-    {
-      e.LogSource();
+      catch (GE::Debug::IExceptionBase& e)
+      {
+        e.LogSource();
+        // This is to ensure if a throw happens and ImGui did not get
+        // a chance to render. It will render 1 frame regardless of if
+        // has everything it needs to render.
+        // This prevents a crash when NewFrame is called without Render() call
+        if (!GE::EditorGUI::ImGuiHelper::GetFrameEnded())
+        {
+          imgui.Render();
+        }
+      }
     }
   }
   
