@@ -4,21 +4,30 @@ using namespace GE::GSM;
 
 GE::GSM::GameStateManager::GameStateManager()
 {
-	currScene = "SceneTest";
-	nextScene = "SceneTest";
+}
+
+void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
+{
+	sm.SetNextScene(next_scene);
 }
 
 void GameStateManager::Init()
 {
 	sm.Init();
-	Update();
+	sm.LoadScene();
+	sm.InitScene();
 }
 
 void GameStateManager::Update()
 {
-	sm.SetNextScene(nextScene);
-	sm.LoadScene();
-	sm.InitScene();
+	if (sm.GetNextScene() != sm.GetCurrentScene())
+	{
+		std::cout << "Change Scene Detected: " << sm.GetNextScene() << " | " << sm.GetCurrentScene() << std::endl;
+		//this->SetNextScene(sm.GetNextScene());
+		//sm.LoadScene();
+		//sm.InitScene();
+
+	}
 }
 
 void GE::GSM::GameStateManager::Exit()

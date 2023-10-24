@@ -21,6 +21,8 @@ namespace Graphics::Rendering
   class Camera
   {
   private:
+    // NOTE: WHEN ADDING VARIABLES, UPDATE ASSIGNMENT OPERATOR
+    // (GLM DELETED THEIRS)
     glm::mat4 m_view;     //!< view matrix of camera
     glm::mat4 m_proj;     //!< perspective matrix of camera
     gVec3     m_position; //!< position of camera
@@ -30,7 +32,9 @@ namespace Graphics::Rendering
     GLfloat   m_right;
     GLfloat   m_bottom;
     GLfloat   m_top;
-
+    GLfloat   m_near;
+    GLfloat   m_far;
+    GLfloat   m_ar; //!< aspect ratio
   public:
     Camera() = default;
     Camera& operator=(Camera const& rhs);
@@ -67,6 +71,14 @@ namespace Graphics::Rendering
 
     /*!*********************************************************************
     \brief
+      Calculates proj matrix based on bounds.
+    \params
+    \return
+    ************************************************************************/
+    void CalculateProjMtx();
+
+    /*!*********************************************************************
+    \brief
       Calculates the view projection matrix.
       Avoid calling this multiple times as result is not stored in object
     \params
@@ -74,6 +86,15 @@ namespace Graphics::Rendering
       
     ************************************************************************/
     glm::mat4 ViewProjMtx() const;
+
+    /*!*********************************************************************
+    \brief
+      Zooms camera based on supplied value multiplied by 2.
+    \params
+      value the value to zoom the camera divided by 2
+    \return
+    ************************************************************************/
+    void ZoomCamera(GLfloat halfValue);
 
     void DisplaceCam(gVec3 displacement);
   public: // getters

@@ -85,7 +85,7 @@ namespace GE::Assets
 			std::cout << "DIDN'T FIND DATA WITH ID: " << id << "\n";
 #endif
 			//return ImageData::Null();
-			throw;
+			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to get data: " + name));
 		}
 
 		return m_loadedImages[GetID(name)];
@@ -137,8 +137,11 @@ namespace GE::Assets
 
 		// @TODO: Should only load whats required by scene
 		LoadImages();
+		std::cout << "THIS WORKS.\n";
+
 		LoadSpritesheets();
-		
+		std::cout << "THIS WORKS2.\n";
+
 		stbi_set_flip_vertically_on_load(true);
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 		for (auto const& curr : m_loadedSpriteData)
@@ -146,6 +149,8 @@ namespace GE::Assets
 			gEngine.CreateAnimation(curr.first, curr.second.m_slices, curr.second.m_stacks
 				, curr.second.m_frames, curr.second.m_speed, 0, gEngine.textureManager.GetTextureID(curr.second.m_filePath));
 		}
+		std::cout << "THIS WORKS3.\n";
+
 	}
 
 	// The AssetManager class method to load JSON data from a file
@@ -235,27 +240,6 @@ namespace GE::Assets
 		m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(id, path));
 		 
 		return id;
-	}
-
-	std::vector<std::pair<std::string, std::string>> AssetManager::MOCK_Deserialize()
-	{
-		std::map<std::string, std::string> data;
-		data["Character Sprite"] = "Assets/Knight.png";
-		data["Monster 1"] = "Assets/Buta PIG.png";
-		data["Monster 2"] = "Assets/Green Girl.png";
-		data["Slash VFX"] = "Assets/redGirl.png";
-		data["FONT"] = "Assets/Blue Tiles.png";
-
-		// Create a vector to hold the key-value pairs
-		std::vector<std::pair<std::string, std::string>> result;
-
-		// Iterate through the map and add key-value pairs to the vector
-		for (const auto& pair : data)
-		{
-			result.push_back(pair);
-		}
-
-		return result;
 	}
 
 	void AssetManager::LoadImages()
