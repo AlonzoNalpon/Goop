@@ -59,6 +59,7 @@
     </Compile>
     <Compile Include="Input\KeyCode.cs" />
     <Compile Include="Math\Vec2.cs" />
+    <Compile Include="Math\Vec3.cs" />
     <Compile Include="Mono\MonoBehaviour.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
