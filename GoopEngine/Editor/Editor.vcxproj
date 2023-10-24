@@ -102,16 +102,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>copy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)glfw3.dll" /Y
-copy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)glew32.dll" /Y 
-xcopy "$(SolutionDir)lib\freetype-2.13.2\dll\win64\*" "$(TargetDir)\" /Y
-xcopy "$(ProjectDir)Assets\*" "$(TargetDir)Assets\" /s /r /y /q
-xcopy "$(SolutionDir)lib\fMOD\Librariesx64\*" "$(TargetDir)\" /Y
-xcopy "$(SolutionDir)lib\mono\4.5" "$(TargetDir)4.5" /e /y /i /r
-copy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)"/Y
-xcopy "$(SolutionDir)lib\rttr-0.9.6\lib\Debug\rttr_core_d.dll" "$(OutDir)" /s /r /y /q</Command>
-    </PostBuildEvent>
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">
     <ClCompile>
@@ -126,9 +117,7 @@ xcopy "$(SolutionDir)lib\rttr-0.9.6\lib\Debug\rttr_core_d.dll" "$(OutDir)" /s /r
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)lib\rttr-0.9.6\lib\Debug\rttr_core_d.dll" "$(OutDir)" /s /r /y /q</Command>
-    </PostBuildEvent>
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -149,9 +138,7 @@ xcopy "$(SolutionDir)lib\rttr-0.9.6\lib\Debug\rttr_core_d.dll" "$(OutDir)" /s /r
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)lib\rttr-0.9.6\lib\Release\rttr_core.dll" "$(OutDir)" /s /r /y /q</Command>
-    </PostBuildEvent>
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">
     <ClCompile>
@@ -165,9 +152,7 @@ xcopy "$(SolutionDir)lib\rttr-0.9.6\lib\Debug\rttr_core_d.dll" "$(OutDir)" /s /r
     <Link>
       <AdditionalDependencies>rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)lib\rttr-0.9.6\lib\Release\rttr_core.dll" "$(OutDir)" /s /r /y /q</Command>
-    </PostBuildEvent>
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\EditorUI\Console.cpp" />
