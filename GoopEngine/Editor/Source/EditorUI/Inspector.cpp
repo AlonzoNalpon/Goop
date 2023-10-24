@@ -26,6 +26,12 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace ImGui;
 using namespace GE::Component;
 
+namespace
+{
+	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth);
+	void InputDouble1(std::string propertyName, double& property);
+}
+
 void GE::EditorGUI::Inspector::CreateContent()
 {
 	GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
@@ -56,31 +62,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-
-					TableNextColumn();
-					Text("Position");
-					TableNextColumn();
-					SetNextItemWidth(inputWidth);
-					InputDouble("##TX", &trans->m_pos.x, 0, 0, "%.2f");
-					SameLine(0, 3); SetNextItemWidth(inputWidth); InputDouble("##TY", &trans->m_pos.y, 0, 0, "%.2f");
-					SameLine(0, 3); SetNextItemWidth(inputWidth); InputDouble("##TZ", &trans->m_pos.z, 0, 0, "%.2f");
-					
+					InputDouble3("Position", trans->m_pos, inputWidth);					
 					TableNextRow();
-					TableNextColumn();
-					Text("Scale");
-					TableNextColumn();
-					SetNextItemWidth(inputWidth); 
-					InputDouble("##SX", &trans->m_scale.x, 0, 0, "%.2f");
-					SameLine(0, 3); SetNextItemWidth(inputWidth); InputDouble("##SY", &trans->m_scale.y, 0, 0, "%.2f");
-					SameLine(0, 3); SetNextItemWidth(inputWidth); InputDouble("##SZ", &trans->m_scale.z, 0, 0, "%.2f");
-
+					InputDouble3("Scale", trans->m_scale, inputWidth);
 					TableNextRow();
-					TableNextColumn();
-					Text("Rotation");
-					TableNextColumn();
-					SetNextItemWidth(GetWindowSize().x);
-					InputDouble("##R", &trans->m_rot, 0, 0, "%.2f");
-
+					InputDouble3("Rotation", trans->m_rot, inputWidth);
 					EndTable();
 					Separator();
 				}
@@ -126,5 +112,28 @@ void GE::EditorGUI::Inspector::CreateContent()
 				break;
 			}
 		}
+	}
+}
+
+namespace
+{
+	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth)
+	{
+		TableNextColumn();
+		Text(propertyName.c_str());
+		TableNextColumn();
+		SetNextItemWidth(fieldWidth);
+		InputDouble(("##" + propertyName + "X").c_str(), &property.x, 0, 0, "%.2f");
+		SameLine(0, 3); SetNextItemWidth(fieldWidth); InputDouble(("##" + propertyName + "Y").c_str(), &property.y, 0, 0, "%.2f");
+		SameLine(0, 3); SetNextItemWidth(fieldWidth); InputDouble(("##" + propertyName + "Z").c_str(), &property.z, 0, 0, "%.2f");
+	}
+
+	void InputDouble1(std::string propertyName, double& property)
+	{
+		TableNextColumn();
+		Text(propertyName.c_str());
+		TableNextColumn();
+		SetNextItemWidth(GetWindowSize().x);
+		InputDouble(("##" + propertyName).c_str(), &property, 0, 0, "%.2f");
 	}
 }
