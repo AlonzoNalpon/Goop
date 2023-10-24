@@ -149,7 +149,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 				std::cout << event->GetName() + " Event handled\n";
 				#endif
 			}
-			if (key == GPK_A)
+			if (key == GPK_E)
 			{
 				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("slash"), 1.0f);
 			}
