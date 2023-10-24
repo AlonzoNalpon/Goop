@@ -29,6 +29,7 @@ namespace GE
       Vec(Vec<4, T> const& rhs);
       Vec(Vec<2, T> const& rhs);
       Vec(Vec<3, T> const& rhs);
+      Vec(Vec<3, T> const& rhs, T _w);
 
       // OPERATOR OVERLOADS
       Vec<4, T>& operator=(Vec<4, T> const& rhs);

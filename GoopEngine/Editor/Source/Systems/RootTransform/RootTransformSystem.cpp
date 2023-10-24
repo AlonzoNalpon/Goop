@@ -29,32 +29,37 @@ void GE::Systems::RootTransformSystem::Update()
 void GE::Systems::RootTransformSystem::Propergate(GE::ECS::Entity& entity, const Math::dMat4& parentWorldTrans)
 {
 	// Compute own world transform matrix first
-	GE::Component::Transform& trans = *m_ecs->GetComponent<GE::Component::Transform>(entity);
+	GE::Component::Transform* trans = m_ecs->GetComponent<GE::Component::Transform>(entity);
+
+	if (trans == nullptr)
+		GE::Debug::Exception<RootTransformSystem>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(entity) + " is missing a transform component. All entities must have a transform component!!"));
+
+	trans->m_parentWorldTransform = parentWorldTrans;
 
 	Math::dMat4 T
 	{
-		{ 1, 0, 0, trans.m_pos.x },
-		{ 0, 1, 0, trans.m_pos.y },
-		{	0, 0, 1, trans.m_pos.z },
+		{ 1, 0, 0, trans->m_pos.x },
+		{ 0, 1, 0, trans->m_pos.y },
+		{	0, 0, 1, trans->m_pos.z },
 		{ 0, 0, 0, 1 }
 	};
 	Math::dMat4 S
 	{
-		{ trans.m_scale.x, 0, 0, 0 },
-		{ 0, trans.m_scale.y, 0, 0 },
+		{ trans->m_scale.x, 0, 0, 0 },
+		{ 0, trans->m_scale.y, 0, 0 },
 		{ 0, 0, 1, 0 },
 		{ 0, 0, 0, 1 }
 	};
-	double rad = trans.m_rot / 180.0 * M_PI;
+	double rad = trans->m_rot / 180.0 * M_PI;
 	Math::dMat4 R
 	{
-		{ std::cosh(rad), -std::sinh(rad), 0, 0},
-		{ -std::sinh(rad), std::cosh(rad), 0, 0},
+		{ std::cos(rad), -std::sin(rad), 0, 0},
+		{ std::sin(rad), std::cos(rad), 0, 0},
 		{ 0, 0, 1, 0 },
 		{ 0, 0, 0, 1 }
 	};
 
-	trans.m_worldTransform = (T * R * S) * parentWorldTrans;
+	trans->m_worldTransform = trans->m_parentWorldTransform * (T * R * S);
 
 	std::vector<GE::ECS::Entity>& m_children = m_ecs->GetChildEntities(entity);
 	// End condition no children
@@ -66,6 +71,6 @@ void GE::Systems::RootTransformSystem::Propergate(GE::ECS::Entity& entity, const
 	// Update all children based ownself's new world transform
 	for (GE::ECS::Entity childEntity : m_children)
 	{
-		Propergate(childEntity, trans.m_worldTransform);
+		Propergate(childEntity, trans->m_worldTransform);
 	}	
 }

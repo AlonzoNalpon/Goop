@@ -35,6 +35,7 @@ namespace GE
 			vec3 m_scale;
 			double m_rot;
 
+			Math::dMat4 m_parentWorldTransform;
 			Math::dMat4 m_worldTransform;
 		};
 	}

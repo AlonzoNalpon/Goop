@@ -97,5 +97,7 @@ namespace GE
 #include "Mat3.h"
 #include "Mat4.h"
 #include "MatUtils.h"
+#include "Mat3Utils.h"
+#include "Mat4Utils.h"
 
 #endif

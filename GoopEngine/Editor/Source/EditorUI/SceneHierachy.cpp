@@ -11,6 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SceneHierachy.h"
 #include <ImGui/imgui.h>
 #include <Systems/RootTransform/RootTransformSystem.h>
+#include <Component/Transform.h>
 
 using namespace ImGui;
 using namespace GE::ECS;
@@ -112,13 +113,32 @@ namespace
 
 		if (!parent)	// Child becoming root
 		{
+			if (oldParent != INVALID_ID)
+			{
+				GE::Component::Transform& childTrans = *ecs.GetComponent<GE::Component::Transform>(child);
+				GE::Component::Transform& parentTrans = *ecs.GetComponent<GE::Component::Transform>(oldParent);
+
+				childTrans.m_pos = childTrans.m_parentWorldTransform * GE::Math::dVec4(childTrans.m_pos, 1.0);
+				childTrans.m_scale = { childTrans.m_scale.x * parentTrans.m_scale.x,childTrans.m_scale.y * parentTrans.m_scale.y, 1.0 };
+				childTrans.m_rot = childTrans.m_rot + parentTrans.m_rot;
+			}
+
 			// Remove reference to child from old parent if exist
 			ecs.SetParentEntity(child, INVALID_ID);
 		}
 		else
 		{
+			GE::Component::Transform& childTrans = *ecs.GetComponent<GE::Component::Transform>(child);
+			GE::Component::Transform& parentTrans = *ecs.GetComponent<GE::Component::Transform>(*parent);
+
+			GE::Math::dMat4 invP;
+			GE::Math::MtxInverse(invP, parentTrans.m_worldTransform);
+			childTrans.m_pos = invP * GE::Math::dVec4(childTrans.m_pos, 1.0);
+			childTrans.m_scale = { childTrans.m_scale.x / parentTrans.m_scale.x,childTrans.m_scale.y / parentTrans.m_scale.y, 1.0 };
+			childTrans.m_rot = childTrans.m_rot - parentTrans.m_rot;
+
 			ecs.SetParentEntity(child, *parent);
-			ecs.AddChildEntity(*parent, child);
+		  ecs.AddChildEntity(*parent, child);
 		}
 	}
 

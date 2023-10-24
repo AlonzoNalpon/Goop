@@ -47,50 +47,50 @@ void GE::Scenes::SceneTest::Load()
 
 void GE::Scenes::SceneTest::Init()
 {
-	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 1.0f, true);
+	//Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 1.0f, true);
 
-	of->SpawnPrefab("Background");
-	MakeDraggableBox();
-	Entity entt2 = ecs->CreateEntity();
-	Velocity vel({ 0, 0 , 0}, { 0, 0, 0 }, 1.0, { 9.8, 9.8, 0 }, DragForce({ 1, 0, 0 }));
-	Transform trans({ 250, 250, 0 }, { 100, 50, 1 }, 0.0);
-	BoxCollider box(trans.m_pos, 100, 50);
+	//of->SpawnPrefab("Background");
+	//MakeDraggableBox();
+	//Entity entt2 = ecs->CreateEntity();
+	//Velocity vel({ 0, 0 , 0}, { 0, 0, 0 }, 1.0, { 9.8, 9.8, 0 }, DragForce({ 1, 0, 0 }));
+	//Transform trans({ 250, 250, 0 }, { 100, 50, 1 }, 0.0);
+	//BoxCollider box(trans.m_pos, 100, 50);
 
-	ecs->RegisterSystem<RootTransformSystem>();
+	//ecs->RegisterSystem<RootTransformSystem>();
 
-	Entity entt3 = ecs->CreateEntity();
-	Entity entt4 = ecs->CreateEntity();
-	Transform transBox2({ 200, 2, 0 }, { 20, 20, 1 }, 0.0);
-	Transform transBox3({ 300, 2, 0 }, { 30, 20, 1 }, 0.0);
-	BoxCollider box2(transBox2.m_pos, 20, 20); //should collide
-	BoxCollider box3(transBox3.m_pos, 30, 20); //shouldnt collide
+	//Entity entt3 = ecs->CreateEntity();
+	//Entity entt4 = ecs->CreateEntity();
+	//Transform transBox2({ 200, 2, 0 }, { 20, 20, 1 }, 0.0);
+	//Transform transBox3({ 300, 2, 0 }, { 30, 20, 1 }, 0.0);
+	//BoxCollider box2(transBox2.m_pos, 20, 20); //should collide
+	//BoxCollider box3(transBox3.m_pos, 30, 20); //shouldnt collide
 
-	ecs->AddComponent(entt2, vel);
-	ecs->AddComponent(entt2, trans);
-	ecs->AddComponent(entt2, box);
-	ecs->RegisterEntityToSystem<PhysicsSystem>(entt2);
-	ecs->RegisterEntityToSystem<CollisionSystem>(entt2);
-	//ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt2);
+	//ecs->AddComponent(entt2, vel);
+	//ecs->AddComponent(entt2, trans);
+	//ecs->AddComponent(entt2, box);
+	//ecs->RegisterEntityToSystem<PhysicsSystem>(entt2);
+	//ecs->RegisterEntityToSystem<CollisionSystem>(entt2);
+	////ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt2);
 
-	vel.AddForce({ 100, 0, 0}, 300.0);
+	//vel.AddForce({ 100, 0, 0}, 300.0);
 
-	ecs->AddComponent(entt3, box2);
-	ecs->AddComponent(entt3, transBox2);
-	ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
+	//ecs->AddComponent(entt3, box2);
+	//ecs->AddComponent(entt3, transBox2);
+	//ecs->RegisterEntityToSystem<CollisionSystem>(entt3);
 
-	ecs->AddComponent(entt4, box3);
-	ecs->AddComponent(entt4, transBox3);
-	ecs->RegisterEntityToSystem<CollisionSystem>(entt4);
+	//ecs->AddComponent(entt4, box3);
+	//ecs->AddComponent(entt4, transBox3);
+	//ecs->RegisterEntityToSystem<CollisionSystem>(entt4);
 
-	Entity worm = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
-	ecs->SetEntityName(worm, "SS_MineWorm");
+	//Entity worm = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
+	//ecs->SetEntityName(worm, "SS_MineWorm");
 
 	Entity player = ecs->CreateEntity();
-	Transform playerTrans({ -350, 350, 0 }, { 150, 150, 1 }, 0.0);
+	Transform playerTrans({ -350, 350, 0 }, { 150, 150, 1 }, 45.0);
 	BoxCollider playerCollider(playerTrans.m_pos, 150, 150); //should collide
 
 	Tween tween(3.0);
-	tween.AddTween({ 0, 0, 0 });
+	tween.AddTween({ -900, 0, 0 });
 	tween.AddTween({ 0, -350, 0 });
 	tween.AddTween({ 350, 350, 0 });
 	Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
@@ -116,7 +116,7 @@ void GE::Scenes::SceneTest::Init()
 	ecs->RegisterEntityToSystem<CollisionSystem>(player);
 	ecs->RegisterEntityToSystem<SpriteAnimSystem>(player);
 	ecs->SetEntityName(player, "Player");
-	ecs->SetIsActiveEntity(entt3, false);
+	//ecs->SetIsActiveEntity(entt3, false);
 }
 
 void GE::Scenes::SceneTest::Unload()
