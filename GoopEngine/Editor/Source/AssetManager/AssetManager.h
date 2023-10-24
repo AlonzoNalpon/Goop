@@ -152,14 +152,6 @@ namespace GE::Assets
 
     /*!*********************************************************************
     \brief
-      Hard coded test for receiving deserialized data.
-    \return
-      vector of key and data pair.
-    ************************************************************************/
-    std::vector <std::pair<std::string, std::string>> MOCK_Deserialize();
-
-    /*!*********************************************************************
-    \brief
       Free all loaded images.
     ************************************************************************/
     void FreeImages();

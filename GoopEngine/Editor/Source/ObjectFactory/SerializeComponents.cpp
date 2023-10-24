@@ -77,8 +77,17 @@ namespace GE
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
 			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+			auto& am = GE::Assets::AssetManager::GetInstance();
 			Component::Sprite sprite;
 
+			try {
+				am.GetData(cw.Get<std::string>("filename"));
+			}
+			catch (GE::Debug::IExceptionBase&)
+			{
+				int id = am.LoadImageW(cw.Get<std::string>("filename"));
+				gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
+			}
 			sprite.spriteData.texture = gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename"));
 			return sprite;
 		}
@@ -88,7 +97,17 @@ namespace GE
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
 			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+			// auto& am = GE::Assets::AssetManager::GetInstance();
 			Component::SpriteAnim spriteAnim;
+
+			/*try {
+				am.GetData(cw.Get<std::string>("name"));
+			}
+			catch (GE::Debug::IExceptionBase& e)
+			{
+				int id = am.LoadImageW(cw.Get<std::string>("filename"));
+				gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
+			}*/
 
 			spriteAnim.animID = gEngine.animManager.GetAnimID(cw.Get<std::string>("name"));
 			return spriteAnim;

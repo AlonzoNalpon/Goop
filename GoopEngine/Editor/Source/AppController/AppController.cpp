@@ -47,7 +47,7 @@ namespace GE::Application
 
       imgui.Init(window);
       
-      of.ObjectFactoryTest();
+      // of.ObjectFactoryTest();
       im.InitInputManager(window.GetWindow(), *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), 0.1);
 
       GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
@@ -84,8 +84,17 @@ namespace GE::Application
         gEngine.ClearBuffer();
 
         fRC.StartSystemTimer();
+        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_RIGHT))
+        {
+          gsm.SetNextScene("SceneTest");
+        }
+        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_LEFT))
+        {
+          gsm.SetNextScene("Start");
+        }
+        gsm.Update();
+
         ecs->UpdateSystems();
-        //scn.Update();
         fRC.EndSystemTimer("Scene Update");
 
         fRC.StartSystemTimer();
