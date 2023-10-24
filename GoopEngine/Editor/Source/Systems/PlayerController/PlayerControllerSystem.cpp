@@ -113,7 +113,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 			if (key == GPK_H)
 			{
 				constexpr double ROTATE_SPEED{ 2.0 };
-				trans->m_rot = fmod(trans->m_rot + dt * ROTATE_SPEED, pi * 2.0); // ROTATING PLAYER
+				trans->m_rot.z = fmod(trans->m_rot.z + dt * ROTATE_SPEED, pi * 2.0); // ROTATING PLAYER
 			}
 			if (key == GPK_J)
 			{
@@ -149,7 +149,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 				std::cout << event->GetName() + " Event handled\n";
 				#endif
 			}
-			if (key == GPK_A)
+			if (key == GPK_E)
 			{
 				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("slash"), 1.0f);
 			}

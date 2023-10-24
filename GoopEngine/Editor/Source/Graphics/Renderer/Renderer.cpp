@@ -77,7 +77,7 @@ namespace Graphics::Rendering {
       //glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt); // I leave this here as a reference for future optimizations
       glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt);
       glBindVertexArray(0);         // unbind vertex array object
-    
+      
       glUseProgram(0);        // UNUSE SHADER PROGRAM
       if (obj.sprite.texture != BAD_OBJ_ID)
       {
@@ -86,6 +86,11 @@ namespace Graphics::Rendering {
     }
 
     m_renderCalls.clear(); // reset
+  }
+
+  Camera& Renderer::GetCamera()
+  {
+    return m_camera;
   }
 
   glm::mat4 Renderer::CalculateTransform(gVec3 const& scale, GLfloat rotation, gVec3 const& pos) const

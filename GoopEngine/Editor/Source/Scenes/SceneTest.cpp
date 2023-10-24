@@ -28,7 +28,7 @@ void GE::Scenes::SceneTest::MakeDraggableBox()
 {
 		Entity entt = ecs->CreateEntity();
 		Velocity vel({ 0, 0, 0 }, { 0, 0, 0 }, 1.0, { 9.8, 9.8, 0 }, DragForce( {2, 2, 0}, 1));
-		Transform trans({ 0, 0, 0 }, { 50, 50, 1 }, 0.0);
+		Transform trans({ 0, 0, 0 }, { 50, 50, 1 }, { 0.0, 0.0, 0.0 });
 		BoxCollider box(trans.m_pos, 50, 50);
 
 		ecs->AddComponent(entt, vel);
@@ -47,7 +47,7 @@ void GE::Scenes::SceneTest::Load()
 
 void GE::Scenes::SceneTest::Init()
 {
-	//Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 1.0f, true);
+	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
 
 	//of->SpawnPrefab("Background");
 	//MakeDraggableBox();
@@ -86,7 +86,7 @@ void GE::Scenes::SceneTest::Init()
 	//ecs->SetEntityName(worm, "SS_MineWorm");
 
 	Entity player = ecs->CreateEntity();
-	Transform playerTrans({ -350, 350, 0 }, { 150, 150, 1 }, 45.0);
+	Transform playerTrans({ -350, 350, 0 }, { 150, 150, 1 }, { 0.0, 0.0, 45.0 });
 	BoxCollider playerCollider(playerTrans.m_pos, 150, 150); //should collide
 
 	Tween tween(3.0);

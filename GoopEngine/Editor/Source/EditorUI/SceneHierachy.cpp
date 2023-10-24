@@ -58,7 +58,7 @@ namespace
 	\param[in] textClr
 		Colour of the text of the node
 	********************************************************************/
-	void Propergate(Entity entity, EntityComponentSystem& ecs, ImColor textClr);
+	void Propergate(Entity entity, EntityComponentSystem& ecs, ImGuiTreeNodeFlags flag, ImColor textClr);
 }
 
 void GE::EditorGUI::SceneHierachy::CreateContent()
@@ -71,7 +71,8 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 	// TODO
 	// Scene should be replace with scene file name
 	static const char* sceneName = "Scene";
-	if (TreeNodeEx(sceneName, ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen))
+	ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+	if (TreeNodeEx(sceneName, treeFlags))
 	{
 		// Allow user to turn an entity into a root level
 		if (BeginDragDropTarget())
@@ -89,7 +90,7 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 		{
 			if (ecs.GetParentEntity(entity) == INVALID_ID)
 			{
-				Propergate(entity, ecs, ecs.GetIsActiveEntity(entity) ? originalTextClr : inactiveTextClr);
+				Propergate(entity, ecs, treeFlags, ecs.GetIsActiveEntity(entity) ? originalTextClr : inactiveTextClr);
 			}
 		}
 		TreePop();
@@ -142,7 +143,7 @@ namespace
 		}
 	}
 
-	void Propergate(Entity entity, EntityComponentSystem& ecs, ImColor textClr)
+	void Propergate(Entity entity, EntityComponentSystem& ecs, ImGuiTreeNodeFlags flag, ImColor textClr)
 	{
 		// Abit inefficient to call get in a recursive but
 		// the only other method is to decalre heap memory in a
@@ -153,7 +154,7 @@ namespace
 		/////////////////////
 		// Create own node
 		/////////////////////
-		if (TreeNodeEx(GetName(entity), ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen))
+		if (TreeNodeEx(GetName(entity), flag))
 		{
 			if (IsItemClicked())
 			{
@@ -195,7 +196,7 @@ namespace
 
 			for (Entity child : m_children)
 			{
-				Propergate(child, ecs, ecs.GetIsActiveEntity(child) ? textClr : inactiveTextClr);
+				Propergate(child, ecs, flag, ecs.GetIsActiveEntity(child) ? textClr : inactiveTextClr);
 			}
 
 			TreePop();
