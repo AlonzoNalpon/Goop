@@ -88,6 +88,11 @@ namespace Graphics::Rendering {
     m_renderCalls.clear(); // reset
   }
 
+  Camera& Renderer::GetCamera()
+  {
+    return m_camera;
+  }
+
   glm::mat4 Renderer::CalculateTransform(gVec3 const& scale, GLfloat rotation, gVec3 const& pos) const
   {
     glm::mat4 retval(1.f); // identity

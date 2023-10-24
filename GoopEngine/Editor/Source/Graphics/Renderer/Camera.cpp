@@ -23,13 +23,26 @@ namespace Graphics::Rendering
     m_left{ left },
     m_right{ right },
     m_bottom{ bottom },
-    m_top{ top }
+    m_top{ top },
+    m_near{ _near },
+    m_far{ _far },
+    m_ar{ (m_right - m_left)/(m_top - m_bottom)}
   {}
 
   Camera& Camera::operator=(Camera const& rhs)
   {
-    m_proj = glm::mat4(rhs.proj);
-    m_view  = glm::mat4(rhs.view);
+    m_proj        = glm::mat4(rhs.proj);
+    m_view        = glm::mat4(rhs.view);
+    m_position    = rhs.m_position;
+    m_tgt         = rhs.m_tgt;
+    m_up          = rhs.m_up;
+    m_left        = rhs.m_left;
+    m_right       = rhs.m_right;
+    m_bottom      = rhs.m_bottom;
+    m_top         = rhs.m_top;
+    m_near        = rhs.m_near;
+    m_far         = rhs.m_far;
+    m_ar          = rhs.m_ar;
     return *this;
   }
 
@@ -38,10 +51,28 @@ namespace Graphics::Rendering
     m_view = glm::lookAt(pos, tgt, up);
   }
 
+  void Camera::CalculateProjMtx()
+  {
+    m_proj = glm::ortho(m_left, m_right, m_bottom, m_top, m_near, m_far);
+  }
+
   glm::mat4 Camera::ViewProjMtx() const
   {
     return m_proj * m_view;
   }
+
+  void Camera::ZoomCamera(GLfloat halfValue)
+  {
+    m_bottom += halfValue;
+    m_top -= halfValue;
+
+    // we maintain the aspect ratio by recalculating left and right ...
+    GLfloat width = m_ar * (m_top - m_bottom); 
+    m_right = 0.5f * width;
+    m_left = -0.5f * width;
+    CalculateProjMtx(); // and recalculate projection matrix based on new parameters
+  }
+
   void Camera::DisplaceCam(gVec3 displacement)
   {
     m_position += displacement;

@@ -74,6 +74,7 @@ void ImGuiUI::Update()
 
   Begin("Viewport");
   {
+    // TODO: MOVE TO A CLASS WHEN WORKING
 #pragma region VIEWPORT_RENDERING
     auto& gEngine = Graphics::GraphicsEngine::GetInstance();
     GLuint texture = gEngine.GetRenderTexture();
@@ -96,19 +97,47 @@ void ImGuiUI::Update()
     ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
 #pragma endregion
 #pragma region VIEWPORT_INPUT
+  auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
   if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y))) {
-    constexpr int MIDDLE_MOUSE{ 2 };
-    //auto& renderer = gEngine.GetRenderer();
-    static bool middleMouseHeld{};
-    if (ImGui::IsMouseDown(MIDDLE_MOUSE)) {
-      ImVec2 mousePosition = ImGui::GetMousePos();
-      mousePosition.y = windowSize.y - mousePosition.y;
-      // Middle mouse button is pressed
-      std::cout << "WORLD POSITION at: " << mousePosition.x << "| " << mousePosition.y << std::endl;
 
+    // If the middle mouse button is down (for moving camera)
+    {
+      constexpr int MIDDLE_MOUSE{ 2 };        // constant for middle mouse key
+      static bool middleMouseHeld{};          // flag for middle mouse held down
+      if (ImGui::IsMouseDown(MIDDLE_MOUSE)) 
+      {
+        ImVec2 mousePosition = ImGui::GetMousePos();
+        mousePosition.y = windowSize.y - mousePosition.y;
+        static Graphics::gVec2 prevPos; // previous mouse position
+
+        Graphics::gVec2 currPos{ mousePosition.x, mousePosition.y }; // current position of mouse in float
+
+        if (middleMouseHeld) // check if it's not the first frame button is held
+        {
+          Graphics::gVec2 displacement{ prevPos-currPos };  // displacement of camera
+          Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
+          camera.DisplaceCam({ displacement.x, displacement.y, 0.f });
+          prevPos = { currPos };
+        }
+        else // else this is the first frame we are holding it down
+        {
+          prevPos = { currPos };
+          middleMouseHeld = true;
+        }
+      }
+      else {
+        middleMouseHeld = false;
+      }
     }
-    else {
-      middleMouseHeld = false;
+    // If the mousewheel is scrolled (for zooming camera)
+    {
+      float scrollValue = io.MouseWheel;
+      constexpr float MULTIPLIER = 10.f;
+      if (scrollValue)
+      {
+        Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
+        camera.ZoomCamera(scrollValue * MULTIPLIER);
+      }
     }
   }
 
