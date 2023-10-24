@@ -162,7 +162,7 @@ void ImGuiUI::Update()
   {
     double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
     double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
-    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(6, Math::dVec2(randX, randY));
+    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(1, Math::dVec2(randX, randY));
   }
   else if (Button("Create 2.5k Render"))
   {
@@ -170,7 +170,7 @@ void ImGuiUI::Update()
     {
       try
       {
-        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("Buta PIG");
+        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("ButaPIG");
         GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
         GE::Component::BoxCollider* box = ecs->GetComponent<GE::Component::BoxCollider>(entity);
         if (trans)
