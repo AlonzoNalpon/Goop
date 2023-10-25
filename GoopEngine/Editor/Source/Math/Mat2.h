@@ -37,7 +37,10 @@ namespace GE
 				Constructor taking in 2 sized-2 vectors with each vector corresponding
 				to a row.
 			*************************************************************************/
+			Mat(ValueType&& row0, ValueType&& row1);
 			Mat(ValueType const& row0, ValueType const& row1);
+
+			Mat(Mat<2, 2, T>&& rhs);
 			Mat(Mat<2, 2, T> const& rhs);
 
 			// ACCESSORS
@@ -92,6 +95,7 @@ namespace GE
 			ValueType const& operator[](size_type rhs) const;
 
 			// OPERATOR OVERLOADS
+			Mat<2, 2, T>& operator=(Mat<2, 2, T>&& rhs);
 			Mat<2, 2, T>& operator=(Mat<2, 2, T> const& rhs);
 			Mat<2, 2, T>& operator+=(T rhs);
 			Mat<2, 2, T>& operator+=(Mat<2, 2, T> const& rhs);

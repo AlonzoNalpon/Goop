@@ -10,7 +10,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <AppController/AppController.h>
-#include <EditorUI/DataViz/Visualizer.h>
 #include "../EditorUI/ImGuiUI.h"
 
 using namespace GE::ECS;
@@ -66,7 +65,6 @@ namespace GE::Application
   void AppController::Run()
   {
     GE::ECS::EntityComponentSystem *ecs = { &GE::ECS::EntityComponentSystem::GetInstance() };
-    //scn.Start();
     gsm.Init();
 
     while (!window.GetWindowShouldClose())
@@ -86,18 +84,6 @@ namespace GE::Application
 
         gEngine.ClearBuffer();
 
-        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_RIGHT))
-        {
-          gsm.SetNextScene("SceneTest");
-        }
-        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_LEFT))
-        {
-          gsm.SetNextScene("Start");
-        }
-        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_UP))
-        {
-          gsm.Restart();
-        }
         gsm.Update();
 
         fRC.StartSystemTimer();
@@ -119,16 +105,10 @@ namespace GE::Application
         imgui.Render();
         fRC.EndSystemTimer("ImGui Render");
 
-        // update graph for system timers if window is shown
-        if (EditorGUI::DataViz::Visualizer::IsPerformanceShown())
-        {
-          EditorGUI::DataViz::Visualizer::UpdateSystemTimes();
-        }
-
         std::stringstream ss;
         ss << *GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Window Title") << " | FPS: " << std::fixed
           << std::setfill('0') << std::setw(5) << std::setprecision(2) << fRC.GetFPS() << " | Entities: " << EntityComponentSystem::GetInstance().GetEntities().size();
-        for (auto system : fRC.GetSystemTimers())
+        for (auto const& system : fRC.GetSystemTimers())
         {
           ss << " | " << system.first << ": " << std::setw(4) << system.second.count() << "us";
         }

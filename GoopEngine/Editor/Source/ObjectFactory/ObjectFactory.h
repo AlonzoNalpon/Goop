@@ -55,8 +55,12 @@ namespace GE::ObjectFactory
     ************************************************************************/
     GE::ECS::Entity SpawnPrefab(const std::string& key) const;
     
-
+    /*!*********************************************************************
+    \brief
+      Empties the loaded map of object data.
+    ************************************************************************/
     void EmptyMap();
+
     /*!*********************************************************************
     \brief
       Creates an entity with the given object.
@@ -65,7 +69,7 @@ namespace GE::ObjectFactory
     \return
       Entity (Created entity)
     ************************************************************************/
-    GE::ECS::Entity CreateObject(ObjectData data) const;
+    GE::ECS::Entity CreateObject(std::string const& name, ObjectData data) const;
 
     /*!*********************************************************************
     \brief
@@ -78,12 +82,20 @@ namespace GE::ObjectFactory
 
     /*!*********************************************************************
     \brief
-      Loads the data from json data to the entity map.
+      Creates the objects from the object map.
     \return
       True if successful, false if failed
     ************************************************************************/
     bool LoadObjects() const;
 
+    /*!*********************************************************************
+    \brief
+      Creates the objects from the object map.
+    \param
+      std::set<GE::ECS::Entity>& (map of loaded objects to be deleted later)
+    \return
+      True if successful, false if failed
+    ************************************************************************/
     bool LoadObjects(std::set<GE::ECS::Entity>& map) const;
 
     /*!*********************************************************************
@@ -100,8 +112,20 @@ namespace GE::ObjectFactory
     ************************************************************************/
     void ObjectFactoryTest();
 
+    /*!*********************************************************************
+    \brief
+      Creates the objects from the scene file.
+    \param
+      std::set<GE::ECS::Entity>& (map of loaded objects to be deleted later)
+    ************************************************************************/
     void LoadSceneObjects(std::set<GE::ECS::Entity>& map);
 
+    /*!*********************************************************************
+    \brief
+      Loads the data from json data into the object map.
+    \param
+      std::string (filename of the scene.scn file)
+    ************************************************************************/
     void LoadSceneJson(std::string filename);
 
     /*!*********************************************************************

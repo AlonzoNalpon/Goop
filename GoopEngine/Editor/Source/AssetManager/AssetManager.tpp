@@ -58,15 +58,6 @@ std::optional<double> GetConfigData<double>(const std::string& key) const
 }
 
 template <>
-std::optional<const char*> GetConfigData<const char*>(const std::string& key) const
-{
-  if (m_configData.find(key) == m_configData.end())
-    return std::nullopt;
-
-  return m_configData.at(key).c_str();
-}
-
-template <>
 std::optional<std::string> GetConfigData<std::string>(const std::string& key) const
 {
   if (m_configData.find(key) == m_configData.end())

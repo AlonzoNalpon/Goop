@@ -248,8 +248,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\SceneManager\SceneManager.cpp" />
-    <ClCompile Include="Source\Scenes\SceneStart.cpp" />
-    <ClCompile Include="Source\Scenes\SceneTest.cpp" />
+    <ClCompile Include="Source\Scenes\Scene.cpp" />
     <ClCompile Include="Source\ScriptEngine\Script.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptManager.cpp" />
     <ClCompile Include="Source\Serialization\AssetGooStream.cpp" />
@@ -357,9 +356,7 @@
     <ClInclude Include="Source\MemoryManager\MemoryManager.h" />
     <ClInclude Include="Source\EditorUI\SceneHierachy.h" />
     <ClInclude Include="Source\SceneManager\SceneManager.h" />
-    <ClInclude Include="Source\Scenes\SceneBase.h" />
-    <ClInclude Include="Source\Scenes\SceneStart.h" />
-    <ClInclude Include="Source\Scenes\SceneTest.h" />
+    <ClInclude Include="Source\Scenes\Scene.h" />
     <ClInclude Include="Source\ScriptEngine\Script.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptManager.h" />
     <ClInclude Include="Source\Serialization\ComponentWrapper.h" />

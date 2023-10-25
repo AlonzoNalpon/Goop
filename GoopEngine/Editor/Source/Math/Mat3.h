@@ -30,16 +30,17 @@ namespace GE
 				Non-default constructor taking in 9 elements. They should be specified
 				in row-major order.
 			*************************************************************************/
-			Mat(T m00, T m01, T m02,
-				T m10, T m11, T m12,
-				T m20, T m21, T m22);
+			Mat(T m00, T m01, T m02, T m10, T m11, T m12, T m20, T m21, T m22);
 
 			/*!***********************************************************************
 			\brief
 				Constructor taking in 3 sized-3 vectors with each vector corresponding
 				to a row.
 			*************************************************************************/
+			Mat(ValueType&& row0, ValueType&& row1, ValueType&& row2);
 			Mat(ValueType const& row0, ValueType const& row1, ValueType const& row2);
+
+			Mat(Mat<3, 3, T>&& rhs);
 			Mat(Mat<3, 3, T> const& rhs);
 
 			// ACCESSORS
@@ -94,6 +95,7 @@ namespace GE
 			ValueType const& operator[](size_type rhs) const;
 
 			// OPERATOR OVERLOADS
+			Mat<3, 3, T>& operator=(Mat<3, 3, T>&& rhs);
 			Mat<3, 3, T>& operator=(Mat<3, 3, T> const& rhs);
 			Mat<3, 3, T>& operator+=(T rhs);
 			Mat<3, 3, T>& operator+=(Mat<3, 3, T> const& rhs);

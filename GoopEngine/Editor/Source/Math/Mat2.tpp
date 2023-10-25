@@ -13,10 +13,24 @@ Mat<2, 2, T>::Mat(T m00, T m01, T m10, T m11)
 }
 
 template <typename T>
+Mat<2, 2, T>::Mat(Mat<2, 2, T>&& rhs)
+{
+  m_data[0] = std::move(rhs.m_data[0]);
+  m_data[1] = std::move(rhs.m_data[1]);
+}
+
+template <typename T>
 Mat<2, 2, T>::Mat(Mat<2, 2, T> const& rhs)
 {
-  m_data[0] = rhs[0];
-  m_data[1] = rhs[1];
+  m_data[0] = rhs.m_data[0];
+  m_data[1] = rhs.m_data[1];
+}
+
+template <typename T>
+Mat<2, 2, T>::Mat(ValueType&& row0, ValueType&& row1) 
+{
+  m_data[0] = std::move(row0);
+  m_data[1] = std::move(row1);
 }
 
 template <typename T>
@@ -26,12 +40,22 @@ Mat<2, 2, T>::Mat(ValueType const& row0, ValueType const& row1)
   m_data[1] = row1;
 }
 
+
 // Operator overloads
+template <typename T>
+Mat<2, 2, T>& Mat<2, 2, T>::operator=(Mat<2, 2, T>&& rhs)
+{
+  m_data[0] = std::move(rhs.m_data[0]);
+  m_data[1] = std::move(rhs.m_data[1]);
+
+  return *this;
+}
+
 template <typename T>
 Mat<2, 2, T>& Mat<2, 2, T>::operator=(Mat<2, 2, T> const& rhs)
 {
-  m_data[0] = rhs[0];
-  m_data[1] = rhs[1];
+  m_data[0] = rhs.m_data[0];
+  m_data[1] = rhs.m_data[1];
 
   return *this;
 }
@@ -48,8 +72,8 @@ Mat<2, 2, T>& Mat<2, 2, T>::operator+=(T rhs)
 template <typename T>
 Mat<2, 2, T>& Mat<2, 2, T>::operator+=(Mat<2, 2, T> const& rhs)
 {
-  m_data[0] += rhs[0];
-  m_data[1] += rhs[1];
+  m_data[0] += rhs.m_data[0];
+  m_data[1] += rhs.m_data[1];
 
   return *this;
 }
@@ -66,8 +90,8 @@ Mat<2, 2, T>& Mat<2, 2, T>::operator-=(T rhs)
 template <typename T>
 Mat<2, 2, T>& Mat<2, 2, T>::operator-=(Mat<2, 2, T> const& rhs)
 {
-  m_data[0] -= rhs[0];
-  m_data[1] -= rhs[1];
+  m_data[0] -= rhs.m_data[0];
+  m_data[1] -= rhs.m_data[1];
 
   return *this;
 }

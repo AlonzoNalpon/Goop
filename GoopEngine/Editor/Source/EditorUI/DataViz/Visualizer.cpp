@@ -27,48 +27,51 @@ std::vector<float> Visualizer::m_fpsHistory(Visualizer::m_fpsMaxCount, 0.f);
 
 void Visualizer::UpdateSystemTimes()
 {
-  GE::FPS::FrameRateController& fRC{ FPS::FrameRateController::GetInstance() };
-
-  // Systems
-  static int framesElapsed{};
-  if (framesElapsed >= m_framesPerUpdate)
+  if (IsPerformanceShown())
   {
-    std::map<std::string, FPS::FrameRateController::timeFormat> const& timers{ fRC.GetSystemTimers() };
-    // clear and reset maps if size changes
-    if (m_systemsToGraph.size() != timers.size())
-    {
-      m_systemsToGraph.clear();
-      m_systemTimers.clear();
-      m_systemsToGraph.resize(timers.size());
-      m_systemTimers.resize(timers.size());
-    }
+    GE::FPS::FrameRateController& fRC{ FPS::FrameRateController::GetInstance() };
 
-    m_totalSystemTime = 0.f;
-    std::map<std::string, FPS::FrameRateController::timeFormat>::const_iterator iter{ timers.cbegin() };
-    for (unsigned i{}; i < timers.size(); ++i, ++iter)
+    // Systems
+    static int framesElapsed{};
+    if (framesElapsed >= m_framesPerUpdate)
     {
-      m_systemsToGraph[i] = iter->first.c_str();
-      m_totalSystemTime += m_systemTimers[i] = microSecondsToFloat(iter->second);
-    }
-    framesElapsed = 0;
-  }
-  ++framesElapsed;
+      std::map<std::string, FPS::FrameRateController::timeFormat> const& timers{ fRC.GetSystemTimers() };
+      // clear and reset maps if size changes
+      if (m_systemsToGraph.size() != timers.size())
+      {
+        m_systemsToGraph.clear();
+        m_systemTimers.clear();
+        m_systemsToGraph.resize(timers.size());
+        m_systemTimers.resize(timers.size());
+      }
 
-  // FPS
-  static double timeElapsed{};
-  if (static_cast<float>(timeElapsed) >= m_timePerUpdate)
-  {
-    if (m_fpsHistory.size() >= m_fpsMaxCount)
-    {
-      m_fpsHistory.erase(m_fpsHistory.begin());
+      m_totalSystemTime = 0.f;
+      std::map<std::string, FPS::FrameRateController::timeFormat>::const_iterator iter{ timers.cbegin() };
+      for (unsigned i{}; i < timers.size(); ++i, ++iter)
+      {
+        m_systemsToGraph[i] = iter->first.c_str();
+        m_totalSystemTime += m_systemTimers[i] = microSecondsToFloat(iter->second);
+      }
+      framesElapsed = 0;
     }
-    m_fpsHistory.emplace_back(static_cast<float>(fRC.GetFPS()));
-    timeElapsed = 0.f;
+    ++framesElapsed;
+
+    // FPS
+    static double timeElapsed{};
+    if (static_cast<float>(timeElapsed) >= m_timePerUpdate)
+    {
+      if (m_fpsHistory.size() >= m_fpsMaxCount)
+      {
+        m_fpsHistory.erase(m_fpsHistory.begin());
+      }
+      m_fpsHistory.emplace_back(static_cast<float>(fRC.GetFPS()));
+      timeElapsed = 0.f;
+    }
+    timeElapsed += fRC.GetDeltaTime();
   }
-  timeElapsed += fRC.GetDeltaTime();
 }
 
-void Visualizer::UpdatePerformanceTab(const char* tabName)
+void Visualizer::CreateContent(const char* tabName)
 {
   ImGui::Begin(tabName);
 

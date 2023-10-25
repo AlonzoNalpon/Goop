@@ -67,7 +67,6 @@ bool AssetGooStream::Read(std::string const& json)
   }
 
   #ifdef SERIALIZE_TEST
-  std::cout << json << " successfully read" << "\n";
   #endif
   ifs.close();
   m_elements = data.MemberCount();

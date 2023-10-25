@@ -57,7 +57,7 @@ namespace GE::Assets
     \param
       onst std::string& directory (Filepath of the directory)
     ************************************************************************/
-    void LoadDirectory(const std::string& directory);
+    std::set<int> LoadDirectory(const std::string& directory);
 
     /*!*********************************************************************
     \brief
@@ -158,11 +158,19 @@ namespace GE::Assets
 
     /*!*********************************************************************
     \brief
-      Free specific loaded images with filepath.
+      Free specific loaded images with name of file.
     \param
       const std::string& name (Name of the image)
     ************************************************************************/
     void FreeImage(const std::string& name);
+
+    /*!*********************************************************************
+    \brief
+      Free specific loaded images with id.
+    \param
+      const std::string& name (Name of the image)
+    ************************************************************************/
+    void FreeImage(int id);
 
     /*!*********************************************************************
     \brief
@@ -195,6 +203,8 @@ namespace GE::Assets
     ************************************************************************/
     inline std::unordered_map<std::string, std::string> const& GetPrefabs() const noexcept { return m_prefabs; }
 
+    std::unordered_map<std::string, std::string> GetMapData(std::string nameOfMap) const;
+
     #include "AssetManager.tpp"
 
   private:
@@ -225,7 +235,6 @@ namespace GE::Assets
     std::unordered_map<std::string, int> m_loadedImagesStringLookUp; // Lookup table for getting ID with filepath.
     std::unordered_map<int, std::string> m_loadedImagesIDLookUp; // Lookup table for getting filepath with id.
     std::unordered_map<std::string, GE::Serialization::SpriteData> m_loadedSpriteData; // Map that contains loaded sprite with their data with their m_id as key.
-
   };
 }
 #endif

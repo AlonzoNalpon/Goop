@@ -335,6 +335,21 @@ namespace {
     return m_vpHeight;
   }
 
+  gVec2 GraphicsEngine::ScreenToWS(gVec2 const& mousePos)
+  {
+    GLfloat const halfVpW{ m_vpWidth * 0.5f }, halfVpH{ m_vpHeight * 0.5f };
+    // translate the mouse position to the range [-0.5,0.5]
+    gVec2 wsPos{ (mousePos.x - halfVpW) / m_vpWidth , (mousePos.y - halfVpH) / m_vpHeight };
+    gVec2 const camDims{ m_renderer.GetCamera().frame_dims };
+    gVec2 const camPos{ m_renderer.GetCamera().position };
+    // Now we scale based on camera dimensions
+
+    wsPos.x *= camDims.x;
+    wsPos.y *= camDims.y;
+    wsPos += camPos;
+    return wsPos;
+  }
+
   void GraphicsEngine::DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr)
   {
     m_renderer.RenderLineDebug(startPt, endPt, clr);

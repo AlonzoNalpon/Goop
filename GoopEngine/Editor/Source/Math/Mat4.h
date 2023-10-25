@@ -22,14 +22,8 @@ namespace GE
 
 			ValueType m_data[4];
 
-			// Constructors
+			// CONSTRUCTORS
 			Mat();
-
-			/*!***********************************************************************
-			\brief
-				Constructor taking in 4 sized-4 vectors with each vector corresponding
-				to a row.
-			*************************************************************************/
 			Mat(T m00, T m01, T m02, T m03, T m10, T m11, T m12, T m13,
 				T m20, T m21, T m22, T m23, T m30, T m31, T m32, T m33);
 			Mat(ValueType&& row0, ValueType&& row1,
@@ -91,6 +85,7 @@ namespace GE
 			ValueType const& operator[](size_type rhs) const;
 
 			// OPERATOR OVERLOADS
+			Mat<4, 4, T>& operator=(Mat<4, 4, T>&& rhs);
 			Mat<4, 4, T>& operator=(Mat<4, 4, T> const& rhs);
 			Mat<4, 4, T>& operator+=(T rhs);
 			Mat<4, 4, T>& operator+=(Mat<4, 4, T> const& rhs);

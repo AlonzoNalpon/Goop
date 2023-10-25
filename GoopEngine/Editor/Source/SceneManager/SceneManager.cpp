@@ -6,52 +6,69 @@ using namespace GE::Scenes;
 void SceneManager::Init()
 {
   // Load data into map
-  Scenes.emplace("Start", std::make_unique<GE::Scenes::SceneStart>());
-  Scenes.emplace("SceneTest", std::make_unique<GE::Scenes::SceneTest>());
-
-  // Testing
   m_nextScene = m_currentScene = "Start";
 }
 
 void SceneManager::LoadScene()
 {
-  Scenes[m_currentScene]->Load();
+  scene.Load(m_currentScene);
 }
 
 void SceneManager::InitScene()
 {
-  Scenes[m_currentScene]->Init();
+  scene.Init();
 }
 
 void SceneManager::UnloadScene()
 {
-  Scenes[m_currentScene]->Unload();
+  scene.Unload();
 }
 
 void SceneManager::FreeScene()
 {
-  Scenes[m_currentScene]->Free();
+  scene.Free();
 }
 
 void SceneManager::SetNextScene(std::string nextScene)
 {
   // Make sure nextScene is a valid scene string then set it.
-  if (Scenes.find(nextScene) == Scenes.end())
+  /*if (am->GetMapData("m_scenes").find(nextScene) == am->GetMapData("m_scenes").end())
   {
     throw GE::Debug::Exception<SceneManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load scene: " + nextScene));
+  }*/
+  if (nextScene == "SceneTest")
+  {
+    for (auto& i : am->GetMapData("m_scenes"))
+    {
+      std::cout << i.second << std::endl;
+    }
+    this->UnloadScene();
+    this->FreeScene();
+    m_nextScene = m_currentScene = nextScene;
+    scene.TestScene();
   }
-  this->UnloadScene();
-  this->FreeScene();
-  Scenes[m_currentScene]->Free();
-  m_nextScene = m_currentScene = nextScene;
-  LoadScene(); 
-  InitScene();
+  if (nextScene != "SceneTest")
+  {
+    UnloadScene();
+    FreeScene();
+    m_nextScene = m_currentScene = nextScene;
+    LoadScene();
+    InitScene();
+  }
 }
 
 void GE::Scenes::SceneManager::RestartScene()
 {
-  Scenes[m_currentScene]->Unload();
-  Scenes[m_currentScene]->Init();
+  if (m_currentScene == "SceneTest")
+  {
+    UnloadScene();
+    scene.TestScene();
+    return;
+  }
+  UnloadScene();
+  Init();
+  LoadScene();
+  InitScene();
 }
 
 std::string SceneManager::GetCurrentScene()

@@ -20,7 +20,7 @@ namespace GE
     public:
       //static void Init();
       static void UpdateSystemTimes();
-      static void UpdatePerformanceTab(const char* tabName);
+      static void CreateContent(const char* tabName);
       //static void UpdateMemoryTab(const char* tabName);
 
       static inline void TogglePerformanceTab() noexcept { m_performanceTabActive = !m_performanceTabActive; }

@@ -28,6 +28,18 @@ void GameStateManager::Init()
 
 void GameStateManager::Update()
 {
+	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_RIGHT))
+	{
+		SetNextScene("SceneTest");
+	}
+	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_LEFT))
+	{
+		SetNextScene("Start");
+	}
+	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_UP))
+	{
+		Restart();
+	}
 }
 
 void GE::GSM::GameStateManager::Exit()

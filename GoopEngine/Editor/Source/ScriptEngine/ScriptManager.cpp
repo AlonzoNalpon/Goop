@@ -27,11 +27,11 @@ void GE::MONO::ScriptManager::InitMono()
   }
   else
   {
-    mono_set_assemblies_path(*assetManager.GetConfigData<const char*>("MonoAssembly"));
+    mono_set_assemblies_path(assetManager.GetConfigData<std::string>("MonoAssembly")->c_str());
   }
  
  
-  MonoDomain* rootDomain = mono_jit_init(*assetManager.GetConfigData<const char*>("RootDomain"));
+  MonoDomain* rootDomain = mono_jit_init(assetManager.GetConfigData<std::string>("RootDomain")->c_str());
   if (rootDomain == nullptr)
   {
     GE::Debug::ErrorLogger::GetInstance().LogError("Unable to init Mono JIT", false);
@@ -42,7 +42,7 @@ void GE::MONO::ScriptManager::InitMono()
   m_rootDomain = rootDomain;
 
   //Create an App Domain
-  const char* str = *assetManager.GetConfigData<const char*>("AppDomain");
+  const char* str = assetManager.GetConfigData<std::string>("AppDomain")->c_str();
   m_appDomain = mono_domain_create_appdomain(const_cast<char*>(str), nullptr);
   mono_domain_set(m_appDomain, true);
 
