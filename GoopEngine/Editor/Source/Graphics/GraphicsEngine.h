@@ -180,6 +180,15 @@ namespace Graphics {
       
     ************************************************************************/
     Model GenerateLine();
+
+    /*!*********************************************************************
+    \brief
+      Destroys a texture using texture manager.
+    \params
+      texture
+    \return
+    ************************************************************************/
+    void DestroyTexture(GLuint texture);
     // SHADERS ARE ONLY TO BE QUERIED BY MODELS REQUESTING A HANDLE
     // USERS MUST SPECIFY SHADER NAME WHILE CREATING A MODEL
 
