@@ -107,7 +107,7 @@ namespace GE::Assets
     \return
       The value at the entry of the specified key
     ************************************************************************/
-    inline std::string GetScene(std::string const& sceneName) const noexcept { return m_scenes.at(sceneName); }
+    inline std::string GetScene(std::string const& sceneName) const { return m_scenes.at(sceneName); }
 
     /*!*********************************************************************
     \brief
@@ -118,7 +118,7 @@ namespace GE::Assets
     \return
       The value at the entry of the specified key
     ************************************************************************/
-    inline std::string GetSound(std::string const& soundName) const noexcept { return m_audio.at(soundName); }
+    inline std::string GetSound(std::string const& soundName) const { return m_audio.at(soundName); }
 
     /*!*********************************************************************
     \brief
@@ -202,8 +202,6 @@ namespace GE::Assets
       The map of prefab filepaths
     ************************************************************************/
     inline std::unordered_map<std::string, std::string> const& GetPrefabs() const noexcept { return m_prefabs; }
-
-    std::unordered_map<std::string, std::string> GetMapData(std::string nameOfMap) const;
 
     #include "AssetManager.tpp"
 
