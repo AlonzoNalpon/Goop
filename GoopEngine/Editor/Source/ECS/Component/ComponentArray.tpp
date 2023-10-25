@@ -16,10 +16,6 @@ void ComponentArray<T>::Remove(const Entity& entity)
 	// entity's spot and then pop the last element
 	if (m_entityToIndexMap.find(entity) == m_entityToIndexMap.end())
 	{
-		// No entity to remove
-		std::stringstream ss;
-		ss << "Removing entity ID " << entity << " while it does not exist. No action taken";
-		GE::Debug::ErrorLogger::GetInstance().LogMessage<ComponentManager>(ss.str(), false);
 		return;
 	}
 
@@ -42,27 +38,16 @@ void ComponentArray<T>::Remove(const Entity& entity)
 template <typename T>
 T* ComponentArray<T>::GetData(const Entity& entity)
 {
+	std::stringstream ss;
 	if (m_entityToIndexMap.find(entity) != m_entityToIndexMap.end())
 	{
 		size_t index = m_entityToIndexMap.at(entity);
-		if (index >= m_components.size())
+		if (index <= m_components.size())
 		{
-			// vector out of bounds
-			// index of an entity that should not exist
-			std::stringstream ss;
-			ss << "Getting component data of type " << typeid(T).name() << " from entity ID " << entity << " failed.";
-			GE::Debug::ErrorLogger::GetInstance().LogMessage<ComponentManager>(ss.str());
-			return nullptr;
+			return &m_components[index];
 		}
-
-		return &m_components[index];
 	}
 
-	// Entity does not exist
-	// index of an entity that should not exist
-	std::stringstream ss;
-	ss << "Getting component data of type " << typeid(T).name() << " from entity ID " << entity << " failed.";
-	GE::Debug::ErrorLogger::GetInstance().LogMessage<ComponentManager>(ss.str());
 	return nullptr;
 }
 
