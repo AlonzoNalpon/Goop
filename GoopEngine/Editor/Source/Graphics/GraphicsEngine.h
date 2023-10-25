@@ -118,8 +118,33 @@ namespace Graphics {
     ************************************************************************/
     gObjID GetModel();
 
+    /*!*********************************************************************
+    \brief
+      Obtain the viewport width, in pixels.
+    \params
+    \return
+      
+    ************************************************************************/
     GLint GetVPWidth();
+
+    /*!*********************************************************************
+    \brief
+      Obtain the viewport height, in pixels.
+    \params
+    \return
+      
+    ************************************************************************/
     GLint GetVPHeight();
+
+    /*!*********************************************************************
+    \brief
+      Obtain the position of mouse in worldspace.
+    \params
+      mousePos in screen space
+    \return
+      
+    ************************************************************************/
+    gVec2 ScreenToWS(gVec2 const& mousePos);
   public: // DRAW PRIMITIVE METHODS
     /*!*********************************************************************
     \brief Draws a line in world coordinates (0,0 is center of screen)

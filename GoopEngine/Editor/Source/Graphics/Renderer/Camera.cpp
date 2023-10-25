@@ -26,7 +26,8 @@ namespace Graphics::Rendering
     m_top{ top },
     m_near{ _near },
     m_far{ _far },
-    m_ar{ (m_right - m_left)/(m_top - m_bottom)}
+    m_ar{ (m_right - m_left)/(m_top - m_bottom)},
+    m_dims { m_right - m_left, m_top - m_bottom }
   {}
 
   Camera& Camera::operator=(Camera const& rhs)
@@ -43,6 +44,7 @@ namespace Graphics::Rendering
     m_near        = rhs.m_near;
     m_far         = rhs.m_far;
     m_ar          = rhs.m_ar;
+    m_dims        = rhs.m_dims;
     return *this;
   }
 
@@ -70,6 +72,7 @@ namespace Graphics::Rendering
     GLfloat width = m_ar * (m_top - m_bottom); 
     m_right = 0.5f * width;
     m_left = -0.5f * width;
+    m_dims = { width, m_top - m_bottom };
     CalculateProjMtx(); // and recalculate projection matrix based on new parameters
   }
 

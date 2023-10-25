@@ -26,15 +26,16 @@ namespace Graphics::Rendering
     glm::mat4 m_view;     //!< view matrix of camera
     glm::mat4 m_proj;     //!< perspective matrix of camera
     gVec3     m_position; //!< position of camera
-    gVec3     m_tgt;
-    gVec3     m_up;
-    GLfloat   m_left;
-    GLfloat   m_right;
-    GLfloat   m_bottom;
-    GLfloat   m_top;
-    GLfloat   m_near;
-    GLfloat   m_far;
-    GLfloat   m_ar; //!< aspect ratio
+    gVec3     m_tgt;      //!< camera target (where are we looking?)
+    gVec3     m_up;       //!< camera up vector
+    GLfloat   m_left;     //!< left of camera
+    GLfloat   m_right;    //!< right of camera
+    GLfloat   m_bottom;   //!< bottom of camera
+    GLfloat   m_top;      //!< top of camera
+    GLfloat   m_near;     //!< near plane
+    GLfloat   m_far;      //!< far plane
+    GLfloat   m_ar;       //!< aspect ratio
+    gVec2     m_dims;     //!< dimensions of camera frame (width and hight)
   public:
     Camera() = default;
     Camera& operator=(Camera const& rhs);
@@ -98,10 +99,11 @@ namespace Graphics::Rendering
 
     void DisplaceCam(gVec3 displacement);
   public: // getters
-    glm::mat4 const&  view{ m_view }; //!< getter to view matrix
-    glm::mat4 const&  proj{ m_proj }; //!< getter to projection matrix
-    gVec3 const&      position{ m_position };
-    gVec3 const&      up_vector{ m_up };
+    glm::mat4 const&  view{ m_view };         //!< getter to view matrix
+    glm::mat4 const&  proj{ m_proj };         //!< getter to projection matrix
+    gVec3 const&      position{ m_position }; //!< getter to camera position 
+    gVec3 const&      up_vector{ m_up };      //!< getter to up vector
+    gVec2 const&      frame_dims{m_dims};     //!< getter to frame dimensions
   };
 
 }

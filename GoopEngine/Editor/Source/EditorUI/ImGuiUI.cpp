@@ -76,7 +76,6 @@ void ImGuiUI::Update()
 
   Begin("Viewport");
   {
-    // TODO: MOVE TO A CLASS WHEN WORKING
 #pragma region VIEWPORT_RENDERING
     auto& gEngine = Graphics::GraphicsEngine::GetInstance();
     GLuint texture = gEngine.GetRenderTexture();
@@ -100,30 +99,30 @@ void ImGuiUI::Update()
 #pragma endregion
 #pragma region VIEWPORT_INPUT
   auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
-  if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y))) {
+  if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y))) 
+  {
+    ImVec2 mousePosition = ImGui::GetMousePos();
+    mousePosition.y = windowSize.y - mousePosition.y;
+    static Graphics::gVec2 prevPos; // previous mouse position
 
+    Graphics::gVec2 MousePosF{ mousePosition.x, mousePosition.y }; // current position of mouse in float
     // If the middle mouse button is down (for moving camera)
     {
       constexpr int MIDDLE_MOUSE{ 2 };        // constant for middle mouse key
       static bool middleMouseHeld{};          // flag for middle mouse held down
       if (ImGui::IsMouseDown(MIDDLE_MOUSE)) 
       {
-        ImVec2 mousePosition = ImGui::GetMousePos();
-        mousePosition.y = windowSize.y - mousePosition.y;
-        static Graphics::gVec2 prevPos; // previous mouse position
-
-        Graphics::gVec2 currPos{ mousePosition.x, mousePosition.y }; // current position of mouse in float
 
         if (middleMouseHeld) // check if it's not the first frame button is held
         {
-          Graphics::gVec2 displacement{ prevPos-currPos };  // displacement of camera
+          Graphics::gVec2 displacement{ prevPos-MousePosF };  // displacement of camera
           Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
           camera.DisplaceCam({ displacement.x, displacement.y, 0.f });
-          prevPos = { currPos };
+          prevPos = { MousePosF };
         }
         else // else this is the first frame we are holding it down
         {
-          prevPos = { currPos };
+          prevPos = { MousePosF };
           middleMouseHeld = true;
         }
       }
@@ -141,12 +140,55 @@ void ImGuiUI::Update()
         camera.ZoomCamera(scrollValue * MULTIPLIER);
       }
     }
-  }
 
-  
-  
+    // If the mouse clicked was detected
+    {
+      constexpr int MOUSE_L_CLICK{ 0 };        // constant for mouse left click
+      static bool mouseLHeld{};
+      if (ImGui::IsMouseDown(MOUSE_L_CLICK))
+      {
+        if (!mouseLHeld)
+        {
+          mouseLHeld = true;
+          auto mouseWS{ gEngine.ScreenToWS(MousePosF) };
+          double depthVal{ std::numeric_limits<double>::lowest() };
+          GE::ECS::Entity selectedID = GE::ECS::INVALID_ID;
+
+          for (GE::ECS::Entity curr : ecs->GetEntities())
+          {
+
+            // get sprite component
+            auto const* transPtr = ecs->GetComponent<GE::Component::Transform>(curr);
+            if (!transPtr || !ecs->GetComponent<GE::Component::Sprite>(curr))
+              continue; // skip if there's no transform or sprite component
+            auto const& trans{ *transPtr };
+            GE::Math::dVec2 min{ trans.m_pos.x - trans.m_scale.x * 0.5, trans.m_pos.y - trans.m_scale.y * 0.5 };
+            GE::Math::dVec2 max{ trans.m_pos.x + trans.m_scale.x * 0.5, trans.m_pos.y + trans.m_scale.y * 0.5 };
+
+            // AABB check with the mesh based on its transform (ASSUMES A SQUARE)
+            if (min.x > mouseWS.x ||
+              max.x < mouseWS.x ||
+              min.y > mouseWS.y ||
+              max.y < mouseWS.y)
+              continue;
+
+            // Depth check (only take frontmost object
+            if (trans.m_pos.z > depthVal)
+            {
+              depthVal = trans.m_pos.z;
+              selectedID = curr;
+            }
+          }
+          // Set selected entity (invalid ID means none selected)
+          ImGuiHelper::SetSelectedEntity(selectedID);
+        }
+      }
+      else
+        mouseLHeld = false;
+    }
   }
 #pragma endregion
+  }
   End();
 
   Begin("Collision Partitioning");
