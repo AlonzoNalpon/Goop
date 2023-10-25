@@ -25,6 +25,7 @@ void GE::Scenes::Scene::Init()
 
 void GE::Scenes::Scene::Unload()
 {
+	Audio::AudioEngine::GetInstance().StopAllChannels();
 	for (auto entity : m_entities) {
 		ecs->DestroyEntity(entity);
 	}

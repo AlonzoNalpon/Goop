@@ -289,21 +289,4 @@ namespace GE::Assets
 			m_loadedSpriteData.insert({ entry.m_id, loadedData });
 		}
 	}
-
-	std::unordered_map<std::string, std::string> AssetManager::GetMapData(std::string nameOfMap) const
-	{
-		if (nameOfMap == "m_images")
-			return m_images;
-		if (nameOfMap == "m_audio")
-			return m_audio;
-		if (nameOfMap == "m_prefabs")
-			return m_prefabs;
-		if (nameOfMap == "m_scenes")
-			return m_scenes;
-		if (nameOfMap == "m_shaders")
-			return m_shaders;
-		if (nameOfMap == "m_configData")
-			return m_configData;
-		return std::unordered_map<std::string, std::string>{};
-	}
 }		

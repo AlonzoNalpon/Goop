@@ -85,10 +85,10 @@ namespace Graphics {
     \params
       name name of the texture to be stored
       imageData image data
-    \return
+    \return the ID for the texture which can also be used directly with opengl
       
     ************************************************************************/
-    gObjID InitTexture(std::string const& name, GE::Assets::ImageData const& imageData);
+    GLuint InitTexture(std::string const& name, GE::Assets::ImageData const& imageData);
 
     /*!*********************************************************************
     \brief
@@ -106,7 +106,7 @@ namespace Graphics {
       
     ************************************************************************/
     gObjID CreateAnimation(std::string const& name, GLuint slices, GLuint stacks, GLuint frames,
-      f64 speed, u32 flags, gObjID textureID);
+      f64 speed, u32 flags, GLuint textureID);
 
     /*!*********************************************************************
     \brief

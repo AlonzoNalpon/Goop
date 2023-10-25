@@ -303,7 +303,7 @@ namespace {
     return m_renderer;
   }
 
-  gObjID GraphicsEngine::InitTexture(std::string const& name, GE::Assets::ImageData const& imageData)
+  GLuint GraphicsEngine::InitTexture(std::string const& name, GE::Assets::ImageData const& imageData)
   {
     // Now use textures
     unsigned char* raw_image = imageData.GetData();
@@ -313,7 +313,7 @@ namespace {
   }
 
   gObjID GraphicsEngine::CreateAnimation(std::string const& name, GLuint slices, GLuint stacks, GLuint frames,
-    f64 speed, u32 flags,  gObjID textureID)
+    f64 speed, u32 flags,  GLuint textureID)
   {
     Texture const& tex  { m_textureManager.GetTexture(textureID) };
     return m_animManager.CreateAnim(SpriteAnimGenerator::GenerateAnimData(slices, stacks, frames, tex.width, tex.height

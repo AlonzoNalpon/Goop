@@ -31,29 +31,36 @@ void SceneManager::FreeScene()
 
 void SceneManager::SetNextScene(std::string nextScene)
 {
-  // Make sure nextScene is a valid scene string then set it.
-  /*if (am->GetMapData("m_scenes").find(nextScene) == am->GetMapData("m_scenes").end())
+  std::string tmpScene {m_currentScene};
+  UnloadScene();
+  FreeScene();
+  m_nextScene = m_currentScene = nextScene;
+  
+  try
   {
-    throw GE::Debug::Exception<SceneManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load scene: " + nextScene));
-  }*/
-  if (nextScene == "SceneTest")
-  {
-    for (auto& i : am->GetMapData("m_scenes"))
+    if (nextScene == "SceneTest")
     {
-      std::cout << i.second << std::endl;
+      scene.TestScene();
     }
-    this->UnloadScene();
-    this->FreeScene();
-    m_nextScene = m_currentScene = nextScene;
-    scene.TestScene();
+    else
+    {
+      LoadScene();
+      InitScene();
+    }
   }
-  if (nextScene != "SceneTest")
+  catch (std::out_of_range&)
   {
-    UnloadScene();
-    FreeScene();
-    m_nextScene = m_currentScene = nextScene;
-    LoadScene();
-    InitScene();
+    m_nextScene = m_currentScene = tmpScene;
+    if (m_currentScene == "SceneTest")
+    {
+      scene.TestScene();
+    }
+    else
+    {
+      LoadScene();
+      InitScene();
+    }
+    throw Debug::Exception<SceneManager>(Debug::LEVEL_CRITICAL, ErrMsg(nextScene + ".scn doesn't exist."));
   }
 }
 
