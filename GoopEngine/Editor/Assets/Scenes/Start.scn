@@ -1,6 +1,6 @@
 [
     {
-        "Id": "MainMenu",
+        "Id": "Background",
         "Systems": [
             "RenderSystem"
         ],

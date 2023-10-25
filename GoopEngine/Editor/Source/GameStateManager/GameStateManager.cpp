@@ -4,14 +4,22 @@ using namespace GE::GSM;
 
 void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
 {
-	if (sm.GetCurrentScene() == next_scene)
+	try
 	{
-		sm.RestartScene();
+		if (sm.GetCurrentScene() == next_scene)
+		{
+			sm.RestartScene();
+		}
+		else
+		{
+			sm.SetNextScene(next_scene);
+		}
 	}
-	else
+	catch (GE::Debug::IExceptionBase& e)
 	{
-		sm.SetNextScene(next_scene);
+		e.LogSource();
 	}
+	
 }
 
 void GE::GSM::GameStateManager::Restart()
@@ -39,6 +47,10 @@ void GameStateManager::Update()
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_UP))
 	{
 		Restart();
+	}
+	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_DOWN))
+	{
+		SetNextScene("SceneTestabcd");
 	}
 }
 
