@@ -79,12 +79,21 @@ void AssetBrowser::CreateContentView()
 			//name of image
 			Text(file.path().filename().string().c_str());
 		}
-		if (extension == m_audioFile)	// sound
+		if (!file.is_regular_file())
+		{
+			continue;
+		}
+		else if (extension == m_audioFile)	// sound
 		{
 			//print img of maybe a audio file logo?
 			//name of audio
 			Text(file.path().filename().string().c_str());
 		}
+		//else if (extension == m_imageFile)	// prefab
+		//{
+		//	//name of prefab
+		//	Text(file.path().filename().string().c_str());
+		//}
 		else if (extension == m_prefabFile)	// prefab
 		{
 			//name of prefab
@@ -99,10 +108,6 @@ void AssetBrowser::CreateContentView()
 		{
 			//name of shader
 			Text(file.path().filename().string().c_str());
-		}
-		else
-		{
-			Debug::ErrorLogger::GetInstance().LogMessage("AssetBrowser: " + file.path().string() + " ignored & not in view.");
 		}
 	}
 }
