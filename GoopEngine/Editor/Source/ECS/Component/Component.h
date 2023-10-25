@@ -50,8 +50,6 @@ namespace GE
 				The state to set the component to.
 			************************************************************************/
 			inline void SetActive(const bool active) { m_isActive = active; }
-
-			virtual std::string Serialize() const {}
 		};
 	}
 }

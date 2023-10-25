@@ -11,18 +11,13 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ObjectFactory.h"
 
 #include <AssetManager/AssetManager.h>
-#include <Systems/Physics/PhysicsSystem.h>
-#include <Systems/Physics/CollisionSystem.h>
-#include <Systems/DraggableObject/DraggableObjectSystem.h>
-#include <Systems/Rendering/RenderingSystem.h>
-#include <Systems/SpriteAnim/SpriteAnimSystem.h>
-#include <Systems/PlayerController/PlayerControllerSystem.h>
-#include <Systems/RootTransform/RootTransformSystem.h>
+#include <Systems/Systems.h>
 
 #include "SerializeComponents.h"
 #include "../Serialization/ObjectGooStream.h"
 #include "../Serialization/PrefabGooStream.h"
 #include "../Systems/Rendering/RenderingSystem.h"
+#include "GivingMyself90MinToFigureThisOut.h"
 
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
@@ -33,46 +28,22 @@ void GE::ObjectFactory::ObjectFactory::Init()
   LoadPrefabsFromFile();
 }
 
-GE::ECS::SystemSignature ObjectFactory::GetObjectSystemSignature(GE::ECS::Entity obj) const
-{
-  GE::ECS::SystemSignature sig{};
-
-  SetBitIfFound<Systems::PhysicsSystem>(obj, sig, ECS::SYSTEM_TYPES::PHYSICS);
-  SetBitIfFound<Systems::DraggableObjectSystem>(obj, sig, ECS::SYSTEM_TYPES::DRAGGABLE_OBJECT);
-  SetBitIfFound<Systems::RenderSystem>(obj, sig, ECS::SYSTEM_TYPES::RENDERING);
-  SetBitIfFound<Systems::CollisionSystem>(obj, sig, ECS::SYSTEM_TYPES::COLLISION);
-  SetBitIfFound<Systems::PlayerControllerSystem>(obj, sig, ECS::SYSTEM_TYPES::PLAYER_CONTROLLER);
-  SetBitIfFound<Systems::RootTransformSystem>(obj, sig, ECS::SYSTEM_TYPES::ROOT_TRANSFORM);
-
-  return sig;
-}
-
-void ObjectFactory::RegisterObjectToSystems(GE::ECS::Entity object, ECS::SystemSignature signature) const
-{
-  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
-  
-  if (IsBitSet(signature, SYSTEM_TYPES::PHYSICS))
-    ecs.RegisterEntityToSystem<GE::Systems::PhysicsSystem>(object);
-  if (IsBitSet(signature, SYSTEM_TYPES::COLLISION))
-    ecs.RegisterEntityToSystem<GE::Systems::CollisionSystem>(object);
-  if (IsBitSet(signature, SYSTEM_TYPES::DRAGGABLE_OBJECT))
-    ecs.RegisterEntityToSystem<GE::Systems::DraggableObjectSystem>(object);
-  if (IsBitSet(signature, SYSTEM_TYPES::PLAYER_CONTROLLER))
-    ecs.RegisterEntityToSystem<GE::Systems::PlayerControllerSystem>(object);
-  if (IsBitSet(signature, SYSTEM_TYPES::RENDERING))
-    ecs.RegisterEntityToSystem<GE::Systems::RenderSystem>(object);
-  if (IsBitSet(signature, SYSTEM_TYPES::SPRITE_ANIM))
-    ecs.RegisterEntityToSystem<GE::Systems::SpriteAnimSystem>(object);
-  if (IsBitSet(signature, SYSTEM_TYPES::ROOT_TRANSFORM))
-    ecs.RegisterEntityToSystem<GE::Systems::RootTransformSystem>(object);
-}
-
 void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity srcObj) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
   ECS::ComponentSignature const sig{ ecs.GetComponentSignature(srcObj) };
 
-  if (IsBitSet(sig, ECS::COMPONENT_TYPES::TRANSFORM))
+  for (ECS::COMPONENT_TYPES i{static_cast<ECS::COMPONENT_TYPES>(0) }; i < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)
+  {
+    if (!IsBitSet(sig, i)) { continue; }
+    
+    rttr::instance componentInstance{ GetEntityComponent(srcObj, i) };
+    if (!componentInstance.is_valid()) { continue; }
+
+    auto component{ componentInstance.try };
+  }
+
+  /*if (IsBitSet(sig, ECS::COMPONENT_TYPES::TRANSFORM))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Transform>(srcObj));
   }
@@ -103,7 +74,7 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   if (IsBitSet(sig, ECS::COMPONENT_TYPES::SCRIPT_HANDLER))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::ScriptHandler>(srcObj));
-  }
+  }*/
 }
 
 GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData data) const
@@ -150,11 +121,10 @@ GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData 
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SCRIPT_HANDLER))
   {
-    //ecs.AddComponent(newData,
-    //  DeserializeComponent<GE::Component::ScriptHandler>(data.m_components[GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER]));
+    ecs.AddComponent(newData,
+      DeserializeComponent<GE::Component::ScriptHandler>(data.m_components[GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER]));
   }
-
-  RegisterObjectToSystems(newData, data.m_systemSignature);
+ // RegisterObjectToSystems(newData, data.m_systemSignature);
 
   return newData;
 }
@@ -164,60 +134,6 @@ void ObjectFactory::LoadPrefabsFromFile()
   for (auto const& prefab : Assets::AssetManager::GetInstance().GetPrefabs())
   {
     DeserializePrefab(prefab.second);
-  }
-}
-
-void ObjectFactory::RegisterComponentsAndSystems() const
-{
-  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
-
-  // Register components in order of COMPONENT_TYPES enum
-  for (auto const& elem : GE::ECS::componentsToString)
-  {
-    switch (elem.first)
-    {
-    case COMPONENT_TYPES::TRANSFORM:
-      ecs.RegisterComponent<GE::Component::Transform>();
-      break;
-    case COMPONENT_TYPES::BOX_COLLIDER:
-      ecs.RegisterComponent<GE::Component::BoxCollider>();
-      break;
-    case COMPONENT_TYPES::SPRITE_ANIM:
-      ecs.RegisterComponent<GE::Component::SpriteAnim>();
-      break;
-    case COMPONENT_TYPES::SPRITE:
-      ecs.RegisterComponent<GE::Component::Sprite>();
-      break;
-    case COMPONENT_TYPES::MODEL:
-      ecs.RegisterComponent<GE::Component::Model>();
-      break;
-    case COMPONENT_TYPES::VELOCITY:
-      ecs.RegisterComponent<GE::Component::Velocity>();
-      break;
-    case COMPONENT_TYPES::TWEEN:
-      ecs.RegisterComponent<GE::Component::Tween>();
-      break;
-    case COMPONENT_TYPES::SCRIPT_HANDLER:
-      ecs.RegisterComponent<GE::Component::ScriptHandler>();
-      break;
-    default:
-      throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown component type"));
-      break;
-    }
-  }
-
-  // Register systems
-  std::string const systemsFile{ *Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
-  std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::DeserializeSystems(systemsFile) };
-
-  for (std::pair<std::string, ECS::ComponentSignature> const& elem : systems)
-  {
-    std::unordered_map<std::string, ECS::SYSTEM_TYPES>::const_iterator iter{ ECS::stringToSystems.find(elem.first) };
-    if (iter == stringToSystems.cend())
-    {
-      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg("Unable to register system " + elem.first));
-    }
-    RegisterSystemWithEnum(iter->second, elem.second);
   }
 }
 
@@ -249,10 +165,10 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
 
   ObjectData prefab = m_prefabs.at(key);
   Entity entity = CreateObject(key, prefab);
-  if (IsBitSet(prefab.m_componentSignature, COMPONENT_TYPES::SPRITE_ANIM))
+ /* if (IsBitSet(prefab.m_componentSignature, COMPONENT_TYPES::SPRITE_ANIM))
   {
     prefab.m_systemSignature[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
-  }
+  }*/
   return entity;
 }
 
@@ -273,12 +189,12 @@ void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
   {
     trans->m_pos = newPos;
   }
-  ECS::SystemSignature sysSig{ GetObjectSystemSignature(obj) };
-  if (ecs.GetComponentSignature(newObj)[static_cast<unsigned>(COMPONENT_TYPES::SPRITE_ANIM)])
-  {
-    sysSig[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
-  }
-  RegisterObjectToSystems(newObj, sysSig);
+  //ECS::SystemSignature sysSig{ GetObjectSystemSignature(obj) };
+  //if (ecs.GetComponentSignature(newObj)[static_cast<unsigned>(COMPONENT_TYPES::SPRITE_ANIM)])
+  //{
+  //  sysSig[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
+  //}
+  //RegisterObjectToSystems(newObj, sysSig);
 }
 
 bool ObjectFactory::LoadObjects(std::set<GE::ECS::Entity>& map) const
@@ -347,6 +263,60 @@ void ObjectFactory::LoadSceneJson(std::string filename)
   }
 }
 
+void ObjectFactory::RegisterComponentsAndSystems() const
+{
+  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+
+  // Register components in order of COMPONENT_TYPES enum
+  for (auto const& elem : GE::ECS::componentsToString)
+  {
+    switch (elem.first)
+    {
+    case COMPONENT_TYPES::TRANSFORM:
+      ecs.RegisterComponent<GE::Component::Transform>();
+      break;
+    case COMPONENT_TYPES::BOX_COLLIDER:
+      ecs.RegisterComponent<GE::Component::BoxCollider>();
+      break;
+    case COMPONENT_TYPES::SPRITE_ANIM:
+      ecs.RegisterComponent<GE::Component::SpriteAnim>();
+      break;
+    case COMPONENT_TYPES::SPRITE:
+      ecs.RegisterComponent<GE::Component::Sprite>();
+      break;
+    case COMPONENT_TYPES::MODEL:
+      ecs.RegisterComponent<GE::Component::Model>();
+      break;
+    case COMPONENT_TYPES::VELOCITY:
+      ecs.RegisterComponent<GE::Component::Velocity>();
+      break;
+    case COMPONENT_TYPES::TWEEN:
+      ecs.RegisterComponent<GE::Component::Tween>();
+      break;
+    case COMPONENT_TYPES::SCRIPT_HANDLER:
+      ecs.RegisterComponent<GE::Component::ScriptHandler>();
+      break;
+    default:
+      throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown component type"));
+      break;
+    }
+  }
+
+  // Register systems
+  std::string const systemsFile{ *Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
+  std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::DeserializeSystems(systemsFile) };
+
+  for (std::pair<std::string, ECS::ComponentSignature> const& elem : systems)
+  {
+    std::unordered_map<std::string, ECS::SYSTEM_TYPES>::const_iterator iter{ ECS::stringToSystems.find(elem.first) };
+    if (iter == stringToSystems.cend())
+    {
+      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg("Unable to register system " + elem.first));
+    }
+    RegisterSystemWithEnum(iter->second, elem.second);
+  }
+}
+
 void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::ComponentSignature sig) const
 {
   switch (name)
@@ -385,3 +355,36 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
   }
 }
 
+//GE::ECS::SystemSignature ObjectFactory::GetObjectSystemSignature(GE::ECS::Entity obj) const
+//{
+//  GE::ECS::SystemSignature sig{};
+//
+//  SetBitIfFound<Systems::PhysicsSystem>(obj, sig, ECS::SYSTEM_TYPES::PHYSICS);
+//  SetBitIfFound<Systems::DraggableObjectSystem>(obj, sig, ECS::SYSTEM_TYPES::DRAGGABLE_OBJECT);
+//  SetBitIfFound<Systems::RenderSystem>(obj, sig, ECS::SYSTEM_TYPES::RENDERING);
+//  SetBitIfFound<Systems::CollisionSystem>(obj, sig, ECS::SYSTEM_TYPES::COLLISION);
+//  SetBitIfFound<Systems::PlayerControllerSystem>(obj, sig, ECS::SYSTEM_TYPES::PLAYER_CONTROLLER);
+//  SetBitIfFound<Systems::RootTransformSystem>(obj, sig, ECS::SYSTEM_TYPES::ROOT_TRANSFORM);
+//
+//  return sig;
+//}
+//
+//void ObjectFactory::RegisterObjectToSystems(GE::ECS::Entity object, ECS::SystemSignature signature) const
+//{
+//  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+//  
+//  if (IsBitSet(signature, SYSTEM_TYPES::PHYSICS))
+//    ecs.RegisterEntityToSystem<GE::Systems::PhysicsSystem>(object);
+//  if (IsBitSet(signature, SYSTEM_TYPES::COLLISION))
+//    ecs.RegisterEntityToSystem<GE::Systems::CollisionSystem>(object);
+//  if (IsBitSet(signature, SYSTEM_TYPES::DRAGGABLE_OBJECT))
+//    ecs.RegisterEntityToSystem<GE::Systems::DraggableObjectSystem>(object);
+//  if (IsBitSet(signature, SYSTEM_TYPES::PLAYER_CONTROLLER))
+//    ecs.RegisterEntityToSystem<GE::Systems::PlayerControllerSystem>(object);
+//  if (IsBitSet(signature, SYSTEM_TYPES::RENDERING))
+//    ecs.RegisterEntityToSystem<GE::Systems::RenderSystem>(object);
+//  if (IsBitSet(signature, SYSTEM_TYPES::SPRITE_ANIM))
+//    ecs.RegisterEntityToSystem<GE::Systems::SpriteAnimSystem>(object);
+//  if (IsBitSet(signature, SYSTEM_TYPES::ROOT_TRANSFORM))
+//    ecs.RegisterEntityToSystem<GE::Systems::RootTransformSystem>(object);
+//}

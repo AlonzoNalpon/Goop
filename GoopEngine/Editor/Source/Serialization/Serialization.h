@@ -35,6 +35,36 @@ namespace GE
     ************************************************************************/
     std::vector<std::pair<std::string, ECS::ComponentSignature>> DeserializeSystems(std::string const& json);
 
+    //rttr::variant DeserializeBasicTypes(rapidjson::Value const& jsonVal)
+    //{
+    //  switch (jsonVal.GetType())
+    //  {
+    //  // booleans
+    //  case rapidjson::kTrueType:
+    //  case rapidjson::kFalseType:
+    //    return jsonVal.GetBool();
+
+    //  case rapidjson::kStringType:
+    //    return std::string(jsonVal.GetString());
+
+    //  case rapidjson::kNumberType:
+    //    if (jsonVal.IsInt())
+    //      return jsonVal.GetInt();
+    //    else if (jsonVal.IsUint())
+    //      return jsonVal.GetUint();
+    //    else if (jsonVal.IsDouble())
+    //      return jsonVal.GetDouble();
+    //    else if (jsonVal.IsFloat())
+    //      return jsonVal.GetFloat();
+    //    else if (jsonVal.IsInt64())
+    //      return jsonVal.GetInt64();
+    //    else if (jsonVal.IsUint64())
+    //      return jsonVal.GetUint64();
+    //    break;
+    //  }
+
+    //  return rttr::variant();
+    //}
 
   } // namespace Serialization
 } // namespace GE
