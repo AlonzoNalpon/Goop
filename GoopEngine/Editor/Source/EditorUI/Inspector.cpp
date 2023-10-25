@@ -42,11 +42,11 @@ namespace
 void GE::EditorGUI::Inspector::CreateContent()
 {
 	GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
+	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 
-	if (entity == GE::ECS::INVALID_ID)
+	if (entity == GE::ECS::INVALID_ID || !ecs.GetEntities().contains(entity))
 		return;
 
-	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 	GE::ECS::ComponentSignature sig = ecs.GetComponentSignature(entity);
 
 	bool isActive{ecs.GetIsActiveEntity(entity)};
