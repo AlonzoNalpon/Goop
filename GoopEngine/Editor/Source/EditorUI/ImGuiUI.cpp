@@ -25,6 +25,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Physics/CollisionSystem.h>
 #include "Console.h"
 #include "Inspector.h"
+#include "SceneControls.h"
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -67,6 +68,8 @@ void ImGuiUI::Update()
   ImGuiHelper::CreateDockSpace("Goop Engine");
 
   ToolBar::CreateContent();
+
+  SceneControls::CreateContent();
 
   Begin("Console");
   Console::CreateContent();
