@@ -189,7 +189,7 @@ namespace
 		InputDouble(("##" + propertyName).c_str(), &property, 0, 0, "%.2f");
 		EndDisabled();
 	}
-
+	
 	void InputCheckBox(std::string propertyName, bool& property, bool disabled)
 	{
 		BeginDisabled(disabled);
@@ -205,7 +205,7 @@ namespace
 	{
 		BeginDisabled(disabled);
 		TableNextColumn();
-		if (TreeNode("Forces"))
+		if (TreeNodeEx("Forces", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnDoubleClick))
 		{
 			Separator();
 			TableNextRow();
