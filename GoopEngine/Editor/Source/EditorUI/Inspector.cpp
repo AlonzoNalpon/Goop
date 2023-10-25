@@ -126,9 +126,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputDouble3("Drag", vel->m_dragForce.m_magnitude, inputWidth);
 					TableNextRow();
 					InputCheckBox("Drag Active", vel->m_dragForce.m_isActive);
-					TableNextRow();
-					InputList("Force", vel->m_forces, inputWidth);
 					EndTable();
+					InputList("Force", vel->m_forces, inputWidth);
 					Separator();
 				}
 				break;
@@ -171,7 +170,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 			case GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER:
 			{
-				//auto trans = ecs.GetComponent<ScriptHandler>(entity);
+				//auto scripts = ecs.GetComponent<ScriptHandler>(entity);
 				break;
 			}
 			default:
@@ -222,24 +221,37 @@ namespace
 	template <>
 	void InputList(std::string propertyName, std::vector<GE::Component::LinearForce>& list, float fieldWidth, bool disabled)
 	{
-		BeginDisabled(disabled);
-		TableNextColumn();
+		// 12 characters for property name
+		float charSize = CalcTextSize("012345678901").x;
+
 		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
 			Separator();
+			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
 			TableNextRow();
 			int i{};
 			for (auto& force : list)
 			{
-				std::string itr{std::to_string(i)};
-				InputDouble3("Force " + itr, force.m_magnitude, fieldWidth, disabled);
+				PushID((std::to_string(i++)).c_str());
+				InputDouble3("Force", force.m_magnitude, fieldWidth, disabled);
 				InputDouble1("Lifetime", force.m_lifetime);
-				InputCheckBox("IsActive##" + itr, force.m_isActive);
+				InputCheckBox("IsActive", force.m_isActive);
+				PopID();
 				Separator();
 			}
+			EndTable();
+
+			Separator();
+			Unindent();
+			// 20 magic number cuz the button looks good
+			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
+			{
+				list.push_back(LinearForce());
+			}
+
 			TreePop();
 		}
-		EndDisabled();
 	}
 
 	template <>
@@ -256,17 +268,22 @@ namespace
 			int i{};
 			for (auto& item : list)
 			{
+				PushID((std::to_string(i++)).c_str());
 				InputDouble3(propertyName + " " + std::to_string(i++), item, fieldWidth, disabled);
 				TableNextRow();
+				PopID();
 			}
 			EndTable();
-			TreePop();
-		}
 
-		Separator();
-		if (Button(("Add " + propertyName).c_str(), { GetContentRegionAvail().x, 20 }))
-		{
-			list.push_back({ 0, 0, 0 });
+			Separator();
+			Unindent();
+			// 20 magic number cuz the button looks good
+			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
+			{
+				list.push_back({ 0, 0, 0 });
+			}
+
+			TreePop();
 		}
 	}
 }
