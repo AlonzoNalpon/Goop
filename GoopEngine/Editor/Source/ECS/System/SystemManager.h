@@ -133,7 +133,7 @@ namespace GE
 			\param signature
 			  New signature.
 			************************************************************************/
-			void EntitySignatureChanged(Entity& entity, const ComponentSignature& signature);
+			void EntitySignatureChanged(Entity& entity, const ComponentSignature& signature, bool isActive);
 
 			/*!******************************************************************
 			\brief 
@@ -150,6 +150,7 @@ namespace GE
 
 			/*!******************************************************************
 			\brief
+				This function is depreciated. Behaviour may be undefined.
 			  Registers an entity to a system. This adds the entity to the 
 				system's entity list.
 
@@ -170,6 +171,7 @@ namespace GE
 
 			/*!******************************************************************
 			\brief
+				This function is depreciated. Behaviour may be undefined.
 				Unregisters an entity from a system. This removes the entity from
 				the system's entity list.
 

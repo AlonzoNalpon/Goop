@@ -316,6 +316,7 @@ namespace GE
 
 			/*!******************************************************************
 			\brief
+				This function is depreciated. Behaviour may be undefined.
 				Calls SystemManager's RegisterEntityToSystem function.
 
 			\param entity
@@ -329,6 +330,7 @@ namespace GE
 
 			/*!******************************************************************
 			\brief
+				This function is depreciated. Behaviour may be undefined.
 				Calls SystemManager's UnregisterEntityFromSystem function.
 
 			\param entity

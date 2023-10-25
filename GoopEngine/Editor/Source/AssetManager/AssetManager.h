@@ -52,10 +52,18 @@ namespace GE::Assets
 
     /*!*********************************************************************
     \brief
+      Extracts the filename of the path without '/' and '.XXX'.
+    \param
+      const std::string& (filepath)
+    ************************************************************************/
+    std::string ExtractFilename(const std::string& filepath);
+
+    /*!*********************************************************************
+    \brief
       Loads all the images in a specific directory and adds them into the map
       of loaded images.
     \param
-      onst std::string& directory (Filepath of the directory)
+      const std::string& directory (Filepath of the directory)
     ************************************************************************/
     std::set<int> LoadDirectory(const std::string& directory);
 

@@ -3,7 +3,12 @@
         "Transform",
         "BoxCollider"
     ],
-    "PlayerControllerSystem": [],
+	"PlayerControllerSystem": [	
+        "Transform",
+        "Sprite",
+        "SpriteAnim",
+		"ScriptHandler"
+	],
     "RootTransformSystem": [],
     "CollisionSystem": [
         "Transform",
@@ -13,7 +18,10 @@
         "Transform",
         "Velocity"
     ],
-    "SpriteAnimSystem": [],
+    "SpriteAnimSystem": [		
+        "Sprite",
+        "SpriteAnim"
+	],
     "RenderSystem": [
         "Transform",
         "Sprite",

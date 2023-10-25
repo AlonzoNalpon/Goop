@@ -42,11 +42,11 @@ namespace
 void GE::EditorGUI::Inspector::CreateContent()
 {
 	GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
+	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 
-	if (entity == GE::ECS::INVALID_ID)
+	if (entity == GE::ECS::INVALID_ID || !ecs.GetEntities().contains(entity))
 		return;
 
-	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 	GE::ECS::ComponentSignature sig = ecs.GetComponentSignature(entity);
 
 	bool isActive{ecs.GetIsActiveEntity(entity)};
@@ -189,7 +189,7 @@ namespace
 		InputDouble(("##" + propertyName).c_str(), &property, 0, 0, "%.2f");
 		EndDisabled();
 	}
-
+	
 	void InputCheckBox(std::string propertyName, bool& property, bool disabled)
 	{
 		BeginDisabled(disabled);
@@ -205,7 +205,7 @@ namespace
 	{
 		BeginDisabled(disabled);
 		TableNextColumn();
-		if (TreeNode("Forces"))
+		if (TreeNodeEx("Forces", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnDoubleClick))
 		{
 			Separator();
 			TableNextRow();
