@@ -14,6 +14,10 @@ namespace GE::EditorGUI
 	class Inspector
 	{
 	public:
+		/*!******************************************************************
+		\brief
+			Wrapper to create Component inspector
+		********************************************************************/
 		static void CreateContent();
 	};
 }

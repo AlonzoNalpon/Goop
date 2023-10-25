@@ -28,16 +28,116 @@ using namespace GE::Component;
 
 namespace
 {
+	/*!*********************************************************************
+	\brief 
+		Wrapper to create a vector3 input field for doubles
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] property
+		Vec3 input
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled = false);
+
+	/*!*********************************************************************
+	\brief
+		Wrapper to create a input field for double
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] property
+		Double input
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	void InputDouble1(std::string propertyName, double& property, bool disabled = false);
+
+	/*!*********************************************************************
+	\brief
+		Wrapper to create a checkbox
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] property
+		Bool input
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	void InputCheckBox(std::string propertyName, bool& property, bool disabled = false);
 
+	/*!*********************************************************************
+	\brief
+		This function is not defined. Only used for specialization.
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] list
+		List input
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	template <typename Container>
 	void InputList(std::string propertyName, Container& list, float fieldWidth, bool disabled = false);
 
+	/*!*********************************************************************
+	\brief
+		Wrapper for to create specialized inspector list of vector of 
+		linear forces
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] list
+		Vector of linear forces
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	template <>
 	void InputList(std::string propertyName, std::vector<GE::Component::LinearForce>& list, float fieldWidth, bool disabled);
 
+	/*!*********************************************************************
+	\brief
+		Wrapper for to create specialized inspector list of deque of
+		vec3
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] list
+		Deque of vec3
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	template <>
 	void InputList(std::string propertyName, std::deque<GE::Math::dVec3>& list, float fieldWidth, bool disabled);
 }

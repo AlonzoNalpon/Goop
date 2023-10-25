@@ -16,6 +16,10 @@ namespace GE::EditorGUI
 	class SceneHierachy
 	{
 	public:
+		/*!******************************************************************
+		\brief
+			Wrapper to create Scene graph
+		********************************************************************/
 		static void CreateContent();
 	};
 }

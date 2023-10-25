@@ -14,6 +14,10 @@ namespace GE::EditorGUI
 	class ToolBar
 	{
 	public:
+		/*!******************************************************************
+		\brief
+			Wrapper to create tool bar ribbon
+		********************************************************************/
 		static void CreateContent();
 	};
 }
