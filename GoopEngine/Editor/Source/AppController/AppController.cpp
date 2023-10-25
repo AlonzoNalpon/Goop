@@ -96,7 +96,7 @@ namespace GE::Application
         {
           fRC.StartSystemTimer();
           im.UpdateInput();
-          fRC.EndSystemTimer("Input System");
+          fRC.EndSystemTimer("Input");
 
           fRC.StartSystemTimer();
           imgui.Update();

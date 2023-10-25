@@ -100,7 +100,7 @@ void SystemManager::UpdateSystems()
 		auto& systemName{ system.second };
 		m_systems[systemName]->Update();
 	}
-	fpsC.EndSystemTimer("System Update");
+	fpsC.EndSystemTimer("Update");
 
 	int steps = fpsC.GetSteps();
 	if (steps > 0)
@@ -114,14 +114,14 @@ void SystemManager::UpdateSystems()
 			}
 		}
 	}
-	fpsC.EndSystemTimer("System Fixed Update");
+	fpsC.EndSystemTimer("Fixed Update");
 
 	for (auto& system : m_indexToSystem)
 	{
 		auto& systemName{ system.second };
 		m_systems[systemName]->LateUpdate();
 	}
-	fpsC.EndSystemTimer("System Late Update");
+	fpsC.EndSystemTimer("Late Update");
 }
 
 void SystemManager::UpdateSystemsFixed()
