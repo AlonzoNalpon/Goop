@@ -213,9 +213,38 @@ namespace GE::Assets
 		return loaded;
 	}
 
+	bool AssetManager::AlreadyLoaded(const std::string& path)
+	{
+		/*for (const auto& i : m_loadedImagesStringLookUp)
+		{
+			std::cout << "key: " + i.first + " Value: " << i.second + "\n";
+		}*/
+		auto pathLookup = m_loadedImagesStringLookUp.find(path);
+		if (pathLookup != m_loadedImagesStringLookUp.end()) {
+			return true;
+		}
+		return false;
+	}
+
+	bool AssetManager::AlreadyLoaded(int id)
+	{
+		auto pathLookup = m_loadedImagesIDLookUp.find(id);
+		if (pathLookup != m_loadedImagesIDLookUp.end()) {
+			return true;
+		}
+		return false;
+	}
+
 	int AssetManager::LoadImageW(const std::string& path)
 	{
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+
+		auto pathLookup = m_loadedImagesStringLookUp.find(path);
+		if (pathLookup != m_loadedImagesStringLookUp.end()) {
+			// Path already exists in the map, return the existing ID or handle it as needed.
+			int existingId = pathLookup->second;
+			return existingId;
+		}
 
 		int width, height, channels;
 		int id = m_generator.GenerateID();
@@ -279,6 +308,7 @@ namespace GE::Assets
 
 	void AssetManager::FreeImage(const std::string& name)
 	{
+		std::cout << "ATTEMPTING TO FREE: " + name + "\n";
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 
 		stbi_image_free(GetData(name).GetData());

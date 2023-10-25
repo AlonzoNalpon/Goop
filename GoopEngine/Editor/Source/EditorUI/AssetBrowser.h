@@ -9,6 +9,7 @@ namespace GE::EditorGUI
 	private:
 		static std::set<ImTextureID> m_textID;
 		static std::set<int> m_assetIDs;
+		static std::vector<int> toUnload;
 
 		static void Traverse(std::filesystem::path filepath, ImColor textClr);
 

@@ -10,6 +10,7 @@ using namespace GE::EditorGUI;
 
 std::set<ImTextureID> GE::EditorGUI::AssetBrowser::m_textID;
 std::set<int> GE::EditorGUI::AssetBrowser::m_assetIDs;
+std::vector<int> GE::EditorGUI::AssetBrowser::toUnload;
 
 namespace
 {
@@ -128,19 +129,34 @@ void AssetBrowser::InitView()
 
 	if (!m_textID.empty())
 	{
-		for (auto itr : m_assetIDs)
+		for (const auto& i : m_textID)
 		{
-			assetManager.FreeImage(assetManager.GetName(itr));
+			std::cout << *reinterpret_cast<int*>(i) << std::endl;
+		}
+		for (auto itr : toUnload)
+		{
+			assetManager.FreeImage(assetManager.ExtractFilename(assetManager.GetName(itr)));
 		}
 
 		m_textID.clear();
+		toUnload.clear();
 	}
 
-	m_assetIDs = assetManager.LoadDirectory(m_currDir.string());
+	for (const auto& entry : std::filesystem::directory_iterator(m_currDir.string()))
+	{
+		int id;
+		if (!assetManager.AlreadyLoaded(entry.path().string()))
+		{
+			id = assetManager.LoadImageW(entry.path().string());
+			toUnload.emplace_back(id);
+		}
+		id = assetManager.LoadImageW(entry.path().string());
+		m_assetIDs.emplace(id);
+	}
 
 	for (auto itr : m_assetIDs)
 	{
-		auto imgID = texManager.GetTextureID(assetManager.GetName(itr));
+		auto imgID = texManager.GetTextureID(assetManager.ExtractFilename(assetManager.GetName(itr)));
 		m_textID.insert(reinterpret_cast<ImTextureID>(&imgID));
 	}
 }
