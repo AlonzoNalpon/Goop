@@ -303,7 +303,7 @@ namespace {
     return m_renderer;
   }
 
-  gObjID GraphicsEngine::InitTexture(std::string const& name, GE::Assets::ImageData const& imageData)
+  GLuint GraphicsEngine::InitTexture(std::string const& name, GE::Assets::ImageData const& imageData)
   {
     // Now use textures
     unsigned char* raw_image = imageData.GetData();
