@@ -14,7 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 namespace Graphics
 {
 
-  gObjID TextureManager::AddTexture(std::string const& name, GLint w, GLint h, unsigned char const* imageData)
+  GLuint TextureManager::AddTexture(std::string const& name, GLint w, GLint h, unsigned char const* imageData)
   {
     Texture newTexture{};
     newTexture.height = h;
@@ -28,8 +28,7 @@ namespace Graphics
     glTextureSubImage2D(newTexture.textureHandle, 0, 0, 0, w, h,
       GL_RGBA, GL_UNSIGNED_BYTE, reinterpret_cast<GLfloat const*>(imageData));
 
-    gObjID id{ m_textures.size() };
-    m_textures.emplace_back(newTexture); // add this texture to texture container
+    m_textures.emplace(newTexture.textureHandle, newTexture); // add this texture to texture container
 
     // Add the texture to the lookup table
     if (m_texturesLT.find(name) != m_texturesLT.end())
@@ -37,16 +36,37 @@ namespace Graphics
       throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
         ErrMsg("texture of this name already exists: " + name));
     }
-    m_texturesLT[name] = id;
-    return id;
+    m_texturesLT[name] = newTexture.textureHandle;
+    m_texNameLT[newTexture.textureHandle] = name;
+    return newTexture.textureHandle;
   }
 
-  Texture const& TextureManager::GetTexture(gObjID id) const
+  void TextureManager::DestroyTexture(GLuint textureID)
   {
-    return m_textures[id];
+    auto it = m_textures.find(textureID);
+    if (it == m_textures.end())
+      throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
+        ErrMsg("Attempting to delete nonexistent texture of ID: " + textureID));
+    
+    // TODO: OPENGL FREEING CODE HERE
+    //Texture& tex = m_textures.at(textureID);
+
+    // Clear from all 3 maps
+    m_textures.erase(it);
+    m_texturesLT.erase(m_texturesLT.find(m_texNameLT.at(textureID)));
+    m_texNameLT.erase(textureID);
   }
 
-  gObjID TextureManager::GetTextureID(std::string const& name) const
+  Texture const& TextureManager::GetTexture(GLuint id) const
+  {
+    auto it = m_textures.find(id);
+    if (it == m_textures.end())
+      throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
+        ErrMsg("Unable to find texture of ID: " + id));
+    return it->second;
+  }
+
+  GLuint TextureManager::GetTextureID(std::string const& name) const
   {
     if (m_texturesLT.find(name) == m_texturesLT.end())
     {

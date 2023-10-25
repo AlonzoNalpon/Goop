@@ -29,8 +29,10 @@ namespace Graphics {
     \return the ID of the texture
       
     ************************************************************************/
-    gObjID AddTexture(std::string const& name, GLint w, GLint h, unsigned char const* imageData);
-    void DestroyTextures(); //!< not implemented yet
+    GLuint AddTexture(std::string const& name, GLint w, GLint h, unsigned char const* imageData);
+
+    void DestroyTexture(GLuint textureID);
+    //void DestroyTextures(); //!< not implemented yet
 
     /*!*********************************************************************
     \brief
@@ -40,7 +42,7 @@ namespace Graphics {
     \return
       
     ************************************************************************/
-    Texture const& GetTexture(gObjID id) const;
+    Texture const& GetTexture(GLuint id) const;
 
     /*!*********************************************************************
     \brief
@@ -50,10 +52,12 @@ namespace Graphics {
     \return the ID of the texture, BAD_OBJ_ID if no such texture was found
       
     ************************************************************************/
-    gObjID GetTextureID(std::string const& name) const;
+    GLuint GetTextureID(std::string const& name) const;
   private:
-    std::vector<Texture>          m_textures;     //!< container for textures
-    std::map<std::string, gObjID> m_texturesLT;   //!< map for texture lookup table
+    void DestroyTextureByName(std::string name);
+    std::map<GLuint, Texture>     m_textures;     //!< container for textures
+    std::map<std::string, GLuint> m_texturesLT;   //!< map for texture lookup table
+    std::map<GLuint, std::string> m_texNameLT;    //!< map for ID to name lookup table
   };
 }
 #endif
