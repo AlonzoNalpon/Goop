@@ -265,6 +265,11 @@ namespace {
     return retval;
   }
 
+  void GraphicsEngine::DestroyTexture(GLuint texture)
+  {
+    m_textureManager.DestroyTexture(texture);
+  }
+
   gObjID GraphicsEngine::GetShaderPgm(std::string const& pgmName)
   {
     // Find the shader
