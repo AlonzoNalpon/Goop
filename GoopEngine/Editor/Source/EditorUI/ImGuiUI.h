@@ -51,7 +51,6 @@ namespace GE::EditorGUI
 	{
 	private:		
 		static GE::ECS::Entity m_selectedEntity;		
-		static bool m_frameEnded;
 	public:
 		static void CreateDockSpace(const char* projectName);
 		static void EndDockSpace();
@@ -59,7 +58,5 @@ namespace GE::EditorGUI
 		// Returns a copy intentially as it is a read only variable
 		static GE::ECS::Entity GetSelectedEntity();
 		static void SetSelectedEntity(GE::ECS::Entity& selectedEntity);
-		static bool GetFrameEnded();
-		static void SetFrameEnded(bool frameEnded);
 	};
 }

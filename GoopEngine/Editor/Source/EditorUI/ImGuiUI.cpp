@@ -34,7 +34,6 @@ using namespace ImGui;
 
 // Initialize static
 GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
-bool ImGuiHelper::m_frameEnded = true;
 
 void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
 {
@@ -60,7 +59,6 @@ void ImGuiUI::Update()
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   NewFrame();
-  ImGuiHelper::SetFrameEnded(false);
 
 #ifdef RUN_IMGUI_DEMO
   ImGui::ShowDemoWindow();
@@ -70,8 +68,16 @@ void ImGuiUI::Update()
 
   ToolBar::CreateContent();
 
+  Begin("Console");
+  Console::CreateContent();
+  End();
+
   Begin("Scene Heirachy");
   SceneHierachy::CreateContent();
+  End();
+
+  Begin("Inspector");
+  Inspector::CreateContent();
   End();
 
   Begin("Viewport");
@@ -232,24 +238,11 @@ void ImGuiUI::Update()
     }
   }
   End();
-
   
   if (Visualizer::IsPerformanceShown())
   {
     Visualizer::CreateContent("Performance Visualizer");
   }
-
-#ifdef _DEBUG
-  static bool showOverlay = true;
-  ImGui::SetNextWindowPos(ImVec2(ImGui::GetWindowWidth() / 2.f, 10), ImGuiCond_Always);
-  ImGui::SetNextWindowSize(ImVec2(300, 30), ImGuiCond_Always);
-
-  ImGui::Begin("Overlay Window", &showOverlay, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
-
-  ImGui::Text("Mouse Pos: (%.2f, %.2f)", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
-
-  ImGui::End();
-#endif
 
   Begin("Audio");
   Assets::AssetManager const& aM{ Assets::AssetManager::GetInstance() };
@@ -288,22 +281,15 @@ void ImGuiUI::Update()
   Audio::AudioEngine::GetInstance().Update();
   End();
 
-  Begin("Inspector");
-  Inspector::CreateContent();
-  End();
-
-  Begin("Console");
-  Console::CreateContent();
-  End();
-
   ImGuiHelper::EndDockSpace();
 }
 
 void ImGuiUI::Render()
 {
+  // Empty function callback
+  ErrorCheckEndFrameRecover([](void*, const char*, ...) {GE::Debug::ErrorLogger::GetInstance().LogCritical("ImGui Update failed. Begin stack not ended"); });
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());
-  ImGuiHelper::SetFrameEnded(true);
 }
 
 void ImGuiUI::Exit()
@@ -359,14 +345,4 @@ GE::ECS::Entity GE::EditorGUI::ImGuiHelper::GetSelectedEntity()
 void GE::EditorGUI::ImGuiHelper::SetSelectedEntity(GE::ECS::Entity& selectedEntity)
 {
   m_selectedEntity = selectedEntity;
-}
-
-bool GE::EditorGUI::ImGuiHelper::GetFrameEnded()
-{
-  return m_frameEnded;
-}
-
-void GE::EditorGUI::ImGuiHelper::SetFrameEnded(bool frameEnded)
-{
-  m_frameEnded = frameEnded;
 }
