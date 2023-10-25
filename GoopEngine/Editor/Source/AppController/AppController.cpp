@@ -65,7 +65,6 @@ namespace GE::Application
   void AppController::Run()
   {
     GE::ECS::EntityComponentSystem *ecs = { &GE::ECS::EntityComponentSystem::GetInstance() };
-    //scn.Start();
     gsm.Init();
 
     while (!window.GetWindowShouldClose())
@@ -85,18 +84,6 @@ namespace GE::Application
 
         gEngine.ClearBuffer();
 
-        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_RIGHT))
-        {
-          gsm.SetNextScene("SceneTest");
-        }
-        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_LEFT))
-        {
-          gsm.SetNextScene("Start");
-        }
-        if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_UP))
-        {
-          gsm.Restart();
-        }
         gsm.Update();
 
         fRC.StartSystemTimer();

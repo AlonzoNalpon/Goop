@@ -68,11 +68,7 @@ namespace GE::Assets
 	{
 		if (m_loadedImages.find(id) == m_loadedImages.end())
 		{
-#ifdef ASSET_MANAGER_DEBUG
-			std::cout << "DIDN'T FIND DATA WITH ID: " << id << "\n";
-#endif
-			//return ImageData::Null();
-			throw;
+			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to get data: " + id));
 		}
 
 		return m_loadedImages[id];
@@ -81,10 +77,6 @@ namespace GE::Assets
 	{
 		if (m_loadedImages.find(GetID(name)) == m_loadedImages.end())
 		{
-#ifdef ASSET_MANAGER_DEBUG
-			std::cout << "DIDN'T FIND DATA WITH ID: " << id << "\n";
-#endif
-			//return ImageData::Null();
 			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to get data: " + name));
 		}
 
@@ -161,14 +153,6 @@ namespace GE::Assets
 		
 		// Unload the config data from the AssetGooStream object into m_configData
 		ags.Unload(m_configData);
-
-#ifdef ASSET_MANAGER_DEBUG
-		// For each entry in m_configData, print out the key-value pair if ASSET_MANAGER_DEBUG is defined
-		for (std::pair<std::string, std::string> const& entry : m_configData)
-		{
-			std::cout << "\"" << entry.first << "\" : \"" << entry.second << "\"" << std::endl;
-		}
-#endif    
 	}
 
 	void AssetManager::SpriteCheck()
@@ -184,14 +168,7 @@ namespace GE::Assets
 	GE::Serialization::SpriteData AssetManager::GetSpriteData(std::string key)
 	{
 		if (m_loadedSpriteData.find(key) == m_loadedSpriteData.end())
-#ifdef ASSET_MANAGER_DEBUG
-			std::cout << "DIDN'T FIND SPRITE DATA WITH: " << key << "\n";
-#endif
-		return m_loadedSpriteData[key];
-
-#ifdef ASSET_MANAGER_DEBUG
-		std::cout << "SPRITE DATA RETRIEVED: " << m_loadedSpriteData[key] << "\n";
-#endif
+			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Sprite Data does not exist: " + key));
 
 		return m_loadedSpriteData[key];
 	}
@@ -202,12 +179,14 @@ namespace GE::Assets
 		height = m_loadedImages[id].GetHeight();
 	}
 
-	void AssetManager::LoadDirectory(const std::string& path)
+	std::set<int> AssetManager::LoadDirectory(const std::string& path)
 	{
+		std::set<int> loaded;
 		for (const auto& entry : std::filesystem::directory_iterator(path))
 		{
-			LoadImageW(entry.path().string());
+			loaded.emplace(LoadImageW(entry.path().string()));
 		}
+		return loaded;
 	}
 
 	int AssetManager::LoadImageW(const std::string& path)
@@ -219,14 +198,7 @@ namespace GE::Assets
 
 		if (img == NULL)
 		{
-#ifdef ASSET_MANAGER_DEBUG
-			std::cout << "Error encountered while loading: " << path.c_str() << "\n";
-#endif
-		}
-		else {
-#ifdef ASSET_MANAGER_DEBUG
-			printf("Successfully loaded %s. (ID: %d Width: %d px Height: %d px Channel: %d)\n", path.c_str(), id, width, height, channels);
-#endif
+			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load image: " + path));
 		}
 
 		ImageData imageData{ id, path, width, height, channels, img };
@@ -259,11 +231,9 @@ namespace GE::Assets
 			ImageData imageData = pair.second;
 			if (!imageData.GetData())
 			{
+				// Image Data already deleted.
 				continue;
 			}
-#ifdef ASSET_MANAGER_DEBUG
-			printf("Freeing Image: %s...\n", imageData.GetName().c_str());
-#endif
 			// Free the loaded image data
 			stbi_image_free(imageData.GetData());
 
@@ -275,10 +245,6 @@ namespace GE::Assets
 		m_loadedImages.clear();
 		m_loadedImagesStringLookUp.clear();
 		m_loadedImagesIDLookUp.clear();
-
-#ifdef ASSET_MANAGER_DEBUG
-		printf("Successfully cleared data.");
-#endif
 	}
 
 	void AssetManager::FreeImage(const std::string& name)
@@ -287,6 +253,14 @@ namespace GE::Assets
 		m_loadedImages.erase(GetData(name).GetID());
 		m_loadedImagesStringLookUp.erase(GetData(name).GetName());
 		m_loadedImagesIDLookUp.erase(GetData(name).GetID());
+	}
+
+	void AssetManager::FreeImage(int id)
+	{
+		stbi_image_free(GetData(id).GetData());
+		m_loadedImages.erase(id);
+		m_loadedImagesStringLookUp.erase(GetData(id).GetName());
+		m_loadedImagesIDLookUp.erase(id);
 	}
 
 	void AssetManager::LoadSpritesheets()
@@ -316,4 +290,20 @@ namespace GE::Assets
 		}
 	}
 
-}
+	std::unordered_map<std::string, std::string> AssetManager::GetMapData(std::string nameOfMap) const
+	{
+		if (nameOfMap == "m_images")
+			return m_images;
+		if (nameOfMap == "m_audio")
+			return m_audio;
+		if (nameOfMap == "m_prefabs")
+			return m_prefabs;
+		if (nameOfMap == "m_scenes")
+			return m_scenes;
+		if (nameOfMap == "m_shaders")
+			return m_shaders;
+		if (nameOfMap == "m_configData")
+			return m_configData;
+		return std::unordered_map<std::string, std::string>{};
+	}
+}		

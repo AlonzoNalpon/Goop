@@ -13,8 +13,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include "../Scenes/SceneBase.h"
-#include <Scenes/SceneStart.h>
+#include "../Scenes/Scene.h"
 #include <Scenes/SceneTest.h>
 
 namespace GE::Scenes
@@ -26,7 +25,7 @@ namespace GE::Scenes
     \brief
       Default Constructor.
     ************************************************************************/
-    SceneManager() : m_currentScene{ "Start" }, m_nextScene{ "Start" }, Scenes{} {};
+    SceneManager() : m_currentScene{ "Start" }, m_nextScene{ "Start" } {};
 
     /*!*********************************************************************
     \brief
@@ -34,8 +33,7 @@ namespace GE::Scenes
     ************************************************************************/
     SceneManager(std::string current_scene, std::string next_scene) :
       m_currentScene{ current_scene },
-      m_nextScene{ next_scene },
-      Scenes{} {};
+      m_nextScene{ next_scene } {};
 
     /*!*********************************************************************
     \brief
@@ -99,6 +97,8 @@ namespace GE::Scenes
     std::string m_nextScene;
     /* Map of all the scene files.Currently the way scenes are inserted
     into this map is hardcoded. */
-    std::map<std::string, std::unique_ptr<ISceneBase>>Scenes;
+    //std::map<std::string, std::unique_ptr<Scene>>Scenes;
+    GE::Assets::AssetManager* am = &GE::Assets::AssetManager::GetInstance();
+    Scene scene;
   };
 }

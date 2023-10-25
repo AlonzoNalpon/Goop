@@ -1,6 +1,12 @@
 #include <pch.h>
 #include "SceneTest.h"
 #include "../Serialization/ObjectGooStream.h"
+#include <Systems/Physics/CollisionSystem.h>
+#include <Systems/Physics/PhysicsSystem.h>
+#include <Systems/DraggableObject/DraggableObjectSystem.h>
+#include <Systems/PlayerController/PlayerControllerSystem.h>
+#include <Systems/SpriteAnim/SpriteAnimSystem.h>
+#include <Systems/Rendering/RenderingSystem.h>
 
 using namespace GE;
 using namespace ECS;
@@ -22,7 +28,7 @@ void GE::Scenes::SceneTest::MakeDraggableBox()
 		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt);
 }
 
-void GE::Scenes::SceneTest::Load()
+void GE::Scenes::SceneTest::Load(std::string)
 {
 	ecs = { &GE::ECS::EntityComponentSystem::GetInstance() };
 	of = { &GE::ObjectFactory::ObjectFactory::GetInstance() };
