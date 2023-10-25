@@ -238,6 +238,10 @@ void ImGuiUI::Update()
   AssetBrowser::CreateContentDir();
   End();
 
+  Begin("Asset View");
+  AssetBrowser::CreateContentView();
+  End();
+
   
   if (Visualizer::IsPerformanceShown())
   {
