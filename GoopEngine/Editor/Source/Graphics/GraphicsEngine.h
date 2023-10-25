@@ -85,7 +85,7 @@ namespace Graphics {
     \params
       name name of the texture to be stored
       imageData image data
-    \return
+    \return the ID for the texture which can also be used directly with opengl
       
     ************************************************************************/
     GLuint InitTexture(std::string const& name, GE::Assets::ImageData const& imageData);

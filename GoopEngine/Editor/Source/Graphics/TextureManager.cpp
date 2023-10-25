@@ -48,8 +48,13 @@ namespace Graphics
       throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
         ErrMsg("Attempting to delete nonexistent texture of ID: " + textureID));
     
-    // TODO: OPENGL FREEING CODE HERE
-    //Texture& tex = m_textures.at(textureID);
+    {
+      // Unbind the texture in case it's binded
+      glBindTexture(GL_TEXTURE_2D, 0);
+
+      // Delete the texture
+      glDeleteTextures(1, &textureID);
+    }
 
     // Clear from all 3 maps
     m_textures.erase(it);
@@ -72,7 +77,6 @@ namespace Graphics
     {
       throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
         ErrMsg("No such texture found: " + name));
-      //return BAD_OBJ_ID;
     }
     return m_texturesLT.at(name);
   }
