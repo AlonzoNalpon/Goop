@@ -26,7 +26,7 @@ namespace GE
 		}
 
 		template<>
-		GE::Component::Transform DeserializeComponent<GE::Component::Transform>(std::string const& componentData)
+		GE::Component::Transform DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentDWrapper const cw{ componentData };
 
@@ -40,7 +40,7 @@ namespace GE
 		}
 
 		template <>
-		GE::Component::BoxCollider DeserializeComponent<GE::Component::BoxCollider>(std::string const& componentData)
+		GE::Component::BoxCollider DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentDWrapper const cw{ componentData };
 
@@ -57,7 +57,7 @@ namespace GE
 		}
 
 		template<>
-		GE::Component::Velocity DeserializeComponent<GE::Component::Velocity>(std::string const& componentData)
+		GE::Component::Velocity DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentDWrapper const cw{ componentData };
 
@@ -73,7 +73,7 @@ namespace GE
 		}
 
 		template<>
-		GE::Component::Sprite DeserializeComponent<GE::Component::Sprite>(std::string const& componentData)
+		GE::Component::Sprite DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentDWrapper const cw{ componentData };
 			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
@@ -93,7 +93,7 @@ namespace GE
 		}
 
 		template<>
-		GE::Component::SpriteAnim DeserializeComponent<GE::Component::SpriteAnim>(std::string const& componentData)
+		GE::Component::SpriteAnim DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentDWrapper const cw{ componentData };
 			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
@@ -114,7 +114,7 @@ namespace GE
 		}
 
 		template<>
-		GE::Component::Model DeserializeComponent<GE::Component::Model>(std::string const& componentData)
+		GE::Component::Model DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentDWrapper const cw{ componentData };
 			Component::Model model;
@@ -125,7 +125,7 @@ namespace GE
 
 		// WIP
 		template<>
-		GE::Component::Tween DeserializeComponent<GE::Component::Tween>(std::string const& componentData)
+		GE::Component::Tween DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentDWrapper const cw{ componentData };
 			Component::Tween tween{ 0 };
@@ -140,7 +140,7 @@ namespace GE
 		}
 
 		template<>
-		GE::Component::ScriptHandler DeserializeComponent<GE::Component::ScriptHandler>(std::string const& componentData)
+		GE::Component::ScriptHandler DeserializeComponent(std::string const& componentData)
 		{
 		    Serialization::ComponentDWrapper const cw{ componentData };
 				std::vector<std::pair<std::string, std::string>> const vec{
@@ -151,8 +151,22 @@ namespace GE
 		    return Component::ScriptHandler(vec, current);
 		}
 
-		/*template <typename T>
-		void SerializeComponent()*/
+		// Base template to fall back on
+		template <typename CompType>
+		void SerializeComponent(CompType const& component, Serialization::ComponentSWrapper& wrapper)
+		{
+			std::ostringstream oss{};
+			oss << "Trying to Serialize unsupported component: " << typeid(CompType).name();
+			GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+		}
+
+		template<>
+		void SerializeComponent(GE::Component::Transform const& component, Serialization::ComponentSWrapper& wrapper)
+		{
+			wrapper.InsertBasicType("m_pos", component.m_pos);
+			wrapper.InsertBasicType("m_scale", component.m_scale);
+			wrapper.InsertBasicType("m_rot", component.m_rot);
+		}	
 
 	}	// namespace ObjectFactory
 }	// namespace GE

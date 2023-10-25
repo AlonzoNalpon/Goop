@@ -33,17 +33,7 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
   ECS::ComponentSignature const sig{ ecs.GetComponentSignature(srcObj) };
 
-  for (ECS::COMPONENT_TYPES i{static_cast<ECS::COMPONENT_TYPES>(0) }; i < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)
-  {
-    if (!IsBitSet(sig, i)) { continue; }
-    
-    rttr::instance componentInstance{ GetEntityComponent(srcObj, i) };
-    if (!componentInstance.is_valid()) { continue; }
-
-    auto component{ componentInstance.try };
-  }
-
-  /*if (IsBitSet(sig, ECS::COMPONENT_TYPES::TRANSFORM))
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::TRANSFORM))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Transform>(srcObj));
   }
@@ -74,7 +64,7 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   if (IsBitSet(sig, ECS::COMPONENT_TYPES::SCRIPT_HANDLER))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::ScriptHandler>(srcObj));
-  }*/
+  }
 }
 
 GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData data) const

@@ -24,5 +24,50 @@ ComponentSWrapper::ComponentSWrapper(const char* componentName)
 
 void ComponentSWrapper::InsertBasicType(const char* key, rttr::variant value)
 {
+  rapidjson::Value jsonKey{ key, m_data.GetAllocator() };
+  rapidjson::Value jsonVal{};
+  rttr::type valueType{ value.get_type() };
 
+  if (valueType == rttr::type::get<int>())
+  {
+    jsonVal.SetInt(value.to_int());
+  }
+  else if (valueType == rttr::type::get<double>())
+  {
+    jsonVal.SetDouble(value.to_int());
+  }
+  else if (valueType == rttr::type::get<GE::Math::dVec3>())
+  {
+    jsonVal.SetString(valueType.get_method("ToString").invoke(value).to_string().c_str(),
+      m_data.GetAllocator());
+  }
+  else if (valueType == rttr::type::get<std::string>() || valueType == rttr::type::get<const char*>())
+  {
+    jsonVal.SetString(value.to_string().c_str(), m_data.GetAllocator());
+  }
+  else if (valueType == rttr::type::get<bool>())
+  {
+    jsonVal.SetBool(value.to_bool());
+  }
+  else if (valueType == rttr::type::get<unsigned>())
+  {
+    jsonVal.SetUint(value.to_uint32());
+  }
+  else if (valueType == rttr::type::get<float>())
+  {
+    jsonVal.SetFloat(value.to_float());
+  }
+  else if (valueType == rttr::type::get<uint64_t>())
+  {
+    jsonVal.SetUint64(value.to_uint64());
+  }
+  else
+  {
+    std::ostringstream oss{};
+    oss << "Trying to deserialize unknown basic type: " << valueType.get_name() << " with key: " << key;
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    jsonVal.SetNull();
+  }
+
+  m_data.AddMember(jsonKey, jsonVal, m_data.GetAllocator());
 }

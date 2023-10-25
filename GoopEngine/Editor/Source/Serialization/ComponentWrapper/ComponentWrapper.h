@@ -101,6 +101,9 @@ namespace GE
       \brief
         Inserts a value with a basic type into the wrapper object.
         Supports most C standard types (int, float, double etc.)
+
+        Additional supports:
+          GE::Math::dVec3
       \param key
         The value of the key in string to store the value as
       \param value
