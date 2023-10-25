@@ -51,7 +51,7 @@ namespace GE::Application
 
       fRC.InitFrameRateController(*am->GetConfigData<int>("FPS Limit"), *am->GetConfigData<int>("Steps Per Second"), *am->GetConfigData<int>("FPS Check Interval"));
 
-      window = { *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), "GOOP" };
+      window = { *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), "Goop Engine"};
       window.CreateAppWindow();
 
       gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
@@ -71,7 +71,7 @@ namespace GE::Application
     }
     catch (GE::Debug::IExceptionBase& e)
     {
-      e.LogSource();
+      PrintException(e);
     }
   }
   
@@ -89,6 +89,9 @@ namespace GE::Application
 
         gEngine.ClearBuffer();
 
+        /////////////////
+        // Update calls
+        /////////////////
         try
         {
           fRC.StartSystemTimer();
@@ -110,6 +113,9 @@ namespace GE::Application
           PrintException(e);
         }
 
+        /////////////////
+        // Draw calls
+        /////////////////
         try
         {
           fRC.StartSystemTimer();
@@ -124,15 +130,6 @@ namespace GE::Application
         {
           PrintException(e);
         }
-
-        std::stringstream ss;
-        ss << *GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Window Title") << " | FPS: " << std::fixed
-          << std::setfill('0') << std::setw(5) << std::setprecision(2) << fRC.GetFPS() << " | Entities: " << EntityComponentSystem::GetInstance().GetEntities().size();
-        for (auto const& system : fRC.GetSystemTimers())
-        {
-          ss << " | " << system.first << ": " << std::setw(4) << system.second.count() << "us";
-        }
-        window.SetWindowTitle(ss.str().c_str()); // this is how you set window title
 
         window.SwapBuffers();
         fRC.EndFrame();
