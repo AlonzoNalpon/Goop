@@ -265,11 +265,6 @@ namespace {
     return retval;
   }
 
-  void GraphicsEngine::DestroyTexture(GLuint texture)
-  {
-    m_textureManager.DestroyTexture(texture);
-  }
-
   gObjID GraphicsEngine::GetShaderPgm(std::string const& pgmName)
   {
     // Find the shader
@@ -358,6 +353,12 @@ namespace {
   void GraphicsEngine::DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr)
   {
     m_renderer.RenderLineDebug(startPt, endPt, clr);
+  }
+
+
+  void GraphicsEngine::DestroyTexture(GLuint texture)
+  {
+    m_textureManager.DestroyTexture(texture);
   }
 
 }

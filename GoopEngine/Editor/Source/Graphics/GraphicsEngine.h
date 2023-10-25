@@ -157,6 +157,14 @@ namespace Graphics {
     ************************************************************************/
     void DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr = {1, 0, 0});
 
+    /*!*********************************************************************
+    \brief
+      Destroys a texture using texture manager.
+    \params
+      texture
+    \return
+    ************************************************************************/
+    void DestroyTexture(GLuint texture);
   protected:
     GLint m_vpWidth, m_vpHeight; //!< dimensions of viewport
     GLfloat m_ar; //!< aspect ratio
@@ -181,14 +189,6 @@ namespace Graphics {
     ************************************************************************/
     Model GenerateLine();
 
-    /*!*********************************************************************
-    \brief
-      Destroys a texture using texture manager.
-    \params
-      texture
-    \return
-    ************************************************************************/
-    void DestroyTexture(GLuint texture);
     // SHADERS ARE ONLY TO BE QUERIED BY MODELS REQUESTING A HANDLE
     // USERS MUST SPECIFY SHADER NAME WHILE CREATING A MODEL
 
