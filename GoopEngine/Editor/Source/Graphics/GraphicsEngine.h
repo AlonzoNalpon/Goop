@@ -106,7 +106,7 @@ namespace Graphics {
       
     ************************************************************************/
     gObjID CreateAnimation(std::string const& name, GLuint slices, GLuint stacks, GLuint frames,
-      f64 speed, u32 flags, gObjID textureID);
+      f64 speed, u32 flags, GLuint textureID);
 
     /*!*********************************************************************
     \brief

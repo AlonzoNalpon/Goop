@@ -268,6 +268,7 @@
     <ClCompile Include="Source\Systems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Source\Systems\PlayerController\PlayerControllerSystem.cpp" />
     <ClCompile Include="Source\Serialization\SpriteGooStream.cpp" />
+    <ClCompile Include="Source\Systems\Rendering\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="Source\EditorUI\ImGuiUI.cpp" />
     <ClCompile Include="Source\Systems\RootTransform\RootTransformSystem.cpp" />
@@ -278,6 +279,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
+    <ClInclude Include="Source\Component\Camera.h" />
     <ClInclude Include="Source\EditorUI\Console.h" />
     <ClInclude Include="Source\AI\ActionNode.h" />
     <ClInclude Include="Source\AI\BehaviourTree.h" />
@@ -382,6 +384,7 @@
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />
     <ClInclude Include="Source\EditorUI\ImGuiUI.h" />
+    <ClInclude Include="Source\Systems\Rendering\CameraSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\RootTransformSystem.h" />
     <ClInclude Include="Source\Systems\SpriteAnim\SpriteAnimSystem.h" />
     <ClInclude Include="Source\Window\Window.h" />

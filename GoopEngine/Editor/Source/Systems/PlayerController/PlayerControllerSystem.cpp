@@ -24,8 +24,8 @@ constexpr double pi = 3.14159265358979323846;
 // There's no animation controller system YET
 static Graphics::gObjID sharkAnimID{};	// this is the shark animation ID
 static Graphics::gObjID wormAnimID{};		// this is the worm animation ID
-static Graphics::gObjID wormSpriteID{};		// this is the worm animation ID
-static Graphics::gObjID sharkSpriteID{};		// this is the worm animation ID
+static					 GLuint wormSpriteID{};		// this is the worm animation ID
+static					 GLuint sharkSpriteID{};		// this is the worm animation ID
 #pragma endregion
 
 void PlayerControllerSystem::Awake() 
