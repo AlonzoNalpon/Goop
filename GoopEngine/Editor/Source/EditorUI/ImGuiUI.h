@@ -52,11 +52,37 @@ namespace GE::EditorGUI
 	private:		
 		static GE::ECS::Entity m_selectedEntity;		
 	public:
+		/*!******************************************************************
+		\brief 
+		  Starts docking area
+
+		\param[in] projectName
+			Project name
+		********************************************************************/
 		static void CreateDockSpace(const char* projectName);
+
+		/*!******************************************************************
+		\brief 
+		  Ends Docking area
+		********************************************************************/
 		static void EndDockSpace();
 
-		// Returns a copy intentially as it is a read only variable
+		/*!******************************************************************
+		\brief 
+		  Returns a read only ID of the selected entity
+
+		\return 
+			Selected entity
+		********************************************************************/
 		static GE::ECS::Entity GetSelectedEntity();
+
+		/*!******************************************************************
+		\brief 
+		  Sets the currently selected entity
+
+		\param[in] selectedEntity
+			Entity selected
+		********************************************************************/
 		static void SetSelectedEntity(GE::ECS::Entity& selectedEntity);
 	};
 }
