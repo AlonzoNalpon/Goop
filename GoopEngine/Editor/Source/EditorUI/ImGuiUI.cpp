@@ -378,11 +378,8 @@ void GE::EditorGUI::ImGuiHelper::UpdateViewport()
 
           for (GE::ECS::Entity curr : ecs->GetEntities())
           {
-
             // get sprite component
             auto const* transPtr = ecs->GetComponent<GE::Component::Transform>(curr);
-            if (!transPtr || !ecs->GetComponent<GE::Component::Sprite>(curr))
-              continue; // skip if there's no transform or sprite component
             auto const& trans{ *transPtr };
             GE::Math::dVec2 min{ trans.m_pos.x - trans.m_scale.x * 0.5, trans.m_pos.y - trans.m_scale.y * 0.5 };
             GE::Math::dVec2 max{ trans.m_pos.x + trans.m_scale.x * 0.5, trans.m_pos.y + trans.m_scale.y * 0.5 };
