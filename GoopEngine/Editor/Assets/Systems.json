@@ -1,7 +1,8 @@
 {
     "DraggableObjectSystem": [
         "Transform",
-        "BoxCollider"
+        "BoxCollider",
+		"Draggable"
     ],
 	"PlayerControllerSystem": [	
         "Transform",

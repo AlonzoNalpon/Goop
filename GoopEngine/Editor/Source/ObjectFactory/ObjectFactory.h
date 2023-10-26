@@ -30,6 +30,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Tween.h>
 #include <Component/Model.h>
 #include <Component/ScriptHandler.h>
+#include <Component/Draggable.h>
 
 namespace GE::ObjectFactory
 {
