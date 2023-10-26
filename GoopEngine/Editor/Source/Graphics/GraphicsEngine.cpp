@@ -410,11 +410,4 @@ namespace {
   {
     m_renderer.RenderLineDebug(startPt, endPt, clr);
   }
-
-
-  void GraphicsEngine::DestroyTexture(GLuint texture)
-  {
-    m_textureManager.DestroyTexture(texture);
-  }
-
 }
