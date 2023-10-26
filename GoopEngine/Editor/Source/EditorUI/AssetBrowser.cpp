@@ -35,6 +35,11 @@ void AssetBrowser::CreateContentDir()
 	//main node
 	if (TreeNodeEx("Assets", ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		if (IsItemClicked())
+		{
+			m_currDir = assetsDirectory;
+			//AssetBrowser::InitView();
+		}
 		//loop through files in Asset directory
 		for (const auto& file : std::filesystem::directory_iterator(assetsDirectory))
 		{
@@ -57,6 +62,9 @@ void AssetBrowser::CreateContentView()
 		return;
 	}
 
+	Text(m_currDir.filename().string().c_str());
+	Text("________________________________________");
+
 	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
 	{
 		std::string const& extension{ file.path().extension().string() };
@@ -76,7 +84,7 @@ void AssetBrowser::CreateContentView()
 		for (auto itr : m_textID)	// image
 		{
 			//print img using ImGui::Image();
-			Image(itr, { 25.0f , 25.0f });
+			Image(itr, { 100.0f , 100.0f });
 			//name of image
 			Text(file.path().filename().string().c_str());
 		}
@@ -124,15 +132,24 @@ void AssetBrowser::InitView()
 	//texManager.GetTextureID();
 	// shld have container of IDs~
 
+	//create temp vcector/list of filenames that you are loading -> add in whatever isnt alr loaded (i.e. only loaded for browser)
+
+	// std::vector<id> filesToLoad;
+	// for (filesToLoad) [
+	//		if (!alreadyLoaded())
+	//			call load function
+	//			filesToLoad.emplace_back(filename);
+	//		
+	// }
+
+
+	// for (filesToLoad) [ free(getname(id)); }
+
 	AssetManager& assetManager = AssetManager::GetInstance();
 	auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
 
 	if (!m_textID.empty())
 	{
-		for (const auto& i : m_textID)
-		{
-			std::cout << *reinterpret_cast<int*>(i) << std::endl;
-		}
 		for (auto itr : toUnload)
 		{
 			assetManager.FreeImage(assetManager.ExtractFilename(assetManager.GetName(itr)));
@@ -142,15 +159,26 @@ void AssetBrowser::InitView()
 		toUnload.clear();
 	}
 
-	for (const auto& entry : std::filesystem::directory_iterator(m_currDir.string()))
+	for (const auto& file : std::filesystem::directory_iterator(m_currDir.string()))
 	{
-		int id;
-		if (!assetManager.AlreadyLoaded(entry.path().string()))
+		if (!file.is_regular_file()) //if file is a folder, continue -> don't need to load image
 		{
-			id = assetManager.LoadImageW(entry.path().string());
+			continue;
+		}
+
+		std::string const& extension{ file.path().extension().string() }; //getting extension on file
+		if (extension != m_imageFile) //if file is not an image file, continue -> don't need to load image
+		{
+			continue;
+		}
+
+		int id;
+		if (!assetManager.AlreadyLoaded(file.path().string()))
+		{
+			id = assetManager.LoadImageW(file.path().string());
 			toUnload.emplace_back(id);
 		}
-		id = assetManager.LoadImageW(entry.path().string());
+		id = assetManager.LoadImageW(file.path().string());
 		m_assetIDs.emplace(id);
 	}
 
