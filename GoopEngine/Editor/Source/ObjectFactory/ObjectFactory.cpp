@@ -13,6 +13,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AssetManager/AssetManager.h>
 #include <Systems/Systems.h>
 
+#include <Component/Draggable.h>
+
 #include "SerializeComponents.h"
 #include "../Serialization/ObjectGooStream.h"
 #include "../Serialization/PrefabGooStream.h"
@@ -285,6 +287,9 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       break;
     case COMPONENT_TYPES::SCRIPT_HANDLER:
       ecs.RegisterComponent<GE::Component::ScriptHandler>();
+      break;
+    case COMPONENT_TYPES::DRAGGABLE:
+      ecs.RegisterComponent<GE::Component::Draggable>();
       break;
     default:
       throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown component type"));

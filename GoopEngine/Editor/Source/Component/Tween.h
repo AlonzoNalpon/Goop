@@ -8,6 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
+#include <queue>
 
 namespace GE
 {
@@ -17,7 +18,7 @@ namespace GE
 		{
 			using vec3 = GE::Math::dVec3;
 
-			std::queue<vec3> m_tweens;
+			std::deque<vec3> m_tweens;
 			double m_timePerTween;
 			double m_timeTaken;
 			double m_timeElapsed;
@@ -40,7 +41,7 @@ namespace GE
 			************************************************************************/
 			void AddTween(vec3 target)
 			{
-				m_tweens.emplace(target);
+				m_tweens.push_back(target);
 				m_timePerTween = m_timeTaken / m_tweens.size();
 			}
 		};

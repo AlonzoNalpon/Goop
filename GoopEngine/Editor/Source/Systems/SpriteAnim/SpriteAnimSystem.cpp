@@ -18,11 +18,33 @@ namespace GE::Systems
 {
   constexpr double pi = 3.14159265358979323846;
 
+  void SpriteAnimSystem::Start()
+  {
+    System::Start();
+    Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
+    for (GE::ECS::Entity entity : GetUpdatableEntities())
+    {
+      //Component::Model* model{ m_ecs->GetComponent<Component::Model>(entity) };
+      Component::Sprite* sprite{ m_ecs->GetComponent<Component::Sprite>(entity) };
+      Component::SpriteAnim* animData{ m_ecs->GetComponent<Component::SpriteAnim>(entity) };
+      if (animData)
+      {
+        // get the sprite animation
+        Graphics::SpriteAnimation const& spriteAnim
+        { gEngine.animManager.GetAnim(animData->animID) };
+
+
+        // setting the new sprite based on data
+        sprite->spriteData.info = spriteAnim.frames[animData->currFrame];
+      }
+    }
+  }
+
   void SpriteAnimSystem::Update()
   {
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
     double dt{ FPS::FrameRateController::GetInstance().GetDeltaTime() };
-    for (GE::ECS::Entity entity : m_entities)
+    for (GE::ECS::Entity entity : GetUpdatableEntities())
     {
       //Component::Model* model{ m_ecs->GetComponent<Component::Model>(entity) };
       Component::Sprite* sprite{ m_ecs->GetComponent<Component::Sprite>(entity) };

@@ -11,12 +11,57 @@
             },
             {
                 "Sprite": {
-                    "texture": 0
+                    "filename": "SS_MineWorm"
                 }
             },
             {
                 "Model": {
                     "mdlID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 1",
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 150, 150, 1 }",
+                    "scale": "{ 100, 100, 0 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 150, 150 }",
+                    "width": 30.0,
+                    "height": 30.0
+                }
+            },
+            {
+                "Velocity": {
+                    "vel": "{ 0, 0, 0 }",
+                    "acc": "{ 0, 0, 0 }",
+                    "mass": 1.0,
+                    "gravity": "{ 0, 0, 0 }",
+                    "dragForce": {
+                        "magnitude": 0.0,
+                        "isActive": false
+                    },
+                    "forces": [
+                        {
+                            "magnitude": "",
+                            "lifetime": 0.0,
+                            "isActive": false,
+                            "age": 0.0
+                        },
+                        {
+                            "magnitude": "",
+                            "lifetime": 0.0,
+                            "isActive": false,
+                            "age": 0.0
+                        }
+                    ]
                 }
             }
         ]
@@ -40,12 +85,12 @@
             },
             {
                 "Sprite": {
-                    "texture": 0
+                    "filename": "SS_MineWorm"
                 }
             },
             {
                 "SpriteAnim": {
-                    "animID": 0
+                    "name": "SS_MineWorm"
                 }
             },
             {
@@ -55,7 +100,11 @@
             },
             {
                 "Tween": {
-                    "tweens": null,
+                    "tweens": [
+                        "{ -900, 0, 0 }",
+                        "{ 0, -350, 0 }",
+                        "{ 350, 350, 0 }"
+                    ],
                     "timePerTween": 1.0,
                     "timeTaken": 3.0,
                     "timeElapsed": 0.0,

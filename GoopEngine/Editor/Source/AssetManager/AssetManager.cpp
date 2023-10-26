@@ -39,6 +39,30 @@ namespace GE::Assets
 		FreeImages();
 	}
 
+	std::string AssetManager::ExtractFilename(const std::string& filepath)
+	{
+		// Find the last occurrence of the path separator, typically '/'
+		size_t pos = filepath.find_last_of('/');
+
+		std::string filename = (pos != std::string::npos) ? filepath.substr(pos + 1) : filepath;
+
+		// If the path separator is not found, try '\\'
+		pos = filepath.find_last_of('\\');
+
+		// Extract the substring after the last path separator
+		filename = (pos != std::string::npos) ? filepath.substr(pos + 1) : filepath;
+
+		// Find the last occurrence of the file extension separator, typically '.'
+		size_t extPos = filename.find_last_of('.');
+
+		// If the file extension separator is found, remove the extension
+		if (extPos != std::string::npos) {
+			filename = filename.substr(0, extPos);
+		}
+
+		return filename;
+	}
+
 	const std::string& AssetManager::GetName(int id)
 	{
 		if (m_loadedImagesIDLookUp.find(id) == m_loadedImagesIDLookUp.end())
@@ -191,6 +215,8 @@ namespace GE::Assets
 
 	int AssetManager::LoadImageW(const std::string& path)
 	{
+		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+
 		int width, height, channels;
 		int id = m_generator.GenerateID();
 
@@ -206,27 +232,30 @@ namespace GE::Assets
 		m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(path, id));
 		m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(id, path));
 		 
+		gEngine.InitTexture(ExtractFilename(imageData.GetName()), imageData);
+
 		return id;
 	}
 
 	void AssetManager::LoadImages()
 	{
 		stbi_set_flip_vertically_on_load(true);
-		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+		//auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 
 		// Load all images in m_images
 		for (std::pair<std::string, std::string> const& image : m_images)
 		{
-			int id = LoadImageW(image.second);
-			gEngine.InitTexture(image.first, GetData(id));
+			/*int id =*/ LoadImageW(image.second);
+			//gEngine.InitTexture(image.second, GetData(id));
 		}
 	}
 
 	void AssetManager::FreeImages()
 	{
+		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+
 		for (const auto& pair : m_loadedImages)
 		{
-
 			int id = pair.first;
 			ImageData imageData = pair.second;
 			if (!imageData.GetData())
@@ -239,6 +268,7 @@ namespace GE::Assets
 
 			m_loadedImagesStringLookUp.erase(imageData.GetName());
 			m_loadedImagesIDLookUp.erase(id);
+			gEngine.DestroyTexture(gEngine.textureManager.GetTextureID(ExtractFilename(pair.second.GetName())));
 		}
 
 		// Clear the map of loaded images
@@ -249,10 +279,13 @@ namespace GE::Assets
 
 	void AssetManager::FreeImage(const std::string& name)
 	{
+		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+
 		stbi_image_free(GetData(name).GetData());
 		m_loadedImages.erase(GetData(name).GetID());
 		m_loadedImagesStringLookUp.erase(GetData(name).GetName());
 		m_loadedImagesIDLookUp.erase(GetData(name).GetID());
+		gEngine.DestroyTexture(gEngine.textureManager.GetTextureID(name));
 	}
 
 	void AssetManager::FreeImage(int id)

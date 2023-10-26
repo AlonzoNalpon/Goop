@@ -28,7 +28,7 @@ namespace GE
 		template<>
 		GE::Component::Transform DeserializeComponent(std::string const& componentData)
 		{
-			Serialization::ComponentDWrapper const cw{ componentData };
+			Serialization::ComponentWrapper const cw{ componentData };
 
 			//read map, manipulate into trans, return
 			GE::Component::Transform trans;
@@ -42,7 +42,7 @@ namespace GE
 		template <>
 		GE::Component::BoxCollider DeserializeComponent(std::string const& componentData)
 		{
-			Serialization::ComponentDWrapper const cw{ componentData };
+			Serialization::ComponentWrapper const cw{ componentData };
 
 			Component::BoxCollider box;
 			box.m_width = cw.Get<double>("width");
@@ -55,7 +55,7 @@ namespace GE
 		template<>
 		GE::Component::Velocity DeserializeComponent(std::string const& componentData)
 		{
-			Serialization::ComponentDWrapper const cw{ componentData };
+			Serialization::ComponentWrapper const cw{ componentData };
 
 			GE::Component::Velocity vel;
 			vel.m_vel = cw.Get<Math::dVec3>("vel");
@@ -63,7 +63,7 @@ namespace GE
 			vel.m_mass = cw.Get<double>("mass");
 			vel.m_gravity = cw.Get<Math::dVec3>("gravity");
 			vel.m_dragForce = cw.Get<Component::DragForce>("dragForce");
-			vel.m_forces = cw.Get<std::vector<Component::LinearForce>>("dragForce");
+			vel.m_forces = cw.Get<std::vector<Component::LinearForce>>("forces");
 
 			return vel;
 		}
@@ -71,7 +71,7 @@ namespace GE
 		template<>
 		GE::Component::Sprite DeserializeComponent(std::string const& componentData)
 		{
-			Serialization::ComponentDWrapper const cw{ componentData };
+			Serialization::ComponentWrapper const cw{ componentData };
 			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 			auto& am = GE::Assets::AssetManager::GetInstance();
 			Component::Sprite sprite;
@@ -91,7 +91,7 @@ namespace GE
 		template<>
 		GE::Component::SpriteAnim DeserializeComponent(std::string const& componentData)
 		{
-			Serialization::ComponentDWrapper const cw{ componentData };
+			Serialization::ComponentWrapper const cw{ componentData };
 			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 			// auto& am = GE::Assets::AssetManager::GetInstance();
 			Component::SpriteAnim spriteAnim;
@@ -112,9 +112,9 @@ namespace GE
 		template<>
 		GE::Component::Model DeserializeComponent(std::string const& componentData)
 		{
-			Serialization::ComponentDWrapper const cw{ componentData };
+			Serialization::ComponentWrapper const cw{ componentData };
 			Component::Model model;
-			model.mdlID = cw.Get<size_t>("id");
+			model.mdlID = cw.Get<size_t>("mdlID");
 
 			return model;
 		}
@@ -123,9 +123,9 @@ namespace GE
 		template<>
 		GE::Component::Tween DeserializeComponent(std::string const& componentData)
 		{
-			Serialization::ComponentDWrapper const cw{ componentData };
+			Serialization::ComponentWrapper const cw{ componentData };
 			Component::Tween tween{ 0 };
-			tween.m_tweens = cw.Get<std::queue<Math::dVec3>>("tweens");
+			tween.m_tweens = cw.Get<std::deque<Math::dVec3>>("tweens");
 			tween.m_timePerTween = cw.Get<double>("timePerTween");
 			tween.m_timeTaken = cw.Get<double>("timeTaken");
 			tween.m_timeElapsed = cw.Get<double>("timeElapsed");
@@ -137,9 +137,9 @@ namespace GE
 		template<>
 		GE::Component::ScriptHandler DeserializeComponent(std::string const& componentData)
 		{
-		    Serialization::ComponentDWrapper const cw{ componentData };
+		    Serialization::ComponentWrapper const cw{ componentData };
 				std::vector<std::pair<std::string, std::string>> const vec{
-					cw.Get<std::vector<std::pair<std::string,std::string>>>("scripts")
+					cw.Get<std::vector<std::pair<std::string,std::string>>>("scriptMap")
 				};
 				ECS::Entity current{ static_cast<ECS::Entity>(ECS::EntityComponentSystem::GetInstance().GetEntities().size()) };
 				if (current > 0) { --current; }

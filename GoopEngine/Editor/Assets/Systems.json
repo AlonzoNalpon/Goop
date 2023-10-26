@@ -1,13 +1,14 @@
 {
     "DraggableObjectSystem": [
-        "Transform",
-        "BoxCollider"
+          "Transform",
+          "BoxCollider",
+		      "Draggable"
     ],
 	  "PlayerControllerSystem": [	
-          "Transform",
-          "Sprite",
-          "SpriteAnim",
-		  "ScriptHandler"
+         "Transform",
+         "Sprite",
+         "SpriteAnim",
+		     "ScriptHandler"
 	  ],
     "RootTransformSystem": [],
     "CollisionSystem": [

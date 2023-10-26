@@ -28,6 +28,7 @@ namespace GE
 			MODEL,
 			TWEEN,
 			SCRIPT_HANDLER,
+			DRAGGABLE,
 			COMPONENTS_TOTAL
 		};
 
@@ -45,7 +46,8 @@ namespace GE
 			{ COMPONENT_TYPES::SPRITE_ANIM, "SpriteAnim" },
 			{ COMPONENT_TYPES::MODEL, "Model" },
 			{ COMPONENT_TYPES::TWEEN, "Tween" },
-			{ COMPONENT_TYPES::SCRIPT_HANDLER, "ScriptHandler" }
+			{ COMPONENT_TYPES::SCRIPT_HANDLER, "ScriptHandler" },
+			{ COMPONENT_TYPES::DRAGGABLE, "Draggable" }
 		};
 
 		// Const map so only interated through ranged for,
@@ -59,7 +61,8 @@ namespace GE
 			{ "SpriteAnim", COMPONENT_TYPES::SPRITE_ANIM },
 			{ "Model", COMPONENT_TYPES::MODEL },
 			{ "Tween", COMPONENT_TYPES::TWEEN },
-			{ "ScriptHandler", COMPONENT_TYPES::SCRIPT_HANDLER }
+			{ "ScriptHandler", COMPONENT_TYPES::SCRIPT_HANDLER },
+			{ "Draggable", COMPONENT_TYPES::DRAGGABLE }
 		};
 
 		/*!*********************************************************************

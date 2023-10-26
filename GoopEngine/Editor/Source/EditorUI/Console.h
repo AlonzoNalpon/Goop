@@ -25,7 +25,16 @@ namespace GE::EditorGUI
     empty_command_struct empty;
     ImTerm::terminal<Terminal> terminal;
   public:
+    /*!******************************************************************
+    \brief
+      Terminal theme and spdlog setup
+    ********************************************************************/
     Console();
+
+    /*!******************************************************************
+    \brief
+      Wrapper to call ImTerm console
+    ********************************************************************/
     static void CreateContent();
   };
 

@@ -19,4 +19,6 @@ void ObjectFactory::RegisterComponentsToSystem(ECS::ComponentSignature sig) cons
    ecs.RegisterComponentToSystem<GE::Component::Tween, T>();
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::SCRIPT_HANDLER))
    ecs.RegisterComponentToSystem<GE::Component::ScriptHandler, T>();
+   if (IsBitSet(sig, ECS::COMPONENT_TYPES::DRAGGABLE))
+   ecs.RegisterComponentToSystem<GE::Component::Draggable, T>();
 }

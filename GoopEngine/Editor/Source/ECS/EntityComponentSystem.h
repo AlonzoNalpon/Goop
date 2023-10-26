@@ -348,6 +348,23 @@ namespace GE
 			************************************************************************/
 			void UpdateSystems();
 
+			/*!*********************************************************************
+			\brief
+				Update systems except the following systems. Usage of system name is
+				typeid(System Class).name().
+
+				User has to append a nullptr to indicate the end of the parameter list
+			
+			\param systemCount
+				Number of systems
+
+			\param ...
+				typeid(System Class).name() of systems
+			************************************************************************/
+#ifndef NO_IMGUI
+			void UpdateSystems(int systemCount, ...);
+#endif // !NO_IMGUI
+
 		private:
 			std::unique_ptr<ComponentManager> m_componentManager;
 			std::unique_ptr<EntityManager> m_entityManager;

@@ -91,6 +91,8 @@ namespace GE
     bool operator==(Vec<3, T> const& lhs, Vec<3, T> const& rhs);
     template <typename T>
     bool operator!=(Vec<3, T> const& lhs, Vec<3, T> const& rhs);
+    template <typename T>
+    bool operator<=(Vec<3, T> const& lhs, Vec<3, T> const& rhs);
 
 #include "Vec3.tpp"
   }

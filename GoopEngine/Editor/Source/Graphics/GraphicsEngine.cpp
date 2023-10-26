@@ -28,6 +28,7 @@ namespace {
 
   }testAnim;
 }
+//#define OGL_ERR_CALLBACK
 #ifdef OGL_ERR_CALLBACK
   void GLAPIENTRY glDebugCallback(GLenum /*source*/, GLenum /*type*/, GLuint /*id*/, GLenum /*severity*/, GLsizei /*length*/, const GLchar* message, const void* /*userParam*/) {
     // Print the message to the console
@@ -59,7 +60,7 @@ namespace {
     
     InitFrameBuffer();
     // Initialize font manager
-    m_fontManager.Init();
+    //m_fontManager.Init();
 #pragma region SHADER_MDL_INIT
     auto shaderPathOpt = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("ShaderPath");
     if (!shaderPathOpt) {
@@ -67,13 +68,17 @@ namespace {
     }
     m_spriteQuadMdl = GenerateQuad();
     m_lineMdl       = GenerateLine();
+    m_fontMdl = GenerateFontMdl();
     ShaderInitCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"}};
     ShaderInitCont debugLineShaders{ { GL_VERTEX_SHADER, "debug_line.vert" }, {GL_FRAGMENT_SHADER, "debug_line.frag"} };
+    ShaderInitCont fontShaders{ { GL_VERTEX_SHADER, "font.vert" }, {GL_FRAGMENT_SHADER, "font.frag"} };
 
     m_spriteQuadMdl.shader = CreateShader(spriteShaders, "sprite");
+    m_fontMdl.shader       = CreateShader(fontShaders, "font");
     // Adding the basic shader for rendering lines etc...
     m_lineMdl.shader       = CreateShader(debugLineShaders, "debug_line");
     m_models.emplace_back(m_spriteQuadMdl);
+    m_models.emplace_back(m_lineMdl); // always load line model last! for renderer init
 
     //Initialize renderer with a camera
     {
@@ -82,11 +87,15 @@ namespace {
                                   {.0f, 1.f, 0.f},                        // up vector
                                   -w * 0.5f, w * 0.5f, -h * 0.5f, h * 0.5f,   // left right bottom top
                                   0.1f, 1000.f };                         // near and far z planes
-      m_renderer.Init(orthoCam, m_models.size());
+      m_renderer.Init(orthoCam, m_models.size()-1); // line model index
     }
 
-    m_models.emplace_back(m_lineMdl);
 #pragma endregion
+    // TEST LOADING FONTS
+    m_fontManager.Init(m_fontMdl.shader, m_fontMdl.vaoid);
+    constexpr GLint FONT_SIZE{256};
+    m_fontManager.LoadFont("Reyes", FONTS_PATH + "Reyes-lqEV.ttf", FONT_SIZE);
+    m_fontManager.LoadFont("Marchesa", FONTS_PATH + "Marchesa-M7lp.otf", FONT_SIZE);
 
 
     // THESE ARE IMPORTANT TO HAVE
@@ -146,7 +155,11 @@ namespace {
     glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
     ClearBuffer();
     glViewport(0, 0, m_vpWidth, m_vpHeight);
+
+    constexpr GLfloat FONT_SCALE{ 0.2f };
     m_renderer.Draw();
+    m_renderer.DrawFontObj("you're", {}, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.5f, 0.f, 0.f }, "Marchesa");
+    m_renderer.DrawFontObj("next", { 0.f, -50.f }, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.8f, 0.2f, 0.f }, "Reyes");
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
   }
 
@@ -265,6 +278,49 @@ namespace {
     return retval;
   }
 
+  Model GraphicsEngine::GenerateFontMdl()
+  {
+    Model retval{};
+    GLuint vbo_hdl{}, vaoid{}; // vertex buffer object handle
+
+#if 0
+    glGenVertexArrays(1, &vaoid);
+    glGenBuffers(1, &vbo_hdl);
+    glBindVertexArray(vaoid);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_hdl);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+#else
+    glCreateVertexArrays(1, &vaoid);
+    glBindVertexArray(vaoid);
+
+    glCreateBuffers(1, &vbo_hdl); // generate vbo
+    constexpr GLsizeiptr VERTICES_COUNT{ 6 };
+    // allocate uninitialized memory for vbo (data to be set for each char later on)
+    glNamedBufferData(vbo_hdl, sizeof(float) * VERTICES_COUNT * 4, NULL, GL_DYNAMIC_DRAW);
+    glEnableVertexArrayAttrib(vaoid, 0);
+    glVertexArrayAttribFormat(vaoid, 0, 4, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribBinding(vaoid, 0, 0);
+
+    // Binding vbo to vao
+    glVertexArrayVertexBuffer(vaoid, 0, vbo_hdl, 0, 4 * sizeof(GLfloat));
+
+    // We won't be using indices for the quad ...
+    glBindVertexArray(0); // All done. Unbind vertex array
+#endif
+
+    retval.vaoid = vaoid;
+    return retval;
+  }
+
+  void GraphicsEngine::DestroyTexture(GLuint texture)
+  {
+    m_textureManager.DestroyTexture(texture);
+  }
+
   gObjID GraphicsEngine::GetShaderPgm(std::string const& pgmName)
   {
     // Find the shader
@@ -354,11 +410,4 @@ namespace {
   {
     m_renderer.RenderLineDebug(startPt, endPt, clr);
   }
-
-
-  void GraphicsEngine::DestroyTexture(GLuint texture)
-  {
-    m_textureManager.DestroyTexture(texture);
-  }
-
 }

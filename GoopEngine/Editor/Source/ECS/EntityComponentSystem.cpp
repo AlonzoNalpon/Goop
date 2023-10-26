@@ -105,3 +105,14 @@ void EntityComponentSystem::UpdateSystems()
 {
 	m_systemManager->UpdateSystems();
 }
+
+#ifndef NO_IMGUI
+void GE::ECS::EntityComponentSystem::UpdateSystems(int systemCount, ...)
+{
+	va_list args;
+	va_start(args, systemCount);
+
+	m_systemManager->UpdateSystems(systemCount, args);
+	va_end(args);
+}
+#endif // !NO_IMGUI

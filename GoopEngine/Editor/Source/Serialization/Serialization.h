@@ -39,6 +39,8 @@ namespace GE
     rapidjson::Value SerializeScriptMap(std::map<std::string, GE::MONO::Script> const& rhs,
       rapidjson::Document::AllocatorType& allocator);
 
+    rapidjson::Value SerializeTweenQueue(std::deque<Math::dVec3> tweens, rapidjson::Document::AllocatorType& allocator);
+
     //rttr::variant DeserializeBasicTypes(rapidjson::Value const& jsonVal)
     //{
     //  switch (jsonVal.GetType())

@@ -40,45 +40,6 @@ namespace GE
   namespace Serialization
   {
 
-
-    rapidjson::Value SerializeClassTypes(rttr::type const& valueType, rttr::variant const& value, rapidjson::Document::AllocatorType& allocator)
-    {
-      rapidjson::Value jsonVal{};
-      if (valueType == rttr::type::get<GE::Math::dVec3>())
-      {
-        jsonVal.SetString(valueType.get_method("ToString").invoke(value).to_string().c_str(),
-          allocator);
-      }
-      else if (valueType == rttr::type::get<GE::Math::dVec2>())
-      {
-        jsonVal.SetString(valueType.get_method("ToString").invoke(value).to_string().c_str(),
-          allocator);
-      }
-      else if (valueType == rttr::type::get<std::string>())
-      {
-        jsonVal.SetString(value.to_string().c_str(), allocator);
-      }
-      else if (valueType == rttr::type::get<Graphics::SpriteData>())
-      {
-        unsigned const texID{ valueType.get_method("GetTextureHandle").invoke(value).to_uint32() };
-        jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().textureManager.GetTextureName(texID).c_str(), allocator);
-      }
-      /*else if (valueType == rttr::type::get<std::queue<GE::Math::dVec3>>())
-      {
-        jsonVal.SetArray();
-        while (valueType.)
-      }*/
-      else
-      {
-        std::ostringstream oss{};
-        oss << "Trying to deserialize unknown basic type: " << valueType.get_name() << " with value: " << value.to_string();
-        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        jsonVal.SetNull();
-      }
-
-      return jsonVal;
-    }
-    
     rapidjson::Value SerializeBasicTypes(rttr::type const& valueType, rttr::variant const& value, rapidjson::Document::AllocatorType& allocator)
     {
       rapidjson::Value jsonVal{};
@@ -117,7 +78,93 @@ namespace GE
         GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
         jsonVal.SetNull();
       }
-        
+
+      return jsonVal;
+    }
+
+    rapidjson::Value SerializeClassTypes(rttr::type const& valueType, rttr::variant const& value, rapidjson::Document::AllocatorType& allocator)
+    {
+      rapidjson::Value jsonVal{};
+      if (valueType == rttr::type::get<GE::Math::dVec3>())
+      {
+        jsonVal.SetString(valueType.get_method("ToString").invoke(value).to_string().c_str(),
+          allocator);
+      }
+      else if (valueType == rttr::type::get<GE::Math::dVec2>())
+      {
+        jsonVal.SetString(valueType.get_method("ToString").invoke(value).to_string().c_str(),
+          allocator);
+      }
+      else if (valueType == rttr::type::get<std::string>())
+      {
+        jsonVal.SetString(value.to_string().c_str(), allocator);
+      }
+      else if (valueType == rttr::type::get<std::deque<Math::dVec3>>())
+      {
+        jsonVal = Serialization::SerializeTweenQueue(value.get_value<std::deque<Math::dVec3>>(), allocator);
+      }
+      else if (valueType == rttr::type::get<Component::DragForce>())
+      {
+        jsonVal.SetObject();
+        for (auto const& prop : value.get_type().get_properties())
+        {
+          rapidjson::Value innerProp{};
+          if (prop.get_type().is_arithmetic())  // if C basic types
+          {
+            innerProp = SerializeBasicTypes(prop.get_type(), value, allocator).Move();
+          }
+          else
+          {
+            innerProp = SerializeClassTypes(prop.get_type(), value, allocator).Move();
+          }
+          rapidjson::Value innerKey{ prop.get_name().to_string().c_str(), allocator};
+          jsonVal.AddMember(innerKey, innerProp, allocator);
+        }
+
+        return jsonVal;
+      }
+      else if (valueType == rttr::type::get<std::vector<Component::LinearForce>>())
+      {
+        jsonVal.SetArray();
+        for (Component::LinearForce const& force : value.get_value<std::vector<Component::LinearForce>>())
+        {
+          rttr::instance forceInstance{ force };
+          rapidjson::Value forceJson{ rapidjson::kObjectType };
+          for (auto const& prop : forceInstance.get_type().get_properties())
+          {
+            rapidjson::Value innerVal{};
+            if (prop.get_type().is_arithmetic())  // if C basic types
+            {
+              innerVal = SerializeBasicTypes(prop.get_type(), value, allocator).Move();
+            }
+            else
+            {
+              innerVal = SerializeClassTypes(prop.get_type(), value, allocator).Move();
+            }
+            rapidjson::Value jsonKey{ prop.get_name().to_string().c_str(), allocator };
+            forceJson.AddMember(jsonKey, innerVal, allocator);
+          }
+          jsonVal.PushBack(forceJson, allocator);
+        }
+
+        return jsonVal;
+      }
+
+      /*else if (valueType == rttr::type::get<Graphics::SpriteData>())
+      {
+        unsigned const texID{ valueType.get_method("GetTextureHandle").invoke(value).to_uint32() };
+        Graphics::GraphicsEngine const& gE{ Graphics::GraphicsEngine::GetInstance() }; 
+        unsigned const texHandle{ gE.textureManager.GetTexture(texID).textureHandle };
+        jsonVal.SetString(gE.textureManager.GetTextureName(texHandle).c_str(), allocator);
+      }*/
+      else
+      {
+        std::ostringstream oss{};
+        oss << "Trying to deserialize unknown type: " << valueType.get_name() << " with value: " << value.to_string();
+        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        jsonVal.SetNull();
+      }
+
       return jsonVal;
     }
 
@@ -134,7 +181,11 @@ namespace GE
        
         rttr::variant value{ prop.get_value(instance) };
 
-        if (prop.get_type().is_arithmetic())  // if C basic types
+        if (instance.get_type() == rttr::type::get<Component::SpriteAnim>())
+        {
+          jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(value.to_uint32()).c_str(), allocator);
+        }
+        else if (prop.get_type().is_arithmetic())  // if C basic types
         {
           jsonVal = SerializeBasicTypes(prop.get_type(), value, allocator).Move();
         }

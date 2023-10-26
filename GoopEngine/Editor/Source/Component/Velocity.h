@@ -18,12 +18,13 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			LinearForce(const vec3& mag, double lifetime, bool active = true) : m_magnitude{mag}, m_lifetime{lifetime},
-			m_isActive {active} {}
+			LinearForce(const vec3 & mag, double lifetime, bool active = false, double age = 0.f) : m_magnitude{ mag }, m_lifetime{ lifetime }, m_isActive{ active }, m_age{ age } {}
+
 
 			vec3 m_magnitude;
 			double m_lifetime;
 			bool m_isActive;
+			double m_age;
 		};
 
 		struct DragForce
@@ -38,9 +39,9 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			DragForce(const vec3& mag, bool active = false) : m_magnitude{ mag }, m_isActive{ active } {}
+			DragForce(double mag, bool active = true) : m_magnitude{ mag }, m_isActive{ active } {}
 
-			vec3 m_magnitude;
+			double m_magnitude;
 			bool m_isActive;
 		};
 
@@ -56,8 +57,8 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			Velocity(const vec3& vel, const vec3& acc, double mass, const vec3& grav, const DragForce& drag, std::vector<LinearForce> forces = {}) :
-				m_vel{ vel }, m_acc{ acc }, m_mass{ mass }, m_gravity{ grav }, m_dragForce{ drag }, m_forces{ forces } {}
+			Velocity(const vec3& vel, const vec3& acc, double mass, const vec3& grav, DragForce drag = DragForce(0.9f), std::vector<LinearForce> forces = {}) :
+				m_vel{ vel }, m_acc{ acc }, m_mass{ mass }, m_gravity{ grav }, m_dragForce{ std::move(drag) }, m_forces{ std::move(forces) } {}
 
 			vec3 m_vel;
 			vec3 m_acc;
@@ -66,21 +67,16 @@ namespace GE
 			DragForce m_dragForce;
 			std::vector<LinearForce> m_forces;
 
+			static const vec3 m_threshold;
+
 			vec3 m_sumMagnitude;
 
 			//forces functions
-			void AddForce(vec3 mag, double lifetime, bool active = true)
+			void AddForce(const vec3& mag, double lifetime, bool active)
 			{
 				LinearForce force(mag, lifetime, active);
-				m_forces.push_back(force);
+				m_forces.push_back(std::move(force));
 			}
-
-			void ActivateDrag(bool active)
-			{
-				m_dragForce.m_isActive = active;
-			}
-
-			//void RemoveForce();
 		};
 	}
 }

@@ -25,6 +25,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Physics/CollisionSystem.h>
 #include "Console.h"
 #include "Inspector.h"
+#include "SceneControls.h"
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -34,7 +35,10 @@ using namespace ImGui;
 
 // Initialize static
 GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
-bool ImGuiHelper::m_frameEnded = true;
+bool ImGuiHelper::m_play = false;
+bool ImGuiHelper::m_pause = false;
+bool ImGuiHelper::m_step = false;
+bool ImGuiHelper::m_restart = false;
 
 void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
 {
@@ -60,7 +64,6 @@ void ImGuiUI::Update()
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   NewFrame();
-  ImGuiHelper::SetFrameEnded(false);
 
 #ifdef RUN_IMGUI_DEMO
   ImGui::ShowDemoWindow();
@@ -70,124 +73,23 @@ void ImGuiUI::Update()
 
   ToolBar::CreateContent();
 
+  SceneControls::CreateContent();
+
+  Begin("Console");
+  Console::CreateContent();
+  End();
+
   Begin("Scene Heirachy");
   SceneHierachy::CreateContent();
   End();
 
+  Begin("Inspector");
+  Inspector::CreateContent();
+  End();
+
   Begin("Viewport");
   {
-#pragma region VIEWPORT_RENDERING
-    auto& gEngine = Graphics::GraphicsEngine::GetInstance();
-    GLuint texture = gEngine.GetRenderTexture();
-
-    // Calculate the UV coordinates based on viewport position and size
-    // Get the size of the GLFW window
-    ImGuiIO& io = ImGui::GetIO();
-    ImVec2 windowSize{io.DisplaySize.x, io.DisplaySize.y};
-    ImVec2 viewportSize     = ImGui::GetContentRegionAvail();  // Get the top-left position of the viewport
-    ImVec2 viewportPosition = ImGui::GetCursorScreenPos();
-    ImVec2 viewportEnd = ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y);
-    ImVec2 uv0;
-    ImVec2 uv1;
-  
-    uv0.x = 1.f + (viewportEnd.x - windowSize.x) / windowSize.x;
-    uv1.y = -(viewportPosition.y) / windowSize.y;
-    uv0.y = -(1.f + (viewportEnd.y - windowSize.y) / windowSize.y);
-    uv1.x = (viewportPosition.x) / windowSize.x;
-    // render the image
-    ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
-#pragma endregion
-#pragma region VIEWPORT_INPUT
-  auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
-  if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y))) 
-  {
-    ImVec2 mousePosition = ImGui::GetMousePos();
-    mousePosition.y = windowSize.y - mousePosition.y;
-    static Graphics::gVec2 prevPos; // previous mouse position
-
-    Graphics::gVec2 MousePosF{ mousePosition.x, mousePosition.y }; // current position of mouse in float
-    // If the middle mouse button is down (for moving camera)
-    {
-      constexpr int MIDDLE_MOUSE{ 2 };        // constant for middle mouse key
-      static bool middleMouseHeld{};          // flag for middle mouse held down
-      if (ImGui::IsMouseDown(MIDDLE_MOUSE)) 
-      {
-
-        if (middleMouseHeld) // check if it's not the first frame button is held
-        {
-          Graphics::gVec2 displacement{ prevPos-MousePosF };  // displacement of camera
-          Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
-          camera.DisplaceCam({ displacement.x, displacement.y, 0.f });
-          prevPos = { MousePosF };
-        }
-        else // else this is the first frame we are holding it down
-        {
-          prevPos = { MousePosF };
-          middleMouseHeld = true;
-        }
-      }
-      else {
-        middleMouseHeld = false;
-      }
-    }
-    // If the mousewheel is scrolled (for zooming camera)
-    {
-      float scrollValue = io.MouseWheel;
-      constexpr float MULTIPLIER = 10.f;
-      if (scrollValue)
-      {
-        Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
-        camera.ZoomCamera(scrollValue * MULTIPLIER);
-      }
-    }
-
-    // If the mouse clicked was detected
-    {
-      constexpr int MOUSE_L_CLICK{ 0 };        // constant for mouse left click
-      static bool mouseLHeld{};
-      if (ImGui::IsMouseDown(MOUSE_L_CLICK))
-      {
-        if (!mouseLHeld)
-        {
-          mouseLHeld = true;
-          auto mouseWS{ gEngine.ScreenToWS(MousePosF) };
-          double depthVal{ std::numeric_limits<double>::lowest() };
-          GE::ECS::Entity selectedID = GE::ECS::INVALID_ID;
-
-          for (GE::ECS::Entity curr : ecs->GetEntities())
-          {
-
-            // get sprite component
-            auto const* transPtr = ecs->GetComponent<GE::Component::Transform>(curr);
-            if (!transPtr || !ecs->GetComponent<GE::Component::Sprite>(curr))
-              continue; // skip if there's no transform or sprite component
-            auto const& trans{ *transPtr };
-            GE::Math::dVec2 min{ trans.m_pos.x - trans.m_scale.x * 0.5, trans.m_pos.y - trans.m_scale.y * 0.5 };
-            GE::Math::dVec2 max{ trans.m_pos.x + trans.m_scale.x * 0.5, trans.m_pos.y + trans.m_scale.y * 0.5 };
-
-            // AABB check with the mesh based on its transform (ASSUMES A SQUARE)
-            if (min.x > mouseWS.x ||
-              max.x < mouseWS.x ||
-              min.y > mouseWS.y ||
-              max.y < mouseWS.y)
-              continue;
-
-            // Depth check (only take frontmost object
-            if (trans.m_pos.z > depthVal)
-            {
-              depthVal = trans.m_pos.z;
-              selectedID = curr;
-            }
-          }
-          // Set selected entity (invalid ID means none selected)
-          ImGuiHelper::SetSelectedEntity(selectedID);
-        }
-      }
-      else
-        mouseLHeld = false;
-    }
-  }
-#pragma endregion
+    ImGuiHelper::UpdateViewport();
   }
   End();
 
@@ -232,24 +134,11 @@ void ImGuiUI::Update()
     }
   }
   End();
-
   
   if (Visualizer::IsPerformanceShown())
   {
     Visualizer::CreateContent("Performance Visualizer");
   }
-
-#ifdef _DEBUG
-  static bool showOverlay = true;
-  ImGui::SetNextWindowPos(ImVec2(ImGui::GetWindowWidth() / 2.f, 10), ImGuiCond_Always);
-  ImGui::SetNextWindowSize(ImVec2(300, 30), ImGuiCond_Always);
-
-  ImGui::Begin("Overlay Window", &showOverlay, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
-
-  ImGui::Text("Mouse Pos: (%.2f, %.2f)", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
-
-  ImGui::End();
-#endif
 
   Begin("Audio");
   Assets::AssetManager const& aM{ Assets::AssetManager::GetInstance() };
@@ -288,22 +177,15 @@ void ImGuiUI::Update()
   Audio::AudioEngine::GetInstance().Update();
   End();
 
-  Begin("Inspector");
-  Inspector::CreateContent();
-  End();
-
-  Begin("Console");
-  Console::CreateContent();
-  End();
-
   ImGuiHelper::EndDockSpace();
 }
 
 void ImGuiUI::Render()
 {
+  // Empty function callback
+  ErrorCheckEndFrameRecover([](void*, const char*, ...) {GE::Debug::ErrorLogger::GetInstance().LogCritical("ImGui Update failed. Begin stack not ended"); });
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());
-  ImGuiHelper::SetFrameEnded(true);
 }
 
 void ImGuiUI::Exit()
@@ -328,7 +210,7 @@ void ImGuiHelper::CreateDockSpace(const char* projectName)
   SetNextWindowViewport(viewport->ID);
   window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
   window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
-  
+
 
   // When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background
   // and handle the pass-thru hole, so we ask Begin() to not render a background.
@@ -361,12 +243,167 @@ void GE::EditorGUI::ImGuiHelper::SetSelectedEntity(GE::ECS::Entity& selectedEnti
   m_selectedEntity = selectedEntity;
 }
 
-bool GE::EditorGUI::ImGuiHelper::GetFrameEnded()
+void GE::EditorGUI::ImGuiHelper::StepSimulation(bool shouldStep)
 {
-  return m_frameEnded;
+  m_step = shouldStep;
 }
 
-void GE::EditorGUI::ImGuiHelper::SetFrameEnded(bool frameEnded)
+bool GE::EditorGUI::ImGuiHelper::StepSimulation()
 {
-  m_frameEnded = frameEnded;
+  bool shouldStep = m_step;
+  m_step = false;
+  return shouldStep;
+}
+
+bool GE::EditorGUI::ImGuiHelper::ShouldPlay()
+{
+  return m_play;
+}
+
+void GE::EditorGUI::ImGuiHelper::Play()
+{
+  m_play = true;
+  m_step = false;
+  m_pause = true;
+}
+
+void GE::EditorGUI::ImGuiHelper::Pause()
+{
+  m_pause = true;
+  m_play = false;
+}
+
+bool GE::EditorGUI::ImGuiHelper::Paused()
+{
+  return m_pause;
+}
+
+void GE::EditorGUI::ImGuiHelper::Restart()
+{
+  m_restart = true;
+  m_play = false;
+  m_step = false;
+}
+
+bool GE::EditorGUI::ImGuiHelper::IsRunning()
+{
+  return m_play;
+}
+
+bool GE::EditorGUI::ImGuiHelper::ShouldRestart()
+{
+  bool shouldRestart = m_restart;
+  m_restart = false;
+  return shouldRestart;
+}
+
+void GE::EditorGUI::ImGuiHelper::UpdateViewport()
+{
+  auto* ecs = &GE::ECS::EntityComponentSystem::GetInstance();
+  auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+  GLuint texture = gEngine.GetRenderTexture();
+
+  // Calculate the UV coordinates based on viewport position and size
+  // Get the size of the GLFW window
+  ImGuiIO& io = ImGui::GetIO();
+  ImVec2 windowSize{ io.DisplaySize.x, io.DisplaySize.y };
+  ImVec2 viewportSize = ImGui::GetContentRegionAvail();  // Get the top-left position of the viewport
+  ImVec2 viewportPosition = ImGui::GetCursorScreenPos();
+  ImVec2 viewportEnd = ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y);
+  ImVec2 uv0;
+  ImVec2 uv1;
+
+  uv0.x = 1.f + (viewportEnd.x - windowSize.x) / windowSize.x;
+  uv1.y = -(viewportPosition.y) / windowSize.y;
+  uv0.y = -(1.f + (viewportEnd.y - windowSize.y) / windowSize.y);
+  uv1.x = (viewportPosition.x) / windowSize.x;
+  // render the image
+  ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
+
+  auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
+  if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y)))
+  {
+    ImVec2 mousePosition = ImGui::GetMousePos();
+    mousePosition.y = windowSize.y - mousePosition.y;
+    static Graphics::gVec2 prevPos; // previous mouse position
+
+    Graphics::gVec2 MousePosF{ mousePosition.x, mousePosition.y }; // current position of mouse in float
+    // If the middle mouse button is down (for moving camera)
+    {
+      constexpr int MIDDLE_MOUSE{ 2 };        // constant for middle mouse key
+      static bool middleMouseHeld{};          // flag for middle mouse held down
+      if (ImGui::IsMouseDown(MIDDLE_MOUSE))
+      {
+
+        if (middleMouseHeld) // check if it's not the first frame button is held
+        {
+          Graphics::gVec2 displacement{ prevPos - MousePosF };  // displacement of camera
+          Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
+          camera.DisplaceCam({ displacement.x, displacement.y, 0.f });
+          prevPos = { MousePosF };
+        }
+        else // else this is the first frame we are holding it down
+        {
+          prevPos = { MousePosF };
+          middleMouseHeld = true;
+        }
+      }
+      else {
+        middleMouseHeld = false;
+      }
+    }
+    // If the mousewheel is scrolled (for zooming camera)
+    {
+      float scrollValue = io.MouseWheel;
+      constexpr float MULTIPLIER = 10.f;
+      if (scrollValue)
+      {
+        Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
+        camera.ZoomCamera(scrollValue * MULTIPLIER);
+      }
+    }
+
+    // If the mouse clicked was detected
+    {
+      constexpr int MOUSE_L_CLICK{ 0 };        // constant for mouse left click
+      static bool mouseLHeld{};
+      if (ImGui::IsMouseDown(MOUSE_L_CLICK))
+      {
+        if (!mouseLHeld)
+        {
+          mouseLHeld = true;
+          auto mouseWS{ gEngine.ScreenToWS(MousePosF) };
+          double depthVal{ std::numeric_limits<double>::lowest() };
+          GE::ECS::Entity selectedID = GE::ECS::INVALID_ID;
+
+          for (GE::ECS::Entity curr : ecs->GetEntities())
+          {
+            // get sprite component
+            auto const* transPtr = ecs->GetComponent<GE::Component::Transform>(curr);
+            auto const& trans{ *transPtr };
+            GE::Math::dVec2 min{ trans.m_pos.x - trans.m_scale.x * 0.5, trans.m_pos.y - trans.m_scale.y * 0.5 };
+            GE::Math::dVec2 max{ trans.m_pos.x + trans.m_scale.x * 0.5, trans.m_pos.y + trans.m_scale.y * 0.5 };
+
+            // AABB check with the mesh based on its transform (ASSUMES A SQUARE)
+            if (min.x > mouseWS.x ||
+              max.x < mouseWS.x ||
+              min.y > mouseWS.y ||
+              max.y < mouseWS.y)
+              continue;
+
+            // Depth check (only take frontmost object
+            if (trans.m_pos.z > depthVal)
+            {
+              depthVal = trans.m_pos.z;
+              selectedID = curr;
+            }
+          }
+          // Set selected entity (invalid ID means none selected)
+          ImGuiHelper::SetSelectedEntity(selectedID);
+        }
+      }
+      else
+        mouseLHeld = false;
+    }
+  }
 }

@@ -47,15 +47,16 @@ RTTR_REGISTRATION
 
   rttr::registration::class_<Component::LinearForce>("LinearForce")
     .constructor<>()
-    .constructor<GE::Math::dVec3 const&, double, bool>()
+    .constructor<Math::dVec3 const&, double, bool, double>()
     .property("magnitude", &Component::LinearForce::m_magnitude)
     .property("lifetime", &Component::LinearForce::m_lifetime)
     .property("isActive", &Component::LinearForce::m_isActive)
+    .property("age", &Component::LinearForce::m_age)
     ;
 
   rttr::registration::class_<Component::DragForce>("DragForce")
     .constructor<>()
-    .constructor<GE::Math::dVec3 const&, bool>()
+    .constructor<double, bool>()
     .property("magnitude", &Component::DragForce::m_magnitude)
     .property("isActive", &Component::DragForce::m_isActive)
     ;
@@ -63,7 +64,7 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::Velocity>("Velocity")
     .constructor<>()
     .constructor<GE::Math::dVec3 const&, GE::Math::dVec3 const&, double, GE::Math::dVec3 const&,
-                 Component::DragForce const&, std::vector<Component::LinearForce>>()
+                 Component::DragForce, std::vector<Component::LinearForce>>()
     .property("vel", &Component::Velocity::m_vel)
     .property("acc", &Component::Velocity::m_acc)
     .property("mass", &Component::Velocity::m_mass)
@@ -104,6 +105,34 @@ RTTR_REGISTRATION
     .constructor<std::vector<std::pair<std::string, std::string>> const&, unsigned>()
     .property("scriptMap", &Component::ScriptHandler::m_scriptMap)
     .method("AddScript", &Component::ScriptHandler::AddScript)
+    ;
+
+  rttr::registration::class_<Component::Draggable>("Draggable")
+    ;
+
+ /* rttr::registration::enumeration<AI::NODE_STATES>("NODE_STATES")
+    (
+      rttr::value("NEW", AI::NODE_STATES::STATE_NEW),
+      rttr::value("RUNNING", AI::NODE_STATES::STATE_RUNNING),
+      rttr::value("WAITING", AI::NODE_STATES::STATE_WAITING),
+      rttr::value("SUCCEED", AI::NODE_STATES::STATE_SUCCEED),
+      rttr::value("FAILED", AI::NODE_STATES::STATE_FAILED),
+      rttr::value("COUNT", AI::NODE_STATES::STATE_COUNT)
+      );*/
+  //rttr::registration::class_<AI::NodeCache>("NodeCache")
+  //  .property("nodeID", &Component::NodeCache::m_nodeID)
+  //  .property("childIndex", &Component::NodeCache::m_childIndex)
+  //  .property("NodeResult", &Component::NodeCache::m_NodeResult)
+  //  ;
+  rttr::registration::class_<AI::TreeCache>("TreeCache")
+    //.property("treeID", &Component::TreeCache::m_treeID)
+    //.property("nodeCacheStack", &Component::TreeCache::m_nodeCacheStack)
+    //.property("childResult", &Component::TreeCache::m_childResult)
+    ;
+  rttr::registration::class_<Component::EnemyAI>("EnemyAI")
+    .constructor<unsigned, AI::TreeCache const&>()
+    .property("entityID", &Component::EnemyAI::m_entityID)
+    //.property("enemyTreeCache", &Component::EnemyAI::m_enemyTreeCache)
     ;
 
   /* ------------------- FUNCTIONS ------------------- */

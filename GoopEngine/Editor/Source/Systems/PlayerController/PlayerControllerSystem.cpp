@@ -81,7 +81,7 @@ void PlayerControllerSystem::FixedUpdate()
 			tween->m_originalPos = targetPos;
 			double normalisedTime = tween->m_timeElapsed / tween->m_timePerTween;
 			trans->m_pos = Tweening(tween->m_originalPos, targetPos, normalisedTime);
-			tween->m_tweens.pop();
+			tween->m_tweens.pop_front();
 		}
 		else 
 		{

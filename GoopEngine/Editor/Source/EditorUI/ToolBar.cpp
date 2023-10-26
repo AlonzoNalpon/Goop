@@ -13,6 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AssetManager/AssetManager.h>
 #include <Serialization/Serialization.h>
 #include <EditorUI/DataViz/Visualizer.h>
+#include <ImGui/imgui_internal.h>
 #include <ObjectFactory/GivingMyself90MinToFigureThisOut.h>
 
 using namespace ImGui;
@@ -63,11 +64,6 @@ void GE::EditorGUI::ToolBar::CreateContent()
       ImGui::EndMenu();
     }
 
-    EndMenuBar();
-  }
-
-  if (BeginMenuBar())
-  {
     if (BeginMenu("Options"))
     {
       ImGui::EndMenu();

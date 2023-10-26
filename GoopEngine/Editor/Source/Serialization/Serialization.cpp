@@ -118,7 +118,7 @@ namespace GE
       The serialized json value object of the script names in a rapidjson
       array
     ************************************************************************/
-    rapidjson::Value SerializeScriptMap(std::map<std::string, GE::MONO::Script> const& scripts, rapidjson::Document::AllocatorType& allocator)
+    rapidjson::Value SerializeScriptMap(std::map<std::string, MONO::Script> const& scripts, rapidjson::Document::AllocatorType& allocator)
     {
       rapidjson::Value ret{ rapidjson::kArrayType };
       for (auto const& [s1, s2] : scripts)
@@ -130,10 +130,18 @@ namespace GE
       return ret;
     }
 
-    /*rapidjson::Value SerializeTweenQueue(std::queue<GE::Math::dVec3> const& tweens, rapidjson::Document::AllocatorType& allocator)
+    rapidjson::Value SerializeTweenQueue(std::deque<Math::dVec3> tweens, rapidjson::Document::AllocatorType& allocator)
     {
-
-    }*/
+      rapidjson::Value ret{ rapidjson::kArrayType };
+      while (!tweens.empty())
+      {
+        rapidjson::Value jsonVal{};
+        jsonVal.SetString(tweens.front().ToString().c_str(), allocator);
+        ret.PushBack(jsonVal, allocator);
+        tweens.pop_front();
+      }
+      return ret;
+    }
 
   } // namespace Serialization
 } // namespace GE

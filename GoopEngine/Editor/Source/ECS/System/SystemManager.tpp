@@ -9,8 +9,8 @@ T* SystemManager::GetSystem()
 	}
 	
 	std::stringstream ss;
-	ss << "Fetching system " << systemName << " while it does not exist. No action taken";
-	GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str(), false);
+	ss << "Getting system " << systemName << " while it does not exist";
+	GE::Debug::ErrorLogger::GetInstance().LogMessage(ss.str(), false);
 	return nullptr;
 }
 
@@ -46,9 +46,6 @@ bool SystemManager::RemoveSystem()
 		m_signatures.find(systemName) == m_signatures.end())
 	{
 		// Removing a system that does not exist
-		std::stringstream ss;
-		ss << "Removing system " << systemName << " while it does not exist. No action taken";
-		GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str(), false);
 		return false;
 	}
 

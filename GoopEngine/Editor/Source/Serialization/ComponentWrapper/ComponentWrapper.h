@@ -2,7 +2,7 @@
 \file   ComponentWrapper.h
 \author chengen.lau\@digipen.edu
 \date   29-September-2023
-\brief  Definition of ComponentDWrapper struct that is a wrapper class
+\brief  Definition of ComponentWrapper struct that is a wrapper class
         for serialized json data. The class was designed to simplify
         the process of extracting serialized data for components. The
         class stores the data of a component which can then be
@@ -10,7 +10,7 @@
         specified data type as template arguments.
 
         Example Usage:
-          ComponentDWrapper cw{ componentStr };
+          ComponentWrapper cw{ componentStr };
 
         To extract the data, simply call .Get<>() function and
         specify the data type you want to extract it in as template
@@ -35,14 +35,14 @@ namespace GE
   {
     // Reference to the underlying json data
 
-    class ComponentDWrapper
+    class ComponentWrapper
     {
     public:
       using ComponentData = rapidjson::Value const&;
 
       // Non-default ctor taking in a string containing 
       // a component's data in json format
-      ComponentDWrapper(std::string const& componentData);
+      ComponentWrapper(std::string const& componentData);
 
       /*!*********************************************************************
       \brief
@@ -65,7 +65,9 @@ namespace GE
       template<> Math::dVec2 Get(const char* key) const;
       template<> Math::dVec3 Get(const char* key) const;
       template<> std::queue<Math::dVec2> Get(const char* key) const;
+      template<> std::deque<Math::dVec2> Get(const char* key) const;
       template<> std::queue<Math::dVec3> Get(const char* key) const;
+      template<> std::deque<Math::dVec3> Get(const char* key) const;
       template<> std::vector<std::pair<std::string, std::string>>
                  Get(const char* key) const;
       template<> Component::DragForce Get(const char* key) const;
@@ -90,31 +92,6 @@ namespace GE
     private:
       rapidjson::Document m_data;
       rapidjson::Value const* m_ptr = nullptr;  // ptr to underlying json data
-    };
-
-    class ComponentSWrapper
-    {
-    public:
-      ComponentSWrapper(const char* componentName);
-       
-      /*!*********************************************************************
-      \brief
-        Inserts a value with a basic type into the wrapper object.
-        Supports most C standard types (int, float, double etc.)
-
-        Additional supports:
-          GE::Math::dVec3
-      \param key
-        The value of the key in string to store the value as
-      \param value
-        The value to serialize into the wrapper object
-      ************************************************************************/
-      void InsertBasicType(const char* key, rttr::variant value);
-
-      /*template <typename T>
-      void Insert(const char* key, T value);*/
-    private:
-      rapidjson::Document m_data;
     };
 
   } // namespace Serialization

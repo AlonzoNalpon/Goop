@@ -22,17 +22,17 @@ namespace Graphics::Rendering
 
   void FontRenderer::RenderText(glm::mat4 const& /*proj*/, std::string const& /*str*/, gVec2 /*pos*/, GLfloat /*scale*/, Colorf /*clr*/)
   {
-    /*constexpr GLint U_PROJ{0}, U_TEXT{1}, U_CLR{2};
-    glUseProgram(m_fontShader.GetHandle());
-    glUniform3f(U_CLR, clr.r, clr.g, clr.b);
-
-    glActiveTexture(GL_TEXTURE0);
-    glBindVertexArray(m_fontQuad);
-
-    for (auto c{ str.begin() }; c != str.end(), ++c)
-    {
-      Fonts::Character const& 
-    }*/
+    //constexpr GLint U_PROJ{0}, U_TEXT{1}, U_CLR{2};
+    //glUseProgram(m_fontShader.GetHandle());
+    //glUniform3f(U_CLR, clr.r, clr.g, clr.b);
+    //
+    //glActiveTexture(GL_TEXTURE0);
+    //glBindVertexArray(m_fontQuad);
+    //
+    //for (auto c{ str.begin() }; c != str.end(), ++c)
+    //{
+    //  Fonts::Character const& 
+    //}
   }
 
   GLuint FontRenderer::GenerateFontQuad()

@@ -8,3 +8,6 @@
 #include <Component/Transform.h>
 #include <Component/Tween.h>
 #include <Component/Velocity.h>
+#include <Component/EnemyAI.h>
+#include <Component/Draggable.h>
+#include <Component/Camera.h>
