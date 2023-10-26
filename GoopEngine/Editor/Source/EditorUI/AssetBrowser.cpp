@@ -15,6 +15,7 @@ std::vector<int> GE::EditorGUI::AssetBrowser::toUnload;
 namespace
 {
 	std::filesystem::path m_currDir;
+	std::filesystem::path assetsDirectory;
 	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" };
 }
 
@@ -26,7 +27,7 @@ void AssetBrowser::CreateContentDir()
 	ImGuiStyle& style = GetStyle();
 	ImColor originalTextClr = style.Colors[ImGuiCol_Text];
 
-	std::filesystem::path assetsDirectory{ *assetManager.GetConfigData<std::string>("Assets Dir") };
+	assetsDirectory = *assetManager.GetConfigData<std::string>("Assets Dir");
 	if (!std::filesystem::exists(assetsDirectory))
 	{
 		throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Assets Directory not found! Path: " + assetsDirectory.string()));
@@ -62,8 +63,16 @@ void AssetBrowser::CreateContentView()
 		return;
 	}
 
-	Text(m_currDir.filename().string().c_str());
-	Text("________________________________________");
+	if (m_currDir == assetsDirectory)
+	{
+		Text("Assets");
+		Text("________________________________________");
+	}
+	else
+	{
+		Text(m_currDir.filename().string().c_str());
+		Text("________________________________________");
+	}
 
 	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
 	{
@@ -117,6 +126,10 @@ void AssetBrowser::CreateContentView()
 		{
 			//name of shader
 			Text(file.path().filename().string().c_str());
+		}
+		else
+		{
+			continue;
 		}
 	}
 }
