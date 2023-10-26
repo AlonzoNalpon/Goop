@@ -23,9 +23,6 @@ void GE::Scenes::SceneTest::MakeDraggableBox()
 		ecs->AddComponent(entt, vel);
 		ecs->AddComponent(entt, trans);
 		ecs->AddComponent(entt, box);
-		ecs->RegisterEntityToSystem<PhysicsSystem>(entt);
-		ecs->RegisterEntityToSystem<CollisionSystem>(entt);
-		ecs->RegisterEntityToSystem<DraggableObjectSystem>(entt);
 }
 
 void GE::Scenes::SceneTest::Load(std::string)
@@ -68,10 +65,6 @@ void GE::Scenes::SceneTest::Init()
 	ecs->AddComponent(player, anim);
 	ecs->AddComponent(player, playerCollider);
 	ecs->AddComponent(player, scriptHan);
-	ecs->RegisterEntityToSystem<PlayerControllerSystem>(player);
-	ecs->RegisterEntityToSystem<RenderSystem>(player);
-	ecs->RegisterEntityToSystem<CollisionSystem>(player);
-	ecs->RegisterEntityToSystem<SpriteAnimSystem>(player);
 	ecs->SetEntityName(player, "Player");
 }
 
