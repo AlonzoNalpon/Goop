@@ -58,6 +58,8 @@ void CollisionSystem::Update()
 		//drawing partition's border
 		gEngine.DrawLine(partition.min, { partition.max.x, partition.min.y });
 		gEngine.DrawLine({ partition.max.x, partition.min.y }, partition.max);
+		gEngine.DrawLine(partition.max, { partition.min.x, partition.max.y });
+		gEngine.DrawLine({ partition.min.x, partition.max.y }, partition.min);
 
 		if (partition.m_entitiesInPartition.empty()) 
 		{
@@ -113,6 +115,15 @@ void CollisionSystem::UpdateAABB(BoxCollider& entity, const dVec2& newCenter)
 
 void CollisionSystem::CreatePartitions(int rows, int cols)
 {
+	if (rows == 0)
+	{
+		throw Debug::Exception<CollisionSystem>(Debug::LEVEL_ERROR, ErrMsg("Rows for partition is 0."));
+	}
+	if (cols == 0)
+	{
+		throw Debug::Exception<CollisionSystem>(Debug::LEVEL_ERROR, ErrMsg("Column for partition is 0."));
+	}
+
 	m_partitions.clear();
 	GraphicsEngine& getWindowSize = GraphicsEngine::GetInstance();
 	int partitionHeight = getWindowSize.GetVPHeight() / rows;

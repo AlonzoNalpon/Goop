@@ -36,14 +36,14 @@ void SystemManager::EntityDestroyed(const Entity& entity)
 	}
 }
 
-void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignature& signature)
+void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignature& signature, bool isActive)
 {
 	for (auto& system : m_systems)
 	{
-		ComponentSignature& cmpSig{ m_signatures[system.first] };
+		ComponentSignature& sySig{ m_signatures[system.first] };
 
 		// checks if the entity's has a component used by the system
-		if ((signature & cmpSig) != cmpSig)
+		if ((signature & sySig) != sySig)
 		{
 			// Entity does not have component to run this system
 			// remove it from system
@@ -52,9 +52,18 @@ void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignat
 			system.second->GetEntities().erase(entity);
 			system.second->GetInActiveEntities().erase(entity);
 			system.second->GetAllEntities().erase(entity);
-			std::stringstream ss;
-			ss << "Entity ID " << entity << " does not match " << system.first << " siganture. Removed from entity list";
-			GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str());
+		}
+		else
+		{			
+			system.second->GetAllEntities().insert(entity);
+			if (isActive)
+			{
+				system.second->GetEntities().insert(entity);
+			}
+			else
+			{
+				system.second->GetInActiveEntities().insert(entity);
+			}
 		}
 	}
 }
@@ -91,7 +100,7 @@ void SystemManager::UpdateSystems()
 		auto& systemName{ system.second };
 		m_systems[systemName]->Update();
 	}
-	fpsC.EndSystemTimer("System Update");
+	fpsC.EndSystemTimer("Update");
 
 	int steps = fpsC.GetSteps();
 	if (steps > 0)
@@ -105,14 +114,14 @@ void SystemManager::UpdateSystems()
 			}
 		}
 	}
-	fpsC.EndSystemTimer("System Fixed Update");
+	fpsC.EndSystemTimer("Fixed Update");
 
 	for (auto& system : m_indexToSystem)
 	{
 		auto& systemName{ system.second };
 		m_systems[systemName]->LateUpdate();
 	}
-	fpsC.EndSystemTimer("System Late Update");
+	fpsC.EndSystemTimer("Late Update");
 }
 
 void SystemManager::UpdateSystemsFixed()

@@ -51,16 +51,118 @@ namespace GE::EditorGUI
 	{
 	private:		
 		static GE::ECS::Entity m_selectedEntity;		
-		static bool m_frameEnded;
+		static bool m_play;
+		static bool m_pause;
+		static bool m_step;
+		static bool m_restart;
 	public:
+		/*!******************************************************************
+		\brief 
+		  Starts docking area
+
+		\param[in] projectName
+			Project name
+		********************************************************************/
 		static void CreateDockSpace(const char* projectName);
+
+		/*!******************************************************************
+		\brief 
+		  Ends Docking area
+		********************************************************************/
 		static void EndDockSpace();
 
-		// Returns a copy intentially as it is a read only variable
+		/*!******************************************************************
+		\brief 
+		  Returns a read only ID of the selected entity
+
+		\return 
+			Selected entity
+		********************************************************************/
 		static GE::ECS::Entity GetSelectedEntity();
+
+		/*!******************************************************************
+		\brief 
+		  Sets the currently selected entity
+
+		\param[in] selectedEntity
+			Entity selected
+		********************************************************************/
 		static void SetSelectedEntity(GE::ECS::Entity& selectedEntity);
-		static bool GetFrameEnded();
-		static void SetFrameEnded(bool frameEnded);
+
+		/*!*********************************************************************
+		\brief
+		  Sets the flag if you should step simulation.
+
+		\param shouldStep
+		  Flag
+		************************************************************************/
+		static void StepSimulation(bool shouldStep);
+
+		/*!*********************************************************************
+		\brief
+		  Returns the value of the flag set by StepSimulation. Then sets the
+			flag to false.
+		  
+		\return
+		  Step flag
+		************************************************************************/
+		static bool StepSimulation();
+
+		/*!*********************************************************************
+		\brief
+		  Get the flag is simulation should be running.
+		  
+		\return
+		  ShouldPlay flag
+		************************************************************************/
+		static bool ShouldPlay();
+
+		/*!*********************************************************************
+		\brief
+		  Sets the should play flag for the simulation to true.
+		************************************************************************/
+		static void Play();
+
+		/*!*********************************************************************
+		\brief
+		  Sets the should play flag for the simulation to false.	
+		************************************************************************/
+		static void Pause();
+
+		/*!*********************************************************************
+		\brief
+		  Returns the flag of if the simulation is paused.
+		  
+		\return
+		  Paused flag
+		************************************************************************/
+		static bool Paused();
+
+		/*!*********************************************************************
+		\brief
+		  Sets the should restart flag for the simulation to true.		
+		************************************************************************/
+		static void Restart();
+
+		/*!*********************************************************************
+		\brief
+		  Returns the flag of if the simulation is playing.
+		  
+		\return
+		  Play flag
+		************************************************************************/
+		static bool IsRunning();
+
+		/*!*********************************************************************
+		\brief
+		  Returns the flag of if the simulation should be restarted. The flag
+			will be set to false after the function is called.
+		  
+		\return
+		  Restart flag
+		************************************************************************/
+		static bool ShouldRestart();
+
 		static void UpdateViewport();
 	};
 }

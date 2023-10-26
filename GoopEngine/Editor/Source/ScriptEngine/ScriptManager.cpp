@@ -191,9 +191,7 @@ MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* name
   return klass;
 }
 
-
-
-MonoObject* GE::MONO::ScriptManager::InstantiateClassID(const char* namespaceName, const char* className, unsigned int entityID)
+MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className, void** arg, int argSize)
 {
   // Get a reference to the class we want to instantiate
   MonoClass* childClass;
@@ -206,7 +204,7 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClassID(const char* namespaceNam
     e.Log();
     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
   }
-   
+
 
   // Allocate an instance of our class
   MonoObject* classInstance = mono_object_new(m_appDomain, childClass);
@@ -217,20 +215,29 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClassID(const char* namespaceNam
   }
 
   //Init the class through non-default constructor
-  void* args =  &entityID;
-  MonoMethod* classCtor = mono_class_get_method_from_name(childClass, ".ctor",1);
-  mono_runtime_invoke(classCtor, classInstance, &args, nullptr);
+  MonoMethod* classCtor = mono_class_get_method_from_name(childClass, ".ctor", argSize);
+  mono_runtime_invoke(classCtor, classInstance, arg, nullptr);
 
   if (classInstance == nullptr) {
-     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
   }
   return classInstance;
 }
 
-MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className)
+MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className, std::vector<void*>& arg)
 {
   // Get a reference to the class we want to instantiate
-  MonoClass* childClass = GetClassInAssembly(m_coreAssembly, namespaceName, className);
+  MonoClass* childClass;
+  try {
+    childClass = GetClassInAssembly(m_coreAssembly, namespaceName, className);
+  }
+  catch (GE::Debug::IExceptionBase& e)
+  {
+    e.LogSource();
+    e.Log();
+    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+  }
+
 
   // Allocate an instance of our class
   MonoObject* classInstance = mono_object_new(m_appDomain, childClass);
@@ -240,15 +247,73 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName,
     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Allocate memory for class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
   }
 
-  // Call the parameterless (default) constructor
-  mono_runtime_object_init(classInstance);
+  //Init the class through non-default constructor
+  MonoMethod* classCtor = mono_class_get_method_from_name(childClass, ".ctor", static_cast<int>(arg.size()));
+  mono_runtime_invoke(classCtor, classInstance, arg.data(), nullptr);
 
   if (classInstance == nullptr) {
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
   }
-
   return classInstance;
 }
+//
+//
+//MonoObject* GE::MONO::ScriptManager::InstantiateClassID(const char* namespaceName, const char* className, unsigned int entityID)
+//{
+//  // Get a reference to the class we want to instantiate
+//  MonoClass* childClass;
+//  try {
+//    childClass = GetClassInAssembly(m_coreAssembly, namespaceName, className);
+//  }
+//  catch (GE::Debug::IExceptionBase& e)
+//  {
+//    e.LogSource();
+//    e.Log();
+//    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+//  }
+//   
+//
+//  // Allocate an instance of our class
+//  MonoObject* classInstance = mono_object_new(m_appDomain, childClass);
+//
+//  if (classInstance == nullptr)
+//  {
+//    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Allocate memory for class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+//  }
+//
+//  //Init the class through non-default constructor
+//  void* args =  &entityID;
+//  MonoMethod* classCtor = mono_class_get_method_from_name(childClass, ".ctor",1);
+//  mono_runtime_invoke(classCtor, classInstance, &args, nullptr);
+//
+//  if (classInstance == nullptr) {
+//     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+//  }
+//  return classInstance;
+//}
+//
+//MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className)
+//{
+//  // Get a reference to the class we want to instantiate
+//  MonoClass* childClass = GetClassInAssembly(m_coreAssembly, namespaceName, className);
+//
+//  // Allocate an instance of our class
+//  MonoObject* classInstance = mono_object_new(m_appDomain, childClass);
+//
+//  if (classInstance == nullptr)
+//  {
+//    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Allocate memory for class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+//  }
+//
+//  // Call the parameterless (default) constructor
+//  mono_runtime_object_init(classInstance);
+//
+//  if (classInstance == nullptr) {
+//    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+//  }
+//
+//  return classInstance;
+//}
 
 
 

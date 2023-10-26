@@ -15,6 +15,7 @@ void EntityComponentSystem::AddComponent(Entity& entity, T component)
 	signature.set(m_componentManager->GetComponentSignature<T>(), true);
 	// Update entity's component signature
 	m_entityManager->SetComponentSignature(entity, signature);
+	m_systemManager->EntitySignatureChanged(entity, signature, m_entityManager->IsActiveEntity(entity));
 }
 
 template <typename T>

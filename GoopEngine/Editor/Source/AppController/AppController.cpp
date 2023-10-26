@@ -1,6 +1,7 @@
 /*!*********************************************************************
 \file   AppController.cpp
 \author loh.j@digipen.edu
+\co-author w.chinkitbryan\@digipen.edu
 \date   18-September-2023
 \brief
   The AppController class is the main controller for running the
@@ -13,6 +14,18 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../EditorUI/ImGuiUI.h"
 
 using namespace GE::ECS;
+
+namespace
+{
+  /*!*********************************************************************
+  \brief 
+    Wrapper function to print out exceptions.
+
+  \param e
+    Exception caught
+  ************************************************************************/
+  void PrintException(GE::Debug::IExceptionBase& e);
+}
 
 namespace GE::Application
 {
@@ -38,7 +51,7 @@ namespace GE::Application
 
       fRC.InitFrameRateController(*am->GetConfigData<int>("FPS Limit"), *am->GetConfigData<int>("Steps Per Second"), *am->GetConfigData<int>("FPS Check Interval"));
 
-      window = { *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), "GOOP" };
+      window = { *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), "Goop Engine"};
       window.CreateAppWindow();
 
       gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
@@ -53,12 +66,11 @@ namespace GE::Application
       GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
       scriptMan->InitMono();
 
-      GE::AI::TestTree();
 
     }
     catch (GE::Debug::IExceptionBase& e)
     {
-      e.LogSource();
+      PrintException(e);
     }
   }
   
@@ -74,60 +86,56 @@ namespace GE::Application
       {
         fRC.StartFrame();
 
-        fRC.StartSystemTimer();
-        im.UpdateInput();
-        fRC.EndSystemTimer("Input System");
-
-        fRC.StartSystemTimer();
-        imgui.Update();
-        fRC.EndSystemTimer("ImGui Update");
-
         gEngine.ClearBuffer();
 
-        gsm.Update();
-
-        fRC.StartSystemTimer();
+        /////////////////
+        // Update calls
+        /////////////////
         try
         {
+          fRC.StartSystemTimer();
+          im.UpdateInput();
+          fRC.EndSystemTimer("Input");
+
+          fRC.StartSystemTimer();
+          imgui.Update();
+          fRC.EndSystemTimer("ImGui Update");
+
+          gsm.Update();
+
+          fRC.StartSystemTimer();
           ecs->UpdateSystems();
+          fRC.EndSystemTimer("Scene Update");
         }
         catch (GE::Debug::IExceptionBase& e)
         {
-          e.LogSource();
+          PrintException(e);
         }
-        fRC.EndSystemTimer("Scene Update");
 
-        fRC.StartSystemTimer();
-        gEngine.Draw();
-        fRC.EndSystemTimer("Draw");
-
-        fRC.StartSystemTimer();
-        imgui.Render();
-        fRC.EndSystemTimer("ImGui Render");
-
-        std::stringstream ss;
-        ss << *GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Window Title") << " | FPS: " << std::fixed
-          << std::setfill('0') << std::setw(5) << std::setprecision(2) << fRC.GetFPS() << " | Entities: " << EntityComponentSystem::GetInstance().GetEntities().size();
-        for (auto const& system : fRC.GetSystemTimers())
+        /////////////////
+        // Draw calls
+        /////////////////
+        try
         {
-          ss << " | " << system.first << ": " << std::setw(4) << system.second.count() << "us";
+          fRC.StartSystemTimer();
+          gEngine.Draw();
+          fRC.EndSystemTimer("Draw");
+
+          fRC.StartSystemTimer();
+          imgui.Render();
+          fRC.EndSystemTimer("ImGui Render");
         }
-        window.SetWindowTitle(ss.str().c_str()); // this is how you set window title
+        catch (GE::Debug::IExceptionBase& e)
+        {
+          PrintException(e);
+        }
 
         window.SwapBuffers();
         fRC.EndFrame();
       }
       catch (GE::Debug::IExceptionBase& e)
       {
-        e.LogSource();
-        // This is to ensure if a throw happens and ImGui did not get
-        // a chance to render. It will render 1 frame regardless of if
-        // has everything it needs to render.
-        // This prevents a crash when NewFrame is called without Render() call
-        if (!GE::EditorGUI::ImGuiHelper::GetFrameEnded())
-        {
-          imgui.Render();
-        }
+        PrintException(e);
       }
     }
   }
@@ -141,8 +149,24 @@ namespace GE::Application
     }
     catch (GE::Debug::IExceptionBase& e)
     {
-      e.LogSource();
+      PrintException(e);
     }
   }
 
+}
+
+namespace
+{
+  void PrintException(GE::Debug::IExceptionBase& e)
+  {
+    std::string defError{e.what()};
+    if (defError.length() > 0)
+    {
+      GE::Debug::ErrorLogger::GetInstance().LogCritical(defError);
+    }
+    else
+    {
+      e.LogSource();
+    }
+  }
 }

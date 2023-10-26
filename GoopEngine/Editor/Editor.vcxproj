@@ -155,11 +155,8 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AI\Tree.cpp" />
     <ClCompile Include="Source\EditorUI\Console.cpp" />
-    <ClCompile Include="Source\AI\ActionNode.cpp" />
-    <ClCompile Include="Source\AI\BehaviourTree.cpp" />
-    <ClCompile Include="Source\AI\CompositeNode.cpp" />
-    <ClCompile Include="Source\AI\Node.cpp" />
     <ClCompile Include="Source\AppController\AppController.cpp" />
     <ClCompile Include="Source\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Source\Audio\AudioEngine.cpp" />
@@ -172,6 +169,7 @@
     <ClCompile Include="Source\ECS\System\System.cpp" />
     <ClCompile Include="Source\EditorUI\DataViz\Visualizer.cpp" />
     <ClCompile Include="Source\EditorUI\Inspector.cpp" />
+    <ClCompile Include="Source\EditorUI\SceneControls.cpp" />
     <ClCompile Include="Source\EditorUI\ToolBar.cpp" />
     <ClCompile Include="Source\Events\EventManager.cpp" />
     <ClCompile Include="Source\GameStateManager\GameStateManager.cpp" />
@@ -263,6 +261,7 @@
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimGenerator.cpp" />
     <ClCompile Include="Source\Math\Mat3Utils.cpp" />
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
+    <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Source\Systems\PlayerController\PlayerControllerSystem.cpp" />
@@ -277,7 +276,9 @@
     <ClCompile Include="Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AI\Tree.h" />
     <ClInclude Include="Source\Component\Camera.h" />
+    <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\EditorUI\Console.h" />
     <ClInclude Include="Source\AI\ActionNode.h" />
     <ClInclude Include="Source\AI\BehaviourTree.h" />
@@ -306,6 +307,7 @@
     <ClInclude Include="Source\ECS\Component\ComponentManager.h" />
     <ClInclude Include="Source\EditorUI\DataViz\Visualizer.h" />
     <ClInclude Include="Source\EditorUI\Inspector.h" />
+    <ClInclude Include="Source\EditorUI\SceneControls.h" />
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
     <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
@@ -378,6 +380,7 @@
     <ClInclude Include="Source\Graphics\ShaderProgram.h" />
     <ClInclude Include="Source\SpriteAnimation\SpriteAnimGenerator.h" />
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
+    <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
     <ClInclude Include="Source\Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />

@@ -25,6 +25,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Physics/CollisionSystem.h>
 #include "Console.h"
 #include "Inspector.h"
+#include "SceneControls.h"
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -34,7 +35,10 @@ using namespace ImGui;
 
 // Initialize static
 GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
-bool ImGuiHelper::m_frameEnded = true;
+bool ImGuiHelper::m_play = false;
+bool ImGuiHelper::m_pause = false;
+bool ImGuiHelper::m_step = false;
+bool ImGuiHelper::m_restart = false;
 
 void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
 {
@@ -60,7 +64,6 @@ void ImGuiUI::Update()
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   NewFrame();
-  ImGuiHelper::SetFrameEnded(false);
 
 #ifdef RUN_IMGUI_DEMO
   ImGui::ShowDemoWindow();
@@ -70,8 +73,18 @@ void ImGuiUI::Update()
 
   ToolBar::CreateContent();
 
+  SceneControls::CreateContent();
+
+  Begin("Console");
+  Console::CreateContent();
+  End();
+
   Begin("Scene Heirachy");
   SceneHierachy::CreateContent();
+  End();
+
+  Begin("Inspector");
+  Inspector::CreateContent();
   End();
 
   Begin("Viewport");
@@ -121,24 +134,11 @@ void ImGuiUI::Update()
     }
   }
   End();
-
-
+  
   if (Visualizer::IsPerformanceShown())
   {
     Visualizer::CreateContent("Performance Visualizer");
   }
-
-#ifdef _DEBUG
-  static bool showOverlay = true;
-  ImGui::SetNextWindowPos(ImVec2(ImGui::GetWindowWidth() / 2.f, 10), ImGuiCond_Always);
-  ImGui::SetNextWindowSize(ImVec2(300, 30), ImGuiCond_Always);
-
-  ImGui::Begin("Overlay Window", &showOverlay, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
-
-  ImGui::Text("Mouse Pos: (%.2f, %.2f)", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
-
-  ImGui::End();
-#endif
 
   Begin("Audio");
   Assets::AssetManager const& aM{ Assets::AssetManager::GetInstance() };
@@ -177,22 +177,15 @@ void ImGuiUI::Update()
   Audio::AudioEngine::GetInstance().Update();
   End();
 
-  Begin("Inspector");
-  Inspector::CreateContent();
-  End();
-
-  Begin("Console");
-  Console::CreateContent();
-  End();
-
   ImGuiHelper::EndDockSpace();
 }
 
 void ImGuiUI::Render()
 {
+  // Empty function callback
+  ErrorCheckEndFrameRecover([](void*, const char*, ...) {GE::Debug::ErrorLogger::GetInstance().LogCritical("ImGui Update failed. Begin stack not ended"); });
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());
-  ImGuiHelper::SetFrameEnded(true);
 }
 
 void ImGuiUI::Exit()
@@ -250,14 +243,58 @@ void GE::EditorGUI::ImGuiHelper::SetSelectedEntity(GE::ECS::Entity& selectedEnti
   m_selectedEntity = selectedEntity;
 }
 
-bool GE::EditorGUI::ImGuiHelper::GetFrameEnded()
+void GE::EditorGUI::ImGuiHelper::StepSimulation(bool shouldStep)
 {
-  return m_frameEnded;
+  m_step = shouldStep;
 }
 
-void GE::EditorGUI::ImGuiHelper::SetFrameEnded(bool frameEnded)
+bool GE::EditorGUI::ImGuiHelper::StepSimulation()
 {
-  m_frameEnded = frameEnded;
+  bool shouldStep = m_step;
+  m_step = false;
+  return shouldStep;
+}
+
+bool GE::EditorGUI::ImGuiHelper::ShouldPlay()
+{
+  return m_play;
+}
+
+void GE::EditorGUI::ImGuiHelper::Play()
+{
+  m_play = true;
+  m_step = false;
+  m_pause = true;
+}
+
+void GE::EditorGUI::ImGuiHelper::Pause()
+{
+  m_pause = true;
+  m_play = false;
+}
+
+bool GE::EditorGUI::ImGuiHelper::Paused()
+{
+  return m_pause;
+}
+
+void GE::EditorGUI::ImGuiHelper::Restart()
+{
+  m_restart = true;
+  m_play = false;
+  m_step = false;
+}
+
+bool GE::EditorGUI::ImGuiHelper::IsRunning()
+{
+  return m_play;
+}
+
+bool GE::EditorGUI::ImGuiHelper::ShouldRestart()
+{
+  bool shouldRestart = m_restart;
+  m_restart = false;
+  return shouldRestart;
 }
 
 void GE::EditorGUI::ImGuiHelper::UpdateViewport()

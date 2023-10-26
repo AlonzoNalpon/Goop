@@ -129,7 +129,7 @@ namespace GE
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
 			Component::Tween tween{ 0 };
-			tween.m_tweens = cw.Get<std::queue<Math::dVec3>>("m_tweens");
+			tween.m_tweens = cw.Get<std::deque<Math::dVec3>>("m_tweens");
 			tween.m_timePerTween = cw.Get<double>("m_timePerTween");
 			tween.m_timeTaken = cw.Get<double>("m_timeTaken");
 			tween.m_timeElapsed = cw.Get<double>("m_timeElapsed");

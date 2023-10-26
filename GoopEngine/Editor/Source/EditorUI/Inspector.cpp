@@ -28,25 +28,128 @@ using namespace GE::Component;
 
 namespace
 {
+	/*!*********************************************************************
+	\brief 
+		Wrapper to create a vector3 input field for doubles
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] property
+		Vec3 input
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled = false);
+
+	/*!*********************************************************************
+	\brief
+		Wrapper to create a input field for double
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] property
+		Double input
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	void InputDouble1(std::string propertyName, double& property, bool disabled = false);
+
+	/*!*********************************************************************
+	\brief
+		Wrapper to create a checkbox
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] property
+		Bool input
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	void InputCheckBox(std::string propertyName, bool& property, bool disabled = false);
 
-	template <typename T>
-	void InputList(std::vector<T>& list, float fieldWidth, bool disabled = false);
+	/*!*********************************************************************
+	\brief
+		This function is not defined. Only used for specialization.
 
+	\param[in] propertyName
+		Label name
+
+	\param[in] list
+		List input
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
+	template <typename Container>
+	void InputList(std::string propertyName, Container& list, float fieldWidth, bool disabled = false);
+
+	/*!*********************************************************************
+	\brief
+		Wrapper for to create specialized inspector list of vector of 
+		linear forces
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] list
+		Vector of linear forces
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	template <>
-	void InputList(std::vector<GE::Component::LinearForce>& list, float fieldWidth, bool disabled);
+	void InputList(std::string propertyName, std::vector<GE::Component::LinearForce>& list, float fieldWidth, bool disabled);
+
+	/*!*********************************************************************
+	\brief
+		Wrapper for to create specialized inspector list of deque of
+		vec3
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] list
+		Deque of vec3
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
+	template <>
+	void InputList(std::string propertyName, std::deque<GE::Math::dVec3>& list, float fieldWidth, bool disabled);
 }
 
 void GE::EditorGUI::Inspector::CreateContent()
 {
 	GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
+	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 
-	if (entity == GE::ECS::INVALID_ID)
+	if (entity == GE::ECS::INVALID_ID || !ecs.GetEntities().contains(entity))
 		return;
 
-	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 	GE::ECS::ComponentSignature sig = ecs.GetComponentSignature(entity);
 
 	bool isActive{ecs.GetIsActiveEntity(entity)};
@@ -114,45 +217,62 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					InputDouble3("Velocity", vel->m_vel, inputWidth, true);
+					InputDouble3("Velocity", vel->m_vel, inputWidth);
 					TableNextRow();
-					InputDouble3("Accelaration", vel->m_acc, inputWidth, true);
+					InputDouble3("Accelaration", vel->m_acc, inputWidth);
 					TableNextRow();
 					InputDouble3("Gravity", vel->m_gravity, inputWidth);
 					TableNextRow();
 					InputDouble3("Drag", vel->m_dragForce.m_magnitude, inputWidth);
 					TableNextRow();
 					InputCheckBox("Drag Active", vel->m_dragForce.m_isActive);
-					TableNextRow();
-					InputList(vel->m_forces, inputWidth);
 					EndTable();
+					InputList("Force", vel->m_forces, inputWidth);
 					Separator();
 				}
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::SPRITE:
 			{
-				//auto trans = ecs.GetComponent<Sprite>(entity);
+				//auto sprite = ecs.GetComponent<Sprite>(entity);
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::SPRITE_ANIM:
 			{
-				//auto trans = ecs.GetComponent<SpriteAnim>(entity);
+				//auto anim = ecs.GetComponent<SpriteAnim>(entity);
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::MODEL:
 			{
-				//auto trans = ecs.GetComponent<Model>(entity);
+				//auto model = ecs.GetComponent<Model>(entity);
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::TWEEN:
 			{
-				//auto trans = ecs.GetComponent<Tween>(entity);
+				// Honestly no idea why -30 makes all 3 input fields match in size but sure
+				float inputWidth = (contentSize - charSize - 30) / 3;
+
+				auto tween = ecs.GetComponent<Tween>(entity);
+				if (ImGui::CollapsingHeader("Tween", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					Separator();
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					InputDouble1("Time Elapsed", tween->m_timeElapsed);
+					TableNextRow();
+					InputDouble1("Time Between", tween->m_timePerTween);
+					TableNextRow();
+					InputDouble3("Last End Point", tween->m_originalPos, inputWidth);
+					EndTable();
+					InputList("Tween", tween->m_tweens, inputWidth);
+					Separator();
+				}
+
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER:
 			{
-				//auto trans = ecs.GetComponent<ScriptHandler>(entity);
+				//auto scripts = ecs.GetComponent<ScriptHandler>(entity);
 				break;
 			}
 			default:
@@ -189,7 +309,7 @@ namespace
 		InputDouble(("##" + propertyName).c_str(), &property, 0, 0, "%.2f");
 		EndDisabled();
 	}
-
+	
 	void InputCheckBox(std::string propertyName, bool& property, bool disabled)
 	{
 		BeginDisabled(disabled);
@@ -201,24 +321,71 @@ namespace
 	}
 
 	template <>
-	void InputList(std::vector<GE::Component::LinearForce>& list, float fieldWidth, bool disabled)
+	void InputList(std::string propertyName, std::vector<GE::Component::LinearForce>& list, float fieldWidth, bool disabled)
 	{
-		BeginDisabled(disabled);
-		TableNextColumn();
-		if (TreeNode("Forces"))
+		// 12 characters for property name
+		float charSize = CalcTextSize("012345678901").x;
+
+		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
 			Separator();
+			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
 			TableNextRow();
 			int i{};
 			for (auto& force : list)
 			{
-				InputDouble3("Force " + std::to_string(i++), force.m_magnitude, fieldWidth, disabled);
+				PushID((std::to_string(i++)).c_str());
+				InputDouble3("Force", force.m_magnitude, fieldWidth, disabled);
 				InputDouble1("Lifetime", force.m_lifetime);
-				InputCheckBox("Force Active", force.m_isActive);
+				InputCheckBox("IsActive", force.m_isActive);
+				PopID();
 				Separator();
 			}
+			EndTable();
+
+			Separator();
+			Unindent();
+			// 20 magic number cuz the button looks good
+			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
+			{
+				list.push_back(LinearForce());
+			}
+
 			TreePop();
 		}
-		EndDisabled();
+	}
+
+	template <>
+	void InputList(std::string propertyName, std::deque<GE::Math::dVec3>& list, float fieldWidth, bool disabled)
+	{
+		// 12 characters for property name
+		float charSize = CalcTextSize("012345678901").x;
+
+		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			Separator();
+			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
+			int i{};
+			for (auto& item : list)
+			{
+				PushID((std::to_string(i++)).c_str());
+				InputDouble3(propertyName + " " + std::to_string(i++), item, fieldWidth, disabled);
+				TableNextRow();
+				PopID();
+			}
+			EndTable();
+
+			Separator();
+			Unindent();
+			// 20 magic number cuz the button looks good
+			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
+			{
+				list.push_back({ 0, 0, 0 });
+			}
+
+			TreePop();
+		}
 	}
 }
