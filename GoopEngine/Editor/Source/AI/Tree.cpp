@@ -29,3 +29,10 @@ GE::AI::Tree GE::AI::CreateTree(const GE::AI::TreeTemplate& treeTemp)
 	return newTree;
 }
 
+
+//GE::AI::TreeCache::TreeCache() 
+//{
+//	m_nodeCacheStack = std::deque<GE::AI::NodeCache>();
+//	m_nodeCacheStack.push_front((GE::AI::NodeCache(0, 0, GE::AI::NODE_STATES::STATE_NEW)));
+//	std::cout << m_nodeCacheStack.size() << "\n";
+//}

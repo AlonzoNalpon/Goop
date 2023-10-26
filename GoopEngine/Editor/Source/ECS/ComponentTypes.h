@@ -28,6 +28,7 @@ namespace GE
 			TWEEN,
 			SCRIPT_HANDLER,
 			DRAGGABLE,
+			ENEMY_AI,
 			COMPONENTS_TOTAL
 		};
 
@@ -46,12 +47,14 @@ namespace GE
 			{ COMPONENT_TYPES::MODEL, "Model" },
 			{ COMPONENT_TYPES::TWEEN, "Tween" },
 			{ COMPONENT_TYPES::SCRIPT_HANDLER, "ScriptHandler" },
-			{ COMPONENT_TYPES::DRAGGABLE, "Draggable" }
+			{ COMPONENT_TYPES::DRAGGABLE, "Draggable" },
+			{ COMPONENT_TYPES::ENEMY_AI, "EnemyAI" }
+
 		};
 
 		// Const map so only interated through ranged for,
 		// or use the .at(<key>) function
-		const std::map<std::string, COMPONENT_TYPES> stringToComponents
+		const std::unordered_map<std::string, COMPONENT_TYPES> stringToComponents
 		{
 			{ "Transform", COMPONENT_TYPES::TRANSFORM },
 			{ "BoxCollider", COMPONENT_TYPES::BOX_COLLIDER },
@@ -61,7 +64,8 @@ namespace GE
 			{ "Model", COMPONENT_TYPES::MODEL },
 			{ "Tween", COMPONENT_TYPES::TWEEN },
 			{ "ScriptHandler", COMPONENT_TYPES::SCRIPT_HANDLER },
-			{ "Draggable", COMPONENT_TYPES::DRAGGABLE }
+			{ "Draggable", COMPONENT_TYPES::DRAGGABLE },
+			{ "EnemyAI", COMPONENT_TYPES::ENEMY_AI }
 		};
 
 		/*!*********************************************************************

@@ -146,5 +146,13 @@ namespace GE
 		    return Component::ScriptHandler(vec, current);
 		}
 
+		template<>
+		GE::Component::EnemyAI DeserializeComponent(std::string const& componentData)
+		{
+			Serialization::ComponentWrapper const cw{ componentData };
+			return Component::EnemyAI(cw.Get<unsigned int>("entityID"), GE::AI::TreeCache());
+		}
+
+
 	}	// namespace ObjectFactory
 }	// namespace GE

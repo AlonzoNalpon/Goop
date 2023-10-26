@@ -11,6 +11,7 @@ using namespace Systems;
 
 unsigned int EnemySystem::m_currentEntityID;
 unsigned int EnemySystem::m_currentTreeID;
+unsigned int EnemySystem::m_playerID;
 std::vector<GE::AI::Tree> EnemySystem::m_treeList;
 
 
@@ -20,10 +21,14 @@ void EnemySystem::Update()
 	for (Entity entity : GetUpdatableEntities()) {
 		GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
 		GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
+		GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
 		UseTree(enemyAIComp->m_enemyTreeCache.m_treeID, entity);
+		std::cout << "ENTITY :" << entity << " using tree\n";
+		//std::cout << m_currentEntityID << "lestsog\n";
 
-		MonoMethod* onUpdate = mono_class_get_method_from_name(mono_object_get_class(m_treeList[m_currentTreeID][enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst), "OnUpdate", 1);
-		std::vector<void*> arg{ &enemyAIComp->m_entityID };
+		MonoMethod* onUpdate = mono_class_get_method_from_name(mono_object_get_class(m_treeList[m_currentTreeID][enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst), "OnUpdate", 2);
+		double dt = fpsControl->GetDeltaTime();
+		std::vector<void*> arg{ &m_currentEntityID, &dt };
 		mono_runtime_invoke(onUpdate, m_treeList[m_currentTreeID][enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst, arg.data(), nullptr);
 		PrintNodeCache(enemyAIComp->m_enemyTreeCache.m_nodeCacheStack);
 		std::cout << "END FOR THIS FRAME\n\n";
@@ -40,7 +45,11 @@ void EnemySystem::UseTree(TreeID treeID, unsigned int entityID)
 void EnemySystem::InitTree(const std::vector<Tree>& treeList)
 {
 	m_treeList = treeList;
-	
+}
+
+void EnemySystem::SetPlayerID(unsigned int playerID)
+{
+	m_playerID = playerID;
 }
 
 int EnemySystem::GetChildResult()
@@ -84,10 +93,12 @@ void EnemySystem::RunChildNode(GE::AI::NodeID childNodeID)
 {
 	GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
 	GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(m_currentEntityID);
+	GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
 	enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.push_front(NodeCache(childNodeID, 0, NODE_STATES::STATE_NEW));
 
-	MonoMethod* onUpdate = mono_class_get_method_from_name(mono_object_get_class(m_treeList[m_currentTreeID][childNodeID].m_script.m_classObjInst), "OnUpdate", 1);
-	std::vector<void*> arg{ &(enemyAIComp->m_entityID) };
+	MonoMethod* onUpdate = mono_class_get_method_from_name(mono_object_get_class(m_treeList[m_currentTreeID][childNodeID].m_script.m_classObjInst), "OnUpdate", 2);
+	double dt = fpsControl->GetDeltaTime();
+	std::vector<void*> arg{ &m_currentEntityID, &dt };
 	mono_runtime_invoke(onUpdate, m_treeList[m_currentTreeID][childNodeID].m_script.m_classObjInst, arg.data(), nullptr);
 }
 
@@ -120,6 +131,11 @@ void EnemySystem::ResetNode()
 
 	enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_childIndex = 0;
 	enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_NodeResult = STATE_NEW;
+}
+
+unsigned int  EnemySystem::GetPlayerID()
+{
+	return m_playerID;
 }
 
 

@@ -24,6 +24,7 @@ namespace GE::ECS
 		DRAGGABLE_OBJECT, // Draggable object system type
 		PLAYER_CONTROLLER, // Player controller system type
 		ROOT_TRANSFORM,
+		ENEMY_SYSTEM,
 		TOTAL_SYSTEMS // Total number of system types
 	};
 
@@ -40,6 +41,7 @@ namespace GE::ECS
 		{ SYSTEM_TYPES::PLAYER_CONTROLLER, "PlayerControllerSystem" },
 		{ SYSTEM_TYPES::RENDERING, "RenderSystem" },
 		{ SYSTEM_TYPES::SPRITE_ANIM, "SpriteAnimSystem" },
+		{ SYSTEM_TYPES::ENEMY_SYSTEM, "EnemySystem" },
 		{ SYSTEM_TYPES::ROOT_TRANSFORM, "RootTransformSystem" }
 	};
 
@@ -53,6 +55,7 @@ namespace GE::ECS
 		{ "PlayerControllerSystem", SYSTEM_TYPES::PLAYER_CONTROLLER },
 		{ "RenderSystem", SYSTEM_TYPES::RENDERING },
 		{ "SpriteAnimSystem", SYSTEM_TYPES::SPRITE_ANIM },
+		{ "EnemySystem", SYSTEM_TYPES::ENEMY_SYSTEM },
 		{ "RootTransformSystem", SYSTEM_TYPES::ROOT_TRANSFORM }
 	};
 

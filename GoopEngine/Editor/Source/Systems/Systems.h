@@ -7,3 +7,4 @@
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/RootTransform/RootTransformSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
+#include <Systems/Enemy/EnemySystem.h>

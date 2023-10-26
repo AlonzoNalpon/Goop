@@ -9,7 +9,7 @@ using static GoopScripts.Mono.Utils;
 namespace GoopScripts.AI
 {
 
-  internal class IsWithinAttackRange : MonoBehaviour
+  internal class IsOutsideAttackRange : MonoBehaviour
   {
     private uint m_parentID = 0;
     private uint m_nodeID = 0;
@@ -23,7 +23,7 @@ namespace GoopScripts.AI
   \params enityID
    ID of the owner of this scipt
   ************************************************************************/
-    public IsWithinAttackRange(uint currID, uint parentID, uint[] temp, uint size) : base()
+    public IsOutsideAttackRange(uint currID, uint parentID, uint[] temp, uint size) : base()
     {
       m_parentID = parentID;
       m_nodeID = currID;
@@ -55,10 +55,24 @@ namespace GoopScripts.AI
      Update function for the player script. This function is called every frame
      if the script is attached to an entity
     ************************************************************************/
-    public void OnUpdate(uint entityID)
+    public void OnUpdate(uint entityID, double dt)
     {
-      Console.WriteLine("RUN LEAFNODE");
-      OnSuccess();
+      uint playerID = GetPlayerID();
+      Vec3<double> playerPos = GetPosition(playerID);
+      Vec3<double> currPos = GetPosition(entityID);
+      double deltaX = currPos.X - playerPos.X;
+      double deltaY = currPos.Y - playerPos.Y;
+      double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+
+
+      if (distance > 250.0)
+      {
+        OnSuccess();
+      }
+      else
+      {
+        OnFail();
+      }
 
     }
     public void OnFail()

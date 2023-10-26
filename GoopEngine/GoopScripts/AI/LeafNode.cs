@@ -55,7 +55,7 @@ namespace GoopScripts.AI
      Update function for the player script. This function is called every frame
      if the script is attached to an entity
     ************************************************************************/
-    public void OnUpdate(uint entityID)
+    public void OnUpdate(uint entityID, double dt)
     {
       Console.WriteLine("RUN LEAFNODE");
       OnSuccess(entityID);

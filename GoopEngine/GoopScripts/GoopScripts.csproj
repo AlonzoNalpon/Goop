@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\Enemy\IsWithinAttackRange.cs" />
+    <Compile Include="AI\Enemy\IsOutsideAttackRange.cs" />
     <Compile Include="AI\Enemy\IsWithinPlayerRange.cs" />
     <Compile Include="AI\Enemy\MoveToPlayer.cs" />
     <Compile Include="AI\Enemy\RunFromPlayer.cs" />

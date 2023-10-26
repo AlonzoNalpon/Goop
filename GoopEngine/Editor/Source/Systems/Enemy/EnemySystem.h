@@ -14,11 +14,14 @@ namespace GE
 
 			static std::vector<GE::AI::Tree> m_treeList;
 			static GE::AI::TreeID m_currentTreeID;
+			static unsigned int m_playerID;
 			static unsigned int m_currentEntityID;
 
 
 
 		public:
+
+			static void SetPlayerID(unsigned int playerID);
 
 			static void UseTree(GE::AI::TreeID treeID, unsigned int entityID);
 
@@ -40,6 +43,7 @@ namespace GE
 
 			static void ResetNode();
 
+			static unsigned int GetPlayerID();
 
 
 		};

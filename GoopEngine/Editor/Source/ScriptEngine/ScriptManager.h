@@ -25,6 +25,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../Component/Transform.h"
 #include <DebugTools/Exception/Exception.h>
 #include <FrameRateController/FrameRateController.h>
+#include <Systems/Enemy/EnemySystem.h>
 
 
 namespace GE {
@@ -116,6 +117,10 @@ namespace GE {
 		static void SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
 		static void SetScale(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
 		static void SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
+
+		static GE::Math::dVec3 GetPosition(GE::ECS::Entity entity);
+		static GE::Math::dVec3 GetScale(GE::ECS::Entity entity);
+		static GE::Math::dVec3 GetRotation(GE::ECS::Entity entity);
 
 		/*!*********************************************************************
 		\brief

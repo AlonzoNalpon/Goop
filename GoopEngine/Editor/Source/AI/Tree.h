@@ -34,6 +34,9 @@ namespace GE {
 			std::deque<NodeCache> m_nodeCacheStack;
 			NODE_STATES m_childResult;
 
+			//TreeCache();
+
+
 		};
 
 		Tree CreateTree(const TreeTemplate&);

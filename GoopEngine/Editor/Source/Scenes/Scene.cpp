@@ -6,6 +6,7 @@
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
+#include <Systems/Enemy/EnemySystem.h>
 
 using namespace GE;
 using namespace ECS;
@@ -75,6 +76,43 @@ void GE::Scenes::Scene::TestScene()
 
 	GE::Component::ScriptHandler scriptHan = ScriptHandler(playerScripts, player);
 
+
+	GE::AI::NodeTemplate node0{ 0, {1},      "RootNode" };						   //0
+	GE::AI::NodeTemplate node1{ 0, {2,5},  "SelectorNode" };					   //1
+	GE::AI::NodeTemplate node2{ 1, {3,4},		"SequenceNode" };				     //2
+	GE::AI::NodeTemplate node3{ 2, {0},      "IsOutsideAttackRange" };   //3
+	GE::AI::NodeTemplate node4{ 2, {0},      "MoveToPlayer" };           //4
+	GE::AI::NodeTemplate node5{ 1, {6,7},		"SequenceNode" };				     //5
+	GE::AI::NodeTemplate node6{ 5, {0},      "IsWithinPlayerRange" };    //6
+	GE::AI::NodeTemplate node7{ 5, {0},      "RunFromPlayer" };          //7
+
+	//// 
+	////GE::AI::NodeTemplate node2{ 1, {0},            "FailNode" };           //2
+	////GE::AI::NodeTemplate node3{ 4, {0},            "LeafNode" };           //3
+
+	////GE::AI::NodeTemplate node5{ 4, {0},            "FailNode" };           //5
+	////GE::AI::NodeTemplate node6{ 1, {4,8},        "SelectorNode" };         //6
+	////GE::AI::NodeTemplate node7{ 4, {0},            "LeafNode" };           //7
+	////GE::AI::NodeTemplate node8{ 6, {0},            "FailNode" };           //8
+	////GE::AI::NodeTemplate node9{ 1, {0},            "LeafNode" };           //9
+	////GE::AI::NodeTemplate node10{ 4, {0},        "LeafNode" };              //10
+
+
+	GE::AI::TreeTemplate newTemp{ node0, node1,node2, node3 ,node4, node5,node6, node7 };
+	GE::AI::Tree GameTree = GE::AI::CreateTree(newTemp);
+	std::vector<GE::AI::Tree> treeList{ GameTree };
+	GE::Systems::EnemySystem::InitTree(treeList);
+	GE::Systems::EnemySystem::SetPlayerID(player);
+
+	Entity enemy = ecs->CreateEntity();
+
+	Transform enemyTrans({ 100, 100, 0 }, { 150, 150, 1 }, { 0.0, 0.0,0.0 });
+	EnemyAI newAI = EnemyAI(enemy, GE::AI::TreeCache());
+	newAI.m_enemyTreeCache.m_nodeCacheStack.push_front(GE::AI::NodeCache(0, 0, GE::AI::NODE_STATES::STATE_NEW));
+
+
+
+
 	ecs->AddComponent(player, playerTrans);
 	ecs->AddComponent(player, tween);
 	ecs->AddComponent(player, mdl);
@@ -83,4 +121,12 @@ void GE::Scenes::Scene::TestScene()
 	ecs->AddComponent(player, playerCollider);
 	ecs->AddComponent(player, scriptHan);
 	ecs->SetEntityName(player, "Player");
+
+	ecs->AddComponent(enemy, newAI);
+	ecs->AddComponent(enemy, enemyTrans);
+	ecs->SetEntityName(enemy, "Enemy");
+	ecs->AddComponent(enemy, mdl);
+	ecs->AddComponent(enemy, sprite);
+	ecs->AddComponent(enemy, anim);
+
 }

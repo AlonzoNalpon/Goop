@@ -11,6 +11,10 @@
 		     "ScriptHandler"
 	  ],
     "RootTransformSystem": [],
+    "EnemySystem": [
+        "EnemyAI",
+        "Transform"
+      ],
     "CollisionSystem": [
         "Transform",
         "BoxCollider"
@@ -19,6 +23,7 @@
         "Transform",
         "Velocity"
     ],
+   
     "SpriteAnimSystem": [		
         "Sprite",
         "SpriteAnim"

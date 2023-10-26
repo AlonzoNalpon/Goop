@@ -24,6 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/Serialization.h>
 #include <Component/Components.h>
 
+
 namespace GE::ObjectFactory
 {
   // ObjectFactory singleton

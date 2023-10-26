@@ -11,9 +11,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ObjectFactory.h"
 
 #include <AssetManager/AssetManager.h>
-#include <Systems/Systems.h>
 
-#include <Component/Draggable.h>
+#include <Systems/Systems.h>
 
 #include "SerializeComponents.h"
 #include "../Serialization/ObjectGooStream.h"
@@ -67,6 +66,14 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::ScriptHandler>(srcObj));
   }
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::DRAGGABLE))
+  {
+    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Draggable>(srcObj));
+  }
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::ENEMY_AI))
+  {
+    ecs.AddComponent(destObj, *ecs.GetComponent<Component::EnemyAI>(srcObj));
+  }
 }
 
 GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData data) const
@@ -116,7 +123,16 @@ GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData 
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::ScriptHandler>(data.m_components[GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER]));
   }
- // RegisterObjectToSystems(newData, data.m_systemSignature);
+   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::DRAGGABLE))
+  {
+    ecs.AddComponent(newData,Draggable());
+  }
+
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::ENEMY_AI))
+  {
+    ecs.AddComponent(newData,
+      DeserializeComponent<GE::Component::EnemyAI>(data.m_components[GE::ECS::COMPONENT_TYPES::ENEMY_AI]));
+  }
 
   return newData;
 }
@@ -128,6 +144,67 @@ void ObjectFactory::LoadPrefabsFromFile()
     DeserializePrefab(prefab.second);
   }
 }
+
+void ObjectFactory::RegisterComponentsAndSystems() const
+{
+  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+
+  // Register components in order of COMPONENT_TYPES enum
+  for (auto const& elem : GE::ECS::componentsToString)
+  {
+    switch (elem.first)
+    {
+    case COMPONENT_TYPES::TRANSFORM:
+      ecs.RegisterComponent<GE::Component::Transform>();
+      break;
+    case COMPONENT_TYPES::BOX_COLLIDER:
+      ecs.RegisterComponent<GE::Component::BoxCollider>();
+      break;
+    case COMPONENT_TYPES::SPRITE_ANIM:
+      ecs.RegisterComponent<GE::Component::SpriteAnim>();
+      break;
+    case COMPONENT_TYPES::SPRITE:
+      ecs.RegisterComponent<GE::Component::Sprite>();
+      break;
+    case COMPONENT_TYPES::MODEL:
+      ecs.RegisterComponent<GE::Component::Model>();
+      break;
+    case COMPONENT_TYPES::VELOCITY:
+      ecs.RegisterComponent<GE::Component::Velocity>();
+      break;
+    case COMPONENT_TYPES::TWEEN:
+      ecs.RegisterComponent<GE::Component::Tween>();
+      break;
+    case COMPONENT_TYPES::SCRIPT_HANDLER:
+      ecs.RegisterComponent<GE::Component::ScriptHandler>();
+      break;
+    case COMPONENT_TYPES::DRAGGABLE:
+      ecs.RegisterComponent<GE::Component::Draggable>();
+      break;
+    case COMPONENT_TYPES::ENEMY_AI:
+      ecs.RegisterComponent<GE::Component::EnemyAI>();
+      break;
+    default:
+      throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown component type"));
+      break;
+    }
+  }
+
+  // Register systems
+  std::string const systemsFile{ *Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
+  std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::DeserializeSystems(systemsFile) };
+
+  for (std::pair<std::string, ECS::ComponentSignature> const& elem : systems)
+  {
+    std::unordered_map<std::string, ECS::SYSTEM_TYPES>::const_iterator iter{ ECS::stringToSystems.find(elem.first) };
+    if (iter == stringToSystems.cend())
+    {
+      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg("Unable to register system " + elem.first));
+    }
+    RegisterSystemWithEnum(iter->second, elem.second);
+  }
+}
+
 
 void ObjectFactory::DeserializePrefab(const std::string& filepath)
 {
@@ -255,63 +332,6 @@ void ObjectFactory::LoadSceneJson(std::string filename)
   }
 }
 
-void ObjectFactory::RegisterComponentsAndSystems() const
-{
-  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
-
-  // Register components in order of COMPONENT_TYPES enum
-  for (auto const& elem : GE::ECS::componentsToString)
-  {
-    switch (elem.first)
-    {
-    case COMPONENT_TYPES::TRANSFORM:
-      ecs.RegisterComponent<GE::Component::Transform>();
-      break;
-    case COMPONENT_TYPES::BOX_COLLIDER:
-      ecs.RegisterComponent<GE::Component::BoxCollider>();
-      break;
-    case COMPONENT_TYPES::SPRITE_ANIM:
-      ecs.RegisterComponent<GE::Component::SpriteAnim>();
-      break;
-    case COMPONENT_TYPES::SPRITE:
-      ecs.RegisterComponent<GE::Component::Sprite>();
-      break;
-    case COMPONENT_TYPES::MODEL:
-      ecs.RegisterComponent<GE::Component::Model>();
-      break;
-    case COMPONENT_TYPES::VELOCITY:
-      ecs.RegisterComponent<GE::Component::Velocity>();
-      break;
-    case COMPONENT_TYPES::TWEEN:
-      ecs.RegisterComponent<GE::Component::Tween>();
-      break;
-    case COMPONENT_TYPES::SCRIPT_HANDLER:
-      ecs.RegisterComponent<GE::Component::ScriptHandler>();
-      break;
-    case COMPONENT_TYPES::DRAGGABLE:
-      ecs.RegisterComponent<GE::Component::Draggable>();
-      break;
-    default:
-      throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown component type"));
-      break;
-    }
-  }
-
-  // Register systems
-  std::string const systemsFile{ *Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
-  std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::DeserializeSystems(systemsFile) };
-
-  for (std::pair<std::string, ECS::ComponentSignature> const& elem : systems)
-  {
-    std::unordered_map<std::string, ECS::SYSTEM_TYPES>::const_iterator iter{ ECS::stringToSystems.find(elem.first) };
-    if (iter == stringToSystems.cend())
-    {
-      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg("Unable to register system " + elem.first));
-    }
-    RegisterSystemWithEnum(iter->second, elem.second);
-  }
-}
-
 void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::ComponentSignature sig) const
 {
   switch (name)
@@ -343,6 +363,10 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
   case SYSTEM_TYPES::ROOT_TRANSFORM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::RootTransformSystem>();
     RegisterComponentsToSystem<Systems::RootTransformSystem>(sig);
+    break;
+  case SYSTEM_TYPES::ENEMY_SYSTEM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::EnemySystem>();
+    RegisterComponentsToSystem<Systems::EnemySystem>(sig);
     break;
   default:
     throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown system type"));

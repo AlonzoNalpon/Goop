@@ -55,19 +55,34 @@ namespace GoopScripts.AI
      Update function for the player script. This function is called every frame
      if the script is attached to an entity
     ************************************************************************/
-    public void OnUpdate(uint entityID)
+    public void OnUpdate(uint entityID, double dt)
     {
-      Console.WriteLine("RUN LEAFNODE");
-      OnSuccess(entityID);
+      uint playerID = GetPlayerID();
+      Vec3<double> playerPos = GetPosition(playerID);
+      Vec3<double> currPos = GetPosition(entityID);
+      double deltaX = currPos.X - playerPos.X;
+      double deltaY = currPos.Y - playerPos.Y;
+      double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+
+      if(distance > 170.0)
+      {
+        OnFail();
+      }
+      else
+      {
+        OnSuccess();
+      }
+
+      
 
     }
-    public void OnFail(uint entityID)
+    public void OnFail()
     {
       SetResult((int)NODE_STATES.STATE_FAILED, m_nodeID);
       JumpToParent();
     }
 
-    public void OnSuccess(uint entityID)
+    public void OnSuccess()
     {
       SetResult((int)NODE_STATES.STATE_SUCCEED, m_nodeID);
       JumpToParent();
