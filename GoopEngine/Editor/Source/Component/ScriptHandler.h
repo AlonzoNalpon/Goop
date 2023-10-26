@@ -23,6 +23,12 @@ namespace GE
 			std::map<std::string,Script> m_scriptMap;
 
 			/*!*********************************************************************
+			\brief 
+			  Default constructor
+			************************************************************************/
+			ScriptHandler() {};
+
+			/*!*********************************************************************
 			\brief
 				Non-default Constructor for Scripthandler. Initialize all the scripts instance and add it to the map
 
