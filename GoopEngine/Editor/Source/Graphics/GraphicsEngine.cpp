@@ -28,7 +28,7 @@ namespace {
 
   }testAnim;
 }
-#define OGL_ERR_CALLBACK
+//#define OGL_ERR_CALLBACK
 #ifdef OGL_ERR_CALLBACK
   void GLAPIENTRY glDebugCallback(GLenum /*source*/, GLenum /*type*/, GLuint /*id*/, GLenum /*severity*/, GLsizei /*length*/, const GLchar* message, const void* /*userParam*/) {
     // Print the message to the console
