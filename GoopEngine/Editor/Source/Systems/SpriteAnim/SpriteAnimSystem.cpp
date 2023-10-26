@@ -22,7 +22,7 @@ namespace GE::Systems
   {
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
     double dt{ FPS::FrameRateController::GetInstance().GetDeltaTime() };
-    for (GE::ECS::Entity entity : m_entities)
+    for (GE::ECS::Entity entity : GetUpdatableEntities())
     {
       //Component::Model* model{ m_ecs->GetComponent<Component::Model>(entity) };
       Component::Sprite* sprite{ m_ecs->GetComponent<Component::Sprite>(entity) };

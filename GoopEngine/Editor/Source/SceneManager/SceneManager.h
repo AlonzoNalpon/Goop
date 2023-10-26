@@ -14,8 +14,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include "../Scenes/Scene.h"
-#include <Scenes/SceneTest.h>
-
 namespace GE::Scenes
 {
   class SceneManager

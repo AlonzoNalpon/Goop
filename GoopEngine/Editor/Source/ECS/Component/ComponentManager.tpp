@@ -61,7 +61,7 @@ T* ComponentManager::GetComponent(const Entity& entity)
 		}
 		else
 		{
-			ss << "Getting component from Entity ID " << entity << " that does not exist";
+			ss << "Getting component of type " << typeid(T).name() << " from Entity ID " << entity << " that does not exist";
 		}
 	}
 	else

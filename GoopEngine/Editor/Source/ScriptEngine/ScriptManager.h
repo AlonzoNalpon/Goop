@@ -53,33 +53,9 @@ namespace GE {
 			************************************************************************/
 			~ScriptManager();
 
-			/*!*********************************************************************
-			\brief
-				Create an instance of a c# class. This class object isc created using its default constructor
+			MonoObject* InstantiateClass(const char* namespaceName, const char* className, void** arg, int argSize);
 
-			\params namespaceName
-				Namespace that the c# belongs in
-
-			\params className
-				Name of the c# class
-			************************************************************************/
-			MonoObject* InstantiateClass(const char* namespaceName, const char* className);
-
-			/*!*********************************************************************
-		  \brief
-		  	Create an instance of a c# class. This function is used for classes that inherits monobehaviour class.
-				The class object is created using non-default construtor
-		  
-		  \params namespaceName
-		  	Namespace that the c# belongs in
-		  
-		  \params className
-		  	Name of the c# class
-		  
-		  \params entityID
-		  	ID of the entity that the script belongs to
-			************************************************************************/
-			MonoObject* InstantiateClassID(const char* namespaceName, const char* className, unsigned int entityID);
+			MonoObject* InstantiateClass(const char* namespaceName, const char* className, std::vector<void*>& arg);
 
 
 		};
