@@ -67,6 +67,8 @@ namespace Graphics::Rendering
     ************************************************************************/
     void Draw();
 
+    void DrawFontObj(std::string const& str, gVec2 pos, gVec2 const& scale, Colorf const& clr, std::string const& fontName);
+
     /*!*********************************************************************
     \brief
       Gets reference to camera object.
