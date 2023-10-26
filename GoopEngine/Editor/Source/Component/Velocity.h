@@ -18,7 +18,7 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			LinearForce(vec3 mag, double lifetime, bool active = true) : m_magnitude{mag}, m_lifetime{lifetime},
+			LinearForce(const vec3& mag, double lifetime, bool active = true) : m_magnitude{mag}, m_lifetime{lifetime},
 			m_isActive {active} {}
 
 			vec3 m_magnitude;
@@ -38,7 +38,7 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			DragForce(vec3 mag, bool active = false) : m_magnitude{ mag }, m_isActive{ active } {}
+			DragForce(const vec3& mag, bool active = false) : m_magnitude{ mag }, m_isActive{ active } {}
 
 			vec3 m_magnitude;
 			bool m_isActive;
@@ -56,7 +56,7 @@ namespace GE
 			\brief
 				Overload contructor
 			************************************************************************/
-			Velocity(vec3 vel, vec3 acc, double mass, vec3 grav, DragForce drag, std::vector<LinearForce> forces = {}) :
+			Velocity(const vec3& vel, const vec3& acc, double mass, const vec3& grav, const DragForce& drag, std::vector<LinearForce> forces = {}) :
 				m_vel{ vel }, m_acc{ acc }, m_mass{ mass }, m_gravity{ grav }, m_dragForce{ drag }, m_forces{ forces } {}
 
 			vec3 m_vel;

@@ -13,6 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AssetManager/AssetManager.h>
 #include <Serialization/Serialization.h>
 #include <EditorUI/DataViz/Visualizer.h>
+#include <ObjectFactory/GivingMyself90MinToFigureThisOut.h>
 
 using namespace ImGui;
 using namespace GE::EditorGUI::DataViz;
@@ -32,7 +33,9 @@ void GE::EditorGUI::ToolBar::CreateContent()
       if (Selectable("Save"))
       {
         // Save systems back to original file
-        Serialization::SerializeSystems(*Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems"));
+        //Serialization::SerializeSystems(*Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems"));
+
+        Serialization::SerializeScene("test.json");
       }
       if (Selectable("Open"))
       {

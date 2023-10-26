@@ -53,25 +53,8 @@ namespace GE
       ************************************************************************/
       bool Unload(container_type& object) override;
 
-      // Test function for prefab loading
-      static void PrefabLoadTest()
-      {
-        PrefabGooStream pfs{ "Assets/Data/Prefabs/MineWorm.json" };
-        if (!pfs) { return; }
-
-        std::pair<std::string, GE::ObjectFactory::ObjectData> obj{};
-        pfs.Unload(obj);
-        std::cout << obj.first << "\nComp Sig: " << obj.second.m_componentSignature 
-          << "\nSys Sig: " << obj.second.m_systemSignature << "\n";
-        std::cout << "Components:\n";
-        for (auto const& i : obj.second.m_components)
-        {
-          std::cout << GE::ECS::componentsToString.at(i.first) << ":\n" << i.second << "\n";
-        }
-      }
-
     private:
-      static const char JsonNameKey[], JsonSystemsKey[], JsonComponentsKey[];
+      static const char JsonNameKey[], JsonComponentsKey[];
     };
 
   }

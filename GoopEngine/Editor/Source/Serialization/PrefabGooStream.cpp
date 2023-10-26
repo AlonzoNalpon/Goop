@@ -22,7 +22,6 @@ using namespace GE::Serialization;
 
 // MUST CORRESPOND TO KEYS IN .json
 const char PrefabGooStream::JsonNameKey[]       = "Name";
-const char PrefabGooStream::JsonSystemsKey[]    = "Systems";
 const char PrefabGooStream::JsonComponentsKey[] = "Components";
 
 PrefabGooStream::PrefabGooStream(std::string const& json) : GooStream(true)
@@ -77,19 +76,6 @@ bool PrefabGooStream::Read(std::string const& json)
     ifs.close();
     std::ostringstream oss{};
     oss << json << " does not have a valid \"" << JsonNameKey << "\" field";
-    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-
-    #ifdef _DEBUG
-    std::cout << oss.str() << std::endl;
-    #endif
-    return m_status = false;
-  }
-
-  if (!data.HasMember(JsonComponentsKey) || !data[JsonSystemsKey].IsArray())
-  {
-    ifs.close();
-    std::ostringstream oss{};
-    oss << json << " does not have a valid \"" << JsonSystemsKey << "\" field";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
 
     #ifdef _DEBUG
@@ -170,19 +156,6 @@ bool PrefabGooStream::Unload(container_type& object)
     writer_type<rapidjson::StringBuffer> writer{ buffer };
     component.Accept(writer);
     object.second.m_components[iter->second] = buffer.GetString();
-  }
-
-  // iterate through systems array and set bit in object's system signature
-  for (auto const& system : data[JsonSystemsKey].GetArray())
-  {
-    std::unordered_map<std::string, ECS::SYSTEM_TYPES>::const_iterator iter{ ECS::stringToSystems.find(system.GetString()) };
-    if (iter == ECS::stringToSystems.cend())
-    {
-      std::string str{ "Unable to find system " };
-      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg(str + system.GetString()));
-    }
-    // set current system's bit in signature
-    object.second.m_systemSignature[static_cast<unsigned>(iter->second)] = true;
   }
 
   return m_status = true;

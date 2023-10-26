@@ -1,16 +1,12 @@
 [
     {
-        "Id": "Object1",
-        "Systems": [
-            "RenderSystem",
-            "SpriteAnimSystem"
-        ],
+        "Name": "Object1",
         "Components": [
             {
               "Transform": {
-                "m_pos": "{ 300.0, 200.0, 0.0 }",
-                "m_scale": "{ 150.0, 150.0, 1.0 }",
-                "m_rot": "{ 0.0, 0.0, 0.0 }"
+                "pos": "{ 300.0, 200.0, 0.0 }",
+                "scale": "{ 150.0, 150.0, 1.0 }",
+                "rot": "{ 0.0, 0.0, 0.0 }"
               }
             },
             {
@@ -31,16 +27,13 @@
         ]
     },
     {
-        "Id": "Object2",
-        "Systems": [
-            "RenderSystem"
-        ],
+        "Name": "Object2",
         "Components": [
             {
               "Transform": {
-                "m_pos": "{ -100.0, -200.0, 0.0 }",
-                "m_scale": "{ 75.0, 50.0, 1.0 }",
-                "m_rot": "{ 0.0, 0.0, 45.0 }"
+                "pos": "{ -100.0, -200.0, 0.0 }",
+                "scale": "{ 75.0, 50.0, 1.0 }",
+                "rot": "{ 0.0, 0.0, 45.0 }"
               }
             },
             {

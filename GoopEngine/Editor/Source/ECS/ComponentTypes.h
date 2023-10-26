@@ -31,10 +31,7 @@ namespace GE
 			COMPONENTS_TOTAL
 		};
 
-		COMPONENT_TYPES operator++(COMPONENT_TYPES& rhs)
-		{
-			return static_cast<COMPONENT_TYPES>((static_cast<unsigned>(rhs) + 1));
-		}
+		COMPONENT_TYPES& operator++(COMPONENT_TYPES& rhs);
 
 		// Registration of Components to ECS follows this map
 		// Const map so only interated through ranged for,

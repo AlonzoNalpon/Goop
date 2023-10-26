@@ -231,7 +231,7 @@ void ObjectFactory::ObjectJsonLoader(const std::string& json_path)
 
 // Reads objects from scene file and loads into map
 void ObjectFactory::ObjectFactoryTest() {
-  Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene("Scene") };
+  Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene("test") };
   if (ogs)
   {
     ogs.Unload(m_objects);
@@ -344,37 +344,3 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     break;
   }
 }
-
-//GE::ECS::SystemSignature ObjectFactory::GetObjectSystemSignature(GE::ECS::Entity obj) const
-//{
-//  GE::ECS::SystemSignature sig{};
-//
-//  SetBitIfFound<Systems::PhysicsSystem>(obj, sig, ECS::SYSTEM_TYPES::PHYSICS);
-//  SetBitIfFound<Systems::DraggableObjectSystem>(obj, sig, ECS::SYSTEM_TYPES::DRAGGABLE_OBJECT);
-//  SetBitIfFound<Systems::RenderSystem>(obj, sig, ECS::SYSTEM_TYPES::RENDERING);
-//  SetBitIfFound<Systems::CollisionSystem>(obj, sig, ECS::SYSTEM_TYPES::COLLISION);
-//  SetBitIfFound<Systems::PlayerControllerSystem>(obj, sig, ECS::SYSTEM_TYPES::PLAYER_CONTROLLER);
-//  SetBitIfFound<Systems::RootTransformSystem>(obj, sig, ECS::SYSTEM_TYPES::ROOT_TRANSFORM);
-//
-//  return sig;
-//}
-//
-//void ObjectFactory::RegisterObjectToSystems(GE::ECS::Entity object, ECS::SystemSignature signature) const
-//{
-//  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
-//  
-//  if (IsBitSet(signature, SYSTEM_TYPES::PHYSICS))
-//    ecs.RegisterEntityToSystem<GE::Systems::PhysicsSystem>(object);
-//  if (IsBitSet(signature, SYSTEM_TYPES::COLLISION))
-//    ecs.RegisterEntityToSystem<GE::Systems::CollisionSystem>(object);
-//  if (IsBitSet(signature, SYSTEM_TYPES::DRAGGABLE_OBJECT))
-//    ecs.RegisterEntityToSystem<GE::Systems::DraggableObjectSystem>(object);
-//  if (IsBitSet(signature, SYSTEM_TYPES::PLAYER_CONTROLLER))
-//    ecs.RegisterEntityToSystem<GE::Systems::PlayerControllerSystem>(object);
-//  if (IsBitSet(signature, SYSTEM_TYPES::RENDERING))
-//    ecs.RegisterEntityToSystem<GE::Systems::RenderSystem>(object);
-//  if (IsBitSet(signature, SYSTEM_TYPES::SPRITE_ANIM))
-//    ecs.RegisterEntityToSystem<GE::Systems::SpriteAnimSystem>(object);
-//  if (IsBitSet(signature, SYSTEM_TYPES::ROOT_TRANSFORM))
-//    ecs.RegisterEntityToSystem<GE::Systems::RootTransformSystem>(object);
-//}

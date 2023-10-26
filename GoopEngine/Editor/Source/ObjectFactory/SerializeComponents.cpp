@@ -32,9 +32,9 @@ namespace GE
 
 			//read map, manipulate into trans, return
 			GE::Component::Transform trans;
-			trans.m_pos = cw.Get<Math::dVec3>("m_pos");
-			trans.m_scale = cw.Get<Math::dVec3>("m_scale");
-			trans.m_rot = cw.Get<Math::dVec3>("m_rot");
+			trans.m_pos = cw.Get<Math::dVec3>("pos");
+			trans.m_scale = cw.Get<Math::dVec3>("scale");
+			trans.m_rot = cw.Get<Math::dVec3>("rot");
 
 			return trans;
 		}
@@ -45,14 +45,10 @@ namespace GE
 			Serialization::ComponentDWrapper const cw{ componentData };
 
 			Component::BoxCollider box;
-			box.m_width = cw.Get<double>("m_width");
-			box.m_height = cw.Get<double>("m_height");
-			box.m_min = cw.Get<Math::dVec2>("m_min");
-			box.m_max = cw.Get<Math::dVec2>("m_max");
-			box.m_center = cw.Get<Math::dVec2>("m_center");
-			box.m_mouseCollided = cw.Get<bool>("m_mouseCollided");
+			box.m_width = cw.Get<double>("width");
+			box.m_height = cw.Get<double>("height");
+			box.m_center = cw.Get<Math::dVec2>("center");
 
-			// may not need to deserialize std::set<BoxCollider*> m_collided
 			return box;
 		}
 
@@ -62,12 +58,12 @@ namespace GE
 			Serialization::ComponentDWrapper const cw{ componentData };
 
 			GE::Component::Velocity vel;
-			vel.m_vel = cw.Get<Math::dVec2>("m_vel");
-			vel.m_acc = cw.Get<Math::dVec2>("m_acc");
-			vel.m_mass = cw.Get<double>("m_mass");
-			vel.m_gravity = cw.Get<Math::dVec2>("m_gravity");
-			vel.m_dragForce = cw.Get<Component::DragForce>("m_dragForce");
-			vel.m_forces = cw.Get<std::vector<Component::LinearForce>>("m_dragForce");
+			vel.m_vel = cw.Get<Math::dVec3>("vel");
+			vel.m_acc = cw.Get<Math::dVec3>("acc");
+			vel.m_mass = cw.Get<double>("mass");
+			vel.m_gravity = cw.Get<Math::dVec3>("gravity");
+			vel.m_dragForce = cw.Get<Component::DragForce>("dragForce");
+			vel.m_forces = cw.Get<std::vector<Component::LinearForce>>("dragForce");
 
 			return vel;
 		}
@@ -129,12 +125,11 @@ namespace GE
 		{
 			Serialization::ComponentDWrapper const cw{ componentData };
 			Component::Tween tween{ 0 };
-			tween.m_tweens = cw.Get<std::queue<Math::dVec3>>("m_tweens");
-			tween.m_timePerTween = cw.Get<double>("m_timePerTween");
-			tween.m_timeTaken = cw.Get<double>("m_timeTaken");
-			tween.m_timeElapsed = cw.Get<double>("m_timeElapsed");
-			tween.m_originalPos = cw.Get<Math::dVec3>("m_originalPos");
-			tween.m_started = cw.Get<bool>("m_started");
+			tween.m_tweens = cw.Get<std::queue<Math::dVec3>>("tweens");
+			tween.m_timePerTween = cw.Get<double>("timePerTween");
+			tween.m_timeTaken = cw.Get<double>("timeTaken");
+			tween.m_timeElapsed = cw.Get<double>("timeElapsed");
+			tween.m_originalPos = cw.Get<Math::dVec3>("originalPos");
 			
 			return tween;
 		}
@@ -150,23 +145,6 @@ namespace GE
 				if (current > 0) { --current; }
 		    return Component::ScriptHandler(vec, current);
 		}
-
-		// Base template to fall back on
-		template <typename CompType>
-		void SerializeComponent(CompType const& component, Serialization::ComponentSWrapper& wrapper)
-		{
-			std::ostringstream oss{};
-			oss << "Trying to Serialize unsupported component: " << typeid(CompType).name();
-			GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-		}
-
-		template<>
-		void SerializeComponent(GE::Component::Transform const& component, Serialization::ComponentSWrapper& wrapper)
-		{
-			wrapper.InsertBasicType("m_pos", component.m_pos);
-			wrapper.InsertBasicType("m_scale", component.m_scale);
-			wrapper.InsertBasicType("m_rot", component.m_rot);
-		}	
 
 	}	// namespace ObjectFactory
 }	// namespace GE

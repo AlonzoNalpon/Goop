@@ -12,6 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include <ECS/Entity/Entity.h>
 #include <rttr/type>
+#include <rapidjson/document.h>
 
 namespace GE
 {
@@ -19,6 +20,14 @@ namespace GE
   {
     rttr::instance GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type);
 
-
   } // namespace ObjectFactory
+
+
+  namespace Serialization
+  {
+    rapidjson::Value SerializeComponent(rttr::instance instance, rapidjson::Document::AllocatorType& allocator);
+    rapidjson::Value SerializeEntity(ECS::Entity id, rapidjson::Document::AllocatorType& allocator);
+    void SerializeScene(std::string const& filename);
+
+  } // namespace Serialization
 } // namespace GE

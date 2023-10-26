@@ -40,9 +40,5 @@ namespace GE::ObjectFactory
   template<>
   GE::Component::ScriptHandler DeserializeComponent(std::string const& componentData);
 
-  template <typename CompType>
-  void SerializeComponent(CompType const& component, Serialization::ComponentSWrapper& wrapper);
-  template<>
-  void SerializeComponent(GE::Component::Transform const& component, Serialization::ComponentSWrapper& wrapper);
 }
 

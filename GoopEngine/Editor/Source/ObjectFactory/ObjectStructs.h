@@ -21,11 +21,10 @@ namespace GE
     struct ObjectData
     {
       ObjectData() = default;
-      ObjectData(ECS::SystemSignature sysSig, ECS::ComponentSignature compSig) 
-        : m_components{}, m_systemSignature{sysSig}, m_componentSignature{compSig} {}
+      ObjectData(ECS::ComponentSignature compSig) 
+        : m_components{}, m_componentSignature{compSig} {}
 
       ComponentMap m_components;
-      ECS::SystemSignature m_systemSignature;
       ECS::ComponentSignature m_componentSignature;
     };
   }

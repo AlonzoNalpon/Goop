@@ -20,8 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace GE::Serialization;
 
 // MUST CORRESPOND TO KEYS IN .json
-const char ObjectGooStream::JsonNameKey[]       = "Id";
-const char ObjectGooStream::JsonSystemsKey[]    = "Systems";
+const char ObjectGooStream::JsonNameKey[]       = "Name";
 const char ObjectGooStream::JsonComponentsKey[] = "Components";
 
 ObjectGooStream::ObjectGooStream(std::string const& json) : GooStream(true)
@@ -97,17 +96,7 @@ bool ObjectGooStream::Read(std::string const& json)
       #endif
       return m_status = false;
     }
-    if (!obj.HasMember(JsonSystemsKey) || !obj[JsonSystemsKey].IsArray())
-    {
-      ifs.close();
-      std::ostringstream oss{};
-      oss << json << ": Element " << std::to_string(i) << " does not have a valid \"" << JsonSystemsKey << "\" field";
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-      #ifdef _DEBUG
-      std::cout << oss.str() << std::endl;
-      #endif
-      return m_status = false;
-    }
+    
     if (!obj.HasMember(JsonComponentsKey) || !obj[JsonComponentsKey].IsArray())
     {
       ifs.close();
@@ -216,19 +205,6 @@ bool ObjectGooStream::Unload(container_type& container)
   {
     ObjectFactory::ObjectData objData{};
     ObjectFactory::ComponentMap& compMap{ objData.m_components };
-
-    // iterate through systems array and set bit in object's system signature
-    for (auto const& system : obj[JsonSystemsKey].GetArray())
-    {
-      std::unordered_map<std::string, ECS::SYSTEM_TYPES>::const_iterator iter{ ECS::stringToSystems.find(system.GetString()) };
-      if (iter == ECS::stringToSystems.cend())
-      {
-        std::string str{ "Unable to find system " };
-        throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg(str + system.GetString()));
-      }
-      // set current system's bit in signature
-      objData.m_systemSignature[static_cast<unsigned>(iter->second)] = true;
-    }
     
     const rapidjson::Value& componentsArray = obj[JsonComponentsKey];
     for (rapidjson::SizeType i{}; i < componentsArray.Size(); ++i)

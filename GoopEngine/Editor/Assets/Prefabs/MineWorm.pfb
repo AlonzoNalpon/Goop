@@ -1,15 +1,11 @@
 {
   "Name": "MineWorm",
-  "Systems": [
-    "RenderSystem",
-    "SpriteAnimSystem"
-  ],
   "Components": [
     {
       "Transform": {
-        "m_pos": "{ 2.0, 4.0, 0.0 }",
-        "m_scale": "{ 150.0, 150.0, 1.0 }",
-        "m_rot": "{ 0.0, 0.0, 0.0 }"
+        "pos": "{ 2.0, 4.0, 0.0 }",
+        "scale": "{ 150.0, 150.0, 1.0 }",
+        "rot": "{ 0.0, 0.0, 0.0 }"
       }
     },
     {

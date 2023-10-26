@@ -77,7 +77,7 @@ namespace GE
       bool Unload(std::string const& json, bool overwrite = true) override;
 
     private:
-      static const char JsonNameKey[], JsonSystemsKey[], JsonComponentsKey[];
+      static const char JsonNameKey[], JsonComponentsKey[];
     };
 
   }
