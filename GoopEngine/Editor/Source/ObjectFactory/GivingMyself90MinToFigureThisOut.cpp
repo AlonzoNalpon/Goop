@@ -39,6 +39,8 @@ namespace GE
 
   namespace Serialization
   {
+
+
     rapidjson::Value SerializeClassTypes(rttr::type const& valueType, rttr::variant const& value, rapidjson::Document::AllocatorType& allocator)
     {
       rapidjson::Value jsonVal{};
@@ -58,8 +60,14 @@ namespace GE
       }
       else if (valueType == rttr::type::get<Graphics::SpriteData>())
       {
-        jsonVal.SetUint(valueType.get_method("GetTextureHandle").invoke(value).to_uint32());
+        unsigned const texID{ valueType.get_method("GetTextureHandle").invoke(value).to_uint32() };
+        jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().textureManager.GetTextureName(texID).c_str(), allocator);
       }
+      /*else if (valueType == rttr::type::get<std::queue<GE::Math::dVec3>>())
+      {
+        jsonVal.SetArray();
+        while (valueType.)
+      }*/
       else
       {
         std::ostringstream oss{};
@@ -132,7 +140,15 @@ namespace GE
         }
         else if (prop.get_type().is_class())  // else if custom types
         {
-          jsonVal = SerializeClassTypes(prop.get_type(), value, allocator).Move();
+          // Handling special cases here (e.g. ScriptHandler's script map)
+          if (instance.get_type() == rttr::type::get<Component::ScriptHandler>())
+          {
+            jsonVal = Serialization::SerializeScriptMap(value.get_value<std::map<std::string, GE::MONO::Script> const&>(), allocator);
+          }
+          else
+          {
+            jsonVal = SerializeClassTypes(prop.get_type(), value, allocator).Move();
+          }
         }
 
         compInner.AddMember(jsonKey, jsonVal, allocator);

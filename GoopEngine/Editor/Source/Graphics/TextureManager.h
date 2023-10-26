@@ -53,6 +53,16 @@ namespace Graphics {
       
     ************************************************************************/
     GLuint GetTextureID(std::string const& name) const;
+
+    /*!*********************************************************************
+    \brief
+      Gets the texture name from ID.
+    \params
+      id the ID of the texture
+    \return the ID of the texture, BAD_OBJ_ID if no such texture was found
+
+    ************************************************************************/
+    std::string GetTextureName(GLuint id) const;
   private:
     void DestroyTextureByName(std::string name);
     std::map<GLuint, Texture>     m_textures;     //!< container for textures

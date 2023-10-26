@@ -3,6 +3,7 @@
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/ostreamwrapper.h>
 #include <rapidjson/prettywriter.h>
+#include <rttr/type.h>
 
 namespace GE
 {
@@ -104,6 +105,35 @@ namespace GE
       ifs.close();
       return ret;
     }
+
+    /*!*********************************************************************
+    \brief
+      The conversion function for Component::ScriptHandler's m_scriptMap 
+      to rapidjson::Value for serialization
+    \param rhs
+      The data member of the component to serialize
+    \param allocator
+      The rapidjson::Document's allocator
+    \return
+      The serialized json value object of the script names in a rapidjson
+      array
+    ************************************************************************/
+    rapidjson::Value SerializeScriptMap(std::map<std::string, GE::MONO::Script> const& scripts, rapidjson::Document::AllocatorType& allocator)
+    {
+      rapidjson::Value ret{ rapidjson::kArrayType };
+      for (auto const& [s1, s2] : scripts)
+      {
+        rapidjson::Value jsonVal{};
+        jsonVal.SetString(s1.c_str(), allocator);
+        ret.PushBack(jsonVal, allocator);
+      }
+      return ret;
+    }
+
+    /*rapidjson::Value SerializeTweenQueue(std::queue<GE::Math::dVec3> const& tweens, rapidjson::Document::AllocatorType& allocator)
+    {
+
+    }*/
 
   } // namespace Serialization
 } // namespace GE

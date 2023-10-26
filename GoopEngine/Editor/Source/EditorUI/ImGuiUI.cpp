@@ -210,7 +210,7 @@ void ImGuiUI::Update()
   }
   else if (Button("Create 2.5k Render"))
   {
-    for (int i{}; i < 1000; ++i)
+    for (int i{}; i < 2500; ++i)
     {
       try
       {

@@ -2,6 +2,7 @@
 #include <Component/Components.h>
 #include <Systems/Systems.h>
 #include <rttr/registration>
+#include <Serialization/Serialization.h>
 
 using namespace GE;
 
@@ -87,12 +88,12 @@ RTTR_REGISTRATION
     .property("texture", &Graphics::SpriteData::texture)
     ;
   rttr::registration::class_<Component::Sprite>("Sprite")
-    .property("texture", &Component::Sprite::spriteData)  // naming it as texture for now
+    .property("filename", &Component::Sprite::spriteData)  // naming it as filename for now
     .method("GetTextureHandle", &Component::Sprite::GetTextureHandle)
     ;
 
   rttr::registration::class_<Component::SpriteAnim>("SpriteAnim")
-    .property("animID", &Component::SpriteAnim::animID)
+    .property("name", &Component::SpriteAnim::animID)
     ;
 
   rttr::registration::class_<Component::Model>("Model")
@@ -105,4 +106,6 @@ RTTR_REGISTRATION
     .method("AddScript", &Component::ScriptHandler::AddScript)
     ;
 
-} // namespace GE
+  /* ------------------- FUNCTIONS ------------------- */
+
+} // RTTR Registration

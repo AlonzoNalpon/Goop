@@ -10,6 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rapidjson/document.h>
 #include <string>
 #include <sstream>
+#include <Component/ScriptHandler.h>
 
 namespace GE
 {
@@ -34,6 +35,9 @@ namespace GE
       std::vector of systems to their respective components
     ************************************************************************/
     std::vector<std::pair<std::string, ECS::ComponentSignature>> DeserializeSystems(std::string const& json);
+
+    rapidjson::Value SerializeScriptMap(std::map<std::string, GE::MONO::Script> const& rhs,
+      rapidjson::Document::AllocatorType& allocator);
 
     //rttr::variant DeserializeBasicTypes(rapidjson::Value const& jsonVal)
     //{
