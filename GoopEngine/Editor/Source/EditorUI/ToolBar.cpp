@@ -15,6 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <EditorUI/DataViz/Visualizer.h>
 #include <ImGui/imgui_internal.h>
 #include <ObjectFactory/GivingMyself90MinToFigureThisOut.h>
+#include <EditorUI/OpenFileExplorer.h>
 
 using namespace ImGui;
 using namespace GE::EditorGUI::DataViz;
@@ -41,6 +42,7 @@ void GE::EditorGUI::ToolBar::CreateContent()
       if (Selectable("Open"))
       {
         // Load scene function
+        GE::ChengEnLau::OpenFileExplorer(".scn");
       }
 
       ImGui::EndMenu();
