@@ -31,7 +31,8 @@ namespace GE
 				m_min{ center.x - width / 2.0f, center.y - height / 2.0f },
 				m_max{ center.x + width / 2.0f, center.y + height / 2.0f }, m_center{ center },
 				m_collided{ nullptr },
-				m_mouseCollided{ false }
+				m_mouseCollided{ false },
+				m_render{ false }
 			{
 
 			}
@@ -43,6 +44,9 @@ namespace GE
 			Math::dVec2 m_center;
 			std::set<BoxCollider*> m_collided; //a set list of entities' pointers that current entity is collided with
 			bool m_mouseCollided;
+#ifndef NO_IMGUI
+			bool m_render;
+#endif
 
 			/*!*********************************************************************
 			\brief

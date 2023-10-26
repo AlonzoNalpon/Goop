@@ -47,7 +47,12 @@ void CollisionSystem::Update()
 		BoxCollider* updateEntity = m_ecs->GetComponent<BoxCollider>(entity);
 		Transform* newCenter = m_ecs->GetComponent<Transform>(entity);
 		UpdateAABB(*updateEntity, newCenter->m_parentWorldTransform * dVec4(newCenter->m_pos, 1.0));
-		updateEntity->Render();
+#ifndef NO_IMGUI
+		if (updateEntity->m_render)
+		{
+			updateEntity->Render();
+		}
+#endif // !NO_IMGUI
 	}
 
 	//spatial partitioning -> uniform grid
