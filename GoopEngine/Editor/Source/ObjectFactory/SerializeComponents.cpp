@@ -66,7 +66,7 @@ namespace GE
 			vel.m_acc = cw.Get<Math::dVec2>("m_acc");
 			vel.m_mass = cw.Get<double>("m_mass");
 			vel.m_gravity = cw.Get<Math::dVec2>("m_gravity");
-			vel.m_dragForce = cw.Get<Component::DragForce>("m_dragForce");
+			vel.m_dragForce = cw.Get<double>("m_dragForce");
 			vel.m_forces = cw.Get<std::vector<Component::LinearForce>>("m_dragForce");
 
 			return vel;

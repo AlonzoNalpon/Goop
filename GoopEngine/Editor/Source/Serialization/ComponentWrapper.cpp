@@ -338,7 +338,7 @@ template<> Component::DragForce ComponentWrapper::Get(const char* key) const
   {
     Component::DragForce ret{};
     rapidjson::Value const& list{ (*m_ptr)[key] };
-    ret.m_magnitude << list["m_magnitude"].GetString();
+    ret.m_magnitude = list["m_magnitude"].GetDouble();
     ret.m_isActive = list["m_isActive"].GetBool();
 
     return ret;
