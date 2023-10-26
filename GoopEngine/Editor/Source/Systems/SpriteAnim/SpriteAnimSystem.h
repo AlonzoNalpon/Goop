@@ -26,10 +26,11 @@ namespace GE::Systems {
   class SpriteAnimSystem : public GE::ECS::System
   {
   public:
+    virtual void Start();
 
-    void Update();
+    virtual void Update();
 
-    void OnDestroyed();
+    virtual void OnDestroyed();
   };
 }
 #endif
