@@ -223,7 +223,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputDouble3("Gravity", vel->m_gravity, inputWidth);
 					TableNextRow();
-					InputDouble3("Drag", vel->m_dragForce.m_magnitude, inputWidth);
+					InputDouble1("Drag", vel->m_dragForce.m_magnitude, inputWidth);
 					TableNextRow();
 					InputCheckBox("Drag Active", vel->m_dragForce.m_isActive);
 					EndTable();
