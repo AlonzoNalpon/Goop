@@ -2,21 +2,25 @@
 #include <Systems/Physics/PhysicsSystem.h>
 #include <Component/Transform.h>
 #include <Component/Velocity.h>
+#include <numeric>
 
 using namespace GE;
 using namespace ECS;
 using namespace Systems;
 using namespace Component;
 
+const vec3 Velocity::m_threshold{ 0.01f, 0.01f, 0.01f };
+
 void PhysicsSystem::FixedUpdate()
 {
-	auto& inputMan{ Input::InputManager::GetInstance() };
-	/*if (!(inputMan.IsKeyHeld(GPK_SPACE) || inputMan.IsKeyTriggered(GPK_SPACE)))
+	/*auto& inputMan{ Input::InputManager::GetInstance() };
+	if (!(inputMan.IsKeyHeld(GPK_SPACE) || inputMan.IsKeyTriggered(GPK_SPACE)))
 		return;*/
 
 	//update func passes curr entity
 	double dt = GE::FPS::FrameRateController::GetInstance().GetFixedDeltaTime();
-	for (Entity entity : GetUpdatableEntities()) {
+	for (Entity entity : GetUpdatableEntities())
+	{
 		Velocity* vel = m_ecs->GetComponent<Velocity>(entity);
 		Transform* pos = m_ecs->GetComponent<Transform>(entity);
 
@@ -25,58 +29,49 @@ void PhysicsSystem::FixedUpdate()
 			continue;
 		}
 
-		if (inputMan.IsKeyTriggered(GPK_COMMA))
-		{
-			vel->AddForce({ 1,0,0 }, 2);
-		}
-		if (inputMan.IsKeyTriggered(GPK_PERIOD))
-		{
-			vel->AddForce({ -5,0,0 }, 1);
-		}
-		if (inputMan.IsKeyTriggered(GPK_SEMICOLON))
-		{
-			vel->ActivateDrag(false);
-		}
-		if (inputMan.IsKeyTriggered(GPK_APOSTROPHE))
-		{
-			vel->ActivateDrag(true);
-		}
+		vel->m_sumMagnitude = {};
 
 		//removing time from lifetime till <= 0 & removing it when lifetime reaches <= 0
-		for (size_t i{}; i < vel->m_forces.size(); ++i) 
+		for (auto itr{ vel->m_forces.begin() }; itr != vel->m_forces.end();)
 		{
-			LinearForce& itr = vel->m_forces[i];
-			if (itr.m_isActive)
+			if (itr->m_isActive)
 			{
-				vel->m_sumMagnitude += itr.m_magnitude;
-				itr.m_lifetime -= dt;
+				itr->m_age += dt;
 
-				//remove age -> use lifetime only
-				if (itr.m_lifetime <= 0) {
-					itr.m_isActive = false;
-					vel->m_forces.erase(vel->m_forces.begin() + i);
+				vel->m_sumMagnitude += itr->m_magnitude * itr->m_age;
+				if (itr->m_age >= itr->m_lifetime)
+				{
+					itr->m_isActive = false;
+					itr = vel->m_forces.erase(itr);
+					continue;
 				}
 			}
+
+			++itr;
 		}
 
-		if (vel->m_dragForce.m_isActive)
-		{
-			vel->m_sumMagnitude += vel->m_dragForce.m_magnitude;
-		}
-
-		if (!(vel->m_dragForce.m_isActive) && vel->m_forces.empty())
+		if (vel->m_forces.empty())
 		{
 			vel->m_sumMagnitude = {};
-			vel->m_vel = {};
+			vel->m_acc = {};
 		}
 
-		if (vel->m_mass == 0) {
+		if (vel->m_mass == 0)
+		{
 			std::string message = "Dividing by 0: " + m_ecs->GetEntityName(entity) + " has mass of 0";
 			throw Debug::Exception<PhysicsSystem>(Debug::LEVEL_ERROR, ErrMsg(message));
 		}
 
-		vel->m_acc = vel->m_sumMagnitude * (1 / vel->m_mass);
+		vel->m_acc += vel->m_sumMagnitude * (1 / vel->m_mass);
 		vel->m_vel += dt * vel->m_acc;
+
+		vel->m_vel *= vel->m_dragForce.m_magnitude;
+		
+		if (vel->m_vel <= vel->m_threshold)
+		{
+			vel->m_vel = {};
+		}
+
 		pos->m_pos += dt * vel->m_vel;
 	}
 }
