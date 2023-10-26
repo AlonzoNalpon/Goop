@@ -190,12 +190,22 @@ namespace GE
 			************************************************************************/
 			void UpdateSystems();
 
+#ifndef NO_IMGUI
 			/*!*********************************************************************
 			\brief
-			  Called by the framerate controller at a fixed time intervals. Usually
-				reserved for physics calculations.
+				Update systems except the following systems. Usage of system name is
+				typeid(System Class).name().
+
+				User has to append a nullptr to indicate the end of the parameter list
+
+			\param systemCount
+				Number of systems
+
+			\param args
+				Variadic argument list of const char*
 			************************************************************************/
-			void UpdateSystemsFixed();
+			void UpdateSystems(int systemCount, va_list args);
+#endif // NO_IMGUI
 
 		private:
 			// This is a map of unique signatures each system has

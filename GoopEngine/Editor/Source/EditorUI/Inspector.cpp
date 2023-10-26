@@ -201,6 +201,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputDouble1("Width", col->m_width);
 					TableNextRow();
 					InputDouble1("Height", col->m_height);
+					TableNextRow();
+					InputCheckBox("Show Collider", col->m_render);
 					EndTable();
 					Separator();
 				}
@@ -215,6 +217,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					float inputWidth = (contentSize - charSize - 30) / 3;
 
 					Separator();
+					PushID("Forces");
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 					InputDouble3("Velocity", vel->m_vel, inputWidth);
@@ -227,8 +230,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputCheckBox("Drag Active", vel->m_dragForce.m_isActive);
 					EndTable();
-					InputList("Force", vel->m_forces, inputWidth);
+					InputList("Forces", vel->m_forces, inputWidth);
 					Separator();
+					PopID();
 				}
 				break;
 			}
@@ -275,11 +279,20 @@ void GE::EditorGUI::Inspector::CreateContent()
 				//auto scripts = ecs.GetComponent<ScriptHandler>(entity);
 				break;
 			}
+			case GE::ECS::COMPONENT_TYPES::DRAGGABLE:
+			{
+				CollapsingHeader("Draggable", ImGuiTreeNodeFlags_Leaf);
+				break;
+			}
 			default:
 				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to serialize a component that is not being handled");
 				break;
 			}
 		}
+	}
+
+	if (Button("Add Component", { GetContentRegionMax().x, 20 }))
+	{
 	}
 }
 
@@ -338,6 +351,7 @@ namespace
 				PushID((std::to_string(i++)).c_str());
 				InputDouble3("Force", force.m_magnitude, fieldWidth, disabled);
 				InputDouble1("Lifetime", force.m_lifetime);
+				InputDouble1("Age", force.m_age);
 				InputCheckBox("IsActive", force.m_isActive);
 				PopID();
 				Separator();
@@ -387,5 +401,6 @@ namespace
 
 			TreePop();
 		}
+		Indent();
 	}
 }

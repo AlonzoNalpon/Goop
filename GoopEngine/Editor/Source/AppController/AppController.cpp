@@ -12,6 +12,11 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include <AppController/AppController.h>
 #include "../EditorUI/ImGuiUI.h"
+#ifndef NO_IMGUI
+#include <Systems/Rendering/RenderingSystem.h>
+#include <Systems/RootTransform/RootTransformSystem.h>
+#include <Systems/Physics/CollisionSystem.h>
+#endif
 
 using namespace GE::ECS;
 
@@ -104,7 +109,25 @@ namespace GE::Application
           gsm.Update();
 
           fRC.StartSystemTimer();
+#ifndef NO_IMGUI
+          if (GE::EditorGUI::ImGuiHelper::IsRunning())
+          {
+            ecs->UpdateSystems();
+          }
+          else if (GE::EditorGUI::ImGuiHelper::StepSimulation())
+          {
+            ecs->UpdateSystems();
+          }
+          else
+          {
+            ecs->UpdateSystems(3,
+              typeid(GE::Systems::CollisionSystem).name(),
+              typeid(GE::Systems::RenderSystem).name(),
+              typeid(GE::Systems::RootTransformSystem).name());
+          }
+#else
           ecs->UpdateSystems();
+#endif  // NO_IMGUI
           fRC.EndSystemTimer("Scene Update");
         }
         catch (GE::Debug::IExceptionBase& e)
@@ -132,6 +155,13 @@ namespace GE::Application
 
         window.SwapBuffers();
         fRC.EndFrame();
+
+#ifndef NO_IMGUI
+        if (GE::EditorGUI::ImGuiHelper::ShouldRestart())
+        {
+          gsm.Restart();
+        }
+#endif // NO_IMGUI
       }
       catch (GE::Debug::IExceptionBase& e)
       {

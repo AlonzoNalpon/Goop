@@ -18,11 +18,15 @@ using namespace GE::EditorGUI;
 
 void GE::EditorGUI::SceneControls::CreateContent()
 {
-  char const play[] = "Play", stop[] = "Stop", pause[] = "Pause", restart[] = "Restart", step[] = "Step";
+  char const play[] = "Play", stop[] = "Stop", pause[] = "Pause", step[] = "Step";
   if (ImGui::BeginMenuBar()) 
   {
     if (ImGuiHelper::IsRunning())
     {
+      if (Button(stop))
+      {
+        ImGuiHelper::Restart();
+      }
       if (Button(pause))
       {
         ImGuiHelper::Pause();
@@ -49,16 +53,12 @@ void GE::EditorGUI::SceneControls::CreateContent()
     {
       if (Button(play))
       {
-        ImGuiHelper::Restart();
+        ImGuiHelper::Play();
       }
-      if (Button(pause))
-      {
-        ImGuiHelper::Pause();
-      }
-      if (Button(step))
-      {
-        ImGuiHelper::StepSimulation(true);
-      }
+      BeginDisabled();
+      Button(pause);
+      Button(step);
+      EndDisabled();
     }
 
     EndMenuBar();
