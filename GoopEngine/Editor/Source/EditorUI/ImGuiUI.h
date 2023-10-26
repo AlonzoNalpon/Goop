@@ -61,6 +61,5 @@ namespace GE::EditorGUI
 		static void SetSelectedEntity(GE::ECS::Entity& selectedEntity);
 		static bool GetFrameEnded();
 		static void SetFrameEnded(bool frameEnded);
-		static void UpdateViewport();
 	};
 }
