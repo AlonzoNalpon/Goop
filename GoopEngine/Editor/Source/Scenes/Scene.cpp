@@ -49,9 +49,9 @@ void GE::Scenes::Scene::TestScene()
 	m_entities.emplace(test);
 	Transform testtrans({ 150, 150, 1 }, { 100, 100, 0 }, { 0, 0, 0 });
 	BoxCollider testbox(testtrans.m_pos, 30, 30);
-	Velocity testvel({ 0, 0, 0 }, { 0, 0, 0 }, 1.0, { 0, 0, 0 }, DragForce({ 0, 0, 0 }));
-	testvel.AddForce({ 10, 0, 0 }, 10);
-	testvel.AddForce({ 0, -5, 0 }, 20);
+	Velocity testvel({ 0, 0, 0 }, { 0, 0, 0 }, 1.0, { 0, 0, 0 });
+	testvel.AddForce({ 10, 0, 0 }, 1, true);
+	testvel.AddForce({ 0, -5, 0 }, 2, true);
 	ecs->AddComponent(test, testtrans);
 	ecs->AddComponent(test, testbox);
 	ecs->AddComponent(test, testvel);
