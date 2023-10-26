@@ -10,7 +10,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <map>
-#include <unordered_map>
 #include <string>
 #include <ECS/EntityComponentSystem.h>
 
@@ -18,7 +17,7 @@ namespace GE
 {
 	namespace ECS
 	{
-		enum class COMPONENT_TYPES
+		enum COMPONENT_TYPES
 		{
 			TRANSFORM = 0,
 			BOX_COLLIDER,
@@ -50,7 +49,7 @@ namespace GE
 
 		// Const map so only interated through ranged for,
 		// or use the .at(<key>) function
-		const std::unordered_map<std::string, COMPONENT_TYPES> stringToComponents
+		const std::map<std::string, COMPONENT_TYPES> stringToComponents
 		{
 			{ "Transform", COMPONENT_TYPES::TRANSFORM },
 			{ "BoxCollider", COMPONENT_TYPES::BOX_COLLIDER },
@@ -65,10 +64,13 @@ namespace GE
 
 		/*!*********************************************************************
 		\brief
-			$BRIEF
-		\param
-			ComponentSignature (component signature)
-			COMPONENT_TYPES (COMPONENT_TYPE)
+			Checks if bit is set.
+
+		\param lhs
+			Signature of the component
+
+		\param rhs
+			Component type that you check against
 		\return
 			bool, true if bit is set.
 		************************************************************************/
