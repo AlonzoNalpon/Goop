@@ -143,7 +143,7 @@ bool PrefabGooStream::Unload(container_type& object)
   // add json data to map and set object's component signature
   for (auto const& component : data[JsonComponentsKey].GetArray())
   {
-    std::unordered_map<std::string, ECS::COMPONENT_TYPES>::const_iterator iter{ ECS::stringToComponents.find(component.MemberBegin()->name.GetString()) };
+    auto iter{ ECS::stringToComponents.find(component.MemberBegin()->name.GetString()) };
     if (iter == ECS::stringToComponents.cend())
     {
       std::string str{ "Unable to find component " };

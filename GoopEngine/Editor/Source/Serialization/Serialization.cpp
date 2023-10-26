@@ -88,7 +88,7 @@ namespace GE
         for (auto const& component : system.value.GetArray())
         {
           // set component's corresponding bit
-          std::unordered_map<std::string, ECS::COMPONENT_TYPES>::const_iterator compType{ ECS::stringToComponents.find(component.GetString()) };
+          auto compType{ ECS::stringToComponents.find(component.GetString()) };
           if (compType == ECS::stringToComponents.cend())
           {
             ifs.close();
