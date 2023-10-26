@@ -261,6 +261,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputDouble1("Time Elapsed", tween->m_timeElapsed);
 					TableNextRow();
 					InputDouble1("Time Between", tween->m_timePerTween);
+					TableNextRow();
+					InputDouble3("Last End Point", tween->m_originalPos, inputWidth);
 					EndTable();
 					InputList("Tween", tween->m_tweens, inputWidth);
 					Separator();
