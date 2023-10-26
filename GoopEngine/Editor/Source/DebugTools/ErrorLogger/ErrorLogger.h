@@ -33,7 +33,6 @@ namespace GE
       LoggerPtr m_logger;
       LoggerPtr m_fileLogger;
 
-      bool m_wroteToFile;
       std::string m_fileName;
 
       /*!******************************************************************

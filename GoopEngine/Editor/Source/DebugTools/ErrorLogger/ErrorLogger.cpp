@@ -19,10 +19,11 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <sstream>
 #include <iomanip>
 #include <cstdio>
+#include <filesystem>
 
 using namespace GE::Debug;
 
-ErrorLogger::ErrorLogger() : m_wroteToFile{ false }
+ErrorLogger::ErrorLogger()
 {
 	// Get curret system time
 	std::chrono::system_clock::time_point currTime = std::chrono::system_clock::now();
@@ -50,8 +51,7 @@ ErrorLogger::~ErrorLogger()
 	m_logger->flush();
 	m_logger.reset();
 
-	// If did not write to file there will be an empty log file. Remove it
-	if (!m_wroteToFile)
+	if (std::filesystem::file_size(m_fileName) == 0)
 	{
 		std::remove(m_fileName.c_str());
 	}
@@ -105,7 +105,6 @@ std::string ErrorLogger::LogMessage(std::string msg, bool logToFile)
 	// Don't log messages
   if (logToFile)
   {
-		m_wroteToFile = true;
 		m_fileLogger->info(msg);
   }
 	else
@@ -120,7 +119,6 @@ std::string ErrorLogger::LogWarning(std::string msg, bool logToFile)
 {
 	if (logToFile)
 	{
-		m_wroteToFile = true;
 		m_fileLogger->warn(msg);
 	}
 	else
@@ -135,7 +133,6 @@ std::string ErrorLogger::LogError(std::string msg, bool logToFile)
 {
 	if (logToFile)
 	{
-		m_wroteToFile = true;
 		m_fileLogger->error(msg);
 	}
 	else
@@ -150,7 +147,6 @@ std::string ErrorLogger::LogCritical(std::string msg, bool logToFile)
 {
 	if (logToFile)
 	{
-		m_wroteToFile = true;
 		m_fileLogger->critical(msg);
 	}
 	else
