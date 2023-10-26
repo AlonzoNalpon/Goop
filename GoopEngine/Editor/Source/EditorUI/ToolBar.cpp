@@ -36,7 +36,7 @@ void GE::EditorGUI::ToolBar::CreateContent()
         // Save systems back to original file
         //Serialization::SerializeSystems(*Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems"));
 
-        Serialization::SerializeScene("test.json");
+        Serialization::SerializeScene("Assets/Scenes/Serialized.scn");
       }
       if (Selectable("Open"))
       {
