@@ -35,6 +35,10 @@ using namespace ImGui;
 
 // Initialize static
 GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
+bool ImGuiHelper::m_play = false;
+bool ImGuiHelper::m_pause = false;
+bool ImGuiHelper::m_step = false;
+bool ImGuiHelper::m_restart = false;
 
 void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
 {
@@ -348,4 +352,58 @@ GE::ECS::Entity GE::EditorGUI::ImGuiHelper::GetSelectedEntity()
 void GE::EditorGUI::ImGuiHelper::SetSelectedEntity(GE::ECS::Entity& selectedEntity)
 {
   m_selectedEntity = selectedEntity;
+}
+
+void GE::EditorGUI::ImGuiHelper::StepSimulation(bool shouldStep)
+{
+  m_step = shouldStep;
+}
+
+bool GE::EditorGUI::ImGuiHelper::StepSimulation()
+{
+  bool shouldStep = m_step;
+  m_step = false;
+  return shouldStep;
+}
+
+bool GE::EditorGUI::ImGuiHelper::ShouldPlay()
+{
+  return m_play;
+}
+
+void GE::EditorGUI::ImGuiHelper::Play()
+{
+  m_play = true;
+  m_step = false;
+  m_pause = true;
+}
+
+void GE::EditorGUI::ImGuiHelper::Pause()
+{
+  m_pause = true;
+  m_play = false;
+}
+
+bool GE::EditorGUI::ImGuiHelper::Paused()
+{
+  return m_pause;
+}
+
+void GE::EditorGUI::ImGuiHelper::Restart()
+{
+  m_restart = true;
+  m_play = false;
+  m_step = false;
+}
+
+bool GE::EditorGUI::ImGuiHelper::IsRunning()
+{
+  return m_play;
+}
+
+bool GE::EditorGUI::ImGuiHelper::ShouldRestart()
+{
+  bool shouldRestart = m_restart;
+  m_restart = false;
+  return shouldRestart;
 }

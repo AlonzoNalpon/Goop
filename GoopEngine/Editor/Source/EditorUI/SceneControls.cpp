@@ -11,29 +11,55 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ImGui/imgui.h>
 #include <ImGui/imgui_internal.h>
 #include "SceneControls.h"
+#include "ImGuiUI.h"
 
 using namespace ImGui;
+using namespace GE::EditorGUI;
 
 void GE::EditorGUI::SceneControls::CreateContent()
 {
+  char const play[] = "Play", stop[] = "Stop", pause[] = "Pause", restart[] = "Restart", step[] = "Step";
   if (ImGui::BeginMenuBar()) 
   {
-    static bool play;
-    if (play)
+    if (ImGuiHelper::IsRunning())
     {
-      //if (Button("Stop"));
-      Button("Stop");
+      if (Button(pause))
+      {
+        ImGuiHelper::Pause();
+      }
+      BeginDisabled();
+      Button(step);
+      EndDisabled();
+    }
+    else if (ImGuiHelper::Paused())
+    {
+      if (Button(play))
+      {
+        ImGuiHelper::Play();
+      }
+      BeginDisabled();
+      Button(pause);
+      EndDisabled();
+      if (Button(step))
+      {
+        ImGuiHelper::StepSimulation(true);
+      }      
     }
     else
     {
-      //if (Button("Play"));
-      Button("Play");
+      if (Button(play))
+      {
+        ImGuiHelper::Restart();
+      }
+      if (Button(pause))
+      {
+        ImGuiHelper::Pause();
+      }
+      if (Button(step))
+      {
+        ImGuiHelper::StepSimulation(true);
+      }
     }
-
-    //if (Button("Pause"));
-    //if (Button("Step"));
-    Button("Pause");
-    Button("Step");
 
     EndMenuBar();
   }
