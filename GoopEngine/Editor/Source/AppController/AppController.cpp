@@ -66,7 +66,6 @@ namespace GE::Application
       GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
       scriptMan->InitMono();
 
-      GE::AI::TestTree();
 
     }
     catch (GE::Debug::IExceptionBase& e)
