@@ -74,6 +74,22 @@ T* ComponentManager::GetComponent(const Entity& entity)
 }
 
 template <typename T>
+bool ComponentManager::HasComponent(const Entity& entity)
+{
+	ComponentArray<T>* compArr = GetComponentArray<T>();
+	if (compArr)
+	{		
+		T* component = compArr->GetData(entity);
+		if (component)
+		{
+			return true;		
+		}
+	}
+
+	return false;
+}
+
+template <typename T>
 ComponentArray<T>* ComponentManager::GetComponentArray()
 {
 	char const* typeName = typeid(T).name();

@@ -95,6 +95,19 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+				Checks if an entity has a component
+
+			\param entity
+				Entity from which to check if component exist
+
+			\return
+				Has component
+			************************************************************************/
+			template <typename T>
+			bool HasComponent(const Entity& entity);
+
+			/*!*********************************************************************
+			\brief
 			  Callback for when an entity is destroy. Remove all the components
 				belonging to the entity.
 
