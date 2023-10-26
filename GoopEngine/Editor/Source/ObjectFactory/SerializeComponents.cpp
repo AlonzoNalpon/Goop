@@ -81,8 +81,8 @@ namespace GE
 			}
 			catch (GE::Debug::IExceptionBase&)
 			{
-				int id = am.LoadImageW(cw.Get<std::string>("filename"));
-				gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
+				am.LoadImageW(cw.Get<std::string>("filename"));
+				//gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
 			}
 			sprite.spriteData.texture = gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename"));
 			return sprite;

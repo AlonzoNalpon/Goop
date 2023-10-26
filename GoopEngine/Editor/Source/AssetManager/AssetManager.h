@@ -79,7 +79,7 @@ namespace GE::Assets
     \return
       ID of the loaded image.
     ************************************************************************/
-    int LoadImageW(const std::string& path);
+    unsigned LoadImageW(const std::string& path);
 
     /*!*********************************************************************
     \brief

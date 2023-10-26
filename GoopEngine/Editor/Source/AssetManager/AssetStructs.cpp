@@ -51,6 +51,11 @@ namespace GE::Assets
 		this->m_data = data;
 	}
 
+	void ImageData::SetID(unsigned id)
+	{
+		m_id = id;
+	}
+
 	unsigned char* ImageData::GetData()const
 	{
 		return this->m_data;
