@@ -19,6 +19,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Transform.h>
 #include <Component/Tween.h>
 #include <Component/Velocity.h>
+#include <Component/Draggable.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
@@ -224,7 +225,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputDouble3("Accelaration", vel->m_acc, inputWidth);
 					TableNextRow();
-					InputDouble3("Gravity", vel->m_gravity, inputWidth);
+					InputDouble1("Mass", vel->m_mass);
+					TableNextRow();
+					InputDouble3("Gravity", vel->m_gravity, inputWidth);					
 					TableNextRow();
 					InputDouble1("Drag", vel->m_dragForce.m_magnitude, inputWidth);
 					TableNextRow();
@@ -291,8 +294,153 @@ void GE::EditorGUI::Inspector::CreateContent()
 		}
 	}
 
+	static bool addingComponent{ false };
 	if (Button("Add Component", { GetContentRegionMax().x, 20 }))
 	{
+		addingComponent = true;
+	}
+
+	if (addingComponent)
+	{
+		if (BeginCombo("Components", GE::ECS::componentsToString.at(static_cast<GE::ECS::COMPONENT_TYPES>(0)).c_str()))
+		{
+			for (int i{}; i < GE::ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)
+			{				
+				if (Selectable(GE::ECS::componentsToString.at(static_cast<GE::ECS::COMPONENT_TYPES>(i)).c_str()))
+				{
+					std::stringstream ss;
+					switch (i)
+					{
+					case GE::ECS::COMPONENT_TYPES::TRANSFORM:
+					{
+						if (!ecs.HasComponent<Transform>(entity))
+						{
+							Transform comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Transform).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::BOX_COLLIDER:
+					{
+						if (!ecs.HasComponent<BoxCollider>(entity))
+						{
+							BoxCollider comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(BoxCollider).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::VELOCITY:
+					{
+						if (!ecs.HasComponent<Velocity>(entity))
+						{
+							Velocity comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Velocity).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::SPRITE:
+					{
+						if (!ecs.HasComponent<Sprite>(entity))
+						{
+							Sprite comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Sprite).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::SPRITE_ANIM:
+					{
+						if (!ecs.HasComponent<SpriteAnim>(entity))
+						{
+							SpriteAnim comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(SpriteAnim).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::MODEL:
+					{
+						if (!ecs.HasComponent<Model>(entity))
+						{
+							Model comp{};
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Model).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::TWEEN:
+					{
+						if (!ecs.HasComponent<Tween>(entity))
+						{
+							Tween comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Tween).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER:
+					{
+						if (!ecs.HasComponent<ScriptHandler>(entity))
+						{
+							ScriptHandler comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(ScriptHandler).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::DRAGGABLE:
+					{
+						if (!ecs.HasComponent<Draggable>(entity))
+						{
+							Draggable comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Draggable).name() << ". Component already exist";
+						}
+						break;
+					}
+					default:
+						break;
+					}
+					addingComponent = false;
+
+					if (!ss.str().empty())
+					{
+						GE::Debug::ErrorLogger::GetInstance().LogError(ss.str());
+					}
+				}
+			}
+			EndCombo();
+		}
 	}
 }
 
@@ -368,6 +516,7 @@ namespace
 
 			TreePop();
 		}
+		Indent();
 	}
 
 	template <>
