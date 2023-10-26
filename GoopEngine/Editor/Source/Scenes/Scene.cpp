@@ -82,9 +82,5 @@ void GE::Scenes::Scene::TestScene()
 	ecs->AddComponent(player, anim);
 	ecs->AddComponent(player, playerCollider);
 	ecs->AddComponent(player, scriptHan);
-	ecs->RegisterEntityToSystem<GE::Systems::PlayerControllerSystem>(player);
-	ecs->RegisterEntityToSystem<GE::Systems::RenderSystem>(player);
-	ecs->RegisterEntityToSystem<GE::Systems::CollisionSystem>(player);
-	ecs->RegisterEntityToSystem<GE::Systems::SpriteAnimSystem>(player);
 	ecs->SetEntityName(player, "Player");
 }
