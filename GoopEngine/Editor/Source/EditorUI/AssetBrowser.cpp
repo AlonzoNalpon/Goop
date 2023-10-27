@@ -116,7 +116,7 @@ void AssetBrowser::CreateContentView()
 			ImVec2 uv0(0.0f, 1.0f); // Bottom-left corner
 			ImVec2 uv1(1.0f, 0.0f); // Top-right corner
 
-			Image(itr, { GetWindowWidth() , static_cast<float>(h) / w * GetWindowWidth() }, uv0, uv1);
+			Image(itr, { GetWindowWidth()- 30.f , static_cast<float>(h) / w * (GetWindowWidth() - 30.f) }, uv0, uv1);
 			//name of image
 			Text(file.path().filename().string().c_str());
 		}
