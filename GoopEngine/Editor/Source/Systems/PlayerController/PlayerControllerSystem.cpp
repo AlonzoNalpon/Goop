@@ -153,9 +153,13 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 			{
 				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("slash"), 1.0f);
 			}
-			if (key == GPK_W)
+			if (key == GPK_Q)
 			{
 				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("woosh2"), 1.0f);
+			}
+			if (key == GPK_R)
+			{
+				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("damage_taken"), 1.0f);
 			}
 		}
 	}
