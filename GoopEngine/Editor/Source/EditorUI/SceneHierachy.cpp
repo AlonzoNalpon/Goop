@@ -31,6 +31,8 @@ namespace
 
 	std::vector<Entity> entitiesToDestroy;
 
+	bool treeNodePopUp{ false };
+
 	/*!*********************************************************************
 	\brief 
 	  Parents the child entity to the parent entity. This function also
@@ -99,6 +101,27 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 		TreePop();
 	}
 
+	ImVec2 vpSize = ImGui::GetContentRegionAvail();  // Get the top-left position of the vp
+	ImVec2 vpPosition = ImGui::GetCursorScreenPos();
+
+	if (ImGui::IsMouseHoveringRect(vpPosition, ImVec2(vpPosition.x + vpSize.x, vpPosition.y + vpSize.y)) 
+		&& IsMouseClicked(ImGuiMouseButton_Right) 
+		&& !treeNodePopUp)
+	{
+		OpenPopup("EntityCreate");
+	}
+	if (BeginPopup("EntityCreate"))
+	{
+		if (Selectable("Create"))
+		{
+			Entity newEntity = ecs.CreateEntity();
+			GE::Component::Transform trans{};
+			ecs.AddComponent(newEntity, trans);
+		}
+		EndPopup();
+	}
+
+	// Delete entities after interation
 	for (Entity entity : entitiesToDestroy)
 	{
 		ecs.DestroyEntity(entity);
@@ -179,6 +202,7 @@ namespace
 			if (IsItemClicked(ImGuiMouseButton_Right))
 			{
 				OpenPopup("EntityManip");
+				treeNodePopUp = true;
 			}
 			if (BeginPopup("EntityManip"))
 			{
@@ -192,6 +216,10 @@ namespace
 					entitiesToDestroy.push_back(entity);
 				}
 				EndPopup();
+			}
+			else
+			{
+				treeNodePopUp = false;
 			}
 
 			////////////////////////////////////
