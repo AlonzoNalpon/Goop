@@ -22,7 +22,7 @@ using namespace GE::EditorGUI::DataViz;
 
 void GE::EditorGUI::ToolBar::CreateContent()
 {
-  if (BeginMenuBar())
+  if (BeginMainMenuBar())
   {
     if (BeginMenu("File"))
     {
@@ -47,11 +47,7 @@ void GE::EditorGUI::ToolBar::CreateContent()
 
       ImGui::EndMenu();
     }
-    EndMenuBar();
-  }
 
-  if (BeginMenuBar())
-  {
     if (BeginMenu("View"))
     {
       if (ImGui::MenuItem("Performance Visualizer", nullptr, Visualizer::IsPerformanceShown()))
@@ -71,6 +67,6 @@ void GE::EditorGUI::ToolBar::CreateContent()
       ImGui::EndMenu();
     }
 
-    EndMenuBar();
+    EndMainMenuBar();
   }
 }
