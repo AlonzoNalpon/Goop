@@ -286,7 +286,6 @@
     <ClInclude Include="Source\Component\Draggable.h" />
     <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\Component\Components.h" />
-    <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
     <ClInclude Include="Source\EditorUI\Console.h" />
     <ClInclude Include="Source\AI\ActionNode.h" />
     <ClInclude Include="Source\AI\BehaviourTree.h" />
