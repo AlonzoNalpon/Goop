@@ -67,8 +67,6 @@ namespace GE
 			DragForce m_dragForce;
 			std::vector<LinearForce> m_forces;
 
-			static const vec3 m_threshold;
-
 			vec3 m_sumMagnitude;
 
 			//forces functions
@@ -76,6 +74,11 @@ namespace GE
 			{
 				LinearForce force(mag, lifetime, active);
 				m_forces.push_back(std::move(force));
+			}
+
+			double GetMagnitude(const vec3& mag)
+			{
+				return ((mag.x * mag.x) + (mag.y * mag.y));
 			}
 		};
 	}
