@@ -38,7 +38,6 @@ void GameStateManager::Update()
 {
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_RIGHT))
 	{
-		//SetNextScene("Start2");
 		SetNextScene("SceneTest");
 	}
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_LEFT))

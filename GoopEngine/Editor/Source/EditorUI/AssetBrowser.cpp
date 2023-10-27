@@ -3,6 +3,7 @@
 #include <AssetManager/AssetManager.h>
 #include <filesystem>
 #include<Graphics/GraphicsEngine.h>
+#include <stb_image.h>
 
 using namespace ImGui;
 using namespace GE::Assets;
@@ -52,24 +53,6 @@ void AssetBrowser::CreateContentDir()
 		}
 		TreePop();
 	}
-}
-
-//#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
-
-GLuint ImageTest(std::string path)
-{
-	int width, height, channels;
-	unsigned char* image = stbi_load(path.c_str(), &width, &height, &channels, 4); // 4 channels (RGBA)
-
-		GLuint textureID;
-		glGenTextures(1, &textureID);
-		glBindTexture(GL_TEXTURE_2D, textureID);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		stbi_image_free(image); // Free the loaded image data
-		std::cout << textureID << "\n";
-		return textureID;
 }
 
 void AssetBrowser::CreateContentView()
