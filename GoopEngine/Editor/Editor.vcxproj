@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AI\Tree.cpp" />
+    <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
     <ClCompile Include="Source\EditorUI\Console.cpp" />
     <ClCompile Include="Source\AppController\AppController.cpp" />
     <ClCompile Include="Source\AssetManager\AssetManager.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Source\ECS\System\System.cpp" />
     <ClCompile Include="Source\EditorUI\DataViz\Visualizer.cpp" />
     <ClCompile Include="Source\EditorUI\Inspector.cpp" />
+    <ClCompile Include="Source\EditorUI\OpenFileExplorer.cpp" />
     <ClCompile Include="Source\EditorUI\SceneControls.cpp" />
     <ClCompile Include="Source\EditorUI\ToolBar.cpp" />
     <ClCompile Include="Source\Events\EventManager.cpp" />
@@ -283,6 +285,7 @@
     <ClInclude Include="Source\Component\Draggable.h" />
     <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\Component\Components.h" />
+    <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
     <ClInclude Include="Source\EditorUI\Console.h" />
     <ClInclude Include="Source\AI\ActionNode.h" />
     <ClInclude Include="Source\AI\BehaviourTree.h" />
@@ -311,6 +314,7 @@
     <ClInclude Include="Source\ECS\Component\ComponentManager.h" />
     <ClInclude Include="Source\EditorUI\DataViz\Visualizer.h" />
     <ClInclude Include="Source\EditorUI\Inspector.h" />
+    <ClInclude Include="Source\EditorUI\OpenFileExplorer.h" />
     <ClInclude Include="Source\EditorUI\SceneControls.h" />
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />

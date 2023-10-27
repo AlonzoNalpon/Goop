@@ -24,7 +24,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <filesystem>
 #include <Graphics/GraphicsEngine.h>
 #include "../Serialization/AssetGooStream.h"
-#include <filesystem>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -47,10 +46,10 @@ namespace GE::Assets
 		std::string filename = (pos != std::string::npos) ? filepath.substr(pos + 1) : filepath;
 
 		// If the path separator is not found, try '\\'
-		pos = filepath.find_last_of('\\');
+		pos = filename.find_last_of('\\');
 
 		// Extract the substring after the last path separator
-		filename = (pos != std::string::npos) ? filepath.substr(pos + 1) : filepath;
+		filename = (pos != std::string::npos) ? filename.substr(pos + 1) : filename;
 
 		// Find the last occurrence of the file extension separator, typically '.'
 		size_t extPos = filename.find_last_of('.');
@@ -213,13 +212,36 @@ namespace GE::Assets
 		return loaded;
 	}
 
-	int AssetManager::LoadImageW(const std::string& path)
+	bool AssetManager::AlreadyLoaded(const std::string& path)
+	{
+		auto pathLookup = m_loadedImagesStringLookUp.find(path);
+		if (pathLookup != m_loadedImagesStringLookUp.end()) {
+			return true;
+		}
+		return false;
+	}
+
+	bool AssetManager::AlreadyLoaded(int id)
+	{
+		auto pathLookup = m_loadedImagesIDLookUp.find(id);
+		if (pathLookup != m_loadedImagesIDLookUp.end()) {
+			return true;
+		}
+		return false;
+	}
+
+	unsigned AssetManager::LoadImageW(const std::string& path)
 	{
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 
-		int width, height, channels;
-		int id = m_generator.GenerateID();
+		auto pathLookup = m_loadedImagesStringLookUp.find(path);
+		if (pathLookup != m_loadedImagesStringLookUp.end()) {
+			// Path already exists in the map, return the existing ID or handle it as needed.
+			int existingId = pathLookup->second;
+			return existingId;
+		}
 
+		int width, height, channels;
 		unsigned char* img = stbi_load(path.c_str(), &width, &height, &channels, 0);
 
 		if (img == NULL)
@@ -227,14 +249,16 @@ namespace GE::Assets
 			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load image: " + path));
 		}
 
-		ImageData imageData{ id, path, width, height, channels, img };
-		m_loadedImages.insert(std::pair<int, ImageData>(id, imageData));
-		m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(path, id));
-		m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(id, path));
-		 
-		gEngine.InitTexture(ExtractFilename(imageData.GetName()), imageData);
+		ImageData imageData{ 0 , path, width, height, channels, img };
+		
+		unsigned TMID = gEngine.InitTexture(ExtractFilename(imageData.GetName()), imageData);
+		imageData.SetID(TMID);
 
-		return id;
+		m_loadedImages.insert(std::pair<int, ImageData>(TMID, imageData));
+		m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(path, TMID));
+		m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(TMID, path));
+		 
+		return TMID;
 	}
 
 	void AssetManager::LoadImages()
@@ -245,8 +269,7 @@ namespace GE::Assets
 		// Load all images in m_images
 		for (std::pair<std::string, std::string> const& image : m_images)
 		{
-			/*int id =*/ LoadImageW(image.second);
-			//gEngine.InitTexture(image.second, GetData(id));
+			LoadImageW(image.second);
 		}
 	}
 
@@ -279,6 +302,7 @@ namespace GE::Assets
 
 	void AssetManager::FreeImage(const std::string& name)
 	{
+		std::cout << "ATTEMPTING TO FREE: " + name + "\n";
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 
 		stbi_image_free(GetData(name).GetData());

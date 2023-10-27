@@ -67,6 +67,10 @@ namespace GE::Assets
     ************************************************************************/
     std::set<int> LoadDirectory(const std::string& directory);
 
+    bool AlreadyLoaded(const std::string& path);
+
+    bool AlreadyLoaded(int id);
+
     /*!*********************************************************************
     \brief
       Loads the image and add them into the map of loaded images.
@@ -75,7 +79,7 @@ namespace GE::Assets
     \return
       ID of the loaded image.
     ************************************************************************/
-    int LoadImageW(const std::string& path);
+    unsigned LoadImageW(const std::string& path);
 
     /*!*********************************************************************
     \brief
@@ -210,6 +214,9 @@ namespace GE::Assets
       The map of prefab filepaths
     ************************************************************************/
     inline std::unordered_map<std::string, std::string> const& GetPrefabs() const noexcept { return m_prefabs; }
+
+    inline std::unordered_map<std::string, std::string> const& GetImages() const noexcept { return m_images; }
+
 
     #include "AssetManager.tpp"
 

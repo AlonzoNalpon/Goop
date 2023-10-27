@@ -97,6 +97,8 @@ namespace GE::Assets
     ************************************************************************/
     void SetInfo(int width, int height, int channels, unsigned char* data);
 
+    void SetID(unsigned id);
+
     /*!*********************************************************************
     \brief
       Gets the data of the current class object.
@@ -140,7 +142,7 @@ namespace GE::Assets
     int GetID()const;
 
   private:
-    int m_id; // ID given to the file to be included in the asset manager map.
+    unsigned m_id; // ID given to the file to be included in the asset manager map.
     std::string m_name; // Name of the file.
     int m_width; // Width of the image file.
     int m_height; // Height of the image file.
