@@ -13,7 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 namespace GE::GSM
 {
-  class GameStateManager
+  class GameStateManager : public Singleton<GameStateManager>
   {
   private:
     GE::Scenes::SceneManager sm;
@@ -26,6 +26,8 @@ namespace GE::GSM
       std::string (name of the next scene.scn file)
     ************************************************************************/
     void SetNextScene(std::string next_scene);
+
+    std::string GetCurrentScene();
 
     /*!*********************************************************************
     \brief

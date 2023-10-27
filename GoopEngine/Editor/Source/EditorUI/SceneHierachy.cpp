@@ -13,6 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/RootTransformSystem.h>
 #include <Component/Transform.h>
 #include "../ObjectFactory/ObjectFactory.h"
+#include <GameStateManager/GameStateManager.h>
 
 using namespace ImGui;
 using namespace GE::ECS;
@@ -45,6 +46,7 @@ namespace
 	\param[in] child
 		Child entity.
 
+
 	\param[in] parent
 		Optional parent entity. Value will be NULL for no parent by default.
 	************************************************************************/
@@ -69,13 +71,14 @@ namespace
 void GE::EditorGUI::SceneHierachy::CreateContent()
 {
 	static EntityComponentSystem& ecs = EntityComponentSystem::GetInstance();
+	GE::GSM::GameStateManager& gsm{ GE::GSM::GameStateManager::GetInstance() };
 	// Get style text colour that can be edited later
 	ImGuiStyle& style = GetStyle();
 	originalTextClr = style.Colors[ImGuiCol_Text];
-
+	
 	// TODO
 	// Scene should be replace with scene file name
-	static const char* sceneName = "Scene";
+	static const char* sceneName = "Start"; // gsm.GetCurrentScene().c_str();
 	ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 	if (TreeNodeEx(sceneName, treeFlags))
 	{
