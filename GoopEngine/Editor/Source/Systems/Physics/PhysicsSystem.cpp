@@ -9,8 +9,6 @@ using namespace ECS;
 using namespace Systems;
 using namespace Component;
 
-const vec3 Velocity::m_threshold{ 0.01f, 0.01f, 0.01f };
-
 void PhysicsSystem::FixedUpdate()
 {
 	/*auto& inputMan{ Input::InputManager::GetInstance() };
@@ -67,7 +65,7 @@ void PhysicsSystem::FixedUpdate()
 
 		vel->m_vel *= vel->m_dragForce.m_magnitude;
 		
-		if (vel->m_vel <= vel->m_threshold)
+		if (vel->GetMagnitude(vel->m_vel) <= 0.01 && vel->GetMagnitude(vel->m_vel) >= -0.01)
 		{
 			vel->m_vel = {};
 		}
