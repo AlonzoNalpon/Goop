@@ -123,6 +123,63 @@ namespace Graphics::Rendering {
     m_lineRenderCalls.clear(); // reset debug
   }
 
+  void Renderer::DrawFontObj(std::string const& str, gVec2 pos, gVec2 const& scale, Colorf const& clr, std::string const& fontName)
+  {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    constexpr GLint uViewMatLocation{ 0 };
+    //constexpr GLint U_TEXT{ 1 };
+    constexpr GLint uColorLocation{ 2 };
+    auto const& fontMap = r_fontManager.GetFontMap(fontName);
+    glm::mat4 camViewProj{ m_camera.ViewProjMtx() }; // TODO: OPTIMIZE THE CAMERA VIEW PROJ MATRIX BY CACHING
+
+
+    glUseProgram(r_fontManager.fontShader); // use font shader
+    // pass the color
+    glUniform3f(uColorLocation, clr.r, clr.g, clr.b);
+    // Pass the camera matrix
+    glUniformMatrix4fv(uViewMatLocation, 1, GL_FALSE, glm::value_ptr(camViewProj));
+    glActiveTexture(GL_TEXTURE0);
+    glBindVertexArray(r_fontManager.fontModel);
+
+    // iterate threough the st
+    for (char ch : str)
+    {
+      Fonts::Character const& currGlyph{ fontMap.at(ch) };
+      GLfloat xpos = pos.x + currGlyph.bearing.x * scale.x;
+      GLfloat ypos = pos.y - (currGlyph.size.y - currGlyph.bearing.y) * scale.y;
+
+      GLfloat w = currGlyph.size.x * scale.x;
+      GLfloat h = currGlyph.size.y * scale.y;
+      // update the VBO
+      GLfloat verts[6][4] = {
+        // TRIANGLE 1
+        { xpos,     ypos + h,   0.0f, 0.0f }, // top left
+        { xpos,     ypos,       0.0f, 1.0f }, // bottom left
+        { xpos + w, ypos,       1.0f, 1.0f }, // bottom right
+        // TRIANGLE 2
+        { xpos,     ypos + h,   0.0f, 0.0f }, // top left
+        { xpos + w, ypos,       1.0f, 1.0f }, // bottom right
+        { xpos + w, ypos + h,   1.0f, 0.0f }  // top right
+      };
+
+      // Rendering the glyph tex on quad
+      glBindTexture(GL_TEXTURE_2D, currGlyph.textureID);
+      // update vbo with new vertex data
+      glBindBuffer(GL_ARRAY_BUFFER, r_fontManager.fontModel);
+      glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(verts), verts);
+      glBindBuffer(GL_ARRAY_BUFFER, 0);
+      // Render quad
+      glDrawArrays(GL_TRIANGLES, 0, 6);
+      // advance cursor for next glyph
+
+      //advance is number of 1/64 pixels
+      pos.x += (currGlyph.advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
+    }
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+  }
+
   Camera& Renderer::GetCamera()
   {
     return m_camera;

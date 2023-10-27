@@ -9,14 +9,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include "ObjectFactory.h"
-#include <Component/Velocity.h>
-#include <Component/Transform.h>
-#include <Component/Sprite.h>
-#include <Component/SpriteAnim.h>
-#include <Component/BoxCollider.h>
-#include <Component/Tween.h>
-#include <Component/Model.h>
-#include <Component/ScriptHandler.h>
+#include <Component/Components.h>
+#include <Serialization/ComponentWrapper/ComponentWrapper.h>
 
 namespace GE::ObjectFactory
 {
@@ -29,28 +23,24 @@ namespace GE::ObjectFactory
   \return
     The component initialized with the values from the file
   ************************************************************************/
-  template<typename CompType>
+  template <typename CompType>
   CompType DeserializeComponent(std::string const& componentData);
-    
   template<>
-  GE::Component::Transform DeserializeComponent<GE::Component::Transform>(std::string const& componentData);
+  GE::Component::Transform DeserializeComponent(std::string const& componentData);
+  template<>
+  GE::Component::BoxCollider DeserializeComponent(std::string const& componentData);
+  template<>
+  GE::Component::Velocity DeserializeComponent(std::string const& componentData);
+  template<>
+  GE::Component::Sprite DeserializeComponent(std::string const& componentData);
+  template<>
+  GE::Component::SpriteAnim DeserializeComponent(std::string const& componentData);
+  template<>
+  GE::Component::Model DeserializeComponent(std::string const& componentData);
+  template<>
+  GE::Component::ScriptHandler DeserializeComponent(std::string const& componentData);
+  template<>
+  GE::Component::EnemyAI DeserializeComponent(std::string const& componentData);
 
-  template <>
-  GE::Component::BoxCollider DeserializeComponent<GE::Component::BoxCollider>(std::string const& componentData);
-
-  template<>
-  GE::Component::Velocity DeserializeComponent<GE::Component::Velocity>(std::string const& componentData);
-    
-  template<>
-  GE::Component::Sprite DeserializeComponent<GE::Component::Sprite>(std::string const& componentData);
-    
-  template<>
-  GE::Component::SpriteAnim DeserializeComponent<GE::Component::SpriteAnim>(std::string const& componentData);
-
-  template<>
-  GE::Component::Model DeserializeComponent<GE::Component::Model>(std::string const& componentData);
-
-  template<>
-  GE::Component::ScriptHandler DeserializeComponent<GE::Component::ScriptHandler>(std::string const& componentData);
 }
 

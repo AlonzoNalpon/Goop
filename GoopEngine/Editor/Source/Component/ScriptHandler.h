@@ -23,6 +23,12 @@ namespace GE
 			std::map<std::string,Script> m_scriptMap;
 
 			/*!*********************************************************************
+			\brief 
+			  Default constructor
+			************************************************************************/
+			ScriptHandler() {};
+
+			/*!*********************************************************************
 			\brief
 				Non-default Constructor for Scripthandler. Initialize all the scripts instance and add it to the map
 
@@ -41,7 +47,9 @@ namespace GE
 					{
 						try
 						{
-							m_scriptMap[s.second] = Script(scriptMan->InstantiateClassID(s.first.c_str(), s.second.c_str(), entityID));
+							unsigned int copy = entityID;
+							std::vector<void*> arg{ &copy };
+							m_scriptMap[s.second] = Script(scriptMan->InstantiateClass(s.first.c_str(), s.second.c_str(), arg));
 						}
 						catch (GE::Debug::IExceptionBase& e)
 						{
@@ -71,7 +79,9 @@ namespace GE
 					GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
 					try
 					{
-						m_scriptMap[scriptName.second] = Script(scriptMan->InstantiateClassID(scriptName.first.c_str(), scriptName.second.c_str(), entityID));
+						unsigned int copy = entityID;
+						std::vector<void*> arg{ &copy };
+						m_scriptMap[scriptName.second] = Script(scriptMan->InstantiateClass(scriptName.first.c_str(), scriptName.second.c_str(), arg));
 					}
 					catch (GE::Debug::IExceptionBase& e)
 					{

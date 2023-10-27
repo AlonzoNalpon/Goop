@@ -189,6 +189,15 @@ namespace Graphics {
     ************************************************************************/
     Model GenerateLine();
 
+    /*!*********************************************************************
+    \brief
+      Generates font model.
+    \params
+    \return
+
+    ************************************************************************/
+    Model GenerateFontMdl();
+
     // SHADERS ARE ONLY TO BE QUERIED BY MODELS REQUESTING A HANDLE
     // USERS MUST SPECIFY SHADER NAME WHILE CREATING A MODEL
 
@@ -210,6 +219,8 @@ namespace Graphics {
 
     Model                           m_spriteQuadMdl{};  //!< basic primitive quad for sprites
     Model                           m_lineMdl{};        //!< basic primitive line
+    Model                           m_fontMdl{};        //!< font model quad for rendering text
+
     // FOR DEBUGGING
   private:
   public: // getters

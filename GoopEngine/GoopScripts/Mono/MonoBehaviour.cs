@@ -33,5 +33,10 @@ namespace GoopScripts.Mono
     {
       m_entityID = entityID;
     }
+
+    public MonoBehaviour()
+    {
+      m_entityID = 0;
+    }
   }
 }

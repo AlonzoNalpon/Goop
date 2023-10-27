@@ -22,14 +22,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rapidjson/document.h>
 #include <ObjectFactory/ObjectStructs.h>
 #include <Serialization/Serialization.h>
-#include <Component/Velocity.h>
-#include <Component/Transform.h>
-#include <Component/Sprite.h>
-#include <Component/SpriteAnim.h>
-#include <Component/BoxCollider.h>
-#include <Component/Tween.h>
-#include <Component/Model.h>
-#include <Component/ScriptHandler.h>
+#include <Component/Components.h>
+
 
 namespace GE::ObjectFactory
 {
@@ -156,7 +150,7 @@ namespace GE::ObjectFactory
       Entity (object to register)
       SystemSignature (System to be registered to)
     ************************************************************************/
-    void RegisterObjectToSystems(GE::ECS::Entity object, ECS::SystemSignature signature) const;
+    //void RegisterObjectToSystems(GE::ECS::Entity object, ECS::SystemSignature signature) const;
     
     /*!*********************************************************************
     \brief
@@ -175,7 +169,7 @@ namespace GE::ObjectFactory
     \return
       SystemSignature
     ************************************************************************/
-    GE::ECS::SystemSignature GetObjectSystemSignature(GE::ECS::Entity obj) const;
+    //GE::ECS::SystemSignature GetObjectSystemSignature(GE::ECS::Entity obj) const;
 
     /*!*********************************************************************
     \brief

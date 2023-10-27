@@ -163,7 +163,14 @@ namespace
 		/////////////////////
 		// Create own node
 		/////////////////////
-		if (TreeNodeEx(GetName(entity), flag))
+		std::vector<Entity>& m_children = ecs.GetChildEntities(entity);
+		if (m_children.empty())
+		{
+			flag |= ImGuiTreeNodeFlags_Leaf;
+		}
+
+		if (TreeNodeEx(GetName(entity), flag |
+			(entity == GE::EditorGUI::ImGuiHelper::GetSelectedEntity() ? ImGuiTreeNodeFlags_Selected : 0)))
 		{
 			if (IsItemClicked())
 			{
@@ -212,8 +219,7 @@ namespace
 			// Create child nodes
 			//////////////////////
 			// Recursive end condition
-			std::vector<Entity>& m_children = ecs.GetChildEntities(entity);
-			if (m_children.size() == 0)
+			if (m_children.empty())
 			{
 				// Make sure to pop newest node before exitting function
 				TreePop();

@@ -26,6 +26,18 @@ namespace Graphics
     return it == m_animLookupTable.end() ? BAD_OBJ_ID : it->second; // return ID or BAD_OBJ_ID if not found
   }
 
+  std::string SpriteAnimationManager::GetAnimName(gObjID ID) const noexcept
+  {
+    auto it{ m_animID_NameLT.find(ID) };
+    if (it == m_animID_NameLT.end())
+    {
+      std::string error{ "No such animation with matching ID exists: " };
+      std::cout << error << static_cast<long long>(ID) << std::endl;
+      return std::string{};
+    }
+    return it->second;
+  }
+
   SpriteAnimation const& SpriteAnimationManager::GetAnim(size_t id) const
   {
     return m_spriteAnimations[id]; // That's right. We're throwing if you give a bad ID
@@ -51,6 +63,7 @@ namespace Graphics
     // At this line, we would be creating a new unique animation ...
     size_t animID{ m_spriteAnimations.size() }; // get the new ID (before pushing)
     m_animLookupTable[name] = animID;           // add this ID to the lookup table
+    m_animID_NameLT[animID] = name;             // and add this ID to the other lookup table
     m_spriteAnimations.emplace_back(animation);    // push the new animation
 
     return animID; // return the animation ID

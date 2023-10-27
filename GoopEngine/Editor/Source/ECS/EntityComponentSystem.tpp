@@ -42,6 +42,12 @@ T* EntityComponentSystem::GetComponent(const Entity& entity)
 }
 
 template <typename T>
+bool EntityComponentSystem::HasComponent(const Entity& entity)
+{
+	return m_componentManager->HasComponent<T>(entity);
+}
+
+template <typename T>
 ComponentType EntityComponentSystem::GetComponentSignature()
 {
 	return m_componentManager->GetComponentSignature<T>();

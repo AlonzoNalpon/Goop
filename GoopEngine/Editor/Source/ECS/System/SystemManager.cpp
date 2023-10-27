@@ -52,9 +52,6 @@ void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignat
 			system.second->GetEntities().erase(entity);
 			system.second->GetInActiveEntities().erase(entity);
 			system.second->GetAllEntities().erase(entity);
-			std::stringstream ss;
-			ss << "Entity ID " << entity << " does not match " << system.first << " siganture. Removed from entity list";
-			GE::Debug::ErrorLogger::GetInstance().LogMessage<SystemManager>(ss.str());
 		}
 		else
 		{			
@@ -98,39 +95,100 @@ void SystemManager::UpdateSystems()
 	GE::FPS::FrameRateController& fpsC = GE::FPS::FrameRateController::GetInstance();
 	fpsC.StartSystemTimer();
 	// Use index to system here as index contains systems in the order which it should update in
-	for (auto& system : m_indexToSystem)
+	for (auto const& [name, system] : m_indexToSystem)
 	{
-		auto& systemName{ system.second };
-		m_systems[systemName]->Update();
+		m_systems[system]->Update();
 	}
-	fpsC.EndSystemTimer("System Update");
+	fpsC.EndSystemTimer("Update");
 
 	int steps = fpsC.GetSteps();
 	if (steps > 0)
 	{
-		for (auto& system : m_indexToSystem)
+		for (auto const& [index, system] : m_indexToSystem)
 		{
-			auto& systemName{ system.second };
 			for (int i{}; i < steps; ++i)
 			{
-				m_systems[systemName]->FixedUpdate();
+				m_systems[system]->FixedUpdate();
 			}
 		}
 	}
-	fpsC.EndSystemTimer("System Fixed Update");
+	fpsC.EndSystemTimer("Fixed Update");
 
-	for (auto& system : m_indexToSystem)
+	for (auto const& [index, system] : m_indexToSystem)
 	{
-		auto& systemName{ system.second };
-		m_systems[systemName]->LateUpdate();
+		m_systems[system]->LateUpdate();
 	}
-	fpsC.EndSystemTimer("System Late Update");
+	fpsC.EndSystemTimer("Late Update");
 }
 
-void SystemManager::UpdateSystemsFixed()
+#ifndef NO_IMGUI
+void GE::ECS::SystemManager::UpdateSystems(int systemCount, va_list args)
 {
-	for (auto& system : m_systems)
+	std::set<const char*> allowedSystems;
+
+	for (int i{}; i < systemCount; ++i)
 	{
-		system.second->FixedUpdate();
+		allowedSystems.insert(va_arg(args, const char*));
 	}
+
+	// Initialize all systems
+	while (m_uninitializedSystems.size() > 0)
+	{
+		// Somehow system to initialize doesn't exist
+		if (m_systems.find(m_uninitializedSystems.front()) == m_systems.end())
+		{
+			// Dont process this system
+			if (allowedSystems.find(m_uninitializedSystems.front()) == allowedSystems.end())
+			{
+				continue;
+			}
+
+			m_uninitializedSystems.pop();
+			continue;
+		}
+
+		m_systems[m_uninitializedSystems.front()]->Start();
+		m_uninitializedSystems.pop();
+	}
+
+	GE::FPS::FrameRateController& fpsC = GE::FPS::FrameRateController::GetInstance();
+	fpsC.StartSystemTimer();
+	// Use index to system here as index contains systems in the order which it should update in
+	for (auto const& [name, system] : m_indexToSystem)
+	{
+		// Dont process this system
+		if (allowedSystems.find(system) == allowedSystems.end())
+		{
+			continue;
+		}
+
+		m_systems[system]->Update();
+	}
+	fpsC.EndSystemTimer("Update");
+
+	int steps = fpsC.GetSteps();
+	if (steps > 0)
+	{
+		for (auto const& [index, system] : m_indexToSystem)
+		{
+			// Dont process this system
+			if (allowedSystems.find(system) == allowedSystems.end())
+			{
+				continue;
+			}
+
+			for (int i{}; i < steps; ++i)
+			{
+				m_systems[system]->FixedUpdate();
+			}
+		}
+	}
+	fpsC.EndSystemTimer("Fixed Update");
+
+	for (auto const& [index, system] : m_indexToSystem)
+	{
+		m_systems[system]->LateUpdate();
+	}
+	fpsC.EndSystemTimer("Late Update");
 }
+#endif // !NO_IMGUI

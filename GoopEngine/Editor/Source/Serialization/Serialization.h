@@ -10,6 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rapidjson/document.h>
 #include <string>
 #include <sstream>
+#include <Component/ScriptHandler.h>
 
 namespace GE
 {
@@ -35,6 +36,41 @@ namespace GE
     ************************************************************************/
     std::vector<std::pair<std::string, ECS::ComponentSignature>> DeserializeSystems(std::string const& json);
 
+    rapidjson::Value SerializeScriptMap(std::map<std::string, GE::MONO::Script> const& rhs,
+      rapidjson::Document::AllocatorType& allocator);
+
+    rapidjson::Value SerializeTweenQueue(std::deque<Math::dVec3> tweens, rapidjson::Document::AllocatorType& allocator);
+
+    //rttr::variant DeserializeBasicTypes(rapidjson::Value const& jsonVal)
+    //{
+    //  switch (jsonVal.GetType())
+    //  {
+    //  // booleans
+    //  case rapidjson::kTrueType:
+    //  case rapidjson::kFalseType:
+    //    return jsonVal.GetBool();
+
+    //  case rapidjson::kStringType:
+    //    return std::string(jsonVal.GetString());
+
+    //  case rapidjson::kNumberType:
+    //    if (jsonVal.IsInt())
+    //      return jsonVal.GetInt();
+    //    else if (jsonVal.IsUint())
+    //      return jsonVal.GetUint();
+    //    else if (jsonVal.IsDouble())
+    //      return jsonVal.GetDouble();
+    //    else if (jsonVal.IsFloat())
+    //      return jsonVal.GetFloat();
+    //    else if (jsonVal.IsInt64())
+    //      return jsonVal.GetInt64();
+    //    else if (jsonVal.IsUint64())
+    //      return jsonVal.GetUint64();
+    //    break;
+    //  }
+
+    //  return rttr::variant();
+    //}
 
   } // namespace Serialization
 } // namespace GE

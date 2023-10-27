@@ -5,7 +5,7 @@
   <PropertyGroup>
     <_PropertySheetDisplayName>standard-no_warnings</_PropertySheetDisplayName>
     <IncludePath>$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)lib\stb-master;$(SolutionDir)lib\spdlog;$(SolutionDir)lib\rapidjson-1.1.0;$(SolutionDir)lib\freetype-2.13.2\include;$(SolutionDir)lib\fMOD\include;$(SolutionDir)lib\mono\include;$(ProjectDir)Source\ImGui;$(ProjectDir)Source\Components;$(ProjectDir)Source\Systems;$(ProjectDir)Source\;$(SolutionDir)lib\rttr-0.9.6\include</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-2.13.2\dll\win64;$(SolutionDir)lib\fMOD\Librariesx64;$(SolutionDir)lib\mono\lib\DMono;$(SolutionDir)lib\mono\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-2.13.2\dll\win64;$(SolutionDir)lib\fMOD\Librariesx64;$(SolutionDir)lib\mono\lib\DMono;$(SolutionDir)lib\mono\lib;$(SolutionDir)lib\rttr-0.9.6\lib\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>

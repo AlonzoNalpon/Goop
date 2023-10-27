@@ -8,6 +8,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "ComponentWrapper.h"
+#include <AssetManager/AssetManager.h>
 
 using namespace GE;
 using namespace Serialization;
@@ -230,6 +231,32 @@ std::queue<Math::dVec2> ComponentWrapper::Get(const char* key) const
 }
 
 template <>
+std::deque<Math::dVec2> ComponentWrapper::Get(const char* key) const
+{
+  try
+  {
+    std::deque<Math::dVec2> ret{};
+    rapidjson::Value const& list{ (*m_ptr)[key] };
+    for (auto const& elem : list.GetArray())
+    {
+      Math::dVec2 vec{};
+      vec << elem.GetString();
+      ret.emplace_back(std::move(vec));
+    }
+
+    return ret;
+  }
+  catch (...)
+  {
+    std::ostringstream oss{};
+    oss << "ComponentWrapper: Unable to convert value of key " << key
+      << " to std::deque<Math::dVec2>";
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    return {};
+  }
+}
+
+template <>
 std::queue<Math::dVec3> ComponentWrapper::Get(const char* key) const
 {
   try
@@ -255,17 +282,44 @@ std::queue<Math::dVec3> ComponentWrapper::Get(const char* key) const
   }
 }
 
+template <>
+std::deque<Math::dVec3> ComponentWrapper::Get(const char* key) const
+{
+  try
+  {
+    std::deque<Math::dVec3> ret{};
+    rapidjson::Value const& list{ (*m_ptr)[key] };
+    for (auto const& elem : list.GetArray())
+    {
+      Math::dVec3 vec{};
+      vec << elem.GetString();
+      ret.emplace_back(std::move(vec));
+    }
+
+    return ret;
+  }
+  catch (...)
+  {
+    std::ostringstream oss{};
+    oss << "ComponentWrapper: Unable to convert value of key " << key
+      << " to std::deque<Math::dVec3>";
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    return {};
+  }
+}
+
 template<> 
 std::vector<std::pair<std::string, std::string>>
   ComponentWrapper::Get(const char* key) const
 {
   try
   {
+    std::string const& str{ *Assets::AssetManager::GetInstance().GetConfigData<std::string>("Script Namespace") };
     std::vector<std::pair<std::string, std::string>> ret{};
     rapidjson::Value const& list{ (*m_ptr)[key] };
-    for (auto const& elem : list.GetObj())
+    for (auto const& elem : list.GetArray())
     {
-      ret.emplace_back(elem.name.GetString(), elem.value.GetString());
+      ret.emplace_back(str, elem.GetString());
     }
 
     return ret;
@@ -280,14 +334,13 @@ std::vector<std::pair<std::string, std::string>>
   }
 }
 
-template<> Component::DragForce ComponentWrapper::Get(const char* key) const
+template<>
+Component::DragForce ComponentWrapper::Get(const char* key) const
 {
   try
   {
-    Component::DragForce ret{};
     rapidjson::Value const& list{ (*m_ptr)[key] };
-    ret.m_magnitude << list["m_magnitude"].GetString();
-    ret.m_isActive = list["m_isActive"].GetBool();
+    Component::DragForce ret{ list["magnitude"].GetDouble(),  list["isActive"].GetBool() };
 
     return ret;
   }
@@ -310,9 +363,9 @@ template<> std::vector<Component::LinearForce> ComponentWrapper::Get(const char*
     for (auto const& elem : list.GetArray())
     {
       Math::dVec2 vec;
-      vec << elem["m_magnitude"].GetString();
+      vec << elem["magnitude"].GetString();
       ret.emplace_back(
-        vec, elem["m_lifetime"].GetDouble(), elem["m_isActive"].GetBool()
+        vec, elem["lifetime"].GetDouble(), elem["isActive"].GetBool(), elem["age"].GetDouble()
       );
     }
 

@@ -25,6 +25,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../Component/Transform.h"
 #include <DebugTools/Exception/Exception.h>
 #include <FrameRateController/FrameRateController.h>
+#include <Systems/Enemy/EnemySystem.h>
 
 
 namespace GE {
@@ -53,33 +54,9 @@ namespace GE {
 			************************************************************************/
 			~ScriptManager();
 
-			/*!*********************************************************************
-			\brief
-				Create an instance of a c# class. This class object isc created using its default constructor
+			MonoObject* InstantiateClass(const char* namespaceName, const char* className, void** arg, int argSize);
 
-			\params namespaceName
-				Namespace that the c# belongs in
-
-			\params className
-				Name of the c# class
-			************************************************************************/
-			MonoObject* InstantiateClass(const char* namespaceName, const char* className);
-
-			/*!*********************************************************************
-		  \brief
-		  	Create an instance of a c# class. This function is used for classes that inherits monobehaviour class.
-				The class object is created using non-default construtor
-		  
-		  \params namespaceName
-		  	Namespace that the c# belongs in
-		  
-		  \params className
-		  	Name of the c# class
-		  
-		  \params entityID
-		  	ID of the entity that the script belongs to
-			************************************************************************/
-			MonoObject* InstantiateClassID(const char* namespaceName, const char* className, unsigned int entityID);
+			MonoObject* InstantiateClass(const char* namespaceName, const char* className, std::vector<void*>& arg);
 
 
 		};
@@ -140,6 +117,10 @@ namespace GE {
 		static void SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
 		static void SetScale(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
 		static void SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
+
+		static GE::Math::dVec3 GetPosition(GE::ECS::Entity entity);
+		static GE::Math::dVec3 GetScale(GE::ECS::Entity entity);
+		static GE::Math::dVec3 GetRotation(GE::ECS::Entity entity);
 
 		/*!*********************************************************************
 		\brief

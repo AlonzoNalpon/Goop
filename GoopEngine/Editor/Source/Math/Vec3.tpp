@@ -198,3 +198,9 @@ bool operator!=(Vec<3, T> const& lhs, Vec<3, T> const& rhs)
 {
   return !(lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z);
 }
+
+template <typename T>
+bool operator<=(Vec<3, T> const& lhs, Vec<3, T> const& rhs)
+{
+  return (lhs.x <= rhs.x && lhs.y <= rhs.y && lhs.z <= rhs.z);
+}

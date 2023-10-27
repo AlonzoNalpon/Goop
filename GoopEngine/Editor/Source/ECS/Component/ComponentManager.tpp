@@ -35,26 +35,68 @@ void ComponentManager::AddComponent(Entity& entity, const T& component)
 template <typename T>
 void ComponentManager::RemoveComponent(Entity& entity)
 {
-	GetComponentArray<T>()->Remove(entity);
+	std::stringstream ss;
+	ComponentArray<T>* compArr = GetComponentArray<T>();
+	if (compArr)
+	{		
+		compArr->Remove(entity);
+	}
+	else
+	{
+		ss << "Cannot remove component of type " << typeid(T).name() << ". It does not exist";
+	}
 }
 
 template <typename T>
 T* ComponentManager::GetComponent(const Entity& entity)
 {
-	T* component = GetComponentArray<T>()->GetData(entity);
-	if (component)
+	std::stringstream ss;
+	ComponentArray<T>* compArr = GetComponentArray<T>();
+	if (compArr)
+	{		
+		T* component = compArr->GetData(entity);
+		if (component)
+		{
+			return component;		
+		}
+		else
+		{
+			ss << "Getting component of type " << typeid(T).name() << " from Entity ID " << entity << " that does not exist";
+		}
+	}
+	else
 	{
-		return component;		
+		ss << "Getting component of type " << typeid(T).name() << " that does not exist";
+	}
+	
+	GE::Debug::ErrorLogger::GetInstance().LogMessage(ss.str(), false);
+	return nullptr;
+}
+
+template <typename T>
+bool ComponentManager::HasComponent(const Entity& entity)
+{
+	ComponentArray<T>* compArr = GetComponentArray<T>();
+	if (compArr)
+	{		
+		T* component = compArr->GetData(entity);
+		if (component)
+		{
+			return true;		
+		}
 	}
 
-	std::stringstream ss;
-	ss << "Component of type " << typeid(T).name() << " is inactive, unable to fetch. To override this check do GetComponent(entity, true).";
-	GE::Debug::ErrorLogger::GetInstance().LogMessage<ComponentManager>(ss.str(), false);
-	return nullptr;
+	return false;
 }
 
 template <typename T>
 ComponentArray<T>* ComponentManager::GetComponentArray()
 {
-	return static_cast<ComponentArray<T>*>(m_componentArrays[typeid(T).name()]);
+	char const* typeName = typeid(T).name();
+	if (m_componentArrays.find(typeName) == m_componentArrays.end())
+	{
+		return nullptr;
+	}
+
+	return static_cast<ComponentArray<T>*>(m_componentArrays[typeName]);
 }

@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Input;
 using GoopScripts.Mono;
+using static GoopScripts.Mono.Utils;
 
 
 namespace GoopScripts
@@ -62,6 +63,7 @@ namespace GoopScripts
     ************************************************************************/
     public void Update()
     {
+      //Console.WriteLine("WHAT\n");
       Transform newChange = new Transform(); // All values are set to 0
       
 
@@ -86,7 +88,7 @@ namespace GoopScripts
       }
 
       //Rotation logic
-      newChange.Rot = (IsKeyPressed(KeyCode.R)) ? new Vec3<double>(0, 0, 200.0) : (IsKeyPressed(KeyCode.E)) ? new Vec3<double>(0, 0, -200.0) : new Vec3<double>(0, 0, 0);
+      newChange.Rot = (IsKeyPressed(KeyCode.R)) ? new Vec3<double>(0, 0, -200.0) : (IsKeyPressed(KeyCode.E)) ? new Vec3<double>(0, 0, 200.0) : new Vec3<double>(0, 0, 0);
 
 
       newChange.Scale = (IsKeyPressed(KeyCode.T)) ? new Vec3<double>(2, 2,1) : (IsKeyPressed(KeyCode.Y)) ? new Vec3<double>(0.5, 0.5,1) : new Vec3<double>(1.0, 1.0,1);
@@ -120,118 +122,7 @@ namespace GoopScripts
     }
 
 
-    /*!*********************************************************************
-    \brief
-      .Function to check if a key is triggered
-    \params
-      KEY_CODE key
-      Enum of the key you want to check
-    \return
-      returns true is key is triggered
-    ************************************************************************/
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static bool IsKeyTriggered(KeyCode key);
 
-    /*!*********************************************************************
-    \brief
-      .Function to check if a key is held
-    \params
-      KEY_CODE key
-      Enum of the key you want to check
-    \return
-      returns true is key is held
-    ************************************************************************/
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static bool IsKeyHeld(KeyCode key);
-
-
-    /*!*********************************************************************
-    \brief
-      .Function to check if a key is released
-    \params
-      KEY_CODE key
-      Enum of the key you want to check
-    \return
-      returns true is key is relased in this frame
-    ************************************************************************/
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static bool IsKeyReleased(KeyCode key);
-
-    /*!*********************************************************************
-    \brief
-      .Function to check if a key is Pressed
-    \params
-      KEY_CODE key
-      Enum of the key you want to check
-    \return
-      returns true is key is Pressed
-    ************************************************************************/
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static bool IsKeyPressed(KeyCode key);
-
-
-    /*!*********************************************************************
-		\brief
-			function to Set the value of an entity's trnsform component. This function will be added as internal call
-			to allow c# script to set entities' transform
-
-		\params ID
-			ID of the entity
-
-		\params newValue
-			values to be added to the entity's transform
-		************************************************************************/
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static void SetPosition(uint ID, Vec3<double> newPos);
-
-    /*!*********************************************************************
-		\brief
-			function to Set the value of an entity's trnsform component. This function will be added as internal call
-			to allow c# script to set entities' transform
-
-		\params ID
-			ID of the entity
-
-		\params newValue
-			values to be added to the entity's transform
-		************************************************************************/
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static void SetRotation(uint ID, Vec3<double> newRot);
-
-
-    /*!*********************************************************************
-		\brief
-			function to Set the value of an entity's trnsform component. This function will be added as internal call
-			to allow c# script to set entities' transform
-
-		\params ID
-			ID of the entity
-
-		\params newValue
-			values to be added to the entity's transform
-		************************************************************************/
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static void SetScale(uint ID, Vec3<double> newScale);
-
-
-
-    /*!*********************************************************************
-		\brief
-			.Function to check the yoffset of the mouse scroll for the current frame
-		\return
-			yoffset of mouse scroll
-		************************************************************************/
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static double GetMouseScrollY();
-
-    /*!*********************************************************************
-    \brief
-      .Function to check the xoffset of the mouse scroll for the current frame
-    \return
-      xoffset of  mouse scroll
-    ************************************************************************/
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern static double GetMouseScrollX();
 
   }
 }

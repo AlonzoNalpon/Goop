@@ -1,15 +1,12 @@
 [
     {
-        "Id": "Background",
-        "Systems": [
-            "RenderSystem"
-        ],
+        "Name": "Background",
         "Components": [
             {
               "Transform": {
-                "m_pos": "{ 0.0, 0.0, -997.0 }",
-                "m_scale": "{ 1600.0, 900.0, 1.0 }",
-                "m_rot": "{ 0.0, 0.0, 0.0 }"
+                "pos": "{ 0.0, 0.0, -997.0 }",
+                "scale": "{ 1600.0, 900.0, 1.0 }",
+                "rot": "{ 0.0, 0.0, 0.0 }"
               }
             },
             {
@@ -19,7 +16,7 @@
             },
             {
               "Model": {
-                "id": 0
+                "mdlID": 0
               }
             }
         ]

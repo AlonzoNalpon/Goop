@@ -82,4 +82,14 @@ namespace Graphics
     return m_texturesLT.at(name);
   }
 
+  std::string TextureManager::GetTextureName(GLuint id) const
+  {
+    if (m_texNameLT.find(id) == m_texNameLT.end())
+    {
+      throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
+        ErrMsg("No such texture id found: " + id));
+    }
+    return m_texNameLT.at(id);
+  }
+
 }

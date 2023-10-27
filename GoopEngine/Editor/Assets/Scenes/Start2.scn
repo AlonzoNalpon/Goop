@@ -1,9 +1,6 @@
 [
     {
       "Id": "Background",
-      "Systems": [
-          "RenderSystem"
-      ],
       "Components": [
           {
             "Transform": {
@@ -19,17 +16,13 @@
           },
           {
             "Model": {
-              "id": 0
+              "mdlID": 0
             }
           }
       ]
     },
     {
     "Id": "MineWorm",
-    "Systems": [
-      "RenderSystem",
-      "SpriteAnimSystem"
-    ],
     "Components": [
       {
         "Transform": {
@@ -50,7 +43,7 @@
       },
       {
         "Model": {
-          "id": 0
+          "mdlID": 0
         }
       }
     ]

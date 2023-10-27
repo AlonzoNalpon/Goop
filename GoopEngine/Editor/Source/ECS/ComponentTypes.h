@@ -10,7 +10,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <map>
-#include <unordered_map>
 #include <string>
 #include <ECS/EntityComponentSystem.h>
 
@@ -18,7 +17,7 @@ namespace GE
 {
 	namespace ECS
 	{
-		enum class COMPONENT_TYPES
+		enum COMPONENT_TYPES
 		{
 			TRANSFORM = 0,
 			BOX_COLLIDER,
@@ -28,8 +27,12 @@ namespace GE
 			MODEL,
 			TWEEN,
 			SCRIPT_HANDLER,
+			DRAGGABLE,
+			ENEMY_AI,
 			COMPONENTS_TOTAL
 		};
+
+		COMPONENT_TYPES& operator++(COMPONENT_TYPES& rhs);
 
 		// Registration of Components to ECS follows this map
 		// Const map so only interated through ranged for,
@@ -43,7 +46,10 @@ namespace GE
 			{ COMPONENT_TYPES::SPRITE_ANIM, "SpriteAnim" },
 			{ COMPONENT_TYPES::MODEL, "Model" },
 			{ COMPONENT_TYPES::TWEEN, "Tween" },
-			{ COMPONENT_TYPES::SCRIPT_HANDLER, "ScriptHandler" }
+			{ COMPONENT_TYPES::SCRIPT_HANDLER, "ScriptHandler" },
+			{ COMPONENT_TYPES::DRAGGABLE, "Draggable" },
+			{ COMPONENT_TYPES::ENEMY_AI, "EnemyAI" }
+
 		};
 
 		// Const map so only interated through ranged for,
@@ -57,15 +63,20 @@ namespace GE
 			{ "SpriteAnim", COMPONENT_TYPES::SPRITE_ANIM },
 			{ "Model", COMPONENT_TYPES::MODEL },
 			{ "Tween", COMPONENT_TYPES::TWEEN },
-			{ "ScriptHandler", COMPONENT_TYPES::SCRIPT_HANDLER }
+			{ "ScriptHandler", COMPONENT_TYPES::SCRIPT_HANDLER },
+			{ "Draggable", COMPONENT_TYPES::DRAGGABLE },
+			{ "EnemyAI", COMPONENT_TYPES::ENEMY_AI }
 		};
 
 		/*!*********************************************************************
 		\brief
-			$BRIEF
-		\param
-			ComponentSignature (component signature)
-			COMPONENT_TYPES (COMPONENT_TYPE)
+			Checks if bit is set.
+
+		\param lhs
+			Signature of the component
+
+		\param rhs
+			Component type that you check against
 		\return
 			bool, true if bit is set.
 		************************************************************************/

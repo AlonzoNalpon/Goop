@@ -46,16 +46,30 @@ void GE::MONO::ScriptManager::InitMono()
   m_appDomain = mono_domain_create_appdomain(const_cast<char*>(str), nullptr);
   mono_domain_set(m_appDomain, true);
 
-  mono_add_internal_call("GoopScripts.Player::IsKeyTriggered", GE::Input::InputManager::GetInstance().IsKeyTriggered);
-  mono_add_internal_call("GoopScripts.Player::IsKeyHeld", GE::Input::InputManager::GetInstance().IsKeyHeld);
-  mono_add_internal_call("GoopScripts.Player::IsKeyReleased", GE::Input::InputManager::GetInstance().IsKeyReleased);
-  mono_add_internal_call("GoopScripts.Player::IsKeyPressed", GE::Input::InputManager::GetInstance().IsKeyPressed);
-  mono_add_internal_call("GoopScripts.Player::GetMouseScrollY", GE::Input::InputManager::GetInstance().GetMouseScrollVert);
-  mono_add_internal_call("GoopScripts.Player::GetMouseScrollX", GE::Input::InputManager::GetInstance().GetMouseScrollHor);
-  mono_add_internal_call("GoopScripts.Player::SetPosition", GE::MONO::SetPosition);
-  mono_add_internal_call("GoopScripts.Player::SetScale", GE::MONO::SetScale);
-  mono_add_internal_call("GoopScripts.Player::SetRotation", GE::MONO::SetRotation);
-  //mono_add_internal_call("GoopScripts.Player::SetTransform", GE::ECS::SetMonoComponent<GE::Component::Transform>);
+  mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyTriggered", GE::Input::InputManager::GetInstance().IsKeyTriggered);
+  mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyHeld", GE::Input::InputManager::GetInstance().IsKeyHeld);
+  mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyReleased", GE::Input::InputManager::GetInstance().IsKeyReleased);
+  mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyPressed", GE::Input::InputManager::GetInstance().IsKeyPressed);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetMouseScrollY", GE::Input::InputManager::GetInstance().GetMouseScrollVert);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetMouseScrollX", GE::Input::InputManager::GetInstance().GetMouseScrollHor);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetPosition", GE::MONO::GetPosition);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetScale", GE::MONO::GetScale);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetPosition", GE::MONO::SetPosition);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetScale", GE::MONO::SetScale);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetRotation", GE::MONO::SetRotation);
+
+
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetChildResult", GE::Systems::EnemySystem::GetChildResult);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetCurrentChildIndex", GE::Systems::EnemySystem::GetCurrentChildIndex);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetResult", GE::Systems::EnemySystem::SetResult);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetNewChildIndex", GE::Systems::EnemySystem::SetNewChildIndex);
+  mono_add_internal_call("GoopScripts.Mono.Utils::RunChildNode", GE::Systems::EnemySystem::RunChildNode);
+  mono_add_internal_call("GoopScripts.Mono.Utils::JumpToParent", GE::Systems::EnemySystem::JumpToParent);
+  mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
+
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetPlayerID", GE::Systems::EnemySystem::GetPlayerID);
+
   //Retrieve the C#Assembly (.ddl file)
 //  #ifdef _DEBUG
 //  try {
@@ -191,9 +205,7 @@ MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* name
   return klass;
 }
 
-
-
-MonoObject* GE::MONO::ScriptManager::InstantiateClassID(const char* namespaceName, const char* className, unsigned int entityID)
+MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className, void** arg, int argSize)
 {
   // Get a reference to the class we want to instantiate
   MonoClass* childClass;
@@ -206,7 +218,7 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClassID(const char* namespaceNam
     e.Log();
     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
   }
-   
+
 
   // Allocate an instance of our class
   MonoObject* classInstance = mono_object_new(m_appDomain, childClass);
@@ -217,20 +229,29 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClassID(const char* namespaceNam
   }
 
   //Init the class through non-default constructor
-  void* args =  &entityID;
-  MonoMethod* classCtor = mono_class_get_method_from_name(childClass, ".ctor",1);
-  mono_runtime_invoke(classCtor, classInstance, &args, nullptr);
+  MonoMethod* classCtor = mono_class_get_method_from_name(childClass, ".ctor", argSize);
+  mono_runtime_invoke(classCtor, classInstance, arg, nullptr);
 
   if (classInstance == nullptr) {
-     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
   }
   return classInstance;
 }
 
-MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className)
+MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className, std::vector<void*>& arg)
 {
   // Get a reference to the class we want to instantiate
-  MonoClass* childClass = GetClassInAssembly(m_coreAssembly, namespaceName, className);
+  MonoClass* childClass;
+  try {
+    childClass = GetClassInAssembly(m_coreAssembly, namespaceName, className);
+  }
+  catch (GE::Debug::IExceptionBase& e)
+  {
+    e.LogSource();
+    e.Log();
+    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+  }
+
 
   // Allocate an instance of our class
   MonoObject* classInstance = mono_object_new(m_appDomain, childClass);
@@ -240,16 +261,15 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName,
     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Allocate memory for class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
   }
 
-  // Call the parameterless (default) constructor
-  mono_runtime_object_init(classInstance);
+  //Init the class through non-default constructor
+  MonoMethod* classCtor = mono_class_get_method_from_name(childClass, ".ctor", static_cast<int>(arg.size()));
+  mono_runtime_invoke(classCtor, classInstance, arg.data(), nullptr);
 
   if (classInstance == nullptr) {
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
   }
-
   return classInstance;
 }
-
 
 
 void GE::MONO::SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment)
@@ -296,6 +316,26 @@ void GE::MONO::SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 rotAdjustment
   oldTransform->m_rot.z += (rotAdjustment.z * fpsControl->GetDeltaTime());
 }
 
+GE::Math::dVec3 GE::MONO::GetPosition(GE::ECS::Entity entity)
+{
+  GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+  GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
+  return oldTransform->m_pos;
+}
+
+GE::Math::dVec3 GE::MONO::GetScale(GE::ECS::Entity entity)
+{
+  GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+  GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
+  return oldTransform->m_scale;
+}
+
+GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
+{
+  GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+  GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
+  return oldTransform->m_rot;
+}
 
 
 

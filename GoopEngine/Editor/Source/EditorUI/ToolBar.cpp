@@ -13,6 +13,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AssetManager/AssetManager.h>
 #include <Serialization/Serialization.h>
 #include <EditorUI/DataViz/Visualizer.h>
+#include <ImGui/imgui_internal.h>
+#include <ObjectFactory/GivingMyself90MinToFigureThisOut.h>
+#include <EditorUI/OpenFileExplorer.h>
 
 using namespace ImGui;
 using namespace GE::EditorGUI::DataViz;
@@ -32,11 +35,14 @@ void GE::EditorGUI::ToolBar::CreateContent()
       if (Selectable("Save"))
       {
         // Save systems back to original file
-        Serialization::SerializeSystems(*Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems"));
+        //Serialization::SerializeSystems(*Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems"));
+
+        Serialization::SerializeScene("Assets/Scenes/Serialized.scn");
       }
       if (Selectable("Open"))
       {
         // Load scene function
+        GE::ChengEnLau::OpenFileExplorer(".scn");
       }
 
       ImGui::EndMenu();
@@ -60,11 +66,6 @@ void GE::EditorGUI::ToolBar::CreateContent()
       ImGui::EndMenu();
     }
 
-    EndMenuBar();
-  }
-
-  if (BeginMenuBar())
-  {
     if (BeginMenu("Options"))
     {
       ImGui::EndMenu();

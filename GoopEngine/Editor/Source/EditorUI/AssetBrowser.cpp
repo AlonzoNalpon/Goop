@@ -54,6 +54,24 @@ void AssetBrowser::CreateContentDir()
 	}
 }
 
+//#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
+GLuint ImageTest(std::string path)
+{
+	int width, height, channels;
+	unsigned char* image = stbi_load(path.c_str(), &width, &height, &channels, 4); // 4 channels (RGBA)
+
+		GLuint textureID;
+		glGenTextures(1, &textureID);
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		stbi_image_free(image); // Free the loaded image data
+		std::cout << textureID << "\n";
+		return textureID;
+}
+
 void AssetBrowser::CreateContentView()
 {
 	//AssetManager& assetManager = AssetManager::GetInstance();
@@ -77,6 +95,7 @@ void AssetBrowser::CreateContentView()
 	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
 	{
 		std::string const& extension{ file.path().extension().string() };
+		AssetManager& assetManager = AssetManager::GetInstance();
 
 		// in init:
 		// free all ids loaded, if it exists
@@ -89,11 +108,15 @@ void AssetBrowser::CreateContentView()
 		// 
 		// in create content
 		// ImGui::Image(for all ids)
-
 		for (auto itr : m_textID)	// image
 		{
 			//print img using ImGui::Image();
-			Image(itr, { 100.0f , 100.0f });
+			unsigned w, h;
+			assetManager.GetDimensions(reinterpret_cast<int>(itr), w, h);
+			ImVec2 uv0(0.0f, 1.0f); // Bottom-left corner
+			ImVec2 uv1(1.0f, 0.0f); // Top-right corner
+
+			Image(itr, { GetWindowWidth() , static_cast<float>(h) / w * GetWindowWidth() }, uv0, uv1);
 			//name of image
 			Text(file.path().filename().string().c_str());
 		}
@@ -185,7 +208,7 @@ void AssetBrowser::InitView()
 			continue;
 		}
 
-		int id;
+		unsigned id{ 0 };
 		if (!assetManager.AlreadyLoaded(file.path().string()))
 		{
 			id = assetManager.LoadImageW(file.path().string());
@@ -198,7 +221,7 @@ void AssetBrowser::InitView()
 	for (auto itr : m_assetIDs)
 	{
 		auto imgID = texManager.GetTextureID(assetManager.ExtractFilename(assetManager.GetName(itr)));
-		m_textID.insert(reinterpret_cast<ImTextureID>(&imgID));
+		m_textID.insert(reinterpret_cast<ImTextureID>(imgID));
 	}
 }
 

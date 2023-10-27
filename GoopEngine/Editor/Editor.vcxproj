@@ -155,12 +155,9 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AI\Tree.cpp" />
     <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
     <ClCompile Include="Source\EditorUI\Console.cpp" />
-    <ClCompile Include="Source\AI\ActionNode.cpp" />
-    <ClCompile Include="Source\AI\BehaviourTree.cpp" />
-    <ClCompile Include="Source\AI\CompositeNode.cpp" />
-    <ClCompile Include="Source\AI\Node.cpp" />
     <ClCompile Include="Source\AppController\AppController.cpp" />
     <ClCompile Include="Source\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Source\Audio\AudioEngine.cpp" />
@@ -173,6 +170,7 @@
     <ClCompile Include="Source\ECS\System\System.cpp" />
     <ClCompile Include="Source\EditorUI\DataViz\Visualizer.cpp" />
     <ClCompile Include="Source\EditorUI\Inspector.cpp" />
+    <ClCompile Include="Source\EditorUI\SceneControls.cpp" />
     <ClCompile Include="Source\EditorUI\ToolBar.cpp" />
     <ClCompile Include="Source\Events\EventManager.cpp" />
     <ClCompile Include="Source\GameStateManager\GameStateManager.cpp" />
@@ -231,6 +229,7 @@
     </ClCompile>
     <ClCompile Include="Source\InputManager\InputManager.cpp" />
     <ClCompile Include="Source\Math\Mat4Utils.cpp" />
+    <ClCompile Include="Source\ObjectFactory\GivingMyself90MinToFigureThisOut.cpp" />
     <ClCompile Include="Source\ObjectFactory\ObjectFactory.cpp" />
     <ClCompile Include="Source\MemoryManager\BaseAllocator.cpp" />
     <ClCompile Include="Source\MemoryManager\ListAllocator.cpp" />
@@ -256,14 +255,16 @@
     <ClCompile Include="Source\FrameRateController\FrameRateController.cpp" />
     <ClCompile Include="Source\Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="Source\Graphics\ShaderProgram.cpp" />
-    <ClCompile Include="Source\Serialization\ComponentWrapper.cpp" />
+    <ClCompile Include="Source\Serialization\ComponentWrapper\ComponentWrapper.cpp" />
     <ClCompile Include="Source\Serialization\ObjectGooStream.cpp" />
     <ClCompile Include="Source\Serialization\PrefabGooStream.cpp" />
+    <ClCompile Include="Source\Serialization\RegisterClasses.cpp" />
     <ClCompile Include="Source\Serialization\Serialization.cpp" />
     <ClCompile Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.cpp" />
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimGenerator.cpp" />
     <ClCompile Include="Source\Math\Mat3Utils.cpp" />
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
+    <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Source\Systems\PlayerController\PlayerControllerSystem.cpp" />
@@ -279,7 +280,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
+    <ClInclude Include="Source\AI\Tree.h" />
     <ClInclude Include="Source\Component\Camera.h" />
+    <ClInclude Include="Source\Component\Draggable.h" />
+    <ClInclude Include="Source\Component\EnemyAI.h" />
+    <ClInclude Include="Source\Component\Components.h" />
+    <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
     <ClInclude Include="Source\EditorUI\Console.h" />
     <ClInclude Include="Source\AI\ActionNode.h" />
     <ClInclude Include="Source\AI\BehaviourTree.h" />
@@ -308,6 +314,7 @@
     <ClInclude Include="Source\ECS\Component\ComponentManager.h" />
     <ClInclude Include="Source\EditorUI\DataViz\Visualizer.h" />
     <ClInclude Include="Source\EditorUI\Inspector.h" />
+    <ClInclude Include="Source\EditorUI\SceneControls.h" />
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
     <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
@@ -317,6 +324,7 @@
     <ClInclude Include="Source\ImTerm\terminal_helpers.hpp" />
     <ClInclude Include="Source\ImTerm\utils.hpp" />
     <ClInclude Include="Source\Math\Mat4Utils.h" />
+    <ClInclude Include="Source\ObjectFactory\GivingMyself90MinToFigureThisOut.h" />
     <ClInclude Include="Source\pch.h" />
     <ClInclude Include="Source\ECS\EntityComponentSystem.h" />
     <ClInclude Include="Source\ECS\Entity\Entity.h" />
@@ -361,7 +369,7 @@
     <ClInclude Include="Source\Scenes\Scene.h" />
     <ClInclude Include="Source\ScriptEngine\Script.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptManager.h" />
-    <ClInclude Include="Source\Serialization\ComponentWrapper.h" />
+    <ClInclude Include="Source\Serialization\ComponentWrapper\ComponentWrapper.h" />
     <ClInclude Include="Source\Serialization\IGooStream.h" />
     <ClInclude Include="Source\Serialization\ObjectGooStream.h" />
     <ClInclude Include="Source\Serialization\PrefabGooStream.h" />
@@ -380,6 +388,7 @@
     <ClInclude Include="Source\Graphics\ShaderProgram.h" />
     <ClInclude Include="Source\SpriteAnimation\SpriteAnimGenerator.h" />
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
+    <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
     <ClInclude Include="Source\Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />
@@ -387,6 +396,7 @@
     <ClInclude Include="Source\Systems\Rendering\CameraSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\RootTransformSystem.h" />
     <ClInclude Include="Source\Systems\SpriteAnim\SpriteAnimSystem.h" />
+    <ClInclude Include="Source\Systems\Systems.h" />
     <ClInclude Include="Source\Window\Window.h" />
     <ClInclude Include="Source\Math\GEM.h" />
     <ClInclude Include="Source\Math\Mat2.h" />

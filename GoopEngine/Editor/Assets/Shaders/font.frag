@@ -4,7 +4,7 @@ in vec2 texCoords;
 out vec4 color;
 
 //layout (location = 0) uniform mat4 uProj;
-layout (location = 1) uniform sampler2D uText;
+uniform sampler2D uText;
 layout (location = 2) uniform vec3 uTextColor;
 void main()
 {

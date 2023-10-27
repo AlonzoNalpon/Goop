@@ -35,6 +35,8 @@ namespace Graphics
     ************************************************************************/
     size_t                        GetAnimID(std::string const& name) const noexcept;
 
+    std::string                   GetAnimName(gObjID ID)const noexcept;
+
     /*!*********************************************************************
     \brief Get a read-only reference to SpriteAnimation from ID.
       Will throw if accessing out of bounds.
@@ -59,6 +61,7 @@ namespace Graphics
     gObjID                        CreateAnim(SpriteAnimation const& animation, std::string const& name);
   private: // PRIVATE MEMBERS
     std::map<std::string, size_t> m_animLookupTable;  //!< a lookup to see name to ID
+    std::map<size_t, std::string> m_animID_NameLT;    //!< a lookup to see ID to name
     std::vector<SpriteAnimation>  m_spriteAnimations; //!< all the unique sprite animations
   };
 
