@@ -13,11 +13,13 @@ std::set<ImTextureID> GE::EditorGUI::AssetBrowser::m_textID;
 std::set<int> GE::EditorGUI::AssetBrowser::m_assetIDs;
 std::vector<int> GE::EditorGUI::AssetBrowser::toUnload;
 
+
 namespace
 {
 	std::filesystem::path m_currDir;
 	std::filesystem::path assetsDirectory;
 	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" };
+	float thumbnailSize = 128.0f;
 }
 
 void AssetBrowser::CreateContentDir()
@@ -91,52 +93,72 @@ void AssetBrowser::CreateContentView()
 		// 
 		// in create content
 		// ImGui::Image(for all ids)
-		for (auto itr : m_textID)	// image
-		{
-			//print img using ImGui::Image();
-			unsigned w, h;
-			assetManager.GetDimensions(reinterpret_cast<int>(itr), w, h);
-			ImVec2 uv0(0.0f, 1.0f); // Bottom-left corner
-			ImVec2 uv1(1.0f, 0.0f); // Top-right corner
 
-			Image(itr, { GetWindowWidth()- 30.f , static_cast<float>(h) / w * (GetWindowWidth() - 30.f) }, uv0, uv1);
-			//name of image
-			Text(file.path().filename().string().c_str());
-		}
+		//name of image
+
 		if (!file.is_regular_file())
 		{
+			//Text(static_cast<const char*>("something here"));
+			Text(file.path().filename().string().c_str());
+
 			continue;
 		}
 		else if (extension == m_audioFile)	// sound
 		{
 			//print img of maybe a audio file logo?
 			//name of audio
-			Text(file.path().filename().string().c_str());
+			//Text(file.path().filename().string().c_str());
 		}
-		//else if (extension == m_imageFile)	// prefab
-		//{
-		//	//name of prefab
-		//	Text(file.path().filename().string().c_str());
-		//}
+		else if (extension == m_imageFile)	// prefab
+		{
+			//name of prefab
+			unsigned w, h;
+			float newW, newH;
+			assetManager.GetDimensions(assetManager.GetID(file.path().string()), w, h);
+			if (w >= h)
+			{
+				newH = static_cast<float>(h) / static_cast<float>(w) * thumbnailSize;
+				newW = thumbnailSize;
+			}
+			else
+			{
+				newW = static_cast<float>(w) / static_cast<float>(h) * thumbnailSize;
+				newH = thumbnailSize;
+			}
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+			ImGui::ImageButton(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { newW, newH }, { 0, 1 }, { 1, 0 });
+
+			if (ImGui::BeginDragDropSource())
+			{
+				ImGui::SetDragDropPayload("ASSET_BROWSER_ITEM", file.path().filename().string().c_str(), (strlen(file.path().filename().string().c_str()) * sizeof(const char*)), ImGuiCond_Once);
+				ImGui::EndDragDropSource();
+			}
+
+			ImGui::PopStyleColor();
+
+			//Text(file.path().filename().string().c_str());
+		}
 		else if (extension == m_prefabFile)	// prefab
 		{
 			//name of prefab
-			Text(file.path().filename().string().c_str());
+			//Text(file.path().filename().string().c_str());
 		}
 		else if (extension == m_sceneFile)	// scene
 		{
 			//name of scene
-			Text(file.path().filename().string().c_str());
+			//Text(file.path().filename().string().c_str());
 		}
 		else if (m_shaderFile.find(extension) != std::string::npos)
 		{
 			//name of shader
-			Text(file.path().filename().string().c_str());
+			//Text(file.path().filename().string().c_str());
 		}
 		else
 		{
+			Text(file.path().filename().string().c_str());
 			continue;
 		}
+		Text(file.path().filename().string().c_str());
 	}
 }
 
