@@ -65,7 +65,7 @@ namespace GoopScripts.AI
       double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
 
 
-      if (distance > 250.0)
+      if (distance > 220.0)
       {
         OnSuccess();
       }

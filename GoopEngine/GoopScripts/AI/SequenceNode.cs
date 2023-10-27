@@ -61,7 +61,7 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      Console.WriteLine("RUN SEQUENCE\n");
+      //Console.WriteLine("RUN SEQUENCE\n");
       SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
       //Get current position Index
       m_currentIndex = GetCurrentChildIndex();
