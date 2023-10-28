@@ -63,9 +63,6 @@ namespace GE::Application
 
     fRC.InitFrameRateController(am->GetConfigData<int>("FPS Limit"), am->GetConfigData<int>("Steps Per Second"), am->GetConfigData<int>("FPS Check Interval"));
 
-    int a = am->GetConfigData<int>("Window Width");
-    int b = am->GetConfigData<int>("Window Height");
-    std::cout << a << b;
     window = { am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), "Goop Engine"};
     window.CreateAppWindow();
 
