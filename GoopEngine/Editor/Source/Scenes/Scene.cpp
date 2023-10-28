@@ -46,17 +46,6 @@ void GE::Scenes::Scene::TestScene()
 
 	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
 
-	Entity test = ecs->CreateEntity();
-	m_entities.emplace(test);
-	Transform testtrans({ 150, 150, 1 }, { 100, 100, 0 }, { 0, 0, 0 });
-	BoxCollider testbox(testtrans.m_pos, 30, 30);
-	Velocity testvel({ 0, 0, 0 }, { 0, 0, 0 }, 1.0, { 0, 0, 0 });
-	testvel.AddForce({ 10, 0, 0 }, 1, true);
-	testvel.AddForce({ 0, -5, 0 }, 2, true);
-	ecs->AddComponent(test, testtrans);
-	ecs->AddComponent(test, testbox);
-	ecs->AddComponent(test, testvel);
-
 	Entity player = ecs->CreateEntity();
 	m_entities.emplace(player);
 	Transform playerTrans({ -350, 350, 0 }, { 150, 150, 1 }, { 0.0, 0.0, 45.0 });

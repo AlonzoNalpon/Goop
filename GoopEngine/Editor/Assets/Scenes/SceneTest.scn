@@ -22,7 +22,7 @@
     ]
   },
   {
-    "Name": "Entity 1",
+    "Name": "Forces",
     "Components": [
       {
         "Transform": {
