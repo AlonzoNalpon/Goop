@@ -1,41 +1,7 @@
 [
     {
-        "Name": "Enemy",
-        "ParentID": 4,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0.0625, 0.111111, 997 }",
-                    "scale": "{ 0.09375, 0.166667, 1 }",
-                    "rot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "filename": "SS_MineWorm"
-                }
-            },
-            {
-                "SpriteAnim": {
-                    "name": "SS_MineWorm"
-                }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
-                }
-            },
-            {
-                "EnemyAI": {
-                    "entityID": 4274929168
-                }
-            }
-        ]
-    },
-    {
         "Name": "Player",
-        "ParentID": 3,
+        "ParentID": 4,
         "Child Entities": [],
         "Components": [
             {
@@ -47,7 +13,7 @@
             },
             {
                 "BoxCollider": {
-                    "center": "{ -350, 350 }",
+                    "center": "{ -560000, 315000 }",
                     "width": 150.0,
                     "height": 150.0
                 }
@@ -90,9 +56,44 @@
         ]
     },
     {
+        "Name": "Enemy",
+        "ParentID": 2,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -199.938, 0.111111, 997 }",
+                    "scale": "{ 0.09375, 0.166667, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "filename": "SS_MineWorm"
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MineWorm"
+                }
+            },
+            {
+                "Model": {
+                    "mdlID": 0
+                }
+            },
+            {
+                "EnemyAI": {
+                    "entityID": 3912248187
+                }
+            }
+        ]
+    },
+    {
         "Name": "Entity 2",
         "ParentID": null,
         "Child Entities": [
+            1,
             3
         ],
         "Components": [
@@ -115,9 +116,7 @@
     {
         "Name": "Entity 3",
         "ParentID": 2,
-        "Child Entities": [
-            1
-        ],
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {

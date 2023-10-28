@@ -14,7 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <GameStateManager/GameStateManager.h>
 #include <EditorUI/DataViz/Visualizer.h>
 #include <ImGui/imgui_internal.h>
-#include <EditorUI/OpenFileExplorer.h>
+#include <EditorUI/AssetBrowser.h>
 
 using namespace ImGui;
 using namespace GE::EditorGUI::DataViz;
@@ -38,7 +38,10 @@ void GE::EditorGUI::ToolBar::CreateContent()
       if (Selectable("Open"))
       {
         // Load scene function
-        GE::ChengEnLau::OpenFileExplorer(".scn");
+        std::string const scenePath{ GE::EditorGUI::AssetBrowser::OpenFileExplorer("Scenes (*.scn)\0*.scn\0", 1) };
+        // Extract filename from filepath before calling SetNextScene
+        std::string::size_type const startPos{ scenePath.find_last_of("\\") + 1 };
+        GSM::GameStateManager::GetInstance().SetNextScene(scenePath.substr(startPos, scenePath.find_last_of(".") - startPos));
       }
 
       ImGui::EndMenu();

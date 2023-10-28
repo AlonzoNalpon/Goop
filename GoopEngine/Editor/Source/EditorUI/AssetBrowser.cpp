@@ -4,6 +4,7 @@
 #include <filesystem>
 #include<Graphics/GraphicsEngine.h>
 #include <stb_image.h>
+#include <commdlg.h>	// to open file explorer
 
 using namespace ImGui;
 using namespace GE::Assets;
@@ -247,4 +248,34 @@ void AssetBrowser::Traverse(std::filesystem::path filepath)
 		}
 		TreePop();
 	}
+}
+
+std::string AssetBrowser::GetRelativeFilePath(std::string const& filepath, std::string const& rootDir)
+{
+	return "." + filepath.substr(filepath.find(rootDir) + rootDir.size());
+}
+
+std::string AssetBrowser::OpenFileExplorer(const char* extensionsFilter, unsigned numFilters, const char* initialDir)
+{
+	OPENFILENAMEA fileName;
+	CHAR size[260] = {};
+	
+	ZeroMemory(&fileName, sizeof(fileName));
+	fileName.lStructSize = sizeof(fileName);
+	fileName.hwndOwner = NULL;
+	fileName.lpstrFile = size;
+	fileName.nMaxFile = sizeof(size);
+	fileName.lpstrFilter = extensionsFilter;
+	fileName.nFilterIndex = numFilters;							// number of filters
+	fileName.lpstrFileTitle = NULL;
+	fileName.nMaxFileTitle = 0;
+	fileName.lpstrInitialDir = initialDir;	// initial directory
+	fileName.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+	if (GetOpenFileNameA(&fileName))
+	{
+		return fileName.lpstrFile;
+	}
+
+	return std::string();
 }
