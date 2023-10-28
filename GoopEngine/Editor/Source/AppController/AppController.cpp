@@ -39,7 +39,7 @@ namespace GE::Application
     gEngine{ Graphics::GraphicsEngine::GetInstance() },
     fRC{ GE::FPS::FrameRateController::GetInstance() },
     im{ GE::Input::InputManager::GetInstance() },
-    gsm{}
+    gsm{ GE::GSM::GameStateManager::GetInstance() }
   {}
   
   void AppController::Init()

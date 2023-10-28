@@ -77,7 +77,7 @@ void GE::Systems::RootTransformSystem::Propergate(GE::ECS::Entity& entity, const
 
 	trans->m_worldTransform = trans->m_parentWorldTransform * (T * (X * Y * Z) * S);
 
-	std::vector<GE::ECS::Entity>& m_children = m_ecs->GetChildEntities(entity);
+	std::set<GE::ECS::Entity>& m_children = m_ecs->GetChildEntities(entity);
 	// End condition no children
 	if (m_children.size() == 0)
 	{

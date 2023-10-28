@@ -123,9 +123,13 @@ void InputManager::DispatchInputEvents()
 	{
 		eventMan.Dispatch(KeyTriggeredEvent(GPK_E));
 	}
-	if (IsKeyTriggered(GPK_W))
+	if (IsKeyTriggered(GPK_Q))
 	{
-		eventMan.Dispatch(KeyTriggeredEvent(GPK_W));
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_Q));
+	}
+	if (IsKeyTriggered(GPK_R))
+	{
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_R));
 	}
 }
 

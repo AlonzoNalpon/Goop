@@ -20,6 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Tween.h>
 #include <Component/Velocity.h>
 #include <Component/Draggable.h>
+#include "../ImGui/misc/cpp/imgui_stdlib.h"
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
@@ -153,12 +154,18 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 	GE::ECS::ComponentSignature sig = ecs.GetComponentSignature(entity);
 
+	std::string name = ecs.GetEntityName(entity);
+	PushID(name.c_str());
 	bool isActive{ecs.GetIsActiveEntity(entity)};
-	if (Checkbox("##", &isActive))
+	if (Checkbox("##IsActive", &isActive))
 	{
 		ecs.SetIsActiveEntity(entity, isActive);
 	}
-	SameLine(); Text(ecs.GetEntityName(entity).c_str());
+	SameLine(); 
+	if (InputText("##Name", &name))
+	{
+		ecs.SetEntityName(entity, name);
+	}
 	Text(("Entity ID: " + std::to_string(entity)).c_str());
 
 	for (int i{}; i < GE::ECS::MAX_COMPONENTS; ++i)
@@ -293,6 +300,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 		}
 	}
+
+	PopID();
 
 	static bool addingComponent{ false };
 	if (Button("Add Component", { GetContentRegionMax().x, 20 }))

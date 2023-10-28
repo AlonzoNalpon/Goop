@@ -45,11 +45,11 @@ Entity GE::ECS::EntityComponentSystem::GetParentEntity(Entity& entity)
 }
 
 void GE::ECS::EntityComponentSystem::SetParentEntity(Entity& child, Entity parent)
-{
+{	
 	m_entityManager->SetParentEntity(parent, child);
 }
 
-std::vector<Entity>& GE::ECS::EntityComponentSystem::GetChildEntities(Entity& parent)
+std::set<Entity>& GE::ECS::EntityComponentSystem::GetChildEntities(Entity& parent)
 {
 	return m_entityManager->GetChildEntities(parent);
 }

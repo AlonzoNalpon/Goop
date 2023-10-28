@@ -57,6 +57,6 @@ namespace GE::Application
     GE::FPS::FrameRateController& fRC;
     GE::EditorGUI::ImGuiUI imgui;
     GE::Input::InputManager& im;
-    GE::GSM::GameStateManager gsm;
+    GE::GSM::GameStateManager& gsm;
   };
 }

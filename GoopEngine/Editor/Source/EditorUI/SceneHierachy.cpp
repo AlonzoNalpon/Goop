@@ -13,6 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/RootTransformSystem.h>
 #include <Component/Transform.h>
 #include "../ObjectFactory/ObjectFactory.h"
+#include <GameStateManager/GameStateManager.h>
 
 using namespace ImGui;
 using namespace GE::ECS;
@@ -31,6 +32,8 @@ namespace
 
 	std::vector<Entity> entitiesToDestroy;
 
+	bool treeNodePopUp{ false };
+
 	/*!*********************************************************************
 	\brief 
 	  Parents the child entity to the parent entity. This function also
@@ -42,6 +45,7 @@ namespace
 
 	\param[in] child
 		Child entity.
+
 
 	\param[in] parent
 		Optional parent entity. Value will be NULL for no parent by default.
@@ -67,15 +71,13 @@ namespace
 void GE::EditorGUI::SceneHierachy::CreateContent()
 {
 	static EntityComponentSystem& ecs = EntityComponentSystem::GetInstance();
+	GE::GSM::GameStateManager& gsm{ GE::GSM::GameStateManager::GetInstance() };
 	// Get style text colour that can be edited later
 	ImGuiStyle& style = GetStyle();
 	originalTextClr = style.Colors[ImGuiCol_Text];
-
-	// TODO
-	// Scene should be replace with scene file name
-	static const char* sceneName = "Scene";
+	
 	ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
-	if (TreeNodeEx(sceneName, treeFlags))
+	if (TreeNodeEx(gsm.GetCurrentScene().c_str(), treeFlags))
 	{
 		// Allow user to turn an entity into a root level
 		if (BeginDragDropTarget())
@@ -99,6 +101,27 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 		TreePop();
 	}
 
+	ImVec2 vpSize = ImGui::GetContentRegionAvail();  // Get the top-left position of the vp
+	ImVec2 vpPosition = ImGui::GetCursorScreenPos();
+
+	if (ImGui::IsMouseHoveringRect(vpPosition, ImVec2(vpPosition.x + vpSize.x, vpPosition.y + vpSize.y)) 
+		&& IsMouseClicked(ImGuiMouseButton_Right) 
+		&& !treeNodePopUp)
+	{
+		OpenPopup("EntityCreate");
+	}
+	if (BeginPopup("EntityCreate"))
+	{
+		if (Selectable("Create"))
+		{
+			Entity newEntity = ecs.CreateEntity();
+			GE::Component::Transform trans{};
+			ecs.AddComponent(newEntity, trans);
+		}
+		EndPopup();
+	}
+
+	// Delete entities after interation
 	for (Entity entity : entitiesToDestroy)
 	{
 		ecs.DestroyEntity(entity);
@@ -116,10 +139,10 @@ namespace
 	{
 		Entity oldParent = ecs.GetParentEntity(child);
 		// Has parent, remove self from parent
-		if (oldParent != INVALID_ID)
-		{
-			ecs.RemoveChildEntity(oldParent, child);
-		}
+		//if (oldParent != INVALID_ID)
+		//{
+		//	ecs.RemoveChildEntity(oldParent, child);
+		//}
 
 		if (!parent)	// Child becoming root
 		{
@@ -148,7 +171,6 @@ namespace
 			childTrans.m_rot = childTrans.m_rot - parentTrans.m_rot;
 
 			ecs.SetParentEntity(child, *parent);
-		  ecs.AddChildEntity(*parent, child);
 		}
 	}
 
@@ -163,7 +185,7 @@ namespace
 		/////////////////////
 		// Create own node
 		/////////////////////
-		std::vector<Entity>& m_children = ecs.GetChildEntities(entity);
+		std::set<Entity>& m_children = ecs.GetChildEntities(entity);
 		if (m_children.empty())
 		{
 			flag |= ImGuiTreeNodeFlags_Leaf;
@@ -175,10 +197,12 @@ namespace
 			if (IsItemClicked())
 			{
 				GE::EditorGUI::ImGuiHelper::SetSelectedEntity(entity);
+				
 			}
 			if (IsItemClicked(ImGuiMouseButton_Right))
 			{
 				OpenPopup("EntityManip");
+				treeNodePopUp = true;
 			}
 			if (BeginPopup("EntityManip"))
 			{
@@ -192,6 +216,10 @@ namespace
 					entitiesToDestroy.push_back(entity);
 				}
 				EndPopup();
+			}
+			else
+			{
+				treeNodePopUp = false;
 			}
 
 			////////////////////////////////////

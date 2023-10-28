@@ -22,6 +22,11 @@ void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
 	
 }
 
+std::string GE::GSM::GameStateManager::GetCurrentScene()
+{
+	return sm.GetCurrentScene();
+}
+
 void GE::GSM::GameStateManager::Restart()
 {
 	sm.RestartScene();
@@ -38,7 +43,6 @@ void GameStateManager::Update()
 {
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_RIGHT))
 	{
-		//SetNextScene("Start2");
 		SetNextScene("SceneTest");
 	}
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_LEFT))
@@ -48,12 +52,6 @@ void GameStateManager::Update()
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_UP))
 	{
 		Restart();
-	}
-	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_DOWN))
-	{
-		SetNextScene("Start2");
-
-		//SetNextScene("SceneTestabcd");
 	}
 }
 
