@@ -88,7 +88,7 @@ namespace GE::Application
     }
     catch (std::exception& e)
     {
-
+      PrintException(e);
     }
   }
   
