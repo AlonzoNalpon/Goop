@@ -385,6 +385,10 @@ namespace GE
         {
           jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(value.to_uint32()).c_str(), allocator);
         }
+        else if (instance.get_type() == rttr::type::get<Component::EnemyAI>())
+        {
+          jsonVal.SetUint(m_oldToNewIDs[value.get_value<Component::EnemyAI>().m_entityID]);
+        }
         else if (prop.get_type().is_arithmetic())  // if C basic types
         {
           jsonVal = SerializeBasicTypes(prop.get_type(), value, allocator).Move();

@@ -39,9 +39,13 @@ void GE::EditorGUI::ToolBar::CreateContent()
       {
         // Load scene function
         std::string const scenePath{ GE::EditorGUI::AssetBrowser::OpenFileExplorer("Scenes (*.scn)\0*.scn\0", 1) };
-        // Extract filename from filepath before calling SetNextScene
-        std::string::size_type const startPos{ scenePath.find_last_of("\\") + 1 };
-        GSM::GameStateManager::GetInstance().SetNextScene(scenePath.substr(startPos, scenePath.find_last_of(".") - startPos));
+
+        if (!scenePath.empty())
+        {
+          // Extract filename from filepath before calling SetNextScene
+          std::string::size_type const startPos{ scenePath.find_last_of("\\") + 1 };
+          GSM::GameStateManager::GetInstance().SetNextScene(scenePath.substr(startPos, scenePath.find_last_of(".") - startPos));
+        }
       }
 
       ImGui::EndMenu();

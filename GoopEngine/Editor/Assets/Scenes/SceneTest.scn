@@ -1,7 +1,41 @@
 [
     {
-        "Name": "Player",
+        "Name": "Enemy",
         "ParentID": 4,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -199.938, 0.111111, 997 }",
+                    "scale": "{ 0.09375, 0.166667, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "filename": "SS_MineWorm"
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MineWorm"
+                }
+            },
+            {
+                "Model": {
+                    "mdlID": 0
+                }
+            },
+            {
+                "EnemyAI": {
+                    "entityID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Player",
+        "ParentID": 2,
         "Child Entities": [],
         "Components": [
             {
@@ -13,7 +47,7 @@
             },
             {
                 "BoxCollider": {
-                    "center": "{ -560000, 315000 }",
+                    "center": "{ -150, 350 }",
                     "width": 150.0,
                     "height": 150.0
                 }
@@ -51,40 +85,6 @@
                     "scriptMap": [
                         "Player"
                     ]
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Enemy",
-        "ParentID": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -199.938, 0.111111, 997 }",
-                    "scale": "{ 0.09375, 0.166667, 1 }",
-                    "rot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "filename": "SS_MineWorm"
-                }
-            },
-            {
-                "SpriteAnim": {
-                    "name": "SS_MineWorm"
-                }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
-                }
-            },
-            {
-                "EnemyAI": {
-                    "entityID": 3912248187
                 }
             }
         ]

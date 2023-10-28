@@ -274,7 +274,7 @@ std::string AssetBrowser::OpenFileExplorer(const char* extensionsFilter, unsigne
 
 	if (GetOpenFileNameA(&fileName))
 	{
-		return fileName.lpstrFile;
+		return GetRelativeFilePath(fileName.lpstrFile);
 	}
 
 	return std::string();
