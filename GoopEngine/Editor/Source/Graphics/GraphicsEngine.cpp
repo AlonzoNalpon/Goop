@@ -62,9 +62,10 @@ namespace {
     // Initialize font manager
     //m_fontManager.Init();
 #pragma region SHADER_MDL_INIT
-    auto shaderPathOpt = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("ShaderPath");
-    if (!shaderPathOpt) {
-      throw 1; // lmao
+    std::string shaderPathOpt = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("ShaderPath");
+    if (shaderPathOpt.empty()) 
+    {
+      throw GE::Debug::Exception<GraphicsEngine>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Invalid shader path"));
     }
     m_spriteQuadMdl = GenerateQuad();
     m_lineMdl       = GenerateLine();
@@ -344,7 +345,7 @@ namespace {
     {
       std::string errorStr{ "A shader program of this name already exists: " };
       errorStr += name;
-      std::cout << errorStr << std::endl;
+      GE::Debug::ErrorLogger::GetInstance().LogError(errorStr);
       return 0;
     }
 
