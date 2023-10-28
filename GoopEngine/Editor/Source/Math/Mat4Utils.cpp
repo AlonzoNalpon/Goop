@@ -95,7 +95,7 @@ void GE::Math::MtxInverse(Mat<4, 4, double>& result, Mat<4, 4, double> const& mt
     + temp[0].z * (temp[1].x * A1323 - temp[1].y * A0323 + temp[1].w * A0123)
     - temp[0].w * (temp[1].x * A1223 - temp[1].y * A0223 + temp[1].z * A0123) };
 
-  if (det == 0.0) { throw std::runtime_error("division by zero"); }
+  if (det <= 0.0) { throw GE::Debug::Exception<dMat4>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Matrix determinant is 0!")); }
   double const invDet{ 1.0 / det };
 
   result[0].x = invDet * (temp[1].y * A2323 - temp[1].z * A1323 + temp[1].w * A1223);

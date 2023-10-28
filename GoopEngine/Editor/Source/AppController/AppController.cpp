@@ -30,6 +30,15 @@ namespace
     Exception caught
   ************************************************************************/
   void PrintException(GE::Debug::IExceptionBase& e);
+
+  /*!*********************************************************************
+  \brief
+    Wrapper function to print out exceptions.
+
+  \param e
+    Exception caught
+  ************************************************************************/
+  void PrintException(std::exception& e);
 }
 
 namespace GE::Application
@@ -76,6 +85,10 @@ namespace GE::Application
     catch (GE::Debug::IExceptionBase& e)
     {
       PrintException(e);
+    }
+    catch (std::exception& e)
+    {
+
     }
   }
   
@@ -134,6 +147,10 @@ namespace GE::Application
         {
           PrintException(e);
         }
+        catch (std::exception& e)
+        {
+          PrintException(e);
+        }
 
         /////////////////
         // Draw calls
@@ -152,6 +169,10 @@ namespace GE::Application
         {
           PrintException(e);
         }
+        catch (std::exception& e)
+        {
+          PrintException(e);
+        }
 
         window.SwapBuffers();
         fRC.EndFrame();
@@ -164,6 +185,10 @@ namespace GE::Application
 #endif // NO_IMGUI
       }
       catch (GE::Debug::IExceptionBase& e)
+      {
+        PrintException(e);
+      }
+      catch (std::exception& e)
       {
         PrintException(e);
       }
@@ -198,5 +223,10 @@ namespace
     {
       e.LogSource();
     }
+  }
+
+  void PrintException(std::exception& e)
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogCritical(e.what());
   }
 }
