@@ -154,14 +154,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 	GE::ECS::ComponentSignature sig = ecs.GetComponentSignature(entity);
 
-	std::string name = ecs.GetEntityName(entity);
-	PushID(name.c_str());
+	PushID(entity);
 	bool isActive{ecs.GetIsActiveEntity(entity)};
 	if (Checkbox("##IsActive", &isActive))
 	{
 		ecs.SetIsActiveEntity(entity, isActive);
 	}
-	SameLine(); 
+	SameLine();
+	std::string name = ecs.GetEntityName(entity);
 	if (InputText("##Name", &name))
 	{
 		ecs.SetEntityName(entity, name);
