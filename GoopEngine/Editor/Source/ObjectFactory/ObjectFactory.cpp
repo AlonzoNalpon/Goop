@@ -203,8 +203,6 @@ void ObjectFactory::DeserializePrefab(const std::string& filepath)
     GE::Debug::ErrorLogger::GetInstance().LogError("Unable to unload " + filepath);
   }
 
-  // u probably wouldnt do this but prasanna went through this last week
-  // move the object into the map since we don't need it anymore
   m_prefabs.emplace(std::move(prefab));
 }
 
@@ -217,17 +215,13 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
 
   ObjectData prefab = m_prefabs.at(key);
   Entity entity = CreateObject(key, prefab);
- /* if (IsBitSet(prefab.m_componentSignature, COMPONENT_TYPES::SPRITE_ANIM))
-  {
-    prefab.m_systemSignature[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
-  }*/
+
   return entity;
 }
 
 void GE::ObjectFactory::ObjectFactory::EmptyMap()
 {
   m_objects.clear();
-  m_prefabs.clear();
 }
 
 void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
@@ -264,54 +258,18 @@ bool ObjectFactory::LoadObjects(std::set<GE::ECS::Entity>& map) const
 {
   try
   {
-    ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-    ECS::Entity i{};
+    //ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
     for (auto const& [name, data] : m_objects)
     {
+
       map.emplace(CreateObject(name, data));
-      ecs.SetParentEntity(i, data.m_parent);
+     /* ecs.SetParentEntity(i, data.m_parent);
       for (ECS::Entity child : data.m_childEntities)
       {
         ecs.AddChildEntity(i, child);
       }
       map.emplace(i);
-      ++i;
-    }
-
-    /*ECS::Entity i{};
-    for (auto const& [name, data] : m_objects)
-    {
-      ecs.SetParentEntity(i, data.m_parent);
-      for (ECS::Entity child : data.m_childEntities)
-      {
-        ecs.AddChildEntity(i, child);
-      }
-      ++i;
-    }*/
-  }
-  catch (GE::Debug::IExceptionBase& e)
-  {
-    e.LogSource();
-    e.Log();
-    return false;
-  }
-  return true;
-}
-
-bool ObjectFactory::LoadObjects() const
-{
-  try
-  {
-    ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-    for (auto const& value : m_objects)
-    {
-      CreateObject(value.first, value.second);
-    }
-
-    ECS::Entity i{};
-    for (auto const& [name, data] : m_objects)
-    {
-      ecs.SetParentEntity(i, data.m_parent);
+      ++i;*/
     }
   }
   catch (GE::Debug::IExceptionBase& e)
@@ -321,22 +279,6 @@ bool ObjectFactory::LoadObjects() const
     return false;
   }
   return true;
-}
-
-void ObjectFactory::ObjectJsonLoader(const std::string& json_path)
-{
-  GE::Serialization::ObjectGooStream ogs(json_path);
-  ogs.Unload(m_objects);
-}
-
-// Reads objects from scene file and loads into map
-void ObjectFactory::ObjectFactoryTest() {
-  Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene("test") };
-  if (ogs)
-  {
-    ogs.Unload(m_objects);
-    LoadObjects();
-  }
 }
 
 void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity> &map)

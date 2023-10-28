@@ -1,6 +1,5 @@
 #include <pch.h>
 #include "AudioEngine.h"
-#include <iostream>
 
 using namespace GE::Audio;
 
@@ -76,8 +75,9 @@ void AudioEngine::LoadSound(const std::string& soundFile, bool isLooping, bool i
   }
   else
   {
-    std::cout << "FMOD_OK index: " << FMOD_OK << std::endl;
-    std::cerr << "Failed to create sound: " << result << std::endl;
+    std::ostringstream oss{};
+    oss << "Failed to create sound: " << result;
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
   }
 }
 
