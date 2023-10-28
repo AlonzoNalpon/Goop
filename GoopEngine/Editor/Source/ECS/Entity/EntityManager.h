@@ -135,7 +135,7 @@ namespace GE
 				Entity whose children you are getting.
 
 			\return 
-				Set of entities.
+				Vector of entities.
 			********************************************************************/
 			std::set<Entity>& GetChildEntities(Entity& parent);
 

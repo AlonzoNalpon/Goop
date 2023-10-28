@@ -12,7 +12,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <DebugTools/ErrorLogger/ErrorLogger.h>
 #include <DebugTools/Exception/Exception.h>
 #include <limits>
-#include <algorithm>
 
 using namespace GE::ECS;
 
@@ -91,24 +90,7 @@ Entity GE::ECS::EntityManager::GetParentEntity(Entity& entity)
 
 void GE::ECS::EntityManager::SetParentEntity(Entity& parent, Entity& child)
 {
-	// Deal with old parent
-	if (m_parent[child] != INVALID_ID)
-	{
-		RemoveChildEntity(m_parent[child], child);
-		if (parent != INVALID_ID)
-		{
-			AddChildEntity(parent, child);
-		}
-		else
-		{
-			m_parent[child] = INVALID_ID;
-		}
-	}
-	else
-	{
-		m_parent[child] = parent;
-		AddChildEntity(parent, child);
-	}
+	m_parent[child] = parent;
 }
 
 std::set<Entity>& GE::ECS::EntityManager::GetChildEntities(Entity& parent)

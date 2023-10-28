@@ -115,7 +115,7 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 		if (Selectable("Create"))
 		{
 			Entity newEntity = ecs.CreateEntity();
-			GE::Component::Transform trans{};
+			GE::Component::Transform trans{{0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 }};
 			ecs.AddComponent(newEntity, trans);
 		}
 		EndPopup();
@@ -139,10 +139,10 @@ namespace
 	{
 		Entity oldParent = ecs.GetParentEntity(child);
 		// Has parent, remove self from parent
-		//if (oldParent != INVALID_ID)
-		//{
-		//	ecs.RemoveChildEntity(oldParent, child);
-		//}
+		if (oldParent != INVALID_ID)
+		{
+			ecs.RemoveChildEntity(oldParent, child);
+		}
 
 		if (!parent)	// Child becoming root
 		{
@@ -165,12 +165,20 @@ namespace
 			GE::Component::Transform& parentTrans = *ecs.GetComponent<GE::Component::Transform>(*parent);
 
 			GE::Math::dMat4 invP;
-			GE::Math::MtxInverse(invP, parentTrans.m_worldTransform);
-			childTrans.m_pos = invP * GE::Math::dVec4(childTrans.m_pos, 1.0);
-			childTrans.m_scale = { childTrans.m_scale.x / parentTrans.m_scale.x,childTrans.m_scale.y / parentTrans.m_scale.y, 1.0 };
-			childTrans.m_rot = childTrans.m_rot - parentTrans.m_rot;
+			try
+			{
+				GE::Math::MtxInverse(invP, parentTrans.m_worldTransform);
+				childTrans.m_pos = invP * GE::Math::dVec4(childTrans.m_pos, 1.0);
+				childTrans.m_scale = { childTrans.m_scale.x / parentTrans.m_scale.x,childTrans.m_scale.y / parentTrans.m_scale.y, 1.0 };
+				childTrans.m_rot = childTrans.m_rot - parentTrans.m_rot;
 
-			ecs.SetParentEntity(child, *parent);
+				ecs.SetParentEntity(child, *parent);
+				ecs.AddChildEntity(*parent, child);
+			}
+			catch (GE::Debug::IExceptionBase& e)
+			{
+				e.LogSource();
+			}
 		}
 	}
 

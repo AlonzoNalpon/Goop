@@ -45,7 +45,7 @@ Entity GE::ECS::EntityComponentSystem::GetParentEntity(Entity& entity)
 }
 
 void GE::ECS::EntityComponentSystem::SetParentEntity(Entity& child, Entity parent)
-{	
+{
 	m_entityManager->SetParentEntity(parent, child);
 }
 
