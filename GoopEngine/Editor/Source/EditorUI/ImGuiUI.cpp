@@ -22,7 +22,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../ObjectFactory/ObjectFactory.h"
 #include "../Component/Transform.h"
 #include "../Component/BoxCollider.h"
-#include <Audio/AudioEngine.h>
+#include <Audio/AudioSystem.h>
 #include "SceneHierachy.h"
 #include "ToolBar.h"
 #include "DataViz/Visualizer.h"
@@ -181,35 +181,35 @@ void ImGuiUI::Update()
   Assets::AssetManager const& aM{ Assets::AssetManager::GetInstance() };
   if (Button("Play BGM"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("bgm1"), 0.5f, true);
+    Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("bgm1"), 0.5f, true);
   }
   else if (Button("Play Scream Sound"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("JoelScream"), 0.70f);
+    Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("JoelScream"), 0.70f);
   }
   else if (Button("DJ Drop Da Beat"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("ChengEnBeatbox"), 1.25f, true);
+    Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("ChengEnBeatbox"), 1.25f, true);
   }
   else if (Button("Play Qurr Sound"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("ChengEnQur"), 0.9f);
+    Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("ChengEnQur"), 0.9f);
   }
   else if (Button("Stop Scream Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopSound(aM.GetSound("JoelScream"));
+    Audio::AudioSystem::GetInstance().StopSound(aM.GetSound("JoelScream"));
   }
   else if (Button("DJ Pick Up Da Beat"))
   {
-    Audio::AudioEngine::GetInstance().StopSound(aM.GetSound("ChengEnBeatbox"));
+    Audio::AudioSystem::GetInstance().StopSound(aM.GetSound("ChengEnBeatbox"));
   }
   else if (Button("Stop Qur Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopSound(aM.GetSound("ChengEnQur"));
+    Audio::AudioSystem::GetInstance().StopSound(aM.GetSound("ChengEnQur"));
   }
   else if (Button("Stop All Sounds"))
   {
-    Audio::AudioEngine::GetInstance().StopAllChannels();
+    Audio::AudioSystem::GetInstance().StopAllChannels();
   }
   End();
 

@@ -1,5 +1,5 @@
 /*!*********************************************************************
-\file   AudioEngine.h
+\file   AudioSystem.h
 \author c.phua\@digipen.edu
 \date   28 September 2023
 \brief
@@ -13,64 +13,25 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #define _AUDIO_ENGINE_H_
 
 #include <fmod.hpp>
-#include <string>
-#include <map>
-#include <iostream>
 
 namespace GE 
 {
-	namespace Audio
+	namespace Systems
 	{
-    //for fMOD constucting and destructing, etc.
-    struct Implementation {
-      using ChannelID = unsigned;
-
-      /*!*********************************************************************
-      \brief
-        Default contructor
-      ************************************************************************/
-      Implementation();
-
-      /*!*********************************************************************
-      \brief
-        Default destructor
-      ************************************************************************/
-      ~Implementation();
-
-      /*!*********************************************************************
-      \brief
-        Erases any channels that are not playing any sounds and updates fMOD system.
-      ************************************************************************/
-      void Update();
-
-      FMOD::System* fm_system{ nullptr };
-
-      ChannelID m_nextChannelId{};
-      ChannelID m_numOfChannels{ 32 };
-
-      using SoundMap = std::map<std::string, FMOD::Sound*> ;
-      using ChannelMap = std::map<ChannelID, FMOD::Channel*>;
-      using CurrentPlaylist = std::unordered_map<std::string, ChannelID>;
-
-      SoundMap m_sounds;
-      ChannelMap m_channels;
-      CurrentPlaylist m_playlist;
-    };
-
     //audio engine
-    class AudioEngine : public Singleton<AudioEngine> {
+    class AudioSystem : public Singleton<AudioSystem> {
     public:
       /*!*********************************************************************
       \brief
         Default contructor
       ************************************************************************/
-      AudioEngine();
+      AudioSystem();
 
       /*!*********************************************************************
       \brief
         Default destructor
       ************************************************************************/
-      ~AudioEngine();
+      ~AudioSystem();
 
       /*!*********************************************************************
       \brief

@@ -36,7 +36,7 @@ void GE::Scenes::Scene::Init()
 
 void GE::Scenes::Scene::Unload()
 {
-	Audio::AudioEngine::GetInstance().StopAllChannels();
+	Audio::AudioSystem::GetInstance().StopAllChannels();
 	std::set<ECS::Entity> entities = ecs->GetEntities();
 	for (auto entity : entities)
 	{
@@ -56,5 +56,5 @@ void GE::Scenes::Scene::TestScene()
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj);
 
-	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
+	Audio::AudioSystem::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
 }

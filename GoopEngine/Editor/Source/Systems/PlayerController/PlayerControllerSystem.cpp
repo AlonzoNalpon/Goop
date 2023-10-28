@@ -9,7 +9,7 @@
 #include <Events/EventManager.h>
 #include <Graphics/GraphicsEngine.h>
 #include <Component/ScriptHandler.h>
-#include <Audio/AudioEngine.h>
+#include <Audio/AudioSystem.h>
 
 using vec3 = GE::Math::dVec3;
 
@@ -150,15 +150,15 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 			}
 			if (key == GPK_E)
 			{
-				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("slash"), 1.0f);
+				Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("slash"), 1.0f);
 			}
 			if (key == GPK_Q)
 			{
-				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("woosh2"), 1.0f);
+				Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("woosh2"), 1.0f);
 			}
 			if (key == GPK_R)
 			{
-				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("damageTaken_Leah"), 1.0f);
+				Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("damageTaken_Leah"), 1.0f);
 			}
 
 #ifdef EVENT_DEBUG
