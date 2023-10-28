@@ -139,10 +139,10 @@ namespace
 	{
 		Entity oldParent = ecs.GetParentEntity(child);
 		// Has parent, remove self from parent
-		if (oldParent != INVALID_ID)
-		{
-			ecs.RemoveChildEntity(oldParent, child);
-		}
+		//if (oldParent != INVALID_ID)
+		//{
+		//	ecs.RemoveChildEntity(oldParent, child);
+		//}
 
 		if (!parent)	// Child becoming root
 		{
@@ -171,7 +171,6 @@ namespace
 			childTrans.m_rot = childTrans.m_rot - parentTrans.m_rot;
 
 			ecs.SetParentEntity(child, *parent);
-		  ecs.AddChildEntity(*parent, child);
 		}
 	}
 
@@ -186,7 +185,7 @@ namespace
 		/////////////////////
 		// Create own node
 		/////////////////////
-		std::vector<Entity>& m_children = ecs.GetChildEntities(entity);
+		std::set<Entity>& m_children = ecs.GetChildEntities(entity);
 		if (m_children.empty())
 		{
 			flag |= ImGuiTreeNodeFlags_Leaf;
@@ -198,6 +197,7 @@ namespace
 			if (IsItemClicked())
 			{
 				GE::EditorGUI::ImGuiHelper::SetSelectedEntity(entity);
+				
 			}
 			if (IsItemClicked(ImGuiMouseButton_Right))
 			{

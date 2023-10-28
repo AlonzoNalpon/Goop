@@ -99,14 +99,15 @@ namespace GE
 				Entity whose children you are getting.
 
 			\return
-				Vector of entities.
+				Set of entities.
 			********************************************************************/
-			std::vector<Entity>& GetChildEntities(Entity& parent);
+			std::set<Entity>& GetChildEntities(Entity& parent);
 
 			/*!******************************************************************
 			\brief
 				Calls EntityManager's AddChildEntities function.
 				Adds an entity as a child.
+				This function is depreciated. Behaviour may be undefined
 
 			\param[in] parent
 				Entity who you are adding a child to.

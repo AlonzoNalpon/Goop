@@ -35,7 +35,7 @@ namespace GE
 			// Vector of entities where each index is an entity's parent id
 			std::vector<Entity> m_parent;
 			// Vector of entities where each index is an entity's children
-			std::vector<std::vector<Entity>> m_children;
+			std::vector<std::set<Entity>> m_children;
 
 			std::map<Entity, std::string> m_names;
 		public:
@@ -135,9 +135,9 @@ namespace GE
 				Entity whose children you are getting.
 
 			\return 
-				Vector of entities.
+				Set of entities.
 			********************************************************************/
-			std::vector<Entity>& GetChildEntities(Entity& parent);
+			std::set<Entity>& GetChildEntities(Entity& parent);
 
 			/*!******************************************************************
 			\brief 
