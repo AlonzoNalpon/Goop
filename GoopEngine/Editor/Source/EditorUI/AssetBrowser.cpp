@@ -26,10 +26,6 @@ void AssetBrowser::CreateContentDir()
 {
 	AssetManager& assetManager = AssetManager::GetInstance();
 
-	// Get style text colour that can be edited later
-	ImGuiStyle& style = GetStyle();
-	ImColor originalTextClr = style.Colors[ImGuiCol_Text];
-
 	assetsDirectory = *assetManager.GetConfigData<std::string>("Assets Dir");
 	if (!std::filesystem::exists(assetsDirectory))
 	{
@@ -37,7 +33,7 @@ void AssetBrowser::CreateContentDir()
 	}
 
 	//main node
-	if (TreeNodeEx("Assets", ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen))
+	if (TreeNodeEx("Assets", ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow))
 	{
 		if (IsItemClicked())
 		{
@@ -50,7 +46,7 @@ void AssetBrowser::CreateContentDir()
 			if (!file.is_regular_file()) //if file is a folder i.e. directory
 			{
 				//create children nodes
-				Traverse(file.path(), originalTextClr);
+				Traverse(file.path());
 			}
 		}
 		TreePop();
@@ -133,11 +129,11 @@ void AssetBrowser::CreateContentView()
 
 void GE::EditorGUI::AssetBrowser::CreateContent()
 {
-	// 15 characters for file name
-	float charSize = CalcTextSize("012345678901234").x;
+	// 30 characters for file name
+	float charSize = CalcTextSize("01234567890").x * 2;
 	if (BeginTable("##", 2, ImGuiTableFlags_BordersInnerV))
 	{
-		TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize*2);
+		TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 		TableNextColumn();
 		CreateContentDir();
 		TableNextColumn();
@@ -214,12 +210,19 @@ void AssetBrowser::InitView()
 	}
 }
 
-void AssetBrowser::Traverse(std::filesystem::path filepath, ImColor textClr)
+void AssetBrowser::Traverse(std::filesystem::path filepath)
 {
-	ImGuiStyle& style = GetStyle();
-	style.Colors[ImGuiCol_Text] = textClr;
+	int folderCnt{};
+	std::filesystem::directory_iterator countIter(filepath);
+	for (auto file : countIter)
+	{
+		folderCnt += (file.is_directory()) ? 1 : 0;
+	}
 
-	if (TreeNodeEx(filepath.filename().string().c_str(), ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen))
+	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_OpenOnArrow;
+	flags |= (folderCnt == 0) ? ImGuiTreeNodeFlags_Leaf : 0;
+
+	if (TreeNodeEx(filepath.filename().string().c_str(), flags))
 	{
 		//if folder is clicked
 		if (IsItemClicked())
@@ -239,7 +242,7 @@ void AssetBrowser::Traverse(std::filesystem::path filepath, ImColor textClr)
 			if (!file.is_regular_file()) //if file is a folder i.e. directory
 			{
 				//create children nodes
-				Traverse(file.path(), textClr);
+				Traverse(file.path());
 			}
 		}
 		TreePop();
