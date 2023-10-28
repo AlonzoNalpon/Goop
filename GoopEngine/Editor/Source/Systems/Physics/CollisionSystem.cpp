@@ -46,11 +46,11 @@ void CollisionSystem::Update()
 	{
 		BoxCollider* updateEntity = m_ecs->GetComponent<BoxCollider>(entity);
 		Transform* newCenter = m_ecs->GetComponent<Transform>(entity);
-		UpdateAABB(*updateEntity, newCenter->m_parentWorldTransform * dVec4(newCenter->m_pos, 1.0));
+		UpdateAABB(*updateEntity, newCenter->m_pos);
 #ifndef NO_IMGUI
 		if (updateEntity->m_render)
 		{
-			updateEntity->Render();
+			updateEntity->Render(); 
 		}
 #endif // !NO_IMGUI
 	}
@@ -61,10 +61,12 @@ void CollisionSystem::Update()
 	{
 		auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 		//drawing partition's border
+#ifndef NO_IMGUI
 		gEngine.DrawLine(partition.min, { partition.max.x, partition.min.y });
 		gEngine.DrawLine({ partition.max.x, partition.min.y }, partition.max);
 		gEngine.DrawLine(partition.max, { partition.min.x, partition.max.y });
 		gEngine.DrawLine({ partition.min.x, partition.max.y }, partition.min);
+#endif // !NO_IMGUI
 
 		if (partition.m_entitiesInPartition.empty()) 
 		{

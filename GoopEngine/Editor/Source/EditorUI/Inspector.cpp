@@ -21,6 +21,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Velocity.h>
 #include <Component/Draggable.h>
 #include "../ImGui/misc/cpp/imgui_stdlib.h"
+#include <Systems/RootTransform/PostRootTransformSystem.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
@@ -188,13 +189,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					InputDouble3("Position", trans->m_pos, inputWidth);					
+					InputDouble3("Position", trans->m_pos, inputWidth);
 					TableNextRow();
 					InputDouble3("Scale", trans->m_scale, inputWidth);
 					TableNextRow();
 					InputDouble3("Rotation", trans->m_rot, inputWidth);
 					EndTable();
 					Separator();
+					GE::Systems::PostRootTransformSystem::Propergate(ecs, entity, trans->m_parentWorldTransform);
 				}
 				break;
 			}
@@ -234,9 +236,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputDouble1("Mass", vel->m_mass);
 					TableNextRow();
-					InputDouble3("Gravity", vel->m_gravity, inputWidth);					
+					InputDouble3("Gravity", vel->m_gravity, inputWidth);		
 					TableNextRow();
-					InputDouble1("Drag", vel->m_dragForce.m_magnitude, inputWidth);
+					InputDouble1("Drag", vel->m_dragForce.m_magnitude);
 					TableNextRow();
 					InputCheckBox("Drag Active", vel->m_dragForce.m_isActive);
 					EndTable();
@@ -351,6 +353,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (!ecs.HasComponent<Velocity>(entity))
 						{
 							Velocity comp;
+							comp.m_mass = 1.0;
 							ecs.AddComponent(entity, comp);
 						}
 						else
