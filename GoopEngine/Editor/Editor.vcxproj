@@ -272,7 +272,8 @@
     <ClCompile Include="Source\Systems\Rendering\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="Source\EditorUI\ImGuiUI.cpp" />
-    <ClCompile Include="Source\Systems\RootTransform\RootTransformSystem.cpp" />
+    <ClCompile Include="Source\Systems\RootTransform\PostRootTransformSystem.cpp" />
+    <ClCompile Include="Source\Systems\RootTransform\PreRootTransformSystem.cpp" />
     <ClCompile Include="Source\Systems\SpriteAnim\SpriteAnimSystem.cpp" />
     <ClCompile Include="Source\Window\Window.cpp" />
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimationManager.cpp" />
@@ -395,7 +396,10 @@
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />
     <ClInclude Include="Source\EditorUI\ImGuiUI.h" />
     <ClInclude Include="Source\Systems\Rendering\CameraSystem.h" />
+    <ClInclude Include="Source\Systems\RootTransform\PostRootTransformSystem.h" />
+    <ClInclude Include="Source\Systems\RootTransform\PreRootTransformSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\RootTransformSystem.h" />
+    <ClInclude Include="Source\Systems\RootTransform\TransformSystemHelper.h" />
     <ClInclude Include="Source\Systems\SpriteAnim\SpriteAnimSystem.h" />
     <ClInclude Include="Source\Systems\Systems.h" />
     <ClInclude Include="Source\Window\Window.h" />

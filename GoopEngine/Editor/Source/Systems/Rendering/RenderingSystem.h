@@ -34,8 +34,6 @@ namespace GE::Systems {
     \return
     ************************************************************************/
 		void Update();
-
-		void OnDestroyed();
   };
 }
 
