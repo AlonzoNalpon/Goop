@@ -69,34 +69,12 @@ namespace GE::ObjectFactory
     /*!*********************************************************************
     \brief
       Creates the objects from the object map.
-    \return
-      True if successful, false if failed
-    ************************************************************************/
-    bool LoadObjects() const;
-
-    /*!*********************************************************************
-    \brief
-      Creates the objects from the object map.
     \param
       std::set<GE::ECS::Entity>& (map of loaded objects to be deleted later)
     \return
       True if successful, false if failed
     ************************************************************************/
     bool LoadObjects(std::set<GE::ECS::Entity>& map) const;
-
-    /*!*********************************************************************
-    \brief
-      Loads the json file into the map.
-    \param
-      string& (Path to the json file)
-    ************************************************************************/
-    void ObjectJsonLoader(const std::string& json_path);
-
-    /*!*********************************************************************
-    \brief
-      Verify that the object factory deserializes properly
-    ************************************************************************/
-    void ObjectFactoryTest();
 
     /*!*********************************************************************
     \brief
