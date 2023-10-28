@@ -200,15 +200,7 @@ namespace
 {
   void PrintException(GE::Debug::IExceptionBase& e)
   {
-    std::string defError{e.what()};
-    if (defError.length() > 0)
-    {
-      GE::Debug::ErrorLogger::GetInstance().LogCritical(defError);
-    }
-    else
-    {
-      e.LogSource();
-    }
+    e.LogSource();
   }
 
   void PrintException(std::exception& e)
