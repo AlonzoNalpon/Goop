@@ -71,7 +71,7 @@ namespace
 void GE::EditorGUI::SceneHierachy::CreateContent()
 {
 	static EntityComponentSystem& ecs = EntityComponentSystem::GetInstance();
-	GE::GSM::GameStateManager& gsm{ GE::GSM::GameStateManager::GetInstance() };
+	//GE::GSM::GameStateManager& gsm{ GE::GSM::GameStateManager::GetInstance() };
 	// Get style text colour that can be edited later
 	ImGuiStyle& style = GetStyle();
 	originalTextClr = style.Colors[ImGuiCol_Text];

@@ -100,7 +100,7 @@ void ImGuiUI::Update()
   ImGui::InputInt("Change Col", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetCol(), 1);
   End();
 
-  Begin("Asset Browser");
+  Begin("Assets");
   if (Button("Create MineWorm"))
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
@@ -136,12 +136,8 @@ void ImGuiUI::Update()
   }
   End();
 
-  Begin("Asset Browser(Tree)");
-  AssetBrowser::CreateContentDir();
-  End();
-
-  Begin("Asset View");
-  AssetBrowser::CreateContentView();
+  Begin("Asset Browser");
+  AssetBrowser::CreateContent();
   End();
 
   

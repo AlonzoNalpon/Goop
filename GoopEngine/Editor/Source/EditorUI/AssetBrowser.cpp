@@ -98,16 +98,7 @@ void AssetBrowser::CreateContentView()
 
 		if (!file.is_regular_file())
 		{
-			//Text(static_cast<const char*>("something here"));
-			Text(file.path().filename().string().c_str());
-
 			continue;
-		}
-		else if (extension == m_audioFile)	// sound
-		{
-			//print img of maybe a audio file logo?
-			//name of audio
-			//Text(file.path().filename().string().c_str());
 		}
 		else if (extension == m_imageFile)	// prefab
 		{
@@ -135,30 +126,20 @@ void AssetBrowser::CreateContentView()
 			}
 
 			ImGui::PopStyleColor();
-
-			//Text(file.path().filename().string().c_str());
-		}
-		else if (extension == m_prefabFile)	// prefab
-		{
-			//name of prefab
-			//Text(file.path().filename().string().c_str());
-		}
-		else if (extension == m_sceneFile)	// scene
-		{
-			//name of scene
-			//Text(file.path().filename().string().c_str());
-		}
-		else if (m_shaderFile.find(extension) != std::string::npos)
-		{
-			//name of shader
-			//Text(file.path().filename().string().c_str());
-		}
-		else
-		{
-			Text(file.path().filename().string().c_str());
-			continue;
 		}
 		Text(file.path().filename().string().c_str());
+	}
+}
+
+void GE::EditorGUI::AssetBrowser::CreateContent()
+{
+	if (BeginTable("##", 2, ImGuiTableFlags_BordersInnerV))
+	{
+		TableNextColumn();
+		CreateContentDir();
+		TableNextColumn();
+		CreateContentView();
+		EndTable();
 	}
 }
 

@@ -16,6 +16,7 @@ namespace GE::EditorGUI
 	public:
 		static void CreateContentDir();
 		static void CreateContentView();
+		static void CreateContent();
 		static void InitView();
 	};
 }
