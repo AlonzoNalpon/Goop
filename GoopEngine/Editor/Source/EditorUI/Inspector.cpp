@@ -154,12 +154,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 	GE::ECS::ComponentSignature sig = ecs.GetComponentSignature(entity);
 
+	std::string name = ecs.GetEntityName(entity);
+	PushID(name.c_str());
 	bool isActive{ecs.GetIsActiveEntity(entity)};
 	if (Checkbox("##IsActive", &isActive))
 	{
 		ecs.SetIsActiveEntity(entity, isActive);
 	}
-	std::string name = ecs.GetEntityName(entity);
 	SameLine(); 
 	if (InputText("##Name", &name))
 	{
@@ -299,6 +300,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 		}
 	}
+
+	PopID();
 
 	static bool addingComponent{ false };
 	if (Button("Add Component", { GetContentRegionMax().x, 20 }))
