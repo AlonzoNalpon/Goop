@@ -26,7 +26,7 @@ void AssetBrowser::CreateContentDir()
 {
 	AssetManager& assetManager = AssetManager::GetInstance();
 
-	assetsDirectory = *assetManager.GetConfigData<std::string>("Assets Dir");
+	assetsDirectory = assetManager.GetConfigData<std::string>("Assets Dir");
 	if (!std::filesystem::exists(assetsDirectory))
 	{
 		throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Assets Directory not found! Path: " + assetsDirectory.string()));

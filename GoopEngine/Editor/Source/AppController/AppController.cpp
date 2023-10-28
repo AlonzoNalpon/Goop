@@ -54,42 +54,32 @@ namespace GE::Application
   void AppController::Init()
   {
     // INIT FUNCTIONS
-    try
-    {
-      GE::Assets::AssetManager* am = &GE::Assets::AssetManager::GetInstance();
-      am->LoadConfigData("./Assets/Config.cfg");
-      GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
-      of.RegisterComponentsAndSystems();
+    GE::Assets::AssetManager* am = &GE::Assets::AssetManager::GetInstance();
+    am->LoadConfigData("./Assets/Config.cfg");
+    GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
+    of.RegisterComponentsAndSystems();
 
-      GE::Events::EventManager::GetInstance().SubscribeAllListeners();
+    GE::Events::EventManager::GetInstance().SubscribeAllListeners();
 
-      fRC.InitFrameRateController(*am->GetConfigData<int>("FPS Limit"), *am->GetConfigData<int>("Steps Per Second"), *am->GetConfigData<int>("FPS Check Interval"));
+    fRC.InitFrameRateController(am->GetConfigData<int>("FPS Limit"), am->GetConfigData<int>("Steps Per Second"), am->GetConfigData<int>("FPS Check Interval"));
 
-      window = { *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), "Goop Engine"};
-      window.CreateAppWindow();
+    int a = am->GetConfigData<int>("Window Width");
+    int b = am->GetConfigData<int>("Window Height");
+    std::cout << a << b;
+    window = { am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), "Goop Engine"};
+    window.CreateAppWindow();
 
-      gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
-      am->LoadFiles();
-      of.LoadPrefabsFromFile();
+    gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
+    am->LoadFiles();
+    of.LoadPrefabsFromFile();
 
-      imgui.Init(window);
+    imgui.Init(window);
       
-      // of.ObjectFactoryTest();
-      im.InitInputManager(window.GetWindow(), *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), 0.1);
+    // of.ObjectFactoryTest();
+    im.InitInputManager(window.GetWindow(), am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), 0.1);
 
-      GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
-      scriptMan->InitMono();
-
-
-    }
-    catch (GE::Debug::IExceptionBase& e)
-    {
-      PrintException(e);
-    }
-    catch (std::exception& e)
-    {
-      PrintException(e);
-    }
+    GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
+    scriptMan->InitMono();
   }
   
   void AppController::Run()

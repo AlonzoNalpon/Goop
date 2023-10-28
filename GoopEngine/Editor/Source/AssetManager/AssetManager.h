@@ -217,8 +217,7 @@ namespace GE::Assets
 
     inline std::unordered_map<std::string, std::string> const& GetImages() const noexcept { return m_images; }
 
-
-    #include "AssetManager.tpp"
+#include "AssetManager.tpp"
 
   private:
     /*!*********************************************************************

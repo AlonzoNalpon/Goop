@@ -191,7 +191,7 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   }
 
   // Register systems
-  std::string const systemsFile{ *Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
+  std::string const systemsFile{ Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
   std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::DeserializeSystems(systemsFile) };
 
   for (std::pair<std::string, ECS::ComponentSignature> const& elem : systems)

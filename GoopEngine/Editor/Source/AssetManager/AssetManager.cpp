@@ -109,7 +109,7 @@ namespace GE::Assets
 	void AssetManager::LoadFiles()
 	{
 		// construct path object with relative path to project dir
-		std::filesystem::path assetsDir{ *GetConfigData<std::string>("Assets Dir") };
+		std::filesystem::path assetsDir{ GetConfigData<std::string>("Assets Dir") };
 		if (!std::filesystem::exists(assetsDir))
 		{
 			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open Assets Dir: " + assetsDir.string()));
@@ -117,7 +117,7 @@ namespace GE::Assets
 
 		// iterate through Assets dir and add all assets into their
 		// respective containers based on file type
-		std::string const prefabExt{ *GetConfigData<std::string>("Prefab File Extension") }, sceneExt{ *GetConfigData<std::string>("Scene File Extension") };
+		std::string const prefabExt{ GetConfigData<std::string>("Prefab File Extension") }, sceneExt{ GetConfigData<std::string>("Scene File Extension") };
 		for (const auto& file : std::filesystem::recursive_directory_iterator(assetsDir))
 		{
 			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
@@ -323,7 +323,7 @@ namespace GE::Assets
 	void AssetManager::LoadSpritesheets()
 	{
 		GE::Serialization::SpriteGooStream::container_type assets;
-		std::string const fileName{ *GetConfigData<std::string>("Sprite Config") };
+		std::string const fileName{ GetConfigData<std::string>("Sprite Config") };
 		// Create a SpriteGooStream object with the given file name
 		GE::Serialization::SpriteGooStream sgs{ fileName };
 		// If the SpriteGooStream object is not valid, print an error message

@@ -314,7 +314,7 @@ std::vector<std::pair<std::string, std::string>>
 {
   try
   {
-    std::string const& str{ *Assets::AssetManager::GetInstance().GetConfigData<std::string>("Script Namespace") };
+    std::string const& str{ Assets::AssetManager::GetInstance().GetConfigData<std::string>("Script Namespace") };
     std::vector<std::pair<std::string, std::string>> ret{};
     rapidjson::Value const& list{ (*m_ptr)[key] };
     for (auto const& elem : list.GetArray())
