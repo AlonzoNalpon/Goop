@@ -111,22 +111,17 @@ void ImGuiUI::Update()
     double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
     GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(ecs->GetEntities().size() - 1, Math::dVec2(randX, randY));
   }
-  else if (Button("Create 2.5k Render"))
+  else if (Button("Duplicate 500"))
   {
-    for (int i{}; i < 2500; ++i)
+    for (int i{}; i < 500; ++i)
     {
+      GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
       try
       {
-        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("ButaPIG");
-        GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
-        GE::Component::BoxCollider* box = ecs->GetComponent<GE::Component::BoxCollider>(entity);
-        if (trans)
-        {
-          double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
-          double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
-          trans->m_pos = Math::dVec2(randX, randY);
-          box->m_center = trans->m_pos;
-        }
+        double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
+        double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
+
+        GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity, GE::Math::dVec3{randX, randY, 0});
       }
       catch (GE::Debug::IExceptionBase& ex)
       {
@@ -384,6 +379,9 @@ void GE::EditorGUI::ImGuiHelper::UpdateViewport()
 
           for (GE::ECS::Entity curr : ecs->GetEntities())
           {
+            if (!ecs->GetIsActiveEntity(curr))
+              continue;
+
             // get sprite component
             auto const* transPtr = ecs->GetComponent<GE::Component::Transform>(curr);
             auto const& trans{ *transPtr };
