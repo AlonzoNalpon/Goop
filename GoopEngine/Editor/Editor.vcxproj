@@ -169,6 +169,7 @@
     <ClCompile Include="Source\ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="Source\ECS\System\System.cpp" />
     <ClCompile Include="Source\EditorUI\DataViz\Visualizer.cpp" />
+    <ClCompile Include="Source\EditorUI\EditorViewport.cpp" />
     <ClCompile Include="Source\EditorUI\Inspector.cpp" />
     <ClCompile Include="Source\EditorUI\OpenFileExplorer.cpp" />
     <ClCompile Include="Source\EditorUI\SceneControls.cpp" />
@@ -313,6 +314,7 @@
     <ClInclude Include="Source\ECS\Component\ComponentArray.h" />
     <ClInclude Include="Source\ECS\Component\ComponentManager.h" />
     <ClInclude Include="Source\EditorUI\DataViz\Visualizer.h" />
+    <ClInclude Include="Source\EditorUI\EditorViewport.h" />
     <ClInclude Include="Source\EditorUI\Inspector.h" />
     <ClInclude Include="Source\EditorUI\OpenFileExplorer.h" />
     <ClInclude Include="Source\EditorUI\SceneControls.h" />

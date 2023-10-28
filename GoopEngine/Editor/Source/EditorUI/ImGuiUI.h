@@ -162,7 +162,5 @@ namespace GE::EditorGUI
 		  Restart flag
 		************************************************************************/
 		static bool ShouldRestart();
-
-		static void UpdateViewport();
 	};
 }
