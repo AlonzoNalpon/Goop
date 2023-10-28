@@ -142,7 +142,7 @@ namespace GE::Assets
 			}
 			else if (AssetManager::ShaderFileExts.find(currExt) != std::string::npos)
 			{
-				m_shaders.emplace(file.path().stem().string(), file.path().string());
+				m_shaders.emplace(file.path().filename().string(), file.path().string());
 			}
 			else
 			{
