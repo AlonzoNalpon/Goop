@@ -19,7 +19,7 @@ namespace
 	std::filesystem::path m_currDir;
 	std::filesystem::path assetsDirectory;
 	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" };
-	float thumbnailSize = 128.0f;
+	float thumbnailSize = 300.0f;
 }
 
 void AssetBrowser::CreateContentDir()
@@ -133,8 +133,11 @@ void AssetBrowser::CreateContentView()
 
 void GE::EditorGUI::AssetBrowser::CreateContent()
 {
+	// 15 characters for file name
+	float charSize = CalcTextSize("012345678901234").x;
 	if (BeginTable("##", 2, ImGuiTableFlags_BordersInnerV))
 	{
+		TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize*2);
 		TableNextColumn();
 		CreateContentDir();
 		TableNextColumn();
