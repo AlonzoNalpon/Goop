@@ -35,9 +35,4 @@ namespace GE::Systems
         );
     }
   }
-
-  void RenderSystem::OnDestroyed()
-  {
-  }
-
 }

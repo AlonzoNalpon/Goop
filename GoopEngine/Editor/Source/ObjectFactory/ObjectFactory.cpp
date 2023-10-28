@@ -388,11 +388,14 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
   case SYSTEM_TYPES::SPRITE_ANIM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::SpriteAnimSystem>();
     RegisterComponentsToSystem<Systems::SpriteAnimSystem>(sig);
-    break;
-  case SYSTEM_TYPES::ROOT_TRANSFORM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::RootTransformSystem>();
-    RegisterComponentsToSystem<Systems::RootTransformSystem>(sig);
-    break;
+    break;  
+  case SYSTEM_TYPES::POST_ROOT_TRANSFORM:
+      EntityComponentSystem::GetInstance().RegisterSystem<Systems::PostRootTransformSystem>();
+      RegisterComponentsToSystem<Systems::PostRootTransformSystem>(sig);
+      break;
+  case SYSTEM_TYPES::PRE_ROOT_TRANSFORM:
+      EntityComponentSystem::GetInstance().RegisterSystem<Systems::PreRootTransformSystem>();
+      RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);
   case SYSTEM_TYPES::ENEMY_SYSTEM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::EnemySystem>();
     RegisterComponentsToSystem<Systems::EnemySystem>(sig);
