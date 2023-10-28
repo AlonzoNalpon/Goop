@@ -12,11 +12,20 @@ int main(int /*argc*/, char* /*argv*/[])
 
   GE::Application::AppController ac;
 
-  ac.Init();
+  try
+  {
+    ac.Init();
+    ac.Run();
+    ac.Exit();
+  }
+  catch (GE::Debug::IExceptionBase& e)
+  {
+    e.LogSource();
+  }
+  catch (std::exception& e)
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogCritical(e.what());
+  }
 
-  ac.Run();
-
-  ac.Exit();
-
-  return 1;
+  return 0;
 }
