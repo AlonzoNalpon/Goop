@@ -72,7 +72,7 @@ namespace GE::ObjectFactory
       Entity (Source),
       dVec2&& (Position of the cloned object)
     ************************************************************************/
-    void CloneObject(ECS::Entity obj, const Math::dVec2& newPos);
+    void CloneObject(ECS::Entity obj, const Math::dVec2& newPos = Math::dVec2{0, 0});
 
     /*!*********************************************************************
     \brief
