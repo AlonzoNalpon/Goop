@@ -79,6 +79,7 @@ void EntityManager::DestroyEntity(Entity& entity)
 	{
 		DestroyEntity(childEntity);
 	}
+	m_children[entity].clear();
 }
 
 bool GE::ECS::EntityManager::IsActiveEntity(Entity& entity)

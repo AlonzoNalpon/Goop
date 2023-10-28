@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "SceneManager.h"
+#include <Serialization/Serializer.h>
 
 using namespace GE::Scenes;
 
@@ -38,11 +39,11 @@ void SceneManager::SetNextScene(std::string nextScene)
   
   try
   {
-    if (nextScene == "SceneTest")
+    /*if (nextScene == "SceneTest")
     {
       scene.TestScene();
     }
-    else
+    else*/
     {
       LoadScene();
       InitScene();
@@ -78,12 +79,26 @@ void GE::Scenes::SceneManager::RestartScene()
   InitScene();
 }
 
-std::string SceneManager::GetCurrentScene()
+std::string GE::Scenes::SceneManager::GetCurrentScene() const noexcept
 {
   return this->m_currentScene;
 }
 
-std::string GE::Scenes::SceneManager::GetNextScene()
+std::string GE::Scenes::SceneManager::GetNextScene() const noexcept
 {
   return this->m_nextScene;
+}
+
+void GE::Scenes::SceneManager::SaveScene() const
+{
+  // Save systems back to original file
+  //Serialization::SerializeSystems(*Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems"));
+ 
+  // Save the scene
+  std::ostringstream filepath{};
+  filepath << Assets::AssetManager::GetInstance().GetConfigData<std::string>("Assets Dir")
+    << "Scenes/" << m_currentScene << Assets::AssetManager::GetInstance().GetConfigData<std::string>("Scene File Extension");
+  Serialization::Serializer::GetInstance().SerializeScene(filepath.str());
+
+  GE::Debug::ErrorLogger::GetInstance().LogMessage("Successfully saved scene to " + filepath.str());
 }

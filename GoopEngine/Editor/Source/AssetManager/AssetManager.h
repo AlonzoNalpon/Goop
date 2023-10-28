@@ -24,7 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #define ASSET_MANAGER_H
 #include <AssetManager/AssetStructs.h>
 #include "../Singleton/Singleton.h"
-#include "../Serialization/SpriteGooStream.h"
+#include <Serialization/GooStream/SpriteGooStream.h>
 
 namespace GE::Assets
 {

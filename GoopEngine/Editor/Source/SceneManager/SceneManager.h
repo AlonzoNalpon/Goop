@@ -82,13 +82,19 @@ namespace GE::Scenes
     \brief
       Getter function to get the value of the current scene.
     ************************************************************************/
-    std::string GetCurrentScene();
+    std::string GetCurrentScene() const noexcept;
 
     /*!*********************************************************************
     \brief
       Getter function to get the value of the next scene.
     ************************************************************************/
-    std::string GetNextScene();
+    std::string GetNextScene() const noexcept;
+
+    /*!*********************************************************************
+    \brief
+      Performs the necessary operations required to save a scene file
+    ************************************************************************/
+    void SaveScene() const;
 
   private:
     std::string m_currentScene;

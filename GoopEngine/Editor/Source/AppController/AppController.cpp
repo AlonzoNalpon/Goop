@@ -66,9 +66,8 @@ namespace GE::Application
     window = { am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), "Goop Engine"};
     window.CreateAppWindow();
 
-    gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
-    am->LoadFiles();
-    of.LoadPrefabsFromFile();
+      gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
+      am->LoadFiles();
 
     imgui.Init(window);
       

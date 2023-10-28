@@ -16,7 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "PrefabGooStream.h"
 #include <rapidjson/istreamwrapper.h>
-#include "../ECS/SystemTypes.h"
+#include <ECS/SystemTypes.h>
 
 using namespace GE::Serialization;
 

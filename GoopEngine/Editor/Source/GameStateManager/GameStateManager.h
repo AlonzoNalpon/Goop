@@ -27,7 +27,13 @@ namespace GE::GSM
     ************************************************************************/
     void SetNextScene(std::string next_scene);
 
-    std::string GetCurrentScene();
+    std::string GetCurrentScene() const;
+
+    /*!*********************************************************************
+    \brief
+      Calls on the scene manager to save the scene
+    ************************************************************************/
+    void SaveScene() const;
 
     /*!*********************************************************************
     \brief

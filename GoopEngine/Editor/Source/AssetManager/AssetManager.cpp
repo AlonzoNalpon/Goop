@@ -23,7 +23,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AssetManager/AssetManager.h>
 #include <filesystem>
 #include <Graphics/GraphicsEngine.h>
-#include "../Serialization/AssetGooStream.h"
+#include <Serialization/GooStream/AssetGooStream.h>
+#include <filesystem>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
