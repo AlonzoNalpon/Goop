@@ -1,23 +1,54 @@
 [
     {
         "Name": "Background",
+        "ParentID": null,
+        "Child Entities": [],
         "Components": [
             {
-              "Transform": {
-                "pos": "{ 0.0, 0.0, -997.0 }",
-                "scale": "{ 1600.0, 900.0, 1.0 }",
-                "rot": "{ 0.0, 0.0, 0.0 }"
-              }
+                "Transform": {
+                    "pos": "{ 0, 0, -997 }",
+                    "scale": "{ 1600, 900, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
             },
             {
-              "Sprite": {
-                "filename": "MainMenu"
-              }
+                "Sprite": {
+                    "filename": "Background"
+                }
             },
             {
-              "Model": {
-                "mdlID": 0
-              }
+                "Model": {
+                    "mdlID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "MineWorm",
+        "ParentID": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 2, 4, 0 }",
+                    "scale": "{ 150, 150, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "filename": "SS_MineWorm"
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MineWorm"
+                }
+            },
+            {
+                "Model": {
+                    "mdlID": 0
+                }
             }
         ]
     }

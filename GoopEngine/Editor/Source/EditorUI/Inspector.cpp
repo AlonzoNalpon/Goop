@@ -295,7 +295,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				break;
 			}
 			default:
-				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to serialize a component that is not being handled");
+				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled");
 				break;
 			}
 		}

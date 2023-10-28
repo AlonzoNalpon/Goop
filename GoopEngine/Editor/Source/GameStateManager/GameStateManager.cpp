@@ -22,9 +22,14 @@ void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
 	
 }
 
-std::string GE::GSM::GameStateManager::GetCurrentScene()
+std::string GE::GSM::GameStateManager::GetCurrentScene() const
 {
 	return sm.GetCurrentScene();
+}
+
+void GE::GSM::GameStateManager::SaveScene() const
+{
+	sm.SaveScene();
 }
 
 void GE::GSM::GameStateManager::Restart()

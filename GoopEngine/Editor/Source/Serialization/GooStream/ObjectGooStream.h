@@ -15,7 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include "IGooStream.h"
-#include "../ObjectFactory/ObjectStructs.h"
+#include <ObjectFactory/ObjectStructs.h>
 
 namespace GE
 {
@@ -23,8 +23,8 @@ namespace GE
   {
 
     // GooStream for Entities/Objects
-    class ObjectGooStream : public IGooIStream<std::map<std::string, ObjectFactory::ObjectData>>,
-                                   IGooOStream<std::map<std::string, ObjectFactory::ObjectData>>
+    class ObjectGooStream : public IGooIStream<std::vector<std::pair<std::string, ObjectFactory::ObjectData>>>,
+                                   IGooOStream<std::vector<std::pair<std::string, ObjectFactory::ObjectData>>>
     {
     public:
       // Ctor reading json file into stream
@@ -77,7 +77,6 @@ namespace GE
       bool Unload(std::string const& json, bool overwrite = true) override;
 
     private:
-      static const char JsonNameKey[], JsonComponentsKey[];
     };
 
   }

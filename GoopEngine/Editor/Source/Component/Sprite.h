@@ -6,8 +6,6 @@ namespace GE::Component
   struct Sprite
   {
     Graphics::SpriteData spriteData; //!< composed of sprite data
-
-    inline GLuint GetTextureHandle() const noexcept { return spriteData.texture; }
   };
 }
 #endif

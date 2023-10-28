@@ -11,10 +11,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ToolBar.h"
 #include <ImGui/imgui.h>
 #include <AssetManager/AssetManager.h>
-#include <Serialization/Serialization.h>
+#include <GameStateManager/GameStateManager.h>
 #include <EditorUI/DataViz/Visualizer.h>
 #include <ImGui/imgui_internal.h>
-#include <ObjectFactory/GivingMyself90MinToFigureThisOut.h>
 #include <EditorUI/OpenFileExplorer.h>
 
 using namespace ImGui;
@@ -34,10 +33,7 @@ void GE::EditorGUI::ToolBar::CreateContent()
 
       if (Selectable("Save"))
       {
-        // Save systems back to original file
-        //Serialization::SerializeSystems(*Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems"));
-
-        Serialization::SerializeScene("Assets/Scenes/Serialized.scn");
+        GSM::GameStateManager::GetInstance().SaveScene();
       }
       if (Selectable("Open"))
       {

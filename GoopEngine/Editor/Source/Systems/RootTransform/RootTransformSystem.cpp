@@ -32,7 +32,7 @@ void GE::Systems::RootTransformSystem::Propergate(GE::ECS::Entity& entity, const
 	GE::Component::Transform* trans = m_ecs->GetComponent<GE::Component::Transform>(entity);
 
 	if (trans == nullptr)
-		GE::Debug::Exception<RootTransformSystem>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(entity) + " is missing a transform component. All entities must have a transform component!!"));
+		throw GE::Debug::Exception<RootTransformSystem>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(entity) + " is missing a transform component. All entities must have a transform component!!"));
 
 	trans->m_parentWorldTransform = parentWorldTrans;
 
