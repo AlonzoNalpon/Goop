@@ -267,22 +267,6 @@ std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ObjectFactory::MapEntityIDs
   return ret;
 }
 
-std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ObjectFactory::MapEntityIDs() const
-{
-  GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
-
-  std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ret{};
-  GE::ECS::Entity currentID{};  // the current lowest id
-  // assigns each entity to a new id starting from 0 with no gaps in between
-  for (GE::ECS::Entity const& entity : ecs.GetEntities())
-  {
-    ret.emplace(entity, currentID);
-    ++currentID;
-  }
-
-  return ret;
-}
-
 bool ObjectFactory::LoadObjects(std::set<GE::ECS::Entity>& map)
 {
   try
@@ -368,9 +352,6 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
   case SYSTEM_TYPES::PRE_ROOT_TRANSFORM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::PreRootTransformSystem>();
     RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);
-  case SYSTEM_TYPES::ROOT_TRANSFORM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::RootTransformSystem>();
-    RegisterComponentsToSystem<Systems::RootTransformSystem>(sig);
   case SYSTEM_TYPES::ENEMY_SYSTEM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::EnemySystem>();
     RegisterComponentsToSystem<Systems::EnemySystem>(sig);
