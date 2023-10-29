@@ -146,9 +146,8 @@ void GE::Systems::PostRootTransformSystem::Propergate(GE::ECS::EntityComponentSy
 		 { 0, 0, 1, 0 },
 		 { 0, 0, 0, 1 }
 	};
-
-	//trans->m_worldTransform = trans->m_parentWorldTransform * (T * (X * Y * Z) * S);
-	trans->m_worldTransform = trans->m_parentWorldTransform * (T * Z * textureScale * S);
+	
+	trans->m_worldTransform = trans->m_parentWorldTransform * (T * (X * Y * Z) * textureScale * S);
 
 	std::set<GE::ECS::Entity>& m_children = ecs.GetChildEntities(entity);
 	// End condition no children
