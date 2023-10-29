@@ -151,6 +151,7 @@ void FrameRateController::EndFrame()
 void FrameRateController::StartFrame()
 {
 	static bool firstFrame = true;
+	m_fpsControllerMap.clear();
 	// First frame don't take glfw initial start time as it includes glfw start up
 	// not simulation start up
 	if (firstFrame)
@@ -188,11 +189,12 @@ void FrameRateController::StartSystemTimer()
 void FrameRateController::EndSystemTimer(std::string systemName)
 {
 	auto endTime = std::chrono::high_resolution_clock::now();
-	m_fpsControllerMap[systemName] = std::chrono::duration_cast<timeFormat>(endTime - m_systemTimeStart);
+	m_fpsControllerMap.push_back(std::make_pair(systemName,std::chrono::duration_cast<timeFormat>(endTime - m_systemTimeStart)));
 	m_systemTimeStart = endTime;
 }
 
-const std::unordered_map<std::string, FrameRateController::timeFormat>& GE::FPS::FrameRateController::GetSystemTimers() noexcept
+
+const std::vector<std::pair<std::string, FrameRateController::timeFormat>>& GE::FPS::FrameRateController::GetSystemTimers() noexcept
 {
 	return m_fpsControllerMap;
 }

@@ -216,7 +216,7 @@ namespace GE
 			\return
 			  FPS Controller system time map
 			************************************************************************/
-			const std::unordered_map<std::string, std::chrono::microseconds>& GetSystemTimers() noexcept;
+			const std::vector<std::pair<std::string, FrameRateController::timeFormat>>& GetSystemTimers() noexcept;
 
 		private:
 			double m_currentFPS{};
@@ -235,7 +235,7 @@ namespace GE
 			int m_framePassed{};
 
 			std::chrono::time_point<std::chrono::high_resolution_clock> m_systemTimeStart{};
-			std::unordered_map<std::string, timeFormat> m_fpsControllerMap;
+			std::vector<std::pair<std::string, timeFormat>> m_fpsControllerMap;
 		};
 	}
 	
