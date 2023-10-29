@@ -247,7 +247,7 @@ void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
   Component::Transform* trans{ ecs.GetComponent<Component::Transform>(newObj) };
   if (trans) 
   {
-    trans->m_pos = newPos;
+    trans->m_worldPos = newPos;
   }
 }
 

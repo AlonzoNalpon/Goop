@@ -113,7 +113,7 @@ void GE::Systems::PostRootTransformSystem::Propergate(GE::ECS::EntityComponentSy
 	double scaleX{1.0}, scaleY{1.0}; // default: 1
 
 	// Precompute every matrix that is the same
-	Math::dMat4 resultMtx = trans->m_parentWorldTransform * T * X * Y * Z;
+	Math::dMat4 resultMtx = T * X * Y * Z;
 	// Compute render matrix to use sprite dimensions (This matrix used for render only)
 	if (ecs.HasComponent<Component::Sprite>(entity))
 	{

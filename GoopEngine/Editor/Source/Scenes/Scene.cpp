@@ -71,7 +71,7 @@ void GE::Scenes::Scene::TestScene()
 	//ecs->AddComponent(entt, col);
 
 	Entity player = ecs->CreateEntity();
-	Transform playerTrans({ -350, 350, 0 }, { 1, 1, 1 }, { 0.0, 0.0, 45.0 });
+	Transform playerTrans({ -350, 350, 0 }, { 1, 1, 1 }, { 0.0, 0.0, 0.0 });
 	BoxCollider playerCollider(playerTrans.m_pos, 150, 150); //should collide
 
 	Tween tween(3.0);
