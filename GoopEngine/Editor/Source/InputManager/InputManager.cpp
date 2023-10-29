@@ -36,7 +36,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "InputManager.h"
 #include <ImGui/backends/imgui_impl_glfw.h>
 #include "../Events/InputEvents.h"
-
+#include <Graphics/GraphicsEngine.h>
 #define UNREFERENCED_PARAMETER(P) (P)
 
 using namespace GE::Input;
@@ -155,10 +155,9 @@ vec2  InputManager::GetMousePos()
 
 vec2  InputManager::GetMousePosWorld()
 {
-	vec2 worldPos = m_mousePos;
-	worldPos.x -= static_cast<double>(m_width)/2;
-	worldPos.y = (static_cast<double>(m_height) / 2)-worldPos.y;
-	return  worldPos;
+	auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
+	Graphics::gVec2 worldPosF32{ gEngine.ScreenToWS({ static_cast<GLfloat>(m_mousePos.x), static_cast<GLfloat>(m_height - m_mousePos.y) }, 0) };
+	return  {worldPosF32.x, worldPosF32.y};
 }
 
 

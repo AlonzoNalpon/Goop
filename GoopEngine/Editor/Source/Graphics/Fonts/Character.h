@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   Character.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains definition of character struct for fonts
         This is to be used with freetype's library

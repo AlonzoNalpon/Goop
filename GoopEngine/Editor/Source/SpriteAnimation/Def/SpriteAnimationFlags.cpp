@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   SpriteAnimationFlags.cpp
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains all definitions for SpriteAnimationFlags
 scoped enum methods. Mostly bit twiddling stuff

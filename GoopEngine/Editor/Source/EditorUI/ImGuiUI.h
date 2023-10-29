@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include <ECS/EntityComponentSystem.h>
 #include <Window/Window.h>
-
+#include <Graphics/Renderer/FrameBufferInfo.h>
 namespace GE::EditorGUI
 {
 	class ImGuiUI
@@ -18,6 +18,7 @@ namespace GE::EditorGUI
 	private:
 		WindowSystem::Window* window;
 		GE::ECS::EntityComponentSystem* ecs;
+		std::pair<Graphics::gObjID, Graphics::Rendering::FrameBufferInfo*> frameBuffer;
 	public:
 		/*!******************************************************************
 		\brief 
@@ -163,6 +164,5 @@ namespace GE::EditorGUI
 		************************************************************************/
 		static bool ShouldRestart();
 
-		static void UpdateViewport();
 	};
 }

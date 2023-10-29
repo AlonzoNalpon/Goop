@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   Renderer.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the definition for Renderer class.
   
@@ -15,6 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/TextureManager.h>
 #include <Graphics/Renderer/Camera.h>
 #include <Graphics/Fonts/FontManager.h>
+#include <Graphics/Renderer/FrameBufferInfo.h>
 namespace Graphics::Rendering
 {
   /*!
@@ -32,8 +33,9 @@ namespace Graphics::Rendering
   public:
 
     
-    Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, ShaderCont const& shaderCont
-    , Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight);
+    Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager,
+      ShaderCont const& shaderCont, Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight,
+      std::map < gObjID, FrameBufferInfo> const& frameBuffers);
 
     /*!*********************************************************************
     \brief
@@ -66,6 +68,14 @@ namespace Graphics::Rendering
     \return
     ************************************************************************/
     void Draw();
+
+    /*!*********************************************************************
+    \brief
+      Clears all render data.
+    \params
+    \return
+    ************************************************************************/
+    void ClearRenderData();
 
     void DrawFontObj(std::string const& str, gVec2 pos, gVec2 const& scale, Colorf const& clr, std::string const& fontName);
 
@@ -111,7 +121,8 @@ namespace Graphics::Rendering
     Fonts::FontManager const&           r_fontManager;  //!< reference to the font manager
     GLint const&                        r_vpWidth;
     GLint const&                        r_vpHeight;
-
+    std::map < gObjID, 
+      FrameBufferInfo> const&           r_frameBuffers; //!< reference to framebuffers
     // primitive models
     gObjID                              m_lineMdlObj;   //!< handle to line model
   };

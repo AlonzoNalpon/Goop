@@ -150,13 +150,13 @@ namespace GE
         return jsonVal;
       }
 
-      /*else if (valueType == rttr::type::get<Graphics::SpriteData>())
+      else if (valueType == rttr::type::get<Graphics::SpriteData>())
       {
         unsigned const texID{ valueType.get_method("GetTextureHandle").invoke(value).to_uint32() };
         Graphics::GraphicsEngine const& gE{ Graphics::GraphicsEngine::GetInstance() }; 
         unsigned const texHandle{ gE.textureManager.GetTexture(texID).textureHandle };
         jsonVal.SetString(gE.textureManager.GetTextureName(texHandle).c_str(), allocator);
-      }*/
+      }
       else
       {
         std::ostringstream oss{};
