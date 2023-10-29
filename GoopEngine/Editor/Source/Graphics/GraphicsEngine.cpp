@@ -83,11 +83,11 @@ namespace {
 
     //Initialize renderer with a camera
     {
-      Rendering::Camera orthoCam{ {0.f,0.f,20.1f},                          // pos
+      Rendering::Camera orthoCam{ {0.f,0.f,1000.1f},                          // pos
                                   {},                                     // target
                                   {.0f, 1.f, 0.f},                        // up vector
                                   -w * 0.5f, w * 0.5f, -h * 0.5f, h * 0.5f,   // left right bottom top
-                                  0.1f, 1020.f };                         // near and far z planes
+                                  0.1f, 2000.1f };                         // near and far z planes
       m_renderer.Init(orthoCam, m_models.size()-1); // line model index
     }
 
