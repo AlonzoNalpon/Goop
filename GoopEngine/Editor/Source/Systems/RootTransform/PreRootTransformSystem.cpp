@@ -107,8 +107,7 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 		{ 0, 0, 0, 1 }
 	};
 
-	//trans->m_worldTransform = (T * (X * Y * Z) * S);
-	trans->m_worldTransform = (T * Z * S);
+	trans->m_worldTransform = (T * (X * Y * Z) * S);
 
 	std::set<GE::ECS::Entity>& m_children = ecs.GetChildEntities(entity);
 	// End condition no children
