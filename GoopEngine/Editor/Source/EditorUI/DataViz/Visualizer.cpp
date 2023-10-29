@@ -35,7 +35,7 @@ void Visualizer::UpdateSystemTimes()
     static int framesElapsed{};
     if (framesElapsed >= m_framesPerUpdate)
     {
-      std::map<std::string, FPS::FrameRateController::timeFormat> const& timers{ fRC.GetSystemTimers() };
+      auto const& timers{ fRC.GetSystemTimers() };
       // clear and reset maps if size changes
       if (m_systemsToGraph.size() != timers.size())
       {
@@ -46,7 +46,7 @@ void Visualizer::UpdateSystemTimes()
       }
 
       m_totalSystemTime = 0.f;
-      std::map<std::string, FPS::FrameRateController::timeFormat>::const_iterator iter{ timers.cbegin() };
+      auto iter{ timers.cbegin() };
       for (unsigned i{}; i < timers.size(); ++i, ++iter)
       {
         m_systemsToGraph[i] = iter->first.c_str();

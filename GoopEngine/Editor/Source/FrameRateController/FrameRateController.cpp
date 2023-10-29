@@ -192,7 +192,7 @@ void FrameRateController::EndSystemTimer(std::string systemName)
 	m_systemTimeStart = endTime;
 }
 
-const std::map<std::string, FrameRateController::timeFormat>& GE::FPS::FrameRateController::GetSystemTimers() noexcept
+const std::unordered_map<std::string, FrameRateController::timeFormat>& GE::FPS::FrameRateController::GetSystemTimers() noexcept
 {
 	return m_fpsControllerMap;
 }

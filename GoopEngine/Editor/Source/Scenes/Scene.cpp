@@ -42,6 +42,8 @@ void GE::Scenes::Scene::Free()
 
 void GE::Scenes::Scene::TestScene()
 {
+	// This is a hard coded function for us to test stuff without having to 
+	// write it to json file or serialize
 	of->LoadSceneJson("SceneTest");
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj);

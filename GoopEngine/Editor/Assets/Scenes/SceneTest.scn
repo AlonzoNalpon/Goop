@@ -1,50 +1,5 @@
 [
     {
-        "Name": "Entity 2",
-        "ParentID": null,
-        "Child Entities": [
-            1,
-            3
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 200, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 200, 0 }",
-                    "width": 150.0,
-                    "height": 150.0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Entity 3",
-        "ParentID": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -200, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 100.0,
-                    "height": 200.0
-                }
-            }
-        ]
-    },
-    {
         "Name": "Background",
         "ParentID": null,
         "Child Entities": [

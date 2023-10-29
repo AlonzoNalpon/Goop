@@ -105,7 +105,6 @@ namespace GE::Application
           imgui.Update();
           fRC.EndSystemTimer("ImGui Update");
 
-          fRC.StartSystemTimer();
 #ifndef NO_IMGUI
           if (GE::EditorGUI::ImGuiHelper::IsRunning())
           {
@@ -126,7 +125,6 @@ namespace GE::Application
 #else
           ecs->UpdateSystems();
 #endif  // NO_IMGUI
-          fRC.EndSystemTimer("Scene Update");
 
           gsm.Update();
         }
