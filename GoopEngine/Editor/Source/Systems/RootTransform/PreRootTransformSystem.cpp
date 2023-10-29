@@ -56,33 +56,32 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 	if (parent != GE::ECS::INVALID_ID)
 	{
 		parentTrans = ecs.GetComponent<GE::Component::Transform>(parent);
-		trans->m_pos = parentWorldTrans * GE::Math::dVec4(trans->m_localPos, 1);
-		trans->m_scale = trans->m_localScale * parentTrans->m_scale;
-		trans->m_rot = trans->m_localRot + parentTrans->m_rot;
-		trans->m_rot = GE::Math::Wrap(trans->m_rot, 0, 360);
+		trans->m_worldPos = parentWorldTrans * GE::Math::dVec4(trans->m_pos, 1);
+		trans->m_worldScale = trans->m_scale * parentTrans->m_scale;
+		trans->m_worldRot = trans->m_rot + parentTrans->m_rot;
 	}
 	else
 	{
-		trans->m_pos = trans->m_localPos;
-		trans->m_scale = trans->m_localScale;
-		trans->m_rot = trans->m_localRot;
+		trans->m_worldPos = trans->m_pos;
+		trans->m_worldScale = trans->m_scale;
+		trans->m_worldRot = trans->m_rot;
 	}
 
 	Math::dMat4 T
 	{
-		{ 1, 0, 0, trans->m_pos.x },
-		{ 0, 1, 0, trans->m_pos.y },
-		{ 0, 0, 1, trans->m_pos.z },
+		{ 1, 0, 0, trans->m_worldPos.x },
+		{ 0, 1, 0, trans->m_worldPos.y },
+		{ 0, 0, 1, trans->m_worldPos.z },
 		{ 0, 0, 0, 1 }
 	};
 	Math::dMat4 S
 	{
-		{ trans->m_scale.x, 0, 0, 0 },
-		{ 0, trans->m_scale.y, 0, 0 },
+		{ trans->m_worldScale.x, 0, 0, 0 },
+		{ 0, trans->m_worldScale.y, 0, 0 },
 		{ 0, 0, 1, 0 },
 		{ 0, 0, 0, 1 }
 	};
-	double rad = trans->m_rot.z / 180.0 * M_PI;
+	double rad = (trans->m_worldRot.z / 180.0) * M_PI;
 	Math::dMat4 Z
 	{
 		{ std::cos(rad), -std::sin(rad), 0, 0 },
@@ -90,7 +89,8 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 		{ 0, 0, 1, 0 },
 		{ 0, 0, 0, 1 }
 	};
-	rad = trans->m_rot.y / 180.0 * M_PI;
+	std::cout << "Cos(" << rad << ") = " << std::cos(rad) << "\nSin(" << rad << ") = " << std::sin(rad) << std::endl;
+	rad = (trans->m_worldRot.y / 180.0) * M_PI;
 	Math::dMat4 Y
 	{
 		{ std::cos(rad), std::sin(rad), 0, 0 },
@@ -98,7 +98,7 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 		{ -std::sin(rad), 0, std::cos(rad), 0 },
 		{ 0, 0, 0, 1 }
 	};
-	rad = trans->m_rot.x / 180.0 * M_PI;
+	rad = (trans->m_worldRot.x / 180.0) * M_PI;
 	Math::dMat4 X
 	{
 		{ 1, 0, 0, 0 },
@@ -107,7 +107,8 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 		{ 0, 0, 0, 1 }
 	};
 
-	trans->m_worldTransform = (T * (X * Y * Z) * S);
+	//trans->m_worldTransform = (T * (X * Y * Z) * S);
+	trans->m_worldTransform = (T * Z * S);
 
 	std::set<GE::ECS::Entity>& m_children = ecs.GetChildEntities(entity);
 	// End condition no children

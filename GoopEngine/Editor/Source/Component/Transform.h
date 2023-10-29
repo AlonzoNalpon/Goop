@@ -22,22 +22,22 @@ namespace GE
 			\brief
 				Default contructor
 			************************************************************************/
-			Transform() : m_pos{}, m_scale{}, m_rot{}, m_localPos{}, m_localScale{}, m_localRot{} {}
+			Transform() : m_pos{}, m_scale{}, m_rot{}, m_worldPos{}, m_worldScale{}, m_worldRot{} {}
 
 			/*!*********************************************************************
 			\brief
 				Overload contructor
 			************************************************************************/
 			Transform(Math::dVec3 const& pos, Math::dVec3 const& scale, Math::dVec3 const& rot)
-				: m_localPos{ pos }, m_localScale{ scale }, m_localRot{ rot } {}
+				: m_worldPos{ pos }, m_worldScale{ scale }, m_worldRot{ rot } {}
 
 			vec3 m_pos;
 			vec3 m_scale;
 			vec3 m_rot;
 
-			vec3 m_localPos;
-			vec3 m_localScale;
-			vec3 m_localRot;
+			vec3 m_worldPos;
+			vec3 m_worldScale;
+			vec3 m_worldRot;
 
 			Math::dMat4 m_parentWorldTransform;
 			Math::dMat4 m_worldTransform;

@@ -196,11 +196,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 					TableNextRow();
-					if (InputDouble3("Position", trans->m_localPos, inputWidth)) { valChanged = true; };
+					if (InputDouble3("Position", trans->m_pos, inputWidth)) { valChanged = true; };
 					TableNextRow();
-					if (InputDouble3("Scale", trans->m_localScale, inputWidth)) { valChanged = true; };
+					if (InputDouble3("Scale", trans->m_scale, inputWidth)) { valChanged = true; };
 					TableNextRow();
-					if (InputDouble3("Rotation", trans->m_localRot, inputWidth)) { valChanged = true; };
+					if (InputDouble3("Rotation", trans->m_rot, inputWidth)) { valChanged = true; };
+
+					TableNextRow();
+					InputDouble3("World Position", trans->m_worldPos, inputWidth, true);
+					TableNextRow();
+					InputDouble3("World Scale", trans->m_worldScale, inputWidth, true);
+					TableNextRow();
+					InputDouble3("World Rotation", trans->m_worldRot, inputWidth, true);
+
 					EndTable();
 					Separator();
 					if (valChanged) 
