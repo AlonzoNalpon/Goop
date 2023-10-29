@@ -12,6 +12,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "PreRootTransformSystem.h"
 #include <Component/Transform.h>
 #include "TransformSystemHelper.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 void GE::Systems::PreRootTransformSystem::Update()
 {
@@ -65,6 +67,47 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 		trans->m_scale = trans->m_localScale;
 		trans->m_rot = trans->m_localRot;
 	}
+
+	Math::dMat4 T
+	{
+		{ 1, 0, 0, trans->m_pos.x },
+		{ 0, 1, 0, trans->m_pos.y },
+		{ 0, 0, 1, trans->m_pos.z },
+		{ 0, 0, 0, 1 }
+	};
+	Math::dMat4 S
+	{
+		{ trans->m_scale.x, 0, 0, 0 },
+		{ 0, trans->m_scale.y, 0, 0 },
+		{ 0, 0, 1, 0 },
+		{ 0, 0, 0, 1 }
+	};
+	double rad = trans->m_rot.z / 180.0 * M_PI;
+	Math::dMat4 Z
+	{
+		{ std::cos(rad), -std::sin(rad), 0, 0 },
+		{ std::sin(rad), std::cos(rad), 0, 0 },
+		{ 0, 0, 1, 0 },
+		{ 0, 0, 0, 1 }
+	};
+	rad = trans->m_rot.y / 180.0 * M_PI;
+	Math::dMat4 Y
+	{
+		{ std::cos(rad), std::sin(rad), 0, 0 },
+		{ 0, 1, 0, 0 },
+		{ -std::sin(rad), 0, std::cos(rad), 0 },
+		{ 0, 0, 0, 1 }
+	};
+	rad = trans->m_rot.x / 180.0 * M_PI;
+	Math::dMat4 X
+	{
+		{ 1, 0, 0, 0 },
+		{ 0, std::cos(rad), -std::sin(rad), 0 },
+		{ 0, std::sin(rad), std::cos(rad), 0 },
+		{ 0, 0, 0, 1 }
+	};
+
+	trans->m_worldTransform = (T * (X * Y * Z) * S);
 
 	std::set<GE::ECS::Entity>& m_children = ecs.GetChildEntities(entity);
 	// End condition no children

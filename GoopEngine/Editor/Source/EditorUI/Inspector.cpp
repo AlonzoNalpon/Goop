@@ -195,17 +195,12 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					InputDouble3("Position", trans->m_pos, inputWidth, true);
 					TableNextRow();
-					InputDouble3("Scale", trans->m_scale, inputWidth, true);
+					if (InputDouble3("Position", trans->m_localPos, inputWidth)) { valChanged = true; };
 					TableNextRow();
-					InputDouble3("Rotation", trans->m_rot, inputWidth, true);
+					if (InputDouble3("Scale", trans->m_localScale, inputWidth)) { valChanged = true; };
 					TableNextRow();
-					if (InputDouble3("Local Position", trans->m_localPos, inputWidth)) { valChanged = true; };
-					TableNextRow();
-					if (InputDouble3("Local Scale", trans->m_localScale, inputWidth)) { valChanged = true; };
-					TableNextRow();
-					if (InputDouble3("Local Rotation", trans->m_localRot, inputWidth)) { valChanged = true; };
+					if (InputDouble3("Rotation", trans->m_localRot, inputWidth)) { valChanged = true; };
 					EndTable();
 					Separator();
 					if (valChanged) 
