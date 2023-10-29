@@ -32,9 +32,9 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::Transform>("Transform")
     .constructor<>()
     .constructor<Math::dVec3 const&, Math::dVec3 const&, Math::dVec3 const&>()
-    .property("pos", &Component::Transform::m_pos)
-    .property("scale", &Component::Transform::m_scale)
-    .property("rot", &Component::Transform::m_rot)
+    .property("worldPos", &Component::Transform::m_worldPos)
+    .property("worldScale", &Component::Transform::m_worldScale)
+    .property("worldRot", &Component::Transform::m_worldRot)
     ;
 
   rttr::registration::class_<Component::BoxCollider>("BoxCollider")

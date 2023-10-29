@@ -39,7 +39,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <GL/glew.h> // for access to OpenGL API declarations 
 #include <GLFW/glfw3.h>
 #include <string>
-#include <map>
+#include <unordered_map>
 #include "../Singleton/Singleton.h"
 #include <chrono>
 
@@ -51,6 +51,7 @@ namespace GE
 		{
 		public:
 			using timeFormat = std::chrono::microseconds;
+			using systemTimerList = std::vector<std::pair<std::string, timeFormat>>;
 
 			/*!*********************************************************************
 			\brief
@@ -216,7 +217,7 @@ namespace GE
 			\return
 			  FPS Controller system time map
 			************************************************************************/
-			const std::map<std::string, std::chrono::microseconds>& GetSystemTimers() noexcept;
+			const std::vector<std::pair<std::string, FrameRateController::timeFormat>>& GetSystemTimers() noexcept;
 
 		private:
 			double m_currentFPS{};
@@ -235,7 +236,7 @@ namespace GE
 			int m_framePassed{};
 
 			std::chrono::time_point<std::chrono::high_resolution_clock> m_systemTimeStart{};
-			std::map<std::string, timeFormat> m_fpsControllerMap;
+			systemTimerList m_fpsControllerMap;
 		};
 	}
 	

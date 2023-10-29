@@ -236,6 +236,7 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
 void GE::ObjectFactory::ObjectFactory::EmptyMap()
 {
   m_objects.clear();
+  m_prefabs.clear();
 }
 
 void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
@@ -248,7 +249,7 @@ void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
   Component::Transform* trans{ ecs.GetComponent<Component::Transform>(newObj) };
   if (trans) 
   {
-    trans->m_pos = newPos;
+    trans->m_worldPos = newPos;
   }
 }
 
@@ -349,17 +350,13 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::SpriteAnimSystem>();
     RegisterComponentsToSystem<Systems::SpriteAnimSystem>(sig);
     break;  
-  // ====== uncomment when root transform is pushed ====== //
-  /*case SYSTEM_TYPES::POST_ROOT_TRANSFORM:
-      EntityComponentSystem::GetInstance().RegisterSystem<Systems::PostRootTransformSystem>();
-      RegisterComponentsToSystem<Systems::PostRootTransformSystem>(sig);
-      break;
+  case SYSTEM_TYPES::POST_ROOT_TRANSFORM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PostRootTransformSystem>();
+    RegisterComponentsToSystem<Systems::PostRootTransformSystem>(sig);
+    break;
   case SYSTEM_TYPES::PRE_ROOT_TRANSFORM:
-      EntityComponentSystem::GetInstance().RegisterSystem<Systems::PreRootTransformSystem>();
-      RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);*/
-  case SYSTEM_TYPES::ROOT_TRANSFORM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::RootTransformSystem>();
-    RegisterComponentsToSystem<Systems::RootTransformSystem>(sig);
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PreRootTransformSystem>();
+    RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);
   case SYSTEM_TYPES::ENEMY_SYSTEM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::EnemySystem>();
     RegisterComponentsToSystem<Systems::EnemySystem>(sig);

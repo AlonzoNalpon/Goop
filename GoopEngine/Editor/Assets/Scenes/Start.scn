@@ -6,9 +6,9 @@
     "Components": [
       {
         "Transform": {
-          "pos": "{ 0, 0, -997 }",
-          "scale": "{ 1600, 900, 1 }",
-          "rot": "{ 0, 0, 0 }"
+          "worldPos": "{ 0, 0, -997 }",
+          "worldScale": "{ 1600, 900, 1 }",
+          "worldRot": "{ 0, 0, 0 }"
         }
       },
       {
@@ -30,9 +30,9 @@
     "Components": [
       {
         "Transform": {
-          "pos": "{ 2, 4, 0 }",
-          "scale": "{ 150, 150, 1 }",
-          "rot": "{ 0, 0, 0 }"
+          "worldPos": "{ 2, 4, 0 }",
+          "worldScale": "{ 150, 150, 1 }",
+          "worldRot": "{ 0, 0, 0 }"
         }
       },
       {

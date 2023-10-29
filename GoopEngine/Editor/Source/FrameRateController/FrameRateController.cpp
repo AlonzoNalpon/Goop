@@ -188,11 +188,25 @@ void FrameRateController::StartSystemTimer()
 void FrameRateController::EndSystemTimer(std::string systemName)
 {
 	auto endTime = std::chrono::high_resolution_clock::now();
-	m_fpsControllerMap[systemName] = std::chrono::duration_cast<timeFormat>(endTime - m_systemTimeStart);
+	systemTimerList::iterator iter = std::find_if(m_fpsControllerMap.begin(), m_fpsControllerMap.end(), [systemName](std::pair<std::string, FrameRateController::timeFormat>& timing) -> bool
+	{
+		return timing.first == systemName;
+	});
+	if (iter != m_fpsControllerMap.end())
+	{
+		iter->second = std::chrono::duration_cast<timeFormat>(endTime - m_systemTimeStart);
+	}
+	else
+	{
+		m_fpsControllerMap.push_back(std::make_pair(systemName, std::chrono::duration_cast<timeFormat>(endTime - m_systemTimeStart)));
+	}
+
+
 	m_systemTimeStart = endTime;
 }
 
-const std::map<std::string, FrameRateController::timeFormat>& GE::FPS::FrameRateController::GetSystemTimers() noexcept
+
+const std::vector<std::pair<std::string, FrameRateController::timeFormat>>& GE::FPS::FrameRateController::GetSystemTimers() noexcept
 {
 	return m_fpsControllerMap;
 }

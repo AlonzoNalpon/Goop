@@ -34,7 +34,7 @@ namespace GE
 				m_mouseCollided{ false },
 				m_render{ false }
 			{
-
+				m_collided.clear();
 			}
 
 			double m_width;
@@ -56,7 +56,7 @@ namespace GE
 			{
 				// Idk how to tell if i'm no longer collided with something else. Please do if free (I DID IT)
 				Graphics::Colorf boxColor = 
-					(m_collided.size() > 1? // THIS IS SUPPOSED TO BE BOOL THAT INDICATES IS COLLIDING
+					(!m_collided.empty() ? // THIS IS SUPPOSED TO BE BOOL THAT INDICATES IS COLLIDING
 					Graphics::Colorf{1.f, 0.f, 0.f, 1.f}			// collided : red
 				: Graphics::Colorf{ 0.f, 1.f, 0.f, 1.f });	// not collided: green
 

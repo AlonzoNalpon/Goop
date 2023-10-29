@@ -32,10 +32,7 @@ void GE::Scenes::Scene::Unload()
 	std::set<ECS::Entity> entities = ecs->GetEntities();
 	for (auto entity : entities)
 	{
-		/*if (ecs->GetIsActiveEntity(entity))
-		{*/
-			ecs->DestroyEntity(entity);
-		//}
+		ecs->DestroyEntity(entity);
 	}
 }
 
@@ -46,6 +43,9 @@ void GE::Scenes::Scene::Free()
 
 void GE::Scenes::Scene::TestScene()
 {
+	// This is a hard coded function for us to test stuff without having to 
+	// write it to json file or serialize
+	of->LoadSceneJson("SceneTest");
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj);
 	Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
@@ -56,22 +56,23 @@ void GE::Scenes::Scene::TestScene()
 	Transform trans{};
 	trans.m_scale = { 1, 1, 1 };
 	BoxCollider col{};
-	col.m_width = 100;
-	col.m_height = 200;
-	col.m_render = true;
-	ecs->AddComponent(entt, trans);
-	ecs->AddComponent(entt, col);
-
-	entt = ecs->CreateEntity();
-	trans.m_pos.x = 200;
+	trans.m_worldPos.x = 200;
 	col.m_width = 150;
 	col.m_height = 150;
 	col.m_render = true;
 	ecs->AddComponent(entt, trans);
 	ecs->AddComponent(entt, col);
 
+	//entt = ecs->CreateEntity();
+	//trans.m_pos.x = 200;
+	//col.m_width = 150;
+	//col.m_height = 150;
+	//col.m_render = true;
+	//ecs->AddComponent(entt, trans);
+	//ecs->AddComponent(entt, col);
+
 	Entity player = ecs->CreateEntity();
-	Transform playerTrans({ -350, 350, 0 }, { 150, 150, 1 }, { 0.0, 0.0, 45.0 });
+	Transform playerTrans({ -350, 350, 0 }, { 1, 1, 1 }, { 0.0, 0.0, 0.0 });
 	BoxCollider playerCollider(playerTrans.m_pos, 150, 150); //should collide
 
 	Tween tween(3.0);
@@ -108,12 +109,12 @@ void GE::Scenes::Scene::TestScene()
 	GE::AI::TreeTemplate newTemp{ node0, node1,node2, node3 ,node4, node5,node6, node7 };
 	GE::AI::Tree GameTree = GE::AI::CreateTree(newTemp);
 	std::vector<GE::AI::Tree> treeList{ GameTree };
-	//GE::Systems::EnemySystem::InitTree(treeList);
+	GE::Systems::EnemySystem::InitTree(treeList);
 	GE::Systems::EnemySystem::SetPlayerID(player);
 
 	Entity enemy = ecs->CreateEntity();
 
-	Transform enemyTrans({ 100, 100, 0 }, { 150, 150, 1 }, { 0.0, 0.0,0.0 });
+	Transform enemyTrans({ 100, 100, 0 }, { 1, 1, 1 }, { 0.0, 0.0,0.0 });
 	EnemyAI newAI = EnemyAI(enemy, GE::AI::TreeCache());
 	newAI.m_enemyTreeCache.m_nodeCacheStack.push_front(GE::AI::NodeCache(0, 0, GE::AI::NODE_STATES::STATE_NEW));
 

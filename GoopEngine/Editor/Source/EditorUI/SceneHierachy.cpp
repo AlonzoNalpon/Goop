@@ -10,10 +10,14 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "SceneHierachy.h"
 #include <ImGui/imgui.h>
-#include <Systems/RootTransform/RootTransformSystem.h>
 #include <Component/Transform.h>
 #include "../ObjectFactory/ObjectFactory.h"
 #include <GameStateManager/GameStateManager.h>
+#include <Systems/RootTransform/TransformSystemHelper.h>
+#include <Systems/RootTransform/PostRootTransformSystem.h>
+#include <Systems/RootTransform/PreRootTransformSystem.h>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 using namespace ImGui;
 using namespace GE::ECS;
@@ -76,30 +80,32 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 	ImGuiStyle& style = GetStyle();
 	originalTextClr = style.Colors[ImGuiCol_Text];
 	
-	ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
-	if (TreeNodeEx(gsm.GetCurrentScene().c_str(), treeFlags))
-	{
-		// Allow user to turn an entity into a root level
-		if (BeginDragDropTarget())
+		ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+		if (TreeNodeEx(gsm.GetCurrentScene().c_str(), treeFlags))
 		{
-			const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
-			if (pl)
+			// Allow user to turn an entity into a root level
+			if (BeginDragDropTarget())
 			{
-				GE::ECS::Entity& droppedEntity{*reinterpret_cast<GE::ECS::Entity*>(pl->Data)};
-				ParentEntity(ecs, droppedEntity);
+				const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
+				if (pl)
+				{
+					GE::ECS::Entity& droppedEntity{*reinterpret_cast<GE::ECS::Entity*>(pl->Data)};
+					ParentEntity(ecs, droppedEntity);
+				}
+				EndDragDropTarget();
 			}
-			EndDragDropTarget();
-		}
 
-		for (Entity entity : ecs.GetEntities())
-		{
-			if (ecs.GetParentEntity(entity) == INVALID_ID)
+			for (Entity entity : ecs.GetEntities())
 			{
-				Propergate(entity, ecs, treeFlags, ecs.GetIsActiveEntity(entity) ? originalTextClr : inactiveTextClr);
+				if (ecs.GetParentEntity(entity) == INVALID_ID)
+				{
+					Propergate(entity, ecs, treeFlags, ecs.GetIsActiveEntity(entity) ? originalTextClr : inactiveTextClr);
+				}
 			}
+			TreePop();
 		}
-		TreePop();
-	}
+	// Reset colour
+	style.Colors[ImGuiCol_Text] = originalTextClr;
 
 	ImVec2 vpSize = ImGui::GetContentRegionAvail();  // Get the top-left position of the vp
 	ImVec2 vpPosition = ImGui::GetCursorScreenPos();
@@ -127,9 +133,6 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 		ecs.DestroyEntity(entity);
 	}
 	entitiesToDestroy.clear();
-
-	// Reset colour
-	style.Colors[ImGuiCol_Text] = originalTextClr;
 }
 
 // Anonymous namespace function definition
@@ -146,34 +149,31 @@ namespace
 
 		if (!parent)	// Child becoming root
 		{
-			if (oldParent != INVALID_ID)
-			{
-				GE::Component::Transform& childTrans = *ecs.GetComponent<GE::Component::Transform>(child);
-				GE::Component::Transform& parentTrans = *ecs.GetComponent<GE::Component::Transform>(oldParent);
-
-				childTrans.m_pos = childTrans.m_parentWorldTransform * GE::Math::dVec4(childTrans.m_pos, 1.0);
-				childTrans.m_scale = { childTrans.m_scale.x * parentTrans.m_scale.x,childTrans.m_scale.y * parentTrans.m_scale.y, 1.0 };
-				childTrans.m_rot = childTrans.m_rot + parentTrans.m_rot;
-			}
-
-			// Remove reference to child from old parent if exist
 			ecs.SetParentEntity(child, INVALID_ID);
+
+			GE::Math::dMat4 identity
+			{
+				{ 1, 0, 0, 0 },
+				{ 0, 1, 0, 0 },
+				{ 0, 0, 1, 0 },
+				{ 0, 0, 0, 1 }
+			};
+			GE::Systems::PreRootTransformSystem::Propergate(ecs, child, identity);
 		}
 		else
 		{
-			GE::Component::Transform& childTrans = *ecs.GetComponent<GE::Component::Transform>(child);
-			GE::Component::Transform& parentTrans = *ecs.GetComponent<GE::Component::Transform>(*parent);
-
-			GE::Math::dMat4 invP;
 			try
 			{
-				GE::Math::MtxInverse(invP, parentTrans.m_worldTransform);
-				childTrans.m_pos = invP * GE::Math::dVec4(childTrans.m_pos, 1.0);
-				childTrans.m_scale = { childTrans.m_scale.x / parentTrans.m_scale.x,childTrans.m_scale.y / parentTrans.m_scale.y, 1.0 };
-				childTrans.m_rot = childTrans.m_rot - parentTrans.m_rot;
-
 				ecs.SetParentEntity(child, *parent);
 				ecs.AddChildEntity(*parent, child);
+
+				GE::Component::Transform* parentTrans = ecs.GetComponent<GE::Component::Transform>(*parent);
+				if (parentTrans == nullptr)
+				{
+					throw GE::Debug::Exception<GE::EditorGUI::SceneHierachy>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(*parent) + " is missing a transform component. All entities must have a transform component!!"));
+				}
+
+				GE::Systems::PreRootTransformSystem::Propergate(ecs, child, parentTrans->m_worldTransform);
 			}
 			catch (GE::Debug::IExceptionBase& e)
 			{

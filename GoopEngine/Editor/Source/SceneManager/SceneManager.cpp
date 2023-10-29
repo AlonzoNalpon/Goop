@@ -39,40 +39,40 @@ void SceneManager::SetNextScene(std::string nextScene)
   
   try
   {
-    /*if (nextScene == "SceneTest")
+    if (nextScene == "SceneTest")
     {
       scene.TestScene();
     }
     else
-    {*/
+    {
       LoadScene();
       InitScene();
-    //}
+    }
   }
   catch (std::out_of_range&)
   {
     m_nextScene = m_currentScene = tmpScene;
-   /* if (m_currentScene == "SceneTest")
+    if (m_currentScene == "SceneTest")
     {
       scene.TestScene();
     }
     else
-    {*/
+    {
       LoadScene();
       InitScene();
-    //}
+    }
     throw Debug::Exception<SceneManager>(Debug::LEVEL_CRITICAL, ErrMsg(nextScene + ".scn doesn't exist."));
   }
 }
 
 void GE::Scenes::SceneManager::RestartScene()
 {
-  /*if (m_currentScene == "SceneTest")
+  if (m_currentScene == "SceneTest")
   {
     UnloadScene();
     scene.TestScene();
     return;
-  }*/
+  }
   UnloadScene();
   InitScene();
 }

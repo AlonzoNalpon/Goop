@@ -6,7 +6,7 @@ using namespace GE::Audio;
 Implementation::Implementation() 
 {
   AudioEngine::ErrorCheck(FMOD::System_Create(&fm_system)); // Create the FMOD Core system
-  AudioEngine::ErrorCheck(fm_system->init(m_numOfChannels, FMOD_INIT_NORMAL, NULL)); // Initialize the FMOD Core system
+  AudioEngine::ErrorCheck(fm_system->init(m_numOfChannels, FMOD_INIT_STREAM_FROM_UPDATE, NULL)); // Initialize the FMOD Core system
 }
 
 
