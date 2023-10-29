@@ -27,7 +27,7 @@ namespace GE
 
 			static void InitTree(const std::vector<GE::AI::Tree>& treeList);
 
-			void Update();
+			void FixedUpdate();
 
 			static int GetChildResult();
 
