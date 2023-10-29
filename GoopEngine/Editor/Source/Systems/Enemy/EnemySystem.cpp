@@ -17,21 +17,23 @@ std::vector<GE::AI::Tree> EnemySystem::m_treeList;
 
 void EnemySystem::Update()
 {
+	if (m_treeList.size() > 0)
+	{
+		for (Entity entity : GetUpdatableEntities()) {
+			GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+			GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
+			GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
+			UseTree(enemyAIComp->m_enemyTreeCache.m_treeID, entity);
+			//std::cout << "ENTITY :" << entity << " using tree\n";
+			//std::cout << m_currentEntityID << "lestsog\n";
 
-	for (Entity entity : GetUpdatableEntities()) {
-		GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
-		GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
-		GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
-		UseTree(enemyAIComp->m_enemyTreeCache.m_treeID, entity);
-		//std::cout << "ENTITY :" << entity << " using tree\n";
-		//std::cout << m_currentEntityID << "lestsog\n";
-
-		MonoMethod* onUpdate = mono_class_get_method_from_name(mono_object_get_class(m_treeList[m_currentTreeID][enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst), "OnUpdate", 2);
-		double dt = fpsControl->GetDeltaTime();
-		std::vector<void*> arg{ &m_currentEntityID, &dt };
-		mono_runtime_invoke(onUpdate, m_treeList[m_currentTreeID][enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst, arg.data(), nullptr);
-		//PrintNodeCache(enemyAIComp->m_enemyTreeCache.m_nodeCacheStack);
-		//std::cout << "END FOR THIS FRAME\n\n";
+			MonoMethod* onUpdate = mono_class_get_method_from_name(mono_object_get_class(m_treeList[m_currentTreeID][enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst), "OnUpdate", 2);
+			double dt = fpsControl->GetDeltaTime();
+			std::vector<void*> arg{ &m_currentEntityID, &dt };
+			mono_runtime_invoke(onUpdate, m_treeList[m_currentTreeID][enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst, arg.data(), nullptr);
+			//PrintNodeCache(enemyAIComp->m_enemyTreeCache.m_nodeCacheStack);
+			//std::cout << "END FOR THIS FRAME\n\n";
+		}
 	}
 }
 

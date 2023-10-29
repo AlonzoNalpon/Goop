@@ -52,7 +52,7 @@ void GameStateManager::Update()
 	}
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_LEFT))
 	{
-		SetNextScene("Start");
+		SetNextScene("Robot");
 	}
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_UP))
 	{

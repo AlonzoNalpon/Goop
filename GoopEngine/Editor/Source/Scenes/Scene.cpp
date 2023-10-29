@@ -23,6 +23,7 @@ void GE::Scenes::Scene::Init()
 {
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj); 
+	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
 }
 
 void GE::Scenes::Scene::Unload()
@@ -31,7 +32,10 @@ void GE::Scenes::Scene::Unload()
 	auto entities = ecs->GetEntities();
 	for (auto entity : entities)
 	{
-		ecs->DestroyEntity(entity);
+		/*if (ecs->GetIsActiveEntity(entity))
+		{*/
+			ecs->DestroyEntity(entity);
+		//}
 	}
 }
 
@@ -42,7 +46,6 @@ void GE::Scenes::Scene::Free()
 
 void GE::Scenes::Scene::TestScene()
 {
-	of->LoadSceneJson("SceneTest");
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj);
 	Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
@@ -105,7 +108,7 @@ void GE::Scenes::Scene::TestScene()
 	GE::AI::TreeTemplate newTemp{ node0, node1,node2, node3 ,node4, node5,node6, node7 };
 	GE::AI::Tree GameTree = GE::AI::CreateTree(newTemp);
 	std::vector<GE::AI::Tree> treeList{ GameTree };
-	GE::Systems::EnemySystem::InitTree(treeList);
+	//GE::Systems::EnemySystem::InitTree(treeList);
 	GE::Systems::EnemySystem::SetPlayerID(player);
 
 	Entity enemy = ecs->CreateEntity();

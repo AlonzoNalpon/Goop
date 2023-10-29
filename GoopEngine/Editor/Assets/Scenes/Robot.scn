@@ -1,0 +1,444 @@
+[
+    {
+        "Name": "Entity 0",
+        "Parent": null,
+        "Child Entities": [
+            1,
+            10
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 150, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 150 }",
+                    "width": 250.0,
+                    "height": 150.0
+                }
+            },
+            {
+                "Draggable": {}
+            }
+        ]
+    },
+    {
+        "Name": "Entity 1",
+        "Parent": 0,
+        "Child Entities": [
+            2,
+            9
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -150, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 1, 0, 0 }"
+                }
+            },
+            {
+                "Velocity": {
+                    "vel": "{ 0, 1, 0 }",
+                    "acc": "{ 0, 3, 0 }",
+                    "mass": 6.9513272281466e-310,
+                    "gravity": "{ 0, 0, 0 }",
+                    "dragForce": {
+                        "magnitude": 0.0,
+                        "isActive": false
+                    },
+                    "forces": [
+                        {
+                            "magnitude": "{ 1, 2, 3 }",
+                            "lifetime": 4.0,
+                            "isActive": false,
+                            "age": 5.0
+                        },
+                        {
+                            "magnitude": "{ 3, 1, 2 }",
+                            "lifetime": 2.0,
+                            "isActive": false,
+                            "age": 4.0
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 2",
+        "Parent": 1,
+        "Child Entities": [
+            3,
+            8
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 50, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ -2, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 50, 0 }",
+                    "width": 75.0,
+                    "height": 150.0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 3",
+        "Parent": 2,
+        "Child Entities": [
+            4,
+            7
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -100, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 2, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -50, 0 }",
+                    "width": 75.0,
+                    "height": 150.0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 4",
+        "Parent": 3,
+        "Child Entities": [
+            5,
+            6
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 50, 263, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 262.96 }",
+                    "width": 75.0,
+                    "height": 75.0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 5",
+        "Parent": 4,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -178, -100, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 2, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -178, 162.975 }",
+                    "width": 100.0,
+                    "height": 50.0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 6",
+        "Parent": 4,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 176, -100, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 2, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 176, 162.975 }",
+                    "width": 100.0,
+                    "height": 50.0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 7",
+        "Parent": 3,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 35, 275, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ -2, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -15, 274.958 }",
+                    "width": 10.0,
+                    "height": 10.0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 8",
+        "Parent": 2,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -36, 274, 7.85358 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 14, 274.095 }",
+                    "width": 10.0,
+                    "height": 10.0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 9",
+        "Parent": 1,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 250, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ -1, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 249.962 }",
+                    "width": 50.0,
+                    "height": 20.0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 10",
+        "Parent": 0,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -150, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 11",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 210, 210, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 210, 210 }",
+                    "width": 10.0,
+                    "height": 75.0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 12",
+        "Parent": null,
+        "Child Entities": [
+            13,
+            21
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 209, 250, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 209, 250 }",
+                    "width": 77.0,
+                    "height": 30.0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 13",
+        "Parent": 12,
+        "Child Entities": [
+            14,
+            20
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 14",
+        "Parent": 13,
+        "Child Entities": [
+            15,
+            19
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 15",
+        "Parent": 14,
+        "Child Entities": [
+            16,
+            17,
+            18
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 16",
+        "Parent": 15,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 17",
+        "Parent": 15,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 18",
+        "Parent": 15,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 19",
+        "Parent": 14,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 20",
+        "Parent": 13,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 21",
+        "Parent": 12,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    }
+]

@@ -1,73 +1,148 @@
 [
-    {
-        "Name": "Entity 2",
-        "ParentID": null,
-        "Child Entities": [
-            1,
-            3
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 200, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 200, 0 }",
-                    "width": 150.0,
-                    "height": 150.0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Entity 3",
-        "ParentID": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -200, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 100.0,
-                    "height": 200.0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Background",
-        "ParentID": null,
-        "Child Entities": [
-            0
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, -997 }",
-                    "scale": "{ 1600, 900, 1 }",
-                    "rot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "filename": "Background"
-                }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
-                }
-            }
-        ]
-    }
+  {
+    "Name": "Player",
+    "Parent": null,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "pos": "{ -350, 350, 0 }",
+          "scale": "{ 150, 150, 1 }",
+          "rot": "{ 0, 0, 45 }"
+        }
+      },
+      {
+        "BoxCollider": {
+          "center": "{ -350, 350 }",
+          "width": 150.0,
+          "height": 150.0
+        }
+      },
+      {
+        "Velocity": {
+          "vel": "{ 0, 0, 0 }",
+          "acc": "{ 0, 0, 0 }",
+          "mass": 1.0,
+          "gravity": "{ 0, 0, 0 }",
+          "dragForce": {
+            "magnitude": 0.0,
+            "isActive": false
+          },
+          "forces": []
+        }
+      },
+      {
+        "Sprite": {
+          "filename": "SS_MineWorm"
+        }
+      },
+      {
+        "SpriteAnim": {
+          "name": "SS_MineWorm"
+        }
+      },
+      {
+        "Model": {
+          "mdlID": 0
+        }
+      },
+      {
+        "Tween": {
+          "tweens": [
+            "{ -900, 0, 0 }",
+            "{ 0, -350, 0 }",
+            "{ 350, 350, 0 }"
+          ],
+          "timePerTween": 1.0,
+          "timeTaken": 3.0,
+          "timeElapsed": 0.0,
+          "originalPos": "{ 0, 0, 0 }"
+        }
+      }
+    ]
+  },
+  {
+    "Name": "Blabl",
+    "Parent": null,
+    "Child Entities": [
+      2,
+      4
+    ],
+    "Components": [
+      {
+        "Transform": {
+          "pos": "{ 0, 0, 0 }",
+          "scale": "{ 1, 1, 1 }",
+          "rot": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "Sprite": {
+          "filename": "Background"
+        }
+      },
+      {
+        "Model": {
+          "mdlID": 0
+        }
+      }
+    ]
+  },
+  {
+    "Name": "Boom",
+    "Parent": 1,
+    "Child Entities": [
+      3
+    ],
+    "Components": [
+      {        "Transform": {
+          "pos": "{ 200, 0, 0 }",
+          "scale": "{ 1, 1, 1 }",
+          "rot": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "BoxCollider": {
+          "center": "{ 0, 0 }",
+          "width": 100.0,
+          "height": 200.0
+        }
+      }
+    ]
+  },
+  {
+    "Name": "BAm",
+    "Parent": 2,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "pos": "{ 4266.01, -0.666665, -997 }",
+          "scale": "{ 10.6667, 5.99999, 1 }",
+          "rot": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "BoxCollider": {
+          "center": "{ 200, 0 }",
+          "width": 150.0,
+          "height": 150.0
+        }
+      }
+    ]
+  },
+  {
+    "Name": "Waha",
+    "Parent": 1,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "pos": "{ 0, 0, 0 }",
+          "scale": "{ 1, 1, 1 }",
+          "rot": "{ 0, 0, 0 }"
+        }
+      }
+    ]
+  }
 ]
