@@ -14,9 +14,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../EditorUI/ImGuiUI.h"
 #ifndef NO_IMGUI
 #include <Systems/Rendering/RenderingSystem.h>
-//#include <Systems/RootTransform/PreRootTransformSystem.h>
-//#include <Systems/RootTransform/PostRootTransformSystem.h>
-#include <Systems/RootTransform/RootTransformSystem.h>
+#include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #endif
 
@@ -68,9 +67,8 @@ namespace GE::Application
     window = { am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), "Goop Engine"};
     window.CreateAppWindow();
 
-    gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
-    am->LoadFiles();
-    of.LoadPrefabsFromFile();
+      gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
+      am->LoadFiles();
 
     imgui.Init(window);
       
@@ -124,10 +122,8 @@ namespace GE::Application
             ecs->UpdateSystems(4,
               typeid(GE::Systems::CollisionSystem).name(),
               typeid(GE::Systems::RenderSystem).name(),
-              typeid(GE::Systems::RootTransformSystem).name());
-              // ===== uncomment when post/pre root transform has been pushed ===== //
-              /*typeid(GE::Systems::PreRootTransformSystem).name(),
-              typeid(GE::Systems::PostRootTransformSystem).name());*/
+              typeid(GE::Systems::PreRootTransformSystem).name(),
+              typeid(GE::Systems::PostRootTransformSystem).name());
           }
 #else
           ecs->UpdateSystems();

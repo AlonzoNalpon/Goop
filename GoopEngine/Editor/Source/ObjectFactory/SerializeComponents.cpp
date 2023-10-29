@@ -32,9 +32,9 @@ namespace GE
 
 			//read map, manipulate into trans, return
 			GE::Component::Transform trans;
-			trans.m_pos = cw.Get<Math::dVec3>("pos");
-			trans.m_scale = cw.Get<Math::dVec3>("scale");
-			trans.m_rot = cw.Get<Math::dVec3>("rot");
+			trans.m_worldPos = cw.Get<Math::dVec3>("pos");
+			trans.m_worldScale = cw.Get<Math::dVec3>("scale");
+			trans.m_worldRot = cw.Get<Math::dVec3>("rot");
 
 			return trans;
 		}
@@ -85,6 +85,10 @@ namespace GE
 				//gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
 			}
 			sprite.spriteData.texture = gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename"));
+			auto const& textureObj = gEngine.textureManager.GetTexture(sprite.spriteData.texture);
+			sprite.spriteData.info.height = textureObj.height;
+			sprite.spriteData.info.width = textureObj.width;
+			
 			return sprite;
 		}
 

@@ -39,11 +39,11 @@ void SceneManager::SetNextScene(std::string nextScene)
   
   try
   {
-    if (nextScene == "SceneTest")
+    /*if (nextScene == "SceneTest")
     {
       scene.TestScene();
     }
-    else
+    else*/
     {
       LoadScene();
       InitScene();

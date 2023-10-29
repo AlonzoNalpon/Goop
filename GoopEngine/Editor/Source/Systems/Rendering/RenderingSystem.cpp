@@ -31,7 +31,7 @@ namespace GE::Systems
       Graphics::Rendering::Renderer& renderer{ gEngine.GetRenderer() };
       // Render the object
       renderer.RenderObject(model->mdlID, sprite->spriteData,
-        transform->m_worldTransform
+        transform->m_renderTransform
         );
     }
   }

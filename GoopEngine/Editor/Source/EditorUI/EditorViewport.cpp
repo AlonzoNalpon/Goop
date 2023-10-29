@@ -6,6 +6,7 @@
 
 #include <Component/Transform.h>
 #include <Component/BoxCollider.h>
+#include <Component/Sprite.h>
 void GE::EditorGUI::EditorViewport::UpdateViewport()
 {
   auto* ecs = &GE::ECS::EntityComponentSystem::GetInstance();
@@ -90,20 +91,36 @@ void GE::EditorGUI::EditorViewport::UpdateViewport()
             if (!ecs->GetIsActiveEntity(curr))
               continue;
 
-            // get TRANSFORM component
-            auto const* colliderPtr = ecs->GetComponent<GE::Component::BoxCollider>(curr);
             auto const* transPtr = ecs->GetComponent<GE::Component::Transform>(curr);
             auto const& trans{ *transPtr };
-            if (colliderPtr)
+            // CASE 1: CHECKING WITH COLLIDER
+            if (ecs->HasComponent<GE::Component::BoxCollider>(curr))
             {
+              auto const* colliderPtr = ecs->GetComponent<GE::Component::BoxCollider>(curr);
               auto const& coll{ *colliderPtr };
               GE::Math::dVec2 min{ coll.m_min };
               GE::Math::dVec2 max{ coll.m_max };
-              // AABB check with the mesh based on its transform (ASSUMES A SQUARE)
+              // AABB check with the mesh based on its COLLIDER
               if (min.x > mouseWS.x ||
                 max.x < mouseWS.x ||
                 min.y > mouseWS.y ||
                 max.y < mouseWS.y)
+                continue;
+            }
+            // CASE 2: CHECKING WITH TEXTURE
+            else if (ecs->HasComponent<GE::Component::Sprite>(curr))
+            {
+              GE::Component::Sprite* sprite = ecs->GetComponent<GE::Component::Sprite>(curr);
+              GE::Math::dVec2 min{ trans.m_pos.x - sprite->spriteData.info.width * trans.m_scale.x * 0.5, 
+                trans.m_pos.y - sprite->spriteData.info.height * trans.m_scale.y * 0.5 };
+              GE::Math::dVec2 max{ trans.m_pos.x + sprite->spriteData.info.width * trans.m_scale.x * 0.5,
+                trans.m_pos.y + sprite->spriteData.info.height * trans.m_scale.y * 0.5 };
+
+              // AABB check with the mesh based on its transform (ASSUMES A SQUARE)
+              if (min.x > mouseWS.x ||
+                  max.x < mouseWS.x ||
+                  min.y > mouseWS.y ||
+                  max.y < mouseWS.y)
                 continue;
             }
             else

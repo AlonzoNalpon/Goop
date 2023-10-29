@@ -21,6 +21,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Velocity.h>
 #include <Component/Draggable.h>
 #include "../ImGui/misc/cpp/imgui_stdlib.h"
+#include <Systems/RootTransform/PostRootTransformSystem.h>
+#include <Systems/RootTransform/PreRootTransformSystem.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
@@ -45,8 +47,11 @@ namespace
 
 	\param[in] disabled
 		Draw disabled
+
+	\return
+		Field changed
 	************************************************************************/
-	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled = false);
+	bool InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled = false);
 
 	/*!*********************************************************************
 	\brief
@@ -184,17 +189,30 @@ void GE::EditorGUI::Inspector::CreateContent()
 				{
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
 					float inputWidth = (contentSize - charSize - 30) / 3;
+					
+					bool valChanged{ false };
 
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					InputDouble3("Position", trans->m_pos, inputWidth);					
 					TableNextRow();
-					InputDouble3("Scale", trans->m_scale, inputWidth);
+					if (InputDouble3("Position", trans->m_pos, inputWidth)) { valChanged = true; };
 					TableNextRow();
-					InputDouble3("Rotation", trans->m_rot, inputWidth);
+					if (InputDouble3("Scale", trans->m_scale, inputWidth)) { valChanged = true; };
+					TableNextRow();
+					if (InputDouble3("Rotation", trans->m_rot, inputWidth)) { valChanged = true; };
+
+					TableNextRow();
+					InputDouble3("World Position", trans->m_worldPos, inputWidth, true);
+					TableNextRow();
+					InputDouble3("World Scale", trans->m_worldScale, inputWidth, true);
+					TableNextRow();
+					InputDouble3("World Rotation", trans->m_worldRot, inputWidth, true);
+
 					EndTable();
 					Separator();
+					if (valChanged) 
+						GE::Systems::PreRootTransformSystem::Propergate(ecs, entity, trans->m_parentWorldTransform);
 				}
 				break;
 			}
@@ -234,9 +252,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputDouble1("Mass", vel->m_mass);
 					TableNextRow();
-					InputDouble3("Gravity", vel->m_gravity, inputWidth);					
+					InputDouble3("Gravity", vel->m_gravity, inputWidth);		
 					TableNextRow();
-					InputDouble1("Drag", vel->m_dragForce.m_magnitude, inputWidth);
+					InputDouble1("Drag", vel->m_dragForce.m_magnitude);
 					TableNextRow();
 					InputCheckBox("Drag Active", vel->m_dragForce.m_isActive);
 					EndTable();
@@ -351,6 +369,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (!ecs.HasComponent<Velocity>(entity))
 						{
 							Velocity comp;
+							comp.m_mass = 1.0;
 							ecs.AddComponent(entity, comp);
 						}
 						else
@@ -455,18 +474,22 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 namespace
 {
-	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled)
+	bool InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled)
 	{
+		bool valChanged{ false };
+
 		BeginDisabled(disabled);
 		TableNextColumn();
 		Text(propertyName.c_str());
 		propertyName = "##" + propertyName;
 		TableNextColumn();
 		SetNextItemWidth(fieldWidth);
-		InputDouble((propertyName + "X").c_str(), &property.x, 0, 0, "%.2f");
-		SameLine(0, 3); SetNextItemWidth(fieldWidth); InputDouble((propertyName + "Y").c_str(), &property.y, 0, 0, "%.2f");
-		SameLine(0, 3); SetNextItemWidth(fieldWidth); InputDouble((propertyName + "Z").c_str(), &property.z, 0, 0, "%.2f");
+		if (InputDouble((propertyName + "X").c_str(), &property.x, 0, 0, "%.5f")) { valChanged = true; };
+		SameLine(0, 3); SetNextItemWidth(fieldWidth); if (InputDouble((propertyName + "Y").c_str(), &property.y, 0, 0, "%.5f")) { valChanged = true; };
+		SameLine(0, 3); SetNextItemWidth(fieldWidth); if (InputDouble((propertyName + "Z").c_str(), &property.z, 0, 0, "%.5f")) { valChanged = true; };
 		EndDisabled();
+
+		return valChanged;
 	}
 
 	void InputDouble1(std::string propertyName, double& property, bool disabled)
