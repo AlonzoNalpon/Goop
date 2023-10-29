@@ -34,7 +34,7 @@ namespace GE
 				m_mouseCollided{ false },
 				m_render{ false }
 			{
-
+				m_collided.clear();
 			}
 
 			double m_width;
