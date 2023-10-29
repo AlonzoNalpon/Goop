@@ -212,7 +212,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 					Separator();
 					if (valChanged) 
-						GE::Systems::PreRootTransformSystem::Propergate(ecs, entity, trans->m_parentWorldTransform);
+						GE::Systems::PostRootTransformSystem::Propergate(ecs, entity, trans->m_parentWorldTransform);
 				}
 				break;
 			}

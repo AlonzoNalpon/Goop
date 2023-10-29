@@ -53,7 +53,7 @@ void GE::Scenes::Scene::TestScene()
 	Transform trans{};
 	trans.m_scale = { 1, 1, 1 };
 	BoxCollider col{};
-	trans.m_pos.x = 200;
+	trans.m_worldPos.x = 200;
 	col.m_width = 150;
 	col.m_height = 150;
 	col.m_render = true;

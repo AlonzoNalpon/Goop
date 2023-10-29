@@ -17,7 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/GraphicsEngine.h>
 #include <Component/Sprite.h>
 
-void GE::Systems::PostRootTransformSystem::Update()
+void GE::Systems::PostRootTransformSystem::LateUpdate()
 {
 	for (GE::ECS::Entity entity : m_ecs->GetEntities())
 	{
@@ -51,55 +51,41 @@ void GE::Systems::PostRootTransformSystem::Propergate(GE::ECS::EntityComponentSy
 	trans->m_parentWorldTransform = parentWorldTrans;
 
 	/////////////////////////////////////
-	// Setting local transformation data
+	// Setting world transformation data
 	/////////////////////////////////////
 	GE::Component::Transform* parentTrans;
 	GE::ECS::Entity parent = ecs.GetParentEntity(entity);
 	// If has parent, set my world transform to using parent
+	// no parent means local is world transform
 	if (parent != GE::ECS::INVALID_ID)
 	{
-		try
-		{
-			parentTrans = ecs.GetComponent<GE::Component::Transform>(parent);
-			if (parentTrans == nullptr)
-			{
-				throw GE::Debug::Exception<PostRootTransformSystem>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(parent) + " is missing a transform component. All entities must have a transform component!!"));
-			}
-			GE::Math::dMat4 invWorldTransform;
-			GE::Math::MtxInverse(invWorldTransform, trans->m_parentWorldTransform);
-
-			trans->m_pos = invWorldTransform * GE::Math::dVec4(trans->m_worldPos, 1);
-			trans->m_scale = trans->m_worldScale / parentTrans->m_worldScale;
-			trans->m_rot = trans->m_worldRot - parentTrans->m_worldRot;
-		}
-		catch (GE::Debug::IExceptionBase& e)
-		{
-			e.LogSource();
-		}
+		parentTrans = ecs.GetComponent<GE::Component::Transform>(parent);
+		trans->m_worldPos = parentWorldTrans * GE::Math::dVec4(trans->m_pos, 1);
+		trans->m_worldScale = trans->m_scale * parentTrans->m_scale;
+		trans->m_worldRot = trans->m_rot + parentTrans->m_rot;
 	}
-	// no parent means local is world transform
 	else
 	{
-		trans->m_pos = trans->m_worldPos;
-		trans->m_scale = trans->m_worldScale;
-		trans->m_rot = trans->m_worldRot;
+		trans->m_worldPos = trans->m_pos;
+		trans->m_worldScale = trans->m_scale;
+		trans->m_worldRot = trans->m_rot;
 	}
 
 	Math::dMat4 T
 	{
-		{ 1, 0, 0, trans->m_pos.x },
-		{ 0, 1, 0, trans->m_pos.y },
-		{ 0, 0, 1, trans->m_pos.z },
+		{ 1, 0, 0, trans->m_worldPos.x },
+		{ 0, 1, 0, trans->m_worldPos.y },
+		{ 0, 0, 1, trans->m_worldPos.z },
 		{ 0, 0, 0, 1 }
 	};
 	Math::dMat4 S
 	{
-		 { trans->m_scale.x, 0, 0, 0 },
-		 { 0, trans->m_scale.y, 0, 0 },
-		 { 0, 0, 1, 0 },
-		 { 0, 0, 0, 1 }
+		{ trans->m_worldScale.x, 0, 0, 0 },
+		{ 0, trans->m_worldScale.y, 0, 0 },
+		{ 0, 0, 1, 0 },
+		{ 0, 0, 0, 1 }
 	};
-	double rad = trans->m_rot.z / 180.0 * M_PI;
+	double rad = (trans->m_worldRot.z / 180.0) * M_PI;
 	Math::dMat4 Z
 	{
 		{ std::cos(rad), -std::sin(rad), 0, 0 },
@@ -107,7 +93,7 @@ void GE::Systems::PostRootTransformSystem::Propergate(GE::ECS::EntityComponentSy
 		{ 0, 0, 1, 0 },
 		{ 0, 0, 0, 1 }
 	};
-	rad = trans->m_rot.y / 180.0 * M_PI;
+	rad = (trans->m_worldRot.y / 180.0) * M_PI;
 	Math::dMat4 Y
 	{
 		{ std::cos(rad), std::sin(rad), 0, 0 },
@@ -115,7 +101,7 @@ void GE::Systems::PostRootTransformSystem::Propergate(GE::ECS::EntityComponentSy
 		{ -std::sin(rad), 0, std::cos(rad), 0 },
 		{ 0, 0, 0, 1 }
 	};
-	rad = trans->m_rot.x / 180.0 * M_PI;
+	rad = (trans->m_worldRot.x / 180.0) * M_PI;
 	Math::dMat4 X
 	{
 		{ 1, 0, 0, 0 },

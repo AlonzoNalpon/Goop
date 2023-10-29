@@ -30,10 +30,9 @@ namespace GE::Systems {
     /*!*********************************************************************
     \brief
       Renders all entities with model and sprite component.
-    \params
     \return
     ************************************************************************/
-		void Update();
+		void LateUpdate();
   };
 }
 
