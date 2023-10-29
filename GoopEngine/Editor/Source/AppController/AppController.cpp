@@ -105,8 +105,6 @@ namespace GE::Application
           imgui.Update();
           fRC.EndSystemTimer("ImGui Update");
 
-          gsm.Update();
-
           fRC.StartSystemTimer();
 #ifndef NO_IMGUI
           if (GE::EditorGUI::ImGuiHelper::IsRunning())
@@ -129,6 +127,8 @@ namespace GE::Application
           ecs->UpdateSystems();
 #endif  // NO_IMGUI
           fRC.EndSystemTimer("Scene Update");
+
+          gsm.Update();
         }
         catch (GE::Debug::IExceptionBase& e)
         {
@@ -146,7 +146,7 @@ namespace GE::Application
         {
           fRC.StartSystemTimer();
           gEngine.Draw();
-          fRC.EndSystemTimer("Draw");
+          fRC.EndSystemTimer("Render");
 
           fRC.StartSystemTimer();
           imgui.Render();

@@ -16,12 +16,25 @@ namespace GE::Systems
 {
 	class PostRootTransformSystem : public GE::ECS::System
 	{
-		// Intentionally override this function as
-		// it has different behaviour as it will handle
-		// inactive entities as well
-		void Update();
+		/*!*********************************************************************
+		\brief
+			This should be called right before rendering system
+		************************************************************************/
+		void LateUpdate();
 
 	public:
+		/*!*********************************************************************
+		\brief
+			Propergate all transform changes to children
+			Takes a reference to ECS to prevent multiple Singleton GetInstance
+			calls to the ECS
+
+		\param ecs
+			Reference to ECS
+
+		\param entity
+			Entity that is propergating
+		************************************************************************/
 		static void Propergate(GE::ECS::EntityComponentSystem& ecs, GE::ECS::Entity& entity, const Math::dMat4& parentWorldTrans);
 	};
 }
