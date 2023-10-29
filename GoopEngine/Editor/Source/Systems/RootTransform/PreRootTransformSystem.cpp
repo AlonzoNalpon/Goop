@@ -89,7 +89,6 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 		{ 0, 0, 1, 0 },
 		{ 0, 0, 0, 1 }
 	};
-	std::cout << "Cos(" << rad << ") = " << std::cos(rad) << "\nSin(" << rad << ") = " << std::sin(rad) << std::endl;
 	rad = (trans->m_worldRot.y / 180.0) * M_PI;
 	Math::dMat4 Y
 	{

@@ -41,6 +41,7 @@ namespace GE
 
 			Math::dMat4 m_parentWorldTransform;
 			Math::dMat4 m_worldTransform;
+			Math::dMat4 m_renderTransform;
 		};
 	}
 }
