@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   RenderData.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This class contains the definitions of rendering data structures
         for game objects. These objects will be passed to renderer.

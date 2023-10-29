@@ -321,6 +321,7 @@
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
     <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
+    <ClInclude Include="Source\Graphics\Renderer\FrameBufferInfo.h" />
     <ClInclude Include="Source\ImTerm\misc.hpp" />
     <ClInclude Include="Source\ImTerm\terminal.hpp" />
     <ClInclude Include="Source\ImTerm\terminal_commands.hpp" />

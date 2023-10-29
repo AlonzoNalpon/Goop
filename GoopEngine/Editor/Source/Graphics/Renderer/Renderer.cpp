@@ -17,10 +17,11 @@ namespace
 }
 
 namespace Graphics::Rendering {
-  Renderer::Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, 
-    ShaderCont const& shaderCont, Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight)
-    : r_mdlContainer{ mdlContainer }, r_texManager{ texManager }, r_shaders{ shaderCont }, r_fontManager { fontManager },
-    r_vpWidth{ vpWidth }, r_vpHeight{ vpHeight }
+  Renderer::Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager,
+    ShaderCont const& shaderCont, Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight,
+    std::map < gObjID, FrameBufferInfo> const& frameBuffers)
+    : r_mdlContainer{ mdlContainer }, r_texManager{ texManager }, r_shaders{ shaderCont }, r_fontManager{ fontManager },
+    r_vpWidth{ vpWidth }, r_vpHeight{ vpHeight }, r_frameBuffers{ frameBuffers }
   {
   }
 

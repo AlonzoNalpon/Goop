@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   TextureManager.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the definition for the TextureManager class
   

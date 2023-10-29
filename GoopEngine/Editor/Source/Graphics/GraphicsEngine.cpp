@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   GraphicsEngine.cpp
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   24-September-2023
 \brief  This file contains the implementation of the graphics engine class.
         This class houses everything required to render an opengl
@@ -38,7 +38,7 @@ namespace {
   // Typedefs
   
   GraphicsEngine::GraphicsEngine() : m_vpWidth{}, m_vpHeight{}, m_ar{}, 
-    m_renderer{ m_models, m_textureManager, m_shaders, m_fontManager, m_vpWidth, m_vpHeight }
+    m_renderer{ m_models, m_textureManager, m_shaders, m_fontManager, m_vpWidth, m_vpHeight, m_frameBuffers }
   {
   }
 
@@ -83,11 +83,11 @@ namespace {
 
     //Initialize renderer with a camera
     {
-      Rendering::Camera orthoCam{ {0.f,0.f,3.f},                          // pos
-                                  {},                                     // target
-                                  {.0f, 1.f, 0.f},                        // up vector
+      Rendering::Camera orthoCam{ {0.f,0.f,3.f},                              // pos
+                                  {},                                         // target
+                                  {.0f, 1.f, 0.f},                            // up vector
                                   -w * 0.5f, w * 0.5f, -h * 0.5f, h * 0.5f,   // left right bottom top
-                                  0.1f, 1000.f };                         // near and far z planes
+                                  0.1f, 1000.f };                             // near and far z planes
       m_renderer.Init(orthoCam, m_models.size()-1); // line model index
     }
 
@@ -158,6 +158,7 @@ namespace {
     glViewport(0, 0, m_vpWidth, m_vpHeight);
 
     constexpr GLfloat FONT_SCALE{ 0.2f };
+
     m_renderer.Draw();
     m_renderer.DrawFontObj("you're", {}, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.5f, 0.f, 0.f }, "Marchesa");
     m_renderer.DrawFontObj("next", { 0.f, -50.f }, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.8f, 0.2f, 0.f }, "Reyes");
@@ -392,19 +393,64 @@ namespace {
     return m_vpHeight;
   }
 
-  gVec2 GraphicsEngine::ScreenToWS(gVec2 const& mousePos)
+  gVec2 GraphicsEngine::ScreenToWS(gVec2 const& mousePos, gObjID frameBuffer)
   {
     GLfloat const halfVpW{ m_vpWidth * 0.5f }, halfVpH{ m_vpHeight * 0.5f };
     // translate the mouse position to the range [-0.5,0.5]
     gVec2 wsPos{ (mousePos.x - halfVpW) / m_vpWidth , (mousePos.y - halfVpH) / m_vpHeight };
-    gVec2 const camDims{ m_renderer.GetCamera().frame_dims };
-    gVec2 const camPos{ m_renderer.GetCamera().position };
+    Rendering::Camera const& camera{ m_frameBuffers.at(frameBuffer).camera }; // CHECK: exceptions?
+    gVec2 const camDims{ camera.frame_dims };
+    gVec2 const camPos{ camera.position };
     // Now we scale based on camera dimensions
 
     wsPos.x *= camDims.x;
     wsPos.y *= camDims.y;
     wsPos += camPos;
     return wsPos;
+  }
+
+  gObjID GraphicsEngine::CreateFrameBuffer(GLint width, GLint height)
+  {
+    Rendering::FrameBufferInfo newFB{ {m_frameBuffers.size()}, {}, {}, {},
+      // The camera
+    { {0.f,0.f,3.f},                              // pos
+    {},                                           // target
+    {.0f, 1.f, 0.f},                              // up vector
+    -width * 0.5f, width * 0.5f, -height * 0.5f, height * 0.5f,   // left right bottom top
+    0.1f, 1000.f } };
+
+    glGenFramebuffers(1, &newFB.frameBuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, newFB.frameBuffer);
+
+
+    glGenTextures(1, &newFB.renderTexture);
+    glBindTexture(GL_TEXTURE_2D, newFB.renderTexture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, newFB.renderTexture, 0);
+
+
+    gObjID fbID = newFB.objID;
+    m_frameBuffers.emplace(fbID, newFB);
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+      throw GE::Debug::Exception<GraphicsEngine>(GE::Debug::LEVEL_CRITICAL,
+        ErrMsg("Created framebuffer failed completeness test!"));
+    }
+      return fbID;
+  }
+
+  Rendering::FrameBufferInfo& GraphicsEngine::GetFrameBuffer(gObjID id)
+  {
+    auto it = m_frameBuffers.find(id);
+    if (it == m_frameBuffers.end())
+    {
+      std::string errMsg{ "Framebuffer does not exist! ID: " };
+      errMsg += std::to_string(id);
+      throw GE::Debug::Exception<GraphicsEngine>(GE::Debug::LEVEL_CRITICAL,
+        ErrMsg(errMsg));
+    }
+    return it->second;
   }
 
   void GraphicsEngine::DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr)

@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   RenderingSystem.cpp
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the implementation of the RenderingSystem.
 ECS related and communicates with Renderer in order to queue render requests

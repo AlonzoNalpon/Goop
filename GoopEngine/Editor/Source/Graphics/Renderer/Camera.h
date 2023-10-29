@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   Camera.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the definition for the camera class
   
@@ -57,7 +57,7 @@ namespace Graphics::Rendering
     ************************************************************************/
     Camera(gVec3 pos, gVec3 tgt, gVec3 up,
       GLfloat left, GLfloat right, GLfloat bottom, GLfloat top,
-      GLfloat near, GLfloat far);
+      GLfloat _near, GLfloat _far);
 
     /*!*********************************************************************
     \brief

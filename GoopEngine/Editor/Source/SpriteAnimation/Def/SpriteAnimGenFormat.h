@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   SpriteAnimGenFormat.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains definition for sprite animation generator formats.
 There's no use for this and it should be removed in the future

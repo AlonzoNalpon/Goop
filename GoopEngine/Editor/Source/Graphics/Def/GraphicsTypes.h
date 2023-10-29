@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   GraphicsTypes.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   28-September-2023
 \brief  This file contains definitions and typedefs for types
         to be used with graphics engine
@@ -193,6 +193,9 @@ namespace Graphics {
 
   using gObjID = size_t; //!< This is a type indicating ID of a specific object (not guaranteed to be identical to their OpenGL ID)
 #pragma endregion // END TEMPLATES REGION
+
+  
+
   using Colorf    = T_Colorf<f32>; //!< color structure for single-precision floating point rgba values
   using Rect      = T_Rect<GLint>; //!< rect structure to be measured in pixels
 

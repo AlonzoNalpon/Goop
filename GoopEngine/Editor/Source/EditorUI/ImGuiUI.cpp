@@ -28,7 +28,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SceneControls.h"
 #include "AssetBrowser.h"
 #include <EditorUI/EditorViewport.h>
-
 using namespace GE::EditorGUI;
 using namespace DataViz;
 using namespace ImGui;
@@ -54,7 +53,14 @@ void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
   // Setup Dear ImGui style
   StyleColorsDark();
 
+
+
   this->window = &prgmWindow;
+
+  // Set up editor framebuffer for viewport
+  auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
+  frameBuffer.first = gEngine.CreateFrameBuffer(window->GetWinWidth(), window->GetWinHeight());
+  frameBuffer.second = &gEngine.GetFrameBuffer(frameBuffer.first);
   ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(prgmWindow.GetWindow(), true);
@@ -91,7 +97,7 @@ void ImGuiUI::Update()
 
   Begin("Viewport");
   {
-    EditorViewport::UpdateViewport();
+    EditorGUI::EditorViewport::UpdateViewport(*frameBuffer.second);
   }
   End();
 
