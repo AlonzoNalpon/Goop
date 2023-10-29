@@ -9,7 +9,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 
-//#define RUN_IMGUI_DEMO  // Uncomment to replace imgui window with demo
+// run ImGui Demo when in debug mode
+#ifdef _DEBUG
+#define RUN_IMGUI_DEMO
+#endif
 
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
@@ -32,8 +35,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace GE::EditorGUI;
 using namespace DataViz;
 using namespace ImGui;
-
-#define RUN_IMGUI_DEMO
 
 // Initialize static
 GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
