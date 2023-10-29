@@ -14,7 +14,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "TransformSystemHelper.h"
-
+#include <Graphics/GraphicsEngine.h>
+#include <Component/Sprite.h>
 void GE::Systems::PostRootTransformSystem::Start()
 {
 	Update();
@@ -128,8 +129,26 @@ void GE::Systems::PostRootTransformSystem::Propergate(GE::ECS::EntityComponentSy
 		{ 0, 0, 0, 1 }
 	};
 
+	double scaleX{1.0}, scaleY{1.0}; // default: 1
+
+	if (ecs.HasComponent<Component::Sprite>(entity))
+	{
+		Component::Sprite* sprite = ecs.GetComponent<Component::Sprite>(entity); // get sprite component
+		// Now we set the sprite information for dimensions for scaling
+		scaleX = sprite->spriteData.info.width;			
+		scaleY = sprite->spriteData.info.height;
+	}
+	// Texture scale to follow dimensions of sprite
+	Math::dMat4 textureScale
+	{
+		 { scaleX, 0, 0, 0 },
+		 { 0, scaleY, 0, 0 },
+		 { 0, 0, 1, 0 },
+		 { 0, 0, 0, 1 }
+	};
+
 	//trans->m_worldTransform = trans->m_parentWorldTransform * (T * (X * Y * Z) * S);
-	trans->m_worldTransform = trans->m_parentWorldTransform * (T * Z * S);
+	trans->m_worldTransform = trans->m_parentWorldTransform * (T * Z * textureScale * S);
 
 	std::set<GE::ECS::Entity>& m_children = ecs.GetChildEntities(entity);
 	// End condition no children
