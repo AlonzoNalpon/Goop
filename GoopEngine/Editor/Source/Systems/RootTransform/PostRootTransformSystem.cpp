@@ -64,11 +64,11 @@ void GE::Systems::PostRootTransformSystem::Propergate(GE::ECS::EntityComponentSy
 				throw GE::Debug::Exception<PostRootTransformSystem>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(parent) + " is missing a transform component. All entities must have a transform component!!"));
 			}
 			GE::Math::dMat4 invWorldTransform;
-			GE::Math::MtxInverse(invWorldTransform, parentWorldTrans);
+			GE::Math::MtxInverse(invWorldTransform, trans->m_parentWorldTransform);
 
 			trans->m_localPos = invWorldTransform * GE::Math::dVec4(trans->m_pos, 1);
 			trans->m_localScale = trans->m_scale / parentTrans->m_scale;
-			trans->m_localRot = trans->m_rot - parentTrans->m_rot;
+			trans->m_rot = trans->m_rot - parentTrans->m_rot;
 			trans->m_rot = GE::Math::Wrap(trans->m_rot, 0, 360);
 		}
 		catch (GE::Debug::IExceptionBase& e)
