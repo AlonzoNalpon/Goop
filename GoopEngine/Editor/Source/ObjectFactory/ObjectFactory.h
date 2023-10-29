@@ -67,6 +67,12 @@ namespace GE::ObjectFactory
     void CloneObject(ECS::Entity obj, const Math::dVec2& newPos = Math::dVec2{0, 0});
 
     /*!*********************************************************************
+    \brief     
+      Gets the file path from the asset manager and loads all prefabs
+    ************************************************************************/
+    void LoadPrefabsFromFile();
+
+    /*!*********************************************************************
     \brief
       Creates the objects from the object map.
     \param
@@ -74,7 +80,7 @@ namespace GE::ObjectFactory
     \return
       True if successful, false if failed
     ************************************************************************/
-    bool LoadObjects(std::set<GE::ECS::Entity>& map) const;
+    bool LoadObjects(std::set<GE::ECS::Entity>& map);
 
     /*!*********************************************************************
     \brief

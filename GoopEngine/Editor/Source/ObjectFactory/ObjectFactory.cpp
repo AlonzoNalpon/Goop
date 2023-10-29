@@ -189,6 +189,18 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   }
 }
 
+void ObjectFactory::LoadPrefabsFromFile()
+{
+  auto prefabs{ GE::Assets::AssetManager::GetInstance().GetPrefabs() };
+  for (auto const& [name, path] : prefabs)
+  {
+    Serialization::PrefabGooStream pgs{ path };
+    std::pair <std::string, ObjectData> data;
+    pgs.Unload(data);
+    m_prefabs.emplace(std::move(data));
+  }
+}
+
 void ObjectFactory::DeserializePrefab(const std::string& filepath)
 {
   GE::Serialization::PrefabGooStream pgs{ filepath };
@@ -254,7 +266,7 @@ std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ObjectFactory::MapEntityIDs
   return ret;
 }
 
-bool ObjectFactory::LoadObjects(std::set<GE::ECS::Entity>& map) const
+bool ObjectFactory::LoadObjects(std::set<GE::ECS::Entity>& map)
 {
   try
   {
@@ -271,6 +283,7 @@ bool ObjectFactory::LoadObjects(std::set<GE::ECS::Entity>& map) const
       map.emplace(i);
       ++i;*/
     }
+    EmptyMap();
   }
   catch (GE::Debug::IExceptionBase& e)
   {
@@ -292,14 +305,6 @@ void ObjectFactory::LoadSceneJson(std::string const& filename)
   if (ogs)
   {
     ogs.Unload(m_objects);
-  }
-  auto prefabs{ GE::Assets::AssetManager::GetInstance().GetPrefabs() };
-  for (auto const& [name, path] : prefabs)
-  {
-    Serialization::PrefabGooStream pgs{ path };
-    std::pair <std::string, ObjectData> data;
-    pgs.Unload(data);
-    m_prefabs.emplace(std::move(data));
   }
 }
 
@@ -331,13 +336,17 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::SpriteAnimSystem>();
     RegisterComponentsToSystem<Systems::SpriteAnimSystem>(sig);
     break;  
-  case SYSTEM_TYPES::POST_ROOT_TRANSFORM:
+  // ====== uncomment when root transform is pushed ====== //
+  /*case SYSTEM_TYPES::POST_ROOT_TRANSFORM:
       EntityComponentSystem::GetInstance().RegisterSystem<Systems::PostRootTransformSystem>();
       RegisterComponentsToSystem<Systems::PostRootTransformSystem>(sig);
       break;
   case SYSTEM_TYPES::PRE_ROOT_TRANSFORM:
       EntityComponentSystem::GetInstance().RegisterSystem<Systems::PreRootTransformSystem>();
-      RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);
+      RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);*/
+  case SYSTEM_TYPES::ROOT_TRANSFORM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::RootTransformSystem>();
+    RegisterComponentsToSystem<Systems::RootTransformSystem>(sig);
   case SYSTEM_TYPES::ENEMY_SYSTEM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::EnemySystem>();
     RegisterComponentsToSystem<Systems::EnemySystem>(sig);
