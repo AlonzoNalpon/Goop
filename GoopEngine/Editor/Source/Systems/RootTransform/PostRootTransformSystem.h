@@ -16,8 +16,6 @@ namespace GE::Systems
 {
 	class PostRootTransformSystem : public GE::ECS::System
 	{
-		void Start();
-
 		// Intentionally override this function as
 		// it has different behaviour as it will handle
 		// inactive entities as well

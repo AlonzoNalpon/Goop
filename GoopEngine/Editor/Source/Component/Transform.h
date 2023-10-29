@@ -29,7 +29,7 @@ namespace GE
 				Overload contructor
 			************************************************************************/
 			Transform(Math::dVec3 const& pos, Math::dVec3 const& scale, Math::dVec3 const& rot)
-				: m_worldPos{ pos }, m_worldScale{ scale }, m_worldRot{ rot } {}
+				: m_pos{ pos }, m_scale{ scale }, m_rot{ rot } {}
 
 			vec3 m_pos;
 			vec3 m_scale;

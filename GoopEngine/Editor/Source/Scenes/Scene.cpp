@@ -42,9 +42,9 @@ void GE::Scenes::Scene::Free()
 
 void GE::Scenes::Scene::TestScene()
 {
-	//of->LoadSceneJson("SceneTest");
-	//std::set<Entity> stackObj;
-	//of->LoadSceneObjects(stackObj);
+	of->LoadSceneJson("SceneTest");
+	std::set<Entity> stackObj;
+	of->LoadSceneObjects(stackObj);
 	Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 
 	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);

@@ -1,11 +1,11 @@
 {
     "PreRootTransformSystem": [],
-	  "PlayerControllerSystem": [	
-         "Transform",
-         "Sprite",
-         "SpriteAnim",
-		     "ScriptHandler"
-	  ],
+	"PlayerControllerSystem": [	
+		"Transform",
+		"Sprite",
+		"SpriteAnim",
+		"ScriptHandler"
+	],
     "EnemySystem": [
         "EnemyAI",
         "Transform"

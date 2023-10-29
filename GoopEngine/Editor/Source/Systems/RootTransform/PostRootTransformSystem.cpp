@@ -16,11 +16,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "TransformSystemHelper.h"
 #include <Graphics/GraphicsEngine.h>
 #include <Component/Sprite.h>
-void GE::Systems::PostRootTransformSystem::Start()
-{
-	Update();
-}
-
 
 void GE::Systems::PostRootTransformSystem::Update()
 {
