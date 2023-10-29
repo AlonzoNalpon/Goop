@@ -51,6 +51,7 @@ namespace GE
 		{
 		public:
 			using timeFormat = std::chrono::microseconds;
+			using systemTimerList = std::vector<std::pair<std::string, timeFormat>>;
 
 			/*!*********************************************************************
 			\brief
@@ -235,7 +236,7 @@ namespace GE
 			int m_framePassed{};
 
 			std::chrono::time_point<std::chrono::high_resolution_clock> m_systemTimeStart{};
-			std::vector<std::pair<std::string, timeFormat>> m_fpsControllerMap;
+			systemTimerList m_fpsControllerMap;
 		};
 	}
 	
