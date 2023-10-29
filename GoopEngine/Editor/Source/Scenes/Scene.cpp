@@ -29,7 +29,7 @@ void GE::Scenes::Scene::Init()
 void GE::Scenes::Scene::Unload()
 {
 	Audio::AudioEngine::GetInstance().StopAllChannels();
-	auto entities = ecs->GetEntities();
+	std::set<ECS::Entity> entities = ecs->GetEntities();
 	for (auto entity : entities)
 	{
 		/*if (ecs->GetIsActiveEntity(entity))
@@ -78,7 +78,7 @@ void GE::Scenes::Scene::TestScene()
 	tween.AddTween({ -900, 0, 0 });
 	tween.AddTween({ 0, -350, 0 });
 	tween.AddTween({ 350, 350, 0 });
-	GE::Component::Model mdl; // model data for the player sprite
+	GE::Component::Model mdl{}; // model data for the player sprite
 	mdl.mdlID = gEngine.GetModel();
 	Sprite sprite;
 	sprite.spriteData.texture = gEngine.textureManager.GetTextureID("SS_MineWorm");

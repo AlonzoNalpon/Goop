@@ -235,7 +235,6 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
 
 void GE::ObjectFactory::ObjectFactory::EmptyMap()
 {
-  std::cout << "Map cleared\n";
   m_objects.clear();
 }
 
@@ -273,7 +272,6 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
 {
   try
   {
-    std::cout << "OF Map size: " << m_objects.size() << "\n";
     ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
     // we will map our custom ID to the actual entity ID
     std::unordered_map<ECS::Entity, ECS::Entity> newIdToEntity{};
@@ -283,10 +281,9 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
       ECS::Entity i = CreateObject(name, data);
       map.emplace(i);
       newIdToEntity.emplace(newID, i);
-      //std::cout << newID << " -> " << i << "\n";
       ++newID;
     }
-    //std::cout << "\n";
+
     newID = 0;
     // iterate through entities again and assign parent-child
     // relation based on custom IDs
@@ -298,19 +295,14 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
       }
       else
       {
-        //std::cout << "Parent: " << ecs.GetEntityName(data.m_parent) << "\n";
         ecs.SetParentEntity(newIdToEntity[newID], newIdToEntity[data.m_parent]);
       }
-      /*else
-        std::cout << "Parent: null\n";*/
-      //std::cout << "Entity " << ecs.GetEntityName(newID) << "\nChilds: ";
+
       for (ECS::Entity child : data.m_childEntities)
       {
-        //std::cout << ecs.GetEntityName(newIdToEntity[child]) << " ";
         ecs.AddChildEntity(newIdToEntity[newID], newIdToEntity[child]);
       }
       ++newID;
-      //std::cout << "\n";
     }
   }
   catch (GE::Debug::IExceptionBase& e)
@@ -322,7 +314,6 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
 
 void ObjectFactory::LoadSceneJson(std::string const& filename)
 {
-  std::cout << "Deserializing into map...\n";
   Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene(filename) };
   if (ogs)
   {

@@ -27,8 +27,12 @@ void GE::EditorGUI::ToolBar::CreateContent()
     {
       if (Selectable("New Scene"))
       {
-        // Creates a new empty scene JSON
-        // Loads it
+        std::string const newScenePath{ GE::EditorGUI::AssetBrowser::SaveFileToExplorer("Scenes (*.scn)\0*.scn", 1, "./Assets/Scenes") };
+        
+        if (!newScenePath.empty())
+        {
+          GE::GSM::GameStateManager::GetInstance().LoadSceneFromExplorer(newScenePath);
+        }
       }
 
       if (Selectable("Save"))
@@ -38,13 +42,11 @@ void GE::EditorGUI::ToolBar::CreateContent()
       if (Selectable("Open"))
       {
         // Load scene function
-        std::string const scenePath{ GE::EditorGUI::AssetBrowser::OpenFileExplorer("Scenes (*.scn)\0*.scn\0", 1) };
+        std::string const scenePath{ GE::EditorGUI::AssetBrowser::LoadFileFromExplorer("Scenes (*.scn)\0*.scn", 1, "./Assets/Scenes")};
 
         if (!scenePath.empty())
         {
-          // Extract filename from filepath before calling SetNextScene
-          std::string::size_type const startPos{ scenePath.find_last_of("\\") + 1 };
-          GSM::GameStateManager::GetInstance().SetNextScene(scenePath.substr(startPos, scenePath.find_last_of(".") - startPos));
+          GE::GSM::GameStateManager::GetInstance().LoadSceneFromExplorer(scenePath);
         }
       }
 

@@ -17,7 +17,8 @@ namespace GE::EditorGUI
 	public:
 		/*!*********************************************************************
 		\brief
-		  
+		  Opens the file explorer and allows the user to select a file. The
+			filepath relative to initialDir is returned.
 		\param extensionsFilter
 			The list of file extensions to limit the explorer to show
 			Format:
@@ -28,14 +29,42 @@ namespace GE::EditorGUI
 						 filter
 
 			Example:
-				"Scenes (*.scn)\0*.scn\0All Files (*.*)\0*.*\0"
+				"Scenes (*.scn)\0*.scn\0All Files (*.*)\0*.*"
+		\param numFilters
+			The number of filters (should correspond to extensionsFilter)
 		\param initialDir
 			The filepath of the initial directory the file explorer opens up at.
 			Defaults to Assets.
 		\return
 		  The filepath of the file selected
 		************************************************************************/
-		static std::string OpenFileExplorer(const char* extensionsFilter = "All Files (*.*)\0*.*\0",
+		static std::string LoadFileFromExplorer(const char* extensionsFilter = "All Files (*.*)\0*.*",
+			unsigned numFilters = 1, const char* initialDir = "./Assets");
+
+		/*!*********************************************************************
+		\brief
+			Opens the file explorer and allows the user to create a file. The
+			filepath relative to initialDir is returned.
+		\param extensionsFilter
+			The list of file extensions to limit the explorer to show
+			Format:
+				A null character-separated list of filter pairs where each
+				element will consist of:
+					1. Label of the file extension
+					2. Semicolon separated list of file extensions accepted by the
+						 filter
+
+			Example:
+				"Scenes (*.scn)\0*.scn\0All Files (*.*)\0*.*"
+		\param numFilters
+			The number of filters (should correspond to extensionsFilter)
+		\param initialDir
+			The filepath of the initial directory the file explorer opens up at.
+			Defaults to Assets.
+		\return
+			The filepath of the file selected
+		************************************************************************/
+		static std::string SaveFileToExplorer(const char* extensionsFilter = "All Files (*.*)\0*.*",
 			unsigned numFilters = 1, const char* initialDir = "./Assets");
 
 		/*!*********************************************************************
@@ -49,7 +78,7 @@ namespace GE::EditorGUI
 		\return
 		  The filepath relative to the given root directory
 		************************************************************************/
-		static std::string GetRelativeFilePath(std::string const& filepath, std::string const& rootDir = "GoopEngine");
+		static std::string GetRelativeFilePath(std::string const& filepath, std::string const& rootDir = "Editor");
 
 		static void CreateContentDir();
 		static void CreateContentView();

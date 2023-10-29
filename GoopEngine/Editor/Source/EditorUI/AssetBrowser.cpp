@@ -204,7 +204,7 @@ void AssetBrowser::InitView()
 		m_assetIDs.emplace(id);
 	}
 
-	for (auto itr : m_assetIDs)
+	for (auto const& itr : m_assetIDs)
 	{
 		auto imgID = texManager.GetTextureID(assetManager.ExtractFilename(assetManager.GetName(itr)));
 		m_textID.insert(reinterpret_cast<ImTextureID>(imgID));
@@ -215,7 +215,7 @@ void AssetBrowser::Traverse(std::filesystem::path filepath)
 {
 	int folderCnt{};
 	std::filesystem::directory_iterator countIter(filepath);
-	for (auto file : countIter)
+	for (auto const& file : countIter)
 	{
 		folderCnt += (file.is_directory()) ? 1 : 0;
 	}
@@ -255,10 +255,10 @@ std::string AssetBrowser::GetRelativeFilePath(std::string const& filepath, std::
 	return "." + filepath.substr(filepath.find(rootDir) + rootDir.size());
 }
 
-std::string AssetBrowser::OpenFileExplorer(const char* extensionsFilter, unsigned numFilters, const char* initialDir)
+std::string AssetBrowser::LoadFileFromExplorer(const char* extensionsFilter, unsigned numFilters, const char* initialDir)
 {
-	OPENFILENAMEA fileName;
-	CHAR size[260] = {};
+	OPENFILENAMEA fileName{};
+	CHAR size[MAX_PATH]{};
 	
 	ZeroMemory(&fileName, sizeof(fileName));
 	fileName.lStructSize = sizeof(fileName);
@@ -266,7 +266,7 @@ std::string AssetBrowser::OpenFileExplorer(const char* extensionsFilter, unsigne
 	fileName.lpstrFile = size;
 	fileName.nMaxFile = sizeof(size);
 	fileName.lpstrFilter = extensionsFilter;
-	fileName.nFilterIndex = numFilters;							// number of filters
+	fileName.nFilterIndex = numFilters;			// number of filters
 	fileName.lpstrFileTitle = NULL;
 	fileName.nMaxFileTitle = 0;
 	fileName.lpstrInitialDir = initialDir;	// initial directory
@@ -277,5 +277,38 @@ std::string AssetBrowser::OpenFileExplorer(const char* extensionsFilter, unsigne
 		return GetRelativeFilePath(fileName.lpstrFile);
 	}
 
-	return std::string();
+	throw GE::Debug::Exception<AssetBrowser>::Exception(GE::Debug::LEVEL_ERROR, ErrMsg("Unable to open file"));
 }
+
+std::string AssetBrowser::SaveFileToExplorer(const char* extensionsFilter, unsigned numFilters, const char* initialDir)
+{
+	OPENFILENAMEA fileName{};
+	CHAR size[MAX_PATH]{};
+
+	ZeroMemory(&fileName, sizeof(fileName));
+	fileName.lStructSize = sizeof(fileName);
+	fileName.hwndOwner = NULL;
+	fileName.lpstrFile = size;
+	fileName.nMaxFile = sizeof(size);
+	fileName.lpstrFilter = extensionsFilter;
+	fileName.nFilterIndex = numFilters;			// number of filters
+	fileName.lpstrFileTitle = NULL;
+	fileName.nMaxFileTitle = 0;
+	fileName.lpstrInitialDir = initialDir;	// initial directory
+	// OFN_NOCHANGEDIR specifies not to change the working dir
+	fileName.Flags = OFN_OVERWRITEPROMPT | OFN_NOCHANGEDIR;
+
+	if (GetSaveFileNameA(&fileName))
+	{
+		std::string const newFile{ GetRelativeFilePath(fileName.lpstrFile) };
+		std::ofstream ofs{ newFile };
+		if (ofs)
+		{
+			ofs.close();
+			return newFile;
+		}
+	}
+
+	throw GE::Debug::Exception<AssetBrowser>::Exception(GE::Debug::LEVEL_ERROR, ErrMsg("Unable to save file"));
+}
+

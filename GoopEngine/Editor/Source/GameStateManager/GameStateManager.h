@@ -41,6 +41,12 @@ namespace GE::GSM
     ************************************************************************/
     void Restart();
 
+    /*!*********************************************************************
+    \brief
+      Loads a scene given a file path
+    ************************************************************************/
+    void LoadSceneFromExplorer(std::string const& filepath);
+
     void Init();
     void Update();
     void Exit();

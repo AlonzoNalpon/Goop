@@ -37,6 +37,12 @@ bool ObjectGooStream::Read(std::string const& json)
     #endif
     return m_status = false;
   }
+  if (ifs.peek() == std::ifstream::traits_type::eof())
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogMessage("Deserializing and read empty file. Ignoring checks");
+    return m_status = false;
+  }
+
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
 
   // parse into document object
