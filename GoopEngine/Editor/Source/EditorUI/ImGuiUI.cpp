@@ -31,6 +31,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SceneControls.h"
 #include "AssetBrowser.h"
 #include <EditorUI/EditorViewport.h>
+#include <EditorUI/PrefabEditor.h>
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -88,6 +89,10 @@ void ImGuiUI::Update()
 
   Begin("Inspector");
   Inspector::CreateContent();
+  End();
+
+  Begin("Prefab Editor");
+  PrefabEditor::CreateContent();
   End();
 
   Begin("Viewport");

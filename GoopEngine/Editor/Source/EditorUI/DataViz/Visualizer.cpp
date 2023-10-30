@@ -25,7 +25,7 @@ std::vector<float> Visualizer::m_fpsHistory(Visualizer::m_fpsMaxCount, 0.f);
 //  m_graphWidth = 
 //}
 
-void Visualizer::UpdateSystemTimes()
+void Visualizer::UpdateSystemTimers()
 {
   if (IsPerformanceShown())
   {

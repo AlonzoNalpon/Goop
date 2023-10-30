@@ -20,6 +20,7 @@ namespace
 	std::filesystem::path m_currDir;
 	std::filesystem::path assetsDirectory;
 	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" };
+	std::filesystem::path m_selectedFile;
 	float thumbnailSize = 300.0f;
 }
 
@@ -118,13 +119,26 @@ void AssetBrowser::CreateContentView()
 
 			if (ImGui::BeginDragDropSource())
 			{
-				ImGui::SetDragDropPayload("ASSET_BROWSER_ITEM", file.path().filename().string().c_str(), (strlen(file.path().filename().string().c_str()) * sizeof(const char*)), ImGuiCond_Once);
+				ImGui::SetDragDropPayload("ASSET_BROWSER_IMAGE", file.path().filename().string().c_str(), (strlen(file.path().filename().string().c_str()) * sizeof(const char*)), ImGuiCond_Once);
 				ImGui::EndDragDropSource();
 			}
 
 			ImGui::PopStyleColor();
 		}
-		Text(file.path().filename().string().c_str());
+		//Text(file.path().filename().string().c_str());
+		ImGui::Selectable(file.path().filename().string().c_str());		// show as selectable to support drag n drop
+
+		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+		{
+			m_selectedFile = file.path();
+			std::string const currFilename{ file.path().filename().string().c_str() };
+
+			ImGui::SetDragDropPayload("ASSET_BROWSER_ITEM", &m_selectedFile, sizeof(std::filesystem::path));
+
+			// Show filename on hover
+			ImGui::Text(currFilename.c_str());
+			ImGui::EndDragDropSource();
+		}
 	}
 }
 
@@ -188,7 +202,7 @@ void AssetBrowser::InitView()
 			continue;
 		}
 
-		std::string const& extension{ file.path().extension().string() }; //getting extension on file
+		std::string const& extension{ file.path().extension().string() }; //getting extension on file'
 		if (extension != m_imageFile) //if file is not an image file, continue -> don't need to load image
 		{
 			continue;

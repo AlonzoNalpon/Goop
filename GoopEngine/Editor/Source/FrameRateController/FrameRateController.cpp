@@ -144,7 +144,7 @@ void FrameRateController::EndFrame()
 	++m_frameCount;
 
 	// update graph for system timers if window is shown
-	EditorGUI::DataViz::Visualizer::UpdateSystemTimes();
+	EditorGUI::DataViz::Visualizer::UpdateSystemTimers();
 }
 
 

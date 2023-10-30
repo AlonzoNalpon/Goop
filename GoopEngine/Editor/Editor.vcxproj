@@ -171,6 +171,7 @@
     <ClCompile Include="Source\EditorUI\DataViz\Visualizer.cpp" />
     <ClCompile Include="Source\EditorUI\EditorViewport.cpp" />
     <ClCompile Include="Source\EditorUI\Inspector.cpp" />
+    <ClCompile Include="Source\EditorUI\PrefabEditor.cpp" />
     <ClCompile Include="Source\EditorUI\SceneControls.cpp" />
     <ClCompile Include="Source\EditorUI\ToolBar.cpp" />
     <ClCompile Include="Source\Events\EventManager.cpp" />
@@ -315,6 +316,7 @@
     <ClInclude Include="Source\EditorUI\DataViz\Visualizer.h" />
     <ClInclude Include="Source\EditorUI\EditorViewport.h" />
     <ClInclude Include="Source\EditorUI\Inspector.h" />
+    <ClInclude Include="Source\EditorUI\PrefabEditor.h" />
     <ClInclude Include="Source\EditorUI\SceneControls.h" />
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
