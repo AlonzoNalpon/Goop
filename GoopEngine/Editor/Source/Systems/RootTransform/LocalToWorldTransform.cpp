@@ -38,14 +38,15 @@ void GE::Systems::LocalToWorldTransform::Propergate(GE::ECS::Entity& entity, con
 	if (parent != GE::ECS::INVALID_ID)
 	{
 		parentTrans = ecs.GetComponent<GE::Component::Transform>(parent);
-		GE::Math::dVec3 worldPos = parentWorldTrans * GE::Math::dVec4(trans->GetPos(), 1);
-		GE::Math::dVec3 worldScale = trans->GetScale() * parentTrans->GetScale();
-		GE::Math::dVec3 worldRot = trans->GetRot() + parentTrans->GetRot();
-		trans->SetWorldTransform(entity, worldPos, worldScale, worldRot);
+		trans->SetRawWorldPos(parentWorldTrans * GE::Math::dVec4(trans->GetPos(), 1));
+		trans->SetRawWorldScale(trans->GetScale() * parentTrans->GetScale());
+		trans->SetRawWorldRot(trans->GetRot() + parentTrans->GetRot());
 	}
 	else
 	{
-		trans->SetWorldTransform(entity, trans->GetPos(), trans->GetScale(), trans->GetRot());
+		trans->SetRawWorldPos(trans->GetPos());
+		trans->SetRawWorldScale(trans->GetScale());
+		trans->SetRawWorldRot(trans->GetRot());
 	}
 
 	Math::dMat4 T

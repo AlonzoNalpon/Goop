@@ -44,10 +44,9 @@ void GE::Systems::WorldToLocalTransform::Propergate(GE::ECS::Entity& entity, GE:
 			GE::Math::dMat4 invWorldTransform;
 			GE::Math::MtxInverse(invWorldTransform, trans->m_parentWorldTransform);
 
-			GE::Math::dVec3 pos = invWorldTransform * GE::Math::dVec4(trans->GetWorldPos(), 1);
-			GE::Math::dVec3 scale = trans->GetWorldScale() / parentTrans->GetWorldScale();
-			GE::Math::dVec3 rot = trans->GetWorldRot() - parentTrans->GetWorldRot();
-			trans->SetLocalTransform(entity, pos, scale, rot);
+			trans->SetRawPos(invWorldTransform * GE::Math::dVec4(trans->GetWorldPos(), 1));
+			trans->SetRawScale(trans->GetWorldScale() / parentTrans->GetWorldScale());
+			trans->SetRawRot(trans->GetWorldRot() - parentTrans->GetWorldRot());
 		}
 		catch (GE::Debug::IExceptionBase& e)
 		{
@@ -57,7 +56,9 @@ void GE::Systems::WorldToLocalTransform::Propergate(GE::ECS::Entity& entity, GE:
 	// no parent means local is world transform
 	else
 	{
-		trans->SetLocalTransform(entity, trans->GetWorldPos(), trans->GetWorldScale(), trans->GetWorldRot());
+		trans->SetRawPos(trans->GetWorldPos());
+		trans->SetRawScale(trans->GetWorldScale());
+		trans->SetRawRot(trans->GetWorldRot());
 	}
 
 	Math::dMat4 T

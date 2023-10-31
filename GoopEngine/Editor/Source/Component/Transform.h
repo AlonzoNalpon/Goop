@@ -53,7 +53,7 @@ namespace GE
 				Overload contructor
 			************************************************************************/
 			Transform(Math::dVec3 const& pos, Math::dVec3 const& scale, Math::dVec3 const& rot)
-				: m_worldPos{ pos }, m_worldScale{ scale }, m_worldRot{ rot } 
+				: m_pos{ pos }, m_scale{ scale }, m_rot{ rot }, m_worldPos{ pos }, m_worldScale{ scale }, m_worldRot{ rot }
 			{
 				GE::Math::dMat4 identity
 				{
@@ -77,9 +77,9 @@ namespace GE
 			inline vec3 GetScale() const { return m_scale; };
 			inline vec3 GetRot() const { return m_rot; };
 
-			inline void SetRawWorldPos(vec3 vec) { m_pos = vec; };
-			inline void SetRawWorldScale(vec3 vec) { m_scale = vec; };
-			inline void SetRawWorldRot(vec3 vec) { m_rot = vec; }
+			inline void SetRawWorldPos(vec3 vec) { m_worldPos = vec; };
+			inline void SetRawWorldScale(vec3 vec) { m_worldScale = vec; };
+			inline void SetRawWorldRot(vec3 vec) { m_worldRot = vec; }
 			inline void SetWorldPos(GE::ECS::Entity entity, vec3 vec) { SetRawWorldPos(vec); GE::Systems::WorldToLocalTransform::Propergate(entity, m_parentWorldTransform); };
 			inline void SetWorldScale(GE::ECS::Entity entity, vec3 vec) { SetRawWorldScale(vec); GE::Systems::WorldToLocalTransform::Propergate(entity, m_parentWorldTransform); };
 			inline void SetWorldRot(GE::ECS::Entity entity, vec3 vec) { SetRawWorldRot(vec); GE::Systems::WorldToLocalTransform::Propergate(entity, m_parentWorldTransform); };

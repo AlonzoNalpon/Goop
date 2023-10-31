@@ -35,6 +35,9 @@ namespace GE
 			trans.SetRawWorldPos(cw.Get<Math::dVec3>("worldPos"));
 			trans.SetRawWorldScale(cw.Get<Math::dVec3>("worldScale"));
 			trans.SetRawWorldRot(cw.Get<Math::dVec3>("worldRot"));
+			trans.SetRawPos(cw.Get<Math::dVec3>("worldPos"));
+			trans.SetRawScale(cw.Get<Math::dVec3>("worldScale"));
+			trans.SetRawRot(cw.Get<Math::dVec3>("worldRot"));
 
 			return trans;
 		}
