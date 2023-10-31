@@ -5,6 +5,7 @@
 #include <rapidjson/prettywriter.h>
 #include <Component/Components.h>
 #include <ObjectFactory/ObjectFactory.h>
+#include <rttr/enumeration.h>
 
 namespace GE
 {
@@ -83,8 +84,9 @@ namespace GE
       rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
       document.Accept(writer);
 
+      // clean up
       ofs.close();
-
+      m_oldToNewIDs.clear();
     }
 
     void Serializer::SerializeSystems(std::string const& json)
@@ -134,56 +136,6 @@ namespace GE
       ofs.close();
     }
 
-    std::vector<std::pair<std::string, ECS::ComponentSignature>> Serializer::DeserializeSystems(std::string const& json)
-    {
-      std::ifstream ifs{ json };
-      if (!ifs)
-      {
-        throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to read " + json));
-      }
-
-      rapidjson::Document document{};
-      // parse into document object
-      rapidjson::IStreamWrapper isw{ ifs };
-      if (document.ParseStream(isw).HasParseError())
-      {
-        ifs.close();
-        throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to parse " + json));
-      }
-
-      // check if root is object
-      if (!document.IsObject())
-      {
-        ifs.close();
-        throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg(json + ": root is not an object"));
-      }
-
-      std::vector<std::pair<std::string, ECS::ComponentSignature>> ret;
-      // iterate through systems with key-array pairs
-      for (auto const& system : document.GetObj())
-      {
-        ECS::ComponentSignature sig{};
-        for (auto const& component : system.value.GetArray())
-        {
-          // set component's corresponding bit
-          auto compType{ ECS::stringToComponents.find(component.GetString()) };
-          if (compType == ECS::stringToComponents.cend())
-          {
-            ifs.close();
-            std::string str{ "Invalid component in " };
-            str += json + ": " + component.GetString();
-            throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg(str));
-          }
-
-          sig[static_cast<unsigned>(compType->second)] = true;
-        }
-        ret.emplace_back(system.name.GetString(), sig); // add entry to container
-      }
-
-      ifs.close();
-      return ret;
-    }
-
     rttr::instance Serializer::GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type)
     {
       switch (type)
@@ -210,6 +162,10 @@ namespace GE
         return *ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Draggable>(id);
       }
 
+      std::ostringstream oss{};
+      std::string const enumString = rttr::type::get<ECS::COMPONENT_TYPES>().get_enumeration().value_to_name(type).to_string();
+      oss << "Trying to get unsupported component type (" << enumString << ") from Entity " << id;
+      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
       return rttr::instance();
     }
 
@@ -252,37 +208,29 @@ namespace GE
     {
       rapidjson::Value jsonVal{ rapidjson::kNullType };
       if (valueType == rttr::type::get<int>())
-      {
         jsonVal.SetInt(value.to_int());
-      }
       else if (valueType == rttr::type::get<double>())
-      {
         jsonVal.SetDouble(value.to_double());
-      }
       else if (valueType == rttr::type::get<const char*>())
-      {
         jsonVal.SetString(value.to_string().c_str(), allocator);
-      }
       else if (valueType == rttr::type::get<bool>())
-      {
         jsonVal.SetBool(value.to_bool());
-      }
       else if (valueType == rttr::type::get<unsigned>())
-      {
         jsonVal.SetUint(value.to_uint32());
-      }
+      else if (valueType == rttr::type::get<char>())
+        jsonVal.SetBool(value.to_bool());
       else if (valueType == rttr::type::get<float>())
-      {
         jsonVal.SetFloat(value.to_float());
-      }
       else if (valueType == rttr::type::get<uint64_t>())
-      {
         jsonVal.SetUint64(value.to_uint64());
-      }
+      else if (valueType == rttr::type::get<uint16_t>())
+        jsonVal.SetInt(value.to_uint16());
+      else if (valueType == rttr::type::get<uint8_t>())
+        jsonVal.SetInt(value.to_uint8());
       else
       {
         std::ostringstream oss{};
-        oss << "Trying to deserialize unknown basic type: " << valueType.get_name() << " with value " << value.to_string();
+        oss << "Trying to deserialize unsupported basic type: " << valueType.get_name() << " with value " << value.to_string();
         GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
         jsonVal.SetNull();
       }
@@ -344,7 +292,7 @@ namespace GE
       else
       {
         std::ostringstream oss{};
-        oss << "Trying to deserialize unknown type: " << valueType.get_name() << " with value: " << value.to_string();
+        oss << "Trying to deserialize unsupported type: " << valueType.get_name() << " with value: " << value.to_string();
         GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
         jsonVal.SetNull();
       }
@@ -397,17 +345,47 @@ namespace GE
       return comp;
     }
 
+    rapidjson::Value Serializer::SerializeEnumType(rttr::type const& valueType, rttr::variant const& object, rapidjson::Document::AllocatorType& allocator)
+    {
+      rapidjson::Value strJson{ rapidjson::kNullType };
+      bool status = false;
+      std::string const result = object.to_string(&status);
+      if (status)
+      {
+        strJson.SetString(result.c_str(), allocator);
+      }
+      else
+      {
+        std::ostringstream oss{};
+        oss << "Unable to serialize " << valueType.get_name() << " with value: " << object.to_string();
+        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+      }
+
+      return strJson;
+    }
+
     rapidjson::Value Serializer::SerializeBasedOnType(rttr::variant const& object, rapidjson::Document::AllocatorType& allocator)
     {
       rapidjson::Value value{ rapidjson::kNullType };
       // if object is of basic type
-      if (object.get_type().is_arithmetic())
+      rttr::type valueType{ object.get_type() };
+      rttr::type wrappedType{ valueType.is_wrapper() ? valueType.get_wrapped_type() : valueType };
+
+      if (wrappedType.is_arithmetic())
       {
-        value = SerializeBasicTypes(object.get_type(), object, allocator).Move();
+        value = SerializeBasicTypes(wrappedType, object, allocator).Move();
+      }
+      else if (wrappedType.is_enumeration()) // if enum
+      {
+        value = SerializeEnumType(wrappedType, object, allocator).Move();
+      }
+      else if (wrappedType.is_sequential_container())
+      {
+        SerializeSequentialContainer(object, value, allocator);
       }
       else  // if class type
       {
-        value = SerializeClassTypes(object.get_type(), object, allocator).Move();
+        value = SerializeClassTypes(wrappedType, object, allocator).Move();
       }
 
       return value;
@@ -415,13 +393,11 @@ namespace GE
 
     void Serializer::Test()
     {
-      rapidjson::Document document;
-      rapidjson::Value outerArr{ rapidjson::kArrayType };
+      rapidjson::Document document{ rapidjson::kArrayType };
       std::vector<std::vector<std::string>> a{ {"test", "boo", "joel"}, { "joel2","joel3" }, { "joel4", "joel5" } };
-      SerializeSequentialContainer(a, outerArr, document.GetAllocator());
+      SerializeSequentialContainer(a, document, document.GetAllocator());
       rapidjson::Value key{};
       key.SetString("BAM_KEY", document.GetAllocator());
-      document.AddMember(key, outerArr, document.GetAllocator());
 
       std::ofstream ofs{ "test.muaahah" };
       if (!ofs)
@@ -441,17 +417,22 @@ namespace GE
       auto containerIter = object.create_sequential_view();
       for (const auto& elem : containerIter)
       {
-        rapidjson::Value{ rapidjson::kNullType };
         // if underlying element is still a container, recurse
         if (elem.is_sequential_container())
         {
           SerializeSequentialContainer(elem, jsonArray, allocator);
         }
-        // else serialize element normally
-        innerArr.PushBack(SerializeBasedOnType(elem, allocator).Move(), allocator);
+        else
+        {
+          rttr::variant wrappedVal = elem.extract_wrapped_value();
+          // else serialize element normally
+          innerArr.PushBack(SerializeBasedOnType(wrappedVal, allocator).Move(), allocator);
+        }
       }
-      jsonArray.PushBack(innerArr, allocator);
-
+      if (!innerArr.Empty())
+      {
+        jsonArray.PushBack(innerArr.Move(), allocator);
+      }
     }
   } // namespace Serialization
 } // namespace GE

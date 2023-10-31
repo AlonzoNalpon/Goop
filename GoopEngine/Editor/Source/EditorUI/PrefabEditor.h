@@ -1,5 +1,6 @@
 #pragma once
 #include <ImGui/imgui.h>
+#include <rttr/type.h>
 
 namespace GE
 {
@@ -12,7 +13,7 @@ namespace GE
 
     private:
       static ImVec4 const m_highlightClr;
-      static std::string m_currentPrefab, m_currentFilepath;  // current prefab being edited
+      static std::string m_prefabName, m_currentFilepath;  // current prefab being edited
       static bool m_isDragging;
     };
   }
