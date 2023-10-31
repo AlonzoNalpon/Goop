@@ -19,11 +19,11 @@ namespace GE
     {
       rapidjson::Value entity{ rapidjson::kObjectType };
       rapidjson::Value entityName{};
-      entityName.SetString(ECS::EntityComponentSystem::GetInstance().GetEntityName(id).c_str(), allocator);
+      entityName.SetString(id.m_name.c_str(), allocator);
       entity.AddMember(JsonNameKey, entityName, allocator);
 
       rapidjson::Value jsonParent{ rapidjson::kNullType };
-      ECS::Entity const parentID{ ECS::EntityComponentSystem::GetInstance().GetParentEntity(id) };
+      ECS::Entity const parentID{ id.GetParent() };
       if (parentID != ECS::INVALID_ID)
       {
         jsonParent.SetUint(m_oldToNewIDs[parentID]);
@@ -68,7 +68,7 @@ namespace GE
       m_oldToNewIDs = std::move(ObjectFactory::ObjectFactory::GetInstance().GenerateNewIDs());
       for (ECS::Entity entity : ecs.GetEntities())
       {
-        std::set<ECS::Entity> const& childIDs{ ecs.GetChildEntities(entity) };
+        std::set<ECS::Entity> const& childIDs{ entity.GetChildren() };
         std::vector<ECS::Entity> newChildIDs{};
         newChildIDs.reserve(childIDs.size());
         for (ECS::Entity const& child : childIDs)

@@ -36,7 +36,7 @@ void SystemManager::EntityDestroyed(const Entity& entity)
 	}
 }
 
-void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignature& signature, bool isActive)
+void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignature& signature)
 {
 	for (auto& system : m_systems)
 	{
@@ -56,7 +56,7 @@ void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignat
 		else
 		{			
 			system.second->GetAllEntities().insert(entity);
-			if (isActive)
+			if (entity.m_active)
 			{
 				system.second->GetEntities().insert(entity);
 			}

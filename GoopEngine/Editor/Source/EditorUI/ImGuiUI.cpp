@@ -37,7 +37,7 @@ using namespace DataViz;
 using namespace ImGui;
 
 // Initialize static
-GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
+GE::ECS::EntityID ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
 bool ImGuiHelper::m_play = false;
 bool ImGuiHelper::m_pause = false;
 bool ImGuiHelper::m_step = false;

@@ -14,8 +14,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../ObjectFactory/ObjectFactory.h"
 #include <GameStateManager/GameStateManager.h>
 #include <Systems/RootTransform/TransformSystemHelper.h>
-#include <Systems/RootTransform/PostRootTransformSystem.h>
-#include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Systems/RootTransform/LocalToWorldTransform.h>
+#include <Systems/RootTransform/WorldToLocalTransform.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -25,9 +25,6 @@ using namespace GE::ECS;
 // Anonymous namespace for functions unqiue to this file
 namespace
 {
-	// Macros to call ecs entity name functions
-#define GetName(entityId) ecs.GetEntityName(entityId).c_str() 
-#define SetName(entityId, newName) ecs.SetEntityName(entityId, newName).c_str() 
 #define PAYLOAD "SceneHierachy"
 
 	// Style setting
@@ -95,11 +92,11 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 				EndDragDropTarget();
 			}
 
-			for (Entity entity : ecs.GetEntities())
+			for (Entity& entity : ecs.GetEntities())
 			{
-				if (ecs.GetParentEntity(entity) == INVALID_ID)
+				if (entity.GetParent().m_id == INVALID_ID)
 				{
-					Propergate(entity, ecs, treeFlags, ecs.GetIsActiveEntity(entity) ? originalTextClr : inactiveTextClr);
+					Propergate(entity, ecs, treeFlags, entity.m_active ? originalTextClr : inactiveTextClr);
 				}
 			}
 			TreePop();
@@ -140,16 +137,16 @@ namespace
 {
 	void ParentEntity(EntityComponentSystem& ecs, Entity& child, Entity* parent)
 	{
-		Entity oldParent = ecs.GetParentEntity(child);
+		Entity& oldParent = child.GetParent();
 		// Has parent, remove self from parent
-		if (oldParent != INVALID_ID)
+		if (oldParent.m_id != INVALID_ID)
 		{
-			ecs.RemoveChildEntity(oldParent, child);
+			oldParent.GetChildren().erase(child);
 		}
 
 		if (!parent)	// Child becoming root
 		{
-			ecs.SetParentEntity(child, INVALID_ID);
+			child.SetParent();
 
 			GE::Math::dMat4 identity
 			{
@@ -158,22 +155,22 @@ namespace
 				{ 0, 0, 1, 0 },
 				{ 0, 0, 0, 1 }
 			};
-			GE::Systems::PreRootTransformSystem::Propergate(ecs, child, identity);
+			GE::Systems::WorldToLocalTransform::Propergate(child, identity);
 		}
 		else
 		{
 			try
 			{
-				ecs.SetParentEntity(child, *parent);
-				ecs.AddChildEntity(*parent, child);
+				child.SetParent(parent);
+				parent->AddChildren(child);
 
 				GE::Component::Transform* parentTrans = ecs.GetComponent<GE::Component::Transform>(*parent);
 				if (parentTrans == nullptr)
 				{
-					throw GE::Debug::Exception<GE::EditorGUI::SceneHierachy>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(*parent) + " is missing a transform component. All entities must have a transform component!!"));
+					throw GE::Debug::Exception<GE::EditorGUI::SceneHierachy>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + parent->m_name + " is missing a transform component. All entities must have a transform component!!"));
 				}
 
-				GE::Systems::PreRootTransformSystem::Propergate(ecs, child, parentTrans->m_worldTransform);
+				GE::Systems::WorldToLocalTransform::Propergate(child, parentTrans->m_worldTransform);
 			}
 			catch (GE::Debug::IExceptionBase& e)
 			{
@@ -193,14 +190,14 @@ namespace
 		/////////////////////
 		// Create own node
 		/////////////////////
-		std::set<Entity>& m_children = ecs.GetChildEntities(entity);
+		std::set<Entity>& m_children = entity.GetChildren();
 		if (m_children.empty())
 		{
 			flag |= ImGuiTreeNodeFlags_Leaf;
 		}
 
-		if (TreeNodeEx(GetName(entity), flag |
-			(entity == GE::EditorGUI::ImGuiHelper::GetSelectedEntity() ? ImGuiTreeNodeFlags_Selected : 0)))
+		if (TreeNodeEx(entity.m_name.c_str(), flag |
+			(entity.m_id == GE::EditorGUI::ImGuiHelper::GetSelectedEntity() ? ImGuiTreeNodeFlags_Selected : 0)))
 		{
 			if (IsItemClicked())
 			{
@@ -237,7 +234,7 @@ namespace
 			{
 				SetDragDropPayload(PAYLOAD, &entity, sizeof(entity));
 				// Anything between begin and end will be parented to the dragged object
-				Text(GetName(entity));
+				Text(entity.m_name.c_str());
 				EndDragDropSource();
 			}
 			if (BeginDragDropTarget())
@@ -264,7 +261,7 @@ namespace
 
 			for (Entity child : m_children)
 			{
-				Propergate(child, ecs, flag, ecs.GetIsActiveEntity(child) ? textClr : inactiveTextClr);
+				Propergate(child, ecs, flag, child.m_active ? textClr : inactiveTextClr);
 			}
 
 			TreePop();

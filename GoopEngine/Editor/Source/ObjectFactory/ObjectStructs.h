@@ -20,12 +20,12 @@ namespace GE
     struct ObjectData
     {
       ObjectData() = default;
-      ObjectData(ECS::Entity parent) 
+      ObjectData(ECS::EntityID parent) 
         : m_components{}, m_childEntities{}, m_parent { parent }, m_componentSignature{} {}
 
       ComponentMap m_components;
       std::vector<ECS::Entity> m_childEntities;
-      ECS::Entity m_parent;
+      ECS::EntityID m_parent;
       ECS::ComponentSignature m_componentSignature;
     };
   }

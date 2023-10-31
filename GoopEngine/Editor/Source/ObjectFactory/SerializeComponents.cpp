@@ -141,13 +141,13 @@ namespace GE
 		template<>
 		GE::Component::ScriptHandler DeserializeComponent(std::string const& componentData)
 		{
-		    Serialization::ComponentWrapper const cw{ componentData };
-				std::vector<std::pair<std::string, std::string>> const vec{
-					cw.Get<std::vector<std::pair<std::string,std::string>>>("scriptMap")
-				};
-				ECS::Entity current{ static_cast<ECS::Entity>(ECS::EntityComponentSystem::GetInstance().GetEntities().size()) };
-				if (current > 0) { --current; }
-		    return Component::ScriptHandler(vec, current);
+		  //  Serialization::ComponentWrapper const cw{ componentData };
+				//std::vector<std::pair<std::string, std::string>> const vec{
+				//	cw.Get<std::vector<std::pair<std::string,std::string>>>("scriptMap")
+				//};
+				//ECS::EntityID current{ static_cast<ECS::Entity>(ECS::EntityComponentSystem::GetInstance().GetEntities().size()) };
+				//if (current > 0) { --current; }
+		  //  return Component::ScriptHandler(vec, current);
 		}
 
 		template<>

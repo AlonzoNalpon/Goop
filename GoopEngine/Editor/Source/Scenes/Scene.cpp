@@ -29,10 +29,12 @@ void GE::Scenes::Scene::Init()
 void GE::Scenes::Scene::Unload()
 {
 	Audio::AudioEngine::GetInstance().StopAllChannels();
-	std::set<ECS::Entity> entities = ecs->GetEntities();
-	for (auto entity : entities)
+	for (auto entity : ecs->GetEntities())
 	{
-		ecs->DestroyEntity(entity);
+		if (entity.m_active)
+		{
+			ecs->DestroyEntity(entity);
+		}
 	}
 }
 
@@ -95,7 +97,7 @@ void GE::Scenes::Scene::TestScene()
 	ecs->AddComponent(player, anim);
 	ecs->AddComponent(player, playerCollider);
 	ecs->AddComponent(player, scriptHan);
-	ecs->SetEntityName(player, "Player");
+	player.m_name = "Player";
 
 	GE::AI::NodeTemplate node0{ 0, {1},      "RootNode" };						   //0
 	GE::AI::NodeTemplate node1{ 0, {2,5},  "SelectorNode" };					   //1
@@ -120,7 +122,7 @@ void GE::Scenes::Scene::TestScene()
 
 	ecs->AddComponent(enemy, newAI);
 	ecs->AddComponent(enemy, enemyTrans);
-	ecs->SetEntityName(enemy, "Enemy");
+	enemy.m_name = "Enemy";
 	ecs->AddComponent(enemy, mdl);
 	ecs->AddComponent(enemy, sprite);
 	ecs->AddComponent(enemy, anim);

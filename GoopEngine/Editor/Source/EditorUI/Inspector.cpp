@@ -21,8 +21,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Velocity.h>
 #include <Component/Draggable.h>
 #include "../ImGui/misc/cpp/imgui_stdlib.h"
-#include <Systems/RootTransform/PostRootTransformSystem.h>
-#include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Systems/RootTransform/LocalToWorldTransform.h>
+#include <Systems/RootTransform/WorldToLocalTransform.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
@@ -154,23 +154,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 	GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
 	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 
-	if (entity == GE::ECS::INVALID_ID || !ecs.GetEntities().contains(entity))
+	if (entity == GE::ECS::INVALID_ID)
 		return;
 
 	GE::ECS::ComponentSignature sig = ecs.GetComponentSignature(entity);
 
 	PushID(entity);
-	bool isActive{ecs.GetIsActiveEntity(entity)};
-	if (Checkbox("##IsActive", &isActive))
-	{
-		ecs.SetIsActiveEntity(entity, isActive);
-	}
+	Checkbox("##IsActive", &entity.m_active);
 	SameLine();
-	std::string name = ecs.GetEntityName(entity);
-	if (InputText("##Name", &name))
-	{
-		ecs.SetEntityName(entity, name);
-	}
+	InputText("##Name", &entity.m_name);
 	Text(("Entity ID: " + std::to_string(entity)).c_str());
 
 	for (int i{}; i < GE::ECS::MAX_COMPONENTS; ++i)
@@ -190,17 +182,18 @@ void GE::EditorGUI::Inspector::CreateContent()
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
 					float inputWidth = (contentSize - charSize - 30) / 3;
 					
-					bool valChanged{ false };
-
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 					TableNextRow();
-					if (InputDouble3("Position", trans->m_pos, inputWidth)) { valChanged = true; };
+					vec3 temp = trans->m_pos;
+					if (InputDouble3("Position", temp, inputWidth)) { trans->m_pos = temp; };
 					TableNextRow();
-					if (InputDouble3("Scale", trans->m_scale, inputWidth)) { valChanged = true; };
+					temp = trans->m_scale;
+					if (InputDouble3("Scale", temp, inputWidth)) { trans->m_scale = temp; };
 					TableNextRow();
-					if (InputDouble3("Rotation", trans->m_rot, inputWidth)) { valChanged = true; };
+					temp = trans->m_rot;
+					if (InputDouble3("Rotation", temp, inputWidth)) { trans->m_rot = temp; };
 
 					TableNextRow();
 					InputDouble3("World Position", trans->m_worldPos, inputWidth, true);
@@ -211,8 +204,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					EndTable();
 					Separator();
-					if (valChanged) 
-						GE::Systems::PostRootTransformSystem::Propergate(ecs, entity, trans->m_parentWorldTransform);
 				}
 				break;
 			}

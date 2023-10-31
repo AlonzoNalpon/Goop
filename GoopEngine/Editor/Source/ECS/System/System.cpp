@@ -115,12 +115,11 @@ namespace
 {
 	bool IsAncestorActive(Entity& entity, EntityComponentSystem& ecs)
 	{
-		Entity parent = ecs.GetParentEntity(entity);
-		if (parent != GE::ECS::INVALID_ID)
+		if (entity.GetParent().m_id != GE::ECS::INVALID_ID)
 		{
-			if (ecs.GetIsActiveEntity(parent))
+			if (entity.GetParent().m_active)
 			{
-				return IsAncestorActive(parent, ecs);
+				return IsAncestorActive(entity.GetParent(), ecs);
 			}
 
 			// One of the parent is inactive, all children is considered inactive
@@ -129,7 +128,7 @@ namespace
 		// End condition, parent has no parent
 		else
 		{
-			return ecs.GetIsActiveEntity(entity);
+			return entity.m_active;
 		}
 	}
 }

@@ -1,5 +1,4 @@
 {
-    "PreRootTransformSystem": [],
 	"PlayerControllerSystem": [	
 		"Transform",
 		"Sprite",
@@ -23,7 +22,6 @@
         "Transform",
         "Velocity"
     ],   
-    "PostRootTransformSystem": [],
     "SpriteAnimSystem": [		
         "Sprite",
         "SpriteAnim"

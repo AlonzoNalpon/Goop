@@ -92,14 +92,14 @@ ComponentSignature SystemManager::GetSignature()
 }
 
 template <typename T>
-bool SystemManager::RegisterEntityToSystem(Entity& entity, ComponentSignature& signature, bool activeState)
+bool SystemManager::RegisterEntityToSystem(Entity& entity, ComponentSignature& signature)
 {
 	const char* systemName = typeid(T).name();
 	if (m_systems.find(systemName) == m_systems.end())
 	{
 		// System does not exist
 		std::stringstream ss;
-		ss << "Failed to register entity ID " << entity << ". System " << systemName << " does not exist.";
+		ss << "Failed to register entity ID " << entity.m_id << ". System " << systemName << " does not exist.";
 		GE::Debug::ErrorLogger::GetInstance().LogError<SystemManager>(ss.str());
 		return false;
 	}
@@ -110,12 +110,12 @@ bool SystemManager::RegisterEntityToSystem(Entity& entity, ComponentSignature& s
 	{
 		// Entity does not match system signature
 		std::stringstream ss;
-		ss << "Failed to register entity ID " << entity << ". Entity does not match " << systemName << " component signature.";
+		ss << "Failed to register entity ID " << entity.m_id << ". Entity does not match " << systemName << " component signature.";
 		GE::Debug::ErrorLogger::GetInstance().LogError<SystemManager>(ss.str());
 		return false;
 	}
 
-	if (activeState)
+	if (entity.m_active)
 	{
 		m_systems[systemName]->GetEntities().insert(entity);
 	}

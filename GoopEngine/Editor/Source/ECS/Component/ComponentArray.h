@@ -48,8 +48,8 @@ namespace GE
 		{
 		private:
 			std::vector<T> m_components;
-			std::unordered_map<Entity, size_t> m_entityToIndexMap;
-			std::unordered_map<size_t, Entity> m_indexToEntityMap;
+			std::unordered_map<Entity&, size_t> m_entityToIndexMap;
+			std::unordered_map<size_t, Entity&> m_indexToEntityMap;
 
 		public:
 			ComponentArray() = default;

@@ -24,6 +24,8 @@ namespace GE
 		class EntityComponentSystem : public Singleton<EntityComponentSystem>
 		{
 		public:
+			friend class Entity;
+
 			/*!*********************************************************************
 			\brief
 				Default constructor.
@@ -37,97 +39,7 @@ namespace GE
 			\return
 				A new entity
 			************************************************************************/
-			Entity CreateEntity();
-
-			/*!*********************************************************************
-			\brief
-				Calls EntityManager's IsActiveEntity function.
-
-			\param entity
-				Entity to check.
-
-			\return
-				Active flag of an entity.
-			************************************************************************/
-			bool GetIsActiveEntity(Entity& entity);
-
-			/*!*********************************************************************
-			\brief
-				Calls EntityManager's SetActiveEntity function.
-
-			\param entity
-				Active flag of an entity.
-
-			\param bool
-				Active flag of an entity.
-			************************************************************************/
-			void SetIsActiveEntity(Entity& entity, bool active);
-
-			/*!******************************************************************
-			\brief
-				Calls EntityManager's GetParentEntity function.
-				Returns the entity of the parent of an entity.
-
-			\param[in] entity
-				Entity whose parent we are checking.
-
-			\return
-				Parent of the entity.
-			********************************************************************/
-			Entity GetParentEntity(Entity& entity);
-
-			/*!******************************************************************
-			\brief
-				Calls EntityManager's SetParentEntity function.
-				Sets the parent of the an entitiy.
-
-			\param[in] child
-				Entity whose parent you are setting.
-
-			\param[in] parent
-				Entity which is becoming the parent. Defaults to invalid
-				to indicate no parent.
-			********************************************************************/
-			void SetParentEntity(Entity& child, Entity parent = INVALID_ID);
-
-			/*!******************************************************************
-			\brief
-				Calls EntityManager's GetChildEntities function.
-				Return a vector of all children belonging to an entity.
-
-			\param[in] parent
-				Entity whose children you are getting.
-
-			\return
-				Vector of entities.
-			********************************************************************/
-			std::set<Entity>& GetChildEntities(Entity& parent);
-
-			/*!******************************************************************
-			\brief
-				Calls EntityManager's AddChildEntities function.
-				Adds an entity as a child.
-
-			\param[in] parent
-				Entity who you are adding a child to.
-
-			\param[in] child
-				Entity who is becoming a child of.
-			********************************************************************/
-			void AddChildEntity(Entity& parent, Entity& child);
-
-			/*!******************************************************************
-			\brief
-				Calls EntityManager's RemoveChildEntities function.
-				Remove an entity as a child.
-
-			\param[in] parent
-				Entity who you are removing from.
-
-			\param[in] child
-				Entity who is being removed.
-			********************************************************************/
-			void RemoveChildEntity(Entity& parent, Entity& child);
+			Entity& CreateEntity();
 
 			/*!*********************************************************************
 			\brief
@@ -138,33 +50,6 @@ namespace GE
 			************************************************************************/
 			void DestroyEntity(Entity& entity);
 
-			/*!******************************************************************
-			\brief
-				Calls EntityManager's GetEntityName function.
-
-			\param[in] entity
-				Entity's name to get.
-
-			\return
-				Name of the entity
-			********************************************************************/
-			std::string GetEntityName(Entity& entity);
-
-			/*!******************************************************************
-			\brief
-				Calls EntityManager's SetEntityName function.
-
-			\param[in] entity
-				Entity's name to change.
-
-			\param[in] newName
-				Entity's new name.
-
-			\return
-				New name of the entity
-			********************************************************************/
-			std::string SetEntityName(Entity& entity, std::string newName);
-
 			/*!*********************************************************************
 			\brief
 				Calls EntityManager's GetEntities function.
@@ -172,7 +57,7 @@ namespace GE
 			\return
 				Set of entity IDs
 			************************************************************************/
-			std::set<Entity>& GetEntities();
+			std::vector<Entity>& GetEntities();
 
 			/*!*********************************************************************
 			\brief

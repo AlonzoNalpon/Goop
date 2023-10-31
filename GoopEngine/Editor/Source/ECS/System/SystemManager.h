@@ -133,7 +133,7 @@ namespace GE
 			\param signature
 			  New signature.
 			************************************************************************/
-			void EntitySignatureChanged(Entity& entity, const ComponentSignature& signature, bool isActive);
+			void EntitySignatureChanged(Entity& entity, const ComponentSignature& signature);
 
 			/*!******************************************************************
 			\brief 
@@ -160,14 +160,11 @@ namespace GE
 			\param singature
 				Signature of entitiy for validation
 
-			\param activeState
-				Active state of the entitiy being registered
-
 			\return
 				Returns if it was registered successfully.
 			********************************************************************/
 			template <typename T>
-			bool RegisterEntityToSystem(Entity& entity, ComponentSignature& signature, bool activeState = true);
+			bool RegisterEntityToSystem(Entity& entity, ComponentSignature& signature);
 
 			/*!******************************************************************
 			\brief

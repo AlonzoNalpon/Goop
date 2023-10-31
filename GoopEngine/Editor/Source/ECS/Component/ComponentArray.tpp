@@ -4,8 +4,8 @@ void ComponentArray<T>::Insert(const Entity& entity, const T& component)
 	m_components.emplace_back(component);
 	size_t pushedIndex = m_components.size() - 1;
 
-	m_entityToIndexMap[entity] = pushedIndex;
-	m_indexToEntityMap[pushedIndex] = entity;
+	m_entityToIndexMap[entity.m_id] = pushedIndex;
+	m_indexToEntityMap[pushedIndex] = entity.m_id;
 }
 
 template <typename T>

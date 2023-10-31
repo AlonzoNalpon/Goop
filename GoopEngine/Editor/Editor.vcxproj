@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AI\Tree.cpp" />
+    <ClCompile Include="Source\ECS\Entity\Entity.cpp" />
     <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
     <ClCompile Include="Source\EditorUI\Console.cpp" />
     <ClCompile Include="Source\AppController\AppController.cpp" />
@@ -272,8 +273,8 @@
     <ClCompile Include="Source\Systems\Rendering\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="Source\EditorUI\ImGuiUI.cpp" />
-    <ClCompile Include="Source\Systems\RootTransform\PostRootTransformSystem.cpp" />
-    <ClCompile Include="Source\Systems\RootTransform\PreRootTransformSystem.cpp" />
+    <ClCompile Include="Source\Systems\RootTransform\LocalToWorldTransform.cpp" />
+    <ClCompile Include="Source\Systems\RootTransform\WorldToLocalTransform.cpp" />
     <ClCompile Include="Source\Systems\SpriteAnim\SpriteAnimSystem.cpp" />
     <ClCompile Include="Source\Window\Window.cpp" />
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimationManager.cpp" />
@@ -396,8 +397,8 @@
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />
     <ClInclude Include="Source\EditorUI\ImGuiUI.h" />
     <ClInclude Include="Source\Systems\Rendering\CameraSystem.h" />
-    <ClInclude Include="Source\Systems\RootTransform\PostRootTransformSystem.h" />
-    <ClInclude Include="Source\Systems\RootTransform\PreRootTransformSystem.h" />
+    <ClInclude Include="Source\Systems\RootTransform\LocalToWorldTransform.h" />
+    <ClInclude Include="Source\Systems\RootTransform\WorldToLocalTransform.h" />
     <ClInclude Include="Source\Systems\RootTransform\RootTransformSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\TransformSystemHelper.h" />
     <ClInclude Include="Source\Systems\SpriteAnim\SpriteAnimSystem.h" />

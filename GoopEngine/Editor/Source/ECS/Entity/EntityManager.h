@@ -28,16 +28,7 @@ namespace GE
 			unsigned int m_entitiesAlive;
 
 			std::vector<ComponentSignature> m_entitySignatures;
-			std::deque<Entity> m_availableEntities;
-			std::vector<bool> m_mapOfActive;
-			std::set<Entity> m_entities;
-
-			// Vector of entities where each index is an entity's parent id
-			std::vector<Entity> m_parent;
-			// Vector of entities where each index is an entity's children
-			std::vector<std::set<Entity>> m_children;
-
-			std::map<Entity, std::string> m_names;
+			std::vector<Entity> m_entities;
 		public:
 			/*!*********************************************************************
 			\brief
@@ -68,7 +59,7 @@ namespace GE
 			\return
 			  A new entity.
 			************************************************************************/
-			Entity CreateEntity();
+			Entity& CreateEntity();
 
 			/*!*********************************************************************
 			\brief
@@ -81,123 +72,12 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-			  Checks if an entity is active.
-
-			\param entity
-			  Entity to check.
-
-			\return
-			  Active flag of entity.
-			************************************************************************/
-			bool IsActiveEntity(Entity& entity);
-
-			/*!*********************************************************************
-			\brief
-			  Sets the active flag of an entity.
-
-			\param entity
-				Entity to set active.
-
-			\param active
-			  Flag to set.
-			************************************************************************/
-			void SetActiveEntity(Entity& entity, bool active);
-
-			/*!******************************************************************
-			\brief 
-			  Returns the entity of the parent of an entity.
-
-			\param[in] entity
-				Entity whose parent we are checking.
-
-			\return 
-				Parent of the entity.
-			********************************************************************/
-			Entity GetParentEntity(Entity& entity);
-
-			/*!******************************************************************
-			\brief 
-			  Sets the parent of the an entitiy.
-
-			\param[in] parent
-				Entity which is becoming the parent
-
-			\param[in] entity
-				Entity whose parent you are setting
-			********************************************************************/
-			void SetParentEntity(Entity& parent, Entity& child);
-
-			/*!******************************************************************
-			\brief 
-			  Return a vector of all children belonging to an entity.
-
-			\param[in] parent
-				Entity whose children you are getting.
-
-			\return 
-				Vector of entities.
-			********************************************************************/
-			std::set<Entity>& GetChildEntities(Entity& parent);
-
-			/*!******************************************************************
-			\brief 
-			  Adds an entity as a child.
-
-			\param[in] parent
-				Entity who you are adding a child to.
-
-			\param[in] child
-				Entity who is becoming a child of.
-			********************************************************************/
-			void AddChildEntity(Entity& parent, Entity& child);
-
-			/*!******************************************************************
-			\brief
-				Remove an entity as a child.
-
-			\param[in] parent
-				Entity who you are removing from.
-
-			\param[in] child
-				Entity who is being removed.
-			********************************************************************/
-			void RemoveChildEntity(Entity& parent, Entity& child);
-
-			/*!******************************************************************
-			\brief
-				Sets the entity's name
-
-			\param[in] entity
-				Entity in question
-
-			\param[in] std::string
-				New name for the entity
-
-			\return
-				Given name of an entity as a string
-			********************************************************************/
-			std::string SetEntityName(Entity& entity, std::string newName);
-
-			/*!******************************************************************
-			\brief 
-			  Returns the entity's name
-
-			\param[in] entity
-				Entity in question
-
-			\return
-				Given name of an entity as a string
-			********************************************************************/
-			std::string GetEntityName(Entity& entity);
-
-			/*!*********************************************************************
-			\brief
 			  Returns all currently active entities.
 			  
 			\return
 			  All currently active entities.
 			************************************************************************/
-			std::set<Entity>& GetEntities();
+			std::vector<Entity>& GetEntities();
 
 			/*!*********************************************************************
 			\brief

@@ -14,8 +14,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../EditorUI/ImGuiUI.h"
 #ifndef NO_IMGUI
 #include <Systems/Rendering/RenderingSystem.h>
-#include <Systems/RootTransform/PreRootTransformSystem.h>
-#include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #endif
 
@@ -117,11 +115,9 @@ namespace GE::Application
           }
           else
           {
-            ecs->UpdateSystems(4,
+            ecs->UpdateSystems(2,
               typeid(GE::Systems::CollisionSystem).name(),
-              typeid(GE::Systems::RenderSystem).name(),
-              typeid(GE::Systems::PreRootTransformSystem).name(),
-              typeid(GE::Systems::PostRootTransformSystem).name());
+              typeid(GE::Systems::RenderSystem).name());
           }
 #else
           ecs->UpdateSystems();

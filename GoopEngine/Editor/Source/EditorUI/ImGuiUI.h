@@ -50,7 +50,7 @@ namespace GE::EditorGUI
 	class ImGuiHelper
 	{
 	private:		
-		static GE::ECS::Entity m_selectedEntity;		
+		static GE::ECS::EntityID m_selectedEntity;
 		static bool m_play;
 		static bool m_pause;
 		static bool m_step;

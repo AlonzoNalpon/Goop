@@ -69,12 +69,12 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   }
 }
 
-GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData const& data) const
+GE::ECS::Entity& ObjectFactory::CreateObject(std::string const& name, ObjectData const& data) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
-  Entity newData = ecs.CreateEntity();
-  ecs.SetEntityName(newData, name);
+  Entity& newData = ecs.CreateEntity();
+  newData.m_name = name;
 
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TRANSFORM))
   {
@@ -244,7 +244,7 @@ void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
   Entity newObj = ecs.CreateEntity();
-  ecs.SetEntityName(newObj, ecs.GetEntityName(obj) + " (Copy)");
+  newObj.m_name = obj + " (Copy)";
   CloneComponents(newObj, obj);
   Component::Transform* trans{ ecs.GetComponent<Component::Transform>(newObj) };
   if (trans) 
@@ -258,7 +258,7 @@ std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ObjectFactory::GenerateNewI
   GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
 
   std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ret{};
-  GE::ECS::Entity currentID{};  // start from 0
+  GE::ECS::EntityID currentID{};  // start from 0
   // assigns each entity to a new id starting from 0 with no gaps in between
   for (GE::ECS::Entity const& entity : ecs.GetEntities())
   {
@@ -273,10 +273,9 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
 {
   try
   {
-    ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
     // we will map our custom ID to the actual entity ID
-    std::unordered_map<ECS::Entity, ECS::Entity> newIdToEntity{};
-    ECS::Entity newID{};  // start from 0
+    std::unordered_map<ECS::EntityID, ECS::Entity> newIdToEntity{};
+    ECS::EntityID newID{};  // start from 0
     for (auto const& [name, data] : m_objects)
     {
       ECS::Entity i = CreateObject(name, data);
@@ -292,16 +291,16 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
     {
       if (data.m_parent == ECS::INVALID_ID)
       {
-        ecs.SetParentEntity(newIdToEntity[newID]);
+        newIdToEntity[newID].SetParent(nullptr);
       }
       else
       {
-        ecs.SetParentEntity(newIdToEntity[newID], newIdToEntity[data.m_parent]);
+        newIdToEntity[newID].SetParent(newIdToEntity[data.m_parent]);
       }
 
-      for (ECS::Entity child : data.m_childEntities)
+      for (ECS::Entity& child : data.m_childEntities)
       {
-        ecs.AddChildEntity(newIdToEntity[newID], newIdToEntity[child]);
+        newIdToEntity[newID].AddChildren(newIdToEntity[child]);
       }
       ++newID;
     }
@@ -351,12 +350,12 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     RegisterComponentsToSystem<Systems::SpriteAnimSystem>(sig);
     break;  
   case SYSTEM_TYPES::POST_ROOT_TRANSFORM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PostRootTransformSystem>();
-    RegisterComponentsToSystem<Systems::PostRootTransformSystem>(sig);
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::LocalToWorldTransform>();
+    RegisterComponentsToSystem<Systems::LocalToWorldTransform>(sig);
     break;
   case SYSTEM_TYPES::PRE_ROOT_TRANSFORM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PreRootTransformSystem>();
-    RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::WorldToLocalTransform>();
+    RegisterComponentsToSystem<Systems::WorldToLocalTransform>(sig);
   case SYSTEM_TYPES::ENEMY_SYSTEM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::EnemySystem>();
     RegisterComponentsToSystem<Systems::EnemySystem>(sig);

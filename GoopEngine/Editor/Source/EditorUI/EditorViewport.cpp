@@ -88,7 +88,7 @@ void GE::EditorGUI::EditorViewport::UpdateViewport()
 
           for (GE::ECS::Entity curr : ecs->GetEntities())
           {
-            if (!ecs->GetIsActiveEntity(curr))
+            if (!curr.m_active)
               continue;
 
             auto const* transPtr = ecs->GetComponent<GE::Component::Transform>(curr);

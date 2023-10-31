@@ -23,45 +23,9 @@ EntityComponentSystem::EntityComponentSystem()
 	m_systemManager = std::make_unique<SystemManager>();
 }
 
-Entity EntityComponentSystem::CreateEntity()
+Entity& EntityComponentSystem::CreateEntity()
 {
 	return m_entityManager->CreateEntity();
-}
-
-bool GE::ECS::EntityComponentSystem::GetIsActiveEntity(Entity& entity)
-{
-	return m_entityManager->IsActiveEntity(entity);
-}
-
-void GE::ECS::EntityComponentSystem::SetIsActiveEntity(Entity& entity, bool active)
-{
-	m_entityManager->SetActiveEntity(entity, active);
-	m_systemManager->EntityActiveStateChanged(entity, active);
-}
-
-Entity GE::ECS::EntityComponentSystem::GetParentEntity(Entity& entity)
-{
-	return m_entityManager->GetParentEntity(entity);
-}
-
-void GE::ECS::EntityComponentSystem::SetParentEntity(Entity& child, Entity parent)
-{
-	m_entityManager->SetParentEntity(parent, child);
-}
-
-std::set<Entity>& GE::ECS::EntityComponentSystem::GetChildEntities(Entity& parent)
-{
-	return m_entityManager->GetChildEntities(parent);
-}
-
-void GE::ECS::EntityComponentSystem::AddChildEntity(Entity& parent, Entity& child)
-{
-	m_entityManager->AddChildEntity(parent, child);
-}
-
-void GE::ECS::EntityComponentSystem::RemoveChildEntity(Entity& parent, Entity& child)
-{
-	m_entityManager->RemoveChildEntity(parent, child);
 }
 
 void EntityComponentSystem::DestroyEntity(Entity& entity)
@@ -71,17 +35,7 @@ void EntityComponentSystem::DestroyEntity(Entity& entity)
 	m_systemManager->EntityDestroyed(entity);
 }
 
-std::string GE::ECS::EntityComponentSystem::GetEntityName(Entity& entity)
-{
-	return m_entityManager->GetEntityName(entity);
-}
-
-std::string GE::ECS::EntityComponentSystem::SetEntityName(Entity& entity, std::string newName)
-{
-	return m_entityManager->SetEntityName(entity, newName);
-}
-
-std::set<Entity>& GE::ECS::EntityComponentSystem::GetEntities()
+std::vector<Entity>& GE::ECS::EntityComponentSystem::GetEntities()
 {
 	return m_entityManager->GetEntities();
 }
