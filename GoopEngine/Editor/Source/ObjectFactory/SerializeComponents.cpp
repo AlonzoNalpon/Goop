@@ -32,9 +32,9 @@ namespace GE
 
 			//read map, manipulate into trans, return
 			GE::Component::Transform trans;
-			trans.m_worldPos = cw.Get<Math::dVec3>("worldPos");
-			trans.m_worldScale = cw.Get<Math::dVec3>("worldScale");
-			trans.m_worldRot = cw.Get<Math::dVec3>("worldRot");
+			trans.SetRawWorldPos(cw.Get<Math::dVec3>("worldPos"));
+			trans.SetRawWorldScale(cw.Get<Math::dVec3>("worldScale"));
+			trans.SetRawWorldRot(cw.Get<Math::dVec3>("worldRot"));
 
 			return trans;
 		}

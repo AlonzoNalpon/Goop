@@ -21,8 +21,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Velocity.h>
 #include <Component/Draggable.h>
 #include "../ImGui/misc/cpp/imgui_stdlib.h"
-#include <Systems/RootTransform/PostRootTransformSystem.h>
-#include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Systems/RootTransform/LocalToWorldTransform.h>
+#include <Systems/RootTransform/WorldToLocalTransfrom.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
@@ -196,23 +196,29 @@ void GE::EditorGUI::Inspector::CreateContent()
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 					TableNextRow();
-					if (InputDouble3("Position", trans->m_pos, inputWidth)) { valChanged = true; };
+					GE::Math::dVec3 temp = trans->GetPos();
+					if (InputDouble3("Position", temp, inputWidth)) { valChanged = true; };
 					TableNextRow();
-					if (InputDouble3("Scale", trans->m_scale, inputWidth)) { valChanged = true; };
+					temp = trans->GetScale();
+					if (InputDouble3("Scale", temp, inputWidth)) { valChanged = true; };
 					TableNextRow();
-					if (InputDouble3("Rotation", trans->m_rot, inputWidth)) { valChanged = true; };
+					temp = trans->GetRot();
+					if (InputDouble3("Rotation", temp, inputWidth)) { valChanged = true; };
 
 					TableNextRow();
-					InputDouble3("World Position", trans->m_worldPos, inputWidth, true);
+					temp = trans->GetWorldPos();
+					InputDouble3("World Position", temp, inputWidth, true);
 					TableNextRow();
-					InputDouble3("World Scale", trans->m_worldScale, inputWidth, true);
+					temp = trans->GetWorldScale();
+					InputDouble3("World Scale", temp, inputWidth, true);
 					TableNextRow();
-					InputDouble3("World Rotation", trans->m_worldRot, inputWidth, true);
+					temp = trans->GetWorldRot();
+					InputDouble3("World Rotation", temp, inputWidth, true);
 
 					EndTable();
 					Separator();
 					if (valChanged) 
-						GE::Systems::PostRootTransformSystem::Propergate(ecs, entity, trans->m_parentWorldTransform);
+						GE::Systems::LocalToWorldTransform::Propergate(entity, trans->m_parentWorldTransform);
 				}
 				break;
 			}

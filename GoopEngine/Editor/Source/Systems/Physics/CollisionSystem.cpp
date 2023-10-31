@@ -46,7 +46,7 @@ void CollisionSystem::Update()
 	{
 		BoxCollider* updateEntity = m_ecs->GetComponent<BoxCollider>(entity);
 		Transform* newCenter = m_ecs->GetComponent<Transform>(entity);
-		UpdateAABB(*updateEntity, newCenter->m_worldPos);
+		UpdateAABB(*updateEntity, newCenter->GetWorldPos());
 #ifndef NO_IMGUI
 		if (updateEntity->m_render)
 		{

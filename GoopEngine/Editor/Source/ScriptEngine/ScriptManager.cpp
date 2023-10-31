@@ -276,8 +276,10 @@ void GE::MONO::SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-  oldTransform->m_pos.x += (PosAdjustment.x * fpsControl->GetDeltaTime());
-  oldTransform->m_pos.y += (PosAdjustment.y * fpsControl->GetDeltaTime());
+  GE::Math::dVec3 pos{oldTransform->GetPos()};
+  pos.x += (PosAdjustment.x * fpsControl->GetDeltaTime());
+  pos.y += (PosAdjustment.y * fpsControl->GetDeltaTime());
+  oldTransform->SetPos(entity, pos);
 }
 
 
@@ -290,16 +292,20 @@ void GE::MONO::SetScale(GE::ECS::Entity entity, GE::Math::dVec3 scaleAdjustment)
 
   if ((scaleAdjustment.x > 1.f) && (scaleAdjustment.y > 1.f))
   {
-    oldTransform->m_scale.x += (oldTransform->m_scale.x * scaleAdjustment.x * fpsControl->GetDeltaTime());
-    oldTransform->m_scale.y += (oldTransform->m_scale.y * scaleAdjustment.y * fpsControl->GetDeltaTime());
+    GE::Math::dVec3 scale{oldTransform->GetScale()};
+    scale.x += (oldTransform->GetScale().x * scaleAdjustment.x * fpsControl->GetDeltaTime());
+    scale.y += (oldTransform->GetScale().y * scaleAdjustment.y * fpsControl->GetDeltaTime());
+    oldTransform->SetScale(entity, scale);
   }
   else if ((scaleAdjustment.x < 1.f) && (scaleAdjustment.y < 1.f))
   {
     scaleAdjustment.x = 1.f / scaleAdjustment.x;
     scaleAdjustment.y = 1.f / scaleAdjustment.y;
-    double gcd = (oldTransform->m_scale.x >= oldTransform->m_scale.y) ? static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->m_scale.x), static_cast<int>(oldTransform->m_scale.y))) : static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->m_scale.y), static_cast<int>(oldTransform->m_scale.x)));
-    oldTransform->m_scale.x = ((oldTransform->m_scale.x - (oldTransform->m_scale.x * scaleAdjustment.x * fpsControl->GetDeltaTime())) <= scaleAdjustment.x / gcd) ? (scaleAdjustment.x / gcd) : oldTransform->m_scale.x - (oldTransform->m_scale.x * scaleAdjustment.x * fpsControl->GetDeltaTime());
-    oldTransform->m_scale.y = ((oldTransform->m_scale.y - (oldTransform->m_scale.y * scaleAdjustment.y * fpsControl->GetDeltaTime())) <= scaleAdjustment.y / gcd) ? (scaleAdjustment.y / gcd) : oldTransform->m_scale.y - (oldTransform->m_scale.y * scaleAdjustment.y * fpsControl->GetDeltaTime());
+    double gcd = (oldTransform->GetScale().x >= oldTransform->GetScale().y) ? static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->GetScale().x), static_cast<int>(oldTransform->GetScale().y))) : static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->GetScale().y), static_cast<int>(oldTransform->GetScale().x)));
+    GE::Math::dVec3 scale{oldTransform->GetScale()};
+    scale.x = ((oldTransform->GetScale().x - (oldTransform->GetScale().x * scaleAdjustment.x * fpsControl->GetDeltaTime())) <= scaleAdjustment.x / gcd) ? (scaleAdjustment.x / gcd) : oldTransform->GetScale().x - (oldTransform->GetScale().x * scaleAdjustment.x * fpsControl->GetDeltaTime());
+    scale.y = ((oldTransform->GetScale().y - (oldTransform->GetScale().y * scaleAdjustment.y * fpsControl->GetDeltaTime())) <= scaleAdjustment.y / gcd) ? (scaleAdjustment.y / gcd) : oldTransform->GetScale().y - (oldTransform->GetScale().y * scaleAdjustment.y * fpsControl->GetDeltaTime());
+    oldTransform->SetScale(entity, scale);
   }
 
 }
@@ -310,28 +316,30 @@ void GE::MONO::SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 rotAdjustment
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-  oldTransform->m_rot.z += (rotAdjustment.z * fpsControl->GetDeltaTime());
+  GE::Math::dVec3 rot{oldTransform->GetRot()};
+  rot.z += (rotAdjustment.z * fpsControl->GetDeltaTime());
+  oldTransform->SetRot(entity, rot);
 }
 
 GE::Math::dVec3 GE::MONO::GetPosition(GE::ECS::Entity entity)
 {
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
-  return oldTransform->m_pos;
+  return oldTransform->GetPos();
 }
 
 GE::Math::dVec3 GE::MONO::GetScale(GE::ECS::Entity entity)
 {
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
-  return oldTransform->m_scale;
+  return oldTransform->GetScale();
 }
 
 GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
 {
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
-  return oldTransform->m_rot;
+  return oldTransform->GetRot();
 }
 
 

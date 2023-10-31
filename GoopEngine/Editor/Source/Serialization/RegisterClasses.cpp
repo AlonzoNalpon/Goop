@@ -35,6 +35,9 @@ RTTR_REGISTRATION
     .property("worldPos", &Component::Transform::m_worldPos)
     .property("worldScale", &Component::Transform::m_worldScale)
     .property("worldRot", &Component::Transform::m_worldRot)
+    //.property("worldPos", &Component::Transform::GetPos)
+    //.property("worldScale", &Component::Transform::GetScale)
+    //.property("worldRot", &Component::Transform::GetRot)
     ;
 
   rttr::registration::class_<Component::BoxCollider>("BoxCollider")

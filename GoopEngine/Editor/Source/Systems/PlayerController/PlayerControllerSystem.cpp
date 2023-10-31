@@ -80,18 +80,18 @@ void PlayerControllerSystem::FixedUpdate()
 			tween->m_timeElapsed -= tween->m_timePerTween;
 			tween->m_originalPos = targetPos;
 			double normalisedTime = tween->m_timeElapsed / tween->m_timePerTween;
-			trans->m_pos = Tweening(tween->m_originalPos, targetPos, normalisedTime);
+			trans->SetPos(entity, Tweening(tween->m_originalPos, targetPos, normalisedTime));
 			tween->m_tweens.pop_front();
 		}
 		else 
 		{
 			if (!tween->m_started)
 			{
-				tween->m_originalPos = trans->m_pos;
+				tween->m_originalPos = trans->GetPos();
 				tween->m_started = true;
 			}
 			double normalisedTime = tween->m_timeElapsed / tween->m_timePerTween;
-			trans->m_pos = Tweening(tween->m_originalPos, targetPos, normalisedTime);
+			trans->SetPos(entity, Tweening(tween->m_originalPos, targetPos, normalisedTime));
 		}
 		tween->m_timeElapsed += dt;
 
@@ -113,17 +113,21 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 			if (key == GPK_H)
 			{
 				constexpr double ROTATE_SPEED{ 2.0 };
-				trans->m_rot.z = fmod(trans->m_rot.z + dt * ROTATE_SPEED, pi * 2.0); // ROTATING PLAYER
+				GE::Math::dVec3 rot(trans->GetRot());
+				rot.z = fmod(trans->GetRot().z + dt * ROTATE_SPEED, pi * 2.0); // ROTATING PLAYER
+				trans->SetRot(entity, rot);
 			}
 			if (key == GPK_J)
 			{
 				constexpr double SCALE_SPEED{ 30.0 };
 				constexpr double MAX_SCALE{ 200.0 };
 				constexpr double MIN_SCALE{ 100.0 };
-				trans->m_scale.x = fmod(trans->m_scale.x + dt * SCALE_SPEED, MAX_SCALE); // SCALING PLAYER
-				trans->m_scale.y = fmod(trans->m_scale.y + dt * SCALE_SPEED, MAX_SCALE); // SCALING PLAYER
-				trans->m_scale.x = fmax(trans->m_scale.x, MIN_SCALE);
-				trans->m_scale.y = fmax(trans->m_scale.y, MIN_SCALE);
+				GE::Math::dVec3 scale(trans->GetScale());
+				scale.x = fmod(trans->GetScale().x + dt * SCALE_SPEED, MAX_SCALE); // SCALING PLAYER
+				scale.y = fmod(trans->GetScale().y + dt * SCALE_SPEED, MAX_SCALE); // SCALING PLAYER
+				scale.x = fmax(trans->GetScale().x, MIN_SCALE);
+				scale.y = fmax(trans->GetScale().y, MIN_SCALE);
+				trans->SetScale(entity, scale);
 			}
 		}
 		else if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)

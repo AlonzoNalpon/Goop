@@ -36,7 +36,7 @@ void DraggableObjectSystem::Update()
 			}
 			else // if dragging set mouse pos
 			{
-				transform->m_pos = input->GetMousePosWorld();
+				transform->SetWorldPos(entity, input->GetMousePosWorld());
 			}
 		}
 		else
@@ -49,7 +49,7 @@ void DraggableObjectSystem::Update()
 				{
 					dragging = true;
 					draggedEntity = entity;
-					transform->m_pos = input->GetMousePosWorld();
+					transform->SetWorldPos(entity, input->GetMousePosWorld());
 				}
 			}
 		}

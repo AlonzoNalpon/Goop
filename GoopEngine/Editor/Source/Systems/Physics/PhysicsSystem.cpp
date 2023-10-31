@@ -70,6 +70,6 @@ void PhysicsSystem::FixedUpdate()
 			vel->m_vel = {};
 		}
 
-		pos->m_pos += dt * vel->m_vel;
+		pos->SetPos(entity, pos->GetPos() + dt * vel->m_vel);
 	}
 }

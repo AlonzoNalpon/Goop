@@ -111,10 +111,10 @@ void GE::EditorGUI::EditorViewport::UpdateViewport()
             else if (ecs->HasComponent<GE::Component::Sprite>(curr))
             {
               GE::Component::Sprite* sprite = ecs->GetComponent<GE::Component::Sprite>(curr);
-              GE::Math::dVec2 min{ trans.m_pos.x - sprite->spriteData.info.width * trans.m_scale.x * 0.5, 
-                trans.m_pos.y - sprite->spriteData.info.height * trans.m_scale.y * 0.5 };
-              GE::Math::dVec2 max{ trans.m_pos.x + sprite->spriteData.info.width * trans.m_scale.x * 0.5,
-                trans.m_pos.y + sprite->spriteData.info.height * trans.m_scale.y * 0.5 };
+              GE::Math::dVec2 min{ trans.GetPos().x - sprite->spriteData.info.width * trans.GetScale().x * 0.5,
+                trans.GetPos().y - sprite->spriteData.info.height * trans.GetScale().y * 0.5 };
+              GE::Math::dVec2 max{ trans.GetPos().x + sprite->spriteData.info.width * trans.GetScale().x * 0.5,
+                trans.GetPos().y + sprite->spriteData.info.height * trans.GetScale().y * 0.5 };
 
               // AABB check with the mesh based on its transform (ASSUMES A SQUARE)
               if (min.x > mouseWS.x ||
@@ -125,8 +125,8 @@ void GE::EditorGUI::EditorViewport::UpdateViewport()
             }
             else
             {
-              GE::Math::dVec2 min{ trans.m_pos.x - trans.m_scale.x * 0.5, trans.m_pos.y - trans.m_scale.y * 0.5 };
-              GE::Math::dVec2 max{ trans.m_pos.x + trans.m_scale.x * 0.5, trans.m_pos.y + trans.m_scale.y * 0.5 };
+              GE::Math::dVec2 min{ trans.GetPos().x - trans.GetScale().x * 0.5, trans.GetPos().y - trans.GetScale().y * 0.5 };
+              GE::Math::dVec2 max{ trans.GetPos().x + trans.GetScale().x * 0.5, trans.GetPos().y + trans.GetScale().y * 0.5 };
 
               // AABB check with the mesh based on its transform (ASSUMES A SQUARE)
               if (min.x > mouseWS.x ||
@@ -137,9 +137,9 @@ void GE::EditorGUI::EditorViewport::UpdateViewport()
             }
 
             // Depth check (only take frontmost object
-            if (trans.m_pos.z > depthVal)
+            if (trans.GetPos().z > depthVal)
             {
-              depthVal = trans.m_pos.z;
+              depthVal = trans.GetPos().z;
               selectedID = curr;
             }
           }

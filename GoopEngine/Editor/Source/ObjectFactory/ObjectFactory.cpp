@@ -249,7 +249,7 @@ void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
   Component::Transform* trans{ ecs.GetComponent<Component::Transform>(newObj) };
   if (trans) 
   {
-    trans->m_worldPos = newPos;
+    trans->SetWorldPos(obj, newPos);
   }
 }
 
@@ -350,13 +350,6 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::SpriteAnimSystem>();
     RegisterComponentsToSystem<Systems::SpriteAnimSystem>(sig);
     break;  
-  case SYSTEM_TYPES::POST_ROOT_TRANSFORM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PostRootTransformSystem>();
-    RegisterComponentsToSystem<Systems::PostRootTransformSystem>(sig);
-    break;
-  case SYSTEM_TYPES::PRE_ROOT_TRANSFORM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PreRootTransformSystem>();
-    RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);
   case SYSTEM_TYPES::ENEMY_SYSTEM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::EnemySystem>();
     RegisterComponentsToSystem<Systems::EnemySystem>(sig);

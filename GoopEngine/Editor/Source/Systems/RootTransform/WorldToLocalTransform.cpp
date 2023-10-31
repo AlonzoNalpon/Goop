@@ -1,49 +1,27 @@
 /*!*********************************************************************
-\file   PreRootTransformSystem.h
+\file   WorldToLocalTransform.h
 \author w.chinkitbryan\@digipen.edu
 \date   29-October-2023
 \brief
-	1st pass of computing transforms. This pass converts world transfroms
-	to local transforms.
+	Converts world transfroms	to local transforms.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#include "PreRootTransformSystem.h"
+#include "WorldToLocalTransfrom.h"
 #include <Component/Transform.h>
 #include "TransformSystemHelper.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-void GE::Systems::PreRootTransformSystem::Update()
+void GE::Systems::WorldToLocalTransform::Propergate(GE::ECS::Entity& entity, GE::Math::dMat4& parentWorldTrans)
 {
-	for (GE::ECS::Entity entity : m_ecs->GetEntities())
-	{
-		// This is a root entity
-		if (m_ecs->GetParentEntity(entity) == GE::ECS::INVALID_ID)
-		{
-			// Assign own world transformation matrix
-			Math::dMat4 identity
-			{
-				{ 1, 0, 0, 0 },
-				{ 0, 1, 0, 0 },
-				{ 0, 0, 1, 0 },
-				{ 0, 0, 0, 1 }
-			};
-
-			// Update recursively using entity's world transformation matrix
-			Propergate(*m_ecs, entity, identity);
-		}
-	}
-}
-
-void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSystem& ecs, GE::ECS::Entity& entity, GE::Math::dMat4& parentWorldTrans)
-{
+	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 	GE::Component::Transform* trans = ecs.GetComponent<GE::Component::Transform>(entity);
 
 	if (trans == nullptr)
 	{
-		throw GE::Debug::Exception<PreRootTransformSystem>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(entity) + " is missing a transform component. All entities must have a transform component!!"));
+		throw GE::Debug::Exception<WorldToLocalTransform>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(entity) + " is missing a transform component. All entities must have a transform component!!"));
 	}
 
 	trans->m_parentWorldTransform = parentWorldTrans;
@@ -61,14 +39,15 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 			parentTrans = ecs.GetComponent<GE::Component::Transform>(parent);
 			if (parentTrans == nullptr)
 			{
-				throw GE::Debug::Exception<PreRootTransformSystem>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(parent) + " is missing a transform component. All entities must have a transform component!!"));
+				throw GE::Debug::Exception<WorldToLocalTransform>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(parent) + " is missing a transform component. All entities must have a transform component!!"));
 			}
 			GE::Math::dMat4 invWorldTransform;
 			GE::Math::MtxInverse(invWorldTransform, trans->m_parentWorldTransform);
 
-			trans->m_pos = invWorldTransform * GE::Math::dVec4(trans->m_worldPos, 1);
-			trans->m_scale = trans->m_worldScale / parentTrans->m_worldScale;
-			trans->m_rot = trans->m_worldRot - parentTrans->m_worldRot;
+			GE::Math::dVec3 pos = invWorldTransform * GE::Math::dVec4(trans->GetWorldPos(), 1);
+			GE::Math::dVec3 scale = trans->GetWorldScale() / parentTrans->GetWorldScale();
+			GE::Math::dVec3 rot = trans->GetWorldRot() - parentTrans->GetWorldRot();
+			trans->SetLocalTransform(entity, pos, scale, rot);
 		}
 		catch (GE::Debug::IExceptionBase& e)
 		{
@@ -78,26 +57,24 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 	// no parent means local is world transform
 	else
 	{
-		trans->m_pos = trans->m_worldPos;
-		trans->m_scale = trans->m_worldScale;
-		trans->m_rot = trans->m_worldRot;
+		trans->SetLocalTransform(entity, trans->GetWorldPos(), trans->GetWorldScale(), trans->GetWorldRot());
 	}
 
 	Math::dMat4 T
 	{
-		{ 1, 0, 0, trans->m_pos.x },
-		{ 0, 1, 0, trans->m_pos.y },
-		{ 0, 0, 1, trans->m_pos.z },
+		{ 1, 0, 0, trans->GetPos().x },
+		{ 0, 1, 0, trans->GetPos().y },
+		{ 0, 0, 1, trans->GetPos().z },
 		{ 0, 0, 0, 1 }
 	};
 	Math::dMat4 S
 	{
-		{ trans->m_scale.x, 0, 0, 0 },
-		{ 0, trans->m_scale.y, 0, 0 },
+		{ trans->GetScale().x, 0, 0, 0 },
+		{ 0, trans->GetScale().y, 0, 0},
 		{ 0, 0, 1, 0 },
 		{ 0, 0, 0, 1 }
 	};
-	double rad = trans->m_rot.z / 180.0 * M_PI;
+	double rad = trans->GetRot().z / 180.0 * M_PI;
 	Math::dMat4 Z
 	{
 		{ std::cos(rad), -std::sin(rad), 0, 0 },
@@ -105,7 +82,7 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 		{ 0, 0, 1, 0 },
 		{ 0, 0, 0, 1 }
 	};
-	rad = trans->m_rot.y / 180.0 * M_PI;
+	rad = trans->GetRot().y / 180.0 * M_PI;
 	Math::dMat4 Y
 	{
 		{ std::cos(rad), std::sin(rad), 0, 0 },
@@ -113,7 +90,7 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 		{ -std::sin(rad), 0, std::cos(rad), 0 },
 		{ 0, 0, 0, 1 }
 	};
-	rad = trans->m_rot.x / 180.0 * M_PI;
+	rad = trans->GetRot().x / 180.0 * M_PI;
 	Math::dMat4 X
 	{
 		{ 1, 0, 0, 0 },
@@ -134,6 +111,6 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 	// Update all children based ownself's new world transform
 	for (GE::ECS::Entity childEntity : m_children)
 	{
-		Propergate(ecs, childEntity, trans->m_worldTransform);
+		Propergate(childEntity, trans->m_worldTransform);
 	}
 }

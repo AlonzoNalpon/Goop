@@ -14,8 +14,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../ObjectFactory/ObjectFactory.h"
 #include <GameStateManager/GameStateManager.h>
 #include <Systems/RootTransform/TransformSystemHelper.h>
-#include <Systems/RootTransform/PostRootTransformSystem.h>
-#include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Systems/RootTransform/LocalToWorldTransform.h>
+#include <Systems/RootTransform/WorldToLocalTransfrom.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -158,7 +158,7 @@ namespace
 				{ 0, 0, 1, 0 },
 				{ 0, 0, 0, 1 }
 			};
-			GE::Systems::PreRootTransformSystem::Propergate(ecs, child, identity);
+			GE::Systems::WorldToLocalTransform::Propergate(child, identity);
 		}
 		else
 		{
@@ -173,7 +173,7 @@ namespace
 					throw GE::Debug::Exception<GE::EditorGUI::SceneHierachy>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(*parent) + " is missing a transform component. All entities must have a transform component!!"));
 				}
 
-				GE::Systems::PreRootTransformSystem::Propergate(ecs, child, parentTrans->m_worldTransform);
+				GE::Systems::WorldToLocalTransform::Propergate(child, parentTrans->m_worldTransform);
 			}
 			catch (GE::Debug::IExceptionBase& e)
 			{
@@ -216,7 +216,7 @@ namespace
 			{
 				if (Selectable("Duplicate"))
 				{
-					GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity, ecs.GetComponent<GE::Component::Transform>(entity)->m_pos);
+					GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity, ecs.GetComponent<GE::Component::Transform>(entity)->GetPos());
 				}
 
 				if (Selectable("Delete"))

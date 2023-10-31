@@ -54,9 +54,9 @@ void GE::Scenes::Scene::TestScene()
 
 	Entity entt = ecs->CreateEntity();
 	Transform trans{};
-	trans.m_scale = { 1, 1, 1 };
+	trans.SetRawScale({ 1, 1, 1 });
 	BoxCollider col{};
-	trans.m_worldPos.x = 200;
+	trans.SetRawWorldPos({ 0, 0, 200 });
 	col.m_width = 150;
 	col.m_height = 150;
 	col.m_render = true;
@@ -73,7 +73,7 @@ void GE::Scenes::Scene::TestScene()
 
 	Entity player = ecs->CreateEntity();
 	Transform playerTrans({ -350, 350, 0 }, { 1, 1, 1 }, { 0.0, 0.0, 0.0 });
-	BoxCollider playerCollider(playerTrans.m_pos, 150, 150); //should collide
+	BoxCollider playerCollider(playerTrans.GetPos(), 150, 150); //should collide
 
 	Tween tween(3.0);
 	tween.AddTween({ -900, 0, 0 });

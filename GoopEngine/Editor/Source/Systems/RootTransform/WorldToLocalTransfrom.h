@@ -1,31 +1,23 @@
 /*!*********************************************************************
-\file   PostRootTransformSystem.h
+\file   WorldToLocalTransform.h
 \author w.chinkitbryan\@digipen.edu
 \date   29-October-2023
-\brief  
-  2nd pass of computing transforms. This pass converts local transfroms
-	to world transforms.
- 
+\brief
+	Converts world transfroms	to local transforms.
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <Math/GEM.h>
-#include <ECS/System/System.h>
 
 namespace GE::Systems
 {
-	class PostRootTransformSystem : public GE::ECS::System
+	class WorldToLocalTransform
 	{
-		/*!*********************************************************************
-		\brief
-			This should be called right before rendering system
-		************************************************************************/
-		void LateUpdate();
-
 	public:
 		/*!*********************************************************************
 		\brief
-			Propergate all transform changes to children
+			Propergate transform changes in world to local for all children
 			Takes a reference to ECS to prevent multiple Singleton GetInstance
 			calls to the ECS
 
@@ -34,7 +26,10 @@ namespace GE::Systems
 
 		\param entity
 			Entity that is propergating
+
+		\param parentWorldTrans
+			Transform to use to find new local
 		************************************************************************/
-		static void Propergate(GE::ECS::EntityComponentSystem& ecs, GE::ECS::Entity& entity, const Math::dMat4& parentWorldTrans);
+		static void Propergate(GE::ECS::Entity& entity, GE::Math::dMat4& parentWorldTrans);
 	};
 }
