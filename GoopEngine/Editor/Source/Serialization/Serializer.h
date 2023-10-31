@@ -49,10 +49,16 @@ namespace GE
 
       rapidjson::Value SerializeEntity(ECS::Entity id, std::vector<ECS::Entity> const& childIDs, rapidjson::Document::AllocatorType& allocator);
 
+      void Test();
+
     private:
       std::unordered_map<ECS::Entity, ECS::Entity> m_oldToNewIDs;
 
       // helper functions
+      void SerializeSequentialContainer(rttr::variant const& object, rapidjson::Value& jsonArray, rapidjson::Document::AllocatorType& allocator);
+
+      rapidjson::Value SerializeBasedOnType(rttr::variant const& object, rapidjson::Document::AllocatorType& allocator);
+
       rapidjson::Value SerializeBasicTypes(rttr::type const& valueType,
         rttr::variant const& value, rapidjson::Document::AllocatorType& allocator);
 

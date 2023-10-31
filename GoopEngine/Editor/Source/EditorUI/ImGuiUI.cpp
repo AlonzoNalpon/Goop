@@ -107,7 +107,7 @@ void ImGuiUI::Update()
   ImGui::InputInt("Change Col", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetCol(), 1);
   End();
 
-  Begin("Assets");
+  Begin("Buttons");
   if (Button("Create MineWorm"))
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");

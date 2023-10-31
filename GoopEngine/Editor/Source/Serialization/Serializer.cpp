@@ -250,7 +250,7 @@ namespace GE
 
     rapidjson::Value Serializer::SerializeBasicTypes(rttr::type const& valueType, rttr::variant const& value, rapidjson::Document::AllocatorType& allocator)
     {
-      rapidjson::Value jsonVal{};
+      rapidjson::Value jsonVal{ rapidjson::kNullType };
       if (valueType == rttr::type::get<int>())
       {
         jsonVal.SetInt(value.to_int());
@@ -292,7 +292,7 @@ namespace GE
 
     rapidjson::Value Serializer::SerializeClassTypes(rttr::type const& valueType, rttr::variant const& value, rapidjson::Document::AllocatorType& allocator)
     {
-      rapidjson::Value jsonVal{};
+      rapidjson::Value jsonVal{ rapidjson::kNullType };
       if (valueType == rttr::type::get<GE::Math::dVec3>())
       {
         jsonVal.SetString(valueType.get_method("ToString").invoke(value).to_string().c_str(),
@@ -316,15 +316,7 @@ namespace GE
         jsonVal.SetObject();
         for (auto const& prop : value.get_type().get_properties())
         {
-          rapidjson::Value innerProp{};
-          if (prop.get_type().is_arithmetic())  // if C basic types
-          {
-            innerProp = SerializeBasicTypes(prop.get_type(), value, allocator).Move();
-          }
-          else
-          {
-            innerProp = SerializeClassTypes(prop.get_type(), value, allocator).Move();
-          }
+          rapidjson::Value innerProp{ SerializeBasedOnType(prop.get_value(value), allocator) };
           rapidjson::Value innerKey{ prop.get_name().to_string().c_str(), allocator };
           jsonVal.AddMember(innerKey, innerProp, allocator);
         }
@@ -340,15 +332,7 @@ namespace GE
           rapidjson::Value forceJson{ rapidjson::kObjectType };
           for (auto const& prop : force.get_type().get_properties())
           {
-            rapidjson::Value innerVal{};
-            if (prop.get_type().is_arithmetic())  // if C basic types
-            {
-              innerVal = SerializeBasicTypes(prop.get_type(), prop.get_value(force), allocator).Move();
-            }
-            else
-            {
-              innerVal = SerializeClassTypes(prop.get_type(), prop.get_value(force), allocator).Move();
-            }
+            rapidjson::Value innerVal{ SerializeBasedOnType(prop.get_value(value), allocator) };
             rapidjson::Value jsonKey{ prop.get_name().to_string().c_str(), allocator };
             forceJson.AddMember(jsonKey, innerVal, allocator);
           }
@@ -376,7 +360,7 @@ namespace GE
       compName.SetString(instance.get_type().get_name().to_string().c_str(), allocator);
       for (auto const& prop : instance.get_type().get_properties())
       {
-        rapidjson::Value jsonVal{};
+        rapidjson::Value jsonVal{ rapidjson::kNullType };
         rapidjson::Value jsonKey{ prop.get_name().to_string().c_str(), allocator };
 
         rttr::variant value{ prop.get_value(instance) };
@@ -388,10 +372,6 @@ namespace GE
         else if (instance.get_type() == rttr::type::get<Component::EnemyAI>())
         {
           jsonVal.SetUint(m_oldToNewIDs[value.get_value<Component::EnemyAI>().m_entityID]);
-        }
-        else if (prop.get_type().is_arithmetic())  // if C basic types
-        {
-          jsonVal = SerializeBasicTypes(prop.get_type(), value, allocator).Move();
         }
         else if (prop.get_type().is_class())  // else if custom types
         {
@@ -406,7 +386,7 @@ namespace GE
           }
           else
           {
-            jsonVal = SerializeClassTypes(prop.get_type(), value, allocator).Move();
+            jsonVal = SerializeBasedOnType(value, allocator).Move();
           }
         }
 
@@ -417,5 +397,61 @@ namespace GE
       return comp;
     }
 
+    rapidjson::Value Serializer::SerializeBasedOnType(rttr::variant const& object, rapidjson::Document::AllocatorType& allocator)
+    {
+      rapidjson::Value value{ rapidjson::kNullType };
+      // if object is of basic type
+      if (object.get_type().is_arithmetic())
+      {
+        value = SerializeBasicTypes(object.get_type(), object, allocator).Move();
+      }
+      else  // if class type
+      {
+        value = SerializeClassTypes(object.get_type(), object, allocator).Move();
+      }
+
+      return value;
+    }
+
+    void Serializer::Test()
+    {
+      rapidjson::Document document;
+      rapidjson::Value outerArr{ rapidjson::kArrayType };
+      std::vector<std::vector<std::string>> a{ {"test", "boo", "joel"}, { "joel2","joel3" }, { "joel4", "joel5" } };
+      SerializeSequentialContainer(a, outerArr, document.GetAllocator());
+      rapidjson::Value key{};
+      key.SetString("BAM_KEY", document.GetAllocator());
+      document.AddMember(key, outerArr, document.GetAllocator());
+
+      std::ofstream ofs{ "test.muaahah" };
+      if (!ofs)
+      {
+        throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg("Unable to create output file"));
+      }
+      rapidjson::OStreamWrapper osw{ ofs };
+      rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
+      document.Accept(writer);
+      ofs.close();
+    }
+
+    void Serializer::SerializeSequentialContainer(rttr::variant const& object,
+      rapidjson::Value& jsonArray, rapidjson::Document::AllocatorType& allocator)
+    {
+      rapidjson::Value innerArr{ rapidjson::kArrayType };
+      auto containerIter = object.create_sequential_view();
+      for (const auto& elem : containerIter)
+      {
+        rapidjson::Value{ rapidjson::kNullType };
+        // if underlying element is still a container, recurse
+        if (elem.is_sequential_container())
+        {
+          SerializeSequentialContainer(elem, jsonArray, allocator);
+        }
+        // else serialize element normally
+        innerArr.PushBack(SerializeBasedOnType(elem, allocator).Move(), allocator);
+      }
+      jsonArray.PushBack(innerArr, allocator);
+
+    }
   } // namespace Serialization
 } // namespace GE

@@ -134,6 +134,10 @@ RTTR_REGISTRATION
     //.property("enemyTreeCache", &Component::EnemyAI::m_enemyTreeCache)
     ;
 
+  rttr::registration::class_<GE::AI::Node>("Node")
+    .property("script", &GE::AI::Node::m_script)
+    ;
+
   /* ------------------- FUNCTIONS ------------------- */
 
 } // RTTR Registration

@@ -2,6 +2,7 @@
 #include "PrefabEditor.h"
 #include <rttr/type.h>
 #include <filesystem>
+#include <Serialization/Serializer.h>
 
 using namespace GE::EditorGUI;
 using namespace ImGui;
@@ -12,6 +13,8 @@ bool PrefabEditor::m_isDragging{ false };
 
 void PrefabEditor::CreateContent()
 {
+  ImVec2 const region{ GetContentRegionAvail() };
+  ImGui::InvisibleButton("#InvisibleButton", {region.x * 0.5f, region.y *0.5f});
   if (ImGui::BeginDragDropTarget())
   {
     if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
@@ -42,7 +45,7 @@ void PrefabEditor::CreateContent()
   ImGui::SameLine();
   if (ImGui::Button("Save Changes"))
   {
-    
+    Serialization::Serializer::GetInstance().Test();
   }
   
 }
