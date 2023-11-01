@@ -14,7 +14,7 @@ namespace GE
     private:
       static ImVec4 const m_highlightClr;
       static std::string m_prefabName, m_currentFilepath;  // current prefab being edited
-      static bool m_isDragging;
+      static bool m_isEditing;
     };
   }
 }

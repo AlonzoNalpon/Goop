@@ -417,7 +417,6 @@ namespace GE
     void Serializer::SerializeSequentialContainer(rttr::variant const& object,
       rapidjson::Value& jsonArray, rapidjson::Document::AllocatorType& allocator)
     {
-      //rapidjson::Value innerArr{ rapidjson::kArrayType };
       auto containerIter = object.create_sequential_view();
       for (const auto& elem : containerIter)
       {
@@ -433,10 +432,6 @@ namespace GE
           jsonArray.PushBack(SerializeBasedOnType(wrappedVal, allocator).Move(), allocator);
         }
       }
-      /*if (!innerArr.Empty())
-      {
-        jsonArray.PushBack(innerArr.Move(), allocator);
-      }*/
     }
   } // namespace Serialization
 } // namespace GE

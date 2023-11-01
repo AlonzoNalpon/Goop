@@ -9,29 +9,32 @@ using namespace ImGui;
 
 ImVec4 const PrefabEditor::m_highlightClr{ 1.f, 1.f, 0.0f, 1.f };
 std::string PrefabEditor::m_prefabName{ "Empty" }, PrefabEditor::m_currentFilepath{};
-bool PrefabEditor::m_isDragging{ false };
+bool PrefabEditor::m_isEditing{ false };
 
 void PrefabEditor::CreateContent()
 {
-  ImVec2 const region{ GetContentRegionAvail() };
   // Header
   ImGui::Text(("Currently Editing: " + m_prefabName).c_str());
 
-  // receive data from assets browser
-  ImGui::InvisibleButton("#InvisibleButton", {region.x * 0.5f, region.y *0.5f});
-  if (ImGui::BeginDragDropTarget())
+  // run drag & drop 
+  if (!m_isEditing)
   {
-    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+    // receive data from assets browser
+    ImGui::InvisibleButton("#InvisibleButton", GetContentRegionAvail());
+    if (ImGui::BeginDragDropTarget())
     {
-      // retrieve payload and cast back to base type
-      IM_ASSERT(payload->DataSize == sizeof(std::filesystem::path));
-      std::filesystem::path const filepath{ *reinterpret_cast<std::filesystem::path*>(payload->Data) };
-      m_currentFilepath = filepath.string();
-      m_prefabName = filepath.stem().string();
+      if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
+      {
+        // retrieve payload and cast back to base type
+        IM_ASSERT(payload->DataSize == sizeof(std::filesystem::path));
+        std::filesystem::path const filepath{ *reinterpret_cast<std::filesystem::path*>(payload->Data) };
+        m_currentFilepath = filepath.string();
+        m_prefabName = filepath.stem().string();
+        m_isEditing = true;
+      }
+      ImGui::EndDragDropTarget();
     }
-    ImGui::EndDragDropTarget();
   }
-
 
   ImVec2 const contentRegionSize{ GetWindowContentRegionMax() };
 

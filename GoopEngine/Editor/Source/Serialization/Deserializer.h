@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   Deserializer.h
+\author chengen.lau\@digipen.edu
+\date   1-November-2023
+\brief  
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include <rapidjson/document.h>
 #include <string>
@@ -16,6 +25,14 @@ namespace GE
     public:
       static std::vector<AI::TreeTemplate> DeserializeTrees(std::string const& filename);
 
+      /*!*********************************************************************
+      \brief
+        
+      \param json
+       
+      \return
+        
+      ************************************************************************/
       static rttr::variant DeserializePrefab(std::string const& json);
 
       /*!*********************************************************************
