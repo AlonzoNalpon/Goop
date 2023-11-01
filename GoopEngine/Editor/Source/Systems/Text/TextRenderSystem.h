@@ -1,9 +1,9 @@
-#ifndef FONT_SYSTEM_H
-#define FONT_SYSTEM_H
+#ifndef TEXT_RENDER_SYSTEM_H
+#define TEXT_RENDER_SYSTEM_H
 #include <ECS/System/System.h>
-#include <Component/TextObject.h>
+#include <Component/Text.h>
 namespace GE::Systems {
-  class FontSystem : public GE::ECS::System
+  class TextRenderSystem : public GE::ECS::System
   {
   public:
     virtual void Start();

@@ -1,5 +1,5 @@
-#ifndef TEXT_OBJECT_H
-#define TEXT_OBJECT_H
+#ifndef TEXT_H
+#define TEXT_H
 
 #include <string>
 #include <Graphics/GraphicsEngine.h>
@@ -8,7 +8,7 @@ namespace GE
 {
 	namespace Component
 	{
-		struct TextObject
+		struct Text
 		{
 			std::string				m_text;
 			Graphics::Colorf	m_clr;

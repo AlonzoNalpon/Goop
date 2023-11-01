@@ -9,3 +9,4 @@
 #include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <Systems/Enemy/EnemySystem.h>
+#include <Systems/Text/TextRenderSystem.h>

@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include <Serialization/ComponentWrapper/ComponentWrapper.h>
 #include "SerializeComponents.h"
-
+#include <Graphics/Def/GraphicsTypes.h>
 namespace GE
 {
 	namespace ObjectFactory
@@ -155,6 +155,13 @@ namespace GE
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
 			return Component::EnemyAI(cw.Get<unsigned int>("entityID"), GE::AI::TreeCache());
+		}
+
+		template<>
+		GE::Component::Text DeserializeComponent(std::string const& componentData)
+		{
+			Serialization::ComponentWrapper const cw{ componentData };
+			return Component::Text(cw.Get<std::string>("str"), cw.Get<Graphics::Colorf>("clr"));
 		}
 
 

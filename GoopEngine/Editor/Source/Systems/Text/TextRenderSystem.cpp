@@ -1,20 +1,20 @@
 #include <pch.h>
-#include <Systems/Font/FontSystem.h>
+#include <Systems/Text/TextRenderSystem.h>
 #include <Graphics/GraphicsEngine.h>
 
 namespace GE::Systems
 {
-  void FontSystem::Start()
+  void TextRenderSystem::Start()
   {
   }
 
-  void FontSystem::Update()
+  void TextRenderSystem::Update()
   {
     //auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 
   }
 
-  void FontSystem::OnDestroyed()
+  void TextRenderSystem::OnDestroyed()
   {
   }
 }
