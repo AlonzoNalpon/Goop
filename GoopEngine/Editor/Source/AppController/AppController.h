@@ -16,6 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <MemoryManager/MemoryManager.h>
 #include <EditorUI/ImGuiUI.h>
 #include <ScriptEngine/ScriptManager.h>
+#include <AI/TreeManager.h>
 //#include <Scene.h>
 #include <GameStateManager/GameStateManager.h>
 
