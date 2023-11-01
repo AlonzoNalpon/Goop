@@ -367,6 +367,10 @@ namespace GE
             jsonVal = SerializeBasedOnType(value, allocator).Move();
           }
         }
+        else
+        {
+          jsonVal = SerializeBasedOnType(value, allocator).Move();
+        }
 
         compInner.AddMember(jsonKey, jsonVal, allocator);
       }
