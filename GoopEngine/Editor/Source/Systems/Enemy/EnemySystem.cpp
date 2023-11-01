@@ -17,6 +17,8 @@ std::vector<GE::AI::Tree> EnemySystem::m_treeList;
 
 void EnemySystem::FixedUpdate()
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	if (m_treeList.size() > 0)
 	{
 		for (Entity entity : GetUpdatableEntities()) {
@@ -35,6 +37,7 @@ void EnemySystem::FixedUpdate()
 			//std::cout << "END FOR THIS FRAME\n\n";
 		}
 	}
+	frc.EndSystemTimer("Enemy AI");
 }
 
 void EnemySystem::UseTree(TreeID treeID, unsigned int entityID)

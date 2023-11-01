@@ -109,7 +109,7 @@ void Visualizer::UpdateGraph()
 
   if (m_graphType == GRAPH_TYPE::HISTOGRAM)
   {
-    std::string const averageStr{ "Average: " + std::to_string(m_totalSystemTime / static_cast<float>(m_systemTimers.size())) + "us" };
+    std::string const averageStr{ "Average: " + std::to_string(m_totalSystemTime / static_cast<float>(m_systemTimers.size())) + "ms" };
     ImGui::PlotHistogram("##PerformanceHistogram", m_systemTimers.data(), static_cast<int>(m_systemTimers.size()), 
       0, averageStr.c_str(), 0.f, m_maxGraphHeight, ImVec2(graphWidth, graphHeight));
     
@@ -126,7 +126,7 @@ void Visualizer::UpdateGraph()
     for (int i = 0; i < static_cast<int>(m_systemTimers.size()); ++i)
     {
       float percentage{ 100.f * m_systemTimers[i] / m_totalSystemTime };
-      ImGui::TextWrapped("%s\n%.fus (%.2f%%)", m_systemsToGraph[i], m_systemTimers[i], percentage, graphWidth / static_cast<float>(m_systemTimers.size()));
+      ImGui::TextWrapped("%s\n%.fms (%.2f%%)", m_systemsToGraph[i], m_systemTimers[i], percentage, graphWidth / static_cast<float>(m_systemTimers.size()));
       ImGui::NextColumn();
     }
     ImGui::Columns(1);
@@ -151,7 +151,7 @@ void Visualizer::UpdateGraph()
       ImGui::Columns(2);
       ImGui::SetColumnWidth(0, innerLeftColWidth);
       ImGui::SetColumnWidth(1, graphWidth - innerLeftColWidth);
-      ImGui::TextWrapped("%s (%.fus)", m_systemsToGraph[i], m_systemTimers[i], (graphWidth, graphHeight / static_cast<float>(m_systemTimers.size())));
+      ImGui::TextWrapped("%s (%.2fms)", m_systemsToGraph[i], m_systemTimers[i], (graphWidth, graphHeight / static_cast<float>(m_systemTimers.size())));
       ImGui::NextColumn();
       ImGui::ProgressBar(m_systemTimers[i] / m_totalSystemTime, ImVec2(graphWidth, graphHeight / static_cast<float>(m_systemTimers.size())));
       ImGui::Columns(1);

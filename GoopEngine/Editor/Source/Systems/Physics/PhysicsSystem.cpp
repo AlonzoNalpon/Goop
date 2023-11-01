@@ -11,6 +11,8 @@ using namespace Component;
 
 void PhysicsSystem::FixedUpdate()
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	/*auto& inputMan{ Input::InputManager::GetInstance() };
 	if (!(inputMan.IsKeyHeld(GPK_SPACE) || inputMan.IsKeyTriggered(GPK_SPACE)))
 		return;*/
@@ -72,4 +74,5 @@ void PhysicsSystem::FixedUpdate()
 
 		pos->m_pos += dt * vel->m_vel;
 	}
+	frc.EndSystemTimer("Physics");
 }

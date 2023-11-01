@@ -17,6 +17,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 void GE::Systems::PreRootTransformSystem::Update()
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	for (GE::ECS::Entity entity : m_ecs->GetEntities())
 	{
 		// This is a root entity
@@ -35,6 +37,7 @@ void GE::Systems::PreRootTransformSystem::Update()
 			Propergate(*m_ecs, entity, identity);
 		}
 	}
+	frc.EndSystemTimer("WorldToLocalTransform");
 }
 
 void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSystem& ecs, GE::ECS::Entity& entity, GE::Math::dMat4& parentWorldTrans)

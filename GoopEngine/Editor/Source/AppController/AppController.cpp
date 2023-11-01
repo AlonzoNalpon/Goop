@@ -145,7 +145,7 @@ namespace GE::Application
         {
           fRC.StartSystemTimer();
           gEngine.Draw();
-          fRC.EndSystemTimer("Render");
+          fRC.EndSystemTimer("Deferred Render");
 
           fRC.StartSystemTimer();
           imgui.Render();
