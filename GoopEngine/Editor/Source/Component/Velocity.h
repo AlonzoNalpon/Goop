@@ -69,13 +69,30 @@ namespace GE
 
 			vec3 m_sumMagnitude;
 
-			//forces functions
+			/*!*********************************************************************
+			\brief
+				Creates a linear force and adds it into a vector of forces
+			\param mag
+				magnitude of force -> in a double vec3
+			\param lifetime
+				lifetime of force i.e. how long the force will last -> in seconds
+			\param active
+				bool to activate force
+			************************************************************************/
 			void AddForce(const vec3& mag, double lifetime, bool active)
 			{
 				LinearForce force(mag, lifetime, active);
 				m_forces.push_back(std::move(force));
 			}
 
+			/*!*********************************************************************
+			\brief
+				Gets the magnitude of a vector
+			\param mag
+				vector to compute magnitude of
+			\return
+				the magnitude of the vector -> in double
+			************************************************************************/
 			double GetMagnitude(const vec3& mag)
 			{
 				return ((mag.x * mag.x) + (mag.y * mag.y));
