@@ -48,6 +48,8 @@ void GE::Systems::PlayerControllerSystem::Start()
 
 void PlayerControllerSystem::FixedUpdate() 
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	for (Entity entity : GetUpdatableEntities()) {
 
 		ScriptHandler* scriptHan = m_ecs->GetComponent<ScriptHandler>(entity);
@@ -98,6 +100,7 @@ void PlayerControllerSystem::FixedUpdate()
 		
 		//std::cout << "Player Position: [" << trans->m_pos.x << ", " << trans->m_pos.y << "]\n";
 	}
+	frc.EndSystemTimer("Player Controller");
 }
 
 void PlayerControllerSystem::HandleEvent(Events::Event const* event)

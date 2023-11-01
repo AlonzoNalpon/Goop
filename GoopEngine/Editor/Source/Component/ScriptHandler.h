@@ -40,6 +40,7 @@ namespace GE
 			************************************************************************/
 			ScriptHandler(const std::vector<std::pair<std::string, std::string>>& scriptNames, unsigned int entityID)
 			{
+				
 				GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
 				for ( const std::pair<std::string, std::string>& s: scriptNames)
 				{

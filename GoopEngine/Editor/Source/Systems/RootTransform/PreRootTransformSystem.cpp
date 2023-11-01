@@ -17,6 +17,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 void GE::Systems::PreRootTransformSystem::Update()
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	for (GE::ECS::Entity entity : m_ecs->GetEntities())
 	{
 		// This is a root entity
@@ -35,6 +37,7 @@ void GE::Systems::PreRootTransformSystem::Update()
 			Propergate(*m_ecs, entity, identity);
 		}
 	}
+	frc.EndSystemTimer("WorldToLocalTransform");
 }
 
 void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSystem& ecs, GE::ECS::Entity& entity, GE::Math::dMat4& parentWorldTrans)
@@ -65,6 +68,7 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 			}
 			GE::Math::dMat4 invWorldTransform;
 			GE::Math::MtxInverse(invWorldTransform, trans->m_parentWorldTransform);
+			GE::Math::MtxInverse(invWorldTransform, parentTrans->m_worldTransform);
 
 			trans->m_pos = invWorldTransform * GE::Math::dVec4(trans->m_worldPos, 1);
 			trans->m_scale = trans->m_worldScale / parentTrans->m_worldScale;
@@ -85,19 +89,19 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 
 	Math::dMat4 T
 	{
-		{ 1, 0, 0, trans->m_pos.x },
-		{ 0, 1, 0, trans->m_pos.y },
-		{ 0, 0, 1, trans->m_pos.z },
+		{ 1, 0, 0, trans->m_worldPos.x },
+		{ 0, 1, 0, trans->m_worldPos.y },
+		{ 0, 0, 1, trans->m_worldPos.z },
 		{ 0, 0, 0, 1 }
 	};
 	Math::dMat4 S
 	{
-		{ trans->m_scale.x, 0, 0, 0 },
-		{ 0, trans->m_scale.y, 0, 0 },
+		{ trans->m_worldScale.x, 0, 0, 0 },
+		{ 0, trans->m_worldScale.y, 0, 0 },
 		{ 0, 0, 1, 0 },
 		{ 0, 0, 0, 1 }
 	};
-	double rad = trans->m_rot.z / 180.0 * M_PI;
+	double rad = trans->m_worldRot.z / 180.0 * M_PI;
 	Math::dMat4 Z
 	{
 		{ std::cos(rad), -std::sin(rad), 0, 0 },
@@ -105,7 +109,7 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 		{ 0, 0, 1, 0 },
 		{ 0, 0, 0, 1 }
 	};
-	rad = trans->m_rot.y / 180.0 * M_PI;
+	rad = trans->m_worldRot.y / 180.0 * M_PI;
 	Math::dMat4 Y
 	{
 		{ std::cos(rad), std::sin(rad), 0, 0 },
@@ -113,7 +117,7 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 		{ -std::sin(rad), 0, std::cos(rad), 0 },
 		{ 0, 0, 0, 1 }
 	};
-	rad = trans->m_rot.x / 180.0 * M_PI;
+	rad = trans->m_worldRot.x / 180.0 * M_PI;
 	Math::dMat4 X
 	{
 		{ 1, 0, 0, 0 },

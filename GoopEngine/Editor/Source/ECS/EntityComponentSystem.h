@@ -32,6 +32,15 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+			  Return the max number of entities allowed in the system.
+			  
+			\return
+			  Max entities
+			************************************************************************/
+			unsigned int GetMaxEntities();
+
+			/*!*********************************************************************
+			\brief
 				Calls EntityManager's CreateEntity function.
 
 			\return

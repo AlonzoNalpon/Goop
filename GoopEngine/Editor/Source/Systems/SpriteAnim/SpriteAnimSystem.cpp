@@ -42,6 +42,8 @@ namespace GE::Systems
 
   void SpriteAnimSystem::Update()
   {
+    auto& frc = GE::FPS::FrameRateController::GetInstance();
+    frc.StartSystemTimer();
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
     double dt{ FPS::FrameRateController::GetInstance().GetDeltaTime() };
     for (GE::ECS::Entity entity : GetUpdatableEntities())
@@ -74,6 +76,7 @@ namespace GE::Systems
         sprite->m_spriteData.info = spriteAnim.frames[animData->m_currFrame];
       }
     }
+    frc.EndSystemTimer("Sprite Animation");
   }
 
   void SpriteAnimSystem::OnDestroyed()

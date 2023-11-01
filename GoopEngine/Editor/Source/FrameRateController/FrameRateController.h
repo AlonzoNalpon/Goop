@@ -50,7 +50,7 @@ namespace GE
 		class FrameRateController : public Singleton<FrameRateController>
 		{
 		public:
-			using timeFormat = std::chrono::microseconds;
+			using timeFormat = std::chrono::milliseconds;
 			using systemTimerList = std::vector<std::pair<std::string, timeFormat>>;
 
 			/*!*********************************************************************

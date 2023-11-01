@@ -68,32 +68,41 @@ namespace GoopScripts.AI
       m_currentIndex = GetCurrentChildIndex();
 
 
+
       //Run the child node 
-      RunChildNode(m_childID[m_currentIndex]);
-      NODE_STATES childResult = (NODE_STATES)GetChildResult();
-
-
-      if (childResult == NODE_STATES.STATE_FAILED)
+      if(m_childID.Count > m_currentIndex)
       {
-        m_currentIndex = GetCurrentChildIndex() + 1;
-        SetNewChildIndex(m_currentIndex);
-        if (m_currentIndex >= m_childID.Count)
+        RunChildNode(m_childID[m_currentIndex]);
+        NODE_STATES childResult = (NODE_STATES)GetChildResult();
+
+
+        if (childResult == NODE_STATES.STATE_FAILED)
         {
-          OnFail(entityID);
+          m_currentIndex = GetCurrentChildIndex() + 1;
+          SetNewChildIndex(m_currentIndex);
+          if (m_currentIndex >= m_childID.Count)
+          {
+            OnFail(entityID);
+          }
+          else
+          {
+            SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
+          }
+        }
+        else if (childResult == NODE_STATES.STATE_SUCCEED)
+        {
+          OnSuccess(entityID);
         }
         else
         {
           SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
         }
       }
-      else if (childResult == NODE_STATES.STATE_SUCCEED)
-      {
-        OnSuccess(entityID);
-      }
       else
       {
-        SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
+        OnFail(entityID);
       }
+      
 
 
 
