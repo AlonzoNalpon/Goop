@@ -1,6 +1,7 @@
 #include <pch.h>
 #include "Scene.h"
 
+
 #include <Systems/DraggableObject/DraggableObjectSystem.h>
 #include <Systems/PlayerController/PlayerControllerSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
@@ -17,6 +18,7 @@ void GE::Scenes::Scene::Load(std::string scene_name)
 	ecs = { &GE::ECS::EntityComponentSystem::GetInstance() };
 	of = { &GE::ObjectFactory::ObjectFactory::GetInstance() };
 	of->LoadSceneJson(scene_name);
+	GE::Systems::EnemySystem::InitTree();
 }
 
 void GE::Scenes::Scene::Init()
@@ -96,19 +98,6 @@ void GE::Scenes::Scene::TestScene()
 	ecs->AddComponent(player, scriptHan);
 	ecs->SetEntityName(player, "Player");
 
-	GE::AI::NodeTemplate node0{ 0, {1},      "RootNode" };						   //0
-	GE::AI::NodeTemplate node1{ 0, {2,5},  "SelectorNode" };					   //1
-	GE::AI::NodeTemplate node2{ 1, {3,4},		"SequenceNode" };				     //2
-	GE::AI::NodeTemplate node3{ 2, {0},      "IsOutsideAttackRange" };   //3
-	GE::AI::NodeTemplate node4{ 2, {0},      "MoveToPlayer" };           //4
-	GE::AI::NodeTemplate node5{ 1, {6,7},		"SequenceNode" };				     //5
-	GE::AI::NodeTemplate node6{ 5, {0},      "IsWithinPlayerRange" };    //6
-	GE::AI::NodeTemplate node7{ 5, {0},      "RunFromPlayer" };          //7
-
-	GE::AI::TreeTemplate newTemp{ node0, node1,node2, node3 ,node4, node5,node6, node7 };
-	GE::AI::Tree GameTree = GE::AI::CreateTree(newTemp);
-	std::vector<GE::AI::Tree> treeList{ GameTree };
-	GE::Systems::EnemySystem::InitTree(treeList);
 	GE::Systems::EnemySystem::SetPlayerID(player);
 
 	Entity enemy = ecs->CreateEntity();

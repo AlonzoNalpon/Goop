@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AI\Tree.cpp" />
+    <ClCompile Include="Source\AI\TreeManager.cpp" />
     <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
     <ClCompile Include="Source\EditorUI\Console.cpp" />
     <ClCompile Include="Source\AppController\AppController.cpp" />
@@ -228,6 +229,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Source\ImNode\imnodes.cpp" />
+    <ClCompile Include="Source\ImNode\NodeEditor.cpp" />
     <ClCompile Include="Source\InputManager\InputManager.cpp" />
     <ClCompile Include="Source\Math\Mat4Utils.cpp" />
     <ClCompile Include="Source\ObjectFactory\ObjectFactory.cpp" />
@@ -281,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AI\Tree.h" />
+    <ClInclude Include="Source\AI\TreeManager.h" />
     <ClInclude Include="Source\Component\Camera.h" />
     <ClInclude Include="Source\Component\Draggable.h" />
     <ClInclude Include="Source\Component\EnemyAI.h" />
@@ -290,7 +294,6 @@
     <ClInclude Include="Source\AI\ActionNode.h" />
     <ClInclude Include="Source\AI\BehaviourTree.h" />
     <ClInclude Include="Source\AI\CompositeNode.h" />
-    <ClInclude Include="Source\AI\Node.h" />
     <ClInclude Include="Source\AppController\AppController.h" />
     <ClInclude Include="Source\AssetManager\AssetManager.h" />
     <ClInclude Include="Source\Audio\AudioEngine.h" />
@@ -319,6 +322,9 @@
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
     <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
+    <ClInclude Include="Source\ImNode\imnodes.h" />
+    <ClInclude Include="Source\ImNode\imnodes_internal.h" />
+    <ClInclude Include="Source\ImNode\NodeEditor.h" />
     <ClInclude Include="Source\ImTerm\misc.hpp" />
     <ClInclude Include="Source\ImTerm\terminal.hpp" />
     <ClInclude Include="Source\ImTerm\terminal_commands.hpp" />

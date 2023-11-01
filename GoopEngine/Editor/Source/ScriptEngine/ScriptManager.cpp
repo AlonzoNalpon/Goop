@@ -13,6 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "ScriptManager.h"
 #include "../AssetManager/AssetManager.h"
+#include <ImNode/NodeEditor.h>
 
 using namespace GE::MONO;
 
@@ -69,6 +70,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPlayerID", GE::Systems::EnemySystem::GetPlayerID);
+
+  //mono_add_internal_call("GoopScripts.Mono.Utils::SetCurrentRunningNode", GE::AI::NodeEditor::SetCurrentRunningNode);
 
   //Retrieve the C#Assembly (.ddl file)
 //  #ifdef _DEBUG

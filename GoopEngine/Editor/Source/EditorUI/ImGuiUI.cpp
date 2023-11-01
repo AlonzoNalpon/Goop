@@ -18,6 +18,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ImGui/imgui.h>
 #include <ImGui/backends/imgui_impl_opengl3.h>
 #include <ImGui/backends/imgui_impl_glfw.h>
+#include "../ImNode/NodeEditor.h"
 #include "../ObjectFactory/ObjectFactory.h"
 #include "../Component/Transform.h"
 #include "../Component/BoxCollider.h"
@@ -60,6 +61,9 @@ void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(prgmWindow.GetWindow(), true);
   ImGui_ImplOpenGL3_Init("#version 460 core");
+
+  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
+  ne->NodeEditorInit();
 }
 
 void ImGuiUI::Update()
@@ -180,6 +184,10 @@ void ImGuiUI::Update()
   Audio::AudioEngine::GetInstance().Update();
   End();
 
+
+  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
+  ne->NodeEditorShow();
+
   ImGuiHelper::EndDockSpace();
 }
 
@@ -195,6 +203,10 @@ void ImGuiUI::Exit()
 {
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplGlfw_Shutdown();
+
+  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
+  ne->NodeEditorShutdown();
+
   DestroyContext();
 }
 

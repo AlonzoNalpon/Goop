@@ -70,12 +70,18 @@ namespace GE::Application
       gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
       am->LoadFiles();
 
+    GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
+    scriptMan->InitMono();
+
+    GE::AI::TreeManager::GetInstance().Init();
+
     imgui.Init(window);
       
     im.InitInputManager(window.GetWindow(), am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), 0.1);
 
-    GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
-    scriptMan->InitMono();
+
+
+
   }
   
   void AppController::Run()
