@@ -89,15 +89,15 @@ RTTR_REGISTRATION
     .property("texture", &Graphics::SpriteData::texture)
     ;
   rttr::registration::class_<Component::Sprite>("Sprite")
-    .property("filename", &Component::Sprite::spriteData)  // naming it as filename for now
+    .property("filename", &Component::Sprite::m_spriteData)  // naming it as filename for now
     ;
 
   rttr::registration::class_<Component::SpriteAnim>("SpriteAnim")
-    .property("name", &Component::SpriteAnim::animID)
+    .property("name", &Component::SpriteAnim::m_animID)
     ;
 
   rttr::registration::class_<Component::Model>("Model")
-    .property("mdlID", &Component::Model::mdlID)
+    .property("mdlID", &Component::Model::m_mdlID)
     ;
 
   rttr::registration::class_<Component::ScriptHandler>("ScriptHandler")

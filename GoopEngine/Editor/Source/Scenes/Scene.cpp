@@ -80,9 +80,9 @@ void GE::Scenes::Scene::TestScene()
 	tween.AddTween({ 0, -350, 0 });
 	tween.AddTween({ 350, 350, 0 });
 	GE::Component::Model mdl{}; // model data for the player sprite
-	mdl.mdlID = gEngine.GetModel();
+	mdl.m_mdlID = gEngine.GetModel();
 	Sprite sprite;
-	sprite.spriteData.texture = gEngine.textureManager.GetTextureID("SS_MineWorm");
+	sprite.m_spriteData.texture = gEngine.textureManager.GetTextureID("SS_MineWorm");
 	GE::Component::SpriteAnim anim;
 
 	std::vector <std::pair<std::string, std::string>> playerScripts{ {"GoopScripts", "Player"} };

@@ -4,7 +4,7 @@ namespace GE::Component
 {
   struct Model
   {
-    Graphics::gObjID mdlID; //!< identifier of the model
+    Graphics::gObjID m_mdlID; //!< identifier of the model
   };
 }
 #endif

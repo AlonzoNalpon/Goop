@@ -111,10 +111,10 @@ void GE::EditorGUI::EditorViewport::UpdateViewport()
             else if (ecs->HasComponent<GE::Component::Sprite>(curr))
             {
               GE::Component::Sprite* sprite = ecs->GetComponent<GE::Component::Sprite>(curr);
-              GE::Math::dVec2 min{ trans.m_pos.x - sprite->spriteData.info.width * trans.m_scale.x * 0.5, 
-                trans.m_pos.y - sprite->spriteData.info.height * trans.m_scale.y * 0.5 };
-              GE::Math::dVec2 max{ trans.m_pos.x + sprite->spriteData.info.width * trans.m_scale.x * 0.5,
-                trans.m_pos.y + sprite->spriteData.info.height * trans.m_scale.y * 0.5 };
+              GE::Math::dVec2 min{ trans.m_pos.x - sprite->m_spriteData.info.width * trans.m_scale.x * 0.5, 
+                trans.m_pos.y - sprite->m_spriteData.info.height * trans.m_scale.y * 0.5 };
+              GE::Math::dVec2 max{ trans.m_pos.x + sprite->m_spriteData.info.width * trans.m_scale.x * 0.5,
+                trans.m_pos.y + sprite->m_spriteData.info.height * trans.m_scale.y * 0.5 };
 
               // AABB check with the mesh based on its transform (ASSUMES A SQUARE)
               if (min.x > mouseWS.x ||
