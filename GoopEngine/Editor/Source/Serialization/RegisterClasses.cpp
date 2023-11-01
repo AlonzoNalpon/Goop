@@ -18,6 +18,9 @@ RTTR_REGISTRATION
     .property("y", &Math::dVec2::y)
     .method("ToString", &Math::dVec2::ToString)
     ;
+  rttr::registration::class_<Math::Vec2>("Vec2")
+    .method("ToString", &Math::Vec2::ToString)
+    ;
 
   rttr::registration::class_<Math::dVec3>("dVec3")
     .constructor<>()
@@ -130,7 +133,7 @@ RTTR_REGISTRATION
     ;
   rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")
     .property("nodeType", &AI::NodeTemplate::m_nodeType)
-    .property("NodeID", &AI::NodeTemplate::m_parentNode)
+    .property("parentNode", &AI::NodeTemplate::m_parentNode)
     .property("childrenNode", &AI::NodeTemplate::m_childrenNode)
     .property("scriptName", &AI::NodeTemplate::m_scriptName)
     .property("pos", &AI::NodeTemplate::m_pos)
@@ -177,14 +180,12 @@ RTTR_REGISTRATION
       rttr::value("TOTAL_SYSTEMS", ECS::SYSTEM_TYPES::TOTAL_SYSTEMS)
       );
 
-  rttr::registration::enumeration<AI::NODE_STATES>("NODE_STATES")
+  rttr::registration::enumeration<AI::NODE_TYPE>("NODE_TYPE")
     (
-      rttr::value("NEW", AI::NODE_STATES::STATE_NEW),
-      rttr::value("RUNNING", AI::NODE_STATES::STATE_RUNNING),
-      rttr::value("WAITING", AI::NODE_STATES::STATE_WAITING),
-      rttr::value("SUCCEED", AI::NODE_STATES::STATE_SUCCEED),
-      rttr::value("FAILED", AI::NODE_STATES::STATE_FAILED),
-      rttr::value("COUNT", AI::NODE_STATES::STATE_COUNT)
+      rttr::value("COMPOSITE_NODE", AI::NODE_TYPE::COMPOSITE_NODE),
+      rttr::value("LEAF_NODE", AI::NODE_TYPE::LEAF_NODE),
+      rttr::value("NODE_TYPE_COUNT", AI::NODE_TYPE::NODE_TYPE_COUNT),
+      rttr::value("ROOT_NODE", AI::NODE_TYPE::ROOT_NODE)
       );
 
   /* ------------------- FUNCTIONS ------------------- */

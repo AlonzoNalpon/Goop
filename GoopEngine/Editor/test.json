@@ -1,0 +1,103 @@
+[
+    [
+        {
+            "tree": [
+                [
+                    {
+                        "nodeType": "ROOT_NODE",
+                        "parentNode": 0,
+                        "childrenNode": [
+                            [
+                                1
+                            ]
+                        ],
+                        "scriptName": "RootNode",
+                        "pos": "{ 50, 80 }"
+                    },
+                    {
+                        "nodeType": "COMPOSITE_NODE",
+                        "parentNode": 0,
+                        "childrenNode": [
+                            [
+                                2,
+                                5
+                            ]
+                        ],
+                        "scriptName": "SelectorNode",
+                        "pos": "{ 230, 80 }"
+                    },
+                    {
+                        "nodeType": "COMPOSITE_NODE",
+                        "parentNode": 1,
+                        "childrenNode": [
+                            [
+                                3,
+                                4
+                            ]
+                        ],
+                        "scriptName": "SequenceNode",
+                        "pos": "{ 410, 20 }"
+                    },
+                    {
+                        "nodeType": "LEAF_NODE",
+                        "parentNode": 2,
+                        "childrenNode": [
+                            [
+                                0
+                            ]
+                        ],
+                        "scriptName": "IsOutsideAttackRange",
+                        "pos": "{ 590, 0 }"
+                    },
+                    {
+                        "nodeType": "LEAF_NODE",
+                        "parentNode": 2,
+                        "childrenNode": [
+                            [
+                                0
+                            ]
+                        ],
+                        "scriptName": "MoveToPlayer",
+                        "pos": "{ 590, 100 }"
+                    },
+                    {
+                        "nodeType": "COMPOSITE_NODE",
+                        "parentNode": 1,
+                        "childrenNode": [
+                            [
+                                6,
+                                7
+                            ]
+                        ],
+                        "scriptName": "SequenceNode",
+                        "pos": "{ 410, 170 }"
+                    },
+                    {
+                        "nodeType": "LEAF_NODE",
+                        "parentNode": 5,
+                        "childrenNode": [
+                            [
+                                0
+                            ]
+                        ],
+                        "scriptName": "IsWithinPlayerRange",
+                        "pos": "{ 590, 200 }"
+                    },
+                    {
+                        "nodeType": "LEAF_NODE",
+                        "parentNode": 5,
+                        "childrenNode": [
+                            [
+                                0
+                            ]
+                        ],
+                        "scriptName": "RunFromPlayer",
+                        "pos": "{ 590, 300 }"
+                    }
+                ]
+            ],
+            "treeName": "WormTree",
+            "treeTempID": 0
+        }
+    ]
+]

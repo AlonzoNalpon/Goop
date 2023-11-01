@@ -33,8 +33,6 @@ namespace GE
 
       rapidjson::Value SerializeEntity(ECS::Entity id, std::vector<ECS::Entity> const& childIDs, rapidjson::Document::AllocatorType& allocator);
 
-      void Test();
-
     private:
       std::unordered_map<ECS::Entity, ECS::Entity> m_oldToNewIDs;
 

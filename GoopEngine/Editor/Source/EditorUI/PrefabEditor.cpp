@@ -17,8 +17,8 @@ void PrefabEditor::CreateContent()
   // Header
   ImGui::Text(("Currently Editing: " + m_prefabName).c_str());
 
-  ImGui::InvisibleButton("#InvisibleButton", {region.x * 0.5f, region.y *0.5f});
   // receive data from assets browser
+  ImGui::InvisibleButton("#InvisibleButton", {region.x * 0.5f, region.y *0.5f});
   if (ImGui::BeginDragDropTarget())
   {
     if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_ITEM"))
@@ -44,7 +44,7 @@ void PrefabEditor::CreateContent()
   ImGui::SameLine();
   if (ImGui::Button("Save Changes"))
   {
-    Serialization::Serializer::GetInstance().Test();
+
   }
   
 }

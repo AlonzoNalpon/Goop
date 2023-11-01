@@ -25,7 +25,8 @@ namespace GE
       }
 
       rapidjson::Document document{ rapidjson::kArrayType };
-      SerializeBasedOnType(object, document.GetAllocator());
+      rapidjson::Value data{ SerializeBasedOnType(object, document.GetAllocator()) };
+      document.CopyFrom(data.Move(), document.GetAllocator());
 
       rapidjson::OStreamWrapper osw{ ofs };
       rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
@@ -260,7 +261,7 @@ namespace GE
 
     rapidjson::Value Serializer::SerializeClassTypes(rttr::type const& valueType, rttr::variant const& value, rapidjson::Document::AllocatorType& allocator)
     {
-      rapidjson::Value jsonVal{ rapidjson::kNullType };
+      rapidjson::Value jsonVal{ rapidjson::kObjectType };
       if (valueType == rttr::type::get<GE::Math::dVec3>())
       {
         jsonVal.SetString(valueType.get_method("ToString").invoke(value).to_string().c_str(),
@@ -275,13 +276,17 @@ namespace GE
       {
         jsonVal.SetString(value.to_string().c_str(), allocator);
       }
+      else if (valueType == rttr::type::get<GE::Math::Vec2>())
+      {
+        jsonVal.SetString(valueType.get_method("ToString").invoke(value).to_string().c_str(),
+          allocator);
+      }
       else if (valueType == rttr::type::get<std::deque<Math::dVec3>>())
       {
         jsonVal = SerializeTweenQueue(value.get_value<std::deque<Math::dVec3>>(), allocator);
       }
       else if (valueType == rttr::type::get<Component::DragForce>())
       {
-        jsonVal.SetObject();
         for (auto const& prop : value.get_type().get_properties())
         {
           rapidjson::Value innerProp{ SerializeBasedOnType(prop.get_value(value), allocator) };
@@ -311,18 +316,15 @@ namespace GE
       }
       else
       {
+        jsonVal.SetObject();
         for (auto const& prop : valueType.get_properties())
         {
           rapidjson::Value propVal{ rapidjson::kNullType };
           rapidjson::Value propKey{ prop.get_name().to_string().c_str(), allocator };
 
-          SerializeClassTypes(prop.get_type(), prop.get_value(value), allocator);
+          propVal = SerializeBasedOnType(prop.get_value(value), allocator);
           jsonVal.AddMember(propKey, propVal, allocator);
         }
-       /* std::ostringstream oss{};
-        oss << "Trying to deserialize unsupported type: " << valueType.get_name() << " with value: " << value.to_string();
-        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        jsonVal.SetNull();*/
       }
 
       return jsonVal;
@@ -376,18 +378,7 @@ namespace GE
     rapidjson::Value Serializer::SerializeEnumType(rttr::type const& valueType, rttr::variant const& object, rapidjson::Document::AllocatorType& allocator)
     {
       rapidjson::Value strJson{ rapidjson::kNullType };
-      bool status = false;
-      std::string const result = object.to_string(&status);
-      if (status)
-      {
-        strJson.SetString(result.c_str(), allocator);
-      }
-      else
-      {
-        std::ostringstream oss{};
-        oss << "Unable to serialize " << valueType.get_name() << " with value: " << object.to_string();
-        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-      }
+      strJson.SetString(valueType.get_enumeration().value_to_name(object).to_string().c_str(), allocator);
 
       return strJson;
     }
@@ -409,6 +400,7 @@ namespace GE
       }
       else if (wrappedType.is_sequential_container())
       {
+        value.SetArray();
         SerializeSequentialContainer(object, value, allocator);
       }
       else  // if class type
@@ -417,25 +409,6 @@ namespace GE
       }
 
       return value;
-    }
-
-    void Serializer::Test()
-    {
-      rapidjson::Document document{ rapidjson::kArrayType };
-      std::vector<std::vector<std::string>> a{ {"test", "boo", "joel"}, { "joel2","joel3" }, { "joel4", "joel5" } };
-      SerializeSequentialContainer(a, document, document.GetAllocator());
-      rapidjson::Value key{};
-      key.SetString("BAM_KEY", document.GetAllocator());
-
-      std::ofstream ofs{ "test.muaahah" };
-      if (!ofs)
-      {
-        throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg("Unable to create output file"));
-      }
-      rapidjson::OStreamWrapper osw{ ofs };
-      rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
-      document.Accept(writer);
-      ofs.close();
     }
 
     void Serializer::SerializeSequentialContainer(rttr::variant const& object,

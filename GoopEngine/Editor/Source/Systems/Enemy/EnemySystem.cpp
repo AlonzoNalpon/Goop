@@ -17,7 +17,9 @@ GameTree* EnemySystem::m_currentTree;
 
 void EnemySystem::InitTree()
 {
+#ifdef _DEBUG
 	std::cout << "INIT TREE\n";
+#endif
 	//Get all the trees
 	const std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
 	for (size_t i{ 0 }; i < tempTreeList.size(); ++i)
