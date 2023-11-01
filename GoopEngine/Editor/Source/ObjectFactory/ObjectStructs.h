@@ -33,7 +33,13 @@ namespace GE
     struct VariantPrefab
     {
       std::vector<rttr::variant> m_components;
-      std::string m_name;
+      std::string m_name = "Empty";
+
+      void Clear() noexcept
+      {
+        m_name.clear();
+        m_components.clear();
+      }
     };
   }
 }

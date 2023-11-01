@@ -1,6 +1,8 @@
 #pragma once
 
-#ifdef _DEBUG
+//#define EVENT_DEBUG
+
+#if defined _DEBUG || defined EVENT_DEBUG
 #include <iostream>
 #include <iomanip>
 #endif

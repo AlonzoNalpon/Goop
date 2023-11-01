@@ -1,6 +1,7 @@
 #pragma once
 #include <ImGui/imgui.h>
 #include <rttr/type.h>
+#include <ObjectFactory/ObjectStructs.h>
 
 namespace GE
 {
@@ -12,8 +13,8 @@ namespace GE
       static void CreateContent();
 
     private:
-      static ImVec4 const m_highlightClr;
-      static std::string m_prefabName, m_currentFilepath;  // current prefab being edited
+      static ObjectFactory::VariantPrefab m_currPrefab;
+      static std::string m_currentFilepath;  // current prefab being edited
       static bool m_isEditing;
     };
   }

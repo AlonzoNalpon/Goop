@@ -7,14 +7,15 @@
 using namespace GE::EditorGUI;
 using namespace ImGui;
 
-ImVec4 const PrefabEditor::m_highlightClr{ 1.f, 1.f, 0.0f, 1.f };
-std::string PrefabEditor::m_prefabName{ "Empty" }, PrefabEditor::m_currentFilepath{};
+GE::ObjectFactory::VariantPrefab PrefabEditor::m_currPrefab;
+std::string PrefabEditor::m_currentFilepath{};
 bool PrefabEditor::m_isEditing{ false };
 
 void PrefabEditor::CreateContent()
 {
   // Header
-  ImGui::Text(("Currently Editing: " + m_prefabName).c_str());
+  std::string const name{ m_isEditing ? m_currPrefab.m_name : "Empty" };
+  ImGui::Text(("Currently Editing: " + name).c_str());
 
   // run drag & drop 
   if (!m_isEditing)
@@ -29,7 +30,7 @@ void PrefabEditor::CreateContent()
         IM_ASSERT(payload->DataSize == sizeof(std::filesystem::path));
         std::filesystem::path const filepath{ *reinterpret_cast<std::filesystem::path*>(payload->Data) };
         m_currentFilepath = filepath.string();
-        m_prefabName = filepath.stem().string();
+        //m_currPrefab = Serialization::Deserializer::DeserializePrefab(m_currentFilepath);
         m_isEditing = true;
       }
       ImGui::EndDragDropTarget();
@@ -37,17 +38,20 @@ void PrefabEditor::CreateContent()
   }
 
   ImVec2 const contentRegionSize{ GetWindowContentRegionMax() };
-
-  SetCursorPosX(contentRegionSize.x * 0.5f - ImGui::CalcTextSize("Cancel Save Changes").x * 0.5f);
-  SetCursorPosY(contentRegionSize.y * 0.95f - GetTextLineHeight());
-  if (ImGui::Button("Cancel"))
-  {
-    m_prefabName = "Empty";
-  }
-  ImGui::SameLine();
-  if (ImGui::Button("Save Changes"))
-  {
-
-  }
   
+
+  if (!m_isEditing)
+  {
+    SetCursorPosX(contentRegionSize.x * 0.5f - ImGui::CalcTextSize("Cancel Save Changes").x * 0.5f);
+    SetCursorPosY(contentRegionSize.y * 0.95f - GetTextLineHeight());
+    if (ImGui::Button("Cancel"))
+    {
+      m_currPrefab.Clear();
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Save Changes"))
+    {
+
+    }
+  }
 }

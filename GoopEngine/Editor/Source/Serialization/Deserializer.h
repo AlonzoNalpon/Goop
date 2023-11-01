@@ -14,6 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Sprite.h>
 #include <rttr/type.h>
 #include <AI/TreeManager.h>
+#include <ObjectFactory/ObjectStructs.h>
 
 namespace GE
 {
@@ -25,15 +26,7 @@ namespace GE
     public:
       static std::vector<AI::TreeTemplate> DeserializeTrees(std::string const& filename);
 
-      /*!*********************************************************************
-      \brief
-        
-      \param json
-       
-      \return
-        
-      ************************************************************************/
-      static rttr::variant DeserializePrefab(std::string const& json);
+      //static ObjectFactory::VariantPrefab DeserializePrefab(std::string const& json);
 
       /*!*********************************************************************
       \brief
@@ -54,7 +47,8 @@ namespace GE
     private:
       static void DeserializeBasedOnType(rttr::instance object, rapidjson::Value const& value);
       static rttr::variant DeserializeBasicTypes(rapidjson::Value const& value);
-      static void DeserializeSequentialContainer(rttr::variant_sequential_view& view, rapidjson::Value const& value);
+      static rttr::variant DeserializeElement(rttr::type const& valueType, rapidjson::Value const& value);
+      static void DeserializeSequentialContainer(rttr::variant_sequential_view const& view, rapidjson::Value const& value);
     };
 
   } // namespace Serialization
