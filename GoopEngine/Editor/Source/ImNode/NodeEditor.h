@@ -86,7 +86,7 @@ namespace GE {
 
 			void UpdateNewTree();
 			void AddDisplayTree(const TreeTemplate& tree);
-
+			void PrintDetails();
 			//void AddNode();
 
 

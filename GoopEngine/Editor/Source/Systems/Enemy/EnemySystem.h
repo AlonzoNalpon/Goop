@@ -11,6 +11,7 @@ namespace GE
 	{
 		struct GameNode
 		{
+			GE::AI::NODE_TYPE m_nodeType;
 			GE::MONO::Script m_script;
 		};
 
@@ -23,7 +24,7 @@ namespace GE
 
 		class EnemySystem : public GE::ECS::System
 		{
-
+			const std::string rootNodeName = "RootNode";
 			static std::vector<GameTree> m_treeList;
 			static GameTree* m_currentTree;
 			static GE::AI::TreeID m_currentTreeID;

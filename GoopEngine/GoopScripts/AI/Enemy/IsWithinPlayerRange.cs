@@ -27,7 +27,7 @@ namespace GoopScripts.AI
     {
       m_parentID = parentID;
       m_nodeID = currID;
-
+     // Console.WriteLine("Is Within rangeID:" + m_nodeID);
     }
 
 
@@ -57,6 +57,7 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
+      Console.WriteLine("Run within range\n");
       uint playerID = GetPlayerID();
       Vec3<double> playerPos = GetPosition(playerID);
       Vec3<double> currPos = GetPosition(entityID);

@@ -39,16 +39,40 @@ void EnemySystem::FixedUpdate()
 	if (m_treeList.size() != 0)
 	{
 		for (Entity entity : GetUpdatableEntities()) {
-
+			//std::cout << "RUN ENEMY\n";
 			GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
 			GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
 			GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
 			UseTree(enemyAIComp->m_enemyTreeCache.m_treeID, entity);
+
+			//If the nodeCacheStack is empty, it means that the enemy is going to traverse from the start of the tree again
+			if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.size() == 0)
+			{
+				for (size_t j{0}; j< m_currentTree->m_nodeList.size(); ++j)
+				{
+					if (m_currentTree->m_nodeList[j].m_nodeType == ROOT_NODE)
+					{
+						enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.push_back(NodeCache(static_cast<NodeID>(j), 0, STATE_NEW));
+						break;
+					}
+				}
+			}
+
+			if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.size() != 0)
+			{
+				MonoMethod* onUpdate = mono_class_get_method_from_name(mono_object_get_class(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst), "OnUpdate", 2);
+				double dt = fpsControl->GetFixedDeltaTime();
+				std::vector<void*> arg{ &m_currentEntityID, &dt };
+				mono_runtime_invoke(onUpdate, m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst, arg.data(), nullptr);
+				//PrintNodeCache(enemyAIComp->m_enemyTreeCache.m_nodeCacheStack);
+			}
+			else
+			{
+				std::cout << "NO ROOT NODE, ILLEGAL TREE\n";
+				//Enemy did not put a root node
+			}
 			
-			MonoMethod* onUpdate = mono_class_get_method_from_name(mono_object_get_class(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst), "OnUpdate", 2);
-			double dt = fpsControl->GetFixedDeltaTime();
-			std::vector<void*> arg{ &m_currentEntityID, &dt };
-			mono_runtime_invoke(onUpdate, m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst, arg.data(), nullptr);
+
 		}
 	}
 
@@ -93,6 +117,7 @@ void EnemySystem::FixedUpdate()
 			}
 		}
 	}
+
 	frc.EndSystemTimer("Enemy AI");
 }
 
@@ -106,6 +131,8 @@ void EnemySystem::AddGameTree(const GE::AI::TreeTemplate& treeTemp)
 
 GameTree EnemySystem::GenerateGameTree(const GE::AI::TreeTemplate& treeTemp)
 {
+	const std::vector<std::string> nodeTitles{ "Root Node","Composite Node","Leaf Node" };
+
 	GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
 	const std::vector<NodeTemplate>& tree = treeTemp.m_tree;
 
@@ -117,14 +144,16 @@ GameTree EnemySystem::GenerateGameTree(const GE::AI::TreeTemplate& treeTemp)
 		NodeID ownID = static_cast<unsigned int>(i);
 		NodeID parentID = tree[i].m_parentNode;
 		unsigned int listSize = static_cast<unsigned int>(tree[i].m_childrenNode.size());
+		//std::cout << nodeTitles[static_cast<int>(tree[i].m_nodeType)] << "::" << tree[i].m_scriptName << ": " << ownID << "\n Childs:\n";
 
 		MonoArray* result = mono_array_new(mono_domain_get(), mono_get_uint32_class(), listSize);
 		for (unsigned int j = 0; j < listSize; j++) {
+			//std::cout << tree[i].m_childrenNode[j] << "\n";
 			mono_array_set(result, unsigned int, j, tree[i].m_childrenNode[j]);
 		}
-
+		//std::cout << "\n";
 		std::vector<void*> arg{ &ownID, &parentID, result, &listSize };
-		newGamTree.m_nodeList.push_back(GameNode(GE::MONO::Script(scriptMan->InstantiateClass("GoopScripts.AI", tree[i].m_scriptName.c_str(), arg))));
+		newGamTree.m_nodeList.push_back(GameNode(tree[i].m_nodeType, GE::MONO::Script(scriptMan->InstantiateClass("GoopScripts.AI", tree[i].m_scriptName.c_str(), arg))));
 	}
 	return newGamTree;
 }

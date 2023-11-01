@@ -122,14 +122,14 @@ RTTR_REGISTRATION
   //  .property("NodeResult", &Component::NodeCache::m_NodeResult)
   //  ;
   rttr::registration::class_<AI::TreeCache>("TreeCache")
-    //.property("treeID", &Component::TreeCache::m_treeID)
+    .property("treeID", &Component::TreeCache::m_treeID)
     //.property("nodeCacheStack", &Component::TreeCache::m_nodeCacheStack)
     //.property("childResult", &Component::TreeCache::m_childResult)
     ;
   rttr::registration::class_<Component::EnemyAI>("EnemyAI")
-    .constructor<unsigned, AI::TreeCache const&>()
+    .constructor<unsigned, unsigned>()
     .property("entityID", &Component::EnemyAI::m_entityID)
-    //.property("enemyTreeCache", &Component::EnemyAI::m_enemyTreeCache)
+    .property("treeID", &Component::EnemyAI::m_enemyTreeCache)
     ;
   rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")
     .property("nodeType", &AI::NodeTemplate::m_nodeType)

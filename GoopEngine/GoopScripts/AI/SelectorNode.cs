@@ -28,10 +28,13 @@ namespace GoopScripts.AI
     {
       m_nodeID = currID;
       m_parentID = parentID;
+     // Console.WriteLine("SelectorNode childs: ");
       for (uint i = 0; i < tempSize; i++)
       {
+      //  Console.WriteLine(temp[i] + ", ");
         m_childID.Add(temp[i]);
       }
+      //Console.WriteLine("\n");
     }
 
 
@@ -61,7 +64,7 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      //Console.WriteLine("RUN SELECTOR\n");
+      Console.WriteLine("RUN SELECTOR\n");
       SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
 
       //Get current position Index
@@ -70,7 +73,7 @@ namespace GoopScripts.AI
 
 
       //Run the child node 
-      if(m_childID.Count > m_currentIndex)
+      if(m_childID.Count > m_currentIndex && m_childID.Count > 0)
       {
         RunChildNode(m_childID[m_currentIndex]);
         NODE_STATES childResult = (NODE_STATES)GetChildResult();

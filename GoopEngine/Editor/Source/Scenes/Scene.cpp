@@ -104,7 +104,7 @@ void GE::Scenes::Scene::TestScene()
 	Entity enemy = ecs->CreateEntity();
 
 	Transform enemyTrans({ 100, 100, 0 }, { 1, 1, 1 }, { 0.0, 0.0,0.0 });
-	EnemyAI newAI = EnemyAI(enemy, GE::AI::TreeCache());
+	EnemyAI newAI = EnemyAI(enemy, 0);
 	newAI.m_enemyTreeCache.m_nodeCacheStack.push_front(GE::AI::NodeCache(0, 0, GE::AI::NODE_STATES::STATE_NEW));
 
 	ecs->AddComponent(enemy, newAI);
