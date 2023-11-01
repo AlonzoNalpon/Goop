@@ -4,6 +4,7 @@
 #include <Component/ScriptHandler.h>
 #include <Component/Sprite.h>
 #include <rttr/type.h>
+#include <AI/TreeManager.h>
 
 namespace GE
 {
@@ -13,6 +14,8 @@ namespace GE
     class Deserializer
     {
     public:
+      static std::vector<AI::TreeTemplate> DeserializeTrees(std::string const& filename);
+
       static rttr::variant DeserializePrefab(std::string const& json);
 
       /*!*********************************************************************
@@ -34,7 +37,7 @@ namespace GE
     private:
       static void DeserializeBasedOnType(rttr::instance object, rapidjson::Value const& value);
       static rttr::variant DeserializeBasicTypes(rapidjson::Value const& value);
-      static void DeserializeSequentialContainer(rttr::variant_associative_view& view, rapidjson::Value const& value);
+      static void DeserializeSequentialContainer(rttr::variant_sequential_view& view, rapidjson::Value const& value);
     };
 
   } // namespace Serialization

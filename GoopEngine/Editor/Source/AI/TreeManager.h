@@ -18,10 +18,15 @@ namespace GE {
 
 		struct TreeTemplate
 		{
+			TreeTemplate() = default;
+			TreeTemplate(std::vector<NodeTemplate> const& tree, std::string treeName, TreeID treeTempID)
+				: m_tree{ tree }, m_treeName{ std::move(treeName) }, m_treeTempID{ treeTempID } {}
+			TreeTemplate(std::vector<NodeTemplate>&& tree, std::string treeName, TreeID treeTempID)
+				: m_tree{ tree }, m_treeName{ std::move(treeName) }, m_treeTempID{ treeTempID } {}
+
 			std::vector<NodeTemplate> m_tree;
 			std::string m_treeName;
 			TreeID m_treeTempID;
-
 		};
 
 		class TreeManager : public Singleton<TreeManager>

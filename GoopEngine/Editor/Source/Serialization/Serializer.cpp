@@ -392,10 +392,12 @@ namespace GE
 
       if (wrappedType.is_arithmetic())
       {
+        value.SetObject();
         value = SerializeBasicTypes(wrappedType, object, allocator).Move();
       }
       else if (wrappedType.is_enumeration()) // if enum
       {
+        value.SetObject();
         value = SerializeEnumType(wrappedType, object, allocator).Move();
       }
       else if (wrappedType.is_sequential_container())
@@ -405,6 +407,7 @@ namespace GE
       }
       else  // if class type
       {
+        value.SetObject();
         value = SerializeClassTypes(wrappedType, object, allocator).Move();
       }
 
@@ -414,7 +417,7 @@ namespace GE
     void Serializer::SerializeSequentialContainer(rttr::variant const& object,
       rapidjson::Value& jsonArray, rapidjson::Document::AllocatorType& allocator)
     {
-      rapidjson::Value innerArr{ rapidjson::kArrayType };
+      //rapidjson::Value innerArr{ rapidjson::kArrayType };
       auto containerIter = object.create_sequential_view();
       for (const auto& elem : containerIter)
       {
@@ -427,13 +430,13 @@ namespace GE
         {
           rttr::variant wrappedVal = elem.extract_wrapped_value();
           // else serialize element normally
-          innerArr.PushBack(SerializeBasedOnType(wrappedVal, allocator).Move(), allocator);
+          jsonArray.PushBack(SerializeBasedOnType(wrappedVal, allocator).Move(), allocator);
         }
       }
-      if (!innerArr.Empty())
+      /*if (!innerArr.Empty())
       {
         jsonArray.PushBack(innerArr.Move(), allocator);
-      }
+      }*/
     }
   } // namespace Serialization
 } // namespace GE
