@@ -79,8 +79,4 @@ namespace GE::Systems
     frc.EndSystemTimer("Sprite Animation");
   }
 
-  void SpriteAnimSystem::OnDestroyed()
-  {
-  }
-
 }
