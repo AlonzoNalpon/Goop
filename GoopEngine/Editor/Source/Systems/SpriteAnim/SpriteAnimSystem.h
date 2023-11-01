@@ -30,7 +30,6 @@ namespace GE::Systems {
 
     virtual void Update();
 
-    virtual void OnDestroyed();
   };
 }
 #endif

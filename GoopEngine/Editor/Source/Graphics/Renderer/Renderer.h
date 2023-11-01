@@ -31,7 +31,8 @@ namespace Graphics::Rendering
     using ShaderCont = std::vector<ShaderProgram>;
   public:
 
-    
+
+    void ClearRenderContainers();
     Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, ShaderCont const& shaderCont
     , Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight);
 
@@ -67,7 +68,7 @@ namespace Graphics::Rendering
     ************************************************************************/
     void Draw();
 
-    void DrawFontObj(std::string const& str, gVec2 pos, gVec2 const& scale, Colorf const& clr, std::string const& fontName);
+    void DrawFontObj(std::string const& str, gVec2 pos, gVec2 const& scale, Colorf const& clr, Graphics::gObjID fontID);
 
     /*!*********************************************************************
     \brief
@@ -90,18 +91,11 @@ namespace Graphics::Rendering
       
     ************************************************************************/
     glm::mat4 CalculateTransform(gVec3 const& scale, GLfloat rotation, gVec3 const& pos) const;
-    /*!*********************************************************************
-    \brief
-      Calculates the transform based on Transform struct.
-    \params
-      xForm the transformation data
-    \return the matrix result
-      
-    ************************************************************************/
-    //glm::mat4 CalculateTransform(Transform const& xForm) const;
+
   private:
-    std::vector<RenderData>     m_renderCalls;     //!< container for all render calls
-    std::vector<LineRenderData> m_lineRenderCalls; //!< DEBUG drawing lines with colors
+    std::vector<RenderData>             m_renderCalls;     //!< container for all render calls
+    std::vector<FontRenderData>         m_fontRenderCalls; //!< font
+    std::vector<LineRenderData>         m_lineRenderCalls; //!< DEBUG drawing lines with colors
 
     Camera                              m_camera;   //!< camera for rendering
 

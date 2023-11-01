@@ -20,6 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Tween.h>
 #include <Component/Velocity.h>
 #include <Component/Draggable.h>
+#include <Component/Text.h>
 #include "../ImGui/misc/cpp/imgui_stdlib.h"
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
@@ -171,7 +172,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 	{
 		ecs.SetEntityName(entity, name);
 	}
-	Text(("Entity ID: " + std::to_string(entity)).c_str());
+	ImGui::Text(("Entity ID: " + std::to_string(entity)).c_str());
 
 	for (int i{}; i < GE::ECS::MAX_COMPONENTS; ++i)
 	{
@@ -310,6 +311,31 @@ void GE::EditorGUI::Inspector::CreateContent()
 			case GE::ECS::COMPONENT_TYPES::DRAGGABLE:
 			{
 				CollapsingHeader("Draggable", ImGuiTreeNodeFlags_Leaf);
+				break;
+			}
+			case GE::ECS::COMPONENT_TYPES::TEXT:
+			{
+				//float inputWidth = (contentSize - charSize) / 3;
+				auto textObj = ecs.GetComponent<Component::Text>(entity);
+				if (ImGui::CollapsingHeader("Text", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					Separator();
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					float test[3];
+					// Use InputFloat3 to edit the vector components
+
+
+
+
+
+
+					InputFloat3("Color", test);
+					TableNextRow();
+					InputText("Text body", &textObj->m_text);
+					EndTable();
+					Separator();
+				}
 				break;
 			}
 			default:
@@ -456,6 +482,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
+					case GE::ECS::COMPONENT_TYPES::TEXT:
+					{
+						if (!ecs.HasComponent<Component::Text>(entity))
+						{
+							Component::Text comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Component::Text).name() << ". Component already exist";
+						}
+						break;
+					}
 					default:
 						break;
 					}
@@ -480,7 +519,7 @@ namespace
 
 		BeginDisabled(disabled);
 		TableNextColumn();
-		Text(propertyName.c_str());
+		ImGui::Text(propertyName.c_str());
 		propertyName = "##" + propertyName;
 		TableNextColumn();
 		SetNextItemWidth(fieldWidth);
@@ -496,7 +535,7 @@ namespace
 	{
 		BeginDisabled(disabled);
 		TableNextColumn();
-		Text(propertyName.c_str());
+		ImGui::Text(propertyName.c_str());
 		TableNextColumn();
 		SetNextItemWidth(GetWindowSize().x);
 		InputDouble(("##" + propertyName).c_str(), &property, 0, 0, "%.2f");
@@ -507,7 +546,7 @@ namespace
 	{
 		BeginDisabled(disabled);
 		TableNextColumn();
-		Text(propertyName.c_str());
+		ImGui::Text(propertyName.c_str());
 		TableNextColumn();
 		Checkbox(("##" + propertyName).c_str(), &property);
 		EndDisabled();

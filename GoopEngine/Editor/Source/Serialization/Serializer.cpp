@@ -218,7 +218,7 @@ namespace GE
     rapidjson::Value Serializer::SerializeSpriteComponent(Component::Sprite const& data, rapidjson::Document::AllocatorType& allocator)
     {
       Graphics::GraphicsEngine const& gE{ Graphics::GraphicsEngine::GetInstance() };
-      GLuint const texHandle{ gE.textureManager.GetTexture(data.spriteData.texture).textureHandle };
+      GLuint const texHandle{ gE.textureManager.GetTexture(data.m_spriteData.texture).textureHandle };
       rapidjson::Value jsonVal{};
       jsonVal.SetString(gE.textureManager.GetTextureName(texHandle).c_str(), allocator);
 

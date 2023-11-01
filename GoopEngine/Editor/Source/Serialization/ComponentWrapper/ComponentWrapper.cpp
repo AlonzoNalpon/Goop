@@ -380,3 +380,22 @@ template<> std::vector<Component::LinearForce> ComponentWrapper::Get(const char*
     return {};
   }
 }
+
+
+template<> Graphics::Colorf ComponentWrapper::Get(const char* key)const
+{
+  try
+  {
+    rapidjson::Value const& list{ (*m_ptr)[key] };
+    Graphics::Colorf ret{ list["red"].GetFloat(), list["green"].GetFloat(), list["blue"].GetFloat(), list["alpha"].GetFloat() };
+    return ret;
+  }
+  catch (...)
+  {
+    std::ostringstream oss{};
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
+      << " to Graphics::Colorf";
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    return {};
+  }
+}

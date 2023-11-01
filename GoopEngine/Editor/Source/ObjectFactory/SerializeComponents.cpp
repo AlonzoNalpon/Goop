@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include <Serialization/ComponentWrapper/ComponentWrapper.h>
 #include "SerializeComponents.h"
-
+#include <Graphics/Def/GraphicsTypes.h>
 namespace GE
 {
 	namespace ObjectFactory
@@ -84,10 +84,10 @@ namespace GE
 				am.LoadImageW(cw.Get<std::string>("filename"));
 				//gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
 			}
-			sprite.spriteData.texture = gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename"));
-			auto const& textureObj = gEngine.textureManager.GetTexture(sprite.spriteData.texture);
-			sprite.spriteData.info.height = textureObj.height;
-			sprite.spriteData.info.width = textureObj.width;
+			sprite.m_spriteData.texture = gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename"));
+			auto const& textureObj = gEngine.textureManager.GetTexture(sprite.m_spriteData.texture);
+			sprite.m_spriteData.info.height = textureObj.height;
+			sprite.m_spriteData.info.width = textureObj.width;
 			
 			return sprite;
 		}
@@ -109,7 +109,7 @@ namespace GE
 				gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
 			}*/
 
-			spriteAnim.animID = gEngine.animManager.GetAnimID(cw.Get<std::string>("name"));
+			spriteAnim.m_animID = gEngine.animManager.GetAnimID(cw.Get<std::string>("name"));
 			return spriteAnim;
 		}
 
@@ -117,8 +117,8 @@ namespace GE
 		GE::Component::Model DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
-			Component::Model model;
-			model.mdlID = cw.Get<size_t>("mdlID");
+			Component::Model model{};
+			model.m_mdlID = cw.Get<size_t>("mdlID");
 
 			return model;
 		}
@@ -155,6 +155,13 @@ namespace GE
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
 			return Component::EnemyAI(cw.Get<unsigned int>("entityID"), GE::AI::TreeCache());
+		}
+
+		template<>
+		GE::Component::Text DeserializeComponent(std::string const& componentData)
+		{
+			Serialization::ComponentWrapper const cw{ componentData };
+			return Component::Text(cw.Get<std::string>("str"), cw.Get<Graphics::Colorf>("clr"));
 		}
 
 

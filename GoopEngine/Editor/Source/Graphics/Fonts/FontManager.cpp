@@ -36,9 +36,23 @@ namespace Graphics::Fonts
 
     
     // Add this font and get reference to the map
-    FontMap& fontMap{ m_fonts[name] };
+    Graphics::gObjID newID{ m_fonts.size() };
+    
+    // ADDING LOOKUP TABLE ENTRIES
+    {
+      // name
+      auto nameIt{ m_fontIDLT.find(name) };
+      if (nameIt != m_fontIDLT.end())
+      {
+        throw GE::Debug::Exception<FontManager>(GE::Debug::LEVEL_ERROR, 
+          ErrMsg((std::string{"Font of this name already exists: " + name} + " in ") + path));
+      }
 
-    std::cout << "LoadFont called. Expect opengl errors for characters like \\0 ..." << std::endl;
+      // If this point is reached, the font can be added!
+      m_fontNameLT[newID] = name; // lookup table for font name
+      m_fontIDLT[name] = newID;   // lookup table for fontID
+    }
+    FontMap& fontMap{ m_fonts[newID] }; // get reference to newly created map
 
     // disable byte-alignment restriction (using only one byte instead of 4)
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1); 
@@ -114,8 +128,18 @@ namespace Graphics::Fonts
     //FT_Done_FreeType(m_library);
   }
       
-  typename FontManager::FontMap const& FontManager::GetFontMap(std::string const& font)const
+  typename FontManager::FontMap const& FontManager::GetFontMap(Graphics::gObjID fontID)const
   {
-    return m_fonts.at(font);
+    return m_fonts.at(fontID);
+  }
+
+  std::string FontManager::GetFontName(Graphics::gObjID fontName) const
+  {
+    return m_fontNameLT.at(fontName);
+  }
+
+  Graphics::gObjID FontManager::GetFontID(std::string const& name) const
+  {
+    return m_fontIDLT.at(name);
   }
 }

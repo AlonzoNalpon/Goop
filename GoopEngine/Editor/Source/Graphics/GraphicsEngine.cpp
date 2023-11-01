@@ -159,8 +159,11 @@ namespace {
 
     constexpr GLfloat FONT_SCALE{ 0.2f };
     m_renderer.Draw();
-    m_renderer.DrawFontObj("you're", {}, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.5f, 0.f, 0.f }, "Marchesa");
-    m_renderer.DrawFontObj("next", { 0.f, -50.f }, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.8f, 0.2f, 0.f }, "Reyes");
+    auto marchID = m_fontManager.GetFontID("Marchesa");
+    auto reyesID = m_fontManager.GetFontID("Reyes");
+
+    m_renderer.DrawFontObj("you're", {}, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.5f, 0.f, 0.f }, marchID);
+    m_renderer.DrawFontObj("next", { 0.f, -50.f }, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.8f, 0.2f, 0.f }, reyesID);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
   }
 

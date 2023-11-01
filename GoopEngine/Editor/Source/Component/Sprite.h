@@ -5,7 +5,7 @@ namespace GE::Component
 {
   struct Sprite
   {
-    Graphics::SpriteData spriteData; //!< composed of sprite data
+    Graphics::SpriteData m_spriteData; //!< composed of sprite data
   };
 }
 #endif

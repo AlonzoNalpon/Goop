@@ -271,6 +271,7 @@
     <ClCompile Include="Source\Math\Mat3Utils.cpp" />
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
+    <ClCompile Include="Source\Systems\Text\TextRenderSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Source\Systems\PlayerController\PlayerControllerSystem.cpp" />
@@ -291,6 +292,7 @@
     <ClInclude Include="Source\Component\Draggable.h" />
     <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\Component\Components.h" />
+    <ClInclude Include="Source\Component\Text.h" />
     <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
     <ClInclude Include="Source\EditorUI\Console.h" />
     <ClInclude Include="Source\AI\ActionNode.h" />
@@ -412,6 +414,7 @@
     <ClInclude Include="Source\Systems\RootTransform\TransformSystemHelper.h" />
     <ClInclude Include="Source\Systems\SpriteAnim\SpriteAnimSystem.h" />
     <ClInclude Include="Source\Systems\Systems.h" />
+    <ClInclude Include="Source\Systems\Text\TextRenderSystem.h" />
     <ClInclude Include="Source\Window\Window.h" />
     <ClInclude Include="Source\Math\GEM.h" />
     <ClInclude Include="Source\Math\Mat2.h" />

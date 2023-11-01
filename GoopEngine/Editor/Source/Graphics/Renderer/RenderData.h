@@ -48,6 +48,13 @@ namespace Graphics::Rendering
     glm::mat4 transform;//!< the transformation of the model
   };
 
+
+  struct FontRenderData
+  {
+    std::string const& str;
+    Graphics::Colorf clr;
+  };
+
   /*!
    * \struct LineRenderData
    * \brief  

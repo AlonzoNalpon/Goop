@@ -122,8 +122,8 @@ void GE::Systems::PostRootTransformSystem::Propergate(GE::ECS::EntityComponentSy
 	{
 		Component::Sprite* sprite = ecs.GetComponent<Component::Sprite>(entity); // get sprite component
 		// Now we set the sprite information for dimensions for scaling
-		scaleX = sprite->spriteData.info.width;			
-		scaleY = sprite->spriteData.info.height;
+		scaleX = sprite->m_spriteData.info.width;			
+		scaleY = sprite->m_spriteData.info.height;
 
 		// Texture scale to follow dimensions of sprite
 		Math::dMat4 textureScale
