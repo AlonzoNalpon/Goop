@@ -117,7 +117,7 @@ namespace GE
 		GE::Component::Model DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
-			Component::Model model;
+			Component::Model model{};
 			model.m_mdlID = cw.Get<size_t>("mdlID");
 
 			return model;
