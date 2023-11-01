@@ -3,6 +3,7 @@
 #include <Systems/Systems.h>
 #include <rttr/registration>
 #include <Serialization/Serializer.h>
+#include <Systems/Enemy/EnemySystem.h>
 
 using namespace GE;
 
@@ -127,7 +128,7 @@ RTTR_REGISTRATION
     .property("entityID", &Component::EnemyAI::m_entityID)
     //.property("enemyTreeCache", &Component::EnemyAI::m_enemyTreeCache)
     ;
-  /*rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")
+  rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")
     .property("nodeType", &AI::NodeTemplate::m_nodeType)
     .property("NodeID", &AI::NodeTemplate::m_parentNode)
     .property("childrenNode", &AI::NodeTemplate::m_childrenNode)
@@ -135,13 +136,11 @@ RTTR_REGISTRATION
     .property("pos", &AI::NodeTemplate::m_pos)
     ;
   rttr::registration::class_<AI::TreeTemplate>("TreeTemplate")
-    .property("tree", &AI::NodeTemplate::m_tree)
-    .property("treeName", &AI::NodeTemplate::m_treeName)
-    .property("treeTempID", &AI::NodeTemplate::m_treeTempID)
-    ;*/
-  rttr::registration::class_<GE::AI::Node>("Node")
-    .property("script", &GE::AI::Node::m_script)
+    .property("tree", &AI::TreeTemplate::m_tree)
+    .property("treeName", &AI::TreeTemplate::m_treeName)
+    .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
     ;
+
 
   // To ignore during serialization
   //(

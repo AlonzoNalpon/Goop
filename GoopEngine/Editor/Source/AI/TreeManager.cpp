@@ -1,5 +1,6 @@
 #include <pch.h>
 #include <AI/TreeManager.h>
+#include <Serialization/Serializer.h>
 
 using namespace GE;
 using namespace AI;
@@ -19,35 +20,46 @@ void TreeManager::Init()
 
   std::vector<GE::AI::NodeTemplate> tree{ node0, node1,node2, node3 ,node4, node5,node6, node7 };
   GE::AI::TreeTemplate newTemp{ tree,"WormTree",0 };
-  m_treeTempList.push_back(std::make_pair(false, newTemp));
+  m_treeTempList.push_back(newTemp);
+  m_treeTempCond.push_back(false);
+  ShutDown();
 }
 
 void TreeManager::ShutDown()
 {
   //Json code to serialize
+  GE::Serialization::Serializer::GetInstance().SerializeAny("test.json", m_treeTempList);
 }
 
-std::vector<std::pair<bool, TreeTemplate>>& TreeManager::GetTreeList()
+std::vector<TreeTemplate>& TreeManager::GetTreeList()
 {
-	return m_treeTempList;
+  return m_treeTempList;
 }
+
+std::vector<bool>& TreeManager::GetTreeCondList()
+{
+  return m_treeTempCond;
+}
+
 
 void TreeManager::UpdateTreeList(TreeTemplate& treeTemp)
 {
   TreeID treeID = treeTemp.m_treeTempID;
-  auto iter = std::find_if(m_treeTempList.begin(), m_treeTempList.end(), [treeID](const std::pair<bool, TreeTemplate>& tree) -> bool
+  auto iter = std::find_if(m_treeTempList.begin(), m_treeTempList.end(), [treeID](const TreeTemplate& tree) -> bool
   {
-    return tree.second.m_treeTempID == treeID;
+    return tree.m_treeTempID == treeID;
   });
 
   if (iter != m_treeTempList.end())   // If the tree Template already exist in the list, we just update with the new one
   {
-    std::swap(iter->second, treeTemp);
-    iter->first = true;
+    std::swap(*(iter), treeTemp);
+    m_treeTempCond[(iter-m_treeTempList.begin())] = true;
+
   }
   else // If the tree Template does not exist, we will add it into list
   {
-    m_treeTempList.push_back(std::make_pair(true, treeTemp));
+    m_treeTempList.push_back(treeTemp);
+    m_treeTempCond.push_back(true);
   }
   m_listChanged = true;
 }

@@ -26,14 +26,16 @@ namespace GE {
 
 		class TreeManager : public Singleton<TreeManager>
 		{
-			std::vector<std::pair<bool,TreeTemplate>> m_treeTempList; //Bool to represent if its changed
+			std::vector<TreeTemplate> m_treeTempList; //Bool to represent if its changed
+			std::vector<bool> m_treeTempCond;
 			bool m_listChanged;
 
 		public:
 
 			void Init();
 			void ShutDown();
-			std::vector<std::pair<bool, TreeTemplate>>& GetTreeList();
+			std::vector<TreeTemplate>& GetTreeList();
+			std::vector<bool>& GetTreeCondList();
 			void UpdateTreeList(TreeTemplate& treeTemp);
 			bool isTreeUpdated();
 			void SetTreeBool(bool cond);

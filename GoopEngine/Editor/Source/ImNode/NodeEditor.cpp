@@ -32,10 +32,11 @@ void GE::AI::NodeEditor::NodeEditorInit()
   ImNodes::PushAttributeFlag(ImNodesAttributeFlags_EnableLinkDetachWithDragClick);
 
   //Get all the trees
-  const std::vector<std::pair<bool, TreeTemplate>>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
-  for (const std::pair<bool, TreeTemplate>& treeTemp : tempTreeList)
+  const std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
+
+  for (size_t i{0};i< tempTreeList.size();++i)
   {
-    AddDisplayTree(treeTemp.second);
+    AddDisplayTree(tempTreeList[i]);
   }
 
   m_currentTree = (m_treeList.size() != 0) ? &(m_treeList[0].first): nullptr;

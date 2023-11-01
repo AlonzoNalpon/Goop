@@ -23,6 +23,8 @@ namespace GE
     public:
       static const char JsonNameKey[], JsonParentKey[], JsonChildEntitiesKey[], JsonComponentsKey[];
 
+      void SerializeAny(std::string const& filename, rttr::variant object);
+
       rttr::instance GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type);
 
       void SerializeSystems(std::string const& json);

@@ -16,6 +16,26 @@ namespace GE
     const char Serializer::JsonChildEntitiesKey[] = "Child Entities";
     const char Serializer::JsonComponentsKey[]    = "Components";
 
+    void Serializer::SerializeAny(std::string const& filename, rttr::variant object)
+    {
+      std::ofstream ofs{ filename };
+      if (!ofs)
+      {
+        GE::Debug::ErrorLogger::GetInstance().LogError("Unable to serialize scene into " + filename);
+      }
+
+      rapidjson::Document document{ rapidjson::kArrayType };
+      SerializeBasedOnType(object, document.GetAllocator());
+
+      rapidjson::OStreamWrapper osw{ ofs };
+      rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
+      document.Accept(writer);
+
+      // clean up
+      ofs.close();
+      m_oldToNewIDs.clear();
+    }
+
     rapidjson::Value Serializer::SerializeEntity(ECS::Entity id, std::vector<ECS::Entity> const& childIDs, rapidjson::Document::AllocatorType & allocator)
     {
       rapidjson::Value entity{ rapidjson::kObjectType };
@@ -291,10 +311,18 @@ namespace GE
       }
       else
       {
-        std::ostringstream oss{};
+        for (auto const& prop : valueType.get_properties())
+        {
+          rapidjson::Value propVal{ rapidjson::kNullType };
+          rapidjson::Value propKey{ prop.get_name().to_string().c_str(), allocator };
+
+          SerializeClassTypes(prop.get_type(), prop.get_value(value), allocator);
+          jsonVal.AddMember(propKey, propVal, allocator);
+        }
+       /* std::ostringstream oss{};
         oss << "Trying to deserialize unsupported type: " << valueType.get_name() << " with value: " << value.to_string();
         GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        jsonVal.SetNull();
+        jsonVal.SetNull();*/
       }
 
       return jsonVal;
