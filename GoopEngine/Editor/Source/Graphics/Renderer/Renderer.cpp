@@ -60,9 +60,9 @@ namespace Graphics::Rendering {
     // Draw
     glUseProgram(r_mdlContainer.front().shader); // USE SHADER PROGRAM
     glBindVertexArray(r_mdlContainer.front().vaoid); // bind vertex array object to draw
-
     // Pass the camera matrix
     glUniformMatrix4fv(uViewMatLocation, 1, GL_FALSE, glm::value_ptr(camViewProj));
+
     for (auto const& obj : m_renderCalls)
     {
       Model const& mdl{ r_mdlContainer[obj.mdl] };  
@@ -90,9 +90,9 @@ namespace Graphics::Rendering {
       {
         glBindTextureUnit(7, 0);
       }
-      glBindVertexArray(0);         // unbind vertex array object
-      glUseProgram(0);        // UNUSE SHADER PROGRAM
     }
+    glBindVertexArray(0);         // unbind vertex array object
+    glUseProgram(0);        // UNUSE SHADER PROGRAM
 
     // RENDERING LINES FRO DEBUGGING
     {
