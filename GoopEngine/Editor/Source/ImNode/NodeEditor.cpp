@@ -125,6 +125,7 @@ void  GE::AI::NodeEditor::NodeEditorShow()
     }
   }
   
+  ImGui::End();
   
 }
 

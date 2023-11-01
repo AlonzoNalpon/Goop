@@ -32,6 +32,8 @@ void EnemySystem::InitTree()
 
 void EnemySystem::FixedUpdate()
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	// Only update if there are actual trees
 	if (m_treeList.size() != 0)
 	{

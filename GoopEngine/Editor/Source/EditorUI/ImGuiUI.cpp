@@ -201,11 +201,13 @@ void ImGuiUI::Render()
 
 void ImGuiUI::Exit()
 {
+  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
+  ne->NodeEditorShutdown();
+
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplGlfw_Shutdown();
 
-  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
-  ne->NodeEditorShutdown();
+
 
   DestroyContext();
 }
