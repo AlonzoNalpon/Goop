@@ -15,6 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <GameStateManager/GameStateManager.h>
 #include <Systems/RootTransform/TransformSystemHelper.h>
 #include <Systems/RootTransform/PostRootTransformSystem.h>
+#include <Systems/RootTransform/PreRootTransformSystem.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -157,8 +158,7 @@ namespace
 				{ 0, 0, 1, 0 },
 				{ 0, 0, 0, 1 }
 			};
-			GE::Systems::PostRootTransformSystem::Propergate(ecs, child,
-				identity);
+			GE::Systems::PreRootTransformSystem::Propergate(ecs, child, identity);
 		}
 		else
 		{
@@ -173,7 +173,7 @@ namespace
 					throw GE::Debug::Exception<GE::EditorGUI::SceneHierachy>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(*parent) + " is missing a transform component. All entities must have a transform component!!"));
 				}
 
-				GE::Systems::PostRootTransformSystem::Propergate(ecs, child, parentTrans->m_worldTransform);
+				GE::Systems::PreRootTransformSystem::Propergate(ecs, child, parentTrans->m_worldTransform);
 			}
 			catch (GE::Debug::IExceptionBase& e)
 			{

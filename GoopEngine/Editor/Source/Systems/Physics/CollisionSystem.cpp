@@ -40,6 +40,8 @@ bool CollisionSystem::Collide(BoxCollider& box1, BoxCollider& box2)
 
 void CollisionSystem::Update()
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	std::set<Entity>& list = GetUpdatableEntities();
 
 	for (Entity entity : list)
@@ -109,6 +111,7 @@ void CollisionSystem::Update()
 			}
 		}
 	}
+	frc.EndSystemTimer("Collision");
 }
 
 void CollisionSystem::UpdateAABB(BoxCollider& entity, const dVec2& newCenter)
@@ -131,7 +134,7 @@ void CollisionSystem::CreatePartitions(int rows, int cols)
 		throw Debug::Exception<CollisionSystem>(Debug::LEVEL_ERROR, ErrMsg("Column for partition is 0."));
 	}
 
-	m_partitions.clear();
+	m_partitions.resize(rows * cols);
 	GraphicsEngine& getWindowSize = GraphicsEngine::GetInstance();
 	int partitionHeight = getWindowSize.GetVPHeight() / rows;
 	int partitionWidth = getWindowSize.GetVPWidth() / cols;
@@ -143,6 +146,7 @@ void CollisionSystem::CreatePartitions(int rows, int cols)
 			Partition partition;
 			partition.min = { -(getWindowSize.GetVPWidth() / 2.0) + static_cast<double>(partitionWidth * col) , -(getWindowSize.GetVPHeight() / 2.0) + static_cast<double>(partitionHeight * (row))};
 			partition.max = { -(getWindowSize.GetVPWidth() / 2.0) + static_cast<double>(partitionWidth * (col + 1)), -(getWindowSize.GetVPHeight() / 2.0) + static_cast<double>(partitionHeight * (row + 1)) };
+			partition.m_entitiesInPartition.reserve(m_ecs->GetMaxEntities());
 
 			std::set<Entity>& list = GetUpdatableEntities();
 			for (Entity entity : list)
@@ -153,7 +157,7 @@ void CollisionSystem::CreatePartitions(int rows, int cols)
 					partition.m_entitiesInPartition.push_back(entity);
 				}
 			}
-			m_partitions.push_back(std::move(partition));
+			m_partitions[row * m_colsPartition + col] = std::move(partition);
 		}
 	}
 }

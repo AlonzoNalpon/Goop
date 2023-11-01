@@ -169,7 +169,9 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       ecs.RegisterComponent<GE::Component::EnemyAI>();
       break;
     default:
-      throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown component type"));
+      std::ostringstream oss{};
+      oss << "Trying to register unknown component type, " << " update function: ObjectFactory::RegisterComponentsAndSystems()";
+      throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg(oss.str()));
       break;
     }
   }
@@ -247,16 +249,16 @@ void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
   Component::Transform* trans{ ecs.GetComponent<Component::Transform>(newObj) };
   if (trans) 
   {
-    trans->m_pos = newPos;
+    trans->m_worldPos = newPos;
   }
 }
 
-std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ObjectFactory::MapEntityIDs() const
+std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ObjectFactory::GenerateNewIDs() const
 {
   GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
 
   std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ret{};
-  GE::ECS::Entity currentID{};  // the current lowest id
+  GE::ECS::Entity currentID{};  // start from 0
   // assigns each entity to a new id starting from 0 with no gaps in between
   for (GE::ECS::Entity const& entity : ecs.GetEntities())
   {
@@ -267,37 +269,48 @@ std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ObjectFactory::MapEntityIDs
   return ret;
 }
 
-bool ObjectFactory::LoadObjects(std::set<GE::ECS::Entity>& map)
+void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
 {
   try
   {
-    //ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+    ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+    // we will map our custom ID to the actual entity ID
+    std::unordered_map<ECS::Entity, ECS::Entity> newIdToEntity{};
+    ECS::Entity newID{};  // start from 0
     for (auto const& [name, data] : m_objects)
     {
+      ECS::Entity i = CreateObject(name, data);
+      map.emplace(i);
+      newIdToEntity.emplace(newID, i);
+      ++newID;
+    }
 
-      map.emplace(CreateObject(name, data));
-     /* ecs.SetParentEntity(i, data.m_parent);
+    newID = 0;
+    // iterate through entities again and assign parent-child
+    // relation based on custom IDs
+    for (auto& [name, data] : m_objects)
+    {
+      if (data.m_parent == ECS::INVALID_ID)
+      {
+        ecs.SetParentEntity(newIdToEntity[newID]);
+      }
+      else
+      {
+        ecs.SetParentEntity(newIdToEntity[newID], newIdToEntity[data.m_parent]);
+      }
+
       for (ECS::Entity child : data.m_childEntities)
       {
-        ecs.AddChildEntity(i, child);
+        ecs.AddChildEntity(newIdToEntity[newID], newIdToEntity[child]);
       }
-      map.emplace(i);
-      ++i;*/
+      ++newID;
     }
-    EmptyMap();
   }
   catch (GE::Debug::IExceptionBase& e)
   {
     e.LogSource();
     e.Log();
-    return false;
   }
-  return true;
-}
-
-void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity> &map)
-{
-  LoadObjects(map);
 }
 
 void ObjectFactory::LoadSceneJson(std::string const& filename)
@@ -306,14 +319,6 @@ void ObjectFactory::LoadSceneJson(std::string const& filename)
   if (ogs)
   {
     ogs.Unload(m_objects);
-  }
-  auto prefabs{ GE::Assets::AssetManager::GetInstance().GetPrefabs() };
-  for (auto const& [name, path] : prefabs)
-  {
-    Serialization::PrefabGooStream pgs{ path };
-    std::pair <std::string, ObjectData> data;
-    pgs.Unload(data);
-    m_prefabs.emplace(std::move(data));
   }
 }
 
@@ -357,7 +362,9 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     RegisterComponentsToSystem<Systems::EnemySystem>(sig);
     break;
   default:
-    throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown system type"));
+    std::ostringstream oss{};
+    oss << "Trying to register unknown system type, " << " update function: ObjectFactory::RegisterSystemWithEnum()";
+    throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg(oss.str()));
     break;
   }
 }

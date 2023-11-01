@@ -37,6 +37,11 @@ void GE::GSM::GameStateManager::Restart()
 	sm.RestartScene();
 }
 
+void GE::GSM::GameStateManager::LoadSceneFromExplorer(std::string const& filepath)
+{
+	sm.LoadSceneFromExplorer(filepath);
+}
+
 void GameStateManager::Init()
 {
 	sm.Init();
@@ -52,7 +57,7 @@ void GameStateManager::Update()
 	}
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_LEFT))
 	{
-		SetNextScene("Start");
+		SetNextScene("Robot");
 	}
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_UP))
 	{
@@ -64,5 +69,3 @@ void GE::GSM::GameStateManager::Exit()
 {
 	// Example of removing systems
 }
-
-

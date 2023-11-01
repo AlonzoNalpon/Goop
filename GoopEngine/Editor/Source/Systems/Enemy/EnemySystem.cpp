@@ -88,6 +88,7 @@ void EnemySystem::FixedUpdate()
 			}
 		}
 	}
+	frc.EndSystemTimer("Enemy AI");
 }
 
 

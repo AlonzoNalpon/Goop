@@ -19,6 +19,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 void GE::Systems::PostRootTransformSystem::LateUpdate()
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	for (GE::ECS::Entity entity : m_ecs->GetEntities())
 	{
 		// This is a root entity
@@ -37,6 +39,7 @@ void GE::Systems::PostRootTransformSystem::LateUpdate()
 			Propergate(*m_ecs, entity, identity);
 		}
 	}
+	frc.EndSystemTimer("LocalToWorld Transform");
 }
 
 void GE::Systems::PostRootTransformSystem::Propergate(GE::ECS::EntityComponentSystem& ecs, GE::ECS::Entity& entity, const Math::dMat4& parentWorldTrans)
@@ -113,7 +116,7 @@ void GE::Systems::PostRootTransformSystem::Propergate(GE::ECS::EntityComponentSy
 	double scaleX{1.0}, scaleY{1.0}; // default: 1
 
 	// Precompute every matrix that is the same
-	Math::dMat4 resultMtx = trans->m_parentWorldTransform * T * X * Y * Z;
+	Math::dMat4 resultMtx = T * X * Y * Z;
 	// Compute render matrix to use sprite dimensions (This matrix used for render only)
 	if (ecs.HasComponent<Component::Sprite>(entity))
 	{

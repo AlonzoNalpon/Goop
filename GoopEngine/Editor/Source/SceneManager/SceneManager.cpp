@@ -7,7 +7,7 @@ using namespace GE::Scenes;
 void SceneManager::Init()
 {
   // Load data into map
-  m_nextScene = m_currentScene = "Start";
+  m_nextScene = m_currentScene = "Robot";
 }
 
 void SceneManager::LoadScene()
@@ -74,9 +74,23 @@ void GE::Scenes::SceneManager::RestartScene()
     return;
   }
   UnloadScene();
-  Init();
-  LoadScene();
   InitScene();
+}
+
+void GE::Scenes::SceneManager::LoadSceneFromExplorer(std::string const& filepath)
+{
+  std::string::size_type const startPos{ filepath.find_last_of("\\") + 1 };
+  std::string const filename{ filepath.substr(startPos, filepath.find_last_of(".") - startPos) };
+  // reload files if it doesn't exist
+  try
+  {
+    am->GetScene(filename);
+  }
+  catch (std::out_of_range const&)
+  {
+    am->ReloadFiles(Assets::SCENE);
+  }
+  SetNextScene(filename);
 }
 
 std::string GE::Scenes::SceneManager::GetCurrentScene() const noexcept

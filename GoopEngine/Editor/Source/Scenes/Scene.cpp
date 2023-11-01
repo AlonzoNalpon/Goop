@@ -25,12 +25,13 @@ void GE::Scenes::Scene::Init()
 {
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj); 
+	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
 }
 
 void GE::Scenes::Scene::Unload()
 {
 	Audio::AudioEngine::GetInstance().StopAllChannels();
-	auto entities = ecs->GetEntities();
+	std::set<ECS::Entity> entities = ecs->GetEntities();
 	for (auto entity : entities)
 	{
 		ecs->DestroyEntity(entity);
@@ -73,14 +74,14 @@ void GE::Scenes::Scene::TestScene()
 	//ecs->AddComponent(entt, col);
 
 	Entity player = ecs->CreateEntity();
-	Transform playerTrans({ -350, 350, 0 }, { 1, 1, 1 }, { 0.0, 0.0, 45.0 });
+	Transform playerTrans({ -350, 350, 0 }, { 1, 1, 1 }, { 0.0, 0.0, 0.0 });
 	BoxCollider playerCollider(playerTrans.m_pos, 150, 150); //should collide
 
 	Tween tween(3.0);
 	tween.AddTween({ -900, 0, 0 });
 	tween.AddTween({ 0, -350, 0 });
 	tween.AddTween({ 350, 350, 0 });
-	GE::Component::Model mdl; // model data for the player sprite
+	GE::Component::Model mdl{}; // model data for the player sprite
 	mdl.mdlID = gEngine.GetModel();
 	Sprite sprite;
 	sprite.spriteData.texture = gEngine.textureManager.GetTextureID("SS_MineWorm");

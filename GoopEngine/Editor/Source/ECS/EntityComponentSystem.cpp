@@ -23,6 +23,11 @@ EntityComponentSystem::EntityComponentSystem()
 	m_systemManager = std::make_unique<SystemManager>();
 }
 
+unsigned int GE::ECS::EntityComponentSystem::GetMaxEntities()
+{
+	return m_entityManager->m_maxEntities;
+}
+
 Entity EntityComponentSystem::CreateEntity()
 {
 	return m_entityManager->CreateEntity();

@@ -151,7 +151,6 @@ namespace GE::Assets
 			}
 		}
 
-		// @TODO: Should only load whats required by scene
 		LoadImages();
 		LoadSpritesheets();
 
@@ -161,6 +160,60 @@ namespace GE::Assets
 		{
 			gEngine.CreateAnimation(curr.first, curr.second.m_slices, curr.second.m_stacks
 				, curr.second.m_frames, curr.second.m_speed, 0, gEngine.textureManager.GetTextureID(curr.second.m_filePath));
+		}
+	}
+
+	void AssetManager::ReloadFiles(Assets::FileType type)
+	{
+		std::string fileExt{};
+		std::unordered_map<std::string, std::string>* ptrToMap = nullptr;
+		// switch case to set the respective file extension and map
+		switch (type)
+		{
+		case FileType::SCENE:
+			m_scenes.clear();
+			fileExt = GetConfigData<std::string>("Scene File Extension");
+			ptrToMap = &m_scenes;
+			break;
+		case FileType::PREFAB:
+			m_prefabs.clear();
+			fileExt = GetConfigData<std::string>("Prefab File Extension");
+			ptrToMap = &m_prefabs;
+			break;
+		case FileType::ANIMATION:
+		case FileType::IMAGES:
+			m_images.clear();
+			fileExt = AssetManager::ImageFileExt;
+			ptrToMap = &m_images;
+			break;
+		case FileType::AUDIO:
+			m_audio.clear();
+			fileExt = AssetManager::AudioFileExt;
+			ptrToMap = &m_audio;
+			break;
+		default:
+			Debug::ErrorLogger::GetInstance().LogMessage("Function not coded to handle requested type");
+			return;
+		}
+
+		// construct path object with relative path to project dir
+		std::filesystem::path assetsDir{ GetConfigData<std::string>("Assets Dir") };
+		if (!std::filesystem::exists(assetsDir))
+		{
+			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open Assets Dir: " + assetsDir.string()));
+		}
+
+		// iterate through Assets dir and add all assets into their
+		// respective containers based on file type
+		for (const auto& file : std::filesystem::recursive_directory_iterator(assetsDir))
+		{
+			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
+
+			std::string const& currExt{ file.path().extension().string() };
+			if (currExt == fileExt)
+			{
+				ptrToMap->emplace(file.path().stem().string(), file.path().string());
+			}
 		}
 	}
 

@@ -11,7 +11,7 @@ namespace GE
   namespace Serialization
   {
     const char Serializer::JsonNameKey[]          = "Name";
-    const char Serializer::JsonParentKey[]        = "ParentID";
+    const char Serializer::JsonParentKey[]        = "Parent";
     const char Serializer::JsonChildEntitiesKey[] = "Child Entities";
     const char Serializer::JsonComponentsKey[]    = "Components";
 
@@ -62,10 +62,10 @@ namespace GE
       }
       ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
 
-      std::unordered_map<ECS::Entity, ECS::Entity> idToNewId{ ObjectFactory::ObjectFactory::GetInstance().MapEntityIDs() };
+      std::unordered_map<ECS::Entity, ECS::Entity> idToNewId{ ObjectFactory::ObjectFactory::GetInstance().GenerateNewIDs() };
       
       rapidjson::Document document{ rapidjson::kArrayType };
-      m_oldToNewIDs = std::move(ObjectFactory::ObjectFactory::GetInstance().MapEntityIDs());
+      m_oldToNewIDs = std::move(ObjectFactory::ObjectFactory::GetInstance().GenerateNewIDs());
       for (ECS::Entity entity : ecs.GetEntities())
       {
         std::set<ECS::Entity> const& childIDs{ ecs.GetChildEntities(entity) };
@@ -334,20 +334,20 @@ namespace GE
       else if (valueType == rttr::type::get<std::vector<Component::LinearForce>>())
       {
         jsonVal.SetArray();
-        for (Component::LinearForce const& force : value.get_value<std::vector<Component::LinearForce>>())
+        for (rttr::variant const& force : value.get_value<std::vector<Component::LinearForce>>())
         {
-          rttr::instance forceInstance{ force };
+          //rttr::instance forceInstance{ force };
           rapidjson::Value forceJson{ rapidjson::kObjectType };
-          for (auto const& prop : forceInstance.get_type().get_properties())
+          for (auto const& prop : force.get_type().get_properties())
           {
             rapidjson::Value innerVal{};
             if (prop.get_type().is_arithmetic())  // if C basic types
             {
-              innerVal = SerializeBasicTypes(prop.get_type(), value, allocator).Move();
+              innerVal = SerializeBasicTypes(prop.get_type(), prop.get_value(force), allocator).Move();
             }
             else
             {
-              innerVal = SerializeClassTypes(prop.get_type(), value, allocator).Move();
+              innerVal = SerializeClassTypes(prop.get_type(), prop.get_value(force), allocator).Move();
             }
             rapidjson::Value jsonKey{ prop.get_name().to_string().c_str(), allocator };
             forceJson.AddMember(jsonKey, innerVal, allocator);

@@ -13,7 +13,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include "../Scenes/Scene.h"
+#include <Scenes/Scene.h>
 namespace GE::Scenes
 {
   class SceneManager
@@ -30,8 +30,8 @@ namespace GE::Scenes
       Parameterized Constructor.
     ************************************************************************/
     SceneManager(std::string current_scene, std::string next_scene) :
-      m_currentScene{ current_scene },
-      m_nextScene{ next_scene } {};
+      m_currentScene{ std::move(current_scene) },
+      m_nextScene{ std::move(next_scene) } {};
 
     /*!*********************************************************************
     \brief
@@ -77,6 +77,12 @@ namespace GE::Scenes
       Restarts the current scene by calling the unload then init.
     ************************************************************************/
     void RestartScene();
+
+    /*!*********************************************************************
+    \brief
+      Creates a new scene from a filepath then loads it.
+    ************************************************************************/
+    void LoadSceneFromExplorer(std::string const& filepath);
 
     /*!*********************************************************************
     \brief

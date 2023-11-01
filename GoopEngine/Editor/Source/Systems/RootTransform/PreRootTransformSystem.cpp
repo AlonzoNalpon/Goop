@@ -3,7 +3,7 @@
 \author w.chinkitbryan\@digipen.edu
 \date   29-October-2023
 \brief
-	1st pass of computing transforms. This pass converts world tramsfroms
+	1st pass of computing transforms. This pass converts world transfroms
 	to local transforms.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
@@ -17,6 +17,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 void GE::Systems::PreRootTransformSystem::Update()
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	for (GE::ECS::Entity entity : m_ecs->GetEntities())
 	{
 		// This is a root entity
@@ -32,12 +34,13 @@ void GE::Systems::PreRootTransformSystem::Update()
 			};
 
 			// Update recursively using entity's world transformation matrix
-			Propergate(*m_ecs, entity);
+			Propergate(*m_ecs, entity, identity);
 		}
 	}
+	frc.EndSystemTimer("WorldToLocalTransform");
 }
 
-void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSystem& ecs, GE::ECS::Entity& entity)
+void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSystem& ecs, GE::ECS::Entity& entity, GE::Math::dMat4& parentWorldTrans)
 {
 	GE::Component::Transform* trans = ecs.GetComponent<GE::Component::Transform>(entity);
 
@@ -45,6 +48,8 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 	{
 		throw GE::Debug::Exception<PreRootTransformSystem>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(entity) + " is missing a transform component. All entities must have a transform component!!"));
 	}
+
+	trans->m_parentWorldTransform = parentWorldTrans;
 
 	/////////////////////////////////////
 	// Setting local transformation data
@@ -119,7 +124,6 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 		{ 0, std::sin(rad), std::cos(rad), 0 },
 		{ 0, 0, 0, 1 }
 	};
-	
 
 	trans->m_worldTransform = (T * (X * Y * Z) * S);
 
@@ -133,6 +137,6 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 	// Update all children based ownself's new world transform
 	for (GE::ECS::Entity childEntity : m_children)
 	{
-		Propergate(ecs, childEntity);
+		Propergate(ecs, childEntity, trans->m_worldTransform);
 	}
 }

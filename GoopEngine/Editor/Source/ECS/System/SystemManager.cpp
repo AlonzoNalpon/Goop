@@ -99,7 +99,6 @@ void SystemManager::UpdateSystems()
 	{
 		m_systems[system]->Update();
 	}
-	fpsC.EndSystemTimer("Update");
 
 	int steps = fpsC.GetSteps();
 	if (steps > 0)
@@ -112,13 +111,11 @@ void SystemManager::UpdateSystems()
 			}
 		}
 	}
-	fpsC.EndSystemTimer("Fixed Update");
 
 	for (auto const& [index, system] : m_indexToSystem)
 	{
 		m_systems[system]->LateUpdate();
 	}
-	fpsC.EndSystemTimer("Late Update");
 }
 
 #ifndef NO_IMGUI

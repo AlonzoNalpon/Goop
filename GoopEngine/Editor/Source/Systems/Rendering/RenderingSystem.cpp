@@ -18,6 +18,8 @@ namespace GE::Systems
   constexpr double pi = 3.14159265358979323846;
   void RenderSystem::LateUpdate()
   {
+    auto& frc = GE::FPS::FrameRateController::GetInstance();
+    frc.StartSystemTimer();
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
     for (GE::ECS::Entity entity : GetUpdatableEntities())
     {
@@ -34,5 +36,6 @@ namespace GE::Systems
         transform->m_renderTransform
         );
     }
+    frc.EndSystemTimer("Render");
   }
 }

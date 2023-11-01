@@ -67,8 +67,9 @@ namespace GE::Application
     window = { am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), "Goop Engine"};
     window.CreateAppWindow();
 
-      gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
-      am->LoadFiles();
+    gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
+    am->LoadFiles();
+    of.LoadPrefabsFromFile();
 
     GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
     scriptMan->InitMono();
@@ -150,7 +151,7 @@ namespace GE::Application
         {
           fRC.StartSystemTimer();
           gEngine.Draw();
-          fRC.EndSystemTimer("Render");
+          fRC.EndSystemTimer("Deferred Render");
 
           fRC.StartSystemTimer();
           imgui.Render();

@@ -74,16 +74,6 @@ namespace GE::ObjectFactory
 
     /*!*********************************************************************
     \brief
-      Creates the objects from the object map.
-    \param
-      std::set<GE::ECS::Entity>& (map of loaded objects to be deleted later)
-    \return
-      True if successful, false if failed
-    ************************************************************************/
-    bool LoadObjects(std::set<GE::ECS::Entity>& map);
-
-    /*!*********************************************************************
-    \brief
       Creates the objects from the scene file.
     \param
       std::set<GE::ECS::Entity>& (map of loaded objects to be deleted later)
@@ -116,7 +106,7 @@ namespace GE::ObjectFactory
     \return
       Map of old Entity IDs to their new ones
    ************************************************************************/
-    std::unordered_map<ECS::Entity, ECS::Entity> MapEntityIDs() const;
+    std::unordered_map<ECS::Entity, ECS::Entity> GenerateNewIDs() const;
   private:
     /*!*********************************************************************
     \brief

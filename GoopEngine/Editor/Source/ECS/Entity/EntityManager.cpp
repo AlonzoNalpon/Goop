@@ -60,9 +60,10 @@ void EntityManager::DestroyEntity(Entity& entity)
 	// Clear component bitset signature
 	m_entitySignatures[entity].reset();
 	m_mapOfActive[entity] = false;
-	m_availableEntities.push_front(entity);
-	m_entities.erase(entity);
-	m_entitiesAlive--;
+	if (m_entities.erase(entity))
+	{
+		m_availableEntities.push_front(entity);
+	}
 	m_names.erase(entity);
 
 	if (m_parent[entity] != INVALID_ID)
@@ -74,7 +75,7 @@ void EntityManager::DestroyEntity(Entity& entity)
 	// Recursively destroy all children
 	// Create a temp copy of m_children as you should not
 	// delete while iterating
-	std::set<Entity> originalList{m_children[entity]};
+	std::set<Entity> originalList{ m_children[entity] };
 	for (Entity childEntity : originalList)
 	{
 		DestroyEntity(childEntity);
