@@ -219,6 +219,9 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static uint GetPlayerID();
+
+    //[MethodImplAttribute(MethodImplOptions.InternalCall)]
+    //extern public static void SetCurrentRunningNode(uint currID);
   }
 
 }

@@ -23,7 +23,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AssetManager/AssetManager.h>
 #include <filesystem>
 #include <Graphics/GraphicsEngine.h>
-#include "../Serialization/AssetGooStream.h"
+#include <Serialization/GooStream/AssetGooStream.h>
+#include <filesystem>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -109,7 +110,7 @@ namespace GE::Assets
 	void AssetManager::LoadFiles()
 	{
 		// construct path object with relative path to project dir
-		std::filesystem::path assetsDir{ *GetConfigData<std::string>("Assets Dir") };
+		std::filesystem::path assetsDir{ GetConfigData<std::string>("Assets Dir") };
 		if (!std::filesystem::exists(assetsDir))
 		{
 			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open Assets Dir: " + assetsDir.string()));
@@ -117,7 +118,7 @@ namespace GE::Assets
 
 		// iterate through Assets dir and add all assets into their
 		// respective containers based on file type
-		std::string const prefabExt{ *GetConfigData<std::string>("Prefab File Extension") }, sceneExt{ *GetConfigData<std::string>("Scene File Extension") };
+		std::string const prefabExt{ GetConfigData<std::string>("Prefab File Extension") }, sceneExt{ GetConfigData<std::string>("Scene File Extension") };
 		for (const auto& file : std::filesystem::recursive_directory_iterator(assetsDir))
 		{
 			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
@@ -141,7 +142,7 @@ namespace GE::Assets
 			}
 			else if (AssetManager::ShaderFileExts.find(currExt) != std::string::npos)
 			{
-				m_shaders.emplace(file.path().stem().string(), file.path().string());
+				m_shaders.emplace(file.path().filename().string(), file.path().string());
 			}
 			else
 			{
@@ -150,7 +151,6 @@ namespace GE::Assets
 			}
 		}
 
-		// @TODO: Should only load whats required by scene
 		LoadImages();
 		LoadSpritesheets();
 
@@ -161,6 +161,69 @@ namespace GE::Assets
 			gEngine.CreateAnimation(curr.first, curr.second.m_slices, curr.second.m_stacks
 				, curr.second.m_frames, curr.second.m_speed, 0, gEngine.textureManager.GetTextureID(curr.second.m_filePath));
 		}
+	}
+
+	void AssetManager::ReloadFiles(Assets::FileType type)
+	{
+		std::string fileExt{};
+		std::unordered_map<std::string, std::string>* ptrToMap = nullptr;
+		// switch case to set the respective file extension and map
+		switch (type)
+		{
+		case FileType::SCENE:
+			m_scenes.clear();
+			fileExt = GetConfigData<std::string>("Scene File Extension");
+			ptrToMap = &m_scenes;
+			break;
+		case FileType::PREFAB:
+			m_prefabs.clear();
+			fileExt = GetConfigData<std::string>("Prefab File Extension");
+			ptrToMap = &m_prefabs;
+			break;
+		case FileType::ANIMATION:
+		case FileType::IMAGES:
+			m_images.clear();
+			fileExt = AssetManager::ImageFileExt;
+			ptrToMap = &m_images;
+			break;
+		case FileType::AUDIO:
+			m_audio.clear();
+			fileExt = AssetManager::AudioFileExt;
+			ptrToMap = &m_audio;
+			break;
+		default:
+			Debug::ErrorLogger::GetInstance().LogMessage("Function not coded to handle requested type");
+			return;
+		}
+
+		// construct path object with relative path to project dir
+		std::filesystem::path assetsDir{ GetConfigData<std::string>("Assets Dir") };
+		if (!std::filesystem::exists(assetsDir))
+		{
+			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open Assets Dir: " + assetsDir.string()));
+		}
+
+		// iterate through Assets dir and add all assets into their
+		// respective containers based on file type
+		for (const auto& file : std::filesystem::recursive_directory_iterator(assetsDir))
+		{
+			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
+
+			std::string const& currExt{ file.path().extension().string() };
+			if (currExt == fileExt)
+			{
+				ptrToMap->emplace(file.path().stem().string(), file.path().string());
+			}
+		}
+	}
+
+	void AssetManager::ReloadAllFiles()
+	{
+		m_scenes.clear();
+		m_prefabs.clear();
+		m_images.clear();
+		m_audio.clear();
+		LoadFiles();
 	}
 
 	// The AssetManager class method to load JSON data from a file
@@ -264,7 +327,6 @@ namespace GE::Assets
 	void AssetManager::LoadImages()
 	{
 		stbi_set_flip_vertically_on_load(true);
-		//auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 
 		// Load all images in m_images
 		for (std::pair<std::string, std::string> const& image : m_images)
@@ -323,7 +385,7 @@ namespace GE::Assets
 	void AssetManager::LoadSpritesheets()
 	{
 		GE::Serialization::SpriteGooStream::container_type assets;
-		std::string const fileName{ *GetConfigData<std::string>("Sprite Config") };
+		std::string const fileName{ GetConfigData<std::string>("Sprite Config") };
 		// Create a SpriteGooStream object with the given file name
 		GE::Serialization::SpriteGooStream sgs{ fileName };
 		// If the SpriteGooStream object is not valid, print an error message
@@ -336,8 +398,6 @@ namespace GE::Assets
 		{
 			std::cout << "Error unloading assets into container" << "\n";
 		}
-
-		std::cout << "Deserialized " << fileName << ":\n";
 
 		// For each entry in assets, print out its details
 		for (auto const& entry : assets)

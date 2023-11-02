@@ -42,7 +42,7 @@ bool ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to bool";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return false;
@@ -59,7 +59,7 @@ double ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to double";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return 0.0;
@@ -76,7 +76,7 @@ int ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to int";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return 0;
@@ -93,7 +93,7 @@ unsigned ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to unsigned";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return 0;
@@ -110,7 +110,7 @@ size_t ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to size_t";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return 0;
@@ -127,7 +127,7 @@ const char* ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to const char*";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return nullptr;
@@ -144,7 +144,7 @@ std::string ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to std::string";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return std::string();
@@ -162,7 +162,7 @@ Math::Vec2 ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to Math::Vec2";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return Math::Vec2();
@@ -180,7 +180,7 @@ Math::dVec2 ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to Math::dVec2";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return Math::dVec2();
@@ -197,7 +197,7 @@ template<> Math::dVec3 ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to Math::dVec3";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return Math::dVec3();
@@ -223,7 +223,7 @@ std::queue<Math::dVec2> ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to std::queue<Math::dVec2>";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return {};
@@ -249,7 +249,7 @@ std::deque<Math::dVec2> ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to std::deque<Math::dVec2>";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return {};
@@ -275,7 +275,7 @@ std::queue<Math::dVec3> ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to std::queue<Math::dVec3>";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return {};
@@ -301,7 +301,7 @@ std::deque<Math::dVec3> ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to std::deque<Math::dVec3>";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return {};
@@ -314,7 +314,7 @@ std::vector<std::pair<std::string, std::string>>
 {
   try
   {
-    std::string const& str{ *Assets::AssetManager::GetInstance().GetConfigData<std::string>("Script Namespace") };
+    std::string const& str{ Assets::AssetManager::GetInstance().GetConfigData<std::string>("Script Namespace") };
     std::vector<std::pair<std::string, std::string>> ret{};
     rapidjson::Value const& list{ (*m_ptr)[key] };
     for (auto const& elem : list.GetArray())
@@ -327,7 +327,7 @@ std::vector<std::pair<std::string, std::string>>
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to std::vector<std::pair<std::string, std::string>>";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return {};
@@ -347,7 +347,7 @@ Component::DragForce ComponentWrapper::Get(const char* key) const
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to Component::DragForce";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return {};
@@ -362,7 +362,7 @@ template<> std::vector<Component::LinearForce> ComponentWrapper::Get(const char*
     rapidjson::Value const& list{ (*m_ptr)[key] };
     for (auto const& elem : list.GetArray())
     {
-      Math::dVec2 vec;
+      Math::dVec3 vec;
       vec << elem["magnitude"].GetString();
       ret.emplace_back(
         vec, elem["lifetime"].GetDouble(), elem["isActive"].GetBool(), elem["age"].GetDouble()
@@ -374,8 +374,27 @@ template<> std::vector<Component::LinearForce> ComponentWrapper::Get(const char*
   catch (...)
   {
     std::ostringstream oss{};
-    oss << "ComponentWrapper: Unable to convert value of key " << key
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
       << " to std::vector<Component::LinearForce>";
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    return {};
+  }
+}
+
+
+template<> Graphics::Colorf ComponentWrapper::Get(const char* key)const
+{
+  try
+  {
+    rapidjson::Value const& list{ (*m_ptr)[key] };
+    Graphics::Colorf ret{ list["red"].GetFloat(), list["green"].GetFloat(), list["blue"].GetFloat(), list["alpha"].GetFloat() };
+    return ret;
+  }
+  catch (...)
+  {
+    std::ostringstream oss{};
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
+      << " to Graphics::Colorf";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return {};
   }

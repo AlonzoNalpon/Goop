@@ -9,12 +9,16 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 
-//#define RUN_IMGUI_DEMO  // Uncomment to replace imgui window with demo
+// run ImGui Demo when in debug mode
+#ifdef _DEBUG
+#define RUN_IMGUI_DEMO
+#endif
 
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
 #include <ImGui/backends/imgui_impl_opengl3.h>
 #include <ImGui/backends/imgui_impl_glfw.h>
+#include "../ImNode/NodeEditor.h"
 #include "../ObjectFactory/ObjectFactory.h"
 #include "../Component/Transform.h"
 #include "../Component/BoxCollider.h"
@@ -28,11 +32,11 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SceneControls.h"
 #include "AssetBrowser.h"
 #include <EditorUI/EditorViewport.h>
+#include <EditorUI/PrefabEditor.h>
+
 using namespace GE::EditorGUI;
 using namespace DataViz;
 using namespace ImGui;
-
-#define RUN_IMGUI_DEMO
 
 // Initialize static
 GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
@@ -65,6 +69,9 @@ void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(prgmWindow.GetWindow(), true);
   ImGui_ImplOpenGL3_Init("#version 460 core");
+
+  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
+  ne->NodeEditorInit();
 }
 
 void ImGuiUI::Update()
@@ -95,6 +102,10 @@ void ImGuiUI::Update()
   Inspector::CreateContent();
   End();
 
+  Begin("Prefab Editor");
+  PrefabEditor::CreateContent();
+  End();
+
   Begin("Viewport");
   {
     EditorGUI::EditorViewport::UpdateViewport(*frameBuffer.second);
@@ -107,7 +118,7 @@ void ImGuiUI::Update()
   ImGui::InputInt("Change Col", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetCol(), 1);
   End();
 
-  Begin("Asset Browser");
+  Begin("Buttons");
   if (Button("Create MineWorm"))
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
@@ -118,22 +129,17 @@ void ImGuiUI::Update()
     double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
     GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(ecs->GetEntities().size() - 1, Math::dVec2(randX, randY));
   }
-  else if (Button("Create 2.5k Render"))
+  else if (Button("Duplicate 500"))
   {
-    for (int i{}; i < 2500; ++i)
+    for (int i{}; i < 500; ++i)
     {
+      GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
       try
       {
-        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("ButaPIG");
-        GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
-        GE::Component::BoxCollider* box = ecs->GetComponent<GE::Component::BoxCollider>(entity);
-        if (trans)
-        {
-          double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
-          double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
-          trans->m_pos = Math::dVec2(randX, randY);
-          box->m_center = trans->m_pos;
-        }
+        double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
+        double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
+
+        GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity, GE::Math::dVec3{randX, randY, 0});
       }
       catch (GE::Debug::IExceptionBase& ex)
       {
@@ -143,18 +149,14 @@ void ImGuiUI::Update()
   }
   End();
 
-  Begin("Asset Browser(Tree)");
-  AssetBrowser::CreateContentDir();
-  End();
-
-  Begin("Asset View");
-  AssetBrowser::CreateContentView();
+  Begin("Asset Browser");
+  AssetBrowser::CreateContent();
   End();
 
   
   if (Visualizer::IsPerformanceShown())
   {
-    Visualizer::CreateContent("Performance Visualizer");
+    Visualizer::CreateContent("Performance Graph");
   }
 
   Begin("Audio");
@@ -191,8 +193,11 @@ void ImGuiUI::Update()
   {
     Audio::AudioEngine::GetInstance().StopAllChannels();
   }
-  Audio::AudioEngine::GetInstance().Update();
   End();
+
+
+  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
+  ne->NodeEditorShow();
 
   ImGuiHelper::EndDockSpace();
 }
@@ -207,8 +212,14 @@ void ImGuiUI::Render()
 
 void ImGuiUI::Exit()
 {
+  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
+  ne->NodeEditorShutdown();
+
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplGlfw_Shutdown();
+
+
+
   DestroyContext();
 }
 

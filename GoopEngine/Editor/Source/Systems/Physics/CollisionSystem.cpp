@@ -40,17 +40,19 @@ bool CollisionSystem::Collide(BoxCollider& box1, BoxCollider& box2)
 
 void CollisionSystem::Update()
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	std::set<Entity>& list = GetUpdatableEntities();
 
 	for (Entity entity : list)
 	{
 		BoxCollider* updateEntity = m_ecs->GetComponent<BoxCollider>(entity);
 		Transform* newCenter = m_ecs->GetComponent<Transform>(entity);
-		UpdateAABB(*updateEntity, newCenter->m_parentWorldTransform * dVec4(newCenter->m_pos, 1.0));
+		UpdateAABB(*updateEntity, newCenter->m_worldPos);
 #ifndef NO_IMGUI
 		if (updateEntity->m_render)
 		{
-			updateEntity->Render();
+			updateEntity->Render(); 
 		}
 #endif // !NO_IMGUI
 	}
@@ -59,12 +61,14 @@ void CollisionSystem::Update()
 	CreatePartitions(m_rowsPartition, m_colsPartition);
 	for (Partition& partition : m_partitions)
 	{
-		auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
+		[[maybe_unused]] auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 		//drawing partition's border
+#ifndef NO_IMGUI
 		gEngine.DrawLine(partition.min, { partition.max.x, partition.min.y });
 		gEngine.DrawLine({ partition.max.x, partition.min.y }, partition.max);
 		gEngine.DrawLine(partition.max, { partition.min.x, partition.max.y });
 		gEngine.DrawLine({ partition.min.x, partition.max.y }, partition.min);
+#endif // !NO_IMGUI
 
 		if (partition.m_entitiesInPartition.empty()) 
 		{
@@ -107,6 +111,7 @@ void CollisionSystem::Update()
 			}
 		}
 	}
+	frc.EndSystemTimer("Collision");
 }
 
 void CollisionSystem::UpdateAABB(BoxCollider& entity, const dVec2& newCenter)
@@ -129,7 +134,7 @@ void CollisionSystem::CreatePartitions(int rows, int cols)
 		throw Debug::Exception<CollisionSystem>(Debug::LEVEL_ERROR, ErrMsg("Column for partition is 0."));
 	}
 
-	m_partitions.clear();
+	m_partitions.resize(rows * cols);
 	GraphicsEngine& getWindowSize = GraphicsEngine::GetInstance();
 	int partitionHeight = getWindowSize.GetVPHeight() / rows;
 	int partitionWidth = getWindowSize.GetVPWidth() / cols;
@@ -141,6 +146,7 @@ void CollisionSystem::CreatePartitions(int rows, int cols)
 			Partition partition;
 			partition.min = { -(getWindowSize.GetVPWidth() / 2.0) + static_cast<double>(partitionWidth * col) , -(getWindowSize.GetVPHeight() / 2.0) + static_cast<double>(partitionHeight * (row))};
 			partition.max = { -(getWindowSize.GetVPWidth() / 2.0) + static_cast<double>(partitionWidth * (col + 1)), -(getWindowSize.GetVPHeight() / 2.0) + static_cast<double>(partitionHeight * (row + 1)) };
+			partition.m_entitiesInPartition.reserve(m_ecs->GetMaxEntities());
 
 			std::set<Entity>& list = GetUpdatableEntities();
 			for (Entity entity : list)
@@ -151,7 +157,7 @@ void CollisionSystem::CreatePartitions(int rows, int cols)
 					partition.m_entitiesInPartition.push_back(entity);
 				}
 			}
-			m_partitions.push_back(std::move(partition));
+			m_partitions[row * m_colsPartition + col] = std::move(partition);
 		}
 	}
 }

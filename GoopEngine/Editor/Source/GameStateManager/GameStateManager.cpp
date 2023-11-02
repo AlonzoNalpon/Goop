@@ -22,9 +22,24 @@ void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
 	
 }
 
+std::string GE::GSM::GameStateManager::GetCurrentScene() const
+{
+	return sm.GetCurrentScene();
+}
+
+void GE::GSM::GameStateManager::SaveScene() const
+{
+	sm.SaveScene();
+}
+
 void GE::GSM::GameStateManager::Restart()
 {
 	sm.RestartScene();
+}
+
+void GE::GSM::GameStateManager::LoadSceneFromExplorer(std::string const& filepath)
+{
+	sm.LoadSceneFromExplorer(filepath);
 }
 
 void GameStateManager::Init()
@@ -38,22 +53,15 @@ void GameStateManager::Update()
 {
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_RIGHT))
 	{
-		//SetNextScene("Start2");
 		SetNextScene("SceneTest");
 	}
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_LEFT))
 	{
-		SetNextScene("Start");
+		SetNextScene("Robot");
 	}
 	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_UP))
 	{
 		Restart();
-	}
-	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_DOWN))
-	{
-		SetNextScene("Start2");
-
-		//SetNextScene("SceneTestabcd");
 	}
 }
 
@@ -61,5 +69,3 @@ void GE::GSM::GameStateManager::Exit()
 {
 	// Example of removing systems
 }
-
-

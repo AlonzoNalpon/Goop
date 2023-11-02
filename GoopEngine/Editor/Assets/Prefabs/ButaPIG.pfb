@@ -1,0 +1,30 @@
+{
+  "Name": "ButaPIG",
+  "Components": [
+    {
+      "Transform": {
+        "worldPos": "{ 0.0, 0.0, 0.0 }",
+        "worldScale": "{ 1.0, 1.0, 1.0 }",
+        "worldRot": "{ 0.0, 0.0, 0.0 }"
+      }
+    },
+    {
+      "Sprite": {
+        "filename": "Buta PIG"
+      }
+    },
+    {
+      "Model": {
+        "mdlID": 0
+      }
+    },
+    {
+      "BoxCollider": {
+        "center": "{ 15, 278 }",
+        "width": 10.0,
+        "height": 10.0,
+        "render": true
+      }
+    }
+  ]
+}

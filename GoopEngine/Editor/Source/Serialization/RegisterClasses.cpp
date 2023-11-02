@@ -2,7 +2,8 @@
 #include <Component/Components.h>
 #include <Systems/Systems.h>
 #include <rttr/registration>
-#include <Serialization/Serialization.h>
+#include <Serialization/Serializer.h>
+#include <Systems/Enemy/EnemySystem.h>
 
 using namespace GE;
 
@@ -16,6 +17,9 @@ RTTR_REGISTRATION
     .property("x", &Math::dVec2::x)
     .property("y", &Math::dVec2::y)
     .method("ToString", &Math::dVec2::ToString)
+    ;
+  rttr::registration::class_<Math::Vec2>("Vec2")
+    .method("ToString", &Math::Vec2::ToString)
     ;
 
   rttr::registration::class_<Math::dVec3>("dVec3")
@@ -32,9 +36,9 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::Transform>("Transform")
     .constructor<>()
     .constructor<Math::dVec3 const&, Math::dVec3 const&, Math::dVec3 const&>()
-    .property("pos", &Component::Transform::m_pos)
-    .property("scale", &Component::Transform::m_scale)
-    .property("rot", &Component::Transform::m_rot)
+    .property("worldPos", &Component::Transform::m_worldPos)
+    .property("worldScale", &Component::Transform::m_worldScale)
+    .property("worldRot", &Component::Transform::m_worldRot)
     ;
 
   rttr::registration::class_<Component::BoxCollider>("BoxCollider")
@@ -43,6 +47,9 @@ RTTR_REGISTRATION
     .property("center", &Component::BoxCollider::m_center)
     .property("width", &Component::BoxCollider::m_width)
     .property("height", &Component::BoxCollider::m_height)
+#ifndef NO_IMGUI
+    .property("render", &Component::BoxCollider::m_render)
+#endif
     ;
 
   rttr::registration::class_<Component::LinearForce>("LinearForce")
@@ -89,16 +96,15 @@ RTTR_REGISTRATION
     .property("texture", &Graphics::SpriteData::texture)
     ;
   rttr::registration::class_<Component::Sprite>("Sprite")
-    .property("filename", &Component::Sprite::spriteData)  // naming it as filename for now
-    .method("GetTextureHandle", &Component::Sprite::GetTextureHandle)
+    .property("filename", &Component::Sprite::m_spriteData)  // naming it as filename for now
     ;
 
   rttr::registration::class_<Component::SpriteAnim>("SpriteAnim")
-    .property("name", &Component::SpriteAnim::animID)
+    .property("name", &Component::SpriteAnim::m_animID)
     ;
 
   rttr::registration::class_<Component::Model>("Model")
-    .property("mdlID", &Component::Model::mdlID)
+    .property("mdlID", &Component::Model::m_mdlID)
     ;
 
   rttr::registration::class_<Component::ScriptHandler>("ScriptHandler")
@@ -110,15 +116,6 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::Draggable>("Draggable")
     ;
 
- /* rttr::registration::enumeration<AI::NODE_STATES>("NODE_STATES")
-    (
-      rttr::value("NEW", AI::NODE_STATES::STATE_NEW),
-      rttr::value("RUNNING", AI::NODE_STATES::STATE_RUNNING),
-      rttr::value("WAITING", AI::NODE_STATES::STATE_WAITING),
-      rttr::value("SUCCEED", AI::NODE_STATES::STATE_SUCCEED),
-      rttr::value("FAILED", AI::NODE_STATES::STATE_FAILED),
-      rttr::value("COUNT", AI::NODE_STATES::STATE_COUNT)
-      );*/
   //rttr::registration::class_<AI::NodeCache>("NodeCache")
   //  .property("nodeID", &Component::NodeCache::m_nodeID)
   //  .property("childIndex", &Component::NodeCache::m_childIndex)
@@ -134,6 +131,62 @@ RTTR_REGISTRATION
     .property("entityID", &Component::EnemyAI::m_entityID)
     //.property("enemyTreeCache", &Component::EnemyAI::m_enemyTreeCache)
     ;
+  rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")
+    .property("nodeType", &AI::NodeTemplate::m_nodeType)
+    .property("parentNode", &AI::NodeTemplate::m_parentNode)
+    .property("childrenNode", &AI::NodeTemplate::m_childrenNode)
+    .property("scriptName", &AI::NodeTemplate::m_scriptName)
+    .property("pos", &AI::NodeTemplate::m_pos)
+    ;
+  rttr::registration::class_<AI::TreeTemplate>("TreeTemplate")
+    .property("tree", &AI::TreeTemplate::m_tree)
+    .property("treeName", &AI::TreeTemplate::m_treeName)
+    .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
+    ;
+
+
+  // To ignore during serialization
+  //(
+  //  metadata("NO_SERIALIZE", true)
+  //)
+
+   /* ------------------- ENUMERATIONS ------------------- */
+  rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")
+    (
+      rttr::value("TRANSFORM", ECS::COMPONENT_TYPES::TRANSFORM),
+      rttr::value("BOX_COLLIDER", ECS::COMPONENT_TYPES::BOX_COLLIDER),
+      rttr::value("VELOCITY", ECS::COMPONENT_TYPES::VELOCITY),
+      rttr::value("SPRITE", ECS::COMPONENT_TYPES::SPRITE),
+      rttr::value("SPRITE_ANIM", ECS::COMPONENT_TYPES::SPRITE_ANIM),
+      rttr::value("MODEL", ECS::COMPONENT_TYPES::MODEL),
+      rttr::value("TWEEN", ECS::COMPONENT_TYPES::TWEEN),
+      rttr::value("SCRIPT_HANDLER", ECS::COMPONENT_TYPES::SCRIPT_HANDLER),
+      rttr::value("DRAGGABLE", ECS::COMPONENT_TYPES::DRAGGABLE),
+      rttr::value("ENEMY_AI", ECS::COMPONENT_TYPES::ENEMY_AI),
+      rttr::value("COMPONENTS_TOTAL", ECS::COMPONENT_TYPES::COMPONENTS_TOTAL)
+      );
+
+  rttr::registration::enumeration<ECS::SYSTEM_TYPES>("SYSTEM_TYPES")
+    (
+      rttr::value("TRANSFORM", ECS::SYSTEM_TYPES::COLLISION),
+      rttr::value("PHYSICS", ECS::SYSTEM_TYPES::PHYSICS),
+      rttr::value("RENDERING", ECS::SYSTEM_TYPES::RENDERING),
+      rttr::value("SPRITE_ANIM", ECS::SYSTEM_TYPES::SPRITE_ANIM),
+      rttr::value("DRAGGABLE_OBJECT", ECS::SYSTEM_TYPES::DRAGGABLE_OBJECT),
+      rttr::value("PLAYER_CONTROLLER", ECS::SYSTEM_TYPES::PLAYER_CONTROLLER),
+      rttr::value("POST_ROOT_TRANSFORM", ECS::SYSTEM_TYPES::POST_ROOT_TRANSFORM),
+      rttr::value("PRE_ROOT_TRANSFORM", ECS::SYSTEM_TYPES::PRE_ROOT_TRANSFORM),
+      rttr::value("ENEMY_SYSTEM", ECS::SYSTEM_TYPES::ENEMY_SYSTEM),
+      rttr::value("TOTAL_SYSTEMS", ECS::SYSTEM_TYPES::TOTAL_SYSTEMS)
+      );
+
+  rttr::registration::enumeration<AI::NODE_TYPE>("NODE_TYPE")
+    (
+      rttr::value("COMPOSITE_NODE", AI::NODE_TYPE::COMPOSITE_NODE),
+      rttr::value("LEAF_NODE", AI::NODE_TYPE::LEAF_NODE),
+      rttr::value("NODE_TYPE_COUNT", AI::NODE_TYPE::NODE_TYPE_COUNT),
+      rttr::value("ROOT_NODE", AI::NODE_TYPE::ROOT_NODE)
+      );
 
   /* ------------------- FUNCTIONS ------------------- */
 

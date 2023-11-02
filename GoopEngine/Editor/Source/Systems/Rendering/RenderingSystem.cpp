@@ -16,8 +16,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 namespace GE::Systems
 {
   constexpr double pi = 3.14159265358979323846;
-  void RenderSystem::Update()
+  void RenderSystem::LateUpdate()
   {
+    auto& frc = GE::FPS::FrameRateController::GetInstance();
+    frc.StartSystemTimer();
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
     for (GE::ECS::Entity entity : GetUpdatableEntities())
     {
@@ -30,14 +32,10 @@ namespace GE::Systems
       // Rendering
       Graphics::Rendering::Renderer& renderer{ gEngine.GetRenderer() };
       // Render the object
-      renderer.RenderObject(model->mdlID, sprite->spriteData,
-        transform->m_worldTransform
+      renderer.RenderObject(model->m_mdlID, sprite->m_spriteData,
+        transform->m_renderTransform
         );
     }
+    frc.EndSystemTimer("Render");
   }
-
-  void RenderSystem::OnDestroyed()
-  {
-  }
-
 }

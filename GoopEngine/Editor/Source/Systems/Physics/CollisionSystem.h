@@ -68,11 +68,19 @@ namespace GE
 			************************************************************************/
 			void Update();
 
+			/*!*********************************************************************
+			\brief
+				Returns number of rows for partitions
+			************************************************************************/
 			int& GetRow()
 			{
 				return m_rowsPartition;
 			}
 
+			/*!*********************************************************************
+			\brief
+				Returns number of cols for partitions
+			************************************************************************/
 			int& GetCol()
 			{
 				return m_colsPartition;
@@ -96,6 +104,15 @@ namespace GE
 
 			std::vector<Partition> m_partitions;
 
+			/*!*********************************************************************
+			\brief
+				Creates spatial partitioning cells using the rows and cols given.
+				Checks which entity is within which cell and adds the entity to the cell.
+			\param rows
+				Number of rows for partitioning
+			\param cols
+				Number of cols for partitioning
+			************************************************************************/
 			void CreatePartitions(int rows, int cols);
 		};
 	}

@@ -16,7 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "PrefabGooStream.h"
 #include <rapidjson/istreamwrapper.h>
-#include "../ECS/SystemTypes.h"
+#include <ECS/SystemTypes.h>
 
 using namespace GE::Serialization;
 
@@ -116,7 +116,7 @@ bool PrefabGooStream::Read(std::string const& json)
   }
 
   #ifdef _DEBUG
-  std::cout << json << " successfully read" << "\n";
+  //std::cout << json << " successfully read" << "\n";
   #endif
   ifs.close();
   return m_status = true;

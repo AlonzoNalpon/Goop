@@ -21,7 +21,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ECS/ComponentTypes.h>
 #include <rapidjson/document.h>
 #include <ObjectFactory/ObjectStructs.h>
-#include <Serialization/Serialization.h>
+#include <Serialization/Serializer.h>
 #include <Component/Components.h>
 
 
@@ -31,14 +31,6 @@ namespace GE::ObjectFactory
   class ObjectFactory : public Singleton<ObjectFactory>
   {
   public:
-    /*!*********************************************************************
-    \brief
-      Init function for the ObjectFactory. Registers systems and
-      components to the ECS and loads the files required
-    \return
-    ************************************************************************/
-    void Init();
-
     /*!*********************************************************************
     \brief
       Goes through the map and create an entity with the data.
@@ -63,7 +55,7 @@ namespace GE::ObjectFactory
     \return
       Entity (Created entity)
     ************************************************************************/
-    GE::ECS::Entity CreateObject(std::string const& name, ObjectData data) const;
+    GE::ECS::Entity CreateObject(std::string const& name, ObjectData const& data) const;
 
     /*!*********************************************************************
     \brief
@@ -72,39 +64,13 @@ namespace GE::ObjectFactory
       Entity (Source),
       dVec2&& (Position of the cloned object)
     ************************************************************************/
-    void CloneObject(ECS::Entity obj, const Math::dVec2& newPos);
+    void CloneObject(ECS::Entity obj, const Math::dVec2& newPos = Math::dVec2{0, 0});
 
     /*!*********************************************************************
-    \brief
-      Creates the objects from the object map.
-    \return
-      True if successful, false if failed
+    \brief     
+      Gets the file path from the asset manager and loads all prefabs
     ************************************************************************/
-    bool LoadObjects() const;
-
-    /*!*********************************************************************
-    \brief
-      Creates the objects from the object map.
-    \param
-      std::set<GE::ECS::Entity>& (map of loaded objects to be deleted later)
-    \return
-      True if successful, false if failed
-    ************************************************************************/
-    bool LoadObjects(std::set<GE::ECS::Entity>& map) const;
-
-    /*!*********************************************************************
-    \brief
-      Loads the json file into the map.
-    \param
-      string& (Path to the json file)
-    ************************************************************************/
-    void ObjectJsonLoader(const std::string& json_path);
-
-    /*!*********************************************************************
-    \brief
-      Verify that the object factory deserializes properly
-    ************************************************************************/
-    void ObjectFactoryTest();
+    void LoadPrefabsFromFile();
 
     /*!*********************************************************************
     \brief
@@ -120,13 +86,7 @@ namespace GE::ObjectFactory
     \param
       std::string (filename of the scene.scn file)
     ************************************************************************/
-    void LoadSceneJson(std::string filename);
-
-    /*!*********************************************************************
-    \brief
-      Loads the prefab from the path specified in the config file.
-    ************************************************************************/
-    void LoadPrefabsFromFile();
+    void LoadSceneJson(std::string const& filename);
 
     /*!*********************************************************************
     \brief
@@ -134,6 +94,19 @@ namespace GE::ObjectFactory
     ************************************************************************/
     void RegisterComponentsAndSystems() const;
 
+    /*!*********************************************************************
+    \brief
+      Maps each entity ID such that it is in sequential order starting from
+       0 with no gaps in between. This should be called before scerializing
+       the scene. Returns a map where the key is the current entity's ID and
+       the value is the new ID.
+
+     For example, if the current set of entity IDs is <1,4,6,8>, it will
+     be mapped to <0, 1, 2, 3>
+    \return
+      Map of old Entity IDs to their new ones
+   ************************************************************************/
+    std::unordered_map<ECS::Entity, ECS::Entity> GenerateNewIDs() const;
   private:
     /*!*********************************************************************
     \brief
@@ -206,7 +179,7 @@ namespace GE::ObjectFactory
       if (entities.find(entity) != entities.end()) { sig[static_cast<unsigned>(type)] = true; }
     }
 
-    std::map<std::string, ObjectData> m_objects; // Map of objects with pair of name, and ObjectData.
+    std::vector<std::pair<std::string, ObjectData>> m_objects; // Map of objects with pair of name, and ObjectData.
     std::unordered_map<std::string, ObjectData> m_prefabs; // Map of prefabs with pair of name, and ObjectData.
   };
   #include "ObjectFactory.tpp"

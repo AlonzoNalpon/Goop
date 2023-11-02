@@ -48,6 +48,16 @@ namespace Graphics::Rendering
     glm::mat4 transform;//!< the transformation of the model
   };
 
+
+  struct FontRenderData
+  {
+    gVec2               position;
+    GLfloat             scale;
+    std::string const&  str;
+    Graphics::Colorf    clr;
+    gObjID              fontID;
+  };
+
   /*!
    * \struct LineRenderData
    * \brief  

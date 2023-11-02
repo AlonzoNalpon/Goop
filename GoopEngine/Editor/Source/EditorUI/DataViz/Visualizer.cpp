@@ -25,7 +25,7 @@ std::vector<float> Visualizer::m_fpsHistory(Visualizer::m_fpsMaxCount, 0.f);
 //  m_graphWidth = 
 //}
 
-void Visualizer::UpdateSystemTimes()
+void Visualizer::UpdateSystemTimers()
 {
   if (IsPerformanceShown())
   {
@@ -35,7 +35,7 @@ void Visualizer::UpdateSystemTimes()
     static int framesElapsed{};
     if (framesElapsed >= m_framesPerUpdate)
     {
-      std::map<std::string, FPS::FrameRateController::timeFormat> const& timers{ fRC.GetSystemTimers() };
+      auto const& timers{ fRC.GetSystemTimers() };
       // clear and reset maps if size changes
       if (m_systemsToGraph.size() != timers.size())
       {
@@ -46,11 +46,11 @@ void Visualizer::UpdateSystemTimes()
       }
 
       m_totalSystemTime = 0.f;
-      std::map<std::string, FPS::FrameRateController::timeFormat>::const_iterator iter{ timers.cbegin() };
+      auto iter{ timers.cbegin() };
       for (unsigned i{}; i < timers.size(); ++i, ++iter)
       {
         m_systemsToGraph[i] = iter->first.c_str();
-        m_totalSystemTime += m_systemTimers[i] = microSecondsToFloat(iter->second);
+        m_totalSystemTime += m_systemTimers[i] = formatToFloat(iter->second);
       }
       framesElapsed = 0;
     }
@@ -109,9 +109,9 @@ void Visualizer::UpdateGraph()
 
   if (m_graphType == GRAPH_TYPE::HISTOGRAM)
   {
-    std::string const averageStr{ "Average: " + std::to_string(m_totalSystemTime / static_cast<float>(m_systemTimers.size())) + "us" };
+    std::string const averageStr{ "Average: " + std::to_string(m_totalSystemTime / static_cast<float>(m_systemTimers.size())) + "ms" };
     ImGui::PlotHistogram("##PerformanceHistogram", m_systemTimers.data(), static_cast<int>(m_systemTimers.size()), 
-      0, averageStr.c_str(), 0.f, m_maxGraphHeight, ImVec2(graphWidth, graphHeight));
+      0, averageStr.c_str(), 0.f, m_totalSystemTime, ImVec2(graphWidth, graphHeight));
     
     // convert coords from histogram to window
     ImVec2 const rectMin{ GetItemRectMin() };
@@ -126,7 +126,7 @@ void Visualizer::UpdateGraph()
     for (int i = 0; i < static_cast<int>(m_systemTimers.size()); ++i)
     {
       float percentage{ 100.f * m_systemTimers[i] / m_totalSystemTime };
-      ImGui::TextWrapped("%s\n%.fus (%.2f%%)", m_systemsToGraph[i], m_systemTimers[i], percentage, graphWidth / static_cast<float>(m_systemTimers.size()));
+      ImGui::TextWrapped("%s\n%.fms (%.2f%%)", m_systemsToGraph[i], m_systemTimers[i], percentage, graphWidth / static_cast<float>(m_systemTimers.size()));
       ImGui::NextColumn();
     }
     ImGui::Columns(1);
@@ -151,7 +151,7 @@ void Visualizer::UpdateGraph()
       ImGui::Columns(2);
       ImGui::SetColumnWidth(0, innerLeftColWidth);
       ImGui::SetColumnWidth(1, graphWidth - innerLeftColWidth);
-      ImGui::TextWrapped("%s (%.fus)", m_systemsToGraph[i], m_systemTimers[i], (graphWidth, graphHeight / static_cast<float>(m_systemTimers.size())));
+      ImGui::TextWrapped("%s (%.2fms)", m_systemsToGraph[i], m_systemTimers[i], (graphWidth, graphHeight / static_cast<float>(m_systemTimers.size())));
       ImGui::NextColumn();
       ImGui::ProgressBar(m_systemTimers[i] / m_totalSystemTime, ImVec2(graphWidth, graphHeight / static_cast<float>(m_systemTimers.size())));
       ImGui::Columns(1);
@@ -185,11 +185,11 @@ void Visualizer::UpdateSettings()
   ImGui::Text("No. of Frames per Update");
   ImGui::SliderInt("##FramesPerUpdateSlider", &m_framesPerUpdate, 1, 300);
 
-  if (m_graphType == GRAPH_TYPE::HISTOGRAM)
-  {
-    ImGui::Text("Graph Max Height");
-    ImGui::SliderFloat("##GraphMaxHeightSlider", &m_maxGraphHeight, 1000.0f, 2500.0f);
-  }
+  //if (m_graphType == GRAPH_TYPE::HISTOGRAM)
+  //{
+  //  ImGui::Text("Graph Max Height");
+  //  ImGui::SliderFloat("##GraphMaxHeightSlider", &m_maxGraphHeight, 1000.0f, 2500.0f);
+  //}
 }
 
 void Visualizer::UpdateFPSTab()

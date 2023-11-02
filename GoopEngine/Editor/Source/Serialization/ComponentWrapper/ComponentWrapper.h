@@ -64,6 +64,7 @@ namespace GE
       template<> Math::Vec2 Get(const char* key) const;
       template<> Math::dVec2 Get(const char* key) const;
       template<> Math::dVec3 Get(const char* key) const;
+      template<> Graphics::Colorf Get(const char* key)const;
       template<> std::queue<Math::dVec2> Get(const char* key) const;
       template<> std::deque<Math::dVec2> Get(const char* key) const;
       template<> std::queue<Math::dVec3> Get(const char* key) const;

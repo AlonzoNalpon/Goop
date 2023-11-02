@@ -37,6 +37,11 @@ namespace Graphics::Rendering
       ShaderCont const& shaderCont, Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight,
       std::map < gObjID, FrameBufferInfo> const& frameBuffers);
 
+    void ClearRenderContainers();
+    // OLD CHANGE
+    // Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, ShaderCont const& shaderCont
+    // , Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight);
+
     /*!*********************************************************************
     \brief
       Initializes the renderer with a camera object and size for 
@@ -59,6 +64,8 @@ namespace Graphics::Rendering
     ************************************************************************/
     void RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat4 const& trans);
     
+    void RenderFontObject(gVec2 pos, GLfloat scale, std::string const& str, Colorf color, gObjID fontID);
+
     void RenderLineDebug(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf const& clr);
 
     /*!*********************************************************************
@@ -77,7 +84,7 @@ namespace Graphics::Rendering
     ************************************************************************/
     void ClearRenderData();
 
-    void DrawFontObj(std::string const& str, gVec2 pos, gVec2 const& scale, Colorf const& clr, std::string const& fontName);
+    void DrawFontObj(std::string const& str, gVec2 pos, gVec2 const& scale, Colorf const& clr, Graphics::gObjID fontID);
 
     /*!*********************************************************************
     \brief
@@ -100,18 +107,11 @@ namespace Graphics::Rendering
       
     ************************************************************************/
     glm::mat4 CalculateTransform(gVec3 const& scale, GLfloat rotation, gVec3 const& pos) const;
-    /*!*********************************************************************
-    \brief
-      Calculates the transform based on Transform struct.
-    \params
-      xForm the transformation data
-    \return the matrix result
-      
-    ************************************************************************/
-    //glm::mat4 CalculateTransform(Transform const& xForm) const;
+
   private:
-    std::vector<RenderData>     m_renderCalls;     //!< container for all render calls
-    std::vector<LineRenderData> m_lineRenderCalls; //!< DEBUG drawing lines with colors
+    std::vector<RenderData>             m_renderCalls;     //!< container for all render calls
+    std::vector<FontRenderData>         m_fontRenderCalls; //!< font
+    std::vector<LineRenderData>         m_lineRenderCalls; //!< DEBUG drawing lines with colors
 
     Camera                              m_camera;   //!< camera for rendering
 

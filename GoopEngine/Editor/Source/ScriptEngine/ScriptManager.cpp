@@ -13,6 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "ScriptManager.h"
 #include "../AssetManager/AssetManager.h"
+#include <ImNode/NodeEditor.h>
 
 using namespace GE::MONO;
 
@@ -27,11 +28,11 @@ void GE::MONO::ScriptManager::InitMono()
   }
   else
   {
-    mono_set_assemblies_path(assetManager.GetConfigData<std::string>("MonoAssembly")->c_str());
+    mono_set_assemblies_path(assetManager.GetConfigData<std::string>("MonoAssembly").c_str());
   }
  
  
-  MonoDomain* rootDomain = mono_jit_init(assetManager.GetConfigData<std::string>("RootDomain")->c_str());
+  MonoDomain* rootDomain = mono_jit_init(assetManager.GetConfigData<std::string>("RootDomain").c_str());
   if (rootDomain == nullptr)
   {
     GE::Debug::ErrorLogger::GetInstance().LogError("Unable to init Mono JIT", false);
@@ -42,7 +43,7 @@ void GE::MONO::ScriptManager::InitMono()
   m_rootDomain = rootDomain;
 
   //Create an App Domain
-  const char* str = assetManager.GetConfigData<std::string>("AppDomain")->c_str();
+  const char* str = assetManager.GetConfigData<std::string>("AppDomain").c_str();
   m_appDomain = mono_domain_create_appdomain(const_cast<char*>(str), nullptr);
   mono_domain_set(m_appDomain, true);
 
@@ -69,6 +70,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPlayerID", GE::Systems::EnemySystem::GetPlayerID);
+
+  //mono_add_internal_call("GoopScripts.Mono.Utils::SetCurrentRunningNode", GE::AI::NodeEditor::SetCurrentRunningNode);
 
   //Retrieve the C#Assembly (.ddl file)
 //  #ifdef _DEBUG
@@ -104,11 +107,9 @@ void GE::MONO::ScriptManager::InitMono()
     }
     else
     {
-      m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_R"));
-    }
-    
-  }
-  
+      m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssembly_R"));
+    }    
+  }  
 }
 
 GE::MONO::ScriptManager::~ScriptManager()
@@ -277,7 +278,6 @@ void GE::MONO::SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment
   GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
-
 
   oldTransform->m_pos.x += (PosAdjustment.x * fpsControl->GetDeltaTime());
   oldTransform->m_pos.y += (PosAdjustment.y * fpsControl->GetDeltaTime());

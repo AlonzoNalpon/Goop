@@ -13,7 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 namespace GE::GSM
 {
-  class GameStateManager
+  class GameStateManager : public Singleton<GameStateManager>
   {
   private:
     GE::Scenes::SceneManager sm;
@@ -27,11 +27,25 @@ namespace GE::GSM
     ************************************************************************/
     void SetNextScene(std::string next_scene);
 
+    std::string GetCurrentScene() const;
+
+    /*!*********************************************************************
+    \brief
+      Calls on the scene manager to save the scene
+    ************************************************************************/
+    void SaveScene() const;
+
     /*!*********************************************************************
     \brief
       Restarts scene.
     ************************************************************************/
     void Restart();
+
+    /*!*********************************************************************
+    \brief
+      Loads a scene given a file path
+    ************************************************************************/
+    void LoadSceneFromExplorer(std::string const& filepath);
 
     void Init();
     void Update();

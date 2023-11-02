@@ -20,6 +20,5 @@ namespace GE::Scenes
   private:
     GE::ECS::EntityComponentSystem* ecs;
     GE::ObjectFactory::ObjectFactory* of;
-    std::set<GE::ECS::Entity> m_entities;
   };
 }

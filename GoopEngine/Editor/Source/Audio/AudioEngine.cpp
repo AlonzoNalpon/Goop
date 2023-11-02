@@ -1,14 +1,11 @@
 #include <pch.h>
 #include "AudioEngine.h"
-#include <iostream>
 
 using namespace GE::Audio;
 
 Implementation::Implementation() 
 {
   AudioEngine::ErrorCheck(FMOD::System_Create(&fm_system)); // Create the FMOD Core system
-  //AudioEngine::ErrorCheck(fm_system->init(m_numOfChannels, FMOD_INIT_NORMAL, NULL)); // Initialize the FMOD Core system
-  // Alonzo: FMOD_INIT_STREAM_FROM_UPDATE does streaming optimizations and includes asynchrous loading
   AudioEngine::ErrorCheck(fm_system->init(m_numOfChannels, FMOD_INIT_STREAM_FROM_UPDATE, NULL)); // Initialize the FMOD Core system
 }
 
@@ -78,8 +75,9 @@ void AudioEngine::LoadSound(const std::string& soundFile, bool isLooping, bool i
   }
   else
   {
-    std::cout << "FMOD_OK index: " << FMOD_OK << std::endl;
-    std::cerr << "Failed to create sound: " << result << std::endl;
+    std::ostringstream oss{};
+    oss << "Failed to create sound: " << result;
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
   }
 }
 

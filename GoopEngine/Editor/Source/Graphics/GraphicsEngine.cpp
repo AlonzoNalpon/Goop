@@ -62,9 +62,10 @@ namespace {
     // Initialize font manager
     //m_fontManager.Init();
 #pragma region SHADER_MDL_INIT
-    auto shaderPathOpt = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("ShaderPath");
-    if (!shaderPathOpt) {
-      throw 1; // lmao
+    std::string shaderPathOpt = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("ShaderPath");
+    if (shaderPathOpt.empty()) 
+    {
+      throw GE::Debug::Exception<GraphicsEngine>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Invalid shader path"));
     }
     m_spriteQuadMdl = GenerateQuad();
     m_lineMdl       = GenerateLine();
@@ -82,11 +83,11 @@ namespace {
 
     //Initialize renderer with a camera
     {
-      Rendering::Camera orthoCam{ {0.f,0.f,3.f},                              // pos
-                                  {},                                         // target
-                                  {.0f, 1.f, 0.f},                            // up vector
+      Rendering::Camera orthoCam{ {0.f,0.f,1000.1f},                          // pos
+                                  {},                                     // target
+                                  {.0f, 1.f, 0.f},                        // up vector
                                   -w * 0.5f, w * 0.5f, -h * 0.5f, h * 0.5f,   // left right bottom top
-                                  0.1f, 1000.f };                             // near and far z planes
+                                  0.1f, 2000.1f };                         // near and far z planes
       m_renderer.Init(orthoCam, m_models.size()-1); // line model index
     }
 
@@ -165,6 +166,14 @@ namespace {
       m_renderer.DrawFontObj("you're", {}, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.5f, 0.f, 0.f }, "Marchesa");
       m_renderer.DrawFontObj("next", { 0.f, -50.f }, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.8f, 0.2f, 0.f }, "Reyes");
     }
+  #if 0 // BACKUP FOR MERGE
+    m_renderer.Draw();
+    auto marchID = m_fontManager.GetFontID("Marchesa");
+    auto reyesID = m_fontManager.GetFontID("Reyes");
+
+    m_renderer.DrawFontObj("you're", {}, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.5f, 0.f, 0.f }, marchID);
+    m_renderer.DrawFontObj("next", { 0.f, -50.f }, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.8f, 0.2f, 0.f }, reyesID);
+    #endif
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
   }
 
@@ -349,7 +358,7 @@ namespace {
     {
       std::string errorStr{ "A shader program of this name already exists: " };
       errorStr += name;
-      std::cout << errorStr << std::endl;
+      GE::Debug::ErrorLogger::GetInstance().LogError(errorStr);
       return 0;
     }
 

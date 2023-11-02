@@ -48,6 +48,8 @@ void GE::Systems::PlayerControllerSystem::Start()
 
 void PlayerControllerSystem::FixedUpdate() 
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	for (Entity entity : GetUpdatableEntities()) {
 
 		ScriptHandler* scriptHan = m_ecs->GetComponent<ScriptHandler>(entity);
@@ -98,6 +100,7 @@ void PlayerControllerSystem::FixedUpdate()
 		
 		//std::cout << "Player Position: [" << trans->m_pos.x << ", " << trans->m_pos.y << "]\n";
 	}
+	frc.EndSystemTimer("Player Controller");
 }
 
 void PlayerControllerSystem::HandleEvent(Events::Event const* event)
@@ -125,6 +128,10 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 				trans->m_scale.x = fmax(trans->m_scale.x, MIN_SCALE);
 				trans->m_scale.y = fmax(trans->m_scale.y, MIN_SCALE);
 			}
+
+#ifdef EVENT_DEBUG
+			std::cout << "PlayerControllerSystem: " << event->GetName() + " Event handled\n";
+#endif
 		}
 		else if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
 		{
@@ -132,31 +139,36 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 			KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
 			if (key == GPK_K)
 			{
-				spriteAnim->currFrame = 0;
-				spriteAnim->currTime = 0.0;
+				spriteAnim->m_currFrame = 0;
+				spriteAnim->m_currTime = 0.0;
 				// changing sprite
-				if (spriteAnim->animID == sharkAnimID)
+				if (spriteAnim->m_animID == sharkAnimID)
 				{
-					spriteAnim->animID = wormAnimID;
-					sprite->spriteData.texture = wormSpriteID;
+					spriteAnim->m_animID = wormAnimID;
+					sprite->m_spriteData.texture = wormSpriteID;
 				}
-				else if (spriteAnim->animID == wormAnimID)
+				else if (spriteAnim->m_animID == wormAnimID)
 				{
-					spriteAnim->animID = sharkAnimID;
-					sprite->spriteData.texture = sharkSpriteID;
+					spriteAnim->m_animID = sharkAnimID;
+					sprite->m_spriteData.texture = sharkSpriteID;
 				}
-				#ifdef _DEBUG
-				std::cout << event->GetName() + " Event handled\n";
-				#endif
 			}
 			if (key == GPK_E)
 			{
 				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("slash"), 1.0f);
 			}
-			if (key == GPK_W)
+			if (key == GPK_Q)
 			{
 				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("woosh2"), 1.0f);
 			}
+			if (key == GPK_R)
+			{
+				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("damageTaken_Leah"), 1.0f);
+			}
+
+#ifdef EVENT_DEBUG
+			std::cout << "PlayerControllerSystem: " << event->GetName() + " Event handled\n";
+#endif
 		}
 	}
 }

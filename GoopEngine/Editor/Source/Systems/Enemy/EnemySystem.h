@@ -1,33 +1,59 @@
 #pragma once
 #include <ECS/System/System.h>
 #include <Component/EnemyAI.h>
-#include <AI/Tree.h>
+#include <ScriptEngine/Script.h>
+#include <ScriptEngine/ScriptManager.h>
+#include <AI/TreeManager.h>
 
 namespace GE
 {
 	namespace Systems
 	{
-		void PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp);
+		struct GameNode
+		{
+			GE::MONO::Script m_script;
+		};
+
+		struct GameTree
+		{
+			std::vector<GameNode> m_nodeList;
+			GE::AI::TreeID m_treeID;
+		};
+
 
 		class EnemySystem : public GE::ECS::System
 		{
 
-			static std::vector<GE::AI::Tree> m_treeList;
+			static std::vector<GameTree> m_treeList;
+			static GameTree* m_currentTree;
 			static GE::AI::TreeID m_currentTreeID;
 			static unsigned int m_playerID;
 			static unsigned int m_currentEntityID;
 
 
 
+
+
 		public:
+
+			static void InitTree();
+
+			void FixedUpdate();
+
+			static void AddGameTree(const GE::AI::TreeTemplate& treeTemp);
+
+			static GameTree GenerateGameTree(const GE::AI::TreeTemplate& treeTemp);
 
 			static void SetPlayerID(unsigned int playerID);
 
 			static void UseTree(GE::AI::TreeID treeID, unsigned int entityID);
 
-			static void InitTree(const std::vector<GE::AI::Tree>& treeList);
 
-			void Update();
+			// /*!*********************************************************************
+			//
+			//    Internal Call Functions for C#
+			//
+			//************************************************************************/
 
 			static int GetChildResult();
 
@@ -47,5 +73,7 @@ namespace GE
 
 
 		};
+
+		void PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp);
 	}
 }

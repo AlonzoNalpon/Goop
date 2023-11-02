@@ -7,6 +7,11 @@
 #include <Component/Transform.h>
 #include <Component/BoxCollider.h>
 
+#include <Component/Sprite.h>
+#include <Utilities/GoopUtils.h>
+#include <ObjectFactory/ObjectFactory.h>
+#include <InputManager/InputManager.h>
+
 #if 1
 void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBufferInfo & fbInfo)
 {
@@ -14,6 +19,7 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
   auto* ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   auto& gEngine = Graphics::GraphicsEngine::GetInstance();
   GLuint texture = fbInfo.renderTexture;
+  GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
 
   // Calculate the UV coordinates based on viewport position and size
   // Get the size of the GLFW window
@@ -33,6 +39,43 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
   ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
 
   auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
+
+  if (ImGui::BeginDragDropTarget())
+  {
+    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+    {
+      if (payload->Data)
+      {
+        const char* droppedPath = static_cast<const char*>(payload->Data);
+        std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
+        auto const mousePosition = GE::Input::InputManager::GetInstance().GetMousePosWorld();
+
+        if (extension == "png")
+        {
+          GE::ECS::Entity imageEntity = ecs->CreateEntity();
+          GE::Component::Transform trans{};
+          trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
+          trans.m_worldScale = { 1, 1, 1 };
+          GE::Component::Model mdl{};
+          GE::Component::Sprite sprite { gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
+          
+          ecs->AddComponent(imageEntity, trans);
+          ecs->AddComponent(imageEntity, mdl);
+          ecs->AddComponent(imageEntity, sprite);
+          ecs->SetEntityName(imageEntity, GE::GoopUtils::ExtractFilename(droppedPath));
+        }
+
+        if (extension == "pfb")
+        {
+          ECS::Entity entity{ of.SpawnPrefab(GE::GoopUtils::ExtractFilename(droppedPath)) };
+          GE::Component::Transform& trans{ *ecs->GetComponent<GE::Component::Transform>(entity) };
+          trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
+        }
+      }
+    }
+    ImGui::EndDragDropTarget();
+  }
+
   if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y)))
   {
     ImVec2 mousePosition = ImGui::GetMousePos();
@@ -93,20 +136,36 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
             if (!ecs->GetIsActiveEntity(curr))
               continue;
 
-            // get TRANSFORM component
-            auto const* colliderPtr = ecs->GetComponent<GE::Component::BoxCollider>(curr);
             auto const* transPtr = ecs->GetComponent<GE::Component::Transform>(curr);
             auto const& trans{ *transPtr };
-            if (colliderPtr)
+            // CASE 1: CHECKING WITH COLLIDER
+            if (ecs->HasComponent<GE::Component::BoxCollider>(curr))
             {
+              auto const* colliderPtr = ecs->GetComponent<GE::Component::BoxCollider>(curr);
               auto const& coll{ *colliderPtr };
               GE::Math::dVec2 min{ coll.m_min };
               GE::Math::dVec2 max{ coll.m_max };
-              // AABB check with the mesh based on its transform (ASSUMES A SQUARE)
+              // AABB check with the mesh based on its COLLIDER
               if (min.x > mouseWS.x ||
                 max.x < mouseWS.x ||
                 min.y > mouseWS.y ||
                 max.y < mouseWS.y)
+                continue;
+            }
+            // CASE 2: CHECKING WITH TEXTURE
+            else if (ecs->HasComponent<GE::Component::Sprite>(curr))
+            {
+              GE::Component::Sprite* sprite = ecs->GetComponent<GE::Component::Sprite>(curr);
+              GE::Math::dVec2 min{ trans.m_pos.x - sprite->m_spriteData.info.width * trans.m_scale.x * 0.5, 
+                trans.m_pos.y - sprite->m_spriteData.info.height * trans.m_scale.y * 0.5 };
+              GE::Math::dVec2 max{ trans.m_pos.x + sprite->m_spriteData.info.width * trans.m_scale.x * 0.5,
+                trans.m_pos.y + sprite->m_spriteData.info.height * trans.m_scale.y * 0.5 };
+
+              // AABB check with the mesh based on its transform (ASSUMES A SQUARE)
+              if (min.x > mouseWS.x ||
+                  max.x < mouseWS.x ||
+                  min.y > mouseWS.y ||
+                  max.y < mouseWS.y)
                 continue;
             }
             else
@@ -138,7 +197,7 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
     }
   }
 }
-#else
+#else // FOR REFERENCE
 void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBufferInfo& fbInfo)
 {
   auto* ecs = &GE::ECS::EntityComponentSystem::GetInstance();

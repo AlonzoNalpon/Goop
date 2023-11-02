@@ -5,6 +5,8 @@
 #include <Systems/PlayerController/PlayerControllerSystem.h>
 #include <Systems/Rendering/CameraSystem.h>
 #include <Systems/Rendering/RenderingSystem.h>
-#include <Systems/RootTransform/RootTransformSystem.h>
+#include <Systems/RootTransform/PostRootTransformSystem.h>
+#include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <Systems/Enemy/EnemySystem.h>
+#include <Systems/Text/TextRenderSystem.h>

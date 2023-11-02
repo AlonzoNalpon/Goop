@@ -13,7 +13,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include "../Scenes/Scene.h"
+#include <Scenes/Scene.h>
 namespace GE::Scenes
 {
   class SceneManager
@@ -30,8 +30,8 @@ namespace GE::Scenes
       Parameterized Constructor.
     ************************************************************************/
     SceneManager(std::string current_scene, std::string next_scene) :
-      m_currentScene{ current_scene },
-      m_nextScene{ next_scene } {};
+      m_currentScene{ std::move(current_scene) },
+      m_nextScene{ std::move(next_scene) } {};
 
     /*!*********************************************************************
     \brief
@@ -80,15 +80,27 @@ namespace GE::Scenes
 
     /*!*********************************************************************
     \brief
+      Creates a new scene from a filepath then loads it.
+    ************************************************************************/
+    void LoadSceneFromExplorer(std::string const& filepath);
+
+    /*!*********************************************************************
+    \brief
       Getter function to get the value of the current scene.
     ************************************************************************/
-    std::string GetCurrentScene();
+    std::string GetCurrentScene() const noexcept;
 
     /*!*********************************************************************
     \brief
       Getter function to get the value of the next scene.
     ************************************************************************/
-    std::string GetNextScene();
+    std::string GetNextScene() const noexcept;
+
+    /*!*********************************************************************
+    \brief
+      Performs the necessary operations required to save a scene file
+    ************************************************************************/
+    void SaveScene() const;
 
   private:
     std::string m_currentScene;

@@ -11,47 +11,50 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ToolBar.h"
 #include <ImGui/imgui.h>
 #include <AssetManager/AssetManager.h>
-#include <Serialization/Serialization.h>
+#include <GameStateManager/GameStateManager.h>
 #include <EditorUI/DataViz/Visualizer.h>
 #include <ImGui/imgui_internal.h>
-#include <ObjectFactory/GivingMyself90MinToFigureThisOut.h>
-#include <EditorUI/OpenFileExplorer.h>
+#include <EditorUI/AssetBrowser.h>
 
 using namespace ImGui;
 using namespace GE::EditorGUI::DataViz;
 
 void GE::EditorGUI::ToolBar::CreateContent()
 {
-  if (BeginMenuBar())
+  if (BeginMainMenuBar())
   {
     if (BeginMenu("File"))
     {
+      const char* const sceneFilter{ "Scenes (*.scn)\0*.scn" }, *const initialDir{"./Assets/Scenes"};
+
       if (Selectable("New Scene"))
       {
-        // Creates a new empty scene JSON
-        // Loads it
+        std::string const newScenePath{ GE::EditorGUI::AssetBrowser::SaveFileToExplorer(sceneFilter, 1, initialDir) };
+        
+        if (!newScenePath.empty())
+        {
+          GE::GSM::GameStateManager::GetInstance().LoadSceneFromExplorer(newScenePath);
+        }
       }
 
       if (Selectable("Save"))
       {
-        // Save systems back to original file
-        //Serialization::SerializeSystems(*Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems"));
-
-        Serialization::SerializeScene("Assets/Scenes/Serialized.scn");
+        GSM::GameStateManager::GetInstance().SaveScene();
       }
       if (Selectable("Open"))
       {
         // Load scene function
-        GE::ChengEnLau::OpenFileExplorer(".scn");
+        std::string const scenePath{ GE::EditorGUI::AssetBrowser::LoadFileFromExplorer(sceneFilter, 1, initialDir)};
+
+        if (!scenePath.empty())
+        {
+          GE::GSM::GameStateManager::GetInstance().LoadSceneFromExplorer(scenePath);
+        }
       }
 
       ImGui::EndMenu();
     }
-    EndMenuBar();
-  }
 
-  if (BeginMenuBar())
-  {
     if (BeginMenu("View"))
     {
       if (ImGui::MenuItem("Performance Visualizer", nullptr, Visualizer::IsPerformanceShown()))
@@ -71,6 +74,6 @@ void GE::EditorGUI::ToolBar::CreateContent()
       ImGui::EndMenu();
     }
 
-    EndMenuBar();
+    EndMainMenuBar();
   }
 }

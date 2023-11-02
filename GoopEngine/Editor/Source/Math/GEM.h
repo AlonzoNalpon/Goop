@@ -29,6 +29,8 @@ namespace GE
 {
   namespace Math
   {
+    inline constexpr double PI{ 3.1415926535897932384626433 };
+
     using size_type = unsigned;
 
     // base Vec template

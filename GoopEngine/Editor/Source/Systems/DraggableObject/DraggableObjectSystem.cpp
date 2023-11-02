@@ -16,6 +16,8 @@ using namespace Input;
 
 void DraggableObjectSystem::Update() 
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	for (Entity entity : GetUpdatableEntities())
 	{
 		//mouse click check
@@ -54,6 +56,7 @@ void DraggableObjectSystem::Update()
 			}
 		}
 	}
+	frc.EndSystemTimer("Draggable Objects");
 }
 
 void DraggableObjectSystem::HandleEvent(Events::Event const* event)
@@ -72,4 +75,8 @@ void DraggableObjectSystem::HandleEvent(Events::Event const* event)
 			isHeld = false;
 		}
 	}
+
+#ifdef EVENT_DEBUG
+	std::cout << "DraggableObjectSystem: " << event->GetName() + " Event handled\n";
+#endif
 }

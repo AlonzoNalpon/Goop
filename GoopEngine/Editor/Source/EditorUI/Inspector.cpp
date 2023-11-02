@@ -20,6 +20,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Tween.h>
 #include <Component/Velocity.h>
 #include <Component/Draggable.h>
+#include <Component/Text.h>
+#include "../ImGui/misc/cpp/imgui_stdlib.h"
+#include <Systems/RootTransform/PostRootTransformSystem.h>
+#include <Systems/RootTransform/PreRootTransformSystem.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
@@ -44,8 +48,11 @@ namespace
 
 	\param[in] disabled
 		Draw disabled
+
+	\return
+		Field changed
 	************************************************************************/
-	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled = false);
+	bool InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled = false);
 
 	/*!*********************************************************************
 	\brief
@@ -153,13 +160,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 	GE::ECS::ComponentSignature sig = ecs.GetComponentSignature(entity);
 
+	PushID(entity);
 	bool isActive{ecs.GetIsActiveEntity(entity)};
-	if (Checkbox("##", &isActive))
+	if (Checkbox("##IsActive", &isActive))
 	{
 		ecs.SetIsActiveEntity(entity, isActive);
 	}
-	SameLine(); Text(ecs.GetEntityName(entity).c_str());
-	Text(("Entity ID: " + std::to_string(entity)).c_str());
+	SameLine();
+	std::string name = ecs.GetEntityName(entity);
+	if (InputText("##Name", &name))
+	{
+		ecs.SetEntityName(entity, name);
+	}
+	ImGui::Text(("Entity ID: " + std::to_string(entity)).c_str());
 
 	for (int i{}; i < GE::ECS::MAX_COMPONENTS; ++i)
 	{
@@ -177,17 +190,30 @@ void GE::EditorGUI::Inspector::CreateContent()
 				{
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
 					float inputWidth = (contentSize - charSize - 30) / 3;
+					
+					bool valChanged{ false };
 
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					InputDouble3("Position", trans->m_pos, inputWidth);					
 					TableNextRow();
-					InputDouble3("Scale", trans->m_scale, inputWidth);
+					if (InputDouble3("Position", trans->m_pos, inputWidth)) { valChanged = true; };
 					TableNextRow();
-					InputDouble3("Rotation", trans->m_rot, inputWidth);
+					if (InputDouble3("Scale", trans->m_scale, inputWidth)) { valChanged = true; };
+					TableNextRow();
+					if (InputDouble3("Rotation", trans->m_rot, inputWidth)) { valChanged = true; };
+
+					TableNextRow();
+					InputDouble3("World Position", trans->m_worldPos, inputWidth, true);
+					TableNextRow();
+					InputDouble3("World Scale", trans->m_worldScale, inputWidth, true);
+					TableNextRow();
+					InputDouble3("World Rotation", trans->m_worldRot, inputWidth, true);
+
 					EndTable();
 					Separator();
+					if (valChanged) 
+						GE::Systems::PostRootTransformSystem::Propergate(ecs, entity, trans->m_parentWorldTransform);
 				}
 				break;
 			}
@@ -203,7 +229,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputDouble1("Height", col->m_height);
 					TableNextRow();
+#ifndef NO_IMGUI
 					InputCheckBox("Show Collider", col->m_render);
+#endif
 					EndTable();
 					Separator();
 				}
@@ -227,9 +255,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputDouble1("Mass", vel->m_mass);
 					TableNextRow();
-					InputDouble3("Gravity", vel->m_gravity, inputWidth);					
+					InputDouble3("Gravity", vel->m_gravity, inputWidth);		
 					TableNextRow();
-					InputDouble1("Drag", vel->m_dragForce.m_magnitude, inputWidth);
+					InputDouble1("Drag", vel->m_dragForce.m_magnitude);
 					TableNextRow();
 					InputCheckBox("Drag Active", vel->m_dragForce.m_isActive);
 					EndTable();
@@ -287,12 +315,33 @@ void GE::EditorGUI::Inspector::CreateContent()
 				CollapsingHeader("Draggable", ImGuiTreeNodeFlags_Leaf);
 				break;
 			}
+			case GE::ECS::COMPONENT_TYPES::TEXT:
+			{
+				//float inputWidth = (contentSize - charSize) / 3;
+				auto textObj = ecs.GetComponent<Component::Text>(entity);
+				if (ImGui::CollapsingHeader("Text", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					Separator();
+					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
+					
+					TableNextColumn();
+					ImGui::ColorEdit4("Color", textObj->m_clr.rgba);
+					ImGui::InputTextMultiline("Text", &textObj->m_text);
+
+					EndTable();
+					Separator();
+				}
+				break;
+			}
 			default:
-				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to serialize a component that is not being handled");
+				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled");
 				break;
 			}
 		}
 	}
+
+	PopID();
 
 	static bool addingComponent{ false };
 	if (Button("Add Component", { GetContentRegionMax().x, 20 }))
@@ -342,6 +391,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (!ecs.HasComponent<Velocity>(entity))
 						{
 							Velocity comp;
+							comp.m_mass = 1.0;
 							ecs.AddComponent(entity, comp);
 						}
 						else
@@ -428,6 +478,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
+					case GE::ECS::COMPONENT_TYPES::TEXT:
+					{
+						if (!ecs.HasComponent<Component::Text>(entity))
+						{
+							Component::Text comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Component::Text).name() << ". Component already exist";
+						}
+						break;
+					}
 					default:
 						break;
 					}
@@ -446,25 +509,29 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 namespace
 {
-	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled)
+	bool InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled)
 	{
+		bool valChanged{ false };
+
 		BeginDisabled(disabled);
 		TableNextColumn();
-		Text(propertyName.c_str());
+		ImGui::Text(propertyName.c_str());
 		propertyName = "##" + propertyName;
 		TableNextColumn();
 		SetNextItemWidth(fieldWidth);
-		InputDouble((propertyName + "X").c_str(), &property.x, 0, 0, "%.2f");
-		SameLine(0, 3); SetNextItemWidth(fieldWidth); InputDouble((propertyName + "Y").c_str(), &property.y, 0, 0, "%.2f");
-		SameLine(0, 3); SetNextItemWidth(fieldWidth); InputDouble((propertyName + "Z").c_str(), &property.z, 0, 0, "%.2f");
+		if (InputDouble((propertyName + "X").c_str(), &property.x, 0, 0, "%.5f")) { valChanged = true; };
+		SameLine(0, 3); SetNextItemWidth(fieldWidth); if (InputDouble((propertyName + "Y").c_str(), &property.y, 0, 0, "%.5f")) { valChanged = true; };
+		SameLine(0, 3); SetNextItemWidth(fieldWidth); if (InputDouble((propertyName + "Z").c_str(), &property.z, 0, 0, "%.5f")) { valChanged = true; };
 		EndDisabled();
+
+		return valChanged;
 	}
 
 	void InputDouble1(std::string propertyName, double& property, bool disabled)
 	{
 		BeginDisabled(disabled);
 		TableNextColumn();
-		Text(propertyName.c_str());
+		ImGui::Text(propertyName.c_str());
 		TableNextColumn();
 		SetNextItemWidth(GetWindowSize().x);
 		InputDouble(("##" + propertyName).c_str(), &property, 0, 0, "%.2f");
@@ -475,7 +542,7 @@ namespace
 	{
 		BeginDisabled(disabled);
 		TableNextColumn();
-		Text(propertyName.c_str());
+		ImGui::Text(propertyName.c_str());
 		TableNextColumn();
 		Checkbox(("##" + propertyName).c_str(), &property);
 		EndDisabled();

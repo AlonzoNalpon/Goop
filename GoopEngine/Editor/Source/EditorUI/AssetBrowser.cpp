@@ -1,8 +1,11 @@
 #include <pch.h>
 #include "AssetBrowser.h"
 #include <AssetManager/AssetManager.h>
+#include <ObjectFactory/ObjectFactory.h>
 #include <filesystem>
 #include<Graphics/GraphicsEngine.h>
+#include <stb_image.h>
+#include <commdlg.h>	// to open file explorer
 
 using namespace ImGui;
 using namespace GE::Assets;
@@ -12,29 +15,36 @@ std::set<ImTextureID> GE::EditorGUI::AssetBrowser::m_textID;
 std::set<int> GE::EditorGUI::AssetBrowser::m_assetIDs;
 std::vector<int> GE::EditorGUI::AssetBrowser::toUnload;
 
+
 namespace
 {
 	std::filesystem::path m_currDir;
 	std::filesystem::path assetsDirectory;
 	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" };
+	float thumbnailSize = 300.0f;
 }
 
 void AssetBrowser::CreateContentDir()
 {
 	AssetManager& assetManager = AssetManager::GetInstance();
+	GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
 
-	// Get style text colour that can be edited later
-	ImGuiStyle& style = GetStyle();
-	ImColor originalTextClr = style.Colors[ImGuiCol_Text];
+	if (Button("Reload Library"))
+	{
+		std::cout << "Reload Asset Browser" << std::endl;
+		assetManager.LoadConfigData("./Assets/Config.cfg");
+		assetManager.LoadFiles();
+		of.LoadPrefabsFromFile();
+	}
 
-	assetsDirectory = *assetManager.GetConfigData<std::string>("Assets Dir");
+	assetsDirectory = assetManager.GetConfigData<std::string>("Assets Dir");
 	if (!std::filesystem::exists(assetsDirectory))
 	{
 		throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Assets Directory not found! Path: " + assetsDirectory.string()));
 	}
 
 	//main node
-	if (TreeNodeEx("Assets", ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen))
+	if (TreeNodeEx("Assets", ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow))
 	{
 		if (IsItemClicked())
 		{
@@ -47,29 +57,11 @@ void AssetBrowser::CreateContentDir()
 			if (!file.is_regular_file()) //if file is a folder i.e. directory
 			{
 				//create children nodes
-				Traverse(file.path(), originalTextClr);
+				Traverse(file.path());
 			}
 		}
 		TreePop();
 	}
-}
-
-//#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
-
-GLuint ImageTest(std::string path)
-{
-	int width, height, channels;
-	unsigned char* image = stbi_load(path.c_str(), &width, &height, &channels, 4); // 4 channels (RGBA)
-
-		GLuint textureID;
-		glGenTextures(1, &textureID);
-		glBindTexture(GL_TEXTURE_2D, textureID);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		stbi_image_free(image); // Free the loaded image data
-		std::cout << textureID << "\n";
-		return textureID;
 }
 
 void AssetBrowser::CreateContentView()
@@ -97,63 +89,62 @@ void AssetBrowser::CreateContentView()
 		std::string const& extension{ file.path().extension().string() };
 		AssetManager& assetManager = AssetManager::GetInstance();
 
-		// in init:
-		// free all ids loaded, if it exists
-		// load new images in new currDir
-		//assetManager.LoadDirectory();
-		//will return a set of ints i.e. id for image loaded
-		//texManager.GetTexture();
-		//texManager.GetTextureID();
-		// shld have container of IDs
-		// 
-		// in create content
-		// ImGui::Image(for all ids)
-		for (auto itr : m_textID)	// image
-		{
-			//print img using ImGui::Image();
-			unsigned w, h;
-			assetManager.GetDimensions(reinterpret_cast<int>(itr), w, h);
-			ImVec2 uv0(0.0f, 1.0f); // Bottom-left corner
-			ImVec2 uv1(1.0f, 0.0f); // Top-right corner
-
-			Image(itr, { GetWindowWidth()- 30.f , static_cast<float>(h) / w * (GetWindowWidth() - 30.f) }, uv0, uv1);
-			//name of image
-			Text(file.path().filename().string().c_str());
-		}
 		if (!file.is_regular_file())
 		{
 			continue;
 		}
-		else if (extension == m_audioFile)	// sound
-		{
-			//print img of maybe a audio file logo?
-			//name of audio
-			Text(file.path().filename().string().c_str());
-		}
-		//else if (extension == m_imageFile)	// prefab
-		//{
-		//	//name of prefab
-		//	Text(file.path().filename().string().c_str());
-		//}
-		else if (extension == m_prefabFile)	// prefab
+
+		std::string path = file.path().filename().string();
+		const char* pathCStr = path.c_str();
+		if (extension == m_imageFile)	// prefab
 		{
 			//name of prefab
-			Text(file.path().filename().string().c_str());
+			unsigned w, h;
+			float newW, newH;
+			assetManager.GetDimensions(assetManager.GetID(file.path().string()), w, h);
+			if (w >= h)
+			{
+				newH = static_cast<float>(h) / static_cast<float>(w) * thumbnailSize;
+				newW = thumbnailSize;
+			}
+			else
+			{
+				newW = static_cast<float>(w) / static_cast<float>(h) * thumbnailSize;
+				newH = thumbnailSize;
+			}
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+			ImGui::ImageButton(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { newW, newH }, { 0, 1 }, { 1, 0 });
+			if (ImGui::BeginDragDropSource())
+			{
+				ImGui::SetDragDropPayload("ASSET_BROWSER", pathCStr, strlen(pathCStr) + 1);
+				Text(pathCStr);
+
+				ImGui::EndDragDropSource();
+			}
+			ImGui::PopStyleColor();
 		}
-		else if (extension == m_sceneFile)	// scene
+		Selectable(pathCStr);
+		if (ImGui::BeginDragDropSource())
 		{
-			//name of scene
-			Text(file.path().filename().string().c_str());
+			ImGui::SetDragDropPayload("ASSET_BROWSER", pathCStr, strlen(pathCStr) + 1);
+			Text(pathCStr);
+			ImGui::EndDragDropSource();
 		}
-		else if (m_shaderFile.find(extension) != std::string::npos)
-		{
-			//name of shader
-			Text(file.path().filename().string().c_str());
-		}
-		else
-		{
-			continue;
-		}
+	}
+}
+
+void GE::EditorGUI::AssetBrowser::CreateContent()
+{
+	// 30 characters for file name
+	float charSize = CalcTextSize("01234567890").x * 2;
+	if (BeginTable("##", 2, ImGuiTableFlags_BordersInnerV))
+	{
+		TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+		TableNextColumn();
+		CreateContentDir();
+		TableNextColumn();
+		CreateContentView();
+		EndTable();
 	}
 }
 
@@ -218,19 +209,26 @@ void AssetBrowser::InitView()
 		m_assetIDs.emplace(id);
 	}
 
-	for (auto itr : m_assetIDs)
+	for (auto const& itr : m_assetIDs)
 	{
 		auto imgID = texManager.GetTextureID(assetManager.ExtractFilename(assetManager.GetName(itr)));
 		m_textID.insert(reinterpret_cast<ImTextureID>(imgID));
 	}
 }
 
-void AssetBrowser::Traverse(std::filesystem::path filepath, ImColor textClr)
+void AssetBrowser::Traverse(std::filesystem::path filepath)
 {
-	ImGuiStyle& style = GetStyle();
-	style.Colors[ImGuiCol_Text] = textClr;
+	int folderCnt{};
+	std::filesystem::directory_iterator countIter(filepath);
+	for (auto const& file : countIter)
+	{
+		folderCnt += (file.is_directory()) ? 1 : 0;
+	}
 
-	if (TreeNodeEx(filepath.filename().string().c_str(), ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen))
+	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_OpenOnArrow;
+	flags |= (folderCnt == 0) ? ImGuiTreeNodeFlags_Leaf : 0;
+
+	if (TreeNodeEx(filepath.filename().string().c_str(), flags))
 	{
 		//if folder is clicked
 		if (IsItemClicked())
@@ -250,9 +248,72 @@ void AssetBrowser::Traverse(std::filesystem::path filepath, ImColor textClr)
 			if (!file.is_regular_file()) //if file is a folder i.e. directory
 			{
 				//create children nodes
-				Traverse(file.path(), textClr);
+				Traverse(file.path());
 			}
 		}
 		TreePop();
 	}
 }
+
+std::string AssetBrowser::GetRelativeFilePath(std::string const& filepath, std::string const& rootDir)
+{
+	return "." + filepath.substr(filepath.find(rootDir) + rootDir.size());
+}
+
+std::string AssetBrowser::LoadFileFromExplorer(const char* extensionsFilter, unsigned numFilters, const char* initialDir)
+{
+	OPENFILENAMEA fileName{};
+	CHAR size[MAX_PATH]{};
+	
+	ZeroMemory(&fileName, sizeof(fileName));
+	fileName.lStructSize = sizeof(fileName);
+	fileName.hwndOwner = NULL;
+	fileName.lpstrFile = size;
+	fileName.nMaxFile = sizeof(size);
+	fileName.lpstrFilter = extensionsFilter;
+	fileName.nFilterIndex = numFilters;			// number of filters
+	fileName.lpstrFileTitle = NULL;
+	fileName.nMaxFileTitle = 0;
+	fileName.lpstrInitialDir = initialDir;	// initial directory
+	fileName.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+	if (GetOpenFileNameA(&fileName))
+	{
+		return GetRelativeFilePath(fileName.lpstrFile);
+	}
+
+	throw GE::Debug::Exception<AssetBrowser>::Exception(GE::Debug::LEVEL_ERROR, ErrMsg("Unable to open file"));
+}
+
+std::string AssetBrowser::SaveFileToExplorer(const char* extensionsFilter, unsigned numFilters, const char* initialDir)
+{
+	OPENFILENAMEA fileName{};
+	CHAR size[MAX_PATH]{};
+
+	ZeroMemory(&fileName, sizeof(fileName));
+	fileName.lStructSize = sizeof(fileName);
+	fileName.hwndOwner = NULL;
+	fileName.lpstrFile = size;
+	fileName.nMaxFile = sizeof(size);
+	fileName.lpstrFilter = extensionsFilter;
+	fileName.nFilterIndex = numFilters;			// number of filters
+	fileName.lpstrFileTitle = NULL;
+	fileName.nMaxFileTitle = 0;
+	fileName.lpstrInitialDir = initialDir;	// initial directory
+	// OFN_NOCHANGEDIR specifies not to change the working dir
+	fileName.Flags = OFN_OVERWRITEPROMPT | OFN_NOCHANGEDIR;
+
+	if (GetSaveFileNameA(&fileName))
+	{
+		std::string const newFile{ GetRelativeFilePath(fileName.lpstrFile) };
+		std::ofstream ofs{ newFile };
+		if (ofs)
+		{
+			ofs.close();
+			return newFile;
+		}
+	}
+
+	throw GE::Debug::Exception<AssetBrowser>::Exception(GE::Debug::LEVEL_ERROR, ErrMsg("Unable to save file"));
+}
+
