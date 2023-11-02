@@ -22,6 +22,12 @@ ComponentWrapper::ComponentWrapper(std::string const& componentData) : m_data{}
   m_ptr = &m_data.MemberBegin()->value;
 }
 
+ComponentWrapper::ComponentWrapper(rapidjson::Value const& componentData) : m_data{}
+{
+  m_data.CopyFrom(componentData, m_data.GetAllocator());
+  m_ptr = &m_data.MemberBegin()->value;
+}
+
 // base subscript operator definition to fallback to
 template <typename T>
 T ComponentWrapper::Get(const char* key) const
@@ -46,6 +52,23 @@ bool ComponentWrapper::Get(const char* key) const
       << " to bool";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return false;
+  }
+}
+
+template <>
+float ComponentWrapper::Get(const char* key) const
+{
+  try
+  {
+    return (*m_ptr)[key].GetFloat();
+  }
+  catch (...)
+  {
+    std::ostringstream oss{};
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
+      << " to float";
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    return 0.0;
   }
 }
 
@@ -386,7 +409,7 @@ template<> Graphics::Colorf ComponentWrapper::Get(const char* key)const
   try
   {
     rapidjson::Value const& list{ (*m_ptr)[key] };
-    Graphics::Colorf ret{ list["red"].GetFloat(), list["green"].GetFloat(), list["blue"].GetFloat(), list["alpha"].GetFloat() };
+    Graphics::Colorf ret{ list["r"].GetFloat(), list["g"].GetFloat(), list["b"].GetFloat(), list["a"].GetFloat() };
     return ret;
   }
   catch (...)

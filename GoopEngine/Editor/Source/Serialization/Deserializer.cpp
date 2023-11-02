@@ -4,9 +4,89 @@
 #include <rapidjson/IStreamWrapper.h>
 #include <Component/Components.h>
 #include <rttr/enumeration.h>
+#include <ObjectFactory/SerializeComponents.h>
+#include <rapidjson/prettywriter.h>
 
 using namespace GE;
 using namespace Serialization;
+
+#ifdef _DEBUG
+std::ostream& operator<<(std::ostream& os, rttr::variant const& var)
+{
+  os << var.get_type().get_name().to_string();
+
+  return os;
+}
+#endif
+
+rttr::variant Deserializer::GetComponentVariant(rttr::type const& valueType, std::string const& componentData)
+{
+  if (valueType == rttr::type::get<Component::Transform>())
+    return ObjectFactory::DeserializeComponent<Component::Transform>(componentData);
+  else if (valueType == rttr::type::get<Component::BoxCollider>())
+    return ObjectFactory::DeserializeComponent<Component::BoxCollider>(componentData);
+  else if (valueType == rttr::type::get<Component::Draggable>())
+    return Component::Draggable();
+  else if (valueType == rttr::type::get<Component::EnemyAI>())
+    return ObjectFactory::DeserializeComponent<Component::EnemyAI>(componentData);
+  else if (valueType == rttr::type::get<Component::Model>())
+    return ObjectFactory::DeserializeComponent<Component::Model>(componentData);
+  else if (valueType == rttr::type::get<Component::ScriptHandler>())
+    return ObjectFactory::DeserializeScriptHandler(componentData, 0);
+  else if (valueType == rttr::type::get<Component::Sprite>())
+    return ObjectFactory::DeserializeComponent<Component::Sprite>(componentData);
+  else if (valueType == rttr::type::get<Component::SpriteAnim>())
+    return ObjectFactory::DeserializeComponent<Component::SpriteAnim>(componentData);
+  else if (valueType == rttr::type::get<Component::Velocity>())
+    return ObjectFactory::DeserializeComponent<Component::Velocity>(componentData);
+  else if (valueType == rttr::type::get<Component::Tween>())
+    return ObjectFactory::DeserializeComponent<Component::Tween>(componentData);
+  else if (valueType == rttr::type::get<Component::Text>())
+    return ObjectFactory::DeserializeComponent<Component::Text>(componentData);
+
+    std::ostringstream oss{};
+    std::string const compStr = valueType.get_name().to_string();
+    oss << "Trying to get unsupported component variant (" << compStr << ")";
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    return rttr::variant();
+}
+
+ObjectFactory::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string const& json)
+{
+  std::ifstream ifs{ json };
+    if (!ifs)
+    {
+      throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to read " + json));
+    }
+    rapidjson::Document document{};
+    // parse into document object
+    rapidjson::IStreamWrapper isw{ ifs };
+    if (document.ParseStream(isw).HasParseError())
+    {
+      ifs.close();
+      throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to parse " + json));
+    }
+  
+    ObjectFactory::VariantPrefab prefab;
+    prefab.m_name = document[Serializer::JsonNameKey].GetString();
+
+    for (auto const& component : document[Serializer::JsonComponentsKey].GetArray())
+    {
+      rttr::type compType{ rttr::type::get_by_name(component.MemberBegin()->name.GetString()) };
+      if (!compType.is_valid())
+      {
+        std::string str{ "Unable to find component " };
+        throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg(str + component.MemberBegin()->name.GetString()));
+      }
+      rapidjson::StringBuffer buffer{};
+      rapidjson::PrettyWriter<rapidjson::StringBuffer> writer{ buffer };
+      component.Accept(writer);
+
+      prefab.m_components.emplace_back(GetComponentVariant(compType, buffer.GetString()));
+    }
+
+    return prefab;
+}
 
 //ObjectFactory::VariantPrefab Deserializer::DeserializePrefab(std::string const& json)
 //{
@@ -34,12 +114,32 @@ using namespace Serialization;
 //    {
 //      // extract component name to determine the component type
 //      std::string const compName{ iter->name.GetString() };
-//      rttr::variant compVar{ rttr::type::get_by_name(compName).create({}) };
-//      if (compVar.get_type().is_wrapper()) { compVar = compVar.extract_wrapped_value(); }
-//      
-//      rttr::type compType{ compVar.get_type() };
-//      
-//      prefab.m_components.emplace_back(compVar);
+//      rttr::type compType = rttr::type::get_by_name(compName);
+//      std::cout << compName << " has type " << compType.get_name().to_string() << "\n";
+//      if (!compType.is_valid())
+//      {
+//        // err
+//      }
+//      std::vector<rttr::variant> args{};
+//
+//      for (const rttr::constructor& ctor : compType.get_constructors())
+//      { 
+//        // skip if default ctor
+//        if (ctor.get_parameter_infos().size() == 0) { continue; }
+//
+//        args.reserve(ctor.get_parameter_infos().size());
+//        for (auto& param : ctor.get_parameter_infos())
+//        {
+//          std::cout << param.get_type().get_name().to_string() << "\n";
+//          DeserializeBasedOnType(param, document);
+//          std::cout << "result of DeserializedBasedOnType: " << param.get_type().get_name().to_string() << "\n";
+//          args.emplace_back(param);
+//        }
+//        rttr::variant compVar{ ctor.invoke(compType, args) };
+//        prefab.m_components.emplace_back(compVar);
+//        std::cout << compVar << "\n";
+//        break;
+//      }
 //    }
 //  }
 //
@@ -52,7 +152,7 @@ void Deserializer::DeserializeBasedOnType(rttr::instance object, rapidjson::Valu
   {
     object.get_type().get_raw_type().is_wrapper() ? object.get_wrapped_instance() : object
   };
-  auto const properties{ objInstance.get_derived_type().get_properties() };
+  auto const properties{ objInstance.get_type().get_properties() };
   std::cout << objInstance.get_type().get_name().to_string() << "\n";
   for (auto const& prop : properties)
   {
@@ -90,6 +190,11 @@ void Deserializer::DeserializeBasedOnType(rttr::instance object, rapidjson::Valu
         GE::Debug::ErrorLogger::GetInstance().LogMessage(
           prop.get_name().to_string() + ": Associative Containers are not yet supported");
       }
+      else
+      {
+
+      }
+
       break;
     }
     default:

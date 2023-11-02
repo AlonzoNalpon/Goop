@@ -1,42 +1,24 @@
 [
     {
-        "Name": "Enemy",
+        "Name": "Background",
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 192.282, 183.38, 0 }",
+                    "worldPos": "{ 0, 0, -997 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 192.282, 183.38 }",
-                    "width": 100.0,
-                    "height": 100.0,
-                    "render": true
-                }
-            },
-            {
                 "Sprite": {
-                    "filename": "SS_MineWorm"
-                }
-            },
-            {
-                "SpriteAnim": {
-                    "name": "SS_MineWorm"
+                    "filename": "Background"
                 }
             },
             {
                 "Model": {
                     "mdlID": 0
-                }
-            },
-            {
-                "EnemyAI": {
-                    "treeID": 0
                 }
             }
         ]
@@ -95,25 +77,43 @@
         ]
     },
     {
-        "Name": "Background",
+        "Name": "Enemy",
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, 0, -997 }",
+                    "worldPos": "{ 192.282, 183.38, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
+                "BoxCollider": {
+                    "center": "{ 192.282, 183.38 }",
+                    "width": 100.0,
+                    "height": 100.0,
+                    "render": true
+                }
+            },
+            {
                 "Sprite": {
-                    "filename": "Background"
+                    "filename": "SS_MineWorm"
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MineWorm"
                 }
             },
             {
                 "Model": {
                     "mdlID": 0
+                }
+            },
+            {
+                "EnemyAI": {
+                    "treeID": 0
                 }
             }
         ]

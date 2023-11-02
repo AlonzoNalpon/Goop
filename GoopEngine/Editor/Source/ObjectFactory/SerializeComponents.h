@@ -11,6 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ObjectFactory.h"
 #include <Component/Components.h>
 #include <Serialization/ComponentWrapper/ComponentWrapper.h>
+#include <Graphics/Def/GraphicsTypes.h>
 
 namespace GE::ObjectFactory
 {

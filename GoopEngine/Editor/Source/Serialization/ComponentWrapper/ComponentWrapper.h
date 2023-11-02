@@ -43,6 +43,7 @@ namespace GE
       // Non-default ctor taking in a string containing 
       // a component's data in json format
       ComponentWrapper(std::string const& componentData);
+      ComponentWrapper(rapidjson::Value const& componentData);
 
       /*!*********************************************************************
       \brief
@@ -55,6 +56,7 @@ namespace GE
       template <typename T>
       T Get(const char* key) const;
       template<> bool Get(const char* key) const;
+      template<> float Get(const char* key) const;
       template<> double Get(const char* key) const;
       template<> int Get(const char* key) const;
       template<> unsigned Get(const char* key) const;

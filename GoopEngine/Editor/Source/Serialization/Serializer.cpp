@@ -181,6 +181,8 @@ namespace GE
         return *ECS::EntityComponentSystem::GetInstance().GetComponent<Component::EnemyAI>(id);
       case ECS::COMPONENT_TYPES::DRAGGABLE:
         return *ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Draggable>(id);
+      case ECS::COMPONENT_TYPES::TEXT:
+        return *ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Text>(id);
       }
 
       std::ostringstream oss{};
@@ -354,10 +356,10 @@ namespace GE
           {
             jsonVal = SerializeScriptMap(value.get_value<std::map<std::string, GE::MONO::Script> const&>(), allocator);
           }
-          else if (instance.get_type() == rttr::type::get<Component::Sprite>())
+          /*else if (instance.get_type() == rttr::type::get<Component::Sprite>())
           {
             jsonVal = SerializeSpriteComponent(value.get_value<Component::Sprite>(), allocator);
-          }
+          }*/
           else
           {
             jsonVal = SerializeBasedOnType(value, allocator).Move();
