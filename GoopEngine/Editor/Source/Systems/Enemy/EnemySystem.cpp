@@ -17,13 +17,14 @@ GameTree* EnemySystem::m_currentTree;
 
 void EnemySystem::InitTree()
 {
+#ifdef _DEBUG
 	std::cout << "INIT TREE\n";
+#endif
 	//Get all the trees
-	const std::vector<std::pair<bool, TreeTemplate>>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
-	for (const std::pair<bool, TreeTemplate>& treeTemp : tempTreeList)
+	const std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
+	for (size_t i{ 0 }; i < tempTreeList.size(); ++i)
 	{
-		std::cout << treeTemp.second.m_treeName << "ADDED\n";
-		AddGameTree(treeTemp.second);
+		AddGameTree(tempTreeList[i]);
 	}
 
 	// Set the first tree as the current tree
@@ -54,23 +55,25 @@ void EnemySystem::FixedUpdate()
 	// we have a newly updated tree, need to update the in game tree
 	if (GE::AI::TreeManager::GetInstance().isTreeUpdated())
 	{
-		GE::AI::TreeManager* tm = &(GE::AI::TreeManager::GetInstance());
-		for ( std::pair<bool, TreeTemplate>& treeTemp : tm->GetTreeList())
+		std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
+		std::vector<bool>& tempTreeCondList = GE::AI::TreeManager::GetInstance().GetTreeCondList();
+
+		for (size_t i{ 0 }; i < tempTreeList.size(); ++i)
 		{
 			// Only swap the trees that are newly updated
-			if (treeTemp.first)
+			if (tempTreeCondList[i])
 			{
 				std::cout << "SWAP\n";
-				if (treeTemp.second.m_treeTempID >= static_cast<unsigned>(m_treeList.size()))
+				if (tempTreeList[i].m_treeTempID >= static_cast<unsigned>(m_treeList.size()))
 				{
-					AddGameTree(treeTemp.second);
+					AddGameTree(tempTreeList[i]);
 				}
 				else
 				{
-					GameTree newGamTree = GenerateGameTree(treeTemp.second);
+					GameTree newGamTree = GenerateGameTree(tempTreeList[i]);
 					for (GameTree& gameTree : m_treeList)
 					{
-						if (gameTree.m_treeID == treeTemp.second.m_treeTempID)
+						if (gameTree.m_treeID == tempTreeList[i].m_treeTempID)
 						{
 							std::swap(gameTree.m_nodeList, newGamTree.m_nodeList);
 						}
@@ -80,13 +83,13 @@ void EnemySystem::FixedUpdate()
 					for (Entity entity : GetUpdatableEntities())
 					{
 						GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
-						if (enemyAIComp->m_enemyTreeCache.m_treeID == treeTemp.second.m_treeTempID)
+						if (enemyAIComp->m_enemyTreeCache.m_treeID == tempTreeList[i].m_treeTempID)
 						{
 							enemyAIComp->RefreshCache();
 						}
 					}
 				}
-				treeTemp.first = false;
+				tempTreeCondList[i] = false;
 			}
 		}
 	}

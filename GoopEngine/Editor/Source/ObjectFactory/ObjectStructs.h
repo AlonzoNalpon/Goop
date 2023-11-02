@@ -8,8 +8,8 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include "../ECS/SystemTypes.h"
-#include <any>
+#include <ECS/SystemTypes.h>
+#include <rttr/type.h>
 
 namespace GE
 {
@@ -27,6 +27,19 @@ namespace GE
       std::vector<ECS::Entity> m_childEntities;
       ECS::Entity m_parent;
       ECS::ComponentSignature m_componentSignature;
+    };
+
+    // For prefab editor
+    struct VariantPrefab
+    {
+      std::vector<rttr::variant> m_components;
+      std::string m_name = "Empty";
+
+      void Clear() noexcept
+      {
+        m_name.clear();
+        m_components.clear();
+      }
     };
   }
 }

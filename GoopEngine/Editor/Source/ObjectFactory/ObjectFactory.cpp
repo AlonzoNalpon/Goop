@@ -9,15 +9,13 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "ObjectFactory.h"
-
 #include <AssetManager/AssetManager.h>
-
 #include <Systems/Systems.h>
-
 #include "SerializeComponents.h"
 #include <Serialization/GooStream/ObjectGooStream.h>
 #include <Serialization/GooStream/PrefabGooStream.h>
 #include <Systems/Rendering/RenderingSystem.h>
+#include <Serialization/Deserializer.h>
 
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
@@ -189,7 +187,7 @@ void ObjectFactory::RegisterComponentsAndSystems() const
 
   // Register systems
   std::string const systemsFile{ Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
-  std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::Serializer::GetInstance().DeserializeSystems(systemsFile) };
+  std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::Deserializer::DeserializeSystems(systemsFile) };
 
   for (std::pair<std::string, ECS::ComponentSignature> const& elem : systems)
   {

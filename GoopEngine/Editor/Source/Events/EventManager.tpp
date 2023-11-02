@@ -52,24 +52,27 @@ void EventManager::Unsubscribe(Listener* listener)
 }
 
 template <typename EventType>
-    void EventManager::Dispatch(EventType const& event)
+void EventManager::Dispatch(EventType const& event)
+{
+  SubscriberList& subscribers{ m_Subscribers[typeid(EventType)] };
+  for (SubscriberList::iterator it{ subscribers.begin() }; it != subscribers.end();)
+  {
+    #ifdef EVENT_DEBUG
+    std::cout << event.GetName() << " Event dispatched\n";
+    #endif
+    if (event.IsHandled()) { return; }
+    // if listener being pointed to no longer exists, remove it
+    if (!(*it))
     {
-      SubscriberList& subscribers{ m_Subscribers[typeid(EventType)] };
-      for (SubscriberList::iterator it{ subscribers.begin() }; it != subscribers.end();)
-      {
-        if (event.IsHandled()) { return; }
-        // if listener being pointed to no longer exists, remove it
-        if (!(*it))
-        {
-          #ifdef _DEBUG
-          std::cout << "EventManager::Dispatch: Invalid pointer found and removed\n";
-          #endif
+      #ifdef _DEBUG
+      std::cout << "EventManager::Dispatch: Invalid pointer found and removed\n";
+      #endif
 
-          it = subscribers.erase(it);
-          continue;
-        }
-
-        (*it)->HandleEvent(static_cast<const Event*>(&event));
-        ++it;
-      }
+      it = subscribers.erase(it);
+      continue;
     }
+
+    (*it)->HandleEvent(static_cast<const Event*>(&event));
+    ++it;
+  }
+}

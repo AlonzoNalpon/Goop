@@ -75,4 +75,8 @@ void DraggableObjectSystem::HandleEvent(Events::Event const* event)
 			isHeld = false;
 		}
 	}
+
+#ifdef EVENT_DEBUG
+	std::cout << "DraggableObjectSystem: " << event->GetName() + " Event handled\n";
+#endif
 }

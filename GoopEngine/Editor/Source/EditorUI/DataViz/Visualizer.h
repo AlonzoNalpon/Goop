@@ -19,7 +19,7 @@ namespace GE
     {
     public:
       //static void Init();
-      static void UpdateSystemTimes();
+      static void UpdateSystemTimers();
       static void CreateContent(const char* tabName);
       //static void UpdateMemoryTab(const char* tabName);
 

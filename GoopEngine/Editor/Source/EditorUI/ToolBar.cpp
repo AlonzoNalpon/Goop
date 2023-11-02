@@ -25,9 +25,11 @@ void GE::EditorGUI::ToolBar::CreateContent()
   {
     if (BeginMenu("File"))
     {
+      const char* const sceneFilter{ "Scenes (*.scn)\0*.scn" }, *const initialDir{"./Assets/Scenes"};
+
       if (Selectable("New Scene"))
       {
-        std::string const newScenePath{ GE::EditorGUI::AssetBrowser::SaveFileToExplorer("Scenes (*.scn)\0*.scn", 1, "./Assets/Scenes") };
+        std::string const newScenePath{ GE::EditorGUI::AssetBrowser::SaveFileToExplorer(sceneFilter, 1, initialDir) };
         
         if (!newScenePath.empty())
         {
@@ -42,7 +44,7 @@ void GE::EditorGUI::ToolBar::CreateContent()
       if (Selectable("Open"))
       {
         // Load scene function
-        std::string const scenePath{ GE::EditorGUI::AssetBrowser::LoadFileFromExplorer("Scenes (*.scn)\0*.scn", 1, "./Assets/Scenes")};
+        std::string const scenePath{ GE::EditorGUI::AssetBrowser::LoadFileFromExplorer(sceneFilter, 1, initialDir)};
 
         if (!scenePath.empty())
         {

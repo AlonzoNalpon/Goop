@@ -15,7 +15,8 @@
                 "BoxCollider": {
                     "center": "{ 15, 278 }",
                     "width": 10.0,
-                    "height": 10.0
+                    "height": 10.0,
+                    "render": true
                 }
             }
         ]
@@ -36,7 +37,8 @@
                 "BoxCollider": {
                     "center": "{ -16, 278 }",
                     "width": 10.0,
-                    "height": 10.0
+                    "height": 10.0,
+                    "render": true
                 }
             }
         ]
@@ -152,7 +154,8 @@
                 "BoxCollider": {
                     "center": "{ 0, 263 }",
                     "width": 75.0,
-                    "height": 75.0
+                    "height": 75.0,
+                    "render": true
                 }
             }
         ]
@@ -173,7 +176,8 @@
                 "BoxCollider": {
                     "center": "{ 50, 0 }",
                     "width": 75.0,
-                    "height": 150.0
+                    "height": 150.0,
+                    "render": true
                 }
             }
         ]
@@ -194,7 +198,8 @@
                 "BoxCollider": {
                     "center": "{ -50, 0 }",
                     "width": 75.0,
-                    "height": 150.0
+                    "height": 150.0,
+                    "render": true
                 }
             }
         ]
@@ -215,7 +220,8 @@
                 "BoxCollider": {
                     "center": "{ 176, 180 }",
                     "width": 100.0,
-                    "height": 50.0
+                    "height": 50.0,
+                    "render": true
                 }
             }
         ]
@@ -359,7 +365,8 @@
                 "BoxCollider": {
                     "center": "{ -175, 180 }",
                     "width": 100.0,
-                    "height": 50.0
+                    "height": 50.0,
+                    "render": true
                 }
             }
         ]
@@ -380,7 +387,8 @@
                 "BoxCollider": {
                     "center": "{ 0, 150 }",
                     "width": 250.0,
-                    "height": 150.0
+                    "height": 150.0,
+                    "render": true
                 }
             }
         ]
@@ -401,7 +409,8 @@
                 "BoxCollider": {
                     "center": "{ 0, 245 }",
                     "width": 50.0,
-                    "height": 20.0
+                    "height": 20.0,
+                    "render": false
                 }
             }
         ]
@@ -422,7 +431,8 @@
                 "BoxCollider": {
                     "center": "{ 0, 311 }",
                     "width": 150.0,
-                    "height": 20.0
+                    "height": 20.0,
+                    "render": true
                 }
             }
         ]
@@ -489,7 +499,8 @@
                 "BoxCollider": {
                     "center": "{ 0, 336 }",
                     "width": 100.0,
-                    "height": 30.0
+                    "height": 30.0,
+                    "render": true
                 }
             }
         ]
@@ -510,7 +521,8 @@
                 "BoxCollider": {
                     "center": "{ 210, 233 }",
                     "width": 10.0,
-                    "height": 75.0
+                    "height": 75.0,
+                    "render": true
                 }
             }
         ]
@@ -531,7 +543,8 @@
                 "BoxCollider": {
                     "center": "{ 210, 283 }",
                     "width": 50.0,
-                    "height": 25.0
+                    "height": 25.0,
+                    "render": true
                 }
             }
         ]
