@@ -24,7 +24,7 @@ void TreeManager::Init()
 void TreeManager::ShutDown()
 {
   //Json code to serialize
-  GE::Serialization::Serializer::GetInstance().SerializeAny("./Assets/testt.json", m_treeTempList);
+  GE::Serialization::Serializer::GetInstance().SerializeAny("./Assets/test.json", m_treeTempList);
 }
 
 std::vector<TreeTemplate>& TreeManager::GetTreeList()

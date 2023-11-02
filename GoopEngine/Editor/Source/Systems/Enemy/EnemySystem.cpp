@@ -44,7 +44,7 @@ void EnemySystem::FixedUpdate()
 			GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
 			GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
 			GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
-			UseTree(enemyAIComp->m_enemyTreeCache.m_treeID, entity);
+			UseTree(enemyAIComp->m_treeID, entity);
 
 			//If the nodeCacheStack is empty, it means that the enemy is going to traverse from the start of the tree again
 			if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.size() == 0)
@@ -106,7 +106,7 @@ void EnemySystem::FixedUpdate()
 					for (Entity entity : GetUpdatableEntities())
 					{
 						GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
-						if (enemyAIComp->m_enemyTreeCache.m_treeID == tempTreeList[i].m_treeTempID)
+						if (enemyAIComp->m_treeID == tempTreeList[i].m_treeTempID)
 						{
 							enemyAIComp->RefreshCache();
 						}

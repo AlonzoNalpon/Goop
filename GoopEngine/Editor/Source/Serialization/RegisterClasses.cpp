@@ -122,8 +122,9 @@ RTTR_REGISTRATION
     ;
   rttr::registration::class_<Component::EnemyAI>("EnemyAI")
     .constructor<unsigned>()
-    .property("treeID", &Component::EnemyAI::m_enemyTreeCache)
+    .property("treeID", &Component::EnemyAI::m_treeID)
     ;
+
 
   rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")
     .property("nodeType", &AI::NodeTemplate::m_nodeType)

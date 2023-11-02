@@ -12,11 +12,12 @@ namespace GE
 		struct EnemyAI
 		{
 			GE::AI::TreeCache m_enemyTreeCache;
+			GE::AI::TreeID m_treeID;
 
 
 			EnemyAI(TreeID treeID)
 			{
-				m_enemyTreeCache.m_treeID = treeID;
+				m_treeID = treeID;
 			}
 
 			void RefreshCache()

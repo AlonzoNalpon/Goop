@@ -197,8 +197,10 @@ namespace GE::Application
   
   void AppController::Exit()
   {
+
     try
     {
+      GE::AI::TreeManager::GetInstance().ShutDown();
       gsm.Exit();
       imgui.Exit();
     }

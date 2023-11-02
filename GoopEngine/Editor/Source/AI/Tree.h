@@ -36,7 +36,6 @@ namespace GE {
 
 		struct TreeCache
 		{
-			TreeID m_treeID;
 			std::deque<NodeCache> m_nodeCacheStack;
 			NODE_STATES m_childResult;
 
