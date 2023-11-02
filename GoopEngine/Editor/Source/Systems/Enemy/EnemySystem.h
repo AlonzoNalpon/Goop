@@ -11,6 +11,7 @@ namespace GE
 	{
 		struct GameNode
 		{
+			GE::AI::NODE_TYPE m_nodeType;
 			GE::MONO::Script m_script;
 		};
 
@@ -23,10 +24,11 @@ namespace GE
 
 		class EnemySystem : public GE::ECS::System
 		{
-
+			const std::string rootNodeName = "RootNode";
 			static std::vector<GameTree> m_treeList;
 			static GameTree* m_currentTree;
 			static GE::AI::TreeID m_currentTreeID;
+			static bool m_playerExist;
 			static unsigned int m_playerID;
 			static unsigned int m_currentEntityID;
 
@@ -36,9 +38,9 @@ namespace GE
 
 		public:
 
-			static void InitTree();
-
 			void FixedUpdate();
+
+			static void InitTree();
 
 			static void AddGameTree(const GE::AI::TreeTemplate& treeTemp);
 
@@ -71,7 +73,9 @@ namespace GE
 
 			static unsigned int GetPlayerID();
 
+			static void SetPlayerID();
 
+			static bool PlayerExist();
 		};
 
 		void PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp);

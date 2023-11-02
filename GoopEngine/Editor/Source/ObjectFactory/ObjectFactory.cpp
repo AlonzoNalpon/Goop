@@ -116,7 +116,7 @@ GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData 
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SCRIPT_HANDLER))
   {
     ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::ScriptHandler>(data.m_components.at(GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER)));
+      DeserializeScriptHandler(data.m_components.at(GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER), newData));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::DRAGGABLE))
   {

@@ -27,7 +27,7 @@ namespace GoopScripts.AI
     {
       m_parentID = parentID;
       m_nodeID = currID;
-
+      // Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
@@ -57,22 +57,31 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      uint playerID = GetPlayerID();
-      Vec3<double> playerPos = GetPosition(playerID);
-      Vec3<double> currPos = GetPosition(entityID);
-      double deltaX = currPos.X - playerPos.X;
-      double deltaY = currPos.Y - playerPos.Y;
-      double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
-
-
-      if (distance > 220.0)
+      Console.WriteLine("Run outside range\n");
+      if(PlayerExist())
       {
-        OnSuccess();
+        uint playerID = GetPlayerID();
+        Vec3<double> playerPos = GetPosition(playerID);
+        Vec3<double> currPos = GetPosition(entityID);
+        double deltaX = currPos.X - playerPos.X;
+        double deltaY = currPos.Y - playerPos.Y;
+        double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+
+
+        if (distance > 220.0)
+        {
+          OnSuccess();
+        }
+        else
+        {
+          OnFail();
+        }
       }
       else
       {
         OnFail();
       }
+
 
     }
     public void OnFail()

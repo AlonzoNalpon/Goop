@@ -1,4 +1,4 @@
-	#pragma once
+#pragma once
 #include <ImNode/imnodes.h>
 #include <AI/TreeManager.h>
 #include <vector>
@@ -6,7 +6,7 @@
 
 
 namespace GE {
-	namespace AI{
+	namespace AI {
 
 		using PinID = int;
 		using LinkID = int;
@@ -44,10 +44,10 @@ namespace GE {
 			LinkID m_currLinkID;
 			std::vector<NodeLinks> m_linkList; //LMAO link list thats not a linked list
 		};
-		
+
 		struct NodeRGBA
 		{
-			int r,g,b,a;
+			int r, g, b, a;
 		};
 
 
@@ -56,7 +56,7 @@ namespace GE {
 			const PinID EMPTYID = -1;
 			const std::vector<std::string> nodeTitles{ "Root Node","Composite Node","Leaf Node" };
 			const std::vector<std::string> addNodeOption{ "Add Root Node","Add Composite Node","Add Leaf Node" };
-			const std::vector<std::string> editNodeOption{"Change to Root Node","Change to Composite Node","Change to Leaf Node", "Delete Node"};
+			const std::vector<std::string> editNodeOption{ "Change to Root Node","Change to Composite Node","Change to Leaf Node", "Delete Node" };
 			const std::vector<NodeRGBA> titleColors{ {110, 93, 175, 255},{212, 172, 14, 255},{153, 0, 76, 255} };
 			const std::vector<NodeRGBA> nodeBgColors{ {0, 204, 102, 255},{59, 59, 59, 255} };
 			const ImVec2 nodeDispSize{ 170.0f, 0.0f };
@@ -86,7 +86,7 @@ namespace GE {
 
 			void UpdateNewTree();
 			void AddDisplayTree(const TreeTemplate& tree);
-
+			void PrintDetails();
 			//void AddNode();
 
 

@@ -23,7 +23,7 @@ namespace GoopScripts.AI
   \params enityID
    ID of the owner of this scipt
   ************************************************************************/
-    public LeafNode(uint currID, uint parentID, uint[]temp , uint size) : base()
+    public LeafNode(uint currID, uint parentID, uint[] temp, uint size) : base()
     {
       m_parentID = parentID;
       m_nodeID = currID;
