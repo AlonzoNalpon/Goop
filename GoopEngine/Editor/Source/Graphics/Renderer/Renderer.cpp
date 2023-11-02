@@ -49,10 +49,10 @@ namespace Graphics::Rendering {
     m_lineRenderCalls.emplace_back(startPt, endPt, clr);
   }
 
-  void Renderer::Draw()
+  void Renderer::Draw(Camera& camera)
   {
     std::sort(m_renderCalls.begin(), m_renderCalls.end(), DepthComp());
-    glm::mat4 camViewProj{ m_camera.ViewProjMtx() };
+    glm::mat4 const& camViewProj{ camera.GetViewMtx() };
     // Draw
     for (auto const& obj : m_renderCalls)
     {
@@ -132,7 +132,8 @@ namespace Graphics::Rendering {
     //constexpr GLint U_TEXT{ 1 };
     constexpr GLint uColorLocation{ 2 };
     auto const& fontMap = r_fontManager.GetFontMap(fontName);
-    glm::mat4 camViewProj{ m_camera.ViewProjMtx() }; // TODO: OPTIMIZE THE CAMERA VIEW PROJ MATRIX BY CACHING
+    m_camera.CalculateViewProjMtx();
+    glm::mat4 camViewProj{ m_camera.GetViewMtx() }; // TODO: OPTIMIZE THE CAMERA VIEW PROJ MATRIX BY CACHING
 
 
     glUseProgram(r_fontManager.fontShader); // use font shader

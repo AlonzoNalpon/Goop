@@ -58,9 +58,14 @@ namespace Graphics::Rendering
     m_proj = glm::ortho(m_left, m_right, m_bottom, m_top, m_near, m_far);
   }
 
-  glm::mat4 Camera::ViewProjMtx() const
+  void Camera::CalculateViewProjMtx()
   {
-    return m_proj * m_view;
+    m_pers = m_proj * m_view;
+  }
+
+  glm::mat4 const& Camera::GetViewMtx() const
+  {
+    return m_pers;
   }
 
   void Camera::ZoomCamera(GLfloat halfValue)

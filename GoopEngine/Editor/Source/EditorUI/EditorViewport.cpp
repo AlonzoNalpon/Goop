@@ -8,11 +8,12 @@
 #include <Component/BoxCollider.h>
 
 #if 1
-void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBufferInfo & /*fbInfo*/)
+void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBufferInfo & fbInfo)
 {
+  fbInfo;
   auto* ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   auto& gEngine = Graphics::GraphicsEngine::GetInstance();
-  GLuint texture = gEngine.GetRenderTexture();
+  GLuint texture = fbInfo.renderTexture;
 
   // Calculate the UV coordinates based on viewport position and size
   // Get the size of the GLFW window
@@ -213,6 +214,7 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
         {
           mouseLHeld = true;
           auto mouseWS{ gEngine.ScreenToWS(MousePosF, fbInfo.objID) };
+          std::cout << mouseWS.x << ", " << mouseWS.y << std::endl;
           double depthVal{ std::numeric_limits<double>::lowest() };
           GE::ECS::Entity selectedID = GE::ECS::INVALID_ID;
 
