@@ -21,10 +21,10 @@ using namespace GE::MONO;
 void GE::MONO::ScriptManager::InitMono()
 {
   Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
-  std::ifstream file("../lib/mono/4.5/mscorlib.dll");
+  std::ifstream file(assetManager.GetConfigData<std::string>("MonoAssemblyExeTest").c_str());
   if (file.good())
   {
-    mono_set_assemblies_path("../lib/mono/4.5/");
+    mono_set_assemblies_path(assetManager.GetConfigData<std::string>("MonoAssemblyExe").c_str());
   }
   else
   {
@@ -72,44 +72,15 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPlayerID", GE::Systems::EnemySystem::GetPlayerID);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayerExist", GE::Systems::EnemySystem::PlayerExist);
 
-  //mono_add_internal_call("GoopScripts.Mono.Utils::SetCurrentRunningNode", GE::AI::NodeEditor::SetCurrentRunningNode);
 
-  //Retrieve the C#Assembly (.ddl file)
-//  #ifdef _DEBUG
-//  try {
-//    m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_D"));
-//  }
-//  catch (GE::Debug::IExceptionBase& e) {
-//    e.LogSource();
-//    e.Log();
-//  }
-//#else
-//  try {
-//    m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_R"));
-//  }
-//  catch (GE::Debug::IExceptionBase& e) {
-//    e.LogSource();
-//    e.Log();
-//  }
-//#endif
-
-
-  std::ifstream filed("../GoopScripts/GoopScripts.dll");
+  std::ifstream filed(assetManager.GetConfigData<std::string>("CAssemblyExe"));
   if (file.good())
   {
-    m_coreAssembly = LoadCSharpAssembly("../GoopScripts/GoopScripts.dll");
+    m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssemblyExe"));
   }
   else
   {
-    std::ifstream filer("../GoopScripts/GoopScripts.dll");
-    if (filer.good())
-    {
-      m_coreAssembly = LoadCSharpAssembly("../GoopScripts/GoopScripts.dll");
-    }
-    else
-    {
-      m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssembly_R"));
-    }    
+     m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssembly"));
   }  
 }
 
@@ -337,9 +308,6 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
   return oldTransform->m_rot;
 }
-
-
-
 
 int GE::MONO::CalculateGCD(int large, int small)
 {

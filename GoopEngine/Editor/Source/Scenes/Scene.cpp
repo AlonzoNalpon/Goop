@@ -26,7 +26,6 @@ void GE::Scenes::Scene::Init()
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj); 
 	//Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
-	GE::Systems::EnemySystem::SetPlayerID();
 }
 
 void GE::Scenes::Scene::Unload()

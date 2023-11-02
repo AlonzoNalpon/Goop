@@ -26,6 +26,7 @@ namespace GE {
 		};
 
 		static std::vector<std::string> nodestateNames{ "NEW","RUNNING","WAITING","SUCCEED","FAILED","COUNT" };
+		const std::vector<std::string> nodeTitles{ "Root Node","Composite Node","Leaf Node" };
 
 		struct NodeCache
 		{

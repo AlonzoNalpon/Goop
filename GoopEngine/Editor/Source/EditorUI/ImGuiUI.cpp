@@ -83,7 +83,7 @@ void ImGuiUI::Update()
 #ifdef RUN_IMGUI_DEMO
   ImGui::ShowDemoWindow();
 #endif
-
+  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
   ImGuiHelper::CreateDockSpace("Goop Engine");
 
   ToolBar::CreateContent();
@@ -104,6 +104,10 @@ void ImGuiUI::Update()
 
   Begin("Prefab Editor");
   PrefabEditor::CreateContent();
+  End();
+
+  Begin("Node editor");
+  ne->NodeEditorShow();
   End();
 
   Begin("Viewport");
@@ -191,8 +195,7 @@ void ImGuiUI::Update()
   End();
 
 
-  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
-  ne->NodeEditorShow();
+
 
   ImGuiHelper::EndDockSpace();
 }

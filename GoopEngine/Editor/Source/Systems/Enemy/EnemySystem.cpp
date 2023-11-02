@@ -25,7 +25,6 @@ void EnemySystem::InitTree()
 	{
 		AddGameTree(tempTreeList[i]);
 	}
-
 	// Set the first tree as the current tree
 	m_currentTree = (m_treeList.size() != 0) ? &(m_treeList[0]) : nullptr;
 }
@@ -62,12 +61,13 @@ void EnemySystem::FixedUpdate()
 				double dt = fpsControl->GetFixedDeltaTime();
 				std::vector<void*> arg{ &m_currentEntityID, &dt };
 				mono_runtime_invoke(onUpdate, m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst, arg.data(), nullptr);
+				
+				// PLEASE UNCOMMENT THIS IF YOU WANT TO SEE THE TREE CACHE OF THE ENEMY AT THE END OF EVRY FRAME
 				//PrintNodeCache(enemyAIComp->m_enemyTreeCache.m_nodeCacheStack);
 			}
 			else
 			{
-				//std::cout << "NO ROOT NODE, ILLEGAL TREE\n";
-				//Enemy did not put a root node
+				GE::Debug::ErrorLogger::GetInstance().LogWarning("Your tree has no root node, please a root node to the start of the tree", false);
 			}
 		}
 	}
@@ -125,8 +125,7 @@ void EnemySystem::AddGameTree(const GE::AI::TreeTemplate& treeTemp)
 
 GameTree EnemySystem::GenerateGameTree(const GE::AI::TreeTemplate& treeTemp)
 {
-	const std::vector<std::string> nodeTitles{ "Root Node","Composite Node","Leaf Node" };
-
+	
 	GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
 	const std::vector<NodeTemplate>& tree = treeTemp.m_tree;
 
@@ -138,14 +137,11 @@ GameTree EnemySystem::GenerateGameTree(const GE::AI::TreeTemplate& treeTemp)
 		NodeID ownID = static_cast<unsigned int>(i);
 		NodeID parentID = tree[i].m_parentNode;
 		unsigned int listSize = static_cast<unsigned int>(tree[i].m_childrenNode.size());
-		//std::cout << nodeTitles[static_cast<int>(tree[i].m_nodeType)] << "::" << tree[i].m_scriptName << ": " << ownID << "\n Childs:\n";
 
 		MonoArray* result = mono_array_new(mono_domain_get(), mono_get_uint32_class(), listSize);
 		for (unsigned int j = 0; j < listSize; j++) {
-			//std::cout << tree[i].m_childrenNode[j] << "\n";
 			mono_array_set(result, unsigned int, j, tree[i].m_childrenNode[j]);
 		}
-		//std::cout << "\n";
 		std::vector<void*> arg{ &ownID, &parentID, result, &listSize };
 		newGamTree.m_nodeList.push_back(GameNode(tree[i].m_nodeType, GE::MONO::Script(scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("AI Script Namespace").c_str(), tree[i].m_scriptName.c_str(), arg))));
 	}
@@ -178,7 +174,6 @@ void EnemySystem::SetResult(int result, GE::AI::NodeID currID)
 	GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
 	GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(m_currentEntityID);
 	enemyAIComp->m_enemyTreeCache.m_childResult = static_cast<GE::AI::NODE_STATES>(result);
-
 
 	for (GE::AI::NodeCache& n : enemyAIComp->m_enemyTreeCache.m_nodeCacheStack)
 	{
@@ -250,36 +245,49 @@ unsigned int  EnemySystem::GetPlayerID()
 }
 
 
-void GE::Systems::PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp)
+void EnemySystem::PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp)
 {
 
-	std::cout << "STACK Detail:\n";
+	std::cout << "Tree Cache Detail:\n";
 	std::cout << "-----------------------\n";
 	for (const GE::AI::NodeCache& n : temp)
 	{
-		std::cout << n.m_childIndex << ":" << GE::AI::nodestateNames[n.m_NodeResult] << "\n";
+		std::cout << GE::AI::nodeTitles[static_cast<int>(m_currentTree->m_nodeList[n.m_nodeID].m_nodeType)] << ": " << GE::AI::nodestateNames[n.m_NodeResult] << "\n";
 	}
 	std::cout << "-----------------------\n\n";
 }
 
-void EnemySystem::SetPlayerID()
+
+
+bool EnemySystem::PlayerExist()
 {
 	GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
 	std::set<GE::ECS::Entity> entityList = ecs->GetEntities();
-	m_playerExist = false;
+	bool hasPlayer = false;
 	for (GE::ECS::Entity e : entityList)
 	{
 		if (ecs->GetEntityName(e) == "Player")
 		{
-
-			m_playerExist = true;
+			hasPlayer = true;
 			m_playerID = e;
 			break;
 		}
 	}
+	return hasPlayer;
 }
 
-bool EnemySystem::PlayerExist()
-{
-	return m_playerExist;
-}
+//void EnemySystem::SetPlayerID()
+//{
+//	GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+//	std::set<GE::ECS::Entity> entityList = ecs->GetEntities();
+//	m_playerExist = false;
+//	for (GE::ECS::Entity e : entityList)
+//	{
+//		if (ecs->GetEntityName(e) == "Player")
+//		{
+//			m_playerExist = true;
+//			m_playerID = e;
+//			break;
+//		}
+//	}
+//}
