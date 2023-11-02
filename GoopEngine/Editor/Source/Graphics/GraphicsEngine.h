@@ -42,14 +42,48 @@ namespace Graphics {
     ************************************************************************/
     void Init(Colorf clearColor, GLint w, GLint h);
 
+    /*!*********************************************************************
+    \brief Initializes the main framebuffer.
+      DEPRECATED: This function is to be replaced in future revisions.
+    \params
+    \return
+    ************************************************************************/
     void InitFrameBuffer();
 
+    /*!*********************************************************************
+    \brief
+      Gets main render texture of framebuffer.
+      DEPRECATED: This function is to be replaced in future revisions.
+    \params
+    \return
+      
+    ************************************************************************/
     GLuint GetRenderTexture();
 
+    /*!*********************************************************************
+    \brief
+      Clear the buffer of whichever attached framebuffer.
+    \params
+    \return
+    ************************************************************************/
     void ClearBuffer();
 
+    /*!*********************************************************************
+    \brief
+      Draws all objects onto framebuffers. Does not include rendering to
+      screen
+    \params
+    \return
+    ************************************************************************/
     void Draw();
 
+    /*!*********************************************************************
+    \brief
+      Renders framebuffer onto screen using a quad.
+    \params
+      framebufferID ID of buffer to render with
+    \return
+    ************************************************************************/
     void RenderToScreen(gObjID framebufferID = 0);
 
     /*!*********************************************************************
@@ -153,8 +187,25 @@ namespace Graphics {
     ************************************************************************/
     gVec2 ScreenToWS(gVec2 const& mousePos, gObjID frameBuffer);
 
+    /*!*********************************************************************
+    \brief
+      Create a framebuffer with specified with and height.
+    \params
+      width
+      height
+    \return ID of created framebuffer
+      
+    ************************************************************************/
     gObjID CreateFrameBuffer(GLint width, GLint height);
 
+    /*!*********************************************************************
+    \brief
+      Get framebuffer information from associated ID.
+    \params
+      id  ID of framebuffer
+    \return
+      
+    ************************************************************************/
     Rendering::FrameBufferInfo& GetFrameBuffer(gObjID id);
   public: // DRAW PRIMITIVE METHODS
     /*!*********************************************************************

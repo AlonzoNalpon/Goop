@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   Sprite.h
+\author a.nalpon\@digipen.edu
+\date   2-November-2023
+\brief  this file contains the definition of sprite component for ECS
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef SPRITE_COMPONENT_H
 #define SPRITE_COMPONENT_H
 #include <Graphics/SpriteData.h>
@@ -7,6 +16,7 @@ namespace GE::Component
   struct Sprite
   {
     Sprite() = default;
+
     Sprite(GLuint textureId)
     {
       auto const& gEngine{ Graphics::GraphicsEngine::GetInstance() };
