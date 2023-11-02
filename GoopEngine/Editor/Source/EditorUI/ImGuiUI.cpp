@@ -33,6 +33,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "AssetBrowser.h"
 #include <EditorUI/EditorViewport.h>
 #include <EditorUI/PrefabEditor.h>
+#include <GameStateManager/GameStateManager.h>
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -149,6 +150,11 @@ void ImGuiUI::Update()
     {
       ecs->DestroyEntity(entity);
     }
+  }
+  else if (Button("SceneTest"))
+  {
+    GE::GSM::GameStateManager& gsm = { GE::GSM::GameStateManager::GetInstance() };
+    gsm.SetNextScene("SceneTest");
   }
   End();
 

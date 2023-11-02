@@ -278,6 +278,11 @@ std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ObjectFactory::GenerateNewI
   return ret;
 }
 
+void ObjectFactory::ClearSceneObjects()
+{
+  m_objects.clear();
+}
+
 void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
 {
   try

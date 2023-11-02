@@ -45,6 +45,7 @@ void GE::Scenes::Scene::Free()
 
 void GE::Scenes::Scene::TestScene()
 {
+	of->ClearSceneObjects();
 	of->LoadSceneJson("SceneTest");
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj);
