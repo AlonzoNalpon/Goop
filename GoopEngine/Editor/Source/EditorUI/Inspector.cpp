@@ -339,6 +339,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 					Separator();
 #pragma endregion
+#pragma region SPRITE_DEBUG_INFO 
+					// texcoordinates and info you can't edit
+#pragma endregion
 				}
 				break;
 			}
