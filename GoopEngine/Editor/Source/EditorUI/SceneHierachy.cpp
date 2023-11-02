@@ -16,6 +16,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/TransformSystemHelper.h>
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Utilities/GoopUtils.h>
+
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -70,12 +72,16 @@ namespace
 		Colour of the text of the node
 	********************************************************************/
 	void Propergate(Entity entity, EntityComponentSystem& ecs, ImGuiTreeNodeFlags flag, ImColor textClr);
+
+	void Test(EntityComponentSystem& ecs, const char*, Entity* parent = nullptr);
+
 }
 
 void GE::EditorGUI::SceneHierachy::CreateContent()
 {
 	static EntityComponentSystem& ecs = EntityComponentSystem::GetInstance();
 	GE::GSM::GameStateManager& gsm{ GE::GSM::GameStateManager::GetInstance() };
+	
 	// Get style text colour that can be edited later
 	ImGuiStyle& style = GetStyle();
 	originalTextClr = style.Colors[ImGuiCol_Text];
@@ -86,12 +92,20 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 			// Allow user to turn an entity into a root level
 			if (BeginDragDropTarget())
 			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+				{
+					const char* droppedEntity{ static_cast<const char*>(payload->Data) };
+					std::cout << droppedEntity << std::endl;
+				}
+
 				const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
 				if (pl)
 				{
 					GE::ECS::Entity& droppedEntity{*reinterpret_cast<GE::ECS::Entity*>(pl->Data)};
 					ParentEntity(ecs, droppedEntity);
 				}
+
+				
 				EndDragDropTarget();
 			}
 
@@ -138,6 +152,11 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 // Anonymous namespace function definition
 namespace
 {
+	void Test(EntityComponentSystem& ecs, const char*, Entity* parent)
+	{
+
+	}
+
 	void ParentEntity(EntityComponentSystem& ecs, Entity& child, Entity* parent)
 	{
 		Entity oldParent = ecs.GetParentEntity(child);
@@ -242,6 +261,18 @@ namespace
 			}
 			if (BeginDragDropTarget())
 			{
+				//if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+				//{
+				//	if (payload->Data)
+				//	{
+				//		const char* droppedPath = static_cast<const char*>(payload->Data);
+				//		std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
+				//		std::cout << "Extension: " << extension << std::endl;
+				//		std::cout << "Dropped: " << droppedPath << std::endl;
+				//		// change the target's sprite with the dropped sprite.
+				//	}
+				//}
+
 				const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
 				if (pl)
 				{

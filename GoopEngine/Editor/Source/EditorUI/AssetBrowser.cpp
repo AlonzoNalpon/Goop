@@ -1,6 +1,7 @@
 #include <pch.h>
 #include "AssetBrowser.h"
 #include <AssetManager/AssetManager.h>
+#include <ObjectFactory/ObjectFactory.h>
 #include <filesystem>
 #include<Graphics/GraphicsEngine.h>
 #include <stb_image.h>
@@ -20,13 +21,21 @@ namespace
 	std::filesystem::path m_currDir;
 	std::filesystem::path assetsDirectory;
 	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" };
-	std::filesystem::path m_selectedFile;
 	float thumbnailSize = 300.0f;
 }
 
 void AssetBrowser::CreateContentDir()
 {
 	AssetManager& assetManager = AssetManager::GetInstance();
+	GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
+
+	if (Button("Reload Library"))
+	{
+		std::cout << "Reload Asset Browser" << std::endl;
+		assetManager.LoadConfigData("./Assets/Config.cfg");
+		assetManager.LoadFiles();
+		of.LoadPrefabsFromFile();
+	}
 
 	assetsDirectory = assetManager.GetConfigData<std::string>("Assets Dir");
 	if (!std::filesystem::exists(assetsDirectory))
@@ -80,25 +89,14 @@ void AssetBrowser::CreateContentView()
 		std::string const& extension{ file.path().extension().string() };
 		AssetManager& assetManager = AssetManager::GetInstance();
 
-		// in init:
-		// free all ids loaded, if it exists
-		// load new images in new currDir
-		//assetManager.LoadDirectory();
-		//will return a set of ints i.e. id for image loaded
-		//texManager.GetTexture();
-		//texManager.GetTextureID();
-		// shld have container of IDs
-		// 
-		// in create content
-		// ImGui::Image(for all ids)
-
-		//name of image
-
 		if (!file.is_regular_file())
 		{
 			continue;
 		}
-		else if (extension == m_imageFile)	// prefab
+
+		std::string path = file.path().filename().string();
+		const char* pathCStr = path.c_str();
+		if (extension == m_imageFile)	// prefab
 		{
 			//name of prefab
 			unsigned w, h;
@@ -116,27 +114,20 @@ void AssetBrowser::CreateContentView()
 			}
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
 			ImGui::ImageButton(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { newW, newH }, { 0, 1 }, { 1, 0 });
-
 			if (ImGui::BeginDragDropSource())
 			{
-				ImGui::SetDragDropPayload("ASSET_BROWSER_IMAGE", file.path().filename().string().c_str(), (strlen(file.path().filename().string().c_str()) * sizeof(const char*)), ImGuiCond_Once);
+				ImGui::SetDragDropPayload("ASSET_BROWSER", pathCStr, strlen(pathCStr) + 1);
+				Text(pathCStr);
+
 				ImGui::EndDragDropSource();
 			}
-
 			ImGui::PopStyleColor();
 		}
-		//Text(file.path().filename().string().c_str());
-		ImGui::Selectable(file.path().filename().string().c_str());		// show as selectable to support drag n drop
-
-		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+		Selectable(pathCStr);
+		if (ImGui::BeginDragDropSource())
 		{
-			m_selectedFile = file.path();
-			std::string const currFilename{ file.path().filename().string().c_str() };
-
-			ImGui::SetDragDropPayload("ASSET_BROWSER_ITEM", &m_selectedFile, sizeof(std::filesystem::path));
-
-			// Show filename on hover
-			ImGui::Text(currFilename.c_str());
+			ImGui::SetDragDropPayload("ASSET_BROWSER", pathCStr, strlen(pathCStr) + 1);
+			Text(pathCStr);
 			ImGui::EndDragDropSource();
 		}
 	}
@@ -202,7 +193,7 @@ void AssetBrowser::InitView()
 			continue;
 		}
 
-		std::string const& extension{ file.path().extension().string() }; //getting extension on file'
+		std::string const& extension{ file.path().extension().string() }; //getting extension on file
 		if (extension != m_imageFile) //if file is not an image file, continue -> don't need to load image
 		{
 			continue;
