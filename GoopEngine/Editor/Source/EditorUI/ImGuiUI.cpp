@@ -151,7 +151,7 @@ void ImGuiUI::Update()
       ecs->DestroyEntity(entity);
     }
   }
-  else if (Button("SceneTest"))
+  else if (Button("Load \"SceneTest\""))
   {
     GE::GSM::GameStateManager& gsm = { GE::GSM::GameStateManager::GetInstance() };
     gsm.SetNextScene("SceneTest");
