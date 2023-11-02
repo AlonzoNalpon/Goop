@@ -112,22 +112,12 @@ void ImGuiUI::Update()
   }
   End();
 
-  Begin("Collision Partitioning");
-  // for now will be here, can move somehwere else later
+  Begin("Extras");
   ImGui::InputInt("Change Row", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetRow(), 1);
   ImGui::InputInt("Change Col", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetCol(), 1);
-  End();
-
-  Begin("Buttons");
   if (Button("Create MineWorm"))
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
-  }
-  else if (Button("Clone Latest Object"))
-  {
-    double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
-    double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
-    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(ecs->GetEntities().size() - 1, Math::dVec2(randX, randY));
   }
   else if (Button("Duplicate 500"))
   {
