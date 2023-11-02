@@ -281,6 +281,7 @@
     <ClCompile Include="Source\Systems\RootTransform\PostRootTransformSystem.cpp" />
     <ClCompile Include="Source\Systems\RootTransform\PreRootTransformSystem.cpp" />
     <ClCompile Include="Source\Systems\SpriteAnim\SpriteAnimSystem.cpp" />
+    <ClCompile Include="Source\Utilities\GoopUtils.cpp" />
     <ClCompile Include="Source\Window\Window.cpp" />
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimationManager.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -415,6 +416,7 @@
     <ClInclude Include="Source\Systems\SpriteAnim\SpriteAnimSystem.h" />
     <ClInclude Include="Source\Systems\Systems.h" />
     <ClInclude Include="Source\Systems\Text\TextRenderSystem.h" />
+    <ClInclude Include="Source\Utilities\GoopUtils.h" />
     <ClInclude Include="Source\Window\Window.h" />
     <ClInclude Include="Source\Math\GEM.h" />
     <ClInclude Include="Source\Math\Mat2.h" />

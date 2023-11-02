@@ -7,11 +7,15 @@
 #include <Component/Transform.h>
 #include <Component/BoxCollider.h>
 #include <Component/Sprite.h>
+#include <Utilities/GoopUtils.h>
+#include <ObjectFactory/ObjectFactory.h>
+#include <InputManager/InputManager.h>
 void GE::EditorGUI::EditorViewport::UpdateViewport()
 {
   auto* ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   auto& gEngine = Graphics::GraphicsEngine::GetInstance();
   GLuint texture = gEngine.GetRenderTexture();
+  GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
 
   // Calculate the UV coordinates based on viewport position and size
   // Get the size of the GLFW window
@@ -31,6 +35,44 @@ void GE::EditorGUI::EditorViewport::UpdateViewport()
   ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
 
   auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
+
+  if (ImGui::BeginDragDropTarget())
+  {
+    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+    {
+      if (payload->Data)
+      {
+        const char* droppedPath = static_cast<const char*>(payload->Data);
+        std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
+
+        if (extension == "png")
+        {
+          auto mousePosition = GE::Input::InputManager::GetInstance().GetMousePosWorld();
+
+          GE::ECS::Entity imageEntity = ecs->CreateEntity();
+          GE::Component::Transform trans{};
+          trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
+          trans.m_worldScale = { 1, 1, 1 };
+          GE::Component::Model mdl{};
+          GE::Component::Sprite sprite { gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
+          
+          ecs->AddComponent(imageEntity, trans);
+          ecs->AddComponent(imageEntity, mdl);
+          ecs->AddComponent(imageEntity, sprite);
+          ecs->SetEntityName(imageEntity, GE::GoopUtils::ExtractFilename(droppedPath));
+        }
+
+        if (extension == "pfb")
+        {
+          /*GE::ECS::Entity createdEntity = */of.SpawnPrefab(GE::GoopUtils::ExtractFilename(droppedPath));
+          //auto mousePosition = GE::Input::InputManager::GetInstance().GetMousePosWorld();
+          //createdEntity 
+        }
+      }
+    }
+    ImGui::EndDragDropTarget();
+  }
+
   if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y)))
   {
     ImVec2 mousePosition = ImGui::GetMousePos();

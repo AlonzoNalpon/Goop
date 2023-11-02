@@ -116,7 +116,7 @@ bool PrefabGooStream::Read(std::string const& json)
   }
 
   #ifdef _DEBUG
-  std::cout << json << " successfully read" << "\n";
+  //std::cout << json << " successfully read" << "\n";
   #endif
   ifs.close();
   return m_status = true;

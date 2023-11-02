@@ -1,16 +1,16 @@
 {
-  "Name": "ButaPIG",
+  "Name": "Priest",
   "Components": [
     {
       "Transform": {
-        "worldPos": "{ 0.0, 0.0, 0.0 }",
+        "worldPos": "{ 2.0, 4.0, 0.0 }",
         "worldScale": "{ 1.0, 1.0, 1.0 }",
         "worldRot": "{ 0.0, 0.0, 0.0 }"
       }
     },
     {
       "Sprite": {
-        "filename": "Buta PIG"
+        "filename": "Priest"
       }
     },
     {
@@ -20,10 +20,14 @@
     },
     {
       "BoxCollider": {
-        "width": 75.0,
-        "height": 50.0,
-        "center": "{ 0, 0 }"
+        "center": "{ 210, 283 }",
+        "width": 140.0,
+        "height": 280.0,
+        "render": true
       }
+    },
+    {
+      "Draggable": {}
     }
   ]
 }

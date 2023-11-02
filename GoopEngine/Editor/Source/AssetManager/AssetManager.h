@@ -205,6 +205,12 @@ namespace GE::Assets
 
     /*!*********************************************************************
     \brief
+      Reloads all files by scanning the Assets directory
+    ************************************************************************/
+    void ReloadAllFiles();
+
+    /*!*********************************************************************
+    \brief
       Loads the required files for startup.
     \param
       std::string key (Key of the data)
