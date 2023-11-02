@@ -159,10 +159,7 @@ namespace {
     m_renderer.RenderObject(0, spriteData, xform);
 #endif
 
-    constexpr GLfloat FONT_SCALE{ 0.2f };
 
-    auto marchID = m_fontManager.GetFontID("Marchesa");
-    auto reyesID = m_fontManager.GetFontID("Reyes");
     for (auto& fbInfo : m_frameBuffers)
     {
       glBindFramebuffer(GL_FRAMEBUFFER, fbInfo.second.frameBuffer);
@@ -170,8 +167,6 @@ namespace {
       glViewport(0, 0, fbInfo.second.vpDims.x, fbInfo.second.vpDims.y);
       fbInfo.second.camera.CalculateViewProjMtx(); // Update camera
       m_renderer.Draw(fbInfo.second.camera);
-      m_renderer.DrawFontObj("you're", {}, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.5f, 0.f, 0.f }, marchID);
-      m_renderer.DrawFontObj("next", { 0.f, -50.f }, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.8f, 0.2f, 0.f }, reyesID);
     }
   #if 0 // BACKUP FOR MERGE
     m_renderer.Draw();
