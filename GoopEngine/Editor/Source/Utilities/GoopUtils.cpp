@@ -1,7 +1,18 @@
 #include <pch.h>
+#include <GameStateManager/GameStateManager.h>
 
 namespace GE::GoopUtils 
 {
+
+	void ReloadFileData()
+	{
+		auto& am{ GE::Assets::AssetManager::GetInstance() };
+		auto& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
+		am.LoadConfigData("./Assets/Config.cfg");
+		am.LoadFiles();
+		of.LoadPrefabsFromFile();
+	}
+
   std::string GetFileExtension(const std::string& filePath)
   {
     size_t dotPosition = filePath.find_last_of('.');

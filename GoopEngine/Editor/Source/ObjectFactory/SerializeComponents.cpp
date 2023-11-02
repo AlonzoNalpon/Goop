@@ -8,9 +8,8 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#include <Serialization/ComponentWrapper/ComponentWrapper.h>
 #include "SerializeComponents.h"
-#include <Graphics/Def/GraphicsTypes.h>
+
 namespace GE
 {
 	namespace ObjectFactory
@@ -85,15 +84,9 @@ namespace GE
 			catch (GE::Debug::IExceptionBase&)
 			{
 				am.LoadImageW(cw.Get<std::string>("filename"));
-				//gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
 			}
-			sprite.m_spriteData.texture = gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename"));
-			sprite.m_spriteName = gEngine.textureManager.GetTextureName(sprite.m_spriteData.texture);
-			auto const& textureObj = gEngine.textureManager.GetTexture(sprite.m_spriteData.texture);
-			sprite.m_spriteData.info.height = textureObj.height;
-			sprite.m_spriteData.info.width = textureObj.width;
 			
-			return sprite;
+			return Component::Sprite(gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename")));
 		}
 
 		template<>
@@ -163,7 +156,12 @@ namespace GE
 		GE::Component::Text DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
-			return Component::Text(cw.Get<std::string>("str"), cw.Get<Graphics::Colorf>("clr"));
+			Component::Text txt;
+			txt.m_text = cw.Get<std::string>("text");
+			txt.m_clr = cw.Get<Graphics::Colorf>("clr");
+			txt.m_scale = cw.Get<f32>("scale");
+			txt.m_fontID = cw.Get<Graphics::gObjID>("fontID");
+			return txt;
 		}
 
 

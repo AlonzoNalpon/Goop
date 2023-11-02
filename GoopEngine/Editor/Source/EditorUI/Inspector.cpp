@@ -308,6 +308,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				if (ImGui::CollapsingHeader("Sprite", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					ImGui::Columns(2, 0, true);
+					ImGui::SetColumnWidth(0, 118.f);
 					ImGui::Text("Sprite");
 					ImGui::NextColumn();
 					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), { 100, 100 }, { 0, 1 }, { 1, 0 });

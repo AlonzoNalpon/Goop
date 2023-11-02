@@ -20,6 +20,7 @@ namespace
 {
 	std::filesystem::path m_currDir;
 	std::filesystem::path assetsDirectory;
+	std::filesystem::path m_draggedPrefab;
 	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" };
 	float thumbnailSize = 300.0f;
 }
@@ -84,10 +85,10 @@ void AssetBrowser::CreateContentView()
 		Text("________________________________________");
 	}
 
+	AssetManager& assetManager = AssetManager::GetInstance();
 	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
 	{
 		std::string const& extension{ file.path().extension().string() };
-		AssetManager& assetManager = AssetManager::GetInstance();
 
 		if (!file.is_regular_file())
 		{
@@ -123,12 +124,26 @@ void AssetBrowser::CreateContentView()
 			}
 			ImGui::PopStyleColor();
 		}
-		Selectable(pathCStr);
-		if (ImGui::BeginDragDropSource())
+		else if (extension == m_prefabFile)
 		{
-			ImGui::SetDragDropPayload("ASSET_BROWSER", pathCStr, strlen(pathCStr) + 1);
-			Text(pathCStr);
-			ImGui::EndDragDropSource();
+			Selectable(pathCStr);
+			if (ImGui::BeginDragDropSource())
+			{
+				m_draggedPrefab = file.path();
+				ImGui::SetDragDropPayload("ASSET_BROWSER_PREFAB", &m_draggedPrefab, sizeof(std::filesystem::path));
+				Text(pathCStr);
+				ImGui::EndDragDropSource();
+			}
+		}
+		else
+		{
+			Selectable(pathCStr);
+			if (ImGui::BeginDragDropSource())
+			{
+				ImGui::SetDragDropPayload("ASSET_BROWSER", pathCStr, strlen(pathCStr) + 1);
+				Text(pathCStr);
+				ImGui::EndDragDropSource();
+			}
 		}
 	}
 }

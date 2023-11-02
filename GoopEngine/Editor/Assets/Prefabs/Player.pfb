@@ -1,11 +1,28 @@
 {
-  "Name": "Leah",
+  "Name": "Player",
   "Components": [
     {
       "Transform": {
         "worldPos": "{ 2.0, 4.0, 0.0 }",
         "worldScale": "{ 0.3, 0.3, 1.0 }",
         "worldRot": "{ 0.0, 0.0, 0.0 }"
+      }
+    },
+    {
+      "BoxCollider": {
+        "center": "{ 189.957, 183.292 }",
+        "width": 100.0,
+        "height": 100.0,
+        "render": true
+      }
+    },
+    {
+      "Tween": {
+        "tweens": [],
+        "timePerTween": 1.0,
+        "timeTaken": 3.0,
+        "timeElapsed": 0.020000000000001333,
+        "originalPos": "{ 350, 350, 0 }"
       }
     },
     {

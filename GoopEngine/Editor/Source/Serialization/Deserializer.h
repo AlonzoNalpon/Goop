@@ -10,8 +10,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include <rapidjson/document.h>
 #include <string>
-#include <Component/ScriptHandler.h>
-#include <Component/Sprite.h>
 #include <rttr/type.h>
 #include <AI/TreeManager.h>
 #include <ObjectFactory/ObjectStructs.h>
@@ -26,7 +24,7 @@ namespace GE
     public:
       static std::vector<AI::TreeTemplate> DeserializeTrees(std::string const& filename);
 
-      //static ObjectFactory::VariantPrefab DeserializePrefab(std::string const& json);
+      static ObjectFactory::VariantPrefab DeserializePrefabToVariant(std::string const& json);
 
       /*!*********************************************************************
       \brief
@@ -45,6 +43,7 @@ namespace GE
       ************************************************************************/
       static std::vector<std::pair<std::string, ECS::ComponentSignature>> DeserializeSystems(std::string const& json);
     private:
+      static rttr::variant GetComponentVariant(rttr::type const& valueType, std::string const& componentData);
       static void DeserializeBasedOnType(rttr::instance object, rapidjson::Value const& value);
       static rttr::variant DeserializeBasicTypes(rapidjson::Value const& value);
       static rttr::variant DeserializeElement(rttr::type const& valueType, rapidjson::Value const& value);
