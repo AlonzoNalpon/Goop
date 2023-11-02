@@ -149,7 +149,7 @@ void ImGuiUI::Update()
   
   if (Visualizer::IsPerformanceShown())
   {
-    Visualizer::CreateContent("Performance Visualizer");
+    Visualizer::CreateContent("Performance Graph");
   }
 
   Begin("Audio");

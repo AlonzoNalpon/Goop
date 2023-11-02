@@ -50,7 +50,7 @@ void Visualizer::UpdateSystemTimers()
       for (unsigned i{}; i < timers.size(); ++i, ++iter)
       {
         m_systemsToGraph[i] = iter->first.c_str();
-        m_totalSystemTime += m_systemTimers[i] = microSecondsToFloat(iter->second);
+        m_totalSystemTime += m_systemTimers[i] = formatToFloat(iter->second);
       }
       framesElapsed = 0;
     }
@@ -111,7 +111,7 @@ void Visualizer::UpdateGraph()
   {
     std::string const averageStr{ "Average: " + std::to_string(m_totalSystemTime / static_cast<float>(m_systemTimers.size())) + "ms" };
     ImGui::PlotHistogram("##PerformanceHistogram", m_systemTimers.data(), static_cast<int>(m_systemTimers.size()), 
-      0, averageStr.c_str(), 0.f, m_maxGraphHeight, ImVec2(graphWidth, graphHeight));
+      0, averageStr.c_str(), 0.f, m_totalSystemTime, ImVec2(graphWidth, graphHeight));
     
     // convert coords from histogram to window
     ImVec2 const rectMin{ GetItemRectMin() };
@@ -185,11 +185,11 @@ void Visualizer::UpdateSettings()
   ImGui::Text("No. of Frames per Update");
   ImGui::SliderInt("##FramesPerUpdateSlider", &m_framesPerUpdate, 1, 300);
 
-  if (m_graphType == GRAPH_TYPE::HISTOGRAM)
-  {
-    ImGui::Text("Graph Max Height");
-    ImGui::SliderFloat("##GraphMaxHeightSlider", &m_maxGraphHeight, 1000.0f, 2500.0f);
-  }
+  //if (m_graphType == GRAPH_TYPE::HISTOGRAM)
+  //{
+  //  ImGui::Text("Graph Max Height");
+  //  ImGui::SliderFloat("##GraphMaxHeightSlider", &m_maxGraphHeight, 1000.0f, 2500.0f);
+  //}
 }
 
 void Visualizer::UpdateFPSTab()
