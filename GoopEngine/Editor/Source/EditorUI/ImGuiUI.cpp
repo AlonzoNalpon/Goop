@@ -142,6 +142,14 @@ void ImGuiUI::Update()
       }
     }
   }
+  else if (Button("Clear Entities"))
+  {
+    std::set<ECS::Entity> entities = ecs->GetEntities();
+    for (auto entity : entities)
+    {
+      ecs->DestroyEntity(entity);
+    }
+  }
   End();
 
   Begin("Asset Browser");
