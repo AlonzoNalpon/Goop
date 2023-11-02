@@ -44,11 +44,10 @@ void GE::EditorGUI::EditorViewport::UpdateViewport()
       {
         const char* droppedPath = static_cast<const char*>(payload->Data);
         std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
+        auto const mousePosition = GE::Input::InputManager::GetInstance().GetMousePosWorld();
 
         if (extension == "png")
         {
-          auto mousePosition = GE::Input::InputManager::GetInstance().GetMousePosWorld();
-
           GE::ECS::Entity imageEntity = ecs->CreateEntity();
           GE::Component::Transform trans{};
           trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
@@ -64,9 +63,9 @@ void GE::EditorGUI::EditorViewport::UpdateViewport()
 
         if (extension == "pfb")
         {
-          /*GE::ECS::Entity createdEntity = */of.SpawnPrefab(GE::GoopUtils::ExtractFilename(droppedPath));
-          //auto mousePosition = GE::Input::InputManager::GetInstance().GetMousePosWorld();
-          //createdEntity 
+          ECS::Entity entity{ of.SpawnPrefab(GE::GoopUtils::ExtractFilename(droppedPath)) };
+          GE::Component::Transform& trans{ *ecs->GetComponent<GE::Component::Transform>(entity) };
+          trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
         }
       }
     }
