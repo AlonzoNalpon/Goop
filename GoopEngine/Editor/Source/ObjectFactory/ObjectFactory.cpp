@@ -16,7 +16,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/GooStream/PrefabGooStream.h>
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Serialization/Deserializer.h>
-#include <Utilities/GoopUtils.h>
 
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;

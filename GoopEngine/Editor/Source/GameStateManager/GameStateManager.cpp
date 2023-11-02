@@ -1,6 +1,15 @@
+/*!*********************************************************************
+\file   GameStateManager.cpp
+\author loh.j@digipen.edu
+\date   24-October-2023
+\brief
+	Currently controls the scenes but will include gamestates in the 
+	future.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <GameStateManager/GameStateManager.h>
-#include <Utilities/GoopUtils.h>
 using namespace GE::GSM;
 
 void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)

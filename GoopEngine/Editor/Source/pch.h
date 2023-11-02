@@ -38,4 +38,5 @@
 #include <Graphics/Def/GraphicsTypes.h>
 #include "Events/Listener.h"
 #include "Audio/AudioEngine.h"
+#include <Utilities/GoopUtils.h>
 //#define NO_IMGUI

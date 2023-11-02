@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   GoopUtils.cpp
+\author loh.j\@digipen.edu
+\date   3-November-2023
+\brief
+	Contains some helper functions to allow readability for functions
+	dealing with filepaths.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <GameStateManager/GameStateManager.h>
 
