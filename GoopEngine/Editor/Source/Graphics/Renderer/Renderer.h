@@ -84,6 +84,21 @@ namespace Graphics::Rendering
     ************************************************************************/
     void ClearRenderData();
 
+    /*!*********************************************************************
+    \brief
+      Draws font object from string and other specs.
+      Does not deal with binding using shaders.
+      This function will be hidden in future revisions.
+      ALPHA NOT YET SUPPORTED
+    \params
+      str string of text
+      pos position of text
+      scale scale of text
+      clr color of text
+      fontID ID of font to use
+      camera Camera to transform text
+    \return
+    ************************************************************************/
     void DrawFontObj(std::string const& str, gVec2 pos, GLfloat scale, Colorf const& clr, Graphics::gObjID fontID, Camera& camera);
 
     /*!*********************************************************************

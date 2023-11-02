@@ -30,7 +30,25 @@ namespace Graphics::Fonts
   class FontManager 
   {
   public:
+    /*!*********************************************************************
+    \brief
+      Initializes the font manager by initializing freetype.
+    \params
+      fontShader  the shader of the font objects to render with
+      fontQuad    the model of the font quad to render with
+    \return
+    ************************************************************************/
     void Init(GLuint fontShader, GLuint fontQuad);
+
+    /*!*********************************************************************
+    \brief
+      Loads a font into the manager.
+    \params
+      name name of font (for obtaining the font from other systems)
+      path path to the font
+      fontSize size of the font (higher = better resolutions)
+    \return
+    ************************************************************************/
     void LoadFont(std::string const& name, std::string const& path, GLint fontSize = 256);
   private:
     using FontMap         = std::map<uChar, Character>;
@@ -46,11 +64,45 @@ namespace Graphics::Fonts
     GLuint            m_fontShader;
 
   public:
+    /*!*********************************************************************
+    \brief
+      Obtain the read-only reference to font map corresponding to ID.
+    \params
+      fontID ID of font
+    \return
+      
+    ************************************************************************/
     FontMap const&    GetFontMap(Graphics::gObjID fontID)const;
-    std::string       GetFontName(Graphics::gObjID fontName)const;
+
+    /*!*********************************************************************
+    \brief
+      Get the name of a font from a supplied ID.
+    \params
+      fontID ID of font
+    \return
+      the name of font
+    ************************************************************************/
+    std::string       GetFontName(Graphics::gObjID fontID)const;
+
+    /*!*********************************************************************
+    \brief
+      Get ID of font from a string.
+    \params
+      name the name of the font
+    \return
+      the id of the font
+    ************************************************************************/
     Graphics::gObjID  GetFontID(std::string const& name)const;
-    GLuint const&     fontModel{ m_fontQuad };
-    GLuint const&     fontShader{ m_fontShader };
+    GLuint const&     fontModel{ m_fontQuad };      // getter to font model
+    GLuint const&     fontShader{ m_fontShader };   // getter to font shader
+
+    /*!*********************************************************************
+    \brief
+      Gets the font lookup table from string to ID.
+    \params
+    \return
+      read-only table for font lookups
+    ************************************************************************/
     FontID_LT const&  GetFontLT()const;
   };
 }

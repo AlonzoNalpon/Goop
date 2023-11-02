@@ -29,6 +29,15 @@ namespace Graphics::Rendering
   private:
     ShaderProgram m_fontShader; //!< shader for rendering the fonts
     GLuint        m_fontQuad;   //!< quad for rendering the fonts
+
+    /*!*********************************************************************
+    \brief
+      Generates a quad to be used with the fonts. Requires opengl to be
+      initialized before calling
+    \params
+    \return
+      
+    ************************************************************************/
     GLuint GenerateFontQuad();
     // In the future, one can add more members for advanced features ...
   };

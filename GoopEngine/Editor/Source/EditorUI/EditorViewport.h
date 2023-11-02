@@ -7,6 +7,13 @@ namespace GE::EditorGUI
   {
   private:
   public:
+    /*!*********************************************************************
+    \brief
+      Updates the editor viewport. Includes input from mouse.
+    \params
+      fbInfo The framebuffer information that contains the scene
+    \return
+    ************************************************************************/
     static void UpdateViewport(Graphics::Rendering::FrameBufferInfo & fbInfo);
   };
 }

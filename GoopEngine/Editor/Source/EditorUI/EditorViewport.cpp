@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   EditorViewport.cpp
+\author a.nalpon\@digipen.edu
+\co-authors 
+\date   3-November-2023
+\brief  
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <EditorUI/EditorViewport.h>
 #include <Graphics/GraphicsEngine.h>

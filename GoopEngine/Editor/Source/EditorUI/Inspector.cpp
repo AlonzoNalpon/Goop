@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   Inspector.cpp
 \author w.chinkitbryam\@digipen.edu
-\co-authors a.nalpon\@digipen.edu
+\co-authors a.nalpon\@digipen.edu (42 lines)
 \date   23 October 2023
 \brief
 	Wrapper class to create an EditorGUI for the tool bar

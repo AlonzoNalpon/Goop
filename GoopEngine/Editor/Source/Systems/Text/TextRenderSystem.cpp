@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   TextRenderSystem.cpp
+\author a.nalpon\@digipen.edu
+\date   3-November-2023
+\brief  This file contains the implementation of the text render system
+        for ECS. Will use renderer to perform draw requests
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <Systems/Text/TextRenderSystem.h>
 #include <Graphics/GraphicsEngine.h>
