@@ -14,17 +14,21 @@ void GE::AI::NodeEditor::NodeEditorInit()
   std::filesystem::path aiDir{ "../GoopScripts/AI"}; 
   if (!std::filesystem::exists(aiDir))
   {
-    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open GoopScripts AI folder: " + aiDir.string()));
+    //throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open GoopScripts AI folder: " + aiDir.string()));
   }
-  for (const auto& file : std::filesystem::recursive_directory_iterator(aiDir))
+  else
   {
-    if (!file.is_regular_file()) { continue; }	// skip if file is a directory
-    std::string const& currExt{ file.path().extension().string() };
-    if (currExt == scriptExt)	// image
+    for (const auto& file : std::filesystem::recursive_directory_iterator(aiDir))
     {
-      m_allScriptNames.push_back(file.path().stem().string()); 
+      if (!file.is_regular_file()) { continue; }	// skip if file is a directory
+      std::string const& currExt{ file.path().extension().string() };
+      if (currExt == scriptExt)	// image
+      {
+        m_allScriptNames.push_back(file.path().stem().string());
+      }
     }
   }
+
 
   //Create the node editor context and turn on any settings
 	ImNodes::CreateContext();
