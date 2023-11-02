@@ -11,6 +11,7 @@
 #include <Utilities/GoopUtils.h>
 #include <ObjectFactory/ObjectFactory.h>
 #include <InputManager/InputManager.h>
+#include <filesystem>
 
 void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBufferInfo & fbInfo)
 {
@@ -56,23 +57,31 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
           trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
           trans.m_worldScale = { 1, 1, 1 };
           GE::Component::Model mdl{};
-          GE::Component::Sprite sprite { gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
-          
+          GE::Component::Sprite sprite{ gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
+
           ecs->AddComponent(imageEntity, trans);
           ecs->AddComponent(imageEntity, mdl);
           ecs->AddComponent(imageEntity, sprite);
           ecs->SetEntityName(imageEntity, GE::GoopUtils::ExtractFilename(droppedPath));
         }
-
-        if (extension == "pfb")
-        {
-          ECS::Entity entity{ of.SpawnPrefab(GE::GoopUtils::ExtractFilename(droppedPath)) };
-          GE::Component::Transform& trans{ *ecs->GetComponent<GE::Component::Transform>(entity) };
-          trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
-        }
       }
+      ImGui::EndDragDropTarget();
     }
+    if (const ImGuiPayload* payload2 = ImGui::AcceptDragDropPayload("ASSET_BROWSER_PREFAB"))
+    {
+      IM_ASSERT(payload2->DataSize == sizeof(std::filesystem::path));
+      std::filesystem::path const filepath{ *reinterpret_cast<std::filesystem::path*>(payload2->Data) };
+      std::string const extension = filepath.extension().string();
+      if (extension == ".pfb")
+      {
+        auto const mousePosition = GE::Input::InputManager::GetInstance().GetMousePosWorld();
+        ECS::Entity entity{ of.SpawnPrefab(filepath.stem().string()) };
+        GE::Component::Transform& trans{ *ecs->GetComponent<GE::Component::Transform>(entity) };
+        trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
+      }
+      // retrieve payload and cast back to base type]
     ImGui::EndDragDropTarget();
+    }
   }
 
   if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y)))

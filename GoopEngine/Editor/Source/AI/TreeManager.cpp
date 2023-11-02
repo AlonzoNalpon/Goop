@@ -2,16 +2,17 @@
 #include <AI/TreeManager.h>
 #include <Serialization/Serializer.h>
 #include <Serialization/Deserializer.h>
+#include "../AssetManager/AssetManager.h"
 
 using namespace GE;
 using namespace AI;
 
 void TreeManager::Init()
 {
-  //Json code to deserialize
   try
   {
-    m_treeTempList = std::move(GE::Serialization::Deserializer::DeserializeTrees("./Assets/test.json"));
+    Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
+    m_treeTempList = std::move(GE::Serialization::Deserializer::DeserializeTrees(assetManager.GetConfigData<std::string>("BehaviourTree file").c_str()));
     m_treeTempCond.resize(m_treeTempList.size(), false);
 
   }
@@ -23,8 +24,8 @@ void TreeManager::Init()
 
 void TreeManager::ShutDown()
 {
-  //Json code to serialize
-  GE::Serialization::Serializer::GetInstance().SerializeAny("./Assets/test.json", m_treeTempList);
+  Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
+  GE::Serialization::Serializer::GetInstance().SerializeAny(assetManager.GetConfigData<std::string>("BehaviourTree file").c_str(), m_treeTempList);
 }
 
 std::vector<TreeTemplate>& TreeManager::GetTreeList()
@@ -48,11 +49,8 @@ void TreeManager::UpdateTreeList(TreeTemplate& treeTemp)
 
   if (iter != m_treeTempList.end())   // If the tree Template already exist in the list, we just update with the new one
   {
-    //std::cout << m_treeTempList.size() << "vs" << m_treeTempCond.size();
-    //std::cout << "UPDATE TREE DETAIL\n";
     std::swap(*(iter), treeTemp);
     m_treeTempCond[(iter - m_treeTempList.begin())] = true;
-    // std::cout << "UPDATE TREE DETAI AFT\n";
   }
   else // If the tree Template does not exist, we will add it into list
   {

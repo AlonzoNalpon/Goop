@@ -16,6 +16,11 @@ namespace GE
     const char Serializer::JsonChildEntitiesKey[] = "Child Entities";
     const char Serializer::JsonComponentsKey[]    = "Components";
 
+    void Serializer::SerializeVariantToPrefab(ObjectFactory::VariantPrefab prefab, std::string const& filename)
+    {
+
+    }
+
     void Serializer::SerializeAny(std::string const& filename, rttr::variant object)
     {
       std::ofstream ofs{ filename };

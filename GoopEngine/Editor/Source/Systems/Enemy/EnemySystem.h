@@ -46,7 +46,7 @@ namespace GE
 
 			static GameTree GenerateGameTree(const GE::AI::TreeTemplate& treeTemp);
 
-			static void SetPlayerID(unsigned int playerID);
+			//static void SetPlayerID(unsigned int playerID);
 
 			static void UseTree(GE::AI::TreeID treeID, unsigned int entityID);
 
@@ -73,11 +73,13 @@ namespace GE
 
 			static unsigned int GetPlayerID();
 
-			static void SetPlayerID();
+			//static void SetPlayerID();
 
 			static bool PlayerExist();
+
+			static void PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp);
 		};
 
-		void PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp);
+
 	}
 }

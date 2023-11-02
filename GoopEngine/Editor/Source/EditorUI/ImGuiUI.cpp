@@ -33,6 +33,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "AssetBrowser.h"
 #include <EditorUI/EditorViewport.h>
 #include <EditorUI/PrefabEditor.h>
+#include <GameStateManager/GameStateManager.h>
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -83,7 +84,7 @@ void ImGuiUI::Update()
 #ifdef RUN_IMGUI_DEMO
   ImGui::ShowDemoWindow();
 #endif
-
+  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
   ImGuiHelper::CreateDockSpace("Goop Engine");
 
   ToolBar::CreateContent();
@@ -104,6 +105,10 @@ void ImGuiUI::Update()
 
   Begin("Prefab Editor");
   PrefabEditor::CreateContent();
+  End();
+
+  Begin("Node editor");
+  ne->NodeEditorShow();
   End();
 
   Begin("Viewport");
@@ -141,6 +146,24 @@ void ImGuiUI::Update()
         ex.LogSource();
       }
     }
+  }
+  else if (Button("Clear Entities"))
+  {
+    std::set<ECS::Entity> entities = ecs->GetEntities();
+    for (auto entity : entities)
+    {
+      ecs->DestroyEntity(entity);
+    }
+  }
+  else if (Button("Load \"Robot\" Scene"))
+  {
+    GE::GSM::GameStateManager& gsm = { GE::GSM::GameStateManager::GetInstance() };
+    gsm.SetNextScene("Robot");
+  }
+  else if (Button("Load \"SceneTest\" Scene"))
+  {
+    GE::GSM::GameStateManager& gsm = { GE::GSM::GameStateManager::GetInstance() };
+    gsm.SetNextScene("SceneTest");
   }
   End();
 
@@ -191,8 +214,7 @@ void ImGuiUI::Update()
   End();
 
 
-  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
-  ne->NodeEditorShow();
+
 
   ImGuiHelper::EndDockSpace();
 }

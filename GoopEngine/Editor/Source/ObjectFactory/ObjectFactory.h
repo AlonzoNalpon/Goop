@@ -107,6 +107,13 @@ namespace GE::ObjectFactory
       Map of old Entity IDs to their new ones
    ************************************************************************/
     std::unordered_map<ECS::Entity, ECS::Entity> GenerateNewIDs() const;
+
+    /*!*********************************************************************
+    \brief
+      Clears the object map.
+   ************************************************************************/
+    void ClearSceneObjects();
+
   private:
     /*!*********************************************************************
     \brief

@@ -1,0 +1,72 @@
+[
+    {
+        "tree": [
+            {
+                "nodeType": "ROOT_NODE",
+                "parentNode": 0,
+                "childrenNode": [
+                    1
+                ],
+                "scriptName": "RootNode",
+                "pos": "{ 296.901, -61.3319 }"
+            },
+            {
+                "nodeType": "COMPOSITE_NODE",
+                "parentNode": 0,
+                "childrenNode": [
+                    2,
+                    3
+                ],
+                "scriptName": "SelectorNode",
+                "pos": "{ 538.901, -70.3319 }"
+            },
+            {
+                "nodeType": "COMPOSITE_NODE",
+                "parentNode": 1,
+                "childrenNode": [],
+                "scriptName": "SequenceNode",
+                "pos": "{ 785.901, -159.332 }"
+            },
+            {
+                "nodeType": "COMPOSITE_NODE",
+                "parentNode": 1,
+                "childrenNode": [
+                    4,
+                    5
+                ],
+                "scriptName": "SequenceNode",
+                "pos": "{ 782.901, 29.6681 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 3,
+                "childrenNode": [],
+                "scriptName": "RunFromPlayer",
+                "pos": "{ 1031.9, 111.668 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 3,
+                "childrenNode": [],
+                "scriptName": "IsWithinPlayerRange",
+                "pos": "{ 1032.9, -28.3319 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 0,
+                "childrenNode": [],
+                "scriptName": "MoveToPlayer",
+                "pos": "{ 1015.9, -164.332 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 0,
+                "childrenNode": [],
+                "scriptName": "IsOutsideAttackRange",
+                "pos": "{ 1025.9, -297.332 }"
+            }
+        ],
+        "treeName": "WormTree",
+        "treeTempID": 0
+    }
+]

@@ -2,28 +2,42 @@
 #include <ImNode/NodeEditor.h>
 #include <algorithm>
 #include <filesystem>
+#include <fstream>
 #include <rapidjson/document.h>
 #include <rapidjson/writer.h>
 #include <rapidjson/stringbuffer.h>
+#include "../AssetManager/AssetManager.h"
 
 
 
 void GE::AI::NodeEditor::NodeEditorInit()
 {
   // Get all the names of the scripts available
-  std::filesystem::path aiDir{ "../GoopScripts/AI" };
-  if (!std::filesystem::exists(aiDir))
+  Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
+  std::ifstream file(assetManager.GetConfigData<std::string>("ScriptNames").c_str());
+  if (!file.good())
   {
-    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open GoopScripts AI folder: " + aiDir.string()));
+    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open GoopScripts AI folder: "+ assetManager.GetConfigData<std::string>("ScriptNames")));
   }
-  for (const auto& file : std::filesystem::recursive_directory_iterator(aiDir))
-  {
-    if (!file.is_regular_file()) { continue; }	// skip if file is a directory
-    std::string const& currExt{ file.path().extension().string() };
-    if (currExt == scriptExt)	// image
-    {
-      m_allScriptNames.push_back(file.path().stem().string());
+
+  std::string jsonString((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+  rapidjson::Document document;
+  document.Parse(jsonString.c_str());
+
+  if (document.HasParseError()) {
+    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Parsing error for: " + assetManager.GetConfigData<std::string>("ScriptNames")));
+  }
+
+  if (document.HasMember("Enemy") && document["Enemy"].IsArray()) {
+    const rapidjson::Value& scriptNames = document["Enemy"];
+
+    // Iterate through the array and get the script names
+    for (rapidjson::SizeType i = 0; i < scriptNames.Size(); i++) {
+      m_allScriptNames.push_back(scriptNames[i].GetString());
     }
+  }
+  else {
+    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Json File not structed properly: " + assetManager.GetConfigData<std::string>("ScriptNames")));
   }
 
   //Create the node editor context and turn on any settings
@@ -48,7 +62,6 @@ void GE::AI::NodeEditor::NodeEditorInit()
 void  GE::AI::NodeEditor::NodeEditorShow()
 {
 
-  ImGui::Begin("Node editor");
   ImNodes::BeginNodeEditor();
 
   if (m_currentTree != nullptr)
@@ -125,9 +138,6 @@ void  GE::AI::NodeEditor::NodeEditorShow()
       UpdateNewTree();
     }
   }
-
-  ImGui::End();
-
 }
 
 
@@ -352,7 +362,6 @@ void GE::AI::NodeEditor::UpdateNewTree()
     {
       std::cout << n << "\n";
     }
-
     std::cout << "\n";
     ++currID;
     treeTemp.m_tree.push_back(nodeTemp);
@@ -361,8 +370,11 @@ void GE::AI::NodeEditor::UpdateNewTree()
   //Sent the updated tree to Tree Manager
   if (!hasEmptyNode)
   {
-    std::cout << "You have a node with no script, we will not update the in game tree until all nodes have a script\n";
     GE::AI::TreeManager::GetInstance().UpdateTreeList(treeTemp);
+  }
+  else
+  {
+    std::cout << "You have a node with no script, we will not update the in game tree until all nodes have a script\n";
   }
   m_currentTree->m_changedData = false;
 

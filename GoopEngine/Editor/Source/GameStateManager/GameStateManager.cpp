@@ -1,5 +1,6 @@
 #include <pch.h>
 #include <GameStateManager/GameStateManager.h>
+#include <Utilities/GoopUtils.h>
 using namespace GE::GSM;
 
 void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
@@ -19,7 +20,6 @@ void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
 	{
 		e.LogSource();
 	}
-	
 }
 
 std::string GE::GSM::GameStateManager::GetCurrentScene() const
