@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*!************************************************************************
+\file SelectorNode.cs
+\author Han Qin Ding
+
+\brief
+C# script attached to a composite node.
+Will each child node every frame.
+if any of the child node succeeds, it will not run the rest of the child nodes
+**************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +28,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
   \brief
-    Non default constructor of Player class
+    Non default constructor of SelectorNode class
 
   \params enityID
    ID of the owner of this scipt
@@ -40,7 +49,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
    \brief
-     Awake function for the player script. 
+     Awake function for the SelectorNode script. 
    ************************************************************************/
     public void Awake()
     {
@@ -50,7 +59,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
    \brief
-     Start function for the player script. 
+     Start function for the SelectorNode script. 
    ************************************************************************/
     public void Start()
     {
@@ -59,8 +68,14 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
     \brief
-     Update function for the player script. This function is called every frame
-     if the script is attached to an entity
+     Update function for the SelectorNode script. This function is called every frame
+     if the script is attached to a composite node
+    
+    \param[entityID] uint
+    ID of the entity
+
+    \param[dt] dobule
+    delta time
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
@@ -111,6 +126,11 @@ namespace GoopScripts.AI
 
 
     }
+    /*!*********************************************************************
+    \brief
+     onFail function for the SelectorNode script. This function is called when the script fails.
+    it informs the tree that this script failed and jump back to the parent node
+    ************************************************************************/
     public void OnFail(uint entityID)
     {
       //SetTheNextNode and the result
@@ -121,6 +141,11 @@ namespace GoopScripts.AI
 
     }
 
+    /*!*********************************************************************
+     \brief
+      onSuccess function for the SelectorNode script. This function is called when the script succeed.
+     it informs the tree that this script succeed and jump back to the parent node
+     ************************************************************************/
     public void OnSuccess(uint entityID)
     {
       //SetTheNextNode and the result
@@ -130,7 +155,14 @@ namespace GoopScripts.AI
       JumpToParent();
     }
 
+    /*!*********************************************************************
+    \brief
+     ReturnFromChild function for the SelectorNode script. This function is called when the child node
+    returns to this node.
 
+    \param[entityID] uint
+    ID of the entity
+    ************************************************************************/
     public void ReturnFromChild(uint entityID)
     {
       //It common for the tree to only travel back to the composite node in a later frame
@@ -166,7 +198,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
     \brief
-     Update function for the player script. This function is called every frame
+     Update function for the SelectorNode script. This function is called every frame
      if the script is attached to an entity
     ************************************************************************/
     public void Update()
@@ -176,7 +208,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
     \brief
-     late Update function for the player script
+     late Update function for the SelectorNode script
     ************************************************************************/
     public void LateUpdate()
     {

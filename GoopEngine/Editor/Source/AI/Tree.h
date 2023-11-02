@@ -1,3 +1,11 @@
+/*!************************************************************************
+\file Tree.h
+\author Han Qin Ding
+
+\brief
+This file contains structs, using aliases and enums that will be used by the 
+Tree Manager,Node Editor and Enemy System to build and run a Behaviour Tree
+**************************************************************************/
 #pragma once
 #include <vector>
 #include <string>

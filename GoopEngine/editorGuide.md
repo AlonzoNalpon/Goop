@@ -63,7 +63,8 @@ View displays files within each folder selected from Directory. Images are print
 Allows user to edit enemy's behaviour tree. Any changes made will be displayed in the game at runtime, if the tree is valid (will explain more about it bellow)
 There are 3 types of nodes available, Root Node, Composite Node and Leaf Node (Each of them are displayed with a different colored heading)
 There are 2 types of pins, Input Pin (Left Pin) and the Output Pin (Right pin). 
-Currently, you can navigate around the node editor by holding the middle mouse button and move your mouse around
+Currently, you can navigate around the node editor by holding the middle mouse button and move your mouse around.
+Would reccomend you to load the BehaviourTreeTest scene to see the enemy use the behaviour tree
 
 Users are able to perform these actions:
 1. Reposition the nodes
