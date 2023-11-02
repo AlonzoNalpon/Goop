@@ -416,7 +416,6 @@ namespace {
     GLfloat const halfVpW{ fbInfo.vpDims.x * 0.5f }, halfVpH{ fbInfo.vpDims.y * 0.5f };
     // translate the mouse position to the range [-0.5,0.5]
     gVec2 wsPos{ (mousePos.x - halfVpW) / fbInfo.vpDims.x , (mousePos.y - halfVpH) / fbInfo.vpDims.y };
-    std::cout << wsPos.x << " | " << wsPos.y << std::endl;
 
     // Now we scale based on camera dimensions
 
