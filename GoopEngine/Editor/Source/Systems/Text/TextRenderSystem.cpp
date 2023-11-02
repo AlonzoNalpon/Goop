@@ -14,7 +14,7 @@ namespace GE::Systems
         continue;
       Component::Text& textComp{ *m_ecs->GetComponent<Component::Text>(entity) };
       Component::Transform& trans{ *m_ecs->GetComponent<Component::Transform>(entity) };
-      gEngine.GetRenderer().RenderFontObject({}, static_cast<GLfloat>(trans.m_scale.x), textComp.m_text, textComp.m_clr, textComp.m_fontID);
+      gEngine.GetRenderer().RenderFontObject({trans.m_worldPos.x, trans.m_worldPos.y}, textComp.m_scale, textComp.m_text, textComp.m_clr, textComp.m_fontID);
     }
   }
 

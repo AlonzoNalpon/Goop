@@ -160,6 +160,9 @@ namespace GE::Application
           fRC.StartSystemTimer();
           imgui.Render();
           fRC.EndSystemTimer("ImGui Render");
+#else
+          // RENDERING TO SCREEN WITHOUT IMGUI
+          gEngine.RenderToScreen();
 #endif
         }
         catch (GE::Debug::IExceptionBase& e)

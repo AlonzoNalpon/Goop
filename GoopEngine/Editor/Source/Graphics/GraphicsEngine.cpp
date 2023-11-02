@@ -15,7 +15,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <GLFW/glfw3.h>
 #include <FrameRateController/FrameRateController.h>
 #include <SpriteAnimation/SpriteAnimGenerator.h>
-//#define OGL_ERR_CALLBACK
   
 namespace Graphics {
   
@@ -58,9 +57,10 @@ namespace {
     m_vpHeight = h;
     m_ar = static_cast<GLfloat>(m_vpWidth) / m_vpHeight;
     
-    InitFrameBuffer();
-    // Initialize font manager
-    //m_fontManager.Init();
+#ifdef NO_IMGUI // create game framebuffer if IMGUI isn't enabled. This will be changed in the future
+    //CreateFrameBuffer(w, h); // create framebuffer based on width and height
+#endif
+
 #pragma region SHADER_MDL_INIT
     std::string shaderPathOpt = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("ShaderPath");
     if (shaderPathOpt.empty()) 
@@ -68,20 +68,25 @@ namespace {
       throw GE::Debug::Exception<GraphicsEngine>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Invalid shader path"));
     }
     m_spriteQuadMdl = GenerateQuad();
+    m_renderQuad    = GenerateQuad(1.f, 1.f); // a render quad covering the full screen!
     m_lineMdl       = GenerateLine();
     m_fontMdl = GenerateFontMdl();
+
+    // INITIALIZING ALL SHADERS
     ShaderInitCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"}};
+    ShaderInitCont finalPassShaders{ { GL_VERTEX_SHADER, "final_pass.vert" }, {GL_FRAGMENT_SHADER, "final_pass.frag"} };
     ShaderInitCont debugLineShaders{ { GL_VERTEX_SHADER, "debug_line.vert" }, {GL_FRAGMENT_SHADER, "debug_line.frag"} };
     ShaderInitCont fontShaders{ { GL_VERTEX_SHADER, "font.vert" }, {GL_FRAGMENT_SHADER, "font.frag"} };
 
     m_spriteQuadMdl.shader = CreateShader(spriteShaders, "sprite");
+    m_renderQuad.shader    = CreateShader(finalPassShaders, "finalPass");
     m_fontMdl.shader       = CreateShader(fontShaders, "font");
     // Adding the basic shader for rendering lines etc...
     m_lineMdl.shader       = CreateShader(debugLineShaders, "debug_line");
     m_models.emplace_back(m_spriteQuadMdl);
     m_models.emplace_back(m_lineMdl); // always load line model last! for renderer init
 
-    //Initialize renderer with a camera
+    //Initialize renderer with a camera: WILL BE REMOVED WHEN GAME CAMERA COMPONENTS ARE COMPLETED
     {
       Rendering::Camera orthoCam{ {0.f,0.f,1000.1f},                          // pos
                                   {},                                     // target
@@ -154,10 +159,7 @@ namespace {
     m_renderer.RenderObject(0, spriteData, xform);
 #endif
 
-    constexpr GLfloat FONT_SCALE{ 0.2f };
 
-    auto marchID = m_fontManager.GetFontID("Marchesa");
-    auto reyesID = m_fontManager.GetFontID("Reyes");
     for (auto& fbInfo : m_frameBuffers)
     {
       glBindFramebuffer(GL_FRAMEBUFFER, fbInfo.second.frameBuffer);
@@ -165,8 +167,6 @@ namespace {
       glViewport(0, 0, fbInfo.second.vpDims.x, fbInfo.second.vpDims.y);
       fbInfo.second.camera.CalculateViewProjMtx(); // Update camera
       m_renderer.Draw(fbInfo.second.camera);
-      m_renderer.DrawFontObj("you're", {}, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.5f, 0.f, 0.f }, marchID);
-      m_renderer.DrawFontObj("next", { 0.f, -50.f }, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.8f, 0.2f, 0.f }, reyesID);
     }
   #if 0 // BACKUP FOR MERGE
     m_renderer.Draw();
@@ -179,14 +179,29 @@ namespace {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
   }
 
-  Model GraphicsEngine::GenerateQuad()
+  void GraphicsEngine::RenderToScreen(gObjID framebufferID)
+  {
+    auto const& fbInfo = m_frameBuffers[framebufferID];
+    glUseProgram(m_renderQuad.shader); // USE SHADER PROGRAM
+    glBindVertexArray(m_renderQuad.vaoid); // bind vertex array object to draw
+    glBindTextureUnit(7, fbInfo.renderTexture);
+    glTextureParameteri(fbInfo.renderTexture, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+    glTextureParameteri(fbInfo.renderTexture, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+
+    glDrawArrays(m_renderQuad.primitive_type, 0, m_renderQuad.draw_cnt);
+    glBindTextureUnit(7, 0);
+    glBindVertexArray(0);         // unbind vertex array object
+    glUseProgram(0);
+  }
+
+  Model GraphicsEngine::GenerateQuad(GLfloat width, GLfloat height)
   {
     Model retval{};
     // Order of the quad's vtx data: bottom left, bottom right, top left, top right
     Colorf const WHITE{ 1.f, 1.f, 1.f, 1.f };
     GL_Data data
     {
-      {{ -0.5, -0.5, .0 }, { 0.5, -0.5, .0 },  { -0.5, 0.5, .0}, { 0.5, 0.5, .0 }}, // the position data of a quad
+      {{ -width, -height, .0 }, { width, -height, .0 },  { -width, height, .0}, { width, height, .0 }}, // the position data of a quad
       { WHITE,          WHITE,          WHITE,        WHITE },                      // the color data of the quad
       { {0.f, 0.f},     {1.f, 0.f},     {0.f, 1.f},   {1.f, 1.f} },                 // the texture data of the quad
     };

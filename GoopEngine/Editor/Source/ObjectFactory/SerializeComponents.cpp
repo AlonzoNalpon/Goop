@@ -88,6 +88,7 @@ namespace GE
 				//gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
 			}
 			sprite.m_spriteData.texture = gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename"));
+			sprite.m_spriteName = gEngine.textureManager.GetTextureName(sprite.m_spriteData.texture);
 			auto const& textureObj = gEngine.textureManager.GetTexture(sprite.m_spriteData.texture);
 			sprite.m_spriteData.info.height = textureObj.height;
 			sprite.m_spriteData.info.width = textureObj.width;

@@ -100,15 +100,17 @@ namespace Graphics::Rendering {
     glBindVertexArray(0);         // unbind vertex array object
     glUseProgram(0);        // UNUSE SHADER PROGRAM
 
-    // RENDERING FONTS
-    //{
-    //  glUseProgram(r_fontManager.fontShader);
-    //  for (auto const& obj : m_fontRenderCalls)
-    //  {
-    //    //DrawFontObj(obj.str, obj.position, obj.scale, obj.clr, obj.)
-    //  }
-    //  glUseProgram(0); // unuse
-    //}
+     // RENDERING FONTS
+    {
+      glUseProgram(r_fontManager.fontShader);
+      for (auto const& obj : m_fontRenderCalls)
+      {
+        DrawFontObj(obj.str, obj.position, obj.scale, obj.clr, obj.fontID, camera);
+      }
+      glUseProgram(0); // unuse
+      glBindVertexArray(0); // unbind vao
+      glBindTexture(GL_TEXTURE_2D, 0); //unbind texture
+    }
 
 
     // RENDERING LINES FRO DEBUGGING
@@ -146,18 +148,16 @@ namespace Graphics::Rendering {
     m_lineRenderCalls.clear(); // reset debug
   }
 
-  void Renderer::DrawFontObj(std::string const& str, gVec2 pos, gVec2 const& scale, Colorf const& clr, Graphics::gObjID fontID)
+  void Renderer::DrawFontObj(std::string const& str, gVec2 pos, GLfloat scale, Colorf const& clr, Graphics::gObjID fontID, Camera& camera)
   {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     constexpr GLint uViewMatLocation{ 0 };
-    //constexpr GLint U_TEXT{ 1 };
     constexpr GLint uColorLocation{ 2 };
     auto const& fontMap = r_fontManager.GetFontMap(fontID);
-    glm::mat4 camViewProj{ m_camera.GetViewMtx() }; // TODO: OPTIMIZE THE CAMERA VIEW PROJ MATRIX BY CACHING
+    glm::mat4 camViewProj{ camera.GetViewMtx() };
 
-
-    glUseProgram(r_fontManager.fontShader); // use font shader
+    // ASSUMING THAT WE USED THE SHADER BEFORE FUNCTION CALL
     // pass the color
     glUniform3f(uColorLocation, clr.r, clr.g, clr.b);
     // Pass the camera matrix
@@ -169,11 +169,11 @@ namespace Graphics::Rendering {
     for (char ch : str)
     {
       Fonts::Character const& currGlyph{ fontMap.at(ch) };
-      GLfloat xpos = pos.x + currGlyph.bearing.x * scale.x;
-      GLfloat ypos = pos.y - (currGlyph.size.y - currGlyph.bearing.y) * scale.y;
+      GLfloat xpos = pos.x + currGlyph.bearing.x * scale;
+      GLfloat ypos = pos.y - (currGlyph.size.y - currGlyph.bearing.y) * scale;
 
-      GLfloat w = currGlyph.size.x * scale.x;
-      GLfloat h = currGlyph.size.y * scale.y;
+      GLfloat w = currGlyph.size.x * scale;
+      GLfloat h = currGlyph.size.y * scale;
       // update the VBO
       GLfloat verts[6][4] = {
         // TRIANGLE 1
@@ -197,10 +197,9 @@ namespace Graphics::Rendering {
       // advance cursor for next glyph
 
       //advance is number of 1/64 pixels
-      pos.x += (currGlyph.advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
+      pos.x += (currGlyph.advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
     }
-    glBindVertexArray(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    
   }
 
   Camera& Renderer::GetCamera()

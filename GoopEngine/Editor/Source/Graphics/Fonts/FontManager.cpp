@@ -142,4 +142,8 @@ namespace Graphics::Fonts
   {
     return m_fontIDLT.at(name);
   }
+  FontManager::FontID_LT const& FontManager::GetFontLT() const
+  {
+    return m_fontIDLT;
+  }
 }

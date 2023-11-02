@@ -86,7 +86,7 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 	ImGuiStyle& style = GetStyle();
 	originalTextClr = style.Colors[ImGuiCol_Text];
 	
-		ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+		ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow;
 		if (TreeNodeEx(gsm.GetCurrentScene().c_str(), treeFlags))
 		{
 			// Allow user to turn an entity into a root level
@@ -226,6 +226,8 @@ namespace
 				GE::EditorGUI::ImGuiHelper::SetSelectedEntity(entity);
 				
 			}
+
+			PushID(std::to_string(entity).c_str());
 			if (IsItemClicked(ImGuiMouseButton_Right))
 			{
 				OpenPopup("EntityManip");
@@ -233,6 +235,13 @@ namespace
 			}
 			if (BeginPopup("EntityManip"))
 			{
+				if (Selectable("Create"))
+				{
+					Entity newEntity = ecs.CreateEntity();
+					GE::Component::Transform trans{{0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 }};
+					ecs.AddComponent(newEntity, trans);
+				}
+
 				if (Selectable("Duplicate"))
 				{
 					GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity, ecs.GetComponent<GE::Component::Transform>(entity)->m_pos);
@@ -248,6 +257,7 @@ namespace
 			{
 				treeNodePopUp = false;
 			}
+			PopID();
 
 			////////////////////////////////////
 			// Handle drag and drop orderering

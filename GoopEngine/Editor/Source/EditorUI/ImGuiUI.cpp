@@ -124,6 +124,11 @@ void ImGuiUI::Update()
     for (int i{}; i < 500; ++i)
     {
       GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
+      if (entity == GE::ECS::INVALID_ID)
+      {
+        break;
+      }
+
       try
       {
         double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);

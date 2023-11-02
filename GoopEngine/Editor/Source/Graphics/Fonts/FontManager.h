@@ -30,13 +30,14 @@ namespace Graphics::Fonts
   class FontManager 
   {
   public:
+    void Init(GLuint fontShader, GLuint fontQuad);
+    void LoadFont(std::string const& name, std::string const& path, GLint fontSize = 256);
+  private:
     using FontMap         = std::map<uChar, Character>;
     using FontMapFontMap  = std::map<Graphics::gObjID ,FontMap>;
     using FontID_LT       = std::map<std::string, Graphics::gObjID>;
     using FontName_LT     = std::map<Graphics::gObjID, std::string>;
-    void Init(GLuint fontShader, GLuint fontQuad);
-    void LoadFont(std::string const& name, std::string const& path, GLint fontSize = 256);
-  private:
+
     FT_Library        m_library;
     FontMapFontMap    m_fonts;      // !< all loaded fonts' glyphs stored here
     FontID_LT         m_fontIDLT;     // !< lookup table to get font ID from string
@@ -50,6 +51,7 @@ namespace Graphics::Fonts
     Graphics::gObjID  GetFontID(std::string const& name)const;
     GLuint const&     fontModel{ m_fontQuad };
     GLuint const&     fontShader{ m_fontShader };
+    FontID_LT const&  GetFontLT()const;
   };
 }
 
