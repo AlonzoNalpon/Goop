@@ -162,7 +162,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 			}
 			if (key == GPK_R)
 			{
-				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("damage_taken"), 1.0f);
+				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("damageTaken_Leah"), 1.0f);
 			}
 		}
 	}
