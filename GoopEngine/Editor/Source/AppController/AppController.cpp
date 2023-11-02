@@ -108,9 +108,11 @@ namespace GE::Application
           im.UpdateInput();
           fRC.EndSystemTimer("Input");
 
+#ifndef NO_IMGUI
           fRC.StartSystemTimer();
           imgui.Update();
           fRC.EndSystemTimer("ImGui Update");
+#endif
 
 #ifndef NO_IMGUI
           if (GE::EditorGUI::ImGuiHelper::IsRunning())
@@ -133,6 +135,7 @@ namespace GE::Application
           ecs->UpdateSystems();
 #endif  // NO_IMGUI
 
+          Audio::AudioEngine::GetInstance().Update();
           gsm.Update();
         }
         catch (GE::Debug::IExceptionBase& e)
@@ -153,9 +156,11 @@ namespace GE::Application
           gEngine.Draw();
           fRC.EndSystemTimer("Deferred Render");
 
+#ifndef NO_IMGUI
           fRC.StartSystemTimer();
           imgui.Render();
           fRC.EndSystemTimer("ImGui Render");
+#endif
         }
         catch (GE::Debug::IExceptionBase& e)
         {

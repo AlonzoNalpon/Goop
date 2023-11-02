@@ -186,7 +186,6 @@ void ImGuiUI::Update()
   {
     Audio::AudioEngine::GetInstance().StopAllChannels();
   }
-  Audio::AudioEngine::GetInstance().Update();
   End();
 
 

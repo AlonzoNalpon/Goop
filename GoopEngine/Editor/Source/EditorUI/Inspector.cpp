@@ -229,7 +229,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputDouble1("Height", col->m_height);
 					TableNextRow();
+#ifndef NO_IMGUI
 					InputCheckBox("Show Collider", col->m_render);
+#endif
 					EndTable();
 					Separator();
 				}
