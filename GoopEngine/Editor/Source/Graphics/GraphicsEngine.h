@@ -240,6 +240,7 @@ namespace Graphics {
   public: // getters
     SpriteAnimationManager const&   animManager{ m_animManager };      // read-only getter to animation manager 
     TextureManager const&           textureManager{ m_textureManager };// read-only getter to texture manager
+    Fonts::FontManager const&       fontManager{ m_fontManager };
   };
 }
 #endif

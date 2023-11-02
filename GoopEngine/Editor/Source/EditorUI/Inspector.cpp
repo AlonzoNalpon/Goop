@@ -327,8 +327,22 @@ void GE::EditorGUI::Inspector::CreateContent()
 					
 					TableNextColumn();
 					ImGui::ColorEdit4("Color", textObj->m_clr.rgba);
+					ImGui::DragFloat("Scale", &textObj->m_scale, .001f, 0.f, 5.f);
 					ImGui::InputTextMultiline("Text", &textObj->m_text);
-
+					
+					auto const& fontManager{ Graphics::GraphicsEngine::GetInstance().fontManager };
+					auto const& fontLT{ fontManager.GetFontLT() }; //lookup table for fonts (string to ID)
+					if (BeginCombo("Font", fontManager.GetFontName(textObj->m_fontID).c_str()))
+					{
+						for (auto it : fontLT)
+						{
+							if (Selectable(it.first.c_str()))
+							{
+								textObj->m_fontID = it.second;
+							}
+						}
+						EndCombo();
+					}
 					EndTable();
 					Separator();
 				}

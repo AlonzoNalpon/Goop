@@ -10,9 +10,9 @@ namespace GE
 	{
 		struct Text
 		{
-			std::string				m_text;
-			Graphics::Colorf	m_clr;
-			f32								m_scale;
+			std::string				m_text{"YOUR TEXT HERE"};
+			Graphics::Colorf	m_clr{ 1.f, 0.f, 1.f, 1.f };
+			f32								m_scale{ 0.1f };
 			Graphics::gObjID  m_fontID{};
 		};
 	}
