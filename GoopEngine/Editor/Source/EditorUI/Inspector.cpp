@@ -1,6 +1,7 @@
 /*!*********************************************************************
 \file   Inspector.cpp
 \author w.chinkitbryam\@digipen.edu
+\co-authors a.nalpon\@digipen.edu
 \date   23 October 2023
 \brief
 	Wrapper class to create an EditorGUI for the tool bar
@@ -497,7 +498,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 			case GE::ECS::COMPONENT_TYPES::TEXT:
 			{
-				//float inputWidth = (contentSize - charSize) / 3;
 				if (ImGui::CollapsingHeader("Text", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					if (IsItemClicked(ImGuiMouseButton_Right))

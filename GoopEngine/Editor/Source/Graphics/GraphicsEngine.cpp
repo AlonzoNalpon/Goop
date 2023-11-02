@@ -57,9 +57,6 @@ namespace {
     m_vpHeight = h;
     m_ar = static_cast<GLfloat>(m_vpWidth) / m_vpHeight;
     
-#ifdef NO_IMGUI // create game framebuffer if IMGUI isn't enabled. This will be changed in the future
-    //CreateFrameBuffer(w, h); // create framebuffer based on width and height
-#endif
 
 #pragma region SHADER_MDL_INIT
     std::string shaderPathOpt = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("ShaderPath");
@@ -314,17 +311,6 @@ namespace {
     Model retval{};
     GLuint vbo_hdl{}, vaoid{}; // vertex buffer object handle
 
-#if 0
-    glGenVertexArrays(1, &vaoid);
-    glGenBuffers(1, &vbo_hdl);
-    glBindVertexArray(vaoid);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_hdl);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-#else
     glCreateVertexArrays(1, &vaoid);
     glBindVertexArray(vaoid);
 
@@ -341,7 +327,6 @@ namespace {
 
     // We won't be using indices for the quad ...
     glBindVertexArray(0); // All done. Unbind vertex array
-#endif
 
     retval.vaoid = vaoid;
     return retval;
@@ -424,33 +409,31 @@ namespace {
 
   gVec2 GraphicsEngine::ScreenToWS(gVec2 const& mousePos, gObjID frameBuffer)
   {
-    auto const& fbInfo{ m_frameBuffers.at(frameBuffer) };
-    gVec2 const& fbFrameDims{ fbInfo.camera.GetFrameDims() };
-    gVec3 const& fbCamPos{ fbInfo.camera.GetPos() };
+    auto const& fbInfo{ m_frameBuffers.at(frameBuffer) };     // frame buffer info
+    gVec2 const& fbFrameDims{ fbInfo.camera.GetFrameDims() }; // framebuffer dimensions
+    gVec3 const& fbCamPos{ fbInfo.camera.GetPos() };          // cameraposition
 
     GLfloat const halfVpW{ fbInfo.vpDims.x * 0.5f }, halfVpH{ fbInfo.vpDims.y * 0.5f };
     // translate the mouse position to the range [-0.5,0.5]
     gVec2 wsPos{ (mousePos.x - halfVpW) / fbInfo.vpDims.x , (mousePos.y - halfVpH) / fbInfo.vpDims.y };
 
-    // Now we scale based on camera dimensions
-
+    // Now we scale based on camera dimensions, and translate based on position!
     wsPos.x *= fbFrameDims.x;
     wsPos.y *= fbFrameDims.y;
     wsPos.x += fbCamPos.x;
     wsPos.y += fbCamPos.y;
-    //std::cout << fbFrameDims.x << " | " << fbFrameDims.y << std::endl;
     return wsPos;
   }
 
   gObjID GraphicsEngine::CreateFrameBuffer(GLint width, GLint height)
   {
     Rendering::FrameBufferInfo newFB{ {m_frameBuffers.size()}, {}, {},
-      // The camera
-    Rendering::Camera{ {0.f,0.f,3.f},                              // pos
-    {},                                           // target
-    {.0f, 1.f, 0.f},                              // up vector
+      // The camera currently covers 1000 to -1000
+    Rendering::Camera{ {0.f,0.f,1000.1f},                          // pos
+    {},                                                           // target
+    {.0f, 1.f, 0.f},                                              // up vector
     -width * 0.5f, width * 0.5f, -height * 0.5f, height * 0.5f,   // left right bottom top
-    0.1f, 1000.f } , 
+    0.1f, 2000.9f } , 
       {width, height } // viewport dimensions in pixels
   };
     glGenFramebuffers(1, &newFB.frameBuffer);
