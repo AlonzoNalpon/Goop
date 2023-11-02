@@ -16,6 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/GooStream/PrefabGooStream.h>
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Serialization/Deserializer.h>
+#include <Utilities/GoopUtils.h>
 
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
@@ -231,6 +232,9 @@ void ObjectFactory::DeserializePrefab(const std::string& filepath)
 
 GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
 {
+  if (m_prefabs.find(key) == m_prefabs.end())
+    GoopUtils::ReloadFileData();
+
   if (m_prefabs.find(key) == m_prefabs.end())
   {
     throw GE::Debug::Exception<ObjectFactory>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
