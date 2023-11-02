@@ -75,7 +75,6 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
           ecs->SetEntityName(imageEntity, GE::GoopUtils::ExtractFilename(droppedPath));
         }
       }
-      ImGui::EndDragDropTarget();
     }
     if (const ImGuiPayload* payload2 = ImGui::AcceptDragDropPayload("ASSET_BROWSER_PREFAB"))
     {
