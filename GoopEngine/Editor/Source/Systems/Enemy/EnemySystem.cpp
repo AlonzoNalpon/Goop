@@ -63,7 +63,7 @@ void EnemySystem::FixedUpdate()
 			// Only swap the trees that are newly updated
 			if (tempTreeCondList[i])
 			{
-				std::cout << "SWAP\n";
+				//std::cout << "SWAP\n";
 				if (tempTreeList[i].m_treeTempID >= static_cast<unsigned>(m_treeList.size()))
 				{
 					AddGameTree(tempTreeList[i]);
