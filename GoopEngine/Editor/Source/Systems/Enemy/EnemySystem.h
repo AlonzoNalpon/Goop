@@ -37,9 +37,9 @@ namespace GE
 
 		public:
 
-			static void InitTree();
-
 			void FixedUpdate();
+
+			static void InitTree();
 
 			static void AddGameTree(const GE::AI::TreeTemplate& treeTemp);
 
@@ -71,6 +71,8 @@ namespace GE
 			static void ResetNode();
 
 			static unsigned int GetPlayerID();
+
+			static void SetPlayerID();
 
 
 		};

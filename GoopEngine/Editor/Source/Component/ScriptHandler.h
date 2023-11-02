@@ -9,6 +9,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <ScriptEngine/ScriptManager.h>
+#include <AssetManager/AssetManager.h>
 
 namespace GE
 {
@@ -20,11 +21,11 @@ namespace GE
 		struct ScriptHandler
 		{
 
-			std::map<std::string,Script> m_scriptMap;
+			std::map<std::string, Script> m_scriptMap;
 
 			/*!*********************************************************************
-			\brief 
-			  Default constructor
+			\brief
+				Default constructor
 			************************************************************************/
 			ScriptHandler() {};
 
@@ -33,30 +34,29 @@ namespace GE
 				Non-default Constructor for Scripthandler. Initialize all the scripts instance and add it to the map
 
 			\params  scriptNames
-				list of the names of scriptes and their namespace
+				list of the names of scripts
 
 			\params entityID
 			 ID of the entity this component belongs to
 			************************************************************************/
-			ScriptHandler(const std::vector<std::pair<std::string, std::string>>& scriptNames, unsigned int entityID)
+			ScriptHandler(std::vector<std::string> const& scriptNames, unsigned int entityID)
 			{
-				
 				GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
-				for ( const std::pair<std::string, std::string>& s: scriptNames)
+				for (const std::string& s : scriptNames)
 				{
-					if (m_scriptMap.find(s.second) == m_scriptMap.end()) 
+					if (m_scriptMap.find(s) == m_scriptMap.end())
 					{
 						try
 						{
 							unsigned int copy = entityID;
 							std::vector<void*> arg{ &copy };
-							m_scriptMap[s.second] = Script(scriptMan->InstantiateClass(s.first.c_str(), s.second.c_str(), arg));
+							m_scriptMap[s] = Script(scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Player Script Namespace").c_str(), s.c_str(), arg));
 						}
 						catch (GE::Debug::IExceptionBase& e)
 						{
 							e.LogSource();
 							e.Log();
-							throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + s.second, ERRLG_FUNC, ERRLG_LINE);
+							throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + s, ERRLG_FUNC, ERRLG_LINE);
 						}
 					}
 
@@ -66,29 +66,29 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				Function to add a script to the map 
+				Function to add a script to the map
 
 			\params  scriptNames
-				list of the names of scriptes and their namespace
+				list of the names of scripts
 
 			\params entityID
 			 ID of the entity this component belongs to
 			************************************************************************/
-			void AddScript(const std::pair<std::string, std::string>& scriptName, unsigned int entityID) {
-				if (m_scriptMap.find(scriptName.second) == m_scriptMap.end())
+			void AddScript(const std::string& scriptName, unsigned int entityID) {
+				if (m_scriptMap.find(scriptName) == m_scriptMap.end())
 				{
 					GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
 					try
 					{
 						unsigned int copy = entityID;
 						std::vector<void*> arg{ &copy };
-						m_scriptMap[scriptName.second] = Script(scriptMan->InstantiateClass(scriptName.first.c_str(), scriptName.second.c_str(), arg));
+						m_scriptMap[scriptName] = Script(scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Player Script Namespace").c_str(), scriptName.c_str(), arg));
 					}
 					catch (GE::Debug::IExceptionBase& e)
 					{
 						e.LogSource();
 						e.Log();
-						throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + scriptName.second, ERRLG_FUNC, ERRLG_LINE);
+						throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + scriptName, ERRLG_FUNC, ERRLG_LINE);
 					}
 			
 				}
@@ -98,9 +98,9 @@ namespace GE
 			\brief
 				function to update all the script attacehed to the entity
 			************************************************************************/
-			void UpdateAllScripts() 
+			void UpdateAllScripts()
 			{
-				for (const std::pair<std::string,Script>& cs : m_scriptMap) {
+				for (const std::pair<std::string, Script>& cs : m_scriptMap) {
 					mono_runtime_invoke(cs.second.m_updateMethod, cs.second.m_classObjInst, nullptr, nullptr);
 				}
 			}

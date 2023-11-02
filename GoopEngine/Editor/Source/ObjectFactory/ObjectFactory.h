@@ -23,6 +23,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ObjectFactory/ObjectStructs.h>
 #include <Serialization/Serializer.h>
 #include <Component/Components.h>
+#include <any>
 
 
 namespace GE::ObjectFactory
@@ -181,6 +182,8 @@ namespace GE::ObjectFactory
 
     std::vector<std::pair<std::string, ObjectData>> m_objects; // Map of objects with pair of name, and ObjectData.
     std::unordered_map<std::string, ObjectData> m_prefabs; // Map of prefabs with pair of name, and ObjectData.
+    std::any m_storage;
+
   };
   #include "ObjectFactory.tpp"
 }

@@ -11,7 +11,9 @@ void TreeManager::Init()
   //Json code to deserialize
   try
   {
-    //m_treeTempList = std::move(GE::Serialization::Deserializer::DeserializeTrees("./Assets/test.json"));
+    m_treeTempList = std::move(GE::Serialization::Deserializer::DeserializeTrees("./Assets/test.json"));
+    m_treeTempCond.resize(m_treeTempList.size(), false);
+
   }
   catch (...)
   {
@@ -30,7 +32,7 @@ void TreeManager::Init()
   //GE::AI::TreeTemplate newTemp{ std::move(tree),"WormTree",0 };
   //m_treeTempList.push_back(newTemp);
   //m_treeTempCond.push_back(false);
-  ShutDown();
+  //ShutDown();
 }
 
 void TreeManager::ShutDown()
@@ -60,9 +62,11 @@ void TreeManager::UpdateTreeList(TreeTemplate& treeTemp)
 
   if (iter != m_treeTempList.end())   // If the tree Template already exist in the list, we just update with the new one
   {
+    //std::cout << m_treeTempList.size() << "vs" << m_treeTempCond.size();
+    //std::cout << "UPDATE TREE DETAIL\n";
     std::swap(*(iter), treeTemp);
     m_treeTempCond[(iter-m_treeTempList.begin())] = true;
-
+   // std::cout << "UPDATE TREE DETAI AFT\n";
   }
   else // If the tree Template does not exist, we will add it into list
   {
@@ -70,6 +74,7 @@ void TreeManager::UpdateTreeList(TreeTemplate& treeTemp)
     m_treeTempCond.push_back(true);
   }
   m_listChanged = true;
+
 }
 
 bool TreeManager::isTreeUpdated()

@@ -138,23 +138,20 @@ namespace GE
 			return tween;
 		}
 
-		template<>
-		GE::Component::ScriptHandler DeserializeComponent(std::string const& componentData)
+		GE::Component::ScriptHandler DeserializeScriptHandler(std::string const& componentData, GE::ECS::Entity entityID)
 		{
 		    Serialization::ComponentWrapper const cw{ componentData };
-				std::vector<std::pair<std::string, std::string>> const vec{
-					cw.Get<std::vector<std::pair<std::string,std::string>>>("scriptMap")
+				std::vector<std::string> const vec{
+					cw.Get<std::vector<std::string>>("scriptMap")
 				};
-				ECS::Entity current{ static_cast<ECS::Entity>(ECS::EntityComponentSystem::GetInstance().GetEntities().size()) };
-				if (current > 0) { --current; }
-		    return Component::ScriptHandler(vec, current);
+		    return Component::ScriptHandler(vec, entityID);
 		}
 
 		template<>
 		GE::Component::EnemyAI DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
-			return Component::EnemyAI(cw.Get<unsigned int>("entityID"), cw.Get<unsigned int>("treeID"));
+			return Component::EnemyAI(cw.Get<unsigned int>("treeID"));
 		}
 
 

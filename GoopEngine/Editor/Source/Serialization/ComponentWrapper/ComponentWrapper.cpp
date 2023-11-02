@@ -309,17 +309,16 @@ std::deque<Math::dVec3> ComponentWrapper::Get(const char* key) const
 }
 
 template<> 
-std::vector<std::pair<std::string, std::string>>
+std::vector<std::string>
   ComponentWrapper::Get(const char* key) const
 {
   try
   {
-    std::string const& str{ Assets::AssetManager::GetInstance().GetConfigData<std::string>("Script Namespace") };
-    std::vector<std::pair<std::string, std::string>> ret{};
+    std::vector<std::string> ret{};
     rapidjson::Value const& list{ (*m_ptr)[key] };
     for (auto const& elem : list.GetArray())
     {
-      ret.emplace_back(str, elem.GetString());
+      ret.emplace_back(elem.GetString());
     }
 
     return ret;

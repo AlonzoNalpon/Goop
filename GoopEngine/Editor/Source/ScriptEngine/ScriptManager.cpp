@@ -279,6 +279,7 @@ void GE::MONO::SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
+  std::cout << "ENTITY: " << entity << "\n";
   oldTransform->m_pos.x += (PosAdjustment.x * fpsControl->GetDeltaTime());
   oldTransform->m_pos.y += (PosAdjustment.y * fpsControl->GetDeltaTime());
 }

@@ -241,7 +241,7 @@ void GE::AI::NodeEditor::DisplayPopup()
         dispNode.m_pos = ImNodes::GetNodeGridSpacePos(static_cast<int>(m_currentTree->m_displayNodes.size()));
 
         m_currentTree->m_displayNodes.push_back(dispNode);
-        m_currentTree->m_changedData = true;
+        //m_currentTree->m_changedData = true;
       }
     }
     ImGui::EndPopup();
@@ -257,7 +257,7 @@ void GE::AI::NodeEditor::DisplayPopup()
         if (ImGui::MenuItem(editNodeOption[i].c_str()))
         {
 
-          //Check if the user decides to delete the node node
+          //Check if the user decides to delete the node
           if (i == static_cast<int>(editNodeOption.size() - 1))
           {
             //PrintDetails();
@@ -307,10 +307,16 @@ void GE::AI::NodeEditor::UpdateNewTree()
   TreeTemplate treeTemp{};
   treeTemp.m_treeName = m_currentTree->m_treeName;
   treeTemp.m_treeTempID = m_currentTree->m_treeID;
+  bool hasEmptyNode{ false };
  // PrintDetails();
   int currID{ 0 };
   for (const DisplayNode& dispNode : m_currentTree->m_displayNodes)
   {
+    if (dispNode.m_scriptName == std::string())
+    {
+      hasEmptyNode = true;
+      break;
+    }
     NodeTemplate nodeTemp{ dispNode.m_nodeType,0,{},dispNode.m_scriptName,{dispNode.m_pos.x, dispNode.m_pos.y} };
     std::vector<int> childPinID{};
     int parentPinID{};
@@ -353,7 +359,10 @@ void GE::AI::NodeEditor::UpdateNewTree()
   }
   std::cout << "-----------------------------------------------------------------------------\n";
   //Sent the updated tree to Tree Manager
-  GE::AI::TreeManager::GetInstance().UpdateTreeList(treeTemp);
+  if (!hasEmptyNode)
+  {
+    GE::AI::TreeManager::GetInstance().UpdateTreeList(treeTemp);
+  }
   m_currentTree->m_changedData = false;
 
 }

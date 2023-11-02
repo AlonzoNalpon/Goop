@@ -1,0 +1,117 @@
+[
+  {
+    "Name": "Enemy",
+    "Parent": null,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "worldPos": "{ 100, 100, 0 }",
+          "worldScale": "{ 1, 1, 1 }",
+          "worldRot": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "Sprite": {
+          "filename": "SS_MineWorm"
+        }
+      },
+      {
+        "SpriteAnim": {
+          "name": "SS_MineWorm"
+        }
+      },
+      {
+        "Model": {
+          "mdlID": 0
+        }
+      },
+      {
+        "EnemyAI": {
+          "entityID": 0,
+          "treeID": 0
+        }
+      }
+    ]
+  },
+  {
+    "Name": "Player",
+    "Parent": null,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "worldPos": "{ -350, 350, 0 }",
+          "worldScale": "{ 1, 1, 1 }",
+          "worldRot": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "BoxCollider": {
+          "center": "{ -350, 350 }",
+          "width": 150.0,
+          "height": 150.0
+        }
+      },
+      {
+        "Sprite": {
+          "filename": "SS_MineWorm"
+        }
+      },
+      {
+        "SpriteAnim": {
+          "name": "SS_MineWorm"
+        }
+      },
+      {
+        "Model": {
+          "mdlID": 0
+        }
+      },
+      {
+        "Tween": {
+          "tweens": [
+            "{ -900, 0, 0 }",
+            "{ 0, -350, 0 }",
+            "{ 350, 350, 0 }"
+          ],
+          "timePerTween": 1.0,
+          "timeTaken": 3.0,
+          "timeElapsed": 0.0,
+          "originalPos": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "ScriptHandler": {
+          "scriptMap": [
+            "Player"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Name": "Background",
+    "Parent": null,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "worldPos": "{ 0, 0, -997 }",
+          "worldScale": "{ 1, 1, 1 }",
+          "worldRot": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "Sprite": {
+          "filename": "Background"
+        }
+      },
+      {
+        "Model": {
+          "mdlID": 0
+        }
+      }
+    ]
+  }
+]

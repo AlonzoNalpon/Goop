@@ -11,13 +11,11 @@ namespace GE
 
 		struct EnemyAI
 		{
-			unsigned int m_entityID;
 			GE::AI::TreeCache m_enemyTreeCache;
 
 
-			EnemyAI(unsigned int entityID, TreeID treeID)
+			EnemyAI(TreeID treeID)
 			{
-				entityID = m_entityID;
 				m_enemyTreeCache.m_treeID = treeID;
 			}
 

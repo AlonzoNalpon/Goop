@@ -107,11 +107,7 @@ RTTR_REGISTRATION
     .property("mdlID", &Component::Model::mdlID)
     ;
 
-  rttr::registration::class_<Component::ScriptHandler>("ScriptHandler")
-    .constructor<std::vector<std::pair<std::string, std::string>> const&, unsigned>()
-    .property("scriptMap", &Component::ScriptHandler::m_scriptMap)
-    .method("AddScript", &Component::ScriptHandler::AddScript)
-    ;
+
 
   rttr::registration::class_<Component::Draggable>("Draggable")
     ;
@@ -127,8 +123,7 @@ RTTR_REGISTRATION
     //.property("childResult", &Component::TreeCache::m_childResult)
     ;
   rttr::registration::class_<Component::EnemyAI>("EnemyAI")
-    .constructor<unsigned, unsigned>()
-    .property("entityID", &Component::EnemyAI::m_entityID)
+    .constructor<unsigned>()
     .property("treeID", &Component::EnemyAI::m_enemyTreeCache)
     ;
   rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")

@@ -33,7 +33,7 @@ namespace GoopScripts
    ************************************************************************/
     public Player(uint entityID) : base(entityID)
     {
-     
+      Console.WriteLine("PLAYER: " + entityID);
     }
 
 

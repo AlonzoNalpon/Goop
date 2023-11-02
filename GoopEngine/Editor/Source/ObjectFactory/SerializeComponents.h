@@ -38,9 +38,9 @@ namespace GE::ObjectFactory
   template<>
   GE::Component::Model DeserializeComponent(std::string const& componentData);
   template<>
-  GE::Component::ScriptHandler DeserializeComponent(std::string const& componentData);
-  template<>
   GE::Component::EnemyAI DeserializeComponent(std::string const& componentData);
+
+  GE::Component::ScriptHandler DeserializeScriptHandler(std::string const& componentData, GE::ECS::Entity entityID);
 
 }
 

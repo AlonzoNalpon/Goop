@@ -1,5 +1,6 @@
 #include <pch.h>
 #include <Systems/Enemy/EnemySystem.h>
+#include <AssetManager/AssetManager.h>
 #include <ImNode/NodeEditor.h>
 
 using namespace GE;
@@ -40,6 +41,7 @@ void EnemySystem::FixedUpdate()
 	{
 		for (Entity entity : GetUpdatableEntities()) {
 			//std::cout << "RUN ENEMY\n";
+			std::cout << "ENEMY ID: " << entity << "\n";
 			GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
 			GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
 			GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
@@ -153,7 +155,7 @@ GameTree EnemySystem::GenerateGameTree(const GE::AI::TreeTemplate& treeTemp)
 		}
 		//std::cout << "\n";
 		std::vector<void*> arg{ &ownID, &parentID, result, &listSize };
-		newGamTree.m_nodeList.push_back(GameNode(tree[i].m_nodeType, GE::MONO::Script(scriptMan->InstantiateClass("GoopScripts.AI", tree[i].m_scriptName.c_str(), arg))));
+		newGamTree.m_nodeList.push_back(GameNode(tree[i].m_nodeType, GE::MONO::Script(scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("AI Script Namespace").c_str(), tree[i].m_scriptName.c_str(), arg))));
 	}
 	return newGamTree;
 }
@@ -227,16 +229,25 @@ void EnemySystem::JumpToParent()
 	GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
 	GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(m_currentEntityID);
 
-	enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.pop_front();
-
-	if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_NodeResult == STATE_WAITING)
+	if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.size() <= 1)
 	{
-		MonoMethod* onUpdate = mono_class_get_method_from_name(mono_object_get_class(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst), "ReturnFromChild", 1);
-		std::vector<void*> arg{ &m_currentEntityID };
-
-		mono_runtime_invoke(onUpdate, m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst, arg.data(), nullptr);
+		GE::Debug::ErrorLogger::GetInstance().LogWarning("You have assigned the wrong script to the node", false);
 	}
-}
+	else
+	{
+		enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.pop_front();
+
+		if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_NodeResult == STATE_WAITING)
+		{
+			MonoMethod* onUpdate = mono_class_get_method_from_name(mono_object_get_class(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst), "ReturnFromChild", 1);
+			std::vector<void*> arg{ &m_currentEntityID };
+
+			mono_runtime_invoke(onUpdate, m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst, arg.data(), nullptr);
+		}
+	}
+	}
+
+
 
 void EnemySystem::ResetNode()
 {
@@ -261,4 +272,18 @@ void GE::Systems::PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp)
 		std::cout << n.m_childIndex << ":" << GE::AI::nodestateNames[n.m_NodeResult] << "\n";
 	}
 	std::cout << "-----------------------\n\n";
+}
+
+void EnemySystem::SetPlayerID()
+{
+	GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+	std::set<GE::ECS::Entity> entityList = ecs->GetEntities();
+	for (GE::ECS::Entity e : entityList)
+	{
+		if (ecs->GetEntityName(e) == "Player")
+		{
+			m_playerID = e;
+			break;
+		}
+	}
 }
