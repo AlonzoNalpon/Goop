@@ -38,7 +38,7 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
   // render the image
   ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
 
-  auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
+  //auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
 
   if (ImGui::BeginDragDropTarget())
   {
@@ -93,7 +93,7 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
         if (middleMouseHeld) // check if it's not the first frame button is held
         {
           Graphics::gVec2 displacement{ prevPos - MousePosF };  // displacement of camera
-          Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
+          Graphics::Rendering::Camera& camera{ fbInfo.camera }; // get reference to camera
           camera.DisplaceCam({ displacement.x, displacement.y, 0.f });
           prevPos = { MousePosF };
         }
@@ -113,7 +113,7 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
       constexpr float MULTIPLIER = 10.f;
       if (scrollValue)
       {
-        Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
+        Graphics::Rendering::Camera& camera{ fbInfo.camera }; // get reference to camera
         camera.ZoomCamera(scrollValue * MULTIPLIER);
       }
     }
@@ -127,7 +127,7 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
         if (!mouseLHeld)
         {
           mouseLHeld = true;
-          auto mouseWS{ gEngine.ScreenToWS(MousePosF, 0) };
+          auto mouseWS{ gEngine.ScreenToWS(MousePosF, fbInfo.objID) };
           double depthVal{ std::numeric_limits<double>::lowest() };
           GE::ECS::Entity selectedID = GE::ECS::INVALID_ID;
 

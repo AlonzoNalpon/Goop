@@ -32,8 +32,6 @@ namespace Graphics::Rendering
 
   Camera& Camera::operator=(Camera const& rhs)
   {
-    m_proj        = glm::mat4(rhs.proj);
-    m_view        = glm::mat4(rhs.view);
     m_position    = rhs.m_position;
     m_tgt         = rhs.m_tgt;
     m_up          = rhs.m_up;
@@ -86,5 +84,13 @@ namespace Graphics::Rendering
     m_position += displacement;
     m_tgt += displacement;
     UpdateViewMtx(m_position, m_tgt, m_up);
+  }
+  gVec3 const& Camera::GetPos() const
+  {
+    return m_position;
+  }
+  gVec2 const& Camera::GetFrameDims() const
+  {
+    return m_dims;
   }
 }

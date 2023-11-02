@@ -101,11 +101,8 @@ namespace Graphics::Rendering
 
     void DisplaceCam(gVec3 displacement);
   public: // getters
-    glm::mat4 const&  view{ m_view };         //!< getter to view matrix
-    glm::mat4 const&  proj{ m_proj };         //!< getter to projection matrix
-    gVec3 const&      position{ m_position }; //!< getter to camera position 
-    gVec3 const&      up_vector{ m_up };      //!< getter to up vector
-    gVec2 const&      frame_dims{ m_dims };     //!< getter to frame dimensions
+    gVec3 const& GetPos()const;
+    gVec2 const& GetFrameDims()const;
   };
 
 }

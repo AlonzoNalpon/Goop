@@ -10,8 +10,8 @@ namespace Graphics::Rendering
     gObjID objID{};             //!< the object's ID in graphics engine
     GLuint frameBuffer{};       //!< framebuffer handle
     GLuint renderTexture{};     //!< the texture that has the framebuffer
-    gIvec2 dims{};              //!< dimensions of framebuffer, in pixels
     Rendering::Camera camera;   //!< camera information
+    gIvec2 vpDims{};
   };
 }
 #endif

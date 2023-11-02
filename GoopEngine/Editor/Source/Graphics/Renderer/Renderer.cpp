@@ -154,7 +154,7 @@ namespace Graphics::Rendering {
     //constexpr GLint U_TEXT{ 1 };
     constexpr GLint uColorLocation{ 2 };
     auto const& fontMap = r_fontManager.GetFontMap(fontID);
-    glm::mat4 camViewProj{ m_camera.ViewProjMtx() }; // TODO: OPTIMIZE THE CAMERA VIEW PROJ MATRIX BY CACHING
+    glm::mat4 camViewProj{ m_camera.GetViewMtx() }; // TODO: OPTIMIZE THE CAMERA VIEW PROJ MATRIX BY CACHING
 
 
     glUseProgram(r_fontManager.fontShader); // use font shader

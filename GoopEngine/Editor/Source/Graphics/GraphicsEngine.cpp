@@ -156,15 +156,17 @@ namespace {
 
     constexpr GLfloat FONT_SCALE{ 0.2f };
 
+    auto marchID = m_fontManager.GetFontID("Marchesa");
+    auto reyesID = m_fontManager.GetFontID("Reyes");
     for (auto& fbInfo : m_frameBuffers)
     {
       glBindFramebuffer(GL_FRAMEBUFFER, fbInfo.second.frameBuffer);
       ClearBuffer();
-      glViewport(0, 0, fbInfo.second.dims.x, fbInfo.second.dims.y);
+      glViewport(0, 0, fbInfo.second.vpDims.x, fbInfo.second.vpDims.y);
       fbInfo.second.camera.CalculateViewProjMtx(); // Update camera
       m_renderer.Draw(fbInfo.second.camera);
-      m_renderer.DrawFontObj("you're", {}, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.5f, 0.f, 0.f }, "Marchesa");
-      m_renderer.DrawFontObj("next", { 0.f, -50.f }, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.8f, 0.2f, 0.f }, "Reyes");
+      m_renderer.DrawFontObj("you're", {}, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.5f, 0.f, 0.f }, marchID);
+      m_renderer.DrawFontObj("next", { 0.f, -50.f }, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.8f, 0.2f, 0.f }, reyesID);
     }
   #if 0 // BACKUP FOR MERGE
     m_renderer.Draw();
@@ -408,31 +410,35 @@ namespace {
   gVec2 GraphicsEngine::ScreenToWS(gVec2 const& mousePos, gObjID frameBuffer)
   {
     auto const& fbInfo{ m_frameBuffers.at(frameBuffer) };
-    GLfloat const halfVpW{ fbInfo.dims.x * 0.5f }, halfVpH{ fbInfo.dims.y * 0.5f };
+    gVec2 const& fbFrameDims{ fbInfo.camera.GetFrameDims() };
+    gVec3 const& fbCamPos{ fbInfo.camera.GetPos() };
+
+    GLfloat const halfVpW{ fbInfo.vpDims.x * 0.5f }, halfVpH{ fbInfo.vpDims.y * 0.5f };
     // translate the mouse position to the range [-0.5,0.5]
-    gVec2 wsPos{ (mousePos.x - halfVpW) / fbInfo.dims.x , (mousePos.y - halfVpH) / fbInfo.dims.y };
-    //Rendering::Camera const& camera{ fbInfo.camera }; // CHECK: exceptions?
-    gVec2 const camDims{ fbInfo.camera.frame_dims };
-    gVec2 const camPos{ fbInfo.camera.position };
+    gVec2 wsPos{ (mousePos.x - halfVpW) / fbInfo.vpDims.x , (mousePos.y - halfVpH) / fbInfo.vpDims.y };
+    std::cout << wsPos.x << " | " << wsPos.y << std::endl;
+
     // Now we scale based on camera dimensions
 
-    wsPos.x *= camDims.x;
-    wsPos.y *= camDims.y;
-    wsPos += camPos;
+    wsPos.x *= fbFrameDims.x;
+    wsPos.y *= fbFrameDims.y;
+    wsPos.x += fbCamPos.x;
+    wsPos.y += fbCamPos.y;
+    //std::cout << fbFrameDims.x << " | " << fbFrameDims.y << std::endl;
     return wsPos;
   }
 
   gObjID GraphicsEngine::CreateFrameBuffer(GLint width, GLint height)
   {
-    Rendering::FrameBufferInfo newFB{ {m_frameBuffers.size()}, {}, {}, {width, height},
+    Rendering::FrameBufferInfo newFB{ {m_frameBuffers.size()}, {}, {},
       // The camera
     Rendering::Camera{ {0.f,0.f,3.f},                              // pos
     {},                                           // target
     {.0f, 1.f, 0.f},                              // up vector
     -width * 0.5f, width * 0.5f, -height * 0.5f, height * 0.5f,   // left right bottom top
-    0.1f, 1000.f } };
-    std::cout << "Created new camera of frame dims: " << newFB.camera.frame_dims.x << 
-      ", " << newFB.camera.frame_dims.y << std::endl;
+    0.1f, 1000.f } , 
+      {width, height } // viewport dimensions in pixels
+  };
     glGenFramebuffers(1, &newFB.frameBuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, newFB.frameBuffer);
 
