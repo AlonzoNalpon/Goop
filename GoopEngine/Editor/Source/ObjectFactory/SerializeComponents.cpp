@@ -48,6 +48,9 @@ namespace GE
 			box.m_width = cw.Get<double>("width");
 			box.m_height = cw.Get<double>("height");
 			box.m_center = cw.Get<Math::dVec2>("center");
+#ifndef NO_IMGUI
+			box.m_render = cw.Get<bool>("render");
+#endif
 
 			return box;
 		}

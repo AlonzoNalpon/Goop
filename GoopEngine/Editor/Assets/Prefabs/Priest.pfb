@@ -1,5 +1,5 @@
 {
-  "Name": "MineWorm",
+  "Name": "Priest",
   "Components": [
     {
       "Transform": {
@@ -10,18 +10,24 @@
     },
     {
       "Sprite": {
-        "filename": "SS_MineWorm"
-      }
-    },
-    {
-      "SpriteAnim": {
-        "name": "SS_MineWorm"
+        "filename": "Priest"
       }
     },
     {
       "Model": {
         "mdlID": 0
       }
+    },
+    {
+      "BoxCollider": {
+        "center": "{ 210, 283 }",
+        "width": 140.0,
+        "height": 280.0,
+        "render": true
+      }
+    },
+    {
+      "Draggable": {}
     }
   ]
 }

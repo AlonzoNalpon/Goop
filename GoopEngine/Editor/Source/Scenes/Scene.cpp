@@ -25,7 +25,7 @@ void GE::Scenes::Scene::Init()
 {
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj); 
-	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
+	//Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
 }
 
 void GE::Scenes::Scene::Unload()
@@ -61,7 +61,9 @@ void GE::Scenes::Scene::TestScene()
 	trans.m_worldPos.x = 200;
 	col.m_width = 150;
 	col.m_height = 150;
+#ifndef NO_IMGUI
 	col.m_render = true;
+#endif
 	ecs->AddComponent(entt, trans);
 	ecs->AddComponent(entt, col);
 

@@ -11,8 +11,13 @@ namespace GE::EditorGUI
 		static std::set<int> m_assetIDs;
 		static std::vector<int> toUnload;
 
+		/*!*********************************************************************
+		\brief
+			Traverses the directory passed in and created child nodes for directories within it
+		\param filepath
+			Parent directory i.e. current directory
+		************************************************************************/
 		static void Traverse(std::filesystem::path filepath);
-		
 
 	public:
 		/*!*********************************************************************
@@ -80,9 +85,29 @@ namespace GE::EditorGUI
 		************************************************************************/
 		static std::string GetRelativeFilePath(std::string const& filepath, std::string const& rootDir = "Editor");
 
+		/*!*********************************************************************
+		\brief
+			Forms the directory for asset browser
+		************************************************************************/
 		static void CreateContentDir();
+
+		/*!*********************************************************************
+		\brief
+			Forms the view for asset browser
+		************************************************************************/
 		static void CreateContentView();
+
+		/*!*********************************************************************
+		\brief
+			Forms the content for both the directory and view for asset browser
+		************************************************************************/
 		static void CreateContent();
+
+		/*!*********************************************************************
+		\brief
+			Frees IDs of the images that were from the previous initialisation.
+			Then loads all images needed for current directory.
+		************************************************************************/
 		static void InitView();
 	};
 }

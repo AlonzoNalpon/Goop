@@ -19,7 +19,7 @@ namespace GE
     {
     public:
       //static void Init();
-      static void UpdateSystemTimes();
+      static void UpdateSystemTimers();
       static void CreateContent(const char* tabName);
       //static void UpdateMemoryTab(const char* tabName);
 
@@ -35,7 +35,7 @@ namespace GE
       static void UpdateSettings();
       static void UpdateFPSTab();
 
-      static inline float microSecondsToFloat(GE::FPS::FrameRateController::timeFormat time) noexcept { return static_cast<float>(time.count()/* / 1e6*/); }
+      static inline float formatToFloat(GE::FPS::FrameRateController::timeFormat time) noexcept { return static_cast<float>(time.count()/* / 1e6*/); }
 
       static std::vector<const char*> m_systemsToGraph;
       static std::vector<float> m_systemTimers;  // corresponds to the timer for each system in m_systemsToGraph

@@ -128,6 +128,10 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 				trans->m_scale.x = fmax(trans->m_scale.x, MIN_SCALE);
 				trans->m_scale.y = fmax(trans->m_scale.y, MIN_SCALE);
 			}
+
+#ifdef EVENT_DEBUG
+			std::cout << "PlayerControllerSystem: " << event->GetName() + " Event handled\n";
+#endif
 		}
 		else if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
 		{
@@ -148,9 +152,6 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 					spriteAnim->m_animID = sharkAnimID;
 					sprite->m_spriteData.texture = sharkSpriteID;
 				}
-				#ifdef _DEBUG
-				std::cout << event->GetName() + " Event handled\n";
-				#endif
 			}
 			if (key == GPK_E)
 			{
@@ -162,8 +163,12 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 			}
 			if (key == GPK_R)
 			{
-				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("damage_taken"), 1.0f);
+				Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("damageTaken_Leah"), 1.0f);
 			}
+
+#ifdef EVENT_DEBUG
+			std::cout << "PlayerControllerSystem: " << event->GetName() + " Event handled\n";
+#endif
 		}
 	}
 }

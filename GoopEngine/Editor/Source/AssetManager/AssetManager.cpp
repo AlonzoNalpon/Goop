@@ -217,6 +217,15 @@ namespace GE::Assets
 		}
 	}
 
+	void AssetManager::ReloadAllFiles()
+	{
+		m_scenes.clear();
+		m_prefabs.clear();
+		m_images.clear();
+		m_audio.clear();
+		LoadFiles();
+	}
+
 	// The AssetManager class method to load JSON data from a file
 	void AssetManager::LoadConfigData(const std::string& filepath)
 	{
@@ -318,7 +327,6 @@ namespace GE::Assets
 	void AssetManager::LoadImages()
 	{
 		stbi_set_flip_vertically_on_load(true);
-		//auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 
 		// Load all images in m_images
 		for (std::pair<std::string, std::string> const& image : m_images)
@@ -390,8 +398,6 @@ namespace GE::Assets
 		{
 			std::cout << "Error unloading assets into container" << "\n";
 		}
-
-		std::cout << "Deserialized " << fileName << ":\n";
 
 		// For each entry in assets, print out its details
 		for (auto const& entry : assets)

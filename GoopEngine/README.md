@@ -27,9 +27,18 @@ Scroll Mouse-> Increase/Decrease the size of the player
 [ Multiple Animations ]
 K -> change the player animation
 
-[ Events ]
-InputManager polls for key/mouse triggers and holds
+[ SCENE LOADING/SAVING ]
+From Toolbar, click on "File" > "Open" > Select any ".scn" file, it will load it to the
+state it was last saved in.
+"File" > "Save" to save the current state of the scene to the file that it loaded from
+"File" > "New Scene" and enter filename + ".scn" to create a new scene and load it
+
+*Note: The file explorer may not open to the solution directory sometimes.
+       In that case, navigate to GoopEngine/Editor/Assets/Scenes
+
+[ EVENTS SYSTEM (SUBSCRIBER-LISTENER) ]
+InputManager polls for key/mouse triggers and holds ("DispatchInputEvents" from InputManager.cpp)
 When detected, it dispatches the event together with the key code
-The PlayerController and DraggableObject Systems who are subscribed to the event
+The PlayerController (K,E,Q,R) and DraggableObject Systems (LEFT MOUSE HOLD) who are subscribed to the event
 receive the event and handles it through their HandleEvent() function
-Running in Debug mode will show dispatching and handling printed on key/mouse press
+*To display output for events, you can uncomment the #define EVENT_DEBUG flag in file pch.h

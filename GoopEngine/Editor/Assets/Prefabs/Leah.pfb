@@ -1,21 +1,21 @@
 {
-  "Name": "MineWorm",
+  "Name": "Leah",
   "Components": [
     {
       "Transform": {
         "worldPos": "{ 2.0, 4.0, 0.0 }",
-        "worldScale": "{ 1.0, 1.0, 1.0 }",
+        "worldScale": "{ 0.3, 0.3, 1.0 }",
         "worldRot": "{ 0.0, 0.0, 0.0 }"
       }
     },
     {
       "Sprite": {
-        "filename": "SS_MineWorm"
+        "filename": "SS_LeahIdle"
       }
     },
     {
       "SpriteAnim": {
-        "name": "SS_MineWorm"
+        "name": "SS_LeahIdle"
       }
     },
     {

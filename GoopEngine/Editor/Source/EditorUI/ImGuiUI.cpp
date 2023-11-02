@@ -32,6 +32,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SceneControls.h"
 #include "AssetBrowser.h"
 #include <EditorUI/EditorViewport.h>
+#include <EditorUI/PrefabEditor.h>
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -94,6 +95,10 @@ void ImGuiUI::Update()
   Inspector::CreateContent();
   End();
 
+  Begin("Prefab Editor");
+  PrefabEditor::CreateContent();
+  End();
+
   Begin("Viewport");
   {
     EditorViewport::UpdateViewport();
@@ -106,7 +111,7 @@ void ImGuiUI::Update()
   ImGui::InputInt("Change Col", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetCol(), 1);
   End();
 
-  Begin("Assets");
+  Begin("Buttons");
   if (Button("Create MineWorm"))
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
@@ -144,7 +149,7 @@ void ImGuiUI::Update()
   
   if (Visualizer::IsPerformanceShown())
   {
-    Visualizer::CreateContent("Performance Visualizer");
+    Visualizer::CreateContent("Performance Graph");
   }
 
   Begin("Audio");
@@ -181,7 +186,6 @@ void ImGuiUI::Update()
   {
     Audio::AudioEngine::GetInstance().StopAllChannels();
   }
-  Audio::AudioEngine::GetInstance().Update();
   End();
 
 
