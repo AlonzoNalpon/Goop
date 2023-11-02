@@ -58,7 +58,7 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      Console.WriteLine("Run Move to\n");
+      //Console.WriteLine("Run Move to\n");
 
       if (PlayerExist())
       {

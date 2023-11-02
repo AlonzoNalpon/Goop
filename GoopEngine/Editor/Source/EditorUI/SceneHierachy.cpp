@@ -11,12 +11,13 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SceneHierachy.h"
 #include <ImGui/imgui.h>
 #include <Component/Transform.h>
-#include "../ObjectFactory/ObjectFactory.h"
+#include <ObjectFactory/ObjectFactory.h>
 #include <GameStateManager/GameStateManager.h>
 #include <Systems/RootTransform/TransformSystemHelper.h>
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <Utilities/GoopUtils.h>
+#include <ObjectFactory/SerializeComponents.h>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -72,8 +73,6 @@ namespace
 		Colour of the text of the node
 	********************************************************************/
 	void Propergate(Entity entity, EntityComponentSystem& ecs, ImGuiTreeNodeFlags flag, ImColor textClr);
-
-	void Test(EntityComponentSystem& ecs, const char*, Entity* parent = nullptr);
 
 }
 
@@ -152,11 +151,6 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 // Anonymous namespace function definition
 namespace
 {
-	void Test(EntityComponentSystem& ecs, const char*, Entity* parent)
-	{
-
-	}
-
 	void ParentEntity(EntityComponentSystem& ecs, Entity& child, Entity* parent)
 	{
 		Entity oldParent = ecs.GetParentEntity(child);
@@ -271,17 +265,16 @@ namespace
 			}
 			if (BeginDragDropTarget())
 			{
-				//if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
-				//{
-				//	if (payload->Data)
-				//	{
-				//		const char* droppedPath = static_cast<const char*>(payload->Data);
-				//		std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
-				//		std::cout << "Extension: " << extension << std::endl;
-				//		std::cout << "Dropped: " << droppedPath << std::endl;
-				//		// change the target's sprite with the dropped sprite.
-				//	}
-				//}
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+				{
+					if (payload->Data)
+					{
+						auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+						const char* droppedPath = static_cast<const char*>(payload->Data);
+						GE::Component::Sprite* entitySpriteData = ecs.GetComponent<GE::Component::Sprite>(entity);
+						entitySpriteData->m_spriteData.texture = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
+					}
+				}
 
 				const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
 				if (pl)

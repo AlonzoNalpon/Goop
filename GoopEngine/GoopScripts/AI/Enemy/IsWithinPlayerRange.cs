@@ -57,7 +57,7 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      Console.WriteLine("Run within range\n");
+      //Console.WriteLine("Run within range\n");
       if (PlayerExist())
       {
         uint playerID = GetPlayerID();

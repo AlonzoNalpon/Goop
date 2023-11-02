@@ -64,7 +64,7 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      Console.WriteLine("RUN SELECTOR\n");
+      //Console.WriteLine("RUN SELECTOR\n");
       SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
 
       //Get current position Index

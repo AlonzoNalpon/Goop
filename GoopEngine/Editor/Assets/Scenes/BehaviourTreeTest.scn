@@ -30,14 +30,14 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 189.957, 183.292, 0 }",
+                    "worldPos": "{ 73.2661, 183.292, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 189.957, 183.292 }",
+                    "center": "{ 73.2661, 183.292 }",
                     "width": 100.0,
                     "height": 100.0,
                     "render": true
@@ -83,14 +83,14 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 192.282, 183.38, 0 }",
+                    "worldPos": "{ 69.6989, 183.189, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 192.282, 183.38 }",
+                    "center": "{ 74.6978, 183.333 }",
                     "width": 100.0,
                     "height": 100.0,
                     "render": true
