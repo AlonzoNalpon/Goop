@@ -60,7 +60,7 @@ namespace GoopScripts.AI
     {
       if (PlayerExist())
       {
-        Console.WriteLine("Run Move awway\n");
+        //Console.WriteLine("Run Move awway\n");
         uint playerID = GetPlayerID();
         Vec3<double> playerPos = GetPosition(playerID);
         Vec3<double> currPos = GetPosition(entityID);

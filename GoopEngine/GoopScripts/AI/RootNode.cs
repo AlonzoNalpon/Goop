@@ -83,7 +83,7 @@ namespace GoopScripts.AI
         }
         else
         {
-          Console.WriteLine("RootNode Waiting\n");
+          //Console.WriteLine("RootNode Waiting\n");
           SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
         }
       }

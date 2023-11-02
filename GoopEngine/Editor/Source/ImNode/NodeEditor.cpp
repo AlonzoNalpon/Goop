@@ -361,6 +361,7 @@ void GE::AI::NodeEditor::UpdateNewTree()
   //Sent the updated tree to Tree Manager
   if (!hasEmptyNode)
   {
+    std::cout << "You have a node with no script, we will not update the in game tree until all nodes have a script\n";
     GE::AI::TreeManager::GetInstance().UpdateTreeList(treeTemp);
   }
   m_currentTree->m_changedData = false;

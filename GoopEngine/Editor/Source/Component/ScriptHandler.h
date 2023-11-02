@@ -41,7 +41,7 @@ namespace GE
 			************************************************************************/
 			ScriptHandler(std::vector<std::string> const& scriptNames, unsigned int entityID)
 			{
-				std::cout << "TRY GET PLAYER SCRIPT\n";
+
 				GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
 				for (const std::string& s : scriptNames)
 				{
@@ -62,7 +62,6 @@ namespace GE
 					}
 
 				}
-				std::cout << "GOT PLAYER SCRIPT\n";
 			}
 
 

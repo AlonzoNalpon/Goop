@@ -19,9 +19,6 @@ bool EnemySystem::m_playerExist;
 
 void EnemySystem::InitTree()
 {
-#ifdef _DEBUG
-	std::cout << "INIT TREE\n";
-#endif
 	//Get all the trees
 	const std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
 	for (size_t i{ 0 }; i < tempTreeList.size(); ++i)
@@ -69,7 +66,7 @@ void EnemySystem::FixedUpdate()
 			}
 			else
 			{
-				std::cout << "NO ROOT NODE, ILLEGAL TREE\n";
+				//std::cout << "NO ROOT NODE, ILLEGAL TREE\n";
 				//Enemy did not put a root node
 			}
 		}
@@ -86,7 +83,6 @@ void EnemySystem::FixedUpdate()
 			// Only swap the trees that are newly updated
 			if (tempTreeCondList[i])
 			{
-				std::cout << "SWAP\n";
 				if (tempTreeList[i].m_treeTempID >= static_cast<unsigned>(m_treeList.size()))
 				{
 					AddGameTree(tempTreeList[i]);
