@@ -51,8 +51,11 @@ namespace Graphics::Rendering
 
   struct FontRenderData
   {
-    std::string const& str;
-    Graphics::Colorf clr;
+    gVec2               position;
+    GLfloat             scale;
+    std::string const&  str;
+    Graphics::Colorf    clr;
+    gObjID              fontID;
   };
 
   /*!

@@ -32,5 +32,9 @@
         "Transform",
         "Sprite",
         "Model"
+    ],
+    "TextRenderSystem": [
+        "Text",
+        "Transform"
     ]
 }

@@ -58,6 +58,8 @@ namespace Graphics::Rendering
     ************************************************************************/
     void RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat4 const& trans);
     
+    void RenderFontObject(gVec2 pos, GLfloat scale, std::string const& str, Colorf color, gObjID fontID);
+
     void RenderLineDebug(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf const& clr);
 
     /*!*********************************************************************

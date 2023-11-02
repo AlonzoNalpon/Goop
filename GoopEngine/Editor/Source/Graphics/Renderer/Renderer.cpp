@@ -43,6 +43,11 @@ namespace Graphics::Rendering {
     )  );
   }
 
+  void Renderer::RenderFontObject(gVec2 pos, GLfloat scale, std::string const& str, Colorf color, gObjID fontID)
+  {
+    m_fontRenderCalls.emplace_back(pos, scale, str, color, fontID);
+  }
+
   void Renderer::RenderLineDebug(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf const& clr)
   {
     m_lineRenderCalls.emplace_back(startPt, endPt, clr);
@@ -94,6 +99,17 @@ namespace Graphics::Rendering {
     glBindVertexArray(0);         // unbind vertex array object
     glUseProgram(0);        // UNUSE SHADER PROGRAM
 
+    // RENDERING FONTS
+    //{
+    //  glUseProgram(r_fontManager.fontShader);
+    //  for (auto const& obj : m_fontRenderCalls)
+    //  {
+    //    //DrawFontObj(obj.str, obj.position, obj.scale, obj.clr, obj.)
+    //  }
+    //  glUseProgram(0); // unuse
+    //}
+
+
     // RENDERING LINES FRO DEBUGGING
     {
       constexpr GLint uEndPtsLocation = 0;
@@ -121,7 +137,11 @@ namespace Graphics::Rendering {
       }
       glUseProgram(0); // we're done
     }
+
+
+
     m_renderCalls.clear(); // reset
+    m_fontRenderCalls.clear();// reset fonts
     m_lineRenderCalls.clear(); // reset debug
   }
 
@@ -206,6 +226,7 @@ namespace Graphics::Rendering {
   {
 
     m_renderCalls.clear(); // reset
+    m_fontRenderCalls.clear(); // reset fonts
     m_lineRenderCalls.clear(); // reset debug
   }
 

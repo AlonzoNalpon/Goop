@@ -320,19 +320,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 				if (ImGui::CollapsingHeader("Text", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					Separator();
-					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					float test[3];
-					// Use InputFloat3 to edit the vector components
+					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
+					
+					TableNextColumn();
+					ImGui::ColorEdit4("Color", textObj->m_clr.rgba);
+					ImGui::InputTextMultiline("Text", &textObj->m_text);
 
-
-
-
-
-
-					InputFloat3("Color", test);
-					TableNextRow();
-					InputText("Text body", &textObj->m_text);
 					EndTable();
 					Separator();
 				}

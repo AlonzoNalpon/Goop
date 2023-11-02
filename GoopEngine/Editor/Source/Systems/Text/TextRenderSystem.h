@@ -6,11 +6,7 @@ namespace GE::Systems {
   class TextRenderSystem : public GE::ECS::System
   {
   public:
-    virtual void Start();
-
-    virtual void Update();
-
-    virtual void OnDestroyed();
+    virtual void LateUpdate();
   };
 }
 
