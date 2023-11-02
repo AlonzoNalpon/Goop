@@ -92,4 +92,9 @@ namespace Graphics
     return m_texNameLT.at(id);
   }
 
+  std::map<std::string, GLuint> const& TextureManager::GetTextureLT() const
+  {
+    return m_texturesLT;
+  }
+
 }

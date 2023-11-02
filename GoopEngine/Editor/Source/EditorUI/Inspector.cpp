@@ -310,6 +310,45 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndPopup();
 					}
+#pragma region SPRITE_LIST
+					auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
+					Separator();
+					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
+
+					TableNextColumn();
+
+					auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
+					auto const& textureLT{ textureManager.GetTextureLT() };
+					if (BeginCombo("Sprite", textureManager.GetTextureName(spriteObj->m_spriteData.texture).c_str()))
+					{
+						for (auto const& it : textureLT)
+						{
+							if (Selectable(it.first.c_str()))
+							{
+								auto const& texture{ textureManager.GetTexture(it.second) };
+								spriteObj->m_spriteData.texture = texture.textureHandle;
+								spriteObj->m_spriteData.info.height = texture.height;
+								spriteObj->m_spriteData.info.width = texture.width;
+								spriteObj->m_spriteData.info.texDims = { 1.f, 1.f }; // default
+								spriteObj->m_spriteData.info.texCoords = {}; // bottom left
+							}
+						}
+						EndCombo();
+					}
+					EndTable();
+					Separator();
+#pragma endregion
+#pragma region SPRITE_DEBUG_INFO 
+					// texcoordinates and info you can't edit
+					BeginDisabled();
+					int imageDims[2]{ static_cast<int>(spriteObj->m_spriteData.info.width), 
+														static_cast<int>(spriteObj->m_spriteData.info.height) };
+					ImGui::InputInt("Image Width", &imageDims[0]);
+					ImGui::InputInt("Image Width", &imageDims[1]);
+					ImGui::InputFloat2("Tex Coords", &spriteObj->m_spriteData.info.texCoords.r);
+					EndDisabled();
+#pragma endregion
 				}
 				break;
 			}
@@ -431,7 +470,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 			case GE::ECS::COMPONENT_TYPES::TEXT:
 			{
 				//float inputWidth = (contentSize - charSize) / 3;
-				auto textObj = ecs.GetComponent<Component::Text>(entity);
 				if (ImGui::CollapsingHeader("Text", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					if (IsItemClicked(ImGuiMouseButton_Right))
@@ -447,6 +485,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						EndPopup();
 					}
 
+					auto textObj = ecs.GetComponent<Component::Text>(entity);
 					Separator();
 					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
