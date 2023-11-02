@@ -25,7 +25,7 @@ void PrefabEditor::CreateContent()
     ImGui::InvisibleButton("#InvisibleButton", GetContentRegionAvail());
     if (ImGui::BeginDragDropTarget())
     {
-      if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("PREFAB_EDITOR"))
+      if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_PREFAB"))
       {
         // retrieve payload and cast back to base type
         IM_ASSERT(payload->DataSize == sizeof(std::filesystem::path));
@@ -115,7 +115,7 @@ void PrefabEditor::CreateContent()
     ImGui::SameLine();
     if (ImGui::Button("Save Changes"))
     {
-
+      //Serialization::Serializer::GetInstance().SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
     }
   }
 }
