@@ -72,6 +72,7 @@
     <Compile Include="Mono\MonoBehaviour.cs" />
     <Compile Include="Mono\Utils.cs" />
     <Compile Include="Player\Player.cs" />
+    <Compile Include="Player\PlayerScriptTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transform\Transform.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

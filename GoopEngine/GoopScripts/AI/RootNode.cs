@@ -72,13 +72,13 @@ namespace GoopScripts.AI
         if (childResult == NODE_STATES.STATE_SUCCEED)
         {
           // Console.WriteLine("CLEARED THE TREE!\n");
-          Console.WriteLine("CHILD SUCCEED!\n");
+          //Console.WriteLine("CHILD SUCCEED!\n");
           ResetNode();
         }
         else if (childResult == NODE_STATES.STATE_FAILED)
         {
           //Console.WriteLine("CLEARED THE TREE!\n");
-          Console.WriteLine("CHILD FAILED!\n");
+          //Console.WriteLine("CHILD FAILED!\n");
           ResetNode();
         }
         else
