@@ -51,56 +51,57 @@ void GE::Scenes::Scene::TestScene()
 	of->LoadSceneJson("SceneTest");
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj);
-	Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
+	//Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 
 	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
 
-	Entity entt = ecs->CreateEntity();
-	Transform trans{};
-	trans.m_scale = { 1, 1, 1 };
-	BoxCollider col{};
-	trans.m_worldPos.x = 200;
-	col.m_width = 150;
-	col.m_height = 150;
-#ifndef NO_IMGUI
-	col.m_render = true;
-#endif
-	ecs->AddComponent(entt, trans);
-	ecs->AddComponent(entt, col);
-
-	//entt = ecs->CreateEntity();
-	//trans.m_pos.x = 200;
-	//col.m_width = 150;
-	//col.m_height = 150;
-	//col.m_render = true;
-	//ecs->AddComponent(entt, trans);
-	//ecs->AddComponent(entt, col);
-
-	Entity player = ecs->CreateEntity();
-	Transform playerTrans({ -350, 350, 0 }, { 1, 1, 1 }, { 0.0, 0.0, 0.0 });
-	BoxCollider playerCollider(playerTrans.m_pos, 150, 150); //should collide
-
-	Tween tween(3.0);
-	tween.AddTween({ -900, 0, 0 });
-	tween.AddTween({ 0, -350, 0 });
-	tween.AddTween({ 350, 350, 0 });
-	GE::Component::Model mdl{}; // model data for the player sprite
-	mdl.m_mdlID = gEngine.GetModel();
-	Sprite sprite;
-	sprite.m_spriteData.texture = gEngine.textureManager.GetTextureID("SS_MineWorm");
-	GE::Component::SpriteAnim anim;
-
-	std::vector<std::string> playerScripts{ {"Player"} };
-	GE::Component::ScriptHandler scriptHan = ScriptHandler(playerScripts,player);
-
-	ecs->AddComponent(player, playerTrans);
-	ecs->AddComponent(player, tween);
-	ecs->AddComponent(player, mdl);
-	ecs->AddComponent(player, sprite);
-	ecs->AddComponent(player, anim);
-	ecs->AddComponent(player, playerCollider);
-	ecs->AddComponent(player, scriptHan);
-	ecs->SetEntityName(player, "Player");
+//	Entity entt = ecs->CreateEntity();
+//	Transform trans{};
+//	trans.m_scale = { 1, 1, 1 };
+//	BoxCollider col{};
+//	trans.m_worldPos.x = 200;
+//	col.m_width = 150;
+//	col.m_height = 150;
+//#ifndef NO_IMGUI
+//	col.m_render = true;
+//#endif
+//	ecs->AddComponent(entt, trans);
+//	ecs->AddComponent(entt, col);
+//
+//	//entt = ecs->CreateEntity();
+//	//trans.m_pos.x = 200;
+//	//col.m_width = 150;
+//	//col.m_height = 150;
+//	//col.m_render = true;
+//	//ecs->AddComponent(entt, trans);
+//	//ecs->AddComponent(entt, col);
+//
+//	Entity player = ecs->CreateEntity();
+//	Transform playerTrans({ -350, 350, 0 }, { 1, 1, 1 }, { 0.0, 0.0, 0.0 });
+//	BoxCollider playerCollider(playerTrans.m_pos, 150, 150); //should collide
+//
+//	Tween tween(3.0);
+//	tween.AddTween({ -900, 0, 0 });
+//	tween.AddTween({ 0, -350, 0 });
+//	tween.AddTween({ 350, 350, 0 });
+//	GE::Component::Model mdl{}; // model data for the player sprite
+//	mdl.m_mdlID = gEngine.GetModel();
+//	Sprite sprite;
+//	sprite.m_spriteData.texture = gEngine.textureManager.GetTextureID("SS_MineWorm");
+//	GE::Component::SpriteAnim anim;
+//	anim.m_animID = gEngine.animManager.GetAnimID("SS_MineWorm");
+//
+//	std::vector<std::string> playerScripts{ {"Player"} };
+//	GE::Component::ScriptHandler scriptHan = ScriptHandler(playerScripts,player);
+//
+//	ecs->AddComponent(player, playerTrans);
+//	ecs->AddComponent(player, tween);
+//	ecs->AddComponent(player, mdl);
+//	ecs->AddComponent(player, sprite);
+//	ecs->AddComponent(player, anim);
+//	ecs->AddComponent(player, playerCollider);
+//	ecs->AddComponent(player, scriptHan);
+//	ecs->SetEntityName(player, "Player");
 
 	//GE::Systems::EnemySystem::SetPlayerID(player);
 
