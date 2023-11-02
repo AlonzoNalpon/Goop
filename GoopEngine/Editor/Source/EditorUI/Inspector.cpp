@@ -460,7 +460,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					auto const& fontLT{ fontManager.GetFontLT() }; //lookup table for fonts (string to ID)
 					if (BeginCombo("Font", fontManager.GetFontName(textObj->m_fontID).c_str()))
 					{
-						for (auto it : fontLT)
+						for (auto const& it : fontLT)
 						{
 							if (Selectable(it.first.c_str()))
 							{
