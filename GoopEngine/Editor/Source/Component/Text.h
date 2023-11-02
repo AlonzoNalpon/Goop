@@ -12,7 +12,8 @@ namespace GE
 		{
 			std::string				m_text;
 			Graphics::Colorf	m_clr;
-			Graphics::gObjID  m_fontID;
+			f32								m_scale;
+			Graphics::gObjID  m_fontID{};
 		};
 	}
 }

@@ -84,7 +84,7 @@ namespace Graphics::Rendering
     ************************************************************************/
     void ClearRenderData();
 
-    void DrawFontObj(std::string const& str, gVec2 pos, gVec2 const& scale, Colorf const& clr, Graphics::gObjID fontID);
+    void DrawFontObj(std::string const& str, gVec2 pos, GLfloat scale, Colorf const& clr, Graphics::gObjID fontID, Camera& camera);
 
     /*!*********************************************************************
     \brief
