@@ -56,6 +56,8 @@ Button to duplicate 500 of the selected entity
 Depreciated but still working button to spawn a worm prefab
 
 [ Asset Browser ]
+Directory holds all folders and sub folders within Asset Directory.
+View displays files within each folder selected from Directory. Images are printed for .png files.
 
 [ Node Editor ]
 
