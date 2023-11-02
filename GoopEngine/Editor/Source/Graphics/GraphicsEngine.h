@@ -50,6 +50,8 @@ namespace Graphics {
 
     void Draw();
 
+    void RenderToScreen(gObjID framebufferID = 0);
+
     /*!*********************************************************************
     \brief attempts to get handle to specified shader program
     \params
@@ -187,7 +189,7 @@ namespace Graphics {
     \return quad model
       
     ************************************************************************/
-    Model GenerateQuad();
+    Model GenerateQuad(GLfloat width = 0.5f, GLfloat height = 0.5f);
 
     /*!*********************************************************************
     \brief
@@ -229,6 +231,7 @@ namespace Graphics {
     // Textures are separated from models and are to be used with rendering components
 
     Model                           m_spriteQuadMdl{};  //!< basic primitive quad for sprites
+    Model                           m_renderQuad{};     //!< rendering quad to cover screen
     Model                           m_lineMdl{};        //!< basic primitive line
     Model                           m_fontMdl{};        //!< font model quad for rendering text
 
