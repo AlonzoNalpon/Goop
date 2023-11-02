@@ -1,15 +1,94 @@
 [
     {
+        "Name": "Player",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -350, 350, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -350, 350 }",
+                    "width": 150.0,
+                    "height": 150.0,
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "filename": "SS_MineWorm"
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MineWorm"
+                }
+            },
+            {
+                "Model": {
+                    "mdlID": 0
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        "{ -900, 0, 0 }",
+                        "{ 0, -350, 0 }",
+                        "{ 350, 350, 0 }"
+                    ],
+                    "timePerTween": 1.0,
+                    "timeTaken": 3.0,
+                    "timeElapsed": 0.0,
+                    "originalPos": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "ScriptHandler": {
+                    "scriptMap": [
+                        "Player"
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 1",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 200, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 200, 0 }",
+                    "width": 150.0,
+                    "height": 150.0,
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
         "Name": "Background",
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
-              "Transform": {
-                "worldPos": "{ 0, 0, -997 }",
-                "worldScale": "{ 1, 1, 1 }",
-                "worldRot": "{ 0, 0, 0 }"
-              }
+                "Transform": {
+                    "worldPos": "{ 0, 0, -997 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
             },
             {
                 "Sprite": {

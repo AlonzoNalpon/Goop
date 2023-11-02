@@ -24,9 +24,12 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../ImGui/misc/cpp/imgui_stdlib.h"
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Utilities/GoopUtils.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
+// Disable reinterpret to larger size
+#pragma warning(disable : 4312)
 
 using namespace ImGui;
 using namespace GE::Component;
@@ -173,6 +176,12 @@ void GE::EditorGUI::Inspector::CreateContent()
 		ecs.SetEntityName(entity, name);
 	}
 	ImGui::Text(("Entity ID: " + std::to_string(entity)).c_str());
+	//ImGui::ImageButton(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { newW, newH }, { 0, 1 }, { 1, 0 });
+
+	/*if (ImageButton(reinterpret_cast<ImTextureID>(ecs.GetComponent<GE::Component::Sprite>(entity)->m_spriteData.texture), { 0, 0 }, { 0, 1 }, { 1, 0 }))
+	{
+
+	}*/
 
 	for (int i{}; i < GE::ECS::MAX_COMPONENTS; ++i)
 	{
@@ -295,9 +304,27 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 			case GE::ECS::COMPONENT_TYPES::SPRITE:
 			{
-				//auto sprite = ecs.GetComponent<Sprite>(entity);
+				auto sprite = ecs.GetComponent<Sprite>(entity);
 				if (ImGui::CollapsingHeader("Sprite", ImGuiTreeNodeFlags_DefaultOpen))
 				{
+					ImGui::Columns(2, 0, true);
+					ImGui::Text("Sprite");
+					ImGui::NextColumn();
+					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), { 100, 100 }, { 0, 1 }, { 1, 0 });
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+						{
+							if (payload->Data)
+							{
+								auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+								const char* droppedPath = static_cast<const char*>(payload->Data);
+								sprite->m_spriteData.texture = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
+							}
+						}
+					}
+					ImGui::Columns(1);
+
 					if (IsItemClicked(ImGuiMouseButton_Right))
 					{
 						OpenPopup("RemoveSprite");
