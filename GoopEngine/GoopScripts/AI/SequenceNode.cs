@@ -28,11 +28,15 @@ namespace GoopScripts.AI
     {
       m_nodeID = currID;
       m_parentID = parentID;
+      // Console.WriteLine("Sequence Node childs: ");
       for (uint i = 0; i < tempSize; i++)
       {
+        Console.WriteLine(temp[i] + ", ");
         m_childID.Add(temp[i]);
       }
-  }
+      //   Console.WriteLine("\n");
+    }
+
 
 
     /*!*********************************************************************
@@ -61,13 +65,13 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      //Console.WriteLine("RUN SEQUENCE\n");
+      Console.WriteLine("RUN SEQUENCE\n");
       SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
       //Get current position Index
       m_currentIndex = GetCurrentChildIndex();
 
       //Run the child node 
-      if (m_childID.Count > m_currentIndex)
+      if (m_childID.Count > m_currentIndex && m_childID.Count > 0)
       {
         //Run the child node 
         RunChildNode(m_childID[m_currentIndex]);
@@ -134,9 +138,9 @@ namespace GoopScripts.AI
       NODE_STATES childResult = (NODE_STATES)GetChildResult();
       if (childResult == NODE_STATES.STATE_SUCCEED)
       {
-        m_currentIndex = GetCurrentChildIndex()+1;
+        m_currentIndex = GetCurrentChildIndex() + 1;
         SetNewChildIndex(m_currentIndex);
-        if (m_currentIndex >= m_childID.Count) 
+        if (m_currentIndex >= m_childID.Count)
         {
           OnSuccess(entityID);
         }
@@ -156,7 +160,7 @@ namespace GoopScripts.AI
 
     public void OnExit()
     {
-  
+
     }
 
 
@@ -167,7 +171,7 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void Update()
     {
-    
+
     }
 
     /*!*********************************************************************

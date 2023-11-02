@@ -27,6 +27,7 @@ namespace GoopScripts.AI
     {
       m_parentID = parentID;
       m_nodeID = currID;
+      //Console.WriteLine("RUN fromplayerID:" + m_nodeID);
 
     }
 
@@ -57,17 +58,25 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      uint playerID = GetPlayerID();
-      Vec3<double> playerPos = GetPosition(playerID);
-      Vec3<double> currPos = GetPosition(entityID);
-      double deltaX = currPos.X - playerPos.X;
-      double deltaY = currPos.Y - playerPos.Y;
-      double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+      if (PlayerExist())
+      {
+        Console.WriteLine("Run Move awway\n");
+        uint playerID = GetPlayerID();
+        Vec3<double> playerPos = GetPosition(playerID);
+        Vec3<double> currPos = GetPosition(entityID);
+        double deltaX = currPos.X - playerPos.X;
+        double deltaY = currPos.Y - playerPos.Y;
+        double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
 
 
-      SetPosition(entityID, new Vec3<double>((deltaX / distance) * 300, (deltaY / distance) * 300, 0.0));
+        SetPosition(entityID, new Vec3<double>((deltaX / distance) * 300, (deltaY / distance) * 300, 0.0));
 
-      OnSuccess();
+        OnSuccess();
+      }
+      else
+      {
+        OnFail();
+      }
 
     }
     public void OnFail()

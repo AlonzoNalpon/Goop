@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Mono
 {
-	public static class Utils
-	{
+  public static class Utils
+  {
 
     // /*!*********************************************************************
     //
@@ -55,7 +55,7 @@ namespace GoopScripts.Mono
     ************************************************************************/
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static bool IsKeyReleased(KeyCode key);
-      
+
     /*!*********************************************************************
     \brief
       .Function to check if a key is Pressed
@@ -179,35 +179,39 @@ namespace GoopScripts.Mono
     //
     //************************************************************************/
 
-    public enum NODE_STATES{
-        STATE_NEW,
-        STATE_RUNNING,
-        STATE_WAITING,
-        STATE_SUCCEED,
-        STATE_FAILED,
-        STATE_COUNT
-      }
+    public enum NODE_STATES
+    {
+      STATE_NEW,
+      STATE_RUNNING,
+      STATE_WAITING,
+      STATE_SUCCEED,
+      STATE_FAILED,
+      STATE_COUNT
+    }
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-      extern public static int GetChildResult();
+    extern public static int GetChildResult();
 
-      [MethodImplAttribute(MethodImplOptions.InternalCall)]
-      extern public static int GetCurrentChildIndex();
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static int GetCurrentChildIndex();
 
-      [MethodImplAttribute(MethodImplOptions.InternalCall)]
-      extern public static void SetResult(int result,uint currID);
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetResult(int result, uint currID);
 
-      [MethodImplAttribute(MethodImplOptions.InternalCall)]
-      extern public static void SetNewChildIndex(int index);
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetNewChildIndex(int index);
 
-      [MethodImplAttribute(MethodImplOptions.InternalCall)]
-      extern public static void RunChildNode(uint childNodeID);
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void RunChildNode(uint childNodeID);
 
-      [MethodImplAttribute(MethodImplOptions.InternalCall)]
-      extern public static void JumpToParent();
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void JumpToParent();
 
-      [MethodImplAttribute(MethodImplOptions.InternalCall)]
-      extern public static void ResetNode();
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void ResetNode();
+
+
+
 
 
     // /*!*********************************************************************
@@ -219,6 +223,9 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static uint GetPlayerID();
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static bool PlayerExist();
 
     //[MethodImplAttribute(MethodImplOptions.InternalCall)]
     //extern public static void SetCurrentRunningNode(uint currID);

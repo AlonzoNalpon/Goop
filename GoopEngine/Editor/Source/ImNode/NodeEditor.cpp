@@ -11,39 +11,35 @@
 void GE::AI::NodeEditor::NodeEditorInit()
 {
   // Get all the names of the scripts available
-  std::filesystem::path aiDir{ "../GoopScripts/AI"}; 
+  std::filesystem::path aiDir{ "../GoopScripts/AI" };
   if (!std::filesystem::exists(aiDir))
   {
-    //throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open GoopScripts AI folder: " + aiDir.string()));
+    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open GoopScripts AI folder: " + aiDir.string()));
   }
-  else
+  for (const auto& file : std::filesystem::recursive_directory_iterator(aiDir))
   {
-    for (const auto& file : std::filesystem::recursive_directory_iterator(aiDir))
+    if (!file.is_regular_file()) { continue; }	// skip if file is a directory
+    std::string const& currExt{ file.path().extension().string() };
+    if (currExt == scriptExt)	// image
     {
-      if (!file.is_regular_file()) { continue; }	// skip if file is a directory
-      std::string const& currExt{ file.path().extension().string() };
-      if (currExt == scriptExt)	// image
-      {
-        m_allScriptNames.push_back(file.path().stem().string());
-      }
+      m_allScriptNames.push_back(file.path().stem().string());
     }
   }
 
-
   //Create the node editor context and turn on any settings
-	ImNodes::CreateContext();
+  ImNodes::CreateContext();
   ImNodes::GetIO().LinkDetachWithModifierClick.Modifier = &ImGui::GetIO().KeyCtrl;
   ImNodes::PushAttributeFlag(ImNodesAttributeFlags_EnableLinkDetachWithDragClick);
 
   //Get all the trees
   const std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
 
-  for (size_t i{0};i< tempTreeList.size();++i)
+  for (size_t i{ 0 }; i < tempTreeList.size(); ++i)
   {
     AddDisplayTree(tempTreeList[i]);
   }
 
-  m_currentTree = (m_treeList.size() != 0) ? &(m_treeList[0].first): nullptr;
+  m_currentTree = (m_treeList.size() != 0) ? &(m_treeList[0].first) : nullptr;
   m_currentLinkList = (m_treeList.size() != 0) ? &(m_treeList[0].second) : nullptr;
   m_currentTreeInd = (m_treeList.size() != 0) ? 0 : static_cast<unsigned>(EMPTYID);
 
@@ -51,7 +47,7 @@ void GE::AI::NodeEditor::NodeEditorInit()
 
 void  GE::AI::NodeEditor::NodeEditorShow()
 {
-  
+
   ImGui::Begin("Node editor");
   ImNodes::BeginNodeEditor();
 
@@ -129,16 +125,16 @@ void  GE::AI::NodeEditor::NodeEditorShow()
       UpdateNewTree();
     }
   }
-  
+
   ImGui::End();
-  
+
 }
 
 
 
 void  GE::AI::NodeEditor::NodeEditorShutdown()
 {
-	ImNodes::DestroyContext();
+  ImNodes::DestroyContext();
 }
 
 void GE::AI::NodeEditor::ShowTree()
@@ -245,7 +241,7 @@ void GE::AI::NodeEditor::DisplayPopup()
         dispNode.m_pos = ImNodes::GetNodeGridSpacePos(static_cast<int>(m_currentTree->m_displayNodes.size()));
 
         m_currentTree->m_displayNodes.push_back(dispNode);
-        m_currentTree->m_changedData = true;
+        //m_currentTree->m_changedData = true;
       }
     }
     ImGui::EndPopup();
@@ -260,22 +256,26 @@ void GE::AI::NodeEditor::DisplayPopup()
       {
         if (ImGui::MenuItem(editNodeOption[i].c_str()))
         {
-          //Check if the user decides to delete the node node
+
+          //Check if the user decides to delete the node
           if (i == static_cast<int>(editNodeOption.size() - 1))
           {
+            //PrintDetails();
             //Remove the link connecting to the input pin of the node
             int inputID = m_currentTree->m_displayNodes[m_selectedNodeInd].m_intputPinID;
             int outputID = m_currentTree->m_displayNodes[m_selectedNodeInd].m_outputPinID;
 
             m_currentLinkList->m_linkList.erase(std::remove_if(m_currentLinkList->m_linkList.begin(), m_currentLinkList->m_linkList.end(),
-              [inputID,outputID](const NodeLinks& l) {
+              [inputID, outputID](const NodeLinks& l) {
                 return (l.m_pinIDs.second == inputID || l.m_pinIDs.first == outputID);
               }),
               m_currentLinkList->m_linkList.end()
-            );
+                );
 
             ImNodes::ClearNodeSelection(m_selectedNodeInd);
-            m_currentTree->m_displayNodes.erase(m_currentTree->m_displayNodes.begin() +m_selectedNodeInd);
+            m_currentTree->m_displayNodes.erase(m_currentTree->m_displayNodes.begin() + m_selectedNodeInd);
+            /*std::cout << "\nAFT\n";
+            PrintDetails();*/
           }
           else
           {
@@ -302,13 +302,21 @@ void GE::AI::NodeEditor::DisplayPopup()
 
 void GE::AI::NodeEditor::UpdateNewTree()
 {
+  std::cout << "-----------------------------------------------------------------------------\n";
   //Create the newTempTree
   TreeTemplate treeTemp{};
   treeTemp.m_treeName = m_currentTree->m_treeName;
   treeTemp.m_treeTempID = m_currentTree->m_treeID;
-
+  bool hasEmptyNode{ false };
+  // PrintDetails();
+  int currID{ 0 };
   for (const DisplayNode& dispNode : m_currentTree->m_displayNodes)
   {
+    if (dispNode.m_scriptName == std::string())
+    {
+      hasEmptyNode = true;
+      break;
+    }
     NodeTemplate nodeTemp{ dispNode.m_nodeType,0,{},dispNode.m_scriptName,{dispNode.m_pos.x, dispNode.m_pos.y} };
     std::vector<int> childPinID{};
     int parentPinID{};
@@ -326,20 +334,35 @@ void GE::AI::NodeEditor::UpdateNewTree()
     //Using the pinID of the Parent/Child to find the NodeID of the parent/child and push it into the node
     for (size_t i{ 0 }; i < m_currentTree->m_displayNodes.size(); ++i)
     {
-      nodeTemp.m_parentNode = (m_currentTree->m_displayNodes[i].m_outputPinID == parentPinID) ? m_currentTree->m_displayNodes[i].m_NodeID : nodeTemp.m_parentNode;
+      nodeTemp.m_parentNode = (m_currentTree->m_displayNodes[i].m_outputPinID == parentPinID) ? static_cast<NodeID>(i) : nodeTemp.m_parentNode;
       for (size_t j{ 0 }; j < childPinID.size(); ++j)
       {
         if ((m_currentTree->m_displayNodes[i].m_intputPinID == childPinID[j]))
         {
-          nodeTemp.m_childrenNode.push_back(m_currentTree->m_displayNodes[i].m_NodeID);
+
+          nodeTemp.m_childrenNode.push_back(static_cast<NodeID>(i));
         }
       }
     }
+    std::cout << dispNode.m_scriptName << ":" << currID << "\n";
+    //std::cout << "Parent:\n";
+    //std::cout << nodeTemp.m_parentNode << "\n";
+    std::cout << "CHILD:\n";
+    for (NodeID n : nodeTemp.m_childrenNode)
+    {
+      std::cout << n << "\n";
+    }
+
+    std::cout << "\n";
+    ++currID;
     treeTemp.m_tree.push_back(nodeTemp);
   }
-
+  std::cout << "-----------------------------------------------------------------------------\n";
   //Sent the updated tree to Tree Manager
-  GE::AI::TreeManager::GetInstance().UpdateTreeList(treeTemp);
+  if (!hasEmptyNode)
+  {
+    GE::AI::TreeManager::GetInstance().UpdateTreeList(treeTemp);
+  }
   m_currentTree->m_changedData = false;
 
 }
@@ -416,4 +439,20 @@ void GE::AI::NodeEditor::ClearRunningNode()
   m_currentRunningNode.clear();
 }
 */
+
+void GE::AI::NodeEditor::PrintDetails()
+{
+  for (size_t i{ 0 }; i < m_currentTree->m_displayNodes.size(); ++i)
+  {
+    std::cout << m_currentTree->m_displayNodes[i].m_scriptName << "\n";
+    std::cout << "NodeID: " << m_currentTree->m_displayNodes[i].m_NodeID << "\n";
+    std::cout << "LeftPINID: " << m_currentTree->m_displayNodes[i].m_intputPinID << "\n";
+    std::cout << "RightPINID: " << m_currentTree->m_displayNodes[i].m_outputPinID << "\n\n";
+  }
+
+  for (size_t i{ 0 }; i < m_currentLinkList->m_linkList.size(); ++i)
+  {
+    std::cout << m_currentLinkList->m_linkList[i].m_pinIDs.first << "::" << m_currentLinkList->m_linkList[i].m_pinIDs.second << "\n";
+  }
+}
 

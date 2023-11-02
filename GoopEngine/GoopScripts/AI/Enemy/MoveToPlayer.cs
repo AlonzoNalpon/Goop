@@ -27,6 +27,7 @@ namespace GoopScripts.AI
     {
       m_parentID = parentID;
       m_nodeID = currID;
+      //Console.WriteLine("Move to playerID:" + m_nodeID);
 
     }
 
@@ -57,21 +58,28 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      uint playerID = GetPlayerID();
-      Vec3<double> playerPos = GetPosition(playerID);
-      Vec3<double> currPos = GetPosition(entityID);
-      double deltaX = playerPos.X - currPos.X;
-      double deltaY = playerPos.Y - currPos.Y;
-      double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+      Console.WriteLine("Run Move to\n");
+
+      if (PlayerExist())
+      {
+        uint playerID = GetPlayerID();
+        Vec3<double> playerPos = GetPosition(playerID);
+        Vec3<double> currPos = GetPosition(entityID);
+        double deltaX = playerPos.X - currPos.X;
+        double deltaY = playerPos.Y - currPos.Y;
+        double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
 
 
-      SetPosition(entityID, new Vec3<double>((deltaX / distance) * 300, (deltaY / distance) * 300, 0.0));
-
-
-      OnSuccess();
+        SetPosition(entityID, new Vec3<double>((deltaX / distance) * 300, (deltaY / distance) * 300, 0.0));
+        OnSuccess();
+      }
+      else
+      {
+        OnFail();
+      }
 
     }
-    public void OnFail()
+      public void OnFail()
     {
       SetResult((int)NODE_STATES.STATE_FAILED, m_nodeID);
       JumpToParent();

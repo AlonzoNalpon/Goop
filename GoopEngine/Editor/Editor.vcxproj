@@ -155,7 +155,6 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\AI\Tree.cpp" />
     <ClCompile Include="Source\AI\TreeManager.cpp" />
     <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
     <ClCompile Include="Source\EditorUI\Console.cpp" />
@@ -265,6 +264,7 @@
     <ClCompile Include="Source\Serialization\GooStream\PrefabGooStream.cpp" />
     <ClCompile Include="Source\Serialization\GooStream\SpriteGooStream.cpp" />
     <ClCompile Include="Source\Serialization\RegisterClasses.cpp" />
+    <ClCompile Include="Source\Serialization\RegisterClasses2.cpp" />
     <ClCompile Include="Source\Serialization\Serializer.cpp" />
     <ClCompile Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.cpp" />
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimGenerator.cpp" />

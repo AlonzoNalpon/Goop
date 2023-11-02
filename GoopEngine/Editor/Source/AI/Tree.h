@@ -41,14 +41,5 @@ namespace GE {
 			NODE_STATES m_childResult;
 
 		};
-
-
-
-
-
-
-
-		//GameTree CreateTree(const std::vector<GE::AI::NodeTemplate>&);
-
 	}
 }

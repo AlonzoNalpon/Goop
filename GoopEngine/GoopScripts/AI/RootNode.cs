@@ -27,10 +27,10 @@ namespace GoopScripts.AI
     public RootNode(uint currID, uint _, uint[] temp, uint tempSize) : base()
     {
       m_nodeID = currID;
-      for ( uint i = 0; i < tempSize; i++ )
-        {
-          m_childID.Add(temp[i]);
-        }
+      for (uint i = 0; i < tempSize; i++)
+      {
+        m_childID.Add(temp[i]);
+      }
     }
 
 
@@ -60,28 +60,32 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-
+      //Console.WriteLine("Run RootNode\n");
       //Run the child node 
       //Console.WriteLine("START TREE\n");
-      SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
-      RunChildNode(m_childID[0]);
-      NODE_STATES childResult = (NODE_STATES)GetChildResult();
+      if (m_childID.Count > 0)
+      {
+        SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
+        RunChildNode(m_childID[0]);
+        NODE_STATES childResult = (NODE_STATES)GetChildResult();
 
-      if (childResult == NODE_STATES.STATE_SUCCEED)
-      {
-       // Console.WriteLine("CLEARED THE TREE!\n");
-       // Console.WriteLine("CHILD SUCCEED!\n");
-        ResetNode();
-      }
-      else if(childResult == NODE_STATES.STATE_FAILED)
-      {
-        //Console.WriteLine("CLEARED THE TREE!\n");
-        //Console.WriteLine("CHILD FAILED!\n");
-        ResetNode();
-      }
-      else
-      {
-        SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
+        if (childResult == NODE_STATES.STATE_SUCCEED)
+        {
+          // Console.WriteLine("CLEARED THE TREE!\n");
+          //Console.WriteLine("CHILD SUCCEED!\n");
+          ResetNode();
+        }
+        else if (childResult == NODE_STATES.STATE_FAILED)
+        {
+          //Console.WriteLine("CLEARED THE TREE!\n");
+          //Console.WriteLine("CHILD FAILED!\n");
+          ResetNode();
+        }
+        else
+        {
+          Console.WriteLine("RootNode Waiting\n");
+          SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
+        }
       }
 
     }
@@ -105,7 +109,7 @@ namespace GoopScripts.AI
 
     public void ReturnFromChild(uint entityID)
     {
-     // Console.WriteLine("CLEARED THE TREE!\n");
+      // Console.WriteLine("CLEARED THE TREE!\n");
       OnExit();
     }
 

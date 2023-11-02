@@ -58,7 +58,6 @@ void PlayerControllerSystem::FixedUpdate()
 			scriptHan->UpdateAllScripts();
 		}
 	}
-
 	double dt = GE::FPS::FrameRateController::GetInstance().GetFixedDeltaTime();
 
 	for (Entity entity : m_entities) {
@@ -96,6 +95,7 @@ void PlayerControllerSystem::FixedUpdate()
 		
 		//std::cout << "Player Position: [" << trans->m_pos.x << ", " << trans->m_pos.y << "]\n";
 	}
+	std::cout << "FINISH PLAYER controller\n";
 	frc.EndSystemTimer("Player Controller");
 }
 
