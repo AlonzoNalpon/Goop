@@ -222,6 +222,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto col = ecs.GetComponent<BoxCollider>(entity);
 				if (ImGui::CollapsingHeader("Collider", ImGuiTreeNodeFlags_DefaultOpen))
 				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveCollider");
+					}
+					if (BeginPopup("RemoveCollider"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<BoxCollider>(entity);
+						}
+						EndPopup();
+					}
+
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
@@ -242,6 +255,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto vel = ecs.GetComponent<Velocity>(entity);
 				if (ImGui::CollapsingHeader("Forces", ImGuiTreeNodeFlags_DefaultOpen))
 				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveVelocity");
+					}
+					if (BeginPopup("RemoveVelocity"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Velocity>(entity);
+						}
+						EndPopup();
+					}
+
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
 					float inputWidth = (contentSize - charSize - 30) / 3;
 
@@ -270,16 +296,61 @@ void GE::EditorGUI::Inspector::CreateContent()
 			case GE::ECS::COMPONENT_TYPES::SPRITE:
 			{
 				//auto sprite = ecs.GetComponent<Sprite>(entity);
+				if (ImGui::CollapsingHeader("Sprite", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveSprite");
+					}
+					if (BeginPopup("RemoveSprite"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Sprite>(entity);
+						}
+						EndPopup();
+					}
+				}
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::SPRITE_ANIM:
 			{
 				//auto anim = ecs.GetComponent<SpriteAnim>(entity);
+				if (ImGui::CollapsingHeader("Sprite Animation", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveSpriteAnimation");
+					}
+					if (BeginPopup("RemoveSpriteAnimation"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<SpriteAnim>(entity);
+						}
+						EndPopup();
+					}
+				}
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::MODEL:
 			{
 				//auto model = ecs.GetComponent<Model>(entity);
+				if (ImGui::CollapsingHeader("Model", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveModel");
+					}
+					if (BeginPopup("RemoveModel"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Model>(entity);
+						}
+						EndPopup();
+					}
+				}
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::TWEEN:
@@ -290,6 +361,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto tween = ecs.GetComponent<Tween>(entity);
 				if (ImGui::CollapsingHeader("Tween", ImGuiTreeNodeFlags_DefaultOpen))
 				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveTween");
+					}
+					if (BeginPopup("RemoveTween"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Tween>(entity);
+						}
+						EndPopup();
+					}
+
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
@@ -308,11 +392,40 @@ void GE::EditorGUI::Inspector::CreateContent()
 			case GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER:
 			{
 				//auto scripts = ecs.GetComponent<ScriptHandler>(entity);
+				if (ImGui::CollapsingHeader("Script Handler", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveScriptHandler");
+					}
+					if (BeginPopup("RemoveScriptHandler"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<ScriptHandler>(entity);
+						}
+						EndPopup();
+					}
+				}
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::DRAGGABLE:
 			{
-				CollapsingHeader("Draggable", ImGuiTreeNodeFlags_Leaf);
+				if (CollapsingHeader("Draggable", ImGuiTreeNodeFlags_Leaf))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("Remo");
+					}
+					if (BeginPopup("RemoveComponent"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Draggable>(entity);
+						}
+						EndPopup();
+					}
+				}
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::TEXT:
@@ -321,6 +434,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto textObj = ecs.GetComponent<Component::Text>(entity);
 				if (ImGui::CollapsingHeader("Text", ImGuiTreeNodeFlags_DefaultOpen))
 				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveComponent");
+					}
+					if (BeginPopup("RemoveComponent"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Component::Text>(entity);
+						}
+						EndPopup();
+					}
+
 					Separator();
 					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
