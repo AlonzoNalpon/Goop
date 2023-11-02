@@ -341,6 +341,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 #pragma endregion
 #pragma region SPRITE_DEBUG_INFO 
 					// texcoordinates and info you can't edit
+					BeginDisabled();
+					int imageDims[2]{ static_cast<int>(spriteObj->m_spriteData.info.width), 
+														static_cast<int>(spriteObj->m_spriteData.info.height) };
+					ImGui::InputInt("Image Width", &imageDims[0]);
+					ImGui::InputInt("Image Width", &imageDims[1]);
+					ImGui::InputFloat2("Tex Coords", &spriteObj->m_spriteData.info.texCoords.r);
+					EndDisabled();
 #pragma endregion
 				}
 				break;
