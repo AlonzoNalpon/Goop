@@ -59,10 +59,6 @@ void PlayerControllerSystem::FixedUpdate()
 		}
 	}
 
-	auto& inputMan{ Input::InputManager::GetInstance() };
-	if (!(inputMan.IsKeyHeld(GPK_SPACE) || inputMan.IsKeyTriggered(GPK_SPACE)))
-		return;
-
 	double dt = GE::FPS::FrameRateController::GetInstance().GetFixedDeltaTime();
 
 	for (Entity entity : m_entities) {
