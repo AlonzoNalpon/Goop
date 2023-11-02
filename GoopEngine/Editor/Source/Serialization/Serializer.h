@@ -13,6 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/ScriptHandler.h>
 #include <Component/Sprite.h>
 #include <rttr/type.h>
+#include <ObjectFactory/ObjectStructs.h>
 
 namespace GE
 {
@@ -22,6 +23,8 @@ namespace GE
     {
     public:
       static const char JsonNameKey[], JsonParentKey[], JsonChildEntitiesKey[], JsonComponentsKey[];
+
+      void SerializeVariantToPrefab(ObjectFactory::VariantPrefab prefab, std::string const& filename);
 
       void SerializeAny(std::string const& filename, rttr::variant object);
 

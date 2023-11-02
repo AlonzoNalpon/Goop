@@ -130,8 +130,7 @@ void AssetBrowser::CreateContentView()
 			if (ImGui::BeginDragDropSource())
 			{
 				m_draggedPrefab = file.path();
-				ImGui::SetDragDropPayload("ASSET_BROWSER", pathCStr, strlen(pathCStr) + 1);
-				ImGui::SetDragDropPayload("PREFAB_EDITOR", &m_draggedPrefab, sizeof(std::filesystem::path));
+				ImGui::SetDragDropPayload("ASSET_BROWSER_PREFAB", &m_draggedPrefab, sizeof(std::filesystem::path));
 				Text(pathCStr);
 				ImGui::EndDragDropSource();
 			}
