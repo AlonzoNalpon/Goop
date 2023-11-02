@@ -1,5 +1,5 @@
 /* !
-@file    glhelper.h
+@file    sprite.vert
 @author  a.nalpon@digipen.edu
 @date    06/10/2023
 
