@@ -69,6 +69,7 @@ There are 3 types of nodes available, Root Node, Composite Node and Leaf Node (E
 There are 2 types of pins, Input Pin (Left Pin) and the Output Pin (Right pin). 
 Currently, you can navigate around the node editor by holding the middle mouse button and move your mouse around.
 Would reccomend you to load the BehaviourTreeTest scene to see the enemy use the behaviour tree
+The order of which child runs first depends on which child node was linked first
 
 Users are able to perform these actions:
 1. Reposition the nodes

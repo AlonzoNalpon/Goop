@@ -1,3 +1,15 @@
+/*!*********************************************************************
+\file   PrefabEditor.cpp
+\author chengen.lau\@digipen.edu
+\date   3-November-2023
+\brief  Contains the class encapsulating functions for the prefab editor
+        window. Most of the UI elements are similar to how they were
+        done on the inspector. Currently supports drag and drop from
+        the assets browser and real time adding/removing of components
+        as well as creating a new prefab.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "PrefabEditor.h"
 #include <filesystem>

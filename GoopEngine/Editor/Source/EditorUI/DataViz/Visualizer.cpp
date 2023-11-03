@@ -1,3 +1,14 @@
+/*!*********************************************************************
+\file   Visualizer.cpp
+\author chengen.lau\@digipen.edu
+\date   3-November-2023
+\brief  Contains functions related to functions used by the performance
+        window. Currently creates a graph for each system's performance
+        and the current fps of the engine. Draws data from the frame
+        rate controller manager.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "Visualizer.h"
 #include <ImGui/imgui.h>

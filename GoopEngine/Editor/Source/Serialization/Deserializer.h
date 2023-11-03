@@ -2,9 +2,10 @@
 \file   Deserializer.h
 \author chengen.lau\@digipen.edu
 \date   1-November-2023
-\brief  
-  
- 
+\brief  The class encapsulating functions related to deserialization.
+        Currently only contains functions for the node tree and prefab
+        for the prefab editor.
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once

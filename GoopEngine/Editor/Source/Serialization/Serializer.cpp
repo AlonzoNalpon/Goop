@@ -1,3 +1,16 @@
+/*!*********************************************************************
+\file   Serializer.cpp
+\author chengen.lau\@digipen.edu
+\date   3-November-2023
+\brief  Contians the class encapsulating functions related to 
+        serialization Implementation makes use of RTTR reflection
+        library. Applies a standard algorithm of recursion 
+        to work for any type and size for sequential containers. This
+        is so that not much code has to be modified when any 
+        components/classes are changed.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "Serializer.h"
 #include <rapidjson/istreamwrapper.h>
