@@ -279,8 +279,11 @@ namespace
 					{
 						auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
 						const char* droppedPath = static_cast<const char*>(payload->Data);
-						GE::Component::Sprite* entitySpriteData = ecs.GetComponent<GE::Component::Sprite>(entity);
-						entitySpriteData->m_spriteData.texture = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
+						if (ecs.HasComponent<GE::Component::Sprite>(entity))
+						{
+							GE::Component::Sprite* entitySpriteData = ecs.GetComponent<GE::Component::Sprite>(entity);
+							entitySpriteData->m_spriteData.texture = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
+						}
 					}
 				}
 
