@@ -64,6 +64,12 @@ void PrefabEditor::CreateContent()
     }
   }
 
+  if (!IsWindowFocused())
+  {
+    ImGui::Text("WINDOW UNFOCUSED! CLICK BACK TO RESUME EDITING!");
+    return;
+  }
+
   if (m_isEditing)
   {
     // iterate through components and render UI elements based on type

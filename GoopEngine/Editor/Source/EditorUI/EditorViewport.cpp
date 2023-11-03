@@ -46,10 +46,8 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
   uv0.y = -(1.f + (viewportEnd.y - windowSize.y) / windowSize.y);
   uv1.x = (viewportPosition.x) / windowSize.x;
   // render the image
-  ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
-
   //auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
-
+  ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
   if (ImGui::BeginDragDropTarget())
   {
     if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
@@ -89,8 +87,8 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
         trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
       }
       // retrieve payload and cast back to base type]
-    ImGui::EndDragDropTarget();
     }
+    ImGui::EndDragDropTarget();
   }
 
   if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y)))
