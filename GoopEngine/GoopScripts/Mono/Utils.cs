@@ -1,4 +1,11 @@
-﻿using GoopScripts.Input;
+﻿/*!************************************************************************
+\file Utils.cs
+\author Han Qin Ding
+
+\brief
+C# script containing all the internal function calls
+**************************************************************************/
+using GoopScripts.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;

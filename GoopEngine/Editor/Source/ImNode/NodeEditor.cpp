@@ -251,7 +251,6 @@ void GE::AI::NodeEditor::DisplayPopup()
         dispNode.m_pos = ImNodes::GetNodeGridSpacePos(static_cast<int>(m_currentTree->m_displayNodes.size()));
 
         m_currentTree->m_displayNodes.push_back(dispNode);
-        //m_currentTree->m_changedData = true;
       }
     }
     ImGui::EndPopup();
@@ -270,7 +269,6 @@ void GE::AI::NodeEditor::DisplayPopup()
           //Check if the user decides to delete the node
           if (i == static_cast<int>(editNodeOption.size() - 1))
           {
-            //PrintDetails();
             //Remove the link connecting to the input pin of the node
             int inputID = m_currentTree->m_displayNodes[m_selectedNodeInd].m_intputPinID;
             int outputID = m_currentTree->m_displayNodes[m_selectedNodeInd].m_outputPinID;
@@ -284,8 +282,6 @@ void GE::AI::NodeEditor::DisplayPopup()
 
             ImNodes::ClearNodeSelection(m_selectedNodeInd);
             m_currentTree->m_displayNodes.erase(m_currentTree->m_displayNodes.begin() + m_selectedNodeInd);
-            /*std::cout << "\nAFT\n";
-            PrintDetails();*/
           }
           else
           {
@@ -312,7 +308,9 @@ void GE::AI::NodeEditor::DisplayPopup()
 
 void GE::AI::NodeEditor::UpdateNewTree()
 {
+#ifdef _DEBUG
   std::cout << "-----------------------------------------------------------------------------\n";
+#endif
   //Create the newTempTree
   TreeTemplate treeTemp{};
   treeTemp.m_treeName = m_currentTree->m_treeName;
@@ -340,33 +338,39 @@ void GE::AI::NodeEditor::UpdateNewTree()
         childPinID.push_back(link.m_pinIDs.second);
       }
     }
-
     //Using the pinID of the Parent/Child to find the NodeID of the parent/child and push it into the node
     for (size_t i{ 0 }; i < m_currentTree->m_displayNodes.size(); ++i)
     {
       nodeTemp.m_parentNode = (m_currentTree->m_displayNodes[i].m_outputPinID == parentPinID) ? static_cast<NodeID>(i) : nodeTemp.m_parentNode;
-      for (size_t j{ 0 }; j < childPinID.size(); ++j)
+    }
+
+    for (size_t j{ 0 }; j < childPinID.size(); ++j)
+    {
+      for (size_t i{ 0 }; i < m_currentTree->m_displayNodes.size(); ++i)
       {
         if ((m_currentTree->m_displayNodes[i].m_intputPinID == childPinID[j]))
         {
-
           nodeTemp.m_childrenNode.push_back(static_cast<NodeID>(i));
+          break;
         }
       }
     }
-    std::cout << dispNode.m_scriptName << ":" << currID << "\n";
-    //std::cout << "Parent:\n";
-    //std::cout << nodeTemp.m_parentNode << "\n";
+
+#ifdef _DEBUG
     std::cout << "CHILD:\n";
     for (NodeID n : nodeTemp.m_childrenNode)
     {
       std::cout << n << "\n";
     }
     std::cout << "\n";
+#endif
     ++currID;
     treeTemp.m_tree.push_back(nodeTemp);
   }
+
+#ifdef _DEBUG
   std::cout << "-----------------------------------------------------------------------------\n";
+#endif
   //Sent the updated tree to Tree Manager
   if (!hasEmptyNode)
   {
@@ -374,7 +378,9 @@ void GE::AI::NodeEditor::UpdateNewTree()
   }
   else
   {
+#ifdef _DEBUG
     std::cout << "You have a node with no script, we will not update the in game tree until all nodes have a script\n";
+#endif
   }
   m_currentTree->m_changedData = false;
 

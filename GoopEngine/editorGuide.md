@@ -63,13 +63,8 @@ View displays files within each folder selected from Directory. Images are print
 Allows user to edit enemy's behaviour tree. Any changes made will be displayed in the game at runtime, if the tree is valid (will explain more about it bellow)
 There are 3 types of nodes available, Root Node, Composite Node and Leaf Node (Each of them are displayed with a different colored heading)
 There are 2 types of pins, Input Pin (Left Pin) and the Output Pin (Right pin). 
-Currently, you can navigate around the node editor by holding the middle mouse button and move your mouse around
-
-[ Prefab Editor ]
-Allows a new prefab to be created (through file explorer) on right-click
-Drag and drop is supported from Assets Browser window
-Allows adding and removing of components to the current prefab
-"Cancel" will stop the current editing session and "Save changes" will save the changes made back to the file
+Currently, you can navigate around the node editor by holding the middle mouse button and move your mouse around.
+Would reccomend you to load the BehaviourTreeTest scene to see the enemy use the behaviour tree
 
 Users are able to perform these actions:
 1. Reposition the nodes
@@ -93,5 +88,8 @@ Users are able to perform these actions:
    - If you choose to change the node type, it will remove any links the node had, but the script remains unchanged.
    - If you choose to delete the node, it will remove the node and any links it had
 
-
 [ Prefab Editor ]
+Allows a new prefab to be created (through file explorer) on right-click
+Drag and drop is supported from Assets Browser window
+Allows adding and removing of components to the current prefab
+"Cancel" will stop the current editing session and "Save changes" will save the changes made back to the file

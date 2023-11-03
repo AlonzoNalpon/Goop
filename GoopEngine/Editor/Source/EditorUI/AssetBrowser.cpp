@@ -1,3 +1,14 @@
+/*!*********************************************************************
+\file   AssetBrowser.cpp
+\author c.phua\@digipen.edu
+\co-authors
+				loh.j\@digipen.edu
+\date   3-November-2023
+\brief
+	Allows user to import assets/modify entities with files.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "AssetBrowser.h"
 #include <AssetManager/AssetManager.h>

@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*!************************************************************************
+\file LeafNode.cs
+\author Han Qin Ding
+
+\brief
+C# script attached to a leaf node.
+Used by leaf node that always returns true (for testing)
+
+**************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +27,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
   \brief
-    Non default constructor of Player class
+    Non default constructor of LeafNode class
 
   \params enityID
    ID of the owner of this scipt
@@ -33,7 +42,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
    \brief
-     Awake function for the player script. 
+     Awake function for the LeafNode script. 
    ************************************************************************/
     public void Awake()
     {
@@ -43,7 +52,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
    \brief
-     Start function for the player script. 
+     Start function for the LeafNode script. 
    ************************************************************************/
     public void Start()
     {
@@ -52,8 +61,14 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
     \brief
-     Update function for the player script. This function is called every frame
+     Update function for the LeafNode script. This function is called every frame
      if the script is attached to an entity
+    
+    \param[entityID] uint
+    ID of the entity
+
+    \param[dt] dobule
+    delta time
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
@@ -61,12 +76,23 @@ namespace GoopScripts.AI
       OnSuccess(entityID);
 
     }
+
+    /*!*********************************************************************
+    \brief
+     onFail function for the LeafNode script. This function is called when the script fails.
+    it informs the tree that this script failed and jump back to the parent node
+    ************************************************************************/
     public void OnFail(uint entityID)
     {
       SetResult((int)NODE_STATES.STATE_FAILED, m_nodeID);
       JumpToParent();
     }
 
+    /*!*********************************************************************
+     \brief
+      onSuccess function for the LeafNode script. This function is called when the script succeed.
+     it informs the tree that this script succeed and jump back to the parent node
+     ************************************************************************/
     public void OnSuccess(uint entityID)
     {
       SetResult((int)NODE_STATES.STATE_SUCCEED, m_nodeID);
@@ -87,7 +113,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
     \brief
-     Update function for the player script. This function is called every frame
+     Update function for the LeafNode script. This function is called every frame
      if the script is attached to an entity
     ************************************************************************/
     public void Update()
@@ -97,7 +123,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
     \brief
-     late Update function for the player script
+     late Update function for the LeafNode script
     ************************************************************************/
     public void LateUpdate()
     {

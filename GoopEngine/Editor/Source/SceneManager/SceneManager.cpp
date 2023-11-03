@@ -1,3 +1,17 @@
+/*!*********************************************************************
+\file   SceneManager.h
+\author loh.j@digipen.edu
+\date   24-October-2023
+\brief
+  In charge of:
+    - Initializing,
+    - Loading,
+    - Unloading,
+    - Freeing
+  scenes to display.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include "pch.h"
 #include "SceneManager.h"
 #include <Serialization/Serializer.h>

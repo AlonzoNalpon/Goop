@@ -2,6 +2,7 @@
 \file   Inspector.cpp
 \author w.chinkitbryam\@digipen.edu
 \co-authors a.nalpon\@digipen.edu (42 lines)
+						loh.j\@digipen.edu (14 lines)
 \date   23 October 2023
 \brief
 	Wrapper class to create an EditorGUI for the tool bar
@@ -25,7 +26,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../ImGui/misc/cpp/imgui_stdlib.h"
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
-#include <Utilities/GoopUtils.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)

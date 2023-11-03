@@ -1,5 +1,5 @@
 {
-  "Name": "ButaPIG",
+  "Name": "Shark",
   "Components": [
     {
       "Transform": {
@@ -10,7 +10,12 @@
     },
     {
       "Sprite": {
-        "filename": "Buta PIG"
+        "filename": "SS_Shark"
+      }
+    },
+    {
+      "SpriteAnim": {
+        "name": "SS_Shark"
       }
     },
     {

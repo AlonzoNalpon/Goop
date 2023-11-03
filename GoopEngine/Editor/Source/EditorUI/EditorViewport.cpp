@@ -2,6 +2,7 @@
 \file   EditorViewport.cpp
 \author a.nalpon\@digipen.edu
 \co-authors 
+        loh.j\@digipen.edu
 \date   3-November-2023
 \brief  
   
@@ -18,7 +19,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/BoxCollider.h>
 
 #include <Component/Sprite.h>
-#include <Utilities/GoopUtils.h>
 #include <ObjectFactory/ObjectFactory.h>
 #include <InputManager/InputManager.h>
 #include <filesystem>
@@ -75,7 +75,6 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
           ecs->SetEntityName(imageEntity, GE::GoopUtils::ExtractFilename(droppedPath));
         }
       }
-      ImGui::EndDragDropTarget();
     }
     if (const ImGuiPayload* payload2 = ImGui::AcceptDragDropPayload("ASSET_BROWSER_PREFAB"))
     {

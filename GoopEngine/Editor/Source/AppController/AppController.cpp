@@ -79,10 +79,6 @@ namespace GE::Application
     imgui.Init(window);
       
     im.InitInputManager(window.GetWindow(), am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), 0.1);
-
-
-
-
   }
   
   void AppController::Run()

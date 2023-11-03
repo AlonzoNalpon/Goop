@@ -1,3 +1,13 @@
+/*!************************************************************************
+\file NodeEditor.h
+\author Han Qin Ding
+
+\brief
+This file contains function declaration for the Node editor class
+The node editor allows user to edit and make changes to the behaviour tree inside the IMGUI.
+User can Move Nodes Arounf, link nodes with each other, add nodes and edit nodes. 
+( Wrote down the guide on how to use it inside editorGuide file )
+**************************************************************************/
 #pragma once
 #include <ImNode/imnodes.h>
 #include <AI/TreeManager.h>
@@ -76,16 +86,75 @@ namespace GE {
 
 
 		public:
+			/************************************************************************/ 
+			/*!
+			\brief
+			Init function for Node Editor. Gets the list of trees from tree manager and generate its own tree list for displaying.
+			Gets the names of all the c# script that can be attached to the nodes
+			*/
+			/************************************************************************/
 			void NodeEditorInit();
+
+			/************************************************************************/ 
+			/*!
+			\brief
+				This function will display the node editor on the imgui
+			*/
+			/************************************************************************/
 			void NodeEditorShow();
+
+			/************************************************************************/ 
+			/*!
+			\brief
+				Shut down function for Node editor. Destory the imnode's context
+			*/
+			/************************************************************************/
 			void NodeEditorShutdown();
 
-
+			/************************************************************************/ 
+			/*!
+			\brief
+			Function to display the all the nodes and the links of the current tree
+			*/
+			/************************************************************************/
 			void ShowTree();
+
+			/************************************************************************/ 
+			/*!
+			\brief
+			Function to display the option pop up when the user clicks the right mouse button while using the node editor
+			*/
+			/************************************************************************/
 			void DisplayPopup();
 
+
+			/************************************************************************/ 
+			/*!
+			\brief
+			 Function to call when the user makes any changes to the tree. If the tree does not contain a node with empty string,
+			 it will send the updated tree data into tree manager. This allows the user to see the updated tree run in real time
+			*/
+			/************************************************************************/
 			void UpdateNewTree();
+
+			/************************************************************************/ 
+			/*!
+			\ brief
+			Function to call when the node editor wants to generate the tree from the tree manager's template
+			the tree struct used by node editor is quite different from the tree struct used by tree manager,
+
+
+
+			*/
+			/************************************************************************/
 			void AddDisplayTree(const TreeTemplate& tree);
+
+			/************************************************************************/ 
+			/*!
+			\brief
+			function to print the detail of the current displayed tree. 
+			*/
+			/************************************************************************/
 			void PrintDetails();
 			//void AddNode();
 

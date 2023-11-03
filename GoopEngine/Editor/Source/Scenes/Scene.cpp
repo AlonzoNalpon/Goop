@@ -1,7 +1,14 @@
+/*!*********************************************************************
+\file   Scene.cpp
+\author loh.j@digipen.edu
+\date   03-November-2023
+\brief
+	Contains the functionality of the main Scene class.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "Scene.h"
-
-
 #include <Systems/DraggableObject/DraggableObjectSystem.h>
 #include <Systems/PlayerController/PlayerControllerSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
@@ -25,8 +32,6 @@ void GE::Scenes::Scene::Init()
 {
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj); 
-	//Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
-
 }
 
 void GE::Scenes::Scene::Unload()
