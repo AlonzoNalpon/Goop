@@ -67,8 +67,24 @@ namespace GE::Assets
     ************************************************************************/
     std::set<int> LoadDirectory(const std::string& directory);
 
+    /*!*********************************************************************
+    \brief
+      Checks if the filepath is already loaded.
+    \param
+      const std::string& directory (Filepath of the directory)
+    \return
+      true if the file is already loaded.
+    ************************************************************************/
     bool AlreadyLoaded(const std::string& path);
 
+    /*!*********************************************************************
+    \brief
+      Checks id of texture is already loaded
+    \param
+      const std::string& directory (Filepath of the directory)
+    \return
+      true if the id is already loaded.
+    ************************************************************************/
     bool AlreadyLoaded(int id);
 
     /*!*********************************************************************
