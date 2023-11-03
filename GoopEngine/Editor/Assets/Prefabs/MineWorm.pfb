@@ -14,11 +14,26 @@
             }
         },
         {
-            "SpriteAnim": "SS_MineWorm"
+            "SpriteAnim": {
+                "name": "SS_MineWorm"
+            }
         },
         {
             "Model": {
                 "mdlID": 0
+            }
+        },
+        {
+            "Text": {
+                "text": "hi",
+                "clr": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.13725490868091583
+                },
+                "scale": 0.10000000149011612,
+                "fontID": 0
             }
         }
     ]

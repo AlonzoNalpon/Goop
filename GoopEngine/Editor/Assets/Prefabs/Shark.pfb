@@ -1,35 +1,48 @@
 {
-  "Name": "Shark",
-  "Components": [
-    {
-      "Transform": {
-        "worldPos": "{ 0.0, 0.0, 0.0 }",
-        "worldScale": "{ 1.0, 1.0, 1.0 }",
-        "worldRot": "{ 0.0, 0.0, 0.0 }"
-      }
-    },
-    {
-      "Sprite": {
-        "filename": "SS_Shark"
-      }
-    },
-    {
-      "SpriteAnim": {
-        "name": "SS_Shark"
-      }
-    },
-    {
-      "Model": {
-        "mdlID": 0
-      }
-    },
-    {
-      "BoxCollider": {
-        "center": "{ 15, 278 }",
-        "width": 10.0,
-        "height": 10.0,
-        "render": true
-      }
-    }
-  ]
+    "Name": "Shark",
+    "Components": [
+        {
+            "Transform": {
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 1, 5, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "Sprite": {
+                "filename": "SS_Shark"
+            }
+        },
+        {
+            "SpriteAnim": {
+                "name": "SS_Shark"
+            }
+        },
+        {
+            "Model": {
+                "mdlID": 0
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 15, 278 }",
+                "width": 10.0,
+                "height": 10.0,
+                "render": true
+            }
+        },
+        {
+            "Text": {
+                "text": "YOUR TEXT HERE",
+                "clr": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "scale": 0.10000000149011612,
+                "fontID": 0
+            }
+        }
+    ]
 }
