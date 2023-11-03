@@ -13,6 +13,7 @@ Options
 [ Viewport ]
 Resizable and truncates rendered texture
 Able to pick objects (but not drag to transform)
+	Mouse checks collision with existing component in priority: (collider -> sprite dimensions -> transform)
 
 [ Inspector ]
 Not RTTR integrated yet
