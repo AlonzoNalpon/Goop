@@ -308,6 +308,24 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto sprite = ecs.GetComponent<Sprite>(entity);
 				if (ImGui::CollapsingHeader("Sprite", ImGuiTreeNodeFlags_DefaultOpen))
 				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveSprite");
+					}
+					if (BeginPopup("RemoveSprite"))
+					{
+						bool removed{ false };
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Sprite>(entity);
+							removed = true;
+						}
+						EndPopup();
+						if (removed)
+						{
+							break;
+						}
+					}
 					ImGui::Columns(2, 0, true);
 					ImGui::SetColumnWidth(0, 118.f);
 					ImGui::Text("Sprite");
@@ -327,18 +345,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 					ImGui::Columns(1);
 
-					if (IsItemClicked(ImGuiMouseButton_Right))
-					{
-						OpenPopup("RemoveSprite");
-					}
-					if (BeginPopup("RemoveSprite"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<Sprite>(entity);
-						}
-						EndPopup();
-					}
 #pragma region SPRITE_LIST
 					auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
 					Separator();
@@ -483,9 +489,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 				{
 					if (IsItemClicked(ImGuiMouseButton_Right))
 					{
-						OpenPopup("Remo");
+						OpenPopup("RemoveDraggable");
 					}
-					if (BeginPopup("RemoveComponent"))
+					if (BeginPopup("RemoveDraggable"))
 					{
 						if (Selectable("Remove Component"))
 						{
@@ -502,15 +508,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 				{
 					if (IsItemClicked(ImGuiMouseButton_Right))
 					{
-						OpenPopup("RemoveComponent");
+						OpenPopup("RemoveText");
 					}
-					if (BeginPopup("RemoveComponent"))
+					if (BeginPopup("RemoveText"))
 					{
+						bool removed{ false };
 						if (Selectable("Remove Component"))
 						{
 							ecs.RemoveComponent<Component::Text>(entity);
+							removed = true;
 						}
 						EndPopup();
+						if (removed)
+							break;
 					}
 
 					auto textObj = ecs.GetComponent<Component::Text>(entity);
