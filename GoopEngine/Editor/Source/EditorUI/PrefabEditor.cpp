@@ -64,7 +64,7 @@ void PrefabEditor::CreateContent()
     }
   }
 
-  if (!IsWindowFocused())
+  if (!IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows))
   {
     ImGui::Text("WINDOW UNFOCUSED! CLICK BACK TO RESUME EDITING!");
     return;
