@@ -155,8 +155,8 @@ void AssetBrowser::CreateContentView()
 				{
 					ImGui::SetDragDropPayload("ASSET_BROWSER", pathCStr, strlen(pathCStr) + 1);
 					Text(pathCStr);
-					ImGui::EndDragDropSource();
 				}
+				ImGui::EndDragDropSource();
 			}
 		}
 	}
