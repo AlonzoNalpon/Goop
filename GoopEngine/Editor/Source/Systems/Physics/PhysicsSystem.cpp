@@ -65,7 +65,7 @@ void PhysicsSystem::FixedUpdate()
 		vel->m_acc += vel->m_sumMagnitude * (1 / vel->m_mass);
 		vel->m_vel += dt * vel->m_acc;
 
-		vel->m_vel *= (1 - vel->m_dragForce.m_magnitude);
+		vel->m_vel *= vel->m_dragForce.m_magnitude;
 		
 		if (vel->GetMagnitude(vel->m_vel) <= 0.01 && vel->GetMagnitude(vel->m_vel) >= -0.01)
 		{
