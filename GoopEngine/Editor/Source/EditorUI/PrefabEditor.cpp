@@ -64,6 +64,12 @@ void PrefabEditor::CreateContent()
     }
   }
 
+  if (!IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows))
+  {
+    ImGui::Text("WINDOW UNFOCUSED! CLICK BACK TO RESUME EDITING!");
+    return;
+  }
+
   if (m_isEditing)
   {
     // iterate through components and render UI elements based on type
@@ -78,7 +84,9 @@ void PrefabEditor::CreateContent()
         ImGui::Columns(2, 0, true);
         ImGui::SetColumnWidth(0, 118.f);
         ImGui::NextColumn();
-        ImageButton(reinterpret_cast<ImTextureID>(&sprite.m_spriteData.texture), { 100, 100 }, { 0, 1 }, { 1, 0 });
+
+        unsigned long long val{ sprite.m_spriteData.texture };
+        ImageButton(reinterpret_cast<ImTextureID>(val), { 100, 100 }, { 0, 1 }, { 1, 0 });
         if (ImGui::BeginDragDropTarget())
         {
           if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))

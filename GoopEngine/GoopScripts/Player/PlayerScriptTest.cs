@@ -1,9 +1,9 @@
 ﻿/*!*********************************************************************
-\file   Player.cs
+\file   PlayerScriptTest.cs
 \author han.q\@digipen.edu
 \date   28 September 2023
 \brief
-	This c# script will contain the code for player's game logic
+	This c# script for testing if the script can be attahced to a the player and run
 
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
