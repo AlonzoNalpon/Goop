@@ -350,6 +350,18 @@ namespace GE
 
         return jsonVal;
       }
+      else if (valueType == rttr::type::get<Component::SpriteAnim>())
+      {
+       /* for (auto const& prop : valueType.get_properties())
+        {
+          rapidjson::Value propVal{ rapidjson::kNullType };
+          rapidjson::Value propKey{ prop.get_name().to_string().c_str(), allocator };
+
+          propVal = SerializeBasedOnType(prop.get_value(value), allocator);
+          jsonVal.AddMember(propKey, propVal, allocator);
+        }*/
+        jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(valueType.get_property("name").get_value(value).to_uint32()).c_str(), allocator);
+      }
       else
       {
         jsonVal.SetObject();

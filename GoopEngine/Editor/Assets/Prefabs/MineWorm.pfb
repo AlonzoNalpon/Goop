@@ -1,27 +1,25 @@
 {
-  "Name": "MineWorm",
-  "Components": [
-    {
-      "Transform": {
-        "worldPos": "{ 2.0, 4.0, 0.0 }",
-        "worldScale": "{ 1.0, 1.0, 1.0 }",
-        "worldRot": "{ 0.0, 0.0, 0.0 }"
-      }
-    },
-    {
-      "Sprite": {
-        "filename": "SS_MineWorm"
-      }
-    },
-    {
-      "SpriteAnim": {
-        "name": "SS_MineWorm"
-      }
-    },
-    {
-      "Model": {
-        "mdlID": 0
-      }
-    }
-  ]
+    "Name": "MineWorm",
+    "Components": [
+        {
+            "Transform": {
+                "worldPos": "{ 2, 4, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "Sprite": {
+                "filename": "SS_MineWorm"
+            }
+        },
+        {
+            "SpriteAnim": "SS_MineWorm"
+        },
+        {
+            "Model": {
+                "mdlID": 0
+            }
+        }
+    ]
 }

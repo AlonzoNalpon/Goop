@@ -328,11 +328,31 @@ void PrefabEditor::CreateContent()
         std::remove(m_currentFilepath.c_str());
       }
       m_currPrefab.Clear();
+      m_currentFilepath.clear();
       m_isEditing = false;
     }
     ImGui::SameLine();
     if (ImGui::Button("Save Changes"))
     {
+      bool flag{ false };
+      for (rttr::variant& component : m_currPrefab.m_components)
+      {
+        if (component.get_type() == rttr::type::get<Component::SpriteAnim>())
+        {
+          Component::SpriteAnim& spriteAnim = component.get_value<Component::SpriteAnim>();
+          for (rttr::variant& component2 : m_currPrefab.m_components)
+          {
+            if (component2.get_type() == rttr::type::get<Component::Sprite>())
+            {
+              Component::Sprite const& sprite = component2.get_value<Component::Sprite>();
+              spriteAnim.m_animID = Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(sprite.m_spriteName);
+              flag = true;
+              break;
+            }
+          }
+          if (flag) { break; }
+        }
+      }
       Serialization::Serializer::GetInstance().SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
       GE::Debug::ErrorLogger::GetInstance().LogMessage(m_currPrefab.m_name + " successfully saved");
     }
