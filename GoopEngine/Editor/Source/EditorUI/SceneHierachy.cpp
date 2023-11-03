@@ -102,8 +102,6 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 					GE::ECS::Entity& droppedEntity{*reinterpret_cast<GE::ECS::Entity*>(pl->Data)};
 					ParentEntity(ecs, droppedEntity);
 				}
-
-				
 				EndDragDropTarget();
 			}
 
@@ -153,6 +151,7 @@ namespace
 	void ParentEntity(EntityComponentSystem& ecs, Entity& child, Entity* parent)
 	{
 		Entity oldParent = ecs.GetParentEntity(child);
+
 		// Has parent, remove self from parent
 		if (oldParent != INVALID_ID)
 		{
@@ -174,6 +173,16 @@ namespace
 		}
 		else
 		{
+			// Checks if new parent is a child of current child
+			Entity temp = *parent;
+			while ((temp = ecs.GetParentEntity(temp)) != INVALID_ID)
+			{
+				if (temp == child)
+				{
+					return;
+				}
+			}
+
 			try
 			{
 				ecs.SetParentEntity(child, *parent);
