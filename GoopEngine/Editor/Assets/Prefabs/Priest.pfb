@@ -1,33 +1,46 @@
 {
-  "Name": "Priest",
-  "Components": [
-    {
-      "Transform": {
-        "worldPos": "{ 2.0, 4.0, 0.0 }",
-        "worldScale": "{ 1.0, 1.0, 1.0 }",
-        "worldRot": "{ 0.0, 0.0, 0.0 }"
-      }
-    },
-    {
-      "Sprite": {
-        "filename": "Priest"
-      }
-    },
-    {
-      "Model": {
-        "mdlID": 0
-      }
-    },
-    {
-      "BoxCollider": {
-        "center": "{ 210, 283 }",
-        "width": 140.0,
-        "height": 280.0,
-        "render": true
-      }
-    },
-    {
-      "Draggable": {}
-    }
-  ]
+    "Name": "Priest",
+    "Components": [
+        {
+            "Transform": {
+                "worldPos": "{ 2, 4, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "Sprite": {
+                "filename": "Priest"
+            }
+        },
+        {
+            "Model": {
+                "mdlID": 0
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 210, 283 }",
+                "width": 140.0,
+                "height": 280.0,
+                "render": true
+            }
+        },
+        {
+            "Draggable": {}
+        },
+        {
+            "Text": {
+                "text": "YOUR TEXT HEREhefhehhefhe",
+                "clr": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "scale": 0.10000000149011612,
+                "fontID": 0
+            }
+        }
+    ]
 }

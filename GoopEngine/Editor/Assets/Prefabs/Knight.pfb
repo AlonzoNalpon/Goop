@@ -25,6 +25,19 @@
                 "height": 280.0,
                 "render": true
             }
+        },
+        {
+            "Text": {
+                "text": "YOUR TEXT HERE hwhhe",
+                "clr": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "scale": 0.847000002861023,
+                "fontID": 0
+            }
         }
     ]
 }

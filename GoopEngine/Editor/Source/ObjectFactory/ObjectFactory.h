@@ -39,7 +39,7 @@ namespace GE::ObjectFactory
     \return
       Entity of the prefab.
     ************************************************************************/
-    GE::ECS::Entity SpawnPrefab(const std::string& key) const;
+    GE::ECS::Entity SpawnPrefab(const std::string& key);
     
     /*!*********************************************************************
     \brief

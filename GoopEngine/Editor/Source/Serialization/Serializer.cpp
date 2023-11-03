@@ -373,7 +373,10 @@ namespace GE
           propVal = SerializeBasedOnType(prop.get_value(value), allocator);
           jsonVal.AddMember(propKey, propVal, allocator);
         }*/
-        jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(valueType.get_property("name").get_value(value).to_uint32()).c_str(), allocator);
+        rapidjson::Value key, val;
+        key.SetString("name", allocator);
+        val.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(valueType.get_property("name").get_value(value).to_uint32()).c_str(), allocator);
+        jsonVal.AddMember(key, val, allocator);
       }
       else
       {
@@ -407,6 +410,10 @@ namespace GE
         if (instance.get_type() == rttr::type::get<Component::SpriteAnim>())
         {
           jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(value.to_uint32()).c_str(), allocator);
+          //val.AddMember(jsonKey, jsonVal, allocator);
+          //jsonVal = val.Move();
+          //jsonVal.SetObject();
+          //jsonVal.AddMember(key, val, allocator);
         }
         else if (prop.get_type().is_class())  // else if custom types
         {

@@ -229,7 +229,7 @@ void ObjectFactory::DeserializePrefab(const std::string& filepath)
   m_prefabs.emplace(std::move(prefab));
 }
 
-GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
+GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
 {
   if (m_prefabs.find(key) == m_prefabs.end())
     GoopUtils::ReloadFileData();
@@ -239,6 +239,8 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
     throw GE::Debug::Exception<ObjectFactory>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
   }
 
+  m_prefabs.clear();
+  LoadPrefabsFromFile();
   ObjectData prefab = m_prefabs.at(key);
   Entity entity = CreateObject(key, prefab);
 
