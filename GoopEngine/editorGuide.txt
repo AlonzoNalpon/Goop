@@ -57,7 +57,7 @@ Depreciated but still working button to spawn a worm prefab
 
 [ Asset Browser ]
 Directory holds all folders and sub folders within Asset Directory.
-View displays files within each folder selected from Directory. Images are printed for .png files.
+Displays files within each folder selected from Directory. Images are printed for .png files.
 Drag and Drop:
 1. images and prefab file into viewport.
 2. images to scene hierarchy.
