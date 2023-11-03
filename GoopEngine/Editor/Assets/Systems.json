@@ -2,8 +2,9 @@
     "PreRootTransformSystem": [],
 	"PlayerControllerSystem": [	
 		"Transform",
-		"Sprite",
-		"SpriteAnim",
+		"Tween",
+        "Sprite",
+        "SpriteAnim",
 		"ScriptHandler"
 	],
     "EnemySystem": [
@@ -15,9 +16,9 @@
         "BoxCollider"
     ],
     "DraggableObjectSystem": [
-          "Transform",
-          "BoxCollider",
-		      "Draggable"
+        "Transform",
+        "BoxCollider",
+        "Draggable"
     ],
     "PhysicsSystem": [
         "Transform",

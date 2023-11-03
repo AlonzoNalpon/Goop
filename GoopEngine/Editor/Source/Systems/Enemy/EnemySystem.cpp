@@ -62,7 +62,7 @@ void EnemySystem::FixedUpdate()
 				std::vector<void*> arg{ &m_currentEntityID, &dt };
 				mono_runtime_invoke(onUpdate, m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classObjInst, arg.data(), nullptr);
 				
-				// PLEASE UNCOMMENT THIS IF YOU WANT TO SEE THE TREE CACHE OF THE ENEMY AT THE END OF EVRY FRAME
+				//PLEASE UNCOMMENT THIS IF YOU WANT TO SEE THE TREE CACHE OF THE ENEMY AT THE END OF EVRY FRAME
 				//PrintNodeCache(enemyAIComp->m_enemyTreeCache.m_nodeCacheStack);
 			}
 			else
