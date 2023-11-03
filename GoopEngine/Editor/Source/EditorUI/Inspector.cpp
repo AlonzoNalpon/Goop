@@ -241,6 +241,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (Selectable("Remove Component"))
 						{
 							ecs.RemoveComponent<BoxCollider>(entity);
+							EndPopup();
+							break;
 						}
 						EndPopup();
 					}
@@ -274,6 +276,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (Selectable("Remove Component"))
 						{
 							ecs.RemoveComponent<Velocity>(entity);
+							EndPopup();
+							break;
 						}
 						EndPopup();
 					}
@@ -314,17 +318,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 					if (BeginPopup("RemoveSprite"))
 					{
-						bool removed{ false };
 						if (Selectable("Remove Component"))
 						{
 							ecs.RemoveComponent<Sprite>(entity);
-							removed = true;
-						}
-						EndPopup();
-						if (removed)
-						{
+							EndPopup();
 							break;
 						}
+						EndPopup();
 					}
 					ImGui::Columns(2, 0, true);
 					ImGui::SetColumnWidth(0, 118.f);
@@ -403,6 +403,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (Selectable("Remove Component"))
 						{
 							ecs.RemoveComponent<SpriteAnim>(entity);
+							EndPopup();
+							break;
 						}
 						EndPopup();
 					}
@@ -423,6 +425,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (Selectable("Remove Component"))
 						{
 							ecs.RemoveComponent<Model>(entity);
+							EndPopup();
+							break;
 						}
 						EndPopup();
 					}
@@ -446,6 +450,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (Selectable("Remove Component"))
 						{
 							ecs.RemoveComponent<Tween>(entity);
+							EndPopup();
+							break;
 						}
 						EndPopup();
 					}
@@ -479,6 +485,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (Selectable("Remove Component"))
 						{
 							ecs.RemoveComponent<ScriptHandler>(entity);
+							EndPopup();
+							break;
 						}
 						EndPopup();
 					}
@@ -498,6 +506,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (Selectable("Remove Component"))
 						{
 							ecs.RemoveComponent<Draggable>(entity);
+							EndPopup();
+							break;
 						}
 						EndPopup();
 					}
@@ -514,15 +524,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 					if (BeginPopup("RemoveText"))
 					{
-						bool removed{ false };
 						if (Selectable("Remove Component"))
 						{
 							ecs.RemoveComponent<Component::Text>(entity);
-							removed = true;
+							EndPopup();
+							break;
 						}
 						EndPopup();
-						if (removed)
-							break;
 					}
 
 					auto textObj = ecs.GetComponent<Component::Text>(entity);
