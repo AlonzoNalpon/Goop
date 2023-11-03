@@ -36,6 +36,15 @@ The PlayerController (K,E,Q,R) and DraggableObject Systems (LEFT MOUSE HOLD) who
 receive the event and handles it through their HandleEvent() function
 *To display output for events, you can uncomment the #define EVENT_DEBUG flag in file pch.h
 
+[ Prefab Editor ]
+Navigate to "Prefab Editor" window. 
+Drag and drop from asset browser is supported (Go to Prefab directory and drag into window)
+"Add Component" and "Remove Component" buttons are available.
+"Cancel" will stop the current editing session and "Save changes" will save the changes made back to the file
+Alternatively, you can do Right click > New Prefab to create a new prefab from file explorer and start editing
+*Note: The file explorer may not open to the solution directory sometimes.
+       In that case, navigate to GoopEngine/Editor/Assets/Prefabs
+
 [ Disable ImGui ]
 ImGui can be disabled by including the code "#define NO_IMGUI" in pch.h
 The program is not fully seperated from ImGui and may result in undefined behaviour

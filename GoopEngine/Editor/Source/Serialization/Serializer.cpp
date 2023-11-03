@@ -16,9 +16,37 @@ namespace GE
     const char Serializer::JsonChildEntitiesKey[] = "Child Entities";
     const char Serializer::JsonComponentsKey[]    = "Components";
 
-    void Serializer::SerializeVariantToPrefab(ObjectFactory::VariantPrefab prefab, std::string const& filename)
+    void Serializer::SerializeVariantToPrefab(ObjectFactory::VariantPrefab const& prefab, std::string const& filename)
     {
+      std::ofstream ofs{ filename };
+      if (!ofs)
+      {
+        GE::Debug::ErrorLogger::GetInstance().LogError("Unable to serialize scene into " + filename);
+        return;
+      }
 
+      rapidjson::Document document{ rapidjson::kObjectType };
+      rapidjson::Value name;
+      name.SetString(prefab.m_name.c_str(), document.GetAllocator());
+
+      rapidjson::Value compArray{ rapidjson::kArrayType };
+      for (rttr::variant const& comp : prefab.m_components)
+      {
+        rapidjson::Value compName;
+        compName.SetString(comp.get_type().get_name().to_string().c_str(), document.GetAllocator());
+        rapidjson::Value compJson{ rapidjson::kObjectType };
+        compJson.AddMember(compName.Move(), SerializeBasedOnType(comp, document.GetAllocator()), document.GetAllocator());
+        if (!compJson.ObjectEmpty())
+          compArray.PushBack(compJson, document.GetAllocator());
+      }
+      document.AddMember(JsonNameKey, name.Move(), document.GetAllocator());
+      document.AddMember(JsonComponentsKey, compArray.Move(), document.GetAllocator());
+
+      rapidjson::OStreamWrapper osw{ ofs };
+      rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
+      document.Accept(writer);
+
+      ofs.close();
     }
 
     void Serializer::SerializeAny(std::string const& filename, rttr::variant object)
@@ -27,6 +55,7 @@ namespace GE
       if (!ofs)
       {
         GE::Debug::ErrorLogger::GetInstance().LogError("Unable to serialize scene into " + filename);
+        return;
       }
 
       rapidjson::Document document{ rapidjson::kArrayType };

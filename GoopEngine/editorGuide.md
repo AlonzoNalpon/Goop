@@ -65,6 +65,12 @@ There are 3 types of nodes available, Root Node, Composite Node and Leaf Node (E
 There are 2 types of pins, Input Pin (Left Pin) and the Output Pin (Right pin). 
 Currently, you can navigate around the node editor by holding the middle mouse button and move your mouse around
 
+[ Prefab Editor ]
+Allows a new prefab to be created (through file explorer) on right-click
+Drag and drop is supported from Assets Browser window
+Allows adding and removing of components to the current prefab
+"Cancel" will stop the current editing session and "Save changes" will save the changes made back to the file
+
 Users are able to perform these actions:
 1. Reposition the nodes
 2. Link/Unlink nodes through the pins to create a parent/child relationship

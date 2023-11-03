@@ -24,7 +24,7 @@ namespace GE
     public:
       static const char JsonNameKey[], JsonParentKey[], JsonChildEntitiesKey[], JsonComponentsKey[];
 
-      void SerializeVariantToPrefab(ObjectFactory::VariantPrefab prefab, std::string const& filename);
+      void SerializeVariantToPrefab(ObjectFactory::VariantPrefab const& prefab, std::string const& filename);
 
       void SerializeAny(std::string const& filename, rttr::variant object);
 
