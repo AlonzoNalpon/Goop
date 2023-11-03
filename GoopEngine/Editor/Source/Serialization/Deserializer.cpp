@@ -61,6 +61,12 @@ ObjectFactory::VariantPrefab Deserializer::DeserializePrefabToVariant(std::strin
     rapidjson::Document document{};
     // parse into document object
     rapidjson::IStreamWrapper isw{ ifs };
+    if (ifs.peek() == std::ifstream::traits_type::eof())
+    {
+      ifs.close();
+      std::remove(json.c_str());
+      throw GE::Debug::Exception<Deserializer>(Debug::LEVEL_ERROR, ErrMsg(json + ": Empty prefab file read and removed, please create a new file "));
+    }
     if (document.ParseStream(isw).HasParseError())
     {
       ifs.close();
@@ -68,6 +74,7 @@ ObjectFactory::VariantPrefab Deserializer::DeserializePrefabToVariant(std::strin
     }
   
     ObjectFactory::VariantPrefab prefab;
+    
     prefab.m_name = document[Serializer::JsonNameKey].GetString();
 
     for (auto const& component : document[Serializer::JsonComponentsKey].GetArray())

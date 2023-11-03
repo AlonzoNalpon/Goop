@@ -315,6 +315,10 @@ void PrefabEditor::CreateContent()
 
     if (ImGui::Button("Cancel"))
     {
+      if (m_currPrefab.m_components.empty())
+      {
+        std::remove(m_currentFilepath.c_str());
+      }
       m_currPrefab.Clear();
       m_isEditing = false;
     }
@@ -322,6 +326,7 @@ void PrefabEditor::CreateContent()
     if (ImGui::Button("Save Changes"))
     {
       Serialization::Serializer::GetInstance().SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
+      GE::Debug::ErrorLogger::GetInstance().LogMessage(m_currPrefab.m_name + " successfully saved");
     }
   }
 }
