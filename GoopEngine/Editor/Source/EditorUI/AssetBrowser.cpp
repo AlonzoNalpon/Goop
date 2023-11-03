@@ -151,8 +151,11 @@ void AssetBrowser::CreateContentView()
 			Selectable(pathCStr);
 			if (ImGui::BeginDragDropSource())
 			{
-				ImGui::SetDragDropPayload("ASSET_BROWSER", pathCStr, strlen(pathCStr) + 1);
-				Text(pathCStr);
+				if (extension == m_prefabFile || extension == m_imageFile)
+				{
+					ImGui::SetDragDropPayload("ASSET_BROWSER", pathCStr, strlen(pathCStr) + 1);
+					Text(pathCStr);
+				}
 				ImGui::EndDragDropSource();
 			}
 		}
