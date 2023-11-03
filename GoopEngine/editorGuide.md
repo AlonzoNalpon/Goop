@@ -58,6 +58,10 @@ Depreciated but still working button to spawn a worm prefab
 [ Asset Browser ]
 Directory holds all folders and sub folders within Asset Directory.
 View displays files within each folder selected from Directory. Images are printed for .png files.
+Drag and Drop:
+1. images and prefrab file into viewport.
+2. images to scene hierarchy.
+3. images into sprite box within the inspector.
 
 [ Node Editor ]
 Allows user to edit enemy's behaviour tree. Any changes made will be displayed in the game at runtime, if the tree is valid (will explain more about it bellow)
