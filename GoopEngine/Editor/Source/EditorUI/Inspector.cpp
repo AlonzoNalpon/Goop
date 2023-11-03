@@ -340,7 +340,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 								auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
 								const char* droppedPath = static_cast<const char*>(payload->Data);
 								sprite->m_spriteData.texture = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
+
 							}
+							EndDragDropTarget();
 						}
 					}
 					ImGui::Columns(1);
