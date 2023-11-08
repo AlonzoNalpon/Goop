@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   ShaderProgram.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   16-September-2023
 \brief  This file contains the definition of the ShaderProgram class.
 \note   There's no ShaderProgramManager class as every rendered object

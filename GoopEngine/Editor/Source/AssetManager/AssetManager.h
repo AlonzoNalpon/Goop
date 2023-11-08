@@ -24,7 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #define ASSET_MANAGER_H
 #include <AssetManager/AssetStructs.h>
 #include "../Singleton/Singleton.h"
-#include "../Serialization/SpriteGooStream.h"
+#include <Serialization/GooStream/SpriteGooStream.h>
 
 namespace GE::Assets
 {
@@ -67,8 +67,24 @@ namespace GE::Assets
     ************************************************************************/
     std::set<int> LoadDirectory(const std::string& directory);
 
+    /*!*********************************************************************
+    \brief
+      Checks if the filepath is already loaded.
+    \param
+      const std::string& directory (Filepath of the directory)
+    \return
+      true if the file is already loaded.
+    ************************************************************************/
     bool AlreadyLoaded(const std::string& path);
 
+    /*!*********************************************************************
+    \brief
+      Checks id of texture is already loaded
+    \param
+      const std::string& directory (Filepath of the directory)
+    \return
+      true if the id is already loaded.
+    ************************************************************************/
     bool AlreadyLoaded(int id);
 
     /*!*********************************************************************
@@ -199,6 +215,18 @@ namespace GE::Assets
 
     /*!*********************************************************************
     \brief
+      Reloads files by scanning the Assets directory
+    ************************************************************************/
+    void ReloadFiles(Assets::FileType type);
+
+    /*!*********************************************************************
+    \brief
+      Reloads all files by scanning the Assets directory
+    ************************************************************************/
+    void ReloadAllFiles();
+
+    /*!*********************************************************************
+    \brief
       Loads the required files for startup.
     \param
       std::string key (Key of the data)
@@ -217,8 +245,7 @@ namespace GE::Assets
 
     inline std::unordered_map<std::string, std::string> const& GetImages() const noexcept { return m_images; }
 
-
-    #include "AssetManager.tpp"
+#include "AssetManager.tpp"
 
   private:
     /*!*********************************************************************

@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   def.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains all typedefs for project.
   

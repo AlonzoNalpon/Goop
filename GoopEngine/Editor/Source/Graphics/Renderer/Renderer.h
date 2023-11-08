@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   Renderer.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the definition for Renderer class.
   
@@ -15,6 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/TextureManager.h>
 #include <Graphics/Renderer/Camera.h>
 #include <Graphics/Fonts/FontManager.h>
+#include <Graphics/Renderer/FrameBufferInfo.h>
 namespace Graphics::Rendering
 {
   /*!
@@ -32,8 +33,14 @@ namespace Graphics::Rendering
   public:
 
     
-    Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, ShaderCont const& shaderCont
-    , Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight);
+    Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager,
+      ShaderCont const& shaderCont, Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight,
+      std::map < gObjID, FrameBufferInfo> const& frameBuffers);
+
+    void ClearRenderContainers();
+    // OLD CHANGE
+    // Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager, ShaderCont const& shaderCont
+    // , Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight);
 
     /*!*********************************************************************
     \brief
@@ -57,6 +64,8 @@ namespace Graphics::Rendering
     ************************************************************************/
     void RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat4 const& trans);
     
+    void RenderFontObject(gVec2 pos, GLfloat scale, std::string const& str, Colorf color, gObjID fontID);
+
     void RenderLineDebug(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf const& clr);
 
     /*!*********************************************************************
@@ -65,9 +74,32 @@ namespace Graphics::Rendering
     \params
     \return
     ************************************************************************/
-    void Draw();
+    void Draw(Camera & camera);
 
-    void DrawFontObj(std::string const& str, gVec2 pos, gVec2 const& scale, Colorf const& clr, std::string const& fontName);
+    /*!*********************************************************************
+    \brief
+      Clears all render data.
+    \params
+    \return
+    ************************************************************************/
+    void ClearRenderData();
+
+    /*!*********************************************************************
+    \brief
+      Draws font object from string and other specs.
+      Does not deal with binding using shaders.
+      This function will be hidden in future revisions.
+      ALPHA NOT YET SUPPORTED
+    \params
+      str string of text
+      pos position of text
+      scale scale of text
+      clr color of text
+      fontID ID of font to use
+      camera Camera to transform text
+    \return
+    ************************************************************************/
+    void DrawFontObj(std::string const& str, gVec2 pos, GLfloat scale, Colorf const& clr, Graphics::gObjID fontID, Camera& camera);
 
     /*!*********************************************************************
     \brief
@@ -90,18 +122,11 @@ namespace Graphics::Rendering
       
     ************************************************************************/
     glm::mat4 CalculateTransform(gVec3 const& scale, GLfloat rotation, gVec3 const& pos) const;
-    /*!*********************************************************************
-    \brief
-      Calculates the transform based on Transform struct.
-    \params
-      xForm the transformation data
-    \return the matrix result
-      
-    ************************************************************************/
-    //glm::mat4 CalculateTransform(Transform const& xForm) const;
+
   private:
-    std::vector<RenderData>     m_renderCalls;     //!< container for all render calls
-    std::vector<LineRenderData> m_lineRenderCalls; //!< DEBUG drawing lines with colors
+    std::vector<RenderData>             m_renderCalls;     //!< container for all render calls
+    std::vector<FontRenderData>         m_fontRenderCalls; //!< font
+    std::vector<LineRenderData>         m_lineRenderCalls; //!< DEBUG drawing lines with colors
 
     Camera                              m_camera;   //!< camera for rendering
 
@@ -111,7 +136,8 @@ namespace Graphics::Rendering
     Fonts::FontManager const&           r_fontManager;  //!< reference to the font manager
     GLint const&                        r_vpWidth;
     GLint const&                        r_vpHeight;
-
+    std::map < gObjID, 
+      FrameBufferInfo> const&           r_frameBuffers; //!< reference to framebuffers
     // primitive models
     gObjID                              m_lineMdlObj;   //!< handle to line model
   };

@@ -1,0 +1,121 @@
+[
+    {
+        "Name": "Background",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, -997 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "filename": "Background"
+                }
+            },
+            {
+                "Model": {
+                    "mdlID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Player",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 73.2661, 183.292, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 73.2661, 183.292 }",
+                    "width": 100.0,
+                    "height": 100.0,
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "filename": "SS_MineWorm"
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MineWorm"
+                }
+            },
+            {
+                "Model": {
+                    "mdlID": 0
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [],
+                    "timePerTween": 1.0,
+                    "timeTaken": 3.0,
+                    "timeElapsed": 0.020000000000001333,
+                    "originalPos": "{ 350, 350, 0 }"
+                }
+            },
+            {
+                "ScriptHandler": {
+                    "scriptMap": [
+                        "Player"
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Enemy",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 69.6989, 183.189, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 74.6978, 183.333 }",
+                    "width": 100.0,
+                    "height": 100.0,
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "filename": "SS_MineWorm"
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MineWorm"
+                }
+            },
+            {
+                "Model": {
+                    "mdlID": 0
+                }
+            },
+            {
+                "EnemyAI": {
+                    "treeID": 0
+                }
+            }
+        ]
+    }
+]

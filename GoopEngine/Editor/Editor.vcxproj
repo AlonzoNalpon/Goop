@@ -155,7 +155,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\AI\Tree.cpp" />
+    <ClCompile Include="Source\AI\TreeManager.cpp" />
     <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
     <ClCompile Include="Source\EditorUI\Console.cpp" />
     <ClCompile Include="Source\AppController\AppController.cpp" />
@@ -169,8 +169,9 @@
     <ClCompile Include="Source\ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="Source\ECS\System\System.cpp" />
     <ClCompile Include="Source\EditorUI\DataViz\Visualizer.cpp" />
+    <ClCompile Include="Source\EditorUI\EditorViewport.cpp" />
     <ClCompile Include="Source\EditorUI\Inspector.cpp" />
-    <ClCompile Include="Source\EditorUI\OpenFileExplorer.cpp" />
+    <ClCompile Include="Source\EditorUI\PrefabEditor.cpp" />
     <ClCompile Include="Source\EditorUI\SceneControls.cpp" />
     <ClCompile Include="Source\EditorUI\ToolBar.cpp" />
     <ClCompile Include="Source\Events\EventManager.cpp" />
@@ -228,9 +229,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Source\ImNode\imnodes.cpp" />
+    <ClCompile Include="Source\ImNode\NodeEditor.cpp" />
     <ClCompile Include="Source\InputManager\InputManager.cpp" />
     <ClCompile Include="Source\Math\Mat4Utils.cpp" />
-    <ClCompile Include="Source\ObjectFactory\GivingMyself90MinToFigureThisOut.cpp" />
     <ClCompile Include="Source\ObjectFactory\ObjectFactory.cpp" />
     <ClCompile Include="Source\MemoryManager\BaseAllocator.cpp" />
     <ClCompile Include="Source\MemoryManager\ListAllocator.cpp" />
@@ -251,30 +253,35 @@
     <ClCompile Include="Source\Scenes\Scene.cpp" />
     <ClCompile Include="Source\ScriptEngine\Script.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptManager.cpp" />
-    <ClCompile Include="Source\Serialization\AssetGooStream.cpp" />
     <ClCompile Include="Source\ECS\System\SystemManager.cpp" />
     <ClCompile Include="Source\FrameRateController\FrameRateController.cpp" />
     <ClCompile Include="Source\Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="Source\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="Source\Serialization\ComponentWrapper\ComponentWrapper.cpp" />
-    <ClCompile Include="Source\Serialization\ObjectGooStream.cpp" />
-    <ClCompile Include="Source\Serialization\PrefabGooStream.cpp" />
+    <ClCompile Include="Source\Serialization\Deserializer.cpp" />
+    <ClCompile Include="Source\Serialization\GooStream\AssetGooStream.cpp" />
+    <ClCompile Include="Source\Serialization\GooStream\ObjectGooStream.cpp" />
+    <ClCompile Include="Source\Serialization\GooStream\PrefabGooStream.cpp" />
+    <ClCompile Include="Source\Serialization\GooStream\SpriteGooStream.cpp" />
     <ClCompile Include="Source\Serialization\RegisterClasses.cpp" />
-    <ClCompile Include="Source\Serialization\Serialization.cpp" />
+    <ClCompile Include="Source\Serialization\RegisterClasses2.cpp" />
+    <ClCompile Include="Source\Serialization\Serializer.cpp" />
     <ClCompile Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.cpp" />
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimGenerator.cpp" />
     <ClCompile Include="Source\Math\Mat3Utils.cpp" />
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
+    <ClCompile Include="Source\Systems\Text\TextRenderSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Source\Systems\PlayerController\PlayerControllerSystem.cpp" />
-    <ClCompile Include="Source\Serialization\SpriteGooStream.cpp" />
     <ClCompile Include="Source\Systems\Rendering\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="Source\EditorUI\ImGuiUI.cpp" />
-    <ClCompile Include="Source\Systems\RootTransform\RootTransformSystem.cpp" />
+    <ClCompile Include="Source\Systems\RootTransform\PostRootTransformSystem.cpp" />
+    <ClCompile Include="Source\Systems\RootTransform\PreRootTransformSystem.cpp" />
     <ClCompile Include="Source\Systems\SpriteAnim\SpriteAnimSystem.cpp" />
+    <ClCompile Include="Source\Utilities\GoopUtils.cpp" />
     <ClCompile Include="Source\Window\Window.cpp" />
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimationManager.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -282,15 +289,17 @@
   <ItemGroup>
     <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
     <ClInclude Include="Source\AI\Tree.h" />
+    <ClInclude Include="Source\AI\TreeManager.h" />
     <ClInclude Include="Source\Component\Camera.h" />
     <ClInclude Include="Source\Component\Draggable.h" />
     <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\Component\Components.h" />
+    <ClInclude Include="Source\Component\Text.h" />
+    <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
     <ClInclude Include="Source\EditorUI\Console.h" />
     <ClInclude Include="Source\AI\ActionNode.h" />
     <ClInclude Include="Source\AI\BehaviourTree.h" />
     <ClInclude Include="Source\AI\CompositeNode.h" />
-    <ClInclude Include="Source\AI\Node.h" />
     <ClInclude Include="Source\AppController\AppController.h" />
     <ClInclude Include="Source\AssetManager\AssetManager.h" />
     <ClInclude Include="Source\Audio\AudioEngine.h" />
@@ -313,19 +322,23 @@
     <ClInclude Include="Source\ECS\Component\ComponentArray.h" />
     <ClInclude Include="Source\ECS\Component\ComponentManager.h" />
     <ClInclude Include="Source\EditorUI\DataViz\Visualizer.h" />
+    <ClInclude Include="Source\EditorUI\EditorViewport.h" />
     <ClInclude Include="Source\EditorUI\Inspector.h" />
-    <ClInclude Include="Source\EditorUI\OpenFileExplorer.h" />
+    <ClInclude Include="Source\EditorUI\PrefabEditor.h" />
     <ClInclude Include="Source\EditorUI\SceneControls.h" />
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
     <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
+    <ClInclude Include="Source\Graphics\Renderer\FrameBufferInfo.h" />
+    <ClInclude Include="Source\ImNode\imnodes.h" />
+    <ClInclude Include="Source\ImNode\imnodes_internal.h" />
+    <ClInclude Include="Source\ImNode\NodeEditor.h" />
     <ClInclude Include="Source\ImTerm\misc.hpp" />
     <ClInclude Include="Source\ImTerm\terminal.hpp" />
     <ClInclude Include="Source\ImTerm\terminal_commands.hpp" />
     <ClInclude Include="Source\ImTerm\terminal_helpers.hpp" />
     <ClInclude Include="Source\ImTerm\utils.hpp" />
     <ClInclude Include="Source\Math\Mat4Utils.h" />
-    <ClInclude Include="Source\ObjectFactory\GivingMyself90MinToFigureThisOut.h" />
     <ClInclude Include="Source\pch.h" />
     <ClInclude Include="Source\ECS\EntityComponentSystem.h" />
     <ClInclude Include="Source\ECS\Entity\Entity.h" />
@@ -371,12 +384,15 @@
     <ClInclude Include="Source\ScriptEngine\Script.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptManager.h" />
     <ClInclude Include="Source\Serialization\ComponentWrapper\ComponentWrapper.h" />
-    <ClInclude Include="Source\Serialization\IGooStream.h" />
-    <ClInclude Include="Source\Serialization\ObjectGooStream.h" />
-    <ClInclude Include="Source\Serialization\PrefabGooStream.h" />
-    <ClInclude Include="Source\Serialization\Serialization.h" />
-    <ClInclude Include="Source\Serialization\SpriteData.h" />
-    <ClInclude Include="Source\Serialization\SpriteGooStream.h" />
+    <ClInclude Include="Source\Serialization\Deserializer.h" />
+    <ClInclude Include="Source\Serialization\GooStream\AssetGooStream.h" />
+    <ClInclude Include="Source\Serialization\GooStream\GooStream.h" />
+    <ClInclude Include="Source\Serialization\GooStream\IGooStream.h" />
+    <ClInclude Include="Source\Serialization\GooStream\ObjectGooStream.h" />
+    <ClInclude Include="Source\Serialization\GooStream\PrefabGooStream.h" />
+    <ClInclude Include="Source\Serialization\GooStream\SpriteGooStream.h" />
+    <ClInclude Include="Source\Serialization\Serializer.h" />
+    <ClInclude Include="Source\Serialization\GooStream\SpriteData.h" />
     <ClInclude Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.h" />
     <ClInclude Include="Source\FrameRateController\FrameRateController.h" />
     <ClInclude Include="Source\Graphics\Def\GraphicsTypes.h" />
@@ -395,9 +411,14 @@
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />
     <ClInclude Include="Source\EditorUI\ImGuiUI.h" />
     <ClInclude Include="Source\Systems\Rendering\CameraSystem.h" />
+    <ClInclude Include="Source\Systems\RootTransform\PostRootTransformSystem.h" />
+    <ClInclude Include="Source\Systems\RootTransform\PreRootTransformSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\RootTransformSystem.h" />
+    <ClInclude Include="Source\Systems\RootTransform\TransformSystemHelper.h" />
     <ClInclude Include="Source\Systems\SpriteAnim\SpriteAnimSystem.h" />
     <ClInclude Include="Source\Systems\Systems.h" />
+    <ClInclude Include="Source\Systems\Text\TextRenderSystem.h" />
+    <ClInclude Include="Source\Utilities\GoopUtils.h" />
     <ClInclude Include="Source\Window\Window.h" />
     <ClInclude Include="Source\Math\GEM.h" />
     <ClInclude Include="Source\Math\Mat2.h" />
@@ -409,8 +430,6 @@
     <ClInclude Include="Source\Math\Vec3.h" />
     <ClInclude Include="Source\Math\Vec4.h" />
     <ClInclude Include="Source\Math\VecUtils.h" />
-    <ClInclude Include="Source\Serialization\AssetGooStream.h" />
-    <ClInclude Include="Source\Serialization\GooStream.h" />
     <ClInclude Include="Source\Graphics\Texture.h" />
     <ClInclude Include="Source\SpriteAnimation\SpriteAnimationManager.h" />
     <ClInclude Include="Source\Systems\Rendering\RenderingSystem.h" />

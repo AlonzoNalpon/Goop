@@ -43,6 +43,7 @@ namespace GE
       // Non-default ctor taking in a string containing 
       // a component's data in json format
       ComponentWrapper(std::string const& componentData);
+      ComponentWrapper(rapidjson::Value const& componentData);
 
       /*!*********************************************************************
       \brief
@@ -55,6 +56,7 @@ namespace GE
       template <typename T>
       T Get(const char* key) const;
       template<> bool Get(const char* key) const;
+      template<> float Get(const char* key) const;
       template<> double Get(const char* key) const;
       template<> int Get(const char* key) const;
       template<> unsigned Get(const char* key) const;
@@ -64,12 +66,12 @@ namespace GE
       template<> Math::Vec2 Get(const char* key) const;
       template<> Math::dVec2 Get(const char* key) const;
       template<> Math::dVec3 Get(const char* key) const;
+      template<> Graphics::Colorf Get(const char* key)const;
       template<> std::queue<Math::dVec2> Get(const char* key) const;
       template<> std::deque<Math::dVec2> Get(const char* key) const;
       template<> std::queue<Math::dVec3> Get(const char* key) const;
       template<> std::deque<Math::dVec3> Get(const char* key) const;
-      template<> std::vector<std::pair<std::string, std::string>>
-                 Get(const char* key) const;
+      template<> std::vector<std::string> Get(const char* key) const;
       template<> Component::DragForce Get(const char* key) const;
       template<> std::vector<Component::LinearForce> Get(const char* key) const;
 

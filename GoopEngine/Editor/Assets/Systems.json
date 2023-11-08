@@ -1,16 +1,12 @@
 {
-    "DraggableObjectSystem": [
-          "Transform",
-          "BoxCollider",
-		      "Draggable"
-    ],
-	  "PlayerControllerSystem": [	
-         "Transform",
-         "Sprite",
-         "SpriteAnim",
-		     "ScriptHandler"
-	  ],
-    "RootTransformSystem": [],
+    "PreRootTransformSystem": [],
+	"PlayerControllerSystem": [	
+		"Transform",
+		"Tween",
+        "Sprite",
+        "SpriteAnim",
+		"ScriptHandler"
+	],
     "EnemySystem": [
         "EnemyAI",
         "Transform"
@@ -19,11 +15,16 @@
         "Transform",
         "BoxCollider"
     ],
+    "DraggableObjectSystem": [
+        "Transform",
+        "BoxCollider",
+        "Draggable"
+    ],
     "PhysicsSystem": [
         "Transform",
         "Velocity"
-    ],
-   
+    ],   
+    "PostRootTransformSystem": [],
     "SpriteAnimSystem": [		
         "Sprite",
         "SpriteAnim"
@@ -32,5 +33,9 @@
         "Transform",
         "Sprite",
         "Model"
+    ],
+    "TextRenderSystem": [
+        "Text",
+        "Transform"
     ]
 }

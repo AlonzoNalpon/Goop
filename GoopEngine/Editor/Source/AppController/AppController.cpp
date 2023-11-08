@@ -14,7 +14,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../EditorUI/ImGuiUI.h"
 #ifndef NO_IMGUI
 #include <Systems/Rendering/RenderingSystem.h>
-#include <Systems/RootTransform/RootTransformSystem.h>
+#include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #endif
 
@@ -30,6 +31,15 @@ namespace
     Exception caught
   ************************************************************************/
   void PrintException(GE::Debug::IExceptionBase& e);
+
+  /*!*********************************************************************
+  \brief
+    Wrapper function to print out exceptions.
+
+  \param e
+    Exception caught
+  ************************************************************************/
+  void PrintException(std::exception& e);
 }
 
 namespace GE::Application
@@ -39,44 +49,36 @@ namespace GE::Application
     gEngine{ Graphics::GraphicsEngine::GetInstance() },
     fRC{ GE::FPS::FrameRateController::GetInstance() },
     im{ GE::Input::InputManager::GetInstance() },
-    gsm{}
+    gsm{ GE::GSM::GameStateManager::GetInstance() }
   {}
   
   void AppController::Init()
   {
     // INIT FUNCTIONS
-    try
-    {
-      GE::Assets::AssetManager* am = &GE::Assets::AssetManager::GetInstance();
-      am->LoadConfigData("./Assets/Config.cfg");
-      GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
-      of.RegisterComponentsAndSystems();
+    GE::Assets::AssetManager* am = &GE::Assets::AssetManager::GetInstance();
+    am->LoadConfigData("./Assets/Config.cfg");
+    GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
+    of.RegisterComponentsAndSystems();
 
-      GE::Events::EventManager::GetInstance().SubscribeAllListeners();
+    GE::Events::EventManager::GetInstance().SubscribeAllListeners();
 
-      fRC.InitFrameRateController(*am->GetConfigData<int>("FPS Limit"), *am->GetConfigData<int>("Steps Per Second"), *am->GetConfigData<int>("FPS Check Interval"));
+    fRC.InitFrameRateController(am->GetConfigData<int>("FPS Limit"), am->GetConfigData<int>("Steps Per Second"), am->GetConfigData<int>("FPS Check Interval"));
 
-      window = { *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), "Goop Engine"};
-      window.CreateAppWindow();
+    window = { am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), "Goop Engine"};
+    window.CreateAppWindow();
 
-      gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
-      am->LoadFiles();
-      of.LoadPrefabsFromFile();
+    gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
+    am->LoadFiles();
+    of.LoadPrefabsFromFile();
 
-      imgui.Init(window);
+    GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
+    scriptMan->InitMono();
+
+    GE::AI::TreeManager::GetInstance().Init();
+
+    imgui.Init(window);
       
-      // of.ObjectFactoryTest();
-      im.InitInputManager(window.GetWindow(), *am->GetConfigData<int>("Window Width"), *am->GetConfigData<int>("Window Height"), 0.1);
-
-      GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
-      scriptMan->InitMono();
-
-
-    }
-    catch (GE::Debug::IExceptionBase& e)
-    {
-      PrintException(e);
-    }
+    im.InitInputManager(window.GetWindow(), am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), 0.1);
   }
   
   void AppController::Run()
@@ -102,13 +104,12 @@ namespace GE::Application
           im.UpdateInput();
           fRC.EndSystemTimer("Input");
 
+#ifndef NO_IMGUI
           fRC.StartSystemTimer();
           imgui.Update();
           fRC.EndSystemTimer("ImGui Update");
+#endif
 
-          gsm.Update();
-
-          fRC.StartSystemTimer();
 #ifndef NO_IMGUI
           if (GE::EditorGUI::ImGuiHelper::IsRunning())
           {
@@ -120,17 +121,24 @@ namespace GE::Application
           }
           else
           {
-            ecs->UpdateSystems(3,
+            ecs->UpdateSystems(4,
               typeid(GE::Systems::CollisionSystem).name(),
               typeid(GE::Systems::RenderSystem).name(),
-              typeid(GE::Systems::RootTransformSystem).name());
+              typeid(GE::Systems::PreRootTransformSystem).name(),
+              typeid(GE::Systems::PostRootTransformSystem).name());
           }
 #else
           ecs->UpdateSystems();
 #endif  // NO_IMGUI
-          fRC.EndSystemTimer("Scene Update");
+
+          Audio::AudioEngine::GetInstance().Update();
+          gsm.Update();
         }
         catch (GE::Debug::IExceptionBase& e)
+        {
+          PrintException(e);
+        }
+        catch (std::exception& e)
         {
           PrintException(e);
         }
@@ -142,13 +150,22 @@ namespace GE::Application
         {
           fRC.StartSystemTimer();
           gEngine.Draw();
-          fRC.EndSystemTimer("Draw");
+          fRC.EndSystemTimer("Deferred Render");
 
+#ifndef NO_IMGUI
           fRC.StartSystemTimer();
           imgui.Render();
           fRC.EndSystemTimer("ImGui Render");
+#else
+          // RENDERING TO SCREEN WITHOUT IMGUI
+          gEngine.RenderToScreen();
+#endif
         }
         catch (GE::Debug::IExceptionBase& e)
+        {
+          PrintException(e);
+        }
+        catch (std::exception& e)
         {
           PrintException(e);
         }
@@ -167,13 +184,19 @@ namespace GE::Application
       {
         PrintException(e);
       }
+      catch (std::exception& e)
+      {
+        PrintException(e);
+      }
     }
   }
   
   void AppController::Exit()
   {
+
     try
     {
+      GE::AI::TreeManager::GetInstance().ShutDown();
       gsm.Exit();
       imgui.Exit();
     }
@@ -189,14 +212,11 @@ namespace
 {
   void PrintException(GE::Debug::IExceptionBase& e)
   {
-    std::string defError{e.what()};
-    if (defError.length() > 0)
-    {
-      GE::Debug::ErrorLogger::GetInstance().LogCritical(defError);
-    }
-    else
-    {
-      e.LogSource();
-    }
+    e.LogSource();
+  }
+
+  void PrintException(std::exception& e)
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogCritical(e.what());
   }
 }

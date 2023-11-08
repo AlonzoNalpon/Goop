@@ -1,0 +1,75 @@
+[
+    {
+        "tree": [
+            {
+                "nodeType": "ROOT_NODE",
+                "parentNode": 0,
+                "childrenNode": [
+                    1
+                ],
+                "scriptName": "RootNode",
+                "pos": "{ 124.422, 21.6492 }"
+            },
+            {
+                "nodeType": "COMPOSITE_NODE",
+                "parentNode": 0,
+                "childrenNode": [
+                    2,
+                    3
+                ],
+                "scriptName": "SelectorNode",
+                "pos": "{ 363.422, 17.6492 }"
+            },
+            {
+                "nodeType": "COMPOSITE_NODE",
+                "parentNode": 1,
+                "childrenNode": [
+                    4,
+                    5
+                ],
+                "scriptName": "SequenceNode",
+                "pos": "{ 593.422, -28.3508 }"
+            },
+            {
+                "nodeType": "COMPOSITE_NODE",
+                "parentNode": 1,
+                "childrenNode": [
+                    6,
+                    7
+                ],
+                "scriptName": "SequenceNode",
+                "pos": "{ 590.422, 120.649 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 2,
+                "childrenNode": [],
+                "scriptName": "IsOutsideAttackRange",
+                "pos": "{ 840.422, -132.351 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 2,
+                "childrenNode": [],
+                "scriptName": "MoveToPlayer",
+                "pos": "{ 842.422, -6.35085 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 3,
+                "childrenNode": [],
+                "scriptName": "IsWithinPlayerRange",
+                "pos": "{ 845.422, 109.649 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 3,
+                "childrenNode": [],
+                "scriptName": "RunFromPlayer",
+                "pos": "{ 840.422, 231.649 }"
+            }
+        ],
+        "treeName": "WormTree",
+        "treeTempID": 0
+    }
+]

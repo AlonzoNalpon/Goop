@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*!************************************************************************
+\file RootNode.cs
+\author Han Qin Ding
+
+\brief
+C# script attached to a Root node.
+**************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -19,7 +26,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
   \brief
-    Non default constructor of Player class
+    Non default constructor of RootNode class
 
   \params enityID
    ID of the owner of this scipt
@@ -27,16 +34,16 @@ namespace GoopScripts.AI
     public RootNode(uint currID, uint _, uint[] temp, uint tempSize) : base()
     {
       m_nodeID = currID;
-      for ( uint i = 0; i < tempSize; i++ )
-        {
-          m_childID.Add(temp[i]);
-        }
+      for (uint i = 0; i < tempSize; i++)
+      {
+        m_childID.Add(temp[i]);
+      }
     }
 
 
     /*!*********************************************************************
    \brief
-     Awake function for the player script. 
+     Awake function for the RootNode script. 
    ************************************************************************/
     public void Awake()
     {
@@ -46,7 +53,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
    \brief
-     Start function for the player script. 
+     Start function for the RootNode script. 
    ************************************************************************/
     public void Start()
     {
@@ -55,57 +62,63 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
     \brief
-     Update function for the player script. This function is called every frame
-     if the script is attached to an entity
+     Update function for the RootNode script. This function is called every frame
+     if the script is attached to a root node
+    
+    \param[entityID] uint
+    ID of the entity
+
+    \param[dt] dobule
+    delta time
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
+      if (m_childID.Count > 0)
+      {
+        SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
+        RunChildNode(m_childID[0]);
+        NODE_STATES childResult = (NODE_STATES)GetChildResult();
 
-      //Run the child node 
-      //Console.WriteLine("START TREE\n");
-      SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
-      RunChildNode(m_childID[0]);
-      NODE_STATES childResult = (NODE_STATES)GetChildResult();
-
-      if (childResult == NODE_STATES.STATE_SUCCEED)
-      {
-       // Console.WriteLine("CLEARED THE TREE!\n");
-       // Console.WriteLine("CHILD SUCCEED!\n");
-        ResetNode();
-      }
-      else if(childResult == NODE_STATES.STATE_FAILED)
-      {
-        //Console.WriteLine("CLEARED THE TREE!\n");
-        //Console.WriteLine("CHILD FAILED!\n");
-        ResetNode();
-      }
-      else
-      {
-        SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
+        if (childResult == NODE_STATES.STATE_SUCCEED)
+        {
+          // Console.WriteLine("CLEARED THE TREE!\n");
+          //Console.WriteLine("CHILD SUCCEED!\n");
+          ResetNode();
+        }
+        else if (childResult == NODE_STATES.STATE_FAILED)
+        {
+          //Console.WriteLine("CLEARED THE TREE!\n");
+          //Console.WriteLine("CHILD FAILED!\n");
+          ResetNode();
+        }
+        else
+        {
+          //Console.WriteLine("RootNode Waiting\n");
+          SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
+        }
       }
 
     }
     public void OnFail(uint entityID)
     {
-      //SetTheNextNode and the result
-
-      //SetNewCurrentNodeID(m_parentID);
-      //SetResult(false);
-
 
     }
 
     public void OnSuccess(uint entityID)
     {
-      //SetTheNextNode and the result
-
-      //SetNewCurrentNodeID(m_parentID);
-      //SetResult(true);
     }
 
+    /*!*********************************************************************
+    \brief
+     ReturnFromChild function for the RootNode script. This function is called when the child node
+    returns to this node.
+
+    \param[entityID] uint
+    ID of the entity
+    ************************************************************************/
     public void ReturnFromChild(uint entityID)
     {
-     // Console.WriteLine("CLEARED THE TREE!\n");
+      // Console.WriteLine("CLEARED THE TREE!\n");
       OnExit();
     }
 

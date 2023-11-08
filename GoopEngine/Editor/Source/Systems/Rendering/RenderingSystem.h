@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   RenderingSystem.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the definition for the RenderingSystem class.
 FOR ECS.
@@ -30,12 +30,9 @@ namespace GE::Systems {
     /*!*********************************************************************
     \brief
       Renders all entities with model and sprite component.
-    \params
     \return
     ************************************************************************/
-		void Update();
-
-		void OnDestroyed();
+		void LateUpdate();
   };
 }
 

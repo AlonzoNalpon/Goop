@@ -9,25 +9,16 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "ObjectFactory.h"
-
 #include <AssetManager/AssetManager.h>
-
 #include <Systems/Systems.h>
-
 #include "SerializeComponents.h"
-#include "../Serialization/ObjectGooStream.h"
-#include "../Serialization/PrefabGooStream.h"
-#include "../Systems/Rendering/RenderingSystem.h"
-#include "GivingMyself90MinToFigureThisOut.h"
+#include <Serialization/GooStream/ObjectGooStream.h>
+#include <Serialization/GooStream/PrefabGooStream.h>
+#include <Systems/Rendering/RenderingSystem.h>
+#include <Serialization/Deserializer.h>
 
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
-
-void GE::ObjectFactory::ObjectFactory::Init()
-{
-  RegisterComponentsAndSystems();
-  LoadPrefabsFromFile();
-}
 
 void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity srcObj) const
 {
@@ -74,9 +65,13 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::EnemyAI>(srcObj));
   }
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::TEXT))
+  {
+    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Text>(srcObj));
+  }
 }
 
-GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData data) const
+GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData const& data) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
@@ -86,63 +81,58 @@ GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData 
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TRANSFORM))
   {
     ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::Transform>(data.m_components[GE::ECS::COMPONENT_TYPES::TRANSFORM]));
+      DeserializeComponent<GE::Component::Transform>(data.m_components.at(GE::ECS::COMPONENT_TYPES::TRANSFORM)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::BOX_COLLIDER))
   {
     ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::BoxCollider>(data.m_components[GE::ECS::COMPONENT_TYPES::BOX_COLLIDER]));
+      DeserializeComponent<GE::Component::BoxCollider>(data.m_components.at(GE::ECS::COMPONENT_TYPES::BOX_COLLIDER)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::VELOCITY))
   {
     ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::Velocity>(data.m_components[GE::ECS::COMPONENT_TYPES::VELOCITY]));
+      DeserializeComponent<GE::Component::Velocity>(data.m_components.at(GE::ECS::COMPONENT_TYPES::VELOCITY)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SPRITE))
   {
     ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::Sprite>(data.m_components[GE::ECS::COMPONENT_TYPES::SPRITE]));
+      DeserializeComponent<GE::Component::Sprite>(data.m_components.at(GE::ECS::COMPONENT_TYPES::SPRITE)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SPRITE_ANIM))
   {
     ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::SpriteAnim>(data.m_components[GE::ECS::COMPONENT_TYPES::SPRITE_ANIM]));
+      DeserializeComponent<GE::Component::SpriteAnim>(data.m_components.at(GE::ECS::COMPONENT_TYPES::SPRITE_ANIM)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::MODEL))
   {
     ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::Model>(data.m_components[GE::ECS::COMPONENT_TYPES::MODEL]));
+      DeserializeComponent<GE::Component::Model>(data.m_components.at(GE::ECS::COMPONENT_TYPES::MODEL)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TWEEN))
   {
     ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::Tween>(data.m_components[GE::ECS::COMPONENT_TYPES::TWEEN]));
+      DeserializeComponent<GE::Component::Tween>(data.m_components.at(GE::ECS::COMPONENT_TYPES::TWEEN)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SCRIPT_HANDLER))
   {
     ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::ScriptHandler>(data.m_components[GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER]));
+      DeserializeScriptHandler(data.m_components.at(GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER), newData));
   }
-   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::DRAGGABLE))
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::DRAGGABLE))
   {
     ecs.AddComponent(newData,Draggable());
   }
-
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::ENEMY_AI))
   {
     ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::EnemyAI>(data.m_components[GE::ECS::COMPONENT_TYPES::ENEMY_AI]));
+      DeserializeComponent<GE::Component::EnemyAI>(data.m_components.at(GE::ECS::COMPONENT_TYPES::ENEMY_AI)));
   }
-
-  return newData;
-}
-
-void ObjectFactory::LoadPrefabsFromFile()
-{
-  for (auto const& prefab : Assets::AssetManager::GetInstance().GetPrefabs())
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TEXT))
   {
-    DeserializePrefab(prefab.second);
+    ecs.AddComponent(newData,
+      DeserializeComponent<GE::Component::Text>(data.m_components.at(GE::ECS::COMPONENT_TYPES::TEXT)));
   }
+  return newData;
 }
 
 void ObjectFactory::RegisterComponentsAndSystems() const
@@ -184,15 +174,20 @@ void ObjectFactory::RegisterComponentsAndSystems() const
     case COMPONENT_TYPES::ENEMY_AI:
       ecs.RegisterComponent<GE::Component::EnemyAI>();
       break;
+    case COMPONENT_TYPES::TEXT:
+      ecs.RegisterComponent<GE::Component::Text>();
+      break;
     default:
-      throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown component type"));
+      std::ostringstream oss{};
+      oss << "Trying to register unknown component type, " << " update function: ObjectFactory::RegisterComponentsAndSystems()";
+      throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg(oss.str()));
       break;
     }
   }
 
   // Register systems
-  std::string const systemsFile{ *Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
-  std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::DeserializeSystems(systemsFile) };
+  std::string const systemsFile{ Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
+  std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::Deserializer::DeserializeSystems(systemsFile) };
 
   for (std::pair<std::string, ECS::ComponentSignature> const& elem : systems)
   {
@@ -205,6 +200,17 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   }
 }
 
+void ObjectFactory::LoadPrefabsFromFile()
+{
+  auto prefabs{ GE::Assets::AssetManager::GetInstance().GetPrefabs() };
+  for (auto const& [name, path] : prefabs)
+  {
+    Serialization::PrefabGooStream pgs{ path };
+    std::pair <std::string, ObjectData> data;
+    pgs.Unload(data);
+    m_prefabs.emplace(std::move(data));
+  }
+}
 
 void ObjectFactory::DeserializePrefab(const std::string& filepath)
 {
@@ -220,30 +226,31 @@ void ObjectFactory::DeserializePrefab(const std::string& filepath)
     GE::Debug::ErrorLogger::GetInstance().LogError("Unable to unload " + filepath);
   }
 
-  // u probably wouldnt do this but prasanna went through this last week
-  // move the object into the map since we don't need it anymore
   m_prefabs.emplace(std::move(prefab));
 }
 
-GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key) const
+GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
 {
+  if (m_prefabs.find(key) == m_prefabs.end())
+    GoopUtils::ReloadFileData();
+
   if (m_prefabs.find(key) == m_prefabs.end())
   {
     throw GE::Debug::Exception<ObjectFactory>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
   }
 
+  m_prefabs.clear();
+  LoadPrefabsFromFile();
   ObjectData prefab = m_prefabs.at(key);
   Entity entity = CreateObject(key, prefab);
- /* if (IsBitSet(prefab.m_componentSignature, COMPONENT_TYPES::SPRITE_ANIM))
-  {
-    prefab.m_systemSignature[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
-  }*/
+
   return entity;
 }
 
 void GE::ObjectFactory::ObjectFactory::EmptyMap()
 {
   m_objects.clear();
+  m_prefabs.clear();
 }
 
 void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
@@ -256,74 +263,76 @@ void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
   Component::Transform* trans{ ecs.GetComponent<Component::Transform>(newObj) };
   if (trans) 
   {
-    trans->m_pos = newPos;
+    trans->m_worldPos = newPos;
   }
-  //ECS::SystemSignature sysSig{ GetObjectSystemSignature(obj) };
-  //if (ecs.GetComponentSignature(newObj)[static_cast<unsigned>(COMPONENT_TYPES::SPRITE_ANIM)])
-  //{
-  //  sysSig[static_cast<unsigned>(SYSTEM_TYPES::SPRITE_ANIM)] = true;
-  //}
-  //RegisterObjectToSystems(newObj, sysSig);
 }
 
-bool ObjectFactory::LoadObjects(std::set<GE::ECS::Entity>& map) const
+std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ObjectFactory::GenerateNewIDs() const
+{
+  GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
+
+  std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ret{};
+  GE::ECS::Entity currentID{};  // start from 0
+  // assigns each entity to a new id starting from 0 with no gaps in between
+  for (GE::ECS::Entity const& entity : ecs.GetEntities())
+  {
+    ret.emplace(entity, currentID);
+    ++currentID;
+  }
+
+  return ret;
+}
+
+void ObjectFactory::ClearSceneObjects()
+{
+  m_objects.clear();
+}
+
+void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
 {
   try
   {
-    for (auto const& value : m_objects)
+    ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+    // we will map our custom ID to the actual entity ID
+    std::unordered_map<ECS::Entity, ECS::Entity> newIdToEntity{};
+    ECS::Entity newID{};  // start from 0
+    for (auto const& [name, data] : m_objects)
     {
-      map.emplace(CreateObject(value.first, value.second));
+      ECS::Entity i = CreateObject(name, data);
+      map.emplace(i);
+      newIdToEntity.emplace(newID, i);
+      ++newID;
+    }
+
+    newID = 0;
+    // iterate through entities again and assign parent-child
+    // relation based on custom IDs
+    for (auto& [name, data] : m_objects)
+    {
+      if (data.m_parent == ECS::INVALID_ID)
+      {
+        ecs.SetParentEntity(newIdToEntity[newID]);
+      }
+      else
+      {
+        ecs.SetParentEntity(newIdToEntity[newID], newIdToEntity[data.m_parent]);
+      }
+
+      for (ECS::Entity child : data.m_childEntities)
+      {
+        ecs.AddChildEntity(newIdToEntity[newID], newIdToEntity[child]);
+      }
+      ++newID;
     }
   }
   catch (GE::Debug::IExceptionBase& e)
   {
     e.LogSource();
     e.Log();
-    return false;
-  }
-  return true;
-}
-
-bool ObjectFactory::LoadObjects() const
-{
-  try
-  {
-    for (auto const& value : m_objects)
-    {
-      CreateObject(value.first, value.second);
-    }
-  }
-  catch (GE::Debug::IExceptionBase& e)
-  {
-    e.LogSource();
-    e.Log();
-    return false;
-  }
-  return true;
-}
-
-void ObjectFactory::ObjectJsonLoader(const std::string& json_path)
-{
-  GE::Serialization::ObjectGooStream ogs(json_path);
-  ogs.Unload(m_objects);
-}
-
-// Reads objects from scene file and loads into map
-void ObjectFactory::ObjectFactoryTest() {
-  Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene("test") };
-  if (ogs)
-  {
-    ogs.Unload(m_objects);
-    LoadObjects();
   }
 }
 
-void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity> &map)
-{
-  LoadObjects(map);
-}
-
-void ObjectFactory::LoadSceneJson(std::string filename)
+void ObjectFactory::LoadSceneJson(std::string const& filename)
 {
   Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene(filename) };
   if (ogs)
@@ -359,17 +368,26 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
   case SYSTEM_TYPES::SPRITE_ANIM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::SpriteAnimSystem>();
     RegisterComponentsToSystem<Systems::SpriteAnimSystem>(sig);
+    break;  
+  case SYSTEM_TYPES::POST_ROOT_TRANSFORM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PostRootTransformSystem>();
+    RegisterComponentsToSystem<Systems::PostRootTransformSystem>(sig);
     break;
-  case SYSTEM_TYPES::ROOT_TRANSFORM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::RootTransformSystem>();
-    RegisterComponentsToSystem<Systems::RootTransformSystem>(sig);
-    break;
+  case SYSTEM_TYPES::PRE_ROOT_TRANSFORM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PreRootTransformSystem>();
+    RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);
   case SYSTEM_TYPES::ENEMY_SYSTEM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::EnemySystem>();
     RegisterComponentsToSystem<Systems::EnemySystem>(sig);
     break;
+  case SYSTEM_TYPES::TEXT_RENDER:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::TextRenderSystem>();
+    RegisterComponentsToSystem<Systems::TextRenderSystem>(sig);
+    break;
   default:
-    throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg("Trying to register unknown system type"));
+    std::ostringstream oss{};
+    oss << "Trying to register unknown system type, " << " update function: ObjectFactory::RegisterSystemWithEnum()";
+    throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg(oss.str()));
     break;
   }
 }

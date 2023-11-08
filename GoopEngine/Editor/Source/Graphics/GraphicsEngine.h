@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   GraphicsEngine.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   13-September-2023
 \brief  The graphics engine is in charge of rendering including
 shader and mesh instances. It aims to abstract away all OpenGL calls.
@@ -17,14 +17,18 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Singleton/Singleton.h>
 #include <Math/GEM.h>
 #include <Graphics/Fonts/FontManager.h>
+#include <Graphics/Renderer/FrameBufferInfo.h>
 namespace Graphics {
     
   // The graphics engine responsible for any opengl calls
   class GraphicsEngine : public GE::Singleton<GraphicsEngine>
   {
-    using ShaderLT = std::map<std::string const, gObjID>;
-    using ShaderCont = std::vector<ShaderProgram>;
+    using ShaderLT        = std::map<std::string const, gObjID>;
+    using ShaderCont      = std::vector<ShaderProgram>;
+    using FB_InfoCont     = std::vector<std::pair<GLuint, Rendering::Camera>>;
+    using FB_LT           = std::map<std::string, std::vector<GLuint>::size_type>;
   public:
+
     GraphicsEngine();
     ~GraphicsEngine();
     /*!*********************************************************************
@@ -38,13 +42,49 @@ namespace Graphics {
     ************************************************************************/
     void Init(Colorf clearColor, GLint w, GLint h);
 
+    /*!*********************************************************************
+    \brief Initializes the main framebuffer.
+      DEPRECATED: This function is to be replaced in future revisions.
+    \params
+    \return
+    ************************************************************************/
     void InitFrameBuffer();
 
+    /*!*********************************************************************
+    \brief
+      Gets main render texture of framebuffer.
+      DEPRECATED: This function is to be replaced in future revisions.
+    \params
+    \return
+      
+    ************************************************************************/
     GLuint GetRenderTexture();
 
+    /*!*********************************************************************
+    \brief
+      Clear the buffer of whichever attached framebuffer.
+    \params
+    \return
+    ************************************************************************/
     void ClearBuffer();
 
+    /*!*********************************************************************
+    \brief
+      Draws all objects onto framebuffers. Does not include rendering to
+      screen
+    \params
+    \return
+    ************************************************************************/
     void Draw();
+
+    /*!*********************************************************************
+    \brief
+      Renders framebuffer onto screen using a quad.
+    \params
+      framebufferID ID of buffer to render with
+    \return
+    ************************************************************************/
+    void RenderToScreen(gObjID framebufferID = 0);
 
     /*!*********************************************************************
     \brief attempts to get handle to specified shader program
@@ -140,11 +180,33 @@ namespace Graphics {
     \brief
       Obtain the position of mouse in worldspace.
     \params
-      mousePos in screen space
+      mousePos  mouse position in single precision float
+      frameBuffer ID of the framebuffer
     \return
       
     ************************************************************************/
-    gVec2 ScreenToWS(gVec2 const& mousePos);
+    gVec2 ScreenToWS(gVec2 const& mousePos, gObjID frameBuffer);
+
+    /*!*********************************************************************
+    \brief
+      Create a framebuffer with specified with and height.
+    \params
+      width
+      height
+    \return ID of created framebuffer
+      
+    ************************************************************************/
+    gObjID CreateFrameBuffer(GLint width, GLint height);
+
+    /*!*********************************************************************
+    \brief
+      Get framebuffer information from associated ID.
+    \params
+      id  ID of framebuffer
+    \return
+      
+    ************************************************************************/
+    Rendering::FrameBufferInfo& GetFrameBuffer(gObjID id);
   public: // DRAW PRIMITIVE METHODS
     /*!*********************************************************************
     \brief Draws a line in world coordinates (0,0 is center of screen)
@@ -178,7 +240,7 @@ namespace Graphics {
     \return quad model
       
     ************************************************************************/
-    Model GenerateQuad();
+    Model GenerateQuad(GLfloat width = 0.5f, GLfloat height = 0.5f);
 
     /*!*********************************************************************
     \brief
@@ -200,24 +262,27 @@ namespace Graphics {
 
     // SHADERS ARE ONLY TO BE QUERIED BY MODELS REQUESTING A HANDLE
     // USERS MUST SPECIFY SHADER NAME WHILE CREATING A MODEL
+    
+    std::map<gObjID,
+      Rendering::FrameBufferInfo>     m_frameBuffers;     //!< Every framebuffer is stored in here
+    GLuint                            m_framebuffer;
+    GLuint                            m_renderTexture;
 
-    GLuint                          m_framebuffer;
-    GLuint                          m_renderTexture;
+    ShaderLT                          m_shaderLT;         //!< LOOKUP TABLE: handles by strings
+    ShaderCont                        m_shaders;          //!< shaders by ID
 
-    ShaderLT                        m_shaderLT;         //!< LOOKUP TABLE: handles by strings
-    ShaderCont                      m_shaders;          //!< shaders by ID
+    std::map<std::string, GLuint>     m_modelsLT;         //!< LOOKUP TABLE: handles models by string
+    std::vector<Model>                m_models;           //!< models in a vector (models got their own shader)
 
-    std::map<std::string, GLuint>   m_modelsLT;         //!< LOOKUP TABLE: handles models by string
-    std::vector<Model>              m_models;           //!< models in a vector (models got their own shader)
-
-    SpriteAnimationManager          m_animManager;      //!< sprite animation manager
-    TextureManager                  m_textureManager;   //!< texture manager
-    Rendering::Renderer             m_renderer;         //!< renderer in charge of all opengl draw calls
-    Fonts::FontManager              m_fontManager;      //!< font manager to store font data
+    SpriteAnimationManager            m_animManager;      //!< sprite animation manager
+    TextureManager                    m_textureManager;   //!< texture manager
+    Rendering::Renderer               m_renderer;         //!< renderer in charge of all opengl draw calls
+    Fonts::FontManager                m_fontManager;      //!< font manager to store font data
 
     // Textures are separated from models and are to be used with rendering components
 
     Model                           m_spriteQuadMdl{};  //!< basic primitive quad for sprites
+    Model                           m_renderQuad{};     //!< rendering quad to cover screen
     Model                           m_lineMdl{};        //!< basic primitive line
     Model                           m_fontMdl{};        //!< font model quad for rendering text
 
@@ -226,6 +291,7 @@ namespace Graphics {
   public: // getters
     SpriteAnimationManager const&   animManager{ m_animManager };      // read-only getter to animation manager 
     TextureManager const&           textureManager{ m_textureManager };// read-only getter to texture manager
+    Fonts::FontManager const&       fontManager{ m_fontManager };
   };
 }
 #endif

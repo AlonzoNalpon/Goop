@@ -1,7 +1,7 @@
 template <typename T>
 std::string ErrorLogger::LogMessage(std::string msg, bool logToFile)
 {
-  if (logToFile)
+  if (!logToFile)
   {
     m_logger->info(typeid(T).name() + (": " + msg));
   }
@@ -16,7 +16,7 @@ std::string ErrorLogger::LogMessage(std::string msg, bool logToFile)
 template <typename T>
 std::string ErrorLogger::LogWarning(std::string msg, bool logToFile)
 {
-  if (logToFile)
+  if (!logToFile)
   {
     m_logger->warn(typeid(T).name() + (": " + msg));
   }
@@ -31,7 +31,7 @@ std::string ErrorLogger::LogWarning(std::string msg, bool logToFile)
 template <typename T>
 std::string ErrorLogger::LogError(std::string msg, bool logToFile)
 {
-  if (logToFile)
+  if (!logToFile)
   {
     m_logger->error(typeid(T).name() + (": " + msg));
   }
@@ -46,7 +46,7 @@ std::string ErrorLogger::LogError(std::string msg, bool logToFile)
 template <typename T>
 std::string ErrorLogger::LogCritical(std::string msg, bool logToFile)
 {
-  if (logToFile)
+  if (!logToFile)
   {
     m_logger->critical(typeid(T).name() + (": " + msg));
   }

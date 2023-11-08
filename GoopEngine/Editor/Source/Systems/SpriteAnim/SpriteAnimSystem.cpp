@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   SpriteAnimSystem.cpp
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the implementation of the SpriteAnimSystem
 class
@@ -31,17 +31,19 @@ namespace GE::Systems
       {
         // get the sprite animation
         Graphics::SpriteAnimation const& spriteAnim
-        { gEngine.animManager.GetAnim(animData->animID) };
+        { gEngine.animManager.GetAnim(animData->m_animID) };
 
 
         // setting the new sprite based on data
-        sprite->spriteData.info = spriteAnim.frames[animData->currFrame];
+        sprite->m_spriteData.info = spriteAnim.frames[animData->m_currFrame];
       }
     }
   }
 
   void SpriteAnimSystem::Update()
   {
+    auto& frc = GE::FPS::FrameRateController::GetInstance();
+    frc.StartSystemTimer();
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
     double dt{ FPS::FrameRateController::GetInstance().GetDeltaTime() };
     for (GE::ECS::Entity entity : GetUpdatableEntities())
@@ -54,30 +56,27 @@ namespace GE::Systems
       {
         // get the sprite animation
         Graphics::SpriteAnimation const& spriteAnim
-        { gEngine.animManager.GetAnim(animData->animID) };
+        { gEngine.animManager.GetAnim(animData->m_animID) };
 
         // Updating sprite animation data
         {
           // Update the timer and see if frame should be changed
-          animData->currTime += dt;
-          if (animData->currTime >= spriteAnim.speed)
+          animData->m_currTime += dt;
+          if (animData->m_currTime >= spriteAnim.speed)
           {
-            animData->currTime -= spriteAnim.speed; // reset speed for next frame
+            animData->m_currTime -= spriteAnim.speed; // reset speed for next frame
             // move to next frame, or wrap back to start
-            u32 const newFrame{ (animData->currFrame + 1) };
-            animData->currFrame = (newFrame >= spriteAnim.frames.size() ?
+            u32 const newFrame{ (animData->m_currFrame + 1) };
+            animData->m_currFrame = (newFrame >= spriteAnim.frames.size() ?
               0 : newFrame);
           }
         }
 
         // setting the new sprite based on data
-        sprite->spriteData.info = spriteAnim.frames[animData->currFrame];
+        sprite->m_spriteData.info = spriteAnim.frames[animData->m_currFrame];
       }
     }
-  }
-
-  void SpriteAnimSystem::OnDestroyed()
-  {
+    frc.EndSystemTimer("Sprite Animation");
   }
 
 }

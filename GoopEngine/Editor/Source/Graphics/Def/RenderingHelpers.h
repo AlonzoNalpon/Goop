@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   RenderingHelpers.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   16-September-2023
 \brief  This file contains includes to graphical helper classes
 needed for rendering.

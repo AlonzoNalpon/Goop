@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   Window.cpp
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the implementation of the Window class
   
@@ -11,6 +11,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Def.h>
 #include <iostream>
 #include <Window/Window.h>
+#include <DebugTools/Exception/Exception.h>
+
 namespace WindowSystem {
   Window::Window(int width, int height, char const* title) :
     m_windowWidth{ width }, m_windowHeight{ height }, m_title{ title }, m_window {} {}
@@ -32,8 +34,8 @@ namespace WindowSystem {
   {
     // Attempt to initialize GLFW
     if (!glfwInit()) {
-      std::cout << "Failed to initialize GLFW! Exiting now ..." << std::endl;
-      std::exit(EXIT_FAILURE); // we must leave immediately!
+      throw GE::Debug::Exception<Window>(GE::Debug::LEVEL_CRITICAL,
+        ErrMsg("Failed to initialize GLFW!"));
     }
     // Set the window hint to make the window non-resizable
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
@@ -45,18 +47,16 @@ namespace WindowSystem {
     // Window creation
     m_window = glfwCreateWindow(m_windowWidth, m_windowHeight, m_title, nullptr, nullptr);
     if (!m_window) {
-      std::cout << "OpenGL context creation has failed! Exiting now ..." << std::endl;
-      std::exit(EXIT_FAILURE); // we must leave immediately!
+      throw GE::Debug::Exception<Window>(GE::Debug::LEVEL_CRITICAL,
+        ErrMsg("OpenGL context creation has failed!"));
     }
     MakeCurrent();
 
     // Attempt to initialize glew
     GLenum errCode{ glewInit() };
     if (errCode != GLEW_OK) {
-      std::string msg{ "Failed to initialize GLEW: " };
-      msg += std::to_string(errCode);
-      std::cout << msg << std::endl;
-      std::exit(EXIT_FAILURE); // we must leave immediately!
+      throw GE::Debug::Exception<Window>(GE::Debug::LEVEL_CRITICAL,
+        ErrMsg("Failed to initialize GLEW: " + std::to_string(errCode)));
     }
 
     glfwSetErrorCallback(ErrorCallback);       // Error callback
@@ -109,6 +109,7 @@ namespace WindowSystem {
 
   void Window::ErrorCallback(int /*error*/, const char* desc)
   {
-    std::cout << "Error: " << desc << std::endl; // TODO: replace this with logger
+    throw GE::Debug::Exception<Window>(GE::Debug::LEVEL_INFO,
+      ErrMsg(std::string{ "Info: " } + desc));
   }
 }

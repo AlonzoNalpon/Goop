@@ -32,7 +32,7 @@ void EntityComponentSystem::RemoveComponent(Entity& entity)
 
 	// Update all systems to remove entity if it does not have
 	// the components required to be used by the system 
-	m_systemManager->EntitySignatureChanged(entity, signature);
+	m_systemManager->EntitySignatureChanged(entity, signature, m_entityManager->IsActiveEntity(entity));
 }
 
 template <typename T>

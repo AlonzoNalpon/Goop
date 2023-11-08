@@ -1,0 +1,555 @@
+[
+    {
+        "Name": "Right Eye",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 15, 278, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 15, 278 }",
+                    "width": 10.0,
+                    "height": 10.0,
+                    "render": true
+                }
+            },
+            {
+                "Draggable": {}
+            }
+        ]
+    },
+    {
+        "Name": "Left Eye",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -16, 278, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -16, 278 }",
+                    "width": 10.0,
+                    "height": 10.0,
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 19",
+        "Parent": null,
+        "Child Entities": [
+            16,
+            19
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 1.59175e+06, -6705, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 18",
+        "Parent": 7,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -3.37447e+18, 3.51395e+17, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 17",
+        "Parent": 5,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 2.36702e+22, -1.7832e+19, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 16",
+        "Parent": 7,
+        "Child Entities": [
+            4,
+            6
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -3.37447e+18, 3.51395e+17, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 15",
+        "Parent": 5,
+        "Child Entities": [
+            12
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 2.36702e+22, -1.7832e+19, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "x worldPos changing",
+        "Parent": 18,
+        "Child Entities": [
+            3,
+            5
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 3.30813e+18, -2.44422e+15, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Head",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 263, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 263 }",
+                    "width": 75.0,
+                    "height": 75.0,
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Right Leg",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 50, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 50, 0 }",
+                    "width": 75.0,
+                    "height": 150.0,
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Left Leg",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -50, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -50, 0 }",
+                    "width": 75.0,
+                    "height": 150.0,
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Right Arm",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 176, 180, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 176, 180 }",
+                    "width": 100.0,
+                    "height": 50.0,
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "on",
+        "Parent": 6,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -2.41451e+22, 2.5142e+21, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "going",
+        "Parent": 19,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -6.41525e+12, 6.72437e+11, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "is",
+        "Parent": 18,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 6.92231e+16, -5.20368e+13, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "what",
+        "Parent": 17,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -7.05535e+16, 7.3743e+15, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "what",
+        "Parent": 2,
+        "Child Entities": [
+            24
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -3.9442e+13, 2.02358e+14, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "and this too",
+        "Parent": 18,
+        "Child Entities": [
+            15
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 6.92231e+16, -5.20368e+13, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "same for this",
+        "Parent": 19,
+        "Child Entities": [
+            7,
+            14,
+            17
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -6.41525e+12, 6.72437e+11, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "y worldPos changing",
+        "Parent": 2,
+        "Child Entities": [
+            13,
+            18
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 6.30266e+12, -4.68866e+09, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Left Arm",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -175, 180, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -175, 180 }",
+                    "width": 100.0,
+                    "height": 50.0,
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Body",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 150, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 150 }",
+                    "width": 250.0,
+                    "height": 150.0,
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Mouth",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 245, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 245 }",
+                    "width": 50.0,
+                    "height": 20.0,
+                    "render": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Hat Bottom",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 311, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 311 }",
+                    "width": 150.0,
+                    "height": 20.0,
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "rip",
+        "Parent": 16,
+        "Child Entities": [
+            25
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 3.41775e+17, -3.11447e+14, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 25",
+        "Parent": 24,
+        "Child Entities": [
+            26
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -7.68782e+17, 2.19041e+18, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 26",
+        "Parent": 25,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 3.68485e+21, -3.29761e+18, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Hat Top",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 336, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 336 }",
+                    "width": 100.0,
+                    "height": 30.0,
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Hammer Handle",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 210, 233, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 210, 233 }",
+                    "width": 10.0,
+                    "height": 75.0,
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Hammer Face",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 210, 283, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 210, 283 }",
+                    "width": 50.0,
+                    "height": 25.0,
+                    "render": true
+                }
+            }
+        ]
+    }
+]

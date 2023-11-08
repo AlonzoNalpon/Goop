@@ -8,24 +8,38 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include "../ECS/SystemTypes.h"
-#include <any>
+#include <ECS/SystemTypes.h>
+#include <rttr/type.h>
 
 namespace GE
 {
   namespace ObjectFactory
   {
     using ComponentMap = std::unordered_map<GE::ECS::COMPONENT_TYPES, std::string>;
-    using SystemMap = std::unordered_map<GE::ECS::SYSTEM_TYPES, std::string>;
 
     struct ObjectData
     {
       ObjectData() = default;
-      ObjectData(ECS::ComponentSignature compSig) 
-        : m_components{}, m_componentSignature{compSig} {}
+      ObjectData(ECS::Entity parent) 
+        : m_components{}, m_childEntities{}, m_parent { parent }, m_componentSignature{} {}
 
       ComponentMap m_components;
+      std::vector<ECS::Entity> m_childEntities;
+      ECS::Entity m_parent;
       ECS::ComponentSignature m_componentSignature;
+    };
+
+    // For prefab editor
+    struct VariantPrefab
+    {
+      std::vector<rttr::variant> m_components;
+      std::string m_name = "Empty";
+
+      void Clear() noexcept
+      {
+        m_name.clear();
+        m_components.clear();
+      }
     };
   }
 }

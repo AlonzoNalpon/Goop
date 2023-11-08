@@ -11,3 +11,4 @@
 #include <Component/Draggable.h>
 #include <Component/EnemyAI.h>
 #include <Component/Camera.h>
+#include <Component/Text.h>

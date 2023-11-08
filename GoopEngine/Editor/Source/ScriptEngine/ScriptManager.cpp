@@ -13,6 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "ScriptManager.h"
 #include "../AssetManager/AssetManager.h"
+#include <ImNode/NodeEditor.h>
 
 using namespace GE::MONO;
 
@@ -20,18 +21,18 @@ using namespace GE::MONO;
 void GE::MONO::ScriptManager::InitMono()
 {
   Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
-  std::ifstream file("../lib/mono/4.5/mscorlib.dll");
+  std::ifstream file(assetManager.GetConfigData<std::string>("MonoAssemblyExeTest").c_str());
   if (file.good())
   {
-    mono_set_assemblies_path("../lib/mono/4.5/");
+    mono_set_assemblies_path(assetManager.GetConfigData<std::string>("MonoAssemblyExe").c_str());
   }
   else
   {
-    mono_set_assemblies_path(assetManager.GetConfigData<std::string>("MonoAssembly")->c_str());
+    mono_set_assemblies_path(assetManager.GetConfigData<std::string>("MonoAssembly").c_str());
   }
  
  
-  MonoDomain* rootDomain = mono_jit_init(assetManager.GetConfigData<std::string>("RootDomain")->c_str());
+  MonoDomain* rootDomain = mono_jit_init(assetManager.GetConfigData<std::string>("RootDomain").c_str());
   if (rootDomain == nullptr)
   {
     GE::Debug::ErrorLogger::GetInstance().LogError("Unable to init Mono JIT", false);
@@ -42,7 +43,7 @@ void GE::MONO::ScriptManager::InitMono()
   m_rootDomain = rootDomain;
 
   //Create an App Domain
-  const char* str = assetManager.GetConfigData<std::string>("AppDomain")->c_str();
+  const char* str = assetManager.GetConfigData<std::string>("AppDomain").c_str();
   m_appDomain = mono_domain_create_appdomain(const_cast<char*>(str), nullptr);
   mono_domain_set(m_appDomain, true);
 
@@ -69,46 +70,18 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPlayerID", GE::Systems::EnemySystem::GetPlayerID);
-
-  //Retrieve the C#Assembly (.ddl file)
-//  #ifdef _DEBUG
-//  try {
-//    m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_D"));
-//  }
-//  catch (GE::Debug::IExceptionBase& e) {
-//    e.LogSource();
-//    e.Log();
-//  }
-//#else
-//  try {
-//    m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_R"));
-//  }
-//  catch (GE::Debug::IExceptionBase& e) {
-//    e.LogSource();
-//    e.Log();
-//  }
-//#endif
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlayerExist", GE::Systems::EnemySystem::PlayerExist);
 
 
-  std::ifstream filed("../GoopScripts/GoopScripts.dll");
+  std::ifstream filed(assetManager.GetConfigData<std::string>("CAssemblyExe"));
   if (file.good())
   {
-    m_coreAssembly = LoadCSharpAssembly("../GoopScripts/GoopScripts.dll");
+    m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssemblyExe"));
   }
   else
   {
-    std::ifstream filer("../GoopScripts/GoopScripts.dll");
-    if (filer.good())
-    {
-      m_coreAssembly = LoadCSharpAssembly("../GoopScripts/GoopScripts.dll");
-    }
-    else
-    {
-      m_coreAssembly = LoadCSharpAssembly(*assetManager.GetConfigData<const char*>("CAssembly_R"));
-    }
-    
-  }
-  
+     m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssembly"));
+  }  
 }
 
 GE::MONO::ScriptManager::~ScriptManager()
@@ -278,7 +251,6 @@ void GE::MONO::SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-
   oldTransform->m_pos.x += (PosAdjustment.x * fpsControl->GetDeltaTime());
   oldTransform->m_pos.y += (PosAdjustment.y * fpsControl->GetDeltaTime());
 }
@@ -336,9 +308,6 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
   return oldTransform->m_rot;
 }
-
-
-
 
 int GE::MONO::CalculateGCD(int large, int small)
 {

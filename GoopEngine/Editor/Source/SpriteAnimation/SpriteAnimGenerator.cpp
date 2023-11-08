@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   SpriteAnimGenerator.cpp
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the implementation of the SpriteAnimGenerator
 class. It's for generating sprite animation information based on

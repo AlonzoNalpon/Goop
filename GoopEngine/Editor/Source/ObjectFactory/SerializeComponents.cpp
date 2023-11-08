@@ -8,7 +8,6 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#include <Serialization/ComponentWrapper/ComponentWrapper.h>
 #include "SerializeComponents.h"
 
 namespace GE
@@ -32,9 +31,9 @@ namespace GE
 
 			//read map, manipulate into trans, return
 			GE::Component::Transform trans;
-			trans.m_pos = cw.Get<Math::dVec3>("pos");
-			trans.m_scale = cw.Get<Math::dVec3>("scale");
-			trans.m_rot = cw.Get<Math::dVec3>("rot");
+			trans.m_worldPos = cw.Get<Math::dVec3>("worldPos");
+			trans.m_worldScale = cw.Get<Math::dVec3>("worldScale");
+			trans.m_worldRot = cw.Get<Math::dVec3>("worldRot");
 
 			return trans;
 		}
@@ -48,6 +47,9 @@ namespace GE
 			box.m_width = cw.Get<double>("width");
 			box.m_height = cw.Get<double>("height");
 			box.m_center = cw.Get<Math::dVec2>("center");
+#ifndef NO_IMGUI
+			box.m_render = cw.Get<bool>("render");
+#endif
 
 			return box;
 		}
@@ -82,10 +84,9 @@ namespace GE
 			catch (GE::Debug::IExceptionBase&)
 			{
 				am.LoadImageW(cw.Get<std::string>("filename"));
-				//gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
 			}
-			sprite.spriteData.texture = gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename"));
-			return sprite;
+			
+			return Component::Sprite(gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename")));
 		}
 
 		template<>
@@ -105,7 +106,7 @@ namespace GE
 				gEngine.InitTexture(cw.Get<std::string>("filename"), am.GetData(id));
 			}*/
 
-			spriteAnim.animID = gEngine.animManager.GetAnimID(cw.Get<std::string>("name"));
+			spriteAnim.m_animID = gEngine.animManager.GetAnimID(cw.Get<std::string>("name"));
 			return spriteAnim;
 		}
 
@@ -113,8 +114,8 @@ namespace GE
 		GE::Component::Model DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
-			Component::Model model;
-			model.mdlID = cw.Get<size_t>("mdlID");
+			Component::Model model{};
+			model.m_mdlID = cw.Get<size_t>("mdlID");
 
 			return model;
 		}
@@ -134,23 +135,33 @@ namespace GE
 			return tween;
 		}
 
-		template<>
-		GE::Component::ScriptHandler DeserializeComponent(std::string const& componentData)
+		GE::Component::ScriptHandler DeserializeScriptHandler(std::string const& componentData, GE::ECS::Entity entityID)
 		{
-		    Serialization::ComponentWrapper const cw{ componentData };
-				std::vector<std::pair<std::string, std::string>> const vec{
-					cw.Get<std::vector<std::pair<std::string,std::string>>>("scriptMap")
-				};
-				ECS::Entity current{ static_cast<ECS::Entity>(ECS::EntityComponentSystem::GetInstance().GetEntities().size()) };
-				if (current > 0) { --current; }
-		    return Component::ScriptHandler(vec, current);
+			Serialization::ComponentWrapper const cw{ componentData };
+			std::vector<std::string> const vec{
+				cw.Get<std::vector<std::string>>("scriptMap")
+			};
+			return Component::ScriptHandler(vec, entityID);
 		}
 
 		template<>
 		GE::Component::EnemyAI DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
-			return Component::EnemyAI(cw.Get<unsigned int>("entityID"), GE::AI::TreeCache());
+			return Component::EnemyAI(cw.Get<unsigned int>("treeID"));
+		}
+
+
+		template<>
+		GE::Component::Text DeserializeComponent(std::string const& componentData)
+		{
+			Serialization::ComponentWrapper const cw{ componentData };
+			Component::Text txt;
+			txt.m_text = cw.Get<std::string>("text");
+			txt.m_clr = cw.Get<Graphics::Colorf>("clr");
+			txt.m_scale = cw.Get<f32>("scale");
+			txt.m_fontID = cw.Get<Graphics::gObjID>("fontID");
+			return txt;
 		}
 
 

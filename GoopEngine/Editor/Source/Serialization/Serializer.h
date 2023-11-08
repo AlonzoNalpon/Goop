@@ -1,0 +1,234 @@
+/*!*********************************************************************
+\file   Serializer.cpp
+\author chengen.lau\@digipen.edu
+\date   3-November-2023
+\brief  Contians the class encapsulating functions related to
+        serialization Implementation makes use of RTTR reflection
+        library. Applies a standard algorithm of recursion
+        to work for any type and size for sequential containers. This
+        is so that not much code has to be modified when any
+        components/classes are changed.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+#pragma once
+#include <Singleton/Singleton.h>
+#include <rapidjson/document.h>
+#include <string>
+#include <Component/ScriptHandler.h>
+#include <Component/Sprite.h>
+#include <rttr/type.h>
+#include <ObjectFactory/ObjectStructs.h>
+
+namespace GE
+{
+  namespace Serialization
+  {
+    class Serializer : public Singleton<Serializer>
+    {
+    public:
+
+      static const char JsonNameKey[], JsonParentKey[], JsonChildEntitiesKey[], JsonComponentsKey[];
+
+      /*!*********************************************************************
+      \brief  
+        Serializes a VariantPrefab object into a json file. The VariantPrefab
+        encapsulates a proxy entity by storing components in a vector each
+        with the form of an rttr::variant.
+      \param prefab
+        The VariantPrefab object
+      \param filename
+        The name of the output file
+      ************************************************************************/
+      void SerializeVariantToPrefab(ObjectFactory::VariantPrefab const& prefab, std::string const& filename);
+
+      /*!*********************************************************************
+      \brief
+        Serializes an rttr::variant object of any type into a json file.
+        Current implementation can support almost any form of sequential
+        containers such as std::vector.
+      \param filename
+        The name of the ouput file
+      \param object
+        The rttr::variant object containing the object to serialize
+      ************************************************************************/
+      void SerializeAny(std::string const& filename, rttr::variant object);
+
+      /*!*********************************************************************
+      \brief
+        Returns the component of an entity given the Enumeration type. The
+        component is returned in the form of an rttr::instance
+      \param id
+        The id of the entity
+      \param type
+        The ECS::COMPONENT_TYPES of the entity
+      \return
+        An rttr::instance of the component
+      ************************************************************************/
+      rttr::instance GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type);
+
+      /*!*********************************************************************
+      \brief
+        Serializes the current system order and their components into a json
+        file
+      \param json
+        The name of the output file
+      ************************************************************************/
+      void SerializeSystems(std::string const& json);
+
+      /*!*********************************************************************
+      \brief
+        Serializes a scene into a json file. Calls other private function
+        to serialize each entity, their components and their members.
+      \param filename
+        The name of the output file
+      \return
+      ************************************************************************/
+      void SerializeScene(std::string const& filename);
+
+      /*!*********************************************************************
+      \brief
+        Serializes an entity into a rapidjson::Value object containing its
+        components and data members.
+      \param id
+        The id of the entity
+      \param childIDs
+        The vector of child ids for the entity
+      \param allocator
+        The allocator of the rapidjson::Document object
+      \return
+        The resulting radpidjson::Value object containing the entity data
+      ************************************************************************/
+      rapidjson::Value SerializeEntity(ECS::Entity id, std::vector<ECS::Entity> const& childIDs, rapidjson::Document::AllocatorType& allocator);
+
+    private:
+      std::unordered_map<ECS::Entity, ECS::Entity> m_oldToNewIDs;
+
+      // helper functions
+      /*!*********************************************************************
+      \brief
+        Serializes an rttr::variant into a rapidjson::Value object based
+        on its type. (Whether its a C basic type, Enum or class type)
+      \param object
+        The object to serialize
+      \param allocator
+        The document's allocator
+      \return
+        The resulting rapidjson::Value object
+      ************************************************************************/
+      rapidjson::Value SerializeBasedOnType(rttr::variant const& object, rapidjson::Document::AllocatorType& allocator);
+
+      /*!*********************************************************************
+      \brief
+        Serializes an rttr::variant containing a basic C type
+      \param valueType
+        The rttr::type of the object
+      \param value
+        The rttr::variant of the object
+      \param allocator
+        The document's allocator
+      \return
+        The resulting rapidjson::Value object        
+      ************************************************************************/
+      rapidjson::Value SerializeBasicTypes(rttr::type const& valueType,
+        rttr::variant const& value, rapidjson::Document::AllocatorType& allocator);
+
+      /*!*********************************************************************
+      \brief
+        Serializes an rttr::variant containing an enumeration type
+      \param valueType
+        The rttr::type of the object
+      \param value
+        The rttr::variant of the object
+      \param allocator
+        The document's allocator
+      \return
+        The resulting rapidjson::Value object
+      ************************************************************************/
+      rapidjson::Value SerializeEnumType(rttr::type const& valueType, rttr::variant const& object, rapidjson::Document::AllocatorType& allocator);
+
+      /*!*********************************************************************
+      \brief
+        Serializes an rttr::variant containing a user-defined or class type
+      \param valueType
+        The rttr::type of the object
+      \param value
+        The rttr::variant of the object
+      \param allocator
+        The document's allocator
+      \return
+        The resulting rapidjson::Value object
+      ************************************************************************/
+      rapidjson::Value SerializeClassTypes(rttr::type const& valueType,
+        rttr::variant const& value, rapidjson::Document::AllocatorType& allocator);
+
+      /*!*********************************************************************
+      \brief
+        Serializes an rttr::variant containing a sequential container type
+        (such as std::vector). Makes use of recursion to serialize a
+        container till it reaches the base element
+      \param object
+        The rttr::variant of the object
+      \param jsonArray
+        The rapidjson::Value object to serialize into
+      \param allocator
+        The document's allocator
+      ************************************************************************/
+      void SerializeSequentialContainer(rttr::variant const& object, rapidjson::Value& jsonArray, rapidjson::Document::AllocatorType& allocator);
+      
+      /*!*********************************************************************
+      \brief
+        Helper function to serialize a component into a rapidjson::Value.
+        Called by SerializeScene
+      \param instance
+        The rttr::instance of the object
+      \param allocator
+        The document's allocator
+      \return
+        The resulting rapidjson::Value object
+      ************************************************************************/
+      rapidjson::Value SerializeComponent(rttr::instance instance, rapidjson::Document::AllocatorType& allocator);
+      
+      /*!*********************************************************************
+      \brief
+        The conversion function for Component::ScriptHandler's m_scriptMap
+        to rapidjson::Value for serialization
+      \param rhs
+        The data member of the component to serialize
+      \param allocator
+        The rapidjson::Document's allocator
+      \return
+        The serialized json value object of the script names in a rapidjson
+        array
+    ************************************************************************/
+      rapidjson::Value SerializeScriptMap(std::map<std::string, GE::MONO::Script> const& rhs,
+        rapidjson::Document::AllocatorType& allocator);
+
+      /*!*********************************************************************
+      \brief
+        The conversion function for Component::Tween's m_tweens
+        to rapidjson::Value for serialization
+      \param tweens
+        The std::deque of Math::dVec3s
+      \param allocator
+        The document's allocator
+      \return
+        The resulting rapidjson::Value object
+      ************************************************************************/
+      rapidjson::Value SerializeTweenQueue(std::deque<Math::dVec3> tweens, rapidjson::Document::AllocatorType& allocator);
+
+      /*!*********************************************************************
+      \brief
+        The conversion functoin for Component::Sprite to rapidjson::Value
+      \param data
+        The Component::Sprite's data
+      \param allocator
+        The document's allocator
+      \return
+        The resulting rapidjson::Value object
+      ************************************************************************/
+      rapidjson::Value SerializeSpriteComponent(Component::Sprite const& data, rapidjson::Document::AllocatorType& allocator);
+    };
+
+  } // namespace Serialization
+} // namespace GE

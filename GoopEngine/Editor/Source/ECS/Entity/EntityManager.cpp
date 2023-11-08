@@ -56,21 +56,31 @@ Entity EntityManager::CreateEntity()
 
 void EntityManager::DestroyEntity(Entity& entity)
 {
-	GE::Debug::ErrorLogger::GetInstance().LogMessage<EntityManager>("Destroyed entity " + GetEntityName(entity), false);
+	GE::Debug::ErrorLogger::GetInstance().LogMessage<EntityManager>("Destroyed entity of ID " + std::to_string(entity), false);
 	// Clear component bitset signature
 	m_entitySignatures[entity].reset();
 	m_mapOfActive[entity] = false;
-	m_availableEntities.push_front(entity);
-	m_entities.erase(entity);
-	m_entitiesAlive--;
+	if (m_entities.erase(entity))
+	{
+		m_availableEntities.push_front(entity);
+	}
 	m_names.erase(entity);
+
+	if (m_parent[entity] != INVALID_ID)
+	{
+		RemoveChildEntity(m_parent[entity], entity);
+	}
 	m_parent[entity] = INVALID_ID;
 
 	// Recursively destroy all children
-	for (Entity childEntity : m_children[entity])
+	// Create a temp copy of m_children as you should not
+	// delete while iterating
+	std::set<Entity> originalList{ m_children[entity] };
+	for (Entity childEntity : originalList)
 	{
 		DestroyEntity(childEntity);
 	}
+	m_children[entity].clear();
 }
 
 bool GE::ECS::EntityManager::IsActiveEntity(Entity& entity)
@@ -93,20 +103,19 @@ void GE::ECS::EntityManager::SetParentEntity(Entity& parent, Entity& child)
 	m_parent[child] = parent;
 }
 
-std::vector<Entity>& GE::ECS::EntityManager::GetChildEntities(Entity& parent)
+std::set<Entity>& GE::ECS::EntityManager::GetChildEntities(Entity& parent)
 {
 	return m_children[parent];
 }
 
 void GE::ECS::EntityManager::AddChildEntity(Entity& parent, Entity& child)
 {
-	m_children[parent].push_back(child);
+	m_children[parent].insert(child);
 }
 
 void GE::ECS::EntityManager::RemoveChildEntity(Entity& parent, Entity& child)
 {
-	std::vector<Entity>& children = m_children[parent];
-	m_children[parent].erase(std::find(children.begin(), children.end(), child));
+	m_children[parent].erase(child);
 }
 
 std::string GE::ECS::EntityManager::SetEntityName(Entity& entity, std::string newName)
@@ -127,7 +136,9 @@ std::string GE::ECS::EntityManager::GetEntityName(Entity& entity)
 	// Entity should not exist
 	if (m_names.find(entity) == m_names.end())
 	{
-		throw GE::Debug::Exception<EntityManager>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Getting name of entity that should not exist"));
+		std::stringstream ss;
+		ss << "Getting name of entitiy id " << entity << " that should not exist";
+		throw GE::Debug::Exception<EntityManager>(GE::Debug::LEVEL_CRITICAL, ErrMsg(ss.str()));
 	}
 	else
 	{

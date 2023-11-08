@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   RenderData.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This class contains the definitions of rendering data structures
         for game objects. These objects will be passed to renderer.
@@ -46,6 +46,16 @@ namespace Graphics::Rendering
     gObjID mdl;         //!< model data (ALL MODELS MUST USE THIS). It has shader stored within
     SpriteData sprite;  //!< sprite data handle (optional)
     glm::mat4 transform;//!< the transformation of the model
+  };
+
+
+  struct FontRenderData
+  {
+    gVec2               position;
+    GLfloat             scale;
+    std::string const&  str;
+    Graphics::Colorf    clr;
+    gObjID              fontID;
   };
 
   /*!

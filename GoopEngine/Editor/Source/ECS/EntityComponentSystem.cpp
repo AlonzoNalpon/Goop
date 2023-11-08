@@ -23,6 +23,11 @@ EntityComponentSystem::EntityComponentSystem()
 	m_systemManager = std::make_unique<SystemManager>();
 }
 
+unsigned int GE::ECS::EntityComponentSystem::GetMaxEntities()
+{
+	return m_entityManager->m_maxEntities;
+}
+
 Entity EntityComponentSystem::CreateEntity()
 {
 	return m_entityManager->CreateEntity();
@@ -49,7 +54,7 @@ void GE::ECS::EntityComponentSystem::SetParentEntity(Entity& child, Entity paren
 	m_entityManager->SetParentEntity(parent, child);
 }
 
-std::vector<Entity>& GE::ECS::EntityComponentSystem::GetChildEntities(Entity& parent)
+std::set<Entity>& GE::ECS::EntityComponentSystem::GetChildEntities(Entity& parent)
 {
 	return m_entityManager->GetChildEntities(parent);
 }

@@ -23,8 +23,10 @@ namespace GE::ECS
 		SPRITE_ANIM, // Sprite animation system type
 		DRAGGABLE_OBJECT, // Draggable object system type
 		PLAYER_CONTROLLER, // Player controller system type
-		ROOT_TRANSFORM,
+		POST_ROOT_TRANSFORM,
+		PRE_ROOT_TRANSFORM,
 		ENEMY_SYSTEM,
+		TEXT_RENDER,
 		TOTAL_SYSTEMS // Total number of system types
 	};
 
@@ -42,7 +44,9 @@ namespace GE::ECS
 		{ SYSTEM_TYPES::RENDERING, "RenderSystem" },
 		{ SYSTEM_TYPES::SPRITE_ANIM, "SpriteAnimSystem" },
 		{ SYSTEM_TYPES::ENEMY_SYSTEM, "EnemySystem" },
-		{ SYSTEM_TYPES::ROOT_TRANSFORM, "RootTransformSystem" }
+		{ SYSTEM_TYPES::PRE_ROOT_TRANSFORM, "PreRootTransformSystem" },
+		{ SYSTEM_TYPES::POST_ROOT_TRANSFORM, "PostRootTransformSystem" },
+		{ SYSTEM_TYPES::TEXT_RENDER, "TextRenderSystem" }
 	};
 
 	// Const map so only interated through ranged for,
@@ -56,7 +60,9 @@ namespace GE::ECS
 		{ "RenderSystem", SYSTEM_TYPES::RENDERING },
 		{ "SpriteAnimSystem", SYSTEM_TYPES::SPRITE_ANIM },
 		{ "EnemySystem", SYSTEM_TYPES::ENEMY_SYSTEM },
-		{ "RootTransformSystem", SYSTEM_TYPES::ROOT_TRANSFORM }
+		{ "PreRootTransformSystem", SYSTEM_TYPES::PRE_ROOT_TRANSFORM },
+		{ "PostRootTransformSystem", SYSTEM_TYPES::POST_ROOT_TRANSFORM },
+		{ "TextRenderSystem", SYSTEM_TYPES::TEXT_RENDER }
 	};
 
 	/*!*********************************************************************

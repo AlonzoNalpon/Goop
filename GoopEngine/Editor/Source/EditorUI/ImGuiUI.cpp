@@ -9,12 +9,16 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 
-//#define RUN_IMGUI_DEMO  // Uncomment to replace imgui window with demo
+// run ImGui Demo when in debug mode
+#ifdef _DEBUG
+#define RUN_IMGUI_DEMO
+#endif
 
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
 #include <ImGui/backends/imgui_impl_opengl3.h>
 #include <ImGui/backends/imgui_impl_glfw.h>
+#include "../ImNode/NodeEditor.h"
 #include "../ObjectFactory/ObjectFactory.h"
 #include "../Component/Transform.h"
 #include "../Component/BoxCollider.h"
@@ -27,12 +31,13 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "Inspector.h"
 #include "SceneControls.h"
 #include "AssetBrowser.h"
+#include <EditorUI/EditorViewport.h>
+#include <EditorUI/PrefabEditor.h>
+#include <GameStateManager/GameStateManager.h>
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
 using namespace ImGui;
-
-#define RUN_IMGUI_DEMO
 
 // Initialize static
 GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
@@ -53,11 +58,21 @@ void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
   // Setup Dear ImGui style
   StyleColorsDark();
 
+
+
   this->window = &prgmWindow;
+
+  // Set up editor framebuffer for viewport
+  auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
+  frameBuffer.first = gEngine.CreateFrameBuffer(window->GetWinWidth(), window->GetWinHeight());
+  frameBuffer.second = &gEngine.GetFrameBuffer(frameBuffer.first);
   ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(prgmWindow.GetWindow(), true);
   ImGui_ImplOpenGL3_Init("#version 460 core");
+
+  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
+  ne->NodeEditorInit();
 }
 
 void ImGuiUI::Update()
@@ -69,7 +84,7 @@ void ImGuiUI::Update()
 #ifdef RUN_IMGUI_DEMO
   ImGui::ShowDemoWindow();
 #endif
-
+  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
   ImGuiHelper::CreateDockSpace("Goop Engine");
 
   ToolBar::CreateContent();
@@ -88,45 +103,43 @@ void ImGuiUI::Update()
   Inspector::CreateContent();
   End();
 
+  Begin("Prefab Editor");
+  PrefabEditor::CreateContent();
+  End();
+
+  Begin("Node editor");
+  ne->NodeEditorShow();
+  End();
+
   Begin("Viewport");
   {
-    ImGuiHelper::UpdateViewport();
+    EditorGUI::EditorViewport::UpdateViewport(*frameBuffer.second);
   }
   End();
 
-  Begin("Collision Partitioning");
-  // for now will be here, can move somehwere else later
+  Begin("Extras");
   ImGui::InputInt("Change Row", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetRow(), 1);
   ImGui::InputInt("Change Col", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetCol(), 1);
-  End();
-
-  Begin("Asset Browser");
   if (Button("Create MineWorm"))
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
   }
-  else if (Button("Clone Latest Object"))
+  else if (Button("Duplicate 500"))
   {
-    double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
-    double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
-    GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(ecs->GetEntities().size() - 1, Math::dVec2(randX, randY));
-  }
-  else if (Button("Create 2.5k Render"))
-  {
-    for (int i{}; i < 2500; ++i)
+    for (int i{}; i < 500; ++i)
     {
+      GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
+      if (entity == GE::ECS::INVALID_ID)
+      {
+        break;
+      }
+
       try
       {
-        GE::ECS::Entity entity = GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("ButaPIG");
-        GE::Component::Transform* trans = ecs->GetComponent<GE::Component::Transform>(entity);
-        GE::Component::BoxCollider* box = ecs->GetComponent<GE::Component::BoxCollider>(entity);
-        if (trans)
-        {
-          double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
-          double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
-          trans->m_pos = Math::dVec2(randX, randY);
-          box->m_center = trans->m_pos;
-        }
+        double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
+        double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
+
+        GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity, GE::Math::dVec3{randX, randY, 0});
       }
       catch (GE::Debug::IExceptionBase& ex)
       {
@@ -134,20 +147,34 @@ void ImGuiUI::Update()
       }
     }
   }
+  else if (Button("Clear Entities"))
+  {
+    std::set<ECS::Entity> entities = ecs->GetEntities();
+    for (auto entity : entities)
+    {
+      ecs->DestroyEntity(entity);
+    }
+  }
+  else if (Button("Load \"Robot\" Scene"))
+  {
+    GE::GSM::GameStateManager& gsm = { GE::GSM::GameStateManager::GetInstance() };
+    gsm.SetNextScene("Robot");
+  }
+  else if (Button("Load \"SceneTest\" Scene"))
+  {
+    GE::GSM::GameStateManager& gsm = { GE::GSM::GameStateManager::GetInstance() };
+    gsm.SetNextScene("SceneTest");
+  }
   End();
 
-  Begin("Asset Browser(Tree)");
-  AssetBrowser::CreateContentDir();
-  End();
-
-  Begin("Asset View");
-  AssetBrowser::CreateContentView();
+  Begin("Asset Browser");
+  AssetBrowser::CreateContent();
   End();
 
   
   if (Visualizer::IsPerformanceShown())
   {
-    Visualizer::CreateContent("Performance Visualizer");
+    Visualizer::CreateContent("Performance Graph");
   }
 
   Begin("Audio");
@@ -184,8 +211,10 @@ void ImGuiUI::Update()
   {
     Audio::AudioEngine::GetInstance().StopAllChannels();
   }
-  Audio::AudioEngine::GetInstance().Update();
   End();
+
+
+
 
   ImGuiHelper::EndDockSpace();
 }
@@ -200,8 +229,14 @@ void ImGuiUI::Render()
 
 void ImGuiUI::Exit()
 {
+  GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
+  ne->NodeEditorShutdown();
+
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplGlfw_Shutdown();
+
+
+
   DestroyContext();
 }
 
@@ -305,115 +340,4 @@ bool GE::EditorGUI::ImGuiHelper::ShouldRestart()
   bool shouldRestart = m_restart;
   m_restart = false;
   return shouldRestart;
-}
-
-void GE::EditorGUI::ImGuiHelper::UpdateViewport()
-{
-  auto* ecs = &GE::ECS::EntityComponentSystem::GetInstance();
-  auto& gEngine = Graphics::GraphicsEngine::GetInstance();
-  GLuint texture = gEngine.GetRenderTexture();
-
-  // Calculate the UV coordinates based on viewport position and size
-  // Get the size of the GLFW window
-  ImGuiIO& io = ImGui::GetIO();
-  ImVec2 windowSize{ io.DisplaySize.x, io.DisplaySize.y };
-  ImVec2 viewportSize = ImGui::GetContentRegionAvail();  // Get the top-left position of the viewport
-  ImVec2 viewportPosition = ImGui::GetCursorScreenPos();
-  ImVec2 viewportEnd = ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y);
-  ImVec2 uv0;
-  ImVec2 uv1;
-
-  uv0.x = 1.f + (viewportEnd.x - windowSize.x) / windowSize.x;
-  uv1.y = -(viewportPosition.y) / windowSize.y;
-  uv0.y = -(1.f + (viewportEnd.y - windowSize.y) / windowSize.y);
-  uv1.x = (viewportPosition.x) / windowSize.x;
-  // render the image
-  ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
-
-  auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
-  if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y)))
-  {
-    ImVec2 mousePosition = ImGui::GetMousePos();
-    mousePosition.y = windowSize.y - mousePosition.y;
-    static Graphics::gVec2 prevPos; // previous mouse position
-
-    Graphics::gVec2 MousePosF{ mousePosition.x, mousePosition.y }; // current position of mouse in float
-    // If the middle mouse button is down (for moving camera)
-    {
-      constexpr int MIDDLE_MOUSE{ 2 };        // constant for middle mouse key
-      static bool middleMouseHeld{};          // flag for middle mouse held down
-      if (ImGui::IsMouseDown(MIDDLE_MOUSE))
-      {
-
-        if (middleMouseHeld) // check if it's not the first frame button is held
-        {
-          Graphics::gVec2 displacement{ prevPos - MousePosF };  // displacement of camera
-          Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
-          camera.DisplaceCam({ displacement.x, displacement.y, 0.f });
-          prevPos = { MousePosF };
-        }
-        else // else this is the first frame we are holding it down
-        {
-          prevPos = { MousePosF };
-          middleMouseHeld = true;
-        }
-      }
-      else {
-        middleMouseHeld = false;
-      }
-    }
-    // If the mousewheel is scrolled (for zooming camera)
-    {
-      float scrollValue = io.MouseWheel;
-      constexpr float MULTIPLIER = 10.f;
-      if (scrollValue)
-      {
-        Graphics::Rendering::Camera& camera{ renderer.GetCamera() }; // get reference to camera
-        camera.ZoomCamera(scrollValue * MULTIPLIER);
-      }
-    }
-
-    // If the mouse clicked was detected
-    {
-      constexpr int MOUSE_L_CLICK{ 0 };        // constant for mouse left click
-      static bool mouseLHeld{};
-      if (ImGui::IsMouseDown(MOUSE_L_CLICK))
-      {
-        if (!mouseLHeld)
-        {
-          mouseLHeld = true;
-          auto mouseWS{ gEngine.ScreenToWS(MousePosF) };
-          double depthVal{ std::numeric_limits<double>::lowest() };
-          GE::ECS::Entity selectedID = GE::ECS::INVALID_ID;
-
-          for (GE::ECS::Entity curr : ecs->GetEntities())
-          {
-            // get sprite component
-            auto const* transPtr = ecs->GetComponent<GE::Component::Transform>(curr);
-            auto const& trans{ *transPtr };
-            GE::Math::dVec2 min{ trans.m_pos.x - trans.m_scale.x * 0.5, trans.m_pos.y - trans.m_scale.y * 0.5 };
-            GE::Math::dVec2 max{ trans.m_pos.x + trans.m_scale.x * 0.5, trans.m_pos.y + trans.m_scale.y * 0.5 };
-
-            // AABB check with the mesh based on its transform (ASSUMES A SQUARE)
-            if (min.x > mouseWS.x ||
-              max.x < mouseWS.x ||
-              min.y > mouseWS.y ||
-              max.y < mouseWS.y)
-              continue;
-
-            // Depth check (only take frontmost object
-            if (trans.m_pos.z > depthVal)
-            {
-              depthVal = trans.m_pos.z;
-              selectedID = curr;
-            }
-          }
-          // Set selected entity (invalid ID means none selected)
-          ImGuiHelper::SetSelectedEntity(selectedID);
-        }
-      }
-      else
-        mouseLHeld = false;
-    }
-  }
 }

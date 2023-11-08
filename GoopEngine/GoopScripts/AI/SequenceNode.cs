@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*!************************************************************************
+\file SequenceNode.cs
+\author Han Qin Ding
+
+\brief
+C# script attached to a composite node.
+Will each child node every frame.
+if any of the child node fails, it will not run the rest of the child nodes
+**************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +28,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
   \brief
-    Non default constructor of Player class
+    Non default constructor of SequenceNode class
 
   \params enityID
    ID of the owner of this scipt
@@ -28,16 +37,19 @@ namespace GoopScripts.AI
     {
       m_nodeID = currID;
       m_parentID = parentID;
+      // Console.WriteLine("Sequence Node childs: ");
       for (uint i = 0; i < tempSize; i++)
       {
         m_childID.Add(temp[i]);
       }
-  }
+      //   Console.WriteLine("\n");
+    }
+
 
 
     /*!*********************************************************************
    \brief
-     Awake function for the player script. 
+     Awake function for the SequenceNode script. 
    ************************************************************************/
     public void Awake()
     {
@@ -47,7 +59,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
    \brief
-     Start function for the player script. 
+     Start function for the SequenceNode script. 
    ************************************************************************/
     public void Start()
     {
@@ -56,8 +68,14 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
     \brief
-     Update function for the player script. This function is called every frame
-     if the script is attached to an entity
+     Update function for the SequenceNode script. This function is called every frame
+     if the script is attached to a cmposite node
+    
+    \param[entityID] uint
+    ID of the entity
+
+    \param[dt] dobule
+    delta time
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
@@ -66,40 +84,53 @@ namespace GoopScripts.AI
       //Get current position Index
       m_currentIndex = GetCurrentChildIndex();
 
-
       //Run the child node 
-      RunChildNode(m_childID[m_currentIndex]);
-
-      NODE_STATES childResult = (NODE_STATES)GetChildResult();
-
-
-      if (childResult == NODE_STATES.STATE_SUCCEED)
+      if (m_childID.Count > m_currentIndex && m_childID.Count > 0)
       {
-        m_currentIndex = GetCurrentChildIndex() + 1;
-        SetNewChildIndex(m_currentIndex);
-        if (m_currentIndex >= m_childID.Count)
+        //Run the child node 
+        RunChildNode(m_childID[m_currentIndex]);
+
+        NODE_STATES childResult = (NODE_STATES)GetChildResult();
+
+
+        if (childResult == NODE_STATES.STATE_SUCCEED)
         {
-          OnSuccess(entityID);
+          m_currentIndex = GetCurrentChildIndex() + 1;
+          SetNewChildIndex(m_currentIndex);
+          if (m_currentIndex >= m_childID.Count)
+          {
+            OnSuccess(entityID);
+          }
+          else
+          {
+            SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
+          }
+        }
+        else if (childResult == NODE_STATES.STATE_FAILED)
+        {
+          OnFail(entityID);
         }
         else
         {
+
           SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
         }
       }
-      else if(childResult == NODE_STATES.STATE_FAILED)
-      {
-        OnFail(entityID);
-      }
       else
       {
-
-        SetResult((int)NODE_STATES.STATE_WAITING,m_nodeID);
+        OnFail(entityID);
       }
 
 
 
 
     }
+
+    /*!*********************************************************************
+    \brief
+     onFail function for the SequenceNode script. This function is called when the script fails.
+    it informs the tree that this script failed and jump back to the parent node
+    ************************************************************************/
     public void OnFail(uint entityID)
     {
       //SetTheNextNode and the result
@@ -110,6 +141,11 @@ namespace GoopScripts.AI
 
 
     }
+    /*!*********************************************************************
+     \brief
+      onSuccess function for the SequenceNode script. This function is called when the script succeed.
+     it informs the tree that this script succeed and jump back to the parent node
+     ************************************************************************/
 
     public void OnSuccess(uint entityID)
     {
@@ -119,7 +155,14 @@ namespace GoopScripts.AI
       JumpToParent();
     }
 
+    /*!*********************************************************************
+    \brief
+     ReturnFromChild function for the SequenceNode script. This function is called when the child node
+    returns to this node.
 
+    \param[entityID] uint
+    ID of the entity
+    ************************************************************************/
     public void ReturnFromChild(uint entityID)
     {
       //It common for the tree to only travel back to the composite node in a later frame
@@ -127,9 +170,9 @@ namespace GoopScripts.AI
       NODE_STATES childResult = (NODE_STATES)GetChildResult();
       if (childResult == NODE_STATES.STATE_SUCCEED)
       {
-        m_currentIndex = GetCurrentChildIndex()+1;
+        m_currentIndex = GetCurrentChildIndex() + 1;
         SetNewChildIndex(m_currentIndex);
-        if (m_currentIndex >= m_childID.Count) 
+        if (m_currentIndex >= m_childID.Count)
         {
           OnSuccess(entityID);
         }
@@ -149,23 +192,23 @@ namespace GoopScripts.AI
 
     public void OnExit()
     {
-  
+
     }
 
 
     /*!*********************************************************************
     \brief
-     Update function for the player script. This function is called every frame
+     Update function for the SequenceNode script. This function is called every frame
      if the script is attached to an entity
     ************************************************************************/
     public void Update()
     {
-    
+
     }
 
     /*!*********************************************************************
     \brief
-     late Update function for the player script
+     late Update function for the SequenceNode script
     ************************************************************************/
     public void LateUpdate()
     {

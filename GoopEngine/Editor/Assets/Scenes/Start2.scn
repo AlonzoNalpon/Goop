@@ -1,51 +1,82 @@
 [
     {
-      "Id": "Background",
-      "Components": [
-          {
-            "Transform": {
-              "m_pos": "{ 0.0, 0.0, -997.0 }",
-              "m_scale": "{ 1600.0, 900.0, 1.0 }",
-              "m_rot": "{ 0.0, 0.0, 0.0 }"
+        "Name": "Text Test",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 20, 100, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "The quick brown fox jumps over the lazy dog.",
+                    "clr": {
+                        "r": 0.14509804546833038,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
             }
-          },
-          {
-            "Sprite": {
-              "filename": "Background"
-            }
-          },
-          {
-            "Model": {
-              "mdlID": 0
-            }
-          }
-      ]
+        ]
     },
     {
-    "Id": "MineWorm",
-    "Components": [
-      {
-        "Transform": {
-          "m_pos": "{ 2.0, 4.0, 0.0 }",
-          "m_scale": "{ 150.0, 150.0, 1.0 }",
-          "m_rot": "{ 0.0, 0.0, 0.0 }"
-        }
-      },
-      {
-        "Sprite": {
-          "filename": "SS_MineWorm"
-        }
-      },
-      {
-        "SpriteAnim": {
-          "name": "SS_MineWorm"
-        }
-      },
-      {
-        "Model": {
-          "mdlID": 0
-        }
-      }
-    ]
-  }
+        "Name": "MineWorm",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 2, 4, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "filename": "SS_MineWorm"
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MineWorm"
+                }
+            },
+            {
+                "Model": {
+                    "mdlID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Background",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, -997 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "filename": "Background"
+                }
+            },
+            {
+                "Model": {
+                    "mdlID": 0
+                }
+            }
+        ]
+    }
 ]

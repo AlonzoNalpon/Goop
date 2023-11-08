@@ -4,9 +4,9 @@ namespace GE::Component
 {
   struct SpriteAnim
   {
-    f64 currTime{};
-    Graphics::gObjID animID{}; // object ID
-    u32 currFrame{};
+    f64 m_currTime{};
+    Graphics::gObjID m_animID{}; // object ID
+    u32 m_currFrame{};
   };
 }
 #endif

@@ -1,0 +1,43 @@
+{
+    "Name": "Knight",
+    "Components": [
+        {
+            "Transform": {
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "Sprite": {
+                "filename": "Knight"
+            }
+        },
+        {
+            "Model": {
+                "mdlID": 0
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 15, 278 }",
+                "width": 215.0,
+                "height": 280.0,
+                "render": true
+            }
+        },
+        {
+            "Text": {
+                "text": "YOUR TEXT HERE hwhhe",
+                "clr": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "scale": 0.847000002861023,
+                "fontID": 0
+            }
+        }
+    ]
+}

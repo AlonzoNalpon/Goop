@@ -9,10 +9,10 @@ using namespace ECS;
 using namespace Systems;
 using namespace Component;
 
-const vec3 Velocity::m_threshold{ 0.01f, 0.01f, 0.01f };
-
 void PhysicsSystem::FixedUpdate()
 {
+	auto& frc = GE::FPS::FrameRateController::GetInstance();
+	frc.StartSystemTimer();
 	/*auto& inputMan{ Input::InputManager::GetInstance() };
 	if (!(inputMan.IsKeyHeld(GPK_SPACE) || inputMan.IsKeyTriggered(GPK_SPACE)))
 		return;*/
@@ -38,7 +38,7 @@ void PhysicsSystem::FixedUpdate()
 			{
 				itr->m_age += dt;
 
-				vel->m_sumMagnitude += itr->m_magnitude * itr->m_age;
+				vel->m_sumMagnitude += itr->m_magnitude * dt;
 				if (itr->m_age >= itr->m_lifetime)
 				{
 					itr->m_isActive = false;
@@ -65,13 +65,14 @@ void PhysicsSystem::FixedUpdate()
 		vel->m_acc += vel->m_sumMagnitude * (1 / vel->m_mass);
 		vel->m_vel += dt * vel->m_acc;
 
-		vel->m_vel *= vel->m_dragForce.m_magnitude;
+		vel->m_vel *= (1 - vel->m_dragForce.m_magnitude);
 		
-		if (vel->m_vel <= vel->m_threshold)
+		if (vel->GetMagnitude(vel->m_vel) <= 0.01 && vel->GetMagnitude(vel->m_vel) >= -0.01)
 		{
 			vel->m_vel = {};
 		}
 
 		pos->m_pos += dt * vel->m_vel;
 	}
+	frc.EndSystemTimer("Physics");
 }

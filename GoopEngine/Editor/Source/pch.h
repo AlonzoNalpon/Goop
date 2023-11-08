@@ -1,6 +1,8 @@
 #pragma once
 
-#ifdef _DEBUG
+//#define EVENT_DEBUG
+
+#if defined _DEBUG || defined EVENT_DEBUG
 #include <iostream>
 #include <iomanip>
 #endif
@@ -36,3 +38,5 @@
 #include <Graphics/Def/GraphicsTypes.h>
 #include "Events/Listener.h"
 #include "Audio/AudioEngine.h"
+#include <Utilities/GoopUtils.h>
+//#define NO_IMGUI

@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   TextureManager.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the definition for the TextureManager class
   
@@ -63,6 +63,16 @@ namespace Graphics {
 
     ************************************************************************/
     std::string GetTextureName(GLuint id) const;
+
+    /*!*********************************************************************
+    \brief
+      Returns texture lookup table for string to ID.
+      ID is also the same as its texture handle
+    \params
+    \return
+      
+    ************************************************************************/
+    std::map<std::string, GLuint> const& GetTextureLT()const;
   private:
     void DestroyTextureByName(std::string name);
     std::map<GLuint, Texture>     m_textures;     //!< container for textures

@@ -11,6 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ObjectFactory.h"
 #include <Component/Components.h>
 #include <Serialization/ComponentWrapper/ComponentWrapper.h>
+#include <Graphics/Def/GraphicsTypes.h>
 
 namespace GE::ObjectFactory
 {
@@ -38,9 +39,11 @@ namespace GE::ObjectFactory
   template<>
   GE::Component::Model DeserializeComponent(std::string const& componentData);
   template<>
-  GE::Component::ScriptHandler DeserializeComponent(std::string const& componentData);
-  template<>
   GE::Component::EnemyAI DeserializeComponent(std::string const& componentData);
+  GE::Component::ScriptHandler DeserializeScriptHandler(std::string const& componentData, GE::ECS::Entity entityID);
+  template<>
+  GE::Component::Text DeserializeComponent(std::string const& componentData);
+
 
 }
 

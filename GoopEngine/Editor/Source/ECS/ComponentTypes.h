@@ -29,6 +29,7 @@ namespace GE
 			SCRIPT_HANDLER,
 			DRAGGABLE,
 			ENEMY_AI,
+			TEXT,
 			COMPONENTS_TOTAL
 		};
 
@@ -48,7 +49,8 @@ namespace GE
 			{ COMPONENT_TYPES::TWEEN, "Tween" },
 			{ COMPONENT_TYPES::SCRIPT_HANDLER, "ScriptHandler" },
 			{ COMPONENT_TYPES::DRAGGABLE, "Draggable" },
-			{ COMPONENT_TYPES::ENEMY_AI, "EnemyAI" }
+			{ COMPONENT_TYPES::ENEMY_AI, "EnemyAI" },
+			{ COMPONENT_TYPES::TEXT, "Text" }
 
 		};
 
@@ -65,7 +67,8 @@ namespace GE
 			{ "Tween", COMPONENT_TYPES::TWEEN },
 			{ "ScriptHandler", COMPONENT_TYPES::SCRIPT_HANDLER },
 			{ "Draggable", COMPONENT_TYPES::DRAGGABLE },
-			{ "EnemyAI", COMPONENT_TYPES::ENEMY_AI }
+			{ "EnemyAI", COMPONENT_TYPES::ENEMY_AI },
+			{ "Text", COMPONENT_TYPES::TEXT }
 		};
 
 		/*!*********************************************************************

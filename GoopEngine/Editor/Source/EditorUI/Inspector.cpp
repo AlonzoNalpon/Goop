@@ -1,6 +1,8 @@
 /*!*********************************************************************
 \file   Inspector.cpp
 \author w.chinkitbryam\@digipen.edu
+\co-authors a.nalpon\@digipen.edu (42 lines)
+						loh.j\@digipen.edu (14 lines)
 \date   23 October 2023
 \brief
 	Wrapper class to create an EditorGUI for the tool bar
@@ -20,9 +22,15 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Tween.h>
 #include <Component/Velocity.h>
 #include <Component/Draggable.h>
+#include <Component/Text.h>
+#include "../ImGui/misc/cpp/imgui_stdlib.h"
+#include <Systems/RootTransform/PostRootTransformSystem.h>
+#include <Systems/RootTransform/PreRootTransformSystem.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
+// Disable reinterpret to larger size
+#pragma warning(disable : 4312)
 
 using namespace ImGui;
 using namespace GE::Component;
@@ -44,8 +52,11 @@ namespace
 
 	\param[in] disabled
 		Draw disabled
+
+	\return
+		Field changed
 	************************************************************************/
-	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled = false);
+	bool InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled = false);
 
 	/*!*********************************************************************
 	\brief
@@ -153,13 +164,25 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 	GE::ECS::ComponentSignature sig = ecs.GetComponentSignature(entity);
 
+	PushID(entity);
 	bool isActive{ecs.GetIsActiveEntity(entity)};
-	if (Checkbox("##", &isActive))
+	if (Checkbox("##IsActive", &isActive))
 	{
 		ecs.SetIsActiveEntity(entity, isActive);
 	}
-	SameLine(); Text(ecs.GetEntityName(entity).c_str());
-	Text(("Entity ID: " + std::to_string(entity)).c_str());
+	SameLine();
+	std::string name = ecs.GetEntityName(entity);
+	if (InputText("##Name", &name))
+	{
+		ecs.SetEntityName(entity, name);
+	}
+	ImGui::Text(("Entity ID: " + std::to_string(entity)).c_str());
+	//ImGui::ImageButton(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { newW, newH }, { 0, 1 }, { 1, 0 });
+
+	/*if (ImageButton(reinterpret_cast<ImTextureID>(ecs.GetComponent<GE::Component::Sprite>(entity)->m_spriteData.texture), { 0, 0 }, { 0, 1 }, { 1, 0 }))
+	{
+
+	}*/
 
 	for (int i{}; i < GE::ECS::MAX_COMPONENTS; ++i)
 	{
@@ -177,17 +200,30 @@ void GE::EditorGUI::Inspector::CreateContent()
 				{
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
 					float inputWidth = (contentSize - charSize - 30) / 3;
+					
+					bool valChanged{ false };
 
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					InputDouble3("Position", trans->m_pos, inputWidth);					
 					TableNextRow();
-					InputDouble3("Scale", trans->m_scale, inputWidth);
+					if (InputDouble3("Position", trans->m_pos, inputWidth)) { valChanged = true; };
 					TableNextRow();
-					InputDouble3("Rotation", trans->m_rot, inputWidth);
+					if (InputDouble3("Scale", trans->m_scale, inputWidth)) { valChanged = true; };
+					TableNextRow();
+					if (InputDouble3("Rotation", trans->m_rot, inputWidth)) { valChanged = true; };
+
+					TableNextRow();
+					InputDouble3("World Position", trans->m_worldPos, inputWidth, true);
+					TableNextRow();
+					InputDouble3("World Scale", trans->m_worldScale, inputWidth, true);
+					TableNextRow();
+					InputDouble3("World Rotation", trans->m_worldRot, inputWidth, true);
+
 					EndTable();
 					Separator();
+					if (valChanged) 
+						GE::Systems::PostRootTransformSystem::Propergate(ecs, entity, trans->m_parentWorldTransform);
 				}
 				break;
 			}
@@ -196,6 +232,21 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto col = ecs.GetComponent<BoxCollider>(entity);
 				if (ImGui::CollapsingHeader("Collider", ImGuiTreeNodeFlags_DefaultOpen))
 				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveCollider");
+					}
+					if (BeginPopup("RemoveCollider"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<BoxCollider>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
@@ -203,7 +254,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputDouble1("Height", col->m_height);
 					TableNextRow();
+#ifndef NO_IMGUI
 					InputCheckBox("Show Collider", col->m_render);
+#endif
 					EndTable();
 					Separator();
 				}
@@ -214,6 +267,21 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto vel = ecs.GetComponent<Velocity>(entity);
 				if (ImGui::CollapsingHeader("Forces", ImGuiTreeNodeFlags_DefaultOpen))
 				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveVelocity");
+					}
+					if (BeginPopup("RemoveVelocity"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Velocity>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
 					float inputWidth = (contentSize - charSize - 30) / 3;
 
@@ -227,9 +295,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputDouble1("Mass", vel->m_mass);
 					TableNextRow();
-					InputDouble3("Gravity", vel->m_gravity, inputWidth);					
+					InputDouble3("Gravity", vel->m_gravity, inputWidth);		
 					TableNextRow();
-					InputDouble1("Drag", vel->m_dragForce.m_magnitude, inputWidth);
+					InputDouble1("Drag", vel->m_dragForce.m_magnitude);
 					TableNextRow();
 					InputCheckBox("Drag Active", vel->m_dragForce.m_isActive);
 					EndTable();
@@ -241,17 +309,128 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 			case GE::ECS::COMPONENT_TYPES::SPRITE:
 			{
-				//auto sprite = ecs.GetComponent<Sprite>(entity);
+				auto sprite = ecs.GetComponent<Sprite>(entity);
+				if (ImGui::CollapsingHeader("Sprite", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveSprite");
+					}
+					if (BeginPopup("RemoveSprite"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Sprite>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+					ImGui::Columns(2, 0, true);
+					ImGui::SetColumnWidth(0, 118.f);
+					ImGui::Text("Sprite");
+					ImGui::NextColumn();
+					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), { 100, 100 }, { 0, 1 }, { 1, 0 });
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+						{
+							if (payload->Data)
+							{
+								auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+								const char* droppedPath = static_cast<const char*>(payload->Data);
+								sprite->m_spriteData.texture = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
+
+							}
+							EndDragDropTarget();
+						}
+					}
+					ImGui::Columns(1);
+
+#pragma region SPRITE_LIST
+					auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
+					Separator();
+					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
+
+					TableNextColumn();
+
+					auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
+					auto const& textureLT{ textureManager.GetTextureLT() };
+					if (BeginCombo("Sprite", textureManager.GetTextureName(spriteObj->m_spriteData.texture).c_str()))
+					{
+						for (auto const& it : textureLT)
+						{
+							if (Selectable(it.first.c_str()))
+							{
+								auto const& texture{ textureManager.GetTexture(it.second) };
+								spriteObj->m_spriteData.texture = texture.textureHandle;
+								spriteObj->m_spriteData.info.height = texture.height;
+								spriteObj->m_spriteData.info.width = texture.width;
+								spriteObj->m_spriteData.info.texDims = { 1.f, 1.f }; // default
+								spriteObj->m_spriteData.info.texCoords = {}; // bottom left
+							}
+						}
+						EndCombo();
+					}
+					EndTable();
+					Separator();
+#pragma endregion
+#pragma region SPRITE_DEBUG_INFO 
+					// texcoordinates and info you can't edit
+					BeginDisabled();
+					int imageDims[2]{ static_cast<int>(spriteObj->m_spriteData.info.width), 
+														static_cast<int>(spriteObj->m_spriteData.info.height) };
+					ImGui::InputInt("Image Width", &imageDims[0]);
+					ImGui::InputInt("Image Width", &imageDims[1]);
+					ImGui::InputFloat2("Tex Coords", &spriteObj->m_spriteData.info.texCoords.r);
+					EndDisabled();
+#pragma endregion
+				}
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::SPRITE_ANIM:
 			{
 				//auto anim = ecs.GetComponent<SpriteAnim>(entity);
+				if (ImGui::CollapsingHeader("Sprite Animation", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveSpriteAnimation");
+					}
+					if (BeginPopup("RemoveSpriteAnimation"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<SpriteAnim>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+				}
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::MODEL:
 			{
 				//auto model = ecs.GetComponent<Model>(entity);
+				if (ImGui::CollapsingHeader("Model", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveModel");
+					}
+					if (BeginPopup("RemoveModel"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Model>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+				}
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::TWEEN:
@@ -262,6 +441,21 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto tween = ecs.GetComponent<Tween>(entity);
 				if (ImGui::CollapsingHeader("Tween", ImGuiTreeNodeFlags_DefaultOpen))
 				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveTween");
+					}
+					if (BeginPopup("RemoveTween"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Tween>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
@@ -280,19 +474,101 @@ void GE::EditorGUI::Inspector::CreateContent()
 			case GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER:
 			{
 				//auto scripts = ecs.GetComponent<ScriptHandler>(entity);
+				if (ImGui::CollapsingHeader("Script Handler", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveScriptHandler");
+					}
+					if (BeginPopup("RemoveScriptHandler"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<ScriptHandler>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+				}
 				break;
 			}
 			case GE::ECS::COMPONENT_TYPES::DRAGGABLE:
 			{
-				CollapsingHeader("Draggable", ImGuiTreeNodeFlags_Leaf);
+				if (CollapsingHeader("Draggable", ImGuiTreeNodeFlags_Leaf))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveDraggable");
+					}
+					if (BeginPopup("RemoveDraggable"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Draggable>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+				}
+				break;
+			}
+			case GE::ECS::COMPONENT_TYPES::TEXT:
+			{
+				if (ImGui::CollapsingHeader("Text", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveText");
+					}
+					if (BeginPopup("RemoveText"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Component::Text>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+
+					auto textObj = ecs.GetComponent<Component::Text>(entity);
+					Separator();
+					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
+					
+					TableNextColumn();
+					ImGui::ColorEdit4("Color", textObj->m_clr.rgba);
+					ImGui::DragFloat("Scale", &textObj->m_scale, .001f, 0.f, 5.f);
+					ImGui::InputTextMultiline("Text", &textObj->m_text);
+					
+					auto const& fontManager{ Graphics::GraphicsEngine::GetInstance().fontManager };
+					auto const& fontLT{ fontManager.GetFontLT() }; //lookup table for fonts (string to ID)
+					if (BeginCombo("Font", fontManager.GetFontName(textObj->m_fontID).c_str()))
+					{
+						for (auto const& it : fontLT)
+						{
+							if (Selectable(it.first.c_str()))
+							{
+								textObj->m_fontID = it.second;
+							}
+						}
+						EndCombo();
+					}
+					EndTable();
+					Separator();
+				}
 				break;
 			}
 			default:
-				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to serialize a component that is not being handled");
+				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled");
 				break;
 			}
 		}
 	}
+
+	PopID();
 
 	static bool addingComponent{ false };
 	if (Button("Add Component", { GetContentRegionMax().x, 20 }))
@@ -342,6 +618,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (!ecs.HasComponent<Velocity>(entity))
 						{
 							Velocity comp;
+							comp.m_mass = 1.0;
 							ecs.AddComponent(entity, comp);
 						}
 						else
@@ -428,6 +705,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
+					case GE::ECS::COMPONENT_TYPES::TEXT:
+					{
+						if (!ecs.HasComponent<Component::Text>(entity))
+						{
+							Component::Text comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Component::Text).name() << ". Component already exist";
+						}
+						break;
+					}
 					default:
 						break;
 					}
@@ -446,25 +736,29 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 namespace
 {
-	void InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled)
+	bool InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled)
 	{
+		bool valChanged{ false };
+
 		BeginDisabled(disabled);
 		TableNextColumn();
-		Text(propertyName.c_str());
+		ImGui::Text(propertyName.c_str());
 		propertyName = "##" + propertyName;
 		TableNextColumn();
 		SetNextItemWidth(fieldWidth);
-		InputDouble((propertyName + "X").c_str(), &property.x, 0, 0, "%.2f");
-		SameLine(0, 3); SetNextItemWidth(fieldWidth); InputDouble((propertyName + "Y").c_str(), &property.y, 0, 0, "%.2f");
-		SameLine(0, 3); SetNextItemWidth(fieldWidth); InputDouble((propertyName + "Z").c_str(), &property.z, 0, 0, "%.2f");
+		if (InputDouble((propertyName + "X").c_str(), &property.x, 0, 0, "%.5f")) { valChanged = true; };
+		SameLine(0, 3); SetNextItemWidth(fieldWidth); if (InputDouble((propertyName + "Y").c_str(), &property.y, 0, 0, "%.5f")) { valChanged = true; };
+		SameLine(0, 3); SetNextItemWidth(fieldWidth); if (InputDouble((propertyName + "Z").c_str(), &property.z, 0, 0, "%.5f")) { valChanged = true; };
 		EndDisabled();
+
+		return valChanged;
 	}
 
 	void InputDouble1(std::string propertyName, double& property, bool disabled)
 	{
 		BeginDisabled(disabled);
 		TableNextColumn();
-		Text(propertyName.c_str());
+		ImGui::Text(propertyName.c_str());
 		TableNextColumn();
 		SetNextItemWidth(GetWindowSize().x);
 		InputDouble(("##" + propertyName).c_str(), &property, 0, 0, "%.2f");
@@ -475,7 +769,7 @@ namespace
 	{
 		BeginDisabled(disabled);
 		TableNextColumn();
-		Text(propertyName.c_str());
+		ImGui::Text(propertyName.c_str());
 		TableNextColumn();
 		Checkbox(("##" + propertyName).c_str(), &property);
 		EndDisabled();

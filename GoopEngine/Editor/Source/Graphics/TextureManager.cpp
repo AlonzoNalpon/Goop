@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   TextureManager.cpp
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the implementation of the texture manager
 class.
@@ -90,6 +90,11 @@ namespace Graphics
         ErrMsg("No such texture id found: " + id));
     }
     return m_texNameLT.at(id);
+  }
+
+  std::map<std::string, GLuint> const& TextureManager::GetTextureLT() const
+  {
+    return m_texturesLT;
   }
 
 }

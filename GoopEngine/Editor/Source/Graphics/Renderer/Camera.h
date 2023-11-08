@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   Camera.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the definition for the camera class
   
@@ -24,7 +24,8 @@ namespace Graphics::Rendering
     // NOTE: WHEN ADDING VARIABLES, UPDATE ASSIGNMENT OPERATOR
     // (GLM DELETED THEIRS)
     glm::mat4 m_view;     //!< view matrix of camera
-    glm::mat4 m_proj;     //!< perspective matrix of camera
+    glm::mat4 m_proj;     //!< projection matrix of camera
+    glm::mat4 m_pers;     //!< perspective matrix of camera
     gVec3     m_position; //!< position of camera
     gVec3     m_tgt;      //!< camera target (where are we looking?)
     gVec3     m_up;       //!< camera up vector
@@ -57,7 +58,7 @@ namespace Graphics::Rendering
     ************************************************************************/
     Camera(gVec3 pos, gVec3 tgt, gVec3 up,
       GLfloat left, GLfloat right, GLfloat bottom, GLfloat top,
-      GLfloat near, GLfloat far);
+      GLfloat _near, GLfloat _far);
 
     /*!*********************************************************************
     \brief
@@ -81,12 +82,13 @@ namespace Graphics::Rendering
     /*!*********************************************************************
     \brief
       Calculates the view projection matrix.
-      Avoid calling this multiple times as result is not stored in object
     \params
     \return
       
     ************************************************************************/
-    glm::mat4 ViewProjMtx() const;
+    void CalculateViewProjMtx();
+
+    glm::mat4 const& GetViewMtx() const;
 
     /*!*********************************************************************
     \brief
@@ -99,11 +101,8 @@ namespace Graphics::Rendering
 
     void DisplaceCam(gVec3 displacement);
   public: // getters
-    glm::mat4 const&  view{ m_view };         //!< getter to view matrix
-    glm::mat4 const&  proj{ m_proj };         //!< getter to projection matrix
-    gVec3 const&      position{ m_position }; //!< getter to camera position 
-    gVec3 const&      up_vector{ m_up };      //!< getter to up vector
-    gVec2 const&      frame_dims{m_dims};     //!< getter to frame dimensions
+    gVec3 const& GetPos()const;
+    gVec2 const& GetFrameDims()const;
   };
 
 }

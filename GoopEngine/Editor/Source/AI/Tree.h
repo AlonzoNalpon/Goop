@@ -1,13 +1,28 @@
+/*!************************************************************************
+\file Tree.h
+\author Han Qin Ding
+
+\brief
+This file contains structs, using aliases and enums that will be used by the 
+Tree Manager,Node Editor and Enemy System to build and run a Behaviour Tree
+**************************************************************************/
 #pragma once
-#include <AI/Node.h>
+#include <vector>
+#include <string>
 
 namespace GE {
 	namespace AI {
 
-		using TreeTemplate = std::vector<NodeTemplate>;
-		using Tree = std::vector<Node>;
+		using NodeID = unsigned int;
 		using TreeID = unsigned int;
 
+		enum NODE_TYPE
+		{
+			ROOT_NODE,
+			COMPOSITE_NODE,
+			LEAF_NODE,
+			NODE_TYPE_COUNT
+		};
 
 		enum NODE_STATES {
 			STATE_NEW,
@@ -18,7 +33,8 @@ namespace GE {
 			STATE_COUNT
 		};
 
-		static std::vector<std::string> nodestateNames{ "NEW","RUNNING","WAITING","SUCCEED","FAILED","COUNT"};
+		static std::vector<std::string> nodestateNames{ "NEW","RUNNING","WAITING","SUCCEED","FAILED","COUNT" };
+		const std::vector<std::string> nodeTitles{ "Root Node","Composite Node","Leaf Node" };
 
 		struct NodeCache
 		{
@@ -27,19 +43,11 @@ namespace GE {
 			NODE_STATES m_NodeResult;
 		};
 
-		//Each user of the tree will have a cache to keep track of its progress
 		struct TreeCache
 		{
-			TreeID m_treeID;
 			std::deque<NodeCache> m_nodeCacheStack;
 			NODE_STATES m_childResult;
 
-			//TreeCache();
-
-
 		};
-
-		Tree CreateTree(const TreeTemplate&);
-
 	}
 }

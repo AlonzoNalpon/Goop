@@ -1,27 +1,40 @@
 {
-  "Name": "MineWorm",
-  "Components": [
-    {
-      "Transform": {
-        "pos": "{ 2.0, 4.0, 0.0 }",
-        "scale": "{ 150.0, 150.0, 1.0 }",
-        "rot": "{ 0.0, 0.0, 0.0 }"
-      }
-    },
-    {
-      "Sprite": {
-        "filename": "SS_MineWorm"
-      }
-    },
-    {
-      "SpriteAnim": {
-        "name": "SS_MineWorm"
-      }
-    },
-    {
-      "Model": {
-        "id": 0
-      }
-    }
-  ]
+    "Name": "MineWorm",
+    "Components": [
+        {
+            "Transform": {
+                "worldPos": "{ 2, 4, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "Sprite": {
+                "filename": "SS_MineWorm"
+            }
+        },
+        {
+            "SpriteAnim": {
+                "name": "SS_MineWorm"
+            }
+        },
+        {
+            "Model": {
+                "mdlID": 0
+            }
+        },
+        {
+            "Text": {
+                "text": "hi",
+                "clr": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.13725490868091583
+                },
+                "scale": 0.10000000149011612,
+                "fontID": 0
+            }
+        }
+    ]
 }

@@ -10,9 +10,16 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "SceneHierachy.h"
 #include <ImGui/imgui.h>
-#include <Systems/RootTransform/RootTransformSystem.h>
 #include <Component/Transform.h>
-#include "../ObjectFactory/ObjectFactory.h"
+#include <ObjectFactory/ObjectFactory.h>
+#include <GameStateManager/GameStateManager.h>
+#include <Systems/RootTransform/TransformSystemHelper.h>
+#include <Systems/RootTransform/PostRootTransformSystem.h>
+#include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <ObjectFactory/SerializeComponents.h>
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 using namespace ImGui;
 using namespace GE::ECS;
@@ -31,6 +38,8 @@ namespace
 
 	std::vector<Entity> entitiesToDestroy;
 
+	bool treeNodePopUp{ false };
+
 	/*!*********************************************************************
 	\brief 
 	  Parents the child entity to the parent entity. This function also
@@ -42,6 +51,7 @@ namespace
 
 	\param[in] child
 		Child entity.
+
 
 	\param[in] parent
 		Optional parent entity. Value will be NULL for no parent by default.
@@ -62,51 +72,77 @@ namespace
 		Colour of the text of the node
 	********************************************************************/
 	void Propergate(Entity entity, EntityComponentSystem& ecs, ImGuiTreeNodeFlags flag, ImColor textClr);
+
 }
 
 void GE::EditorGUI::SceneHierachy::CreateContent()
 {
 	static EntityComponentSystem& ecs = EntityComponentSystem::GetInstance();
+	GE::GSM::GameStateManager& gsm{ GE::GSM::GameStateManager::GetInstance() };
+	
 	// Get style text colour that can be edited later
 	ImGuiStyle& style = GetStyle();
 	originalTextClr = style.Colors[ImGuiCol_Text];
+	
+		ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow;
+		if (TreeNodeEx(gsm.GetCurrentScene().c_str(), treeFlags))
+		{
+			// Allow user to turn an entity into a root level
+			if (BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+				{
+					const char* droppedEntity{ static_cast<const char*>(payload->Data) };
+					std::cout << droppedEntity << std::endl;
+				}
 
-	// TODO
-	// Scene should be replace with scene file name
-	static const char* sceneName = "Scene";
-	ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
-	if (TreeNodeEx(sceneName, treeFlags))
+				const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
+				if (pl)
+				{
+					GE::ECS::Entity& droppedEntity{*reinterpret_cast<GE::ECS::Entity*>(pl->Data)};
+					ParentEntity(ecs, droppedEntity);
+				}
+				EndDragDropTarget();
+			}
+
+			for (Entity entity : ecs.GetEntities())
+			{
+				if (ecs.GetParentEntity(entity) == INVALID_ID)
+				{
+					Propergate(entity, ecs, treeFlags, ecs.GetIsActiveEntity(entity) ? originalTextClr : inactiveTextClr);
+				}
+			}
+			TreePop();
+		}
+	// Reset colour
+	style.Colors[ImGuiCol_Text] = originalTextClr;
+
+	ImVec2 vpSize = ImGui::GetContentRegionAvail();  // Get the top-left position of the vp
+	ImVec2 vpPosition = ImGui::GetCursorScreenPos();
+
+	if (ImGui::IsMouseHoveringRect(vpPosition, ImVec2(vpPosition.x + vpSize.x, vpPosition.y + vpSize.y)) 
+		&& IsMouseClicked(ImGuiMouseButton_Right) 
+		&& !treeNodePopUp)
 	{
-		// Allow user to turn an entity into a root level
-		if (BeginDragDropTarget())
+		OpenPopup("EntityCreate");
+	}
+	if (BeginPopup("EntityCreate"))
+	{
+		if (Selectable("Create"))
 		{
-			const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
-			if (pl)
-			{
-				GE::ECS::Entity& droppedEntity{*reinterpret_cast<GE::ECS::Entity*>(pl->Data)};
-				ParentEntity(ecs, droppedEntity);
-			}
-			EndDragDropTarget();
+			Entity newEntity = ecs.CreateEntity();
+			GE::Component::Transform trans{{0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 }};
+			ecs.AddComponent(newEntity, trans);
 		}
-
-		for (Entity entity : ecs.GetEntities())
-		{
-			if (ecs.GetParentEntity(entity) == INVALID_ID)
-			{
-				Propergate(entity, ecs, treeFlags, ecs.GetIsActiveEntity(entity) ? originalTextClr : inactiveTextClr);
-			}
-		}
-		TreePop();
+		EndPopup();
 	}
 
+	// Delete entities after interation
 	for (Entity entity : entitiesToDestroy)
 	{
 		ecs.DestroyEntity(entity);
 	}
 	entitiesToDestroy.clear();
-
-	// Reset colour
-	style.Colors[ImGuiCol_Text] = originalTextClr;
 }
 
 // Anonymous namespace function definition
@@ -115,6 +151,7 @@ namespace
 	void ParentEntity(EntityComponentSystem& ecs, Entity& child, Entity* parent)
 	{
 		Entity oldParent = ecs.GetParentEntity(child);
+
 		// Has parent, remove self from parent
 		if (oldParent != INVALID_ID)
 		{
@@ -123,32 +160,46 @@ namespace
 
 		if (!parent)	// Child becoming root
 		{
-			if (oldParent != INVALID_ID)
-			{
-				GE::Component::Transform& childTrans = *ecs.GetComponent<GE::Component::Transform>(child);
-				GE::Component::Transform& parentTrans = *ecs.GetComponent<GE::Component::Transform>(oldParent);
-
-				childTrans.m_pos = childTrans.m_parentWorldTransform * GE::Math::dVec4(childTrans.m_pos, 1.0);
-				childTrans.m_scale = { childTrans.m_scale.x * parentTrans.m_scale.x,childTrans.m_scale.y * parentTrans.m_scale.y, 1.0 };
-				childTrans.m_rot = childTrans.m_rot + parentTrans.m_rot;
-			}
-
-			// Remove reference to child from old parent if exist
 			ecs.SetParentEntity(child, INVALID_ID);
+
+			GE::Math::dMat4 identity
+			{
+				{ 1, 0, 0, 0 },
+				{ 0, 1, 0, 0 },
+				{ 0, 0, 1, 0 },
+				{ 0, 0, 0, 1 }
+			};
+			GE::Systems::PreRootTransformSystem::Propergate(ecs, child, identity);
 		}
 		else
 		{
-			GE::Component::Transform& childTrans = *ecs.GetComponent<GE::Component::Transform>(child);
-			GE::Component::Transform& parentTrans = *ecs.GetComponent<GE::Component::Transform>(*parent);
+			// Checks if new parent is a child of current child
+			Entity temp = *parent;
+			while ((temp = ecs.GetParentEntity(temp)) != INVALID_ID)
+			{
+				if (temp == child)
+				{
+					return;
+				}
+			}
 
-			GE::Math::dMat4 invP;
-			GE::Math::MtxInverse(invP, parentTrans.m_worldTransform);
-			childTrans.m_pos = invP * GE::Math::dVec4(childTrans.m_pos, 1.0);
-			childTrans.m_scale = { childTrans.m_scale.x / parentTrans.m_scale.x,childTrans.m_scale.y / parentTrans.m_scale.y, 1.0 };
-			childTrans.m_rot = childTrans.m_rot - parentTrans.m_rot;
+			try
+			{
+				ecs.SetParentEntity(child, *parent);
+				ecs.AddChildEntity(*parent, child);
 
-			ecs.SetParentEntity(child, *parent);
-		  ecs.AddChildEntity(*parent, child);
+				GE::Component::Transform* parentTrans = ecs.GetComponent<GE::Component::Transform>(*parent);
+				if (parentTrans == nullptr)
+				{
+					throw GE::Debug::Exception<GE::EditorGUI::SceneHierachy>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(*parent) + " is missing a transform component. All entities must have a transform component!!"));
+				}
+
+				GE::Systems::PreRootTransformSystem::Propergate(ecs, child, parentTrans->m_worldTransform);
+			}
+			catch (GE::Debug::IExceptionBase& e)
+			{
+				e.LogSource();
+			}
 		}
 	}
 
@@ -163,7 +214,7 @@ namespace
 		/////////////////////
 		// Create own node
 		/////////////////////
-		std::vector<Entity>& m_children = ecs.GetChildEntities(entity);
+		std::set<Entity>& m_children = ecs.GetChildEntities(entity);
 		if (m_children.empty())
 		{
 			flag |= ImGuiTreeNodeFlags_Leaf;
@@ -175,13 +226,24 @@ namespace
 			if (IsItemClicked())
 			{
 				GE::EditorGUI::ImGuiHelper::SetSelectedEntity(entity);
+				
 			}
+
+			PushID(std::to_string(entity).c_str());
 			if (IsItemClicked(ImGuiMouseButton_Right))
 			{
 				OpenPopup("EntityManip");
+				treeNodePopUp = true;
 			}
 			if (BeginPopup("EntityManip"))
 			{
+				if (Selectable("Create"))
+				{
+					Entity newEntity = ecs.CreateEntity();
+					GE::Component::Transform trans{{0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 }};
+					ecs.AddComponent(newEntity, trans);
+				}
+
 				if (Selectable("Duplicate"))
 				{
 					GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity, ecs.GetComponent<GE::Component::Transform>(entity)->m_pos);
@@ -193,6 +255,11 @@ namespace
 				}
 				EndPopup();
 			}
+			else
+			{
+				treeNodePopUp = false;
+			}
+			PopID();
 
 			////////////////////////////////////
 			// Handle drag and drop orderering
@@ -206,6 +273,20 @@ namespace
 			}
 			if (BeginDragDropTarget())
 			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+				{
+					if (payload->Data)
+					{
+						auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+						const char* droppedPath = static_cast<const char*>(payload->Data);
+						if (ecs.HasComponent<GE::Component::Sprite>(entity))
+						{
+							GE::Component::Sprite* entitySpriteData = ecs.GetComponent<GE::Component::Sprite>(entity);
+							entitySpriteData->m_spriteData.texture = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
+						}
+					}
+				}
+
 				const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
 				if (pl)
 				{

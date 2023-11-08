@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   SpriteData.h
-\author a.nalpon@digipen.edu
+\author a.nalpon\@digipen.edu
 \date   16-September-2023
 \brief  This file contains definition to the class, SpriteData.
   Sprite data differs from texture as more than 1 SpriteData could
