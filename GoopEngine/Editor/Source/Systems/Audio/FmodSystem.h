@@ -1,43 +1,42 @@
 /*!*********************************************************************
-\file   AudioSystem.h
+\file   Audio.h
 \author c.phua\@digipen.edu
-\date   28 September 2023
+\date   8 November 2023
 \brief
-  Integrates fMOD into an Audio Engine.
-  Loads, creates, play and stop sounds.
+  Integrates fMOD into an Audio Component.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
-
-#ifndef _AUDIO_ENGINE_H_
-#define _AUDIO_ENGINE_H_
-
 #include <fmod.hpp>
+#include <Singleton/Singleton.h>
+#include <Component/Audio.h>
 
 namespace GE 
 {
-	namespace Systems
+	namespace fMOD
 	{
-    //audio engine
-    class AudioSystem : public Singleton<AudioSystem> {
+    class FmodSystem : public Singleton<FmodSystem> {
+
+      using ChannelID = unsigned int;
+
     public:
       /*!*********************************************************************
       \brief
         Default contructor
       ************************************************************************/
-      AudioSystem();
+      FmodSystem();
 
       /*!*********************************************************************
       \brief
         Default destructor
       ************************************************************************/
-      ~AudioSystem();
+      ~FmodSystem();
 
       /*!*********************************************************************
       \brief
-        Runs fMOD's update function from Implementation struct.
+        Erases any channels that are not playing any sounds and updates fMOD system.
       ************************************************************************/
-      void Update() const;
+      void Update();
 
       /*!*********************************************************************
       \brief
@@ -51,21 +50,9 @@ namespace GE
       \param isStreaming
         Boolean for streaming the sound. Default: true.
       ************************************************************************/
-      void PlaySound(const std::string& sound, float volumedB = 0.0f, bool isLooping = false, bool isStreaming = true) const;
+      void PlaySound(std::string audio, bool isSFX);
 
-      /*!*********************************************************************
-      \brief
-        Stops a single channel that has the sound being passed in.
-      \param sound
-        Sound filename.
-      ************************************************************************/
-      void StopSound(const std::string& sound) const;
-
-      /*!*********************************************************************
-      \brief
-        Stops all channels.
-      ************************************************************************/
-      void StopAllChannels() const;
+      void PlayLoopedSound(std::string audio, bool isSFX);
 
       /*!*********************************************************************
       \brief
@@ -75,7 +62,34 @@ namespace GE
       \param volumedB
         Volume in db.
       ************************************************************************/
-      void SetChannelVolume(int channelId, float volumedB) const;
+      void SetChannelVolume(bool isSFX, double volumedB);
+
+      /*!*********************************************************************
+      \brief
+        Stops a single channel that has the sound being passed in.
+      \param sound
+        Sound filename.
+      ************************************************************************/
+      void StopSound(std::string audio);
+
+      void StopAllSound();
+
+      void StopChannel(ChannelID channel);
+
+    private:
+      FMOD::System* m_fModSystem{ nullptr };
+
+      ChannelID m_SFX{ 0 };
+      ChannelID m_BGM{ 1 };
+      ChannelID m_numOfChannels{ 2 };
+
+      using SoundMap = std::map<std::string, FMOD::Sound*>;
+      using ChannelMap = std::map<ChannelID, FMOD::Channel*>;
+      using CurrentPlaylist = std::unordered_map<std::string, ChannelID>;
+
+      SoundMap m_sounds;
+      ChannelMap m_channels;
+      CurrentPlaylist m_playlist;
 
       /*!*********************************************************************
       \brief
@@ -83,9 +97,8 @@ namespace GE
       \param result
         Result of fMOD functions.
       ************************************************************************/
-      static void ErrorCheck(FMOD_RESULT result);
+      void ErrorCheck(FMOD_RESULT result);
 
-    private:
       /*!*********************************************************************
       \brief
         Loads sound into sound map if not already inside.
@@ -96,15 +109,16 @@ namespace GE
       \param isStreaming
         Boolean for streaming the sound.
       ************************************************************************/
-      void LoadSound(const std::string& soundFile, bool isLooping, bool isStreaming) const;
+      void LoadSound(std::string audio);
+
+      void LoadLoopedSound(std::string audio);
 
       /*!*********************************************************************
       \brief
-        Unloads sound from sound map.
-      \param sound
-        Sound filename.
+        Loops through whole playlist and finds sounds that have stopped playing.
+        Unloads sound that has stopped playing from sound map.
       ************************************************************************/
-      void UnLoadSound(const std::string& sound) const;
+      void UnLoadSound();
 
       /*!*********************************************************************
       \brief
@@ -115,7 +129,7 @@ namespace GE
         Returns true if channel is currently playing.
         Returns false if channel is not currently playing.
       ************************************************************************/
-      bool IsPlaying(int channelId) const;
+      bool IsPlaying(std::pair<std::string, ChannelID> audio);
 
       /*!*********************************************************************
       \brief
@@ -125,7 +139,7 @@ namespace GE
       \return float
         Volume converted from db.
       ************************************************************************/
-      float dbToVolume(float db) const;
+      double dbToVolume(double db) const;
 
       /*!*********************************************************************
       \brief
@@ -135,9 +149,7 @@ namespace GE
       \return flaot
         db converted from volume.
       ************************************************************************/
-      float VolumeTodb(float volume) const;
+      double VolumeTodb(double volume) const;
     };
 	}
 }
-
-#endif

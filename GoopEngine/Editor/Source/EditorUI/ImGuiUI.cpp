@@ -22,7 +22,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../ObjectFactory/ObjectFactory.h"
 #include "../Component/Transform.h"
 #include "../Component/BoxCollider.h"
-#include <Audio/AudioSystem.h>
+#include <Systems/Audio/AudioSystem.h>
 #include "SceneHierachy.h"
 #include "ToolBar.h"
 #include "DataViz/Visualizer.h"
@@ -177,7 +177,7 @@ void ImGuiUI::Update()
     Visualizer::CreateContent("Performance Graph");
   }
 
-  Begin("Audio");
+  /*Begin("Audio");
   Assets::AssetManager const& aM{ Assets::AssetManager::GetInstance() };
   if (Button("Play BGM"))
   {
@@ -211,7 +211,7 @@ void ImGuiUI::Update()
   {
     Audio::AudioSystem::GetInstance().StopAllChannels();
   }
-  End();
+  End();*/
 
 
 

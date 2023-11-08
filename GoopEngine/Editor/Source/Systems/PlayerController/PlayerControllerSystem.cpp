@@ -9,7 +9,7 @@
 #include <Events/EventManager.h>
 #include <Graphics/GraphicsEngine.h>
 #include <Component/ScriptHandler.h>
-#include <Audio/AudioSystem.h>
+#include <Systems/Audio/AudioSystem.h>
 
 using vec3 = GE::Math::dVec3;
 
@@ -148,7 +148,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 					sprite->m_spriteData.texture = sharkSpriteID;
 				}
 			}
-			if (key == GPK_E)
+			/*if (key == GPK_E)
 			{
 				Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("slash"), 1.0f);
 			}
@@ -159,7 +159,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 			if (key == GPK_R)
 			{
 				Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("damageTaken_Leah"), 1.0f);
-			}
+			}*/
 
 #ifdef EVENT_DEBUG
 			std::cout << "PlayerControllerSystem: " << event->GetName() + " Event handled\n";

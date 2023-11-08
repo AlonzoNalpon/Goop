@@ -17,6 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
+#include <Systems/Audio/AudioSystem.h>
 #endif
 
 using namespace GE::ECS;
@@ -121,17 +122,17 @@ namespace GE::Application
           }
           else
           {
-            ecs->UpdateSystems(4,
+            ecs->UpdateSystems(5,
               typeid(GE::Systems::CollisionSystem).name(),
               typeid(GE::Systems::RenderSystem).name(),
               typeid(GE::Systems::PreRootTransformSystem).name(),
-              typeid(GE::Systems::PostRootTransformSystem).name());
+              typeid(GE::Systems::PostRootTransformSystem).name(),
+              typeid(GE::Systems::AudioSystem).name());
           }
 #else
           ecs->UpdateSystems();
 #endif  // NO_IMGUI
 
-          Audio::AudioEngine::GetInstance().Update();
           gsm.Update();
         }
         catch (GE::Debug::IExceptionBase& e)

@@ -1,7 +1,7 @@
 #include <pch.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <Graphics/GraphicsEngine.h>
-#include <Audio/AudioSystem.h>
+#include <Systems/Audio/AudioSystem.h>
 
 using namespace GE::Math;
 
