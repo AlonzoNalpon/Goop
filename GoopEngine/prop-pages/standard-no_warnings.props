@@ -29,6 +29,7 @@ xcopy "$(SolutionDir)lib\rttr-0.9.6\lib\$(Configuration)\rttr_core_d.dll" "$(Out
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <PreBuildEvent>
       <Command>xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(OutDir)" /s /r /y /q
