@@ -25,7 +25,6 @@ using u64     = unsigned long long;
 #pragma region CONSTANTS
 std::string const ASSETS_PATH{ "./Assets/" };
 std::string const SHADER_PATH{ ASSETS_PATH + "Shaders/" };
-std::string const FONTS_PATH{ ASSETS_PATH + "Fonts/" };
 #pragma endregion
 
 

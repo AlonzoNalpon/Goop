@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="Source\AI\TreeManager.cpp" />
     <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
+    <ClCompile Include="Source\EditorUI\AssetPreview.cpp" />
     <ClCompile Include="Source\EditorUI\Console.cpp" />
     <ClCompile Include="Source\AppController\AppController.cpp" />
     <ClCompile Include="Source\AssetManager\AssetManager.cpp" />
@@ -298,6 +299,7 @@
     <ClInclude Include="Source\Component\Grid.h" />
     <ClInclude Include="Source\Component\Text.h" />
     <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
+    <ClInclude Include="Source\EditorUI\AssetPreview.h" />
     <ClInclude Include="Source\EditorUI\Console.h" />
     <ClInclude Include="Source\AI\ActionNode.h" />
     <ClInclude Include="Source\AI\BehaviourTree.h" />

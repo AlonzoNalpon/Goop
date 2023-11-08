@@ -35,7 +35,8 @@ namespace GE::Assets
     AUDIO,
     SCENE,
     PREFAB,
-    SHADERS
+    SHADERS,
+    FONTS
   };
     
   // AssetManager Singleton
@@ -168,6 +169,7 @@ namespace GE::Assets
     ************************************************************************/
     ImageData const& GetData(const std::string& name);
 
+
     /*!*********************************************************************
     \brief
       Gets dimensions of the data.
@@ -209,6 +211,12 @@ namespace GE::Assets
 
     /*!*********************************************************************
     \brief
+      Loads the fonts.
+    ************************************************************************/
+    void LoadFonts();
+
+    /*!*********************************************************************
+    \brief
       Loads the required files for startup.
     ************************************************************************/
     void LoadFiles();
@@ -247,6 +255,11 @@ namespace GE::Assets
 
 #include "AssetManager.tpp"
 
+    std::string const AudioFileExt{ ".wav" },
+      ImageFileExt{ ".png" },
+      ShaderFileExts{ ".vert.frag" },
+      FontFileExt{ ".otf.ttf.woff.svg.eof" },
+      SceneFileExt{ ".scn" };
   private:
     /*!*********************************************************************
     \brief
@@ -260,7 +273,6 @@ namespace GE::Assets
     ************************************************************************/
     void LoadSpritesheets();
 
-    std::string const AudioFileExt{ ".wav" }, ImageFileExt{ ".png" }, ShaderFileExts{ ".vert.frag" };
     IDGenerator m_generator; // Generates Unique ID to assign to loaded image data.
 
     // maps storing each type of file with format <name : filepath>
@@ -270,6 +282,7 @@ namespace GE::Assets
     std::unordered_map<std::string, std::string> m_scenes;
     std::unordered_map<std::string, std::string> m_shaders;
     std::unordered_map<std::string, std::string> m_configData;
+    std::unordered_map<std::string, std::string> m_fonts;
 
     std::unordered_map<int, ImageData> m_loadedImages; // Map that contains all the loaded images data with an ID as a key.
     std::unordered_map<std::string, int> m_loadedImagesStringLookUp; // Lookup table for getting ID with filepath.

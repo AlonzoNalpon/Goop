@@ -44,8 +44,11 @@ namespace Graphics::Fonts
       auto nameIt{ m_fontIDLT.find(name) };
       if (nameIt != m_fontIDLT.end())
       {
-        throw GE::Debug::Exception<FontManager>(GE::Debug::LEVEL_ERROR, 
-          ErrMsg((std::string{"Font of this name already exists: " + name} + " in ") + path));
+        GE::Debug::ErrorLogger::GetInstance().LogMessage(
+          "FontManager: Font " + name + " already exists, replacing texture.");
+        return;
+        /*throw GE::Debug::Exception<FontManager>(GE::Debug::LEVEL_ERROR, 
+          ErrMsg((std::string{"Font of this name already exists: " + name} + " in ") + path));*/
       }
 
       // If this point is reached, the font can be added!

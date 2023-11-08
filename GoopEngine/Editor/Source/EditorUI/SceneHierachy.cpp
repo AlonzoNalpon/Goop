@@ -90,11 +90,11 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 			// Allow user to turn an entity into a root level
 			if (BeginDragDropTarget())
 			{
-				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+				/*if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
 				{
 					const char* droppedEntity{ static_cast<const char*>(payload->Data) };
 					std::cout << droppedEntity << std::endl;
-				}
+				}*/
 
 				const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
 				if (pl)
@@ -273,16 +273,50 @@ namespace
 			}
 			if (BeginDragDropTarget())
 			{
-				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
 				{
 					if (payload->Data)
 					{
 						auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
 						const char* droppedPath = static_cast<const char*>(payload->Data);
+						std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
 						if (ecs.HasComponent<GE::Component::Sprite>(entity))
 						{
 							GE::Component::Sprite* entitySpriteData = ecs.GetComponent<GE::Component::Sprite>(entity);
 							entitySpriteData->m_spriteData.texture = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
+						}
+						else
+						{
+							auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+							GE::Component::Model mdl{};
+							GE::Component::Sprite sprite{ gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
+							ecs.AddComponent(entity, mdl);
+							ecs.AddComponent(entity, sprite);
+						}
+					}
+				}
+
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_FONT"))
+				{
+					if (payload->Data)
+					{
+						auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+
+						//auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+						const char* droppedPath = static_cast<const char*>(payload->Data);
+						std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
+						if (ecs.HasComponent<GE::Component::Text>(entity))
+						{
+							// Entity has text component, replacing the font instead
+							GE::Component::Text* entityTextData = ecs.GetComponent<GE::Component::Text>(entity);
+							entityTextData->m_fontID = gEngine.fontManager.GetFontID(GE::GoopUtils::ExtractFilename(droppedPath));
+						}
+						else
+						{
+							// Entity does not have text component, adding a text component and assigning the dropped font.
+							GE::Component::Text comp;
+							comp.m_fontID = gEngine.fontManager.GetFontID(GE::GoopUtils::ExtractFilename(droppedPath));
+							ecs.AddComponent(entity, comp);
 						}
 					}
 				}

@@ -353,7 +353,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), { 100, 100 }, { 0, 1 }, { 1, 0 });
 					if (ImGui::BeginDragDropTarget())
 					{
-						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
 						{
 							if (payload->Data)
 							{
@@ -565,6 +565,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					
 					auto const& fontManager{ Graphics::GraphicsEngine::GetInstance().fontManager };
 					auto const& fontLT{ fontManager.GetFontLT() }; //lookup table for fonts (string to ID)
+					
 					if (BeginCombo("Font", fontManager.GetFontName(textObj->m_fontID).c_str()))
 					{
 						for (auto const& it : fontLT)
@@ -575,6 +576,17 @@ void GE::EditorGUI::Inspector::CreateContent()
 							}
 						}
 						EndCombo();
+					}
+					if (BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_FONT"))
+						{
+							const char* droppedPath = static_cast<const char*>(payload->Data);
+							GE::Component::Text* entityTextData = ecs.GetComponent<GE::Component::Text>(entity);
+							entityTextData->m_fontID = Graphics::GraphicsEngine::GetInstance().fontManager.GetFontID(GE::GoopUtils::ExtractFilename(droppedPath));
+
+						}
+						EndDragDropTarget();
 					}
 					EndTable();
 					Separator();

@@ -96,10 +96,6 @@ namespace {
 #pragma endregion
     // TEST LOADING FONTS
     m_fontManager.Init(m_fontMdl.shader, m_fontMdl.vaoid);
-    constexpr GLint FONT_SIZE{256};
-    m_fontManager.LoadFont("Reyes", FONTS_PATH + "Reyes-lqEV.ttf", FONT_SIZE);
-    m_fontManager.LoadFont("Marchesa", FONTS_PATH + "Marchesa-M7lp.otf", FONT_SIZE);
-
 
     // THESE ARE IMPORTANT TO HAVE
     glEnable(GL_BLEND);

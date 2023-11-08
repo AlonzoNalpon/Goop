@@ -13,7 +13,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 namespace GE::GoopUtils 
 {
-
 	void ReloadFileData()
 	{
 		auto& am{ GE::Assets::AssetManager::GetInstance() };

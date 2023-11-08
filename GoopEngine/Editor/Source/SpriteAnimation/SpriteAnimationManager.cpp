@@ -50,9 +50,11 @@ namespace Graphics
     // If another animation with matching name has been found, notify user and replace
     if (it != m_animLookupTable.end())
     {
-      std::string error{ "Another animation of this name exists: " };
+      GE::Debug::ErrorLogger::GetInstance().LogMessage(
+        "SpriteAnimationManager: Animation " + name + " already exists, replacing animation.");
+      /*std::string error{ "Another animation of this name exists: " };
       (error += name) += " | replacing this animation ...";
-      std::cout << error << std::endl;
+      std::cout << error << std::endl;*/
 
       size_t animID{ it->second };
       m_spriteAnimations[animID] = animation; // replace this animation

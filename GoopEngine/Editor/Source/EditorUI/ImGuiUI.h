@@ -52,6 +52,7 @@ namespace GE::EditorGUI
 	{
 	private:		
 		static GE::ECS::Entity m_selectedEntity;		
+		static std::string m_selectedAsset;
 		static bool m_play;
 		static bool m_pause;
 		static bool m_step;
@@ -89,6 +90,24 @@ namespace GE::EditorGUI
 			Entity selected
 		********************************************************************/
 		static void SetSelectedEntity(GE::ECS::Entity& selectedEntity);
+
+		/*!******************************************************************
+		\brief
+			Returns a read only ID of the selected asset
+
+		\return
+			Selected asset
+		********************************************************************/
+		static std::string GetSelectedAsset();
+
+		/*!******************************************************************
+		\brief
+			Sets the currently selected asset
+
+		\param[in] selectedEntity
+			Entity asset
+		********************************************************************/
+		static void SetSelectedAsset(std::string selectedAssetPath);
 
 		/*!*********************************************************************
 		\brief

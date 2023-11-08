@@ -22,6 +22,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ObjectFactory/ObjectFactory.h>
 #include <InputManager/InputManager.h>
 #include <filesystem>
+#include <GameStateManager/GameStateManager.h>
 
 void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBufferInfo & fbInfo)
 {
@@ -50,28 +51,25 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
   ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
   if (ImGui::BeginDragDropTarget())
   {
-    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
     {
-      if (payload->Data)
+      const char* droppedPath = static_cast<const char*>(payload->Data);
+      std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
+      auto const mousePosition = GE::Input::InputManager::GetInstance().GetMousePosWorld();
+
+      if (extension == "png")
       {
-        const char* droppedPath = static_cast<const char*>(payload->Data);
-        std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
-        auto const mousePosition = GE::Input::InputManager::GetInstance().GetMousePosWorld();
+        GE::ECS::Entity imageEntity = ecs->CreateEntity();
+        GE::Component::Transform trans{};
+        trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
+        trans.m_worldScale = { 1, 1, 1 };
+        GE::Component::Model mdl{};
+        GE::Component::Sprite sprite{ gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
 
-        if (extension == "png")
-        {
-          GE::ECS::Entity imageEntity = ecs->CreateEntity();
-          GE::Component::Transform trans{};
-          trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
-          trans.m_worldScale = { 1, 1, 1 };
-          GE::Component::Model mdl{};
-          GE::Component::Sprite sprite{ gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
-
-          ecs->AddComponent(imageEntity, trans);
-          ecs->AddComponent(imageEntity, mdl);
-          ecs->AddComponent(imageEntity, sprite);
-          ecs->SetEntityName(imageEntity, GE::GoopUtils::ExtractFilename(droppedPath));
-        }
+        ecs->AddComponent(imageEntity, trans);
+        ecs->AddComponent(imageEntity, mdl);
+        ecs->AddComponent(imageEntity, sprite);
+        ecs->SetEntityName(imageEntity, GE::GoopUtils::ExtractFilename(droppedPath));
       }
     }
     if (const ImGuiPayload* payload2 = ImGui::AcceptDragDropPayload("ASSET_BROWSER_PREFAB"))
@@ -88,6 +86,12 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
       }
       // retrieve payload and cast back to base type]
     }
+    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_SCENE"))
+    {
+      const char* droppedPath = static_cast<const char*>(payload->Data);
+      GE::GSM::GameStateManager::GetInstance().SetNextScene(GE::GoopUtils::ExtractFilename(droppedPath));
+    }
+
     ImGui::EndDragDropTarget();
   }
 
