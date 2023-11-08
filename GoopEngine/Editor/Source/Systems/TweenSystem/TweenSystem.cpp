@@ -35,6 +35,10 @@ void TweenSystem::FixedUpdate()
 		{
 			continue;
 		}
+		if (tween->m_paused)
+		{
+			continue;
+		}
 
 		Transform* trans = m_ecs->GetComponent<Transform>(entity);
 		auto [target, duration] = m_ecs->GetComponent<Tween>(entity)->m_tweens.front();

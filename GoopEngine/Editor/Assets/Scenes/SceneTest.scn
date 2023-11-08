@@ -39,7 +39,7 @@
                     "tweens": [
                         {
                             "target": "{ -900, 0, 0 }",
-                            "duration": 1.0
+                            "duration": 0.3
                         },
                         {
                             "target": "{ 0, -350, 0 }",
@@ -47,7 +47,7 @@
                         },
                         {
                             "target": "{ 784, 250, 0 }",
-                            "duration": 1.0
+                            "duration": 5.0
                         }
                     ],
                     "timeTaken": 3.0,

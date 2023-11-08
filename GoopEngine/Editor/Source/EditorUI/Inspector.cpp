@@ -482,6 +482,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputDouble1("Time Elapsed", tween->m_timeElapsed);
 					TableNextRow();
 					InputDouble3("Last End Point", tween->m_originalPos, inputWidth);
+					TableNextRow();
+					InputCheckBox("Paused", tween->m_paused);
 					EndTable();
 					InputList("Tween", tween->m_tweens, inputWidth);
 					Separator();
