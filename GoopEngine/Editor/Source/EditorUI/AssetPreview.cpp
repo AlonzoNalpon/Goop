@@ -28,7 +28,7 @@ void GE::EditorGUI::AssetPreview::CreateContent()
 		newW = ImGui::GetWindowSize().x * WINDOW_SCALE;
 		yPadding = ImGui::GetCursorPosY() + (ImGui::GetWindowSize().y * 0.5f) - (newH * 0.5f);
 
-		if (newH >= ImGui::GetWindowSize().y * WINDOW_SCALE || ((static_cast<float>(w) / static_cast<float>(h))) <= 1.5f)
+		if (newH >= ImGui::GetWindowSize().y * WINDOW_SCALE)
 		{
 			newW = static_cast<float>(w) / static_cast<float>(h) * ImGui::GetWindowSize().y * WINDOW_SCALE;
 			newH = ImGui::GetWindowSize().y * WINDOW_SCALE;

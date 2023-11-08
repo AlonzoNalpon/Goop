@@ -34,6 +34,7 @@ namespace
 	std::filesystem::path m_draggedPrefab;
 	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" }, m_fontFile{ ".otf" };
 	float thumbnailSize = 300.0f;
+	int colAmount = 5;
 }
 
 void AssetBrowser::CreateContentDir()
@@ -97,8 +98,16 @@ void AssetBrowser::CreateContentView()
 	}
 
 	AssetManager& assetManager = AssetManager::GetInstance();
+	ImGui::Columns(colAmount, 0, false);
+	float charSize = CalcTextSize("012345678901").x * 2;
+	ImGui::SetColumnWidth(0, charSize);
+	ImGui::NextColumn();
 	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
 	{
+		if (!(ImGui::GetColumnIndex() % colAmount))
+		{
+			ImGui::NextColumn();
+		}
 		std::string const& extension{ file.path().extension().string() };
 
 		if (!file.is_regular_file())
@@ -108,27 +117,20 @@ void AssetBrowser::CreateContentView()
 
 		std::string path = file.path().filename().string();
 		const char* pathCStr = path.c_str();
-		if (extension == m_imageFile)	// prefab
+		ImTextureID test = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
+		ImTextureID test2 = reinterpret_cast<ImTextureID>(assetManager.GetID("./Assets/Sprites\\ImageFile.png"));
+
+		if (extension == m_imageFile)
 		{
-			//name of prefab
-			unsigned w, h;
-			float newW, newH;
-			assetManager.GetDimensions(assetManager.GetID(file.path().string()), w, h);
-			if (w >= h)
-			{
-				newH = static_cast<float>(h) / static_cast<float>(w) * thumbnailSize;
-				newW = thumbnailSize;
-			}
-			else
-			{
-				newW = static_cast<float>(w) / static_cast<float>(h) * thumbnailSize;
-				newH = thumbnailSize;
-			}
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-			ImGui::ImageButton(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { newW, newH }, { 0, 1 }, { 1, 0 });
+			ImGui::ImageButton(test, { 100.f, 100.f }, { 0, 1 }, { 1, 0 });
 			if (IsItemClicked())
 			{
 				ImGuiHelper::SetSelectedAsset(file.path().string());
+			}
+			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
+			{
+				ImGui::SetWindowFocus("Asset Preview");
 			}
 			if (ImGui::BeginDragDropSource())
 			{
@@ -138,7 +140,10 @@ void AssetBrowser::CreateContentView()
 
 				ImGui::EndDragDropSource();
 			}
+			Text(pathCStr);
 			ImGui::PopStyleColor();
+			ImGui::NextColumn();
+
 		}
 		else if (extension == m_prefabFile)
 		{
@@ -196,6 +201,7 @@ void AssetBrowser::CreateContentView()
 			}*/
 		}
 	}
+	ImGui::Columns(1);
 }
 
 void GE::EditorGUI::AssetBrowser::CreateContent()
