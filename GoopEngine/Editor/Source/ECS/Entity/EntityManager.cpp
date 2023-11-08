@@ -16,14 +16,14 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace GE::ECS;
 
 EntityManager::EntityManager(unsigned int maxEntities) : 
-	m_maxEntities{ maxEntities }, m_entitiesAlive{0}
+	m_maxEntities{ maxEntities }
 {
 	m_mapOfActive.resize(maxEntities);
 	m_entitySignatures.resize(maxEntities);
 	// Push back full list of entities as available
 	for (Entity i{0}; i < m_entitySignatures.size(); ++i)
 	{
-		m_availableEntities.push_back(i);
+		m_availableEntities.insert(i);
 	}
 	m_parent.resize(maxEntities);
 	std::fill(m_parent.begin(), m_parent.end(), INVALID_ID);
@@ -42,16 +42,30 @@ Entity EntityManager::CreateEntity()
 		throw GE::Debug::Exception<EntityManager>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Creating more entities than allowed"));
 	}
 
-	Entity entity = m_availableEntities.front();
-	m_availableEntities.pop_front();
+	Entity entity = *m_availableEntities.begin();
+	m_availableEntities.erase(entity);
 
-	m_entitiesAlive++;
 	// Clear component bitset signature
 	m_entitySignatures[entity].reset();
 	m_mapOfActive[entity] = true;
 	m_entities.insert(entity);
 	m_names[entity] = "Entity " + std::to_string(entity);
 	return entity;
+}
+
+void GE::ECS::EntityManager::CreateEntity(Entity entity, std::string name)
+{
+	if (m_entities.contains(entity))
+	{
+		throw GE::Debug::Exception<EntityManager>(GE::Debug::LEVEL_ERROR, ErrMsg("Creating an entity that already exist"));
+	}
+
+	m_availableEntities.erase(entity);
+	// Clear component bitset signature
+	m_entitySignatures[entity].reset();
+	m_mapOfActive[entity] = true;
+	m_entities.insert(entity);
+	m_names[entity] = name;
 }
 
 void EntityManager::DestroyEntity(Entity& entity)
@@ -62,7 +76,7 @@ void EntityManager::DestroyEntity(Entity& entity)
 	m_mapOfActive[entity] = false;
 	if (m_entities.erase(entity))
 	{
-		m_availableEntities.push_front(entity);
+		m_availableEntities.insert(entity);
 	}
 	m_names.erase(entity);
 

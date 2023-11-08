@@ -14,6 +14,11 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 using namespace GE::ECS;
 
+void GE::ECS::EntityComponentSystem::CreateEntity(Entity entity, std::string name)
+{
+	m_entityManager->CreateEntity(entity, name);
+}
+
 EntityComponentSystem::EntityComponentSystem()
 {
 	m_componentManager = std::make_unique<ComponentManager>();
