@@ -10,7 +10,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include "Entity.h"
 #include <vector>
-#include <deque>
 #include <set>
 #include <map>
 
@@ -24,11 +23,8 @@ namespace GE
 			// Max entities in the game
 			unsigned int m_maxEntities;
 		private:
-			// Current number of activiely used EntityIDs
-			unsigned int m_entitiesAlive;
-
 			std::vector<ComponentSignature> m_entitySignatures;
-			std::deque<Entity> m_availableEntities;
+			std::set<Entity> m_availableEntities;
 			std::vector<bool> m_mapOfActive;
 			std::set<Entity> m_entities;
 
@@ -38,6 +34,8 @@ namespace GE
 			std::vector<std::set<Entity>> m_children;
 
 			std::map<Entity, std::string> m_names;
+
+
 		public:
 			/*!*********************************************************************
 			\brief
@@ -69,6 +67,16 @@ namespace GE
 			  A new entity.
 			************************************************************************/
 			Entity CreateEntity();
+
+			/*!*********************************************************************
+			\brief
+				Creates an entity with a given ID. This function is only to be used
+				by the deserialization process.
+
+			\param
+				ID of the entity you want to create.
+			************************************************************************/
+			void CreateEntity(Entity entity, std::string name);
 
 			/*!*********************************************************************
 			\brief

@@ -60,6 +60,8 @@
     <Compile Include="AI\RootNode.cs" />
     <Compile Include="AI\SelectorNode.cs" />
     <Compile Include="AI\SequenceNode.cs" />
+    <Compile Include="Cards\AttackPlayer.cs" />
+    <Compile Include="Cards\CardBase.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

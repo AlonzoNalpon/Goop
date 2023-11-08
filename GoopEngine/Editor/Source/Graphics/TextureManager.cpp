@@ -16,6 +16,15 @@ namespace Graphics
 
   GLuint TextureManager::AddTexture(std::string const& name, GLint w, GLint h, unsigned char const* imageData)
   {
+    if (m_texturesLT.find(name) != m_texturesLT.end())
+    {
+      DestroyTexture(m_texturesLT[name]);
+      GE::Debug::ErrorLogger::GetInstance().LogMessage(
+        "TextureManager: Texture " + name + " already exists, replacing texture.");
+      // return m_texturesLT[name];
+      /*throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
+        ErrMsg("texture of this name already exists: " + name));*/
+    }
     Texture newTexture{};
     newTexture.height = h;
     newTexture.width = w;
@@ -31,12 +40,6 @@ namespace Graphics
     m_textures.emplace(newTexture.textureHandle, newTexture); // add this texture to texture container
 
     // Add the texture to the lookup table
-    if (m_texturesLT.find(name) != m_texturesLT.end())
-    {
-      return m_texturesLT[name];
-      /*throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
-        ErrMsg("texture of this name already exists: " + name));*/
-    }
     m_texturesLT[name] = newTexture.textureHandle;
     m_texNameLT[newTexture.textureHandle] = name;
     return newTexture.textureHandle;

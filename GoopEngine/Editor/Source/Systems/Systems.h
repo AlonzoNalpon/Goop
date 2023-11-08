@@ -10,3 +10,4 @@
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <Systems/Enemy/EnemySystem.h>
 #include <Systems/Text/TextRenderSystem.h>
+#include <Systems/TweenSystem/TweenSystem.h>

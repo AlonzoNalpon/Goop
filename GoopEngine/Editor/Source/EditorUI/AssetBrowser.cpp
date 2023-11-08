@@ -32,8 +32,9 @@ namespace
 	std::filesystem::path m_currDir;
 	std::filesystem::path assetsDirectory;
 	std::filesystem::path m_draggedPrefab;
-	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" };
+	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" }, m_fontFile{ ".otf" };
 	float thumbnailSize = 300.0f;
+	int colAmount = 5;
 }
 
 void AssetBrowser::CreateContentDir()
@@ -97,8 +98,16 @@ void AssetBrowser::CreateContentView()
 	}
 
 	AssetManager& assetManager = AssetManager::GetInstance();
+	ImGui::Columns(colAmount, 0, false);
+	float charSize = CalcTextSize("012345678901").x * 2;
+	ImGui::SetColumnWidth(0, charSize);
+	ImGui::NextColumn();
 	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
 	{
+		if (!(ImGui::GetColumnIndex() % colAmount))
+		{
+			ImGui::NextColumn();
+		}
 		std::string const& extension{ file.path().extension().string() };
 
 		if (!file.is_regular_file())
@@ -108,36 +117,40 @@ void AssetBrowser::CreateContentView()
 
 		std::string path = file.path().filename().string();
 		const char* pathCStr = path.c_str();
-		if (extension == m_imageFile)	// prefab
+		ImTextureID test = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
+		ImTextureID test2 = reinterpret_cast<ImTextureID>(assetManager.GetID("./Assets/Sprites\\ImageFile.png"));
+
+		if (extension == m_imageFile)
 		{
-			//name of prefab
-			unsigned w, h;
-			float newW, newH;
-			assetManager.GetDimensions(assetManager.GetID(file.path().string()), w, h);
-			if (w >= h)
-			{
-				newH = static_cast<float>(h) / static_cast<float>(w) * thumbnailSize;
-				newW = thumbnailSize;
-			}
-			else
-			{
-				newW = static_cast<float>(w) / static_cast<float>(h) * thumbnailSize;
-				newH = thumbnailSize;
-			}
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-			ImGui::ImageButton(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { newW, newH }, { 0, 1 }, { 1, 0 });
+			ImGui::ImageButton(test, { 100.f, 100.f }, { 0, 1 }, { 1, 0 });
+			if (IsItemClicked())
+			{
+				ImGuiHelper::SetSelectedAsset(file.path().string());
+			}
+			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
+			{
+				ImGui::SetWindowFocus("Asset Preview");
+			}
 			if (ImGui::BeginDragDropSource())
 			{
-				ImGui::SetDragDropPayload("ASSET_BROWSER", pathCStr, strlen(pathCStr) + 1);
+				ImGui::SetDragDropPayload("ASSET_BROWSER_IMAGE", pathCStr, strlen(pathCStr) + 1);
+				Image(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { 50, 50 }, { 0, 1 }, { 1, 0 });
 				Text(pathCStr);
 
 				ImGui::EndDragDropSource();
 			}
+			Text(pathCStr);
 			ImGui::PopStyleColor();
+			ImGui::NextColumn();
+
 		}
 		else if (extension == m_prefabFile)
 		{
 			Selectable(pathCStr);
+			if (IsItemClicked())
+				ImGuiHelper::SetSelectedAsset("");
+			
 			if (ImGui::BeginDragDropSource())
 			{
 				m_draggedPrefab = file.path();
@@ -146,20 +159,49 @@ void AssetBrowser::CreateContentView()
 				ImGui::EndDragDropSource();
 			}
 		}
-		else
+		else if (assetManager.FontFileExt.find(extension) != std::string::npos)
 		{
 			Selectable(pathCStr);
+			if (IsItemClicked())
+				ImGuiHelper::SetSelectedAsset("");
+
 			if (ImGui::BeginDragDropSource())
 			{
-				if (extension == m_prefabFile || extension == m_imageFile)
-				{
-					ImGui::SetDragDropPayload("ASSET_BROWSER", pathCStr, strlen(pathCStr) + 1);
-					Text(pathCStr);
-				}
+				ImGui::SetDragDropPayload("ASSET_BROWSER_FONT", pathCStr, strlen(pathCStr) + 1);
+				Text(pathCStr);
 				ImGui::EndDragDropSource();
 			}
 		}
+		else if (assetManager.SceneFileExt.find(extension) != std::string::npos)
+		{
+			Selectable(pathCStr);
+			if (IsItemClicked())
+				ImGuiHelper::SetSelectedAsset("");
+
+			if (ImGui::BeginDragDropSource())
+			{
+				ImGui::SetDragDropPayload("ASSET_BROWSER_SCENE", pathCStr, strlen(pathCStr) + 1);
+				Text(pathCStr);
+				ImGui::EndDragDropSource();
+			}
+		}
+		else
+		{
+			Text(pathCStr);
+			/*if (ImGui::BeginDragDropSource())
+			{
+				if (extension == m_prefabFile ||
+					extension == m_imageFile ||
+					assetManager.FontFileExt.find(extension) != std::string::npos)
+				{
+					ImGui::SetDragDropPayload("ASSET_BROWSER_IMAGE", pathCStr, strlen(pathCStr) + 1);
+					Text(pathCStr);
+				}
+				ImGui::EndDragDropSource();
+			}*/
+		}
 	}
+	ImGui::Columns(1);
 }
 
 void GE::EditorGUI::AssetBrowser::CreateContent()
@@ -208,7 +250,7 @@ void AssetBrowser::InitView()
 	{
 		for (auto itr : toUnload)
 		{
-			assetManager.FreeImage(assetManager.ExtractFilename(assetManager.GetName(itr)));
+			assetManager.FreeImage(GE::GoopUtils::ExtractFilename(assetManager.GetName(itr)));
 		}
 
 		m_textID.clear();
@@ -240,7 +282,7 @@ void AssetBrowser::InitView()
 
 	for (auto const& itr : m_assetIDs)
 	{
-		auto imgID = texManager.GetTextureID(assetManager.ExtractFilename(assetManager.GetName(itr)));
+		auto imgID = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(assetManager.GetName(itr)));
 		m_textID.insert(reinterpret_cast<ImTextureID>(imgID));
 	}
 }

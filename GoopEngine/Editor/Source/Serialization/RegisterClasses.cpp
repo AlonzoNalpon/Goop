@@ -91,16 +91,6 @@ RTTR_REGISTRATION
     .method("AddForce", &Component::Velocity::AddForce)
     ;
 
-  rttr::registration::class_<Component::Tween>("Tween")
-    .constructor<double>()
-    .property("tweens", &Component::Tween::m_tweens)
-    .property("timePerTween", &Component::Tween::m_timePerTween)
-    .property("timeTaken", &Component::Tween::m_timeTaken)
-    .property("timeElapsed", &Component::Tween::m_timeElapsed)
-    .property("originalPos", &Component::Tween::m_originalPos)
-    .method("AddTween", &Component::Tween::AddTween)
-    ;
-
   rttr::registration::class_<Graphics::SpriteData>("SpriteData")
     .constructor<>()
     .property("texture", &Graphics::SpriteData::texture)

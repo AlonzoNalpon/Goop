@@ -23,6 +23,27 @@ namespace GE
 	{
 		class EntityComponentSystem : public Singleton<EntityComponentSystem>
 		{
+		private:
+			std::unique_ptr<ComponentManager> m_componentManager;
+			std::unique_ptr<EntityManager> m_entityManager;
+			std::unique_ptr<SystemManager> m_systemManager;
+
+			/*!*********************************************************************
+			\brief
+			  Calls EntityManager's CreateEntity overload. This functions allows
+				the user to create an entity with a given ID and name, which is
+				not assigned by the ECS.
+
+				This function is private to prevent misuse. Any user who wants to use
+				this has to explicitly friend the ECS.
+
+			\param entity
+				Entity ID which you will be using
+
+			\param name
+			  Name of the entity being created
+			************************************************************************/
+			void CreateEntity(Entity entity, std::string name = "");
 		public:
 			/*!*********************************************************************
 			\brief
@@ -386,11 +407,6 @@ namespace GE
 #ifndef NO_IMGUI
 			void UpdateSystems(int systemCount, ...);
 #endif // !NO_IMGUI
-
-		private:
-			std::unique_ptr<ComponentManager> m_componentManager;
-			std::unique_ptr<EntityManager> m_entityManager;
-			std::unique_ptr<SystemManager> m_systemManager;
 		};
 
 #include "EntityComponentSystem.tpp"

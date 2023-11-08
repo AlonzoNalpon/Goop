@@ -1,6 +1,5 @@
 #include <pch.h>
 #include <Systems/PlayerController/PlayerControllerSystem.h>
-#include <Component/Tween.h>
 #include <Component/SpriteAnim.h>
 #include <Component/Sprite.h>
 #include <Component/Transform.h>
@@ -58,43 +57,7 @@ void PlayerControllerSystem::FixedUpdate()
 			scriptHan->UpdateAllScripts();
 		}
 	}
-	double dt = GE::FPS::FrameRateController::GetInstance().GetFixedDeltaTime();
-
-	for (Entity entity : m_entities) {
-
-		Tween* tween = m_ecs->GetComponent<Tween>(entity);
-
-		if (tween->m_tweens.size() == 0)
-		{
-			continue;
-		}
-
-		Transform* trans = m_ecs->GetComponent<Transform>(entity);
-		vec3& targetPos = m_ecs->GetComponent<Tween>(entity)->m_tweens.front();
-
-		if (tween->m_timeElapsed > tween->m_timePerTween) 
-		{
-			tween->m_timeElapsed -= tween->m_timePerTween;
-			tween->m_originalPos = targetPos;
-			double normalisedTime = tween->m_timeElapsed / tween->m_timePerTween;
-			trans->m_pos = Tweening(tween->m_originalPos, targetPos, normalisedTime);
-			tween->m_tweens.pop_front();
-		}
-		else 
-		{
-			if (!tween->m_started)
-			{
-				tween->m_originalPos = trans->m_pos;
-				tween->m_started = true;
-			}
-			double normalisedTime = tween->m_timeElapsed / tween->m_timePerTween;
-			trans->m_pos = Tweening(tween->m_originalPos, targetPos, normalisedTime);
-		}
-		tween->m_timeElapsed += dt;
-
-		
-		//std::cout << "Player Position: [" << trans->m_pos.x << ", " << trans->m_pos.y << "]\n";
-	}
+	
 	frc.EndSystemTimer("Player Controller");
 }
 

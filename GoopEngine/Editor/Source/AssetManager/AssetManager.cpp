@@ -107,6 +107,18 @@ namespace GE::Assets
 		return m_loadedImages[GetID(name)];
 	}
 
+
+	void AssetManager::LoadFonts()
+	{
+		constexpr GLint FONT_SIZE{ 256 };
+		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+
+		for (auto entry : m_fonts)
+		{
+			gEngine.fontManager.LoadFont(GE::GoopUtils::ExtractFilename(entry.first), entry.second, FONT_SIZE);
+		}
+	}
+
 	void AssetManager::LoadFiles()
 	{
 		// construct path object with relative path to project dir
@@ -144,15 +156,19 @@ namespace GE::Assets
 			{
 				m_shaders.emplace(file.path().filename().string(), file.path().string());
 			}
+			else if (AssetManager::FontFileExt.find(currExt) != std::string::npos)
+			{
+				m_fonts.emplace(file.path().filename().string(), file.path().string());
+			}
 			else
 			{
 				Debug::ErrorLogger::GetInstance().LogMessage("AssetManager: " + file.path().string() + " ignored on load");
 				//throw Debug::Exception<AssetManager>(Debug::LEVEL_INFO, ErrMsg(file.path().string() + " ignored on load"));
 			}
 		}
-
 		LoadImages();
 		LoadSpritesheets();
+		LoadFonts();
 
 		stbi_set_flip_vertically_on_load(true);
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
@@ -191,6 +207,10 @@ namespace GE::Assets
 			fileExt = AssetManager::AudioFileExt;
 			ptrToMap = &m_audio;
 			break;
+		case FileType::FONTS:
+			m_fonts.clear();
+			fileExt = AssetManager::FontFileExt;
+			ptrToMap = &m_fonts;
 		default:
 			Debug::ErrorLogger::GetInstance().LogMessage("Function not coded to handle requested type");
 			return;
@@ -314,7 +334,7 @@ namespace GE::Assets
 
 		ImageData imageData{ 0 , path, width, height, channels, img };
 		
-		unsigned TMID = gEngine.InitTexture(ExtractFilename(imageData.GetName()), imageData);
+		unsigned TMID = gEngine.InitTexture(GE::GoopUtils::ExtractFilename(imageData.GetName()), imageData);
 		imageData.SetID(TMID);
 
 		m_loadedImages.insert(std::pair<int, ImageData>(TMID, imageData));
@@ -353,7 +373,7 @@ namespace GE::Assets
 
 			m_loadedImagesStringLookUp.erase(imageData.GetName());
 			m_loadedImagesIDLookUp.erase(id);
-			gEngine.DestroyTexture(gEngine.textureManager.GetTextureID(ExtractFilename(pair.second.GetName())));
+			gEngine.DestroyTexture(gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(pair.second.GetName())));
 		}
 
 		// Clear the map of loaded images

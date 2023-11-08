@@ -152,6 +152,26 @@ namespace
 	************************************************************************/
 	template <>
 	void InputList(std::string propertyName, std::deque<GE::Math::dVec3>& list, float fieldWidth, bool disabled);
+
+	/*!*********************************************************************
+	\brief
+		Wrapper for to create specialized inspector list of queue of
+		Tweens
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] list
+		Queue of Tweens
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
+	template <>
+	void InputList(std::string propertyName, std::deque<GE::Component::Tween::Action>& list, float fieldWidth, bool disabled);
 }
 
 void GE::EditorGUI::Inspector::CreateContent()
@@ -333,7 +353,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), { 100, 100 }, { 0, 1 }, { 1, 0 });
 					if (ImGui::BeginDragDropTarget())
 					{
-						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
 						{
 							if (payload->Data)
 							{
@@ -461,9 +481,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 					InputDouble1("Time Elapsed", tween->m_timeElapsed);
 					TableNextRow();
-					InputDouble1("Time Between", tween->m_timePerTween);
-					TableNextRow();
 					InputDouble3("Last End Point", tween->m_originalPos, inputWidth);
+					TableNextRow();
+					InputCheckBox("Paused", tween->m_paused);
 					EndTable();
 					InputList("Tween", tween->m_tweens, inputWidth);
 					Separator();
@@ -545,6 +565,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					
 					auto const& fontManager{ Graphics::GraphicsEngine::GetInstance().fontManager };
 					auto const& fontLT{ fontManager.GetFontLT() }; //lookup table for fonts (string to ID)
+					
 					if (BeginCombo("Font", fontManager.GetFontName(textObj->m_fontID).c_str()))
 					{
 						for (auto const& it : fontLT)
@@ -555,6 +576,17 @@ void GE::EditorGUI::Inspector::CreateContent()
 							}
 						}
 						EndCombo();
+					}
+					if (BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_FONT"))
+						{
+							const char* droppedPath = static_cast<const char*>(payload->Data);
+							GE::Component::Text* entityTextData = ecs.GetComponent<GE::Component::Text>(entity);
+							entityTextData->m_fontID = Graphics::GraphicsEngine::GetInstance().fontManager.GetFontID(GE::GoopUtils::ExtractFilename(droppedPath));
+
+						}
+						EndDragDropTarget();
 					}
 					EndTable();
 					Separator();
@@ -840,6 +872,44 @@ namespace
 			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
 			{
 				list.push_back({ 0, 0, 0 });
+			}
+
+			TreePop();
+		}
+		Indent();
+	}
+
+	template<>
+	void InputList(std::string propertyName, std::deque<GE::Component::Tween::Action>& list, float fieldWidth, bool disabled)
+	{
+		// 12 characters for property name
+		float charSize = CalcTextSize("012345678901").x;
+
+		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			Separator();
+			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
+			int i{};
+			for (auto& [target, duration] : list)
+			{
+				PushID((std::to_string(i)).c_str());
+				InputDouble3(propertyName + " " + std::to_string(i++), target, fieldWidth, disabled);
+				TableNextRow();
+				TableNextColumn();
+				TableNextColumn();
+				InputDouble1("Duration", duration);
+				TableNextRow();
+				PopID();
+			}
+			EndTable();
+
+			Separator();
+			Unindent();
+			// 20 magic number cuz the button looks good
+			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
+			{
+				list.emplace_back(vec3{ 0, 0, 0 }, 0);
 			}
 
 			TreePop();

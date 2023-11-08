@@ -27,6 +27,7 @@ namespace GE::ECS
 		PRE_ROOT_TRANSFORM,
 		ENEMY_SYSTEM,
 		TEXT_RENDER,
+		TWEEN_SYSTEM,
 		TOTAL_SYSTEMS // Total number of system types
 	};
 
@@ -46,7 +47,8 @@ namespace GE::ECS
 		{ SYSTEM_TYPES::ENEMY_SYSTEM, "EnemySystem" },
 		{ SYSTEM_TYPES::PRE_ROOT_TRANSFORM, "PreRootTransformSystem" },
 		{ SYSTEM_TYPES::POST_ROOT_TRANSFORM, "PostRootTransformSystem" },
-		{ SYSTEM_TYPES::TEXT_RENDER, "TextRenderSystem" }
+		{ SYSTEM_TYPES::TEXT_RENDER, "TextRenderSystem" },
+		{ SYSTEM_TYPES::TWEEN_SYSTEM, "TweenSystem" }
 	};
 
 	// Const map so only interated through ranged for,
@@ -62,7 +64,8 @@ namespace GE::ECS
 		{ "EnemySystem", SYSTEM_TYPES::ENEMY_SYSTEM },
 		{ "PreRootTransformSystem", SYSTEM_TYPES::PRE_ROOT_TRANSFORM },
 		{ "PostRootTransformSystem", SYSTEM_TYPES::POST_ROOT_TRANSFORM },
-		{ "TextRenderSystem", SYSTEM_TYPES::TEXT_RENDER }
+		{ "TextRenderSystem", SYSTEM_TYPES::TEXT_RENDER },
+		{ "TweenSystem", SYSTEM_TYPES::TWEEN_SYSTEM }
 	};
 
 	/*!*********************************************************************

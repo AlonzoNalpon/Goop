@@ -125,9 +125,8 @@ namespace GE
 		GE::Component::Tween DeserializeComponent(std::string const& componentData)
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
-			Component::Tween tween{ 0 };
-			tween.m_tweens = cw.Get<std::deque<Math::dVec3>>("tweens");
-			tween.m_timePerTween = cw.Get<double>("timePerTween");
+			Component::Tween tween;
+			tween.m_tweens = cw.Get<std::deque<GE::Component::Tween::Action>>("tweens");
 			tween.m_timeTaken = cw.Get<double>("timeTaken");
 			tween.m_timeElapsed = cw.Get<double>("timeElapsed");
 			tween.m_originalPos = cw.Get<Math::dVec3>("originalPos");

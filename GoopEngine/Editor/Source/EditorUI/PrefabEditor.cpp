@@ -101,7 +101,7 @@ void PrefabEditor::CreateContent()
         ImageButton(reinterpret_cast<ImTextureID>(val), { 100, 100 }, { 0, 1 }, { 1, 0 });
         if (ImGui::BeginDragDropTarget())
         {
-          if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER"))
+          if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
           {
             if (payload->Data)
             {

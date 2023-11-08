@@ -331,6 +331,33 @@ std::deque<Math::dVec3> ComponentWrapper::Get(const char* key) const
   }
 }
 
+template <>
+std::deque<GE::Component::Tween::Action> ComponentWrapper::Get(const char* key) const
+{
+  try
+  {
+    std::deque<GE::Component::Tween::Action> ret{};
+    rapidjson::Value const& list{ (*m_ptr)[key] };
+    for (auto const& elem : list.GetArray())
+    {
+      Math::dVec3 tgt{};
+      tgt << elem["target"].GetString();
+
+      ret.emplace_back(tgt, elem["duration"].GetDouble());
+    }
+
+    return ret;
+  }
+  catch (...)
+  {
+    std::ostringstream oss{};
+    oss << "ComponentWrapper: Unable to convert value of key: " << key
+      << " to std::deque<Math::dVec3>";
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    return {};
+  }
+}
+
 template<>
 std::vector<std::string>
 ComponentWrapper::Get(const char* key) const

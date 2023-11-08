@@ -18,26 +18,24 @@ namespace GE
 		{
 			using vec3 = GE::Math::dVec3;
 
-			std::deque<vec3> m_tweens;
-			double m_timePerTween;
+			struct Action
+			{
+				vec3 m_target;
+				double m_duration;
+			};
+
+			std::deque<Action> m_tweens;
 			double m_timeTaken;
 			double m_timeElapsed;
 			vec3 m_originalPos;
 			bool m_started;
+			bool m_paused;
 
 			/*!*********************************************************************
 			\brief
 				Default contructor
 			************************************************************************/
-			Tween() {}
-
-			/*!*********************************************************************
-			\brief
-				Overloaded contructor
-			\param time
-				Total time for the entire interpolation.
-			************************************************************************/
-			Tween(double time) : m_timeTaken{ time }, m_timeElapsed{ 0.0 }, m_started{ false } {}
+			Tween() : m_timeTaken{ 0.0 }, m_timeElapsed{ 0.0 }, m_started{ false }, m_paused{ false } {}
 
 			/*!*********************************************************************
 			\brief
@@ -45,10 +43,9 @@ namespace GE
 			\param target
 				New position to interpolate to.
 			************************************************************************/
-			void AddTween(vec3 target)
+			void AddTween(vec3 target, double duration)
 			{
-				m_tweens.push_back(target);
-				m_timePerTween = m_timeTaken / m_tweens.size();
+				m_tweens.emplace_back(target, duration);
 			}
 		};
 	}

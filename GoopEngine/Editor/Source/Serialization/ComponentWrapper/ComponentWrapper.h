@@ -27,6 +27,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <string>
 #include <sstream>
 #include <Component/Velocity.h>
+#include <Component/Tween.h>
 #include <rttr/type>
 
 namespace GE
@@ -71,6 +72,7 @@ namespace GE
       template<> std::deque<Math::dVec2> Get(const char* key) const;
       template<> std::queue<Math::dVec3> Get(const char* key) const;
       template<> std::deque<Math::dVec3> Get(const char* key) const;
+      template<> std::deque<GE::Component::Tween::Action> Get(const char* key) const;
       template<> std::vector<std::string> Get(const char* key) const;
       template<> Component::DragForce Get(const char* key) const;
       template<> std::vector<Component::LinearForce> Get(const char* key) const;

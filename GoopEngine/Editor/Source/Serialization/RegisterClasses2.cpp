@@ -33,6 +33,18 @@ RTTR_REGISTRATION
     .property("fontID", &Component::Text::m_fontID)
     ;
 
+  rttr::registration::class_<Component::Tween::Action>("Action")
+    .property("target", &Component::Tween::Action::m_target)
+    .property("duration", &Component::Tween::Action::m_duration)
+    ;
+  rttr::registration::class_<Component::Tween>("Tween")
+    .constructor<>()
+    .property("tweens", &Component::Tween::m_tweens)
+    .property("timeTaken", &Component::Tween::m_timeTaken)
+    .property("timeElapsed", &Component::Tween::m_timeElapsed)
+    .property("originalPos", &Component::Tween::m_originalPos)
+    .method("AddTween", &Component::Tween::AddTween)
+    ;
 
   /* ------------------- ENUMERATIONS ------------------- */
   rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")
