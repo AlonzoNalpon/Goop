@@ -384,6 +384,10 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::TextRenderSystem>();
     RegisterComponentsToSystem<Systems::TextRenderSystem>(sig);
     break;
+  case SYSTEM_TYPES::TWEEN_SYSTEM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::TweenSystem>();
+    RegisterComponentsToSystem<Systems::TweenSystem>(sig);
+    break;
   default:
     std::ostringstream oss{};
     oss << "Trying to register unknown system type, " << " update function: ObjectFactory::RegisterSystemWithEnum()";

@@ -2,15 +2,18 @@
     "PreRootTransformSystem": [],
 	"PlayerControllerSystem": [	
 		"Transform",
-		"Tween",
         "Sprite",
         "SpriteAnim",
 		"ScriptHandler"
 	],
+	"TweenSystem" : [
+		"Tween",
+		"Transform"
+	],
     "EnemySystem": [
-        "EnemyAI",
-        "Transform"
-      ],
+       "EnemyAI",
+       "Transform"
+    ],
     "CollisionSystem": [
         "Transform",
         "BoxCollider"
