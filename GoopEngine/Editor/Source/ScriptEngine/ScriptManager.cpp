@@ -14,6 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ScriptManager.h"
 #include "../AssetManager/AssetManager.h"
 #include <ImNode/NodeEditor.h>
+#include <Component/Components.h>
 
 using namespace GE::MONO;
 
@@ -30,7 +31,6 @@ void GE::MONO::ScriptManager::InitMono()
   {
     mono_set_assemblies_path(assetManager.GetConfigData<std::string>("MonoAssembly").c_str());
   }
- 
  
   MonoDomain* rootDomain = mono_jit_init(assetManager.GetConfigData<std::string>("RootDomain").c_str());
   if (rootDomain == nullptr)
@@ -60,7 +60,6 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetScale", GE::MONO::SetScale);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetRotation", GE::MONO::SetRotation);
 
-
   mono_add_internal_call("GoopScripts.Mono.Utils::GetChildResult", GE::Systems::EnemySystem::GetChildResult);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetCurrentChildIndex", GE::Systems::EnemySystem::GetCurrentChildIndex);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetResult", GE::Systems::EnemySystem::SetResult);
@@ -72,6 +71,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPlayerID", GE::Systems::EnemySystem::GetPlayerID);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayerExist", GE::Systems::EnemySystem::PlayerExist);
 
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetHealth", GE::MONO::GetHealth);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetHealth", GE::MONO::SetHealth);
 
   std::ifstream filed(assetManager.GetConfigData<std::string>("CAssemblyExe"));
   if (file.good())
@@ -125,8 +126,6 @@ char* GE::MONO::ReadBytes(const std::string& filepath, uint32_t* outSize)
   return buffer;
 }
 
-
-
 MonoAssembly* GE::MONO::LoadCSharpAssembly(const std::string& assemblyPath)
 {
   uint32_t fileSize = 0;
@@ -163,8 +162,6 @@ MonoAssembly* GE::MONO::LoadCSharpAssembly(const std::string& assemblyPath)
 
   return assembly;
 }
-
-
 
 MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* namespaceName, const char* className)
 {
@@ -244,7 +241,6 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName,
   return classInstance;
 }
 
-
 void GE::MONO::SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment)
 {
   GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
@@ -254,8 +250,6 @@ void GE::MONO::SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment
   oldTransform->m_pos.x += (PosAdjustment.x * fpsControl->GetDeltaTime());
   oldTransform->m_pos.y += (PosAdjustment.y * fpsControl->GetDeltaTime());
 }
-
-
 
 void GE::MONO::SetScale(GE::ECS::Entity entity, GE::Math::dVec3 scaleAdjustment)
 {
@@ -312,4 +306,16 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
 int GE::MONO::CalculateGCD(int large, int small)
 {
   return small == 0 ? large : CalculateGCD(small, large % small);
+}
+
+unsigned int GE::MONO::GetHealth(GE::ECS::Entity entity)
+{
+  static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  return ecs.GetComponent<GE::Component::Stats>(entity)->m_health;
+}
+
+void GE::MONO::SetHealth(GE::ECS::Entity entity, unsigned int health)
+{
+  static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  ecs.GetComponent<GE::Component::Stats>(entity)->m_health = health;
 }

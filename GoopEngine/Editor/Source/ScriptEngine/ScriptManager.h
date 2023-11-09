@@ -134,5 +134,8 @@ namespace GE {
 			the smaller value
 		************************************************************************/
 		int CalculateGCD(int large, int small);
+
+		static unsigned int GetHealth(GE::ECS::Entity entity);
+		static void SetHealth(GE::ECS::Entity entity, unsigned int health);
 	}
 }

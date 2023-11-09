@@ -297,6 +297,7 @@
     <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\Component\Components.h" />
     <ClInclude Include="Source\Component\Grid.h" />
+    <ClInclude Include="Source\Component\Stats.h" />
     <ClInclude Include="Source\Component\Text.h" />
     <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
     <ClInclude Include="Source\EditorUI\AssetPreview.h" />

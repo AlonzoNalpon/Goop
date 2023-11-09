@@ -1,11 +1,10 @@
-﻿
+﻿using GoopScripts.Mono;
+
 namespace GoopScripts.Cards
 {
-  abstract class CardBase
+  abstract class CardBase : MonoBehaviour
   {
-    //int m_actionValue;
+    public abstract void Play(uint? actionVal, uint? source, uint? target);
 
-
-    public abstract void Play();
-  }
+	}
 }
