@@ -17,7 +17,6 @@ void GE::Systems::GameSystem::Update()
     // core game script
 
     ScriptHandler* sh = m_ecs->GetComponent<GE::Component::ScriptHandler>(entity);
-    // Invoke mono method passing in player and enemy data
-    
+    // Invoke mono method passing in player and enemy data    
   }
 }
