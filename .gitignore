@@ -39,6 +39,7 @@
 *.vcxproj.filters
 *.vcxproj
 *.editorconfig
+update.bat
 
 # Build results
 [Dd]ebug/
