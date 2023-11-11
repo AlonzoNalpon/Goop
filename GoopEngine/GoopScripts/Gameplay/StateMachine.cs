@@ -14,14 +14,15 @@ namespace GoopScripts
       PLAYER,
       ENEMY,
       RESOLUTION,
-      END
+      END,
+      TOTAL_PHASES
     }
 
     public Phase currPhase;
 
     public void NextPhase()
     {
-
+      currPhase = (Phase)((int)(currPhase + 1) % (int)Phase.TOTAL_PHASES);
     }
   }
 }
