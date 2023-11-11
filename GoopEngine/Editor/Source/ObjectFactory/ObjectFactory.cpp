@@ -69,6 +69,10 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Text>(srcObj));
   }
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::GAME))
+  {
+    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Game>(srcObj));
+  }
 }
 
 GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData const& data) const
@@ -132,6 +136,11 @@ GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData 
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::Text>(data.m_components.at(GE::ECS::COMPONENT_TYPES::TEXT)));
   }
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::GAME))
+  {
+    ecs.AddComponent(newData,
+      DeserializeComponent<GE::Component::Text>(data.m_components.at(GE::ECS::COMPONENT_TYPES::GAME)));
+  }
   return newData;
 }
 
@@ -175,6 +184,9 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       ecs.RegisterComponent<GE::Component::EnemyAI>();
       break;
     case COMPONENT_TYPES::TEXT:
+      ecs.RegisterComponent<GE::Component::Text>();
+      break;
+    case COMPONENT_TYPES::GAME:
       ecs.RegisterComponent<GE::Component::Text>();
       break;
     default:
@@ -387,6 +399,10 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
   case SYSTEM_TYPES::TWEEN_SYSTEM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::TweenSystem>();
     RegisterComponentsToSystem<Systems::TweenSystem>(sig);
+    break;
+  case SYSTEM_TYPES::GAME_SYSTEMS:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::TweenSystem>();
+    RegisterComponentsToSystem<Systems::GameSystem>(sig);
     break;
   default:
     std::ostringstream oss{};

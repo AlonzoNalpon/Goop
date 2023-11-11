@@ -30,6 +30,7 @@ namespace GE
 			DRAGGABLE,
 			ENEMY_AI,
 			TEXT,
+			GAME,
 			COMPONENTS_TOTAL
 		};
 
@@ -50,8 +51,8 @@ namespace GE
 			{ COMPONENT_TYPES::SCRIPT_HANDLER, "ScriptHandler" },
 			{ COMPONENT_TYPES::DRAGGABLE, "Draggable" },
 			{ COMPONENT_TYPES::ENEMY_AI, "EnemyAI" },
-			{ COMPONENT_TYPES::TEXT, "Text" }
-
+			{ COMPONENT_TYPES::TEXT, "Text" },
+			{ COMPONENT_TYPES::GAME, "Game" }
 		};
 
 		// Const map so only interated through ranged for,
@@ -68,7 +69,8 @@ namespace GE
 			{ "ScriptHandler", COMPONENT_TYPES::SCRIPT_HANDLER },
 			{ "Draggable", COMPONENT_TYPES::DRAGGABLE },
 			{ "EnemyAI", COMPONENT_TYPES::ENEMY_AI },
-			{ "Text", COMPONENT_TYPES::TEXT }
+			{ "Text", COMPONENT_TYPES::TEXT },
+			{ "Game", COMPONENT_TYPES::GAME }
 		};
 
 		/*!*********************************************************************
