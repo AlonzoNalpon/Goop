@@ -1,5 +1,6 @@
 ﻿using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
+using static GoopScripts.BuffManager;
 
 namespace GoopScripts.Cards
 {
