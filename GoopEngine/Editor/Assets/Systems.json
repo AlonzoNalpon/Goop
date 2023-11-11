@@ -1,5 +1,9 @@
 {
     "PreRootTransformSystem": [],
+	"GameSystem": [
+		"ScriptHandler",
+		"Game"
+	],
 	"PlayerControllerSystem": [	
 		"Transform",
         "Sprite",
