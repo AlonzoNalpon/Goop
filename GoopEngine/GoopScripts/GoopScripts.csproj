@@ -68,6 +68,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gameplay\BuffManager.cs" />
+    <Compile Include="Gameplay\StateMachine.cs" />
     <Compile Include="Input\KeyCode.cs" />
     <Compile Include="Math\Vec2.cs" />
     <Compile Include="Math\Vec3.cs" />
