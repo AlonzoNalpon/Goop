@@ -3,8 +3,9 @@
 
 namespace GE::Component
 {
-  GE::ECS::Entity player;
-  GE::ECS::Entity enemy;
-
-  // Core game script here
+  struct Game
+  {
+    GE::ECS::Entity player;
+    GE::ECS::Entity enemy;
+  };
 }
