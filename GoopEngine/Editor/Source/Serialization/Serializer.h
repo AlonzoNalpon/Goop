@@ -57,15 +57,15 @@ namespace GE
       /*!*********************************************************************
       \brief
         Returns the component of an entity given the Enumeration type. The
-        component is returned in the form of an rttr::instance
+        component is returned in the form of an rttr::variant
       \param id
         The id of the entity
       \param type
         The ECS::COMPONENT_TYPES of the entity
       \return
-        An rttr::instance of the component
+        An rttr::variant of the component
       ************************************************************************/
-      rttr::instance GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type);
+      rttr::variant GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type);
 
       /*!*********************************************************************
       \brief
@@ -180,14 +180,14 @@ namespace GE
       \brief
         Helper function to serialize a component into a rapidjson::Value.
         Called by SerializeScene
-      \param instance
-        The rttr::instance of the object
+      \param var
+        The rttr::variant of the object
       \param allocator
         The document's allocator
       \return
         The resulting rapidjson::Value object
       ************************************************************************/
-      rapidjson::Value SerializeComponent(rttr::instance instance, rapidjson::Document::AllocatorType& allocator);
+      rapidjson::Value SerializeComponent(rttr::variant const& var, rapidjson::Document::AllocatorType& allocator);
       
       /*!*********************************************************************
       \brief
