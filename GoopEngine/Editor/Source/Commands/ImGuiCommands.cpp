@@ -37,6 +37,9 @@ using namespace CMD;
 RemoveObjectCmd::RemoveObjectCmd(GE::ECS::Entity e)
 {
 	m_entityData.m_entityID = e;
+	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+
+	m_entityData.m_entityName = ecs.GetEntityName(m_entityData.m_entityID);
 	for (ECS::COMPONENT_TYPES i{ static_cast<ECS::COMPONENT_TYPES>(0) }; i < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)
 	{
 		GE::Serialization::Serializer* sr = &GE::Serialization::Serializer::GetInstance();
@@ -45,8 +48,37 @@ RemoveObjectCmd::RemoveObjectCmd(GE::ECS::Entity e)
 		// skip if component wasn't found
 		if (!inst.is_valid()) { continue; }
 		m_entityData.m_compList.emplace(i, inst);
-
 	}
+	std::set<ECS::Entity>& children = ecs.GetChildEntities(e);
+
+	for (ECS::Entity ent : children)
+	{
+		m_entityData.m_childList.emplace_back(SaveEntityData(ent));
+	}
+}
+
+RemoveObjectCmd::EntityTemplate RemoveObjectCmd::SaveEntityData(GE::ECS::Entity e)
+{
+	  GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+		EntityTemplate newEntityTemp;
+		newEntityTemp.m_entityID = e;
+		newEntityTemp.m_entityName = ecs.GetEntityName(newEntityTemp.m_entityID);
+		for (ECS::COMPONENT_TYPES j{ static_cast<ECS::COMPONENT_TYPES>(0) }; j < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++j)
+		{
+			GE::Serialization::Serializer* sr = &GE::Serialization::Serializer::GetInstance();
+			rttr::variant inst = sr->GetEntityComponent(newEntityTemp.m_entityID, j);
+
+			// skip if component wasn't found
+			if (!inst.is_valid()) { continue; }
+			newEntityTemp.m_compList.emplace(j, inst);
+		}
+		std::set<ECS::Entity>& grandChildren = ecs.GetChildEntities(e);
+
+		for (ECS::Entity ent : grandChildren)
+		{
+			newEntityTemp.m_childList.emplace_back(SaveEntityData(ent));
+		}
+		return newEntityTemp;
 }
 
 
@@ -60,14 +92,43 @@ void RemoveObjectCmd::Undo()
 {
 	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 	m_entityData.m_entityID = ecs.CreateEntity();
-	std::cout << "Create entity\n";
+	ecs.SetEntityName(m_entityData.m_entityID, m_entityData.m_entityName);
 	RestoreComp(m_entityData.m_entityID, m_entityData.m_compList);
+	ecs.SetParentEntity(m_entityData.m_entityID);
+
+	for (EntityTemplate& entTemp : m_entityData.m_childList)
+	{
+		//std::cout << "GET CHILD\n";
+		GE::ECS::Entity child = RestoreEntityData(entTemp);
+		ecs.SetParentEntity(child, m_entityData.m_entityID);
+		ecs.AddChildEntity(m_entityData.m_entityID, child);
+	}
+
+
 }
 
 void RemoveObjectCmd::Redo()
 {
-	//GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-	//ecs.DestroyEntity(m_entityID);
+	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+	ecs.DestroyEntity(m_entityData.m_entityID);
+}
+
+GE::ECS::Entity RemoveObjectCmd::RestoreEntityData(EntityTemplate& eTemp)
+{
+	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+	eTemp.m_entityID = ecs.CreateEntity();
+	ecs.SetEntityName(eTemp.m_entityID, eTemp.m_entityName);
+	RestoreComp(eTemp.m_entityID, eTemp.m_compList);
+
+
+	for (EntityTemplate& entTemp : eTemp.m_childList)
+	{
+		GE::ECS::Entity child = RestoreEntityData(entTemp);
+		ecs.SetParentEntity(child, eTemp.m_entityID);
+		ecs.AddChildEntity(eTemp.m_entityID, child);
+	}
+
+	return eTemp.m_entityID;
 }
 
 void RemoveObjectCmd::RestoreComp(GE::ECS::Entity entityID, std::map<ECS::COMPONENT_TYPES, rttr::variant>& compList)
@@ -76,11 +137,9 @@ void RemoveObjectCmd::RestoreComp(GE::ECS::Entity entityID, std::map<ECS::COMPON
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::TRANSFORM); it != compList.end())
 	{
-		std::cout << "RETURN TRANS\n";
 		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Transform>());
 	}
 		
-
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::BOX_COLLIDER); it != compList.end())
 		ecs.AddComponent(entityID, it->second.get_value<GE::Component::BoxCollider>());
 

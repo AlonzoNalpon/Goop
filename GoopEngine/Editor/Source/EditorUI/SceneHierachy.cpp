@@ -143,7 +143,10 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 	// Delete entities after interation
 	for (Entity entity : entitiesToDestroy)
 	{
-		ecs.DestroyEntity(entity);
+		//ecs.DestroyEntity(entity);
+		GE::CMD::RemoveObjectCmd newRemCmd = GE::CMD::RemoveObjectCmd(entity);
+		GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+		cmdMan.AddCommand(newRemCmd);
 	}
 	entitiesToDestroy.clear();
 }

@@ -36,6 +36,7 @@ namespace GE
       struct EntityTemplate
       {
         GE::ECS::Entity m_entityID;
+        std::string m_entityName;
         std::map<ECS::COMPONENT_TYPES, rttr::variant> m_compList;
         std::vector<EntityTemplate> m_childList;
       };
@@ -49,6 +50,9 @@ namespace GE
       void Undo() override;
       void Redo() override;
       void RestoreComp(GE::ECS::Entity entityID, std::map<ECS::COMPONENT_TYPES, rttr::variant>& compList);
+      EntityTemplate SaveEntityData(GE::ECS::Entity e);
+      GE::ECS::Entity RestoreEntityData(EntityTemplate& eTemp);
+   
 
       RTTR_ENABLE(ICommand)
     };

@@ -224,14 +224,12 @@ void ImGuiUI::Update()
   End();
 
   if (ImGui::GetIO().KeyCtrl && ImGui::GetIO().KeyShift && IsKeyPressed((ImGuiKey)GLFW_KEY_Z)) {
-    std::cout << "Redo\n";
     GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
     cmdMan.Redo();
     SetWindowFocus();
   }
 
   else if (ImGui::GetIO().KeyCtrl && IsKeyPressed((ImGuiKey)GLFW_KEY_Z)) {
-    std::cout << "undo\n";
     GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
     cmdMan.Undo();
     SetWindowFocus();
