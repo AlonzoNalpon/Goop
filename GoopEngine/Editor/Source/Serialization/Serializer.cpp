@@ -13,7 +13,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "Serializer.h"
-#include <rapidjson/istreamwrapper.h>
 #include <rapidjson/ostreamwrapper.h>
 #include <rapidjson/prettywriter.h>
 #include <Component/Components.h>
@@ -438,6 +437,8 @@ namespace GE
         rapidjson::Value jsonVal{ rapidjson::kNullType };
         rapidjson::Value jsonKey{ prop.get_name().to_string().c_str(), allocator };
 
+        rttr::variant value{ prop.get_value(var) };
+
         if (var.get_type() == rttr::type::get<Component::SpriteAnim>())
         {
           jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(var.to_uint32()).c_str(), allocator);
@@ -449,9 +450,9 @@ namespace GE
         else if (prop.get_type().is_class())  // else if custom types
         {
           // Handling special cases here (e.g. ScriptHandler's script map)
-          if (var.get_type() == rttr::type::get<Component::ScriptHandler>())
+          if (value.get_type() == rttr::type::get<Component::ScriptHandler>())
           {
-            jsonVal = SerializeScriptMap(var.get_value<std::map<std::string, GE::MONO::Script> const&>(), allocator);
+            jsonVal = SerializeScriptMap(value.get_value<std::map<std::string, GE::MONO::Script> const&>(), allocator);
           }
           /*else if (instance.get_type() == rttr::type::get<Component::Sprite>())
           {
@@ -459,12 +460,12 @@ namespace GE
           }*/
           else
           {
-            jsonVal = SerializeBasedOnType(var, allocator).Move();
+            jsonVal = SerializeBasedOnType(value, allocator).Move();
           }
         }
         else
         {
-          jsonVal = SerializeBasedOnType(var, allocator).Move();
+          jsonVal = SerializeBasedOnType(value, allocator).Move();
         }
 
         compInner.AddMember(jsonKey, jsonVal, allocator);

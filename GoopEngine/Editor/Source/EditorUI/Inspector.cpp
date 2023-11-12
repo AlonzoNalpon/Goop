@@ -13,16 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ImGuiUI.h"
 #include "Inspector.h"
 #include <ImGui/imgui.h>
-#include <Component/BoxCollider.h>
-#include <Component/Model.h>
-#include <Component/ScriptHandler.h>
-#include <Component/Sprite.h>
-#include <Component/SpriteAnim.h>
-#include <Component/Transform.h>
-#include <Component/Tween.h>
-#include <Component/Velocity.h>
-#include <Component/Draggable.h>
-#include <Component/Text.h>
+#include <Component/Components.h>
 #include "../ImGui/misc/cpp/imgui_stdlib.h"
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>

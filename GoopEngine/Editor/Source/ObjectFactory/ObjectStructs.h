@@ -25,7 +25,7 @@ namespace GE
 
       ComponentMap m_components;
       std::vector<ECS::Entity> m_childEntities;
-      ECS::Entity m_parent;
+      ECS::Entity m_parent = ECS::INVALID_ID;
       ECS::ComponentSignature m_componentSignature;
     };
 
@@ -40,6 +40,21 @@ namespace GE
         m_name.clear();
         m_components.clear();
       }
+    };
+
+    // struct encapsulating deserialized data of an entity
+    // this is pre-creation of the entity where components
+    // are stored as rttr::variants in a vector
+    struct VariantEntity
+    {
+      VariantEntity() = default;
+      VariantEntity(ECS::Entity parent)
+        : m_components{}, m_childEntities{}, m_parent{ parent }, m_componentSignature{} {}
+
+      std::vector<rttr::variant> m_components;
+      std::vector<ECS::Entity> m_childEntities;
+      ECS::Entity m_parent = ECS::INVALID_ID;
+      ECS::ComponentSignature m_componentSignature;
     };
   }
 }

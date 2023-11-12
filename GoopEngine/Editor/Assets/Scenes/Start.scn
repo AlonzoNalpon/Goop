@@ -5,37 +5,21 @@
         "Child Entities": [],
         "Components": [
             {
-                "Transform": {
-                    "worldPos": {
-                        "worldPos": "{ 0, 0, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    },
-                    "worldScale": {
-                        "worldPos": "{ 0, 0, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    },
-                    "worldRot": {
-                        "worldPos": "{ 0, 0, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                }
+              "Transform": {
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+              }
             },
             {
-                "Sprite": {
-                    "filename": {
-                        "filename": "Background"
-                    }
-                }
+              "Sprite": {
+                "filename": "Background"
+              }
             },
             {
-                "Model": {
-                    "mdlID": {
-                        "mdlID": 0
-                    }
-                }
+              "Model": {
+                "mdlID": 0
+              }
             }
         ]
     },
@@ -45,30 +29,16 @@
         "Child Entities": [],
         "Components": [
             {
-                "Transform": {
-                    "worldPos": {
-                        "worldPos": "{ 2, 4, 0 }",
-                        "worldScale": "{ 150, 150, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    },
-                    "worldScale": {
-                        "worldPos": "{ 2, 4, 0 }",
-                        "worldScale": "{ 150, 150, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    },
-                    "worldRot": {
-                        "worldPos": "{ 2, 4, 0 }",
-                        "worldScale": "{ 150, 150, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                }
+              "Transform": {
+                "worldPos": "{ 2, 4, 0 }",
+                "worldScale": "{ 150, 150, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+              }
             },
             {
-                "Sprite": {
-                    "filename": {
-                        "filename": "SS_MineWorm"
-                    }
-                }
+              "Sprite": {
+                "filename": "SS_MineWorm"
+              }
             },
             {
                 "SpriteAnim": {
@@ -76,11 +46,9 @@
                 }
             },
             {
-                "Model": {
-                    "mdlID": {
-                        "mdlID": 0
-                    }
-                }
+              "Model": {
+                "mdlID": 0
+              }
             }
         ]
     }
