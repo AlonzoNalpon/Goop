@@ -156,6 +156,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AI\TreeManager.cpp" />
+    <ClCompile Include="Source\Commands\CommandManager.cpp" />
+    <ClCompile Include="Source\Commands\ImGuiCommands.cpp" />
     <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
     <ClCompile Include="Source\EditorUI\AssetPreview.cpp" />
     <ClCompile Include="Source\EditorUI\Console.cpp" />
@@ -291,6 +293,9 @@
   <ItemGroup>
     <ClInclude Include="Source\AI\Tree.h" />
     <ClInclude Include="Source\AI\TreeManager.h" />
+    <ClInclude Include="Source\Commands\CommandManager.h" />
+    <ClInclude Include="Source\Commands\ICommand.h" />
+    <ClInclude Include="Source\Commands\ImGuiCommands.h" />
     <ClInclude Include="Source\Component\Camera.h" />
     <ClInclude Include="Source\Component\Card.h" />
     <ClInclude Include="Source\Component\Draggable.h" />

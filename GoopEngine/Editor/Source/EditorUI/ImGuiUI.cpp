@@ -35,6 +35,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <EditorUI/PrefabEditor.h>
 #include <EditorUI/AssetPreview.h>
 #include <GameStateManager/GameStateManager.h>
+#include <Commands/CommandManager.h>
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -92,6 +93,9 @@ void ImGuiUI::Update()
   ToolBar::CreateContent();
 
   SceneControls::CreateContent();
+
+
+
 
   Begin("Console");
   Console::CreateContent();
@@ -218,6 +222,20 @@ void ImGuiUI::Update()
     Audio::AudioEngine::GetInstance().StopAllChannels();
   }
   End();
+
+  if (ImGui::GetIO().KeyCtrl && ImGui::GetIO().KeyShift && IsKeyPressed((ImGuiKey)GLFW_KEY_Z)) {
+    std::cout << "Redo\n";
+    GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+    cmdMan.Redo();
+    SetWindowFocus();
+  }
+
+  else if (ImGui::GetIO().KeyCtrl && IsKeyPressed((ImGuiKey)GLFW_KEY_Z)) {
+    std::cout << "undo\n";
+    GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+    cmdMan.Undo();
+    SetWindowFocus();
+  }
 
 
 
