@@ -187,7 +187,7 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       ecs.RegisterComponent<GE::Component::Text>();
       break;
     case COMPONENT_TYPES::GAME:
-      ecs.RegisterComponent<GE::Component::Text>();
+      ecs.RegisterComponent<GE::Component::Game>();
       break;
     default:
       std::ostringstream oss{};
@@ -401,7 +401,7 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     RegisterComponentsToSystem<Systems::TweenSystem>(sig);
     break;
   case SYSTEM_TYPES::GAME_SYSTEMS:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::TweenSystem>();
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::GameSystem>();
     RegisterComponentsToSystem<Systems::GameSystem>(sig);
     break;
   default:
