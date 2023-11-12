@@ -71,9 +71,6 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPlayerID", GE::Systems::EnemySystem::GetPlayerID);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayerExist", GE::Systems::EnemySystem::PlayerExist);
 
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetHealth", GE::MONO::GetHealth);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetHealth", GE::MONO::SetHealth);
-
   std::ifstream filed(assetManager.GetConfigData<std::string>("CAssemblyExe"));
   if (file.good())
   {
@@ -306,16 +303,4 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
 int GE::MONO::CalculateGCD(int large, int small)
 {
   return small == 0 ? large : CalculateGCD(small, large % small);
-}
-
-unsigned int GE::MONO::GetHealth(GE::ECS::Entity entity)
-{
-  static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-  return ecs.GetComponent<GE::Component::Stats>(entity)->m_health;
-}
-
-void GE::MONO::SetHealth(GE::ECS::Entity entity, unsigned int health)
-{
-  static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-  ecs.GetComponent<GE::Component::Stats>(entity)->m_health = health;
 }
