@@ -5,19 +5,25 @@
 
 using namespace GE::Component;
 using namespace GE::ECS;
+using namespace GE::MONO;
 
 void GE::Systems::GameSystem::Update()
 {
+  static GE::FPS::FrameRateController& frc = GE::FPS::FrameRateController::GetInstance();
+
   for (Entity entity : GetUpdatableEntities())
   {
     Game* game = m_ecs->GetComponent<Game>(entity);
-    Entity player = game->player;
-    Entity enemy = game->enemy;
-    // Pass player and enemy entity stats to 
-    // core game script
+    //Entity player = game->player;
+    //Entity enemy = game->enemy;
 
-    ScriptHandler* sh = m_ecs->GetComponent<GE::Component::ScriptHandler>(entity);
-    // Invoke mono method passing in player and enemy data
+    MonoClass* playerScriptObj = mono_object_get_class(game->playerScript.m_classObjInst);
+    MonoClass* enemyScriptObj = mono_object_get_class(game->enemyScript.m_classObjInst);
+    MonoClass* gameSystemScriptObj = mono_object_get_class(game->gameSystemScript.m_classObjInst);
 
+    MonoMethod* update = mono_class_get_method_from_name(gameSystemScriptObj, "Update", 3);
+    double dt = frc.GetDeltaTime();
+    std::vector<void*> args{ &playerScriptObj, &enemyScriptObj, &dt };
+    mono_runtime_invoke(update, gameSystemScriptObj, args.data(), nullptr);
   }
 }

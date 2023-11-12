@@ -11,5 +11,7 @@ namespace GE::Component
 
     GE::MONO::Script playerScript;
     GE::MONO::Script enemyScript;
+
+    GE::MONO::Script gameSystemScript;
   };
 }

@@ -24,5 +24,10 @@ namespace GoopScripts
     {
       currPhase = (Phase)((int)(currPhase + 1) % (int)Phase.TOTAL_PHASES);
     }
+
+    public void Update(PlayerStats playerStats, EnemyStats enemyStats, double dt)
+    {
+
+    }
   }
 }
