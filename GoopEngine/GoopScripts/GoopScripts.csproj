@@ -61,6 +61,7 @@
     <Compile Include="AI\SelectorNode.cs" />
     <Compile Include="AI\SequenceNode.cs" />
     <Compile Include="Cards\AttackCard.cs" />
+    <Compile Include="Cards\CardManager.cs" />
     <Compile Include="Cards\CardBase.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -69,9 +70,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Gameplay\BuffManager.cs" />
-    <Compile Include="Gameplay\EnemyStats.cs" />
-    <Compile Include="Gameplay\PlayerStats.cs" />
-    <Compile Include="Gameplay\StateMachine.cs" />
+    <Compile Include="Gameplay\GameManager.cs" />
     <Compile Include="Gameplay\Stats.cs" />
     <Compile Include="Input\KeyCode.cs" />
     <Compile Include="Math\Vec2.cs" />
