@@ -8,33 +8,17 @@ namespace GoopScripts
 {
   internal class GameManager
   {
-    public enum Phase
-    {
-      START = 0,
-      PLAYER,
-      ENEMY,
-      RESOLUTION,
-      END,
-      TOTAL_PHASES
-    }
-
     public double timeBeforeAction;
     private double currTime;
-    public Phase currPhase;
     Random rng;
+    CardManager cardManager;
 
 		GameManager()
     {
       timeBeforeAction = 0;
       currTime = 0;
-      currPhase = Phase.START;
       rng = new Random();
-    }
-
-    public void NextPhase()
-		{
-			// Should indicate to c++ to do next phase animations
-			currPhase = (Phase)((int)(currPhase + 1) % (int)Phase.TOTAL_PHASES);
+      cardManager = new CardManager();
     }
 
     public void Update(Stats playerStats, Stats enemyStats, double dt)
@@ -43,14 +27,21 @@ namespace GoopScripts
 
       if (currTime < 0)
 			{
-				currTime = timeBeforeAction;
+        // Reset the timer and include overflow value
+				currTime = timeBeforeAction - currTime;
 
-        NextPhase();
         // Play cards in queue
-        playerStats.cardQueue.First();
+        cardManager.Cards[(int)playerStats.cardQueue.First()].Play();
+        playerStats.cardQueue.RemoveAt(0);
+        cardManager.Cards[(int)enemyStats.cardQueue.First()].Play();
+				enemyStats.cardQueue.RemoveAt(0);
+        // Should probably record state here, such as win, lose and continue battle
+        // Indicate cards being played to c++ too
 
-        // Everyone add 1 card to queue from deck
-        playerStats.cardQueue.Add(playerStats.deck[rng.Next(0, playerStats.deck.Count() - 1)]);
+				// Everyone add 1 card to queue from deck
+				// Calls a c++ function to do the animations?
+				// or c++ can check if queue size changed and then do the animations for it
+				playerStats.cardQueue.Add(playerStats.deck[rng.Next(0, playerStats.deck.Count() - 1)]);
 				enemyStats.cardQueue.Add(enemyStats.deck[rng.Next(0, enemyStats.deck.Count() - 1)]);
 			}
     }
