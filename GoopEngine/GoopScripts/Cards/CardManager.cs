@@ -15,8 +15,9 @@ namespace GoopScripts
 		// Supposed to be a bunch of polymorphic cards of tye card base
 		// the card objects are set via c++ interface
 		List<CardBase> m_cards;
-		public List<CardBase> Card { get { return m_cards; } }
+		public List<CardBase> Cards { get { return m_cards; } }
 		// Function to pass m_cards.ToArray() to c++ 
+		// public void ...()
 
 		public CardManager()
 		{

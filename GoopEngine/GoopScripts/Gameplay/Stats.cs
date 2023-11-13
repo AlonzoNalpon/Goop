@@ -10,8 +10,8 @@ namespace GoopScripts
 	{
 		public uint health;
 		// List of card IDs
-		public List<uint> deck;
+		public List<CardBase.CardID> deck;
 		// List of cards in the queue
-		public List<uint> cardQueue;
+		public List<CardBase.CardID> cardQueue;
 	}
 }
