@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts
 {
-  internal class StateMachine
+  internal class GameManager
   {
     public enum Phase
     {
@@ -23,7 +23,7 @@ namespace GoopScripts
     public Phase currPhase;
     Random rng;
 
-    StateMachine()
+		GameManager()
     {
       timeBeforeAction = 0;
       currTime = 0;
