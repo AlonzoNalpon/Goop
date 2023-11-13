@@ -20,6 +20,9 @@ namespace GoopScripts
       rng = new Random();
       cardManager = new CardManager();
     }
+    
+    // function to allow c++ to edit the list of cards in cardmanager
+    // this should use cardmanager's c++ interface function
 
     public void Update(Stats playerStats, Stats enemyStats, double dt)
     {
