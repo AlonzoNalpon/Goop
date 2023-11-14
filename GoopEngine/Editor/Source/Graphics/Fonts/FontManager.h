@@ -27,7 +27,7 @@ namespace Graphics::Fonts
    * Manager responsible for creation, deletion and 
    * storage of font data in the GPU.
    */
-  class FontManager 
+  class FontManager
   {
   public:
     using FontMap         = std::map<uChar, Character>;

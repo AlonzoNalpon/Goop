@@ -44,6 +44,7 @@ namespace Graphics::Fonts
       auto nameIt{ m_fontIDLT.find(name) };
       if (nameIt != m_fontIDLT.end())
       {
+        // TODO: CLEANUP IF FONT EXISTS
         throw GE::Debug::Exception<FontManager>(GE::Debug::LEVEL_ERROR, 
           ErrMsg((std::string{"Font of this name already exists: " + name} + " in ") + path));
       }

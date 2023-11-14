@@ -33,6 +33,7 @@ namespace Graphics
     // Add the texture to the lookup table
     if (m_texturesLT.find(name) != m_texturesLT.end())
     {
+      // TODO: REPLACE OLD TEXTURE
       return m_texturesLT[name];
       /*throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
         ErrMsg("texture of this name already exists: " + name));*/

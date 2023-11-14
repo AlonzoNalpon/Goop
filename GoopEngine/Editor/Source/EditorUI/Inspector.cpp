@@ -11,6 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ImGuiUI.h"
 #include "Inspector.h"
 #include <ImGui/imgui.h>
+#include <EditorUI/GizmoEditor.h>
 #include <Component/BoxCollider.h>
 #include <Component/Model.h>
 #include <Component/ScriptHandler.h>
@@ -150,7 +151,7 @@ namespace
 	void InputList(std::string propertyName, std::deque<GE::Math::dVec3>& list, float fieldWidth, bool disabled);
 }
 
-void GE::EditorGUI::Inspector::CreateContent()
+void GE::EditorGUI::Inspector::CreateContent(Graphics::Rendering::FrameBufferInfo const& /*framebuffer*/)
 {
 	GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
 	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
@@ -212,8 +213,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					EndTable();
 					Separator();
+					//GizmoEditor::GizmoInfo gizmoInfo{ trans->m_parentWorldTransform, framebuffer };
+					//GizmoEditor::UpdateGizmo(gizmoInfo);
 					if (valChanged) 
 						GE::Systems::PostRootTransformSystem::Propergate(ecs, entity, trans->m_parentWorldTransform);
+
 				}
 				break;
 			}

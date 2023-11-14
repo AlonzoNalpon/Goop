@@ -451,12 +451,12 @@ namespace {
   gObjID GraphicsEngine::CreateFrameBuffer(GLint width, GLint height)
   {
     Rendering::FrameBufferInfo newFB{ {m_frameBuffers.size()}, {}, {},
-      // The camera
-    Rendering::Camera{ {0.f,0.f,3.f},                              // pos
-    {},                                           // target
-    {.0f, 1.f, 0.f},                              // up vector
+      // The camera currently covers 1000 to -1000
+    Rendering::Camera{ {0.f,0.f,1.f},                          // pos
+    {},                                                           // target
+    {.0f, 1.f, 0.f},                                              // up vector
     -width * 0.5f, width * 0.5f, -height * 0.5f, height * 0.5f,   // left right bottom top
-    0.1f, 1000.f } , 
+    -1000.f, 1000.f } , 
       {width, height } // viewport dimensions in pixels
   };
     glGenFramebuffers(1, &newFB.frameBuffer);
