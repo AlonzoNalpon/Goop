@@ -37,11 +37,11 @@ namespace Graphics::Rendering {
     // Add the model data
     // Create a glm::mat4 and initialize it with values in a column-major order
     m_renderCalls.emplace_back(mdl, sprite, glm::mat4(
-      static_cast<f32>(trans.At(0,0)), static_cast<f32>(trans.At(0,1)), static_cast<f32>(trans.At(0,2)), static_cast<f32>(trans.At(0,3)), // col 1
-      static_cast<f32>(trans.At(1,0)), static_cast<f32>(trans.At(1,1)), static_cast<f32>(trans.At(1,2)), static_cast<f32>(trans.At(1,3)), // col 2
-      static_cast<f32>(trans.At(2,0)), static_cast<f32>(trans.At(2,1)), static_cast<f32>(trans.At(2,2)), static_cast<f32>(trans.At(2,3)), // col 3
-      static_cast<f32>(trans.At(3,0)), static_cast<f32>(trans.At(3,1)), static_cast<f32>(trans.At(3,2)), static_cast<f32>(trans.At(3,3)) // col 4
-    )  );
+      static_cast<f32>(trans.At(0, 0)), static_cast<f32>(trans.At(0, 1)), static_cast<f32>(trans.At(0, 2)), static_cast<f32>(trans.At(0, 3)), // col 1
+      static_cast<f32>(trans.At(1, 0)), static_cast<f32>(trans.At(1, 1)), static_cast<f32>(trans.At(1, 2)), static_cast<f32>(trans.At(1, 3)), // col 2
+      static_cast<f32>(trans.At(2, 0)), static_cast<f32>(trans.At(2, 1)), static_cast<f32>(trans.At(2, 2)), static_cast<f32>(trans.At(2, 3)), // col 3
+      static_cast<f32>(trans.At(3, 0)), static_cast<f32>(trans.At(3, 1)), static_cast<f32>(trans.At(3, 2)), static_cast<f32>(trans.At(3, 3)) // col 4
+    ));
   }
 
   void Renderer::RenderFontObject(gVec2 pos, GLfloat scale, std::string const& str, Colorf color, gObjID fontID)
@@ -57,12 +57,12 @@ namespace Graphics::Rendering {
   void Renderer::Draw(Camera& camera)
   {
 
-    constexpr GLint uTexPosLocation   = 0;  // Layout location for uTexPos
-    constexpr GLint uTexDimsLocation  = 1;  // Layout location for uTexDims
-    constexpr GLint uViewMatLocation  = 2;  // Layout location for uViewProjMtx
+    constexpr GLint uTexPosLocation = 0;  // Layout location for uTexPos
+    constexpr GLint uTexDimsLocation = 1;  // Layout location for uTexDims
+    constexpr GLint uViewMatLocation = 2;  // Layout location for uViewProjMtx
     constexpr GLint uMdlTransLocation = 3;  // Layout location for uMdlMtx
     std::sort(m_renderCalls.begin(), m_renderCalls.end(), DepthComp());
-    glm::mat4 const& camViewProj{ camera.GetPersMtx() };
+    glm::mat4 const& camViewProj{ camera.GetViewMtx() };
     // Draw
     glUseProgram(r_mdlContainer.front().shader); // USE SHADER PROGRAM
     glBindVertexArray(r_mdlContainer.front().vaoid); // bind vertex array object to draw
@@ -71,7 +71,7 @@ namespace Graphics::Rendering {
 
     for (auto const& obj : m_renderCalls)
     {
-      Model const& mdl{ r_mdlContainer[obj.mdl] };  
+      Model const& mdl{ r_mdlContainer[obj.mdl] };
       if (obj.sprite.texture != BAD_OBJ_ID)
       {
         Texture const& texObj{ r_texManager.GetTexture(obj.sprite.texture) };
@@ -80,7 +80,7 @@ namespace Graphics::Rendering {
         glTextureParameteri(texObj.textureHandle, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
       }
 
-      
+
       // Setting uniform variables
       glUniform2f(uTexDimsLocation, obj.sprite.info.texDims.x, obj.sprite.info.texDims.y);
       glUniform2f(uTexPosLocation, obj.sprite.info.texCoords.x, obj.sprite.info.texCoords.y);
@@ -91,7 +91,7 @@ namespace Graphics::Rendering {
 
       //glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt); // I leave this here as a reference for future optimizations
       glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt);
-      
+
       if (obj.sprite.texture != BAD_OBJ_ID)
       {
         glBindTextureUnit(7, 0);
@@ -101,14 +101,16 @@ namespace Graphics::Rendering {
     glUseProgram(0);        // UNUSE SHADER PROGRAM
 
     // RENDERING FONTS
-    //{
-    //  glUseProgram(r_fontManager.fontShader);
-    //  for (auto const& obj : m_fontRenderCalls)
-    //  {
-    //    //DrawFontObj(obj.str, obj.position, obj.scale, obj.clr, obj.)
-    //  }
-    //  glUseProgram(0); // unuse
-    //}
+    {
+      glUseProgram(r_fontManager.fontShader);
+      for (auto const& obj : m_fontRenderCalls)
+      {
+        DrawFontObj(obj.str, obj.position, obj.scale, obj.clr, obj.fontID, camera);
+      }
+      glUseProgram(0); // unuse
+      glBindVertexArray(0); // unbind vao
+      glBindTexture(GL_TEXTURE_2D, 0); //unbind texture
+    }
 
 
     // RENDERING LINES FRO DEBUGGING
@@ -116,7 +118,7 @@ namespace Graphics::Rendering {
       constexpr GLint uEndPtsLocation = 0;
       constexpr GLint uColorLocation = 1;
       constexpr GLint uViewProjMtxLocation = 2;
-      auto const& mdl{ r_mdlContainer[m_lineMdlObj]};
+      auto const& mdl{ r_mdlContainer[m_lineMdlObj] };
       glUseProgram(mdl.shader);
 
       // Pass the camera matrix
@@ -124,13 +126,13 @@ namespace Graphics::Rendering {
       for (auto const& obj : m_lineRenderCalls)
       {
         glLineWidth(1.f);
-        
+
         glBindVertexArray(mdl.vaoid);
 
         // Set the uniform values using the layout locations
-        glUniform4f(uEndPtsLocation, static_cast<GLfloat>(obj.startPt.x), 
-          static_cast<GLfloat>(obj.startPt.y), 
-          static_cast<GLfloat>(obj.endPt.x), 
+        glUniform4f(uEndPtsLocation, static_cast<GLfloat>(obj.startPt.x),
+          static_cast<GLfloat>(obj.startPt.y),
+          static_cast<GLfloat>(obj.endPt.x),
           static_cast<GLfloat>(obj.endPt.y));
         glUniform3f(uColorLocation, obj.clr.r, obj.clr.g, obj.clr.b);
         glDrawArrays(GL_LINES, 0, 2);
@@ -146,18 +148,16 @@ namespace Graphics::Rendering {
     m_lineRenderCalls.clear(); // reset debug
   }
 
-  void Renderer::DrawFontObj(std::string const& str, gVec2 pos, gVec2 const& scale, Colorf const& clr, Graphics::gObjID fontID)
+  void Renderer::DrawFontObj(std::string const& str, gVec2 pos, GLfloat scale, Colorf const& clr, Graphics::gObjID fontID, Camera& camera)
   {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     constexpr GLint uViewMatLocation{ 0 };
-    //constexpr GLint U_TEXT{ 1 };
     constexpr GLint uColorLocation{ 2 };
     auto const& fontMap = r_fontManager.GetFontMap(fontID);
-    glm::mat4 camViewProj{ camera.GetPersMtx() };
+    glm::mat4 camViewProj{ camera.GetViewMtx() };
 
-
-    glUseProgram(r_fontManager.fontShader); // use font shader
+    // ASSUMING THAT WE USED THE SHADER BEFORE FUNCTION CALL
     // pass the color
     glUniform3f(uColorLocation, clr.r, clr.g, clr.b);
     // Pass the camera matrix
@@ -169,11 +169,11 @@ namespace Graphics::Rendering {
     for (char ch : str)
     {
       Fonts::Character const& currGlyph{ fontMap.at(ch) };
-      GLfloat xpos = pos.x + currGlyph.bearing.x * scale.x;
-      GLfloat ypos = pos.y - (currGlyph.size.y - currGlyph.bearing.y) * scale.y;
+      GLfloat xpos = pos.x + currGlyph.bearing.x * scale;
+      GLfloat ypos = pos.y - (currGlyph.size.y - currGlyph.bearing.y) * scale;
 
-      GLfloat w = currGlyph.size.x * scale.x;
-      GLfloat h = currGlyph.size.y * scale.y;
+      GLfloat w = currGlyph.size.x * scale;
+      GLfloat h = currGlyph.size.y * scale;
       // update the VBO
       GLfloat verts[6][4] = {
         // TRIANGLE 1
@@ -197,10 +197,9 @@ namespace Graphics::Rendering {
       // advance cursor for next glyph
 
       //advance is number of 1/64 pixels
-      pos.x += (currGlyph.advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
+      pos.x += (currGlyph.advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64)
     }
-    glBindVertexArray(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
+
   }
 
   Camera& Renderer::GetCamera()
@@ -215,7 +214,7 @@ namespace Graphics::Rendering {
     retval = glm::translate(retval, pos);
 
     // Apply rotation about z axis
-    glm::quat rotationQuat = glm::angleAxis(rotation, glm::vec3(0.0f, 0.0f, 1.0f)); 
+    glm::quat rotationQuat = glm::angleAxis(rotation, glm::vec3(0.0f, 0.0f, 1.0f));
     retval = retval * glm::mat4_cast(rotationQuat);
 
     // Apply scaling
