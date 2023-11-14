@@ -5,7 +5,7 @@
 \brief  This file contains the implementation of the graphics engine class.
         This class houses everything required to render an opengl
         framebuffer. ImGui is not included in this process.
- 
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
@@ -15,28 +15,28 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <GLFW/glfw3.h>
 #include <FrameRateController/FrameRateController.h>
 #include <SpriteAnimation/SpriteAnimGenerator.h>
-  
-namespace Graphics {
-  
-namespace {
-  struct 
-  {
-    double currTime;
-    gObjID animID;
-    u32 currFrame;
 
-  }testAnim;
-}
-//#define OGL_ERR_CALLBACK
+namespace Graphics {
+
+  namespace {
+    struct
+    {
+      double currTime;
+      gObjID animID;
+      u32 currFrame;
+
+    }testAnim;
+  }
+  //#define OGL_ERR_CALLBACK
 #ifdef OGL_ERR_CALLBACK
   void GLAPIENTRY glDebugCallback(GLenum /*source*/, GLenum /*type*/, GLuint /*id*/, GLenum /*severity*/, GLsizei /*length*/, const GLchar* message, const void* /*userParam*/) {
     // Print the message to the console
     std::cerr << "OpenGL Message: " << message << std::endl;
-}
+  }
 #endif
   // Typedefs
-  
-  GraphicsEngine::GraphicsEngine() : m_vpWidth{}, m_vpHeight{}, m_ar{}, 
+
+  GraphicsEngine::GraphicsEngine() : m_vpWidth{}, m_vpHeight{}, m_ar{},
     m_renderer{ m_models, m_textureManager, m_shaders, m_fontManager, m_vpWidth, m_vpHeight, m_frameBuffers }
   {
   }
@@ -56,33 +56,30 @@ namespace {
     m_vpWidth = w;
     m_vpHeight = h;
     m_ar = static_cast<GLfloat>(m_vpWidth) / m_vpHeight;
-    
-#ifdef NO_IMGUI // create game framebuffer if IMGUI isn't enabled. This will be changed in the future
-    //CreateFrameBuffer(w, h); // create framebuffer based on width and height
-#endif
+
 
 #pragma region SHADER_MDL_INIT
     std::string shaderPathOpt = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("ShaderPath");
-    if (shaderPathOpt.empty()) 
+    if (shaderPathOpt.empty())
     {
       throw GE::Debug::Exception<GraphicsEngine>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Invalid shader path"));
     }
     m_spriteQuadMdl = GenerateQuad();
-    m_renderQuad    = GenerateQuad(1.f, 1.f); // a render quad covering the full screen!
-    m_lineMdl       = GenerateLine();
+    m_renderQuad = GenerateQuad(1.f, 1.f); // a render quad covering the full screen!
+    m_lineMdl = GenerateLine();
     m_fontMdl = GenerateFontMdl();
 
     // INITIALIZING ALL SHADERS
-    ShaderInitCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"}};
+    ShaderInitCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"} };
     ShaderInitCont finalPassShaders{ { GL_VERTEX_SHADER, "final_pass.vert" }, {GL_FRAGMENT_SHADER, "final_pass.frag"} };
     ShaderInitCont debugLineShaders{ { GL_VERTEX_SHADER, "debug_line.vert" }, {GL_FRAGMENT_SHADER, "debug_line.frag"} };
     ShaderInitCont fontShaders{ { GL_VERTEX_SHADER, "font.vert" }, {GL_FRAGMENT_SHADER, "font.frag"} };
 
     m_spriteQuadMdl.shader = CreateShader(spriteShaders, "sprite");
-    m_renderQuad.shader    = CreateShader(finalPassShaders, "finalPass");
-    m_fontMdl.shader       = CreateShader(fontShaders, "font");
+    m_renderQuad.shader = CreateShader(finalPassShaders, "finalPass");
+    m_fontMdl.shader = CreateShader(fontShaders, "font");
     // Adding the basic shader for rendering lines etc...
-    m_lineMdl.shader       = CreateShader(debugLineShaders, "debug_line");
+    m_lineMdl.shader = CreateShader(debugLineShaders, "debug_line");
     m_models.emplace_back(m_spriteQuadMdl);
     m_models.emplace_back(m_lineMdl); // always load line model last! for renderer init
 
@@ -93,16 +90,12 @@ namespace {
                                   {.0f, 1.f, 0.f},                        // up vector
                                   -w * 0.5f, w * 0.5f, -h * 0.5f, h * 0.5f,   // left right bottom top
                                   0.1f, 2000.1f };                         // near and far z planes
-      m_renderer.Init(orthoCam, m_models.size()-1); // line model index
+      m_renderer.Init(orthoCam, m_models.size() - 1); // line model index
     }
 
 #pragma endregion
     // TEST LOADING FONTS
     m_fontManager.Init(m_fontMdl.shader, m_fontMdl.vaoid);
-    constexpr GLint FONT_SIZE{256};
-    m_fontManager.LoadFont("Reyes", FONTS_PATH + "Reyes-lqEV.ttf", FONT_SIZE);
-    m_fontManager.LoadFont("Marchesa", FONTS_PATH + "Marchesa-M7lp.otf", FONT_SIZE);
-
 
     // THESE ARE IMPORTANT TO HAVE
     glEnable(GL_BLEND);
@@ -144,7 +137,7 @@ namespace {
 #pragma region UPDATE BLOCK
     double dt{ GE::FPS::FrameRateController::GetInstance().GetDeltaTime() };
 #pragma endregion
-    
+
     // use this for reference on animation inner workings
     testAnim.currTime += dt;
     auto anim = m_animManager.GetAnim(testAnim.animID);
@@ -159,10 +152,7 @@ namespace {
     m_renderer.RenderObject(0, spriteData, xform);
 #endif
 
-    constexpr GLfloat FONT_SCALE{ 0.2f };
 
-    auto marchID = m_fontManager.GetFontID("Marchesa");
-    auto reyesID = m_fontManager.GetFontID("Reyes");
     for (auto& fbInfo : m_frameBuffers)
     {
       glBindFramebuffer(GL_FRAMEBUFFER, fbInfo.second.frameBuffer);
@@ -170,17 +160,15 @@ namespace {
       glViewport(0, 0, fbInfo.second.vpDims.x, fbInfo.second.vpDims.y);
       fbInfo.second.camera.CalculateViewProjMtx(); // Update camera
       m_renderer.Draw(fbInfo.second.camera);
-      m_renderer.DrawFontObj("you're", {}, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.5f, 0.f, 0.f }, marchID);
-      m_renderer.DrawFontObj("next", { 0.f, -50.f }, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.8f, 0.2f, 0.f }, reyesID);
     }
-  #if 0 // BACKUP FOR MERGE
+#if 0 // BACKUP FOR MERGE
     m_renderer.Draw();
     auto marchID = m_fontManager.GetFontID("Marchesa");
     auto reyesID = m_fontManager.GetFontID("Reyes");
 
     m_renderer.DrawFontObj("you're", {}, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.5f, 0.f, 0.f }, marchID);
     m_renderer.DrawFontObj("next", { 0.f, -50.f }, gVec2{ FONT_SCALE ,FONT_SCALE }, { 0.8f, 0.2f, 0.f }, reyesID);
-    #endif
+#endif
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
   }
 
@@ -319,17 +307,6 @@ namespace {
     Model retval{};
     GLuint vbo_hdl{}, vaoid{}; // vertex buffer object handle
 
-#if 0
-    glGenVertexArrays(1, &vaoid);
-    glGenBuffers(1, &vbo_hdl);
-    glBindVertexArray(vaoid);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_hdl);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-#else
     glCreateVertexArrays(1, &vaoid);
     glBindVertexArray(vaoid);
 
@@ -346,7 +323,6 @@ namespace {
 
     // We won't be using indices for the quad ...
     glBindVertexArray(0); // All done. Unbind vertex array
-#endif
 
     retval.vaoid = vaoid;
     return retval;
@@ -371,7 +347,7 @@ namespace {
   GLuint GraphicsEngine::CreateShader(ShaderInitCont const& container, std::string const& name)
   {
     ShaderProgram shdrPgm;
-    shdrPgm.CompileLinkValidate(container); 
+    shdrPgm.CompileLinkValidate(container);
 
     ShaderLT::const_iterator res{ m_shaderLT.find(name) };
 
@@ -405,11 +381,11 @@ namespace {
   }
 
   gObjID GraphicsEngine::CreateAnimation(std::string const& name, GLuint slices, GLuint stacks, GLuint frames,
-    f64 speed, u32 flags,  GLuint textureID)
+    f64 speed, u32 flags, GLuint textureID)
   {
-    Texture const& tex  { m_textureManager.GetTexture(textureID) };
+    Texture const& tex{ m_textureManager.GetTexture(textureID) };
     return m_animManager.CreateAnim(SpriteAnimGenerator::GenerateAnimData(slices, stacks, frames, tex.width, tex.height
-    , speed, flags, textureID), name);
+      , speed, flags, textureID), name);
   }
 
   gObjID GraphicsEngine::GetModel()
@@ -429,22 +405,19 @@ namespace {
 
   gVec2 GraphicsEngine::ScreenToWS(gVec2 const& mousePos, gObjID frameBuffer)
   {
-    auto const& fbInfo{ m_frameBuffers.at(frameBuffer) };
-    gVec2 const& fbFrameDims{ fbInfo.camera.GetFrameDims() };
-    gVec3 const& fbCamPos{ fbInfo.camera.GetPos() };
+    auto const& fbInfo{ m_frameBuffers.at(frameBuffer) };     // frame buffer info
+    gVec2 const& fbFrameDims{ fbInfo.camera.GetFrameDims() }; // framebuffer dimensions
+    gVec3 const& fbCamPos{ fbInfo.camera.GetPos() };          // cameraposition
 
     GLfloat const halfVpW{ fbInfo.vpDims.x * 0.5f }, halfVpH{ fbInfo.vpDims.y * 0.5f };
     // translate the mouse position to the range [-0.5,0.5]
     gVec2 wsPos{ (mousePos.x - halfVpW) / fbInfo.vpDims.x , (mousePos.y - halfVpH) / fbInfo.vpDims.y };
-    std::cout << wsPos.x << " | " << wsPos.y << std::endl;
 
-    // Now we scale based on camera dimensions
-
+    // Now we scale based on camera dimensions, and translate based on position!
     wsPos.x *= fbFrameDims.x;
     wsPos.y *= fbFrameDims.y;
     wsPos.x += fbCamPos.x;
     wsPos.y += fbCamPos.y;
-    //std::cout << fbFrameDims.x << " | " << fbFrameDims.y << std::endl;
     return wsPos;
   }
 
@@ -452,13 +425,13 @@ namespace {
   {
     Rendering::FrameBufferInfo newFB{ {m_frameBuffers.size()}, {}, {},
       // The camera currently covers 1000 to -1000
-    Rendering::Camera{ {0.f,0.f,1.f},                          // pos
+    Rendering::Camera{ {0.f,0.f,1000.1f},                          // pos
     {},                                                           // target
     {.0f, 1.f, 0.f},                                              // up vector
     -width * 0.5f, width * 0.5f, -height * 0.5f, height * 0.5f,   // left right bottom top
-    -1000.f, 1000.f } , 
+    0.1f, 2000.9f } ,
       {width, height } // viewport dimensions in pixels
-  };
+    };
     glGenFramebuffers(1, &newFB.frameBuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, newFB.frameBuffer);
 
@@ -477,7 +450,7 @@ namespace {
       throw GE::Debug::Exception<GraphicsEngine>(GE::Debug::LEVEL_CRITICAL,
         ErrMsg("Created framebuffer failed completeness test!"));
     }
-      return fbID;
+    return fbID;
   }
 
   Rendering::FrameBufferInfo& GraphicsEngine::GetFrameBuffer(gObjID id)
