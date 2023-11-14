@@ -15,7 +15,6 @@
 #include <filesystem>
 #include <EditorUI/GizmoEditor.h>
 
-#if 1
 void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBufferInfo & fbInfo)
 {
   fbInfo;
