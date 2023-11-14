@@ -4,8 +4,8 @@
 \date   13-September-2023
 \brief  The graphics engine is in charge of rendering including
 shader and mesh instances. It aims to abstract away all OpenGL calls.
-  
- 
+
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef GRAPHICS_ENGINE_H
@@ -19,14 +19,14 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/Fonts/FontManager.h>
 #include <Graphics/Renderer/FrameBufferInfo.h>
 namespace Graphics {
-    
+
   // The graphics engine responsible for any opengl calls
   class GraphicsEngine : public GE::Singleton<GraphicsEngine>
   {
-    using ShaderLT        = std::map<std::string const, gObjID>;
-    using ShaderCont      = std::vector<ShaderProgram>;
-    using FB_InfoCont     = std::vector<std::pair<GLuint, Rendering::Camera>>;
-    using FB_LT           = std::map<std::string, std::vector<GLuint>::size_type>;
+    using ShaderLT = std::map<std::string const, gObjID>;
+    using ShaderCont = std::vector<ShaderProgram>;
+    using FB_InfoCont = std::vector<std::pair<GLuint, Rendering::Camera>>;
+    using FB_LT = std::map<std::string, std::vector<GLuint>::size_type>;
   public:
 
     GraphicsEngine();
@@ -42,23 +42,57 @@ namespace Graphics {
     ************************************************************************/
     void Init(Colorf clearColor, GLint w, GLint h);
 
+    /*!*********************************************************************
+    \brief Initializes the main framebuffer.
+      DEPRECATED: This function is to be replaced in future revisions.
+    \params
+    \return
+    ************************************************************************/
     void InitFrameBuffer();
 
+    /*!*********************************************************************
+    \brief
+      Gets main render texture of framebuffer.
+      DEPRECATED: This function is to be replaced in future revisions.
+    \params
+    \return
+
+    ************************************************************************/
     GLuint GetRenderTexture();
 
+    /*!*********************************************************************
+    \brief
+      Clear the buffer of whichever attached framebuffer.
+    \params
+    \return
+    ************************************************************************/
     void ClearBuffer();
 
+    /*!*********************************************************************
+    \brief
+      Draws all objects onto framebuffers. Does not include rendering to
+      screen
+    \params
+    \return
+    ************************************************************************/
     void Draw();
 
+    /*!*********************************************************************
+    \brief
+      Renders framebuffer onto screen using a quad.
+    \params
+      framebufferID ID of buffer to render with
+    \return
+    ************************************************************************/
     void RenderToScreen(gObjID framebufferID = 0);
 
     /*!*********************************************************************
     \brief attempts to get handle to specified shader program
     \params
       pgmName the name of the shader program
-    \return 
+    \return
       the handle to the program. 0 indicated the program does not exist
-      
+
     ************************************************************************/
     gObjID GetShaderPgm(std::string const& pgmName);
 
@@ -81,7 +115,7 @@ namespace Graphics {
       .
     \params
     \return the renderer held by graphics engine
-      
+
     ************************************************************************/
     Rendering::Renderer& GetRenderer();
 
@@ -92,7 +126,7 @@ namespace Graphics {
       name name of the texture to be stored
       imageData image data
     \return the ID for the texture which can also be used directly with opengl
-      
+
     ************************************************************************/
     GLuint InitTexture(std::string const& name, GE::Assets::ImageData const& imageData);
 
@@ -109,7 +143,7 @@ namespace Graphics {
       flags     flags of the animation
       textureID texture ID of the animation (which texture is this based on?)
     \return
-      
+
     ************************************************************************/
     gObjID CreateAnimation(std::string const& name, GLuint slices, GLuint stacks, GLuint frames,
       f64 speed, u32 flags, GLuint textureID);
@@ -120,7 +154,7 @@ namespace Graphics {
     \note if more models are made for gameobjects, this has to be changed
     \params
     \return the quad model for sprites
-      
+
     ************************************************************************/
     gObjID GetModel();
 
@@ -129,7 +163,7 @@ namespace Graphics {
       Obtain the viewport width, in pixels.
     \params
     \return
-      
+
     ************************************************************************/
     GLint GetVPWidth();
 
@@ -138,7 +172,7 @@ namespace Graphics {
       Obtain the viewport height, in pixels.
     \params
     \return
-      
+
     ************************************************************************/
     GLint GetVPHeight();
 
@@ -149,12 +183,29 @@ namespace Graphics {
       mousePos  mouse position in single precision float
       frameBuffer ID of the framebuffer
     \return
-      
+
     ************************************************************************/
     gVec2 ScreenToWS(gVec2 const& mousePos, gObjID frameBuffer);
 
+    /*!*********************************************************************
+    \brief
+      Create a framebuffer with specified with and height.
+    \params
+      width
+      height
+    \return ID of created framebuffer
+
+    ************************************************************************/
     gObjID CreateFrameBuffer(GLint width, GLint height);
 
+    /*!*********************************************************************
+    \brief
+      Get framebuffer information from associated ID.
+    \params
+      id  ID of framebuffer
+    \return
+
+    ************************************************************************/
     Rendering::FrameBufferInfo& GetFrameBuffer(gObjID id);
   public: // DRAW PRIMITIVE METHODS
     /*!*********************************************************************
@@ -166,7 +217,7 @@ namespace Graphics {
       clr the color of the line
     \return
     ************************************************************************/
-    void DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr = {1, 0, 0});
+    void DrawLine(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf clr = { 1, 0, 0 });
 
     /*!*********************************************************************
     \brief
@@ -187,7 +238,7 @@ namespace Graphics {
       Generates a quad with pos, color and texture coordinate attributes
     \params
     \return quad model
-      
+
     ************************************************************************/
     Model GenerateQuad(GLfloat width = 0.5f, GLfloat height = 0.5f);
 
@@ -196,7 +247,7 @@ namespace Graphics {
       Generates a line model. This is for debug draws
     \params
     \return line model
-      
+
     ************************************************************************/
     Model GenerateLine();
 
@@ -211,7 +262,7 @@ namespace Graphics {
 
     // SHADERS ARE ONLY TO BE QUERIED BY MODELS REQUESTING A HANDLE
     // USERS MUST SPECIFY SHADER NAME WHILE CREATING A MODEL
-    
+
     std::map<gObjID,
       Rendering::FrameBufferInfo>     m_frameBuffers;     //!< Every framebuffer is stored in here
     GLuint                            m_framebuffer;
@@ -238,8 +289,9 @@ namespace Graphics {
     // FOR DEBUGGING
   private:
   public: // getters
-    SpriteAnimationManager const&   animManager{ m_animManager };      // read-only getter to animation manager 
-    TextureManager const&           textureManager{ m_textureManager };// read-only getter to texture manager
+    SpriteAnimationManager const& animManager{ m_animManager };      // read-only getter to animation manager 
+    TextureManager const& textureManager{ m_textureManager };// read-only getter to texture manager
+    Fonts::FontManager& fontManager{ m_fontManager };
   };
 }
 #endif
