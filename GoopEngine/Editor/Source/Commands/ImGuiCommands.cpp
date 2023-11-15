@@ -222,7 +222,7 @@ void ChangeTransCmd::Execute()
 {
 	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 	auto trans = ecs.GetComponent<GE::Component::Transform>(m_entityID);
-	GE::Systems::PostRootTransformSystem::Propergate(ecs, m_entityID, trans->m_parentWorldTransform);
+	GE::Systems::PostRootTransformSystem::Propergate(m_entityID, trans->m_parentWorldTransform);
 }
 
 void ChangeTransCmd::Undo()
@@ -233,7 +233,7 @@ void ChangeTransCmd::Undo()
 	trans->m_pos = m_oldTransform[0];
 	trans->m_rot = m_oldTransform[1];
 	trans->m_scale = m_oldTransform[2];
-	GE::Systems::PostRootTransformSystem::Propergate(ecs, m_entityID, trans->m_parentWorldTransform);
+	GE::Systems::PostRootTransformSystem::Propergate(m_entityID, trans->m_parentWorldTransform);
 
 }
 
@@ -244,5 +244,5 @@ void ChangeTransCmd::Redo()
 	trans->m_pos = m_newTransform[0];
 	trans->m_rot = m_newTransform[1];
 	trans->m_scale = m_newTransform[2];
-	GE::Systems::PostRootTransformSystem::Propergate(ecs, m_entityID, trans->m_parentWorldTransform);
+	GE::Systems::PostRootTransformSystem::Propergate(m_entityID, trans->m_parentWorldTransform);
 }

@@ -38,6 +38,6 @@ namespace GE::Systems
 		\param parentWorldTrans
 			Transform to use to find new local
 		************************************************************************/
-		static void Propergate(GE::ECS::EntityComponentSystem& ecs, GE::ECS::Entity& entity, GE::Math::dMat4& parentWorldTrans);
+		static void Propergate(GE::ECS::Entity& entity, GE::Math::dMat4& parentWorldTrans);
 	};
 }

@@ -18,7 +18,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <Commands/CommandManager.h>
-
+#include <Graphics/GraphicsEngine.h>
+#include <EditorUI/GizmoEditor.h>
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
 // Disable reinterpret to larger size
@@ -195,7 +196,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 	{
 
 	}*/
-
+	GizmoEditor::SetVisible(false);
 	for (int i{}; i < GE::ECS::MAX_COMPONENTS; ++i)
 	{
 		if (sig[i])		
@@ -207,13 +208,42 @@ void GE::EditorGUI::Inspector::CreateContent()
 			{
 			case GE::ECS::COMPONENT_TYPES::TRANSFORM:
 			{
+				GizmoEditor::SetVisible(true);
 				auto trans = ecs.GetComponent<Transform>(entity);
+				GizmoEditor::SetCurrentObject(trans->m_worldTransform, entity);
 				if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
 					float inputWidth = (contentSize - charSize - 30) / 3;
 					GE::CMD::PRS oldPRS{ trans->m_pos, trans->m_rot, trans->m_scale };
 					bool valChanged{ false };
+
+					Separator();
+					// SET GIZMO RADIO BUTTONS
+					{
+						// TRANSLATE
+						{
+							if (ImGui::RadioButton("Translate",
+								GizmoEditor::GetCurrOperation() == ImGuizmo::OPERATION::TRANSLATE))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::TRANSLATE);
+						}
+						ImGui::SameLine();
+						// ROTATE
+						{
+							if (ImGui::RadioButton("Rotate",
+								GizmoEditor::GetCurrOperation() == ImGuizmo::OPERATION::ROTATE))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE);
+						}
+						ImGui::SameLine();
+						// SCALE
+						{
+							if (ImGui::RadioButton("Scale",
+								GizmoEditor::GetCurrOperation() == ImGuizmo::OPERATION::SCALE))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::SCALE);
+						}
+						ImGui::SameLine();
+					}
+
 
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);

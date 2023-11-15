@@ -8,7 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-
+#include <Graphics/Renderer/FrameBufferInfo.h>
 namespace GE::EditorGUI
 {
 	class Inspector

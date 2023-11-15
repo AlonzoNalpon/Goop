@@ -36,7 +36,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <EditorUI/AssetPreview.h>
 #include <GameStateManager/GameStateManager.h>
 #include <Commands/CommandManager.h>
-
+#include <ImGuizmo_1_83/ImGuizmo.h>
+#include <EditorUI/GizmoEditor.h>
 using namespace GE::EditorGUI;
 using namespace DataViz;
 using namespace ImGui;
@@ -69,6 +70,7 @@ void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
   auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
   frameBuffer.first = gEngine.CreateFrameBuffer(window->GetWinWidth(), window->GetWinHeight());
   frameBuffer.second = &gEngine.GetFrameBuffer(frameBuffer.first);
+
   ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(prgmWindow.GetWindow(), true);
@@ -122,38 +124,34 @@ void ImGuiUI::Update()
   End();
 
   Begin("Viewport");
+#if 0 // ALONZO: I NEED THIS. WILL REMOVE WHEN GUIZMO IS DONE
   {
     EditorGUI::EditorViewport::UpdateViewport(*frameBuffer.second);
   }
-#if 0 // ALONZO: I NEED THIS. WILL REMOVE WHEN GUIZMO IS DONE
+#else
   {
-
     ImGuizmo::SetOrthographic(true);
     ImGuizmo::BeginFrame(); // call the imguizmo new frame function
     ImGuizmo::SetDrawlist(); // internally set draw list for imguizmo
-    float windowWidth = static_cast<float>(ImGui::GetWindowWidth());
-    float windowHeight = static_cast<float>(ImGui::GetWindowHeight());
-    std::cout << "window pos: " << windowWidth << ", " << windowHeight << std::endl;
     auto& io = ImGui::GetIO();
     ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
-    //ImGuizmo::SetGizmoSizeClipSpace();
-    static float testMtx[16] =
-    { 1.f, 0.f, 0.f, 0.f,
-        0.f, 1.f, 0.f, 0.f,
-        0.f, 0.f, 1.f, 0.f,
-        -100.f, 100.f, -1000.f, 1.f };
-
-    frameBuffer.second->camera.CalculateProjMtx();
-    frameBuffer.second->camera.CalculateViewProjMtx();
+   
 
     ImGuizmo::Enable(true);
-    if (ImGuizmo::IsUsing())
-      std::cout << "USING IMGUIZMO" << std::endl;
-    GizmoEditor::GizmoInfo gizmoInfo{ testMtx, *frameBuffer.second };
-    GizmoEditor::UpdateGizmo(gizmoInfo);
+
     EditorViewport::UpdateViewport(*frameBuffer.second);
-    GE::EditorGUI::GizmoEditor::RenderGizmo(); // MUST RENDER AFTER VIEWPORT
-}
+
+    if (GizmoEditor::isVisible())
+    {
+      frameBuffer.second->camera.CalculateProjMtx();
+      frameBuffer.second->camera.CalculateViewProjMtx();
+      GizmoEditor::UpdateGizmoMtx(*frameBuffer.second);
+      GizmoEditor::RenderGizmo(); // MUST RENDER AFTER VIEWPORT
+      GizmoEditor::PostRenderUpdate();
+    }
+    GizmoEditor::SetVisible(false); // reset state
+  }
+
 #endif
   End();
 

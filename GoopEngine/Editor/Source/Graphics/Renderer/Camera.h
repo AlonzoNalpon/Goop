@@ -88,7 +88,9 @@ namespace Graphics::Rendering
     ************************************************************************/
     void CalculateViewProjMtx();
 
+    glm::mat4 const& GetPersMtx() const;
     glm::mat4 const& GetViewMtx() const;
+    glm::mat4 const& GetProjMtx() const;
 
     /*!*********************************************************************
     \brief
