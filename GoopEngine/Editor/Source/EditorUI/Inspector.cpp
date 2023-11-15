@@ -23,6 +23,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Velocity.h>
 #include <Component/Draggable.h>
 #include <Component/Text.h>
+#include <Component/Audio.h>
 #include "../ImGui/misc/cpp/imgui_stdlib.h"
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
@@ -588,6 +589,46 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndDragDropTarget();
 					}
+					EndTable();
+					Separator();
+				}
+				break;
+			}
+			case GE::ECS::COMPONENT_TYPES::AUDIO:
+			{
+				auto audio = ecs.GetComponent<Audio>(entity);
+				if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveAudio");
+					}
+					if (BeginPopup("RemoveAudio"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Audio>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+
+					Separator();
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					InputTextMultiline("Sound File", &audio->m_name);
+					TableNextRow();
+					InputDouble1("Volume", audio->m_volume);
+					TableNextRow();
+					InputCheckBox("Loop", audio->m_loop);
+					TableNextRow();
+					InputCheckBox("Stream", audio->m_stream);
+					TableNextRow();
+					InputCheckBox("Play", audio->m_play);
+					TableNextRow();
+					InputCheckBox("SFX", audio->m_isSFX);
+					TableNextRow();
 					EndTable();
 					Separator();
 				}
