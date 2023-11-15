@@ -61,9 +61,19 @@ namespace Graphics::Rendering
     m_pers = m_proj * m_view;
   }
 
-  glm::mat4 const& Camera::GetViewMtx() const
+  glm::mat4 const& Camera::GetPersMtx() const
   {
     return m_pers;
+  }
+
+  glm::mat4 const& Camera::GetViewMtx() const
+  {
+    return m_view;
+  }
+
+  glm::mat4 const& Camera::GetProjMtx() const
+  {
+    return m_proj;
   }
 
   void Camera::ZoomCamera(GLfloat halfValue)

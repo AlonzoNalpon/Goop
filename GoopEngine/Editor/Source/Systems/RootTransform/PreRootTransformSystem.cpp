@@ -34,14 +34,15 @@ void GE::Systems::PreRootTransformSystem::Update()
 			};
 
 			// Update recursively using entity's world transformation matrix
-			Propergate(*m_ecs, entity, identity);
+			Propergate(entity, identity);
 		}
 	}
 	frc.EndSystemTimer("WorldToLocalTransform");
 }
 
-void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSystem& ecs, GE::ECS::Entity& entity, GE::Math::dMat4& parentWorldTrans)
+void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::Entity& entity, GE::Math::dMat4& parentWorldTrans)
 {
+	static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 	GE::Component::Transform* trans = ecs.GetComponent<GE::Component::Transform>(entity);
 
 	if (trans == nullptr)
@@ -138,6 +139,6 @@ void GE::Systems::PreRootTransformSystem::Propergate(GE::ECS::EntityComponentSys
 	// Update all children based ownself's new world transform
 	for (GE::ECS::Entity childEntity : m_children)
 	{
-		Propergate(ecs, childEntity, trans->m_worldTransform);
+		Propergate(childEntity, trans->m_worldTransform);
 	}
 }
