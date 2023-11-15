@@ -17,6 +17,7 @@ void GE::Systems::GameSystem::Update()
     //Entity player = game->player;
     //Entity enemy = game->enemy;
 
+
     MonoClass* gameSystemScriptObj = mono_object_get_class(game->gameSystemScript.m_classObjInst);
     MonoMethod* update = mono_class_get_method_from_name(gameSystemScriptObj, "Update", 3);
     double dt = frc.GetDeltaTime();

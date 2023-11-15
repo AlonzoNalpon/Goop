@@ -39,17 +39,15 @@ namespace GoopScripts
 		}
 
 		CardID cardID;
-		uint m_actionVal;
-		Stats m_source;
-		Stats m_target;
+		float m_actionVal;
+		int m_duration;
 
-		uint Value { get { return m_actionVal; } set { m_actionVal = value; } }
-		Stats Source { get { return m_source; } set { m_source = value; } }
-		Stats Target { get { return m_target; } set { m_target = value; } }
+		public float Value { get { return m_actionVal; } set { m_actionVal = value; } }
+		public int Duration { get { return m_duration; } set { m_duration = value; } }
 
 		public CardBase(CardID cardID) { this.cardID = cardID; }
 
 		// Defined by derived class
-		public abstract void Play();
+		public abstract void Play(ref Stats source, ref Stats target);
 	}
 }

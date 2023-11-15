@@ -34,18 +34,18 @@ namespace GoopScripts
 				currTime = timeBeforeAction - currTime;
 
         // Play cards in queue
-        cardManager.Cards[(int)playerStats.cardQueue.First()].Play();
-        playerStats.cardQueue.RemoveAt(0);
-        cardManager.Cards[(int)enemyStats.cardQueue.First()].Play();
-				enemyStats.cardQueue.RemoveAt(0);
+        cardManager.Cards[(int)playerStats.m_cardQueue.First()].Play(ref playerStats, ref enemyStats);
+        playerStats.m_cardQueue.RemoveAt(0);
+        cardManager.Cards[(int)enemyStats.m_cardQueue.First()].Play(ref playerStats, ref enemyStats);
+				enemyStats.m_cardQueue.RemoveAt(0);
         // Should probably record state here, such as win, lose and continue battle
         // Indicate cards being played to c++ too
 
 				// Everyone add 1 card to queue from deck
 				// Calls a c++ function to do the animations?
 				// or c++ can check if queue size changed and then do the animations for it
-				playerStats.cardQueue.Add(playerStats.deck[rng.Next(0, playerStats.deck.Count() - 1)]);
-				enemyStats.cardQueue.Add(enemyStats.deck[rng.Next(0, enemyStats.deck.Count() - 1)]);
+				playerStats.m_cardQueue.Add(playerStats.m_deck[rng.Next(0, playerStats.m_deck.Count() - 1)]);
+				enemyStats.m_cardQueue.Add(enemyStats.m_deck[rng.Next(0, enemyStats.m_deck.Count() - 1)]);
 			}
     }
   }

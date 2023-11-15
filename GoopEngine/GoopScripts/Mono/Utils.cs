@@ -244,10 +244,10 @@ namespace GoopScripts.Mono
 		//
 		//************************************************************************/
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		extern public static uint GetHealth(uint entity);
+		extern public static int GetHealth(int entity);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		extern public static void SetHealth(uint entity, uint health);
+		extern public static void SetHealth(int entity, int health);
 	}
 
 }
