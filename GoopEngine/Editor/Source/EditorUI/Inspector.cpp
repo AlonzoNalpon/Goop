@@ -591,7 +591,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 			case GE::ECS::COMPONENT_TYPES::AUDIO:
 			{
-				auto audio = ecs.GetComponent<Audio>(entity);
+				auto audio = ecs.GetComponent<GE::Component::Audio>(entity);
 				if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					if (IsItemClicked(ImGuiMouseButton_Right))
@@ -778,6 +778,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (!ecs.HasComponent<Component::Text>(entity))
 						{
 							Component::Text comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Component::Text).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::AUDIO:
+					{
+						if (!ecs.HasComponent<Component::Audio>(entity))
+						{
+							Component::Audio comp;
 							ecs.AddComponent(entity, comp);
 						}
 						else
