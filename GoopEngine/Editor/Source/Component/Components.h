@@ -14,3 +14,4 @@
 #include <Component/Text.h>
 #include <Component/Stats.h>
 #include <Component/Card.h>
+#include <Component/Audio.h>

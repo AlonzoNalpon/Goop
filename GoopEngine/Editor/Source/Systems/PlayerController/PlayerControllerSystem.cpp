@@ -93,7 +93,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 		}
 		else if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
 		{
-			Assets::AssetManager const& aM{ Assets::AssetManager::GetInstance() };
+			//Assets::AssetManager const& aM{ Assets::AssetManager::GetInstance() };
 			KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
 			if (key == GPK_K)
 			{

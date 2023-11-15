@@ -43,7 +43,8 @@ namespace GE::ObjectFactory
   GE::Component::ScriptHandler DeserializeScriptHandler(std::string const& componentData, GE::ECS::Entity entityID);
   template<>
   GE::Component::Text DeserializeComponent(std::string const& componentData);
-
+  template<>
+  GE::Component::Audio DeserializeComponent(std::string const& componentData);
 
 }
 

@@ -23,4 +23,8 @@ void ObjectFactory::RegisterComponentsToSystem(ECS::ComponentSignature sig) cons
    ecs.RegisterComponentToSystem<GE::Component::Draggable, T>();
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::ENEMY_AI))
    ecs.RegisterComponentToSystem<GE::Component::EnemyAI, T>();
+   if (IsBitSet(sig, ECS::COMPONENT_TYPES::TEXT))
+   ecs.RegisterComponentToSystem<GE::Component::Text, T>();
+   if (IsBitSet(sig, ECS::COMPONENT_TYPES::AUDIO))
+   ecs.RegisterComponentToSystem<GE::Component::Audio, T>();
 }

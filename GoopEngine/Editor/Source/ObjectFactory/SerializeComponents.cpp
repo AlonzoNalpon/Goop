@@ -163,6 +163,14 @@ namespace GE
 			return txt;
 		}
 
+		template<>
+		GE::Component::Audio DeserializeComponent(std::string const& componentData)
+		{
+			//Serialization::ComponentWrapper const cw{ componentData };
+			
+			return {};
+		}
+
 
 	}	// namespace ObjectFactory
 }	// namespace GE

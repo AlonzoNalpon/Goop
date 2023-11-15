@@ -142,4 +142,14 @@ RTTR_REGISTRATION
     .method("AddTween", &Component::Tween::AddTween)
     ;
 
+  rttr::registration::class_<Component::Audio>("Audio")
+    .property("isPlaying", &Component::Audio::m_isPlaying)
+    .property("isSFX", &Component::Audio::m_isSFX)
+    .property("loop", &Component::Audio::m_loop)
+    .property("name", &Component::Audio::m_name)
+    .property("stream", &Component::Audio::m_stream)
+    .property("play", &Component::Audio::m_play)
+    .property("volume", &Component::Audio::m_volume)
+    ;
+
 } // RTTR Registration

@@ -69,6 +69,10 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Text>(srcObj));
   }
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::AUDIO))
+  {
+    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Audio>(srcObj));
+  }
 }
 
 GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData const& data) const
@@ -132,6 +136,11 @@ GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData 
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::Text>(data.m_components.at(GE::ECS::COMPONENT_TYPES::TEXT)));
   }
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::AUDIO))
+  {
+    ecs.AddComponent(newData,
+      DeserializeComponent<GE::Component::Audio>(data.m_components.at(GE::ECS::COMPONENT_TYPES::AUDIO)));
+  }
   return newData;
 }
 
@@ -176,6 +185,9 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       break;
     case COMPONENT_TYPES::TEXT:
       ecs.RegisterComponent<GE::Component::Text>();
+      break;
+    case COMPONENT_TYPES::AUDIO:
+      ecs.RegisterComponent<GE::Component::Audio>();
       break;
     default:
       std::ostringstream oss{};
