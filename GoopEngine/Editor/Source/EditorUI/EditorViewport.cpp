@@ -59,16 +59,20 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
 
       if (extension == "png")
       {
+        GLuint textureID = gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
         GE::ECS::Entity imageEntity = ecs->CreateEntity();
         GE::Component::Transform trans{};
         trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
         trans.m_worldScale = { 1, 1, 1 };
         GE::Component::Model mdl{};
-        GE::Component::Sprite sprite{ gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
+        GE::Component::Sprite sprite{ textureID };
+        GE::Component::BoxCollider boxCollider{ {mousePosition}, static_cast<double>(gEngine.textureManager.GetTexture(textureID).width), static_cast<double>(gEngine.textureManager.GetTexture(textureID).height) };
+        boxCollider.m_render = true;
 
         ecs->AddComponent(imageEntity, trans);
         ecs->AddComponent(imageEntity, mdl);
         ecs->AddComponent(imageEntity, sprite);
+        ecs->AddComponent(imageEntity, boxCollider);
         ecs->SetEntityName(imageEntity, GE::GoopUtils::ExtractFilename(droppedPath));
       }
     }
