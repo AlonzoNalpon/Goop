@@ -12,3 +12,5 @@
 #include <Component/EnemyAI.h>
 #include <Component/Camera.h>
 #include <Component/Text.h>
+#include <Component/Stats.h>
+#include <Component/Card.h>

@@ -1,6 +1,7 @@
 #pragma once
 #include <ECS/System/System.h>
 #include <Events/EventManager.h>
+#include <ECS/Entity/Entity.h>
 
 namespace GE
 {
@@ -9,6 +10,8 @@ namespace GE
 		class DraggableObjectSystem : public GE::ECS::System, public GE::Events::IEventListener
 		{
 		public:
+			void Start();
+
 			void Update();
 
 			/*!*********************************************************************
@@ -21,7 +24,8 @@ namespace GE
 			void HandleEvent(Events::Event const* event) override;
 
 		private:
-			bool isHeld = false;
+			bool m_isHeld = false;
+			GE::ECS::Entity m_draggedEntity;
 		};
 	}
 }

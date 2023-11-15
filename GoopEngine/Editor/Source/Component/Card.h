@@ -8,19 +8,20 @@ namespace GE::Component
   class Card
   {
     int m_actionValue;
-    GE::ECS::Entity m_source;
-    GE::ECS::Entity m_target;
 
     GE::MONO::Script m_behaviour;
 
+    // A system will dispatch a card event on card release
     struct CardEvent : public GE::Events::Event
     {
-
+      // Play m_behaviour with value action
+      // 
     };
 
-    void Dispatch()
-    {
-      //GE::Events::EventManager::GetInstance().Dispatch()
-    }
+    // A system should do this
+    //void Dispatch()
+    //{
+    //  GE::Events::EventManager::GetInstance().Dispatch()
+    //}
   };
 }

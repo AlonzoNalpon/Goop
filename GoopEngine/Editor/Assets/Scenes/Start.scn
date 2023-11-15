@@ -1,55 +1,55 @@
 [
-  {
-    "Name": "Background",
-    "Parent": null,
-    "Child Entities": [],
-    "Components": [
-      {
-        "Transform": {
-          "worldPos": "{ 0, 0, -997 }",
-          "worldScale": "{ 1600, 900, 1 }",
-          "worldRot": "{ 0, 0, 0 }"
-        }
-      },
-      {
-        "Sprite": {
-          "filename": "Background"
-        }
-      },
-      {
-        "Model": {
-          "mdlID": 0
-        }
-      }
-    ]
-  },
-  {
-    "Name": "MineWorm",
-    "Parent": null,
-    "Child Entities": [],
-    "Components": [
-      {
-        "Transform": {
-          "worldPos": "{ 2, 4, 0 }",
-          "worldScale": "{ 150, 150, 1 }",
-          "worldRot": "{ 0, 0, 0 }"
-        }
-      },
-      {
-        "Sprite": {
-          "filename": "SS_MineWorm"
-        }
-      },
-      {
-        "SpriteAnim": {
-          "name": "SS_MineWorm"
-        }
-      },
-      {
-        "Model": {
-          "mdlID": 0
-        }
-      }
-    ]
-  }
+    {
+        "Name": "Background",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+              "Transform": {
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+              }
+            },
+            {
+              "Sprite": {
+                "filename": "Background"
+              }
+            },
+            {
+              "Model": {
+                "mdlID": 0
+              }
+            }
+        ]
+    },
+    {
+        "Name": "MineWorm",
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+              "Transform": {
+                "worldPos": "{ 2, 4, 0 }",
+                "worldScale": "{ 150, 150, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+              }
+            },
+            {
+              "Sprite": {
+                "filename": "SS_MineWorm"
+              }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_LeahIdle"
+                }
+            },
+            {
+              "Model": {
+                "mdlID": 0
+              }
+            }
+        ]
+    }
 ]

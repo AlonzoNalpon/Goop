@@ -35,6 +35,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <EditorUI/PrefabEditor.h>
 #include <EditorUI/AssetPreview.h>
 #include <GameStateManager/GameStateManager.h>
+#include <Commands/CommandManager.h>
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -93,6 +94,9 @@ void ImGuiUI::Update()
 
   SceneControls::CreateContent();
 
+
+
+
   Begin("Console");
   Console::CreateContent();
   End();
@@ -121,6 +125,36 @@ void ImGuiUI::Update()
   {
     EditorGUI::EditorViewport::UpdateViewport(*frameBuffer.second);
   }
+#if 0 // ALONZO: I NEED THIS. WILL REMOVE WHEN GUIZMO IS DONE
+  {
+
+    ImGuizmo::SetOrthographic(true);
+    ImGuizmo::BeginFrame(); // call the imguizmo new frame function
+    ImGuizmo::SetDrawlist(); // internally set draw list for imguizmo
+    float windowWidth = static_cast<float>(ImGui::GetWindowWidth());
+    float windowHeight = static_cast<float>(ImGui::GetWindowHeight());
+    std::cout << "window pos: " << windowWidth << ", " << windowHeight << std::endl;
+    auto& io = ImGui::GetIO();
+    ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
+    //ImGuizmo::SetGizmoSizeClipSpace();
+    static float testMtx[16] =
+    { 1.f, 0.f, 0.f, 0.f,
+        0.f, 1.f, 0.f, 0.f,
+        0.f, 0.f, 1.f, 0.f,
+        -100.f, 100.f, -1000.f, 1.f };
+
+    frameBuffer.second->camera.CalculateProjMtx();
+    frameBuffer.second->camera.CalculateViewProjMtx();
+
+    ImGuizmo::Enable(true);
+    if (ImGuizmo::IsUsing())
+      std::cout << "USING IMGUIZMO" << std::endl;
+    GizmoEditor::GizmoInfo gizmoInfo{ testMtx, *frameBuffer.second };
+    GizmoEditor::UpdateGizmo(gizmoInfo);
+    EditorViewport::UpdateViewport(*frameBuffer.second);
+    GE::EditorGUI::GizmoEditor::RenderGizmo(); // MUST RENDER AFTER VIEWPORT
+}
+#endif
   End();
 
   Begin("Extras");
@@ -218,6 +252,18 @@ void ImGuiUI::Update()
     Audio::AudioSystem::GetInstance().StopAllChannels();
   }
   End();*/
+
+  if (ImGui::GetIO().KeyCtrl && ImGui::GetIO().KeyShift && IsKeyPressed((ImGuiKey)GLFW_KEY_Z)) {
+    GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+    cmdMan.Redo();
+    SetWindowFocus();
+  }
+
+  else if (ImGui::GetIO().KeyCtrl && IsKeyPressed((ImGuiKey)GLFW_KEY_Z)) {
+    GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+    cmdMan.Undo();
+    SetWindowFocus();
+  }
 
 
 

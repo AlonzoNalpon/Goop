@@ -13,20 +13,11 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ImGuiUI.h"
 #include "Inspector.h"
 #include <ImGui/imgui.h>
-#include <Component/BoxCollider.h>
-#include <Component/Model.h>
-#include <Component/ScriptHandler.h>
-#include <Component/Sprite.h>
-#include <Component/SpriteAnim.h>
-#include <Component/Transform.h>
-#include <Component/Tween.h>
-#include <Component/Velocity.h>
-#include <Component/Draggable.h>
-#include <Component/Text.h>
-#include <Component/Audio.h>
+#include <Component/Components.h>
 #include "../ImGui/misc/cpp/imgui_stdlib.h"
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Commands/CommandManager.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
@@ -221,7 +212,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				{
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
 					float inputWidth = (contentSize - charSize - 30) / 3;
-					
+					GE::CMD::PRS oldPRS{ trans->m_pos, trans->m_rot, trans->m_scale };
 					bool valChanged{ false };
 
 					Separator();
@@ -243,8 +234,12 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					EndTable();
 					Separator();
-					if (valChanged) 
-						GE::Systems::PostRootTransformSystem::Propergate(ecs, entity, trans->m_parentWorldTransform);
+					if (valChanged) {
+						GE::CMD::ChangeTransCmd newTransCmd = GE::CMD::ChangeTransCmd(oldPRS, { trans->m_pos, trans->m_rot, trans->m_scale }, entity);
+						GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+						cmdMan.AddCommand(newTransCmd);
+					}
+
 				}
 				break;
 			}

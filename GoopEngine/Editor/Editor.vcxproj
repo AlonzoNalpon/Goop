@@ -157,6 +157,8 @@
   <ItemGroup>
     <ClCompile Include="Source\AI\TreeManager.cpp" />
     <ClCompile Include="Source\Systems\Audio\AudioSystem.cpp" />
+    <ClCompile Include="Source\Commands\CommandManager.cpp" />
+    <ClCompile Include="Source\Commands\ImGuiCommands.cpp" />
     <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
     <ClCompile Include="Source\EditorUI\AssetPreview.cpp" />
     <ClCompile Include="Source\EditorUI\Console.cpp" />
@@ -265,7 +267,7 @@
     <ClCompile Include="Source\Serialization\GooStream\PrefabGooStream.cpp" />
     <ClCompile Include="Source\Serialization\GooStream\SpriteGooStream.cpp" />
     <ClCompile Include="Source\Serialization\RegisterClasses.cpp" />
-    <ClCompile Include="Source\Serialization\RegisterClasses2.cpp" />
+    <ClCompile Include="Source\Serialization\RegisterComponents.cpp" />
     <ClCompile Include="Source\Serialization\Serializer.cpp" />
     <ClCompile Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.cpp" />
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimGenerator.cpp" />
@@ -294,12 +296,16 @@
     <ClInclude Include="Source\AI\TreeManager.h" />
     <ClInclude Include="Source\Component\Audio.h" />
     <ClInclude Include="Source\Systems\Audio\FmodSystem.h" />
+    <ClInclude Include="Source\Commands\CommandManager.h" />
+    <ClInclude Include="Source\Commands\ICommand.h" />
+    <ClInclude Include="Source\Commands\ImGuiCommands.h" />
     <ClInclude Include="Source\Component\Camera.h" />
     <ClInclude Include="Source\Component\Card.h" />
     <ClInclude Include="Source\Component\Draggable.h" />
     <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\Component\Components.h" />
     <ClInclude Include="Source\Component\Grid.h" />
+    <ClInclude Include="Source\Component\Stats.h" />
     <ClInclude Include="Source\Component\Text.h" />
     <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
     <ClInclude Include="Source\EditorUI\AssetPreview.h" />

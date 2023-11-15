@@ -31,6 +31,8 @@ namespace GE::ObjectFactory
   class ObjectFactory : public Singleton<ObjectFactory>
   {
   public:
+    using EntityDataContainer = std::vector<std::pair<std::string, VariantEntity>>;
+
     /*!*********************************************************************
     \brief
       Goes through the map and create an entity with the data.
@@ -187,6 +189,7 @@ namespace GE::ObjectFactory
     }
 
     std::vector<std::pair<std::string, ObjectData>> m_objects; // Map of objects with pair of name, and ObjectData.
+    EntityDataContainer m_deserialized;
     std::unordered_map<std::string, ObjectData> m_prefabs; // Map of prefabs with pair of name, and ObjectData.
   };
   #include "ObjectFactory.tpp"

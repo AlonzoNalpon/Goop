@@ -13,7 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <string>
 #include <rttr/type.h>
 #include <AI/TreeManager.h>
-#include <ObjectFactory/ObjectStructs.h>
+#include <ObjectFactory/ObjectFactory.h>
 
 namespace GE
 {
@@ -23,6 +23,8 @@ namespace GE
     class Deserializer
     {
     public:
+      static ObjectFactory::ObjectFactory::EntityDataContainer DeserializeScene(std::string const& filepath);
+
       static std::vector<AI::TreeTemplate> DeserializeTrees(std::string const& filename);
 
       static ObjectFactory::VariantPrefab DeserializePrefabToVariant(std::string const& json);
@@ -43,12 +45,14 @@ namespace GE
         std::vector of systems to their respective components
       ************************************************************************/
       static std::vector<std::pair<std::string, ECS::ComponentSignature>> DeserializeSystems(std::string const& json);
+      static void ScanJsonFileForMembers(rapidjson::Document const& document, unsigned keyCount, ...);
     private:
       static rttr::variant GetComponentVariant(rttr::type const& valueType, std::string const& componentData);
       static void DeserializeBasedOnType(rttr::instance object, rapidjson::Value const& value);
       static rttr::variant DeserializeBasicTypes(rapidjson::Value const& value);
       static rttr::variant DeserializeElement(rttr::type const& valueType, rapidjson::Value const& value);
-      static void DeserializeSequentialContainer(rttr::variant_sequential_view const& view, rapidjson::Value const& value);
+      static void DeserializeSequentialContainer(rttr::variant_sequential_view& view, rapidjson::Value const& value);
+
     };
 
   } // namespace Serialization
