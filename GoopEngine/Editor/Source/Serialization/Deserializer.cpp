@@ -193,11 +193,31 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
     Serializer::JsonParentKey, rapidjson::kObjectType, Serializer::JsonComponentsKey, rapidjson::kArrayType);
 
   // okay code starts here
-  /*for (auto const& entity : document.GetArray())
+  for (auto const& entity : document.GetArray())
   {
     std::string entityName{ entity[Serializer::JsonNameKey].GetString() };
+    ObjectFactory::VariantEntity entityVar{ entity[Serializer::JsonParentKey].GetUint() };  // set parent
+    // get child ids
+    for (auto const& child : entity[Serializer::JsonChildEntitiesKey].GetArray())
+    {
+      entityVar.m_childEntities.emplace_back(child.GetUint());
+    }
 
-  }*/
+    std::vector<rttr::variant>& compVector{ entityVar.m_components };
+    for (auto const& elem : entity[Serializer::JsonComponentsKey].GetArray())
+    {
+      for (rapidjson::Value::ConstMemberIterator comp{ elem.MemberBegin() }; comp != elem.MemberEnd(); ++comp)
+      {
+        std::string const compName{ comp->name.GetString() };
+        rapidjson::Value const& compJson{ comp->value };
+        rttr::variant compVar{};
+        DeserializeBasedOnType(compVar, compJson);
+        compVector.emplace_back(std::move(compVar));
+      }
+    }
+
+    ret.emplace_back(std::make_pair(std::move(entityName), std::move(entityVar)));
+  }
 
   return ret;
 }
