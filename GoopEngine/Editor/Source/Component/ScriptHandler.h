@@ -51,7 +51,8 @@ namespace GE
 						{
 							unsigned int copy = entityID;
 							std::vector<void*> arg{ &copy };
-							m_scriptMap[s] = Script(scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Player Script Namespace").c_str(), s.c_str(), arg));
+							std::vector< GE::MONO::MethodInfo> allMethodInfo{ { "Update",0 }};
+							m_scriptMap[s] = Script(scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Player Script Namespace").c_str(), s.c_str(), arg), allMethodInfo);
 						}
 						catch (GE::Debug::IExceptionBase& e)
 						{
@@ -83,7 +84,8 @@ namespace GE
 					{
 						unsigned int copy = entityID;
 						std::vector<void*> arg{ &copy };
-						m_scriptMap[scriptName] = Script(scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Player Script Namespace").c_str(), scriptName.c_str(), arg));
+						std::vector< GE::MONO::MethodInfo> allMethodInfo{ { "Update",0 } };
+						m_scriptMap[scriptName] = Script(scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Player Script Namespace").c_str(), scriptName.c_str(), arg),allMethodInfo);
 					}
 					catch (GE::Debug::IExceptionBase& e)
 					{
@@ -101,8 +103,8 @@ namespace GE
 			************************************************************************/
 			void UpdateAllScripts()
 			{
-				for (const std::pair<std::string, Script>& cs : m_scriptMap) {
-					mono_runtime_invoke(cs.second.m_updateMethod, cs.second.m_classObjInst, nullptr, nullptr);
+				for (std::pair<std::string, Script> cs : m_scriptMap) {
+					cs.second.InvokeMethod("Update", {});
 				}
 			}
 		};

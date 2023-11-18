@@ -19,6 +19,12 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace GE::MONO;
 
 
+// /*!*********************************************************************
+//
+//    Mono Init Codes
+//
+//************************************************************************/
+
 void GE::MONO::ScriptManager::InitMono()
 {
   Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
@@ -31,7 +37,7 @@ void GE::MONO::ScriptManager::InitMono()
   {
     mono_set_assemblies_path(assetManager.GetConfigData<std::string>("MonoAssembly").c_str());
   }
- 
+
   MonoDomain* rootDomain = mono_jit_init(assetManager.GetConfigData<std::string>("RootDomain").c_str());
   if (rootDomain == nullptr)
   {
@@ -47,33 +53,43 @@ void GE::MONO::ScriptManager::InitMono()
   m_appDomain = mono_domain_create_appdomain(const_cast<char*>(str), nullptr);
   mono_domain_set(m_appDomain, true);
 
-  mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyTriggered", GE::Input::InputManager::GetInstance().IsKeyTriggered);
-  mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyHeld", GE::Input::InputManager::GetInstance().IsKeyHeld);
-  mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyReleased", GE::Input::InputManager::GetInstance().IsKeyReleased);
-  mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyPressed", GE::Input::InputManager::GetInstance().IsKeyPressed);
+  // Input Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetMouseScrollY", GE::Input::InputManager::GetInstance().GetMouseScrollVert);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetMouseScrollX", GE::Input::InputManager::GetInstance().GetMouseScrollHor);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetPosition", GE::MONO::GetPosition);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetScale", GE::MONO::GetScale);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetPosition", GE::MONO::SetPosition);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetScale", GE::MONO::SetScale);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetRotation", GE::MONO::SetRotation);
+  mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyTriggered", GE::Input::InputManager::GetInstance().IsKeyTriggered);
+  mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyReleased", GE::Input::InputManager::GetInstance().IsKeyReleased);
+  mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyPressed", GE::Input::InputManager::GetInstance().IsKeyPressed);
+  mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyHeld", GE::Input::InputManager::GetInstance().IsKeyHeld);
 
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetChildResult", GE::Systems::EnemySystem::GetChildResult);
+
+  // Get Functions
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetPosition", GE::MONO::GetPosition);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetHealth", GE::MONO::GetHealth);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetScale", GE::MONO::GetScale);
+
+  // Set Functions
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetPosition", GE::MONO::SetPosition);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetRotation", GE::MONO::SetRotation);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetHealth", GE::MONO::SetHealth);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetScale", GE::MONO::SetScale);
+
+  // Node Editor Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetCurrentChildIndex", GE::Systems::EnemySystem::GetCurrentChildIndex);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetResult", GE::Systems::EnemySystem::SetResult);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetNewChildIndex", GE::Systems::EnemySystem::SetNewChildIndex);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetChildResult", GE::Systems::EnemySystem::GetChildResult);
   mono_add_internal_call("GoopScripts.Mono.Utils::RunChildNode", GE::Systems::EnemySystem::RunChildNode);
   mono_add_internal_call("GoopScripts.Mono.Utils::JumpToParent", GE::Systems::EnemySystem::JumpToParent);
-  mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
-
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPlayerID", GE::Systems::EnemySystem::GetPlayerID);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayerExist", GE::Systems::EnemySystem::PlayerExist);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetResult", GE::Systems::EnemySystem::SetResult);
+  mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
 
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetHealth", GE::MONO::GetHealth);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetHealth", GE::MONO::SetHealth);
 
+
+
+
+  //Load the CSharpAssembly (dll file)
   std::ifstream filed(assetManager.GetConfigData<std::string>("CAssemblyExe"));
   if (file.good())
   {
@@ -81,23 +97,40 @@ void GE::MONO::ScriptManager::InitMono()
   }
   else
   {
-     m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssembly"));
-  }  
+    m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssembly"));
+  }
 }
 
-GE::MONO::ScriptManager::~ScriptManager()
+MonoAssembly* GE::MONO::LoadCSharpAssembly(const std::string& assemblyPath)
 {
-  if (m_rootDomain)
+  uint32_t fileSize = 0;
+  char* fileData;
+  try
   {
-    mono_domain_set(mono_get_root_domain(), false);
-
-    mono_domain_unload(m_appDomain);
-    m_appDomain = nullptr;
-
-    mono_jit_cleanup(m_rootDomain);
-    m_rootDomain = nullptr;
+    fileData = ReadBytes(assemblyPath, &fileSize);
   }
- 
+  catch (GE::Debug::IExceptionBase& e)
+  {
+    e.LogSource();
+    e.Log();
+    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Read file fail", ERRLG_FUNC, ERRLG_LINE);
+  }
+
+  MonoImageOpenStatus status;
+  MonoImage* image = mono_image_open_from_data_full(fileData, fileSize, 1, &status, 0);
+  if (status != MONO_IMAGE_OK)
+  {
+    const char* errorMessage = mono_image_strerror(status);
+    delete[] fileData;
+    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, errorMessage, ERRLG_FUNC, ERRLG_LINE);
+  }
+
+  MonoAssembly* assembly = mono_assembly_load_from_full(image, assemblyPath.c_str(), &status, 0);
+  mono_image_close(image);
+
+  //Free the memory from Read Bytes
+  delete[] fileData;
+  return assembly;
 }
 
 char* GE::MONO::ReadBytes(const std::string& filepath, uint32_t* outSize)
@@ -126,54 +159,35 @@ char* GE::MONO::ReadBytes(const std::string& filepath, uint32_t* outSize)
   return buffer;
 }
 
-MonoAssembly* GE::MONO::LoadCSharpAssembly(const std::string& assemblyPath)
+
+// /*!*********************************************************************
+//
+//    Mono Shutdown Codes
+//
+//************************************************************************/
+
+GE::MONO::ScriptManager::~ScriptManager()
 {
-  uint32_t fileSize = 0;
-  char* fileData;
-  try 
+  if (m_rootDomain)
   {
-    fileData = ReadBytes(assemblyPath, &fileSize);
-  }
-  catch (GE::Debug::IExceptionBase& e)
-  {
-    e.LogSource();
-    e.Log();
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Read file fail", ERRLG_FUNC, ERRLG_LINE);
+    mono_domain_set(mono_get_root_domain(), false);
+
+    mono_domain_unload(m_appDomain);
+    m_appDomain = nullptr;
+
+    mono_jit_cleanup(m_rootDomain);
+    m_rootDomain = nullptr;
   }
 
-
-  // NOTE: We can't use this image for anything other than loading the assembly because this image doesn't have a reference to the assembly
-  MonoImageOpenStatus status;
-  MonoImage* image = mono_image_open_from_data_full(fileData, fileSize, 1, &status, 0);
-
-  if (status != MONO_IMAGE_OK)
-  {
-    const char* errorMessage = mono_image_strerror(status);
-
-    delete[] fileData;
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, errorMessage, ERRLG_FUNC, ERRLG_LINE);
-  }
-
-  MonoAssembly* assembly = mono_assembly_load_from_full(image, assemblyPath.c_str(), &status, 0);
-  mono_image_close(image);
-
-  //Free the memory from Read Bytes
-  delete[] fileData;
-
-  return assembly;
 }
 
-MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* namespaceName, const char* className)
-{
-  MonoImage* image = mono_assembly_get_image(assembly);
-  MonoClass* klass = mono_class_from_name(image, namespaceName, className);
 
-  if (klass == nullptr)
-  {
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Unable to acess c# class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
-  }
-  return klass;
-}
+
+// /*!*********************************************************************
+//
+//    Functions for getting C# script Data
+//
+//************************************************************************/
 
 MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className, void** arg, int argSize)
 {
@@ -189,10 +203,8 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName,
     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
   }
 
-
   // Allocate an instance of our class
   MonoObject* classInstance = mono_object_new(m_appDomain, childClass);
-
   if (classInstance == nullptr)
   {
     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Allocate memory for class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
@@ -201,7 +213,6 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName,
   //Init the class through non-default constructor
   MonoMethod* classCtor = mono_class_get_method_from_name(childClass, ".ctor", argSize);
   mono_runtime_invoke(classCtor, classInstance, arg, nullptr);
-
   if (classInstance == nullptr) {
     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
   }
@@ -210,9 +221,9 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName,
 
 MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className, std::vector<void*>& arg)
 {
-  // Get a reference to the class we want to instantiate
-  MonoClass* childClass;
-  try {
+  MonoClass* childClass;  //Get a reference to the class we want to instantiate
+  try 
+  {
     childClass = GetClassInAssembly(m_coreAssembly, namespaceName, className);
   }
   catch (GE::Debug::IExceptionBase& e)
@@ -222,10 +233,8 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName,
     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
   }
 
-
   // Allocate an instance of our class
   MonoObject* classInstance = mono_object_new(m_appDomain, childClass);
-
   if (classInstance == nullptr)
   {
     throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Allocate memory for class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
@@ -240,6 +249,25 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName,
   }
   return classInstance;
 }
+
+MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* namespaceName, const char* className)
+{
+  MonoImage* image = mono_assembly_get_image(assembly);
+  MonoClass* klass = mono_class_from_name(image, namespaceName, className);
+
+  if (klass == nullptr)
+  {
+    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Unable to acess c# class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+  }
+  return klass;
+}
+
+
+// /*!*********************************************************************
+//
+//    Internal Call Functions for C#
+//
+//************************************************************************/
 
 void GE::MONO::SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment)
 {
@@ -303,11 +331,6 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
   return oldTransform->m_rot;
 }
 
-int GE::MONO::CalculateGCD(int large, int small)
-{
-  return small == 0 ? large : CalculateGCD(small, large % small);
-}
-
 unsigned int GE::MONO::GetHealth(GE::ECS::Entity entity)
 {
   static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
@@ -318,4 +341,9 @@ void GE::MONO::SetHealth(GE::ECS::Entity entity, unsigned int health)
 {
   static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
   ecs.GetComponent<GE::Component::Stats>(entity)->m_health = health;
+}
+
+int GE::MONO::CalculateGCD(int large, int small)
+{
+  return small == 0 ? large : CalculateGCD(small, large % small);
 }

@@ -156,6 +156,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AI\TreeManager.cpp" />
+    <ClCompile Include="Source\Commands\CommandManager.cpp" />
+    <ClCompile Include="Source\Commands\ImGuiCommands.cpp" />
     <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
     <ClCompile Include="Source\EditorUI\AssetPreview.cpp" />
     <ClCompile Include="Source\EditorUI\Console.cpp" />
@@ -171,6 +173,7 @@
     <ClCompile Include="Source\ECS\System\System.cpp" />
     <ClCompile Include="Source\EditorUI\DataViz\Visualizer.cpp" />
     <ClCompile Include="Source\EditorUI\EditorViewport.cpp" />
+    <ClCompile Include="Source\EditorUI\GizmoEditor.cpp" />
     <ClCompile Include="Source\EditorUI\Inspector.cpp" />
     <ClCompile Include="Source\EditorUI\PrefabEditor.cpp" />
     <ClCompile Include="Source\EditorUI\SceneControls.cpp" />
@@ -182,6 +185,7 @@
     <ClCompile Include="Source\Graphics\Renderer\Camera.cpp" />
     <ClCompile Include="Source\Graphics\Renderer\Renderer.cpp" />
     <ClCompile Include="Source\Graphics\TextureManager.cpp" />
+    <ClCompile Include="Source\ImGuizmo_1_83\ImGuizmo.cpp" />
     <ClCompile Include="Source\ImGui\backends\imgui_impl_glfw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
@@ -291,6 +295,9 @@
   <ItemGroup>
     <ClInclude Include="Source\AI\Tree.h" />
     <ClInclude Include="Source\AI\TreeManager.h" />
+    <ClInclude Include="Source\Commands\CommandManager.h" />
+    <ClInclude Include="Source\Commands\ICommand.h" />
+    <ClInclude Include="Source\Commands\ImGuiCommands.h" />
     <ClInclude Include="Source\Component\Camera.h" />
     <ClInclude Include="Source\Component\Card.h" />
     <ClInclude Include="Source\Component\Draggable.h" />
@@ -328,6 +335,7 @@
     <ClInclude Include="Source\ECS\Component\ComponentManager.h" />
     <ClInclude Include="Source\EditorUI\DataViz\Visualizer.h" />
     <ClInclude Include="Source\EditorUI\EditorViewport.h" />
+    <ClInclude Include="Source\EditorUI\GizmoEditor.h" />
     <ClInclude Include="Source\EditorUI\Inspector.h" />
     <ClInclude Include="Source\EditorUI\PrefabEditor.h" />
     <ClInclude Include="Source\EditorUI\SceneControls.h" />
@@ -335,6 +343,7 @@
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
     <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
     <ClInclude Include="Source\Graphics\Renderer\FrameBufferInfo.h" />
+    <ClInclude Include="Source\ImGuizmo_1_83\ImGuizmo.h" />
     <ClInclude Include="Source\ImNode\imnodes.h" />
     <ClInclude Include="Source\ImNode\imnodes_internal.h" />
     <ClInclude Include="Source\ImNode\NodeEditor.h" />

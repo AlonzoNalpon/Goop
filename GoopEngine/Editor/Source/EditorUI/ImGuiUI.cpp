@@ -35,7 +35,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <EditorUI/PrefabEditor.h>
 #include <EditorUI/AssetPreview.h>
 #include <GameStateManager/GameStateManager.h>
-
+#include <Commands/CommandManager.h>
+#include <ImGuizmo_1_83/ImGuizmo.h>
+#include <EditorUI/GizmoEditor.h>
 using namespace GE::EditorGUI;
 using namespace DataViz;
 using namespace ImGui;
@@ -68,6 +70,7 @@ void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
   auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
   frameBuffer.first = gEngine.CreateFrameBuffer(window->GetWinWidth(), window->GetWinHeight());
   frameBuffer.second = &gEngine.GetFrameBuffer(frameBuffer.first);
+
   ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(prgmWindow.GetWindow(), true);
@@ -92,6 +95,9 @@ void ImGuiUI::Update()
   ToolBar::CreateContent();
 
   SceneControls::CreateContent();
+
+
+
 
   Begin("Console");
   Console::CreateContent();
@@ -118,9 +124,35 @@ void ImGuiUI::Update()
   End();
 
   Begin("Viewport");
+#if 0 // ALONZO: I NEED THIS. WILL REMOVE WHEN GUIZMO IS DONE
   {
     EditorGUI::EditorViewport::UpdateViewport(*frameBuffer.second);
   }
+#else
+  {
+    ImGuizmo::SetOrthographic(true);
+    ImGuizmo::BeginFrame(); // call the imguizmo new frame function
+    ImGuizmo::SetDrawlist(); // internally set draw list for imguizmo
+    auto& io = ImGui::GetIO();
+    ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
+   
+
+    ImGuizmo::Enable(true);
+
+    EditorViewport::UpdateViewport(*frameBuffer.second);
+
+    if (GizmoEditor::isVisible())
+    {
+      frameBuffer.second->camera.CalculateProjMtx();
+      frameBuffer.second->camera.CalculateViewProjMtx();
+      GizmoEditor::UpdateGizmoMtx(*frameBuffer.second);
+      GizmoEditor::RenderGizmo(); // MUST RENDER AFTER VIEWPORT
+      GizmoEditor::PostRenderUpdate();
+    }
+    GizmoEditor::SetVisible(false); // reset state
+  }
+
+#endif
   End();
 
   Begin("Extras");
@@ -218,6 +250,18 @@ void ImGuiUI::Update()
     Audio::AudioEngine::GetInstance().StopAllChannels();
   }
   End();
+
+  if (ImGui::GetIO().KeyCtrl && ImGui::GetIO().KeyShift && IsKeyPressed((ImGuiKey)GLFW_KEY_Z)) {
+    GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+    cmdMan.Redo();
+    SetWindowFocus();
+  }
+
+  else if (ImGui::GetIO().KeyCtrl && IsKeyPressed((ImGuiKey)GLFW_KEY_Z)) {
+    GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+    cmdMan.Undo();
+    SetWindowFocus();
+  }
 
 
 
