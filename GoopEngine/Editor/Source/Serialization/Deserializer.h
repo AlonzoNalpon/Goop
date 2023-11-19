@@ -15,6 +15,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AI/TreeManager.h>
 #include <ObjectFactory/ObjectFactory.h>
 
+#ifdef _DEBUG
+std::ostream& operator<<(std::ostream& os, rttr::type const& type);
+#endif
+
 namespace GE
 {
   namespace Serialization
@@ -45,14 +49,16 @@ namespace GE
         std::vector of systems to their respective components
       ************************************************************************/
       static std::vector<std::pair<std::string, ECS::ComponentSignature>> DeserializeSystems(std::string const& json);
+
       static void ScanJsonFileForMembers(rapidjson::Document const& document, unsigned keyCount, ...);
+
     private:
       static rttr::variant GetComponentVariant(rttr::type const& valueType, std::string const& componentData);
       static void DeserializeBasedOnType(rttr::instance object, rapidjson::Value const& value);
+      static bool DeserializeOtherComponents(rttr::variant& compVar, rttr::type const& type, rapidjson::Value const& value);
       static rttr::variant DeserializeBasicTypes(rapidjson::Value const& value);
       static rttr::variant DeserializeElement(rttr::type const& valueType, rapidjson::Value const& value);
       static void DeserializeSequentialContainer(rttr::variant_sequential_view& view, rapidjson::Value const& value);
-
     };
 
   } // namespace Serialization

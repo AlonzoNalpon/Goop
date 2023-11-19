@@ -17,6 +17,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Serialization/Deserializer.h>
 
+#define RTTR_DESERIALIZE
+
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
 
@@ -133,6 +135,58 @@ GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData 
       DeserializeComponent<GE::Component::Text>(data.m_components.at(GE::ECS::COMPONENT_TYPES::TEXT)));
   }
   return newData;
+}
+
+void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const
+{
+  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+
+  rttr::type const compType{ compVar.get_type().get_wrapped_type().get_raw_type() };
+
+  if (compType == rttr::type::get<Component::Transform>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Transform*>());
+  }
+  else if (compType == rttr::type::get<Component::BoxCollider>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::BoxCollider*>());
+  }
+  else if (compType == rttr::type::get<Component::Velocity>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Velocity*>());
+  }
+  else if (compType == rttr::type::get<Component::Sprite>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Sprite*>());
+  }
+  else if (compType == rttr::type::get<Component::SpriteAnim>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::SpriteAnim*>());
+  }
+  else if (compType == rttr::type::get<Component::Model>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Model*>());
+  }
+  else if (compType == rttr::type::get<Component::Tween>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Tween*>());
+  }
+  else if (compType == rttr::type::get<Component::Scripts>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Scripts*>());
+  }
+  else if (compType == rttr::type::get<Component::Draggable>())
+  {
+    ecs.AddComponent(entity, Component::Draggable{});
+  }
+  else if (compType == rttr::type::get<Component::EnemyAI>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::EnemyAI*>());
+  }
+  else if (compType == rttr::type::get<Component::Text>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Text*>());
+  }
 }
 
 void ObjectFactory::RegisterComponentsAndSystems() const
@@ -290,6 +344,11 @@ void ObjectFactory::ClearSceneObjects()
 
 void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
 {
+#ifdef RTTR_DESERIALIZE
+  static bool test{ true };
+  if (test)
+  {
+#endif
   try
   {
     ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
@@ -330,15 +389,58 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
     e.LogSource();
     e.Log();
   }
+#ifdef RTTR_DESERIALIZE
+  test = false;
+  }
+  else
+  {
+    ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+
+    for (auto const& [name, data] : m_deserialized)
+    {
+      ECS::Entity newEntity{ ecs.CreateEntity() };
+      ecs.SetEntityName(newEntity, name);
+      
+      for (auto const& component : data.m_components)
+      {
+        AddComponentToEntity(newEntity, component);
+      }
+    }
+  }
+#endif
 }
 
 void ObjectFactory::LoadSceneJson(std::string const& filename)
 {
-  Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene(filename) };
-  if (ogs)
+#ifdef RTTR_DESERIALIZE
+  static bool test{ true };
+  if (test)
   {
-    ogs.Unload(m_objects);
+#endif
+
+    Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene(filename) };
+    if (ogs)
+    {
+      ogs.Unload(m_objects);
+    }
+
+#ifdef RTTR_DESERIALIZE
+    test = false;
   }
+  else
+  {
+    m_deserialized = GE::Serialization::Deserializer::DeserializeScene(GE::Assets::AssetManager::GetInstance().GetScene(filename));
+    for (auto const& [name, obj] : m_deserialized)
+    {
+      std::cout << name << ":\n";
+      std::cout << "  Components:\n";
+      for (auto const& var : obj.m_components)
+      {
+        std::cout << "    " << var.get_type() << "\n";
+      }
+    }
+  }
+#endif
 }
 
 void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::ComponentSignature sig) const

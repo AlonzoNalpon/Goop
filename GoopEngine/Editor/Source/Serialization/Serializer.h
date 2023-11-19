@@ -28,7 +28,7 @@ namespace GE
     {
     public:
 
-      static const char JsonNameKey[], JsonParentKey[], JsonChildEntitiesKey[], JsonComponentsKey[];
+      static const char JsonNameKey[], JsonIdKey[], JsonParentKey[], JsonChildEntitiesKey[], JsonComponentsKey[];
 
       /*!*********************************************************************
       \brief  

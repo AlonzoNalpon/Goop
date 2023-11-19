@@ -22,7 +22,7 @@ namespace GE
 			GE::AI::TreeCache m_enemyTreeCache;
 			GE::AI::TreeID m_treeID;
 
-
+			EnemyAI() = default;
 			EnemyAI(TreeID treeID)
 			{
 				m_treeID = treeID;

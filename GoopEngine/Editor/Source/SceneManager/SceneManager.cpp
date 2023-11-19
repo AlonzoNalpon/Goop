@@ -21,7 +21,7 @@ using namespace GE::Scenes;
 void SceneManager::Init()
 {
   // Load data into map
-  m_nextScene = m_currentScene = "Robot";
+  m_nextScene = m_currentScene = "BehaviourTreeTest";
 }
 
 void SceneManager::LoadScene()

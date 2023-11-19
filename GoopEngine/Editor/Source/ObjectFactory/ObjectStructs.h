@@ -49,12 +49,12 @@ namespace GE
     {
       VariantEntity() = default;
       VariantEntity(ECS::Entity parent)
-        : m_components{}, m_childEntities{}, m_parent{ parent }, m_componentSignature{} {}
+        : m_components{}, m_childEntities{}, m_parent{ parent } {}
 
       std::vector<rttr::variant> m_components;
       std::vector<ECS::Entity> m_childEntities;
       ECS::Entity m_parent = ECS::INVALID_ID;
-      ECS::ComponentSignature m_componentSignature;
+      //ECS::ComponentSignature m_componentSignature;
     };
   }
 }

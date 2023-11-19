@@ -22,6 +22,25 @@ using namespace GE;
 //  metadata("NO_SERIALIZE", true)
 //)
 
+namespace RttrHelper
+{
+  GE::Math::dVec2 dVec2FromString(std::string const& str, bool& ok)
+  {
+    GE::Math::dVec2 ret{};
+    ret << str;
+    ok = true;
+    return ret;
+  }
+
+  GE::Math::dVec3 dVec3FromString(std::string const& str, bool& ok)
+  {
+    GE::Math::dVec3 ret{};
+    ret << str;
+    ok = true;
+    return ret;
+  }
+}
+
 RTTR_REGISTRATION
 {
   /* ------------------- CLASSES / STRUCTS ------------------- */
@@ -33,6 +52,7 @@ RTTR_REGISTRATION
     .property("y", &Math::dVec2::y)
     .method("ToString", &Math::dVec2::ToString)
     ;
+  
   rttr::registration::class_<Math::Vec2>("Vec2")
     .method("ToString", &Math::Vec2::ToString)
     ;
@@ -45,6 +65,19 @@ RTTR_REGISTRATION
     .property("y", &Math::dVec3::y)
     .property("z", &Math::dVec3::z) 
     .method("ToString", &Math::dVec3::ToString)
+    ;
+
+  rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")
+    .property("nodeType", &AI::NodeTemplate::m_nodeType)
+    .property("parentNode", &AI::NodeTemplate::m_parentNode)
+    .property("childrenNode", &AI::NodeTemplate::m_childrenNode)
+    .property("scriptName", &AI::NodeTemplate::m_scriptName)
+    .property("pos", &AI::NodeTemplate::m_pos)
+    ;
+  rttr::registration::class_<AI::TreeTemplate>("TreeTemplate")
+    .property("tree", &AI::TreeTemplate::m_tree)
+    .property("treeName", &AI::TreeTemplate::m_treeName)
+    .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
     ;
 
   /* ------------------- ENUMERATIONS ------------------- */
@@ -86,5 +119,6 @@ RTTR_REGISTRATION
   //    );
 
   /* ------------------- FUNCTIONS ------------------- */
-
+  rttr::type::register_converter_func(RttrHelper::dVec2FromString);
+  rttr::type::register_converter_func(RttrHelper::dVec3FromString);
 } // RTTR Registration

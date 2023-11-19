@@ -116,6 +116,9 @@ namespace GE::ObjectFactory
    ************************************************************************/
     void ClearSceneObjects();
 
+
+    void AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const;
+
   private:
     /*!*********************************************************************
     \brief

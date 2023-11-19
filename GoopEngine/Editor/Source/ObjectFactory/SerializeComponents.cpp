@@ -76,17 +76,16 @@ namespace GE
 			Serialization::ComponentWrapper const cw{ componentData };
 			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 			auto& am = GE::Assets::AssetManager::GetInstance();
-			Component::Sprite sprite;
 
 			try {
-				am.GetData(cw.Get<std::string>("filename"));
+				am.GetData(cw.Get<std::string>("spriteName"));
 			}
 			catch (GE::Debug::IExceptionBase&)
 			{
-				am.LoadImageW(cw.Get<std::string>("filename"));
+				am.LoadImageW(cw.Get<std::string>("spriteName"));
 			}
 			
-			return Component::Sprite(gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename")));
+			return Component::Sprite(gEngine.textureManager.GetTextureID(cw.Get<std::string>("spriteName")));
 		}
 
 		template<>
@@ -130,6 +129,8 @@ namespace GE
 			tween.m_timeTaken = cw.Get<double>("timeTaken");
 			tween.m_timeElapsed = cw.Get<double>("timeElapsed");
 			tween.m_originalPos = cw.Get<Math::dVec3>("originalPos");
+			tween.m_started = cw.Get<bool>("started");
+			tween.m_paused = cw.Get<bool>("paused");
 			
 			return tween;
 		}
