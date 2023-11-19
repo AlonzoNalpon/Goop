@@ -68,7 +68,7 @@
                 }
             },
             {
-                "ScriptHandler": {
+                "Scripts": {
                     "scriptMap": [
                         "Player"
                     ]

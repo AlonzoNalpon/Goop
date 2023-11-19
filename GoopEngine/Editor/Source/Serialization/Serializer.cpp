@@ -222,9 +222,9 @@ namespace GE
         Component::Model* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Model>(id) };
         return ret ? *ret : rttr::variant();
       }
-      case ECS::COMPONENT_TYPES::SCRIPT_HANDLER:
+      case ECS::COMPONENT_TYPES::SCRIPTS:
       {
-        Component::ScriptHandler* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::ScriptHandler>(id) };
+        Component::Scripts* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Scripts>(id) };
         return ret ? *ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::SPRITE:
@@ -271,7 +271,7 @@ namespace GE
       return rttr::variant();
     }
 
-    rapidjson::Value Serializer::SerializeScriptMap(std::map<std::string, MONO::Script> const& scripts, rapidjson::Document::AllocatorType& allocator)
+    rapidjson::Value Serializer::SerializeScriptMap(std::map<std::string, MONO::ScriptInstance> const& scripts, rapidjson::Document::AllocatorType& allocator)
     {
       rapidjson::Value ret{ rapidjson::kArrayType };
       for (auto const& [s1, s2] : scripts)
@@ -449,10 +449,10 @@ namespace GE
         }
         else if (prop.get_type().is_class())  // else if custom types
         {
-          // Handling special cases here (e.g. ScriptHandler's script map)
-          if (value.get_type() == rttr::type::get<Component::ScriptHandler>())
+          // Handling special cases here (e.g. Scripts's script map)
+          if (value.get_type() == rttr::type::get<Component::Scripts>())
           {
-            jsonVal = SerializeScriptMap(value.get_value<std::map<std::string, GE::MONO::Script> const&>(), allocator);
+            jsonVal = SerializeScriptMap(value.get_value<std::map<std::string, GE::MONO::ScriptInstance> const&>(), allocator);
           }
           /*else if (instance.get_type() == rttr::type::get<Component::Sprite>())
           {

@@ -110,10 +110,10 @@ RTTR_REGISTRATION
     .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
     ;
 
-  rttr::registration::class_<Component::ScriptHandler>("ScriptHandler")
+  rttr::registration::class_<Component::Scripts>("Scripts")
     .constructor<std::vector<std::string> const&, unsigned>()
-    .property("scriptMap", &Component::ScriptHandler::m_scriptMap)
-    .method("AddScript", &Component::ScriptHandler::AddScript)
+    .property("scriptMap", &Component::Scripts::m_scriptMap)
+    .method("AddScript", &Component::Scripts::AddScript)
     ;
 
   rttr::registration::class_<Graphics::Colorf>("Colorf")

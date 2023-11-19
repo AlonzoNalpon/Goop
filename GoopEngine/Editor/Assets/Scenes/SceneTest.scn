@@ -56,7 +56,7 @@
                 }
             },
             {
-                "ScriptHandler": {
+                "Scripts": {
                     "scriptMap": [
                         "Player"
                     ]

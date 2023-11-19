@@ -256,7 +256,7 @@
     </ClCompile>
     <ClCompile Include="Source\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Source\Scenes\Scene.cpp" />
-    <ClCompile Include="Source\ScriptEngine\Script.cpp" />
+    <ClCompile Include="Source\ScriptEngine\ScriptInstance.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptManager.cpp" />
     <ClCompile Include="Source\ECS\System\SystemManager.cpp" />
     <ClCompile Include="Source\FrameRateController\FrameRateController.cpp" />
@@ -304,6 +304,7 @@
     <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\Component\Components.h" />
     <ClInclude Include="Source\Component\Grid.h" />
+    <ClInclude Include="Source\Component\Scripts.h" />
     <ClInclude Include="Source\Component\Stats.h" />
     <ClInclude Include="Source\Component\Text.h" />
     <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
@@ -319,7 +320,6 @@
     <ClInclude Include="Source\Component\BoxCollider.h" />
     <ClInclude Include="Source\Component\Gravity.h" />
     <ClInclude Include="Source\Component\Model.h" />
-    <ClInclude Include="Source\Component\ScriptHandler.h" />
     <ClInclude Include="Source\Component\Sprite.h" />
     <ClInclude Include="Source\Component\SpriteAnim.h" />
     <ClInclude Include="Source\Component\Transform.h" />
@@ -395,7 +395,7 @@
     <ClInclude Include="Source\EditorUI\SceneHierachy.h" />
     <ClInclude Include="Source\SceneManager\SceneManager.h" />
     <ClInclude Include="Source\Scenes\Scene.h" />
-    <ClInclude Include="Source\ScriptEngine\Script.h" />
+    <ClInclude Include="Source\ScriptEngine\ScriptInstance.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptManager.h" />
     <ClInclude Include="Source\Serialization\ComponentWrapper\ComponentWrapper.h" />
     <ClInclude Include="Source\Serialization\Deserializer.h" />

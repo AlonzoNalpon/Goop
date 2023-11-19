@@ -26,7 +26,7 @@ namespace GE
 			SPRITE_ANIM,
 			MODEL,
 			TWEEN,
-			SCRIPT_HANDLER,
+			SCRIPTS,
 			DRAGGABLE,
 			ENEMY_AI,
 			TEXT,
@@ -47,7 +47,7 @@ namespace GE
 			{ COMPONENT_TYPES::SPRITE_ANIM, "SpriteAnim" },
 			{ COMPONENT_TYPES::MODEL, "Model" },
 			{ COMPONENT_TYPES::TWEEN, "Tween" },
-			{ COMPONENT_TYPES::SCRIPT_HANDLER, "ScriptHandler" },
+			{ COMPONENT_TYPES::SCRIPTS, "Scripts" },
 			{ COMPONENT_TYPES::DRAGGABLE, "Draggable" },
 			{ COMPONENT_TYPES::ENEMY_AI, "EnemyAI" },
 			{ COMPONENT_TYPES::TEXT, "Text" }
@@ -65,7 +65,7 @@ namespace GE
 			{ "SpriteAnim", COMPONENT_TYPES::SPRITE_ANIM },
 			{ "Model", COMPONENT_TYPES::MODEL },
 			{ "Tween", COMPONENT_TYPES::TWEEN },
-			{ "ScriptHandler", COMPONENT_TYPES::SCRIPT_HANDLER },
+			{ "Scripts", COMPONENT_TYPES::SCRIPTS },
 			{ "Draggable", COMPONENT_TYPES::DRAGGABLE },
 			{ "EnemyAI", COMPONENT_TYPES::ENEMY_AI },
 			{ "Text", COMPONENT_TYPES::TEXT }

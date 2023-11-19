@@ -42,8 +42,8 @@ rttr::variant Deserializer::GetComponentVariant(rttr::type const& valueType, std
     return ObjectFactory::DeserializeComponent<Component::EnemyAI>(componentData);
   else if (valueType == rttr::type::get<Component::Model>())
     return ObjectFactory::DeserializeComponent<Component::Model>(componentData);
-  else if (valueType == rttr::type::get<Component::ScriptHandler>())
-    return ObjectFactory::DeserializeScriptHandler(componentData, 0);
+  else if (valueType == rttr::type::get<Component::Scripts>())
+    return ObjectFactory::DeserializeScripts(componentData, 0);
   else if (valueType == rttr::type::get<Component::Sprite>())
     return ObjectFactory::DeserializeComponent<Component::Sprite>(componentData);
   else if (valueType == rttr::type::get<Component::SpriteAnim>())

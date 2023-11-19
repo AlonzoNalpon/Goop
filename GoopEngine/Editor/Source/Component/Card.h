@@ -9,7 +9,7 @@ namespace GE::Component
   {
     int m_actionValue;
 
-    GE::MONO::Script m_behaviour;
+    GE::MONO::ScriptInstance m_behaviour;
 
     // A system will dispatch a card event on card release
     struct CardEvent : public GE::Events::Event

@@ -1,6 +1,6 @@
 #pragma once
 /*!*********************************************************************
-\file   Script.h
+\file   ScriptInstance.h
 \author han.q\@digipen.edu
 \date   28 September 2023
 \brief
@@ -17,7 +17,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <iostream>
 #include <fstream>
 #include <Math/GEM.h>
-#include <map>
+#include "../ECS/EntityComponentSystem.h"
+
 
 
 namespace GE {
@@ -25,16 +26,20 @@ namespace GE {
 
 		using MethodInfo = std::pair<std::string, int>;
 
-		struct Script{
-			MonoObject* m_classObjInst;
-			std::map<std::string, MonoMethod*> m_classMethods;
+		struct ScriptInstance{
+			MonoClass* m_monoClass{ nullptr };
+			MonoObject* m_classInst{ nullptr };
+			MonoMethod* m_onUpdateMethod{ nullptr };
+			MonoMethod* m_onCreateMethod = { nullptr };
+			
+
 
 
 			/*!*********************************************************************
 			\brief
 				Default constructor of Script Class
 			************************************************************************/
-			Script() : m_classObjInst{ nullptr }, m_classMethods{} {}
+			ScriptInstance() {}
 	
 			/*!*********************************************************************
 			\brief
@@ -43,7 +48,7 @@ namespace GE {
 			\params objectInstance
 				Pointer to the instance of a MonoClass
 			************************************************************************/
-			Script(MonoObject* objectInstance, const std::vector<std::pair<std::string, int>>& allMethodInfo);
+			ScriptInstance( const std::string& scriptName, std::vector<void*>& arg);
 
 
 			/*!*********************************************************************
@@ -65,7 +70,10 @@ namespace GE {
 			\return 
 				whatever return value that c# method returns, but as a MonoOBject pointer. To access it in c++, cast it to oriiginal data type (e.g. (int*) )
 			************************************************************************/
-			MonoObject* InvokeMethod(const std::string& methodName, void** arg);
+
+			void InvokeOnCreate();
+
+			void InvokeOnUpdate(double dt);
 
 
 		};

@@ -15,9 +15,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoopScripts.Mono;
 
 
-namespace GoopScripts
+namespace GoopScripts.Component
 {
   public struct Transform
   {
