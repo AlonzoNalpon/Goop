@@ -134,13 +134,13 @@ namespace GE
 			return tween;
 		}
 
-		GE::Component::ScriptHandler DeserializeScriptHandler(std::string const& componentData, GE::ECS::Entity entityID)
+		GE::Component::Scripts DeserializeScripts(std::string const& componentData, GE::ECS::Entity entityID)
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
 			std::vector<std::string> const vec{
 				cw.Get<std::vector<std::string>>("scriptMap")
 			};
-			return Component::ScriptHandler(vec, entityID);
+			return Component::Scripts(vec, entityID);
 		}
 
 		template<>

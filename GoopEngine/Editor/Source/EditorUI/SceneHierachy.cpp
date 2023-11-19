@@ -17,6 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <ObjectFactory/SerializeComponents.h>
+#include <Commands/CommandManager.h>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -130,9 +131,11 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 	{
 		if (Selectable("Create"))
 		{
-			Entity newEntity = ecs.CreateEntity();
-			GE::Component::Transform trans{{0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 }};
-			ecs.AddComponent(newEntity, trans);
+			GE::Component::Transform trans{ {0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 } };
+			GE::CMD::PRS newPRS{ trans.m_pos, trans.m_rot, trans.m_scale };
+			GE::CMD::AddObjectCmd newTransCmd = GE::CMD::AddObjectCmd(newPRS);
+			GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+			cmdMan.AddCommand(newTransCmd);
 		}
 		EndPopup();
 	}
@@ -140,7 +143,10 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 	// Delete entities after interation
 	for (Entity entity : entitiesToDestroy)
 	{
-		ecs.DestroyEntity(entity);
+		//ecs.DestroyEntity(entity);
+		GE::CMD::RemoveObjectCmd newRemCmd = GE::CMD::RemoveObjectCmd(entity);
+		GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+		cmdMan.AddCommand(newRemCmd);
 	}
 	entitiesToDestroy.clear();
 }
@@ -169,7 +175,7 @@ namespace
 				{ 0, 0, 1, 0 },
 				{ 0, 0, 0, 1 }
 			};
-			GE::Systems::PreRootTransformSystem::Propergate(ecs, child, identity);
+			GE::Systems::PreRootTransformSystem::Propergate(child, identity);
 		}
 		else
 		{
@@ -194,7 +200,7 @@ namespace
 					throw GE::Debug::Exception<GE::EditorGUI::SceneHierachy>(GE::Debug::LEVEL_CRITICAL, ErrMsg("entity " + std::to_string(*parent) + " is missing a transform component. All entities must have a transform component!!"));
 				}
 
-				GE::Systems::PreRootTransformSystem::Propergate(ecs, child, parentTrans->m_worldTransform);
+				GE::Systems::PreRootTransformSystem::Propergate(child, parentTrans->m_worldTransform);
 			}
 			catch (GE::Debug::IExceptionBase& e)
 			{

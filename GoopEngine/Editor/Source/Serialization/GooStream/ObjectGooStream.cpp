@@ -17,6 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "ObjectGooStream.h"
 #include <rapidjson/istreamwrapper.h>
 #include <Serialization/Serializer.h>
+#include <Serialization/Deserializer.h>
 
 using namespace GE::Serialization;
 
@@ -69,71 +70,9 @@ bool ObjectGooStream::Read(std::string const& json)
   }
 
   // iterate through all objects and validate format
-  for (rapidjson::SizeType i{}; i < data.Size(); ++i)
-  {
-    rapidjson::Value const& obj{ data[i] };
-
-    if (!obj.IsObject())
-    {
-      ifs.close();
-      std::ostringstream oss{};
-      oss << json << ": Element " << std::to_string(i) << " is not an object";
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-      return m_status = false;
-    }
-    if (!obj.HasMember(Serializer::JsonNameKey) || !obj[Serializer::JsonNameKey].IsString())
-    {
-      ifs.close();
-      std::ostringstream oss{};
-      oss << json << ": Element " << std::to_string(i) << " does not have a valid \"" << Serializer::JsonNameKey << "\" field";
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-      return m_status = false;
-    }
-    
-    if (!obj.HasMember(Serializer::JsonParentKey))
-    {
-      ifs.close();
-      std::ostringstream oss{};
-      oss << json << ": Element " << std::to_string(i) << " does not have a valid \"" << Serializer::JsonParentKey << "\" field";
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-      return m_status = false;
-    }
-
-    if (!obj.HasMember(Serializer::JsonChildEntitiesKey) || !obj[Serializer::JsonChildEntitiesKey].IsArray())
-    {
-      ifs.close();
-      std::ostringstream oss{};
-      oss << json << ": Element " << std::to_string(i) << " does not have a valid \"" << Serializer::JsonChildEntitiesKey << "\" field";
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-      return m_status = false;
-    }
-
-    if (!obj.HasMember(Serializer::JsonComponentsKey) || !obj[Serializer::JsonComponentsKey].IsArray())
-    {
-      ifs.close();
-      std::ostringstream oss{};
-      oss << json << ": Element " << std::to_string(i) << " does not have a valid \"" << Serializer::JsonComponentsKey << "\" field";
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-      return m_status = false;
-    }
-
-    rapidjson::Value const& componentArr{ obj[Serializer::JsonComponentsKey] };
-    for (rapidjson::SizeType j{}; j < componentArr.Size(); ++j)
-    {
-      rapidjson::Value const& component{ componentArr[j] };
-      if (!component.IsObject())
-      {
-        ifs.close();
-        std::ostringstream oss{};
-        oss << json << ": Component " << std::to_string(j) << " of element " << std::to_string(i) << " is not an object";
-        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        #ifdef _DEBUG
-        std::cout << oss.str() << std::endl;
-        #endif
-        return m_status = false;
-      }
-    }
-  }
+  Serialization::Deserializer::ScanJsonFileForMembers(data, 4,
+    Serializer::JsonNameKey, rapidjson::kStringType, Serializer::JsonChildEntitiesKey, rapidjson::kArrayType,
+    Serializer::JsonParentKey, rapidjson::kNumberType, Serializer::JsonComponentsKey, rapidjson::kArrayType);
 
   ifs.close();
   m_elements = data.Size();

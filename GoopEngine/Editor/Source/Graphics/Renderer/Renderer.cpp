@@ -62,7 +62,7 @@ namespace Graphics::Rendering {
     constexpr GLint uViewMatLocation  = 2;  // Layout location for uViewProjMtx
     constexpr GLint uMdlTransLocation = 3;  // Layout location for uMdlMtx
     std::sort(m_renderCalls.begin(), m_renderCalls.end(), DepthComp());
-    glm::mat4 const& camViewProj{ camera.GetViewMtx() };
+    glm::mat4 const& camViewProj{ camera.GetPersMtx() };
     // Draw
     glUseProgram(r_mdlContainer.front().shader); // USE SHADER PROGRAM
     glBindVertexArray(r_mdlContainer.front().vaoid); // bind vertex array object to draw
@@ -155,7 +155,7 @@ namespace Graphics::Rendering {
     constexpr GLint uViewMatLocation{ 0 };
     constexpr GLint uColorLocation{ 2 };
     auto const& fontMap = r_fontManager.GetFontMap(fontID);
-    glm::mat4 camViewProj{ camera.GetViewMtx() };
+    glm::mat4 camViewProj{ camera.GetPersMtx() };
 
     // ASSUMING THAT WE USED THE SHADER BEFORE FUNCTION CALL
     // pass the color

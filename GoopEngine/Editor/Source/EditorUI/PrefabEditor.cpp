@@ -301,8 +301,8 @@ void PrefabEditor::CreateContent()
             case GE::ECS::COMPONENT_TYPES::TWEEN:
               ret = Component::Tween();
               break;
-            case GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER:
-              ret = Component::ScriptHandler();
+            case GE::ECS::COMPONENT_TYPES::SCRIPTS:
+              ret = Component::Scripts();
               break;
             case GE::ECS::COMPONENT_TYPES::DRAGGABLE:
               ret = Component::Draggable();

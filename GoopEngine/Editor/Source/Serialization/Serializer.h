@@ -15,7 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Singleton/Singleton.h>
 #include <rapidjson/document.h>
 #include <string>
-#include <Component/ScriptHandler.h>
+#include <Component/Scripts.h>
 #include <Component/Sprite.h>
 #include <rttr/type.h>
 #include <ObjectFactory/ObjectStructs.h>
@@ -57,15 +57,15 @@ namespace GE
       /*!*********************************************************************
       \brief
         Returns the component of an entity given the Enumeration type. The
-        component is returned in the form of an rttr::instance
+        component is returned in the form of an rttr::variant
       \param id
         The id of the entity
       \param type
         The ECS::COMPONENT_TYPES of the entity
       \return
-        An rttr::instance of the component
+        An rttr::variant of the component
       ************************************************************************/
-      rttr::instance GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type);
+      rttr::variant GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type);
 
       /*!*********************************************************************
       \brief
@@ -180,18 +180,18 @@ namespace GE
       \brief
         Helper function to serialize a component into a rapidjson::Value.
         Called by SerializeScene
-      \param instance
-        The rttr::instance of the object
+      \param var
+        The rttr::variant of the object
       \param allocator
         The document's allocator
       \return
         The resulting rapidjson::Value object
       ************************************************************************/
-      rapidjson::Value SerializeComponent(rttr::instance instance, rapidjson::Document::AllocatorType& allocator);
+      rapidjson::Value SerializeComponent(rttr::variant const& var, rapidjson::Document::AllocatorType& allocator);
       
       /*!*********************************************************************
       \brief
-        The conversion function for Component::ScriptHandler's m_scriptMap
+        The conversion function for Component::Scripts's m_scriptMap
         to rapidjson::Value for serialization
       \param rhs
         The data member of the component to serialize
@@ -201,7 +201,7 @@ namespace GE
         The serialized json value object of the script names in a rapidjson
         array
     ************************************************************************/
-      rapidjson::Value SerializeScriptMap(std::map<std::string, GE::MONO::Script> const& rhs,
+      rapidjson::Value SerializeScriptMap(std::map<std::string, GE::MONO::ScriptInstance> const& rhs,
         rapidjson::Document::AllocatorType& allocator);
 
       /*!*********************************************************************

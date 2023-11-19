@@ -156,6 +156,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AI\TreeManager.cpp" />
+    <ClCompile Include="Source\Commands\CommandManager.cpp" />
+    <ClCompile Include="Source\Commands\ImGuiCommands.cpp" />
     <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
     <ClCompile Include="Source\EditorUI\AssetPreview.cpp" />
     <ClCompile Include="Source\EditorUI\Console.cpp" />
@@ -171,6 +173,7 @@
     <ClCompile Include="Source\ECS\System\System.cpp" />
     <ClCompile Include="Source\EditorUI\DataViz\Visualizer.cpp" />
     <ClCompile Include="Source\EditorUI\EditorViewport.cpp" />
+    <ClCompile Include="Source\EditorUI\GizmoEditor.cpp" />
     <ClCompile Include="Source\EditorUI\Inspector.cpp" />
     <ClCompile Include="Source\EditorUI\PrefabEditor.cpp" />
     <ClCompile Include="Source\EditorUI\SceneControls.cpp" />
@@ -182,6 +185,7 @@
     <ClCompile Include="Source\Graphics\Renderer\Camera.cpp" />
     <ClCompile Include="Source\Graphics\Renderer\Renderer.cpp" />
     <ClCompile Include="Source\Graphics\TextureManager.cpp" />
+    <ClCompile Include="Source\ImGuizmo_1_83\ImGuizmo.cpp" />
     <ClCompile Include="Source\ImGui\backends\imgui_impl_glfw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
@@ -252,7 +256,7 @@
     </ClCompile>
     <ClCompile Include="Source\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Source\Scenes\Scene.cpp" />
-    <ClCompile Include="Source\ScriptEngine\Script.cpp" />
+    <ClCompile Include="Source\ScriptEngine\ScriptInstance.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptManager.cpp" />
     <ClCompile Include="Source\ECS\System\SystemManager.cpp" />
     <ClCompile Include="Source\FrameRateController\FrameRateController.cpp" />
@@ -265,14 +269,13 @@
     <ClCompile Include="Source\Serialization\GooStream\PrefabGooStream.cpp" />
     <ClCompile Include="Source\Serialization\GooStream\SpriteGooStream.cpp" />
     <ClCompile Include="Source\Serialization\RegisterClasses.cpp" />
-    <ClCompile Include="Source\Serialization\RegisterClasses2.cpp" />
+    <ClCompile Include="Source\Serialization\RegisterComponents.cpp" />
     <ClCompile Include="Source\Serialization\Serializer.cpp" />
     <ClCompile Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.cpp" />
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimGenerator.cpp" />
     <ClCompile Include="Source\Math\Mat3Utils.cpp" />
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
-    <ClCompile Include="Source\Systems\GameSystem\GameSystem.cpp" />
     <ClCompile Include="Source\Systems\Text\TextRenderSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\PhysicsSystem.cpp" />
@@ -292,11 +295,17 @@
   <ItemGroup>
     <ClInclude Include="Source\AI\Tree.h" />
     <ClInclude Include="Source\AI\TreeManager.h" />
+    <ClInclude Include="Source\Commands\CommandManager.h" />
+    <ClInclude Include="Source\Commands\ICommand.h" />
+    <ClInclude Include="Source\Commands\ImGuiCommands.h" />
     <ClInclude Include="Source\Component\Camera.h" />
+    <ClInclude Include="Source\Component\Card.h" />
     <ClInclude Include="Source\Component\Draggable.h" />
     <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\Component\Components.h" />
-    <ClInclude Include="Source\Component\Game.h" />
+    <ClInclude Include="Source\Component\Grid.h" />
+    <ClInclude Include="Source\Component\Scripts.h" />
+    <ClInclude Include="Source\Component\Stats.h" />
     <ClInclude Include="Source\Component\Text.h" />
     <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
     <ClInclude Include="Source\EditorUI\AssetPreview.h" />
@@ -311,7 +320,6 @@
     <ClInclude Include="Source\Component\BoxCollider.h" />
     <ClInclude Include="Source\Component\Gravity.h" />
     <ClInclude Include="Source\Component\Model.h" />
-    <ClInclude Include="Source\Component\ScriptHandler.h" />
     <ClInclude Include="Source\Component\Sprite.h" />
     <ClInclude Include="Source\Component\SpriteAnim.h" />
     <ClInclude Include="Source\Component\Transform.h" />
@@ -327,6 +335,7 @@
     <ClInclude Include="Source\ECS\Component\ComponentManager.h" />
     <ClInclude Include="Source\EditorUI\DataViz\Visualizer.h" />
     <ClInclude Include="Source\EditorUI\EditorViewport.h" />
+    <ClInclude Include="Source\EditorUI\GizmoEditor.h" />
     <ClInclude Include="Source\EditorUI\Inspector.h" />
     <ClInclude Include="Source\EditorUI\PrefabEditor.h" />
     <ClInclude Include="Source\EditorUI\SceneControls.h" />
@@ -334,6 +343,7 @@
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
     <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
     <ClInclude Include="Source\Graphics\Renderer\FrameBufferInfo.h" />
+    <ClInclude Include="Source\ImGuizmo_1_83\ImGuizmo.h" />
     <ClInclude Include="Source\ImNode\imnodes.h" />
     <ClInclude Include="Source\ImNode\imnodes_internal.h" />
     <ClInclude Include="Source\ImNode\NodeEditor.h" />
@@ -385,7 +395,7 @@
     <ClInclude Include="Source\EditorUI\SceneHierachy.h" />
     <ClInclude Include="Source\SceneManager\SceneManager.h" />
     <ClInclude Include="Source\Scenes\Scene.h" />
-    <ClInclude Include="Source\ScriptEngine\Script.h" />
+    <ClInclude Include="Source\ScriptEngine\ScriptInstance.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptManager.h" />
     <ClInclude Include="Source\Serialization\ComponentWrapper\ComponentWrapper.h" />
     <ClInclude Include="Source\Serialization\Deserializer.h" />
@@ -410,7 +420,6 @@
     <ClInclude Include="Source\SpriteAnimation\SpriteAnimGenerator.h" />
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
-    <ClInclude Include="Source\Systems\GameSystem\GameSystem.h" />
     <ClInclude Include="Source\Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />

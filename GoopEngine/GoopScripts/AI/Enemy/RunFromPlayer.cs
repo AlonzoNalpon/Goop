@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
 
-namespace GoopScripts.AI
+namespace GoopScripts.AI.Enemy
 {
 
   internal class RunFromPlayer : MonoBehaviour

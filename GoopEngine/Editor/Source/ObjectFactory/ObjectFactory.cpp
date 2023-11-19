@@ -53,9 +53,9 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Tween>(srcObj));
   }
-  if (IsBitSet(sig, ECS::COMPONENT_TYPES::SCRIPT_HANDLER))
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::SCRIPTS))
   {
-    ecs.AddComponent(destObj, *ecs.GetComponent<Component::ScriptHandler>(srcObj));
+    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Scripts>(srcObj));
   }
   if (IsBitSet(sig, ECS::COMPONENT_TYPES::DRAGGABLE))
   {
@@ -117,10 +117,10 @@ GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData 
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::Tween>(data.m_components.at(GE::ECS::COMPONENT_TYPES::TWEEN)));
   }
-  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SCRIPT_HANDLER))
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SCRIPTS))
   {
     ecs.AddComponent(newData,
-      DeserializeScriptHandler(data.m_components.at(GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER), newData));
+      DeserializeScripts(data.m_components.at(GE::ECS::COMPONENT_TYPES::SCRIPTS), newData));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::DRAGGABLE))
   {
@@ -174,8 +174,8 @@ void ObjectFactory::RegisterComponentsAndSystems() const
     case COMPONENT_TYPES::TWEEN:
       ecs.RegisterComponent<GE::Component::Tween>();
       break;
-    case COMPONENT_TYPES::SCRIPT_HANDLER:
-      ecs.RegisterComponent<GE::Component::ScriptHandler>();
+    case COMPONENT_TYPES::SCRIPTS:
+      ecs.RegisterComponent<GE::Component::Scripts>();
       break;
     case COMPONENT_TYPES::DRAGGABLE:
       ecs.RegisterComponent<GE::Component::Draggable>();
