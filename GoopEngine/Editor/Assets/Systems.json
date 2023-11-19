@@ -40,5 +40,9 @@
     "TextRenderSystem": [
         "Text",
         "Transform"
+    ],
+    "AudioSystem": [
+      "Audio",
+      "Transform"
     ]
 }

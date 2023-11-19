@@ -400,6 +400,10 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::TweenSystem>();
     RegisterComponentsToSystem<Systems::TweenSystem>(sig);
     break;
+  case SYSTEM_TYPES::AUDIO_SYSTEM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::AudioSystem>();
+    RegisterComponentsToSystem<Systems::AudioSystem>(sig);
+    break;
   default:
     std::ostringstream oss{};
     oss << "Trying to register unknown system type, " << " update function: ObjectFactory::RegisterSystemWithEnum()";
