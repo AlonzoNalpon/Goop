@@ -18,7 +18,7 @@ namespace GE
     class FmodSystem : public Singleton<FmodSystem> 
     {
     public:
-      enum Channel
+      enum ChannelType
       {
         BGM,
         SFX,
@@ -26,7 +26,7 @@ namespace GE
         TOTAL_CHANNELS,
       };
 
-      static inline const std::map<Channel, std::string> m_channelToString
+      static inline const std::map<ChannelType, std::string> m_channelToString
       {
         { BGM, "BGM"},
         { SFX, "SFX" },
@@ -35,15 +35,15 @@ namespace GE
 
       /*!*********************************************************************
       \brief
-        Default contructor
-      ************************************************************************/
-      FmodSystem();
-
-      /*!*********************************************************************
-      \brief
         Default destructor
       ************************************************************************/
       ~FmodSystem();
+
+      /*!*********************************************************************
+      \brief
+        Initializes the system
+      ************************************************************************/
+      void Init();
 
       /*!*********************************************************************
       \brief
@@ -63,7 +63,7 @@ namespace GE
       \param isStreaming
         Boolean for streaming the sound. Default: true.
       ************************************************************************/
-      void PlaySound(std::string audio, Channel channel, bool looped = false);
+      void PlaySound(std::string audio, ChannelType channel, bool looped = false);
 
       /*!*********************************************************************
       \brief
@@ -73,7 +73,7 @@ namespace GE
       \param volumedB
         Volume in db.
       ************************************************************************/
-      void SetChannelVolume(Channel channel, double volumedB);
+      void SetChannelVolume(ChannelType channel, double volumedB);
 
       /*!*********************************************************************
       \brief
@@ -85,18 +85,19 @@ namespace GE
 
       void StopAllSound();
 
-      void StopChannel(Channel channel);
+      void StopChannel(ChannelType channel);
 
     private:
       FMOD::System* m_fModSystem{ nullptr };
 
       using SoundMap = std::map<std::string, FMOD::Sound*>;
-      using ChannelMap = std::map<Channel, FMOD::Channel*>;
-      using CurrentPlaylist = std::unordered_map<std::string, Channel>;
+      using SoundChannel = std::map<std::string, FMOD::Channel*>;
+      using ChannelGroups = std::map<ChannelType, FMOD::ChannelGroup*>;
 
+      FMOD::ChannelGroup* m_masterGroup;
       SoundMap m_sounds;
-      ChannelMap m_channels;
-      CurrentPlaylist m_playlist;
+      ChannelGroups m_channelGroups;
+      SoundChannel m_channels;
 
       /*!*********************************************************************
       \brief
@@ -113,15 +114,18 @@ namespace GE
         Sound filename.
       \param looped
         Boolean for if the sound is looping.
+
+      \return
+        True if audio loaded succesfully
+        False if audio failed to load
       ************************************************************************/
-      void LoadSound(std::string audio, bool looped = false);
+      bool LoadSound(std::string audio, bool looped = false);
 
       /*!*********************************************************************
       \brief
-        Loops through whole playlist and finds sounds that have stopped playing.
-        Unloads sound that has stopped playing from sound map.
+        Clears channels which the sounds are no longer playing
       ************************************************************************/
-      void UnLoadSound();
+      void ClearChannels();
 
       /*!*********************************************************************
       \brief
@@ -132,7 +136,7 @@ namespace GE
         Returns true if channel is currently playing.
         Returns false if channel is not currently playing.
       ************************************************************************/
-      bool IsPlaying(std::pair<std::string, Channel> audio);
+      bool IsPlaying(std::pair<std::string, ChannelType> audio);
 
       /*!*********************************************************************
       \brief

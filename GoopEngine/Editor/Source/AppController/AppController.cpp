@@ -78,7 +78,9 @@ namespace GE::Application
     GE::AI::TreeManager::GetInstance().Init();
 
     imgui.Init(window);
-      
+    
+    fMod.Init();
+
     im.InitInputManager(window.GetWindow(), am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), 0.1);
   }
   

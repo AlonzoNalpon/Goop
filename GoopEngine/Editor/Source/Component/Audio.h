@@ -12,7 +12,17 @@ namespace GE
 			bool m_initialized = false;
 			bool m_playOnStart = false;
 			bool m_isPlaying = false;
-			GE::fMOD::FmodSystem::Channel channel{GE::fMOD::FmodSystem::Channel::BGM};
+			GE::fMOD::FmodSystem::ChannelType channel{GE::fMOD::FmodSystem::ChannelType::BGM};
+		
+			void Play()
+			{
+				GE::fMOD::FmodSystem::GetInstance().PlaySound(m_name, channel, m_loop);
+			}
+
+			void Stop()
+			{
+				GE::fMOD::FmodSystem::GetInstance().StopSound(m_name);
+			}
 		};
 	}
 }

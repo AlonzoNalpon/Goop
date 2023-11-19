@@ -83,8 +83,11 @@ namespace
 
 	\param[in] disabled
 		Draw disabled
+
+	\return
+		If value has changed
 	************************************************************************/
-	void InputCheckBox(std::string propertyName, bool& property, bool disabled = false);
+	bool InputCheckBox(std::string propertyName, bool& property, bool disabled = false);
 
 	/*!*********************************************************************
 	\brief
@@ -344,8 +347,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 					ImVec2 imgSize{ 100, 100 };
 					SetCursorPosX(GetContentRegionAvail().x / 2 - imgSize.x / 2);
-					Image(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), imgSize, { 0, 1 }, { 1, 0 });
-					//ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), { 100, 100 }, { 0, 1 }, { 1, 0 });
+					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), imgSize, { 0, 1 }, { 1, 0 });
 					if (ImGui::BeginDragDropTarget())
 					{
 						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
@@ -854,14 +856,16 @@ namespace
 		EndDisabled();
 	}
 	
-	void InputCheckBox(std::string propertyName, bool& property, bool disabled)
+	bool InputCheckBox(std::string propertyName, bool& property, bool disabled)
 	{
+		bool valChanged{ false };
 		BeginDisabled(disabled);
 		TableNextColumn();
 		ImGui::Text(propertyName.c_str());
 		TableNextColumn();
-		Checkbox(("##" + propertyName).c_str(), &property);
+		valChanged = Checkbox(("##" + propertyName).c_str(), &property);
 		EndDisabled();
+		return valChanged;
 	}
 
 	template <>

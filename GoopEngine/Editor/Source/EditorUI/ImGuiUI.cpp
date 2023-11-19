@@ -205,6 +205,12 @@ void ImGuiUI::Update()
     GE::GSM::GameStateManager& gsm = { GE::GSM::GameStateManager::GetInstance() };
     gsm.SetNextScene("SceneTest");
   }
+
+  if (Button("Stop all sounds"))
+  {
+    GE::fMOD::FmodSystem::GetInstance().StopAllSound();
+  }
+
   End();
 
   Begin("Asset Browser");

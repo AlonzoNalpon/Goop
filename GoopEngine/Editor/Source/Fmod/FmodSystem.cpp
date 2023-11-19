@@ -5,33 +5,35 @@
 
 using namespace GE::fMOD;
 
-FmodSystem::FmodSystem()
-{
-  ErrorCheck(FMOD::System_Create(&m_fModSystem)); // Create the FMOD Core system
-  ErrorCheck(m_fModSystem->init(TOTAL_CHANNELS, FMOD_INIT_NORMAL, NULL)); // Initialize the FMOD Core system
-}
-
 FmodSystem::~FmodSystem()
 {
   m_sounds.clear();
   m_channels.clear();
-  UnLoadSound();
+  std::for_each(m_sounds.begin(), m_sounds.end(), [](auto& s) { s.second->release(); });
   ErrorCheck(m_fModSystem->close());
+}
+
+void FmodSystem::Init()
+{
+  ErrorCheck(FMOD::System_Create(&m_fModSystem)); // Create the FMOD Core system
+  int maxSounds = GE::Assets::AssetManager::GetInstance().GetConfigData<int>("MaxPlayingSounds");
+  ErrorCheck(m_fModSystem->init(maxSounds, FMOD_INIT_NORMAL, NULL)); // Initialize the FMOD Core system
+  m_fModSystem->getMasterChannelGroup(&m_masterGroup);
 }
 
 void FmodSystem::Update()
 {
   ErrorCheck(m_fModSystem->update());
-  UnLoadSound();
+  ClearChannels();
 }
 
-void FmodSystem::LoadSound(std::string audio, bool looped)
+bool FmodSystem::LoadSound(std::string audio, bool looped)
 {
   // Check if the sound is already loaded
   auto soundFound = m_sounds.find(audio);
   if (soundFound != m_sounds.end())
   {
-    return;
+    return true;
   }
 
   FMOD_MODE mode = FMOD_DEFAULT | FMOD_CREATESTREAM | (looped ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
@@ -50,45 +52,44 @@ void FmodSystem::LoadSound(std::string audio, bool looped)
       {
         // sound loaded, can stop
         m_sounds[audio] = sound;
-        break;
+        return true;
       }
       else
       {
         std::ostringstream oss{};
         oss << "Failed to create looped sound: " << result;
         GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        return false;
       }
     }
   }
+
+  std::ostringstream oss{};
+  oss << "Sound file" << audio << "does not exist";
+  GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+  return false;
 }
 
-void FmodSystem::UnLoadSound()
+void FmodSystem::ClearChannels()
 {
-  for (std::pair sound : m_playlist)
+  std::vector<std::string> remove;
+  for (auto& [key, val] : m_channels)
   {
-    if (!IsPlaying(sound))
+    bool isPlaying;
+    val->isPlaying(&isPlaying);
+    if (!isPlaying)
     {
-      //erases sound from sound map
-      auto soundFoundMap = m_sounds.find(sound.first);
-      if (soundFoundMap == m_sounds.end())
-      {
-        return;
-      }
-      ErrorCheck(soundFoundMap->second->release());
-      m_sounds.erase(soundFoundMap);
-
-      //erases sound from playlist
-      auto soundFoundPlaylist = m_playlist.find(sound.first);
-      if (soundFoundPlaylist == m_playlist.end())
-      {
-        return;
-      }
-      m_playlist.erase(soundFoundPlaylist);
+      remove.push_back(key);
     }
+  }
+
+  for (auto& key : remove)
+  {
+    m_channels.erase(key);
   }
 }
 
-void FmodSystem::PlaySound(std::string audio, Channel channel, bool looped)
+void FmodSystem::PlaySound(std::string audio, ChannelType channel, bool looped)
 {
   SoundMap::iterator soundFound = m_sounds.find(audio);
 
@@ -102,55 +103,38 @@ void FmodSystem::PlaySound(std::string audio, Channel channel, bool looped)
     }
   }
   
-  FMOD::Channel* fmodChannel = m_channels[channel];
-  m_playlist[audio] = channel;
-
-  ErrorCheck(m_fModSystem->playSound(soundFound->second, nullptr, true, &fmodChannel));
-  if (fmodChannel)
+  FMOD::ChannelGroup* fmodChannelGroup = m_channelGroups[channel];
+  if (fmodChannelGroup == nullptr)
   {
-    ErrorCheck(fmodChannel->setPaused(false));
-    m_channels[channel] = fmodChannel;
+    m_fModSystem->createChannelGroup(m_channelToString.at(channel).c_str(), &fmodChannelGroup);
+  }
+
+  FMOD::Channel*& soundChannel{m_channels[audio]};
+  ErrorCheck(m_fModSystem->playSound(soundFound->second, fmodChannelGroup, true, &soundChannel));
+  if (soundChannel)
+  {
+    ErrorCheck(soundChannel->setPaused(false));
   }
 }
 
 void FmodSystem::StopSound(std::string audio)
 {  
-  m_playlist.erase(audio);
+  m_channels[audio]->stop();
 }
 
 void FmodSystem::StopAllSound()
 {
-  for (std::pair itr : m_channels)
-  {
-    StopChannel(itr.first);
-  }
+  m_masterGroup->stop();
 }
 
-void FmodSystem::StopChannel(Channel channel)
+void FmodSystem::StopChannel(ChannelType channel)
 {
-  m_channels[channel]->stop();
+  m_channelGroups[channel]->stop();
 }
 
-void FmodSystem::SetChannelVolume(Channel channel, double volumedB)
+void FmodSystem::SetChannelVolume(ChannelType channel, double volumedB)
 {
-  ErrorCheck(m_channels[channel]->setVolume(static_cast<float>(dbToVolume(volumedB))));
-}
-
-bool FmodSystem::IsPlaying(std::pair<std::string, Channel> audio)
-{
-  FMOD::Channel* channel = m_channels[audio.second];
-
-  if (channel)
-  {
-    FMOD::Sound* currentSound = m_sounds.find(audio.first)->second;
-    FMOD_RESULT result = channel->getCurrentSound(&currentSound);
-
-    if (result == FMOD_OK && currentSound)
-    {
-      return true;
-    }
-  }
-  return false;
+  ErrorCheck(m_channelGroups[channel]->setVolume(static_cast<float>(dbToVolume(volumedB))));
 }
 
 double FmodSystem::dbToVolume(double dB) const

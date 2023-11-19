@@ -22,15 +22,17 @@ void AudioSystem::Update()
   {
     Audio* m_audio = m_ecs->GetComponent<Audio>(entity);
 
-    if (!m_audio->m_initialized && (m_audio->m_playOnStart || !m_audio->m_isPlaying))
+    if (!m_audio->m_initialized && (m_audio->m_playOnStart || m_audio->m_isPlaying))
     {
       m_audio->m_initialized = true;
       m_audio->m_isPlaying = true;
-      m_fmodSystem->PlaySound(m_audio->m_name, m_audio->channel, m_audio->m_loop);
+      m_audio->Play();
     }
-    else if (m_audio->m_initialized && !m_audio->m_isPlaying)
+
+    if (m_audio->m_initialized && !m_audio->m_isPlaying)
     {
-      m_fmodSystem->StopSound(m_audio->m_name);
+      m_audio->m_initialized = false;
+      m_audio->Stop();
     }
   }
 }
