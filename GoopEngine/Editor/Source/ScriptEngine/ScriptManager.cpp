@@ -32,6 +32,7 @@ void GE::MONO::ScriptManager::InitMono()
   if (file.good())
   {
     mono_set_assemblies_path(assetManager.GetConfigData<std::string>("MonoAssemblyExe").c_str());
+    file.close();
   }
   else
   {
@@ -87,17 +88,45 @@ void GE::MONO::ScriptManager::InitMono()
 
 
 
-
-
   //Load the CSharpAssembly (dll file)
-  std::ifstream filed(assetManager.GetConfigData<std::string>("CAssemblyExe"));
-  if (file.good())
+  std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
+  if (cAss.good())
   {
     m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssemblyExe"));
+    cAss.close();
   }
   else
   {
     m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssembly"));
+  }
+
+
+  //Load All the MonoClasses
+  std::ifstream scriptNames(assetManager.GetConfigData<std::string>("ScriptNames"));
+  if (scriptNames.good())
+  {
+     LoadAllMonoClass(scriptNames);
+  }
+  else
+  {
+    std::ifstream scriptNamesExe(assetManager.GetConfigData<std::string>("ScriptNamesExe"));
+     LoadAllMonoClass(scriptNamesExe);
+    
+  }
+
+}
+
+void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
+{;
+  std::string line{};
+  while (std::getline(ifs, line)) {
+    size_t commaPosition = line.find(',');
+    if (commaPosition != std::string::npos) {
+      MonoClass* newClass = GetClassInAssembly(m_coreAssembly, line.substr(0, commaPosition).c_str(), line.substr(commaPosition + 1).c_str());
+      if (newClass) {
+        m_monoClassMap[line.substr(commaPosition + 1).c_str()] = newClass;
+      }
+    }
   }
 }
 
@@ -189,65 +218,52 @@ GE::MONO::ScriptManager::~ScriptManager()
 //
 //************************************************************************/
 
-MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className, void** arg, int argSize)
+MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
 {
   // Get a reference to the class we want to instantiate
-  MonoClass* childClass;
-  try {
-    childClass = GetClassInAssembly(m_coreAssembly, namespaceName, className);
-  }
-  catch (GE::Debug::IExceptionBase& e)
+  if (m_monoClassMap.find(className) != m_monoClassMap.end())
   {
-    e.LogSource();
-    e.Log();
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
-  }
+    MonoClass* currClass = m_monoClassMap[className];
+    MonoObject* classInstance = mono_object_new(m_appDomain, currClass);
 
-  // Allocate an instance of our class
-  MonoObject* classInstance = mono_object_new(m_appDomain, childClass);
-  if (classInstance == nullptr)
-  {
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Allocate memory for class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+    // Allocate an instance of our class
+    if (classInstance == nullptr)
+    {
+      throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Allocate memory for class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+    }
+    mono_runtime_object_init(classInstance);
+    return classInstance;
   }
+  
+  throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to locate class in map" + std::string(className), ERRLG_FUNC, ERRLG_LINE);
 
-  //Init the class through non-default constructor
-  MonoMethod* classCtor = mono_class_get_method_from_name(childClass, ".ctor", argSize);
-  mono_runtime_invoke(classCtor, classInstance, arg, nullptr);
-  if (classInstance == nullptr) {
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
-  }
-  return classInstance;
+  return nullptr;
 }
 
-MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* namespaceName, const char* className, std::vector<void*>& arg)
+MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, std::vector<void*>& arg)
 {
-  MonoClass* childClass;  //Get a reference to the class we want to instantiate
-  try 
+  if (m_monoClassMap.find(className) != m_monoClassMap.end())
   {
-    childClass = GetClassInAssembly(m_coreAssembly, namespaceName, className);
-  }
-  catch (GE::Debug::IExceptionBase& e)
-  {
-    e.LogSource();
-    e.Log();
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+    MonoClass* currClass = m_monoClassMap[className];
+    MonoObject* classInstance = mono_object_new(m_appDomain, currClass);  //Get a reference to the class we want to instantiate
+
+    if (classInstance == nullptr)
+    {
+      throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Allocate memory for class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+    }
+
+    //Init the class through non-default constructor
+    MonoMethod* classCtor = mono_class_get_method_from_name(currClass, ".ctor", static_cast<int>(arg.size()));
+    mono_runtime_invoke(classCtor, classInstance, arg.data(), nullptr);
+
+    if (classInstance == nullptr) {
+      throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+    }
+    return classInstance;
   }
 
-  // Allocate an instance of our class
-  MonoObject* classInstance = mono_object_new(m_appDomain, childClass);
-  if (classInstance == nullptr)
-  {
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Allocate memory for class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
-  }
-
-  //Init the class through non-default constructor
-  MonoMethod* classCtor = mono_class_get_method_from_name(childClass, ".ctor", static_cast<int>(arg.size()));
-  mono_runtime_invoke(classCtor, classInstance, arg.data(), nullptr);
-
-  if (classInstance == nullptr) {
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
-  }
-  return classInstance;
+  throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to locate class in map" + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+  return nullptr;
 }
 
 MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* namespaceName, const char* className)
@@ -257,7 +273,7 @@ MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* name
 
   if (klass == nullptr)
   {
-    throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Unable to acess c# class " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
+    GE::Debug::ErrorLogger::GetInstance().LogWarning("Unable to access c# class " + std::string(className), false);
   }
   return klass;
 }

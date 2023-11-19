@@ -37,7 +37,7 @@ namespace GE {
 			MonoDomain* m_rootDomain{ nullptr };
 			MonoDomain* m_appDomain{ nullptr };
 			MonoAssembly* m_coreAssembly{ nullptr };
-			MonoClass* m_monoClass{ nullptr };
+			std::map<std::string, MonoClass*> m_monoClassMap;
 
 		public:
 			/*!*********************************************************************
@@ -54,12 +54,15 @@ namespace GE {
 			************************************************************************/
 			~ScriptManager();
 
-			MonoObject* InstantiateClass(const char* namespaceName, const char* className, void** arg, int argSize);
+			MonoObject* InstantiateClass(const char* className, std::vector<void*>& arg);
+			MonoObject* InstantiateClass(const char* className);
 
-			MonoObject* InstantiateClass(const char* namespaceName, const char* className, std::vector<void*>& arg);
+			void LoadAllMonoClass(std::ifstream& ifs);
 
 
 		};
+
+
 
 		/*!*********************************************************************
 		\brief
@@ -100,6 +103,7 @@ namespace GE {
 		 char buffer containing the data of the file
 		************************************************************************/
 		char* ReadBytes(const std::string& filepath, uint32_t* outSize);
+
 
 
 		/*!*********************************************************************

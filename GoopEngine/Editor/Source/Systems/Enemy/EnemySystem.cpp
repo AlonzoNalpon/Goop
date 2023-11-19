@@ -124,27 +124,27 @@ void EnemySystem::AddGameTree(const GE::AI::TreeTemplate& treeTemp)
 GameTree EnemySystem::GenerateGameTree(const GE::AI::TreeTemplate& treeTemp)
 {
 	
-	GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
-	const std::vector<NodeTemplate>& tree = treeTemp.m_tree;
+	//GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
+	//const std::vector<NodeTemplate>& tree = treeTemp.m_tree;
 
 	GameTree newGamTree{ {},treeTemp.m_treeTempID };
 
 	// Loop through each node in the tree and create a new GameNode
-	for (size_t i{ 0 }; i < tree.size(); ++i)
-	{
-		NodeID ownID = static_cast<unsigned int>(i);
-		NodeID parentID = tree[i].m_parentNode;
-		unsigned int listSize = static_cast<unsigned int>(tree[i].m_childrenNode.size());
+	//for (size_t i{ 0 }; i < tree.size(); ++i)
+	//{
+	//	NodeID ownID = static_cast<unsigned int>(i);
+	//	NodeID parentID = tree[i].m_parentNode;
+	//	unsigned int listSize = static_cast<unsigned int>(tree[i].m_childrenNode.size());
 
-		MonoArray* result = mono_array_new(mono_domain_get(), mono_get_uint32_class(), listSize);
-		for (unsigned int j = 0; j < listSize; j++) {
-			mono_array_set(result, unsigned int, j, tree[i].m_childrenNode[j]);
-		}
-		std::vector<void*> arg{ &ownID, &parentID, result, &listSize };
-		std::vector< GE::MONO::MethodInfo> allMethodInfo{ { "OnUpdate",2 },{ "ReturnFromChild", 1  } };
-		MonoObject* scriptInst = scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("AI Script Namespace").c_str(), tree[i].m_scriptName.c_str(), arg);
-		newGamTree.m_nodeList.push_back(GameNode(tree[i].m_nodeType, GE::MONO::Script(scriptInst,allMethodInfo)));
-	}
+	//	MonoArray* result = mono_array_new(mono_domain_get(), mono_get_uint32_class(), listSize);
+	//	for (unsigned int j = 0; j < listSize; j++) {
+	//		mono_array_set(result, unsigned int, j, tree[i].m_childrenNode[j]);
+	//	}
+	//	//std::vector<void*> arg{ &ownID, &parentID, result, &listSize };
+	//	//std::vector< GE::MONO::MethodInfo> allMethodInfo{ { "OnUpdate",2 },{ "ReturnFromChild", 1  } };
+	//	//MonoObject* scriptInst = scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Script Namespace").c_str(), tree[i].m_scriptName.c_str(), arg);
+	//	//newGamTree.m_nodeList.push_back(GameNode(tree[i].m_nodeType, GE::MONO::Script(scriptInst,allMethodInfo)));
+	//}
 	return newGamTree;
 }
 

@@ -16,10 +16,11 @@ using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Input;
 using GoopScripts.Mono;
+using GoopScripts.Component;
 using static GoopScripts.Mono.Utils;
 
 
-namespace GoopScripts
+namespace GoopScripts.Player
 {
   public  class Player : MonoBehaviour
   {
