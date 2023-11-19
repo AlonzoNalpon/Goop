@@ -232,7 +232,7 @@ void FmodSystem::ErrorCheck(FMOD_RESULT result)
 {
   if (result != FMOD_OK)
   {
-    std::cout << "FMOD ERROR " << result << std::endl;
-    return;
+    std::string error = "FMOD ERROR " + result;
+    throw Debug::Exception<FmodSystem>(Debug::LEVEL_ERROR, ErrMsg(error.c_str()));
   }
 }
