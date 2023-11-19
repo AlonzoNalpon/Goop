@@ -610,9 +610,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 
 					Separator();
+					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
+					TableNextColumn();
+					InputText("Sound File", &audio->m_name);
+					EndTable();
+
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					InputTextMultiline("Sound File", &audio->m_name);
 					TableNextRow();
 					InputDouble1("Volume", audio->m_volume);
 					TableNextRow();
