@@ -89,25 +89,18 @@ void AssetBrowser::CreateContentView()
 	if (m_currDir == assetsDirectory)
 	{
 		Text("Assets");
-		Text("________________________________________");
+		Separator();
 	}
 	else
 	{
 		Text(m_currDir.filename().string().c_str());
-		Text("________________________________________");
+		Separator();
 	}
 
 	AssetManager& assetManager = AssetManager::GetInstance();
-	ImGui::Columns(colAmount, 0, false);
-	float charSize = CalcTextSize("012345678901").x * 2;
-	ImGui::SetColumnWidth(0, charSize);
-	ImGui::NextColumn();
+	BeginGroup();
 	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
 	{
-		if (!(ImGui::GetColumnIndex() % colAmount))
-		{
-			ImGui::NextColumn();
-		}
 		std::string const& extension{ file.path().extension().string() };
 
 		if (!file.is_regular_file())
@@ -117,13 +110,14 @@ void AssetBrowser::CreateContentView()
 
 		std::string path = file.path().filename().string();
 		const char* pathCStr = path.c_str();
-		ImTextureID test = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
-		ImTextureID test2 = reinterpret_cast<ImTextureID>(assetManager.GetID("./Assets/Sprites\\ImageFile.png"));
+		ImTextureID img = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
 
 		if (extension == m_imageFile)
 		{
+			BeginGroup();
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-			ImGui::ImageButton(test, { 100.f, 100.f }, { 0, 1 }, { 1, 0 });
+			ImVec2 imgsize{ 100, 100 };
+			ImGui::ImageButton(img, imgsize, { 0, 1 }, { 1, 0 });
 			if (IsItemClicked())
 			{
 				ImGuiHelper::SetSelectedAsset(file.path().string());
@@ -142,8 +136,13 @@ void AssetBrowser::CreateContentView()
 			}
 			Text(pathCStr);
 			ImGui::PopStyleColor();
-			ImGui::NextColumn();
-
+			float remainingsize = GetContentRegionMax().x - (GetCursorPosX() + imgsize.x);
+			EndGroup();
+			
+			if (remainingsize > imgsize.x)
+			{
+				SameLine();
+			}
 		}
 		else if (extension == m_prefabFile)
 		{
@@ -201,7 +200,7 @@ void AssetBrowser::CreateContentView()
 			}*/
 		}
 	}
-	ImGui::Columns(1);
+	EndGroup();
 }
 
 void GE::EditorGUI::AssetBrowser::CreateContent()
