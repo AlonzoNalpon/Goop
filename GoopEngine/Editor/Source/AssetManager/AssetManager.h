@@ -255,7 +255,7 @@ namespace GE::Assets
 
 #include "AssetManager.tpp"
 
-    std::string const AudioFileExt{ ".wav" },
+    std::string const AudioFileExt{ ".wav.mp3.ogg" },
       ImageFileExt{ ".png" },
       ShaderFileExts{ ".vert.frag" },
       FontFileExt{ ".otf.ttf.woff.svg.eof" },
