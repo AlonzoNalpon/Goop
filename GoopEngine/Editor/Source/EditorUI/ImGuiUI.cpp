@@ -206,9 +206,37 @@ void ImGuiUI::Update()
     gsm.SetNextScene("SceneTest");
   }
 
+  static GE::fMOD::FmodSystem& fMod = GE::fMOD::FmodSystem::GetInstance();
   if (Button("Stop all sounds"))
   {
-    GE::fMOD::FmodSystem::GetInstance().StopAllSound();
+    fMod.StopAllSound();
+  }
+  if (Button("Stop BGM"))
+  {
+    fMod.StopChannel(GE::fMOD::FmodSystem::BGM);
+  }
+  if (Button("Stop SFX"))
+  {
+    fMod.StopChannel(GE::fMOD::FmodSystem::SFX);
+  }
+  if (Button("Stop Voices"))
+  {
+    fMod.StopChannel(GE::fMOD::FmodSystem::VOICE);
+  }
+
+  for (int i{}; i < GE::fMOD::FmodSystem::TOTAL_CHANNELS; ++i)
+  {
+    GE::fMOD::FmodSystem::ChannelType channeltype = static_cast<GE::fMOD::FmodSystem::ChannelType>(i);
+    float vol = fMod.GetChannelVolume(channeltype);
+    if (SliderFloat(fMod.m_channelToString.at(channeltype).c_str(), &vol, 0.f, 1.f))
+    {
+      fMod.SetChannelVolume(channeltype, vol);
+    }
+  }
+  float mvol = fMod.GetMasterVolume();
+  if (SliderFloat("Master Volume", &mvol, 0.f, 1.f))
+  {
+    fMod.SetMasterVolume(mvol);
   }
 
   End();

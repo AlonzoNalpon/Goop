@@ -143,10 +143,8 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::Audio>("Audio")
-    .property("isPlaying", &Component::Audio::m_isPlaying)
     .property("loop", &Component::Audio::m_loop)
     .property("name", &Component::Audio::m_name)
-    .property("play", &Component::Audio::m_initialized)
     .property("play", &Component::Audio::m_playOnStart)
     .property("channel", &Component::Audio::channel)
     ;
