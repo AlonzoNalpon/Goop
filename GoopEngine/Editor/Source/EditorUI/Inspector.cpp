@@ -612,6 +612,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					Separator();
 					InputText("Sound File", &audio->m_name);
+					if (BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = AcceptDragDropPayload("ASSET_BROWSER_AUDIO"))
+						{
+							audio->m_name = static_cast<const char*>(payload->Data);
+						}
+						EndDragDropTarget();
+					}
 
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
@@ -620,7 +628,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputCheckBox("Play on Start", audio->m_playOnStart);
 					TableNextRow();
-					InputCheckBox("Playing", audio->m_isPlaying);
+					InputCheckBox("Paused", audio->m_paused);
 					EndTable();
 
 					if (BeginCombo("Channel", GE::fMOD::FmodSystem::m_channelToString.at(audio->channel).c_str()))

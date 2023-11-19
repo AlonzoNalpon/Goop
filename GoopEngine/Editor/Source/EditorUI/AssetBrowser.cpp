@@ -184,6 +184,16 @@ void AssetBrowser::CreateContentView()
 				ImGui::EndDragDropSource();
 			}
 		}
+		else if (assetManager.AudioFileExt.find(extension) != std::string::npos)
+		{
+			Selectable(pathCStr);
+			if (ImGui::BeginDragDropSource())
+			{
+				ImGui::SetDragDropPayload("ASSET_BROWSER_AUDIO", pathCStr, strlen(pathCStr) + 1);
+				Text(pathCStr);
+				ImGui::EndDragDropSource();
+			}
+		}
 		else
 		{
 			Text(pathCStr);
