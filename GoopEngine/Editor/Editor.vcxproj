@@ -276,6 +276,7 @@
     <ClCompile Include="Source\Math\Mat3Utils.cpp" />
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
+    <ClCompile Include="Source\Systems\GameSystem\GameSystem.cpp" />
     <ClCompile Include="Source\Systems\Text\TextRenderSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\PhysicsSystem.cpp" />
@@ -420,6 +421,7 @@
     <ClInclude Include="Source\SpriteAnimation\SpriteAnimGenerator.h" />
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
+    <ClInclude Include="Source\Systems\GameSystem\GameSystem.h" />
     <ClInclude Include="Source\Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />
