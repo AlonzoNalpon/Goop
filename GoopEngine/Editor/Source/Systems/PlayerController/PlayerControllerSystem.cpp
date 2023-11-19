@@ -7,7 +7,7 @@
 #include <Events/InputEvents.h>
 #include <Events/EventManager.h>
 #include <Graphics/GraphicsEngine.h>
-#include <Component/ScriptHandler.h>
+#include <Component/Scripts.h>
 #include <Audio/AudioEngine.h>
 
 using vec3 = GE::Math::dVec3;
@@ -51,7 +51,7 @@ void PlayerControllerSystem::FixedUpdate()
 	frc.StartSystemTimer();
 	for (Entity entity : GetUpdatableEntities()) {
 
-		ScriptHandler* scriptHan = m_ecs->GetComponent<ScriptHandler>(entity);
+		Scripts* scriptHan = m_ecs->GetComponent<Scripts>(entity);
 		if (scriptHan != nullptr)
 		{
 			scriptHan->UpdateAllScripts();

@@ -1,6 +1,6 @@
 #pragma once
 /*!*********************************************************************
-\file   ScriptHandler.h
+\file   Scripts.h
 \author c.phua\@digipen.edu
 \date   12 September 2023
 \brief
@@ -18,16 +18,12 @@ namespace GE
 
 		using namespace GE::MONO;
 
-		struct ScriptHandler
+		struct Scripts
 		{
+			ECS::Entity  m_entityId;
+			std::map<std::string, ScriptInstance> m_scriptMap;
 
-			std::map<std::string, Script> m_scriptMap;
-
-			/*!*********************************************************************
-			\brief
-				Default constructor
-			************************************************************************/
-			ScriptHandler() {};
+			Scripts() {}
 
 			/*!*********************************************************************
 			\brief
@@ -39,10 +35,8 @@ namespace GE
 			\params entityID
 			 ID of the entity this component belongs to
 			************************************************************************/
-			ScriptHandler(std::vector<std::string> const& scriptNames, unsigned int entityID)
+			Scripts(std::vector<std::string> const& scriptNames, unsigned int entityID) : m_entityId{ entityID }
 			{
-
-				GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
 				for (const std::string& s : scriptNames)
 				{
 					if (m_scriptMap.find(s) == m_scriptMap.end())
@@ -51,8 +45,7 @@ namespace GE
 						{
 							unsigned int copy = entityID;
 							std::vector<void*> arg{ &copy };
-							std::vector< GE::MONO::MethodInfo> allMethodInfo{ { "Update",0 }};
-							m_scriptMap[s] = Script(scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Player Script Namespace").c_str(), s.c_str(), arg), allMethodInfo);
+							m_scriptMap[s] = ScriptInstance(s,arg);
 						}
 						catch (GE::Debug::IExceptionBase& e)
 						{
@@ -77,7 +70,9 @@ namespace GE
 			 ID of the entity this component belongs to
 			************************************************************************/
 			void AddScript(const std::string& scriptName, unsigned int entityID) {
-				if (m_scriptMap.find(scriptName) == m_scriptMap.end())
+				UNREFERENCED_PARAMETER(scriptName);
+				UNREFERENCED_PARAMETER(entityID);
+				/*if (m_scriptMap.find(scriptName) == m_scriptMap.end())
 				{
 					GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
 					try
@@ -85,7 +80,7 @@ namespace GE
 						unsigned int copy = entityID;
 						std::vector<void*> arg{ &copy };
 						std::vector< GE::MONO::MethodInfo> allMethodInfo{ { "Update",0 } };
-						m_scriptMap[scriptName] = Script(scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Player Script Namespace").c_str(), scriptName.c_str(), arg),allMethodInfo);
+						m_scriptMap[scriptName] = ScriptInstance(scriptMan->InstantiateClass(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Player Script Namespace").c_str(), scriptName.c_str(), arg),allMethodInfo);
 					}
 					catch (GE::Debug::IExceptionBase& e)
 					{
@@ -94,7 +89,7 @@ namespace GE
 						throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + scriptName, ERRLG_FUNC, ERRLG_LINE);
 					}
 
-				}
+				}*/
 			}
 
 			/*!*********************************************************************
@@ -103,8 +98,9 @@ namespace GE
 			************************************************************************/
 			void UpdateAllScripts()
 			{
-				for (std::pair<std::string, Script> cs : m_scriptMap) {
-					cs.second.InvokeMethod("Update", {});
+				double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
+				for (std::pair<std::string, ScriptInstance> cs : m_scriptMap) {
+					cs.second.InvokeOnUpdate(dt);
 				}
 			}
 		};

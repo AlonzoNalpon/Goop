@@ -236,8 +236,6 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
   }
   
   throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to locate class in map" + std::string(className), ERRLG_FUNC, ERRLG_LINE);
-
-  return nullptr;
 }
 
 MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, std::vector<void*>& arg)
@@ -263,7 +261,6 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, st
   }
 
   throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to locate class in map" + std::string(className), ERRLG_FUNC, ERRLG_LINE);
-  return nullptr;
 }
 
 MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* namespaceName, const char* className)
@@ -276,6 +273,11 @@ MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* name
     GE::Debug::ErrorLogger::GetInstance().LogWarning("Unable to access c# class " + std::string(className), false);
   }
   return klass;
+}
+
+MonoClass* GE::MONO::ScriptManager::GetMonoClass(std::string className)
+{
+  return m_monoClassMap[className];
 }
 
 

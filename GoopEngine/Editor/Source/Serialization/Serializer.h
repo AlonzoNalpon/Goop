@@ -15,7 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Singleton/Singleton.h>
 #include <rapidjson/document.h>
 #include <string>
-#include <Component/ScriptHandler.h>
+#include <Component/Scripts.h>
 #include <Component/Sprite.h>
 #include <rttr/type.h>
 #include <ObjectFactory/ObjectStructs.h>
@@ -191,7 +191,7 @@ namespace GE
       
       /*!*********************************************************************
       \brief
-        The conversion function for Component::ScriptHandler's m_scriptMap
+        The conversion function for Component::Scripts's m_scriptMap
         to rapidjson::Value for serialization
       \param rhs
         The data member of the component to serialize
@@ -201,7 +201,7 @@ namespace GE
         The serialized json value object of the script names in a rapidjson
         array
     ************************************************************************/
-      rapidjson::Value SerializeScriptMap(std::map<std::string, GE::MONO::Script> const& rhs,
+      rapidjson::Value SerializeScriptMap(std::map<std::string, GE::MONO::ScriptInstance> const& rhs,
         rapidjson::Document::AllocatorType& allocator);
 
       /*!*********************************************************************

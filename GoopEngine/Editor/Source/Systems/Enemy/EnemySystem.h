@@ -15,7 +15,7 @@ to in the current frame.
 #pragma once
 #include <ECS/System/System.h>
 #include <Component/EnemyAI.h>
-#include <ScriptEngine/Script.h>
+#include <ScriptEngine/ScriptInstance.h>
 #include <ScriptEngine/ScriptManager.h>
 #include <AI/TreeManager.h>
 
@@ -26,7 +26,7 @@ namespace GE
 		struct GameNode
 		{
 			GE::AI::NODE_TYPE m_nodeType;
-			GE::MONO::Script m_script;
+			GE::MONO::ScriptInstance m_script;
 		};
 
 		struct GameTree

@@ -1,3 +1,5 @@
+GoopScripts,Form1
+GoopScripts,Form1.Designer
 GoopScripts.AI,FailNode
 GoopScripts.AI,LeafNode
 GoopScripts.AI,RootNode

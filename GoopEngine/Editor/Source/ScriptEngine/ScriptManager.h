@@ -17,7 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <ScriptEngine/Script.h>
+#include <ScriptEngine/ScriptInstance.h>
 #include <memory>
 #include "Math/GEM.h"
 #include "../ECS/EntityComponentSystem.h"
@@ -59,6 +59,7 @@ namespace GE {
 
 			void LoadAllMonoClass(std::ifstream& ifs);
 
+			MonoClass* GetMonoClass(std::string className);
 
 		};
 

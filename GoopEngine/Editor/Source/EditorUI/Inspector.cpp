@@ -517,20 +517,20 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER:
+			case GE::ECS::COMPONENT_TYPES::SCRIPTS:
 			{
-				//auto scripts = ecs.GetComponent<ScriptHandler>(entity);
-				if (ImGui::CollapsingHeader("Script Handler", ImGuiTreeNodeFlags_DefaultOpen))
+				//auto scripts = ecs.GetComponent<Scripts>(entity);
+				if (ImGui::CollapsingHeader("Scripts", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					if (IsItemClicked(ImGuiMouseButton_Right))
 					{
-						OpenPopup("RemoveScriptHandler");
+						OpenPopup("RemoveScripts");
 					}
-					if (BeginPopup("RemoveScriptHandler"))
+					if (BeginPopup("RemoveScripts"))
 					{
 						if (Selectable("Remove Component"))
 						{
-							ecs.RemoveComponent<ScriptHandler>(entity);
+							ecs.RemoveComponent<Scripts>(entity);
 							EndPopup();
 							break;
 						}
@@ -737,16 +737,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER:
+					case GE::ECS::COMPONENT_TYPES::SCRIPTS:
 					{
-						if (!ecs.HasComponent<ScriptHandler>(entity))
+						if (!ecs.HasComponent<Scripts>(entity))
 						{
-							ScriptHandler comp;
+							Scripts comp;
 							ecs.AddComponent(entity, comp);
 						}
 						else
 						{
-							ss << "Unable to add component " << typeid(ScriptHandler).name() << ". Component already exist";
+							ss << "Unable to add component " << typeid(Scripts).name() << ". Component already exist";
 						}
 						break;
 					}

@@ -5,7 +5,7 @@
 #include <Component/BoxCollider.h>
 #include <Component/Camera.h>
 #include <Component/Model.h>
-#include <Component/ScriptHandler.h>
+#include <Component/Scripts.h>
 #include <Component/Sprite.h>
 #include <Component/SpriteAnim.h>
 #include <Component/Transform.h>
@@ -158,8 +158,8 @@ void RemoveObjectCmd::RestoreComp(GE::ECS::Entity entityID, std::map<ECS::COMPON
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::TWEEN); it != compList.end())
 		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Tween>());
 
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER); it != compList.end())
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::ScriptHandler>());
+	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::SCRIPTS); it != compList.end())
+		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Scripts>());
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::DRAGGABLE); it != compList.end())
 		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Transform>());
