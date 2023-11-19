@@ -1,10 +1,11 @@
 ﻿using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
-using static GoopScripts.BuffManager;
+using static GoopScripts.Gameplay.BuffManager;
 using System;
 using System.Linq;
+using GoopScripts.Gameplay;
 
-namespace GoopScripts
+namespace GoopScripts.Cards
 {
   internal class Attack : CardBase
   {

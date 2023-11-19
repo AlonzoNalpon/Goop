@@ -1,6 +1,7 @@
 ﻿using GoopScripts.Mono;
+using GoopScripts.Gameplay;
 
-namespace GoopScripts
+namespace GoopScripts.Cards
 {
   abstract class CardBase : MonoBehaviour
   {

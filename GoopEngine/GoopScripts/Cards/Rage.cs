@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoopScripts.Gameplay;
 
-namespace GoopScripts
+namespace GoopScripts.Cards
 {
   internal class Rage : CardBase
   {
@@ -14,7 +15,7 @@ namespace GoopScripts
 
     public override void Play(ref Stats source, ref Stats target)
     {
-      source.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLICATIVE, Value, Duration));
+      //source.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLICATIVE, Value, Duration));
     }
   }
 }

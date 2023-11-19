@@ -1,6 +1,6 @@
 #pragma once
 #include <ECS/Entity/Entity.h>
-#include <ScriptEngine/Script.h>
+#include <ScriptEngine/ScriptInstance.h>
 
 namespace GE::Component
 {
@@ -9,9 +9,9 @@ namespace GE::Component
     GE::ECS::Entity player;
     GE::ECS::Entity enemy;
 
-    GE::MONO::Script playerScript;
-    GE::MONO::Script enemyScript;
+    GE::MONO::ScriptInstance playerScript;
+    GE::MONO::ScriptInstance enemyScript;
 
-    GE::MONO::Script gameSystemScript;
+    GE::MONO::ScriptInstance gameSystemScript;
   };
 }

@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoopScripts.Cards;
 
-namespace GoopScripts
+namespace GoopScripts.Gameplay
 {
 	internal abstract class Stats
 	{
 		public int m_health;
 		// List of card IDs
-		public List<CardBase.CardID> m_deck;
+		public List<CardBase.CardID> m_deck = new List<CardBase.CardID>();  // HQD: I had to initialize them, or else they would gives me error. you can remove it
 		// List of cards in the queue
-		public List<CardBase.CardID> m_cardQueue;
+		public List<CardBase.CardID> m_cardQueue = new List<CardBase.CardID>();
 
-		public BuffManager m_buffs;
+		public BuffManager m_buffs = new BuffManager();
+
+
 
 		public void TakeDamage(float damage)
 		{

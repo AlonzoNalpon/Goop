@@ -25,6 +25,12 @@ namespace GoopScripts.Player
   public  class Player : MonoBehaviour
   {
 
+    public int intTest= 32;
+    public float fTest = 32;
+    public double DTest = 32;
+    public Vec2<double> DVec2Test = new Vec2<double>(100.0, 200.0);
+    public Vec3<double> DVec3Test = new Vec3<double>(100.0, 200.0, 300.0);
+
     /*!*********************************************************************
    \brief
      Non default constructor of Player class
@@ -66,8 +72,8 @@ namespace GoopScripts.Player
     {
       //Console.WriteLine("WHAT\n");
       Transform newChange = new Transform(); // All values are set to 0
-      
 
+      Console.WriteLine("Dvec3Test val: " + DVec3Test.X + "," + DVec3Test.Y + "," + DVec3Test.Z);
       //Movement logic
       if (IsKeyPressed(KeyCode.W))
       {

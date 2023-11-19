@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 // TODO need to rewrite how buff and debuff numbers are calculated
 
-namespace GoopScripts
+namespace GoopScripts.Gameplay
 {
   internal class Buff
   {

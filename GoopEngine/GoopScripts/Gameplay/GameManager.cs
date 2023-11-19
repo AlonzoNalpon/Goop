@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoopScripts.Cards;
 
-namespace GoopScripts
+namespace GoopScripts.Gameplay
 {
   internal class GameManager
   {

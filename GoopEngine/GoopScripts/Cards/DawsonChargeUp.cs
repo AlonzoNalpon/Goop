@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoopScripts.Gameplay;
 
-namespace GoopScripts
+namespace GoopScripts.Cards
 {
   internal class DawsonChargeUp : CardBase
   {
@@ -15,7 +16,7 @@ namespace GoopScripts
     public override void Play(ref Stats source, ref Stats target)
     {
       target.TakeDamage(source.DamageDealt(Value));
-      target.m_buffs.AddDebuff(new Buff(Buff.BuffType.ADDITIVE, Value, Duration));
+      //target.m_buffs.AddDebuff(new Buff(Buff.BuffType.ADDITIVE, Value, Duration));
     }
   }
 }

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoopScripts.Gameplay;
 
-namespace GoopScripts
+namespace GoopScripts.Cards
 {
   internal class LeahFlashBang : CardBase
   {
@@ -14,7 +15,7 @@ namespace GoopScripts
 
     public override void Play(ref Stats source, ref Stats target)
     {
-      target.m_buffs.AddBuff(new Buff(Buff.BuffType.DIVISIVE, Value, Duration));
+     // target.m_buffs.AddBuff(new Buff(Buff.BuffType.DIVISIVE, Value, Duration));
     }
   }
 }
