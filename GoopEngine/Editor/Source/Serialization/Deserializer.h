@@ -50,12 +50,41 @@ namespace GE
       ************************************************************************/
       static std::vector<std::pair<std::string, ECS::ComponentSignature>> DeserializeSystems(std::string const& json);
 
+      /*!*********************************************************************
+      \brief
+        Variadic function to validate the format of a json file.
+        It iterates through the document and validates that each
+        key specified is of type equal to the rapidjson::Type passed in after
+        that key in the argument list.
+        keyCount is the number of key-value pairs to validate, meaning
+        the number of args in the (...) should be = keyCount * 2
+        Each key should be followed by its rapidjson::Type in the argument
+        list. Note that if the value is null, it will be ignored.
+
+        Example usage:
+          For a file that contains the following key-value pairs:
+            "Name": "string" and "Components": [ "bla", "bla" ]
+          You would invoke the function with:
+            ScanJsonFileForMembers(document, 2,
+              "Name", rapidjson::kStringType,
+              "Components", rapidjson::kArrayType)
+      \param document
+        The rapidjson::Document to validate
+      \param keyCount
+        The number of fields (key-value pairs) to check
+      \param ...
+        The comma-separated argument list in pairs of key followed by 
+        its corresponding type i.e. [const char*, rapidjson::Type]
+       
+      \return
+      ************************************************************************/
       static void ScanJsonFileForMembers(rapidjson::Document const& document, unsigned keyCount, ...);
 
     private:
       static rttr::variant GetComponentVariant(rttr::type const& valueType, std::string const& componentData);
       static void DeserializeBasedOnType(rttr::instance object, rapidjson::Value const& value);
       static bool DeserializeOtherComponents(rttr::variant& compVar, rttr::type const& type, rapidjson::Value const& value);
+      static void DeserializeComponent(rttr::variant& compVar, rttr::type const& compType, rapidjson::Value const& compJson);
       static rttr::variant DeserializeBasicTypes(rapidjson::Value const& value);
       static rttr::variant DeserializeElement(rttr::type const& valueType, rapidjson::Value const& value);
       static void DeserializeSequentialContainer(rttr::variant_sequential_view& view, rapidjson::Value const& value);

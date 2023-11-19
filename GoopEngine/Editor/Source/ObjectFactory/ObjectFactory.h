@@ -31,7 +31,7 @@ namespace GE::ObjectFactory
   class ObjectFactory : public Singleton<ObjectFactory>
   {
   public:
-    using EntityDataContainer = std::vector<std::pair<std::string, VariantEntity>>;
+    using EntityDataContainer = std::vector<std::pair<ECS::Entity, VariantEntity>>;
 
     /*!*********************************************************************
     \brief

@@ -396,14 +396,13 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
   {
     ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
 
-    for (auto const& [name, data] : m_deserialized)
+    for (auto const& [id, data] : m_deserialized)
     {
-      ECS::Entity newEntity{ ecs.CreateEntity() };
-      ecs.SetEntityName(newEntity, name);
+      ecs.CreateEntity({}, id, data.m_name);
       
       for (auto const& component : data.m_components)
       {
-        AddComponentToEntity(newEntity, component);
+        AddComponentToEntity(id, component);
       }
     }
   }
@@ -430,14 +429,16 @@ void ObjectFactory::LoadSceneJson(std::string const& filename)
   else
   {
     m_deserialized = GE::Serialization::Deserializer::DeserializeScene(GE::Assets::AssetManager::GetInstance().GetScene(filename));
-    for (auto const& [name, obj] : m_deserialized)
-    {
-      std::cout << name << ":\n";
+    for (auto const& [id, obj] : m_deserialized)
+    { 
+      #ifdef _DEBUG
+      std::cout << obj.m_name << " (" << id << "):\n";
       std::cout << "  Components:\n";
       for (auto const& var : obj.m_components)
       {
         std::cout << "    " << var.get_type() << "\n";
       }
+      #endif
     }
   }
 #endif

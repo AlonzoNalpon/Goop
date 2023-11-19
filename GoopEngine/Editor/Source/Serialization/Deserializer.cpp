@@ -19,7 +19,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <stdarg.h>
 #include <AssetManager/AssetManager.h>
 
+#ifdef _DEBUG
 #define DESERIALIZER_DEBUG
+#endif
 
 using namespace GE;
 using namespace Serialization;
@@ -59,7 +61,7 @@ rttr::variant Deserializer::GetComponentVariant(rttr::type const& valueType, std
     return ObjectFactory::DeserializeComponent<Component::Text>(componentData);
 
     std::ostringstream oss{};
-    oss << "Trying to get unsupported component variant (" << valueType << ")";
+    oss << "Trying to get unsupported component variant (" << valueType.get_name().to_string() << ")";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return rttr::variant();
 }
@@ -191,16 +193,17 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
 
   ObjectFactory::ObjectFactory::EntityDataContainer ret{};
 
-  ScanJsonFileForMembers(document, 4,
+  // check if scn file contains all basic keys
+  ScanJsonFileForMembers(document, 5,
     Serializer::JsonNameKey, rapidjson::kStringType, Serializer::JsonChildEntitiesKey, rapidjson::kArrayType,
-    Serializer::JsonParentKey, rapidjson::kNumberType, Serializer::JsonComponentsKey, rapidjson::kArrayType);
+    Serializer::JsonIdKey, rapidjson::kNumberType, Serializer::JsonParentKey, rapidjson::kNumberType,
+    Serializer::JsonComponentsKey, rapidjson::kArrayType);
 
   // okay code starts here
   for (auto const& entity : document.GetArray())
   {
-    std::string entityName{ entity[Serializer::JsonNameKey].GetString() };
     ECS::Entity const parent_id{ entity[Serializer::JsonParentKey].IsNull() ? ECS::INVALID_ID : entity[Serializer::JsonParentKey].GetUint() };
-    ObjectFactory::VariantEntity entityVar{ parent_id };  // set parent
+    ObjectFactory::VariantEntity entityVar{ entity[Serializer::JsonNameKey].GetString(), parent_id };  // set parent
     // get child ids
     for (auto const& child : entity[Serializer::JsonChildEntitiesKey].GetArray())
     {
@@ -216,9 +219,9 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
         rapidjson::Value const& compJson{ comp->value };
 
         rttr::type compType = rttr::type::get_by_name(compName);
-#ifdef DESERIALIZER_DEBUG
+        #ifdef DESERIALIZER_DEBUG
         std::cout << "Deserializing " << compType << "\n";
-#endif
+        #endif
         if (!compType.is_valid())
         {
           std::ostringstream oss{};
@@ -228,57 +231,13 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
         }
 
         rttr::variant compVar{};
-        // check for components that need to be handled differently
-        if (!DeserializeOtherComponents(compVar, compType, compJson))
-        {
-          rttr::constructor const& compCtr{ *compType.get_constructors().begin() };
-          if (compCtr.get_parameter_infos().empty())  // if default ctr
-          {
-            compVar = compCtr.invoke();//create().extract_wrapped_value();
-#ifdef DESERIALIZER_DEBUG
-            std::cout << "  Default ctr invoked...Type of compVar is " << compVar.get_type() << "\n";
-#endif
-            DeserializeBasedOnType(compVar, compJson);
-          }
-          else
-          {
-#ifdef DESERIALIZER_DEBUG
-            std::cout << "  Non-default ctr invoked\n";
-#endif
-            rttr::instance object{ compVar };
-            rttr::instance objInstance
-            {
-              object.get_type().get_raw_type().is_wrapper() ? object.get_wrapped_instance() : object
-            };
-
-            std::vector<rttr::variant> args{};
-            auto const properties{ objInstance.get_type().get_properties() };
-            args.reserve(compCtr.get_parameter_infos().size());
-            for (auto const& param : compCtr.get_parameter_infos())
-            {
-              for (auto& prop : properties)
-              {
-                if (param.get_name() == prop.get_name())
-                {
-                  args.emplace_back(prop.get_value(object));
-                  break;
-                }
-              }
-            }
-
-            compVar = compCtr.invoke(args);
-          }
-        }
-
-#ifdef DESERIALIZER_DEBUG
-        std::cout << "Passing " << compVar.get_type() << " into DeserializeBasedOnType()\n";
-#endif
+        DeserializeComponent(compVar, compType, compJson);
         
         compVector.emplace_back(std::move(compVar));
       }
     }
 
-    ret.emplace_back(std::make_pair(std::move(entityName), std::move(entityVar)));
+    ret.emplace_back(std::make_pair(entity[Serializer::JsonIdKey].GetUint(), std::move(entityVar)));
   }
 
   return ret;
@@ -292,15 +251,15 @@ void Deserializer::DeserializeBasedOnType(rttr::instance object, rapidjson::Valu
     object.get_type().get_raw_type().is_wrapper() ? object.get_wrapped_instance() : object
   };
   auto const properties{ objInstance.get_type().get_properties() }; // list of properties (data members of a class)
-#ifdef DESERIALIZER_DEBUG
+  #ifdef DESERIALIZER_DEBUG
   std::cout << "  Original instance: " << object.get_type() << "\n";
   std::cout << "  Extracted instance: " << objInstance.get_type() << "\n";
-#endif
+  #endif
   for (auto& prop : properties)
   {
-  #ifdef DESERIALIZER_DEBUG
+    #ifdef DESERIALIZER_DEBUG
     std::cout << "    Extracting property: " << prop.get_name() << "\n";
-  #endif
+    #endif
     // extract value based on property name
     rapidjson::Value::ConstMemberIterator iter{ value.FindMember(prop.get_name().data()) };
     if (iter == value.MemberEnd())
@@ -352,7 +311,7 @@ void Deserializer::DeserializeBasedOnType(rttr::instance object, rapidjson::Valu
       else
       {
         std::ostringstream oss{};
-        oss << prop.get_name().to_string() << ": Unable to convert " << ret.get_type() << " to " << prop.get_type();
+        oss << prop.get_name().to_string() << ": Unable to convert " << ret.get_type().get_name().to_string() << " to " << prop.get_type().get_name().to_string();
         GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
       }
       break;
@@ -411,6 +370,51 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
       rttr::variant elem{ DeserializeBasicTypes(indexVal) };
       
       view.set_value(i, elem);
+    }
+  }
+}
+
+void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const& compType, rapidjson::Value const& compJson)
+{
+  // check for components that need to be handled differently
+  if (!DeserializeOtherComponents(compVar, compType, compJson))
+  {
+    rttr::constructor const& compCtr{ *compType.get_constructors().begin() };
+    if (compCtr.get_parameter_infos().empty())  // if default ctr
+    {
+      compVar = compCtr.invoke();//create().extract_wrapped_value();
+      #ifdef DESERIALIZER_DEBUG
+      std::cout << "  Default ctr invoked...Type of compVar is " << compVar.get_type() << "\n";
+      #endif
+      DeserializeBasedOnType(compVar, compJson);
+    }
+    else
+    {
+      #ifdef DESERIALIZER_DEBUG
+      std::cout << "  Non-default ctr invoked\n";
+      #endif
+      rttr::instance object{ compVar };
+      rttr::instance objInstance
+      {
+        object.get_type().get_raw_type().is_wrapper() ? object.get_wrapped_instance() : object
+      };
+
+      std::vector<rttr::variant> args{};
+      auto const properties{ objInstance.get_type().get_properties() };
+      args.reserve(compCtr.get_parameter_infos().size());
+      for (auto const& param : compCtr.get_parameter_infos())
+      {
+        for (auto& prop : properties)
+        {
+          if (param.get_name() == prop.get_name())
+          {
+            args.emplace_back(prop.get_value(object));
+            break;
+          }
+        }
+      }
+
+      compVar = compCtr.invoke(args);
     }
   }
 }

@@ -25,7 +25,7 @@ namespace GE
 	namespace ECS
 	{
 		// for access to exclusive CreateEntity() function
-		class Exclusive { friend class ObjectFactory::ObjectFactory; Exclusive() {} };
+		class Exclusive { friend class ObjectFactory::ObjectFactory; Exclusive(){} };
 
 		class EntityComponentSystem : public Singleton<EntityComponentSystem>
 		{
@@ -61,19 +61,19 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-					Calls EntityManager's CreateEntity overload. This functions allows
-					the user to create an entity with a given ID and name, which is
-					not assigned by the ECS.
+				Calls EntityManager's CreateEntity overload. This functions allows
+				the user to create an entity with a given ID and name, which is
+				not assigned by the ECS.
 
-					To prevent misuse, this function can only be invoked by classes
-					that the "Exclusive" class explicitly friends. Only friend classes
-					can create an instance of Exclusive by specifying "{}" in the arg list.
+				To prevent misuse, this function can only be invoked by classes 
+				that the "Exclusive" class explicitly friends. Only friend classes
+				can create an instance of Exclusive by specifying "{}" in the arg list.
 
 			\param entity
-					Entity ID which you will be using
+				Entity ID which you will be using
 
 			\param name
-					Name of the entity being created
+				Name of the entity being created
 			************************************************************************/
 			void CreateEntity(Exclusive key, Entity entity, std::string name = "");
 

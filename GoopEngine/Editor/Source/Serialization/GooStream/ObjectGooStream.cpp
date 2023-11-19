@@ -70,9 +70,10 @@ bool ObjectGooStream::Read(std::string const& json)
   }
 
   // iterate through all objects and validate format
-  Serialization::Deserializer::ScanJsonFileForMembers(data, 4,
+  Serialization::Deserializer::ScanJsonFileForMembers(data, 5,
     Serializer::JsonNameKey, rapidjson::kStringType, Serializer::JsonChildEntitiesKey, rapidjson::kArrayType,
-    Serializer::JsonParentKey, rapidjson::kNumberType, Serializer::JsonComponentsKey, rapidjson::kArrayType);
+    Serializer::JsonIdKey, rapidjson::kNumberType, Serializer::JsonParentKey, rapidjson::kNumberType,
+    Serializer::JsonComponentsKey, rapidjson::kArrayType);
 
   ifs.close();
   m_elements = data.Size();
