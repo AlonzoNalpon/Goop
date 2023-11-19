@@ -254,7 +254,7 @@ namespace GE::Assets
 		// If the AssetGooStream object is not valid, throw an exception
 		if (!ags)
 		{
-			//throw exception
+			throw GE::Debug::Exception<AssetManager>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Unable to read config file"));
 		}
 		
 		// Unload the config data from the AssetGooStream object into m_configData
@@ -274,7 +274,9 @@ namespace GE::Assets
 	GE::Serialization::SpriteData AssetManager::GetSpriteData(std::string key)
 	{
 		if (m_loadedSpriteData.find(key) == m_loadedSpriteData.end())
+		{
 			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Sprite Data does not exist: " + key));
+		}
 
 		return m_loadedSpriteData[key];
 	}

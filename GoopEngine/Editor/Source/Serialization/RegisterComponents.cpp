@@ -142,4 +142,11 @@ RTTR_REGISTRATION
     .method("AddTween", &Component::Tween::AddTween)
     ;
 
+  rttr::registration::class_<Component::Audio>("Audio")
+    .property("loop", &Component::Audio::m_loop)
+    .property("name", &Component::Audio::m_name)
+    .property("play", &Component::Audio::m_playOnStart)
+    .property("channel", &Component::Audio::channel)
+    ;
+
 } // RTTR Registration

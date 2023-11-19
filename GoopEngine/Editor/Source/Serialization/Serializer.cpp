@@ -262,6 +262,11 @@ namespace GE
         Component::Text* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Text>(id) };
         return ret ? *ret : rttr::variant();
       }
+      case ECS::COMPONENT_TYPES::AUDIO:
+      {
+        Component::Audio* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Audio>(id) };
+        return ret ? *ret : rttr::variant();
+      }
       }
 
       std::ostringstream oss{};

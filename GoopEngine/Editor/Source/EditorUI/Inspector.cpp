@@ -84,8 +84,11 @@ namespace
 
 	\param[in] disabled
 		Draw disabled
+
+	\return
+		If value has changed
 	************************************************************************/
-	void InputCheckBox(std::string propertyName, bool& property, bool disabled = false);
+	bool InputCheckBox(std::string propertyName, bool& property, bool disabled = false);
 
 	/*!*********************************************************************
 	\brief
@@ -372,11 +375,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndPopup();
 					}
-					ImGui::Columns(2, 0, true);
-					ImGui::SetColumnWidth(0, 118.f);
-					ImGui::Text("Sprite");
-					ImGui::NextColumn();
-					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), { 100, 100 }, { 0, 1 }, { 1, 0 });
+					ImVec2 imgSize{ 100, 100 };
+					SetCursorPosX(GetContentRegionAvail().x / 2 - imgSize.x / 2);
+					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), imgSize, { 0, 1 }, { 1, 0 });
 					if (ImGui::BeginDragDropTarget())
 					{
 						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
@@ -391,7 +392,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							EndDragDropTarget();
 						}
 					}
-					ImGui::Columns(1);
+					//ImGui::Columns(1);
 
 #pragma region SPRITE_LIST
 					auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
@@ -619,6 +620,63 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
+			case GE::ECS::COMPONENT_TYPES::AUDIO:
+			{
+				auto audio = ecs.GetComponent<GE::Component::Audio>(entity);
+				if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveAudio");
+					}
+					if (BeginPopup("RemoveAudio"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Audio>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+
+					Separator();
+					InputText("Sound File", &audio->m_name);
+					if (BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = AcceptDragDropPayload("ASSET_BROWSER_AUDIO"))
+						{
+							audio->m_name = static_cast<const char*>(payload->Data);
+						}
+						EndDragDropTarget();
+					}
+
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					TableNextRow();
+					InputCheckBox("Loop", audio->m_loop);
+					TableNextRow();
+					InputCheckBox("Play on Start", audio->m_playOnStart);
+					TableNextRow();
+					InputCheckBox("Paused", audio->m_paused);
+					EndTable();
+
+					if (BeginCombo("Channel", GE::fMOD::FmodSystem::m_channelToString.at(audio->channel).c_str()))
+					{
+						for (auto const& [channel, audioName] : GE::fMOD::FmodSystem::m_channelToString)
+						{
+							if (Selectable(audioName.c_str()))
+							{
+								audio->channel = channel;
+							}
+						}
+						EndCombo();
+					}
+
+					Separator();
+				}
+				break;
+			}
 			default:
 				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled");
 				break;
@@ -776,6 +834,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
+					case GE::ECS::COMPONENT_TYPES::AUDIO:
+					{
+						if (!ecs.HasComponent<Component::Audio>(entity))
+						{
+							Component::Audio comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Component::Text).name() << ". Component already exist";
+						}
+						break;
+					}
 					default:
 						break;
 					}
@@ -823,14 +894,16 @@ namespace
 		EndDisabled();
 	}
 	
-	void InputCheckBox(std::string propertyName, bool& property, bool disabled)
+	bool InputCheckBox(std::string propertyName, bool& property, bool disabled)
 	{
+		bool valChanged{ false };
 		BeginDisabled(disabled);
 		TableNextColumn();
 		ImGui::Text(propertyName.c_str());
 		TableNextColumn();
-		Checkbox(("##" + propertyName).c_str(), &property);
+		valChanged = Checkbox(("##" + propertyName).c_str(), &property);
 		EndDisabled();
+		return valChanged;
 	}
 
 	template <>
