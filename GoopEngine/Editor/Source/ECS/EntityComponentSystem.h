@@ -19,8 +19,14 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 // Interface for using the different ECS systems
 namespace GE
 {
+	// forward declaration
+	namespace ObjectFactory { class ObjectFactory; }
+
 	namespace ECS
 	{
+		// for access to exclusive CreateEntity() function
+		class Exclusive { friend class ObjectFactory::ObjectFactory; Exclusive() {} };
+
 		class EntityComponentSystem : public Singleton<EntityComponentSystem>
 		{
 		private:
@@ -28,22 +34,6 @@ namespace GE
 			std::unique_ptr<EntityManager> m_entityManager;
 			std::unique_ptr<SystemManager> m_systemManager;
 
-			/*!*********************************************************************
-			\brief
-			  Calls EntityManager's CreateEntity overload. This functions allows
-				the user to create an entity with a given ID and name, which is
-				not assigned by the ECS.
-
-				This function is private to prevent misuse. Any user who wants to use
-				this has to explicitly friend the ECS.
-
-			\param entity
-				Entity ID which you will be using
-
-			\param name
-			  Name of the entity being created
-			************************************************************************/
-			void CreateEntity(Entity entity, std::string name = "");
 		public:
 			/*!*********************************************************************
 			\brief
@@ -68,6 +58,24 @@ namespace GE
 				A new entity
 			************************************************************************/
 			Entity CreateEntity();
+
+			/*!*********************************************************************
+			\brief
+					Calls EntityManager's CreateEntity overload. This functions allows
+					the user to create an entity with a given ID and name, which is
+					not assigned by the ECS.
+
+					To prevent misuse, this function can only be invoked by classes
+					that the "Exclusive" class explicitly friends. Only friend classes
+					can create an instance of Exclusive by specifying "{}" in the arg list.
+
+			\param entity
+					Entity ID which you will be using
+
+			\param name
+					Name of the entity being created
+			************************************************************************/
+			void CreateEntity(Exclusive key, Entity entity, std::string name = "");
 
 			/*!*********************************************************************
 			\brief
