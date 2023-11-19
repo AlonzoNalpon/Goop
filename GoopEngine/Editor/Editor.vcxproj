@@ -272,7 +272,7 @@
     <ClCompile Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.cpp" />
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimGenerator.cpp" />
     <ClCompile Include="Source\Math\Mat3Utils.cpp" />
-    <ClCompile Include="Source\Systems\Audio\FmodSystem.cpp" />
+    <ClCompile Include="Source\Fmod\FmodSystem.cpp" />
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
     <ClCompile Include="Source\Systems\Text\TextRenderSystem.cpp" />
@@ -295,7 +295,7 @@
     <ClInclude Include="Source\AI\Tree.h" />
     <ClInclude Include="Source\AI\TreeManager.h" />
     <ClInclude Include="Source\Component\Audio.h" />
-    <ClInclude Include="Source\Systems\Audio\FmodSystem.h" />
+    <ClInclude Include="Source\Fmod\FmodSystem.h" />
     <ClInclude Include="Source\Commands\CommandManager.h" />
     <ClInclude Include="Source\Commands\ICommand.h" />
     <ClInclude Include="Source\Commands\ImGuiCommands.h" />

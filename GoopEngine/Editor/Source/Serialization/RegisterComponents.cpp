@@ -144,12 +144,11 @@ RTTR_REGISTRATION
 
   rttr::registration::class_<Component::Audio>("Audio")
     .property("isPlaying", &Component::Audio::m_isPlaying)
-    .property("isSFX", &Component::Audio::m_isSFX)
     .property("loop", &Component::Audio::m_loop)
     .property("name", &Component::Audio::m_name)
-    .property("stream", &Component::Audio::m_stream)
-    .property("play", &Component::Audio::m_play)
-    .property("volume", &Component::Audio::m_volume)
+    .property("play", &Component::Audio::m_initialized)
+    .property("play", &Component::Audio::m_playOnStart)
+    .property("channel", &Component::Audio::channel)
     ;
 
 } // RTTR Registration

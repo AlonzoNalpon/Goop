@@ -342,11 +342,10 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndPopup();
 					}
-					ImGui::Columns(2, 0, true);
-					ImGui::SetColumnWidth(0, 118.f);
-					ImGui::Text("Sprite");
-					ImGui::NextColumn();
-					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), { 100, 100 }, { 0, 1 }, { 1, 0 });
+					ImVec2 imgSize{ 100, 100 };
+					SetCursorPosX(GetContentRegionAvail().x / 2 - imgSize.x / 2);
+					Image(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), imgSize, { 0, 1 }, { 1, 0 });
+					//ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), { 100, 100 }, { 0, 1 }, { 1, 0 });
 					if (ImGui::BeginDragDropTarget())
 					{
 						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
@@ -361,7 +360,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							EndDragDropTarget();
 						}
 					}
-					ImGui::Columns(1);
+					//ImGui::Columns(1);
 
 #pragma region SPRITE_LIST
 					auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
@@ -610,26 +609,30 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 
 					Separator();
-					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
-					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
-					TableNextColumn();
 					InputText("Sound File", &audio->m_name);
-					EndTable();
 
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 					TableNextRow();
-					InputDouble1("Volume", audio->m_volume);
-					TableNextRow();
 					InputCheckBox("Loop", audio->m_loop);
 					TableNextRow();
-					InputCheckBox("Stream", audio->m_stream);
+					InputCheckBox("Play on Start", audio->m_playOnStart);
 					TableNextRow();
-					InputCheckBox("Play", audio->m_play);
-					TableNextRow();
-					InputCheckBox("SFX", audio->m_isSFX);
-					TableNextRow();
+					InputCheckBox("Playing", audio->m_isPlaying);
 					EndTable();
+
+					if (BeginCombo("Channel", GE::fMOD::FmodSystem::m_channelToString.at(audio->channel).c_str()))
+					{
+						for (auto const& [channel, audioName] : GE::fMOD::FmodSystem::m_channelToString)
+						{
+							if (Selectable(audioName.c_str()))
+							{
+								audio->channel = channel;
+							}
+						}
+						EndCombo();
+					}
+
 					Separator();
 				}
 				break;

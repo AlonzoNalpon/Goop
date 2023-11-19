@@ -7,19 +7,32 @@
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+#pragma once
 #include <fmod.hpp>
 #include <Singleton/Singleton.h>
-#include <Component/Audio.h>
 
 namespace GE 
 {
 	namespace fMOD
 	{
-    class FmodSystem : public Singleton<FmodSystem> {
-
-      using ChannelID = unsigned int;
-
+    class FmodSystem : public Singleton<FmodSystem> 
+    {
     public:
+      enum Channel
+      {
+        BGM,
+        SFX,
+        VOICE,
+        TOTAL_CHANNELS,
+      };
+
+      static inline const std::map<Channel, std::string> m_channelToString
+      {
+        { BGM, "BGM"},
+        { SFX, "SFX" },
+        { VOICE, "VOICE" },
+      };
+
       /*!*********************************************************************
       \brief
         Default contructor
@@ -50,9 +63,7 @@ namespace GE
       \param isStreaming
         Boolean for streaming the sound. Default: true.
       ************************************************************************/
-      void PlaySound(std::string audio, bool isSFX);
-
-      void PlayLoopedSound(std::string audio, bool isSFX);
+      void PlaySound(std::string audio, Channel channel, bool looped = false);
 
       /*!*********************************************************************
       \brief
@@ -62,7 +73,7 @@ namespace GE
       \param volumedB
         Volume in db.
       ************************************************************************/
-      void SetChannelVolume(bool isSFX, double volumedB);
+      void SetChannelVolume(Channel channel, double volumedB);
 
       /*!*********************************************************************
       \brief
@@ -74,18 +85,14 @@ namespace GE
 
       void StopAllSound();
 
-      void StopChannel(ChannelID channel);
+      void StopChannel(Channel channel);
 
     private:
       FMOD::System* m_fModSystem{ nullptr };
 
-      ChannelID m_SFX{ 0 };
-      ChannelID m_BGM{ 1 };
-      ChannelID m_numOfChannels{ 2 };
-
       using SoundMap = std::map<std::string, FMOD::Sound*>;
-      using ChannelMap = std::map<ChannelID, FMOD::Channel*>;
-      using CurrentPlaylist = std::unordered_map<std::string, ChannelID>;
+      using ChannelMap = std::map<Channel, FMOD::Channel*>;
+      using CurrentPlaylist = std::unordered_map<std::string, Channel>;
 
       SoundMap m_sounds;
       ChannelMap m_channels;
@@ -102,16 +109,12 @@ namespace GE
       /*!*********************************************************************
       \brief
         Loads sound into sound map if not already inside.
-      \param soundFile
+      \param audio
         Sound filename.
-      \param isLooping
-        Boolean for looping the sound.
-      \param isStreaming
-        Boolean for streaming the sound.
+      \param looped
+        Boolean for if the sound is looping.
       ************************************************************************/
-      void LoadSound(std::string audio);
-
-      void LoadLoopedSound(std::string audio);
+      void LoadSound(std::string audio, bool looped = false);
 
       /*!*********************************************************************
       \brief
@@ -129,7 +132,7 @@ namespace GE
         Returns true if channel is currently playing.
         Returns false if channel is not currently playing.
       ************************************************************************/
-      bool IsPlaying(std::pair<std::string, ChannelID> audio);
+      bool IsPlaying(std::pair<std::string, Channel> audio);
 
       /*!*********************************************************************
       \brief

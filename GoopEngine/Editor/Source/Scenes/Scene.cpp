@@ -15,7 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <Systems/Enemy/EnemySystem.h>
-#include <Systems/Audio/FmodSystem.h>
+#include <Fmod/FmodSystem.h>
 
 using namespace GE;
 using namespace ECS;

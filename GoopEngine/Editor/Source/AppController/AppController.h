@@ -17,8 +17,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <EditorUI/ImGuiUI.h>
 #include <ScriptEngine/ScriptManager.h>
 #include <AI/TreeManager.h>
-//#include <Scene.h>
 #include <GameStateManager/GameStateManager.h>
+#include <Fmod/FmodSystem.h>
 
 
 namespace GE::Application
@@ -59,5 +59,6 @@ namespace GE::Application
     GE::EditorGUI::ImGuiUI imgui;
     GE::Input::InputManager& im;
     GE::GSM::GameStateManager& gsm;
+    GE::fMOD::FmodSystem& fMod;
   };
 }
