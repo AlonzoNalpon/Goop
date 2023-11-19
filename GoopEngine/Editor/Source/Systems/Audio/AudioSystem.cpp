@@ -1,7 +1,7 @@
 #include <pch.h>
 #include <Systems/Audio/AudioSystem.h>
 #include <Fmod/FmodSystem.h>
-#include <iostream>
+#include <FrameRateController/FrameRateController.h>
 
 using namespace GE::ECS;
 using namespace GE::Systems;
@@ -16,23 +16,32 @@ void AudioSystem::Awake()
 
 void AudioSystem::Update()
 {
+  static GE::FPS::FrameRateController& frc = GE::FPS::FrameRateController::GetInstance();
+
+  frc.StartSystemTimer();
   std::set<Entity>& list = GetUpdatableEntities();
 
   for (Entity entity : list)
   {
-    Audio* m_audio = m_ecs->GetComponent<Audio>(entity);
+    Audio* audio = m_ecs->GetComponent<Audio>(entity);
 
-    if (!m_audio->m_initialized && (m_audio->m_playOnStart || m_audio->m_isPlaying))
+    if (audio->m_playOnStart && !audio->m_playedOnStart)
     {
-      m_audio->m_initialized = true;
-      m_audio->m_isPlaying = true;
-      m_audio->Play();
+      audio->m_playedOnStart = true;
+      audio->Play();
     }
 
-    if (m_audio->m_initialized && !m_audio->m_isPlaying)
+    if (audio->m_lastPausedState != audio->m_paused)
     {
-      m_audio->m_initialized = false;
-      m_audio->Stop();
+      if (audio->m_paused)
+      {
+        audio->Pause();
+      }
+      else
+      {
+        audio->Play();
+      }
     }
   }
+  frc.EndSystemTimer("AudioSystem");
 }

@@ -19,12 +19,23 @@ void FmodSystem::Init()
   int maxSounds = GE::Assets::AssetManager::GetInstance().GetConfigData<int>("MaxPlayingSounds");
   ErrorCheck(m_fModSystem->init(maxSounds, FMOD_INIT_NORMAL, NULL)); // Initialize the FMOD Core system
   m_fModSystem->getMasterChannelGroup(&m_masterGroup);
+
+  for (int i{}; i < TOTAL_CHANNELS; ++i)
+  {
+    ChannelType currChannel = static_cast<ChannelType>(i);
+    FMOD::ChannelGroup*& channelGroup{m_channelGroups[currChannel]};
+    m_fModSystem->createChannelGroup(m_channelToString.at(currChannel).c_str(), &channelGroup);
+    // This should be set from config file
+    //channelGroup->setVolume(1.0f);
+    m_volumes[currChannel] = 1.0f;
+
+    m_masterGroup->addGroup(m_channelGroups[currChannel]);
+  }
 }
 
 void FmodSystem::Update()
 {
   ErrorCheck(m_fModSystem->update());
-  ClearChannels();
 }
 
 bool FmodSystem::LoadSound(std::string audio, bool looped)
@@ -70,13 +81,14 @@ bool FmodSystem::LoadSound(std::string audio, bool looped)
   return false;
 }
 
-void FmodSystem::ClearChannels()
+void FmodSystem::UnLoadSounds()
 {
   std::vector<std::string> remove;
   for (auto& [key, val] : m_channels)
   {
-    bool isPlaying;
-    val->isPlaying(&isPlaying);
+    bool isPlaying;    
+    
+    ErrorCheck(val->isPlaying(&isPlaying));
     if (!isPlaying)
     {
       remove.push_back(key);
@@ -103,48 +115,102 @@ void FmodSystem::PlaySound(std::string audio, ChannelType channel, bool looped)
     }
   }
   
-  FMOD::ChannelGroup* fmodChannelGroup = m_channelGroups[channel];
-  if (fmodChannelGroup == nullptr)
-  {
-    m_fModSystem->createChannelGroup(m_channelToString.at(channel).c_str(), &fmodChannelGroup);
-  }
-
   FMOD::Channel*& soundChannel{m_channels[audio]};
-  ErrorCheck(m_fModSystem->playSound(soundFound->second, fmodChannelGroup, true, &soundChannel));
-  if (soundChannel)
+
+  if (soundChannel == nullptr)
   {
-    ErrorCheck(soundChannel->setPaused(false));
+    ErrorCheck(m_fModSystem->playSound(soundFound->second, m_channelGroups[channel], false, &soundChannel));
+  }
+  else
+  {
+    bool isPaused;
+    ErrorCheck(soundChannel->getPaused(&isPaused));
+    // if sound paused, unpause
+    if (isPaused)
+    {
+      ErrorCheck(soundChannel->setPaused(false));
+    }
+  }
+}
+
+void GE::fMOD::FmodSystem::Pause(std::string audio)
+{
+  if (m_channels.find(audio) != m_channels.end())
+  {
+    ErrorCheck(m_channels[audio]->setPaused(true));
   }
 }
 
 void FmodSystem::StopSound(std::string audio)
 {  
-  m_channels[audio]->stop();
+  ErrorCheck(m_channels[audio]->stop());
+  m_channels.erase(audio);
 }
 
 void FmodSystem::StopAllSound()
 {
-  m_masterGroup->stop();
+  ErrorCheck(m_masterGroup->stop());
+  m_channels.clear();
 }
 
 void FmodSystem::StopChannel(ChannelType channel)
 {
-  m_channelGroups[channel]->stop();
+  int numchannel;
+  m_channelGroups[channel]->getNumChannels(&numchannel);
+  // Remove all sounds in given channel
+  std::vector<std::string> remove;
+  for (int i{}; i < numchannel; ++i)
+  {
+    FMOD::Channel* currentChannel;
+    m_channelGroups[channel]->getChannel(i, &currentChannel);
+
+    for (auto& [key, val] : m_channels)
+    {
+      if (val == currentChannel)
+      {
+        remove.push_back(key);
+      }
+    }
+  }
+
+  for (auto& key : remove)
+  {
+    m_channels.erase(key);
+  }
+  ErrorCheck(m_channelGroups[channel]->stop());
 }
 
-void FmodSystem::SetChannelVolume(ChannelType channel, double volumedB)
+void FmodSystem::SetChannelVolume(ChannelType channel, float volume)
 {
-  ErrorCheck(m_channelGroups[channel]->setVolume(static_cast<float>(dbToVolume(volumedB))));
+  ErrorCheck(m_channelGroups[channel]->setVolume(volume));
+  m_volumes[channel] = volume;
 }
 
-double FmodSystem::dbToVolume(double dB) const
+float FmodSystem::GetChannelVolume(ChannelType channel) const
 {
-  return pow(10.0, 0.05 * dB);
+  return m_volumes.at(channel);
 }
 
-double FmodSystem::VolumeTodb(double volume) const
+void FmodSystem::SetMasterVolume(float volume)
 {
-  return 20.0 * log10(volume);
+  m_masterGroup->setVolume(volume);
+}
+
+float GE::fMOD::FmodSystem::GetMasterVolume() const
+{
+  float vol;
+  m_masterGroup->getVolume(&vol);
+  return vol;
+}
+
+float FmodSystem::dbToVolume(float dB) const
+{
+  return static_cast<float>(pow(10.0, 0.05 * dB));
+}
+
+float FmodSystem::VolumeTodb(float volume) const
+{
+  return static_cast<float>(20.0 * log10(volume));
 }
 
 void FmodSystem::ErrorCheck(FMOD_RESULT result)

@@ -65,6 +65,8 @@ namespace GE
       ************************************************************************/
       void PlaySound(std::string audio, ChannelType channel, bool looped = false);
 
+      void Pause(std::string audio);
+
       /*!*********************************************************************
       \brief
         Modifies channel's volume.
@@ -73,7 +75,13 @@ namespace GE
       \param volumedB
         Volume in db.
       ************************************************************************/
-      void SetChannelVolume(ChannelType channel, double volumedB);
+      void SetChannelVolume(ChannelType channel, float volume);
+
+      float GetChannelVolume(ChannelType channel) const;
+
+      void SetMasterVolume(float volume);
+
+      float GetMasterVolume() const;
 
       /*!*********************************************************************
       \brief
@@ -98,6 +106,7 @@ namespace GE
       SoundMap m_sounds;
       ChannelGroups m_channelGroups;
       SoundChannel m_channels;
+      std::map<ChannelType, float> m_volumes;
 
       /*!*********************************************************************
       \brief
@@ -123,20 +132,10 @@ namespace GE
 
       /*!*********************************************************************
       \brief
-        Clears channels which the sounds are no longer playing
+        This function is depreciated.
+        Unload channels which the sounds are no longer playing.
       ************************************************************************/
-      void ClearChannels();
-
-      /*!*********************************************************************
-      \brief
-        Checks if channel is currently playing or not.
-      \param channelId
-        ID for channel.
-      \return bool
-        Returns true if channel is currently playing.
-        Returns false if channel is not currently playing.
-      ************************************************************************/
-      bool IsPlaying(std::pair<std::string, ChannelType> audio);
+      void UnLoadSounds();
 
       /*!*********************************************************************
       \brief
@@ -146,7 +145,7 @@ namespace GE
       \return float
         Volume converted from db.
       ************************************************************************/
-      double dbToVolume(double db) const;
+      float dbToVolume(float db) const;
 
       /*!*********************************************************************
       \brief
@@ -156,7 +155,7 @@ namespace GE
       \return flaot
         db converted from volume.
       ************************************************************************/
-      double VolumeTodb(double volume) const;
+      float VolumeTodb(float volume) const;
     };
 	}
 }
