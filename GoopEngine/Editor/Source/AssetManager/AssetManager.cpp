@@ -136,11 +136,11 @@ namespace GE::Assets
 			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
 			
 			std::string const& currExt{ file.path().extension().string() };
-			if (currExt == AssetManager::ImageFileExt)	// image
+			if (AssetManager::ImageFileExt.find(currExt) != std::string::npos)	// image
 			{
 				m_images.emplace(file.path().stem().string(), file.path().string());
 			}
-			else if (currExt == AssetManager::AudioFileExt)	// sound
+			else if (AssetManager::AudioFileExt.find(currExt) != std::string::npos)	// sound
 			{
 				m_audio.emplace(file.path().stem().string(), file.path().string());
 			}
@@ -290,9 +290,13 @@ namespace GE::Assets
 	std::set<int> AssetManager::LoadDirectory(const std::string& path)
 	{
 		std::set<int> loaded;
-		for (const auto& entry : std::filesystem::directory_iterator(path))
+		for (const auto& entry : std::filesystem::recursive_directory_iterator(path))
 		{
-			loaded.emplace(LoadImageW(entry.path().string()));
+			// If image file
+			if (ImageFileExt.find(entry.path().extension().string()) != std::string::npos)
+			{
+				loaded.emplace(LoadImageW(entry.path().string()));
+			}
 		}
 		return loaded;
 	}

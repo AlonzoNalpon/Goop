@@ -50,35 +50,23 @@ bool FmodSystem::LoadSound(std::string audio, bool looped)
   FMOD_MODE mode = FMOD_DEFAULT | FMOD_CREATESTREAM | (looped ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
 
   FMOD::Sound* sound = nullptr;
+  static GE::Assets::AssetManager& am{ GE::Assets::AssetManager::GetInstance() };
 
-  // Look through asset directory to find the file
-  static std::string rootDir = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("Assets Dir");
-  for (const auto& path : std::filesystem::recursive_directory_iterator(rootDir))
+  // Use FMOD Core API to create the sound
+  FMOD_RESULT result = m_fModSystem->createSound(am.GetSound(audio).c_str(), mode, nullptr, &sound);
+  if (result == FMOD_OK)
   {
-    if (path.path().filename() == audio)
-    {
-      // Use FMOD Core API to create the sound
-      FMOD_RESULT result = m_fModSystem->createSound(path.path().string().c_str(), mode, nullptr, &sound);
-      if (result == FMOD_OK)
-      {
-        // sound loaded, can stop
-        m_sounds[audio] = sound;
-        return true;
-      }
-      else
-      {
-        std::ostringstream oss{};
-        oss << "Failed to create looped sound: " << result;
-        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        return false;
-      }
-    }
+    // sound loaded, can stop
+    m_sounds[audio] = sound;
+    return true;
   }
-
-  std::ostringstream oss{};
-  oss << "Sound file" << audio << "does not exist";
-  GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-  return false;
+  else
+  {
+    std::ostringstream oss{};
+    oss << "Failed to create looped sound: " << result;
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    return false;
+  }
 }
 
 void FmodSystem::UnLoadSounds()
