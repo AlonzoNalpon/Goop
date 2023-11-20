@@ -124,11 +124,6 @@ void ImGuiUI::Update()
   End();
 
   Begin("Viewport");
-#if 0 // ALONZO: I NEED THIS. WILL REMOVE WHEN GUIZMO IS DONE
-  {
-    EditorGUI::EditorViewport::UpdateViewport(*frameBuffer.second);
-  }
-#else
   {
     ImGuizmo::SetOrthographic(true);
     ImGuizmo::BeginFrame(); // call the imguizmo new frame function
@@ -139,8 +134,7 @@ void ImGuiUI::Update()
 
     ImGuizmo::Enable(true);
 
-    EditorViewport::UpdateViewport(*frameBuffer.second);
-
+    EditorViewport::RenderViewport(*frameBuffer.second);
     if (GizmoEditor::isVisible())
     {
       frameBuffer.second->camera.CalculateProjMtx();
@@ -149,10 +143,10 @@ void ImGuiUI::Update()
       GizmoEditor::RenderGizmo(); // MUST RENDER AFTER VIEWPORT
       GizmoEditor::PostRenderUpdate();
     }
+    EditorViewport::UpdateViewport(*frameBuffer.second);
     GizmoEditor::SetVisible(false); // reset state
   }
 
-#endif
   End();
 
   Begin("Extras");

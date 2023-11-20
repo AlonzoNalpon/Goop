@@ -26,6 +26,8 @@ namespace GE::EditorGUI
     \return
     ************************************************************************/
     static void UpdateViewport(Graphics::Rendering::FrameBufferInfo & fbInfo);
+
+    static void RenderViewport(Graphics::Rendering::FrameBufferInfo& fbInfo);
   };
 }
 #endif
