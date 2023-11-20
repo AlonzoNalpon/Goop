@@ -222,6 +222,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 					// SET GIZMO RADIO BUTTONS
 					{
+						// SET MODE BASED ON KEYBINDS: W,E,R (trans, rot, scale)
+						{
+							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_W))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::TRANSLATE);
+							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_E))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE);
+							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_R))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::SCALE);
+						}
 						// TRANSLATE
 						{
 							if (ImGui::RadioButton("Translate",
