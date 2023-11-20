@@ -470,28 +470,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::MODEL:
-			{
-				//auto model = ecs.GetComponent<Model>(entity);
-				if (ImGui::CollapsingHeader("Model", ImGuiTreeNodeFlags_DefaultOpen))
-				{
-					if (IsItemClicked(ImGuiMouseButton_Right))
-					{
-						OpenPopup("RemoveModel");
-					}
-					if (BeginPopup("RemoveModel"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<Model>(entity);
-							EndPopup();
-							break;
-						}
-						EndPopup();
-					}
-				}
-				break;
-			}
 			case GE::ECS::COMPONENT_TYPES::TWEEN:
 			{
 				// Honestly no idea why -30 makes all 3 input fields match in size but sure
@@ -778,32 +756,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						else
 						{
 							ss << "Unable to add component " << typeid(SpriteAnim).name() << ". Component already exist";
-						}
-						break;
-					}
-					case GE::ECS::COMPONENT_TYPES::MODEL:
-					{
-						if (!ecs.HasComponent<Model>(entity))
-						{
-							Model comp{};
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(Model).name() << ". Component already exist";
-						}
-						break;
-					}
-					case GE::ECS::COMPONENT_TYPES::TWEEN:
-					{
-						if (!ecs.HasComponent<Tween>(entity))
-						{
-							Tween comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(Tween).name() << ". Component already exist";
 						}
 						break;
 					}

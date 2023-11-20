@@ -34,8 +34,7 @@
 	  ],
     "RenderSystem": [
         "Transform",
-        "Sprite",
-        "Model"
+        "Sprite"
     ],
     "TextRenderSystem": [
         "Text",

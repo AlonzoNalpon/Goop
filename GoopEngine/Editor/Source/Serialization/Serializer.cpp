@@ -217,11 +217,6 @@ namespace GE
         Component::BoxCollider* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::BoxCollider>(id) };
         return ret ? *ret : rttr::variant();
       }
-      case ECS::COMPONENT_TYPES::MODEL:
-      {
-        Component::Model* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Model>(id) };
-        return ret ? *ret : rttr::variant();
-      }
       case ECS::COMPONENT_TYPES::SCRIPTS:
       {
         Component::Scripts* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Scripts>(id) };

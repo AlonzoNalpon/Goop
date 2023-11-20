@@ -110,16 +110,6 @@ namespace GE
 			return spriteAnim;
 		}
 
-		template<>
-		GE::Component::Model DeserializeComponent(std::string const& componentData)
-		{
-			Serialization::ComponentWrapper const cw{ componentData };
-			Component::Model model{};
-			model.m_mdlID = cw.Get<size_t>("mdlID");
-
-			return model;
-		}
-
 		// WIP
 		template<>
 		GE::Component::Tween DeserializeComponent(std::string const& componentData)

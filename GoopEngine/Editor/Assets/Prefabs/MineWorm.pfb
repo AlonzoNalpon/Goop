@@ -19,11 +19,6 @@
             }
         },
         {
-            "Model": {
-                "mdlID": 0
-            }
-        },
-        {
             "Text": {
                 "text": "hi",
                 "clr": {

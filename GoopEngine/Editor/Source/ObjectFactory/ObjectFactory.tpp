@@ -11,8 +11,6 @@ void ObjectFactory::RegisterComponentsToSystem(ECS::ComponentSignature sig) cons
    ecs.RegisterComponentToSystem<GE::Component::SpriteAnim, T>();
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::SPRITE))
    ecs.RegisterComponentToSystem<GE::Component::Sprite, T>();
-   if (IsBitSet(sig, ECS::COMPONENT_TYPES::MODEL))
-   ecs.RegisterComponentToSystem<GE::Component::Model, T>();
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::VELOCITY))
    ecs.RegisterComponentToSystem<GE::Component::Velocity, T>();
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::TWEEN))

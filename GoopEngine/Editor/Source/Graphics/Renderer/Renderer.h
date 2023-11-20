@@ -62,7 +62,7 @@ namespace Graphics::Rendering
       transform the transform of the object
     \return
     ************************************************************************/
-    void RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat4 const& trans);
+    void RenderObject(SpriteData const& sprite, GE::Math::dMat4 const& trans);
     
     void RenderFontObject(gVec2 pos, GLfloat scale, std::string const& str, Colorf color, gObjID fontID);
 

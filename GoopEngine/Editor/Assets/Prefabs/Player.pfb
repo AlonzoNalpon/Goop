@@ -34,11 +34,6 @@
       "SpriteAnim": {
         "name": "SS_LeahIdle"
       }
-    },
-    {
-      "Model": {
-        "mdlID": 0
-      }
     }
   ]
 }

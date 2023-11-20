@@ -79,10 +79,6 @@ RTTR_REGISTRATION
     .property("name", &Component::SpriteAnim::m_animID)
     ;
 
-  rttr::registration::class_<Component::Model>("Model")
-    .property("mdlID", &Component::Model::m_mdlID)
-    ;
-
   rttr::registration::class_<Component::Draggable>("Draggable")
     ;
 
