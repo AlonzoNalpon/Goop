@@ -211,9 +211,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 			{
 			case GE::ECS::COMPONENT_TYPES::TRANSFORM:
 			{
-				GizmoEditor::SetVisible(true);
 				auto trans = ecs.GetComponent<Transform>(entity);
-				GizmoEditor::SetCurrentObject(trans->m_worldTransform, entity);
 				if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
@@ -224,6 +222,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 					// SET GIZMO RADIO BUTTONS
 					{
+						// SET MODE BASED ON KEYBINDS: W,E,R (trans, rot, scale)
+						{
+							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_W))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::TRANSLATE);
+							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_E))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE);
+							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_R))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::SCALE);
+						}
 						// TRANSLATE
 						{
 							if (ImGui::RadioButton("Translate",
@@ -268,11 +275,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 					Separator();
 					if (valChanged) {
+						GizmoEditor::SetVisible(false);
 						GE::CMD::ChangeTransCmd newTransCmd = GE::CMD::ChangeTransCmd(oldPRS, { trans->m_pos, trans->m_rot, trans->m_scale }, entity);
 						GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
 						cmdMan.AddCommand(newTransCmd);
 					}
-
+					else if (trans->m_scale.x && trans->m_scale.y && trans->m_scale.z)
+					{
+						GizmoEditor::SetVisible(true);
+						GizmoEditor::SetCurrentObject(trans->m_worldTransform, entity);
+					}
 				}
 				break;
 			}
@@ -450,28 +462,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (Selectable("Remove Component"))
 						{
 							ecs.RemoveComponent<SpriteAnim>(entity);
-							EndPopup();
-							break;
-						}
-						EndPopup();
-					}
-				}
-				break;
-			}
-			case GE::ECS::COMPONENT_TYPES::MODEL:
-			{
-				//auto model = ecs.GetComponent<Model>(entity);
-				if (ImGui::CollapsingHeader("Model", ImGuiTreeNodeFlags_DefaultOpen))
-				{
-					if (IsItemClicked(ImGuiMouseButton_Right))
-					{
-						OpenPopup("RemoveModel");
-					}
-					if (BeginPopup("RemoveModel"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<Model>(entity);
 							EndPopup();
 							break;
 						}
@@ -766,32 +756,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						else
 						{
 							ss << "Unable to add component " << typeid(SpriteAnim).name() << ". Component already exist";
-						}
-						break;
-					}
-					case GE::ECS::COMPONENT_TYPES::MODEL:
-					{
-						if (!ecs.HasComponent<Model>(entity))
-						{
-							Model comp{};
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(Model).name() << ". Component already exist";
-						}
-						break;
-					}
-					case GE::ECS::COMPONENT_TYPES::TWEEN:
-					{
-						if (!ecs.HasComponent<Tween>(entity))
-						{
-							Tween comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(Tween).name() << ". Component already exist";
 						}
 						break;
 					}

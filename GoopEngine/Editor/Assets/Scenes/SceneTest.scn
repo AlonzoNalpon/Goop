@@ -30,11 +30,6 @@
                 }
             },
             {
-                "Model": {
-                    "mdlID": 0
-                }
-            },
-            {
                 "Tween": {
                     "tweens": [
                         {
@@ -101,11 +96,6 @@
             {
                 "Sprite": {
                     "filename": "Background"
-                }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
                 }
             }
         ]

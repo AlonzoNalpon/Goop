@@ -322,7 +322,6 @@
     <ClInclude Include="Source\AssetManager\AssetStructs.h" />
     <ClInclude Include="Source\Component\BoxCollider.h" />
     <ClInclude Include="Source\Component\Gravity.h" />
-    <ClInclude Include="Source\Component\Model.h" />
     <ClInclude Include="Source\Component\Sprite.h" />
     <ClInclude Include="Source\Component\SpriteAnim.h" />
     <ClInclude Include="Source\Component\Transform.h" />

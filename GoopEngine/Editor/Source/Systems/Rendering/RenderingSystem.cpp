@@ -24,7 +24,6 @@ namespace GE::Systems
     for (GE::ECS::Entity entity : GetUpdatableEntities())
     {
       // GET ALL THE COMPONENTS
-      Component::Model*       model{ m_ecs->GetComponent<Component::Model>(entity) };
       Component::Sprite*      sprite{ m_ecs->GetComponent<Component::Sprite>(entity) };
       Component::Transform*   transform{ m_ecs->GetComponent<Component::Transform>(entity) };
       
@@ -32,7 +31,7 @@ namespace GE::Systems
       // Rendering
       Graphics::Rendering::Renderer& renderer{ gEngine.GetRenderer() };
       // Render the object
-      renderer.RenderObject(model->m_mdlID, sprite->m_spriteData,
+      renderer.RenderObject(sprite->m_spriteData,
         transform->m_renderTransform
         );
     }
