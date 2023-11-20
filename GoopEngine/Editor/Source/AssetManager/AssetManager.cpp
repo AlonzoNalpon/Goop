@@ -88,6 +88,58 @@ namespace GE::Assets
 		return m_loadedImagesStringLookUp[name];
 
 	}
+	std::string AssetManager::GetScene(std::string const& sceneName)
+	{
+		if (m_scenes.find(sceneName) != m_scenes.end())
+		{
+			return m_scenes.at(sceneName);
+		}
+
+		// File missing, try to load
+		std::filesystem::path assetsDir{ GetConfigData<std::string>("Assets Dir") };
+		for (const auto& file : std::filesystem::recursive_directory_iterator(assetsDir))
+		{
+			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
+
+			std::string const& currExt{ file.path().extension().string() };
+			if (SceneFileExt.find(currExt) != std::string::npos)	// scene
+			{
+				m_scenes.emplace(file.path().stem().string(), file.path().string());
+				// File loaded so just call self to return newly loaded file
+				return GetScene(sceneName);
+			}
+		}
+
+		GE::Debug::ErrorLogger::GetInstance().LogError("Unable to load scene " + sceneName);
+		return "";
+	}
+
+	std::string AssetManager::GetSound(std::string const& soundName)
+	{
+		if (m_audio.find(soundName) != m_audio.end())
+		{
+			return m_audio.at(soundName);
+		}
+
+		// File missing, try to load
+		std::filesystem::path assetsDir{ GetConfigData<std::string>("Assets Dir") };
+		for (const auto& file : std::filesystem::recursive_directory_iterator(assetsDir))
+		{
+			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
+
+			std::string const& fileName{ file.path().filename().string()};
+			if (fileName == soundName)	// scene
+			{
+				m_audio[file.path().stem().string()] = file.path().string();
+				// File loaded so just call self to return newly loaded file
+				return GetSound(soundName);
+			}
+		}
+
+		GE::Debug::ErrorLogger::GetInstance().LogError("Unable to load audio " + soundName);
+		return "";
+	}
+
 	ImageData const& AssetManager::GetData(int id)
 	{
 		if (m_loadedImages.find(id) == m_loadedImages.end())
@@ -106,7 +158,6 @@ namespace GE::Assets
 
 		return m_loadedImages[GetID(name)];
 	}
-
 
 	void AssetManager::LoadFonts()
 	{
@@ -130,33 +181,39 @@ namespace GE::Assets
 
 		// iterate through Assets dir and add all assets into their
 		// respective containers based on file type
-		std::string const prefabExt{ GetConfigData<std::string>("Prefab File Extension") }, sceneExt{ GetConfigData<std::string>("Scene File Extension") };
+
+		PrefabFileExt = GetConfigData<std::string>("Prefab File Extension");
+		SceneFileExt = GetConfigData<std::string>("Scene File Extension");
+		AudioFileExt = GetConfigData<std::string>("Audio File Extension");
+		ImageFileExt = GetConfigData<std::string>("Image File Extension");
+		ShaderFileExt = GetConfigData<std::string>("Shader File Extension");
+		FontFileExt = GetConfigData<std::string>("Font File Extension");
 		for (const auto& file : std::filesystem::recursive_directory_iterator(assetsDir))
 		{
 			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
 			
 			std::string const& currExt{ file.path().extension().string() };
-			if (AssetManager::ImageFileExt.find(currExt) != std::string::npos)	// image
+			if (ImageFileExt.find(currExt) != std::string::npos)	// image
 			{
 				m_images.emplace(file.path().stem().string(), file.path().string());
 			}
-			else if (AssetManager::AudioFileExt.find(currExt) != std::string::npos)	// sound
+			else if (AudioFileExt.find(currExt) != std::string::npos)	// sound
 			{
 				m_audio.emplace(file.path().stem().string(), file.path().string());
 			}
-			else if (currExt == prefabExt)	// prefab
+			else if (PrefabFileExt.find(currExt) != std::string::npos)	// prefab
 			{
 				m_prefabs.emplace(file.path().stem().string(), file.path().string());
 			}
-			else if (currExt == sceneExt)	// scene
+			else if (SceneFileExt.find(currExt) != std::string::npos)	// scene
 			{
 				m_scenes.emplace(file.path().stem().string(), file.path().string());
 			}
-			else if (AssetManager::ShaderFileExts.find(currExt) != std::string::npos)
+			else if (ShaderFileExt.find(currExt) != std::string::npos)
 			{
 				m_shaders.emplace(file.path().filename().string(), file.path().string());
 			}
-			else if (AssetManager::FontFileExt.find(currExt) != std::string::npos)
+			else if (FontFileExt.find(currExt) != std::string::npos)
 			{
 				m_fonts.emplace(file.path().filename().string(), file.path().string());
 			}

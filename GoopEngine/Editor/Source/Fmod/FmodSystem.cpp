@@ -10,7 +10,11 @@ FmodSystem::~FmodSystem()
   m_sounds.clear();
   m_channels.clear();
   std::for_each(m_sounds.begin(), m_sounds.end(), [](auto& s) { s.second->release(); });
-  ErrorCheck(m_fModSystem->close());
+  // if fmod not initialized dont close 
+  if (m_fModSystem != nullptr)
+  {
+    ErrorCheck(m_fModSystem->close());
+  }
 }
 
 void FmodSystem::Init()

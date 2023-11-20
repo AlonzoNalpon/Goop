@@ -32,9 +32,6 @@ namespace
 	std::filesystem::path m_currDir;
 	std::filesystem::path assetsDirectory;
 	std::filesystem::path m_draggedPrefab;
-	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" }, m_fontFile{ ".otf" };
-	float thumbnailSize = 300.0f;
-	int colAmount = 5;
 }
 
 void AssetBrowser::CreateContentDir()
@@ -112,7 +109,7 @@ void AssetBrowser::CreateContentView()
 		const char* pathCStr = path.c_str();
 		ImTextureID img = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
 
-		if (extension == m_imageFile)
+		if (assetManager.ImageFileExt.find(extension) != std::string::npos)
 		{
 			BeginGroup();
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
@@ -144,7 +141,7 @@ void AssetBrowser::CreateContentView()
 				SameLine();
 			}
 		}
-		else if (extension == m_prefabFile)
+		else if (assetManager.PrefabFileExt.find(extension) != std::string::npos)
 		{
 			Selectable(pathCStr);
 			if (IsItemClicked())
@@ -186,11 +183,13 @@ void AssetBrowser::CreateContentView()
 		}
 		else if (assetManager.AudioFileExt.find(extension) != std::string::npos)
 		{
+			std::string filename = path.substr(0, path.find_last_of('.'));
+			const char* fileCStr = filename.c_str();
 			Selectable(pathCStr);
 			if (ImGui::BeginDragDropSource())
 			{
-				ImGui::SetDragDropPayload("ASSET_BROWSER_AUDIO", pathCStr, strlen(pathCStr) + 1);
-				Text(pathCStr);
+				ImGui::SetDragDropPayload("ASSET_BROWSER_AUDIO", fileCStr, strlen(pathCStr) + 1);
+				Text(fileCStr);
 				ImGui::EndDragDropSource();
 			}
 		}
@@ -274,7 +273,7 @@ void AssetBrowser::InitView()
 		}
 
 		std::string const& extension{ file.path().extension().string() }; //getting extension on file
-		if (extension != m_imageFile) //if file is not an image file, continue -> don't need to load image
+		if (assetManager.ImageFileExt.find(extension) == std::string::npos) //if file is not an image file, continue -> don't need to load image
 		{
 			continue;
 		}
