@@ -15,6 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <Systems/Enemy/EnemySystem.h>
+#include <Fmod/FmodSystem.h>
 
 using namespace GE;
 using namespace ECS;
@@ -36,7 +37,7 @@ void GE::Scenes::Scene::Init()
 
 void GE::Scenes::Scene::Unload()
 {
-	Audio::AudioEngine::GetInstance().StopAllChannels();
+	GE::fMOD::FmodSystem::GetInstance().StopAllSound();
 	std::set<ECS::Entity> entities = ecs->GetEntities();
 	for (auto entity : entities)
 	{
@@ -55,6 +56,4 @@ void GE::Scenes::Scene::TestScene()
 	of->LoadSceneJson("SceneTest");
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj);
-
-	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
 }

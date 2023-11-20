@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AI\TreeManager.cpp" />
+    <ClCompile Include="Source\Systems\Audio\AudioSystem.cpp" />
     <ClCompile Include="Source\Commands\CommandManager.cpp" />
     <ClCompile Include="Source\Commands\ImGuiCommands.cpp" />
     <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
@@ -163,7 +164,6 @@
     <ClCompile Include="Source\EditorUI\Console.cpp" />
     <ClCompile Include="Source\AppController\AppController.cpp" />
     <ClCompile Include="Source\AssetManager\AssetManager.cpp" />
-    <ClCompile Include="Source\Audio\AudioEngine.cpp" />
     <ClCompile Include="Source\AssetManager\AssetStructs.cpp" />
     <ClCompile Include="Source\DebugTools\ErrorLogger\ErrorLogger.cpp" />
     <ClCompile Include="Source\ECS\ComponentTypes.cpp" />
@@ -274,6 +274,7 @@
     <ClCompile Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.cpp" />
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimGenerator.cpp" />
     <ClCompile Include="Source\Math\Mat3Utils.cpp" />
+    <ClCompile Include="Source\Fmod\FmodSystem.cpp" />
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
     <ClCompile Include="Source\Systems\GameSystem\GameSystem.cpp" />
@@ -296,6 +297,8 @@
   <ItemGroup>
     <ClInclude Include="Source\AI\Tree.h" />
     <ClInclude Include="Source\AI\TreeManager.h" />
+    <ClInclude Include="Source\Component\Audio.h" />
+    <ClInclude Include="Source\Fmod\FmodSystem.h" />
     <ClInclude Include="Source\Commands\CommandManager.h" />
     <ClInclude Include="Source\Commands\ICommand.h" />
     <ClInclude Include="Source\Commands\ImGuiCommands.h" />
@@ -320,7 +323,6 @@
     <ClInclude Include="Source\AssetManager\AssetStructs.h" />
     <ClInclude Include="Source\Component\BoxCollider.h" />
     <ClInclude Include="Source\Component\Gravity.h" />
-    <ClInclude Include="Source\Component\Model.h" />
     <ClInclude Include="Source\Component\Sprite.h" />
     <ClInclude Include="Source\Component\SpriteAnim.h" />
     <ClInclude Include="Source\Component\Transform.h" />
@@ -419,6 +421,7 @@
     <ClInclude Include="Source\Graphics\Def\RenderingHelpers.h" />
     <ClInclude Include="Source\Graphics\ShaderProgram.h" />
     <ClInclude Include="Source\SpriteAnimation\SpriteAnimGenerator.h" />
+    <ClInclude Include="Source\Systems\Audio\AudioSystem.h" />
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
     <ClInclude Include="Source\Systems\GameSystem\GameSystem.h" />

@@ -19,11 +19,6 @@
             }
         },
         {
-            "Model": {
-                "mdlID": 0
-            }
-        },
-        {
             "BoxCollider": {
                 "center": "{ 15, 278 }",
                 "width": 10.0,

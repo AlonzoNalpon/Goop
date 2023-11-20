@@ -32,9 +32,6 @@ namespace
 	std::filesystem::path m_currDir;
 	std::filesystem::path assetsDirectory;
 	std::filesystem::path m_draggedPrefab;
-	std::string const m_audioFile{ ".wav" }, m_imageFile{ ".png" }, m_shaderFile{ ".vert.frag" }, m_prefabFile{ ".pfb" }, m_sceneFile{ ".scn" }, m_fontFile{ ".otf" };
-	float thumbnailSize = 300.0f;
-	int colAmount = 5;
 }
 
 void AssetBrowser::CreateContentDir()
@@ -89,25 +86,18 @@ void AssetBrowser::CreateContentView()
 	if (m_currDir == assetsDirectory)
 	{
 		Text("Assets");
-		Text("________________________________________");
+		Separator();
 	}
 	else
 	{
 		Text(m_currDir.filename().string().c_str());
-		Text("________________________________________");
+		Separator();
 	}
 
 	AssetManager& assetManager = AssetManager::GetInstance();
-	ImGui::Columns(colAmount, 0, false);
-	float charSize = CalcTextSize("012345678901").x * 2;
-	ImGui::SetColumnWidth(0, charSize);
-	ImGui::NextColumn();
+	BeginGroup();
 	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
 	{
-		if (!(ImGui::GetColumnIndex() % colAmount))
-		{
-			ImGui::NextColumn();
-		}
 		std::string const& extension{ file.path().extension().string() };
 
 		if (!file.is_regular_file())
@@ -117,13 +107,14 @@ void AssetBrowser::CreateContentView()
 
 		std::string path = file.path().filename().string();
 		const char* pathCStr = path.c_str();
-		ImTextureID test = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
-		ImTextureID test2 = reinterpret_cast<ImTextureID>(assetManager.GetID("./Assets/Sprites\\ImageFile.png"));
+		ImTextureID img = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
 
-		if (extension == m_imageFile)
+		if (assetManager.ImageFileExt.find(extension) != std::string::npos)
 		{
+			BeginGroup();
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-			ImGui::ImageButton(test, { 100.f, 100.f }, { 0, 1 }, { 1, 0 });
+			ImVec2 imgsize{ 100, 100 };
+			ImGui::ImageButton(img, imgsize, { 0, 1 }, { 1, 0 });
 			if (IsItemClicked())
 			{
 				ImGuiHelper::SetSelectedAsset(file.path().string());
@@ -142,10 +133,15 @@ void AssetBrowser::CreateContentView()
 			}
 			Text(pathCStr);
 			ImGui::PopStyleColor();
-			ImGui::NextColumn();
-
+			float remainingsize = GetContentRegionMax().x - (GetCursorPosX() + imgsize.x);
+			EndGroup();
+			
+			if (remainingsize > imgsize.x)
+			{
+				SameLine();
+			}
 		}
-		else if (extension == m_prefabFile)
+		else if (assetManager.PrefabFileExt.find(extension) != std::string::npos)
 		{
 			Selectable(pathCStr);
 			if (IsItemClicked())
@@ -185,6 +181,18 @@ void AssetBrowser::CreateContentView()
 				ImGui::EndDragDropSource();
 			}
 		}
+		else if (assetManager.AudioFileExt.find(extension) != std::string::npos)
+		{
+			std::string filename = path.substr(0, path.find_last_of('.'));
+			const char* fileCStr = filename.c_str();
+			Selectable(pathCStr);
+			if (ImGui::BeginDragDropSource())
+			{
+				ImGui::SetDragDropPayload("ASSET_BROWSER_AUDIO", fileCStr, strlen(pathCStr) + 1);
+				Text(fileCStr);
+				ImGui::EndDragDropSource();
+			}
+		}
 		else
 		{
 			Text(pathCStr);
@@ -201,7 +209,7 @@ void AssetBrowser::CreateContentView()
 			}*/
 		}
 	}
-	ImGui::Columns(1);
+	EndGroup();
 }
 
 void GE::EditorGUI::AssetBrowser::CreateContent()
@@ -265,7 +273,7 @@ void AssetBrowser::InitView()
 		}
 
 		std::string const& extension{ file.path().extension().string() }; //getting extension on file
-		if (extension != m_imageFile) //if file is not an image file, continue -> don't need to load image
+		if (assetManager.ImageFileExt.find(extension) == std::string::npos) //if file is not an image file, continue -> don't need to load image
 		{
 			continue;
 		}

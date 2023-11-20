@@ -294,9 +294,7 @@ namespace
 						else
 						{
 							auto& gEngine = Graphics::GraphicsEngine::GetInstance();
-							GE::Component::Model mdl{};
 							GE::Component::Sprite sprite{ gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
-							ecs.AddComponent(entity, mdl);
 							ecs.AddComponent(entity, sprite);
 						}
 					}

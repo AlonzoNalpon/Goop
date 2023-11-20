@@ -37,13 +37,12 @@ namespace GE::ObjectFactory
   template<>
   GE::Component::SpriteAnim DeserializeComponent(std::string const& componentData);
   template<>
-  GE::Component::Model DeserializeComponent(std::string const& componentData);
-  template<>
   GE::Component::EnemyAI DeserializeComponent(std::string const& componentData);
   GE::Component::Scripts DeserializeScripts(std::string const& componentData, GE::ECS::Entity entityID);
   template<>
   GE::Component::Text DeserializeComponent(std::string const& componentData);
-
+  template<>
+  GE::Component::Audio DeserializeComponent(std::string const& componentData);
 
 }
 

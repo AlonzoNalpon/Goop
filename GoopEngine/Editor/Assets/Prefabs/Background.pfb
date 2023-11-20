@@ -12,11 +12,6 @@
       "Sprite": {
         "filename": "Background"
       }
-    },
-    {
-      "Model": {
-        "mdlID": 0
-      }
     }
   ]
 }

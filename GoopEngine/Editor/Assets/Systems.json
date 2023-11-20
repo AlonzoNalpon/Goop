@@ -37,11 +37,14 @@
 	  ],
     "RenderSystem": [
         "Transform",
-        "Sprite",
-        "Model"
+        "Sprite"
     ],
     "TextRenderSystem": [
         "Text",
         "Transform"
+    ],
+    "AudioSystem": [
+      "Audio",
+      "Transform"
     ]
 }

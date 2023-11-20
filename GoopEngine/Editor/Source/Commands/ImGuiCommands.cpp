@@ -4,7 +4,6 @@
 
 #include <Component/BoxCollider.h>
 #include <Component/Camera.h>
-#include <Component/Model.h>
 #include <Component/Scripts.h>
 #include <Component/Sprite.h>
 #include <Component/SpriteAnim.h>
@@ -151,9 +150,6 @@ void RemoveObjectCmd::RestoreComp(GE::ECS::Entity entityID, std::map<ECS::COMPON
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::SPRITE_ANIM); it != compList.end())
 		ecs.AddComponent(entityID, it->second.get_value<GE::Component::SpriteAnim>());
-
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::MODEL); it != compList.end())
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Model>());
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::TWEEN); it != compList.end())
 		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Tween>());

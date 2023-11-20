@@ -32,11 +32,11 @@ namespace Graphics::Rendering {
     m_lineMdlObj = lineMdlID;
   }
 
-  void Renderer::RenderObject(gObjID mdl, SpriteData const& sprite, GE::Math::dMat4 const& trans)
+  void Renderer::RenderObject(SpriteData const& sprite, GE::Math::dMat4 const& trans)
   {
     // Add the model data
     // Create a glm::mat4 and initialize it with values in a column-major order
-    m_renderCalls.emplace_back(mdl, sprite, glm::mat4(
+    m_renderCalls.emplace_back(sprite, glm::mat4(
       static_cast<f32>(trans.At(0,0)), static_cast<f32>(trans.At(0,1)), static_cast<f32>(trans.At(0,2)), static_cast<f32>(trans.At(0,3)), // col 1
       static_cast<f32>(trans.At(1,0)), static_cast<f32>(trans.At(1,1)), static_cast<f32>(trans.At(1,2)), static_cast<f32>(trans.At(1,3)), // col 2
       static_cast<f32>(trans.At(2,0)), static_cast<f32>(trans.At(2,1)), static_cast<f32>(trans.At(2,2)), static_cast<f32>(trans.At(2,3)), // col 3
@@ -71,7 +71,7 @@ namespace Graphics::Rendering {
 
     for (auto const& obj : m_renderCalls)
     {
-      Model const& mdl{ r_mdlContainer[obj.mdl] };  
+      Model const& mdl{ r_mdlContainer.front() };
       if (obj.sprite.texture != BAD_OBJ_ID)
       {
         Texture const& texObj{ r_texManager.GetTexture(obj.sprite.texture) };

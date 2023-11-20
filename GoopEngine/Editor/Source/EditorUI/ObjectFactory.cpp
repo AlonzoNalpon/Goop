@@ -47,10 +47,6 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::SpriteAnim>(srcObj));
   }
-  if (IsBitSet(sig, ECS::COMPONENT_TYPES::MODEL))
-  {
-    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Model>(srcObj));
-  }
   if (IsBitSet(sig, ECS::COMPONENT_TYPES::TWEEN))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Tween>(srcObj));
@@ -105,11 +101,6 @@ GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData 
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::SpriteAnim>(data.m_components.at(GE::ECS::COMPONENT_TYPES::SPRITE_ANIM)));
   }
-  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::MODEL))
-  {
-    ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::Model>(data.m_components.at(GE::ECS::COMPONENT_TYPES::MODEL)));
-  }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TWEEN))
   {
     ecs.AddComponent(newData,
@@ -157,9 +148,6 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       break;
     case COMPONENT_TYPES::SPRITE:
       ecs.RegisterComponent<GE::Component::Sprite>();
-      break;
-    case COMPONENT_TYPES::MODEL:
-      ecs.RegisterComponent<GE::Component::Model>();
       break;
     case COMPONENT_TYPES::VELOCITY:
       ecs.RegisterComponent<GE::Component::Velocity>();

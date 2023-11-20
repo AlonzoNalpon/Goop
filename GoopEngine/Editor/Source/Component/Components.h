@@ -1,7 +1,6 @@
 #pragma once
 #include <Component/BoxCollider.h>
 #include <Component/Camera.h>
-#include <Component/Model.h>
 #include <Component/Scripts.h>
 #include <Component/Sprite.h>
 #include <Component/SpriteAnim.h>
@@ -13,3 +12,6 @@
 #include <Component/Camera.h>
 #include <Component/Text.h>
 #include <Component/Game.h>
+#include <Component/Stats.h>
+#include <Component/Card.h>
+#include <Component/Audio.h>
