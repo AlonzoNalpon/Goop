@@ -211,9 +211,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 			{
 			case GE::ECS::COMPONENT_TYPES::TRANSFORM:
 			{
-				GizmoEditor::SetVisible(true);
 				auto trans = ecs.GetComponent<Transform>(entity);
-				GizmoEditor::SetCurrentObject(trans->m_worldTransform, entity);
 				if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
@@ -268,11 +266,17 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 					Separator();
 					if (valChanged) {
+
+						GizmoEditor::SetVisible(false);
 						GE::CMD::ChangeTransCmd newTransCmd = GE::CMD::ChangeTransCmd(oldPRS, { trans->m_pos, trans->m_rot, trans->m_scale }, entity);
 						GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
 						cmdMan.AddCommand(newTransCmd);
 					}
-
+					else
+					{
+						GizmoEditor::SetVisible(true);
+						GizmoEditor::SetCurrentObject(trans->m_worldTransform, entity);
+					}
 				}
 				break;
 			}
