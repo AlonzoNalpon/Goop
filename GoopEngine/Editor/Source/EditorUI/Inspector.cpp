@@ -266,13 +266,12 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 					Separator();
 					if (valChanged) {
-
 						GizmoEditor::SetVisible(false);
 						GE::CMD::ChangeTransCmd newTransCmd = GE::CMD::ChangeTransCmd(oldPRS, { trans->m_pos, trans->m_rot, trans->m_scale }, entity);
 						GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
 						cmdMan.AddCommand(newTransCmd);
 					}
-					else
+					else if (trans->m_scale.x && trans->m_scale.y && trans->m_scale.z)
 					{
 						GizmoEditor::SetVisible(true);
 						GizmoEditor::SetCurrentObject(trans->m_worldTransform, entity);
