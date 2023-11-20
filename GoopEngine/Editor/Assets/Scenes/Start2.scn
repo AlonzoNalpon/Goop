@@ -1,6 +1,7 @@
 [
     {
-        "Name": "Text Test",
+      "Name": "Text Test",
+        "ID":  0,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -27,7 +28,8 @@
         ]
     },
     {
-        "Name": "MineWorm",
+      "Name": "MineWorm",
+        "ID":  1,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -40,7 +42,7 @@
             },
             {
                 "Sprite": {
-                    "filename": "SS_MineWorm"
+                    "spriteName": "SS_MineWorm"
                 }
             },
             {
@@ -69,7 +71,7 @@
             },
             {
                 "Sprite": {
-                    "filename": "Background"
+                    "spriteName": "Background"
                 }
             },
             {

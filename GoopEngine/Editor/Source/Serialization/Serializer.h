@@ -99,11 +99,9 @@ namespace GE
       \return
         The resulting radpidjson::Value object containing the entity data
       ************************************************************************/
-      rapidjson::Value SerializeEntity(ECS::Entity id, std::vector<ECS::Entity> const& childIDs, rapidjson::Document::AllocatorType& allocator);
+      rapidjson::Value SerializeEntity(ECS::Entity id, rapidjson::Document::AllocatorType& allocator);
 
     private:
-      std::unordered_map<ECS::Entity, ECS::Entity> m_oldToNewIDs;
-
       // helper functions
       /*!*********************************************************************
       \brief

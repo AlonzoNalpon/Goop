@@ -81,10 +81,9 @@ namespace GE
 
       // clean up
       ofs.close();
-      m_oldToNewIDs.clear();
     }
 
-    rapidjson::Value Serializer::SerializeEntity(ECS::Entity id, std::vector<ECS::Entity> const& childIDs, rapidjson::Document::AllocatorType & allocator)
+    rapidjson::Value Serializer::SerializeEntity(ECS::Entity id, rapidjson::Document::AllocatorType & allocator)
     {
       ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
       rapidjson::Value entity{ rapidjson::kObjectType };
@@ -103,16 +102,16 @@ namespace GE
       ECS::Entity const parentID{ ecs.GetParentEntity(id) };
       if (parentID != ECS::INVALID_ID)
       {
-        jsonParent.SetUint(m_oldToNewIDs[parentID]);
+        jsonParent.SetUint(parentID);
       }
       entity.AddMember(JsonParentKey, jsonParent, allocator);
 
       rapidjson::Value childrenArr{ rapidjson::kArrayType };
-      for (ECS::Entity const& child : childIDs)
+      for (ECS::Entity const& child : ecs.GetChildEntities(id))
       {
         rapidjson::Value childJson{};
         childJson.SetUint(child);
-        childrenArr.PushBack(childJson, allocator);
+        childrenArr.PushBack(childJson.Move(), allocator);
       }
       entity.AddMember(JsonChildEntitiesKey, childrenArr, allocator);
 
@@ -142,17 +141,9 @@ namespace GE
       std::unordered_map<ECS::Entity, ECS::Entity> idToNewId{ ObjectFactory::ObjectFactory::GetInstance().GenerateNewIDs() };
       
       rapidjson::Document document{ rapidjson::kArrayType };
-      m_oldToNewIDs = std::move(ObjectFactory::ObjectFactory::GetInstance().GenerateNewIDs());
       for (ECS::Entity entity : ecs.GetEntities())
       {
-        std::set<ECS::Entity> const& childIDs{ ecs.GetChildEntities(entity) };
-        std::vector<ECS::Entity> newChildIDs{};
-        newChildIDs.reserve(childIDs.size());
-        for (ECS::Entity const& child : childIDs)
-        {
-          newChildIDs.emplace_back(m_oldToNewIDs[child]);
-        }
-        rapidjson::Value entityJson{ SerializeEntity(entity, newChildIDs, document.GetAllocator())};
+        rapidjson::Value entityJson{ SerializeEntity(entity, document.GetAllocator())};
         document.PushBack(entityJson, document.GetAllocator());
       }
 
@@ -162,7 +153,6 @@ namespace GE
 
       // clean up
       ofs.close();
-      m_oldToNewIDs.clear();
     }
 
     void Serializer::SerializeSystems(std::string const& json)

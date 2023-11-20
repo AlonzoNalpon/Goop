@@ -54,7 +54,7 @@ Entity GE::ECS::EntityComponentSystem::GetParentEntity(Entity& entity)
 	return m_entityManager->GetParentEntity(entity);
 }
 
-void GE::ECS::EntityComponentSystem::SetParentEntity(Entity& child, Entity parent)
+void GE::ECS::EntityComponentSystem::SetParentEntity(Entity child, Entity parent)
 {
 	m_entityManager->SetParentEntity(parent, child);
 }
@@ -64,7 +64,7 @@ std::set<Entity>& GE::ECS::EntityComponentSystem::GetChildEntities(Entity& paren
 	return m_entityManager->GetChildEntities(parent);
 }
 
-void GE::ECS::EntityComponentSystem::AddChildEntity(Entity& parent, Entity& child)
+void GE::ECS::EntityComponentSystem::AddChildEntity(Entity parent, Entity child)
 {
 	m_entityManager->AddChildEntity(parent, child);
 }

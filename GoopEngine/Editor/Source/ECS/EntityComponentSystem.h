@@ -126,7 +126,7 @@ namespace GE
 				Entity which is becoming the parent. Defaults to invalid
 				to indicate no parent.
 			********************************************************************/
-			void SetParentEntity(Entity& child, Entity parent = INVALID_ID);
+			void SetParentEntity(Entity child, Entity parent = INVALID_ID);
 
 			/*!******************************************************************
 			\brief
@@ -152,7 +152,7 @@ namespace GE
 			\param[in] child
 				Entity who is becoming a child of.
 			********************************************************************/
-			void AddChildEntity(Entity& parent, Entity& child);
+			void AddChildEntity(Entity parent, Entity child);
 
 			/*!******************************************************************
 			\brief

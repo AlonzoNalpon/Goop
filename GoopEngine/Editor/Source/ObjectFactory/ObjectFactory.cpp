@@ -403,6 +403,17 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
       for (auto const& component : data.m_components)
       {
         AddComponentToEntity(id, component);
+
+      }
+    }
+
+    for (auto const& [id, data] : m_deserialized)
+    {
+      ecs.SetParentEntity(id, data.m_parent);
+
+      for (ECS::Entity const& child : data.m_childEntities)
+      {
+        ecs.AddChildEntity(id, child);
       }
     }
   }
