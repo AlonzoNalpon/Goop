@@ -687,32 +687,37 @@ void GE::EditorGUI::Inspector::CreateContent()
 			case GE::ECS::COMPONENT_TYPES::ANCHOR:
 			{
 				auto anchor = ecs.GetComponent<Anchor>(entity);
+
 				if (ImGui::CollapsingHeader("Anchor", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					if (RemoveComponentPopup<Anchor>("Anchor", entity))
 					{
 						break;
 					}
-				}
 
-				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-				TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-				TableNextRow();
-				if (BeginCombo("##", Anchor::toString(anchor->m_type).c_str()))
-				{
-					for (int j{}; j < Anchor::TOTAL_TYPES; ++j)
+					Separator();
+
+					if (BeginCombo("Anchor Type", Anchor::toString(anchor->m_type).c_str()))
 					{
-						std::string propName = Anchor::toString(static_cast<Anchor::ANCHOR_TYPE>(i));
-
-						if (Selectable(propName.c_str()))
+						for (int j{}; j < Anchor::TOTAL_TYPES; ++j)
 						{
-							anchor->m_type = Anchor::toType(propName);
+							std::string propName = Anchor::toString(static_cast<Anchor::ANCHOR_TYPE>(j));
+
+							if (Selectable(propName.c_str()))
+							{
+								anchor->m_type = Anchor::toType(propName);
+							}
 						}
+						EndCombo();
 					}
-					EndCombo();
+
+					if (anchor->m_type == Anchor::IS_ANCHOR)
+					{
+						InputList("Anchor", anchor->m_anchored, charSize);
+					}
+					Separator();
 				}
-				TableNextRow();
-				InputList("Anchors", anchor->m_anchored, charSize);
+				break;
 			}
 			default:
 				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled");
@@ -854,7 +859,20 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						else
 						{
-							ss << "Unable to add component " << typeid(Component::Text).name() << ". Component already exist";
+							ss << "Unable to add component " << typeid(Component::Audio).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::ANCHOR:
+					{
+						if (!ecs.HasComponent<Component::Anchor>(entity))
+						{
+							Component::Anchor comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Component::Anchor).name() << ". Component already exist";
 						}
 						break;
 					}
@@ -1057,29 +1075,21 @@ namespace
 				PopID();
 			}
 			EndTable();
-
 			Separator();
-			Unindent();
-			// 20 magic number cuz the button looks good
-			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
-			{
-				list.emplace_back(vec3{ 0, 0, 0 }, 0);
-			}
-
 			TreePop();
 		}
-		Indent();
 	}
 
 	template <typename T>
 	bool RemoveComponentPopup(std::string name, GE::ECS::Entity entity)
 	{
-		const char* label = ("Remove" + name).c_str();
+		std::string labelStr = ("Remove" + name);
+		const char* labelCStr = labelStr.c_str();
 		if (IsItemClicked(ImGuiMouseButton_Right))
 		{
-			OpenPopup(label);
+			OpenPopup(labelCStr);
 		}
-		if (BeginPopup(label))
+		if (BeginPopup(labelCStr))
 		{
 			if (Selectable("Remove Component"))
 			{

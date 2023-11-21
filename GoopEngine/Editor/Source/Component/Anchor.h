@@ -21,7 +21,7 @@ namespace GE::Component
 			IS_ANCHOR,
 			IS_ANCHORABLE,
 			TOTAL_TYPES
-		}m_type;
+		}m_type{IS_ANCHOR};
 
 		std::vector<GE::ECS::Entity> m_anchored;
 
@@ -51,7 +51,7 @@ namespace GE::Component
 			}
 			else if (type == "isAnchorable")
 			{
-				ret = IS_ANCHOR;
+				ret = IS_ANCHORABLE;
 			}
 
 			return ret;
