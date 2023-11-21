@@ -12,6 +12,6 @@
 #include <Component/Camera.h>
 #include <Component/Text.h>
 #include <Component/Game.h>
-#include <Component/Stats.h>
-#include <Component/Card.h>
+//#include <Component/Stats.h>
+//#include <Component/Card.h>
 #include <Component/Audio.h>

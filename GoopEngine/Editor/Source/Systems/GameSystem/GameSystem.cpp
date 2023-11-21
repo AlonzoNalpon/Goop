@@ -10,12 +10,12 @@ using namespace GE::MONO;
 void GE::Systems::GameSystem::Update()
 {
   static GE::FPS::FrameRateController& frc = GE::FPS::FrameRateController::GetInstance();
-  std::cout << "update Gamesystme\n";
+  //std::cout << "update Gamesystme\n";
   std::set<GE::ECS::Entity> listoFEnt{ GetUpdatableEntities() };
-  std::cout << "SIZE:" << listoFEnt.size() << "\n";
+  //std::cout << "SIZE:" << listoFEnt.size() << "\n";
   for (Entity entity : GetUpdatableEntities())
   {
-    std::cout << "b4\n";
+    //std::cout << "b4\n";
     Game* game = m_ecs->GetComponent<Game>(entity);
     game->m_gameSystemScript.InvokeOnUpdate(frc.GetDeltaTime());
 
@@ -25,9 +25,9 @@ void GE::Systems::GameSystem::Update()
 
 
 
-    MonoMethod* m_onTest = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClassInfo.m_scriptClass, "OnTest", 1);
-    Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->player);
-    auto it = playerScript->m_scriptMap.find("Stats");
+   /* MonoMethod* m_onTest = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClassInfo.m_scriptClass, "OnTest", 1);
+    Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->player);*/
+   /* auto it = playerScript->m_scriptMap.find("Stats");
     if (it != playerScript->m_scriptMap.end())
     {
       MonoProperty* healthProperty = mono_class_get_property_from_name(it->second.m_scriptClassInfo.m_scriptClass, " m_health");
@@ -40,10 +40,10 @@ void GE::Systems::GameSystem::Update()
       void* param = &(test);
       mono_runtime_invoke(m_onTest, game->m_gameSystemScript.m_classInst, &param, nullptr);
     }
-  
+  */
 
 
-    std::cout << "Aft\n";
+   // std::cout << "Aft\n";
     //Entity player = game->player;
     //Entity enemy = game->enemy;
 

@@ -38,7 +38,7 @@ namespace GoopScripts.Gameplay
     public void OnUpdate(double dt)
     {
       //currTime -= dt;
-      Console.WriteLine("DT: " + dt);
+      //Console.WriteLine("DT: " + dt);
       
 
    //   if (currTime < 0)

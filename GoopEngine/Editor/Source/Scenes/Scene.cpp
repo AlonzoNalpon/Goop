@@ -77,7 +77,4 @@ void GE::Scenes::Scene::TestScene()
 	std::cout << testPlayer << "TESTPLAYER\n";
 	ecs->AddComponent(testPlayer, GSTrans);
 	ecs->AddComponent(testPlayer, testPLayerScript);
-
-
-	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
 }
