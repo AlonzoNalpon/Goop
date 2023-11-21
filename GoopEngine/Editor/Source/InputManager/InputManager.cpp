@@ -33,8 +33,10 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#include "InputManager.h"
+#ifndef NO_IMGUI
 #include <ImGui/backends/imgui_impl_glfw.h>
+#endif
+#include "InputManager.h"
 #include "../Events/InputEvents.h"
 #include <Graphics/GraphicsEngine.h>
 #define UNREFERENCED_PARAMETER(P) (P)
@@ -52,7 +54,7 @@ KEY_MAP InputManager::m_keyReleased;
 KEY_MAP InputManager::m_keyHeld;
 KEY_MAP InputManager::m_keysTriggered;
 KEY_PRESS_ARRAY InputManager::m_keyFramesHeld;
-
+size_t InputManager::m_currFramebuffer;
 
 void InputManager::InitInputManager(GLFWwindow* window, int width, int height, double holdTime)
 {
@@ -156,11 +158,16 @@ vec2  InputManager::GetMousePos()
 	return m_mousePos;
 }
 
+void GE::Input::InputManager::SetCurrFramebuffer(size_t framebufferID)
+{
+	m_currFramebuffer = framebufferID;
+}
 
 vec2  InputManager::GetMousePosWorld()
 {
 	auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
-	Graphics::gVec2 worldPosF32{ gEngine.ScreenToWS({ static_cast<GLfloat>(m_mousePos.x), static_cast<GLfloat>(m_height - m_mousePos.y) }, 0) };
+	// TODO: change to current framebuffer
+	Graphics::gVec2 worldPosF32{ gEngine.ScreenToWS({ static_cast<GLfloat>(m_mousePos.x), static_cast<GLfloat>(m_height - m_mousePos.y) }, m_currFramebuffer) };
 	return  {worldPosF32.x, worldPosF32.y};
 }
 
