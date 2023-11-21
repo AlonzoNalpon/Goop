@@ -97,6 +97,13 @@ RTTR_REGISTRATION
       rttr::value("TOTAL_CHANNELS", fMOD::FmodSystem::ChannelType::TOTAL_CHANNELS)
       );
 
+  rttr::registration::enumeration<GE::Component::Anchor::ANCHOR_TYPE>("ANCHOR_TYPE")
+    (
+      rttr::value("IS_ANCHOR", GE::Component::Anchor::ANCHOR_TYPE::IS_ANCHOR),
+      rttr::value("IS_ANCHORABLE", GE::Component::Anchor::ANCHOR_TYPE::IS_ANCHORABLE),
+      rttr::value("TOTAL_TYPES", GE::Component::Anchor::ANCHOR_TYPE::TOTAL_TYPES)
+      );
+
   //rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")
   //  (
   //    rttr::value("TRANSFORM", ECS::COMPONENT_TYPES::TRANSFORM),

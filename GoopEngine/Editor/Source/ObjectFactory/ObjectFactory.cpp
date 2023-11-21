@@ -78,13 +78,12 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::GE_Button>(srcObj));
   }
-}
-#endif
   if (IsBitSet(sig, ECS::COMPONENT_TYPES::ANCHOR))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Anchor>(srcObj));
   }
 }
+#endif
 
 #ifndef RTTR_DESERIALIZE
 void ObjectFactory::AddComponentToObject(ECS::Entity id, ObjectData const& data) const
@@ -222,6 +221,10 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   else if (compType == rttr::type::get<Component::GE_Button>())
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::GE_Button*>());
+  }
+  else if (compType == rttr::type::get<Component::Anchor>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Anchor*>());
   }
 }
 #endif

@@ -75,7 +75,7 @@ namespace GE
 			{ "EnemyAI", COMPONENT_TYPES::ENEMY_AI },
 			{ "Text", COMPONENT_TYPES::TEXT },
 			{ "Audio", COMPONENT_TYPES::AUDIO },
-			{ "Button", COMPONENT_TYPES::GE_BUTTON }
+			{ "Button", COMPONENT_TYPES::GE_BUTTON },
 			{ "Game", COMPONENT_TYPES::GAME },
 			{ "Anchor", COMPONENT_TYPES::ANCHOR }
 		};
