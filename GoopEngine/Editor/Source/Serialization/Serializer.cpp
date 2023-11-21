@@ -137,8 +137,6 @@ namespace GE
         GE::Debug::ErrorLogger::GetInstance().LogError("Unable to serialize scene into " + filename);
       }
       ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-
-      std::unordered_map<ECS::Entity, ECS::Entity> idToNewId{ ObjectFactory::ObjectFactory::GetInstance().GenerateNewIDs() };
       
       rapidjson::Document document{ rapidjson::kArrayType };
       for (ECS::Entity entity : ecs.GetEntities())

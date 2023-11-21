@@ -73,68 +73,64 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   }
 }
 
-GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData const& data) const
+void ObjectFactory::AddComponentToObject(ECS::Entity id, ObjectData const& data) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
-  Entity newData = ecs.CreateEntity();
-  ecs.SetEntityName(newData, name);
-
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TRANSFORM))
   {
-    ecs.AddComponent(newData,
+    ecs.AddComponent(id,
       DeserializeComponent<GE::Component::Transform>(data.m_components.at(GE::ECS::COMPONENT_TYPES::TRANSFORM)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::BOX_COLLIDER))
   {
-    ecs.AddComponent(newData,
+    ecs.AddComponent(id,
       DeserializeComponent<GE::Component::BoxCollider>(data.m_components.at(GE::ECS::COMPONENT_TYPES::BOX_COLLIDER)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::VELOCITY))
   {
-    ecs.AddComponent(newData,
+    ecs.AddComponent(id,
       DeserializeComponent<GE::Component::Velocity>(data.m_components.at(GE::ECS::COMPONENT_TYPES::VELOCITY)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SPRITE))
   {
-    ecs.AddComponent(newData,
+    ecs.AddComponent(id,
       DeserializeComponent<GE::Component::Sprite>(data.m_components.at(GE::ECS::COMPONENT_TYPES::SPRITE)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SPRITE_ANIM))
   {
-    ecs.AddComponent(newData,
+    ecs.AddComponent(id,
       DeserializeComponent<GE::Component::SpriteAnim>(data.m_components.at(GE::ECS::COMPONENT_TYPES::SPRITE_ANIM)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TWEEN))
   {
-    ecs.AddComponent(newData,
+    ecs.AddComponent(id,
       DeserializeComponent<GE::Component::Tween>(data.m_components.at(GE::ECS::COMPONENT_TYPES::TWEEN)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::SCRIPTS))
   {
-    ecs.AddComponent(newData,
-      DeserializeScripts(data.m_components.at(GE::ECS::COMPONENT_TYPES::SCRIPTS), newData));
+    ecs.AddComponent(id,
+      DeserializeScripts(data.m_components.at(GE::ECS::COMPONENT_TYPES::SCRIPTS), id));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::DRAGGABLE))
   {
-    ecs.AddComponent(newData,Draggable());
+    ecs.AddComponent(id,Draggable());
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::ENEMY_AI))
   {
-    ecs.AddComponent(newData,
+    ecs.AddComponent(id,
       DeserializeComponent<GE::Component::EnemyAI>(data.m_components.at(GE::ECS::COMPONENT_TYPES::ENEMY_AI)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::TEXT))
   {
-    ecs.AddComponent(newData,
+    ecs.AddComponent(id,
       DeserializeComponent<GE::Component::Text>(data.m_components.at(GE::ECS::COMPONENT_TYPES::TEXT)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::AUDIO))
   {
-    ecs.AddComponent(newData,
+    ecs.AddComponent(id,
       DeserializeComponent<GE::Component::Audio>(data.m_components.at(GE::ECS::COMPONENT_TYPES::AUDIO)));
   }
-  return newData;
 }
 
 void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const
@@ -260,7 +256,7 @@ void ObjectFactory::RegisterComponentsAndSystems() const
 
 void ObjectFactory::LoadPrefabsFromFile()
 {
-  auto prefabs{ GE::Assets::AssetManager::GetInstance().GetPrefabs() };
+  auto const& prefabs{ GE::Assets::AssetManager::GetInstance().GetPrefabs() };
   for (auto const& [name, path] : prefabs)
   {
     Serialization::PrefabGooStream pgs{ path };
@@ -300,9 +296,10 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
   m_prefabs.clear();
   LoadPrefabsFromFile();
   ObjectData prefab = m_prefabs.at(key);
-  Entity entity = CreateObject(key, prefab);
+  ECS::Entity const newEntity{ ECS::EntityComponentSystem::GetInstance().CreateEntity() };
+  AddComponentToObject(newEntity, prefab);
 
-  return entity;
+  return newEntity;
 }
 
 void GE::ObjectFactory::ObjectFactory::EmptyMap()
@@ -325,22 +322,6 @@ void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
   }
 }
 
-std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ObjectFactory::GenerateNewIDs() const
-{
-  GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
-
-  std::unordered_map<GE::ECS::Entity, GE::ECS::Entity> ret{};
-  GE::ECS::Entity currentID{};  // start from 0
-  // assigns each entity to a new id starting from 0 with no gaps in between
-  for (GE::ECS::Entity const& entity : ecs.GetEntities())
-  {
-    ret.emplace(entity, currentID);
-    ++currentID;
-  }
-
-  return ret;
-}
-
 void ObjectFactory::ClearSceneObjects()
 {
   m_objects.clear();
@@ -348,70 +329,19 @@ void ObjectFactory::ClearSceneObjects()
 
 void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
 {
-#ifdef RTTR_DESERIALIZE
-  static bool test{ true };
-  if (test)
-  {
-#endif
+#ifndef RTTR_DESERIALIZE
   try
   {
     ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-    // we will map our custom ID to the actual entity ID
-    std::unordered_map<ECS::Entity, ECS::Entity> newIdToEntity{};
-    ECS::Entity newID{};  // start from 0
-    for (auto const& [name, data] : m_objects)
-    {
-      ECS::Entity i = CreateObject(name, data);
-      map.emplace(i);
-      newIdToEntity.emplace(newID, i);
-      ++newID;
-    }
-
-    newID = 0;
-    // iterate through entities again and assign parent-child
-    // relation based on custom IDs
-    for (auto& [name, data] : m_objects)
-    {
-      if (data.m_parent == ECS::INVALID_ID)
-      {
-        ecs.SetParentEntity(newIdToEntity[newID]);
-      }
-      else
-      {
-        ecs.SetParentEntity(newIdToEntity[newID], newIdToEntity[data.m_parent]);
-      }
-
-      for (ECS::Entity child : data.m_childEntities)
-      {
-        ecs.AddChildEntity(newIdToEntity[newID], newIdToEntity[child]);
-      }
-      ++newID;
-    }
-  }
-  catch (GE::Debug::IExceptionBase& e)
-  {
-    e.LogSource();
-    e.Log();
-  }
-#ifdef RTTR_DESERIALIZE
-  test = false;
-  }
-  else
-  {
-    ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-
-    for (auto const& [id, data] : m_deserialized)
+    for (auto const& [id, data] : m_objects)
     {
       ecs.CreateEntity({}, id, data.m_name);
-      
-      for (auto const& component : data.m_components)
-      {
-        AddComponentToEntity(id, component);
-
-      }
+      AddComponentToObject(id, data);
     }
 
-    for (auto const& [id, data] : m_deserialized)
+    // iterate through entities again and assign parent-child
+    // relation based on custom IDs
+    for (auto& [id, data] : m_objects)
     {
       ecs.SetParentEntity(id, data.m_parent);
 
@@ -421,40 +351,56 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
       }
     }
   }
+  catch (GE::Debug::IExceptionBase& e)
+  {
+    e.LogSource();
+    e.Log();
+  }
+#else
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+
+  for (auto const& [id, data] : m_deserialized)
+  {
+    ecs.CreateEntity({}, id, data.m_name);
+      
+    for (auto const& component : data.m_components)
+    {
+      AddComponentToEntity(id, component);
+    }
+  }
+
+  for (auto const& [id, data] : m_deserialized)
+  {
+    ecs.SetParentEntity(id, data.m_parent);
+
+    for (ECS::Entity const& child : data.m_childEntities)
+    {
+      ecs.AddChildEntity(id, child);
+    }
+  }
 #endif
 }
 
 void ObjectFactory::LoadSceneJson(std::string const& filename)
 {
-#ifdef RTTR_DESERIALIZE
-  static bool test{ true };
-  if (test)
+#ifndef RTTR_DESERIALIZE
+  Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene(filename) };
+  if (ogs)
   {
-#endif
-
-    Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene(filename) };
-    if (ogs)
-    {
-      ogs.Unload(m_objects);
-    }
-
-#ifdef RTTR_DESERIALIZE
-    test = false;
+    ogs.Unload(m_objects);
   }
-  else
-  {
-    m_deserialized = GE::Serialization::Deserializer::DeserializeScene(GE::Assets::AssetManager::GetInstance().GetScene(filename));
-    for (auto const& [id, obj] : m_deserialized)
-    { 
-      #ifdef _DEBUG
-      std::cout << obj.m_name << " (" << id << "):\n";
-      std::cout << "  Components:\n";
-      for (auto const& var : obj.m_components)
-      {
-        std::cout << "    " << var.get_type() << "\n";
-      }
-      #endif
+#else
+  m_deserialized = GE::Serialization::Deserializer::DeserializeScene(GE::Assets::AssetManager::GetInstance().GetScene(filename));
+  for (auto const& [id, obj] : m_deserialized)
+  { 
+    #ifdef _DEBUG
+    std::cout << obj.m_name << " (" << id << "):\n";
+    std::cout << "  Components:\n";
+    for (auto const& var : obj.m_components)
+    {
+      std::cout << "    " << var.get_type() << "\n";
     }
+    #endif
   }
 #endif
 }

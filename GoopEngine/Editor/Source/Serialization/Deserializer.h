@@ -78,7 +78,7 @@ namespace GE
        
       \return
       ************************************************************************/
-      static void ScanJsonFileForMembers(rapidjson::Document const& document, unsigned keyCount, ...);
+      static bool ScanJsonFileForMembers(rapidjson::Document const& document, unsigned keyCount, ...);
 
     private:
       static rttr::variant GetComponentVariant(rttr::type const& valueType, std::string const& componentData);

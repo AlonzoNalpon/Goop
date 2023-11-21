@@ -41,8 +41,7 @@ RemoveObjectCmd::RemoveObjectCmd(GE::ECS::Entity e)
 	m_entityData.m_entityName = ecs.GetEntityName(m_entityData.m_entityID);
 	for (ECS::COMPONENT_TYPES i{ static_cast<ECS::COMPONENT_TYPES>(0) }; i < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)
 	{
-		GE::Serialization::Serializer* sr = &GE::Serialization::Serializer::GetInstance();
-		rttr::variant inst = sr->GetEntityComponent(e, i);
+		rttr::variant inst = Serialization::Serializer::GetEntityComponent(e, i);
 
 		// skip if component wasn't found
 		if (!inst.is_valid()) { continue; }
@@ -64,8 +63,7 @@ RemoveObjectCmd::EntityTemplate RemoveObjectCmd::SaveEntityData(GE::ECS::Entity 
 		newEntityTemp.m_entityName = ecs.GetEntityName(newEntityTemp.m_entityID);
 		for (ECS::COMPONENT_TYPES j{ static_cast<ECS::COMPONENT_TYPES>(0) }; j < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++j)
 		{
-			GE::Serialization::Serializer* sr = &GE::Serialization::Serializer::GetInstance();
-			rttr::variant inst = sr->GetEntityComponent(newEntityTemp.m_entityID, j);
+			rttr::variant inst = GE::Serialization::Serializer::GetEntityComponent(newEntityTemp.m_entityID, j);
 
 			// skip if component wasn't found
 			if (!inst.is_valid()) { continue; }

@@ -178,26 +178,27 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
   rapidjson::IStreamWrapper isw{ ifs };
   if (ifs.peek() == std::ifstream::traits_type::eof())
   {
-    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogMessage("Empty scene file read. Ignoring checks");
+    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Empty scene file read. Ignoring checks");
     return {};
   }
   rapidjson::Document document{};
   if (document.ParseStream(isw).HasParseError())
   {
-    ifs.close(); throw Debug::Exception<Deserializer>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to parse " + filepath));
+    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + filepath);
   }
   if (!document.IsArray())
   { 
-    ifs.close(); throw Debug::Exception<Deserializer>(Debug::LEVEL_CRITICAL, ErrMsg(filepath + ": root is not an array!"));
+    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError(filepath + ": root is not an array!");
   }
 
   ObjectFactory::ObjectFactory::EntityDataContainer ret{};
 
   // check if scn file contains all basic keys
-  ScanJsonFileForMembers(document, 5,
+  if (!ScanJsonFileForMembers(document, 5,
     Serializer::JsonNameKey, rapidjson::kStringType, Serializer::JsonChildEntitiesKey, rapidjson::kArrayType,
     Serializer::JsonIdKey, rapidjson::kNumberType, Serializer::JsonParentKey, rapidjson::kNumberType,
-    Serializer::JsonComponentsKey, rapidjson::kArrayType);
+    Serializer::JsonComponentsKey, rapidjson::kArrayType))
+  { ifs.close(); return {}; }
 
   // okay code starts here
   for (auto const& entity : document.GetArray())
@@ -571,7 +572,7 @@ std::vector<std::pair<std::string, ECS::ComponentSignature>> Deserializer::Deser
     #ifdef _DEBUG
     std::cout << "Unable to read " << json << "\n";
     #endif
-    return;
+    return {};
   }
 
   rapidjson::Document document{};
@@ -584,7 +585,7 @@ std::vector<std::pair<std::string, ECS::ComponentSignature>> Deserializer::Deser
     #ifdef _DEBUG
     std::cout << "Unable to parse " << json << "\n";
     #endif
-    return;
+    return {};
   }
 
   // check if root is object
@@ -595,7 +596,7 @@ std::vector<std::pair<std::string, ECS::ComponentSignature>> Deserializer::Deser
     #ifdef _DEBUG
     std::cout << json << ": root is not an object" << "\n";
     #endif
-    return;
+    return {};
   }
 
   std::vector<std::pair<std::string, ECS::ComponentSignature>> ret;
@@ -628,11 +629,12 @@ std::vector<std::pair<std::string, ECS::ComponentSignature>> Deserializer::Deser
   return ret;
 }
 
-void Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, unsigned keyCount, ...)
+bool Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, unsigned keyCount, ...)
 {
   va_list args;
   va_start(args, keyCount);
 
+  bool status{ true };
   std::vector <std::pair<std::string, rapidjson::Type>> keys{};
   for (unsigned i{}; i < keyCount; ++i)
   {
@@ -656,6 +658,7 @@ void Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
           #ifdef _DEBUG
           std::cout << oss.str() << "\n";
           #endif
+          status = false;
           continue;
         }
 
@@ -667,11 +670,11 @@ void Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
           #ifdef _DEBUG
           std::cout << oss.str() << "\n";
           #endif
+          status = false;
           continue;
         }
       }
     }
-    return;
   }
   else
   {
@@ -685,6 +688,7 @@ void Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
         #ifdef _DEBUG
         std::cout << msg << "\n";
         #endif
+        status = false;
         continue;
       }
 
@@ -696,12 +700,12 @@ void Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
         #ifdef _DEBUG
         std::cout << oss.str() << "\n";
         #endif
+        status = false;
         continue;
       }
     }
   }
 
-  
-
   va_end(args);
+  return status;
 }

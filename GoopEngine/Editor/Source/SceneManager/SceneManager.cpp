@@ -127,7 +127,7 @@ void GE::Scenes::SceneManager::SaveScene() const
   std::ostringstream filepath{};
   filepath << Assets::AssetManager::GetInstance().GetConfigData<std::string>("Assets Dir")
     << "Scenes/" << m_currentScene << Assets::AssetManager::GetInstance().GetConfigData<std::string>("Scene File Extension");
-  Serialization::Serializer::GetInstance().SerializeScene(filepath.str());
+  Serialization::Serializer::SerializeScene(filepath.str());
 
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Successfully saved scene to " + filepath.str());
 }

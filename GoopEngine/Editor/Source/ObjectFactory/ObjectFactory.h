@@ -36,7 +36,7 @@ namespace GE::ObjectFactory
     /*!*********************************************************************
     \brief
       Goes through the map and create an entity with the data.
-    \param $PARAMS
+    \param key
       string& (name of the prefab in the m_prefabs map)
     \return
       Entity of the prefab.
@@ -54,10 +54,8 @@ namespace GE::ObjectFactory
       Creates an entity with the given object.
     \param
       ObjectData (Data to be converted into an entity)
-    \return
-      Entity (Created entity)
     ************************************************************************/
-    GE::ECS::Entity CreateObject(std::string const& name, ObjectData const& data) const;
+    void AddComponentToObject(ECS::Entity id, ObjectData const& data) const;
 
     /*!*********************************************************************
     \brief
@@ -95,20 +93,6 @@ namespace GE::ObjectFactory
       Registers components and system for initializing the ECS.
     ************************************************************************/
     void RegisterComponentsAndSystems() const;
-
-    /*!*********************************************************************
-    \brief
-      Maps each entity ID such that it is in sequential order starting from
-       0 with no gaps in between. This should be called before scerializing
-       the scene. Returns a map where the key is the current entity's ID and
-       the value is the new ID.
-
-     For example, if the current set of entity IDs is <1,4,6,8>, it will
-     be mapped to <0, 1, 2, 3>
-    \return
-      Map of old Entity IDs to their new ones
-   ************************************************************************/
-    std::unordered_map<ECS::Entity, ECS::Entity> GenerateNewIDs() const;
 
     /*!*********************************************************************
     \brief
@@ -191,7 +175,7 @@ namespace GE::ObjectFactory
       if (entities.find(entity) != entities.end()) { sig[static_cast<unsigned>(type)] = true; }
     }
 
-    std::vector<std::pair<std::string, ObjectData>> m_objects; // Map of objects with pair of name, and ObjectData.
+    std::vector<std::pair<ECS::Entity, ObjectData>> m_objects; // Map of objects with pair of name, and ObjectData.
     EntityDataContainer m_deserialized;
     std::unordered_map<std::string, ObjectData> m_prefabs; // Map of prefabs with pair of name, and ObjectData.
   };

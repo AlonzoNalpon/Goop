@@ -104,7 +104,7 @@ bool PrefabGooStream::Unload(container_type& object)
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
 
   // set name of object
-  object.first = data[JsonNameKey].GetString();
+  object.first = object.second.m_name = data[JsonNameKey].GetString();
 
   // iterate through components array to
   // add json data to map and set object's component signature

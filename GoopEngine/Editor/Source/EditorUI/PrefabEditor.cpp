@@ -362,7 +362,7 @@ void PrefabEditor::CreateContent()
           if (flag) { break; }
         }
       }
-      Serialization::Serializer::GetInstance().SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
+      Serialization::Serializer::SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
       GE::Debug::ErrorLogger::GetInstance().LogMessage(m_currPrefab.m_name + " successfully saved");
     }
   }
