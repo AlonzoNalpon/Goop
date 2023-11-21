@@ -140,12 +140,6 @@ namespace Graphics::Rendering {
       }
       glUseProgram(0); // we're done
     }
-
-
-
-    m_renderCalls.clear(); // reset
-    m_fontRenderCalls.clear();// reset fonts
-    m_lineRenderCalls.clear(); // reset debug
   }
 
   void Renderer::DrawFontObj(std::string const& str, gVec2 pos, GLfloat scale, Colorf const& clr, Graphics::gObjID fontID, Camera& camera)

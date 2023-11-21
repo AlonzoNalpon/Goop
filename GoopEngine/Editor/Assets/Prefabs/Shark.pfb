@@ -9,9 +9,9 @@
             }
         },
         {
-            "Sprite": {
-                "filename": "SS_Shark"
-            }
+          "Sprite": {
+            "spriteName": "SS_Shark"
+          }
         },
         {
             "SpriteAnim": {

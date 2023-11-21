@@ -31,6 +31,14 @@ namespace GE::GoopUtils
     return ""; // No extension found
   }
 
+	std::string ExtractPrevFolderAndFileName(const std::string& filepath)
+	{
+		size_t pos = filepath.find_last_of('/');
+
+		std::string filename = (pos != std::string::npos) ? filepath.substr(pos + 1) : filepath;
+		return filename;
+	}
+
 	std::string ExtractFilename(const std::string& filepath)
 	{
 		// Find the last occurrence of the path separator, typically '/'

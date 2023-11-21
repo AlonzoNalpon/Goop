@@ -38,7 +38,7 @@ namespace Graphics{
       
     ************************************************************************/
     static SpriteAnimation GenerateAnimData(GLuint slices, GLuint stacks, GLuint frames, 
-      GLuint spriteW, GLuint spriteH, f64 speed = 1, u32 flags = 0u, gObjID texture = BAD_OBJ_ID);
+      GLuint spriteW, GLuint spriteH, f64 speed = 1, u32 flags = 0u, GLuint texture = 0);
   private:
   };
 

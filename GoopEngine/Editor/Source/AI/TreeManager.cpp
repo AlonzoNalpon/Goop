@@ -25,7 +25,7 @@ void TreeManager::Init()
 void TreeManager::ShutDown()
 {
   Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
-  GE::Serialization::Serializer::GetInstance().SerializeAny(assetManager.GetConfigData<std::string>("BehaviourTree file").c_str(), m_treeTempList);
+  GE::Serialization::Serializer::SerializeAny(assetManager.GetConfigData<std::string>("BehaviourTree file").c_str(), m_treeTempList);
 }
 
 std::vector<TreeTemplate>& TreeManager::GetTreeList()

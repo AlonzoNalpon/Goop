@@ -10,7 +10,7 @@
         },
         {
             "Sprite": {
-                "filename": "SS_MineWorm"
+                "spriteName": "SS_MineWorm"
             }
         },
         {

@@ -24,6 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/Serializer.h>
 #include <Component/Components.h>
 
+#define RTTR_DESERIALIZE
 
 namespace GE::ObjectFactory
 {
@@ -31,12 +32,13 @@ namespace GE::ObjectFactory
   class ObjectFactory : public Singleton<ObjectFactory>
   {
   public:
-    using EntityDataContainer = std::vector<std::pair<std::string, VariantEntity>>;
+    using EntityDataContainer = std::vector<std::pair<ECS::Entity, VariantEntity>>;
+    using PrefabDataContainer = std::unordered_map<std::string, VariantPrefab>;
 
     /*!*********************************************************************
     \brief
       Goes through the map and create an entity with the data.
-    \param $PARAMS
+    \param key
       string& (name of the prefab in the m_prefabs map)
     \return
       Entity of the prefab.
@@ -54,10 +56,8 @@ namespace GE::ObjectFactory
       Creates an entity with the given object.
     \param
       ObjectData (Data to be converted into an entity)
-    \return
-      Entity (Created entity)
     ************************************************************************/
-    GE::ECS::Entity CreateObject(std::string const& name, ObjectData const& data) const;
+    void AddComponentToObject(ECS::Entity id, ObjectData const& data) const;
 
     /*!*********************************************************************
     \brief
@@ -98,41 +98,27 @@ namespace GE::ObjectFactory
 
     /*!*********************************************************************
     \brief
-      Maps each entity ID such that it is in sequential order starting from
-       0 with no gaps in between. This should be called before scerializing
-       the scene. Returns a map where the key is the current entity's ID and
-       the value is the new ID.
-
-     For example, if the current set of entity IDs is <1,4,6,8>, it will
-     be mapped to <0, 1, 2, 3>
-    \return
-      Map of old Entity IDs to their new ones
-   ************************************************************************/
-    std::unordered_map<ECS::Entity, ECS::Entity> GenerateNewIDs() const;
-
-    /*!*********************************************************************
-    \brief
       Clears the object map.
    ************************************************************************/
     void ClearSceneObjects();
 
+
+    void AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const;
+
   private:
+    /*!*********************************************************************
+    \brief
+      Clears the prefab container and loads prefabs from files again
+    ************************************************************************/
+    void ReloadPrefabs();
+
     /*!*********************************************************************
     \brief
       Loads the data into the class map.
     \param
       String& (filepath of the serialized file)
     ************************************************************************/
-    void DeserializePrefab(const std::string& filepath);
-
-    /*!*********************************************************************
-    \brief
-      Register the specified object to the specified system.
-    \param
-      Entity (object to register)
-      SystemSignature (System to be registered to)
-    ************************************************************************/
-    //void RegisterObjectToSystems(GE::ECS::Entity object, ECS::SystemSignature signature) const;
+    void AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const;
     
     /*!*********************************************************************
     \brief
@@ -142,16 +128,6 @@ namespace GE::ObjectFactory
       Entity (source)
     ************************************************************************/
     void CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity srcObj) const;
-    
-    /*!*********************************************************************
-    \brief
-      Gets the system signature of the entity.
-    \param 
-      Entity (Entity to check)
-    \return
-      SystemSignature
-    ************************************************************************/
-    //GE::ECS::SystemSignature GetObjectSystemSignature(GE::ECS::Entity obj) const;
 
     /*!*********************************************************************
     \brief
@@ -188,9 +164,13 @@ namespace GE::ObjectFactory
       if (entities.find(entity) != entities.end()) { sig[static_cast<unsigned>(type)] = true; }
     }
 
-    std::vector<std::pair<std::string, ObjectData>> m_objects; // Map of objects with pair of name, and ObjectData.
-    EntityDataContainer m_deserialized;
-    std::unordered_map<std::string, ObjectData> m_prefabs; // Map of prefabs with pair of name, and ObjectData.
+#ifndef RTTR_DESERIALIZE
+    std::vector<std::pair<ECS::Entity, ObjectData>> m_deserialized;   // Map of objects with pair of name, and ObjectData.
+    std::unordered_map<std::string, ObjectData> m_prefabs;  // Map of prefabs with pair of name, and ObjectData.
+#else
+    EntityDataContainer m_deserialized;   // Container of deserialized entity data in format <id, data>
+    PrefabDataContainer m_prefabs;        // Map of deserialized prefab data in format <name, data>
+#endif
   };
   #include "ObjectFactory.tpp"
 }

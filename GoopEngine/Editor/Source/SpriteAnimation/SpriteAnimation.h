@@ -26,7 +26,7 @@ namespace Graphics
     f64                         speed;  //!< speed in frames per second
     std::vector<SpriteSubData>  frames; //!< every frame stored as sprite data
     u32                         flags;   //!< refer to the enumerated flags
-    gObjID                      texture; //!< the texture ID
+    GLuint                      texture; //!< the texture ID
   };
 }
 #endif

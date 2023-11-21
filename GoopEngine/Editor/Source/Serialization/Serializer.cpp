@@ -24,6 +24,7 @@ namespace GE
   namespace Serialization
   {
     const char Serializer::JsonNameKey[]          = "Name";
+    const char Serializer::JsonIdKey[]            = "ID";
     const char Serializer::JsonParentKey[]        = "Parent";
     const char Serializer::JsonChildEntitiesKey[] = "Child Entities";
     const char Serializer::JsonComponentsKey[]    = "Components";
@@ -80,30 +81,37 @@ namespace GE
 
       // clean up
       ofs.close();
-      m_oldToNewIDs.clear();
     }
 
-    rapidjson::Value Serializer::SerializeEntity(ECS::Entity id, std::vector<ECS::Entity> const& childIDs, rapidjson::Document::AllocatorType & allocator)
+    rapidjson::Value Serializer::SerializeEntity(ECS::Entity id, rapidjson::Document::AllocatorType & allocator)
     {
+      ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
       rapidjson::Value entity{ rapidjson::kObjectType };
+      // serialize name
       rapidjson::Value entityName{};
-      entityName.SetString(ECS::EntityComponentSystem::GetInstance().GetEntityName(id).c_str(), allocator);
+      entityName.SetString(ecs.GetEntityName(id).c_str(), allocator);
       entity.AddMember(JsonNameKey, entityName, allocator);
 
+      // serialize entity id
+      rapidjson::Value jsonId{};
+      jsonId.SetUint(id);
+      entity.AddMember(JsonIdKey, jsonId, allocator);
+
+      // serialize parent id
       rapidjson::Value jsonParent{ rapidjson::kNullType };
-      ECS::Entity const parentID{ ECS::EntityComponentSystem::GetInstance().GetParentEntity(id) };
+      ECS::Entity const parentID{ ecs.GetParentEntity(id) };
       if (parentID != ECS::INVALID_ID)
       {
-        jsonParent.SetUint(m_oldToNewIDs[parentID]);
+        jsonParent.SetUint(parentID);
       }
       entity.AddMember(JsonParentKey, jsonParent, allocator);
 
       rapidjson::Value childrenArr{ rapidjson::kArrayType };
-      for (ECS::Entity const& child : childIDs)
+      for (ECS::Entity const& child : ecs.GetChildEntities(id))
       {
         rapidjson::Value childJson{};
         childJson.SetUint(child);
-        childrenArr.PushBack(childJson, allocator);
+        childrenArr.PushBack(childJson.Move(), allocator);
       }
       entity.AddMember(JsonChildEntitiesKey, childrenArr, allocator);
 
@@ -129,21 +137,11 @@ namespace GE
         GE::Debug::ErrorLogger::GetInstance().LogError("Unable to serialize scene into " + filename);
       }
       ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-
-      std::unordered_map<ECS::Entity, ECS::Entity> idToNewId{ ObjectFactory::ObjectFactory::GetInstance().GenerateNewIDs() };
       
       rapidjson::Document document{ rapidjson::kArrayType };
-      m_oldToNewIDs = std::move(ObjectFactory::ObjectFactory::GetInstance().GenerateNewIDs());
       for (ECS::Entity entity : ecs.GetEntities())
       {
-        std::set<ECS::Entity> const& childIDs{ ecs.GetChildEntities(entity) };
-        std::vector<ECS::Entity> newChildIDs{};
-        newChildIDs.reserve(childIDs.size());
-        for (ECS::Entity const& child : childIDs)
-        {
-          newChildIDs.emplace_back(m_oldToNewIDs[child]);
-        }
-        rapidjson::Value entityJson{ SerializeEntity(entity, newChildIDs, document.GetAllocator())};
+        rapidjson::Value entityJson{ SerializeEntity(entity, document.GetAllocator())};
         document.PushBack(entityJson, document.GetAllocator());
       }
 
@@ -153,7 +151,6 @@ namespace GE
 
       // clean up
       ofs.close();
-      m_oldToNewIDs.clear();
     }
 
     void Serializer::SerializeSystems(std::string const& json)
@@ -260,6 +257,11 @@ namespace GE
       case ECS::COMPONENT_TYPES::AUDIO:
       {
         Component::Audio* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Audio>(id) };
+        return ret ? *ret : rttr::variant();
+      }
+      case ECS::COMPONENT_TYPES::GE_BUTTON:
+      {
+        Component::GE_Button* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::GE_Button>(id) };
         return ret ? *ret : rttr::variant();
       }
       }
@@ -441,7 +443,8 @@ namespace GE
 
         if (var.get_type() == rttr::type::get<Component::SpriteAnim>())
         {
-          jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(var.to_uint32()).c_str(), allocator);
+          Component::SpriteAnim const& sprAnim{ var.get_value<Component::SpriteAnim>() };
+          jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(sprAnim.m_animID).c_str(), allocator);
           //val.AddMember(jsonKey, jsonVal, allocator);
           //jsonVal = val.Move();
           //jsonVal.SetObject();
@@ -450,14 +453,10 @@ namespace GE
         else if (prop.get_type().is_class())  // else if custom types
         {
           // Handling special cases here (e.g. Scripts's script map)
-          if (value.get_type() == rttr::type::get<Component::Scripts>())
+          if (value.get_type() == rttr::type::get<std::map<std::string, GE::MONO::ScriptInstance>>())
           {
             jsonVal = SerializeScriptMap(value.get_value<std::map<std::string, GE::MONO::ScriptInstance> const&>(), allocator);
           }
-          /*else if (instance.get_type() == rttr::type::get<Component::Sprite>())
-          {
-            jsonVal = SerializeSpriteComponent(value.get_value<Component::Sprite>(), allocator);
-          }*/
           else
           {
             jsonVal = SerializeBasedOnType(value, allocator).Move();

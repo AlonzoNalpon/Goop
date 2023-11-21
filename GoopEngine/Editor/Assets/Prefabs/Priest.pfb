@@ -9,9 +9,9 @@
             }
         },
         {
-            "Sprite": {
-                "filename": "Priest"
-            }
+          "Sprite": {
+            "spriteName": "Priest"
+          }
         },
         {
             "BoxCollider": {

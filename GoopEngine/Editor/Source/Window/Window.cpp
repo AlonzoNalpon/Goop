@@ -13,6 +13,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Window/Window.h>
 #include <DebugTools/Exception/Exception.h>
 
+#ifdef NO_IMGUI
+#define FULLSCREEN
+#endif
+
 namespace WindowSystem {
   Window::Window(int width, int height, char const* title) :
     m_windowWidth{ width }, m_windowHeight{ height }, m_title{ title }, m_window {} {}
@@ -50,6 +54,13 @@ namespace WindowSystem {
       throw GE::Debug::Exception<Window>(GE::Debug::LEVEL_CRITICAL,
         ErrMsg("OpenGL context creation has failed!"));
     }
+#ifdef FULLSCREEN
+    int monitorCount{};
+    auto** monitors = glfwGetMonitors(&monitorCount);
+    auto* currMonitor = monitors[0];
+    const GLFWvidmode* mode = glfwGetVideoMode(currMonitor);
+    glfwSetWindowMonitor(m_window, currMonitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+#endif
     MakeCurrent();
 
     // Attempt to initialize glew

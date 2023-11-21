@@ -23,8 +23,7 @@ namespace GE
   {
 
     // GooStream for Entities/Objects
-    class ObjectGooStream : public IGooIStream<std::vector<std::pair<std::string, ObjectFactory::ObjectData>>>,
-                                   IGooOStream<std::vector<std::pair<std::string, ObjectFactory::ObjectData>>>
+    class ObjectGooStream : public IGooIStream<std::vector<std::pair<ECS::Entity, ObjectFactory::ObjectData>>>
     {
     public:
       // Ctor reading json file into stream
@@ -45,16 +44,6 @@ namespace GE
 
       /*!*********************************************************************
       \brief
-        Read from a constructor. Contents read are appended into the stream
-      \param json
-        The container to read from
-      \return
-        True if the operation succeeded and false otherwise
-      ************************************************************************/
-      bool Read(container_type const& container) override;
-
-      /*!*********************************************************************
-      \brief
         Unloads the contents of the stream into a container
       \param json
         The container to output to
@@ -62,19 +51,6 @@ namespace GE
         True if the operation succeeded and false otherwise
       ************************************************************************/
       bool Unload(container_type& container) override;
-
-      /*!*********************************************************************
-      \brief
-        Unloads the contents of the stream into a json file
-      \param json
-        The file to output to
-      \param overwrite
-        If true, the file is overwritten with the stream's contents
-        If false, the contents are appended to the end of the file
-      \return
-        True if the operation succeeded and false otherwise
-      ************************************************************************/
-      bool Unload(std::string const& json, bool overwrite = true) override;
 
     private:
     };

@@ -32,6 +32,7 @@ namespace GE
 			GAME,
 			AUDIO,
 			ANCHOR,
+			GE_BUTTON,
 			COMPONENTS_TOTAL
 		};
 
@@ -54,7 +55,8 @@ namespace GE
 			{ COMPONENT_TYPES::TEXT, "Text" },
 			{ COMPONENT_TYPES::GAME, "Game" },
 			{ COMPONENT_TYPES::AUDIO, "Audio" },
-			{ COMPONENT_TYPES::ANCHOR, "Anchor" }
+			{ COMPONENT_TYPES::ANCHOR, "Anchor" },
+			{ COMPONENT_TYPES::GE_BUTTON, "Button" }
 
 		};
 
@@ -72,8 +74,9 @@ namespace GE
 			{ "Draggable", COMPONENT_TYPES::DRAGGABLE },
 			{ "EnemyAI", COMPONENT_TYPES::ENEMY_AI },
 			{ "Text", COMPONENT_TYPES::TEXT },
-			{ "Game", COMPONENT_TYPES::GAME },
 			{ "Audio", COMPONENT_TYPES::AUDIO },
+			{ "Button", COMPONENT_TYPES::GE_BUTTON }
+			{ "Game", COMPONENT_TYPES::GAME },
 			{ "Anchor", COMPONENT_TYPES::ANCHOR }
 		};
 

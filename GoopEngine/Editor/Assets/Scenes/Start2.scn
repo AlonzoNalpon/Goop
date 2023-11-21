@@ -1,6 +1,7 @@
 [
     {
-        "Name": "Text Test",
+      "Name": "Text Test",
+        "ID":  0,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -27,7 +28,8 @@
         ]
     },
     {
-        "Name": "MineWorm",
+      "Name": "MineWorm",
+        "ID":  1,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -40,17 +42,12 @@
             },
             {
                 "Sprite": {
-                    "filename": "SS_MineWorm"
+                    "spriteName": "SS_MineWorm"
                 }
             },
             {
                 "SpriteAnim": {
                     "name": "SS_MineWorm"
-                }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
                 }
             }
         ]
@@ -69,12 +66,7 @@
             },
             {
                 "Sprite": {
-                    "filename": "Background"
-                }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
+                    "spriteName": "Background"
                 }
             }
         ]
