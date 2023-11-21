@@ -112,7 +112,7 @@ Entity GE::ECS::EntityManager::GetParentEntity(Entity& entity)
 	return m_parent[entity];
 }
 
-void GE::ECS::EntityManager::SetParentEntity(Entity& parent, Entity& child)
+void GE::ECS::EntityManager::SetParentEntity(Entity const& parent, Entity const& child)
 {
 	m_parent[child] = parent;
 }
@@ -122,7 +122,7 @@ std::set<Entity>& GE::ECS::EntityManager::GetChildEntities(Entity& parent)
 	return m_children[parent];
 }
 
-void GE::ECS::EntityManager::AddChildEntity(Entity& parent, Entity& child)
+void GE::ECS::EntityManager::AddChildEntity(Entity const& parent, Entity const& child)
 {
 	m_children[parent].insert(child);
 }

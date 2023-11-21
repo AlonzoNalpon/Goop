@@ -133,7 +133,7 @@ namespace GE
 			\param[in] entity
 				Entity whose parent you are setting
 			********************************************************************/
-			void SetParentEntity(Entity& parent, Entity& child);
+			void SetParentEntity(Entity const& parent, Entity const& child);
 
 			/*!******************************************************************
 			\brief 
@@ -157,7 +157,7 @@ namespace GE
 			\param[in] child
 				Entity who is becoming a child of.
 			********************************************************************/
-			void AddChildEntity(Entity& parent, Entity& child);
+			void AddChildEntity(Entity const& parent, Entity const& child);
 
 			/*!******************************************************************
 			\brief
