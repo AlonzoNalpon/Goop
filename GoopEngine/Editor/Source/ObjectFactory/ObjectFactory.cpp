@@ -17,11 +17,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Serialization/Deserializer.h>
 
-#define RTTR_DESERIALIZE
-
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
 
+#ifndef RTTR_DESERIALIZE
 void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity srcObj) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
@@ -72,7 +71,9 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Audio>(srcObj));
   }
 }
+#endif
 
+#ifndef RTTR_DESERIALIZE
 void ObjectFactory::AddComponentToObject(ECS::Entity id, ObjectData const& data) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
@@ -132,7 +133,9 @@ void ObjectFactory::AddComponentToObject(ECS::Entity id, ObjectData const& data)
       DeserializeComponent<GE::Component::Audio>(data.m_components.at(GE::ECS::COMPONENT_TYPES::AUDIO)));
   }
 }
+#endif
 
+#ifdef RTTR_DESERIALIZE
 void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
@@ -188,6 +191,7 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
     ecs.AddComponent(entity, *compVar.get_value<Component::Audio*>());
   }
 }
+#endif
 
 void ObjectFactory::RegisterComponentsAndSystems() const
 {
@@ -259,64 +263,97 @@ void ObjectFactory::LoadPrefabsFromFile()
   auto const& prefabs{ GE::Assets::AssetManager::GetInstance().GetPrefabs() };
   for (auto const& [name, path] : prefabs)
   {
+#ifndef RTTR_DESERIALIZE
     Serialization::PrefabGooStream pgs{ path };
     std::pair <std::string, ObjectData> data;
     pgs.Unload(data);
     m_prefabs.emplace(std::move(data));
+#else
+    m_prefabs.emplace(name, Serialization::Deserializer::DeserializePrefab(path));
+#endif
   }
 }
 
-void ObjectFactory::DeserializePrefab(const std::string& filepath)
+#ifdef RTTR_DESERIALIZE
+void ObjectFactory::AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const
 {
-  GE::Serialization::PrefabGooStream pgs{ filepath };
-  if (!pgs)
+  for (rttr::variant const& component : components)
   {
-    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + filepath);
+    AddComponentToEntity(id, component);
   }
-
-  std::pair<std::string, ObjectData> prefab;
-  if (!pgs.Unload(prefab))
-  {
-    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to unload " + filepath);
-  }
-
-  m_prefabs.emplace(std::move(prefab));
 }
+#endif
 
 GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
 {
-  if (m_prefabs.find(key) == m_prefabs.end())
-    GoopUtils::ReloadFileData();
-
-  if (m_prefabs.find(key) == m_prefabs.end())
+#ifndef RTTR_DESERIALIZE
+  std::unordered_map<std::string, ObjectData>::const_iterator iter{ m_prefabs.find(key) };
+  if (iter == m_prefabs.end())
   {
-    throw GE::Debug::Exception<ObjectFactory>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
+    ReloadPrefabs();
+    if ((iter = m_prefabs.find(key)) == m_prefabs.end())
+    {
+      throw GE::Debug::Exception<ObjectFactory>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
+    }
   }
 
-  m_prefabs.clear();
-  LoadPrefabsFromFile();
-  ObjectData prefab = m_prefabs.at(key);
   ECS::Entity const newEntity{ ECS::EntityComponentSystem::GetInstance().CreateEntity() };
-  AddComponentToObject(newEntity, prefab);
+  AddComponentToObject(newEntity, iter->second);
 
   return newEntity;
+#else
+  PrefabDataContainer::const_iterator iter{ m_prefabs.find(key) };
+  if (iter == m_prefabs.end())
+  {
+    ReloadPrefabs();
+    if ((iter = m_prefabs.find(key)) == m_prefabs.end())
+    {
+      throw GE::Debug::Exception<ObjectFactory>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
+    }
+  }
+
+  ECS::Entity const newEntity{ ECS::EntityComponentSystem::GetInstance().CreateEntity() };
+  AddComponentsToEntity(newEntity, iter->second.m_components);
+
+  return newEntity;
+#endif
+}
+
+void ObjectFactory::ReloadPrefabs()
+{
+  GoopUtils::ReloadFileData();
+  m_prefabs.clear();
+  LoadPrefabsFromFile();
 }
 
 void GE::ObjectFactory::ObjectFactory::EmptyMap()
 {
-  m_objects.clear();
+  m_deserialized.clear();
   m_prefabs.clear();
 }
 
-void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
+void ObjectFactory::CloneObject(ECS::Entity entity, const Math::dVec2& newPos)
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
-  Entity newObj = ecs.CreateEntity();
-  ecs.SetEntityName(newObj, ecs.GetEntityName(obj) + " (Copy)");
-  CloneComponents(newObj, obj);
-  Component::Transform* trans{ ecs.GetComponent<Component::Transform>(newObj) };
-  if (trans) 
+  Entity newEntity = ecs.CreateEntity();
+  ecs.SetEntityName(newEntity, ecs.GetEntityName(entity) + " (Copy)");
+#ifndef RTTR_DESERIALIZE
+  CloneComponents(newEntity, entity);
+#else
+
+  for (ECS::COMPONENT_TYPES component{ static_cast<ECS::COMPONENT_TYPES>(0) }; component < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++component)
+  {
+    rttr::variant compVar{ Serialization::Serializer::GetEntityComponent(entity, component) };
+    // skip if component wasn't found
+    if (!compVar.is_valid()) { continue; }
+    
+
+  }
+#endif
+
+  Component::Transform* trans{ ecs.GetComponent<Component::Transform>(newEntity) };
+  if (trans)
   {
     trans->m_worldPos = newPos;
   }
@@ -324,7 +361,7 @@ void ObjectFactory::CloneObject(ECS::Entity obj, const Math::dVec2& newPos)
 
 void ObjectFactory::ClearSceneObjects()
 {
-  m_objects.clear();
+  m_deserialized.clear();
 }
 
 void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
@@ -333,7 +370,7 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
   try
   {
     ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-    for (auto const& [id, data] : m_objects)
+    for (auto const& [id, data] : m_deserialized)
     {
       ecs.CreateEntity({}, id, data.m_name);
       AddComponentToObject(id, data);
@@ -341,7 +378,7 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
 
     // iterate through entities again and assign parent-child
     // relation based on custom IDs
-    for (auto& [id, data] : m_objects)
+    for (auto& [id, data] : m_deserialized)
     {
       ecs.SetParentEntity(id, data.m_parent);
 
@@ -362,11 +399,7 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
   for (auto const& [id, data] : m_deserialized)
   {
     ecs.CreateEntity({}, id, data.m_name);
-      
-    for (auto const& component : data.m_components)
-    {
-      AddComponentToEntity(id, component);
-    }
+    AddComponentsToEntity(id, data.m_components);
   }
 
   for (auto const& [id, data] : m_deserialized)
@@ -387,21 +420,10 @@ void ObjectFactory::LoadSceneJson(std::string const& filename)
   Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene(filename) };
   if (ogs)
   {
-    ogs.Unload(m_objects);
+    ogs.Unload(m_deserialized);
   }
 #else
   m_deserialized = GE::Serialization::Deserializer::DeserializeScene(GE::Assets::AssetManager::GetInstance().GetScene(filename));
-  for (auto const& [id, obj] : m_deserialized)
-  { 
-    #ifdef _DEBUG
-    std::cout << obj.m_name << " (" << id << "):\n";
-    std::cout << "  Components:\n";
-    for (auto const& var : obj.m_components)
-    {
-      std::cout << "    " << var.get_type() << "\n";
-    }
-    #endif
-  }
 #endif
 }
 

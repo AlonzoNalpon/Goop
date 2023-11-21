@@ -24,6 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/Serializer.h>
 #include <Component/Components.h>
 
+#define RTTR_DESERIALIZE
 
 namespace GE::ObjectFactory
 {
@@ -32,6 +33,7 @@ namespace GE::ObjectFactory
   {
   public:
     using EntityDataContainer = std::vector<std::pair<ECS::Entity, VariantEntity>>;
+    using PrefabDataContainer = std::unordered_map<std::string, VariantPrefab>;
 
     /*!*********************************************************************
     \brief
@@ -106,20 +108,17 @@ namespace GE::ObjectFactory
   private:
     /*!*********************************************************************
     \brief
+      Clears the prefab container and loads prefabs from files again
+    ************************************************************************/
+    void ReloadPrefabs();
+
+    /*!*********************************************************************
+    \brief
       Loads the data into the class map.
     \param
       String& (filepath of the serialized file)
     ************************************************************************/
-    void DeserializePrefab(const std::string& filepath);
-
-    /*!*********************************************************************
-    \brief
-      Register the specified object to the specified system.
-    \param
-      Entity (object to register)
-      SystemSignature (System to be registered to)
-    ************************************************************************/
-    //void RegisterObjectToSystems(GE::ECS::Entity object, ECS::SystemSignature signature) const;
+    void AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const;
     
     /*!*********************************************************************
     \brief
@@ -129,16 +128,6 @@ namespace GE::ObjectFactory
       Entity (source)
     ************************************************************************/
     void CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity srcObj) const;
-    
-    /*!*********************************************************************
-    \brief
-      Gets the system signature of the entity.
-    \param 
-      Entity (Entity to check)
-    \return
-      SystemSignature
-    ************************************************************************/
-    //GE::ECS::SystemSignature GetObjectSystemSignature(GE::ECS::Entity obj) const;
 
     /*!*********************************************************************
     \brief
@@ -175,9 +164,13 @@ namespace GE::ObjectFactory
       if (entities.find(entity) != entities.end()) { sig[static_cast<unsigned>(type)] = true; }
     }
 
-    std::vector<std::pair<ECS::Entity, ObjectData>> m_objects; // Map of objects with pair of name, and ObjectData.
-    EntityDataContainer m_deserialized;
-    std::unordered_map<std::string, ObjectData> m_prefabs; // Map of prefabs with pair of name, and ObjectData.
+#ifndef RTTR_DESERIALIZE
+    std::vector<std::pair<ECS::Entity, ObjectData>> m_deserialized;   // Map of objects with pair of name, and ObjectData.
+    std::unordered_map<std::string, ObjectData> m_prefabs;  // Map of prefabs with pair of name, and ObjectData.
+#else
+    EntityDataContainer m_deserialized;   // Container of deserialized entity data in format <id, data>
+    PrefabDataContainer m_prefabs;        // Map of deserialized prefab data in format <name, data>
+#endif
   };
   #include "ObjectFactory.tpp"
 }

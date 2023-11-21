@@ -33,6 +33,8 @@ namespace GE
 
       static ObjectFactory::VariantPrefab DeserializePrefabToVariant(std::string const& json);
 
+      static ObjectFactory::VariantPrefab DeserializePrefab(std::string const& json);
+
       /*!*********************************************************************
       \brief
         Reads from a json file of systems and its components and returns

@@ -33,8 +33,11 @@ namespace GE
     // For prefab editor
     struct VariantPrefab
     {
+      VariantPrefab() : m_components{}, m_name{ "Empty" } {}
+      VariantPrefab(std::string name) : m_components{}, m_name{ std::move(name) } {}
+
       std::vector<rttr::variant> m_components;
-      std::string m_name = "Empty";
+      std::string m_name;
 
       void Clear() noexcept
       {

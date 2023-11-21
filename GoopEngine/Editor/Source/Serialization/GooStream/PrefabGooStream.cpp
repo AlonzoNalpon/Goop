@@ -79,8 +79,8 @@ bool PrefabGooStream::Read(std::string const& json)
     return m_status = false;
   }
 
-  Deserializer::ScanJsonFileForMembers(data, 2, Serialization::Serializer::JsonNameKey, rapidjson::kStringType
-                                              , Serialization::Serializer::JsonComponentsKey, rapidjson::kArrayType);
+  if (!Deserializer::ScanJsonFileForMembers(data, 2, Serialization::Serializer::JsonNameKey, rapidjson::kStringType,
+    Serialization::Serializer::JsonComponentsKey, rapidjson::kArrayType)) { ifs.close(); return m_status = false; }
 
   #ifdef _DEBUG
   //std::cout << json << " successfully read" << "\n";
