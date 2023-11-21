@@ -16,11 +16,6 @@
                 "Sprite": {
                     "spriteName": "Background"
                 }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
-                }
             }
         ]
     },
@@ -55,11 +50,6 @@
             {
                 "SpriteAnim": {
                     "name": "SS_MineWorm"
-                }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
                 }
             },
             {
@@ -113,11 +103,6 @@
             {
                 "SpriteAnim": {
                     "name": "SS_MineWorm"
-                }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
                 }
             }
         ]

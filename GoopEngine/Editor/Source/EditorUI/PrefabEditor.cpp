@@ -295,9 +295,6 @@ void PrefabEditor::CreateContent()
             case GE::ECS::COMPONENT_TYPES::SPRITE_ANIM:
               ret = Component::SpriteAnim();
               break;
-            case GE::ECS::COMPONENT_TYPES::MODEL:
-              ret = Component::Model();
-              break;
             case GE::ECS::COMPONENT_TYPES::TWEEN:
               ret = Component::Tween();
               break;

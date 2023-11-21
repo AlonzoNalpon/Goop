@@ -84,8 +84,11 @@ namespace
 
 	\param[in] disabled
 		Draw disabled
+
+	\return
+		If value has changed
 	************************************************************************/
-	void InputCheckBox(std::string propertyName, bool& property, bool disabled = false);
+	bool InputCheckBox(std::string propertyName, bool& property, bool disabled = false);
 
 	/*!*********************************************************************
 	\brief
@@ -208,9 +211,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 			{
 			case GE::ECS::COMPONENT_TYPES::TRANSFORM:
 			{
-				GizmoEditor::SetVisible(true);
 				auto trans = ecs.GetComponent<Transform>(entity);
-				GizmoEditor::SetCurrentObject(trans->m_worldTransform, entity);
 				if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
@@ -221,6 +222,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 					// SET GIZMO RADIO BUTTONS
 					{
+						// SET MODE BASED ON KEYBINDS: W,E,R (trans, rot, scale)
+						{
+							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_W))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::TRANSLATE);
+							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_E))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE);
+							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_R))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::SCALE);
+						}
 						// TRANSLATE
 						{
 							if (ImGui::RadioButton("Translate",
@@ -265,11 +275,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 					Separator();
 					if (valChanged) {
+						GizmoEditor::SetVisible(false);
 						GE::CMD::ChangeTransCmd newTransCmd = GE::CMD::ChangeTransCmd(oldPRS, { trans->m_pos, trans->m_rot, trans->m_scale }, entity);
 						GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
 						cmdMan.AddCommand(newTransCmd);
 					}
-
+					else if (trans->m_scale.x && trans->m_scale.y && trans->m_scale.z)
+					{
+						GizmoEditor::SetVisible(true);
+						GizmoEditor::SetCurrentObject(trans->m_worldTransform, entity);
+					}
 				}
 				break;
 			}
@@ -372,11 +387,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndPopup();
 					}
-					ImGui::Columns(2, 0, true);
-					ImGui::SetColumnWidth(0, 118.f);
-					ImGui::Text("Sprite");
-					ImGui::NextColumn();
-					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), { 100, 100 }, { 0, 1 }, { 1, 0 });
+					ImVec2 imgSize{ 100, 100 };
+					SetCursorPosX(GetContentRegionAvail().x / 2 - imgSize.x / 2);
+					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), imgSize, { 0, 1 }, { 1, 0 });
 					if (ImGui::BeginDragDropTarget())
 					{
 						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
@@ -391,7 +404,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							EndDragDropTarget();
 						}
 					}
-					ImGui::Columns(1);
+					//ImGui::Columns(1);
 
 #pragma region SPRITE_LIST
 					auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
@@ -449,28 +462,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (Selectable("Remove Component"))
 						{
 							ecs.RemoveComponent<SpriteAnim>(entity);
-							EndPopup();
-							break;
-						}
-						EndPopup();
-					}
-				}
-				break;
-			}
-			case GE::ECS::COMPONENT_TYPES::MODEL:
-			{
-				//auto model = ecs.GetComponent<Model>(entity);
-				if (ImGui::CollapsingHeader("Model", ImGuiTreeNodeFlags_DefaultOpen))
-				{
-					if (IsItemClicked(ImGuiMouseButton_Right))
-					{
-						OpenPopup("RemoveModel");
-					}
-					if (BeginPopup("RemoveModel"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<Model>(entity);
 							EndPopup();
 							break;
 						}
@@ -619,6 +610,63 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
+			case GE::ECS::COMPONENT_TYPES::AUDIO:
+			{
+				auto audio = ecs.GetComponent<GE::Component::Audio>(entity);
+				if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveAudio");
+					}
+					if (BeginPopup("RemoveAudio"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Audio>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+
+					Separator();
+					InputText("Sound File", &audio->m_name);
+					if (BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = AcceptDragDropPayload("ASSET_BROWSER_AUDIO"))
+						{
+							audio->m_name = static_cast<const char*>(payload->Data);
+						}
+						EndDragDropTarget();
+					}
+
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					TableNextRow();
+					InputCheckBox("Loop", audio->m_loop);
+					TableNextRow();
+					InputCheckBox("Play on Start", audio->m_playOnStart);
+					TableNextRow();
+					InputCheckBox("Paused", audio->m_paused);
+					EndTable();
+
+					if (BeginCombo("Channel", GE::fMOD::FmodSystem::m_channelToString.at(audio->channel).c_str()))
+					{
+						for (auto const& [channel, audioName] : GE::fMOD::FmodSystem::m_channelToString)
+						{
+							if (Selectable(audioName.c_str()))
+							{
+								audio->channel = channel;
+							}
+						}
+						EndCombo();
+					}
+
+					Separator();
+				}
+				break;
+			}
 			default:
 				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled");
 				break;
@@ -711,32 +759,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::MODEL:
-					{
-						if (!ecs.HasComponent<Model>(entity))
-						{
-							Model comp{};
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(Model).name() << ". Component already exist";
-						}
-						break;
-					}
-					case GE::ECS::COMPONENT_TYPES::TWEEN:
-					{
-						if (!ecs.HasComponent<Tween>(entity))
-						{
-							Tween comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(Tween).name() << ". Component already exist";
-						}
-						break;
-					}
 					case GE::ECS::COMPONENT_TYPES::SCRIPTS:
 					{
 						if (!ecs.HasComponent<Scripts>(entity))
@@ -768,6 +790,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (!ecs.HasComponent<Component::Text>(entity))
 						{
 							Component::Text comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Component::Text).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::AUDIO:
+					{
+						if (!ecs.HasComponent<Component::Audio>(entity))
+						{
+							Component::Audio comp;
 							ecs.AddComponent(entity, comp);
 						}
 						else
@@ -823,14 +858,16 @@ namespace
 		EndDisabled();
 	}
 	
-	void InputCheckBox(std::string propertyName, bool& property, bool disabled)
+	bool InputCheckBox(std::string propertyName, bool& property, bool disabled)
 	{
+		bool valChanged{ false };
 		BeginDisabled(disabled);
 		TableNextColumn();
 		ImGui::Text(propertyName.c_str());
 		TableNextColumn();
-		Checkbox(("##" + propertyName).c_str(), &property);
+		valChanged = Checkbox(("##" + propertyName).c_str(), &property);
 		EndDisabled();
+		return valChanged;
 	}
 
 	template <>

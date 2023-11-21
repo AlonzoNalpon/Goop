@@ -15,13 +15,14 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "pch.h"
 #include "SceneManager.h"
 #include <Serialization/Serializer.h>
+#include <AssetManager/AssetManager.h>
 
 using namespace GE::Scenes;
 
 void SceneManager::Init()
 {
   // Load data into map
-  m_nextScene = m_currentScene = "BehaviourTreeTest";
+  m_nextScene = m_currentScene = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("StartUpScn");
 }
 
 void SceneManager::LoadScene()

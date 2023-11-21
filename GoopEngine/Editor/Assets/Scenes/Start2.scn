@@ -49,11 +49,6 @@
                 "SpriteAnim": {
                     "name": "SS_MineWorm"
                 }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
-                }
             }
         ]
     },
@@ -72,11 +67,6 @@
             {
                 "Sprite": {
                     "spriteName": "Background"
-                }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
                 }
             }
         ]

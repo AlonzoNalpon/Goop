@@ -109,16 +109,6 @@ namespace GE
 			return spriteAnim;
 		}
 
-		template<>
-		GE::Component::Model DeserializeComponent(std::string const& componentData)
-		{
-			Serialization::ComponentWrapper const cw{ componentData };
-			Component::Model model{};
-			model.m_mdlID = cw.Get<size_t>("mdlID");
-
-			return model;
-		}
-
 		// WIP
 		template<>
 		GE::Component::Tween DeserializeComponent(std::string const& componentData)
@@ -162,6 +152,18 @@ namespace GE
 			txt.m_scale = cw.Get<f32>("scale");
 			txt.m_fontID = cw.Get<Graphics::gObjID>("fontID");
 			return txt;
+		}
+
+		template<>
+		GE::Component::Audio DeserializeComponent(std::string const& componentData)
+		{
+			Serialization::ComponentWrapper const cw{ componentData };
+			Component::Audio audio;
+			audio.m_name = cw.Get<std::string>("name");
+			audio.m_loop = cw.Get<bool>("loop");
+			audio.m_playOnStart = cw.Get<bool>("playOnStart");
+			
+			return audio;
 		}
 
 

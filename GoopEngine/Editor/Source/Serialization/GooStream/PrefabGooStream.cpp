@@ -17,6 +17,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "PrefabGooStream.h"
 #include <rapidjson/istreamwrapper.h>
 #include <ECS/SystemTypes.h>
+#include <Serialization/Deserializer.h>
+#include <Serialization/Serializer.h>
 
 using namespace GE::Serialization;
 
@@ -77,49 +79,8 @@ bool PrefabGooStream::Read(std::string const& json)
     return m_status = false;
   }
 
-  if (!data.HasMember(JsonNameKey) || !data[JsonNameKey].IsString())
-  {
-    ifs.close();
-    std::ostringstream oss{};
-    oss << json << " does not have a valid \"" << JsonNameKey << "\" field";
-    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-
-    #ifdef _DEBUG
-    std::cout << oss.str() << std::endl;
-    #endif
-    return m_status = false;
-  }
-
-  if (!data.HasMember(JsonComponentsKey) || !data[JsonComponentsKey].IsArray())
-  {
-    ifs.close();
-    std::ostringstream oss{};
-    oss << json << " does not have a valid \"" << JsonComponentsKey << "\" field";
-    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-
-    #ifdef _DEBUG
-    std::cout << oss.str() << std::endl;
-    #endif
-    return m_status = false;
-  }
-
-  rapidjson::Value const& componentArr{ data["Components"] };
-  for (rapidjson::SizeType i{}; i < componentArr.Size(); ++i)
-  {
-    rapidjson::Value const& component{ componentArr[i] };
-    if (!component.IsObject())
-    {
-      ifs.close();
-      std::ostringstream oss{};
-      oss << json << ": Component " << std::to_string(i) << " has invalid format";
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-
-      #ifdef _DEBUG
-      std::cout << oss.str() << std::endl;
-      #endif
-      return m_status = false;
-    }
-  }
+  Deserializer::ScanJsonFileForMembers(data, 2, Serialization::Serializer::JsonNameKey, rapidjson::kStringType
+                                              , Serialization::Serializer::JsonComponentsKey, rapidjson::kArrayType);
 
   #ifdef _DEBUG
   //std::cout << json << " successfully read" << "\n";
@@ -152,8 +113,13 @@ bool PrefabGooStream::Unload(container_type& object)
     auto iter{ ECS::stringToComponents.find(component.MemberBegin()->name.GetString()) };
     if (iter == ECS::stringToComponents.cend())
     {
-      std::string str{ "Unable to find component " };
-      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg(str + component.MemberBegin()->name.GetString()));
+      std::ostringstream oss{};
+      oss << "Unable to find component " << component.MemberBegin()->name.GetString();
+      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#ifdef _DEBUG
+      std::cout << oss.str() << "\n";
+#endif
+      continue;
     }
     // set current component's bit in signature
     object.second.m_componentSignature[static_cast<unsigned>(iter->second)] = true;

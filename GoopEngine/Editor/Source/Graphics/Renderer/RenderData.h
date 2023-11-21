@@ -43,7 +43,7 @@ namespace Graphics::Rendering
    */
   struct RenderData 
   {
-    gObjID mdl;         //!< model data (ALL MODELS MUST USE THIS). It has shader stored within
+    //gObjID mdl;         //!< model data (ALL MODELS MUST USE THIS). It has shader stored within
     SpriteData sprite;  //!< sprite data handle (optional)
     glm::mat4 transform;//!< the transformation of the model
   };

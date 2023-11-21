@@ -72,11 +72,6 @@ RTTR_REGISTRATION
     .property("name", &Component::SpriteAnim::m_animID)
     ;
 
-  rttr::registration::class_<Component::Model>("Model")
-    .constructor<>()
-    .property("mdlID", &Component::Model::m_mdlID)
-    ;
-
   rttr::registration::class_<Component::Draggable>("Draggable")
     .constructor<>()
     ;
@@ -124,6 +119,14 @@ RTTR_REGISTRATION
     .property("originalPos", &Component::Tween::m_originalPos)
     .property("started", &Component::Tween::m_started)
     .property("paused", &Component::Tween::m_paused)
+    ;
+
+  rttr::registration::class_<Component::Audio>("Audio")
+    .constructor<>()
+    .property("name", &Component::Audio::m_name)
+    .property("loop", &Component::Audio::m_loop)
+    .property("playOnStart", &Component::Audio::m_playOnStart)
+    .property("channel", &Component::Audio::channel)
     ;
 
 } // RTTR Registration

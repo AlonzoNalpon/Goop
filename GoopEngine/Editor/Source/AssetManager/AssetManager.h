@@ -136,7 +136,7 @@ namespace GE::Assets
     \return
       The value at the entry of the specified key
     ************************************************************************/
-    inline std::string GetScene(std::string const& sceneName) const { return m_scenes.at(sceneName); }
+    std::string GetScene(std::string const& sceneName);
 
     /*!*********************************************************************
     \brief
@@ -147,7 +147,7 @@ namespace GE::Assets
     \return
       The value at the entry of the specified key
     ************************************************************************/
-    inline std::string GetSound(std::string const& soundName) const { return m_audio.at(soundName); }
+    std::string GetSound(std::string const& soundName);
 
     /*!*********************************************************************
     \brief
@@ -255,11 +255,7 @@ namespace GE::Assets
 
 #include "AssetManager.tpp"
 
-    std::string const AudioFileExt{ ".wav" },
-      ImageFileExt{ ".png" },
-      ShaderFileExts{ ".vert.frag" },
-      FontFileExt{ ".otf.ttf.woff.svg.eof" },
-      SceneFileExt{ ".scn" };
+    std::string AudioFileExt, ImageFileExt, ShaderFileExt, FontFileExt, SceneFileExt, PrefabFileExt;
   private:
     /*!*********************************************************************
     \brief

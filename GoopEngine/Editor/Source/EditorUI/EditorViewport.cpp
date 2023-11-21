@@ -23,32 +23,43 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <InputManager/InputManager.h>
 #include <filesystem>
 #include <GameStateManager/GameStateManager.h>
+#include <ImGuizmo_1_83/ImGuizmo.h>
+#define ORIGINAL 0
+
+
+namespace // static variables
+// Why the need for these?
+//  These values change to bad ones when I get them from ImGui after rendering (bottom func)
+//  So now rendering will store the right ones here first
+{
+  ImVec2 windowSize;
+  ImVec2 viewportSize;  // Get the top-left position of the viewport
+  ImVec2 viewportPosition;
+  ImVec2 viewportEnd;
+  ImVec2 uv0;
+  ImVec2 uv1;
+}
+
 
 void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBufferInfo & fbInfo)
 {
-  fbInfo;
   auto* ecs = &GE::ECS::EntityComponentSystem::GetInstance();
   auto& gEngine = Graphics::GraphicsEngine::GetInstance();
-  GLuint texture = fbInfo.renderTexture;
   GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
 
   // Calculate the UV coordinates based on viewport position and size
   // Get the size of the GLFW window
   ImGuiIO& io = ImGui::GetIO();
-  ImVec2 windowSize{ io.DisplaySize.x, io.DisplaySize.y };
-  ImVec2 viewportSize = ImGui::GetContentRegionAvail();  // Get the top-left position of the viewport
-  ImVec2 viewportPosition = ImGui::GetCursorScreenPos();
-  ImVec2 viewportEnd = ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y);
-  ImVec2 uv0;
-  ImVec2 uv1;
 
   uv0.x = 1.f + (viewportEnd.x - windowSize.x) / windowSize.x;
   uv1.y = -(viewportPosition.y) / windowSize.y;
   uv0.y = -(1.f + (viewportEnd.y - windowSize.y) / windowSize.y);
   uv1.x = (viewportPosition.x) / windowSize.x;
   // render the image
-  //auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
+#if ORIGINAL
+  GLuint texture = fbInfo.renderTexture;
   ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
+#endif
   if (ImGui::BeginDragDropTarget())
   {
     if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
@@ -64,13 +75,11 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
         GE::Component::Transform trans{};
         trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
         trans.m_worldScale = { 1, 1, 1 };
-        GE::Component::Model mdl{};
         GE::Component::Sprite sprite{ textureID };
         GE::Component::BoxCollider boxCollider{ {mousePosition}, static_cast<double>(gEngine.textureManager.GetTexture(textureID).width), static_cast<double>(gEngine.textureManager.GetTexture(textureID).height) };
         boxCollider.m_render = true;
 
         ecs->AddComponent(imageEntity, trans);
-        ecs->AddComponent(imageEntity, mdl);
         ecs->AddComponent(imageEntity, sprite);
         ecs->AddComponent(imageEntity, boxCollider);
         ecs->SetEntityName(imageEntity, GE::GoopUtils::ExtractFilename(droppedPath));
@@ -145,7 +154,7 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
     {
       constexpr int MOUSE_L_CLICK{ 0 };        // constant for mouse left click
       static bool mouseLHeld{};
-      if (ImGui::IsMouseDown(MOUSE_L_CLICK))
+      if (ImGui::IsMouseDown(MOUSE_L_CLICK) && !ImGuizmo::IsUsing()) // BUT NOT IF IMGUIZMO IS BEING USED
       {
         if (!mouseLHeld)
         {
@@ -219,4 +228,26 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
         mouseLHeld = false;
     }
   }
+}
+
+void GE::EditorGUI::EditorViewport::RenderViewport(Graphics::Rendering::FrameBufferInfo& fbInfo)
+{
+#if !ORIGINAL
+  // Calculate the UV coordinates based on viewport position and size
+  // Get the size of the GLFW window
+  ImGuiIO& io = ImGui::GetIO();
+  windowSize = { io.DisplaySize.x, io.DisplaySize.y };
+  viewportSize = ImGui::GetContentRegionAvail();  // Get the top-left position of the viewport
+  viewportPosition = ImGui::GetCursorScreenPos();
+  viewportEnd = ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y);
+
+  uv0.x = 1.f + (viewportEnd.x - windowSize.x) / windowSize.x;
+  uv1.y = -(viewportPosition.y) / windowSize.y;
+  uv0.y = -(1.f + (viewportEnd.y - windowSize.y) / windowSize.y);
+  uv1.x = (viewportPosition.x) / windowSize.x;
+  // render the image
+  //auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
+  GLuint texture = fbInfo.renderTexture;
+  ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
+#endif
 }

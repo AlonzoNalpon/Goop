@@ -49,7 +49,8 @@ namespace GE::Application
     gEngine{ Graphics::GraphicsEngine::GetInstance() },
     fRC{ GE::FPS::FrameRateController::GetInstance() },
     im{ GE::Input::InputManager::GetInstance() },
-    gsm{ GE::GSM::GameStateManager::GetInstance() }
+    gsm{ GE::GSM::GameStateManager::GetInstance() },
+    fMod{ GE::fMOD::FmodSystem::GetInstance() }
   {}
   
   void AppController::Init()
@@ -77,7 +78,9 @@ namespace GE::Application
     GE::AI::TreeManager::GetInstance().Init();
 
     imgui.Init(window);
-      
+    
+    fMod.Init();
+
     im.InitInputManager(window.GetWindow(), am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), 0.1);
   }
   
@@ -131,7 +134,7 @@ namespace GE::Application
           ecs->UpdateSystems();
 #endif  // NO_IMGUI
 
-          Audio::AudioEngine::GetInstance().Update();
+          fMod.Update();
           gsm.Update();
         }
         catch (GE::Debug::IExceptionBase& e)

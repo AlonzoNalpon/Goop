@@ -83,10 +83,18 @@ RTTR_REGISTRATION
   /* ------------------- ENUMERATIONS ------------------- */
   rttr::registration::enumeration<AI::NODE_TYPE>("NODE_TYPE")
     (
+      rttr::value("ROOT_NODE", AI::NODE_TYPE::ROOT_NODE),
       rttr::value("COMPOSITE_NODE", AI::NODE_TYPE::COMPOSITE_NODE),
       rttr::value("LEAF_NODE", AI::NODE_TYPE::LEAF_NODE),
-      rttr::value("NODE_TYPE_COUNT", AI::NODE_TYPE::NODE_TYPE_COUNT),
-      rttr::value("ROOT_NODE", AI::NODE_TYPE::ROOT_NODE)
+      rttr::value("NODE_TYPE_COUNT", AI::NODE_TYPE::NODE_TYPE_COUNT)
+      );
+
+  rttr::registration::enumeration<fMOD::FmodSystem::ChannelType>("ChannelType")
+    (
+      rttr::value("BGM", fMOD::FmodSystem::ChannelType::BGM),
+      rttr::value("SFX", fMOD::FmodSystem::ChannelType::SFX),
+      rttr::value("VOICE", fMOD::FmodSystem::ChannelType::VOICE),
+      rttr::value("TOTAL_CHANNELS", fMOD::FmodSystem::ChannelType::TOTAL_CHANNELS)
       );
 
   //rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")

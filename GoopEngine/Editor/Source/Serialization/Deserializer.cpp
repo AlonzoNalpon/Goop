@@ -45,8 +45,6 @@ rttr::variant Deserializer::GetComponentVariant(rttr::type const& valueType, std
     return Component::Draggable();
   else if (valueType == rttr::type::get<Component::EnemyAI>())
     return ObjectFactory::DeserializeComponent<Component::EnemyAI>(componentData);
-  else if (valueType == rttr::type::get<Component::Model>())
-    return ObjectFactory::DeserializeComponent<Component::Model>(componentData);
   else if (valueType == rttr::type::get<Component::Scripts>())
     return ObjectFactory::DeserializeScripts(componentData, 0);
   else if (valueType == rttr::type::get<Component::Sprite>())
@@ -59,6 +57,8 @@ rttr::variant Deserializer::GetComponentVariant(rttr::type const& valueType, std
     return ObjectFactory::DeserializeComponent<Component::Tween>(componentData);
   else if (valueType == rttr::type::get<Component::Text>())
     return ObjectFactory::DeserializeComponent<Component::Text>(componentData);
+  else if (valueType == rttr::type::get<Component::Audio>())
+    return ObjectFactory::DeserializeComponent<Component::Audio>(componentData);
 
     std::ostringstream oss{};
     oss << "Trying to get unsupported component variant (" << valueType.get_name().to_string() << ")";
@@ -225,7 +225,7 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
         if (!compType.is_valid())
         {
           std::ostringstream oss{};
-          oss << "Trying to deserialize an invalid rttr::type of " << compName;
+          oss << "Trying to deserialize an invalid component: " << compName;
           Debug::ErrorLogger::GetInstance().LogError(oss.str());
           continue;
         }
@@ -567,7 +567,11 @@ std::vector<std::pair<std::string, ECS::ComponentSignature>> Deserializer::Deser
   std::ifstream ifs{ json };
   if (!ifs)
   {
-    throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to read " + json));
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + json);
+    #ifdef _DEBUG
+    std::cout << "Unable to read " << json << "\n";
+    #endif
+    return;
   }
 
   rapidjson::Document document{};
@@ -576,14 +580,22 @@ std::vector<std::pair<std::string, ECS::ComponentSignature>> Deserializer::Deser
   if (document.ParseStream(isw).HasParseError())
   {
     ifs.close();
-    throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to parse " + json));
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + json);
+    #ifdef _DEBUG
+    std::cout << "Unable to parse " << json << "\n";
+    #endif
+    return;
   }
 
   // check if root is object
   if (!document.IsObject())
   {
     ifs.close();
-    throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg(json + ": root is not an object"));
+    GE::Debug::ErrorLogger::GetInstance().LogError(json + ": root is not an object");
+    #ifdef _DEBUG
+    std::cout << json << ": root is not an object" << "\n";
+    #endif
+    return;
   }
 
   std::vector<std::pair<std::string, ECS::ComponentSignature>> ret;
@@ -598,9 +610,13 @@ std::vector<std::pair<std::string, ECS::ComponentSignature>> Deserializer::Deser
       if (compType == ECS::stringToComponents.cend())
       {
         ifs.close();
-        std::string str{ "Invalid component in " };
-        str += json + ": " + component.GetString();
-        throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg(str));
+        std::ostringstream oss{};
+        oss << "Invalid component read in " << json << ": " << component.GetString();
+        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        #ifdef _DEBUG
+        std::cout << oss.str() << "\n";
+        #endif
+        continue;
       }
 
       sig[static_cast<unsigned>(compType->second)] = true;
@@ -636,14 +652,22 @@ void Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
         {
           std::ostringstream oss{};
           oss << "Unable to find key \"" + keyName + "\" of element: " << i << " in rapidjson document";
-          throw GE::Debug::Exception<Deserializer>(Debug::LEVEL_CRITICAL, ErrMsg(oss.str()));
+          GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+          #ifdef _DEBUG
+          std::cout << oss.str() << "\n";
+          #endif
+          continue;
         }
 
         if (!elem[keyName.c_str()].IsNull() && elem[keyName.c_str()].GetType() != type)
         {
           std::ostringstream oss{};
           oss << "Element \"" << keyName << "\" is not of rapidjson type:" << type;
-          throw GE::Debug::Exception<Deserializer>(Debug::LEVEL_CRITICAL, ErrMsg(oss.str()));
+          GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+          #ifdef _DEBUG
+          std::cout << oss.str() << "\n";
+          #endif
+          continue;
         }
       }
     }
@@ -656,14 +680,23 @@ void Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
       auto result{ document.FindMember(keyName.c_str()) };
       if (result == document.MemberEnd())
       {
-        throw GE::Debug::Exception<Deserializer>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to find key \"" + keyName + "\" in rapidjson document"));
+        std::string const msg{ "Unable to find key \"" + keyName + "\" in rapidjson document" };
+        GE::Debug::ErrorLogger::GetInstance().LogError(msg);
+        #ifdef _DEBUG
+        std::cout << msg << "\n";
+        #endif
+        continue;
       }
 
       if (!document[keyName.c_str()].IsNull() && document[keyName.c_str()].GetType() != type)
       {
         std::ostringstream oss{};
         oss << "Element \"" << keyName << "\" is not of rapidjson type:" << type;
-        throw GE::Debug::Exception<Deserializer>(Debug::LEVEL_CRITICAL, ErrMsg(oss.str()));
+        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        #ifdef _DEBUG
+        std::cout << oss.str() << "\n";
+        #endif
+        continue;
       }
     }
   }

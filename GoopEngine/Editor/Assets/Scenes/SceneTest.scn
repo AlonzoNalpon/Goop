@@ -33,8 +33,8 @@
         }
       },
       {
-        "Model": {
-          "mdlID": 0
+        "ThisShouldNotCrash": {
+          "fakeprop":  "bla"
         }
       },
       {
@@ -111,11 +111,6 @@
       {
         "Sprite": {
           "spriteName": "Background"
-        }
-      },
-      {
-        "Model": {
-          "mdlID": 0
         }
       }
     ]

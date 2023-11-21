@@ -22,7 +22,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../ObjectFactory/ObjectFactory.h"
 #include "../Component/Transform.h"
 #include "../Component/BoxCollider.h"
-#include <Audio/AudioEngine.h>
+#include <Systems/Audio/AudioSystem.h>
 #include "SceneHierachy.h"
 #include "ToolBar.h"
 #include "DataViz/Visualizer.h"
@@ -124,11 +124,6 @@ void ImGuiUI::Update()
   End();
 
   Begin("Viewport");
-#if 0 // ALONZO: I NEED THIS. WILL REMOVE WHEN GUIZMO IS DONE
-  {
-    EditorGUI::EditorViewport::UpdateViewport(*frameBuffer.second);
-  }
-#else
   {
     ImGuizmo::SetOrthographic(true);
     ImGuizmo::BeginFrame(); // call the imguizmo new frame function
@@ -139,8 +134,7 @@ void ImGuiUI::Update()
 
     ImGuizmo::Enable(true);
 
-    EditorViewport::UpdateViewport(*frameBuffer.second);
-
+    EditorViewport::RenderViewport(*frameBuffer.second);
     if (GizmoEditor::isVisible())
     {
       frameBuffer.second->camera.CalculateProjMtx();
@@ -149,10 +143,10 @@ void ImGuiUI::Update()
       GizmoEditor::RenderGizmo(); // MUST RENDER AFTER VIEWPORT
       GizmoEditor::PostRenderUpdate();
     }
+    EditorViewport::UpdateViewport(*frameBuffer.second);
     GizmoEditor::SetVisible(false); // reset state
   }
 
-#endif
   End();
 
   Begin("Extras");
@@ -203,6 +197,40 @@ void ImGuiUI::Update()
     GE::GSM::GameStateManager& gsm = { GE::GSM::GameStateManager::GetInstance() };
     gsm.SetNextScene("SceneTest");
   }
+
+  static GE::fMOD::FmodSystem& fMod = GE::fMOD::FmodSystem::GetInstance();
+  if (Button("Stop all sounds"))
+  {
+    fMod.StopAllSound();
+  }
+  if (Button("Stop BGM"))
+  {
+    fMod.StopChannel(GE::fMOD::FmodSystem::BGM);
+  }
+  if (Button("Stop SFX"))
+  {
+    fMod.StopChannel(GE::fMOD::FmodSystem::SFX);
+  }
+  if (Button("Stop Voices"))
+  {
+    fMod.StopChannel(GE::fMOD::FmodSystem::VOICE);
+  }
+
+  for (int i{}; i < GE::fMOD::FmodSystem::TOTAL_CHANNELS; ++i)
+  {
+    GE::fMOD::FmodSystem::ChannelType channeltype = static_cast<GE::fMOD::FmodSystem::ChannelType>(i);
+    float vol = fMod.GetChannelVolume(channeltype);
+    if (SliderFloat(fMod.m_channelToString.at(channeltype).c_str(), &vol, 0.f, 1.f))
+    {
+      fMod.SetChannelVolume(channeltype, vol);
+    }
+  }
+  float mvol = fMod.GetMasterVolume();
+  if (SliderFloat("Master Volume", &mvol, 0.f, 1.f))
+  {
+    fMod.SetMasterVolume(mvol);
+  }
+
   End();
 
   Begin("Asset Browser");
@@ -215,41 +243,41 @@ void ImGuiUI::Update()
     Visualizer::CreateContent("Performance Graph");
   }
 
-  Begin("Audio");
+  /*Begin("Audio");
   Assets::AssetManager const& aM{ Assets::AssetManager::GetInstance() };
   if (Button("Play BGM"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("bgm1"), 0.5f, true);
+    Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("bgm1"), 0.5f, true);
   }
   else if (Button("Play Scream Sound"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("JoelScream"), 0.70f);
+    Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("JoelScream"), 0.70f);
   }
   else if (Button("DJ Drop Da Beat"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("ChengEnBeatbox"), 1.25f, true);
+    Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("ChengEnBeatbox"), 1.25f, true);
   }
   else if (Button("Play Qurr Sound"))
   {
-    Audio::AudioEngine::GetInstance().PlaySound(aM.GetSound("ChengEnQur"), 0.9f);
+    Audio::AudioSystem::GetInstance().PlaySound(aM.GetSound("ChengEnQur"), 0.9f);
   }
   else if (Button("Stop Scream Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopSound(aM.GetSound("JoelScream"));
+    Audio::AudioSystem::GetInstance().StopSound(aM.GetSound("JoelScream"));
   }
   else if (Button("DJ Pick Up Da Beat"))
   {
-    Audio::AudioEngine::GetInstance().StopSound(aM.GetSound("ChengEnBeatbox"));
+    Audio::AudioSystem::GetInstance().StopSound(aM.GetSound("ChengEnBeatbox"));
   }
   else if (Button("Stop Qur Sound"))
   {
-    Audio::AudioEngine::GetInstance().StopSound(aM.GetSound("ChengEnQur"));
+    Audio::AudioSystem::GetInstance().StopSound(aM.GetSound("ChengEnQur"));
   }
   else if (Button("Stop All Sounds"))
   {
-    Audio::AudioEngine::GetInstance().StopAllChannels();
+    Audio::AudioSystem::GetInstance().StopAllChannels();
   }
-  End();
+  End();*/
 
   if (ImGui::GetIO().KeyCtrl && ImGui::GetIO().KeyShift && IsKeyPressed((ImGuiKey)GLFW_KEY_Z)) {
     GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
