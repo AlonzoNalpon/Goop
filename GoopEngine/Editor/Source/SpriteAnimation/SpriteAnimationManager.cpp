@@ -71,5 +71,10 @@ namespace Graphics
     return animID; // return the animation ID
   }
 
+  std::map<std::string, size_t> const& SpriteAnimationManager::GetAnimLT() const noexcept
+  {
+    return m_animLookupTable;
+  }
+
 
 }
