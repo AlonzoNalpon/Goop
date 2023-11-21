@@ -1,25 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Cards;
 
+
 namespace GoopScripts.Gameplay
 {
-	internal abstract class Stats
+	public  class Stats
 	{
-		public int m_health;
+		public int m_health=100;
 		// List of card IDs
-		public List<CardBase.CardID> m_deck = new List<CardBase.CardID>();  // HQD: I had to initialize them, or else they would gives me error. you can remove it
+		public List<CardBase.CardID> m_deck { get; set; }  // HQD: I had to initialize them, or else they would gives me error. you can remove it
 		// List of cards in the queue
-		public List<CardBase.CardID> m_cardQueue = new List<CardBase.CardID>();
+		public List<CardBase.CardID> m_cardQueue { get; set; }
 
-		public BuffManager m_buffs = new BuffManager();
+    public BuffManager m_buffs { get; set; }
 
+    public int GetHealth()
+    {
+      Console.WriteLine(m_health+" MYHESLTH");
+      return 1000;
+    }
 
-
-		public void TakeDamage(float damage)
+    public void TakeDamage(float damage)
 		{
 			// Value can be negative and < 0 means you take more dmg
 			float takenMultiplier = 0;

@@ -3,7 +3,7 @@ using GoopScripts.Gameplay;
 
 namespace GoopScripts.Cards
 {
-  abstract class CardBase : MonoBehaviour
+  public abstract class CardBase : MonoBehaviour
   {
 		public enum CardID
 		{

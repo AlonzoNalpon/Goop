@@ -25,4 +25,6 @@ void ObjectFactory::RegisterComponentsToSystem(ECS::ComponentSignature sig) cons
    ecs.RegisterComponentToSystem<GE::Component::Text, T>();
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::AUDIO))
    ecs.RegisterComponentToSystem<GE::Component::Audio, T>();
+   if (IsBitSet(sig, ECS::COMPONENT_TYPES::GAME))
+   ecs.RegisterComponentToSystem<GE::Component::Game, T>();
 }

@@ -513,8 +513,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 				//auto scripts = ecs.GetComponent<Scripts>(entity);
 				if (ImGui::CollapsingHeader("Scripts", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					float inputWidth = (contentSize - charSize - 30) / 3;
-					GE::Component::Scripts* allScripts = ecs.GetComponent<Scripts>(entity);
+					//float inputWidth = (contentSize - charSize - 30) / 3;
+					//GE::Component::Scripts* allScripts = ecs.GetComponent<Scripts>(entity);
 					if (IsItemClicked(ImGuiMouseButton_Right))
 					{
 						OpenPopup("RemoveScripts");
@@ -532,62 +532,70 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					//GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
+					//for (std::pair<std::string, ScriptInstance> s : allScripts->m_scriptMap)
+					//{
+					//	/*TableNextRow();
+					//	BeginDisabled(false);
+					//	TableNextColumn();
+					//	ImGui::Text("Scripts");
+					//	TableNextColumn();
+					//	SetNextItemWidth(GetWindowSize().x);
+					//	if (ImGui::BeginCombo("Scripts", s.first.c_str(), ImGuiComboFlags_NoArrowButton))
+					//	{
+					//		for (const std::string& sn : sm->m_allScriptNames)
+					//		{
+					//			bool is_selected = (s.first.c_str() == sn);
+					//			if (ImGui::Selectable(sn.c_str(), is_selected))
+					//			{
+					//				if(sn != s.first.c_str()){
+					//					std::cout << "selected: " << sn << "\n";
+					//				}
+					//				
+					//			}
+					//			if (is_selected)
+					//			{
+					//				ImGui::SetItemDefaultFocus();
+					//			}
+					//		}
+					//		ImGui::EndCombo();
+					//	}
+					//	EndDisabled();*/
 
-					for (std::pair<std::string, ScriptInstance> s : allScripts->m_scriptMap)
-					{
-						const auto& fields = s.second.m_scriptClassInfo.m_ScriptFieldMap;
-						for (const auto& [fieldName, field] : fields)
-						{
-							if (field.m_fieldType == ScriptFieldType::Float)
-							{
-								//float data = s.second.GetFieldValue<float>(fieldName);
-								//TableNextRow();
-								//TableNextColumn();
-								//ImGui::Text(fieldName.c_str());
-								//TableNextColumn();
-								//ImGui::InputInt(const char* label, int* v, int step, int step_fast, ImGuiInputTextFlags flags)
 
 
-								//BeginDisabled(false);
-								//TableNextColumn();
-								//TableNextColumn();
-								//ImGui::Text(fieldName.c_str());
-								//TableNextColumn();
-								//SetNextItemWidth(GetWindowSize().x);
-								//if (ImGui::InputInt(("##" + fieldName).c_str(), &data, 0, 0, "%.2f")){ s.second.SetFieldValue(fieldName, data); }
-								//EndDisabled();
+					//	//const auto& fields = s.second.m_scriptClassInfo.m_ScriptFieldMap;
+					//	//for (const auto& [fieldName, field] : fields)
+					//	//{
+					//	//	if (field.m_fieldType == ScriptFieldType::Float)
+					//	//	{
+					//	//	}
+					//	//	else if (field.m_fieldType == ScriptFieldType::Int)
+					//	//	{
+					//	//		TableNextRow();
+					//	//		//BeginDisabled(false);
+					//	//		//TableNextColumn();
+					//	//		//ImGui::Text(fieldName.c_str());
+					//	//		//TableNextColumn();
+					//	//		//SetNextItemWidth(GetWindowSize().x);
+					//	//		//if (ImGui::InputInt(("##" + fieldName).c_str(), &data, 0, 0, 0)) { s.second.SetFieldValue(fieldName, data); }
+					//	//		//EndDisabled();
+					//	//	}
+					//	//	else if (field.m_fieldType == ScriptFieldType::Double)
+					//	//	{
+					//	//	}
+					//	//	else if (field.m_fieldType == ScriptFieldType::DVec3)
+					//	//	{
+					//	//		TableNextRow();
+					//	//	}
+					//	//	else if (field.m_fieldType == ScriptFieldType::IntArr)
+					//	//	{
+					//	//		TableNextRow();
+					//	//	}
+					//	//}
+					//}
 
-							}
-							else if (field.m_fieldType == ScriptFieldType::Int)
-							{
-								TableNextRow();
-								int data = s.second.GetFieldValue<int>(fieldName);
-								BeginDisabled(false);
-								TableNextColumn();
-								ImGui::Text(fieldName.c_str());
-								TableNextColumn();
-								SetNextItemWidth(GetWindowSize().x);
-								if (ImGui::InputInt(("##" + fieldName).c_str(), &data, 0, 0, 0)) { s.second.SetFieldValue(fieldName, data); }
-								EndDisabled();
-							}
-							//else if (field.m_fieldType == ScriptFieldType::Double)
-							//{
-							//	double data = s.second.GetFieldValue<double>(fieldName);
-							//	if (ImGui::DragFloat(fieldName.c_str(), &data))
-							//	{
-							//		s.second.SetFieldValue(fieldName, data);
-							//	}
-							//}
-							
-							else if (field.m_fieldType == ScriptFieldType::DVec3)
-							{
-								TableNextRow();
-								GE::Math::dVec3 data = s.second.GetFieldValue<GE::Math::dVec3>(fieldName);
-								if (InputDouble3(fieldName, data, inputWidth)) { 
-									s.second.SetFieldValue(fieldName, data); };
-							}
-						}
-					}
+
 
 					EndTable();
 					Separator();

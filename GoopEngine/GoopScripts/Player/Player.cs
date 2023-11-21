@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using GoopScripts.Input;
 using GoopScripts.Mono;
 using GoopScripts.Component;
+using System.Runtime.InteropServices;
 using static GoopScripts.Mono.Utils;
 
 
@@ -26,10 +27,11 @@ namespace GoopScripts.Player
   {
 
     public int intTest= 32;
-    public float fTest = 32;
-    public double DTest = 32;
-    public Vec2<double> DVec2Test = new Vec2<double>(100.0, 200.0);
-    public Vec3<double> DVec3Test = new Vec3<double>(100.0, 200.0, 300.0);
+    //public float fTest = 32;
+    //public double DTest = 32;
+    //public Vec2<double> DVec2Test = new Vec2<double>(100.0, 200.0);
+    //public Vec3<double> DVec3Test = new Vec3<double>(100.0, 200.0, 300.0);
+    public List<int> ListIntTest = new List<int>(10) {1,2,3,4,5,6,7,8,9,10 };
 
     /*!*********************************************************************
    \brief
@@ -40,7 +42,7 @@ namespace GoopScripts.Player
    ************************************************************************/
     public Player(uint entityID) : base(entityID)
     {
-     
+      Console.WriteLine("size of Array: " + Marshal.SizeOf(ListIntTest[0]) * ListIntTest.Count());
     }
 
 
@@ -73,7 +75,7 @@ namespace GoopScripts.Player
       //Console.WriteLine("WHAT\n");
       Transform newChange = new Transform(); // All values are set to 0
 
-      Console.WriteLine("Dvec3Test val: " + DVec3Test.X + "," + DVec3Test.Y + "," + DVec3Test.Z);
+      //Console.WriteLine("Dvec3Test val: " + DVec3Test.X + "," + DVec3Test.Y + "," + DVec3Test.Z);
       //Movement logic
       if (IsKeyPressed(KeyCode.W))
       {

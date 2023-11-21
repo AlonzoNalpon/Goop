@@ -43,6 +43,7 @@ namespace GE
       { "GoopScripts.Mono.Vec3<System.Single>", ScriptFieldType::Vec3 },
       { "GoopScripts.Mono.Vec2<System.Double>", ScriptFieldType::DVec2 },
       { "GoopScripts.Mono.Vec3<System.Double>", ScriptFieldType::DVec3 },
+      { "System.Collections.Generic.List<System.Int32>", ScriptFieldType::IntArr },
 
     };
   }
@@ -173,6 +174,7 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
           }
         }
         m_monoClassMap[line.substr(commaPosition + 1).c_str()] = newScriptClassInfo;
+        m_allScriptNames.push_back(line.substr(commaPosition + 1).c_str());
       }
     }
   }

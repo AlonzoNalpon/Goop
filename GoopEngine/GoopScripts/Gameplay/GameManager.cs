@@ -7,47 +7,59 @@ using GoopScripts.Cards;
 
 namespace GoopScripts.Gameplay
 {
-  internal class GameManager
+  public class GameManager
   {
-    public double timeBeforeAction;
-    private double currTime;
-    Random rng;
-    CardManager cardManager;
+    //public double timeBeforeAction;
+    //private double currTime;
+    //Random rng;
+    //CardManager cardManager;
+
 
 		GameManager()
     {
-      timeBeforeAction = 0;
-      currTime = 0;
-      rng = new Random();
-      cardManager = new CardManager();
+      //timeBeforeAction = 0;
+      //currTime = 0;
+      //rng = new Random();
+      //cardManager = new CardManager();
     }
-    
+    public void OnTest(Stats playerStats)
+    {
+      Console.WriteLine(playerStats.GetHealth() + "::health");
+      //timeBeforeAction = 0;
+      //currTime = 0;
+      //rng = new Random();
+      //cardManager = new CardManager();
+    }
+
+
     // function to allow c++ to edit the list of cards in cardmanager
     // this should use cardmanager's c++ interface function
 
-    public void Update(Stats playerStats, Stats enemyStats, double dt)
+    public void OnUpdate(double dt)
     {
-      currTime -= dt;
+      //currTime -= dt;
+      Console.WriteLine("DT: " + dt);
+      
 
-      if (currTime < 0)
-			{
-        // Reset the timer and include overflow value
-				currTime = timeBeforeAction - currTime;
+   //   if (currTime < 0)
+			//{
+   //     // Reset the timer and include overflow value
+			//	currTime = timeBeforeAction - currTime;
 
-        // Play cards in queue
-        cardManager.Cards[(int)playerStats.m_cardQueue.First()].Play(ref playerStats, ref enemyStats);
-        playerStats.m_cardQueue.RemoveAt(0);
-        cardManager.Cards[(int)enemyStats.m_cardQueue.First()].Play(ref playerStats, ref enemyStats);
-				enemyStats.m_cardQueue.RemoveAt(0);
-        // Should probably record state here, such as win, lose and continue battle
-        // Indicate cards being played to c++ too
+   //     // Play cards in queue
+   //     cardManager.Cards[(int)playerStats.m_cardQueue.First()].Play(ref playerStats, ref enemyStats);
+   //     playerStats.m_cardQueue.RemoveAt(0);
+   //     cardManager.Cards[(int)enemyStats.m_cardQueue.First()].Play(ref playerStats, ref enemyStats);
+			//	enemyStats.m_cardQueue.RemoveAt(0);
+   //     // Should probably record state here, such as win, lose and continue battle
+   //     // Indicate cards being played to c++ too
 
-				// Everyone add 1 card to queue from deck
-				// Calls a c++ function to do the animations?
-				// or c++ can check if queue size changed and then do the animations for it
-				playerStats.m_cardQueue.Add(playerStats.m_deck[rng.Next(0, playerStats.m_deck.Count() - 1)]);
-				enemyStats.m_cardQueue.Add(enemyStats.m_deck[rng.Next(0, enemyStats.m_deck.Count() - 1)]);
-			}
+			//	// Everyone add 1 card to queue from deck
+			//	// Calls a c++ function to do the animations?
+			//	// or c++ can check if queue size changed and then do the animations for it
+			//	playerStats.m_cardQueue.Add(playerStats.m_deck[rng.Next(0, playerStats.m_deck.Count() - 1)]);
+			//	enemyStats.m_cardQueue.Add(enemyStats.m_deck[rng.Next(0, enemyStats.m_deck.Count() - 1)]);
+			//}
     }
   }
 }

@@ -24,7 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 namespace GE {
 	namespace MONO {
 
-		const size_t maxBufferSize{ 24 };
+		const size_t maxBufferSize{ 10000000 };
 
 		enum ScriptFieldType
 		{
@@ -42,7 +42,8 @@ namespace GE {
 			Vec2,
 			Vec3,
 			DVec2,
-			DVec3
+			DVec3,
+			IntArr
 		};
 
 		struct ScriptField
@@ -80,6 +81,8 @@ namespace GE {
 				Pointer to the instance of a MonoClass
 			************************************************************************/
 			ScriptInstance( const std::string& scriptName, std::vector<void*>& arg);
+
+			ScriptInstance(const std::string& scriptName);
 
 
 			/*!*********************************************************************
@@ -120,11 +123,15 @@ namespace GE {
 					throw GE::Debug::Exception<ScriptInstance>(GE::Debug::LEVEL_ERROR, "This class does not contain such data type " , ERRLG_FUNC, ERRLG_LINE);
 				}
 					
-
+				std::cout << "Normal\n";
 				const ScriptField& field = it->second;
 				mono_field_get_value(m_classInst, field.m_classField, m_fieldValBuffer);
 				return *(T*)m_fieldValBuffer;
 			}
+
+
+			MonoArray* GetFieldValueArr(const std::string& name);
+		
 
 			template<typename T>
 			void SetFieldValue(const std::string& name, T value)

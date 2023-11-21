@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  internal class Buff
+  public class Buff
   {
     public enum BuffType
     {
@@ -39,7 +39,7 @@ namespace GoopScripts.Gameplay
     }
   }
 
-  internal class BuffManager
+  public class BuffManager
   {    
     private List<Buff> m_buffs;
 

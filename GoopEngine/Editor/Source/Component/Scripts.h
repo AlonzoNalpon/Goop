@@ -57,6 +57,27 @@ namespace GE
 
 				}
 			}
+			Scripts(std::vector<std::string> const& scriptNames)
+			{
+				for (const std::string& s : scriptNames)
+				{
+					if (m_scriptMap.find(s) == m_scriptMap.end())
+					{
+						try
+						{
+							m_scriptMap[s] = ScriptInstance(s);
+						}
+						catch (GE::Debug::IExceptionBase& e)
+						{
+							e.LogSource();
+							e.Log();
+							throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + s, ERRLG_FUNC, ERRLG_LINE);
+						}
+					}
+
+				}
+			}
+
 
 
 			/*!*********************************************************************

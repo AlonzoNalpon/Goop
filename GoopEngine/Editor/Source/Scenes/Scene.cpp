@@ -52,8 +52,32 @@ void GE::Scenes::Scene::Free()
 
 void GE::Scenes::Scene::TestScene()
 {
+	
 	of->ClearSceneObjects();
 	of->LoadSceneJson("SceneTest");
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj);
+	Entity gameSys = ecs->CreateEntity();
+	std::vector<void*> arg{};
+	std::cout << "make GameManager\n";
+
+	Entity testPlayer = ecs->CreateEntity();
+
+	std::cout << "b4\n";
+	GE::Component::Game GameComp{"GameManager",arg, testPlayer,2};
+	std::cout << "Aft gc\n";
+	GE::Component::Transform GSTrans{};
+	std::vector<std::string> listOFScripts{ "Stats" };
+	GE::Component::Scripts testPLayerScript = Scripts(listOFScripts);
+	//if(testPLayerScript.m_scriptMap[])
+
+	ecs->AddComponent(gameSys, GameComp);
+	ecs->AddComponent(gameSys, GSTrans);
+
+	std::cout << testPlayer << "TESTPLAYER\n";
+	ecs->AddComponent(testPlayer, GSTrans);
+	ecs->AddComponent(testPlayer, testPLayerScript);
+
+
+	Audio::AudioEngine::GetInstance().PlaySound(Assets::AssetManager::GetInstance().GetSound("bgm1"), 0.5f, true);
 }

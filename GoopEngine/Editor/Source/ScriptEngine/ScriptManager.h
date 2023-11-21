@@ -38,10 +38,12 @@ namespace GE {
 			MonoDomain* m_appDomain{ nullptr };
 			MonoAssembly* m_coreAssembly{ nullptr };
 			std::map<std::string, ScriptClassInfo> m_monoClassMap;
+		
 
 
 		public:
 			static std::unordered_map<std::string, ScriptFieldType> m_ScriptFieldTypeMap;
+			std::vector<std::string> m_allScriptNames;
 
 			/*!*********************************************************************
 			\brief
