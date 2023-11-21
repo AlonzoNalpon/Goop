@@ -64,7 +64,10 @@ void GE::Scenes::Scene::TestScene()
 	Entity testPlayer = ecs->CreateEntity();
 
 	std::cout << "b4\n";
-	GE::Component::Game GameComp{"GameManager",arg, testPlayer,2};
+	GE::Component::Game GameComp{};
+	GameComp.m_gameSystemScript = GE::MONO::ScriptInstance("GameManager", arg);
+	GameComp.enemy = 2;
+	GameComp.player = testPlayer;
 	std::cout << "Aft gc\n";
 	GE::Component::Transform GSTrans{};
 	std::vector<std::string> listOFScripts{ "Stats" };

@@ -43,6 +43,9 @@ namespace GE::ObjectFactory
   GE::Component::Text DeserializeComponent(std::string const& componentData);
   template<>
   GE::Component::Audio DeserializeComponent(std::string const& componentData);
-
+  template<>
+  GE::Component::Game DeserializeComponent(std::string const& componentData);
+  template<>
+  GE::Component::Anchor DeserializeComponent(std::string const& componentData);
 }
 

@@ -73,6 +73,10 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Audio>(srcObj));
   }
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::ANCHOR))
+  {
+    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Anchor>(srcObj));
+  }
 }
 
 GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData const& data) const
@@ -141,6 +145,11 @@ GE::ECS::Entity ObjectFactory::CreateObject(std::string const& name, ObjectData 
     ecs.AddComponent(newData,
       DeserializeComponent<GE::Component::Audio>(data.m_components.at(GE::ECS::COMPONENT_TYPES::AUDIO)));
   }
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::ANCHOR))
+  {
+    ecs.AddComponent(newData,
+      DeserializeComponent<GE::Component::Anchor>(data.m_components.at(GE::ECS::COMPONENT_TYPES::ANCHOR)));
+  }
   return newData;
 }
 
@@ -188,6 +197,9 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       break;
     case COMPONENT_TYPES::AUDIO:
       ecs.RegisterComponent<GE::Component::Audio>();
+      break;
+    case COMPONENT_TYPES::ANCHOR:
+      ecs.RegisterComponent<GE::Component::Anchor>();
       break;
     default:
       std::ostringstream oss{};
@@ -407,6 +419,10 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
   case SYSTEM_TYPES::AUDIO_SYSTEM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::AudioSystem>();
     RegisterComponentsToSystem<Systems::AudioSystem>(sig);
+    break;
+  case SYSTEM_TYPES::OBJECT_ANCHOR_SYSTEM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::ObjectAnchorSystem>();
+    RegisterComponentsToSystem<Systems::ObjectAnchorSystem>(sig);
     break;
   default:
     std::ostringstream oss{};

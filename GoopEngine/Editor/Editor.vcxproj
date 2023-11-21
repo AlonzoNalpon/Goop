@@ -278,6 +278,7 @@
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
     <ClCompile Include="Source\Systems\GameSystem\GameSystem.cpp" />
+    <ClCompile Include="Source\Systems\ObjectAnchor\ObjectAnchorSystem.cpp" />
     <ClCompile Include="Source\Systems\Text\TextRenderSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\PhysicsSystem.cpp" />
@@ -297,6 +298,7 @@
   <ItemGroup>
     <ClInclude Include="Source\AI\Tree.h" />
     <ClInclude Include="Source\AI\TreeManager.h" />
+    <ClInclude Include="Source\Component\Anchor.h" />
     <ClInclude Include="Source\Component\Audio.h" />
     <ClInclude Include="Source\Fmod\FmodSystem.h" />
     <ClInclude Include="Source\Commands\CommandManager.h" />
@@ -425,6 +427,7 @@
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
     <ClInclude Include="Source\Systems\GameSystem\GameSystem.h" />
+    <ClInclude Include="Source\Systems\ObjectAnchor\ObjectAnchorSystem.h" />
     <ClInclude Include="Source\Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />

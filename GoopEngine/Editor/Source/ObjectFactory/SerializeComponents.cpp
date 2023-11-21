@@ -161,6 +161,22 @@ namespace GE
 			return {};
 		}
 
+		template<>
+		GE::Component::Game DeserializeComponent(std::string const& componentData)
+		{
+			//Serialization::ComponentWrapper const cw{ componentData };
+
+			return {};
+		}
+
+		template<>
+		GE::Component::Anchor DeserializeComponent(std::string const& componentData)
+		{
+			//Serialization::ComponentWrapper const cw{ componentData };
+
+			return {};
+		}
+
 
 	}	// namespace ObjectFactory
 }	// namespace GE

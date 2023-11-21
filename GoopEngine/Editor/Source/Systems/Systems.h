@@ -13,3 +13,4 @@
 #include <Systems/TweenSystem/TweenSystem.h>
 #include <Systems/GameSystem/GameSystem.h>
 #include <Systems/Audio/AudioSystem.h>
+#include <Systems/ObjectAnchor/ObjectAnchorSystem.h>

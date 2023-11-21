@@ -31,6 +31,7 @@ namespace GE
 			TEXT,
 			GAME,
 			AUDIO,
+			ANCHOR,
 			COMPONENTS_TOTAL
 		};
 
@@ -52,7 +53,8 @@ namespace GE
 			{ COMPONENT_TYPES::ENEMY_AI, "EnemyAI" },
 			{ COMPONENT_TYPES::TEXT, "Text" },
 			{ COMPONENT_TYPES::GAME, "Game" },
-			{ COMPONENT_TYPES::AUDIO, "Audio" }
+			{ COMPONENT_TYPES::AUDIO, "Audio" },
+			{ COMPONENT_TYPES::ANCHOR, "Anchor" }
 
 		};
 
@@ -71,7 +73,8 @@ namespace GE
 			{ "EnemyAI", COMPONENT_TYPES::ENEMY_AI },
 			{ "Text", COMPONENT_TYPES::TEXT },
 			{ "Game", COMPONENT_TYPES::GAME },
-			{ "Audio", COMPONENT_TYPES::AUDIO }
+			{ "Audio", COMPONENT_TYPES::AUDIO },
+			{ "Anchor", COMPONENT_TYPES::ANCHOR }
 		};
 
 		/*!*********************************************************************

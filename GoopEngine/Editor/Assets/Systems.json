@@ -26,6 +26,11 @@
         "BoxCollider",
         "Draggable"
     ],
+	"ObjectAnchorSystem": [
+		"BoxCollider",
+		"Transform",
+		"Anchor"
+	],
     "PhysicsSystem": [
         "Transform",
         "Velocity"
