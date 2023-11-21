@@ -10,6 +10,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
+#ifndef NO_IMGUI
 #include "ImGuiUI.h"
 #include "Inspector.h"
 #include <ImGui/imgui.h>
@@ -980,3 +981,4 @@ namespace
 		Indent();
 	}
 }
+#endif

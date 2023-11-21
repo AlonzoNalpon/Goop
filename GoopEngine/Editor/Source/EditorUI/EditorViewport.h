@@ -11,6 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef EDITOR_VIEWPORT_H
 #define EDITOR_VIEWPORT_H
+#ifndef NO_IMGUI
 #include <Graphics/Renderer/FrameBufferInfo.h>
 namespace GE::EditorGUI
 {
@@ -30,4 +31,5 @@ namespace GE::EditorGUI
     static void RenderViewport(Graphics::Rendering::FrameBufferInfo& fbInfo);
   };
 }
+#endif
 #endif

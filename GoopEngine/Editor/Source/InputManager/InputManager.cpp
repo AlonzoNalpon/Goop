@@ -180,11 +180,15 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scanCode, int ac
 	UNREFERENCED_PARAMETER(scanCode);
 	UNREFERENCED_PARAMETER(mod);
 
+#ifndef NO_IMGUI
 	ImGuiIO& io = ImGui::GetIO();
 	if (io.WantCaptureKeyboard)
 	{
 		ImGui_ImplGlfw_KeyCallback(window, key, scanCode, action, mod);
 	}
+#else
+	UNREFERENCED_PARAMETER(window);
+#endif
 
 	// returns -1 when keyboard functions such as change laptop brightness happens
 	if (key < 0)
@@ -197,8 +201,11 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scanCode, int ac
 // Mouse callback function
 void InputManager::MousePosCallback(GLFWwindow* window, double xpos, double ypos)
 {
+#ifndef NO_IMGUI
 	ImGui_ImplGlfw_CursorPosCallback(window, xpos, ypos);
-
+#else
+	UNREFERENCED_PARAMETER(window);
+#endif
 	m_mousePos.x = xpos;
 	m_mousePos.y = ypos;
 
@@ -209,12 +216,14 @@ void InputManager::MouseButtonCallback(GLFWwindow* pwin, int button, int action,
 	UNREFERENCED_PARAMETER(pwin);
 	UNREFERENCED_PARAMETER(mod);
 
+#ifndef NO_IMGUI
 	ImGuiIO& io = ImGui::GetIO();
 
 	if (io.WantCaptureMouse)
 	{
 		ImGui_ImplGlfw_MouseButtonCallback(pwin, button, action, mod);
 	}
+#endif
 
 	m_keyReleased[button] = (GLFW_RELEASE == action);
 	m_keysTriggered[button] = (GLFW_PRESS == action);
@@ -227,8 +236,9 @@ void InputManager::MouseScrollCallback(GLFWwindow* pwin, double xoffset, double 
 	m_scrollX = xoffset;
 	m_scrollY = yoffset;
 
+#ifndef NO_IMGUI
 	ImGui_ImplGlfw_ScrollCallback(pwin, xoffset, yoffset);
-
+#endif
 	//y_off = ((y_off + yoffset) > 4) ? 4 : ((y_off + yoffset) < -4) ? -4 : y_off + yoffset;
 	//std::cout << y_off << "\n";
 	////#ifdef _DEBUG

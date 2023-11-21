@@ -56,7 +56,9 @@ namespace GE::Application
     WindowSystem::Window window;
     Graphics::GraphicsEngine& gEngine;
     GE::FPS::FrameRateController& fRC;
+#ifndef NO_IMGUI
     GE::EditorGUI::ImGuiUI imgui;
+#endif
     GE::Input::InputManager& im;
     GE::GSM::GameStateManager& gsm;
     GE::fMOD::FmodSystem& fMod;

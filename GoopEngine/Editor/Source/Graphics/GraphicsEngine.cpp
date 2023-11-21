@@ -92,9 +92,13 @@ namespace {
                                   0.1f, 2000.1f };                         // near and far z planes
       m_renderer.Init(orthoCam, m_models.size()-1); // line model index
     }
-
 #pragma endregion
-    // TEST LOADING FONTS
+
+#ifdef NO_IMGUI
+    CreateFrameBuffer(w, h);
+#endif
+
+    // Load font model and shader
     m_fontManager.Init(m_fontMdl.shader, m_fontMdl.vaoid);
 
     // THESE ARE IMPORTANT TO HAVE

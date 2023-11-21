@@ -1,5 +1,6 @@
 #ifndef GIZMO_EDITOR_H
 #define GIZMO_EDITOR_H
+#ifndef NO_IMGUI
 #include <ImGuizmo_1_83/ImGuizmo.h>
 #include <Graphics/Renderer/FrameBufferInfo.h>
 
@@ -37,4 +38,5 @@ namespace GE::EditorGUI
   };
 }
 
+#endif
 #endif

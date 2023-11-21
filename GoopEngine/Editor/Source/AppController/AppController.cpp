@@ -77,8 +77,10 @@ namespace GE::Application
 
     GE::AI::TreeManager::GetInstance().Init();
 
+#ifndef NO_IMGUI
     imgui.Init(window);
-    
+#endif
+
     fMod.Init();
 
     im.InitInputManager(window.GetWindow(), am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), 0.1);
@@ -201,7 +203,9 @@ namespace GE::Application
     {
       GE::AI::TreeManager::GetInstance().ShutDown();
       gsm.Exit();
+#ifndef NO_IMGUI
       imgui.Exit();
+#endif
     }
     catch (GE::Debug::IExceptionBase& e)
     {

@@ -10,6 +10,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
+#ifndef NO_IMGUI
 #include <EditorUI/EditorViewport.h>
 #include <Graphics/GraphicsEngine.h>
 #include <ImGui/imgui.h>
@@ -77,8 +78,9 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
         trans.m_worldScale = { 1, 1, 1 };
         GE::Component::Sprite sprite{ textureID };
         GE::Component::BoxCollider boxCollider{ {mousePosition}, static_cast<double>(gEngine.textureManager.GetTexture(textureID).width), static_cast<double>(gEngine.textureManager.GetTexture(textureID).height) };
+#ifndef NO_IMGUI
         boxCollider.m_render = true;
-
+#endif
         ecs->AddComponent(imageEntity, trans);
         ecs->AddComponent(imageEntity, sprite);
         ecs->AddComponent(imageEntity, boxCollider);
@@ -251,3 +253,4 @@ void GE::EditorGUI::EditorViewport::RenderViewport(Graphics::Rendering::FrameBuf
   ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
 #endif
 }
+#endif

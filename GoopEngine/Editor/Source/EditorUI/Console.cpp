@@ -8,6 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
+#ifndef NO_IMGUI
 #include "Console.h"
 
 GE::EditorGUI::Console::Console() : terminal{empty, "Console"}
@@ -37,3 +38,4 @@ void GE::EditorGUI::Console::CreateContent()
 	static Console cnsl;
 	cnsl.terminal.show();
 }
+#endif
