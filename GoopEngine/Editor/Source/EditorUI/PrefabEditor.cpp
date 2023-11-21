@@ -11,6 +11,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
+#ifndef NO_IMGUI
 #include "PrefabEditor.h"
 #include <filesystem>
 #include <Serialization/Serializer.h>
@@ -429,3 +430,4 @@ void PrefabEditor::InputList(std::string propertyName, std::deque<GE::Math::dVec
 
   Indent();
 }
+#endif

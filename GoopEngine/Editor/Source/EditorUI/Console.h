@@ -8,6 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
+#ifndef NO_IMGUI
 #include "../ImTerm/terminal_helpers.hpp"
 #include "../ImTerm/terminal.hpp"
 
@@ -40,3 +41,4 @@ namespace GE::EditorGUI
 
 }
 
+#endif

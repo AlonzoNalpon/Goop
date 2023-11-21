@@ -11,6 +11,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
+#ifndef NO_IMGUI
 #include <ImGui/imgui.h>
 #include <rttr/type.h>
 #include <ObjectFactory/ObjectStructs.h>
@@ -78,3 +79,4 @@ namespace GE
     };
   }
 }
+#endif

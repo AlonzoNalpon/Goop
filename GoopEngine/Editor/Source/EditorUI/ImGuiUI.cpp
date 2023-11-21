@@ -8,7 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-
+#ifndef NO_IMGUI
 // run ImGui Demo when in debug mode
 #ifdef _DEBUG
 #define RUN_IMGUI_DEMO
@@ -124,11 +124,6 @@ void ImGuiUI::Update()
   End();
 
   Begin("Viewport");
-#if 0 // ALONZO: I NEED THIS. WILL REMOVE WHEN GUIZMO IS DONE
-  {
-    EditorGUI::EditorViewport::UpdateViewport(*frameBuffer.second);
-  }
-#else
   {
     ImGuizmo::SetOrthographic(true);
     ImGuizmo::BeginFrame(); // call the imguizmo new frame function
@@ -139,8 +134,7 @@ void ImGuiUI::Update()
 
     ImGuizmo::Enable(true);
 
-    EditorViewport::UpdateViewport(*frameBuffer.second);
-
+    EditorViewport::RenderViewport(*frameBuffer.second);
     if (GizmoEditor::isVisible())
     {
       frameBuffer.second->camera.CalculateProjMtx();
@@ -149,10 +143,10 @@ void ImGuiUI::Update()
       GizmoEditor::RenderGizmo(); // MUST RENDER AFTER VIEWPORT
       GizmoEditor::PostRenderUpdate();
     }
+    EditorViewport::UpdateViewport(*frameBuffer.second);
     GizmoEditor::SetVisible(false); // reset state
   }
 
-#endif
   End();
 
   Begin("Extras");
@@ -435,3 +429,4 @@ bool GE::EditorGUI::ImGuiHelper::ShouldRestart()
   m_restart = false;
   return shouldRestart;
 }
+#endif

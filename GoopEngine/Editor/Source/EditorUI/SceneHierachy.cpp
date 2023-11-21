@@ -8,6 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
+#ifndef NO_IMGUI
 #include "SceneHierachy.h"
 #include <ImGui/imgui.h>
 #include <Component/Transform.h>
@@ -354,3 +355,4 @@ namespace
 		}
 	}
 }
+#endif

@@ -10,6 +10,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
+#ifndef NO_IMGUI
 #include "AssetBrowser.h"
 #include <AssetManager/AssetManager.h>
 #include <ObjectFactory/ObjectFactory.h>
@@ -396,3 +397,4 @@ std::string AssetBrowser::SaveFileToExplorer(const char* extensionsFilter, unsig
 	throw GE::Debug::Exception<AssetBrowser>::Exception(GE::Debug::LEVEL_ERROR, ErrMsg("Unable to save file"));
 }
 
+#endif
