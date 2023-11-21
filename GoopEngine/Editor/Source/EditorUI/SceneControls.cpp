@@ -8,6 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
+#ifndef NO_IMGUI
 #include <ImGui/imgui.h>
 #include <ImGui/imgui_internal.h>
 #include "SceneControls.h"
@@ -64,3 +65,4 @@ void GE::EditorGUI::SceneControls::CreateContent()
     EndMenuBar();
   }
 }
+#endif

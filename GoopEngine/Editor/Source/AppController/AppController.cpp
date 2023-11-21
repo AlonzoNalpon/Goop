@@ -77,8 +77,13 @@ namespace GE::Application
 
     GE::AI::TreeManager::GetInstance().Init();
 
+#ifndef NO_IMGUI
     imgui.Init(window);
-    
+#endif
+    // Creation of game framebuffer MUST OCCUR AFTER IMGUI INIT (editor has their own)
+    gEngine.CreateFrameBuffer(window.GetWinWidth(), window.GetWinHeight());
+    //gEngine.CreateFrameBuffer(1920, 1080);
+
     fMod.Init();
 
     im.InitInputManager(window.GetWindow(), am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), 0.1);
@@ -108,8 +113,17 @@ namespace GE::Application
           fRC.EndSystemTimer("Input");
 
 #ifndef NO_IMGUI
+          // Enable/disable editor view with G key
+          if (im.IsKeyTriggered(KEY_CODE::KEY_G))
+          {
+            showEditor = !showEditor;
+            im.SetCurrFramebuffer(showEditor == true? 0:1);
+          }
+
           fRC.StartSystemTimer();
-          imgui.Update();
+          if (showEditor)
+            imgui.Update();
+
           fRC.EndSystemTimer("ImGui Update");
 #endif
 
@@ -157,7 +171,10 @@ namespace GE::Application
 
 #ifndef NO_IMGUI
           fRC.StartSystemTimer();
-          imgui.Render();
+          if (showEditor)
+            imgui.Render();
+          else
+            Graphics::GraphicsEngine::GetInstance().RenderToScreen(1);
           fRC.EndSystemTimer("ImGui Render");
 #else
           // RENDERING TO SCREEN WITHOUT IMGUI
@@ -201,7 +218,9 @@ namespace GE::Application
     {
       GE::AI::TreeManager::GetInstance().ShutDown();
       gsm.Exit();
+#ifndef NO_IMGUI
       imgui.Exit();
+#endif
     }
     catch (GE::Debug::IExceptionBase& e)
     {

@@ -1,7 +1,8 @@
+#pragma once
+#ifndef NO_IMGUI
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
 #include <AssetManager/AssetManager.h>
-#pragma once
 namespace GE
 {
   namespace EditorGUI
@@ -13,3 +14,4 @@ namespace GE
     };
   }
 }
+#endif

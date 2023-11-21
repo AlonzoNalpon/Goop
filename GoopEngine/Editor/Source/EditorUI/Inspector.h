@@ -8,6 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
+#ifndef NO_IMGUI
 #include <Graphics/Renderer/FrameBufferInfo.h>
 namespace GE::EditorGUI
 {
@@ -22,3 +23,4 @@ namespace GE::EditorGUI
 	};
 }
 
+#endif

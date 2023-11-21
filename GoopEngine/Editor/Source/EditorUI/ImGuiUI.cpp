@@ -8,7 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-
+#ifndef NO_IMGUI
 // run ImGui Demo when in debug mode
 #ifdef _DEBUG
 #define RUN_IMGUI_DEMO
@@ -429,3 +429,4 @@ bool GE::EditorGUI::ImGuiHelper::ShouldRestart()
   m_restart = false;
   return shouldRestart;
 }
+#endif
