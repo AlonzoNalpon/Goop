@@ -468,6 +468,44 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndPopup();
 					}
+#pragma region SPRITE_ANIM_LIST
+					auto spriteAnimObj = ecs.GetComponent<Component::SpriteAnim>(entity);
+					Separator();
+					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
+
+					TableNextColumn();
+
+					auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
+					auto const& textureLT{ animManager.GetAnimLT()};
+					if (BeginCombo("Sprite Anim", animManager.GetAnimName(spriteAnimObj->m_animID).c_str()))
+					{
+						for (auto const& it : textureLT)
+						{
+							if (Selectable(it.first.c_str()))
+							{
+								auto const& anim = animManager.GetAnim(it.second);
+								auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
+								spriteAnimObj->m_animID = it.second;
+								spriteAnimObj->m_currFrame = 0;
+								spriteAnimObj->m_currTime	 = 0;
+
+								// setting correct attributes for sprite
+								auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
+								textureManager.GetTextureName(anim.texture);
+
+								// Set sprite name and the texture handle
+								spriteObj->m_spriteName = textureManager.GetTextureName(anim.texture);
+								spriteObj->m_spriteData.texture = anim.texture;
+
+								spriteObj->m_spriteData.info = anim.frames[0]; // and set actual sprite info
+							}
+						}
+						EndCombo();
+					}
+					EndTable();
+					Separator();
+#pragma endregion
 				}
 				break;
 			}
