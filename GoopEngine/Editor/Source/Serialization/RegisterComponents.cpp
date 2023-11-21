@@ -128,5 +128,9 @@ RTTR_REGISTRATION
     .property("playOnStart", &Component::Audio::m_playOnStart)
     .property("channel", &Component::Audio::channel)
     ;
+  rttr::registration::class_<Component::GE_Button>("GE_Button")
+    .constructor<>()
+    .property("nextScene", &Component::GE_Button::m_nextScene)
+    ;
 
 } // RTTR Registration

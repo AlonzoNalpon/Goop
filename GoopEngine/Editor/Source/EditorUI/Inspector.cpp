@@ -706,6 +706,32 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
+			case GE::ECS::COMPONENT_TYPES::GE_BUTTON:
+			{
+				auto button = ecs.GetComponent<GE::Component::GE_Button>(entity);
+
+				if (CollapsingHeader("Button", ImGuiTreeNodeFlags_Leaf))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveButton");
+					}
+					if (BeginPopup("RemoveButton"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<GE_Button>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+					Separator();
+					InputText("Next Scene", &button->m_nextScene);
+
+				}
+				break;
+			}
 			default:
 				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled");
 				break;
@@ -847,6 +873,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 						else
 						{
 							ss << "Unable to add component " << typeid(Component::Text).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::GE_BUTTON:
+					{
+						if (!ecs.HasComponent<GE::Component::GE_Button>(entity))
+						{
+							GE::Component::GE_Button comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(GE::Component::GE_Button).name() << ". Component already exist";
 						}
 						break;
 					}

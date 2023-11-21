@@ -118,7 +118,7 @@ void AssetBrowser::CreateContentView()
 			ImGui::ImageButton(img, imgsize, { 0, 1 }, { 1, 0 });
 			if (IsItemClicked())
 			{
-				ImGuiHelper::SetSelectedAsset(file.path().string());
+				ImGuiHelper::SetSelectedAsset(GoopUtils::ExtractPrevFolderAndFileName(file.path().string()));
 			}
 			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
 			{
@@ -280,7 +280,7 @@ void AssetBrowser::InitView()
 		}
 
 		unsigned id{ 0 };
-		if (!assetManager.AlreadyLoaded(file.path().string()))
+		if (!assetManager.AlreadyLoaded(GoopUtils::ExtractPrevFolderAndFileName(file.path().string())))
 		{
 			id = assetManager.LoadImageW(file.path().string());
 			toUnload.emplace_back(id);

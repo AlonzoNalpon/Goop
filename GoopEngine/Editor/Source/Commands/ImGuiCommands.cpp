@@ -14,8 +14,9 @@
 #include <Component/EnemyAI.h>
 #include <Component/Camera.h>
 #include <Component/Text.h>
+#include <Component/Audio.h>
+#include <Component/Button.h>
 #include <rttr/registration>
-
 
 
 
@@ -160,6 +161,12 @@ void RemoveObjectCmd::RestoreComp(GE::ECS::Entity entityID, std::map<ECS::COMPON
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::ENEMY_AI); it != compList.end())
 		ecs.AddComponent(entityID, it->second.get_value<GE::Component::EnemyAI>());
+
+	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::AUDIO); it != compList.end())
+		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Audio>());
+
+	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::GE_BUTTON); it != compList.end())
+		ecs.AddComponent(entityID, it->second.get_value<GE::Component::GE_Button>());
 
 }
 

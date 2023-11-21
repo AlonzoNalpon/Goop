@@ -70,6 +70,10 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Audio>(srcObj));
   }
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::GE_BUTTON))
+  {
+    ecs.AddComponent(destObj, *ecs.GetComponent<Component::GE_Button>(srcObj));
+  }
 }
 #endif
 
@@ -132,6 +136,12 @@ void ObjectFactory::AddComponentToObject(ECS::Entity id, ObjectData const& data)
     ecs.AddComponent(id,
       DeserializeComponent<GE::Component::Audio>(data.m_components.at(GE::ECS::COMPONENT_TYPES::AUDIO)));
   }
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::GE_BUTTON))
+  {
+    ecs.AddComponent(id,
+      DeserializeComponent<GE::Component::Button>(data.m_components.at(GE::ECS::COMPONENT_TYPES::BUTTON)));
+  }
+  return newData;
 }
 #endif
 
@@ -190,6 +200,10 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Audio*>());
   }
+  else if (compType == rttr::type::get<Component::GE_Button>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::GE_Button*>());
+  }
 }
 #endif
 
@@ -234,6 +248,9 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       break;
     case COMPONENT_TYPES::AUDIO:
       ecs.RegisterComponent<GE::Component::Audio>();
+      break;
+    case COMPONENT_TYPES::GE_BUTTON:
+      ecs.RegisterComponent<GE::Component::GE_Button>();
       break;
     default:
       std::ostringstream oss{};
@@ -477,6 +494,10 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
   case SYSTEM_TYPES::AUDIO_SYSTEM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::AudioSystem>();
     RegisterComponentsToSystem<Systems::AudioSystem>(sig);
+    break;
+  case SYSTEM_TYPES::BUTTON_SYSTEM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::ButtonSystem>();
+    RegisterComponentsToSystem<Systems::ButtonSystem>(sig);
     break;
   default:
     std::ostringstream oss{};

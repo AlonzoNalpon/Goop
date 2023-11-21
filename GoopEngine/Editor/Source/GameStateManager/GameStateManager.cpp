@@ -16,6 +16,11 @@ void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
 {
 	try
 	{
+		for (const auto& x : GE::Assets::AssetManager::GetInstance().GetScenes())
+		{
+
+			std::cout << x.first << " : " << x.second << std::endl;
+		}
 		if (sm.GetCurrentScene() == next_scene)
 		{
 			sm.RestartScene();

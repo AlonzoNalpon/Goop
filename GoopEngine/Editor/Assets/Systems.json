@@ -14,6 +14,10 @@
        "EnemyAI",
        "Transform"
     ],
+    "ButtonSystem": [
+        "Button",
+        "BoxCollider"
+    ],
     "CollisionSystem": [
         "Transform",
         "BoxCollider"

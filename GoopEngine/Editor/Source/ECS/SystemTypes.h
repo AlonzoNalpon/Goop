@@ -29,6 +29,7 @@ namespace GE::ECS
 		TEXT_RENDER,
 		TWEEN_SYSTEM,
 		AUDIO_SYSTEM,
+		BUTTON_SYSTEM,
 		TOTAL_SYSTEMS // Total number of system types
 	};
 
@@ -50,7 +51,8 @@ namespace GE::ECS
 		{ SYSTEM_TYPES::POST_ROOT_TRANSFORM, "PostRootTransformSystem" },
 		{ SYSTEM_TYPES::TEXT_RENDER, "TextRenderSystem" },
 		{ SYSTEM_TYPES::TWEEN_SYSTEM, "TweenSystem" },
-		{ SYSTEM_TYPES::AUDIO_SYSTEM, "AudioSystem" }
+		{ SYSTEM_TYPES::AUDIO_SYSTEM, "AudioSystem" },
+		{ SYSTEM_TYPES::BUTTON_SYSTEM, "ButtonSystem" }
 	};
 
 	// Const map so only interated through ranged for,
@@ -68,7 +70,8 @@ namespace GE::ECS
 		{ "PostRootTransformSystem", SYSTEM_TYPES::POST_ROOT_TRANSFORM },
 		{ "TextRenderSystem", SYSTEM_TYPES::TEXT_RENDER },
 		{ "TweenSystem", SYSTEM_TYPES::TWEEN_SYSTEM },
-		{ "AudioSystem", SYSTEM_TYPES::AUDIO_SYSTEM }
+		{ "AudioSystem", SYSTEM_TYPES::AUDIO_SYSTEM },
+		{ "ButtonSystem", SYSTEM_TYPES::BUTTON_SYSTEM }
 	};
 
 	/*!*********************************************************************

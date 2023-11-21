@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   AssetManager.cpp
-\author loh.j@digipen.edu
-\date   13-September-2023
+\author loh.j\@digipen.edu
+\date   13 September 2023
 \brief
 	Asset Manager is capable of:
 		- LoadDirectory
@@ -77,15 +77,15 @@ namespace GE::Assets
 	}
 	int AssetManager::GetID(const std::string& name)
 	{
-		if (m_loadedImagesStringLookUp.find(name) == m_loadedImagesStringLookUp.end())
+		if (m_loadedImagesStringLookUp.find(GoopUtils::ExtractPrevFolderAndFileName(name)) == m_loadedImagesStringLookUp.end())
 		{
 #ifdef ASSET_MANAGER_DEBUG
 			std::cout << "DIDN'T FIND ID WITH KEY: " << name << "\n";
 #endif
-			return m_loadedImagesStringLookUp[name];
+			return m_loadedImagesStringLookUp[GoopUtils::ExtractPrevFolderAndFileName(name)];
 		}
 
-		return m_loadedImagesStringLookUp[name];
+		return m_loadedImagesStringLookUp[GoopUtils::ExtractPrevFolderAndFileName(name)];
 
 	}
 	std::string AssetManager::GetScene(std::string const& sceneName)
@@ -195,7 +195,7 @@ namespace GE::Assets
 			std::string const& currExt{ file.path().extension().string() };
 			if (ImageFileExt.find(currExt) != std::string::npos)	// image
 			{
-				m_images.emplace(file.path().stem().string(), file.path().string());
+				m_images.emplace(GoopUtils::ExtractPrevFolderAndFileName(file.path().string()), file.path().string());
 			}
 			else if (AudioFileExt.find(currExt) != std::string::npos)	// sound
 			{
@@ -380,7 +380,7 @@ namespace GE::Assets
 	{
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 
-		auto pathLookup = m_loadedImagesStringLookUp.find(path);
+		auto pathLookup = m_loadedImagesStringLookUp.find(GoopUtils::ExtractPrevFolderAndFileName(path));
 		if (pathLookup != m_loadedImagesStringLookUp.end()) {
 			// Path already exists in the map, return the existing ID or handle it as needed.
 			int existingId = pathLookup->second;
@@ -401,8 +401,8 @@ namespace GE::Assets
 		imageData.SetID(TMID);
 
 		m_loadedImages.insert(std::pair<int, ImageData>(TMID, imageData));
-		m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(path, TMID));
-		m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(TMID, path));
+		m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(GoopUtils::ExtractPrevFolderAndFileName(path), TMID));
+		m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(TMID, GoopUtils::ExtractPrevFolderAndFileName(path)));
 		 
 		return TMID;
 	}
@@ -463,6 +463,32 @@ namespace GE::Assets
 		m_loadedImages.erase(id);
 		m_loadedImagesStringLookUp.erase(GetData(id).GetName());
 		m_loadedImagesIDLookUp.erase(id);
+	}
+
+	void AssetManager::GetMapData()
+	{
+		std::cout << "==== [ m_images ] ====" << std::endl;
+		for (const auto& x : m_images)
+		{
+			std::cout << x.first << " : " << x.second << std::endl;
+		}
+
+		std::cout << std::endl;
+
+		std::cout << "==== [ m_loadedImagesStringLookUp ] ====" << std::endl;
+		for (const auto& x : m_loadedImagesStringLookUp)
+		{
+			std::cout << x.first << " : " << x.second << std::endl;
+		}
+
+		std::cout << std::endl;
+
+		std::cout << "==== [ m_scenes ] ====" << std::endl;
+		for (const auto& x : m_scenes)
+		{
+			std::cout << x.first << " : " << x.second << std::endl;
+		}
+
 	}
 
 	void AssetManager::LoadSpritesheets()

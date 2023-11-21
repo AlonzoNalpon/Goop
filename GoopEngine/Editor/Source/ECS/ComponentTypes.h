@@ -30,6 +30,7 @@ namespace GE
 			ENEMY_AI,
 			TEXT,
 			AUDIO,
+			GE_BUTTON,
 			COMPONENTS_TOTAL
 		};
 
@@ -50,7 +51,8 @@ namespace GE
 			{ COMPONENT_TYPES::DRAGGABLE, "Draggable" },
 			{ COMPONENT_TYPES::ENEMY_AI, "EnemyAI" },
 			{ COMPONENT_TYPES::TEXT, "Text" },
-			{ COMPONENT_TYPES::AUDIO, "Audio" }
+			{ COMPONENT_TYPES::AUDIO, "Audio" },
+			{ COMPONENT_TYPES::GE_BUTTON, "Button" }
 
 		};
 
@@ -68,7 +70,8 @@ namespace GE
 			{ "Draggable", COMPONENT_TYPES::DRAGGABLE },
 			{ "EnemyAI", COMPONENT_TYPES::ENEMY_AI },
 			{ "Text", COMPONENT_TYPES::TEXT },
-			{ "Audio", COMPONENT_TYPES::AUDIO }
+			{ "Audio", COMPONENT_TYPES::AUDIO },
+			{ "Button", COMPONENT_TYPES::GE_BUTTON }
 		};
 
 		/*!*********************************************************************
