@@ -13,12 +13,5 @@ namespace GE::Component
     //GE::MONO::ScriptInstance enemyScript;
 
     GE::MONO::ScriptInstance m_gameSystemScript;
-
-    Game(std::string scriptName, std::vector<void*> arg, GE::ECS::Entity p, GE::ECS::Entity e)
-    {
-      player = p;
-      enemy = e;
-      m_gameSystemScript = GE::MONO::ScriptInstance(scriptName, arg);
-    }
   };
 }

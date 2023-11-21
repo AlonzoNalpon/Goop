@@ -13,6 +13,6 @@ namespace GE::Systems
 {
   class ObjectAnchorSystem : public ECS::System
   {
-
+    void FixedUpdate();
   };
 }

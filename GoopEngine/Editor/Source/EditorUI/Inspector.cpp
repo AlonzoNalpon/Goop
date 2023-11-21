@@ -112,7 +112,7 @@ namespace
 
 	/*!*********************************************************************
 	\brief
-		Wrapper for to create specialized inspector list of vector of 
+		Wrapper to create specialized inspector list of vector of 
 		linear forces
 
 	\param[in] propertyName
@@ -132,7 +132,7 @@ namespace
 
 	/*!*********************************************************************
 	\brief
-		Wrapper for to create specialized inspector list of deque of
+		Wrapper to create specialized inspector list of deque of
 		vec3
 
 	\param[in] propertyName
@@ -152,7 +152,7 @@ namespace
 
 	/*!*********************************************************************
 	\brief
-		Wrapper for to create specialized inspector list of queue of
+		Wrapper to create specialized inspector list of queue of
 		Tweens
 
 	\param[in] propertyName
@@ -169,6 +169,39 @@ namespace
 	************************************************************************/
 	template <>
 	void InputList(std::string propertyName, std::deque<GE::Component::Tween::Action>& list, float fieldWidth, bool disabled);
+
+	/*!*********************************************************************
+	\brief
+		Wrapper to create specialized inspector list of vector of
+		Entities
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] list
+		Vector of entities
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
+	template <>
+	void InputList(std::string propertyName, std::vector<GE::ECS::Entity>& list, float fieldWidth, bool disabled);
+
+	/*!*********************************************************************
+	\brief
+		Predefined behaviour of a remove component popup
+
+	\param[in] name
+		Name of the popup
+
+	\return
+		If component was removed
+	************************************************************************/
+	template <typename T>
+	bool RemoveComponentPopup(std::string name, GE::ECS::Entity entity);
 }
 
 void GE::EditorGUI::Inspector::CreateContent()
@@ -294,19 +327,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto col = ecs.GetComponent<BoxCollider>(entity);
 				if (ImGui::CollapsingHeader("Collider", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					if (IsItemClicked(ImGuiMouseButton_Right))
+					if (RemoveComponentPopup<BoxCollider>("Collider", entity))
 					{
-						OpenPopup("RemoveCollider");
-					}
-					if (BeginPopup("RemoveCollider"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<BoxCollider>(entity);
-							EndPopup();
-							break;
-						}
-						EndPopup();
+						break;
 					}
 
 					Separator();
@@ -329,19 +352,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto vel = ecs.GetComponent<Velocity>(entity);
 				if (ImGui::CollapsingHeader("Forces", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					if (IsItemClicked(ImGuiMouseButton_Right))
+					if (RemoveComponentPopup<Velocity>("Forces", entity))
 					{
-						OpenPopup("RemoveVelocity");
-					}
-					if (BeginPopup("RemoveVelocity"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<Velocity>(entity);
-							EndPopup();
-							break;
-						}
-						EndPopup();
+						break;
 					}
 
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
@@ -374,19 +387,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto sprite = ecs.GetComponent<Sprite>(entity);
 				if (ImGui::CollapsingHeader("Sprite", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					if (IsItemClicked(ImGuiMouseButton_Right))
+					if (RemoveComponentPopup<Sprite>("Sprite", entity))
 					{
-						OpenPopup("RemoveSprite");
-					}
-					if (BeginPopup("RemoveSprite"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<Sprite>(entity);
-							EndPopup();
-							break;
-						}
-						EndPopup();
+						break;
 					}
 					ImVec2 imgSize{ 100, 100 };
 					SetCursorPosX(GetContentRegionAvail().x / 2 - imgSize.x / 2);
@@ -454,19 +457,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 				//auto anim = ecs.GetComponent<SpriteAnim>(entity);
 				if (ImGui::CollapsingHeader("Sprite Animation", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					if (IsItemClicked(ImGuiMouseButton_Right))
+					if (RemoveComponentPopup<SpriteAnim>("Sprite Animation", entity))
 					{
-						OpenPopup("RemoveSpriteAnimation");
-					}
-					if (BeginPopup("RemoveSpriteAnimation"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<SpriteAnim>(entity);
-							EndPopup();
-							break;
-						}
-						EndPopup();
+						break;
 					}
 				}
 				break;
@@ -479,19 +472,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto tween = ecs.GetComponent<Tween>(entity);
 				if (ImGui::CollapsingHeader("Tween", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					if (IsItemClicked(ImGuiMouseButton_Right))
+					if (RemoveComponentPopup<Tween>("Tween", entity))
 					{
-						OpenPopup("RemoveTween");
-					}
-					if (BeginPopup("RemoveTween"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<Tween>(entity);
-							EndPopup();
-							break;
-						}
-						EndPopup();
+						break;
 					}
 
 					Separator();
@@ -512,23 +495,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 			case GE::ECS::COMPONENT_TYPES::SCRIPTS:
 			{
 				//auto scripts = ecs.GetComponent<Scripts>(entity);
-				if (ImGui::CollapsingHeader("Scripts", ImGuiTreeNodeFlags_DefaultOpen))
+				if (ImGui::CollapsingHeader("Script", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					//float inputWidth = (contentSize - charSize - 30) / 3;
 					//GE::Component::Scripts* allScripts = ecs.GetComponent<Scripts>(entity);
-					if (IsItemClicked(ImGuiMouseButton_Right))
+					if (RemoveComponentPopup<Scripts>("Script", entity))
 					{
-						OpenPopup("RemoveScripts");
-					}
-					if (BeginPopup("RemoveScripts"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<Scripts>(entity);
-							EndPopup();
-							break;
-						}
-						EndPopup();
+						break;
 					}
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
@@ -608,19 +581,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 			{
 				if (CollapsingHeader("Draggable", ImGuiTreeNodeFlags_Leaf))
 				{
-					if (IsItemClicked(ImGuiMouseButton_Right))
+					if (RemoveComponentPopup<Draggable>("Draggable", entity))
 					{
-						OpenPopup("RemoveDraggable");
-					}
-					if (BeginPopup("RemoveDraggable"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<Draggable>(entity);
-							EndPopup();
-							break;
-						}
-						EndPopup();
+						break;
 					}
 				}
 				break;
@@ -629,19 +592,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 			{
 				if (ImGui::CollapsingHeader("Text", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					if (IsItemClicked(ImGuiMouseButton_Right))
+					if (RemoveComponentPopup<Component::Text>("Text", entity))
 					{
-						OpenPopup("RemoveText");
-					}
-					if (BeginPopup("RemoveText"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<Component::Text>(entity);
-							EndPopup();
-							break;
-						}
-						EndPopup();
+						break;
 					}
 
 					auto textObj = ecs.GetComponent<Component::Text>(entity);
@@ -689,19 +642,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 				auto audio = ecs.GetComponent<GE::Component::Audio>(entity);
 				if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					if (IsItemClicked(ImGuiMouseButton_Right))
+					if (RemoveComponentPopup<Audio>("Audio", entity))
 					{
-						OpenPopup("RemoveAudio");
-					}
-					if (BeginPopup("RemoveAudio"))
-					{
-						if (Selectable("Remove Component"))
-						{
-							ecs.RemoveComponent<Audio>(entity);
-							EndPopup();
-							break;
-						}
-						EndPopup();
+						break;
 					}
 
 					Separator();
@@ -740,6 +683,36 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 				}
 				break;
+			}
+			case GE::ECS::COMPONENT_TYPES::ANCHOR:
+			{
+				auto anchor = ecs.GetComponent<Anchor>(entity);
+				if (ImGui::CollapsingHeader("Anchor", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (RemoveComponentPopup<Anchor>("Anchor", entity))
+					{
+						break;
+					}
+				}
+
+				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+				TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+				TableNextRow();
+				if (BeginCombo("##", Anchor::toString(anchor->m_type).c_str()))
+				{
+					for (int j{}; j < Anchor::TOTAL_TYPES; ++j)
+					{
+						std::string propName = Anchor::toString(static_cast<Anchor::ANCHOR_TYPE>(i));
+
+						if (Selectable(propName.c_str()))
+						{
+							anchor->m_type = Anchor::toType(propName);
+						}
+					}
+					EndCombo();
+				}
+				TableNextRow();
+				InputList("Anchors", anchor->m_anchored, charSize);
 			}
 			default:
 				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled");
@@ -1052,6 +1025,72 @@ namespace
 			TreePop();
 		}
 		Indent();
+	}
+
+	template <>
+	void InputList(std::string propertyName, std::vector<GE::ECS::Entity>& list, float fieldWidth, bool disabled)
+	{
+		// 12 characters for property name
+		float charSize = CalcTextSize("012345678901").x;
+
+		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			Separator();
+			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
+			for (unsigned int i{}; i < list.size(); ++i)
+			{
+				GE::ECS::Entity& entity{ i };
+				PushID((std::to_string(i)).c_str());
+				ImGui::Text(propertyName.c_str());
+				TableNextColumn();
+				int tempEntity = static_cast<int>(entity);
+				InputInt("##", &tempEntity);
+				list[i] = static_cast<GE::ECS::Entity>(tempEntity);
+				if (BeginDragDropTarget())
+				{
+					const ImGuiPayload* pl = AcceptDragDropPayload("ENTITY");
+					list[i] = *static_cast<GE::ECS::Entity*>(pl->Data);
+					EndDragDropTarget();
+				}
+				TableNextRow();
+				PopID();
+			}
+			EndTable();
+
+			Separator();
+			Unindent();
+			// 20 magic number cuz the button looks good
+			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
+			{
+				list.emplace_back(vec3{ 0, 0, 0 }, 0);
+			}
+
+			TreePop();
+		}
+		Indent();
+	}
+
+	template <typename T>
+	bool RemoveComponentPopup(std::string name, GE::ECS::Entity entity)
+	{
+		const char* label = ("Remove" + name).c_str();
+		if (IsItemClicked(ImGuiMouseButton_Right))
+		{
+			OpenPopup(label);
+		}
+		if (BeginPopup(label))
+		{
+			if (Selectable("Remove Component"))
+			{
+				static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+				ecs.RemoveComponent<T>(entity);
+				EndPopup();
+				return true;
+			}
+			EndPopup();
+		}
+		return false;
 	}
 }
 #endif
