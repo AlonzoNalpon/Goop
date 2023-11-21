@@ -197,6 +197,11 @@ void ImGuiUI::Update()
     GE::GSM::GameStateManager& gsm = { GE::GSM::GameStateManager::GetInstance() };
     gsm.SetNextScene("SceneTest");
   }
+  else if (Button("CHECK ASSET MANAGER MAP"))
+  {
+    GE::Assets::AssetManager& am = { GE::Assets::AssetManager::GetInstance() };
+    am.GetMapData();
+  }
 
   static GE::fMOD::FmodSystem& fMod = GE::fMOD::FmodSystem::GetInstance();
   if (Button("Stop all sounds"))

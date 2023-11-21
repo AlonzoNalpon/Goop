@@ -59,6 +59,8 @@ rttr::variant Deserializer::GetComponentVariant(rttr::type const& valueType, std
     return ObjectFactory::DeserializeComponent<Component::Text>(componentData);
   else if (valueType == rttr::type::get<Component::Audio>())
     return ObjectFactory::DeserializeComponent<Component::Audio>(componentData);
+  else if (valueType == rttr::type::get<Component::GE_Button>())
+    return ObjectFactory::DeserializeComponent<Component::GE_Button>(componentData);
 
     std::ostringstream oss{};
     oss << "Trying to get unsupported component variant (" << valueType.get_name().to_string() << ")";

@@ -166,6 +166,16 @@ namespace GE
 			return audio;
 		}
 
+		template<>
+		GE::Component::GE_Button DeserializeComponent(std::string const& componentData)
+		{
+			Serialization::ComponentWrapper const cw{ componentData };
+			Component::GE_Button button;
+			button.m_nextScene = cw.Get<std::string>("nextScene");
+
+			return button;
+		}
+
 
 	}	// namespace ObjectFactory
 }	// namespace GE

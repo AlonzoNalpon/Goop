@@ -308,6 +308,12 @@ void PrefabEditor::CreateContent()
             case GE::ECS::COMPONENT_TYPES::TEXT:
               ret = Component::Text();
               break;
+            case GE::ECS::COMPONENT_TYPES::AUDIO:
+              ret = Component::Audio();
+              break;
+            case GE::ECS::COMPONENT_TYPES::GE_BUTTON:
+              ret = Component::GE_Button();
+              break;
             }
             m_currPrefab.m_components.emplace_back(ret);
           }

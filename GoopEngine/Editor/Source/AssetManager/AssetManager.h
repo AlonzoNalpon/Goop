@@ -202,6 +202,13 @@ namespace GE::Assets
     ************************************************************************/
     void FreeImage(int id);
 
+
+    /*!*********************************************************************
+    \brief
+      For Debugging purposes. Prints to std::cout all the items in the map.
+    ************************************************************************/
+    void GetMapData();
+
     /*!*********************************************************************
     \brief
       Check if the sprites has been loaded correctly by iterating through
@@ -252,6 +259,9 @@ namespace GE::Assets
     inline std::unordered_map<std::string, std::string> const& GetPrefabs() const noexcept { return m_prefabs; }
 
     inline std::unordered_map<std::string, std::string> const& GetImages() const noexcept { return m_images; }
+
+    inline std::unordered_map<std::string, std::string> const& GetScenes() const noexcept { return m_scenes; }
+
 
 #include "AssetManager.tpp"
 
