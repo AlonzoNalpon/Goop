@@ -9,9 +9,9 @@
             }
         },
         {
-            "Sprite": {
-                "filename": "Knight"
-            }
+          "Sprite": {
+            "spriteName": "Knight"
+          }
         },
         {
             "BoxCollider": {
