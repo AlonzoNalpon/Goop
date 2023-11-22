@@ -223,6 +223,10 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Card*>());
   }
+  else if (compType == rttr::type::get<Component::Game>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Game*>());
+  }
 }
 
 void ObjectFactory::AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const

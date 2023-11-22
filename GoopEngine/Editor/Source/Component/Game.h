@@ -6,8 +6,8 @@ namespace GE::Component
 {
   struct Game
   {
-    GE::ECS::Entity player;
-    GE::ECS::Entity enemy;
+    GE::ECS::Entity m_player;
+    GE::ECS::Entity m_enemy;
 
     GE::ECS::Entity m_pauseMenu;
 

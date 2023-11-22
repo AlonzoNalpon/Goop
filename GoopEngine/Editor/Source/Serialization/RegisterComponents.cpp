@@ -151,4 +151,11 @@ RTTR_REGISTRATION
     .constructor<>()
     .property("elements", &Component::CardHolder::elements)
     ;
+
+  rttr::registration::class_<Component::Game>("Game")
+    .constructor<>()
+    .property("player", &Component::Game::m_player)
+    .property("enemy", &Component::Game::m_enemy)
+    .property("pauseMenu", &Component::Game::m_pauseMenu)
+    ;
 } // RTTR Registration

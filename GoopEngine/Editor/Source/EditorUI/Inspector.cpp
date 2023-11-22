@@ -1026,6 +1026,31 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
+			case GE::ECS::COMPONENT_TYPES::GAME:
+			{
+				auto* game = ecs.GetComponent<GE::Component::Game>(entity);
+				if (ImGui::CollapsingHeader("Card Holder", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (RemoveComponentPopup<GE::Component::Game>("Game", entity))
+					{
+						break;
+					}
+
+					Separator();
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					TableNextRow();
+
+					InputEntity("Player Entity", game->m_player);
+					TableNextRow();
+					InputEntity("Enemy Entity", game->m_enemy);
+					TableNextRow();
+					InputEntity("Pause Menu", game->m_pauseMenu);
+
+					EndTable();
+				}
+				break;
+			}
 			default:
 				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled");
 				break;
@@ -1233,7 +1258,21 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
+					case GE::ECS::COMPONENT_TYPES::GAME:
+					{
+						if (!ecs.HasComponent<GE::Component::Game>(entity))
+						{
+							GE::Component::Game comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(GE::Component::Game).name() << ". Component already exist";
+						}
+						break;
+					}
 					default:
+						ss << "Try to add an unhandled component";
 						break;
 					}
 					addingComponent = false;
@@ -1282,6 +1321,7 @@ namespace
 	
 	bool InputCheckBox(std::string propertyName, bool& property, bool disabled)
 	{
+		PushID(propertyName.c_str());
 		bool valChanged{ false };
 		BeginDisabled(disabled);
 		TableNextColumn();
@@ -1289,17 +1329,25 @@ namespace
 		TableNextColumn();
 		valChanged = Checkbox(("##" + propertyName).c_str(), &property);
 		EndDisabled();
+		PopID();
 		return valChanged;
 	}
 
 	bool InputEntity(std::string propertyName, GE::ECS::Entity& entity, bool disabled)
 	{
 		int tempEntity = static_cast<int>(entity);
-		if (InputInt("##", &tempEntity))
+		BeginDisabled(disabled);
+		TableNextColumn();
+		ImGui::Text(propertyName.c_str());
+		TableNextColumn();
+		SetNextItemWidth(GetWindowSize().x);
+		if (InputInt(("##" + propertyName).c_str(), &tempEntity, 0))
 		{
 			entity = static_cast<GE::ECS::Entity>(tempEntity);
+			EndDisabled();
 			return true;
 		}
+		EndDisabled();
 		return false;
 	}
 
