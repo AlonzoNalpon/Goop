@@ -97,11 +97,13 @@ void GE::MONO::ScriptManager::InitMono()
 
   // Get Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPosition", GE::MONO::GetPosition);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);  
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetScale", GE::MONO::GetScale);
 
   // Set Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::SetPosition", GE::MONO::SetPosition);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetRotation", GE::MONO::SetRotation);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetScale", GE::MONO::SetScale);
 
   // Node Editor Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetCurrentChildIndex", GE::Systems::EnemySystem::GetCurrentChildIndex);
