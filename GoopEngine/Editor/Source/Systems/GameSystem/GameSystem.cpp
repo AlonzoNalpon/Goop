@@ -49,10 +49,13 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event const* event)
   if (event->GetCategory() == GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS)
   {
     // There should only be 1 entity
-    Game* game = m_ecs->GetComponent<Game>(*m_entities.begin());
-    if (game != nullptr)
+    if (!m_entities.empty())
     {
-      m_ecs->SetIsActiveEntity(game->m_pauseMenu, true);
+      Game* game = m_ecs->GetComponent<Game>(*m_entities.begin());
+      if (game != nullptr)
+      {
+        m_ecs->SetIsActiveEntity(game->m_pauseMenu, true);
+      }
     }
   }
 }
