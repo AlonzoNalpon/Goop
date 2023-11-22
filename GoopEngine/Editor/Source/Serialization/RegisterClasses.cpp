@@ -131,7 +131,7 @@ RTTR_REGISTRATION
       rttr::value("DAWSON_EMPOWERED_ATTACK",      GE::Component::Card::CardID::DAWSON_EMPOWERED_ATTACK),
       rttr::value("DAWSON_NORMAL_BLOCK",          GE::Component::Card::CardID::DAWSON_NORMAL_BLOCK),
       rttr::value("DAWSON_DEBUFF_CHARGE_ATTACK",  GE::Component::Card::CardID::DAWSON_DEBUFF_CHARGE_ATTACK),
-      rttr::value("DAWSON_DEBUFF_SPEED_UP_QUEUE", GE::Component::Card::CardID::DAWSON_DEBUFF_SPEED_UP_QUEUE),
+      rttr::value("DAWSON_DEBUFF_SPEED_UP_QUEUE", GE::Component::Card::CardID::DAWSON_DEBUFF_SPEED_UP_QUEUE)
       );
   //rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")
   //  (
