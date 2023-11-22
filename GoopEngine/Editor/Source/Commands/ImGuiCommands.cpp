@@ -135,38 +135,38 @@ void RemoveObjectCmd::RestoreComp(GE::ECS::Entity entityID, std::map<ECS::COMPON
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::TRANSFORM); it != compList.end())
 	{
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Transform>());
+		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Transform*>());
 	}
 		
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::BOX_COLLIDER); it != compList.end())
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::BoxCollider>());
+		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::BoxCollider*>());
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::VELOCITY); it != compList.end())
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Velocity>());
+		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Velocity*>());
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::SPRITE); it != compList.end())
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Sprite>());
+		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Sprite*>());
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::SPRITE_ANIM); it != compList.end())
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::SpriteAnim>());
+		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::SpriteAnim*>());
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::TWEEN); it != compList.end())
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Tween>());
+		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Tween*>());
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::SCRIPTS); it != compList.end())
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Scripts>());
+		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Scripts*>());
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::DRAGGABLE); it != compList.end())
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Transform>());
+		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Transform*>());
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::ENEMY_AI); it != compList.end())
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::EnemyAI>());
+		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::EnemyAI*>());
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::AUDIO); it != compList.end())
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::Audio>());
+		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Audio*>());
 
 	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::GE_BUTTON); it != compList.end())
-		ecs.AddComponent(entityID, it->second.get_value<GE::Component::GE_Button>());
+		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::GE_Button*>());
 
 }
 

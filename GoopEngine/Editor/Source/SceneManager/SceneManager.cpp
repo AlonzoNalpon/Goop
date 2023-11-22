@@ -97,14 +97,7 @@ void GE::Scenes::SceneManager::LoadSceneFromExplorer(std::string const& filepath
   std::string::size_type const startPos{ filepath.find_last_of("\\") + 1 };
   std::string const filename{ filepath.substr(startPos, filepath.find_last_of(".") - startPos) };
   // reload files if it doesn't exist
-  try
-  {
-    am->GetScene(filename);
-  }
-  catch (std::out_of_range const&)
-  {
-    am->ReloadFiles(Assets::SCENE);
-  }
+  Assets::AssetManager::GetInstance().ReloadFiles(Assets::SCENE);
   SetNextScene(filename);
 }
 
@@ -125,9 +118,17 @@ void GE::Scenes::SceneManager::SaveScene() const
  
   // Save the scene
   std::ostringstream filepath{};
-  filepath << Assets::AssetManager::GetInstance().GetConfigData<std::string>("Assets Dir")
-    << "Scenes/" << m_currentScene << Assets::AssetManager::GetInstance().GetConfigData<std::string>("Scene File Extension");
+  filepath << am->GetConfigData<std::string>("Assets Dir")
+    << "Scenes/" << m_currentScene << am->GetConfigData<std::string>("Scene File Extension");
   Serialization::Serializer::SerializeScene(filepath.str());
 
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Successfully saved scene to " + filepath.str());
+}
+
+void GE::Scenes::SceneManager::TemporarySave() const
+{
+  std::string const filepath{ am->GetConfigData<std::string>("TempDir") + m_tempScene + am->GetConfigData<std::string>("Scene File Extension") };
+  Serialization::Serializer::SerializeScene(filepath);
+
+  GE::Debug::ErrorLogger::GetInstance().LogMessage("Scene has been temporarily saved");
 }

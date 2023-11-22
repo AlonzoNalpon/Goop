@@ -405,6 +405,7 @@ bool GE::EditorGUI::ImGuiHelper::ShouldPlay()
 
 void GE::EditorGUI::ImGuiHelper::Play()
 {
+  GSM::GameStateManager::GetInstance().TemporarySave();
   m_play = true;
   m_step = false;
   m_pause = true;
