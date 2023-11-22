@@ -147,7 +147,10 @@ namespace GE {
 		************************************************************************/
 		int CalculateGCD(int large, int small);
 
-		static unsigned int GetHealth(GE::ECS::Entity entity);
-		static void SetHealth(GE::ECS::Entity entity, unsigned int health);
+		/*!******************************************************************
+		\brief
+		  Plays an animation given a name from the animation manager.
+		********************************************************************/
+		void PlayAnimation(std::string animName);
 	}
 }

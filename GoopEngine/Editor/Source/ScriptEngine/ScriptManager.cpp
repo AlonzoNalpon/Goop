@@ -98,14 +98,10 @@ void GE::MONO::ScriptManager::InitMono()
   // Get Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPosition", GE::MONO::GetPosition);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetHealth", GE::MONO::GetHealth);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetScale", GE::MONO::GetScale);
 
   // Set Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::SetPosition", GE::MONO::SetPosition);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetRotation", GE::MONO::SetRotation);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetHealth", GE::MONO::SetHealth);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetScale", GE::MONO::SetScale);
 
   // Node Editor Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetCurrentChildIndex", GE::Systems::EnemySystem::GetCurrentChildIndex);
@@ -118,6 +114,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetResult", GE::Systems::EnemySystem::SetResult);
   mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
 
+  // Animation
+  //mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", <PLAY ANIMIATION FUNCTION HERE>);
 
 
   //Load the CSharpAssembly (dll file)
@@ -414,20 +412,9 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
   return oldTransform->m_rot;
 }
 
-unsigned int GE::MONO::GetHealth(GE::ECS::Entity entity)
+void PlayAnimation(std::string /*animName*/)
 {
-  UNREFERENCED_PARAMETER(entity);
-  //static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-  //return ecs.GetComponent<GE::Component::Stats>(entity)->m_health;
-  return 1;
-}
-
-void GE::MONO::SetHealth(GE::ECS::Entity entity, unsigned int health)
-{
-  UNREFERENCED_PARAMETER(entity);
-  UNREFERENCED_PARAMETER(health);
-  //static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-  //ecs.GetComponent<GE::Component::Stats>(entity)->m_health = health;
+  // call play animation here
 }
 
 int GE::MONO::CalculateGCD(int large, int small)
