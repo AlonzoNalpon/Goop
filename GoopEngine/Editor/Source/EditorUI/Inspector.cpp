@@ -38,7 +38,7 @@ namespace
 	\param[in] propertyName
 		Label name
 
-	\param[in] property
+	\param[in,out] property
 		Vec3 input
 
 	\param[in] fieldWidth
@@ -59,7 +59,7 @@ namespace
 	\param[in] propertyName
 		Label name
 
-	\param[in] property
+	\param[in,out] property
 		Double input
 
 	\param[in] fieldWidth
@@ -80,7 +80,7 @@ namespace
 	\param[in] property
 		Bool input
 
-	\param[in] fieldWidth
+	\param[in,out] fieldWidth
 		Width of input field
 
 	\param[in] disabled
@@ -90,6 +90,24 @@ namespace
 		If value has changed
 	************************************************************************/
 	bool InputCheckBox(std::string propertyName, bool& property, bool disabled = false);
+
+	/*!******************************************************************
+	\brief
+	  Wrapper to create an input field for an entity reference.
+
+	\param[in] propertyName
+		Label name
+
+	\param[in,out] entity
+		Input entity
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	********************************************************************/
+	bool InputEntity(std::string propertyName, GE::ECS::Entity& entity, bool disabled = false);
 
 	/*!*********************************************************************
 	\brief
@@ -436,6 +454,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							if (Selectable(it.first.c_str()))
 							{
 								auto const& texture{ textureManager.GetTexture(it.second) };
+								spriteObj->m_spriteName = it.first;
 								spriteObj->m_spriteData.texture = texture.textureHandle;
 								spriteObj->m_spriteData.info.height = texture.height;
 								spriteObj->m_spriteData.info.width = texture.width;
@@ -744,6 +763,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					Separator();
 
+					InputEntity("Anchor", anchor->m_entity);
 					if (BeginCombo("Anchor Type", Anchor::toString(anchor->m_type).c_str()))
 					{
 						for (int j{}; j < Anchor::TOTAL_TYPES; ++j)
@@ -757,7 +777,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndCombo();
 					}
-
 					if (anchor->m_type == Anchor::IS_ANCHOR)
 					{
 						InputList("Anchor", anchor->m_anchored, charSize);
@@ -863,6 +882,17 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (!ecs.HasComponent<Sprite>(entity))
 						{
 							Sprite comp;
+							auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
+							auto const& textureLT{ textureManager.GetTextureLT() };
+							auto textureIt = textureLT.begin(); // iterator for first texture (alphabetically)
+							auto const& texture = textureManager.GetTexture(textureIt->second);
+							comp.m_spriteName = textureIt->first;
+							comp.m_spriteData.texture = textureIt->second;
+							comp.m_spriteData.info.height = texture.height;
+							comp.m_spriteData.info.width = texture.width;
+							comp.m_spriteData.info.texDims = { 1.f, 1.f }; // default
+							comp.m_spriteData.info.texCoords = {}; // bottom left
+							
 							ecs.AddComponent(entity, comp);
 						}
 						else
@@ -1021,6 +1051,25 @@ namespace
 		return valChanged;
 	}
 
+	bool InputEntity(std::string propertyName, GE::ECS::Entity& entity, bool disabled)
+	{
+		int tempEntity = static_cast<int>(entity);
+		if (InputInt("##", &tempEntity))
+		{
+			entity = static_cast<GE::ECS::Entity>(tempEntity);
+			return true;
+		}
+		if (BeginDragDropTarget())
+		{
+			const ImGuiPayload* pl = AcceptDragDropPayload("ENTITY");
+			entity = *static_cast<GE::ECS::Entity*>(pl->Data);
+			EndDragDropTarget();
+			return true;
+		}
+
+		return false;
+	}
+
 	template <>
 	void InputList(std::string propertyName, std::vector<GE::Component::LinearForce>& list, float fieldWidth, bool disabled)
 	{
@@ -1148,15 +1197,7 @@ namespace
 				PushID((std::to_string(i)).c_str());
 				ImGui::Text(propertyName.c_str());
 				TableNextColumn();
-				int tempEntity = static_cast<int>(entity);
-				InputInt("##", &tempEntity);
-				list[i] = static_cast<GE::ECS::Entity>(tempEntity);
-				if (BeginDragDropTarget())
-				{
-					const ImGuiPayload* pl = AcceptDragDropPayload("ENTITY");
-					list[i] = *static_cast<GE::ECS::Entity*>(pl->Data);
-					EndDragDropTarget();
-				}
+				InputEntity("Entity", entity);
 				TableNextRow();
 				PopID();
 			}
