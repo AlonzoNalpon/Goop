@@ -130,6 +130,7 @@ RTTR_REGISTRATION
     ;
   rttr::registration::class_<Component::GE_Button>("GE_Button")
     .constructor<>()
+    .property("buttonType", &Component::GE_Button::m_buttonType)
     .property("nextScene", &Component::GE_Button::m_nextScene)
     ;
 

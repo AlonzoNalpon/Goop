@@ -146,6 +146,12 @@
                 "Sprite": {
                     "spriteName": "Button_Setting"
                 }
+            },
+            {
+                "GE_Button": {
+                    "buttonType": "CHANGE_SCENE",
+                    "nextScene": "Robot"
+                }
             }
         ]
     },
@@ -179,6 +185,7 @@
             },
             {
                 "GE_Button": {
+                    "buttonType": "CHANGE_SCENE",
                     "nextScene": "SceneTest"
                 }
             }

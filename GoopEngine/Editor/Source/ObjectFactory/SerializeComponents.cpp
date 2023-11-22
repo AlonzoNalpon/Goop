@@ -9,6 +9,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "SerializeComponents.h"
+// #include <Systems/Button/ButtonTypes.h>
 
 namespace GE
 {
@@ -171,6 +172,7 @@ namespace GE
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
 			Component::GE_Button button;
+			button.m_buttonType = static_cast<GE::ECS::BUTTON_TYPES>(cw.Get<int>("buttonType"));
 			button.m_nextScene = cw.Get<std::string>("nextScene");
 
 			return button;

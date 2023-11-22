@@ -7,21 +7,13 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
+#include <Systems/Button/ButtonTypes.h>
 
 namespace GE::Component
 {
 	struct GE_Button
 	{
+		GE::ECS::BUTTON_TYPES m_buttonType = GE::ECS::BUTTON_TYPES::CHANGE_SCENE;
 		std::string m_nextScene = "";
 	};
-	//class Button // Goop Button
-	//{
-	//public:
-
-	//	inline std::string GetNextScene() const { return m_nextScene; }
-
-	//private:
-	//	std::string m_nextScene = "";
-	//	// Empty struct to indicate entity as draggable
-	//};
 }

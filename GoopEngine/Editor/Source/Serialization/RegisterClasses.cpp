@@ -97,6 +97,15 @@ RTTR_REGISTRATION
       rttr::value("TOTAL_CHANNELS", fMOD::FmodSystem::ChannelType::TOTAL_CHANNELS)
       );
 
+  rttr::registration::enumeration<GE::ECS::BUTTON_TYPES>("BUTTON_TYPES")
+    (
+      rttr::value("CHANGE_SCENE", GE::ECS::BUTTON_TYPES::CHANGE_SCENE),
+      rttr::value("SELECT_CARD", GE::ECS::BUTTON_TYPES::SELECT_CARD),
+      rttr::value("DESELECT_CARD", GE::ECS::BUTTON_TYPES::DESELECT_CARD),
+      rttr::value("END_TURN", GE::ECS::BUTTON_TYPES::END_TURN),
+      rttr::value("TOTAL_BUTTON_TYPES", GE::ECS::BUTTON_TYPES::BUTTON_TYPE_TOTAL)
+      );
+
   //rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")
   //  (
   //    rttr::value("TRANSFORM", ECS::COMPONENT_TYPES::TRANSFORM),

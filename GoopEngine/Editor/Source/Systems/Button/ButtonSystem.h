@@ -24,9 +24,6 @@ namespace GE
 			void HandleEvent(Events::Event const* event) override;
 
 		private:
-			// bool m_isClicked = false;
-			GE::ECS::Entity m_buttonEntity;
-			// std::string m_nextScene = "Start";
 		};
 	}
 }
