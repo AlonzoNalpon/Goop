@@ -23,9 +23,9 @@ namespace GE
 			GE::AI::TreeID m_treeID;
 
 			EnemyAI() = default;
-			EnemyAI(TreeID treeID)
+			EnemyAI(TreeID treeID) : m_treeID{ treeID }
 			{
-				m_treeID = treeID;
+				std::cout << "\n\nNFOQNFNWOUIFWNOIFWOIUNFFWFWE\n\n";
 			}
 			/************************************************************************/ /*!
 			\ brief

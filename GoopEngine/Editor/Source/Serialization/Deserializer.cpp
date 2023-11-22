@@ -324,6 +324,10 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
 
 void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const& compType, rapidjson::Value const& compJson)
 {
+  #ifdef DESERIALIZER_DEBUG
+  std::cout <<  "  Type of component variant is " << compType << "\n";
+  #endif
+
   // check for components that need to be handled differently
   if (!DeserializeOtherComponents(compVar, compType, compJson))
   {
@@ -332,23 +336,18 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
     {
       compVar = compCtr.invoke();
       #ifdef DESERIALIZER_DEBUG
-      std::cout << "  Default ctr invoked...Type of compVar is " << compVar.get_type() << "\n";
+      std::cout << "  Invoking default ctor...\n";
       #endif
       DeserializeBasedOnType(compVar, compJson);
     }
     else
     {
       #ifdef DESERIALIZER_DEBUG
-      std::cout << "  Non-default ctr invoked\n";
+      std::cout << "  Invoking non-default ctor...\n";
       #endif
-      rttr::instance object{ compVar };
-      rttr::instance objInstance
-      {
-        object.get_type().get_raw_type().is_wrapper() ? object.get_wrapped_instance() : object
-      };
 
-      std::vector<rttr::variant> args{};
-      auto const properties{ objInstance.get_type().get_properties() };
+      std::vector<rttr::argument> args{};
+      auto const properties{ compType.get_properties() };
       args.reserve(compCtr.get_parameter_infos().size());
       for (auto const& param : compCtr.get_parameter_infos())
       {
@@ -356,13 +355,29 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
         {
           if (param.get_name() == prop.get_name())
           {
-            args.emplace_back(prop.get_value(object));
+            rapidjson::Value::ConstMemberIterator iter{ compJson.FindMember(prop.get_name().to_string().c_str()) };
+            if (iter == compJson.MemberEnd())
+            {
+              std::ostringstream oss{};
+              oss << "Unable to find " << prop.get_name().to_string()
+                << " property in " << compType.get_name().to_string();
+              GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+              continue;
+            }
+
+            args.emplace_back(DeserializeElement(prop.get_type(), iter->value));
+            #ifdef DESERIALIZER_DEBUG
+            std::cout << "    Added " << param.get_name() << " of type " << args.back().get_type() << " to args list\n";
+            #endif
             break;
           }
         }
       }
 
-      compVar = compCtr.invoke(args);
+      compVar = compCtr.invoke_variadic(args);
+      #ifdef DESERIALIZER_DEBUG
+      std::cout << "    Invoked ctor, returning " << compVar.get_type() << "\n";
+      #endif
     }
   }
 }
