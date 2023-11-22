@@ -763,7 +763,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					Separator();
 
-					InputEntity("Anchor", anchor->m_entity);
 					if (BeginCombo("Anchor Type", Anchor::toString(anchor->m_type).c_str()))
 					{
 						for (int j{}; j < Anchor::TOTAL_TYPES; ++j)
