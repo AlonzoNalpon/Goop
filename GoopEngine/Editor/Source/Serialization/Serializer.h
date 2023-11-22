@@ -27,7 +27,8 @@ namespace GE
     {
     public:
 
-      static const char JsonNameKey[], JsonIdKey[], JsonParentKey[], JsonChildEntitiesKey[], JsonComponentsKey[];
+      static const char JsonNameKey[], JsonIdKey[], JsonParentKey[],
+        JsonChildEntitiesKey[], JsonComponentsKey[], JsonPrefabKey[];
 
       /*!*********************************************************************
       \brief  
@@ -84,21 +85,6 @@ namespace GE
       \return
       ************************************************************************/
       static void SerializeScene(std::string const& filename);
-
-      /*!*********************************************************************
-      \brief
-        Serializes an entity into a rapidjson::Value object containing its
-        components and data members.
-      \param id
-        The id of the entity
-      \param childIDs
-        The vector of child ids for the entity
-      \param allocator
-        The allocator of the rapidjson::Document object
-      \return
-        The resulting radpidjson::Value object containing the entity data
-      ************************************************************************/
-      static rapidjson::Value SerializeEntity(ECS::Entity id, rapidjson::Document::AllocatorType& allocator);
 
     private:
       // helper functions
@@ -173,6 +159,21 @@ namespace GE
       ************************************************************************/
       static void SerializeSequentialContainer(rttr::variant const& object, rapidjson::Value& jsonArray, rapidjson::Document::AllocatorType& allocator);
       
+      /*!*********************************************************************
+      \brief
+        Serializes an entity into a rapidjson::Value object containing its
+        components and data members.
+      \param id
+        The id of the entity
+      \param childIDs
+        The vector of child ids for the entity
+      \param allocator
+        The allocator of the rapidjson::Document object
+      \return
+        The resulting radpidjson::Value object containing the entity data
+      ************************************************************************/
+      static rapidjson::Value SerializeEntity(ECS::Entity id, rapidjson::Document::AllocatorType& allocator);
+
       /*!*********************************************************************
       \brief
         Helper function to serialize a component into a rapidjson::Value.

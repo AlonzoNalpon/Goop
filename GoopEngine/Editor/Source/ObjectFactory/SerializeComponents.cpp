@@ -15,7 +15,7 @@ namespace GE
 {
 	namespace ObjectFactory
 	{
-
+#ifndef RTTR_DESERIALIZE
 		template<typename CompType>
 		CompType DeserializeComponent(std::string const& componentData)
 		{
@@ -178,6 +178,6 @@ namespace GE
 			return button;
 		}
 
-
+#endif
 	}	// namespace ObjectFactory
 }	// namespace GE

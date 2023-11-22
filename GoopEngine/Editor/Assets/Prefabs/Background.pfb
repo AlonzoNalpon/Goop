@@ -3,14 +3,14 @@
   "Components": [
     {
       "Transform": {
-        "worldPos": "{ 0.0, 0.0, -5.0 }",
+        "worldPos": "{ 1.0, 1.0, -5.0 }",
         "worldScale": "{ 1.0, 1.0, 1.0 }",
         "worldRot": "{ 0.0, 0.0, 0.0 }"
       }
     },
     {
       "Sprite": {
-        "filename": "Background"
+        "spriteName": "Background"
       }
     }
   ]

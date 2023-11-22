@@ -111,6 +111,11 @@ namespace WindowSystem {
     glfwSetWindowTitle(m_window, name);
   }
 
+  bool Window::IsFocused()
+  {
+      return glfwGetWindowAttrib(m_window, GLFW_FOCUSED);
+  }
+
   void Window::KeyCallback(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods*/)
   {
     // For now, escape key will shut the thing down

@@ -18,16 +18,20 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Components.h>
 #include <ObjectFactory/ObjectFactory.h>
 #include <rttr/enumeration.h>
+#include <PrefabManager/PrefabManager.h>
 
 namespace GE
 {
   namespace Serialization
   {
+    // Names of Keys used when serializing to file
+    // Both Serializer and Deserializer uses these to determine the name of  the keys
     const char Serializer::JsonNameKey[]          = "Name";
     const char Serializer::JsonIdKey[]            = "ID";
     const char Serializer::JsonParentKey[]        = "Parent";
     const char Serializer::JsonChildEntitiesKey[] = "Child Entities";
     const char Serializer::JsonComponentsKey[]    = "Components";
+    const char Serializer::JsonPrefabKey[]        = "Prefab";
 
     void Serializer::SerializeVariantToPrefab(ObjectFactory::VariantPrefab const& prefab, std::string const& filename)
     {
@@ -119,6 +123,7 @@ namespace GE
       for (ECS::COMPONENT_TYPES i{ static_cast<ECS::COMPONENT_TYPES>(0) }; i < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)
       {
         rttr::variant compVar{ GetEntityComponent(id, i) };
+        
         // skip if component wasn't found
         if (!compVar.is_valid()) { continue; }
 
@@ -207,62 +212,62 @@ namespace GE
       case ECS::COMPONENT_TYPES::TRANSFORM:
       {
         Component::Transform* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Transform>(id) };
-        return ret ? *ret : rttr::variant();
+        return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::BOX_COLLIDER:
       {
         Component::BoxCollider* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::BoxCollider>(id) };
-        return ret ? *ret : rttr::variant();
+        return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::SCRIPTS:
       {
         Component::Scripts* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Scripts>(id) };
-        return ret ? *ret : rttr::variant();
+        return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::SPRITE:
       {
         Component::Sprite* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Sprite>(id) };
-        return ret ? *ret : rttr::variant();
+        return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::SPRITE_ANIM:
       {
         Component::SpriteAnim* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::SpriteAnim>(id) };
-        return ret ? *ret : rttr::variant();
+        return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::TWEEN:
       {
         Component::Tween* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Tween>(id) };
-        return ret ? *ret : rttr::variant();
+        return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::VELOCITY:
       {
         Component::Velocity* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Velocity>(id) };
-        return ret ? *ret : rttr::variant();
+        return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::ENEMY_AI:
       {
         Component::EnemyAI* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::EnemyAI>(id) };
-        return ret ? *ret : rttr::variant();
+        return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::DRAGGABLE:
       {
         Component::Draggable* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Draggable>(id) };
-        return ret ? *ret : rttr::variant();
+        return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::TEXT:
       {
         Component::Text* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Text>(id) };
-        return ret ? *ret : rttr::variant();
+        return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::AUDIO:
       {
         Component::Audio* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Audio>(id) };
-        return ret ? *ret : rttr::variant();
+        return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::GE_BUTTON:
       {
         Component::GE_Button* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::GE_Button>(id) };
-        return ret ? *ret : rttr::variant();
+        return ret ? ret : rttr::variant();
       }
       }
 
@@ -433,7 +438,7 @@ namespace GE
       rapidjson::Value comp{ rapidjson::kObjectType };
       rapidjson::Value compInner{ rapidjson::kObjectType };
       rapidjson::Value compName{};
-      compName.SetString(var.get_type().get_name().to_string().c_str(), allocator);
+      compName.SetString(var.get_type().get_raw_type().get_name().to_string().c_str(), allocator);
       for (auto const& prop : var.get_type().get_properties())
       {
         rapidjson::Value jsonVal{ rapidjson::kNullType };
@@ -441,9 +446,9 @@ namespace GE
 
         rttr::variant value{ prop.get_value(var) };
 
-        if (var.get_type() == rttr::type::get<Component::SpriteAnim>())
+        if (var.get_type().get_raw_type() == rttr::type::get<Component::SpriteAnim>())
         {
-          Component::SpriteAnim const& sprAnim{ var.get_value<Component::SpriteAnim>() };
+          Component::SpriteAnim const& sprAnim{ *var.get_value<Component::SpriteAnim*>() };
           jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(sprAnim.m_animID).c_str(), allocator);
           //val.AddMember(jsonKey, jsonVal, allocator);
           //jsonVal = val.Move();
