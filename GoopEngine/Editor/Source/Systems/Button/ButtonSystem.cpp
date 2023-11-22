@@ -56,6 +56,10 @@ namespace GE
 							{
 							case GE::Component::GE_Button::NO_EVENT:
 								break;
+							case GE::Component::GE_Button::SELECT_CARD:
+								break;
+							case GE::Component::GE_Button::UNSELECT_CARD:
+								break;
 							case GE::Component::GE_Button::CHANGE_SCENE:
 								GE::GSM::GameStateManager::GetInstance().SetNextScene(entityButton->m_param);
 								break;

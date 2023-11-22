@@ -15,6 +15,8 @@ namespace GE::Component
 		enum ButtonEventType
 		{
 			NO_EVENT,
+			SELECT_CARD,
+			UNSELECT_CARD,
 			CHANGE_SCENE,
 			TOTAL_EVENTS,
 		};
