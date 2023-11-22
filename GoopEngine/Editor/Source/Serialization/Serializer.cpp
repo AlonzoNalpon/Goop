@@ -219,6 +219,11 @@ namespace GE
         Component::BoxCollider* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::BoxCollider>(id) };
         return ret ? ret : rttr::variant();
       }
+      case ECS::COMPONENT_TYPES::VELOCITY:
+      {
+        Component::Velocity* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Velocity>(id) };
+        return ret ? ret : rttr::variant();
+      }
       case ECS::COMPONENT_TYPES::SCRIPTS:
       {
         Component::Scripts* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Scripts>(id) };
@@ -237,11 +242,6 @@ namespace GE
       case ECS::COMPONENT_TYPES::TWEEN:
       {
         Component::Tween* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Tween>(id) };
-        return ret ? ret : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::VELOCITY:
-      {
-        Component::Velocity* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Velocity>(id) };
         return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::ENEMY_AI:
@@ -282,6 +282,11 @@ namespace GE
       case ECS::COMPONENT_TYPES::CARD_HOLDER:
       {
         Component::CardHolder* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::CardHolder>(id) };
+        return ret ? *ret : rttr::variant();
+      }
+      case ECS::COMPONENT_TYPES::GAME:
+      {
+        Component::Game* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Game>(id) };
         return ret ? *ret : rttr::variant();
       }
       }
