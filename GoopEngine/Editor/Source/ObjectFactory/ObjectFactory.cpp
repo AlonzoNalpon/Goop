@@ -226,6 +226,10 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Anchor*>());
   }
+  else if (compType == rttr::type::get<Component::Card>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Card*>());
+  }
 }
 #endif
 
@@ -279,6 +283,9 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       break;
     case COMPONENT_TYPES::ANCHOR:
       ecs.RegisterComponent<GE::Component::Anchor>();
+      break;
+    case COMPONENT_TYPES::CARD:
+      ecs.RegisterComponent<GE::Component::Card>();
       break;
     default:
       std::ostringstream oss{};
