@@ -18,16 +18,20 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Components.h>
 #include <ObjectFactory/ObjectFactory.h>
 #include <rttr/enumeration.h>
+#include <PrefabManager/PrefabManager.h>
 
 namespace GE
 {
   namespace Serialization
   {
+    // Names of Keys used when serializing to file
+    // Both Serializer and Deserializer uses these to determine the name of  the keys
     const char Serializer::JsonNameKey[]          = "Name";
     const char Serializer::JsonIdKey[]            = "ID";
     const char Serializer::JsonParentKey[]        = "Parent";
     const char Serializer::JsonChildEntitiesKey[] = "Child Entities";
     const char Serializer::JsonComponentsKey[]    = "Components";
+    const char Serializer::JsonPrefabKey[]        = "Prefab";
 
     void Serializer::SerializeVariantToPrefab(ObjectFactory::VariantPrefab const& prefab, std::string const& filename)
     {
@@ -118,7 +122,8 @@ namespace GE
       rapidjson::Value compArr{ rapidjson::kArrayType };
       for (ECS::COMPONENT_TYPES i{ static_cast<ECS::COMPONENT_TYPES>(0) }; i < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)
       {
-        rttr::variant compVar{ GetEntityComponent(id, i).extract_wrapped_value() };
+        rttr::variant compVar{ GetEntityComponent(id, i) };
+        
         // skip if component wasn't found
         if (!compVar.is_valid()) { continue; }
 
@@ -214,6 +219,11 @@ namespace GE
         Component::BoxCollider* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::BoxCollider>(id) };
         return ret ? ret : rttr::variant();
       }
+      case ECS::COMPONENT_TYPES::VELOCITY:
+      {
+        Component::Velocity* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Velocity>(id) };
+        return ret ? ret : rttr::variant();
+      }
       case ECS::COMPONENT_TYPES::SCRIPTS:
       {
         Component::Scripts* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Scripts>(id) };
@@ -232,11 +242,6 @@ namespace GE
       case ECS::COMPONENT_TYPES::TWEEN:
       {
         Component::Tween* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Tween>(id) };
-        return ret ? ret : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::VELOCITY:
-      {
-        Component::Velocity* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Velocity>(id) };
         return ret ? ret : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::ENEMY_AI:
@@ -277,6 +282,11 @@ namespace GE
       case ECS::COMPONENT_TYPES::CARD_HOLDER:
       {
         Component::CardHolder* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::CardHolder>(id) };
+        return ret ? *ret : rttr::variant();
+      }
+      case ECS::COMPONENT_TYPES::GAME:
+      {
+        Component::Game* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Game>(id) };
         return ret ? *ret : rttr::variant();
       }
       }
@@ -448,7 +458,7 @@ namespace GE
       rapidjson::Value comp{ rapidjson::kObjectType };
       rapidjson::Value compInner{ rapidjson::kObjectType };
       rapidjson::Value compName{};
-      compName.SetString(var.get_type().get_name().to_string().c_str(), allocator);
+      compName.SetString(var.get_type().get_raw_type().get_name().to_string().c_str(), allocator);
       for (auto const& prop : var.get_type().get_properties())
       {
         rapidjson::Value jsonVal{ rapidjson::kNullType };
@@ -456,9 +466,9 @@ namespace GE
 
         rttr::variant value{ prop.get_value(var) };
 
-        if (var.get_type() == rttr::type::get<Component::SpriteAnim>())
+        if (var.get_type().get_raw_type() == rttr::type::get<Component::SpriteAnim>())
         {
-          Component::SpriteAnim const& sprAnim{ var.get_value<Component::SpriteAnim>() };
+          Component::SpriteAnim const& sprAnim{ *var.get_value<Component::SpriteAnim*>() };
           jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(sprAnim.m_animID).c_str(), allocator);
           //val.AddMember(jsonKey, jsonVal, allocator);
           //jsonVal = val.Move();

@@ -291,8 +291,15 @@ void AssetBrowser::InitView()
 
 	for (auto const& itr : m_assetIDs)
 	{
-		auto imgID = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(assetManager.GetName(itr)));
-		m_textID.insert(reinterpret_cast<ImTextureID>(imgID));
+		try
+		{
+			auto imgID = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(assetManager.GetName(itr)));
+			m_textID.insert(reinterpret_cast<ImTextureID>(imgID));
+		}
+		catch (GE::Debug::IExceptionBase& e)
+		{
+			e.LogSource();
+		}
 	}
 }
 
@@ -320,6 +327,7 @@ void AssetBrowser::Traverse(std::filesystem::path filepath)
 		//Create child nodes
 		if (!std::filesystem::exists(filepath))
 		{
+			TreePop();
 			throw GE::Debug::Exception<AssetManager>(GE::Debug::LEVEL_CRITICAL, ErrMsg("Directory not found! Path: " + filepath.string()));
 		}
 
