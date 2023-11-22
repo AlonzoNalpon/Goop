@@ -26,7 +26,8 @@ namespace Graphics {
       w width of the texture
       h height of the texture
       imageData the image data
-    \return the ID of the texture
+    \return 
+    The ID of the texture. 0 on failure
       
     ************************************************************************/
     GLuint AddTexture(std::string const& name, GLint w, GLint h, unsigned char const* imageData);

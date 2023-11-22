@@ -20,7 +20,7 @@ namespace Graphics
     {
       DestroyTexture(m_texturesLT[name]);
       GE::Debug::ErrorLogger::GetInstance().LogMessage(
-        "TextureManager: Texture " + name + " already exists, replacing texture.");
+        "TextureManager: Texture " + name + " already exists, skipping texture.");
       // return m_texturesLT[name];
       /*throw GE::Debug::Exception<TextureManager>(GE::Debug::LEVEL_CRITICAL,
         ErrMsg("texture of this name already exists: " + name));*/
