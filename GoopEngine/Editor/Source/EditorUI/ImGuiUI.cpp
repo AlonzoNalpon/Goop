@@ -171,7 +171,12 @@ void ImGuiUI::Update()
         double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
         double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
 
-        GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity, GE::Math::dVec3{randX, randY, 0});
+        GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity);
+        Component::Transform* trans{ ecs->GetComponent<Component::Transform>(entity) };
+        if (trans)
+        {
+          trans->m_worldPos = { randX, randY, trans->m_worldPos.z };
+        }
       }
       catch (GE::Debug::IExceptionBase& ex)
       {

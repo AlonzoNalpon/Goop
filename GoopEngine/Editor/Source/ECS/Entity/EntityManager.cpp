@@ -112,7 +112,7 @@ Entity GE::ECS::EntityManager::GetParentEntity(Entity& entity)
 	return m_parent[entity];
 }
 
-void GE::ECS::EntityManager::SetParentEntity(Entity& parent, Entity& child)
+void GE::ECS::EntityManager::SetParentEntity(Entity const& parent, Entity const& child)
 {
 	m_parent[child] = parent;
 }
@@ -122,7 +122,7 @@ std::set<Entity>& GE::ECS::EntityManager::GetChildEntities(Entity& parent)
 	return m_children[parent];
 }
 
-void GE::ECS::EntityManager::AddChildEntity(Entity& parent, Entity& child)
+void GE::ECS::EntityManager::AddChildEntity(Entity const& parent, Entity const& child)
 {
 	m_children[parent].insert(child);
 }
@@ -158,6 +158,18 @@ std::string GE::ECS::EntityManager::GetEntityName(Entity& entity)
 	{
 		return m_names[entity];
 	}
+}
+
+Entity GE::ECS::EntityManager::GetEntity(std::string const& name)
+{
+	for (auto const& entity : m_names)
+	{
+		if (entity.second == name)
+		{
+			return entity.first;
+		}
+	}
+	return Entity();
 }
 
 std::set<Entity>& GE::ECS::EntityManager::GetEntities()

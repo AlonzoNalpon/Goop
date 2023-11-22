@@ -132,7 +132,7 @@ namespace GE
 			\param[in] entity
 				Entity whose parent you are setting
 			********************************************************************/
-			void SetParentEntity(Entity& parent, Entity& child);
+			void SetParentEntity(Entity const& parent, Entity const& child);
 
 			/*!******************************************************************
 			\brief 
@@ -156,7 +156,7 @@ namespace GE
 			\param[in] child
 				Entity who is becoming a child of.
 			********************************************************************/
-			void AddChildEntity(Entity& parent, Entity& child);
+			void AddChildEntity(Entity const& parent, Entity const& child);
 
 			/*!******************************************************************
 			\brief
@@ -196,6 +196,16 @@ namespace GE
 				Given name of an entity as a string
 			********************************************************************/
 			std::string GetEntityName(Entity& entity);
+
+			/*!*********************************************************************
+			\brief
+			  Gets an entity by name.
+			\params
+			  name
+			\return
+			  the entity object. Invalid object ID if none found.
+			************************************************************************/
+			Entity			GetEntity(std::string const& name);
 
 			/*!*********************************************************************
 			\brief
