@@ -307,7 +307,6 @@
     <ClInclude Include="Source\Commands\ICommand.h" />
     <ClInclude Include="Source\Commands\ImGuiCommands.h" />
     <ClInclude Include="Source\Component\Camera.h" />
-    <ClInclude Include="Source\Component\Card.h" />
     <ClInclude Include="Source\Component\Draggable.h" />
     <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\Component\Components.h" />
