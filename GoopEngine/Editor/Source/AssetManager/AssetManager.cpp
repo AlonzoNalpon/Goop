@@ -396,10 +396,10 @@ namespace GE::Assets
 		{
 			imageData.SetID(TMID);
 
-		m_loadedImages.insert(std::pair<int, ImageData>(TMID, imageData));
-		m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(GoopUtils::ExtractPrevFolderAndFileName(path), TMID));
-		m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(TMID, GoopUtils::ExtractPrevFolderAndFileName(path)));
-		 
+			m_loadedImages.insert(std::pair<int, ImageData>(TMID, imageData));
+			m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(GoopUtils::ExtractPrevFolderAndFileName(path), TMID));
+			m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(TMID, GoopUtils::ExtractPrevFolderAndFileName(path)));
+		}
 		return TMID;
 	}
 

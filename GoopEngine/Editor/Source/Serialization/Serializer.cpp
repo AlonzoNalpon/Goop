@@ -28,6 +28,7 @@ namespace GE
     // Both Serializer and Deserializer uses these to determine the name of  the keys
     const char Serializer::JsonNameKey[]          = "Name";
     const char Serializer::JsonIdKey[]            = "ID";
+    const char Serializer::JsonEntityStateKey[]   = "isActive";
     const char Serializer::JsonParentKey[]        = "Parent";
     const char Serializer::JsonChildEntitiesKey[] = "Child Entities";
     const char Serializer::JsonComponentsKey[]    = "Components";
@@ -101,6 +102,11 @@ namespace GE
       jsonId.SetUint(id);
       entity.AddMember(JsonIdKey, jsonId, allocator);
 
+      // serialize state
+      rapidjson::Value jsonState{};
+      jsonState.SetBool(ecs.GetIsActiveEntity(id));
+      entity.AddMember(JsonEntityStateKey, jsonState, allocator);
+
       // serialize parent id
       rapidjson::Value jsonParent{ rapidjson::kNullType };
       ECS::Entity const parentID{ ecs.GetParentEntity(id) };
@@ -110,6 +116,7 @@ namespace GE
       }
       entity.AddMember(JsonParentKey, jsonParent, allocator);
 
+      // serialize child entities
       rapidjson::Value childrenArr{ rapidjson::kArrayType };
       for (ECS::Entity const& child : ecs.GetChildEntities(id))
       {

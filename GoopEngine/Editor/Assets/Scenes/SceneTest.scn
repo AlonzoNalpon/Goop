@@ -2,6 +2,7 @@
     {
         "Name": "Player",
         "ID": 0,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -68,6 +69,7 @@
     {
         "Name": "Entity 1",
         "ID": 1,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -93,6 +95,7 @@
     {
         "Name": "Background",
         "ID": 2,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
