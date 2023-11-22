@@ -171,7 +171,7 @@ namespace GE
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
 			Component::GE_Button button;
-			button.m_nextScene = cw.Get<std::string>("nextScene");
+			button.m_param = cw.Get<std::string>("param");
 
 			return button;
 		}

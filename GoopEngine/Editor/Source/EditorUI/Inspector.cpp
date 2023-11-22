@@ -739,7 +739,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					{
 						for (int j{}; j < Anchor::TOTAL_TYPES; ++j)
 						{
-							std::string propName = Anchor::toString(static_cast<Anchor::ANCHOR_TYPE>(j));
+							std::string propName = Anchor::toString(static_cast<Anchor::AnchorType>(j));
 
 							if (Selectable(propName.c_str()))
 							{
@@ -778,7 +778,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						EndPopup();
 					}
 					Separator();
-					InputText("Next Scene", &button->m_nextScene);
+					InputText("Next Scene", &button->m_param);
 
 				}
 				break;

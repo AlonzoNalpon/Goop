@@ -131,8 +131,8 @@ RTTR_REGISTRATION
 
   rttr::registration::class_<Component::GE_Button>("GE_Button")
     .constructor<>()
-    .property("m_param", &Component::GE_Button::m_param)
-    .property("m_eventType", &Component::GE_Button::m_eventType);
+    .property("param", &Component::GE_Button::m_param)
+    .property("eventType", &Component::GE_Button::m_eventType);
     ;
 
   rttr::registration::class_<Component::Anchor>("Anchor")
