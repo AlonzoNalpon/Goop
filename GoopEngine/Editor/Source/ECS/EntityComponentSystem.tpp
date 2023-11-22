@@ -42,7 +42,7 @@ T* EntityComponentSystem::GetComponent(const Entity& entity)
 }
 
 template <typename T>
-bool EntityComponentSystem::HasComponent(const Entity& entity)
+bool EntityComponentSystem::HasComponent(const Entity& entity) const
 {
 	return m_componentManager->HasComponent<T>(entity);
 }

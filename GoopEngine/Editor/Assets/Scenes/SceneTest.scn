@@ -10,7 +10,7 @@
                 "Transform": {
                     "worldPos": "{ -350, 350, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
@@ -109,6 +109,22 @@
             {
                 "Sprite": {
                     "spriteName": "Background"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 3",
+        "ID": 3,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             }
         ]
