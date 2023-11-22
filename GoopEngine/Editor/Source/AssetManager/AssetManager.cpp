@@ -398,11 +398,18 @@ namespace GE::Assets
 		ImageData imageData{ 0 , path, width, height, channels, img };
 		
 		unsigned TMID = gEngine.InitTexture(GE::GoopUtils::ExtractFilename(imageData.GetName()), imageData);
-		imageData.SetID(TMID);
+		if (m_loadedImages.find(TMID) != m_loadedImages.end())
+		{
+			stbi_image_free(img);
+		}
+		else
+		{
+			imageData.SetID(TMID);
 
-		m_loadedImages.insert(std::pair<int, ImageData>(TMID, imageData));
-		m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(GoopUtils::ExtractPrevFolderAndFileName(path), TMID));
-		m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(TMID, GoopUtils::ExtractPrevFolderAndFileName(path)));
+			m_loadedImages.insert(std::pair<int, ImageData>(TMID, imageData));
+			m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(GoopUtils::ExtractPrevFolderAndFileName(path), TMID));
+			m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(TMID, GoopUtils::ExtractPrevFolderAndFileName(path)));
+		}
 		 
 		return TMID;
 	}
