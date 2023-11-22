@@ -1109,14 +1109,6 @@ namespace
 			entity = static_cast<GE::ECS::Entity>(tempEntity);
 			return true;
 		}
-		if (BeginDragDropTarget())
-		{
-			const ImGuiPayload* pl = AcceptDragDropPayload("ENTITY");
-			entity = *static_cast<GE::ECS::Entity*>(pl->Data);
-			EndDragDropTarget();
-			return true;
-		}
-
 		return false;
 	}
 
