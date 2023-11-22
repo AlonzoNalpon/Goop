@@ -144,5 +144,11 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::Card>("Card")
     .constructor<>()
     .property("cardID", &Component::Card::cardID)
+    .property("entityVal", &Component::Card::entityVal)
+    ;
+
+  rttr::registration::class_<Component::CardHolder>("CardHolder")
+    .constructor<>()
+    .property("elements", &Component::CardHolder::elements)
     ;
 } // RTTR Registration

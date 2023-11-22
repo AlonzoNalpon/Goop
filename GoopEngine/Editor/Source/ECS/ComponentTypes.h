@@ -34,6 +34,7 @@ namespace GE
 			ANCHOR,
 			GE_BUTTON,
 			CARD,
+			CARD_HOLDER,
 			COMPONENTS_TOTAL
 		};
 

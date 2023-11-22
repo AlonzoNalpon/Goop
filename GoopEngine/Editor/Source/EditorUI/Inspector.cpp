@@ -858,9 +858,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 			{
 				auto card = ecs.GetComponent<GE::Component::Card>(entity);
 
-				if (ImGui::CollapsingHeader("Sprite Animation", ImGuiTreeNodeFlags_DefaultOpen))
+				if (ImGui::CollapsingHeader("Card", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					if (RemoveComponentPopup<SpriteAnim>("Sprite Animation", entity))
+					if (RemoveComponentPopup<Component::Card>("Card", entity))
 					{
 						break;
 					}
@@ -870,6 +870,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
 					TableNextColumn();
+
+					// Value to store in card
+					int newVal{ static_cast<int>(card->entityVal) };
+					ImGui::InputInt("Entity Value", &newVal);
+					card->entityVal = newVal;
 
 					rttr::type const type{ rttr::type::get<GE::Component::Card::CardID>() };
 					if (BeginCombo("Card", type.get_enumeration().value_to_name(card->cardID).to_string().c_str()))
@@ -886,9 +891,51 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndCombo();
 					}
+					EndTable();
+					Separator();
 				}
-				EndTable();
-				Separator();
+				break;
+			}
+			case GE::ECS::COMPONENT_TYPES::CARD_HOLDER:
+			{
+				auto card = ecs.GetComponent<GE::Component::Card>(entity);
+
+				if (ImGui::CollapsingHeader("Card", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (RemoveComponentPopup<Component::Card>("Card", entity))
+					{
+						break;
+					}
+
+
+					Separator();
+					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
+					TableNextColumn();
+
+					// Value to store in card
+					int newVal{ static_cast<int>(card->entityVal) };
+					ImGui::InputInt("Entity Value", &newVal);
+					card->entityVal = newVal;
+
+					rttr::type const type{ rttr::type::get<GE::Component::Card::CardID>() };
+					if (BeginCombo("Card", type.get_enumeration().value_to_name(card->cardID).to_string().c_str()))
+					{
+						for (Card::CardID currType{}; currType != Card::CardID::TOTAL_CARDS;)
+						{
+							// get the string ...
+							std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
+
+							if (Selectable(str.c_str(), currType == card->cardID))
+								card->cardID = currType; // set the current type if selected 
+							// and now iterate through
+							currType = static_cast<Card::CardID>(static_cast<int>(currType) + 1);
+						}
+						EndCombo();
+					}
+					EndTable();
+					Separator();
+				}
 				break;
 			}
 			default:
@@ -1082,6 +1129,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 						else
 						{
 							ss << "Unable to add component " << typeid(GE::Component::Card).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::CARD_HOLDER:
+					{
+						if (!ecs.HasComponent<GE::Component::CardHolder>(entity))
+						{
+							GE::Component::CardHolder comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(GE::Component::CardHolder).name() << ". Component already exist";
 						}
 						break;
 					}

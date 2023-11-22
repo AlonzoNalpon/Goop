@@ -33,4 +33,6 @@ void ObjectFactory::RegisterComponentsToSystem(ECS::ComponentSignature sig) cons
    ecs.RegisterComponentToSystem<GE::Component::Anchor, T>();
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::CARD))
    ecs.RegisterComponentToSystem<GE::Component::Card, T>();
+   if (IsBitSet(sig, ECS::COMPONENT_TYPES::CARD_HOLDER))
+   ecs.RegisterComponentToSystem<GE::Component::CardHolder, T>();
 }

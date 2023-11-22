@@ -17,3 +17,4 @@
 //#include <Component/Stats.h>
 #include <Component/Card.h>
 #include <Component/Anchor.h>
+#include <Component/CardHolder.h>

@@ -1,11 +1,12 @@
 #ifndef CARD_H
 #define CARD_H
 
+#include <ECS/Entity/Entity.h>
 namespace GE::Component
 {
   /*!
    * \brief  
-   * Card struct to.
+   * Card struct to store card type and a card holder ID.
    */
   struct Card
   {
@@ -43,6 +44,7 @@ namespace GE::Component
 			TOTAL_CARDS,
 		};
 		CardID cardID{};
+		GE::ECS::Entity entityVal{ GE::ECS::INVALID_ID }; //!< an entity ID. Possibly for card holder
   };
 }
 
