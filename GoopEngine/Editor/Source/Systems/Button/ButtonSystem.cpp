@@ -39,6 +39,7 @@ namespace GE
 
 		void ButtonSystem::HandleEvent(Events::Event const* event)
 		{
+			bool triggered = false;
 			for (GE::ECS::Entity entity : m_entities)
 			{
 				GE::Component::GE_Button* entityButton = m_ecs->GetComponent<GE::Component::GE_Button>(entity);
@@ -52,6 +53,7 @@ namespace GE
 
 						if (entity1Col->m_mouseCollided)
 						{
+							triggered = true;
 							switch (btn->m_eventType)
 							{
 							case GE::Component::GE_Button::NO_EVENT:
@@ -70,6 +72,8 @@ namespace GE
 						}
 					}
 				}
+				if (triggered)
+					break;
 			}
 		}
 	}
