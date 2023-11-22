@@ -22,6 +22,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/GraphicsEngine.h>
 #include <EditorUI/GizmoEditor.h>
 #include <rttr/type.h>
+#include <Systems/Button/ButtonTypes.h>
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
 // Disable reinterpret to larger size

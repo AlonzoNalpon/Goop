@@ -90,64 +90,53 @@ namespace GE::Assets
 	}
 	std::string AssetManager::GetScene(std::string const& sceneName)
 	{
-		if (m_scenes.find(sceneName) != m_scenes.end())
+		auto iter{ m_scenes.find(sceneName) };
+		if (iter != m_scenes.end())
 		{
-			return m_scenes.at(sceneName);
+			return iter->second;
 		}
 
 		// File missing, try to load
-		std::filesystem::path assetsDir{ GetConfigData<std::string>("Assets Dir") };
-		for (const auto& file : std::filesystem::recursive_directory_iterator(assetsDir))
+		ReloadFiles(GE::Assets::SCENE);
+		iter = m_scenes.find(sceneName);
+		if (iter == m_scenes.end())
 		{
-			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
-
-			std::string const& currExt{ file.path().extension().string() };
-			if (SceneFileExt.find(currExt) != std::string::npos)	// scene
-			{
-				m_scenes.emplace(file.path().stem().string(), file.path().string());
-				// File loaded so just call self to return newly loaded file
-				return GetScene(sceneName);
-			}
+			GE::Debug::ErrorLogger::GetInstance().LogError("Unable to load scene " + sceneName);
+			return "";
 		}
 
-		GE::Debug::ErrorLogger::GetInstance().LogError("Unable to load scene " + sceneName);
-		return "";
+		return iter->second;
 	}
 
 	std::string AssetManager::GetSound(std::string const& soundName)
 	{
-		if (m_audio.find(soundName) != m_audio.end())
+		auto iter{ m_audio.find(soundName) };
+		if (iter != m_audio.end())
 		{
-			return m_audio.at(soundName);
+			return iter->second;
 		}
 
 		// File missing, try to load
-		std::filesystem::path assetsDir{ GetConfigData<std::string>("Assets Dir") };
-		for (const auto& file : std::filesystem::recursive_directory_iterator(assetsDir))
+		ReloadFiles(GE::Assets::AUDIO);
+		iter = m_audio.find(soundName);
+		if (iter == m_audio.end())
 		{
-			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
-
-			std::string const& fileName{ file.path().filename().string()};
-			if (fileName == soundName)	// scene
-			{
-				m_audio[file.path().stem().string()] = file.path().string();
-				// File loaded so just call self to return newly loaded file
-				return GetSound(soundName);
-			}
+			GE::Debug::ErrorLogger::GetInstance().LogError("Unable to load audio " + soundName);
+			return "";
 		}
 
-		GE::Debug::ErrorLogger::GetInstance().LogError("Unable to load audio " + soundName);
-		return "";
+		return iter->second;
 	}
 
 	ImageData const& AssetManager::GetData(int id)
 	{
-		if (m_loadedImages.find(id) == m_loadedImages.end())
+		auto iter{ m_loadedImages.find(id) };
+		if (iter == m_loadedImages.end())
 		{
 			throw Debug::Exception<AssetManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to get data: " + id));
 		}
 
-		return m_loadedImages[id];
+		return iter->second;
 	}
 	ImageData const& AssetManager::GetData(const std::string& name)
 	{

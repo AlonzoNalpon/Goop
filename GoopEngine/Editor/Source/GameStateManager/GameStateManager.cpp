@@ -48,6 +48,11 @@ void GE::GSM::GameStateManager::SaveScene() const
 	sm.SaveScene();
 }
 
+void GE::GSM::GameStateManager::TemporarySave() const
+{
+	sm.TemporarySave();
+}
+
 void GE::GSM::GameStateManager::Restart()
 {
 	sm.RestartScene();

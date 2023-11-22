@@ -102,9 +102,13 @@ namespace GE::Scenes
     ************************************************************************/
     void SaveScene() const;
 
+    void TemporarySave() const;
+
   private:
     std::string m_currentScene;
     std::string m_nextScene;
+    std::string const m_tempScene = "TEMPORARYSCENE";  // used to temporarily save scene when playing/stopping
+
     /* Map of all the scene files.Currently the way scenes are inserted
     into this map is hardcoded. */
     //std::map<std::string, std::unique_ptr<Scene>>Scenes;

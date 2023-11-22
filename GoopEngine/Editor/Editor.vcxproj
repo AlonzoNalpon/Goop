@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AI\TreeManager.cpp" />
+    <ClCompile Include="Source\PrefabManager\PrefabManager.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptUtils.cpp" />
     <ClCompile Include="Source\Systems\Audio\AudioSystem.cpp" />
     <ClCompile Include="Source\Commands\CommandManager.cpp" />
@@ -406,6 +407,7 @@
     <ClInclude Include="Source\MemoryManager\ListAllocator.h" />
     <ClInclude Include="Source\MemoryManager\MemoryManager.h" />
     <ClInclude Include="Source\EditorUI\SceneHierachy.h" />
+    <ClInclude Include="Source\PrefabManager\PrefabManager.h" />
     <ClInclude Include="Source\SceneManager\SceneManager.h" />
     <ClInclude Include="Source\Scenes\Scene.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptInstance.h" />
@@ -434,6 +436,7 @@
     <ClInclude Include="Source\SpriteAnimation\SpriteAnimGenerator.h" />
     <ClInclude Include="Source\Systems\Audio\AudioSystem.h" />
     <ClInclude Include="Source\Systems\Button\ButtonSystem.h" />
+    <ClInclude Include="Source\Systems\Button\ButtonTypes.h" />
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
     <ClInclude Include="Source\Systems\GameSystem\GameSystem.h" />
