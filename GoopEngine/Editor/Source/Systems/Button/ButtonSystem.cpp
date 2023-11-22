@@ -11,16 +11,8 @@ namespace GE
 	{
 		void ButtonSystem::Start()
 		{
-			m_buttonEntity = GE::ECS::INVALID_ID;
-		}
 
-		//void ButtonSystem::Update()
-		//{
-		//	//for (GE::ECS::Entity entity : GetUpdatableEntities())
-		//	//{
-		//	//	// GE::Component::Button* entity1Col = m_ecs->GetComponent<GE::Component::Button>(entity);
-		//	//}
-		//}
+		}
 
 		void ButtonSystem::Update()
 		{

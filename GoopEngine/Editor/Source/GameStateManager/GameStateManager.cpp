@@ -16,10 +16,9 @@ void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
 {
 	try
 	{
-		for (const auto& x : GE::Assets::AssetManager::GetInstance().GetScenes())
+		if (GE::Assets::AssetManager::GetInstance().GetScene(next_scene) == "")
 		{
-
-			std::cout << x.first << " : " << x.second << std::endl;
+			throw("SCENE DOES NOT EXIST");
 		}
 		if (sm.GetCurrentScene() == next_scene)
 		{

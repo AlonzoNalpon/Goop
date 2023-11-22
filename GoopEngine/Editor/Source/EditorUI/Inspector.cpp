@@ -21,6 +21,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Commands/CommandManager.h>
 #include <Graphics/GraphicsEngine.h>
 #include <EditorUI/GizmoEditor.h>
+#include <Systems/Button/ButtonTypes.h>
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
 // Disable reinterpret to larger size
@@ -727,6 +728,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 						EndPopup();
 					}
 					Separator();
+					// Drop down menu to select the button type
+					//														
+					if (BeginCombo("Button Type", GE::ECS::buttonToString.at(static_cast<GE::ECS::BUTTON_TYPES>(button->m_buttonType)).c_str()))
+					{
+						for (auto const& [buttonType, typeName] : GE::ECS::buttonToString)
+						{
+							if (Selectable(typeName.c_str()))
+							{
+								button->m_buttonType = buttonType;
+							}
+						}
+						EndCombo();
+					}
 					InputText("Next Scene", &button->m_nextScene);
 
 				}
