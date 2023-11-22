@@ -34,8 +34,7 @@ namespace GE {
 	
 
 		class ScriptManager : public Singleton<ScriptManager> {
-			MonoDomain* m_rootDomain{ nullptr };
-			MonoDomain* m_appDomain{ nullptr };
+
 			MonoAssembly* m_coreAssembly{ nullptr };
 			std::map<std::string, ScriptClassInfo> m_monoClassMap;
 		
@@ -44,6 +43,8 @@ namespace GE {
 		public:
 			static std::unordered_map<std::string, ScriptFieldType> m_ScriptFieldTypeMap;
 			std::vector<std::string> m_allScriptNames;
+			MonoDomain* m_rootDomain{ nullptr };
+			MonoDomain* m_appDomain{ nullptr };
 
 			/*!*********************************************************************
 			\brief
