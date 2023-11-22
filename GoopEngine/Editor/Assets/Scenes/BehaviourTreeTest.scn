@@ -104,6 +104,11 @@
                 "SpriteAnim": {
                     "name": "SS_MineWorm"
                 }
+            },
+            {
+                "EnemyAI": {
+                    "treeID": 0
+                }
             }
         ]
     }

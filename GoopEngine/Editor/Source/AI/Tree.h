@@ -9,6 +9,7 @@ Tree Manager,Node Editor and Enemy System to build and run a Behaviour Tree
 #pragma once
 #include <vector>
 #include <string>
+#include <deque>
 
 namespace GE {
 	namespace AI {

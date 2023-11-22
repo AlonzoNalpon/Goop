@@ -9,6 +9,7 @@ this component.
 #pragma once
 
 #include <AI/Tree.h>
+#include <iostream>
 
 
 namespace GE
@@ -25,6 +26,7 @@ namespace GE
 			EnemyAI() = default;
 			EnemyAI(TreeID treeID)
 			{
+				std::cout << "Signed to: " << treeID << "\n";
 				m_treeID = treeID;
 			}
 			/************************************************************************/ /*!
