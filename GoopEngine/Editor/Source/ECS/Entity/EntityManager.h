@@ -200,6 +200,16 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+			  Gets an entity by name.
+			\params
+			  name
+			\return
+			  the entity object. Invalid object ID if none found.
+			************************************************************************/
+			Entity			GetEntity(std::string const& name);
+
+			/*!*********************************************************************
+			\brief
 			  Returns all currently active entities.
 			  
 			\return

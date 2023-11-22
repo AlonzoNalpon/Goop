@@ -188,6 +188,16 @@ namespace GE
 			********************************************************************/
 			std::string GetEntityName(Entity& entity);
 
+			/*!*********************************************************************
+			\brief
+			  Gets an entity by name.
+			\params
+			  name
+			\return
+			  Entity object. Invalid object ID if none can be found
+			************************************************************************/
+			Entity			GetEntity(std::string const& name);
+
 			/*!******************************************************************
 			\brief
 				Calls EntityManager's SetEntityName function.

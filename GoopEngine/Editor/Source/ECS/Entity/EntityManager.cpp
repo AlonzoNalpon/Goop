@@ -160,6 +160,18 @@ std::string GE::ECS::EntityManager::GetEntityName(Entity& entity)
 	}
 }
 
+Entity GE::ECS::EntityManager::GetEntity(std::string const& name)
+{
+	for (auto const& entity : m_names)
+	{
+		if (entity.second == name)
+		{
+			return entity.first;
+		}
+	}
+	return Entity();
+}
+
 std::set<Entity>& GE::ECS::EntityManager::GetEntities()
 {
 	return m_entities;
