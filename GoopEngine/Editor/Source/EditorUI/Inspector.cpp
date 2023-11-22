@@ -1029,7 +1029,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 			case GE::ECS::COMPONENT_TYPES::GAME:
 			{
 				auto* game = ecs.GetComponent<GE::Component::Game>(entity);
-				if (ImGui::CollapsingHeader("Card Holder", ImGuiTreeNodeFlags_DefaultOpen))
+				if (ImGui::CollapsingHeader("Game", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					if (RemoveComponentPopup<GE::Component::Game>("Game", entity))
 					{
