@@ -805,9 +805,26 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndPopup();
 					}
-					Separator();
-					InputText("Next Scene", &button->m_param);
 
+					rttr::type const type{ rttr::type::get<GE::Component::GE_Button::ButtonEventType>() };
+					if (BeginCombo("Card", type.get_enumeration().value_to_name(button->m_eventType).to_string().c_str()))
+					{
+						for (GE_Button::ButtonEventType currType{}; currType != GE_Button::ButtonEventType::TOTAL_EVENTS;)
+						{
+							// get the string ...
+							std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
+
+							if (Selectable(str.c_str(), currType == button->m_eventType))
+							{
+								button->m_eventType = currType; // set the current type if selected 
+							}
+							// and now iterate through
+							currType = static_cast<GE_Button::ButtonEventType>(static_cast<int>(currType) + 1);
+						}
+						EndCombo();
+					}
+					Separator();
+					InputText("Param", &button->m_param);
 				}
 				break;
 			}
