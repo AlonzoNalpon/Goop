@@ -28,7 +28,9 @@ namespace GE::ECS
 		ENEMY_SYSTEM,
 		TEXT_RENDER,
 		TWEEN_SYSTEM,
+		GAME_SYSTEMS,
 		AUDIO_SYSTEM,
+		OBJECT_ANCHOR_SYSTEM,
 		BUTTON_SYSTEM,
 		TOTAL_SYSTEMS // Total number of system types
 	};
@@ -52,7 +54,9 @@ namespace GE::ECS
 		{ SYSTEM_TYPES::TEXT_RENDER, "TextRenderSystem" },
 		{ SYSTEM_TYPES::TWEEN_SYSTEM, "TweenSystem" },
 		{ SYSTEM_TYPES::AUDIO_SYSTEM, "AudioSystem" },
-		{ SYSTEM_TYPES::BUTTON_SYSTEM, "ButtonSystem" }
+		{ SYSTEM_TYPES::BUTTON_SYSTEM, "ButtonSystem" },
+		{ SYSTEM_TYPES::GAME_SYSTEMS, "GameSystem" },
+		{ SYSTEM_TYPES::OBJECT_ANCHOR_SYSTEM, "ObjectAnchorSystem" }
 	};
 
 	// Const map so only interated through ranged for,
@@ -70,7 +74,9 @@ namespace GE::ECS
 		{ "PostRootTransformSystem", SYSTEM_TYPES::POST_ROOT_TRANSFORM },
 		{ "TextRenderSystem", SYSTEM_TYPES::TEXT_RENDER },
 		{ "TweenSystem", SYSTEM_TYPES::TWEEN_SYSTEM },
+		{ "GameSystem", SYSTEM_TYPES::GAME_SYSTEMS },
 		{ "AudioSystem", SYSTEM_TYPES::AUDIO_SYSTEM },
+		{ "ObjectAnchorSystem", SYSTEM_TYPES::OBJECT_ANCHOR_SYSTEM },
 		{ "ButtonSystem", SYSTEM_TYPES::BUTTON_SYSTEM }
 	};
 

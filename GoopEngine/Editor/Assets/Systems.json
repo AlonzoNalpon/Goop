@@ -1,5 +1,8 @@
 {
     "PreRootTransformSystem": [],
+	"GameSystem": [
+		"Game"
+	],
 	"PlayerControllerSystem": [	
 		"Transform",
         "Sprite",
@@ -27,6 +30,11 @@
         "BoxCollider",
         "Draggable"
     ],
+	"ObjectAnchorSystem": [
+		"BoxCollider",
+		"Transform",
+		"Anchor"
+	],
     "PhysicsSystem": [
         "Transform",
         "Velocity"

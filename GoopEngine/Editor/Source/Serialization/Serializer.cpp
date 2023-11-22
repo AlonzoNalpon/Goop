@@ -269,6 +269,21 @@ namespace GE
         Component::GE_Button* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::GE_Button>(id) };
         return ret ? ret : rttr::variant();
       }
+      case ECS::COMPONENT_TYPES::ANCHOR:
+      {
+        Component::Anchor* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Anchor>(id) };
+        return ret ? *ret : rttr::variant();
+      }
+      case ECS::COMPONENT_TYPES::CARD:
+      {
+        Component::Card* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Card>(id) };
+        return ret ? *ret : rttr::variant();
+      }
+      case ECS::COMPONENT_TYPES::CARD_HOLDER:
+      {
+        Component::CardHolder* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::CardHolder>(id) };
+        return ret ? *ret : rttr::variant();
+      }
       }
 
       std::ostringstream oss{};

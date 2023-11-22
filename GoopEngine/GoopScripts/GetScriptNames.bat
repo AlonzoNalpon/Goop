@@ -13,12 +13,13 @@ for /r %sourceDirectory% %%i in (*.cs) do (
     if /i not "!folder!"=="%CD%\obj\Debug\" (
     if /i not "!folder!"=="%CD%\obj\Release\" (
     if /i not "!folder!"=="%CD%\Properties\" (
-    if /i not "!folder!"=="%CD%\Properties\Mono" (
+    if /i not "!folder!"=="%CD%\Mono\" (
+    if /i not "!folder!"=="%CD%\Input\" (
 
         set "name=%%~ni"
         set "temp=."
         call :findKeyword 
-    ))))
+    )))))
 )
 
 

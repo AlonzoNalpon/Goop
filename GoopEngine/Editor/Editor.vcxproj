@@ -96,6 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,6 +112,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +132,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>None</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,6 +151,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">
     <ClCompile>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -157,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="Source\AI\TreeManager.cpp" />
     <ClCompile Include="Source\PrefabManager\PrefabManager.cpp" />
+    <ClCompile Include="Source\ScriptEngine\ScriptUtils.cpp" />
     <ClCompile Include="Source\Systems\Audio\AudioSystem.cpp" />
     <ClCompile Include="Source\Commands\CommandManager.cpp" />
     <ClCompile Include="Source\Commands\ImGuiCommands.cpp" />
@@ -279,6 +284,8 @@
     <ClCompile Include="Source\Systems\Button\ButtonSystem.cpp" />
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
+    <ClCompile Include="Source\Systems\GameSystem\GameSystem.cpp" />
+    <ClCompile Include="Source\Systems\ObjectAnchor\ObjectAnchorSystem.cpp" />
     <ClCompile Include="Source\Systems\Text\TextRenderSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\PhysicsSystem.cpp" />
@@ -298,14 +305,16 @@
   <ItemGroup>
     <ClInclude Include="Source\AI\Tree.h" />
     <ClInclude Include="Source\AI\TreeManager.h" />
+    <ClInclude Include="Source\Component\Anchor.h" />
     <ClInclude Include="Source\Component\Audio.h" />
     <ClInclude Include="Source\Component\Button.h" />
+    <ClInclude Include="Source\Component\Card.h" />
+    <ClInclude Include="Source\Component\CardHolder.h" />
     <ClInclude Include="Source\Fmod\FmodSystem.h" />
     <ClInclude Include="Source\Commands\CommandManager.h" />
     <ClInclude Include="Source\Commands\ICommand.h" />
     <ClInclude Include="Source\Commands\ImGuiCommands.h" />
     <ClInclude Include="Source\Component\Camera.h" />
-    <ClInclude Include="Source\Component\Card.h" />
     <ClInclude Include="Source\Component\Draggable.h" />
     <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\Component\Components.h" />
@@ -403,6 +412,7 @@
     <ClInclude Include="Source\Scenes\Scene.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptInstance.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptManager.h" />
+    <ClInclude Include="Source\ScriptEngine\ScripUtils.h" />
     <ClInclude Include="Source\Serialization\ComponentWrapper\ComponentWrapper.h" />
     <ClInclude Include="Source\Serialization\Deserializer.h" />
     <ClInclude Include="Source\Serialization\GooStream\AssetGooStream.h" />
@@ -429,6 +439,8 @@
     <ClInclude Include="Source\Systems\Button\ButtonTypes.h" />
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
+    <ClInclude Include="Source\Systems\GameSystem\GameSystem.h" />
+    <ClInclude Include="Source\Systems\ObjectAnchor\ObjectAnchorSystem.h" />
     <ClInclude Include="Source\Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />

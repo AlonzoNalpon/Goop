@@ -17,13 +17,36 @@ using namespace GE;
 using namespace MONO;
 
 
+
+
 ScriptInstance::ScriptInstance(const std::string& scriptName, std::vector<void*>& arg)
 {
   GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
-  m_monoClass = sm->GetMonoClass(scriptName);
+  m_scriptClassInfo = sm->GetScriptClassInfo(scriptName);
   m_classInst = sm->InstantiateClass(scriptName.c_str(), arg);
-  m_onUpdateMethod = mono_class_get_method_from_name(m_monoClass,"OnUpdate", 1);
-  m_onCreateMethod = mono_class_get_method_from_name(m_monoClass, "onCreate", 1);
+  m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass,"OnUpdate", 1);
+  if (m_onUpdateMethod)
+  {
+    std::cout << scriptName << "\n";
+  }
+
+
+  //m_onCreateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "onCreate", 1);
+}
+
+
+ScriptInstance::ScriptInstance(const std::string& scriptName)
+{
+  GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
+  m_scriptClassInfo = sm->GetScriptClassInfo(scriptName);
+  m_classInst = sm->InstantiateClass(scriptName.c_str());
+  m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "OnUpdate", 1);
+  if (m_onUpdateMethod)
+  {
+    std::cout << scriptName << "\n";
+  }
+
+  //m_onCreateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "onCreate", 1);
 }
 
 void ScriptInstance::InvokeOnUpdate(double dt)
@@ -43,6 +66,7 @@ void ScriptInstance::InvokeOnCreate()
     mono_runtime_invoke(m_onCreateMethod, m_classInst,nullptr, nullptr);
   }
 }
+
 
 
 

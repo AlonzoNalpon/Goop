@@ -11,5 +11,7 @@
 #include <Systems/Enemy/EnemySystem.h>
 #include <Systems/Text/TextRenderSystem.h>
 #include <Systems/TweenSystem/TweenSystem.h>
+#include <Systems/GameSystem/GameSystem.h>
 #include <Systems/Audio/AudioSystem.h>
+#include <Systems/ObjectAnchor/ObjectAnchorSystem.h>
 #include <Systems/Button/ButtonSystem.h>

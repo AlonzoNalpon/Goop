@@ -32,7 +32,7 @@ namespace
 	// Macros to call ecs entity name functions
 #define GetName(entityId) ecs.GetEntityName(entityId).c_str() 
 #define SetName(entityId, newName) ecs.SetEntityName(entityId, newName).c_str() 
-#define PAYLOAD "SceneHierachy"
+#define PAYLOAD "ENTITY"
 
 	// Style setting
 	ImColor originalTextClr;

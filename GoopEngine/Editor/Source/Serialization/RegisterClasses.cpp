@@ -80,6 +80,12 @@ RTTR_REGISTRATION
     .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
     ;
 
+  rttr::registration::class_<Component::CardHolder::CardHolderElem>("CardHolderElem")
+    .property("tree", &AI::TreeTemplate::m_tree)
+    .property("treeName", &AI::TreeTemplate::m_treeName)
+    .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
+    ;
+
   /* ------------------- ENUMERATIONS ------------------- */
   rttr::registration::enumeration<AI::NODE_TYPE>("NODE_TYPE")
     (
@@ -106,6 +112,42 @@ RTTR_REGISTRATION
       rttr::value("TOTAL_BUTTON_TYPES", GE::ECS::BUTTON_TYPES::BUTTON_TYPE_TOTAL)
       );
 
+  rttr::registration::enumeration<GE::Component::Anchor::AnchorType>("AnchorType")
+    (
+      rttr::value("IS_ANCHOR", GE::Component::Anchor::AnchorType::IS_ANCHOR),
+      rttr::value("IS_ANCHORABLE", GE::Component::Anchor::AnchorType::IS_ANCHORABLE),
+      rttr::value("TOTAL_TYPES", GE::Component::Anchor::AnchorType::TOTAL_TYPES)
+      );
+
+  rttr::registration::enumeration<GE::Component::GE_Button::ButtonEventType>("AnchorType")
+    (
+      rttr::value("NO_EVENT", GE::Component::GE_Button::ButtonEventType::NO_EVENT),
+      rttr::value("SELECT_CARD", GE::Component::GE_Button::ButtonEventType::SELECT_CARD),
+      rttr::value("UNSELECT_CARD", GE::Component::GE_Button::ButtonEventType::UNSELECT_CARD),
+      rttr::value("CHANGE_SCENE", GE::Component::GE_Button::ButtonEventType::CHANGE_SCENE),
+      rttr::value("TOTAL_EVENTS", GE::Component::GE_Button::ButtonEventType::TOTAL_EVENTS)
+      );
+
+  rttr::registration::enumeration<GE::Component::Card::CardID>("CardType")
+    (
+      rttr::value("BASIC_LUNGE_ATTACK",           GE::Component::Card::CardID::BASIC_LUNGE_ATTACK),
+      rttr::value("BASIC_NORMAL_ATTACK",          GE::Component::Card::CardID::BASIC_NORMAL_ATTACK),
+      rttr::value("BASIC_NORMAL_BLOCK",           GE::Component::Card::CardID::BASIC_NORMAL_BLOCK),
+      rttr::value("BASIC_BUFF_2X_ATTACK",         GE::Component::Card::CardID::BASIC_BUFF_2X_ATTACK),
+      rttr::value("PLAYER_BEAM_ATTACK",           GE::Component::Card::CardID::PLAYER_BEAM_ATTACK),
+      rttr::value("PLAYER_EMPOWERED_ATTACK",      GE::Component::Card::CardID::PLAYER_EMPOWERED_ATTACK),
+      rttr::value("PLAYER_EMPOWERED_SWING",       GE::Component::Card::CardID::PLAYER_EMPOWERED_SWING),
+      rttr::value("PLAYER_NORMAL_BLOCK",          GE::Component::Card::CardID::PLAYER_NORMAL_BLOCK),
+      rttr::value("PLAYER_DEBUFF_FLASH_BANG",     GE::Component::Card::CardID::PLAYER_DEBUFF_FLASH_BANG),
+      rttr::value("PLAYER_BUFF_SMOKESCREEN",      GE::Component::Card::CardID::PLAYER_BUFF_SMOKESCREEN),
+      rttr::value("PLAYER_BUFF_RAGE",             GE::Component::Card::CardID::PLAYER_BUFF_RAGE),
+      rttr::value("PLAYER_EMPOWERED_BEAM_ATTACK", GE::Component::Card::CardID::PLAYER_EMPOWERED_BEAM_ATTACK),
+      rttr::value("DAWSON_BEAM_ATTACK",           GE::Component::Card::CardID::DAWSON_BEAM_ATTACK),
+      rttr::value("DAWSON_EMPOWERED_ATTACK",      GE::Component::Card::CardID::DAWSON_EMPOWERED_ATTACK),
+      rttr::value("DAWSON_NORMAL_BLOCK",          GE::Component::Card::CardID::DAWSON_NORMAL_BLOCK),
+      rttr::value("DAWSON_DEBUFF_CHARGE_ATTACK",  GE::Component::Card::CardID::DAWSON_DEBUFF_CHARGE_ATTACK),
+      rttr::value("DAWSON_DEBUFF_SPEED_UP_QUEUE", GE::Component::Card::CardID::DAWSON_DEBUFF_SPEED_UP_QUEUE)
+      );
   //rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")
   //  (
   //    rttr::value("TRANSFORM", ECS::COMPONENT_TYPES::TRANSFORM),

@@ -66,6 +66,10 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Text>(srcObj));
   }
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::GAME))
+  {
+    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Game>(srcObj));
+  }
   if (IsBitSet(sig, ECS::COMPONENT_TYPES::AUDIO))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Audio>(srcObj));
@@ -73,6 +77,10 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
   if (IsBitSet(sig, ECS::COMPONENT_TYPES::GE_BUTTON))
   {
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::GE_Button>(srcObj));
+  }
+  if (IsBitSet(sig, ECS::COMPONENT_TYPES::ANCHOR))
+  {
+    ecs.AddComponent(destObj, *ecs.GetComponent<Component::Anchor>(srcObj));
   }
 }
 
@@ -128,6 +136,11 @@ void ObjectFactory::AddComponentToObject(ECS::Entity id, ObjectData const& data)
   {
     ecs.AddComponent(id,
       DeserializeComponent<GE::Component::Text>(data.m_components.at(GE::ECS::COMPONENT_TYPES::TEXT)));
+  }
+  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::GAME))
+  {
+    ecs.AddComponent(newData,
+      DeserializeComponent<GE::Component::Text>(data.m_components.at(GE::ECS::COMPONENT_TYPES::GAME)));
   }
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::AUDIO))
   {
@@ -202,6 +215,14 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::GE_Button*>());
   }
+  else if (compType == rttr::type::get<Component::Anchor>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Anchor*>());
+  }
+  else if (compType == rttr::type::get<Component::Card>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Card*>());
+  }
 }
 
 void ObjectFactory::AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const
@@ -252,11 +273,23 @@ void ObjectFactory::RegisterComponentsAndSystems() const
     case COMPONENT_TYPES::TEXT:
       ecs.RegisterComponent<GE::Component::Text>();
       break;
+    case COMPONENT_TYPES::GAME:
+      ecs.RegisterComponent<GE::Component::Game>();
+      break;
     case COMPONENT_TYPES::AUDIO:
       ecs.RegisterComponent<GE::Component::Audio>();
       break;
     case COMPONENT_TYPES::GE_BUTTON:
       ecs.RegisterComponent<GE::Component::GE_Button>();
+      break;
+    case COMPONENT_TYPES::ANCHOR:
+      ecs.RegisterComponent<GE::Component::Anchor>();
+      break;
+    case COMPONENT_TYPES::CARD:
+      ecs.RegisterComponent<GE::Component::Card>();
+      break;
+    case COMPONENT_TYPES::CARD_HOLDER:
+      ecs.RegisterComponent<GE::Component::CardHolder>();
       break;
     default:
       std::ostringstream oss{};
@@ -489,9 +522,17 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::TweenSystem>();
     RegisterComponentsToSystem<Systems::TweenSystem>(sig);
     break;
+  case SYSTEM_TYPES::GAME_SYSTEMS:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::GameSystem>();
+    RegisterComponentsToSystem<Systems::GameSystem>(sig);
+    break;
   case SYSTEM_TYPES::AUDIO_SYSTEM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::AudioSystem>();
     RegisterComponentsToSystem<Systems::AudioSystem>(sig);
+    break;
+  case SYSTEM_TYPES::OBJECT_ANCHOR_SYSTEM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::ObjectAnchorSystem>();
+    RegisterComponentsToSystem<Systems::ObjectAnchorSystem>(sig);
     break;
   case SYSTEM_TYPES::BUTTON_SYSTEM:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::ButtonSystem>();

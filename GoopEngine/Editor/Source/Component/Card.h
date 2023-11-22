@@ -1,27 +1,51 @@
-#pragma once
-#include <ECS/Entity/Entity.h>
-#include <ScriptEngine/ScriptManager.h>
-#include <Events/Event.h>
+#ifndef CARD_H
+#define CARD_H
 
+#include <ECS/Entity/Entity.h>
 namespace GE::Component
 {
-  class Card
+  /*!
+   * \brief  
+   * Card struct to store card type and a card holder ID.
+   */
+  struct Card
   {
-    int m_actionValue;
+		enum CardID : int
+		{
+			// Basic enemy cards
+			BASIC_LUNGE_ATTACK,
+			BASIC_NORMAL_ATTACK,
 
-    GE::MONO::ScriptInstance m_behaviour;
+			BASIC_NORMAL_BLOCK,
 
-    // A system will dispatch a card event on card release
-    struct CardEvent : public GE::Events::Event
-    {
-      // Play m_behaviour with value action
-      // 
-    };
+			BASIC_BUFF_2X_ATTACK,
 
-    // A system should do this
-    //void Dispatch()
-    //{
-    //  GE::Events::EventManager::GetInstance().Dispatch()
-    //}
+			// Player cards
+			PLAYER_BEAM_ATTACK,
+			PLAYER_EMPOWERED_ATTACK,
+			PLAYER_EMPOWERED_SWING,
+
+			PLAYER_NORMAL_BLOCK,
+
+			PLAYER_DEBUFF_FLASH_BANG,
+			PLAYER_BUFF_SMOKESCREEN,
+			PLAYER_BUFF_RAGE,
+			PLAYER_EMPOWERED_BEAM_ATTACK,
+
+			// Dawson enemy cards
+			DAWSON_BEAM_ATTACK,
+			DAWSON_EMPOWERED_ATTACK,
+
+			DAWSON_NORMAL_BLOCK,
+
+			DAWSON_DEBUFF_CHARGE_ATTACK,
+			DAWSON_DEBUFF_SPEED_UP_QUEUE,
+
+			TOTAL_CARDS,
+		};
+		CardID cardID{};
+		GE::ECS::Entity entityVal{ GE::ECS::INVALID_ID }; //!< an entity ID. Possibly for card holder
   };
 }
+
+#endif

@@ -60,14 +60,24 @@
     <Compile Include="AI\RootNode.cs" />
     <Compile Include="AI\SelectorNode.cs" />
     <Compile Include="AI\SequenceNode.cs" />
-    <Compile Include="Cards\AttackCard.cs" />
+    <Compile Include="Cards\Attack.cs" />
+    <Compile Include="Cards\Rage.cs" />
+    <Compile Include="Cards\Block.cs" />
+    <Compile Include="Cards\CardManager.cs" />
     <Compile Include="Cards\CardBase.cs" />
+    <Compile Include="Cards\DawsonChargeUp.cs" />
+    <Compile Include="Cards\DawsonSpeedUp.cs" />
+    <Compile Include="Cards\LeahFlashBang.cs" />
+    <Compile Include="Cards\LeahSmokeScreen.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gameplay\BuffManager.cs" />
+    <Compile Include="Gameplay\GameManager.cs" />
+    <Compile Include="Gameplay\Stats.cs" />
     <Compile Include="Input\KeyCode.cs" />
     <Compile Include="Mono\Vec2.cs" />
     <Compile Include="Mono\Vec3.cs" />

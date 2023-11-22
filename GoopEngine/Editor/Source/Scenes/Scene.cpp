@@ -52,8 +52,36 @@ void GE::Scenes::Scene::Free()
 
 void GE::Scenes::Scene::TestScene()
 {
+	
 	of->ClearSceneObjects();
 	of->LoadSceneJson("SceneTest");
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj);
+	Entity gameSys = ecs->CreateEntity();
+	std::vector<void*> arg{};
+
+
+	Entity testPlayer = ecs->CreateEntity();
+	Entity testEnemy = ecs->CreateEntity();
+
+	GE::Component::Game GameComp{};
+	ScriptInstance GameMan{ "GameManager",arg };
+	GameComp.m_gameSystemScript = GameMan;
+	GameComp.enemy = testEnemy;
+	GameComp.player = testPlayer;
+
+	GE::Component::Transform GSTrans{};
+	std::vector<std::string> listOFScripts{ "Stats" };
+	GE::Component::Scripts testPLayerScript = Scripts(listOFScripts);
+	GE::Component::Scripts testEnemyScript = Scripts(listOFScripts);
+
+
+	ecs->AddComponent(gameSys, GameComp);
+	ecs->AddComponent(gameSys, GSTrans);
+
+	ecs->AddComponent(testPlayer, GSTrans);
+	ecs->AddComponent(testPlayer, testPLayerScript);
+
+	ecs->AddComponent(testEnemy, GSTrans);
+	ecs->AddComponent(testEnemy, testEnemyScript);
 }

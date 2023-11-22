@@ -128,10 +128,27 @@ RTTR_REGISTRATION
     .property("playOnStart", &Component::Audio::m_playOnStart)
     .property("channel", &Component::Audio::channel)
     ;
+
   rttr::registration::class_<Component::GE_Button>("GE_Button")
     .constructor<>()
-    .property("buttonType", &Component::GE_Button::m_buttonType)
-    .property("nextScene", &Component::GE_Button::m_nextScene)
+    .property("param", &Component::GE_Button::m_param)
+    .property("eventType", &Component::GE_Button::m_eventType);
     ;
 
+  rttr::registration::class_<Component::Anchor>("Anchor")
+    .constructor<>()
+    .property("type", &Component::Anchor::m_type)
+    .property("anchored", &Component::Anchor::m_anchored)
+    ;
+
+  rttr::registration::class_<Component::Card>("Card")
+    .constructor<>()
+    .property("cardID", &Component::Card::cardID)
+    .property("entityVal", &Component::Card::entityVal)
+    ;
+
+  rttr::registration::class_<Component::CardHolder>("CardHolder")
+    .constructor<>()
+    .property("elements", &Component::CardHolder::elements)
+    ;
 } // RTTR Registration

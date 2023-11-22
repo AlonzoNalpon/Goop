@@ -1,18 +1,18 @@
 /*!*********************************************************************
-\file   Stats.h
+\file   ObjectAnchorSystem.h
 \author w.chinkitbryan\@digipen.edu
-\date   9-November-2023
+\date   21-November-2023
 \brief  
- Component to contain stats relavent to gameplay entities (HP, Def, etc...)
+  System to allow object's transform to anchor to.
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
-#pragma once
+#include <ECS/System/System.h>
 
-namespace GE::Component
+namespace GE::Systems
 {
-	struct Stats
-	{
-		unsigned int m_health;
-	};
+  class ObjectAnchorSystem : public ECS::System
+  {
+    void FixedUpdate();
+  };
 }

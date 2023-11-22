@@ -69,7 +69,7 @@ namespace WindowSystem {
       throw GE::Debug::Exception<Window>(GE::Debug::LEVEL_CRITICAL,
         ErrMsg("Failed to initialize GLEW: " + std::to_string(errCode)));
     }
-
+    glfwSetWindowFocusCallback(m_window, WindowFocusedCallback);
     glfwSetErrorCallback(ErrorCallback);       // Error callback
     glfwSetKeyCallback(m_window, KeyCallback); // key callback
 
@@ -121,6 +121,14 @@ namespace WindowSystem {
     // For now, escape key will shut the thing down
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
       glfwSetWindowShouldClose(window, GLFW_TRUE);
+  }
+
+  void Window::WindowFocusedCallback(GLFWwindow* /*window*/, int focused)
+  {
+    if (!focused)
+    {
+      GE::Events::EventManager::GetInstance().Dispatch(GE::Events::WindowLoseFocusEvent());
+    }
   }
 
   void Window::ErrorCallback(int /*error*/, const char* desc)

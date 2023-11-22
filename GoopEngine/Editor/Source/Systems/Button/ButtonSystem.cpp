@@ -11,7 +11,8 @@ namespace GE
 	{
 		void ButtonSystem::Start()
 		{
-
+			GE::ECS::System::Start();
+			m_buttonEntity = GE::ECS::INVALID_ID;
 		}
 
 		void ButtonSystem::Update()
@@ -30,6 +31,7 @@ namespace GE
 
 		void ButtonSystem::HandleEvent(Events::Event const* event)
 		{
+			bool triggered = false;
 			for (GE::ECS::Entity entity : m_entities)
 			{
 				GE::Component::GE_Button* entityButton = m_ecs->GetComponent<GE::Component::GE_Button>(entity);
@@ -39,14 +41,31 @@ namespace GE
 					if (static_cast<Events::MouseTriggeredEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT)
 					{
 						GE::Component::BoxCollider* entity1Col = m_ecs->GetComponent<GE::Component::BoxCollider>(entity);
+						GE::Component::GE_Button* btn = m_ecs->GetComponent<GE::Component::GE_Button>(entity);
 
 						if (entity1Col->m_mouseCollided)
 						{
-							GE::GSM::GameStateManager::GetInstance().SetNextScene(entityButton->m_nextScene);
-							break;
+							triggered = true;
+							switch (btn->m_eventType)
+							{
+							case GE::Component::GE_Button::NO_EVENT:
+								break;
+							case GE::Component::GE_Button::SELECT_CARD:
+								//ECS::Entity cardHolder = m_ecs->GetComponent<>
+								break;
+							case GE::Component::GE_Button::UNSELECT_CARD:
+								break;
+							case GE::Component::GE_Button::CHANGE_SCENE:
+								GE::GSM::GameStateManager::GetInstance().SetNextScene(entityButton->m_param);
+								break;
+							default:
+								break;
+							}
 						}
 					}
 				}
+				if (triggered)
+					break;
 			}
 		}
 	}

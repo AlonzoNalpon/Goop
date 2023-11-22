@@ -35,7 +35,6 @@ namespace GE
 
 			std::map<Entity, std::string> m_names;
 
-
 		public:
 			/*!*********************************************************************
 			\brief

@@ -29,8 +29,12 @@ namespace GE
 			DRAGGABLE,
 			ENEMY_AI,
 			TEXT,
+			GAME,
 			AUDIO,
+			ANCHOR,
 			GE_BUTTON,
+			CARD,
+			CARD_HOLDER,
 			COMPONENTS_TOTAL
 		};
 
@@ -51,9 +55,11 @@ namespace GE
 			{ COMPONENT_TYPES::DRAGGABLE, "Draggable" },
 			{ COMPONENT_TYPES::ENEMY_AI, "EnemyAI" },
 			{ COMPONENT_TYPES::TEXT, "Text" },
+			{ COMPONENT_TYPES::GAME, "Game" },
 			{ COMPONENT_TYPES::AUDIO, "Audio" },
-			{ COMPONENT_TYPES::GE_BUTTON, "Button" }
-
+			{ COMPONENT_TYPES::ANCHOR, "Anchor" },
+			{ COMPONENT_TYPES::GE_BUTTON, "Button" },
+			{ COMPONENT_TYPES::CARD, "Card" }
 		};
 
 		// Const map so only interated through ranged for,
@@ -71,7 +77,10 @@ namespace GE
 			{ "EnemyAI", COMPONENT_TYPES::ENEMY_AI },
 			{ "Text", COMPONENT_TYPES::TEXT },
 			{ "Audio", COMPONENT_TYPES::AUDIO },
-			{ "Button", COMPONENT_TYPES::GE_BUTTON }
+			{ "Button", COMPONENT_TYPES::GE_BUTTON },
+			{ "Game", COMPONENT_TYPES::GAME },
+			{ "Anchor", COMPONENT_TYPES::ANCHOR },
+			{ "Card", COMPONENT_TYPES::CARD }
 		};
 
 		/*!*********************************************************************

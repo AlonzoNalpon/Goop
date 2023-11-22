@@ -13,7 +13,26 @@ namespace GE::Component
 {
 	struct GE_Button
 	{
-		GE::ECS::BUTTON_TYPES m_buttonType = GE::ECS::BUTTON_TYPES::CHANGE_SCENE;
-		std::string m_nextScene = "";
+		enum ButtonEventType
+		{
+			NO_EVENT,
+			SELECT_CARD,
+			UNSELECT_CARD,
+			CHANGE_SCENE,
+			TOTAL_EVENTS,
+		};
+
+		ButtonEventType m_eventType{NO_EVENT};
+		std::string m_param = "";
 	};
+	//class Button // Goop Button
+	//{
+	//public:
+
+	//	inline std::string GetNextScene() const { return m_param; }
+
+	//private:
+	//	std::string m_param = "";
+	//	// Empty struct to indicate entity as draggable
+	//};
 }

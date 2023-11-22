@@ -37,5 +37,7 @@
 #include "InputManager/InputManager.h"
 #include <Graphics/Def/GraphicsTypes.h>
 #include "Events/Listener.h"
+#include <Events/Events.h>
+#include <Events/InputEvents.h>
 #include <Utilities/GoopUtils.h>
 //#define NO_IMGUI

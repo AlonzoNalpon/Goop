@@ -104,7 +104,7 @@ namespace WindowSystem {
     const char* m_title{}; //!< title of window
     GLFWwindow* m_window{}; //!< pointer to window
   private:
-
+    static void WindowFocusedCallback(GLFWwindow* window, int focused);
     static void ErrorCallback(int error, const char* desc); //!< error callback for the window
   };
 }

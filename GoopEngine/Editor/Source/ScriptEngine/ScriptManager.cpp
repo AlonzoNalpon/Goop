@@ -15,9 +15,41 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../AssetManager/AssetManager.h"
 #include <ImNode/NodeEditor.h>
 #include <Component/Components.h>
+#include "mono/metadata/assembly.h"
+#include "mono/metadata/object.h"
+#include "mono/metadata/tabledefs.h"
+#include "mono/metadata/mono-debug.h"
+#include "mono/metadata/threads.h"
 
 using namespace GE::MONO;
 
+namespace GE 
+{
+  namespace MONO 
+  {
+    std::unordered_map<std::string, ScriptFieldType> GE::MONO::ScriptManager::m_ScriptFieldTypeMap
+    {
+      { "System.Boolean", ScriptFieldType::Bool },
+      { "System.Char", ScriptFieldType::Char },
+      { "System.Int16", ScriptFieldType::Short },
+      { "System.Int32", ScriptFieldType::Int },
+      { "System.Single", ScriptFieldType::Float },
+      { "System.Double", ScriptFieldType::Double },
+      { "System.Int64", ScriptFieldType::Long },
+      { "System.UInt16", ScriptFieldType::UShort },
+      { "System.UInt32", ScriptFieldType::UInt },
+      { "System.UInt64", ScriptFieldType::ULong },
+      { "GoopScripts.Mono.Vec2<System.Single>", ScriptFieldType::Vec2 },
+      { "GoopScripts.Mono.Vec3<System.Single>", ScriptFieldType::Vec3 },
+      { "GoopScripts.Mono.Vec2<System.Double>", ScriptFieldType::DVec2 },
+      { "GoopScripts.Mono.Vec3<System.Double>", ScriptFieldType::DVec3 },
+      { "System.Int32[]", ScriptFieldType::IntArr }
+      //{ "System.Single[]", ScriptFieldType::FloatArr },
+      //{ "System.Double[]", ScriptFieldType::DoubleArr }
+
+    };
+  }
+}
 
 // /*!*********************************************************************
 //
@@ -65,14 +97,12 @@ void GE::MONO::ScriptManager::InitMono()
 
   // Get Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPosition", GE::MONO::GetPosition);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetHealth", GE::MONO::GetHealth);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);  
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScale", GE::MONO::GetScale);
 
   // Set Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::SetPosition", GE::MONO::SetPosition);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetRotation", GE::MONO::SetRotation);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetHealth", GE::MONO::SetHealth);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetScale", GE::MONO::SetScale);
 
   // Node Editor Functions
@@ -86,6 +116,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetResult", GE::Systems::EnemySystem::SetResult);
   mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
 
+  // Animation
+  //mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", <PLAY ANIMIATION FUNCTION HERE>);
 
 
   //Load the CSharpAssembly (dll file)
@@ -121,10 +153,30 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
   std::string line{};
   while (std::getline(ifs, line)) {
     size_t commaPosition = line.find(',');
-    if (commaPosition != std::string::npos) {
+    if (commaPosition != std::string::npos) 
+    {
       MonoClass* newClass = GetClassInAssembly(m_coreAssembly, line.substr(0, commaPosition).c_str(), line.substr(commaPosition + 1).c_str());
-      if (newClass) {
-        m_monoClassMap[line.substr(commaPosition + 1).c_str()] = newClass;
+      if (newClass) 
+      {
+        ScriptClassInfo newScriptClassInfo{};
+        newScriptClassInfo.m_scriptClass = newClass;
+        //int fieldCount = mono_class_num_fields(newClass);
+        void* iterator = nullptr;
+        while (MonoClassField* field = mono_class_get_fields(newClass, &iterator))
+        {
+          const char* fieldName = mono_field_get_name(field);
+          uint32_t flags = mono_field_get_flags(field);
+          if (flags & FIELD_ATTRIBUTE_PUBLIC)
+          {
+            std::cout << line.substr(commaPosition + 1).c_str() << "::";
+            MonoType* type = mono_field_get_type(field);
+            ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
+            newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
+            std::cout << fieldName << "\n";
+          }
+        }
+        m_monoClassMap[line.substr(commaPosition + 1).c_str()] = newScriptClassInfo;
+        m_allScriptNames.push_back(line.substr(commaPosition + 1).c_str());
       }
     }
   }
@@ -188,7 +240,20 @@ char* GE::MONO::ReadBytes(const std::string& filepath, uint32_t* outSize)
   return buffer;
 }
 
+ScriptFieldType GE::MONO::ScriptManager::MonoTypeToScriptFieldType(MonoType* monoType)
+{
+  std::string typeName = mono_type_get_name(monoType);
+  std::cout << typeName << ": ";
 
+  auto it = m_ScriptFieldTypeMap.find(typeName);
+  if (it == m_ScriptFieldTypeMap.end())
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogWarning("Unable to access c# field type" + typeName, false);
+    return ScriptFieldType::Void;
+  }
+
+  return it->second;
+}
 // /*!*********************************************************************
 //
 //    Mono Shutdown Codes
@@ -223,7 +288,7 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
   // Get a reference to the class we want to instantiate
   if (m_monoClassMap.find(className) != m_monoClassMap.end())
   {
-    MonoClass* currClass = m_monoClassMap[className];
+    MonoClass* currClass = m_monoClassMap[className].m_scriptClass;
     MonoObject* classInstance = mono_object_new(m_appDomain, currClass);
 
     // Allocate an instance of our class
@@ -238,11 +303,11 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
   throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to locate class in map" + std::string(className), ERRLG_FUNC, ERRLG_LINE);
 }
 
-MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, std::vector<void*>& arg)
+MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, std::vector<void*>& arg)  
 {
   if (m_monoClassMap.find(className) != m_monoClassMap.end())
   {
-    MonoClass* currClass = m_monoClassMap[className];
+    MonoClass* currClass = m_monoClassMap[className].m_scriptClass;
     MonoObject* classInstance = mono_object_new(m_appDomain, currClass);  //Get a reference to the class we want to instantiate
 
     if (classInstance == nullptr)
@@ -275,7 +340,7 @@ MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* name
   return klass;
 }
 
-MonoClass* GE::MONO::ScriptManager::GetMonoClass(std::string className)
+ScriptClassInfo GE::MONO::ScriptManager::GetScriptClassInfo(std::string className)
 {
   return m_monoClassMap[className];
 }
@@ -349,16 +414,9 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
   return oldTransform->m_rot;
 }
 
-unsigned int GE::MONO::GetHealth(GE::ECS::Entity entity)
+void PlayAnimation(std::string /*animName*/)
 {
-  static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-  return ecs.GetComponent<GE::Component::Stats>(entity)->m_health;
-}
-
-void GE::MONO::SetHealth(GE::ECS::Entity entity, unsigned int health)
-{
-  static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-  ecs.GetComponent<GE::Component::Stats>(entity)->m_health = health;
+  // call play animation here
 }
 
 int GE::MONO::CalculateGCD(int large, int small)
