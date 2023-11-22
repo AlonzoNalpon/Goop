@@ -168,7 +168,7 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
-  rttr::type const compType{ compVar.get_type().get_wrapped_type().get_raw_type() };
+  rttr::type const compType{ compVar.get_type().is_wrapper() ? compVar.get_type().get_wrapped_type().get_raw_type() : compVar.get_type().is_pointer() ? compVar.get_type().get_raw_type() : compVar.get_type()};
 
   if (compType == rttr::type::get<Component::Transform>())
   {
@@ -377,7 +377,7 @@ void GE::ObjectFactory::ObjectFactory::EmptyMap()
   m_prefabs.clear();
 }
 
-void ObjectFactory::CloneObject(ECS::Entity entity, const Math::dVec2& newPos)
+void ObjectFactory::CloneObject(ECS::Entity entity, ECS::Entity parent) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
@@ -392,15 +392,17 @@ void ObjectFactory::CloneObject(ECS::Entity entity, const Math::dVec2& newPos)
     rttr::variant compVar{ Serialization::Serializer::GetEntityComponent(entity, component) };
     // skip if component wasn't found
     if (!compVar.is_valid()) { continue; }
-    
 
+    AddComponentToEntity(newEntity, compVar);
   }
+
 #endif
 
-  Component::Transform* trans{ ecs.GetComponent<Component::Transform>(newEntity) };
-  if (trans)
+  ecs.SetParentEntity(newEntity, parent);
+  if (parent != ECS::INVALID_ID) { ecs.AddChildEntity(parent, newEntity); }
+  for (ECS::Entity const& child : ecs.GetChildEntities(entity))
   {
-    trans->m_worldPos = newPos;
+    CloneObject(child, newEntity);
   }
 }
 

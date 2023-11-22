@@ -253,7 +253,7 @@ namespace
 
 				if (Selectable("Duplicate"))
 				{
-					GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity, ecs.GetComponent<GE::Component::Transform>(entity)->m_pos);
+					GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity);
 				}
 
 				if (Selectable("Delete"))
