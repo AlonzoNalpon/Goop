@@ -16,7 +16,7 @@ namespace GE::Component
 {
 	struct Anchor
 	{
-		enum ANCHOR_TYPE
+		enum AnchorType
 		{
 			IS_ANCHOR,
 			IS_ANCHORABLE,
@@ -25,7 +25,7 @@ namespace GE::Component
 
 		std::vector<GE::ECS::Entity> m_anchored;
 
-		inline static std::string toString(ANCHOR_TYPE type)
+		inline static std::string toString(AnchorType type)
 		{
 			std::string ret;
 			switch (type)
@@ -42,9 +42,9 @@ namespace GE::Component
 			}
 			return ret;
 		}
-		inline static ANCHOR_TYPE toType(std::string type)
+		inline static AnchorType toType(std::string type)
 		{
-			ANCHOR_TYPE ret{IS_ANCHOR};
+			AnchorType ret{IS_ANCHOR};
 			if (type == "isAnchor")
 			{
 				ret = IS_ANCHOR;
@@ -59,7 +59,7 @@ namespace GE::Component
 
 	};
 
-	const std::map<std::string, Anchor::ANCHOR_TYPE> m_stringToAnchorType
+	const std::map<std::string, Anchor::AnchorType> m_stringToAnchorType
 	{
 		{"isAnchor", Anchor::IS_ANCHOR},
 		{"isAnchorable", Anchor::IS_ANCHORABLE}

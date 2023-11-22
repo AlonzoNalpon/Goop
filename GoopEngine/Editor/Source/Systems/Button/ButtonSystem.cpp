@@ -11,6 +11,7 @@ namespace GE
 	{
 		void ButtonSystem::Start()
 		{
+			GE::ECS::System::Start();
 			m_buttonEntity = GE::ECS::INVALID_ID;
 		}
 
@@ -47,11 +48,20 @@ namespace GE
 					if (static_cast<Events::MouseTriggeredEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT)
 					{
 						GE::Component::BoxCollider* entity1Col = m_ecs->GetComponent<GE::Component::BoxCollider>(entity);
+						GE::Component::GE_Button* btn = m_ecs->GetComponent<GE::Component::GE_Button>(entity);
 
 						if (entity1Col->m_mouseCollided)
 						{
-							GE::GSM::GameStateManager::GetInstance().SetNextScene(entityButton->m_nextScene);
-							break;
+							switch (btn->m_eventType)
+							{
+							case GE::Component::GE_Button::NO_EVENT:
+								break;
+							case GE::Component::GE_Button::CHANGE_SCENE:
+								GE::GSM::GameStateManager::GetInstance().SetNextScene(entityButton->m_param);
+								break;
+							default:
+								break;
+							}
 						}
 					}
 				}

@@ -97,11 +97,18 @@ RTTR_REGISTRATION
       rttr::value("TOTAL_CHANNELS", fMOD::FmodSystem::ChannelType::TOTAL_CHANNELS)
       );
 
-  rttr::registration::enumeration<GE::Component::Anchor::ANCHOR_TYPE>("ANCHOR_TYPE")
+  rttr::registration::enumeration<GE::Component::Anchor::AnchorType>("AnchorType")
     (
-      rttr::value("IS_ANCHOR", GE::Component::Anchor::ANCHOR_TYPE::IS_ANCHOR),
-      rttr::value("IS_ANCHORABLE", GE::Component::Anchor::ANCHOR_TYPE::IS_ANCHORABLE),
-      rttr::value("TOTAL_TYPES", GE::Component::Anchor::ANCHOR_TYPE::TOTAL_TYPES)
+      rttr::value("IS_ANCHOR", GE::Component::Anchor::AnchorType::IS_ANCHOR),
+      rttr::value("IS_ANCHORABLE", GE::Component::Anchor::AnchorType::IS_ANCHORABLE),
+      rttr::value("TOTAL_TYPES", GE::Component::Anchor::AnchorType::TOTAL_TYPES)
+      );
+
+  rttr::registration::enumeration<GE::Component::GE_Button::ButtonEventType>("AnchorType")
+    (
+      rttr::value("IS_ANCHOR", GE::Component::GE_Button::ButtonEventType::NO_EVENT),
+      rttr::value("IS_ANCHORABLE", GE::Component::GE_Button::ButtonEventType::CHANGE_SCENE),
+      rttr::value("TOTAL_TYPES", GE::Component::GE_Button::ButtonEventType::TOTAL_EVENTS)
       );
 
   //rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")

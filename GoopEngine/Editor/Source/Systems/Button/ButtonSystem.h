@@ -26,7 +26,7 @@ namespace GE
 		private:
 			// bool m_isClicked = false;
 			GE::ECS::Entity m_buttonEntity;
-			// std::string m_nextScene = "Start";
+			// std::string m_param = "Start";
 		};
 	}
 }
