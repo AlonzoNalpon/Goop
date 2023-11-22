@@ -81,9 +81,10 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::CardHolder::CardHolderElem>("CardHolderElem")
-    .property("tree", &AI::TreeTemplate::m_tree)
-    .property("treeName", &AI::TreeTemplate::m_treeName)
-    .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
+    .property("entityVal", &Component::CardHolder::CardHolderElem::entityVal)
+    .property("spriteID", &Component::CardHolder::CardHolderElem::spriteID)
+    .property("defaultSpriteID", &Component::CardHolder::CardHolderElem::defaultSpriteID)
+    .property("used", &Component::CardHolder::CardHolderElem::used)
     ;
 
   /* ------------------- ENUMERATIONS ------------------- */

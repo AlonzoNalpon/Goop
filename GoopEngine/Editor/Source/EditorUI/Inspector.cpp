@@ -830,8 +830,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 			case GE::ECS::COMPONENT_TYPES::CARD:
 			{
-				auto card = ecs.GetComponent<GE::Component::Card>(entity);
-
+				auto* card = ecs.GetComponent<GE::Component::Card>(entity);
 				if (ImGui::CollapsingHeader("Card", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					if (RemoveComponentPopup<Component::Card>("Card", entity))
@@ -851,6 +850,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					card->entityVal = newVal;
 
 					rttr::type const type{ rttr::type::get<GE::Component::Card::CardID>() };
+					
 					if (BeginCombo("Card", type.get_enumeration().value_to_name(card->cardID).to_string().c_str()))
 					{
 						for (Card::CardID currType{}; currType != Card::CardID::TOTAL_CARDS;)
@@ -865,6 +865,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndCombo();
 					}
+
+					
 					EndTable();
 					Separator();
 				}
@@ -872,41 +874,128 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 			case GE::ECS::COMPONENT_TYPES::CARD_HOLDER:
 			{
-				auto card = ecs.GetComponent<GE::Component::Card>(entity);
+				auto* cardHolder = ecs.GetComponent<GE::Component::CardHolder>(entity);
 
-				if (ImGui::CollapsingHeader("Card", ImGuiTreeNodeFlags_DefaultOpen))
+				if (ImGui::CollapsingHeader("Card Holder", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					if (RemoveComponentPopup<Component::Card>("Card", entity))
+					if (RemoveComponentPopup<Component::CardHolder>("Card Holder", entity))
 					{
 						break;
 					}
-
 
 					Separator();
 					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
 					TableNextColumn();
 
-					// Value to store in card
-					int newVal{ static_cast<int>(card->entityVal) };
-					ImGui::InputInt("Entity Value", &newVal);
-					card->entityVal = newVal;
-
 					rttr::type const type{ rttr::type::get<GE::Component::Card::CardID>() };
-					if (BeginCombo("Card", type.get_enumeration().value_to_name(card->cardID).to_string().c_str()))
+					//ELEMENTS
 					{
-						for (Card::CardID currType{}; currType != Card::CardID::TOTAL_CARDS;)
+						// TITLE
+						ImGui::TextColored(ImVec4{ 1.f, .733f, 0.f, 1.f },
+							("ELEMENTS | Size: " + std::to_string(cardHolder->elements.size())).c_str());
+						
+						// + AND - BUTTONS
+						if (Button("+"))
 						{
-							// get the string ...
-							std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
-
-							if (Selectable(str.c_str(), currType == card->cardID))
-								card->cardID = currType; // set the current type if selected 
-							// and now iterate through
-							currType = static_cast<Card::CardID>(static_cast<int>(currType) + 1);
+							cardHolder->elements.emplace_back();
 						}
-						EndCombo();
+						SameLine();
+						if (Button("-") && !cardHolder->elements.empty())
+						{
+							cardHolder->elements.pop_back();
+						}
+
+						int currElement{1}; // the current element to be displayed
+						for (auto& element : cardHolder->elements)
+						{
+							ImGui::TextColored(ImVec4{ 1.f, 1.f, 0.f, 1.f }, 
+								("Element: " + std::to_string(currElement)).c_str());
+							{
+								// THE ENTITY VALUE
+								{
+									ImGui::Text("Entity ID: ");
+									SameLine();
+									int newVal{ static_cast<int>(element.entityVal) };
+									if (InputInt(("##CDEntID" + std::to_string(currElement)).c_str(), &newVal))
+									{
+										element.entityVal = newVal;
+										
+										// get other sprite component if it exists
+										if (ecs.HasComponent<Sprite>(element.entityVal))
+										{
+											auto* spriteComp = ecs.GetComponent<Sprite>(element.entityVal);
+											element.defaultSpriteID = spriteComp->m_spriteData.texture;
+										}
+										else
+										{
+											element.defaultSpriteID = 0; // invalid
+										}
+									}
+								}
+								
+								// THE SPRITE ID (FOR REFERENCE)
+								{
+									BeginDisabled(true);
+									// DEFAULT SPRITE
+									ImGui::Text("Default Sprite: ");
+									SameLine();
+									auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
+									if (element.defaultSpriteID)
+									{
+										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f },
+											(textureManager.GetTextureName(element.defaultSpriteID)
+												+ std::string(" | ")).c_str());
+										SameLine();
+										ImGui::TextColored(ImVec4{ 1.f, .7333f, 0.f, 1.f },
+											ecs.GetEntityName(element.entityVal).c_str());
+									}
+									else
+									{
+										ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "No Sprite");
+									}
+
+									// USED SPRITE
+									ImGui::Text("Used Sprite: ");
+									SameLine();
+									if (element.spriteID)
+									{
+										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f }, 
+											textureManager.GetTextureName(element.spriteID).c_str());
+									}
+									else
+									{
+										ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "No Sprite");
+									}
+									EndDisabled();
+								}
+
+								// THE USED FLAG
+								{
+									ImGui::Text("active");
+									ImGui::SameLine();
+									BeginDisabled(true);
+									Checkbox(("##elemAct" + std::to_string(currElement)).c_str(), &element.used);
+									EndDisabled();
+								}
+							}
+							++currElement;
+						}
 					}
+					//if (BeginCombo("Card", type.get_enumeration().value_to_name(card->cardID).to_string().c_str()))
+					//{
+					//	for (Card::CardID currType{}; currType != Card::CardID::TOTAL_CARDS;)
+					//	{
+					//		// get the string ...
+					//		std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
+
+					//		if (Selectable(str.c_str(), currType == card->cardID))
+					//			card->cardID = currType; // set the current type if selected 
+					//		// and now iterate through
+					//		currType = static_cast<Card::CardID>(static_cast<int>(currType) + 1);
+					//	}
+					//	EndCombo();
+					//}
 					EndTable();
 					Separator();
 				}
@@ -932,7 +1021,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 		if (BeginCombo("Components", GE::ECS::componentsToString.at(static_cast<GE::ECS::COMPONENT_TYPES>(0)).c_str()))
 		{
 			for (int i{}; i < GE::ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)
-			{				
+			{		
 				if (Selectable(GE::ECS::componentsToString.at(static_cast<GE::ECS::COMPONENT_TYPES>(i)).c_str()))
 				{
 					std::stringstream ss;
