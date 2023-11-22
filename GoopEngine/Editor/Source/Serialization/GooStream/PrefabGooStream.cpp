@@ -20,6 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/Deserializer.h>
 #include <Serialization/Serializer.h>
 
+#ifndef RTTR_DESERIALIZE
 using namespace GE::Serialization;
 
 // MUST CORRESPOND TO KEYS IN .json
@@ -132,3 +133,4 @@ bool PrefabGooStream::Unload(container_type& object)
 
   return m_status = true;
 }
+#endif

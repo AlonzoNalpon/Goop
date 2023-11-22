@@ -17,6 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "IGooStream.h"
 #include <ObjectFactory/ObjectStructs.h>
 
+#ifndef RTTR_DESERIALIZE
 namespace GE
 {
   namespace Serialization
@@ -57,3 +58,4 @@ namespace GE
 
   }
 }
+#endif

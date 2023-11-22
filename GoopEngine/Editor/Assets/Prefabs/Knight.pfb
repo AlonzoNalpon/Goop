@@ -9,9 +9,9 @@
             }
         },
         {
-          "Sprite": {
-            "spriteName": "Knight"
-          }
+            "Sprite": {
+                "spriteName": "Knight"
+            }
         },
         {
             "BoxCollider": {

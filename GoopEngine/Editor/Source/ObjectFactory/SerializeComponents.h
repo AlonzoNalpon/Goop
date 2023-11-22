@@ -15,6 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 namespace GE::ObjectFactory
 {
+#ifndef RTTR_DESERIALIZE
   /*!*********************************************************************
   \brief
     Takes the raw data of a component (in string) and deserializes it
@@ -43,6 +44,8 @@ namespace GE::ObjectFactory
   GE::Component::Text DeserializeComponent(std::string const& componentData);
   template<>
   GE::Component::Audio DeserializeComponent(std::string const& componentData);
-
+  template<>
+  GE::Component::GE_Button DeserializeComponent(std::string const& componentData);
+#endif
 }
 

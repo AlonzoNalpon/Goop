@@ -19,6 +19,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/Serializer.h>
 #include <Serialization/Deserializer.h>
 
+#ifndef RTTR_DESERIALIZE
 using namespace GE::Serialization;
 
 ObjectGooStream::ObjectGooStream(std::string const& json) : GooStream(true)
@@ -143,3 +144,4 @@ bool ObjectGooStream::Unload(container_type& container)
 
   return m_status = true;
 }
+#endif
