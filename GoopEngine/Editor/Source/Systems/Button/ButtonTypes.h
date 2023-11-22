@@ -14,11 +14,6 @@ namespace GE::ECS
     BUTTON_TYPE_TOTAL
   };
 
-  // BUTTON_TYPES& operator++(BUTTON_TYPES& rhs) { return rhs = static_cast<ECS::BUTTON_TYPES>((static_cast<unsigned>(rhs) + 1)); }
-
-  // Registration of Components to ECS follows this map
-  // Const map so only interated through ranged for,
-  // or use the .at(<key>) function
   const std::map<BUTTON_TYPES, std::string> buttonToString
   {
 	  { BUTTON_TYPES::CHANGE_SCENE, "Change Scene" },
@@ -28,8 +23,6 @@ namespace GE::ECS
 
   };
 
-  // Const map so only interated through ranged for,
-  // or use the .at(<key>) function
   const std::unordered_map<std::string, BUTTON_TYPES> stringToButton
   {
 	  { "Change Scene", BUTTON_TYPES::CHANGE_SCENE },
@@ -37,7 +30,4 @@ namespace GE::ECS
     { "De-select Card", BUTTON_TYPES::DESELECT_CARD },
     { "End Turn", BUTTON_TYPES::END_TURN }
   };
-
-  // std::vector<std::string> ButtonTypesToString(int type) { ; }
-  
 }

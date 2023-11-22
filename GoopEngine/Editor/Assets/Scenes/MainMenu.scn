@@ -149,7 +149,7 @@
             },
             {
                 "GE_Button": {
-                    "buttonType": 0,
+                    "buttonType": "CHANGE_SCENE",
                     "nextScene": "Robot"
                 }
             }
@@ -185,7 +185,7 @@
             },
             {
                 "GE_Button": {
-                    "buttonType": 0,
+                    "buttonType": "CHANGE_SCENE",
                     "nextScene": "SceneTest"
                 }
             }
