@@ -127,8 +127,7 @@ namespace WindowSystem {
   {
     if (!focused)
     {
-      // CALL EVENT SYSTEM HERE?
-      //THIS PLACE MAN
+      GE::Events::EventManager::GetInstance().Dispatch(GE::Events::WindowLoseFocusEvent());
     }
   }
 
