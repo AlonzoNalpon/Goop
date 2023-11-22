@@ -106,9 +106,9 @@ RTTR_REGISTRATION
 
   rttr::registration::enumeration<GE::Component::GE_Button::ButtonEventType>("AnchorType")
     (
-      rttr::value("IS_ANCHOR", GE::Component::GE_Button::ButtonEventType::NO_EVENT),
-      rttr::value("IS_ANCHORABLE", GE::Component::GE_Button::ButtonEventType::CHANGE_SCENE),
-      rttr::value("TOTAL_TYPES", GE::Component::GE_Button::ButtonEventType::TOTAL_EVENTS)
+      rttr::value("NO_EVENT", GE::Component::GE_Button::ButtonEventType::NO_EVENT),
+      rttr::value("CHANGE_SCENE", GE::Component::GE_Button::ButtonEventType::CHANGE_SCENE),
+      rttr::value("TOTAL_EVENTS", GE::Component::GE_Button::ButtonEventType::TOTAL_EVENTS)
       );
 
   //rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")
