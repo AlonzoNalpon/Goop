@@ -23,10 +23,7 @@ namespace GE
 			GE::AI::TreeID m_treeID;
 
 			EnemyAI() = default;
-			EnemyAI(TreeID treeID) : m_treeID{ treeID }
-			{
-				std::cout << "\n\nNFOQNFNWOUIFWNOIFWOIUNFFWFWE\n\n";
-			}
+			EnemyAI(TreeID treeID) : m_treeID{ treeID } {}
 			/************************************************************************/ /*!
 			\ brief
 				Clear out the enemy's tree cache. to allow the enemy to traverse from the start of the tree again
