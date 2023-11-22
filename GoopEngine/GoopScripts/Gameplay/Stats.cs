@@ -13,16 +13,15 @@ namespace GoopScripts.Gameplay
 	{
 		public int m_health=100;
 		// List of card IDs
-		public List<CardBase.CardID> m_deck { get; set; }  // HQD: I had to initialize them, or else they would gives me error. you can remove it
+		public CardBase.CardID[] m_deck { get; set; }  // HQD: I had to initialize them, or else they would gives me error. you can remove it
 		// List of cards in the queue
-		public List<CardBase.CardID> m_cardQueue { get; set; }
+		public CardBase.CardID[] m_cardQueue { get; set; }
 
     public BuffManager m_buffs { get; set; }
 
     public int GetHealth()
     {
-      Console.WriteLine(m_health+" MYHESLTH");
-      return 1000;
+      return m_health;
     }
 
     public void TakeDamage(float damage)

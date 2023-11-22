@@ -11,7 +11,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../Systems/DraggableObject/DraggableObjectSystem.h"
 #include "EventManager.h"
 #include "InputEvents.h"
+#include <Events/Events.h>
 #include <Systems/Button/ButtonSystem.h>
+#include <Systems/GameSystem/GameSystem.h>
 
 using namespace GE::Events;
 
@@ -22,4 +24,5 @@ void EventManager::SubscribeAllListeners()
   Subscribe<MouseHeldEvent>(ecs.GetSystem<GE::Systems::DraggableObjectSystem>());
   Subscribe<MouseReleasedEvent>(ecs.GetSystem<GE::Systems::DraggableObjectSystem>());
   Subscribe<MouseTriggeredEvent>(ecs.GetSystem<GE::Systems::ButtonSystem>());
+  Subscribe<WindowLoseFocusEvent>(ecs.GetSystem<GE::Systems::GameSystem>());
 }

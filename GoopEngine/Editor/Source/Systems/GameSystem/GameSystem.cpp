@@ -17,30 +17,16 @@ void GE::Systems::GameSystem::Update()
   {
     //std::cout << "b4\n";
     Game* game = m_ecs->GetComponent<Game>(entity);
-    game->m_gameSystemScript.InvokeOnUpdate(frc.GetDeltaTime());
-
-    //GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
-    //m_scriptClassInfo = sm->GetScriptClassInfo(scriptName);
-    //m_classInst = sm->InstantiateClass(scriptName.c_str(), arg);
-
-
-
-   /* MonoMethod* m_onTest = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClassInfo.m_scriptClass, "OnTest", 1);
-    Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->player);*/
-   /* auto it = playerScript->m_scriptMap.find("Stats");
-    if (it != playerScript->m_scriptMap.end())
-    {
-      MonoProperty* healthProperty = mono_class_get_property_from_name(it->second.m_scriptClassInfo.m_scriptClass, " m_health");
-      int h = 100;
-      std::vector<void*> par{ &h };
-      mono_property_set_value(healthProperty, it->second.m_classInst, par.data(), nullptr);
-
-
-      MonoObject* test = it->second.m_classInst;
-      void* param = &(test);
-      mono_runtime_invoke(m_onTest, game->m_gameSystemScript.m_classInst, &param, nullptr);
-    }
-  */
+ 
+    MonoMethod* onUpdateFunc = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClassInfo.m_scriptClass, "OnUpdate", 3);
+    Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->player);
+    Scripts* enemyScript = m_ecs->GetComponent<Scripts>(game->enemy);
+    auto it = playerScript->m_scriptMap.find("Stats");
+    auto it2 = enemyScript->m_scriptMap.find("Stats");
+    double dt = frc.GetDeltaTime();
+    void* args[] = {&dt, it->second.m_classInst,it2->second.m_classInst };
+    mono_runtime_invoke(onUpdateFunc, game->m_gameSystemScript.m_classInst, args, nullptr);
+  
 
 
    // std::cout << "Aft\n";
@@ -55,5 +41,21 @@ void GE::Systems::GameSystem::Update()
     //mono_runtime_invoke(update, gameSystemScriptObj, args.data(), nullptr);
     
 
+  }
+}
+
+void GE::Systems::GameSystem::HandleEvent(GE::Events::Event const* event)
+{
+  if (event->GetCategory() == GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS)
+  {
+    // There should only be 1 entity
+    if (!m_entities.empty())
+    {
+      Game* game = m_ecs->GetComponent<Game>(*m_entities.begin());
+      if (game != nullptr)
+      {
+        m_ecs->SetIsActiveEntity(game->m_pauseMenu, true);
+      }
+    }
   }
 }

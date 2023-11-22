@@ -30,6 +30,7 @@ namespace GE
       MOUSE_TRIGGERED,
       MOUSE_HELD,
       MOUSE_RELEASED,
+      WINDOW_LOSE_FOCUS,
       MAX_EVENTS
     };
 
@@ -61,6 +62,12 @@ namespace GE
         True if the event has already been handled and false otherwise
       ************************************************************************/
       inline bool IsHandled() const noexcept { return m_handled; }
+
+      /*!*********************************************************************
+      \brief
+        Virtual destructor.
+      ************************************************************************/
+      virtual ~Event() {}
 
     protected:
       EVENT_TYPE m_category;

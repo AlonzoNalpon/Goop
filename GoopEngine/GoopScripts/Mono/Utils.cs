@@ -14,7 +14,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-
 namespace GoopScripts.Mono
 {
   public static class Utils
@@ -239,16 +238,13 @@ namespace GoopScripts.Mono
 		//extern public static void SetCurrentRunningNode(uint currID);
 
 
-		// /*!*********************************************************************
-		//
-		//    Functions For Cards
-		//
-		//************************************************************************/
-		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		extern public static int GetHealth(int entity);
-
-		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		extern public static void SetHealth(int entity, int health);
-	}
+    // /*!*********************************************************************
+    //
+    //    Functions For Animation
+    //
+    //************************************************************************/
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void PlayAnimation(string animname);
+  }
 
 }

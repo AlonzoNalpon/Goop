@@ -43,7 +43,9 @@ namespace GE
       { "GoopScripts.Mono.Vec3<System.Single>", ScriptFieldType::Vec3 },
       { "GoopScripts.Mono.Vec2<System.Double>", ScriptFieldType::DVec2 },
       { "GoopScripts.Mono.Vec3<System.Double>", ScriptFieldType::DVec3 },
-      { "System.Collections.Generic.List<System.Int32>", ScriptFieldType::IntArr },
+      { "System.Int32[]", ScriptFieldType::IntArr }
+      //{ "System.Single[]", ScriptFieldType::FloatArr },
+      //{ "System.Double[]", ScriptFieldType::DoubleArr }
 
     };
   }
@@ -95,14 +97,12 @@ void GE::MONO::ScriptManager::InitMono()
 
   // Get Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPosition", GE::MONO::GetPosition);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetHealth", GE::MONO::GetHealth);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);  
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScale", GE::MONO::GetScale);
 
   // Set Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::SetPosition", GE::MONO::SetPosition);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetRotation", GE::MONO::SetRotation);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetHealth", GE::MONO::SetHealth);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetScale", GE::MONO::SetScale);
 
   // Node Editor Functions
@@ -116,6 +116,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetResult", GE::Systems::EnemySystem::SetResult);
   mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
 
+  // Animation
+  //mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", <PLAY ANIMIATION FUNCTION HERE>);
 
 
   //Load the CSharpAssembly (dll file)
@@ -301,7 +303,7 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
   throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to locate class in map" + std::string(className), ERRLG_FUNC, ERRLG_LINE);
 }
 
-MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, std::vector<void*>& arg)
+MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, std::vector<void*>& arg)  
 {
   if (m_monoClassMap.find(className) != m_monoClassMap.end())
   {
@@ -412,20 +414,9 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
   return oldTransform->m_rot;
 }
 
-unsigned int GE::MONO::GetHealth(GE::ECS::Entity entity)
+void PlayAnimation(std::string /*animName*/)
 {
-  UNREFERENCED_PARAMETER(entity);
-  //static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-  //return ecs.GetComponent<GE::Component::Stats>(entity)->m_health;
-  return 1;
-}
-
-void GE::MONO::SetHealth(GE::ECS::Entity entity, unsigned int health)
-{
-  UNREFERENCED_PARAMETER(entity);
-  UNREFERENCED_PARAMETER(health);
-  //static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-  //ecs.GetComponent<GE::Component::Stats>(entity)->m_health = health;
+  // call play animation here
 }
 
 int GE::MONO::CalculateGCD(int large, int small)
