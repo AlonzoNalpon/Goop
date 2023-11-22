@@ -14,13 +14,15 @@ using namespace GE::GSM;
 
 void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
 {
+	auto& scenes =  GE::Assets::AssetManager::GetInstance().GetScenes();
+	if (scenes.find(next_scene) == scenes.end())
+	{
+		GE::Debug::ErrorLogger::GetInstance().LogWarning("Scene " + next_scene + " does not exist. Unable to load");
+		return;
+	}
+
 	try
 	{
-		for (const auto& x : GE::Assets::AssetManager::GetInstance().GetScenes())
-		{
-
-			std::cout << x.first << " : " << x.second << std::endl;
-		}
 		if (sm.GetCurrentScene() == next_scene)
 		{
 			sm.RestartScene();
