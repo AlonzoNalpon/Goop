@@ -362,13 +362,24 @@ void GE::EditorGUI::Inspector::CreateContent()
 #ifndef NO_IMGUI
 					InputCheckBox("Show Collider", col->m_render);
 #endif
-					if (Button("Match Sprite"))
+					if (Button("Match Sprite Unscaled"))
 					{
 						auto* sprite = ecs.GetComponent<Sprite>(entity);
 						if (sprite)
 						{
 							col->m_width = sprite->m_spriteData.info.width;
 							col->m_height = sprite->m_spriteData.info.height;
+						}
+					}
+
+					if (Button("Match Sprite And Scale"))
+					{
+						auto* sprite = ecs.GetComponent<Sprite>(entity);
+						auto* trans = ecs.GetComponent<Transform>(entity);
+						if (sprite)
+						{
+							col->m_width = sprite->m_spriteData.info.width * trans->m_scale.x;
+							col->m_height = sprite->m_spriteData.info.height * trans->m_scale.y;
 						}
 					}
 					EndTable();
