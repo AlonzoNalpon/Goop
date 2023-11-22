@@ -40,3 +40,7 @@
 #include "Audio/AudioEngine.h"
 #include <Utilities/GoopUtils.h>
 //#define NO_IMGUI
+
+#ifdef NO_IMGUI
+//#define DEMO
+#endif
