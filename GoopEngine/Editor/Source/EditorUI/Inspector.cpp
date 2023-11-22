@@ -431,8 +431,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							{
 								auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
 								const char* droppedPath = static_cast<const char*>(payload->Data);
-								sprite->m_spriteData.texture = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
-
+								*sprite = Sprite(texManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)));
 							}
 							EndDragDropTarget();
 						}
@@ -470,14 +469,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 #pragma endregion
 #pragma region SPRITE_DEBUG_INFO 
-					// texcoordinates and info you can't edit
-					BeginDisabled();
 					int imageDims[2]{ static_cast<int>(spriteObj->m_spriteData.info.width), 
 														static_cast<int>(spriteObj->m_spriteData.info.height) };
 					ImGui::InputInt("Image Width", &imageDims[0]);
-					ImGui::InputInt("Image Width", &imageDims[1]);
+					ImGui::InputInt("Image Height", &imageDims[1]);
+					spriteObj->m_spriteData.info.width = static_cast<GLuint>(imageDims[0]);
+					spriteObj->m_spriteData.info.height = static_cast<GLuint>(imageDims[1]);
 					ImGui::InputFloat2("Tex Coords", &spriteObj->m_spriteData.info.texCoords.r);
-					EndDisabled();
 #pragma endregion
 				}
 				break;
