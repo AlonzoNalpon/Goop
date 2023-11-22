@@ -13,19 +13,19 @@ void GE::Systems::GameSystem::Update()
   //std::cout << "update Gamesystme\n";
   std::set<GE::ECS::Entity> listoFEnt{ GetUpdatableEntities() };
   //std::cout << "SIZE:" << listoFEnt.size() << "\n";
-  for (Entity entity : GetUpdatableEntities())
+  //for (Entity entity : GetUpdatableEntities())
   {
     //std::cout << "b4\n";
-    Game* game = m_ecs->GetComponent<Game>(entity);
+    //Game* game = m_ecs->GetComponent<Game>(entity);
  
-    MonoMethod* onUpdateFunc = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClassInfo.m_scriptClass, "OnUpdate", 3);
-    Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->player);
-    Scripts* enemyScript = m_ecs->GetComponent<Scripts>(game->enemy);
-    auto it = playerScript->m_scriptMap.find("Stats");
-    auto it2 = enemyScript->m_scriptMap.find("Stats");
-    double dt = frc.GetDeltaTime();
-    void* args[] = {&dt, it->second.m_classInst,it2->second.m_classInst };
-    mono_runtime_invoke(onUpdateFunc, game->m_gameSystemScript.m_classInst, args, nullptr);
+    //MonoMethod* onUpdateFunc = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClassInfo.m_scriptClass, "OnUpdate", 3);
+    //Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->m_player);
+    //Scripts* enemyScript = m_ecs->GetComponent<Scripts>(game->m_enemy);
+    //auto it = playerScript->m_scriptMap.find("Stats");
+    //auto it2 = enemyScript->m_scriptMap.find("Stats");
+    //double dt = frc.GetDeltaTime();
+    //void* args[] = {&dt, it->second.m_classInst,it2->second.m_classInst };
+    //mono_runtime_invoke(onUpdateFunc, game->m_gameSystemScript.m_classInst, args, nullptr);
   
 
 

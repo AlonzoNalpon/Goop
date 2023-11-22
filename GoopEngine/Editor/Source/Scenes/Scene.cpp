@@ -67,8 +67,8 @@ void GE::Scenes::Scene::TestScene()
 	GE::Component::Game GameComp{};
 	ScriptInstance GameMan{ "GameManager",arg };
 	GameComp.m_gameSystemScript = GameMan;
-	GameComp.enemy = testEnemy;
-	GameComp.player = testPlayer;
+	GameComp.m_enemy = testEnemy;
+	GameComp.m_player = testPlayer;
 
 	GE::Component::Transform GSTrans{};
 	std::vector<std::string> listOFScripts{ "Stats" };

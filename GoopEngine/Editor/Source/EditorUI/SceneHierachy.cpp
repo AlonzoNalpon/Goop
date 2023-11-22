@@ -86,18 +86,12 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 	ImGuiStyle& style = GetStyle();
 	originalTextClr = style.Colors[ImGuiCol_Text];
 	
-		ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow;
+		ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 		if (TreeNodeEx(gsm.GetCurrentScene().c_str(), treeFlags))
 		{
 			// Allow user to turn an entity into a root level
 			if (BeginDragDropTarget())
 			{
-				/*if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
-				{
-					const char* droppedEntity{ static_cast<const char*>(payload->Data) };
-					std::cout << droppedEntity << std::endl;
-				}*/
-
 				const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
 				if (pl)
 				{
@@ -232,8 +226,7 @@ namespace
 		{
 			if (IsItemClicked())
 			{
-				GE::EditorGUI::ImGuiHelper::SetSelectedEntity(entity);
-				
+				GE::EditorGUI::ImGuiHelper::SetSelectedEntity(entity);				
 			}
 
 			PushID(std::to_string(entity).c_str());
@@ -352,6 +345,13 @@ namespace
 			}
 
 			TreePop();
+		}
+		else
+		{
+			if (IsItemClicked())
+			{
+				GE::EditorGUI::ImGuiHelper::SetSelectedEntity(entity);
+			}
 		}
 	}
 }
