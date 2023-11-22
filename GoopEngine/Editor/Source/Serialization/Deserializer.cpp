@@ -35,86 +35,7 @@ std::ostream& operator<<(std::ostream& os, rttr::type const& type)
 }
 #endif
 
-rttr::variant Deserializer::GetComponentVariant(rttr::type const& valueType, std::string const& componentData)
-{
-  if (valueType == rttr::type::get<Component::Transform>())
-    return ObjectFactory::DeserializeComponent<Component::Transform>(componentData);
-  else if (valueType == rttr::type::get<Component::BoxCollider>())
-    return ObjectFactory::DeserializeComponent<Component::BoxCollider>(componentData);
-  else if (valueType == rttr::type::get<Component::Draggable>())
-    return Component::Draggable();
-  else if (valueType == rttr::type::get<Component::EnemyAI>())
-    return ObjectFactory::DeserializeComponent<Component::EnemyAI>(componentData);
-  else if (valueType == rttr::type::get<Component::Scripts>())
-    return ObjectFactory::DeserializeScripts(componentData, 0);
-  else if (valueType == rttr::type::get<Component::Sprite>())
-    return ObjectFactory::DeserializeComponent<Component::Sprite>(componentData);
-  else if (valueType == rttr::type::get<Component::SpriteAnim>())
-    return ObjectFactory::DeserializeComponent<Component::SpriteAnim>(componentData);
-  else if (valueType == rttr::type::get<Component::Velocity>())
-    return ObjectFactory::DeserializeComponent<Component::Velocity>(componentData);
-  else if (valueType == rttr::type::get<Component::Tween>())
-    return ObjectFactory::DeserializeComponent<Component::Tween>(componentData);
-  else if (valueType == rttr::type::get<Component::Text>())
-    return ObjectFactory::DeserializeComponent<Component::Text>(componentData);
-  else if (valueType == rttr::type::get<Component::Audio>())
-    return ObjectFactory::DeserializeComponent<Component::Audio>(componentData);
-  else if (valueType == rttr::type::get<Component::GE_Button>())
-    return ObjectFactory::DeserializeComponent<Component::GE_Button>(componentData);
-  else if (valueType == rttr::type::get<Component::Anchor>())
-    return ObjectFactory::DeserializeComponent<Component::Anchor>(componentData);
-
-    std::ostringstream oss{};
-    oss << "Trying to get unsupported component variant (" << valueType.get_name().to_string() << ")";
-    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-    return rttr::variant();
-}
-
 ObjectFactory::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string const& json)
-{
-  std::ifstream ifs{ json };
-  if (!ifs)
-  {
-    throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to read " + json));
-  }
-  rapidjson::Document document{};
-  // parse into document object
-  rapidjson::IStreamWrapper isw{ ifs };
-  if (ifs.peek() == std::ifstream::traits_type::eof())
-  {
-    ifs.close();
-    std::remove(json.c_str());
-    throw GE::Debug::Exception<Deserializer>(Debug::LEVEL_ERROR, ErrMsg(json + ": Empty prefab file read and removed, please create a new file "));
-  }
-  if (document.ParseStream(isw).HasParseError())
-  {
-    ifs.close();
-    throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to parse " + json));
-  }
-  
-  ObjectFactory::VariantPrefab prefab;
-    
-  prefab.m_name = document[Serializer::JsonNameKey].GetString();
-
-  for (auto const& component : document[Serializer::JsonComponentsKey].GetArray())
-  {
-    rttr::type compType{ rttr::type::get_by_name(component.MemberBegin()->name.GetString()) };
-    if (!compType.is_valid())
-    {
-      std::string str{ "Unable to find component " };
-      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg(str + component.MemberBegin()->name.GetString()));
-    }
-    rapidjson::StringBuffer buffer{};
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer{ buffer };
-    component.Accept(writer);
-
-    prefab.m_components.emplace_back(GetComponentVariant(compType, buffer.GetString()));
-  }
-
-  return prefab;
-}
-
-ObjectFactory::VariantPrefab Deserializer::DeserializePrefab(std::string const& json)
 {
   std::ifstream ifs{ json };
   if (!ifs)
@@ -168,7 +89,7 @@ ObjectFactory::VariantPrefab Deserializer::DeserializePrefab(std::string const& 
       rttr::variant compVar{};
       DeserializeComponent(compVar, compType, compJson);
 
-      compVector.emplace_back(std::move(compVar));
+      compVector.emplace_back(compVar);
     }
   }
 
@@ -407,7 +328,7 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
     rttr::constructor const& compCtr{ *compType.get_constructors().begin() };
     if (compCtr.get_parameter_infos().empty())  // if default ctr
     {
-      compVar = compCtr.invoke();//create().extract_wrapped_value();
+      compVar = compCtr.invoke();
       #ifdef DESERIALIZER_DEBUG
       std::cout << "  Default ctr invoked...Type of compVar is " << compVar.get_type() << "\n";
       #endif

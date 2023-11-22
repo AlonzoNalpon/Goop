@@ -88,12 +88,13 @@ void PrefabEditor::CreateContent()
     // iterate through components and render UI elements based on type
     for (rttr::variant& component : m_currPrefab.m_components)
     {
-      Text(component.get_type().get_name().to_string().c_str());
+      rttr::type const compType{ component.get_type().get_raw_type() };
+      Text(compType.get_name().to_string().c_str());
       ImGui::NewLine();
 
-      if (component.get_type() == rttr::type::get<Component::Sprite>())
+      if (compType == rttr::type::get<Component::Sprite>())
       {
-        Component::Sprite& sprite = component.get_value<Component::Sprite>();
+        Component::Sprite& sprite = *component.get_value<std::shared_ptr<Component::Sprite>>();
         ImGui::Columns(2, 0, true);
         ImGui::SetColumnWidth(0, 118.f);
         ImGui::NextColumn();
@@ -151,12 +152,12 @@ void PrefabEditor::CreateContent()
         ImGui::Separator();
         continue;
       }
-      else if (component.get_type() == rttr::type::get<Component::SpriteAnim>())
+      else if (compType == rttr::type::get<Component::SpriteAnim>())
       {
         ImGui::Separator();
         continue;
       }
-      else if (component.get_type() == rttr::type::get<Component::Text>())
+      else if (compType == rttr::type::get<Component::Text>())
       {
         if (IsItemClicked(ImGuiMouseButton_Right))
         {
@@ -171,7 +172,7 @@ void PrefabEditor::CreateContent()
           EndPopup();
         }
 
-        Component::Text& textObj = component.get_value<Component::Text>();
+        Component::Text& textObj = *component.get_value<Component::Text*>();
         Separator();
         BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
         ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, GetWindowSize().x);
@@ -198,57 +199,62 @@ void PrefabEditor::CreateContent()
         Separator();
         continue;
       }
-      for (auto& prop : component.get_type().get_properties())
+      rttr::instance compInst{ component };
+      rttr::instance inst
+      {
+        compInst.get_type().get_raw_type().is_wrapper() ? compInst.get_wrapped_instance() : compInst
+      };
+      for (auto& prop : inst.get_type().get_properties())
       {
         if (prop.get_name().to_string() == "worldPos") { continue; }
 
-        rttr::type propType{ prop.get_type() };
+        rttr::type const propType{ prop.get_type() };
         std::string const propName{ prop.get_name().to_string() };
 
         Text(propName.c_str());
         if (propType == rttr::type::get<Math::dVec3>())
         {
-          Math::dVec3 value = prop.get_value(component).get_value<Math::dVec3>();
+          Math::dVec3 value = prop.get_value(inst).get_value<Math::dVec3>();
           InputDouble3(propName, value, GetWindowSize().x / 3.f);
-          prop.set_value(component, value);
+          prop.set_value(inst, value);
         }
         else if (propType == rttr::type::get<double>())
         {
-          double value = prop.get_value(component).get_value<double>();
+          double value = prop.get_value(inst).get_value<double>();
           ImGui::InputDouble(("##" + propName).c_str(), &value);
-          prop.set_value(component, value);
+          prop.set_value(inst, value);
         }
         else if (propType == rttr::type::get<std::string>())
         {
-          std::string value = prop.get_value(component).get_value<std::string>();
+          std::string value = prop.get_value(inst).get_value<std::string>();
           if (ImGui::InputText(("##" + propName).c_str(), &value))
           {
-            prop.set_value(component, value);
+            prop.set_value(inst, value);
           }
         }
         else if (propType == rttr::type::get<unsigned>() || propType == rttr::type::get<int>() || propType == rttr::type::get<size_t>())
         {
-          int value = prop.get_value(component).get_value<int>();
+          int value = prop.get_value(inst).get_value<int>();
           ImGui::InputInt(("##" + propName).c_str(), &value);
-          prop.set_value(component, value);
+          prop.set_value(inst, value);
         }
         else if (propType == rttr::type::get<bool>())
         {
-          bool value = prop.get_value(component).get_value<bool>();
+          bool value = prop.get_value(inst).get_value<bool>();
           ImGui::Checkbox(("##" + propName).c_str(), &value);
-          prop.set_value(component, value);
+          prop.set_value(inst, value);
         }
         else if (propType == rttr::type::get<std::vector<Component::LinearForce>>())
         {
-          std::vector<Component::LinearForce> value = prop.get_value(component).get_value<std::vector<Component::LinearForce>>();
+          std::vector<Component::LinearForce> value = prop.get_value(inst).get_value<std::vector<Component::LinearForce>>();
           InputList("Forces", value, GetWindowSize().x / 3.f);
-          prop.set_value(component, value);
+          prop.set_value(inst, value);
         }
         else if (propType == rttr::type::get<std::deque<Math::dVec3>>())
         {
-          std::deque<Math::dVec3> value = prop.get_value(component).get_value<std::deque<Math::dVec3>>();
+          std::deque<Math::dVec3> value = prop.get_value(inst).get_value<std::deque<Math::dVec3>>();
           InputList("Tween", value, GetWindowSize().x / 3.f);
-          prop.set_value(component, value);
+          prop.set_value(inst, value);
         }
       }
       ImGui::Separator();
@@ -353,14 +359,14 @@ void PrefabEditor::CreateContent()
       bool flag{ false };
       for (rttr::variant& component : m_currPrefab.m_components)
       {
-        if (component.get_type() == rttr::type::get<Component::SpriteAnim>())
+        if (component.get_type() == rttr::type::get<Component::SpriteAnim*>())
         {
-          Component::SpriteAnim& spriteAnim = component.get_value<Component::SpriteAnim>();
+          Component::SpriteAnim& spriteAnim = *component.get_value<Component::SpriteAnim*>();
           for (rttr::variant& component2 : m_currPrefab.m_components)
           {
             if (component2.get_type() == rttr::type::get<Component::Sprite>())
             {
-              Component::Sprite const& sprite = component2.get_value<Component::Sprite>();
+              Component::Sprite const& sprite = *component2.get_value<Component::Sprite*>();
               spriteAnim.m_animID = Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(sprite.m_spriteName);
               flag = true;
               break;

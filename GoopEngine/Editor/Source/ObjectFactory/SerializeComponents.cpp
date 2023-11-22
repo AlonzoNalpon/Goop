@@ -14,7 +14,7 @@ namespace GE
 {
 	namespace ObjectFactory
 	{
-
+#ifndef RTTR_DESERIALIZE
 		template<typename CompType>
 		CompType DeserializeComponent(std::string const& componentData)
 		{
@@ -176,22 +176,6 @@ namespace GE
 			return button;
 		}
 
-		template<>
-		GE::Component::Game DeserializeComponent(std::string const& componentData)
-		{
-			//Serialization::ComponentWrapper const cw{ componentData };
-
-			return {};
-		}
-
-		template<>
-		GE::Component::Anchor DeserializeComponent(std::string const& componentData)
-		{
-			//Serialization::ComponentWrapper const cw{ componentData };
-
-			return {};
-		}
-
-
+#endif
 	}	// namespace ObjectFactory
 }	// namespace GE

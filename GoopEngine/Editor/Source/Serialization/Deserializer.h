@@ -33,8 +33,6 @@ namespace GE
 
       static ObjectFactory::VariantPrefab DeserializePrefabToVariant(std::string const& json);
 
-      static ObjectFactory::VariantPrefab DeserializePrefab(std::string const& json);
-
       /*!*********************************************************************
       \brief
         Reads from a json file of systems and its components and returns
@@ -83,12 +81,17 @@ namespace GE
       static bool ScanJsonFileForMembers(rapidjson::Document const& document, unsigned keyCount, ...);
 
     private:
-      static rttr::variant GetComponentVariant(rttr::type const& valueType, std::string const& componentData);
+
       static void DeserializeBasedOnType(rttr::instance object, rapidjson::Value const& value);
+
       static bool DeserializeOtherComponents(rttr::variant& compVar, rttr::type const& type, rapidjson::Value const& value);
+
       static void DeserializeComponent(rttr::variant& compVar, rttr::type const& compType, rapidjson::Value const& compJson);
+
       static rttr::variant DeserializeBasicTypes(rapidjson::Value const& value);
+
       static rttr::variant DeserializeElement(rttr::type const& valueType, rapidjson::Value const& value);
+
       static void DeserializeSequentialContainer(rttr::variant_sequential_view& view, rapidjson::Value const& value);
     };
 

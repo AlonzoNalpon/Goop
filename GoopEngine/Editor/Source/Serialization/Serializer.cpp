@@ -269,6 +269,11 @@ namespace GE
         Component::Anchor* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Anchor>(id) };
         return ret ? *ret : rttr::variant();
       }
+      case ECS::COMPONENT_TYPES::CARD:
+      {
+        Component::Card* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Card>(id) };
+        return ret ? *ret : rttr::variant();
+      }
       }
 
       std::ostringstream oss{};

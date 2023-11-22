@@ -33,6 +33,7 @@ namespace GE
 			AUDIO,
 			ANCHOR,
 			GE_BUTTON,
+			CARD,
 			COMPONENTS_TOTAL
 		};
 
@@ -56,8 +57,8 @@ namespace GE
 			{ COMPONENT_TYPES::GAME, "Game" },
 			{ COMPONENT_TYPES::AUDIO, "Audio" },
 			{ COMPONENT_TYPES::ANCHOR, "Anchor" },
-			{ COMPONENT_TYPES::GE_BUTTON, "Button" }
-
+			{ COMPONENT_TYPES::GE_BUTTON, "Button" },
+			{ COMPONENT_TYPES::CARD, "Card" }
 		};
 
 		// Const map so only interated through ranged for,
@@ -77,7 +78,8 @@ namespace GE
 			{ "Audio", COMPONENT_TYPES::AUDIO },
 			{ "Button", COMPONENT_TYPES::GE_BUTTON },
 			{ "Game", COMPONENT_TYPES::GAME },
-			{ "Anchor", COMPONENT_TYPES::ANCHOR }
+			{ "Anchor", COMPONENT_TYPES::ANCHOR },
+			{ "Card", COMPONENT_TYPES::CARD }
 		};
 
 		/*!*********************************************************************

@@ -11,6 +11,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ECS/SystemTypes.h>
 #include <rttr/type.h>
 
+#define RTTR_DESERIALIZE
+
 namespace GE
 {
   namespace ObjectFactory
@@ -30,7 +32,6 @@ namespace GE
       ECS::ComponentSignature m_componentSignature;
     };
 
-    // For prefab editor
     struct VariantPrefab
     {
       VariantPrefab() : m_components{}, m_name{ "Empty" } {}

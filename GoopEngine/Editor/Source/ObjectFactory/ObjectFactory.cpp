@@ -83,9 +83,7 @@ void ObjectFactory::CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity src
     ecs.AddComponent(destObj, *ecs.GetComponent<Component::Anchor>(srcObj));
   }
 }
-#endif
 
-#ifndef RTTR_DESERIALIZE
 void ObjectFactory::AddComponentToObject(ECS::Entity id, ObjectData const& data) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
@@ -152,23 +150,18 @@ void ObjectFactory::AddComponentToObject(ECS::Entity id, ObjectData const& data)
   if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::GE_BUTTON))
   {
     ecs.AddComponent(id,
-      DeserializeComponent<GE::Component::Button>(data.m_components.at(GE::ECS::COMPONENT_TYPES::BUTTON)));
+      DeserializeComponent<GE::Component::GE_Button>(data.m_components.at(GE::ECS::COMPONENT_TYPES::GE_BUTTON)));
   }
-  if (IsBitSet(data.m_componentSignature, COMPONENT_TYPES::ANCHOR))
-  {
-    ecs.AddComponent(newData,
-      DeserializeComponent<GE::Component::Anchor>(data.m_components.at(GE::ECS::COMPONENT_TYPES::ANCHOR)));
-  }
-  return newData;
 }
-#endif
 
-#ifdef RTTR_DESERIALIZE
+#else
+
 void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
-
-  rttr::type const compType{ compVar.get_type().is_wrapper() ? compVar.get_type().get_wrapped_type().get_raw_type() : compVar.get_type().is_pointer() ? compVar.get_type().get_raw_type() : compVar.get_type()};
+  rttr::type compType{ compVar.get_type() };
+  // get underlying type if it's wrapped in a pointer
+  compType = compType.is_wrapper() ? compType.get_wrapped_type().get_raw_type() : compType.is_pointer() ? compType.get_raw_type() : compType;
 
   if (compType == rttr::type::get<Component::Transform>())
   {
@@ -229,6 +222,14 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   else if (compType == rttr::type::get<Component::Card>())
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Card*>());
+  }
+}
+
+void ObjectFactory::AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const
+{
+  for (rttr::variant const& component : components)
+  {
+    AddComponentToEntity(id, component);
   }
 }
 #endif
@@ -321,20 +322,10 @@ void ObjectFactory::LoadPrefabsFromFile()
     pgs.Unload(data);
     m_prefabs.emplace(std::move(data));
 #else
-    m_prefabs.emplace(name, Serialization::Deserializer::DeserializePrefab(path));
+    m_prefabs.emplace(name, Serialization::Deserializer::DeserializePrefabToVariant(path));
 #endif
   }
 }
-
-#ifdef RTTR_DESERIALIZE
-void ObjectFactory::AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const
-{
-  for (rttr::variant const& component : components)
-  {
-    AddComponentToEntity(id, component);
-  }
-}
-#endif
 
 GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
 {

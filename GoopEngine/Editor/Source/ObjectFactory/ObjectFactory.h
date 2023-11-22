@@ -24,8 +24,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/Serializer.h>
 #include <Component/Components.h>
 
-#define RTTR_DESERIALIZE
-
 namespace GE::ObjectFactory
 {
   // ObjectFactory singleton
@@ -51,6 +49,7 @@ namespace GE::ObjectFactory
     ************************************************************************/
     void EmptyMap();
 
+#ifndef RTTR_DESERIALIZE
     /*!*********************************************************************
     \brief
       Creates an entity with the given object.
@@ -58,6 +57,9 @@ namespace GE::ObjectFactory
       ObjectData (Data to be converted into an entity)
     ************************************************************************/
     void AddComponentToObject(ECS::Entity id, ObjectData const& data) const;
+#else
+    void AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const;
+#endif
 
     /*!*********************************************************************
     \brief
@@ -102,9 +104,6 @@ namespace GE::ObjectFactory
    ************************************************************************/
     void ClearSceneObjects();
 
-
-    void AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const;
-
   private:
     /*!*********************************************************************
     \brief
@@ -112,6 +111,7 @@ namespace GE::ObjectFactory
     ************************************************************************/
     void ReloadPrefabs();
 
+#ifdef RTTR_DESERIALIZE
     /*!*********************************************************************
     \brief
       Loads the data into the class map.
@@ -119,7 +119,8 @@ namespace GE::ObjectFactory
       String& (filepath of the serialized file)
     ************************************************************************/
     void AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const;
-    
+#endif
+
     /*!*********************************************************************
     \brief
       Clones the component the source entity to the destination entity

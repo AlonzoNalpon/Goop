@@ -141,4 +141,8 @@ RTTR_REGISTRATION
     .property("anchored", &Component::Anchor::m_anchored)
     ;
 
+  rttr::registration::class_<Component::Card>("Card")
+    .constructor<>()
+    .property("cardID", &Component::Card::cardID)
+    ;
 } // RTTR Registration
