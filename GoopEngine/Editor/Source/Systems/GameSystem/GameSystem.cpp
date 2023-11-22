@@ -44,7 +44,7 @@ void GE::Systems::GameSystem::Update()
   }
 }
 
-void GE::Systems::GameSystem::HandleEvent(GE::Events::Event const* event)
+void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
 {
   if (event->GetCategory() == GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS)
   {

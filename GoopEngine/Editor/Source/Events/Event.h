@@ -30,6 +30,9 @@ namespace GE
       MOUSE_TRIGGERED,
       MOUSE_HELD,
       MOUSE_RELEASED,
+      START_SCENE,
+      PAUSE_SCENE,
+      STOP_SCENE,
       WINDOW_LOSE_FOCUS,
       MAX_EVENTS
     };

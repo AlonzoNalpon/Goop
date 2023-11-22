@@ -14,16 +14,18 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <Scenes/Scene.h>
+#include <Events/Listener.h>
+
 namespace GE::Scenes
 {
-  class SceneManager
+  class SceneManager : public Events::IEventListener
   {
   public:
     /*!*********************************************************************
     \brief
       Default Constructor.
     ************************************************************************/
-    SceneManager() : m_currentScene{ "Start" }, m_nextScene{ "Start" } {};
+    SceneManager();
 
     /*!*********************************************************************
     \brief
@@ -78,6 +80,8 @@ namespace GE::Scenes
     ************************************************************************/
     void RestartScene();
 
+    void HandleEvent(Events::Event* event) override;
+
     /*!*********************************************************************
     \brief
       Creates a new scene from a filepath then loads it.
@@ -102,12 +106,14 @@ namespace GE::Scenes
     ************************************************************************/
     void SaveScene() const;
 
-    void TemporarySave() const;
-
   private:
     std::string m_currentScene;
     std::string m_nextScene;
-    std::string const m_tempScene = "TEMPORARYSCENE";  // used to temporarily save scene when playing/stopping
+    std::string m_tempScene;  // used to temporarily save scene when playing/stopping
+
+    void TemporarySave() const;
+
+    void LoadTemporarySave();
 
     /* Map of all the scene files.Currently the way scenes are inserted
     into this map is hardcoded. */

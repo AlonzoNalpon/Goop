@@ -465,13 +465,13 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
 void ObjectFactory::LoadSceneJson(std::string const& filename)
 {
 #ifndef RTTR_DESERIALIZE
-  Serialization::ObjectGooStream ogs{ GE::Assets::AssetManager::GetInstance().GetScene(filename) };
+  Serialization::ObjectGooStream ogs{ filename };
   if (ogs)
   {
     ogs.Unload(m_deserialized);
   }
 #else
-  m_deserialized = GE::Serialization::Deserializer::DeserializeScene(GE::Assets::AssetManager::GetInstance().GetScene(filename));
+  m_deserialized = GE::Serialization::Deserializer::DeserializeScene(filename);
 #endif
 }
 
