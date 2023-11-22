@@ -44,8 +44,8 @@ namespace GE::Component
 			TOTAL_CARDS,
 		};
 		CardID cardID{};
-		GE::ECS::Entity entityVal{ GE::ECS::INVALID_ID }; //!< an entity ID. Possibly for card holder
-  };
+		GE::ECS::Entity tgtEntity{ GE::ECS::INVALID_ID }; //!< an entity ID. Possibly for card holder
+	};
 }
 
 #endif

@@ -871,9 +871,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextColumn();
 
 					// Value to store in card
-					int newVal{ static_cast<int>(card->entityVal) };
+					int newVal{ static_cast<int>(card->tgtEntity) };
 					ImGui::InputInt("Entity Value", &newVal);
-					card->entityVal = newVal;
+					card->tgtEntity = newVal;
 
 					rttr::type const type{ rttr::type::get<GE::Component::Card::CardID>() };
 					

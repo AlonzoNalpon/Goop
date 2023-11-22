@@ -144,7 +144,7 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::Card>("Card")
     .constructor<>()
     .property("cardID", &Component::Card::cardID)
-    .property("entityVal", &Component::Card::entityVal)
+    .property("tgtEntity", &Component::Card::tgtEntity)
     ;
 
   rttr::registration::class_<Component::CardHolder>("CardHolder")
