@@ -9,6 +9,8 @@ namespace GE::Component
     GE::ECS::Entity player;
     GE::ECS::Entity enemy;
 
+    GE::ECS::Entity m_pauseMenu;
+
     //GE::MONO::ScriptInstance playerScript;
     //GE::MONO::ScriptInstance enemyScript;
 
