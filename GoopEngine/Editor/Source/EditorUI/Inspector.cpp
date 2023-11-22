@@ -21,6 +21,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Commands/CommandManager.h>
 #include <Graphics/GraphicsEngine.h>
 #include <EditorUI/GizmoEditor.h>
+#include <rttr/type.h>
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
 // Disable reinterpret to larger size
@@ -763,7 +764,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					Separator();
 
-					InputEntity("Anchor", anchor->m_entity);
 					if (BeginCombo("Anchor Type", Anchor::toString(anchor->m_type).c_str()))
 					{
 						for (int j{}; j < Anchor::TOTAL_TYPES; ++j)
@@ -809,6 +809,43 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputText("Next Scene", &button->m_param);
 
 				}
+				break;
+			}
+			case GE::ECS::COMPONENT_TYPES::CARD:
+			{
+				auto card = ecs.GetComponent<GE::Component::Card>(entity);
+
+				if (ImGui::CollapsingHeader("Sprite Animation", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (RemoveComponentPopup<SpriteAnim>("Sprite Animation", entity))
+					{
+						break;
+					}
+
+
+					Separator();
+					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
+					TableNextColumn();
+
+					rttr::type const type{ rttr::type::get<GE::Component::Card::CardID>() };
+					if (BeginCombo("Card", type.get_enumeration().value_to_name(card->cardID).to_string().c_str()))
+					{
+						for (Card::CardID currType{}; currType != Card::CardID::TOTAL_CARDS;)
+						{
+							// get the string ...
+							std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
+
+							if (Selectable(str.c_str(), currType == card->cardID))
+								card->cardID = currType; // set the current type if selected 
+							// and now iterate through
+							currType = static_cast<Card::CardID>(static_cast<int>(currType) + 1);
+						}
+						EndCombo();
+					}
+				}
+				EndTable();
+				Separator();
 				break;
 			}
 			default:
@@ -989,6 +1026,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 						else
 						{
 							ss << "Unable to add component " << typeid(GE::Component::GE_Button).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::CARD:
+					{
+						if (!ecs.HasComponent<GE::Component::Card>(entity))
+						{
+							GE::Component::Card comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(GE::Component::Card).name() << ". Component already exist";
 						}
 						break;
 					}

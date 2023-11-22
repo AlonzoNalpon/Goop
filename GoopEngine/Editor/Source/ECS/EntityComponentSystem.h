@@ -190,7 +190,8 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-			  Gets an entity by name.
+			  Gets an entity by name. (Will loop through every entity to find
+				matching name)
 			\params
 			  name
 			\return
