@@ -400,6 +400,7 @@ namespace GE::Assets
 		unsigned TMID = gEngine.InitTexture(GE::GoopUtils::ExtractFilename(imageData.GetName()), imageData);
 		if (m_loadedImages.find(TMID) != m_loadedImages.end())
 		{
+			// Unload memory if memory already loaded
 			stbi_image_free(img);
 		}
 		else
