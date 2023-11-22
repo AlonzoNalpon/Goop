@@ -67,7 +67,7 @@ namespace GE
       \brief
         Virtual destructor.
       ************************************************************************/
-      virtual ~Event() = 0;
+      virtual ~Event() {}
 
     protected:
       EVENT_TYPE m_category;
