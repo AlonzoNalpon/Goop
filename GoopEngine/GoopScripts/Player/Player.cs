@@ -27,11 +27,11 @@ namespace GoopScripts.Player
   {
 
     public int intTest= 32;
-    //public float fTest = 32;
-    //public double DTest = 32;
+    public float fTest = 32;
+    public double DTest = 32;
     //public Vec2<double> DVec2Test = new Vec2<double>(100.0, 200.0);
-    //public Vec3<double> DVec3Test = new Vec3<double>(100.0, 200.0, 300.0);
-    public List<int> ListIntTest = new List<int>(10) {1,2,3,4,5,6,7,8,9,10 };
+    public Vec3<double> DVec3Test = new Vec3<double>(100.0, 200.0, 300.0);
+    public int[] ListIntTest = {0,2,4,6,8,10};
 
     /*!*********************************************************************
    \brief
@@ -74,7 +74,12 @@ namespace GoopScripts.Player
     {
       //Console.WriteLine("WHAT\n");
       Transform newChange = new Transform(); // All values are set to 0
-
+      //Console.WriteLine("-----");
+      //foreach (int i in ListIntTest)
+      //{
+      //  Console.WriteLine(i);
+      //}
+      //Console.WriteLine("-----");
       //Console.WriteLine("Dvec3Test val: " + DVec3Test.X + "," + DVec3Test.Y + "," + DVec3Test.Z);
       //Movement logic
       if (IsKeyPressed(KeyCode.W))

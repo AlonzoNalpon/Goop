@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AI\TreeManager.cpp" />
+    <ClCompile Include="Source\ScriptEngine\ScriptUtils.cpp" />
     <ClCompile Include="Source\Systems\Audio\AudioSystem.cpp" />
     <ClCompile Include="Source\Commands\CommandManager.cpp" />
     <ClCompile Include="Source\Commands\ImGuiCommands.cpp" />
@@ -408,6 +409,7 @@
     <ClInclude Include="Source\Scenes\Scene.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptInstance.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptManager.h" />
+    <ClInclude Include="Source\ScriptEngine\ScripUtils.h" />
     <ClInclude Include="Source\Serialization\ComponentWrapper\ComponentWrapper.h" />
     <ClInclude Include="Source\Serialization\Deserializer.h" />
     <ClInclude Include="Source\Serialization\GooStream\AssetGooStream.h" />

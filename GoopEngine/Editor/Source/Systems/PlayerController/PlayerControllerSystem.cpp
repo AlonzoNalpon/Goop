@@ -48,14 +48,17 @@ void PlayerControllerSystem::FixedUpdate()
 {
 	auto& frc = GE::FPS::FrameRateController::GetInstance();
 	frc.StartSystemTimer();
-	/*for (Entity entity : GetUpdatableEntities()) {
+	std::set<ECS::Entity> ents = GetUpdatableEntities();
+
+
+	for (Entity entity : GetUpdatableEntities()) {
 
 		Scripts* scriptHan = m_ecs->GetComponent<Scripts>(entity);
 		if (scriptHan != nullptr)
 		{
 			scriptHan->UpdateAllScripts();
 		}
-	}*/
+	}
 	
 	frc.EndSystemTimer("Player Controller");
 }

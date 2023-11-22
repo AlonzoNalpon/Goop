@@ -18,6 +18,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <fstream>
 #include <Math/GEM.h>
 #include "../ECS/EntityComponentSystem.h"
+#include <ScriptEngine/ScripUtils.h>
 
 
 
@@ -25,26 +26,6 @@ namespace GE {
 	namespace MONO {
 
 		const size_t maxBufferSize{ 10000000 };
-
-		enum ScriptFieldType
-		{
-			Void = 0,
-			Bool,
-			Char,
-			Short,
-			Int,
-			Float,
-			Double,
-			Long,
-			UShort,
-			UInt,
-			ULong,
-			Vec2,
-			Vec3,
-			DVec2,
-			DVec3,
-			IntArr
-		};
 
 		struct ScriptField
 		{
@@ -123,14 +104,29 @@ namespace GE {
 					throw GE::Debug::Exception<ScriptInstance>(GE::Debug::LEVEL_ERROR, "This class does not contain such data type " , ERRLG_FUNC, ERRLG_LINE);
 				}
 					
-				std::cout << "Normal\n";
 				const ScriptField& field = it->second;
 				mono_field_get_value(m_classInst, field.m_classField, m_fieldValBuffer);
 				return *(T*)m_fieldValBuffer;
 			}
 
 
-			MonoArray* GetFieldValueArr(const std::string& name);
+			template<typename T>
+			std::vector<T> GetFieldValueArr(const std::string& name, MonoDomain* md)
+			{
+				auto it = m_scriptClassInfo.m_ScriptFieldMap.find(name);
+				MonoClassField* field = it->second.m_classField;
+				MonoArray* newArray{};
+				
+				mono_field_get_value(m_classInst, field, &newArray);
+
+				std::vector<T> test{};
+				for (int i = 0; i < mono_array_length(newArray); ++i) {
+					 T element = mono_array_get(newArray, T, i);
+					 test.push_back(element);
+				}
+
+				return test;
+			}
 		
 
 			template<typename T>
@@ -145,12 +141,31 @@ namespace GE {
 					GE::Debug::ErrorLogger::GetInstance().LogWarning("This class does not contain such data type", false);
 
 				const ScriptField& field = it->second;
-				void* val = &value;
-				mono_field_set_value(m_classInst, field.m_classField, val);
+				std::memcpy(m_fieldValBuffer, &value, sizeof(T));
+				mono_field_set_value(m_classInst, field.m_classField, m_fieldValBuffer);
 			}
 
 
+			template<typename T>
+			void SetFieldValueArr(const std::string& name, std::vector<T> value, MonoDomain* md)
+			{
+				if constexpr (sizeof(T) > maxBufferSize)
+				{
+					GE::Debug::ErrorLogger::GetInstance().LogWarning("Data type you provided is too big", false);
+				}
+				auto it = m_scriptClassInfo.m_ScriptFieldMap.find(name);
+				if (it == m_scriptClassInfo.m_ScriptFieldMap.end())
+					GE::Debug::ErrorLogger::GetInstance().LogWarning("This class does not contain such data type", false);
 
+
+				MonoArray* newArray = GetMonoArray<T>(md, value.size());
+				for (int i = 0; i < mono_array_length(newArray); ++i) {
+					mono_array_set(newArray, int, i, value[i]);
+				}
+
+				const ScriptField& field = it->second;
+				mono_field_set_value(m_classInst, field.m_classField , newArray);
+			}
 		};
 		
 	}

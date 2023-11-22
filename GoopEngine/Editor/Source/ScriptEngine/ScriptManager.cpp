@@ -43,7 +43,9 @@ namespace GE
       { "GoopScripts.Mono.Vec3<System.Single>", ScriptFieldType::Vec3 },
       { "GoopScripts.Mono.Vec2<System.Double>", ScriptFieldType::DVec2 },
       { "GoopScripts.Mono.Vec3<System.Double>", ScriptFieldType::DVec3 },
-      { "System.Collections.Generic.List<System.Int32>", ScriptFieldType::IntArr },
+      { "System.Int32[]", ScriptFieldType::IntArr }
+      //{ "System.Single[]", ScriptFieldType::FloatArr },
+      //{ "System.Double[]", ScriptFieldType::DoubleArr }
 
     };
   }
@@ -301,7 +303,7 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
   throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to locate class in map" + std::string(className), ERRLG_FUNC, ERRLG_LINE);
 }
 
-MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, std::vector<void*>& arg)
+MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, std::vector<void*>& arg)  
 {
   if (m_monoClassMap.find(className) != m_monoClassMap.end())
   {

@@ -59,25 +59,29 @@ void GE::Scenes::Scene::TestScene()
 	of->LoadSceneObjects(stackObj);
 	Entity gameSys = ecs->CreateEntity();
 	std::vector<void*> arg{};
-	std::cout << "make GameManager\n";
+
 
 	Entity testPlayer = ecs->CreateEntity();
+	Entity testEnemy = ecs->CreateEntity();
 
-	std::cout << "b4\n";
 	GE::Component::Game GameComp{};
-	GameComp.m_gameSystemScript = GE::MONO::ScriptInstance("GameManager", arg);
-	GameComp.enemy = 2;
+	ScriptInstance GameMan{ "GameManager",arg };
+	GameComp.m_gameSystemScript = GameMan;
+	GameComp.enemy = testEnemy;
 	GameComp.player = testPlayer;
-	std::cout << "Aft gc\n";
+
 	GE::Component::Transform GSTrans{};
 	std::vector<std::string> listOFScripts{ "Stats" };
 	GE::Component::Scripts testPLayerScript = Scripts(listOFScripts);
-	//if(testPLayerScript.m_scriptMap[])
+	GE::Component::Scripts testEnemyScript = Scripts(listOFScripts);
+
 
 	ecs->AddComponent(gameSys, GameComp);
 	ecs->AddComponent(gameSys, GSTrans);
 
-	std::cout << testPlayer << "TESTPLAYER\n";
 	ecs->AddComponent(testPlayer, GSTrans);
 	ecs->AddComponent(testPlayer, testPLayerScript);
+
+	ecs->AddComponent(testEnemy, GSTrans);
+	ecs->AddComponent(testEnemy, testEnemyScript);
 }

@@ -27,8 +27,9 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, std::vector<void*>
   m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass,"OnUpdate", 1);
   if (m_onUpdateMethod)
   {
-    std::cout << scriptName << "::SN\n";
+    std::cout << scriptName << "\n";
   }
+
 
   //m_onCreateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "onCreate", 1);
 }
@@ -40,11 +41,10 @@ ScriptInstance::ScriptInstance(const std::string& scriptName)
   m_scriptClassInfo = sm->GetScriptClassInfo(scriptName);
   m_classInst = sm->InstantiateClass(scriptName.c_str());
   m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "OnUpdate", 1);
-//  if (m_onUpdateMethod)
-//  {
-//;
-//  }
-  std::cout << scriptName << "::SN\n";
+  if (m_onUpdateMethod)
+  {
+    std::cout << scriptName << "\n";
+  }
 
   //m_onCreateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "onCreate", 1);
 }
@@ -67,22 +67,6 @@ void ScriptInstance::InvokeOnCreate()
   }
 }
 
-
-MonoArray* ScriptInstance::GetFieldValueArr(const std::string& name)
-{
-
-  auto it = m_scriptClassInfo.m_ScriptFieldMap.find(name);
-  if (it == m_scriptClassInfo.m_ScriptFieldMap.end())
-  {
-    throw GE::Debug::Exception<ScriptInstance>(GE::Debug::LEVEL_ERROR, "This class does not contain such data type ", ERRLG_FUNC, ERRLG_LINE);
-  }
-
-  const ScriptField& field = it->second;
-  MonoArray* monoArray = NULL;
-  mono_field_get_value(m_classInst, field.m_classField, monoArray);
-  return monoArray;
-
-}
 
 
 
