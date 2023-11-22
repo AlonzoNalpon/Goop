@@ -80,6 +80,12 @@ RTTR_REGISTRATION
     .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
     ;
 
+  rttr::registration::class_<Component::CardHolder::CardHolderElem>("CardHolderElem")
+    .property("tree", &AI::TreeTemplate::m_tree)
+    .property("treeName", &AI::TreeTemplate::m_treeName)
+    .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
+    ;
+
   /* ------------------- ENUMERATIONS ------------------- */
   rttr::registration::enumeration<AI::NODE_TYPE>("NODE_TYPE")
     (

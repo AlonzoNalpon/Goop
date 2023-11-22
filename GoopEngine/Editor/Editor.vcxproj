@@ -303,6 +303,7 @@
     <ClInclude Include="Source\Component\Audio.h" />
     <ClInclude Include="Source\Component\Button.h" />
     <ClInclude Include="Source\Component\Card.h" />
+    <ClInclude Include="Source\Component\CardHolder.h" />
     <ClInclude Include="Source\Fmod\FmodSystem.h" />
     <ClInclude Include="Source\Commands\CommandManager.h" />
     <ClInclude Include="Source\Commands\ICommand.h" />

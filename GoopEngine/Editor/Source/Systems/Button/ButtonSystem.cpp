@@ -57,6 +57,7 @@ namespace GE
 							case GE::Component::GE_Button::NO_EVENT:
 								break;
 							case GE::Component::GE_Button::SELECT_CARD:
+								//ECS::Entity cardHolder = m_ecs->GetComponent<>
 								break;
 							case GE::Component::GE_Button::UNSELECT_CARD:
 								break;
