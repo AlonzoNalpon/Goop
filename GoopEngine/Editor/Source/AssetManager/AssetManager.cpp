@@ -455,14 +455,20 @@ namespace GE::Assets
 
 	void AssetManager::FreeImage(const std::string& name)
 	{
-		std::cout << "ATTEMPTING TO FREE: " + name + "\n";
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 
-		stbi_image_free(GetData(name).GetData());
-		m_loadedImages.erase(GetData(name).GetID());
-		m_loadedImagesStringLookUp.erase(GetData(name).GetName());
-		m_loadedImagesIDLookUp.erase(GetData(name).GetID());
-		gEngine.DestroyTexture(gEngine.textureManager.GetTextureID(name));
+		try
+		{
+			stbi_image_free(GetData(name).GetData());
+			m_loadedImages.erase(GetData(name).GetID());
+			m_loadedImagesStringLookUp.erase(GetData(name).GetName());
+			m_loadedImagesIDLookUp.erase(GetData(name).GetID());
+			gEngine.DestroyTexture(gEngine.textureManager.GetTextureID(name));
+		}
+		catch (GE::Debug::IExceptionBase& e)
+		{
+			e.LogSource();
+		}
 	}
 
 	void AssetManager::FreeImage(int id)
