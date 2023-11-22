@@ -11,7 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ECS/SystemTypes.h>
 #include <rttr/type.h>
 
-//#define RTTR_DESERIALIZE
+#define RTTR_DESERIALIZE
 
 namespace GE
 {
