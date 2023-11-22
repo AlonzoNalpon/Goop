@@ -11,16 +11,20 @@ void ObjectFactory::RegisterComponentsToSystem(ECS::ComponentSignature sig) cons
    ecs.RegisterComponentToSystem<GE::Component::SpriteAnim, T>();
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::SPRITE))
    ecs.RegisterComponentToSystem<GE::Component::Sprite, T>();
-   if (IsBitSet(sig, ECS::COMPONENT_TYPES::MODEL))
-   ecs.RegisterComponentToSystem<GE::Component::Model, T>();
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::VELOCITY))
    ecs.RegisterComponentToSystem<GE::Component::Velocity, T>();
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::TWEEN))
    ecs.RegisterComponentToSystem<GE::Component::Tween, T>();
-   if (IsBitSet(sig, ECS::COMPONENT_TYPES::SCRIPT_HANDLER))
-   ecs.RegisterComponentToSystem<GE::Component::ScriptHandler, T>();
+   if (IsBitSet(sig, ECS::COMPONENT_TYPES::SCRIPTS))
+   ecs.RegisterComponentToSystem<GE::Component::Scripts, T>();
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::DRAGGABLE))
    ecs.RegisterComponentToSystem<GE::Component::Draggable, T>();
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::ENEMY_AI))
    ecs.RegisterComponentToSystem<GE::Component::EnemyAI, T>();
+   if (IsBitSet(sig, ECS::COMPONENT_TYPES::TEXT))
+   ecs.RegisterComponentToSystem<GE::Component::Text, T>();
+   if (IsBitSet(sig, ECS::COMPONENT_TYPES::AUDIO))
+   ecs.RegisterComponentToSystem<GE::Component::Audio, T>();
+   if (IsBitSet(sig, ECS::COMPONENT_TYPES::GE_BUTTON))
+   ecs.RegisterComponentToSystem<GE::Component::GE_Button, T>();
 }

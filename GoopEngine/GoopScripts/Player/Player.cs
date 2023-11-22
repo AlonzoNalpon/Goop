@@ -16,10 +16,11 @@ using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Input;
 using GoopScripts.Mono;
+using GoopScripts.Component;
 using static GoopScripts.Mono.Utils;
 
 
-namespace GoopScripts
+namespace GoopScripts.Player
 {
   public  class Player : MonoBehaviour
   {
@@ -61,7 +62,7 @@ namespace GoopScripts
      Update function for the player script. This function is called every frame
      if the script is attached to an entity
     ************************************************************************/
-    public void Update()
+    public void OnUpdate(double dt)
     {
       //Console.WriteLine("WHAT\n");
       Transform newChange = new Transform(); // All values are set to 0

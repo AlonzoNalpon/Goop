@@ -8,6 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
+#ifndef NO_IMGUI
 #include "SceneHierachy.h"
 #include <ImGui/imgui.h>
 #include <Component/Transform.h>
@@ -252,7 +253,7 @@ namespace
 
 				if (Selectable("Duplicate"))
 				{
-					GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity, ecs.GetComponent<GE::Component::Transform>(entity)->m_pos);
+					GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity);
 				}
 
 				if (Selectable("Delete"))
@@ -294,9 +295,7 @@ namespace
 						else
 						{
 							auto& gEngine = Graphics::GraphicsEngine::GetInstance();
-							GE::Component::Model mdl{};
 							GE::Component::Sprite sprite{ gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
-							ecs.AddComponent(entity, mdl);
 							ecs.AddComponent(entity, sprite);
 						}
 					}
@@ -356,3 +355,4 @@ namespace
 		}
 	}
 }
+#endif

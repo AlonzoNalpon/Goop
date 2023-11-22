@@ -9,14 +9,9 @@
             }
         },
         {
-            "Sprite": {
-                "filename": "Knight"
-            }
-        },
-        {
-            "Model": {
-                "mdlID": 0
-            }
+          "Sprite": {
+            "spriteName": "Knight"
+          }
         },
         {
             "BoxCollider": {

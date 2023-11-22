@@ -11,6 +11,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
+#ifndef NO_IMGUI
 #include "PrefabEditor.h"
 #include <filesystem>
 #include <Serialization/Serializer.h>
@@ -295,20 +296,23 @@ void PrefabEditor::CreateContent()
             case GE::ECS::COMPONENT_TYPES::SPRITE_ANIM:
               ret = Component::SpriteAnim();
               break;
-            case GE::ECS::COMPONENT_TYPES::MODEL:
-              ret = Component::Model();
-              break;
             case GE::ECS::COMPONENT_TYPES::TWEEN:
               ret = Component::Tween();
               break;
-            case GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER:
-              ret = Component::ScriptHandler();
+            case GE::ECS::COMPONENT_TYPES::SCRIPTS:
+              ret = Component::Scripts();
               break;
             case GE::ECS::COMPONENT_TYPES::DRAGGABLE:
               ret = Component::Draggable();
               break;
             case GE::ECS::COMPONENT_TYPES::TEXT:
               ret = Component::Text();
+              break;
+            case GE::ECS::COMPONENT_TYPES::AUDIO:
+              ret = Component::Audio();
+              break;
+            case GE::ECS::COMPONENT_TYPES::GE_BUTTON:
+              ret = Component::GE_Button();
               break;
             }
             m_currPrefab.m_components.emplace_back(ret);
@@ -365,7 +369,7 @@ void PrefabEditor::CreateContent()
           if (flag) { break; }
         }
       }
-      Serialization::Serializer::GetInstance().SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
+      Serialization::Serializer::SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
       GE::Debug::ErrorLogger::GetInstance().LogMessage(m_currPrefab.m_name + " successfully saved");
     }
   }
@@ -432,3 +436,4 @@ void PrefabEditor::InputList(std::string propertyName, std::deque<GE::Math::dVec
 
   Indent();
 }
+#endif

@@ -18,7 +18,7 @@ using GoopScripts.Input;
 using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
 
-namespace GoopScripts
+namespace GoopScripts.Player
 {
   public class PlayerScriptTest : MonoBehaviour
   {

@@ -68,7 +68,7 @@ namespace GE
 			static KEY_MAP m_keyHeld;
 			static KEY_MAP m_keysTriggered;
 			static KEY_PRESS_ARRAY m_keyFramesHeld;
-
+			static size_t m_currFramebuffer; //!< id of curr buffer (for mouse to WorldSpace)
 
 		public:
 			/*!*********************************************************************
@@ -175,6 +175,16 @@ namespace GE
 				returns the mouse's pos as dvec2
 			************************************************************************/
 			vec2 GetMousePos();
+
+			/*!*********************************************************************
+			\brief
+			  Sets the current framebuffer. this ID is for GetMousePosWorld()
+					(editor camera position and size differs from game one)
+			\params
+			  framebufferID
+			\return
+			************************************************************************/
+			void SetCurrFramebuffer(size_t framebufferID);
 
 			/*!*********************************************************************
 		\brief

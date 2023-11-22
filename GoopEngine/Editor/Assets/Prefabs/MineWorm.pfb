@@ -10,17 +10,12 @@
         },
         {
             "Sprite": {
-                "filename": "SS_MineWorm"
+                "spriteName": "SS_MineWorm"
             }
         },
         {
             "SpriteAnim": {
                 "name": "SS_MineWorm"
-            }
-        },
-        {
-            "Model": {
-                "mdlID": 0
             }
         },
         {

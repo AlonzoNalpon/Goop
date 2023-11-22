@@ -70,59 +70,14 @@ bool ObjectGooStream::Read(std::string const& json)
   }
 
   // iterate through all objects and validate format
-  Serialization::Deserializer::ScanJsonFileForMembers(data, 4,
+  m_status = Serialization::Deserializer::ScanJsonFileForMembers(data, 5,
     Serializer::JsonNameKey, rapidjson::kStringType, Serializer::JsonChildEntitiesKey, rapidjson::kArrayType,
-    Serializer::JsonParentKey, rapidjson::kNumberType, Serializer::JsonComponentsKey, rapidjson::kArrayType);
+    Serializer::JsonIdKey, rapidjson::kNumberType, Serializer::JsonIdKey, rapidjson::kNumberType, Serializer::JsonParentKey,
+    rapidjson::kNumberType, Serializer::JsonComponentsKey, rapidjson::kArrayType);
 
   ifs.close();
   m_elements = data.Size();
-  return m_status = true;
-}
-
-bool ObjectGooStream::Read(container_type const& container)
-{
-  if (!m_status) {
-    m_status = false;
-    std::ostringstream oss{ "AssetGooStream corrupted before reading from " };
-    oss << typeid(container).name();
-    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-    return false;
-  }
-  rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
-
-  // create an array of objects
-  data.SetArray();
-  for (container_type::value_type const& obj : container) // for each object
-  {
-    ObjectFactory::ObjectData const& objData{ obj.second };
-    rapidjson::Value objVal{ rapidjson::kObjectType };  // create section for objects
-    rapidjson::Value name{};
-    name.SetString(Serializer::JsonNameKey, data.GetAllocator());
-    objVal.AddMember(name, rapidjson::StringRef(obj.first.c_str()), data.GetAllocator()); // Add the name of the object
-
-    rapidjson::Value componentBlock{ rapidjson::kArrayType };  // create array for components
-    for (ObjectFactory::ComponentMap::value_type const& component : objData.m_components) // for each component in the object
-    {
-      rapidjson::Value componentObj{ rapidjson::kObjectType };  // create section for fields
-      rapidjson::Document componentData;
-      componentData.Parse(component.second.c_str());
-
-      for (auto iter{ componentData.MemberBegin() }; iter != componentData.MemberEnd(); ++iter)
-      {
-        // Add each field to the component object
-        componentObj.AddMember(iter->name, iter->value, data.GetAllocator());
-      }
-
-      // Add the component object to the array
-      componentBlock.PushBack(componentObj, data.GetAllocator());
-    }
-    rapidjson::Value compName{};
-    compName.SetString(Serializer::JsonComponentsKey, data.GetAllocator());
-    objVal.AddMember(compName, componentBlock, data.GetAllocator());  // array label
-    data.PushBack(objVal, data.GetAllocator());
-  }
-
-  return m_status = true;
+  return m_status;
 }
 
 bool ObjectGooStream::Unload(container_type& container)
@@ -141,7 +96,8 @@ bool ObjectGooStream::Unload(container_type& container)
   for (auto const& obj : data.GetArray())
   {
     ObjectFactory::ObjectData objData{
-      (obj[Serializer::JsonParentKey].IsNull()) ? ECS::INVALID_ID : obj[Serializer::JsonParentKey].GetUint()
+      (obj[Serializer::JsonParentKey].IsNull()) ? ECS::INVALID_ID : obj[Serializer::JsonParentKey].GetUint(),
+      obj[Serializer::JsonNameKey].GetString()
     };
 
     std::vector<ECS::Entity>& childEntities{ objData.m_childEntities };
@@ -161,56 +117,29 @@ bool ObjectGooStream::Unload(container_type& container)
       rapidjson::Value const& componentObject = componentsArray[i];
       for (rapidjson::Value::ConstMemberIterator iter{ componentObject.MemberBegin() }; iter != componentObject.MemberEnd(); ++iter)
       {
-        ECS::COMPONENT_TYPES const name{ ECS::stringToComponents.at(iter->name.GetString()) };
+        auto const compType{ ECS::stringToComponents.find(iter->name.GetString()) };
+        if (compType == ECS::stringToComponents.cend())
+        {
+          std::ostringstream oss{};
+          oss << "Trying to deserialize invalid component: " << iter->name.GetString();
+          GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+          #ifdef _DEBUG
+          std::cout << oss.str() << "\n";
+          #endif
+          continue;
+        }
         // set current component's bit in signature
-        objData.m_componentSignature[static_cast<unsigned>(name)] = true;
+        objData.m_componentSignature[static_cast<unsigned>(compType->second)] = true;
 
         // Convert to json string and store in map
         rapidjson::StringBuffer buffer{};
         writer_type<rapidjson::StringBuffer> writer{ buffer };
         componentObject.Accept(writer);
-        compMap[name] = buffer.GetString();
+        compMap[compType->second] = buffer.GetString();
       }
     }
-    container.emplace_back(obj[Serializer::JsonNameKey].GetString(), objData);
+    container.emplace_back(obj[Serializer::JsonIdKey].GetUint(), std::move(objData));
   }
 
-  return m_status = true;
-}
-
-bool ObjectGooStream::Unload(std::string const& json, bool overwrite)
-{
-  if (!m_status) {
-    m_status = false;
-    std::ostringstream oss{ "ObjectGooStream corrupted before unloading into " };
-    oss << json;
-    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-
-    #ifdef _DEBUG
-    std::cout << oss.str() << std::endl;
-    #endif
-    return false;
-  }
-  rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
-
-  std::ofstream ofs{ json, ((overwrite) ? std::ios::out : std::ios::app) };
-  if (!ofs)
-  {
-    m_status = false;
-    std::ostringstream oss{ "Unable to create output file " };
-    oss << json;
-    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-
-    #ifdef _DEBUG
-    std::cout << oss.str() << std::endl;
-    #endif
-    return false;
-  }
-
-  rapidjson::OStreamWrapper osw{ ofs };
-  writer_type<rapidjson::OStreamWrapper> writer(osw);
-  data.Accept(writer);
-
-  ofs.close();
   return m_status = true;
 }

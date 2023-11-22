@@ -4,7 +4,7 @@
 		"Transform",
         "Sprite",
         "SpriteAnim",
-		"ScriptHandler"
+		"Scripts"
 	],
 	"TweenSystem" : [
 		"Tween",
@@ -13,6 +13,10 @@
     "EnemySystem": [
        "EnemyAI",
        "Transform"
+    ],
+    "ButtonSystem": [
+        "Button",
+        "BoxCollider"
     ],
     "CollisionSystem": [
         "Transform",
@@ -34,11 +38,14 @@
 	  ],
     "RenderSystem": [
         "Transform",
-        "Sprite",
-        "Model"
+        "Sprite"
     ],
     "TextRenderSystem": [
         "Text",
         "Transform"
+    ],
+    "AudioSystem": [
+      "Audio",
+      "Transform"
     ]
 }

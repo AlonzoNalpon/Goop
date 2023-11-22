@@ -14,7 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 using namespace GE::ECS;
 
-void GE::ECS::EntityComponentSystem::CreateEntity(Entity entity, std::string name)
+void GE::ECS::EntityComponentSystem::CreateEntity(Exclusive, Entity entity, std::string name)
 {
 	m_entityManager->CreateEntity(entity, name);
 }
@@ -54,7 +54,7 @@ Entity GE::ECS::EntityComponentSystem::GetParentEntity(Entity& entity)
 	return m_entityManager->GetParentEntity(entity);
 }
 
-void GE::ECS::EntityComponentSystem::SetParentEntity(Entity& child, Entity parent)
+void GE::ECS::EntityComponentSystem::SetParentEntity(Entity const& child, Entity parent)
 {
 	m_entityManager->SetParentEntity(parent, child);
 }
@@ -64,7 +64,7 @@ std::set<Entity>& GE::ECS::EntityComponentSystem::GetChildEntities(Entity& paren
 	return m_entityManager->GetChildEntities(parent);
 }
 
-void GE::ECS::EntityComponentSystem::AddChildEntity(Entity& parent, Entity& child)
+void GE::ECS::EntityComponentSystem::AddChildEntity(Entity const& parent, Entity const& child)
 {
 	m_entityManager->AddChildEntity(parent, child);
 }
@@ -84,6 +84,11 @@ void EntityComponentSystem::DestroyEntity(Entity& entity)
 std::string GE::ECS::EntityComponentSystem::GetEntityName(Entity& entity)
 {
 	return m_entityManager->GetEntityName(entity);
+}
+
+Entity GE::ECS::EntityComponentSystem::GetEntity(std::string const& name)
+{
+	return m_entityManager.get()->GetEntity(name);
 }
 
 std::string GE::ECS::EntityComponentSystem::SetEntityName(Entity& entity, std::string newName)

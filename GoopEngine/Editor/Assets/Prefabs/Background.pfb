@@ -10,12 +10,7 @@
     },
     {
       "Sprite": {
-        "filename": "Background"
-      }
-    },
-    {
-      "Model": {
-        "mdlID": 0
+        "spriteName": "Background"
       }
     }
   ]

@@ -14,10 +14,10 @@ void GE::AI::NodeEditor::NodeEditorInit()
 {
   // Get all the names of the scripts available
   Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
-  std::ifstream file(assetManager.GetConfigData<std::string>("ScriptNames").c_str());
+  std::ifstream file(assetManager.GetConfigData<std::string>("AIScriptNames").c_str());
   if (!file.good())
   {
-    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open GoopScripts AI folder: "+ assetManager.GetConfigData<std::string>("ScriptNames")));
+    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open GoopScripts AI folder: "+ assetManager.GetConfigData<std::string>("AIScriptNames")));
   }
 
   std::string jsonString((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
@@ -25,7 +25,7 @@ void GE::AI::NodeEditor::NodeEditorInit()
   document.Parse(jsonString.c_str());
 
   if (document.HasParseError()) {
-    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Parsing error for: " + assetManager.GetConfigData<std::string>("ScriptNames")));
+    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Parsing error for: " + assetManager.GetConfigData<std::string>("AIScriptNames")));
   }
 
   if (document.HasMember("Enemy") && document["Enemy"].IsArray()) {

@@ -1,6 +1,7 @@
 [
     {
         "Name": "Background",
+        "ID": 0,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -13,18 +14,14 @@
             },
             {
                 "Sprite": {
-                    "filename": "Background"
-                }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
+                    "spriteName": "Background"
                 }
             }
         ]
     },
     {
         "Name": "Player",
+        "ID": 1,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -40,12 +37,14 @@
                     "center": "{ 73.2661, 183.292 }",
                     "width": 100.0,
                     "height": 100.0,
+                    "min": "{ 23.2661, 133.292 }",
+                    "max": "{ 123.266, 233.292 }",
                     "render": true
                 }
             },
             {
                 "Sprite": {
-                    "filename": "SS_MineWorm"
+                    "spriteName": "SS_MineWorm"
                 }
             },
             {
@@ -54,21 +53,18 @@
                 }
             },
             {
-                "Model": {
-                    "mdlID": 0
-                }
-            },
-            {
                 "Tween": {
                     "tweens": [],
-                    "timePerTween": 1.0,
                     "timeTaken": 3.0,
                     "timeElapsed": 0.020000000000001333,
-                    "originalPos": "{ 350, 350, 0 }"
+                    "originalPos": "{ 350, 350, 0 }",
+                    "started": false,
+                    "paused": false
                 }
             },
             {
-                "ScriptHandler": {
+                "Scripts": {
+                    "entityId": 1,
                     "scriptMap": [
                         "Player"
                     ]
@@ -78,6 +74,7 @@
     },
     {
         "Name": "Enemy",
+        "ID": 2,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -90,30 +87,22 @@
             },
             {
                 "BoxCollider": {
-                    "center": "{ 74.6978, 183.333 }",
+                    "center": "{ 69.6989, 183.189 }",
                     "width": 100.0,
                     "height": 100.0,
+                    "min": "{ 19.6989, 133.189 }",
+                    "max": "{ 119.699, 233.189 }",
                     "render": true
                 }
             },
             {
                 "Sprite": {
-                    "filename": "SS_MineWorm"
+                    "spriteName": "SS_MineWorm"
                 }
             },
             {
                 "SpriteAnim": {
                     "name": "SS_MineWorm"
-                }
-            },
-            {
-                "Model": {
-                    "mdlID": 0
-                }
-            },
-            {
-                "EnemyAI": {
-                    "treeID": 0
                 }
             }
         ]

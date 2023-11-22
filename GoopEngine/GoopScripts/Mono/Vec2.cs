@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoopScripts
+namespace GoopScripts.Mono
 {
    public struct Vec2<T>
   {

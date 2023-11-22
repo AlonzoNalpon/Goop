@@ -31,6 +31,16 @@ namespace GE::GoopUtils
 
 	/*!*********************************************************************
 		\brief
+			Takes in a filepath and extracts the previous folder and the filename
+		\param filePath
+			Filepath that you would like to extract.
+		\return
+			The previous folder and the filename of the filepath.
+		************************************************************************/
+	std::string ExtractPrevFolderAndFileName(const std::string& filepath);
+
+	/*!*********************************************************************
+		\brief
 			Takes in a filepath and extracts just the filename of the string.
 		\param filePath
 			Filepath that you would like to extract the extension of.

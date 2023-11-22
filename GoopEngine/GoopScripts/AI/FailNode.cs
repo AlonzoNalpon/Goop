@@ -16,9 +16,8 @@ using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
 
 namespace GoopScripts.AI
-{
-
-  internal class FailNode : MonoBehaviour
+{ 
+  public class FailNode : MonoBehaviour
   {
     private uint m_parentID = 0;
     private uint m_nodeID = 0;

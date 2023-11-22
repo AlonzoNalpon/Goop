@@ -15,13 +15,14 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "pch.h"
 #include "SceneManager.h"
 #include <Serialization/Serializer.h>
+#include <AssetManager/AssetManager.h>
 
 using namespace GE::Scenes;
 
 void SceneManager::Init()
 {
   // Load data into map
-  m_nextScene = m_currentScene = "Robot";
+  m_nextScene = m_currentScene = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("StartUpScn");
 }
 
 void SceneManager::LoadScene()
@@ -126,7 +127,7 @@ void GE::Scenes::SceneManager::SaveScene() const
   std::ostringstream filepath{};
   filepath << Assets::AssetManager::GetInstance().GetConfigData<std::string>("Assets Dir")
     << "Scenes/" << m_currentScene << Assets::AssetManager::GetInstance().GetConfigData<std::string>("Scene File Extension");
-  Serialization::Serializer::GetInstance().SerializeScene(filepath.str());
+  Serialization::Serializer::SerializeScene(filepath.str());
 
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Successfully saved scene to " + filepath.str());
 }

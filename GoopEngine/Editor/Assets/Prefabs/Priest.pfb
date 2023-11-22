@@ -9,14 +9,9 @@
             }
         },
         {
-            "Sprite": {
-                "filename": "Priest"
-            }
-        },
-        {
-            "Model": {
-                "mdlID": 0
-            }
+          "Sprite": {
+            "spriteName": "Priest"
+          }
         },
         {
             "BoxCollider": {

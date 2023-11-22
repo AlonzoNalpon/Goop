@@ -22,6 +22,25 @@ using namespace GE;
 //  metadata("NO_SERIALIZE", true)
 //)
 
+namespace RttrHelper
+{
+  GE::Math::dVec2 dVec2FromString(std::string const& str, bool& ok)
+  {
+    GE::Math::dVec2 ret{};
+    ret << str;
+    ok = true;
+    return ret;
+  }
+
+  GE::Math::dVec3 dVec3FromString(std::string const& str, bool& ok)
+  {
+    GE::Math::dVec3 ret{};
+    ret << str;
+    ok = true;
+    return ret;
+  }
+}
+
 RTTR_REGISTRATION
 {
   /* ------------------- CLASSES / STRUCTS ------------------- */
@@ -33,6 +52,7 @@ RTTR_REGISTRATION
     .property("y", &Math::dVec2::y)
     .method("ToString", &Math::dVec2::ToString)
     ;
+  
   rttr::registration::class_<Math::Vec2>("Vec2")
     .method("ToString", &Math::Vec2::ToString)
     ;
@@ -47,13 +67,34 @@ RTTR_REGISTRATION
     .method("ToString", &Math::dVec3::ToString)
     ;
 
+  rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")
+    .property("nodeType", &AI::NodeTemplate::m_nodeType)
+    .property("parentNode", &AI::NodeTemplate::m_parentNode)
+    .property("childrenNode", &AI::NodeTemplate::m_childrenNode)
+    .property("scriptName", &AI::NodeTemplate::m_scriptName)
+    .property("pos", &AI::NodeTemplate::m_pos)
+    ;
+  rttr::registration::class_<AI::TreeTemplate>("TreeTemplate")
+    .property("tree", &AI::TreeTemplate::m_tree)
+    .property("treeName", &AI::TreeTemplate::m_treeName)
+    .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
+    ;
+
   /* ------------------- ENUMERATIONS ------------------- */
   rttr::registration::enumeration<AI::NODE_TYPE>("NODE_TYPE")
     (
+      rttr::value("ROOT_NODE", AI::NODE_TYPE::ROOT_NODE),
       rttr::value("COMPOSITE_NODE", AI::NODE_TYPE::COMPOSITE_NODE),
       rttr::value("LEAF_NODE", AI::NODE_TYPE::LEAF_NODE),
-      rttr::value("NODE_TYPE_COUNT", AI::NODE_TYPE::NODE_TYPE_COUNT),
-      rttr::value("ROOT_NODE", AI::NODE_TYPE::ROOT_NODE)
+      rttr::value("NODE_TYPE_COUNT", AI::NODE_TYPE::NODE_TYPE_COUNT)
+      );
+
+  rttr::registration::enumeration<fMOD::FmodSystem::ChannelType>("ChannelType")
+    (
+      rttr::value("BGM", fMOD::FmodSystem::ChannelType::BGM),
+      rttr::value("SFX", fMOD::FmodSystem::ChannelType::SFX),
+      rttr::value("VOICE", fMOD::FmodSystem::ChannelType::VOICE),
+      rttr::value("TOTAL_CHANNELS", fMOD::FmodSystem::ChannelType::TOTAL_CHANNELS)
       );
 
   //rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")
@@ -65,7 +106,7 @@ RTTR_REGISTRATION
   //    rttr::value("SPRITE_ANIM", ECS::COMPONENT_TYPES::SPRITE_ANIM),
   //    rttr::value("MODEL", ECS::COMPONENT_TYPES::MODEL),
   //    rttr::value("TWEEN", ECS::COMPONENT_TYPES::TWEEN),
-  //    rttr::value("SCRIPT_HANDLER", ECS::COMPONENT_TYPES::SCRIPT_HANDLER),
+  //    rttr::value("SCRIPTS", ECS::COMPONENT_TYPES::SCRIPTS),
   //    rttr::value("DRAGGABLE", ECS::COMPONENT_TYPES::DRAGGABLE),
   //    rttr::value("ENEMY_AI", ECS::COMPONENT_TYPES::ENEMY_AI),
   //    rttr::value("COMPONENTS_TOTAL", ECS::COMPONENT_TYPES::COMPONENTS_TOTAL)
@@ -86,5 +127,6 @@ RTTR_REGISTRATION
   //    );
 
   /* ------------------- FUNCTIONS ------------------- */
-
+  rttr::type::register_converter_func(RttrHelper::dVec2FromString);
+  rttr::type::register_converter_func(RttrHelper::dVec3FromString);
 } // RTTR Registration

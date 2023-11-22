@@ -10,6 +10,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
+#ifndef NO_IMGUI
 #include <vector>
 #include <string>
 #include <FrameRateController/FrameRateController.h>
@@ -106,3 +107,4 @@ namespace GE
 
   } // namespace EditorGUI
 } // namespace GE
+#endif

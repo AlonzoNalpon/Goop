@@ -76,17 +76,16 @@ namespace GE
 			Serialization::ComponentWrapper const cw{ componentData };
 			auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 			auto& am = GE::Assets::AssetManager::GetInstance();
-			Component::Sprite sprite;
 
 			try {
-				am.GetData(cw.Get<std::string>("filename"));
+				am.GetData(cw.Get<std::string>("spriteName"));
 			}
 			catch (GE::Debug::IExceptionBase&)
 			{
-				am.LoadImageW(cw.Get<std::string>("filename"));
+				am.LoadImageW(cw.Get<std::string>("spriteName"));
 			}
 			
-			return Component::Sprite(gEngine.textureManager.GetTextureID(cw.Get<std::string>("filename")));
+			return Component::Sprite(gEngine.textureManager.GetTextureID(cw.Get<std::string>("spriteName")));
 		}
 
 		template<>
@@ -110,16 +109,6 @@ namespace GE
 			return spriteAnim;
 		}
 
-		template<>
-		GE::Component::Model DeserializeComponent(std::string const& componentData)
-		{
-			Serialization::ComponentWrapper const cw{ componentData };
-			Component::Model model{};
-			model.m_mdlID = cw.Get<size_t>("mdlID");
-
-			return model;
-		}
-
 		// WIP
 		template<>
 		GE::Component::Tween DeserializeComponent(std::string const& componentData)
@@ -130,17 +119,19 @@ namespace GE
 			tween.m_timeTaken = cw.Get<double>("timeTaken");
 			tween.m_timeElapsed = cw.Get<double>("timeElapsed");
 			tween.m_originalPos = cw.Get<Math::dVec3>("originalPos");
+			tween.m_started = cw.Get<bool>("started");
+			tween.m_paused = cw.Get<bool>("paused");
 			
 			return tween;
 		}
 
-		GE::Component::ScriptHandler DeserializeScriptHandler(std::string const& componentData, GE::ECS::Entity entityID)
+		GE::Component::Scripts DeserializeScripts(std::string const& componentData, GE::ECS::Entity entityID)
 		{
 			Serialization::ComponentWrapper const cw{ componentData };
 			std::vector<std::string> const vec{
 				cw.Get<std::vector<std::string>>("scriptMap")
 			};
-			return Component::ScriptHandler(vec, entityID);
+			return Component::Scripts(vec, entityID);
 		}
 
 		template<>
@@ -161,6 +152,28 @@ namespace GE
 			txt.m_scale = cw.Get<f32>("scale");
 			txt.m_fontID = cw.Get<Graphics::gObjID>("fontID");
 			return txt;
+		}
+
+		template<>
+		GE::Component::Audio DeserializeComponent(std::string const& componentData)
+		{
+			Serialization::ComponentWrapper const cw{ componentData };
+			Component::Audio audio;
+			audio.m_name = cw.Get<std::string>("name");
+			audio.m_loop = cw.Get<bool>("loop");
+			audio.m_playOnStart = cw.Get<bool>("playOnStart");
+			
+			return audio;
+		}
+
+		template<>
+		GE::Component::GE_Button DeserializeComponent(std::string const& componentData)
+		{
+			Serialization::ComponentWrapper const cw{ componentData };
+			Component::GE_Button button;
+			button.m_nextScene = cw.Get<std::string>("nextScene");
+
+			return button;
 		}
 
 

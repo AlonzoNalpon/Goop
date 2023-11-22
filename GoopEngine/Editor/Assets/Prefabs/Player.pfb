@@ -27,17 +27,12 @@
     },
     {
       "Sprite": {
-        "filename": "SS_LeahIdle"
+        "spriteName": "SS_LeahIdle"
       }
     },
     {
       "SpriteAnim": {
         "name": "SS_LeahIdle"
-      }
-    },
-    {
-      "Model": {
-        "mdlID": 0
       }
     }
   ]

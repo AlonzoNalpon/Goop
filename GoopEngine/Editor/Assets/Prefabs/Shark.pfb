@@ -9,18 +9,13 @@
             }
         },
         {
-            "Sprite": {
-                "filename": "SS_Shark"
-            }
+          "Sprite": {
+            "spriteName": "SS_Shark"
+          }
         },
         {
             "SpriteAnim": {
                 "name": "SS_Shark"
-            }
-        },
-        {
-            "Model": {
-                "mdlID": 0
             }
         },
         {

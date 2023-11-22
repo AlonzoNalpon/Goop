@@ -136,7 +136,7 @@ namespace GE::Assets
     \return
       The value at the entry of the specified key
     ************************************************************************/
-    inline std::string GetScene(std::string const& sceneName) const { return m_scenes.at(sceneName); }
+    std::string GetScene(std::string const& sceneName);
 
     /*!*********************************************************************
     \brief
@@ -147,7 +147,7 @@ namespace GE::Assets
     \return
       The value at the entry of the specified key
     ************************************************************************/
-    inline std::string GetSound(std::string const& soundName) const { return m_audio.at(soundName); }
+    std::string GetSound(std::string const& soundName);
 
     /*!*********************************************************************
     \brief
@@ -202,6 +202,13 @@ namespace GE::Assets
     ************************************************************************/
     void FreeImage(int id);
 
+
+    /*!*********************************************************************
+    \brief
+      For Debugging purposes. Prints to std::cout all the items in the map.
+    ************************************************************************/
+    void GetMapData();
+
     /*!*********************************************************************
     \brief
       Check if the sprites has been loaded correctly by iterating through
@@ -253,13 +260,12 @@ namespace GE::Assets
 
     inline std::unordered_map<std::string, std::string> const& GetImages() const noexcept { return m_images; }
 
+    inline std::unordered_map<std::string, std::string> const& GetScenes() const noexcept { return m_scenes; }
+
+
 #include "AssetManager.tpp"
 
-    std::string const AudioFileExt{ ".wav" },
-      ImageFileExt{ ".png" },
-      ShaderFileExts{ ".vert.frag" },
-      FontFileExt{ ".otf.ttf.woff.svg.eof" },
-      SceneFileExt{ ".scn" };
+    std::string AudioFileExt, ImageFileExt, ShaderFileExt, FontFileExt, SceneFileExt, PrefabFileExt;
   private:
     /*!*********************************************************************
     \brief

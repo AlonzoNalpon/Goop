@@ -24,12 +24,13 @@ namespace GE
 			VELOCITY,
 			SPRITE,
 			SPRITE_ANIM,
-			MODEL,
 			TWEEN,
-			SCRIPT_HANDLER,
+			SCRIPTS,
 			DRAGGABLE,
 			ENEMY_AI,
 			TEXT,
+			AUDIO,
+			GE_BUTTON,
 			COMPONENTS_TOTAL
 		};
 
@@ -45,12 +46,13 @@ namespace GE
 			{ COMPONENT_TYPES::VELOCITY, "Velocity" },
 			{ COMPONENT_TYPES::SPRITE, "Sprite" },
 			{ COMPONENT_TYPES::SPRITE_ANIM, "SpriteAnim" },
-			{ COMPONENT_TYPES::MODEL, "Model" },
 			{ COMPONENT_TYPES::TWEEN, "Tween" },
-			{ COMPONENT_TYPES::SCRIPT_HANDLER, "ScriptHandler" },
+			{ COMPONENT_TYPES::SCRIPTS, "Scripts" },
 			{ COMPONENT_TYPES::DRAGGABLE, "Draggable" },
 			{ COMPONENT_TYPES::ENEMY_AI, "EnemyAI" },
-			{ COMPONENT_TYPES::TEXT, "Text" }
+			{ COMPONENT_TYPES::TEXT, "Text" },
+			{ COMPONENT_TYPES::AUDIO, "Audio" },
+			{ COMPONENT_TYPES::GE_BUTTON, "Button" }
 
 		};
 
@@ -63,12 +65,13 @@ namespace GE
 			{ "Velocity", COMPONENT_TYPES::VELOCITY },
 			{ "Sprite", COMPONENT_TYPES::SPRITE },
 			{ "SpriteAnim", COMPONENT_TYPES::SPRITE_ANIM },
-			{ "Model", COMPONENT_TYPES::MODEL },
 			{ "Tween", COMPONENT_TYPES::TWEEN },
-			{ "ScriptHandler", COMPONENT_TYPES::SCRIPT_HANDLER },
+			{ "Scripts", COMPONENT_TYPES::SCRIPTS },
 			{ "Draggable", COMPONENT_TYPES::DRAGGABLE },
 			{ "EnemyAI", COMPONENT_TYPES::ENEMY_AI },
-			{ "Text", COMPONENT_TYPES::TEXT }
+			{ "Text", COMPONENT_TYPES::TEXT },
+			{ "Audio", COMPONENT_TYPES::AUDIO },
+			{ "Button", COMPONENT_TYPES::GE_BUTTON }
 		};
 
 		/*!*********************************************************************

@@ -1,6 +1,7 @@
 [
     {
         "Name": "Right Eye",
+        "ID": 0,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -16,6 +17,8 @@
                     "center": "{ 15, 278 }",
                     "width": 10.0,
                     "height": 10.0,
+                    "min": "{ 10, 273 }",
+                    "max": "{ 20, 283 }",
                     "render": true
                 }
             },
@@ -26,6 +29,7 @@
     },
     {
         "Name": "Left Eye",
+        "ID": 1,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -41,6 +45,8 @@
                     "center": "{ -16, 278 }",
                     "width": 10.0,
                     "height": 10.0,
+                    "min": "{ -21, 273 }",
+                    "max": "{ -11, 283 }",
                     "render": true
                 }
             }
@@ -48,6 +54,7 @@
     },
     {
         "Name": "Entity 19",
+        "ID": 2,
         "Parent": null,
         "Child Entities": [
             16,
@@ -65,6 +72,7 @@
     },
     {
         "Name": "Entity 18",
+        "ID": 3,
         "Parent": 7,
         "Child Entities": [],
         "Components": [
@@ -79,6 +87,7 @@
     },
     {
         "Name": "Entity 17",
+        "ID": 4,
         "Parent": 5,
         "Child Entities": [],
         "Components": [
@@ -93,6 +102,7 @@
     },
     {
         "Name": "Entity 16",
+        "ID": 5,
         "Parent": 7,
         "Child Entities": [
             4,
@@ -110,6 +120,7 @@
     },
     {
         "Name": "Entity 15",
+        "ID": 6,
         "Parent": 5,
         "Child Entities": [
             12
@@ -126,6 +137,7 @@
     },
     {
         "Name": "x worldPos changing",
+        "ID": 7,
         "Parent": 18,
         "Child Entities": [
             3,
@@ -143,6 +155,7 @@
     },
     {
         "Name": "Head",
+        "ID": 8,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -158,6 +171,8 @@
                     "center": "{ 0, 263 }",
                     "width": 75.0,
                     "height": 75.0,
+                    "min": "{ -37.5, 225.5 }",
+                    "max": "{ 37.5, 300.5 }",
                     "render": true
                 }
             }
@@ -165,6 +180,7 @@
     },
     {
         "Name": "Right Leg",
+        "ID": 9,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -180,6 +196,8 @@
                     "center": "{ 50, 0 }",
                     "width": 75.0,
                     "height": 150.0,
+                    "min": "{ 12.5, -75 }",
+                    "max": "{ 87.5, 75 }",
                     "render": true
                 }
             }
@@ -187,6 +205,7 @@
     },
     {
         "Name": "Left Leg",
+        "ID": 10,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -202,6 +221,8 @@
                     "center": "{ -50, 0 }",
                     "width": 75.0,
                     "height": 150.0,
+                    "min": "{ -87.5, -75 }",
+                    "max": "{ -12.5, 75 }",
                     "render": true
                 }
             }
@@ -209,6 +230,7 @@
     },
     {
         "Name": "Right Arm",
+        "ID": 11,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -224,6 +246,8 @@
                     "center": "{ 176, 180 }",
                     "width": 100.0,
                     "height": 50.0,
+                    "min": "{ 126, 155 }",
+                    "max": "{ 226, 205 }",
                     "render": true
                 }
             }
@@ -231,6 +255,7 @@
     },
     {
         "Name": "on",
+        "ID": 12,
         "Parent": 6,
         "Child Entities": [],
         "Components": [
@@ -245,6 +270,7 @@
     },
     {
         "Name": "going",
+        "ID": 13,
         "Parent": 19,
         "Child Entities": [],
         "Components": [
@@ -259,6 +285,7 @@
     },
     {
         "Name": "is",
+        "ID": 14,
         "Parent": 18,
         "Child Entities": [],
         "Components": [
@@ -273,6 +300,7 @@
     },
     {
         "Name": "what",
+        "ID": 15,
         "Parent": 17,
         "Child Entities": [],
         "Components": [
@@ -287,6 +315,7 @@
     },
     {
         "Name": "what",
+        "ID": 16,
         "Parent": 2,
         "Child Entities": [
             24
@@ -303,6 +332,7 @@
     },
     {
         "Name": "and this too",
+        "ID": 17,
         "Parent": 18,
         "Child Entities": [
             15
@@ -319,6 +349,7 @@
     },
     {
         "Name": "same for this",
+        "ID": 18,
         "Parent": 19,
         "Child Entities": [
             7,
@@ -337,6 +368,7 @@
     },
     {
         "Name": "y worldPos changing",
+        "ID": 19,
         "Parent": 2,
         "Child Entities": [
             13,
@@ -354,6 +386,7 @@
     },
     {
         "Name": "Left Arm",
+        "ID": 20,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -369,6 +402,8 @@
                     "center": "{ -175, 180 }",
                     "width": 100.0,
                     "height": 50.0,
+                    "min": "{ -225, 155 }",
+                    "max": "{ -125, 205 }",
                     "render": true
                 }
             }
@@ -376,6 +411,7 @@
     },
     {
         "Name": "Body",
+        "ID": 21,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -391,6 +427,8 @@
                     "center": "{ 0, 150 }",
                     "width": 250.0,
                     "height": 150.0,
+                    "min": "{ -125, 75 }",
+                    "max": "{ 125, 225 }",
                     "render": true
                 }
             }
@@ -398,6 +436,7 @@
     },
     {
         "Name": "Mouth",
+        "ID": 22,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -413,6 +452,8 @@
                     "center": "{ 0, 245 }",
                     "width": 50.0,
                     "height": 20.0,
+                    "min": "{ -25, 235 }",
+                    "max": "{ 25, 255 }",
                     "render": false
                 }
             }
@@ -420,6 +461,7 @@
     },
     {
         "Name": "Hat Bottom",
+        "ID": 23,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -435,6 +477,8 @@
                     "center": "{ 0, 311 }",
                     "width": 150.0,
                     "height": 20.0,
+                    "min": "{ -75, 301 }",
+                    "max": "{ 75, 321 }",
                     "render": true
                 }
             }
@@ -442,6 +486,7 @@
     },
     {
         "Name": "rip",
+        "ID": 24,
         "Parent": 16,
         "Child Entities": [
             25
@@ -458,6 +503,7 @@
     },
     {
         "Name": "Entity 25",
+        "ID": 25,
         "Parent": 24,
         "Child Entities": [
             26
@@ -474,6 +520,7 @@
     },
     {
         "Name": "Entity 26",
+        "ID": 26,
         "Parent": 25,
         "Child Entities": [],
         "Components": [
@@ -488,6 +535,7 @@
     },
     {
         "Name": "Hat Top",
+        "ID": 27,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -503,6 +551,8 @@
                     "center": "{ 0, 336 }",
                     "width": 100.0,
                     "height": 30.0,
+                    "min": "{ -50, 321 }",
+                    "max": "{ 50, 351 }",
                     "render": true
                 }
             }
@@ -510,6 +560,7 @@
     },
     {
         "Name": "Hammer Handle",
+        "ID": 28,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -525,6 +576,8 @@
                     "center": "{ 210, 233 }",
                     "width": 10.0,
                     "height": 75.0,
+                    "min": "{ 205, 195.5 }",
+                    "max": "{ 215, 270.5 }",
                     "render": true
                 }
             }
@@ -532,6 +585,7 @@
     },
     {
         "Name": "Hammer Face",
+        "ID": 29,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -547,6 +601,8 @@
                     "center": "{ 210, 283 }",
                     "width": 50.0,
                     "height": 25.0,
+                    "min": "{ 185, 270.5 }",
+                    "max": "{ 235, 295.5 }",
                     "render": true
                 }
             }

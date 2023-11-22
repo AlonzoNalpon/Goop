@@ -10,6 +10,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
+#ifndef NO_IMGUI
 #include "ImGuiUI.h"
 #include "Inspector.h"
 #include <ImGui/imgui.h>
@@ -84,8 +85,11 @@ namespace
 
 	\param[in] disabled
 		Draw disabled
+
+	\return
+		If value has changed
 	************************************************************************/
-	void InputCheckBox(std::string propertyName, bool& property, bool disabled = false);
+	bool InputCheckBox(std::string propertyName, bool& property, bool disabled = false);
 
 	/*!*********************************************************************
 	\brief
@@ -208,9 +212,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 			{
 			case GE::ECS::COMPONENT_TYPES::TRANSFORM:
 			{
-				GizmoEditor::SetVisible(true);
 				auto trans = ecs.GetComponent<Transform>(entity);
-				GizmoEditor::SetCurrentObject(trans->m_worldTransform, entity);
 				if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					// Honestly no idea why -30 makes all 3 input fields match in size but sure
@@ -221,6 +223,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 					// SET GIZMO RADIO BUTTONS
 					{
+						// SET MODE BASED ON KEYBINDS: W,E,R (trans, rot, scale)
+						{
+							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_W))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::TRANSLATE);
+							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_E))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE);
+							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_R))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::SCALE);
+						}
 						// TRANSLATE
 						{
 							if (ImGui::RadioButton("Translate",
@@ -265,11 +276,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 					Separator();
 					if (valChanged) {
+						GizmoEditor::SetVisible(false);
 						GE::CMD::ChangeTransCmd newTransCmd = GE::CMD::ChangeTransCmd(oldPRS, { trans->m_pos, trans->m_rot, trans->m_scale }, entity);
 						GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
 						cmdMan.AddCommand(newTransCmd);
 					}
-
+					else if (trans->m_scale.x && trans->m_scale.y && trans->m_scale.z)
+					{
+						GizmoEditor::SetVisible(true);
+						GizmoEditor::SetCurrentObject(trans->m_worldTransform, entity);
+					}
 				}
 				break;
 			}
@@ -372,11 +388,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndPopup();
 					}
-					ImGui::Columns(2, 0, true);
-					ImGui::SetColumnWidth(0, 118.f);
-					ImGui::Text("Sprite");
-					ImGui::NextColumn();
-					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), { 100, 100 }, { 0, 1 }, { 1, 0 });
+					ImVec2 imgSize{ 100, 100 };
+					SetCursorPosX(GetContentRegionAvail().x / 2 - imgSize.x / 2);
+					ImageButton(reinterpret_cast<ImTextureID>(sprite->m_spriteData.texture), imgSize, { 0, 1 }, { 1, 0 });
 					if (ImGui::BeginDragDropTarget())
 					{
 						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
@@ -391,7 +405,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							EndDragDropTarget();
 						}
 					}
-					ImGui::Columns(1);
+					//ImGui::Columns(1);
 
 #pragma region SPRITE_LIST
 					auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
@@ -454,28 +468,44 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndPopup();
 					}
-				}
-				break;
-			}
-			case GE::ECS::COMPONENT_TYPES::MODEL:
-			{
-				//auto model = ecs.GetComponent<Model>(entity);
-				if (ImGui::CollapsingHeader("Model", ImGuiTreeNodeFlags_DefaultOpen))
-				{
-					if (IsItemClicked(ImGuiMouseButton_Right))
+#pragma region SPRITE_ANIM_LIST
+					auto spriteAnimObj = ecs.GetComponent<Component::SpriteAnim>(entity);
+					Separator();
+					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
+
+					TableNextColumn();
+
+					auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
+					auto const& textureLT{ animManager.GetAnimLT()};
+					if (BeginCombo("Sprite Anim", animManager.GetAnimName(spriteAnimObj->m_animID).c_str()))
 					{
-						OpenPopup("RemoveModel");
-					}
-					if (BeginPopup("RemoveModel"))
-					{
-						if (Selectable("Remove Component"))
+						for (auto const& it : textureLT)
 						{
-							ecs.RemoveComponent<Model>(entity);
-							EndPopup();
-							break;
+							if (Selectable(it.first.c_str()))
+							{
+								auto const& anim = animManager.GetAnim(it.second);
+								auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
+								spriteAnimObj->m_animID = it.second;
+								spriteAnimObj->m_currFrame = 0;
+								spriteAnimObj->m_currTime	 = 0;
+
+								// setting correct attributes for sprite
+								auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
+								textureManager.GetTextureName(anim.texture);
+
+								// Set sprite name and the texture handle
+								spriteObj->m_spriteName = textureManager.GetTextureName(anim.texture);
+								spriteObj->m_spriteData.texture = anim.texture;
+
+								spriteObj->m_spriteData.info = anim.frames[0]; // and set actual sprite info
+							}
 						}
-						EndPopup();
+						EndCombo();
 					}
+					EndTable();
+					Separator();
+#pragma endregion
 				}
 				break;
 			}
@@ -517,20 +547,20 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER:
+			case GE::ECS::COMPONENT_TYPES::SCRIPTS:
 			{
-				//auto scripts = ecs.GetComponent<ScriptHandler>(entity);
-				if (ImGui::CollapsingHeader("Script Handler", ImGuiTreeNodeFlags_DefaultOpen))
+				//auto scripts = ecs.GetComponent<Scripts>(entity);
+				if (ImGui::CollapsingHeader("Scripts", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					if (IsItemClicked(ImGuiMouseButton_Right))
 					{
-						OpenPopup("RemoveScriptHandler");
+						OpenPopup("RemoveScripts");
 					}
-					if (BeginPopup("RemoveScriptHandler"))
+					if (BeginPopup("RemoveScripts"))
 					{
 						if (Selectable("Remove Component"))
 						{
-							ecs.RemoveComponent<ScriptHandler>(entity);
+							ecs.RemoveComponent<Scripts>(entity);
 							EndPopup();
 							break;
 						}
@@ -616,6 +646,89 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 					EndTable();
 					Separator();
+				}
+				break;
+			}
+			case GE::ECS::COMPONENT_TYPES::AUDIO:
+			{
+				auto audio = ecs.GetComponent<GE::Component::Audio>(entity);
+				if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveAudio");
+					}
+					if (BeginPopup("RemoveAudio"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<Audio>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+
+					Separator();
+					InputText("Sound File", &audio->m_name);
+					if (BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = AcceptDragDropPayload("ASSET_BROWSER_AUDIO"))
+						{
+							audio->m_name = static_cast<const char*>(payload->Data);
+						}
+						EndDragDropTarget();
+					}
+
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					TableNextRow();
+					InputCheckBox("Loop", audio->m_loop);
+					TableNextRow();
+					InputCheckBox("Play on Start", audio->m_playOnStart);
+					TableNextRow();
+					InputCheckBox("Paused", audio->m_paused);
+					EndTable();
+
+					if (BeginCombo("Channel", GE::fMOD::FmodSystem::m_channelToString.at(audio->channel).c_str()))
+					{
+						for (auto const& [channel, audioName] : GE::fMOD::FmodSystem::m_channelToString)
+						{
+							if (Selectable(audioName.c_str()))
+							{
+								audio->channel = channel;
+							}
+						}
+						EndCombo();
+					}
+
+					Separator();
+				}
+				break;
+			}
+			case GE::ECS::COMPONENT_TYPES::GE_BUTTON:
+			{
+				auto button = ecs.GetComponent<GE::Component::GE_Button>(entity);
+
+				if (CollapsingHeader("Button", ImGuiTreeNodeFlags_Leaf))
+				{
+					if (IsItemClicked(ImGuiMouseButton_Right))
+					{
+						OpenPopup("RemoveButton");
+					}
+					if (BeginPopup("RemoveButton"))
+					{
+						if (Selectable("Remove Component"))
+						{
+							ecs.RemoveComponent<GE_Button>(entity);
+							EndPopup();
+							break;
+						}
+						EndPopup();
+					}
+					Separator();
+					InputText("Next Scene", &button->m_nextScene);
+
 				}
 				break;
 			}
@@ -711,42 +824,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::MODEL:
+					case GE::ECS::COMPONENT_TYPES::SCRIPTS:
 					{
-						if (!ecs.HasComponent<Model>(entity))
+						if (!ecs.HasComponent<Scripts>(entity))
 						{
-							Model comp{};
+							Scripts comp;
 							ecs.AddComponent(entity, comp);
 						}
 						else
 						{
-							ss << "Unable to add component " << typeid(Model).name() << ". Component already exist";
-						}
-						break;
-					}
-					case GE::ECS::COMPONENT_TYPES::TWEEN:
-					{
-						if (!ecs.HasComponent<Tween>(entity))
-						{
-							Tween comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(Tween).name() << ". Component already exist";
-						}
-						break;
-					}
-					case GE::ECS::COMPONENT_TYPES::SCRIPT_HANDLER:
-					{
-						if (!ecs.HasComponent<ScriptHandler>(entity))
-						{
-							ScriptHandler comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(ScriptHandler).name() << ". Component already exist";
+							ss << "Unable to add component " << typeid(Scripts).name() << ". Component already exist";
 						}
 						break;
 					}
@@ -773,6 +860,32 @@ void GE::EditorGUI::Inspector::CreateContent()
 						else
 						{
 							ss << "Unable to add component " << typeid(Component::Text).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::AUDIO:
+					{
+						if (!ecs.HasComponent<Component::Audio>(entity))
+						{
+							Component::Audio comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Component::Text).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::GE_BUTTON:
+					{
+						if (!ecs.HasComponent<GE::Component::GE_Button>(entity))
+						{
+							GE::Component::GE_Button comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(GE::Component::GE_Button).name() << ". Component already exist";
 						}
 						break;
 					}
@@ -823,14 +936,16 @@ namespace
 		EndDisabled();
 	}
 	
-	void InputCheckBox(std::string propertyName, bool& property, bool disabled)
+	bool InputCheckBox(std::string propertyName, bool& property, bool disabled)
 	{
+		bool valChanged{ false };
 		BeginDisabled(disabled);
 		TableNextColumn();
 		ImGui::Text(propertyName.c_str());
 		TableNextColumn();
-		Checkbox(("##" + propertyName).c_str(), &property);
+		valChanged = Checkbox(("##" + propertyName).c_str(), &property);
 		EndDisabled();
+		return valChanged;
 	}
 
 	template <>
@@ -943,3 +1058,4 @@ namespace
 		Indent();
 	}
 }
+#endif

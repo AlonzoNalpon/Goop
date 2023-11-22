@@ -1,4 +1,5 @@
 #include <pch.h>
+#ifndef NO_IMGUI
 #include "AssetPreview.h"
 
 // Disable reinterpret to larger size
@@ -45,3 +46,4 @@ void GE::EditorGUI::AssetPreview::CreateContent()
 	ImGui::SetCursorPos({ ImGui::GetCursorPosX() + (ImGui::GetWindowSize().x * 0.5f) - (newW * 0.5f) , yPadding });
 	ImGui::Image(reinterpret_cast<ImTextureID>(am.GetID(ImGuiHelper::GetSelectedAsset())), { newW, newH }, { 0 ,1 }, { 1, 0 });
 }
+#endif

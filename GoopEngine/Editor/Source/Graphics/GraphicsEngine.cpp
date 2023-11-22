@@ -92,9 +92,14 @@ namespace {
                                   0.1f, 2000.1f };                         // near and far z planes
       m_renderer.Init(orthoCam, m_models.size()-1); // line model index
     }
-
 #pragma endregion
-    // TEST LOADING FONTS
+
+// compiler directive To be removed in future if engine does not need
+#ifdef NO_IMGUI
+    CreateFrameBuffer(w, h);
+#endif
+
+    // Load font model and shader
     m_fontManager.Init(m_fontMdl.shader, m_fontMdl.vaoid);
 
     // THESE ARE IMPORTANT TO HAVE
@@ -161,6 +166,7 @@ namespace {
       fbInfo.second.camera.CalculateViewProjMtx(); // Update camera
       m_renderer.Draw(fbInfo.second.camera);
     }
+    m_renderer.ClearRenderContainers();
   #if 0 // BACKUP FOR MERGE
     m_renderer.Draw();
     auto marchID = m_fontManager.GetFontID("Marchesa");
@@ -430,7 +436,7 @@ namespace {
     {.0f, 1.f, 0.f},                                              // up vector
     -width * 0.5f, width * 0.5f, -height * 0.5f, height * 0.5f,   // left right bottom top
     0.1f, 2000.9f } , 
-      {width, height } // viewport dimensions in pixels
+      {width, height} // viewport dimensions in pixels
   };
     glGenFramebuffers(1, &newFB.frameBuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, newFB.frameBuffer);

@@ -15,6 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #define GOOP_MATH_H
 
 // may need to change includes in future
+#define _USE_MATH_DEFINES
 #include <math.h>
 #include <type_traits>
 #include <stdexcept>
