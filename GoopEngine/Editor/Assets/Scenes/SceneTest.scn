@@ -9,7 +9,7 @@
                 "Transform": {
                     "worldPos": "{ -350, 350, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
@@ -100,12 +100,92 @@
                 "Transform": {
                     "worldPos": "{ 0, 0, -997 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "Sprite": {
                     "spriteName": "Background"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Pause Menu",
+        "ID": 3,
+        "Parent": null,
+        "Child Entities": [
+            4,
+            6
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Overlay",
+        "ID": 4,
+        "Parent": 3,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1920, 1080, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteName": "Pause_GreyOverlay"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "GameSystem",
+        "ID": 5,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Game": {
+                    "player": 0,
+                    "enemy": 1,
+                    "pauseMenu": 3
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Menu BG",
+        "ID": 6,
+        "Parent": 3,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 500, 800, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteName": "Pause_BG"
                 }
             }
         ]
