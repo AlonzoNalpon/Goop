@@ -237,6 +237,7 @@ namespace
 			}
 			if (BeginPopup("EntityManip"))
 			{
+				style.Colors[ImGuiCol_Text] = ImColor{ 255,255,255 };
 				if (Selectable("Create"))
 				{
 					GE::Component::Transform trans{ {0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 } };
@@ -255,6 +256,7 @@ namespace
 				{
 					entitiesToDestroy.push_back(entity);
 				}
+				style.Colors[ImGuiCol_Text] = textClr;				
 				EndPopup();
 			}
 			else
