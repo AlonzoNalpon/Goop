@@ -43,6 +43,7 @@ void AudioSystem::Update()
         {
           audio->Play(sound.m_sound);
         }
+        sound.m_lastPausedState = sound.m_paused;
       }
     }
   }

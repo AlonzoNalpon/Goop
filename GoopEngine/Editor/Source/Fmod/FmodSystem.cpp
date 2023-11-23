@@ -1,5 +1,6 @@
 #include <pch.h>
 #include <Fmod/FmodSystem.h>
+#include <fmod_errors.h>
 #include <AssetManager/AssetManager.h>
 #include <filesystem>
 
@@ -117,7 +118,17 @@ void FmodSystem::PlaySound(std::string audio, float volume, ChannelType channel,
   else
   {
     bool isPaused;
-    ErrorCheck(soundChannel->getPaused(&isPaused));
+    try
+    {
+      ErrorCheck(soundChannel->getPaused(&isPaused));
+    }
+    catch (GE::Debug::IExceptionBase&)
+    {
+      // Catch the thrown, if there is a throw at pause it means the channel is not playing anymore
+      // not an actual thrown error
+      ErrorCheck(m_fModSystem->playSound(soundFound->second, m_channelGroups[channel], false, &soundChannel));
+      soundChannel->setVolume(volume);
+    }
     // if sound paused, unpause
     if (isPaused)
     {
@@ -130,7 +141,16 @@ void GE::fMOD::FmodSystem::Pause(std::string audio)
 {
   if (m_channels.find(audio) != m_channels.end())
   {
-    ErrorCheck(m_channels[audio]->setPaused(true));
+    try
+    {
+      ErrorCheck(m_channels[audio]->setPaused(true));
+    }
+    catch (GE::Debug::IExceptionBase&)
+    {
+      // Catch the thrown, if there is a throw at pause it means the channel is not playing anymore
+      // not an actual bad error
+      // Do nothing
+    }
   }
 }
 
@@ -213,9 +233,10 @@ float FmodSystem::VolumeTodb(float volume) const
 
 void FmodSystem::ErrorCheck(FMOD_RESULT result)
 {
+  static GE::Debug::ErrorLogger& logger = GE::Debug::ErrorLogger::GetInstance();
   if (result != FMOD_OK)
   {
-    std::string error = "FMOD ERROR " + result;
+    std::string error = FMOD_ErrorString(result);
     throw Debug::Exception<FmodSystem>(Debug::LEVEL_ERROR, ErrMsg((error).c_str()));
   }
 }
