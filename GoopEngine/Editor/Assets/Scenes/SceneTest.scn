@@ -2,7 +2,7 @@
     {
         "Name": "Player",
         "ID": 0,
-        "isActive": true,
+        "isActive": false,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -25,6 +25,20 @@
             },
             {
                 "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 768,
+                            "height": 128
+                        }
+                    },
                     "spriteName": "SS_MineWorm"
                 }
             },
@@ -93,11 +107,25 @@
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
-            {
-                "Sprite": {
-                    "spriteName": "Background"
+          {
+            "Sprite": {
+              "spriteData": {
+                "spriteSubData": {
+                  "texCoords": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "texDims": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "width": 1920,
+                  "height": 1080
                 }
+              },
+              "spriteName": "BG_Lv1"
             }
+          }
         ]
     },
     {
@@ -143,11 +171,25 @@
                     "render": true
                 }
             },
-            {
-                "Sprite": {
-                    "spriteName": "Pause_GreyOverlay"
+          {
+            "Sprite": {
+              "spriteData": {
+                "spriteSubData": {
+                  "texCoords": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "texDims": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "width": 768,
+                  "height": 128
                 }
+              },
+              "spriteName": "Pause_GreyOverlay"
             }
+          }
         ]
     },
     {
@@ -190,11 +232,25 @@
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
-            {
-                "Sprite": {
-                    "spriteName": "Pause_BG"
+          {
+            "Sprite": {
+              "spriteData": {
+                "spriteSubData": {
+                  "texCoords": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "texDims": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "width": 768,
+                  "height": 128
                 }
+              },
+              "spriteName": "Pause_BG"
             }
+          }
         ]
     },
     {
@@ -223,11 +279,25 @@
                     "render": true
                 }
             },
-            {
-                "Sprite": {
-                    "spriteName": "Button_Base"
+          {
+            "Sprite": {
+              "spriteData": {
+                "spriteSubData": {
+                  "texCoords": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "texDims": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "width": 768,
+                  "height": 128
                 }
-            },
+              },
+              "spriteName": "Button_Base"
+            }
+          },
             {
                 "GE_Button": {
                     "param": "3",
@@ -252,11 +322,25 @@
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
-            {
-                "Sprite": {
-                    "spriteName": "Button_Base"
+          {
+            "Sprite": {
+              "spriteData": {
+                "spriteSubData": {
+                  "texCoords": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "texDims": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "width": 768,
+                  "height": 128
                 }
+              },
+              "spriteName": "Button_Base"
             }
+          }
         ]
     },
     {
@@ -385,11 +469,25 @@
                     "render": true
                 }
             },
-            {
-                "Sprite": {
-                    "spriteName": "DAA2402_CardBaseBack_v01"
+          {
+            "Sprite": {
+              "spriteData": {
+                "spriteSubData": {
+                  "texCoords": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "texDims": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "width": 768,
+                  "height": 128
                 }
+              },
+              "spriteName": "DAA2402_CardBaseBack_v01"
             }
+          }
         ]
     },
     {
@@ -416,11 +514,25 @@
                     "render": true
                 }
             },
-            {
-                "Sprite": {
-                    "spriteName": "DAA2402_CardBaseBack_v01"
+          {
+            "Sprite": {
+              "spriteData": {
+                "spriteSubData": {
+                  "texCoords": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "texDims": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "width": 768,
+                  "height": 128
                 }
+              },
+              "spriteName": "DAA2402_CardBaseBack_v01"
             }
+          }
         ]
     },
     {
@@ -447,11 +559,25 @@
                     "render": true
                 }
             },
-            {
-                "Sprite": {
-                    "spriteName": "DAA2402_CardBaseBack_v01"
+          {
+            "Sprite": {
+              "spriteData": {
+                "spriteSubData": {
+                  "texCoords": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "texDims": {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  "width": 768,
+                  "height": 128
                 }
+              },
+              "spriteName": "DAA2402_CardBaseBack_v01"
             }
+          }
         ]
     }
 ]
