@@ -61,9 +61,9 @@ void CollisionSystem::Update()
 	CreatePartitions(m_rowsPartition, m_colsPartition);
 	for (Partition& partition : m_partitions)
 	{
+#ifndef NO_IMGUI
 		[[maybe_unused]] auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 		//drawing partition's border
-#ifndef NO_IMGUI
 		gEngine.DrawLine(partition.min, { partition.max.x, partition.min.y });
 		gEngine.DrawLine({ partition.max.x, partition.min.y }, partition.max);
 		gEngine.DrawLine(partition.max, { partition.min.x, partition.max.y });
@@ -85,6 +85,7 @@ void CollisionSystem::Update()
 			mousePos = input->GetMousePosWorld();
 
 			entity1Col->m_mouseCollided = Collide(*entity1Col, mousePos);
+			entity1Col->m_collided.clear();
 
 			//obj collide check
 			for (Entity entity2 : partition.m_entitiesInPartition)
@@ -99,13 +100,6 @@ void CollisionSystem::Update()
 				if (Collide(*entity1Col, *entity2Col))
 				{
 					entity1Col->m_collided.insert(entity2Col);
-				}
-				else
-				{
-					if (entity1Col->m_collided.count(entity2Col))
-					{
-						entity1Col->m_collided.erase(entity2Col);
-					}
 				}
 			}
 		}
