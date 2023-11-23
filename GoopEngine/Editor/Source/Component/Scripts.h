@@ -21,8 +21,10 @@ namespace GE
 
 		struct Scripts
 		{
+			using ScriptInstances = std::vector<ScriptInstance>;
+
 			ECS::Entity m_entityId;
-			std::vector<ScriptInstance> m_scriptList; //m_scriptMap
+			ScriptInstances m_scriptList; //m_scriptMap
 
 			Scripts() {}
 
@@ -40,7 +42,7 @@ namespace GE
 			{
 				for (const std::string& s : scriptNames)
 				{
-					std::vector<ScriptInstance>::iterator it = std::find_if(m_scriptList.begin(), m_scriptList.end(), [s](const ScriptInstance& script) { return script.m_scriptName == s; });
+					ScriptInstances::iterator it = std::find_if(m_scriptList.begin(), m_scriptList.end(), [s](const ScriptInstance& script) { return script.m_scriptName == s; });
 					if (it == m_scriptList.end())
 					{
 						try
@@ -63,7 +65,7 @@ namespace GE
 			{
 				for (const std::string& s : scriptNames)
 				{
-					std::vector<ScriptInstance>::iterator it = std::find_if(m_scriptList.begin(), m_scriptList.end(), [s](const ScriptInstance& script) { return script.m_scriptName == s; });
+					ScriptInstances::iterator it = std::find_if(m_scriptList.begin(), m_scriptList.end(), [s](const ScriptInstance& script) { return script.m_scriptName == s; });
 					if (it == m_scriptList.end())
 					{
 						try
@@ -81,7 +83,7 @@ namespace GE
 				}
 			}
 
-			Scripts(unsigned int entityID) : m_entityId{ entityID }{}
+			Scripts(unsigned int entityID, const ScriptInstances& scriptList) : m_entityId{ entityID }, m_scriptList{ scriptList } {}
 
 
 

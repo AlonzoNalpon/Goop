@@ -100,7 +100,7 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   else
   {
     std::ostringstream oss{};
-    oss << "Trying to add unknown component type: " << compType.get_name().to_string() << " to entity " << entity;
+    oss << "Trying to add unknown component type: " << compType.get_name().to_string() << " to entity " << entity << " | Update ObjectFactory::AddComponentToEntity";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
   }
 }

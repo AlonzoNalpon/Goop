@@ -190,31 +190,31 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
   return ret;
 }
 
-void Deserializer::DeserializeBasedOnType(rttr::instance object, rapidjson::Value const& value)
+void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Value const& value)
 {
-  // extract underlying type if its a wrapper
-  rttr::instance objInstance
+  rttr::instance object
   {
-    object.get_type().get_raw_type().is_wrapper() ? object.get_wrapped_instance() : object
+    objInst.get_type().get_raw_type().is_wrapper() ? objInst.get_wrapped_instance() : objInst
   };
 
-  auto const properties{ objInstance.get_type().get_properties() }; // list of properties (data members of a class)
-  #ifdef DESERIALIZER_DEBUG
-  std::cout << "  Original instance: " << object.get_type() << "\n";
-  std::cout << "  Extracted instance: " << objInstance.get_type() << "\n";
-  #endif
+#ifdef DESERIALIZER_DEBUG
+  std::cout << "  Original instance: " << objInst.get_type() << "\n";
+  std::cout << "  Extracted instance: " << object.get_type() << "\n";
+#endif
+
+  auto const properties{ object.get_type().get_properties() }; // list of properties (data members of a class)
   for (auto& prop : properties)
   {
-    #ifdef DESERIALIZER_DEBUG
+#ifdef DESERIALIZER_DEBUG
     std::cout << "    Extracting property: " << prop.get_name() << "\n";
-    #endif
+#endif
     // extract value based on property name
     rapidjson::Value::ConstMemberIterator iter{ value.FindMember(prop.get_name().data()) };
     if (iter == value.MemberEnd())
     {
       std::ostringstream oss{};
       oss << "Unable to find " << prop.get_name().to_string()
-        << " property in " << objInstance.get_type().get_name().to_string();
+        << " property in " << object.get_type().get_name().to_string();
       GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
       continue;
     }
@@ -243,7 +243,7 @@ void Deserializer::DeserializeBasedOnType(rttr::instance object, rapidjson::Valu
         GE::Debug::ErrorLogger::GetInstance().LogMessage(
           prop.get_name().to_string() + ": Associative Containers are not yet supported");
       }
-      
+
       prop.set_value(object, ret);
 
       break;
@@ -254,7 +254,7 @@ void Deserializer::DeserializeBasedOnType(rttr::instance object, rapidjson::Valu
       // attempt to convert to respective property type
       if (ret.convert(prop.get_type()))
       {
-        prop.set_value(objInstance, ret);
+        prop.set_value(object, ret);
       }
       else
       {
@@ -265,6 +265,35 @@ void Deserializer::DeserializeBasedOnType(rttr::instance object, rapidjson::Valu
       break;
     }
     }
+  }
+}
+
+void Deserializer::DeserializeBasedOnType(rttr::variant& object, rapidjson::Value const& value)
+{  
+  switch (value.GetType())
+  {
+  case rapidjson::kObjectType:
+    DeserializeClassTypes(object, value);
+    break;
+  case rapidjson::kArrayType:
+  {
+    rttr::type const type{ object.get_type() };
+    if (type.is_sequential_container())
+    {
+      rttr::variant_sequential_view view = object.create_sequential_view();
+      DeserializeSequentialContainer(view, value);
+    }
+    else if (type.is_associative_container())
+    {
+      GE::Debug::ErrorLogger::GetInstance().LogMessage(
+        type.get_name().to_string() + ": Associative Containers are not yet supported");
+    }
+
+    break;
+  }
+  default:
+    object = DeserializeBasicTypes(value);
+    break;
   }
 }
 
@@ -414,7 +443,7 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
       oss << "Unable to find " << type.get_properties().begin()->get_name().to_string().c_str()
         << " property in " << type.get_name().to_string();
       GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-      return false;
+      return true;
     }
 
     compVar = type.create({ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(iter->value.GetString()) });
@@ -424,6 +453,26 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
   {
     GE::Debug::ErrorLogger::GetInstance().LogError("Deserializing of Script component is skipped for now");
     return true;
+    // get entity id
+    //rapidjson::Value::ConstMemberIterator iter{ value.FindMember("entityId") };
+    //if (iter == value.MemberEnd())
+    //{
+    //  GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"entityId\" property in Script component");
+    //  return true;
+    //}
+
+    //// get vector of script instances
+    //rttr::variant scriptMap{ std::vector<MONO::ScriptInstance>{} };
+    //iter = value.FindMember("scriptList");
+    //if (iter == value.MemberEnd())
+    //{
+    //  GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"scriptList\" property in Script component");
+    //  return true;
+    //}
+    //DeserializeBasedOnType(scriptMap, iter->value);
+
+    //compVar = type.create({ iter->value.GetUint(), scriptMap });
+    //return true;
     /*rttr::variant scriptMap{ std::vector<MONO::ScriptInstance>{} };
     std::vector<rttr::argument> args{};
     args.reserve(2);
