@@ -88,12 +88,6 @@ RTTR_REGISTRATION
     .property("treeID", &Component::EnemyAI::m_treeID)
     ;
 
-  rttr::registration::class_<Component::Scripts>("Scripts")
-    .constructor<std::vector<std::string> const&, unsigned>()
-    .property("entityId", &Component::Scripts::m_entityId)
-    .property("scriptMap", &Component::Scripts::m_scriptList)
-    ;
-
   rttr::registration::class_<Graphics::Colorf>("Colorf")
     .constructor<>()
     .property("r", &Graphics::Colorf::r)
@@ -167,11 +161,17 @@ RTTR_REGISTRATION
     .property("elemIdx", &Component::CardHolderElem::elemIdx)
     ;
 
+  rttr::registration::class_<Component::Scripts>("Scripts")
+    .property("entityId", &Component::Scripts::m_entityId)
+    .property("scriptList", &Component::Scripts::m_scriptList)
+    ;
+
   rttr::registration::class_<Component::Game>("Game")
     .constructor<>()
     .property("player", &Component::Game::m_player)
     .property("enemy", &Component::Game::m_enemy)
     .property("pauseMenu", &Component::Game::m_pauseMenu)
-    //.property("gameSystemScript", &Component::Game::m_gameSystemScript)
+    .property("gameSystemScript", &Component::Game::m_gameSystemScript)
     ;
+
 } // RTTR Registration

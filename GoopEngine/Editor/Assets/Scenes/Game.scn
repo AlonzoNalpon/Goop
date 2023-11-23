@@ -56,14 +56,6 @@
                     "started": true,
                     "paused": false
                 }
-            },
-            {
-                "Scripts": {
-                    "entityId": 0,
-                    "scriptMap": [
-                        "Player"
-                    ]
-                }
             }
         ]
     },
@@ -184,7 +176,11 @@
                 "Game": {
                     "player": 0,
                     "enemy": 1,
-                    "pauseMenu": 3
+                    "pauseMenu": 3,
+                    "gameSystemScript": {
+                        "scriptName": "",
+                        "scriptFieldInstList": []
+                    }
                 }
             }
         ]

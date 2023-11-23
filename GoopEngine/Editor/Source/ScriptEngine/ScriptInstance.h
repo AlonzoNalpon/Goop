@@ -50,7 +50,8 @@ namespace GE {
 		};
 
 
-		struct ScriptInstance{
+		struct ScriptInstance
+		{
 			std::string m_scriptName;
 			MonoClass* m_scriptClass{ nullptr };
 			MonoObject* m_classInst{ nullptr };

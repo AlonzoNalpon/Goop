@@ -19,7 +19,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AssetManager/AssetManager.h>
 
 #ifdef _DEBUG
-#define DESERIALIZER_DEBUG
+//#define DESERIALIZER_DEBUG
 #endif
 
 using namespace GE;
@@ -422,7 +422,9 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
   }
   else if (type == rttr::type::get<Component::Scripts>())
   {
-    rttr::variant scriptMap{ std::vector<std::string>{} };
+    GE::Debug::ErrorLogger::GetInstance().LogError("Deserializing of Script component is skipped for now");
+    return true;
+    /*rttr::variant scriptMap{ std::vector<MONO::ScriptInstance>{} };
     std::vector<rttr::argument> args{};
     args.reserve(2);
     try
@@ -439,9 +441,9 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
       GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
       return false;
     }
-    
+
     compVar = type.create(std::move(args));
-    return true;
+    return true;*/
   }
 
   return false;

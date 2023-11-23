@@ -9,7 +9,7 @@
             {
                 "Transform": {
                     "worldPos": "{ 0, 0, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldScale": "{ 1.7694, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
@@ -70,6 +70,111 @@
             {
                 "SpriteAnim": {
                     "name": "SS_MineWorm"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Testing Serializing",
+        "ID": 2,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            3
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -8.14806, 228.916, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -8.14806, 228.916 }",
+                    "width": 100.0,
+                    "height": 100.0,
+                    "min": "{ -58.1481, 178.916 }",
+                    "max": "{ 41.8519, 278.916 }",
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "of Game Component",
+        "ID": 3,
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Game": {
+                    "player": 1,
+                    "enemy": 4,
+                    "pauseMenu": 5,
+                    "gameSystemScript": {
+                        "scriptName": ""
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 4",
+        "ID": 4,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 5",
+        "ID": 5,
+        "isActive": false,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 782,
+                            "height": 331
+                        }
+                    },
+                    "spriteName": "Temp_Logo"
                 }
             }
         ]

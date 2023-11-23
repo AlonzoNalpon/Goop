@@ -19,7 +19,7 @@ using namespace MONO;
 
 
 
-ScriptInstance::ScriptInstance(const std::string& scriptName, std::vector<void*>& arg)
+ScriptInstance::ScriptInstance(const std::string& scriptName, std::vector<void*>& arg) : m_scriptName{ scriptName }
 {
   GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
   m_scriptClass = sm->GetScriptClass(scriptName);
@@ -30,7 +30,7 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, std::vector<void*>
 }
 
 
-ScriptInstance::ScriptInstance(const std::string& scriptName)
+ScriptInstance::ScriptInstance(const std::string& scriptName) : m_scriptName{ scriptName }
 {
   GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
   m_scriptClass = sm->GetScriptClass(scriptName);
