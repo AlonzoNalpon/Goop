@@ -75,6 +75,7 @@ void GE::Scenes::Scene::TestScene()
 	std::vector<std::string> listOFScripts{ "Stats" };
 	GE::Component::Scripts testPLayerScript = Scripts(listOFScripts);
 	GE::Component::Scripts testEnemyScript = Scripts(listOFScripts);
+	testPLayerScript.m_scriptList[0].GetFields();
 
 
 	ecs->SetEntityName(gameSys, "GameSys");

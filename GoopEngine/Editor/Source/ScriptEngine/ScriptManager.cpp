@@ -353,9 +353,9 @@ MonoClass* GE::MONO::ScriptManager::GetScriptClass(std::string className)
 }
 
 
-ScriptField GE::MONO::ScriptManager::GetScriptField(std::string className, std::string fieldName)
+ScriptClassInfo GE::MONO::ScriptManager::GetScriptField(std::string className)
 {
-  return m_monoClassMap[className].m_ScriptFieldMap[fieldName];
+  return m_monoClassMap[className];
 }
 
 
