@@ -87,18 +87,12 @@ void ImGuiUI::Update()
   ImGui_ImplGlfw_NewFrame();
   NewFrame();
 
-#ifdef RUN_IMGUI_DEMO
-  ImGui::ShowDemoWindow();
-#endif
   GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
   ImGuiHelper::CreateDockSpace("Goop Engine");
 
   ToolBar::CreateContent();
 
   SceneControls::CreateContent();
-
-
-
 
   Begin("Console");
   Console::CreateContent();
