@@ -36,18 +36,29 @@ void GE::Systems::GameSystem::Update()
 
     if (m_shouldIterate)
     {
-      //static GE::FPS::FrameRateController& frc { GE::FPS::FrameRateController::GetInstance() };
-      //MonoMethod* onUpdateFunc = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClass, "OnUpdate", 5);
-      //Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->m_player);
-      //Scripts* enemyScript = m_ecs->GetComponent<Scripts>(game->m_enemy);
-      //auto it = playerScript->m_scriptList[0].second;
-      //auto it2 = enemyScript->m_scriptList[0].second;
-      ////auto it = playerScript->m_scriptMap.find("Stats");
-      ////auto it2 = enemyScript->m_scriptMap.find("Stats");
-      //double dt = frc.GetDeltaTime();
-      //void* args[] = { &dt, &it.m_classInst, &game->m_player, &it2.m_classInst, &game->m_enemy };
-      ////void* args[] = { &dt, it->second.m_classInst, it2->second.m_classInst };
-      //mono_runtime_invoke(onUpdateFunc, game->m_gameSystemScript.m_classInst, args, nullptr);
+      static GE::FPS::FrameRateController& frc { GE::FPS::FrameRateController::GetInstance() };
+      MonoMethod* onUpdateFunc = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClass, "OnUpdate", 5);
+      Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->m_player);
+      Scripts* enemyScript = m_ecs->GetComponent<Scripts>(game->m_enemy);
+      GE::MONO::ScriptInstance it, it2;
+      for (auto& [name, script] : playerScript->m_scriptList)
+      {
+        if (name == "Stats")
+        {
+          it = script;
+        }
+      }
+      for (auto& [name, script] : enemyScript->m_scriptList)
+      {
+        if (name == "Stats")
+        {
+          it = script;
+        }
+      }
+      double dt = frc.GetDeltaTime();
+      void* args[] = { &dt, &it.m_classInst, &game->m_player, &it2.m_classInst, &game->m_enemy };
+      //void* args[] = { &dt, it->second.m_classInst, it2->second.m_classInst };
+      mono_runtime_invoke(onUpdateFunc, game->m_gameSystemScript.m_classInst, args, nullptr);
     }
   }
 }
