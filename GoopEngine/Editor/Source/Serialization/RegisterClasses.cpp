@@ -200,24 +200,24 @@ RTTR_REGISTRATION
 
   rttr::registration::enumeration<GE::Component::Card::CardID>("CardType")
     (
-      rttr::value("BASIC_LUNGE_ATTACK",           GE::Component::Card::CardID::BASIC_LUNGE_ATTACK),
-      rttr::value("BASIC_NORMAL_ATTACK",          GE::Component::Card::CardID::BASIC_NORMAL_ATTACK),
-      rttr::value("BASIC_NORMAL_BLOCK",           GE::Component::Card::CardID::BASIC_NORMAL_BLOCK),
-      rttr::value("BASIC_BUFF_2X_ATTACK",         GE::Component::Card::CardID::BASIC_BUFF_2X_ATTACK),
-      rttr::value("PLAYER_BEAM_ATTACK",           GE::Component::Card::CardID::PLAYER_BEAM_ATTACK),
-      rttr::value("PLAYER_EMPOWERED_ATTACK",      GE::Component::Card::CardID::PLAYER_EMPOWERED_ATTACK),
-      rttr::value("PLAYER_EMPOWERED_SWING",       GE::Component::Card::CardID::PLAYER_EMPOWERED_SWING),
-      rttr::value("PLAYER_NORMAL_BLOCK",          GE::Component::Card::CardID::PLAYER_NORMAL_BLOCK),
-      rttr::value("PLAYER_DEBUFF_FLASH_BANG",     GE::Component::Card::CardID::PLAYER_DEBUFF_FLASH_BANG),
-      rttr::value("PLAYER_BUFF_SMOKESCREEN",      GE::Component::Card::CardID::PLAYER_BUFF_SMOKESCREEN),
-      rttr::value("PLAYER_BUFF_RAGE",             GE::Component::Card::CardID::PLAYER_BUFF_RAGE),
-      rttr::value("PLAYER_EMPOWERED_BEAM_ATTACK", GE::Component::Card::CardID::PLAYER_EMPOWERED_BEAM_ATTACK),
-      rttr::value("DAWSON_BEAM_ATTACK",           GE::Component::Card::CardID::DAWSON_BEAM_ATTACK),
-      rttr::value("DAWSON_EMPOWERED_ATTACK",      GE::Component::Card::CardID::DAWSON_EMPOWERED_ATTACK),
-      rttr::value("DAWSON_NORMAL_BLOCK",          GE::Component::Card::CardID::DAWSON_NORMAL_BLOCK),
-      rttr::value("DAWSON_DEBUFF_CHARGE_ATTACK",  GE::Component::Card::CardID::DAWSON_DEBUFF_CHARGE_ATTACK),
-      rttr::value("DAWSON_DEBUFF_SPEED_UP_QUEUE", GE::Component::Card::CardID::DAWSON_DEBUFF_SPEED_UP_QUEUE)
+      rttr::value("NO_CARD", GE::Component::Card::CardID::NO_CARD),
+      rttr::value("BASIC_NORMAL_ATTACK", GE::Component::Card::CardID::BASIC_NORMAL_ATTACK),
+      rttr::value("BASIC_NORMAL_SHIELD", GE::Component::Card::CardID::BASIC_NORMAL_SHIELD),
+      rttr::value("BASIC_NORMAL_BUFF", GE::Component::Card::CardID::BASIC_NORMAL_BUFF),
+      rttr::value("PLAYER_BEAM_ATTACK", GE::Component::Card::CardID::PLAYER_BEAM_ATTACK),
+      rttr::value("PLAYER_STRIKE_ATTACK", GE::Component::Card::CardID::PLAYER_STRIKE_ATTACK),
+      rttr::value("PLAYER_NORMAL_SHIELD", GE::Component::Card::CardID::PLAYER_NORMAL_SHIELD),
+      rttr::value("PLAYER_EMPOWERED_SWING", GE::Component::Card::CardID::PLAYER_DEBUFF_FLASH_BANG),
+      rttr::value("PLAYER_BUFF_SMOKESCREEN", GE::Component::Card::CardID::PLAYER_BUFF_SMOKESCREEN),
+      rttr::value("PLAYER_DEBUFF_FLASH_BANG", GE::Component::Card::CardID::PLAYER_DEBUFF_FLASH_BANG),
+      rttr::value("PLAYER_BUFF_RAGE", GE::Component::Card::CardID::PLAYER_BUFF_RAGE),
+      rttr::value("DAWSON_BEAM_ATTACK", GE::Component::Card::CardID::DAWSON_BEAM_ATTACK),
+      rttr::value("DAWSON_STRIKE_ATTACK", GE::Component::Card::CardID::DAWSON_STRIKE_ATTACK),
+      rttr::value("DAWSON_NORMAL_SHIELD", GE::Component::Card::CardID::DAWSON_NORMAL_SHIELD),
+      rttr::value("DAWSON_BUFF_CHARGE_UP", GE::Component::Card::CardID::DAWSON_BUFF_CHARGE_UP),
+      rttr::value("DAWSON_DEBUFF_TIME_WARP", GE::Component::Card::CardID::DAWSON_DEBUFF_TIME_WARP)
       );
+
   //rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")
   //  (
   //    rttr::value("TRANSFORM", ECS::COMPONENT_TYPES::TRANSFORM),
