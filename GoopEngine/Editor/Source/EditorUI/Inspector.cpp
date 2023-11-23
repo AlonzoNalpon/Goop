@@ -1070,6 +1070,17 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
+			case GE::ECS::COMPONENT_TYPES::CARD_HOLDER_ELEM:
+			{
+				if (CollapsingHeader("Card Holder Element", ImGuiTreeNodeFlags_Leaf))
+				{
+					if (RemoveComponentPopup<Draggable>("Card Holder Element", entity))
+					{
+						break;
+					}
+				}
+				break;
+			}
 			case GE::ECS::COMPONENT_TYPES::GAME:
 			{
 				auto* game = ecs.GetComponent<GE::Component::Game>(entity);
@@ -1313,6 +1324,18 @@ void GE::EditorGUI::Inspector::CreateContent()
 						else
 						{
 							ss << "Unable to add component " << typeid(GE::Component::Game).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::CARD_HOLDER_ELEM:
+					{
+						if (!ecs.HasComponent<CardHolderElem>(entity))
+						{
+							ecs.AddComponent(entity, CardHolderElem{});
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(CardHolderElem).name() << ". Component already exist";
 						}
 						break;
 					}
