@@ -482,11 +482,25 @@ void GE::EditorGUI::Inspector::CreateContent()
 #pragma region SPRITE_DEBUG_INFO 
 					int imageDims[2]{ static_cast<int>(spriteObj->m_spriteData.info.width), 
 														static_cast<int>(spriteObj->m_spriteData.info.height) };
-					ImGui::InputInt("Image Width", &imageDims[0]);
-					ImGui::InputInt("Image Height", &imageDims[1]);
+					if (ImGui::InputInt("Image Width", &imageDims[0]))
+						imageDims[0] = imageDims[0] < 0 ? 0 : imageDims[0];
+					if (ImGui::InputInt("Image Height", &imageDims[1]))
+						imageDims[1] = imageDims[1] < 0 ? 0 : imageDims[1];
+					
 					spriteObj->m_spriteData.info.width = static_cast<GLuint>(imageDims[0]);
 					spriteObj->m_spriteData.info.height = static_cast<GLuint>(imageDims[1]);
 					ImGui::InputFloat2("Tex Coords", &spriteObj->m_spriteData.info.texCoords.r);
+					ImGui::InputFloat2("Tex Dims", &spriteObj->m_spriteData.info.texDims.x);
+					if (ImGui::Button("Reset"))
+					{
+						auto const& texture{ textureManager.GetTexture(spriteObj->m_spriteData.texture) };
+						spriteObj->m_spriteName = textureManager.GetTextureName(spriteObj->m_spriteData.texture);
+						spriteObj->m_spriteData.texture = texture.textureHandle;
+						spriteObj->m_spriteData.info.height = texture.height;
+						spriteObj->m_spriteData.info.width = texture.width;
+						spriteObj->m_spriteData.info.texDims = { 1.f, 1.f }; // default
+						spriteObj->m_spriteData.info.texCoords = {}; // bottom left
+					}
 #pragma endregion
 				}
 				break;
