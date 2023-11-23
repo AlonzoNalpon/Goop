@@ -2,59 +2,83 @@
 #include "GameSystem.h"
 #include <Component/Game.h>
 #include <Component/Scripts.h>
+#include <Component/Audio.h>
 
 using namespace GE::Component;
 using namespace GE::ECS;
 using namespace GE::MONO;
 
+void GE::Systems::GameSystem::Start()
+{
+  System::Start();
+  GE::Events::EventManager::GetInstance().Subscribe<GE::Events::WindowLoseFocusEvent>(this);
+  GE::Events::EventManager::GetInstance().Subscribe<GE::Events::GameNextTurn>(this);
+  GE::Events::EventManager::GetInstance().Subscribe<GE::Events::GameTurnResolved>(this);
+  m_shouldIterate = false;
+}
+
 void GE::Systems::GameSystem::Update()
 {
-  static GE::FPS::FrameRateController& frc = GE::FPS::FrameRateController::GetInstance();
-  //std::cout << "update Gamesystme\n";
-  std::set<GE::ECS::Entity> listoFEnt{ GetUpdatableEntities() };
-  //std::cout << "SIZE:" << listoFEnt.size() << "\n";
-  //for (Entity entity : GetUpdatableEntities())
+  // There should only be 1 entity
+  if (!m_entities.empty())
   {
-    //std::cout << "b4\n";
-    //Game* game = m_ecs->GetComponent<Game>(entity);
- 
-    //MonoMethod* onUpdateFunc = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClassInfo.m_scriptClass, "OnUpdate", 3);
-    //Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->m_player);
-    //Scripts* enemyScript = m_ecs->GetComponent<Scripts>(game->m_enemy);
-    //auto it = playerScript->m_scriptMap.find("Stats");
-    //auto it2 = enemyScript->m_scriptMap.find("Stats");
-    //double dt = frc.GetDeltaTime();
-    //void* args[] = {&dt, it->second.m_classInst,it2->second.m_classInst };
-    //mono_runtime_invoke(onUpdateFunc, game->m_gameSystemScript.m_classInst, args, nullptr);
-  
+    Game* game = m_ecs->GetComponent<Game>(*m_entities.begin());
+    if (game == nullptr)
+    {
+      return;
+    }
 
+    if (m_shouldPause)
+    {
+      m_ecs->SetIsActiveEntity(game->m_pauseMenu, true);
+      m_shouldPause = false;
+    }
 
-   // std::cout << "Aft\n";
-    //Entity player = game->player;
-    //Entity enemy = game->enemy;
-
-
-    //MonoClass* gameSystemScriptObj = mono_object_get_class(game->gameSystemScript.m_classObjInst);
-    //MonoMethod* update = mono_class_get_method_from_name(gameSystemScriptObj, "Update", 3);
-    //double dt = frc.GetDeltaTime();
-    //std::vector<void*> args{ &game->playerScript.m_classObjInst, & game->enemyScript.m_classObjInst, &dt };
-    //mono_runtime_invoke(update, gameSystemScriptObj, args.data(), nullptr);
-    
-
+    if (m_shouldIterate)
+    {
+      //static GE::FPS::FrameRateController& frc { GE::FPS::FrameRateController::GetInstance() };
+      //MonoMethod* onUpdateFunc = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClass, "OnUpdate", 5);
+      //Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->m_player);
+      //Scripts* enemyScript = m_ecs->GetComponent<Scripts>(game->m_enemy);
+      //auto it = playerScript->m_scriptList[0].second;
+      //auto it2 = enemyScript->m_scriptList[0].second;
+      ////auto it = playerScript->m_scriptMap.find("Stats");
+      ////auto it2 = enemyScript->m_scriptMap.find("Stats");
+      //double dt = frc.GetDeltaTime();
+      //void* args[] = { &dt, &it.m_classInst, &game->m_player, &it2.m_classInst, &game->m_enemy };
+      ////void* args[] = { &dt, it->second.m_classInst, it2->second.m_classInst };
+      //mono_runtime_invoke(onUpdateFunc, game->m_gameSystemScript.m_classInst, args, nullptr);
+    }
   }
 }
 
 void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
 {
-  if (event->GetCategory() == GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS)
+  // There should only be 1 entity
+  if (!m_entities.empty())
   {
-    // There should only be 1 entity
-    if (!m_entities.empty())
+    Game* game = m_ecs->GetComponent<Game>(*m_entities.begin());
+    if (game == nullptr)
     {
-      Game* game = m_ecs->GetComponent<Game>(*m_entities.begin());
-      if (game != nullptr)
+      return;
+    }
+
+    switch (event->GetCategory())
+    {
+      case GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS:
       {
-        m_ecs->SetIsActiveEntity(game->m_pauseMenu, true);
+        m_shouldPause = true;
+        break;
+      }
+      case GE::Events::EVENT_TYPE::NEXT_TURN:
+      {
+        m_shouldIterate = true;
+        break;
+      }
+      case GE::Events::EVENT_TYPE::TURN_RESOLVED:
+      {
+        m_shouldIterate = false;
+        break;
       }
     }
   }

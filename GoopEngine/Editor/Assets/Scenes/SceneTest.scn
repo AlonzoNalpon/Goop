@@ -2,7 +2,7 @@
     {
         "Name": "Next Turn",
         "ID": 0,
-        "isActive": false,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [
             1
@@ -37,11 +37,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 768,
-                            "height": 128
+                            "width": 456,
+                            "height": 154
                         }
                     },
-                    "spriteName": "SS_MineWorm"
+                    "spriteName": "Button_Base"
                 }
             },
             {
@@ -61,7 +61,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -145, -25, 0 }",
+                    "worldPos": "{ -150, -25, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -117,72 +117,8 @@
         ]
     },
     {
-        "Name": "Pause Menu",
+        "Name": "Player Sounds",
         "ID": 3,
-        "isActive": false,
-        "Parent": null,
-        "Child Entities": [
-            4,
-            6
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 2 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Overlay",
-        "ID": 4,
-        "isActive": true,
-        "Parent": 3,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 2 }",
-                    "worldScale": "{ 1920, 1080, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 1920.0,
-                    "height": 1080.0,
-                    "min": "{ -960, -540 }",
-                    "max": "{ 960, 540 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 768,
-                            "height": 128
-                        }
-                    },
-                    "spriteName": "Pause_GreyOverlay"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "GameSystem",
-        "ID": 5,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -190,246 +126,26 @@
             {
                 "Transform": {
                     "worldPos": "{ 0, 0, 0 }",
-                    "worldScale": "{ 0, 0, 0 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Game": {
-                    "player": 0,
-                    "enemy": 1,
-                    "pauseMenu": 3
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Menu BG",
-        "ID": 6,
-        "isActive": true,
-        "Parent": 3,
-        "Child Entities": [
-            7,
-            8
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 2 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 768,
-                            "height": 128
-                        }
-                    },
-                    "spriteName": "Pause_BG"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Resume Button",
-        "ID": 7,
-        "isActive": true,
-        "Parent": 6,
-        "Child Entities": [
-            9
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, -300, 2 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, -300 }",
-                    "width": 456.0,
-                    "height": 154.0,
-                    "min": "{ -228, -377 }",
-                    "max": "{ 228, -223 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 768,
-                            "height": 128
-                        }
-                    },
-                    "spriteName": "Button_Base"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "3",
-                    "eventType": "UNPAUSE"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Level Select Button",
-        "ID": 8,
-        "isActive": true,
-        "Parent": 6,
-        "Child Entities": [
-            10
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, -100, 2 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 768,
-                            "height": 128
-                        }
-                    },
-                    "spriteName": "Button_Base"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text",
-        "ID": 9,
-        "isActive": true,
-        "Parent": 7,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -120, -325, 2 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Resume",
-                    "clr": {
-                        "r": 0.8980392217636108,
-                        "g": 0.8352941274642944,
-                        "b": 0.7764706015586853,
-                        "a": 1.0
-                    },
-                    "scale": 0.25600001215934753,
-                    "fontID": 1
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text",
-        "ID": 10,
-        "isActive": true,
-        "Parent": 8,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -185, -125, 2 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Level Select",
-                    "clr": {
-                        "r": 0.8980392217636108,
-                        "g": 0.8352941274642944,
-                        "b": 0.7764706015586853,
-                        "a": 1.0
-                    },
-                    "scale": 0.25600001215934753,
-                    "fontID": 1
-                }
-            }
-        ]
-    },
-    {
-        "Name": "CardHolder",
-        "ID": 11,
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [
-            12,
-            13,
-            14
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
-                "CardHolder": {
-                    "elements": [
+                "Audio": {
+                    "sounds": [
                         {
-                            "elemEntity": 12,
-                            "cardEntity": 16,
-                            "spriteID": 0,
-                            "defaultSpriteID": 2,
-                            "used": false
+                            "sound": "damageTaken_Leah",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
                         },
                         {
-                            "elemEntity": 13,
-                            "cardEntity": 4294967295,
-                            "spriteID": 0,
-                            "defaultSpriteID": 2,
-                            "used": false
-                        },
-                        {
-                            "elemEntity": 14,
-                            "cardEntity": 4294967295,
-                            "spriteID": 0,
-                            "defaultSpriteID": 2,
-                            "used": false
+                            "sound": "card",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
                         }
                     ]
                 }
@@ -437,479 +153,37 @@
         ]
     },
     {
-        "Name": "HElem1",
-        "ID": 12,
-        "isActive": true,
-        "Parent": 11,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -700, 320, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -700, 320 }",
-                    "width": 182.0,
-                    "height": 256.0,
-                    "min": "{ -791, 192 }",
-                    "max": "{ -609, 448 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 178,
-                            "height": 250
-                        }
-                    },
-                    "spriteName": "DAA2402_CardBaseBack_v01"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "UNSELECT_CARD"
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 11,
-                    "elemIdx": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "HElem2",
-        "ID": 13,
-        "isActive": true,
-        "Parent": 11,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -700, 50, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -700, 50 }",
-                    "width": 182.0,
-                    "height": 256.0,
-                    "min": "{ -791, -78 }",
-                    "max": "{ -609, 178 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 178,
-                            "height": 250
-                        }
-                    },
-                    "spriteName": "DAA2402_CardBaseBack_v01"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "UNSELECT_CARD"
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 11,
-                    "elemIdx": 1
-                }
-            }
-        ]
-    },
-    {
-        "Name": "HElem3",
-        "ID": 14,
-        "isActive": true,
-        "Parent": 11,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -700, -220, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -700, -220 }",
-                    "width": 182.0,
-                    "height": 256.0,
-                    "min": "{ -791, -348 }",
-                    "max": "{ -609, -92 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 178,
-                            "height": 250
-                        }
-                    },
-                    "spriteName": "DAA2402_CardBaseBack_v01"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "UNSELECT_CARD"
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 11,
-                    "elemIdx": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "HandCards",
-        "ID": 15,
+        "Name": "Enemy Sounds",
+        "ID": 4,
         "isActive": true,
         "Parent": null,
-        "Child Entities": [
-            16,
-            17,
-            18,
-            19,
-            20
-        ],
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, 0, 3 }",
+                    "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
-            }
-        ]
-    },
-    {
-        "Name": "HCard1",
-        "ID": 16,
-        "isActive": true,
-        "Parent": 15,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -450, -350, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
             },
             {
-                "BoxCollider": {
-                    "center": "{ -450, -350 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ -557, -500 }",
-                    "max": "{ -343, -200 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "woosh2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "shield",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
                         }
-                    },
-                    "spriteName": "DAA2402_Card_LeahAttack_Slash"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "SELECT_CARD"
-                }
-            },
-            {
-                "Card": {
-                    "cardID": "BASIC_LUNGE_ATTACK",
-                    "tgtEntity": 11
-                }
-            }
-        ]
-    },
-    {
-        "Name": "HCard2",
-        "ID": 17,
-        "isActive": true,
-        "Parent": 15,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -190, -350, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -190, -350 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ -297, -500 }",
-                    "max": "{ -83, -200 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300
-                        }
-                    },
-                    "spriteName": "DAA2402_Card_LeahSpecial_Beam"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "SELECT_CARD"
-                }
-            },
-            {
-                "Card": {
-                    "cardID": "PLAYER_BEAM_ATTACK",
-                    "tgtEntity": 11
-                }
-            }
-        ]
-    },
-    {
-        "Name": "HCard3",
-        "ID": 18,
-        "isActive": true,
-        "Parent": 15,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 70, -350, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 70, -350 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ -37, -500 }",
-                    "max": "{ 177, -200 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300
-                        }
-                    },
-                    "spriteName": "DAA2402_Card_LeahSpecial_Flash"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "SELECT_CARD"
-                }
-            },
-            {
-                "Card": {
-                    "cardID": "PLAYER_DEBUFF_FLASH_BANG",
-                    "tgtEntity": 11
-                }
-            }
-        ]
-    },
-    {
-        "Name": "HCard4",
-        "ID": 19,
-        "isActive": true,
-        "Parent": 15,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 330, -350, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 330, -350 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ 223, -500 }",
-                    "max": "{ 437, -200 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300
-                        }
-                    },
-                    "spriteName": "DAA2402_Card_LeahMovement_Dash"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "SELECT_CARD"
-                }
-            },
-            {
-                "Card": {
-                    "cardID": "BASIC_NORMAL_ATTACK",
-                    "tgtEntity": 11
-                }
-            }
-        ]
-    },
-    {
-        "Name": "HCard5",
-        "ID": 20,
-        "isActive": true,
-        "Parent": 15,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 590, -350, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 590, -350 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ 483, -500 }",
-                    "max": "{ 697, -200 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300
-                        }
-                    },
-                    "spriteName": "DAA2402_Card_LeahMovement_Dash"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "SELECT_CARD"
-                }
-            },
-            {
-                "Card": {
-                    "cardID": "BASIC_NORMAL_ATTACK",
-                    "tgtEntity": 11
+                    ]
                 }
             }
         ]
