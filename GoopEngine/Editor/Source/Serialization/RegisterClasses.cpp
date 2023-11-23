@@ -80,11 +80,11 @@ RTTR_REGISTRATION
     .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
     ;
 
-  rttr::registration::class_<Component::CardHolder::CardHolderElem>("CardHolderElem")
-    .property("entityVal", &Component::CardHolder::CardHolderElem::entityVal)
-    .property("spriteID", &Component::CardHolder::CardHolderElem::spriteID)
-    .property("defaultSpriteID", &Component::CardHolder::CardHolderElem::defaultSpriteID)
-    .property("used", &Component::CardHolder::CardHolderElem::used)
+  rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
+    .property("entityVal", &Component::CardHolder::CardHolderEntry::entityVal)
+    .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)
+    .property("defaultSpriteID", &Component::CardHolder::CardHolderEntry::defaultSpriteID)
+    .property("used", &Component::CardHolder::CardHolderEntry::used)
     ;
 
   /* ------------------- ENUMERATIONS ------------------- */
