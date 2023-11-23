@@ -162,6 +162,7 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::Scripts>("Scripts")
+    .constructor<ECS::Entity, Component::Scripts::ScriptInstances const&>()
     .property("entityId", &Component::Scripts::m_entityId)
     .property("scriptList", &Component::Scripts::m_scriptList)
     ;

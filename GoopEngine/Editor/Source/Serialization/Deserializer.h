@@ -85,7 +85,9 @@ namespace GE
 
     private:
 
-      static void DeserializeBasedOnType(rttr::instance object, rapidjson::Value const& value);
+      static void DeserializeBasedOnType(rttr::variant& object, rapidjson::Value const& value);
+
+      static void DeserializeClassTypes(rttr::instance object, rapidjson::Value const& value);
 
       static bool DeserializeOtherComponents(rttr::variant& compVar, rttr::type const& type, rapidjson::Value const& value);
 
