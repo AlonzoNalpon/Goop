@@ -9,7 +9,7 @@ namespace GE
 		{
 			struct Sound
 			{
-				float m_volume;
+				float m_volume{1.0};
 				std::string m_sound;
 
 				bool m_loop = false;

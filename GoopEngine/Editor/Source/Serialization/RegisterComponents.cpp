@@ -126,7 +126,7 @@ RTTR_REGISTRATION
     .property("loop", &Component::Audio::Sound::m_loop)
     .property("playOnStart", &Component::Audio::Sound::m_playOnStart)
     .property("channel", &Component::Audio::Sound::m_channel)
-    .property("channel", &Component::Audio::Sound::m_volume)
+    .property("volume", &Component::Audio::Sound::m_volume)
     ;
 
   rttr::registration::class_<Component::Audio>("Audio")
