@@ -63,7 +63,11 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::Sprite>("Sprite")
-    .constructor<unsigned>()
+    .constructor<Graphics::SpriteData const&, std::string>()
+    (
+      rttr::parameter_names("spriteData", "spriteName")
+    )
+    .property("spriteData", &Component::Sprite::m_spriteData)
     .property("spriteName", &Component::Sprite::m_spriteName)
     ;
 

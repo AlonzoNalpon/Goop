@@ -1,200 +1,284 @@
 [
-  {
-    "Name": "White",
-    "ID": 0,
-    "isActive": true,
-    "Parent": null,
-    "Child Entities": [],
-    "Components": [
-      {
-        "Transform": {
-          "worldPos": "{ 0, 0, -2 }",
-          "worldScale": "{ 1, 1, 1 }",
-          "worldRot": "{ 0, -0, 0 }"
-        }
-      },
-      {
-        "BoxCollider": {
-          "center": "{ 0, 0 }",
-          "width": 1920.0,
-          "height": 1080.0,
-          "min": "{ -960, -540 }",
-          "max": "{ 960, 540 }",
-          "render": true
-        }
-      },
-      {
-        "Sprite": {
-          "spriteName": "White"
-        }
-      }
-    ]
-  },
-  {
-    "Name": "Temp_Logo",
-    "ID": 1,
-    "isActive": true,
-    "Parent": null,
-    "Child Entities": [],
-    "Components": [
-      {
-        "Transform": {
-          "worldPos": "{ -330, 0, 1 }",
-          "worldScale": "{ 1, 1, 1 }",
-          "worldRot": "{ 0, -0, 0 }"
-        }
-      },
-      {
-        "BoxCollider": {
-          "center": "{ -330, 0 }",
-          "width": 782.0,
-          "height": 331.0,
-          "min": "{ -721, -165.5 }",
-          "max": "{ 61, 165.5 }",
-          "render": true
-        }
-      },
-      {
-        "Sprite": {
-          "spriteName": "Temp_Logo"
-        }
-      }
-    ]
-  },
-  {
-    "Name": "Button_Credits",
-    "ID": 2,
-    "isActive": true,
-    "Parent": null,
-    "Child Entities": [],
-    "Components": [
-      {
-        "Transform": {
-          "worldPos": "{ 450, -115, 1 }",
-          "worldScale": "{ 1, 1, 1 }",
-          "worldRot": "{ 0, -0, 0 }"
-        }
-      },
-      {
-        "BoxCollider": {
-          "center": "{ 450, -115 }",
-          "width": 452.0,
-          "height": 144.0,
-          "min": "{ 224, -187 }",
-          "max": "{ 676, -43 }",
-          "render": true
-        }
-      },
-      {
-        "Sprite": {
-          "spriteName": "Button_Credits"
-        }
-      }
-    ]
-  },
-  {
-    "Name": "Button_Quit",
-    "ID": 3,
-    "isActive": true,
-    "Parent": null,
-    "Child Entities": [],
-    "Components": [
-      {
-        "Transform": {
-          "worldPos": "{ 450, -280, 1 }",
-          "worldScale": "{ 1, 1, 1 }",
-          "worldRot": "{ 0, -0, 0 }"
-        }
-      },
-      {
-        "BoxCollider": {
-          "center": "{ 450, -280 }",
-          "width": 452.0,
-          "height": 144.0,
-          "min": "{ 224, -352 }",
-          "max": "{ 676, -208 }",
-          "render": true
-        }
-      },
-      {
-        "Sprite": {
-          "spriteName": "Button_Quit"
-        }
-      }
-    ]
-  },
-  {
-    "Name": "Button_Setting",
-    "ID": 4,
-    "isActive": true,
-    "Parent": null,
-    "Child Entities": [],
-    "Components": [
-      {
-        "Transform": {
-          "worldPos": "{ 450, 50, 1 }",
-          "worldScale": "{ 1, 1, 1 }",
-          "worldRot": "{ 0, -0, 0 }"
-        }
-      },
-      {
-        "BoxCollider": {
-          "center": "{ 450, 50 }",
-          "width": 452.0,
-          "height": 144.0,
-          "min": "{ 224, -22 }",
-          "max": "{ 676, 122 }",
-          "render": true
-        }
-      },
-      {
-        "Sprite": {
-          "spriteName": "Button_Setting"
-        }
-      },
-      {
-        "GE_Button": {
-          "buttonType": "CHANGE_SCENE",
-          "nextScene": "Robot"
-        }
-      }
-    ]
-  },
-  {
-    "Name": "Button_Start",
-    "ID": 6,
-    "isActive": true,
-    "Parent": null,
-    "Child Entities": [],
-    "Components": [
-      {
-        "Transform": {
-          "worldPos": "{ 450, 215, 1 }",
-          "worldScale": "{ 1, 1, 1 }",
-          "worldRot": "{ 0, -0, 0 }"
-        }
-      },
-      {
-        "BoxCollider": {
-          "center": "{ 450, 215 }",
-          "width": 452.0,
-          "height": 144.0,
-          "min": "{ 224, 143 }",
-          "max": "{ 676, 287 }",
-          "render": true
-        }
-      },
-      {
-        "Sprite": {
-          "spriteName": "Button_Start"
-        }
-      },
-      {
-        "GE_Button": {
-          "buttonType": "CHANGE_SCENE",
-          "nextScene": "SceneTest"
-        }
-      }
-    ]
-  }
+    {
+        "Name": "White",
+        "ID": 0,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, -2 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "White"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Temp_Logo",
+        "ID": 1,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -330, 0, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -330, 0 }",
+                    "width": 782.0,
+                    "height": 331.0,
+                    "min": "{ -721, -165.5 }",
+                    "max": "{ 61, 165.5 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 782,
+                            "height": 331
+                        }
+                    },
+                    "spriteName": "Temp_Logo"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Button_Credits",
+        "ID": 2,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 450, -115, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 450, -115 }",
+                    "width": 452.0,
+                    "height": 144.0,
+                    "min": "{ 224, -187 }",
+                    "max": "{ 676, -43 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 452,
+                            "height": 144
+                        }
+                    },
+                    "spriteName": "Button_Credits"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Button_Quit",
+        "ID": 3,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 450, -280, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 450, -280 }",
+                    "width": 452.0,
+                    "height": 144.0,
+                    "min": "{ 224, -352 }",
+                    "max": "{ 676, -208 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 452,
+                            "height": 144
+                        }
+                    },
+                    "spriteName": "Button_Quit"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Button_Setting",
+        "ID": 4,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 450, 50, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 450, 50 }",
+                    "width": 452.0,
+                    "height": 144.0,
+                    "min": "{ 224, -22 }",
+                    "max": "{ 676, 122 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 452,
+                            "height": 144
+                        }
+                    },
+                    "spriteName": "Button_Setting"
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Button_Start",
+        "ID": 6,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 450, 215, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 450, 215 }",
+                    "width": 452.0,
+                    "height": 144.0,
+                    "min": "{ 224, 143 }",
+                    "max": "{ 676, 287 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 452,
+                            "height": 144
+                        }
+                    },
+                    "spriteName": "Button_Start"
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT"
+                }
+            }
+        ]
+    }
 ]

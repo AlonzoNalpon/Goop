@@ -24,6 +24,14 @@ using namespace GE;
 
 namespace RttrHelper
 {
+  GE::Math::Vec2 Vec2FromString(std::string const& str, bool& ok)
+  {
+    GE::Math::Vec2 ret{};
+    ret << str;
+    ok = true;
+    return ret;
+  }
+
   GE::Math::dVec2 dVec2FromString(std::string const& str, bool& ok)
   {
     GE::Math::dVec2 ret{};
@@ -46,25 +54,30 @@ RTTR_REGISTRATION
   /* ------------------- CLASSES / STRUCTS ------------------- */
   rttr::registration::class_<Math::dVec2>("dVec2")
     .constructor<>()
-    .constructor<double, double>()
-    .constructor<Math::dVec2 const&>()
     .property("x", &Math::dVec2::x)
     .property("y", &Math::dVec2::y)
     .method("ToString", &Math::dVec2::ToString)
     ;
   
   rttr::registration::class_<Math::Vec2>("Vec2")
+    .constructor<>()
+    .property("x", &Math::Vec2::x)
+    .property("y", &Math::Vec2::y)
     .method("ToString", &Math::Vec2::ToString)
     ;
 
   rttr::registration::class_<Math::dVec3>("dVec3")
     .constructor<>()
-    .constructor<double, double, double>()
-    .constructor<Math::dVec3 const&>()
     .property("x", &Math::dVec3::x)
     .property("y", &Math::dVec3::y)
     .property("z", &Math::dVec3::z) 
     .method("ToString", &Math::dVec3::ToString)
+    ;
+
+  rttr::registration::class_<glm::vec2>("glm_vec2")
+    .constructor<>()
+    .property("x", &glm::vec2::x)
+    .property("y", &glm::vec2::y)
     ;
 
   rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")
@@ -86,6 +99,22 @@ RTTR_REGISTRATION
     .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)
     .property("defaultSpriteID", &Component::CardHolder::CardHolderEntry::defaultSpriteID)
     .property("used", &Component::CardHolder::CardHolderEntry::used)
+    ;
+
+  rttr::registration::class_<Graphics::SpriteSubData>("SpriteSubData")
+    /*.constructor<Graphics::gVec2, Graphics::gVec2, GLuint, GLuint>()
+    (
+      rttr::parameter_names("texCoords", "texDims", "width", "height")
+    )*/
+    .constructor<>()
+    .property("texCoords", &Graphics::SpriteSubData::texCoords)
+    .property("texDims", &Graphics::SpriteSubData::texDims)
+    .property("width", &Graphics::SpriteSubData::width)
+    .property("height", &Graphics::SpriteSubData::height)
+    ;
+  rttr::registration::class_<Graphics::SpriteData>("SpriteData")
+    .constructor<>()
+    .property("spriteSubData", &Graphics::SpriteData::info)
     ;
 
   /* ------------------- ENUMERATIONS ------------------- */
@@ -184,4 +213,5 @@ RTTR_REGISTRATION
   /* ------------------- FUNCTIONS ------------------- */
   rttr::type::register_converter_func(RttrHelper::dVec2FromString);
   rttr::type::register_converter_func(RttrHelper::dVec3FromString);
+  rttr::type::register_converter_func(RttrHelper::Vec2FromString);
 } // RTTR Registration

@@ -25,6 +25,20 @@
             },
             {
                 "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 768,
+                            "height": 128
+                        }
+                    },
                     "spriteName": "SS_MineWorm"
                 }
             },
@@ -95,7 +109,21 @@
             },
             {
                 "Sprite": {
-                    "spriteName": "Background"
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "BG_Lv1"
                 }
             }
         ]
@@ -145,6 +173,20 @@
             },
             {
                 "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1,
+                            "height": 1
+                        }
+                    },
                     "spriteName": "Pause_GreyOverlay"
                 }
             }
@@ -192,6 +234,20 @@
             },
             {
                 "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1,
+                            "height": 1
+                        }
+                    },
                     "spriteName": "Pause_BG"
                 }
             }
@@ -225,6 +281,20 @@
             },
             {
                 "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 456,
+                            "height": 154
+                        }
+                    },
                     "spriteName": "Button_Base"
                 }
             },
@@ -254,6 +324,20 @@
             },
             {
                 "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 456,
+                            "height": 154
+                        }
+                    },
                     "spriteName": "Button_Base"
                 }
             }
