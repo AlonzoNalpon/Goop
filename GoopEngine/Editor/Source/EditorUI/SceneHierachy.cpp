@@ -127,7 +127,7 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 		if (Selectable("Create"))
 		{
 			GE::Component::Transform trans{ {0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 } };
-			GE::CMD::PRS newPRS{ trans.m_pos, trans.m_rot, trans.m_scale };
+			GE::CMD::PRS newPRS{ trans.m_worldPos, trans.m_worldScale, trans.m_worldRot };
 			GE::CMD::AddObjectCmd newTransCmd = GE::CMD::AddObjectCmd(newPRS);
 			GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
 			cmdMan.AddCommand(newTransCmd);
@@ -239,9 +239,11 @@ namespace
 			{
 				if (Selectable("Create"))
 				{
-					Entity newEntity = ecs.CreateEntity();
-					GE::Component::Transform trans{{0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 }};
-					ecs.AddComponent(newEntity, trans);
+					GE::Component::Transform trans{ {0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 } };
+					GE::CMD::PRS newPRS{ trans.m_worldPos, trans.m_worldScale, trans.m_worldRot };
+					GE::CMD::AddObjectCmd newTransCmd = GE::CMD::AddObjectCmd(newPRS);
+					GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+					cmdMan.AddCommand(newTransCmd);
 				}
 
 				if (Selectable("Duplicate"))
