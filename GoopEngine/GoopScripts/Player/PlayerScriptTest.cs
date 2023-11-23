@@ -36,6 +36,11 @@ namespace GoopScripts.Player
 
     }
 
+    public PlayerScriptTest() 
+    {
+
+    }
+
 
     /*!*********************************************************************
    \brief

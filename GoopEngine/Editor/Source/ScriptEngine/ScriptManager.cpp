@@ -178,7 +178,12 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
           }
         }
         m_monoClassMap[line.substr(commaPosition + 1).c_str()] = newScriptClassInfo;
-        m_allScriptNames.push_back(line.substr(commaPosition + 1).c_str());
+        MonoMethod* ctor = mono_class_get_method_from_name(newClass, ".ctor", 0);
+        if (ctor)
+        {
+          m_allScriptNames.push_back(line.substr(commaPosition + 1).c_str());
+        }
+
       }
     }
   }
@@ -342,10 +347,17 @@ MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* name
   return klass;
 }
 
-ScriptClassInfo GE::MONO::ScriptManager::GetScriptClassInfo(std::string className)
+MonoClass* GE::MONO::ScriptManager::GetScriptClass(std::string className)
 {
-  return m_monoClassMap[className];
+  return m_monoClassMap[className].m_scriptClass;
 }
+
+
+ScriptField GE::MONO::ScriptManager::GetScriptField(std::string className, std::string fieldName)
+{
+  return m_monoClassMap[className].m_ScriptFieldMap[fieldName];
+}
+
 
 
 // /*!*********************************************************************

@@ -1,26 +1,28 @@
 [
     {
-        "Name": "Player",
+        "Name": "Next Turn",
         "ID": 0,
         "isActive": false,
         "Parent": null,
-        "Child Entities": [],
+        "Child Entities": [
+            1
+        ],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 784, 250, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 784, 250 }",
-                    "width": 150.0,
-                    "height": 150.0,
-                    "min": "{ 709, 175 }",
-                    "max": "{ 859, 325 }",
-                    "render": false
+                    "center": "{ 0, 0 }",
+                    "width": 456.0,
+                    "height": 154.0,
+                    "min": "{ -228, -77 }",
+                    "max": "{ 228, 77 }",
+                    "render": true
                 }
             },
             {
@@ -43,52 +45,38 @@
                 }
             },
             {
-                "SpriteAnim": {
-                    "name": "SS_MineWorm"
-                }
-            },
-            {
-                "Tween": {
-                    "tweens": [],
-                    "timeTaken": 3.0,
-                    "timeElapsed": 0.039999999999981814,
-                    "originalPos": "{ 784, 250, 0 }",
-                    "started": true,
-                    "paused": false
-                }
-            },
-            {
-                "Scripts": {
-                    "entityId": 0,
-                    "scriptMap": [
-                        "Player"
-                    ]
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NEXT_TURN"
                 }
             }
         ]
     },
     {
-        "Name": "Entity 1",
+        "Name": "Text",
         "ID": 1,
         "isActive": true,
-        "Parent": null,
+        "Parent": 0,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 589.574, 33.4778, 0 }",
+                    "worldPos": "{ -145, -25, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 589.574, 33.4778 }",
-                    "width": 150.0,
-                    "height": 150.0,
-                    "min": "{ 514.574, -41.5222 }",
-                    "max": "{ 664.574, 108.478 }",
-                    "render": true
+                "Text": {
+                    "text": "Next Turn",
+                    "clr": {
+                        "r": 0.8980392217636108,
+                        "g": 0.8352941274642944,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.25600001215934753,
+                    "fontID": 1
                 }
             }
         ]

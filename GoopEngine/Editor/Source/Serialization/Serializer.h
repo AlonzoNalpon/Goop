@@ -201,7 +201,7 @@ namespace GE
         The serialized json value object of the script names in a rapidjson
         array
       ************************************************************************/
-      static rapidjson::Value SerializeScriptMap(std::map<std::string, GE::MONO::ScriptInstance> const& rhs,
+      static rapidjson::Value SerializeScriptMap(std::vector<std::pair<std::string, GE::MONO::ScriptInstance>> const& rhs,
         rapidjson::Document::AllocatorType& allocator);
 
       /*!*********************************************************************

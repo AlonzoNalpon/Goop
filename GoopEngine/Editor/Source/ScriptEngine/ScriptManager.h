@@ -64,7 +64,8 @@ namespace GE {
 			MonoObject* InstantiateClass(const char* className);
 
 			void LoadAllMonoClass(std::ifstream& ifs);
-			ScriptClassInfo GetScriptClassInfo(std::string className);
+			MonoClass* GetScriptClass(std::string className);
+			ScriptField GetScriptField(std::string className, std::string fieldName);
 			ScriptFieldType MonoTypeToScriptFieldType(MonoType* monoType);
 
 		};
