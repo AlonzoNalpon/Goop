@@ -48,5 +48,12 @@ namespace GE
       GameNextTurn() : Event(EVENT_TYPE::NEXT_TURN) {}
       inline std::string GetName() const noexcept override { return "Next Turn"; }
     };
+
+    class GameTurnResolved : public Event
+    {
+    public:
+      GameTurnResolved() : Event(EVENT_TYPE::TURN_RESOLVED) {}
+      inline std::string GetName() const noexcept override { return "Turn Resolved"; }
+    };
   }
 }
