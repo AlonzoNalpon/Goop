@@ -7,7 +7,7 @@ namespace GE::Component
 {
   struct CardHolder
   {
-    struct CardHolderElem
+    struct CardHolderEntry
     {
       GE::ECS::Entity entityVal{ ECS::INVALID_ID }; //!< entity ID of element
       GLuint  spriteID{};         //!< the id of sprite to render if used
@@ -15,7 +15,7 @@ namespace GE::Component
       bool used{}; //!< is the slot used?
     };
 
-    std::vector<CardHolderElem> elements;
+    std::vector<CardHolderEntry> elements;
   };
 }
 

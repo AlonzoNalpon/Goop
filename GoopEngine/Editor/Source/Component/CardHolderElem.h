@@ -8,7 +8,7 @@ namespace GE::Component
 
   struct CardHolderElem
   {
-    ECS::Entity holder;
+    ECS::Entity holder{ECS::INVALID_ID};
   };
 }
 

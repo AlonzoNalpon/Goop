@@ -89,6 +89,20 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Game*>());
   }
+  else if (compType == rttr::type::get<Component::CardHolder>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::CardHolder*>());
+  }
+  else if (compType == rttr::type::get<Component::CardHolderElem>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::CardHolderElem*>());
+  }
+  else
+  {
+    std::ostringstream oss{};
+    oss << "Trying to add unknown component type: " << compType.get_name().to_string() << " to entity " << entity;
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+  }
 }
 
 void ObjectFactory::AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const
