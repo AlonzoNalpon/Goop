@@ -30,6 +30,7 @@ namespace GE
 			vec2 min;
 			vec2 max;
 			std::vector<GE::ECS::Entity> m_entitiesInPartition;
+			std::set<double> m_zCoor;
 		};
 
 		class CollisionSystem : public GE::ECS::System
