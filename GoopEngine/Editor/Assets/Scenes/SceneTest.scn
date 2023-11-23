@@ -187,5 +187,138 @@
                 }
             }
         ]
+    },
+    {
+        "Name": "GameSys",
+        "ID": 8,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Game": {
+                    "player": 3,
+                    "enemy": 4,
+                    "pauseMenu": 4294967295,
+                    "gameSystemScript": {
+                        "scriptName": "GameManager",
+                        "scriptFieldInstList": []
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Test Player",
+        "ID": 9,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 9,
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        9,
+                                        8,
+                                        5,
+                                        4,
+                                        3,
+                                        2,
+                                        1
+                                    ],
+                                    "type": "ScriptFieldInstVecInt"
+                                },
+                                {
+                                    "data": 102.0,
+                                    "type": "ScriptFieldInstDouble"
+                                },
+                                {
+                                    "data": 101.0,
+                                    "type": "ScriptFieldInstFloat"
+                                },
+                                {
+                                    "data": 100,
+                                    "type": "ScriptFieldInstInt"
+                                },
+                                {}
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Test Enemy",
+        "ID": 10,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 10,
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        9,
+                                        8,
+                                        5,
+                                        4,
+                                        3,
+                                        2,
+                                        1
+                                    ],
+                                    "type": "ScriptFieldInstVecInt"
+                                },
+                                {
+                                    "data": 102.0,
+                                    "type": "ScriptFieldInstDouble"
+                                },
+                                {
+                                    "data": 101.0,
+                                    "type": "ScriptFieldInstFloat"
+                                },
+                                {
+                                    "data": 100,
+                                    "type": "ScriptFieldInstInt"
+                                },
+                                {}
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
     }
 ]

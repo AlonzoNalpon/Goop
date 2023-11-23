@@ -38,6 +38,12 @@ namespace GE {
 		template<typename T>
 		struct ScriptFieldInstance
 		{
+			ScriptFieldInstance() : m_scriptField{}, m_data{} { m_type = rttr::variant(*this).get_type().get_name().to_string(); }
+			ScriptFieldInstance(ScriptField const& scriptField, T data) : m_scriptField{ scriptField }, m_data{ data }
+			{
+				m_type = rttr::variant(*this).get_type().get_name().to_string();
+			}
+			std::string m_type;
 			ScriptField m_scriptField;
 			T m_data;
 		};

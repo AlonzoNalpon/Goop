@@ -34,6 +34,7 @@ namespace GE
     const char Serializer::JsonComponentsKey[]    = "Components";
     const char Serializer::JsonPrefabKey[]        = "Prefab";
     const char Serializer::JsonAssociativeKey[] = "key", Serializer::JsonAssociativeValue[] = "value";
+    const char Serializer::ScriptFieldInstListTypeKey[] = "type";
 
     void Serializer::SerializeVariantToPrefab(ObjectFactory::VariantPrefab const& prefab, std::string const& filename)
     {

@@ -31,7 +31,7 @@ namespace GE
 
       static const char JsonNameKey[], JsonIdKey[], JsonEntityStateKey[], JsonParentKey[],
         JsonChildEntitiesKey[], JsonComponentsKey[], JsonPrefabKey[];
-      static const char JsonAssociativeKey[], JsonAssociativeValue[];
+      static const char JsonAssociativeKey[], JsonAssociativeValue[], ScriptFieldInstListTypeKey[];
 
       /*!*********************************************************************
       \brief  
