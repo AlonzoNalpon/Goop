@@ -93,7 +93,7 @@ void FmodSystem::UnLoadSounds()
   }
 }
 
-void FmodSystem::PlaySound(std::string audio, ChannelType channel, bool looped)
+void FmodSystem::PlaySound(std::string audio, float volume, ChannelType channel, bool looped)
 {
   SoundMap::iterator soundFound = m_sounds.find(audio);
 
@@ -112,6 +112,7 @@ void FmodSystem::PlaySound(std::string audio, ChannelType channel, bool looped)
   if (soundChannel == nullptr)
   {
     ErrorCheck(m_fModSystem->playSound(soundFound->second, m_channelGroups[channel], false, &soundChannel));
+    soundChannel->setVolume(volume);
   }
   else
   {
@@ -181,6 +182,11 @@ void FmodSystem::SetChannelVolume(ChannelType channel, float volume)
 float FmodSystem::GetChannelVolume(ChannelType channel) const
 {
   return m_volumes.at(channel);
+}
+
+void GE::fMOD::FmodSystem::SetVolume(std::string audio, float volume)
+{
+  m_channels[audio]->setVolume(volume);
 }
 
 void FmodSystem::SetMasterVolume(float volume)

@@ -219,7 +219,7 @@ namespace
 		Label name
 
 	\param[in] list
-		Vector of entities
+		Vector of ints
 
 	\param[in] fieldWidth
 		Width of input field
@@ -229,6 +229,26 @@ namespace
 	************************************************************************/
 	template <>
 	void InputList(std::string propertyName, std::vector<int>& list, float fieldWidth, bool disabled);
+
+	/*!*********************************************************************
+	\brief
+		Wrapper to create specialized inspector list of vector of
+		sounds in Audio component
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] list
+		Vector of audio sounds
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
+	template <>
+	void InputList(std::string propertyName, std::vector<GE::Component::Audio::Sound>& list, float fieldWidth, bool disabled);
 
 	/*!*********************************************************************
 	\brief
@@ -794,37 +814,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 
 					Separator();
-					InputText("Sound File", &audio->m_name);
-					if (BeginDragDropTarget())
-					{
-						if (const ImGuiPayload* payload = AcceptDragDropPayload("ASSET_BROWSER_AUDIO"))
-						{
-							audio->m_name = static_cast<const char*>(payload->Data);
-						}
-						EndDragDropTarget();
-					}
+					InputList("Audio", audio->m_sounds, charSize);
 
-					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					TableNextRow();
-					InputCheckBox("Loop", audio->m_loop);
-					TableNextRow();
-					InputCheckBox("Play on Start", audio->m_playOnStart);
-					TableNextRow();
-					InputCheckBox("Paused", audio->m_paused);
-					EndTable();
 
-					if (BeginCombo("Channel", GE::fMOD::FmodSystem::m_channelToString.at(audio->channel).c_str()))
-					{
-						for (auto const& [channel, audioName] : GE::fMOD::FmodSystem::m_channelToString)
-						{
-							if (Selectable(audioName.c_str()))
-							{
-								audio->channel = channel;
-							}
-						}
-						EndCombo();
-					}
 
 					Separator();
 				}
@@ -1176,6 +1168,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 						else
 						{
 							ss << "Unable to add component " << typeid(BoxCollider).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::TWEEN:
+					{
+						if (!ecs.HasComponent<Tween>(entity))
+						{
+							Tween comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Tween).name() << ". Component already exist";
 						}
 						break;
 					}
@@ -1600,6 +1605,78 @@ namespace
 			Separator();
 			TreePop();
 		}
+	}
+
+	template <>
+	void InputList(std::string propertyName, std::vector<GE::Component::Audio::Sound>& list, float fieldWidth, bool disabled)
+	{
+		// 12 characters for property name
+		float charSize = CalcTextSize("012345678901").x;
+
+		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			int i{};
+			for (auto& sound : list)
+			{
+				PushID((std::to_string(i)).c_str());
+				Separator();
+				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+				TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+				TableNextColumn();
+				ImGui::Text("Sound Name");
+				TableNextColumn();
+				InputText("##", &sound.m_sound);
+				if (BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = AcceptDragDropPayload("ASSET_BROWSER_AUDIO"))
+					{
+						sound.m_sound = static_cast<const char*>(payload->Data);
+					}
+					EndDragDropTarget();
+				}
+
+				TableNextRow();
+				InputCheckBox("Loop", sound.m_loop);
+				TableNextRow();
+				InputCheckBox("Play on Start", sound.m_playOnStart);
+				TableNextRow();
+				InputCheckBox("Paused", sound.m_paused);
+				TableNextRow();
+				TableNextColumn();
+				ImGui::Text("Volume");
+				TableNextColumn();
+				if (DragFloat(("##" + sound.m_sound + "volume").c_str(), &sound.m_volume, 0.001f, 0.f, 1.f))
+				{
+					GE::fMOD::FmodSystem::GetInstance().SetVolume(sound.m_sound, sound.m_volume);
+				}
+				EndTable();
+
+				if (BeginCombo("Channel", GE::fMOD::FmodSystem::m_channelToString.at(sound.m_channel).c_str()))
+				{
+					for (auto const& [channel, audioName] : GE::fMOD::FmodSystem::m_channelToString)
+					{
+						if (Selectable(audioName.c_str()))
+						{
+							sound.m_channel = channel;
+						}
+					}
+					EndCombo();
+				}
+				PopID();
+			}
+
+			Separator();
+
+			Unindent();
+			// 20 magic number cuz the button looks good
+			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
+			{
+				list.emplace_back(GE::Component::Audio::Sound{});
+			}
+
+			TreePop();
+		}
+		Indent();
 	}
 
 	template <typename T>
