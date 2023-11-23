@@ -164,6 +164,7 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::CardHolderElem>("CardHolderElem")
     .constructor<>()
     .property("holder", &Component::CardHolderElem::holder)
+    .property("elemIdx", &Component::CardHolderElem::elemIdx)
     ;
 
   rttr::registration::class_<Component::Game>("Game")

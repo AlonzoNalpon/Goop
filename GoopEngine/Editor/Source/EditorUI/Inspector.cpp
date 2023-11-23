@@ -1028,6 +1028,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 										{
 											auto* spriteComp = ecs.GetComponent<Sprite>(element.elemEntity);
 											element.defaultSpriteID = spriteComp->m_spriteData.texture;
+											if (ecs.HasComponent<CardHolderElem>(element.elemEntity))
+											{
+												auto* holderElem = ecs.GetComponent<CardHolderElem>(element.elemEntity);
+												holderElem->elemIdx = currElement - 1; // since element started from 1, we subtract 1
+												holderElem->holder = entity;
+											}
+											else
+												GE::Debug::ErrorLogger::GetInstance().LogWarning((std::string(ecs.GetEntityName(element.elemEntity)) + 
+													" is missing the CardHolderElem component! Add and reassign ID to Elem Entity in holder!").c_str());
 										}
 										else
 										{
@@ -1150,6 +1159,30 @@ void GE::EditorGUI::Inspector::CreateContent()
 					if (RemoveComponentPopup<Draggable>("Card Holder Element", entity))
 					{
 						break;
+					}
+					auto* holderElem = ecs.GetComponent<CardHolderElem>(entity);
+					// FOR MEMBER: HOLDER ID
+					{
+						ImGui::Text("holder entity ID");
+						SameLine();
+						int newHolderID{ static_cast<int>(holderElem->holder) };
+						InputInt("##holderID", &newHolderID);
+						if (newHolderID < -1)
+							newHolderID = -1;
+						holderElem->holder = newHolderID;
+						if (holderElem->holder != ECS::INVALID_ID && ecs.HasComponent<CardHolder>(holderElem->holder))
+							ImGui::TextColored({ 0.f, 1.f, 0.f, 1.f }, "Holder ID has holder component!");
+						else
+							ImGui::TextColored({ 1.f, 0.f, 0.f, 1.f }, "Invalid holder/missing holder component!");
+					}
+					// FOR MEMBER: INDEX
+					{
+						ImGui::Text("holder entity index");
+						SameLine();
+						ImGui::BeginDisabled();
+						int newHolderID{ static_cast<int>(holderElem->elemIdx) };
+						InputInt("##elemIdx", &newHolderID);
+						ImGui::EndDisabled();
 					}
 				}
 				break;
