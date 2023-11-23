@@ -150,7 +150,38 @@ namespace GE {
 		/*!******************************************************************
 		\brief
 		  Plays an animation given a name from the animation manager.
+
+		\param animName
+			Name of animation to play
+
+		\param entity
+			Entity to play the animation on
 		********************************************************************/
-		void PlayAnimation(std::string animName);
+		void PlayAnimation(std::string animName, GE::ECS::Entity entity);
+
+		/*!******************************************************************
+		\brief
+			Plays an animation given a name from the animation manager.
+
+		\param soundIterator
+			An iterator to which sound in the container will be played.
+			To facilliate random sound bites playing, user will 
+			randomise these values between a range which the sound 
+			is within the vector.
+
+			i.e. sounds { hurt1, hurt2, groan1, groan2, groan3 }
+			To play a groan sound, random between 2 & 4, and use that
+			resultant value is the soundIterator
+
+		\param entity
+			Entity who holds the sound
+		********************************************************************/
+		void PlaySound(int soundIterator, GE::ECS::Entity entity);
+
+		/*!*********************************************************************
+		\brief 
+		  Informs everyone that the current turn has finished resolving
+		************************************************************************/
+		void GameSystemResolved();
 	}
 }
