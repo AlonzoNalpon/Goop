@@ -117,6 +117,43 @@ RTTR_REGISTRATION
     .property("spriteSubData", &Graphics::SpriteData::info)
     ;
 
+
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<int>>("ScriptFieldInstInt")
+    .constructor<>()
+    .property("data", &GE::MONO::ScriptFieldInstance<int>::m_data)
+    ;
+
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<float>>("ScriptFieldInstFloat")
+    .constructor<>()
+    .property("data", &GE::MONO::ScriptFieldInstance<float>::m_data)
+    ;
+
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<double>>("ScriptFieldInstDouble")
+    .constructor<>()
+    .property("data", &GE::MONO::ScriptFieldInstance<double>::m_data)
+    ;
+
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<unsigned>>("ScriptFieldInstUInt")
+    .constructor<>()
+    .property("data", &GE::MONO::ScriptFieldInstance<unsigned>::m_data)
+    ;
+
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<int>>>("ScriptFieldInstVecInt")
+    .constructor<>()
+    .property("data", &GE::MONO::ScriptFieldInstance<std::vector<int>>::m_data)
+    ;
+
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>("ScriptFieldInstVecUInt")
+    .constructor<>()
+    .property("data", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_data)
+    ;
+
+  rttr::registration::class_<GE::MONO::ScriptInstance>("ScriptInstance")
+    .constructor<>()
+    .property("data", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_data)
+    ;
+
+
   /* ------------------- ENUMERATIONS ------------------- */
   rttr::registration::enumeration<AI::NODE_TYPE>("NODE_TYPE")
     (

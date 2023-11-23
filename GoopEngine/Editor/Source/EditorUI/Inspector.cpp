@@ -637,115 +637,120 @@ void GE::EditorGUI::Inspector::CreateContent()
 				//auto scripts = ecs.GetComponent<Scripts>(entity);
 				if (ImGui::CollapsingHeader("Script", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					float inputWidth = (contentSize - charSize - 30) / 3;
-					GE::Component::Scripts* allScripts = ecs.GetComponent<Scripts>(entity);
+					//float inputWidth = (contentSize - charSize - 30) / 3;
+					//GE::Component::Scripts* allScripts = ecs.GetComponent<Scripts>(entity);
 					if (RemoveComponentPopup<Scripts>("Script", entity))
 					{
 						break;
 					}
-					GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
-					for (std::pair<std::string, ScriptInstance> s : allScripts->m_scriptMap)
-					{
-						
+					//GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
+					//for (std::pair<std::string, ScriptInstance>& s : allScripts->m_scriptList)
+					//{
+					//	
 
-						Separator();
-						BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-						ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					//	Separator();
+					//	BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					//	ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 
-						TableNextRow();
-						BeginDisabled(false);
-						TableNextColumn();
-						ImGui::Text("Script");
-						TableNextColumn();
-						ImGuiStyle& style = GetStyle();
-						ImVec4 originalColor = style.Colors[ImGuiCol_FrameBg];
-						ImVec4 originalHColor = style.Colors[ImGuiCol_FrameBgHovered];
-						style.Colors[ImGuiCol_FrameBg] = ImVec4(0.28f, 0.21f, 0.11f, 1.0f);
-						style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.38f, 0.31f, 0.21f, 1.0f);
-						if (ImGui::BeginCombo("", s.first.c_str()))
-						{
-							for (const std::string& sn : sm->m_allScriptNames)
-							{
-								bool is_selected = (s.first.c_str() == sn);
-								if (ImGui::Selectable(sn.c_str(), is_selected))
-								{
-									if (sn != s.first.c_str()) {
-										
-									}
+					//	TableNextRow();
+					//	BeginDisabled(false);
+					//	TableNextColumn();
+					//	ImGui::Text("Script");
+					//	TableNextColumn();
+					//	ImGuiStyle& style = GetStyle();
+					//	ImVec4 originalColor = style.Colors[ImGuiCol_FrameBg];
+					//	ImVec4 originalHColor = style.Colors[ImGuiCol_FrameBgHovered];
+					//	style.Colors[ImGuiCol_FrameBg] = ImVec4(0.28f, 0.21f, 0.11f, 1.0f);
+					//	style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.38f, 0.31f, 0.21f, 1.0f);
+					//	if (ImGui::BeginCombo("", s.first.c_str()))
+					//	{
+					//		for (const std::string& sn : sm->m_allScriptNames)
+					//		{
+					//			auto it = std::find_if(allScripts->m_scriptList.begin(), allScripts->m_scriptList.end(), [sn](const std::pair<std::string, ScriptInstance>& pair) { return pair.first == sn; });
+					//			if (it == allScripts->m_scriptList.end())
+					//			{
+					//				bool is_selected = (s.first.c_str() == sn);
+					//				if (ImGui::Selectable(sn.c_str(), is_selected))
+					//				{
+					//					if (sn != s.first) {
+					//						s.first = sn;
+					//						s.second.Clear();
+					//						s.second = ScriptInstance(sn);
+					//					}
+					//				}
+					//				if (is_selected)
+					//				{
+					//					ImGui::SetItemDefaultFocus();
+					//				}
+					//			}
+					//		}
+					//		ImGui::EndCombo();
+					//	}
+					//	EndDisabled();
+					//	style.Colors[ImGuiCol_FrameBg] = originalColor;
+					//	style.Colors[ImGuiCol_FrameBgHovered] = originalHColor;
 
-								}
-								if (is_selected)
-								{
-									ImGui::SetItemDefaultFocus();
-								}
-							}
-							ImGui::EndCombo();
-						}
-						EndDisabled();
-						style.Colors[ImGuiCol_FrameBg] = originalColor;
-						style.Colors[ImGuiCol_FrameBgHovered] = originalHColor;
 
+					//	const auto& fields = s.second.m_scriptClassInfo.m_ScriptFieldMap;
+					//	for (const auto& [fieldName, field] : fields)
+					//	{
+					//		if (field.m_fieldType == ScriptFieldType::Float)
+					//		{
+					//			TableNextRow();
+					//			BeginDisabled(false);
+					//			float value = s.second.GetFieldValue<float>(fieldName);
+					//			TableNextColumn();
+					//			ImGui::Text(fieldName.c_str());
+					//			TableNextColumn();
+					//			SetNextItemWidth(GetWindowSize().x);
+					//			if (ImGui::InputFloat(("##" + fieldName).c_str(), &value, 0, 0, 0)) { s.second.SetFieldValue<float>(fieldName, value); }
+					//			EndDisabled();
 
-						const auto& fields = s.second.m_scriptClassInfo.m_ScriptFieldMap;
-						for (const auto& [fieldName, field] : fields)
-						{
-							if (field.m_fieldType == ScriptFieldType::Float)
-							{
-								TableNextRow();
-								BeginDisabled(false);
-								float value = s.second.GetFieldValue<float>(fieldName);
-								TableNextColumn();
-								ImGui::Text(fieldName.c_str());
-								TableNextColumn();
-								SetNextItemWidth(GetWindowSize().x);
-								if (ImGui::InputFloat(("##" + fieldName).c_str(), &value, 0, 0, 0)) { s.second.SetFieldValue<float>(fieldName, value); }
-								EndDisabled();
+					//		}
+					//		else if (field.m_fieldType == ScriptFieldType::Int)
+					//		{
+					//			TableNextRow();
+					//			BeginDisabled(false);
+					//			int value = s.second.GetFieldValue<int>(fieldName);
+					//			TableNextColumn();
+					//			ImGui::Text(fieldName.c_str());
+					//			TableNextColumn();
+					//			SetNextItemWidth(GetWindowSize().x);
+					//			if (ImGui::InputInt(("##" + fieldName).c_str(), &value, 0, 0, 0)) { s.second.SetFieldValue<int>(fieldName, value); }
+					//			EndDisabled();
+					//		}
+					//		else if (field.m_fieldType == ScriptFieldType::Double)
+					//		{
+					//			TableNextRow();
+					//			BeginDisabled(false);
+					//			double value = s.second.GetFieldValue<double>(fieldName);
+					//			TableNextColumn();
+					//			ImGui::Text(fieldName.c_str());
+					//			TableNextColumn();
+					//			SetNextItemWidth(GetWindowSize().x);
+					//			if (ImGui::InputDouble(("##" + fieldName).c_str(), &value, 0, 0, 0)) { s.second.SetFieldValue<double>(fieldName, value); }
+					//			EndDisabled();
+					//		}
+					//		else if (field.m_fieldType == ScriptFieldType::DVec3)
+					//		{
+					//			TableNextRow();
+					//			GE::Math::dVec3 value = s.second.GetFieldValue<GE::Math::dVec3>(fieldName);
+					//			if (InputDouble3(("##" + fieldName).c_str(), value, inputWidth)) { s.second.SetFieldValue<GE::Math::dVec3 >(fieldName, value); };
+					//		}
+					//		else if (field.m_fieldType == ScriptFieldType::IntArr)
+					//		{
+					//			TableNextRow();							
+					//			//std::vector<int> val = s.second.GetFieldValueArr<int>(fieldName, sm->m_appDomain);
+					//			
+					//		
+					//			//if()
+					//		}
+					//	}
 
-							}
-							else if (field.m_fieldType == ScriptFieldType::Int)
-							{
-								TableNextRow();
-								BeginDisabled(false);
-								int value = s.second.GetFieldValue<int>(fieldName);
-								TableNextColumn();
-								ImGui::Text(fieldName.c_str());
-								TableNextColumn();
-								SetNextItemWidth(GetWindowSize().x);
-								if (ImGui::InputInt(("##" + fieldName).c_str(), &value, 0, 0, 0)) { s.second.SetFieldValue<int>(fieldName, value); }
-								EndDisabled();
-							}
-							else if (field.m_fieldType == ScriptFieldType::Double)
-							{
-								TableNextRow();
-								BeginDisabled(false);
-								double value = s.second.GetFieldValue<double>(fieldName);
-								TableNextColumn();
-								ImGui::Text(fieldName.c_str());
-								TableNextColumn();
-								SetNextItemWidth(GetWindowSize().x);
-								if (ImGui::InputDouble(("##" + fieldName).c_str(), &value, 0, 0, 0)) { s.second.SetFieldValue<double>(fieldName, value); }
-								EndDisabled();
-							}
-							else if (field.m_fieldType == ScriptFieldType::DVec3)
-							{
-								TableNextRow();
-								GE::Math::dVec3 value = s.second.GetFieldValue<GE::Math::dVec3>(fieldName);
-								if (InputDouble3(("##" + fieldName).c_str(), value, inputWidth)) { s.second.SetFieldValue<GE::Math::dVec3 >(fieldName, value); };
-							}
-							else if (field.m_fieldType == ScriptFieldType::IntArr)
-							{
-								TableNextRow();							
-								//std::vector<int> val = s.second.GetFieldValueArr<int>(fieldName, sm->m_appDomain);
-								
-							
-								//if()
-							}
-						}
-
-						EndTable();
-						Separator();
-						//ImGui::Spacing();
-					}
+					//	EndTable();
+					//	Separator();
+					//	//ImGui::Spacing();
+					//}
 
 
 

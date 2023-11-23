@@ -31,15 +31,13 @@ void EnemySystem::InitTree()
 
 void EnemySystem::FixedUpdate()
 {
-	std::cout << "FixedUpdate enemy A\n";
+	
 	auto& frc = GE::FPS::FrameRateController::GetInstance();
 	frc.StartSystemTimer();
 	// Only update if there are actual trees
 	if (m_treeList.size() != 0)
 	{
-		std::cout << "tree not empty\n";
 		for (Entity entity : GetUpdatableEntities()) {
-			std::cout << "go enemy\n";
 			GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
 			GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
 			GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
@@ -61,10 +59,10 @@ void EnemySystem::FixedUpdate()
 			{
 				double dt = fpsControl->GetFixedDeltaTime();
 				std::vector<void*> arg{ &m_currentEntityID, &dt };
-				MonoMethod* onUpdateMethod = mono_class_get_method_from_name(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_scriptClassInfo.m_scriptClass, "OnUpdate", static_cast<int>(arg.size()));
+				MonoMethod* onUpdateMethod = mono_class_get_method_from_name(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_scriptClass, "OnUpdate", static_cast<int>(arg.size()));
 				mono_runtime_invoke(onUpdateMethod, m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classInst, arg.data(), nullptr);
 				//PLEASE UNCOMMENT THIS IF YOU WANT TO SEE THE TREE CACHE OF THE ENEMY AT THE END OF EVRY FRAME
-				PrintNodeCache(enemyAIComp->m_enemyTreeCache.m_nodeCacheStack);
+				//PrintNodeCache(enemyAIComp->m_enemyTreeCache.m_nodeCacheStack);
 			}
 			else
 			{
@@ -201,7 +199,7 @@ void EnemySystem::RunChildNode(GE::AI::NodeID childNodeID)
 
 	double dt = fpsControl->GetDeltaTime();
 	std::vector<void*> arg{ &m_currentEntityID, &dt };
-	MonoMethod* onUpdateMethod = mono_class_get_method_from_name(m_currentTree->m_nodeList[childNodeID].m_script.m_scriptClassInfo.m_scriptClass, "OnUpdate", static_cast<int>(arg.size()));
+	MonoMethod* onUpdateMethod = mono_class_get_method_from_name(m_currentTree->m_nodeList[childNodeID].m_script.m_scriptClass, "OnUpdate", static_cast<int>(arg.size()));
 	mono_runtime_invoke(onUpdateMethod, m_currentTree->m_nodeList[childNodeID].m_script.m_classInst, arg.data(), nullptr);
 
 
@@ -225,7 +223,7 @@ void EnemySystem::JumpToParent()
 		if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_NodeResult == STATE_WAITING)
 		{
 			std::vector<void*> arg{ &m_currentEntityID };
-			MonoMethod* onUpdateMethod = mono_class_get_method_from_name(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_scriptClassInfo.m_scriptClass, "ReturnFromChild", static_cast<int>(arg.size()));
+			MonoMethod* onUpdateMethod = mono_class_get_method_from_name(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_scriptClass, "ReturnFromChild", static_cast<int>(arg.size()));
 			mono_runtime_invoke(onUpdateMethod, m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classInst, arg.data(), nullptr);
 		}
 	}

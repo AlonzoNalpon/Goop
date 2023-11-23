@@ -26,11 +26,11 @@ namespace GoopScripts.Player
   public  class Player : MonoBehaviour
   {
 
-    public int intTest= 32;
-    public float fTest = 32;
-    public double DTest = 32;
-    //public Vec2<double> DVec2Test = new Vec2<double>(100.0, 200.0);
-    public Vec3<double> DVec3Test = new Vec3<double>(100.0, 200.0, 300.0);
+    public int health;
+    //public float fTest = 32;
+    //public double DTest = 32;
+    ////public Vec2<double> DVec2Test = new Vec2<double>(100.0, 200.0);
+    //public Vec3<double> DVec3Test = new Vec3<double>(100.0, 200.0, 300.0);
     public int[] ListIntTest = {0,2,4,6,8,10};
 
     /*!*********************************************************************
@@ -41,6 +41,11 @@ namespace GoopScripts.Player
     ID of the owner of this scipt
    ************************************************************************/
     public Player(uint entityID) : base(entityID)
+    {
+      Console.WriteLine("size of Array: " + Marshal.SizeOf(ListIntTest[0]) * ListIntTest.Count());
+    }
+
+    public Player()
     {
       Console.WriteLine("size of Array: " + Marshal.SizeOf(ListIntTest[0]) * ListIntTest.Count());
     }

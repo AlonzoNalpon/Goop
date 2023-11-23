@@ -91,7 +91,7 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::Scripts>("Scripts")
     .constructor<std::vector<std::string> const&, unsigned>()
     .property("entityId", &Component::Scripts::m_entityId)
-    .property("scriptMap", &Component::Scripts::m_scriptMap)
+    .property("scriptMap", &Component::Scripts::m_scriptList)
     ;
 
   rttr::registration::class_<Graphics::Colorf>("Colorf")
