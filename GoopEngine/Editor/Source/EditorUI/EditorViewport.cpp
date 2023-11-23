@@ -110,7 +110,8 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
     ImGui::EndDragDropTarget();
   }
 
-  if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y)))
+  //if (ImGui::IsMouseHoveringRect(viewportPosition, ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y)))
+  if (ImGui::IsWindowFocused())
   {
     ImVec2 mousePosition = ImGui::GetMousePos();
     mousePosition.y = windowSize.y - mousePosition.y;
