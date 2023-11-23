@@ -217,9 +217,9 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
             }
 
             // Depth check (only take frontmost object
-            if (trans.m_pos.z > depthVal)
+            if (trans.m_worldPos.z > depthVal)
             {
-              depthVal = trans.m_pos.z;
+              depthVal = trans.m_worldPos.z;
               selectedID = curr;
             }
           }

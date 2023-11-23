@@ -1,6 +1,7 @@
 #include <pch.h>
 #include <Systems/Button/ButtonSystem.h>
 // #include <Component/Button.h>
+#include <Component/CardHolder.h>
 #include <Events/InputEvents.h>
 #include <GameStateManager/GameStateManager.h>
 #include <InputManager/InputManager.h>
@@ -57,7 +58,24 @@ namespace GE
 							case GE::Component::GE_Button::NO_EVENT:
 								break;
 							case GE::Component::GE_Button::SELECT_CARD:
-								//ECS::Entity cardHolder = m_ecs->GetComponent<>
+							{
+									// This requires a card component
+									auto* card = m_ecs->GetComponent<Component::Card>(entity);
+									if (!card) break; // no card -> bad behavior
+
+									auto* cardHolder = m_ecs->GetComponent<Component::CardHolder>(card->tgtEntity);
+									if (!cardHolder) break; // no holder -> bad behavior
+
+									// Check if there's a free element
+									for (auto& elem : cardHolder->elements)
+									{
+										if (elem.used) // skip if it's used!
+											continue;
+
+									
+										elem.used = true; // now it's used!
+									}
+							}
 								break;
 							case GE::Component::GE_Button::UNSELECT_CARD:
 								break;

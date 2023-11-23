@@ -25,10 +25,7 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, std::vector<void*>
   m_scriptClassInfo = sm->GetScriptClassInfo(scriptName);
   m_classInst = sm->InstantiateClass(scriptName.c_str(), arg);
   m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass,"OnUpdate", 1);
-  if (m_onUpdateMethod)
-  {
-    std::cout << scriptName << "\n";
-  }
+
 
 
   //m_onCreateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "onCreate", 1);
@@ -41,10 +38,7 @@ ScriptInstance::ScriptInstance(const std::string& scriptName)
   m_scriptClassInfo = sm->GetScriptClassInfo(scriptName);
   m_classInst = sm->InstantiateClass(scriptName.c_str());
   m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "OnUpdate", 1);
-  if (m_onUpdateMethod)
-  {
-    std::cout << scriptName << "\n";
-  }
+ 
 
   //m_onCreateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "onCreate", 1);
 }

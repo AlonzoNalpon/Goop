@@ -643,29 +643,36 @@ void GE::EditorGUI::Inspector::CreateContent()
 					{
 						break;
 					}
-					Separator();
-					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					//GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
+					GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
 					for (std::pair<std::string, ScriptInstance> s : allScripts->m_scriptMap)
 					{
-						/*TableNextRow();
+						
+
+						Separator();
+						BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+						ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+
+						TableNextRow();
 						BeginDisabled(false);
 						TableNextColumn();
-						ImGui::Text("Scripts");
+						ImGui::Text("Script");
 						TableNextColumn();
-						SetNextItemWidth(GetWindowSize().x);
-						if (ImGui::BeginCombo("Scripts", s.first.c_str(), ImGuiComboFlags_NoArrowButton))
+						ImGuiStyle& style = GetStyle();
+						ImVec4 originalColor = style.Colors[ImGuiCol_FrameBg];
+						ImVec4 originalHColor = style.Colors[ImGuiCol_FrameBgHovered];
+						style.Colors[ImGuiCol_FrameBg] = ImVec4(0.28f, 0.21f, 0.11f, 1.0f);
+						style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.38f, 0.31f, 0.21f, 1.0f);
+						if (ImGui::BeginCombo("", s.first.c_str()))
 						{
 							for (const std::string& sn : sm->m_allScriptNames)
 							{
 								bool is_selected = (s.first.c_str() == sn);
 								if (ImGui::Selectable(sn.c_str(), is_selected))
 								{
-									if(sn != s.first.c_str()){
-										std::cout << "selected: " << sn << "\n";
+									if (sn != s.first.c_str()) {
+										
 									}
-									
+
 								}
 								if (is_selected)
 								{
@@ -674,8 +681,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 							}
 							ImGui::EndCombo();
 						}
-						EndDisabled();*/
-
+						EndDisabled();
+						style.Colors[ImGuiCol_FrameBg] = originalColor;
+						style.Colors[ImGuiCol_FrameBgHovered] = originalHColor;
 
 
 						const auto& fields = s.second.m_scriptClassInfo.m_ScriptFieldMap;
@@ -733,12 +741,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 								//if()
 							}
 						}
+
+						EndTable();
+						Separator();
+						//ImGui::Spacing();
 					}
 
 
 
-					EndTable();
-					Separator();
+			
 
 				}
 				break;
@@ -894,8 +905,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndCombo();
 					}
-					Separator();
 					InputText("Param", &button->m_param);
+					Separator();
 				}
 				break;
 			}
@@ -925,6 +936,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 						card->tgtEntity = newVal;
 
 						// check if entity has card holder
+						{
+							if (ecs.HasComponent<CardHolder>(card->tgtEntity))
+							{
+								ImGui::TextColored({ 0.f, 1.f, 0.f, 1.f }, "Target Has Holder Component");
+							}
+							else
+							{
+								ImGui::TextColored({ 1.f, 0.f, 0.f, 1.f }, "Target Missing Holder Component");
+							}
+						}
 
 
 						Separator();
@@ -993,19 +1014,32 @@ void GE::EditorGUI::Inspector::CreateContent()
 							ImGui::TextColored(ImVec4{ 1.f, 1.f, 0.f, 1.f }, 
 								("Element: " + std::to_string(currElement)).c_str());
 							{
-								// THE ENTITY VALUE
+								// THE DST ENTITY VALUE
 								{
-									ImGui::Text("Entity ID: ");
+									ImGui::Text("Elem Entity: ");
 									SameLine();
-									int newVal{ static_cast<int>(element.entityVal) };
-									if (InputInt(("##CDEntID" + std::to_string(currElement)).c_str(), &newVal))
+									int newVal{ static_cast<int>(element.elemEntity) };
+									if (InputInt(("##CDElmID" + std::to_string(currElement)).c_str(), &newVal))
 									{
-										element.entityVal = newVal;
+										element.elemEntity = newVal;
 										
 										// get other sprite component if it exists
-										if (ecs.HasComponent<Sprite>(element.entityVal))
+										if (ecs.HasComponent<Sprite>(element.elemEntity))
 										{
-											auto* spriteComp = ecs.GetComponent<Sprite>(element.entityVal);
+											auto* spriteComp = ecs.GetComponent<Sprite>(element.elemEntity);
+											element.defaultSpriteID = spriteComp->m_spriteData.texture;
+										}
+										else
+										{
+											element.defaultSpriteID = 0; // invalid
+										}
+									}
+									if (element.elemEntity != ECS::INVALID_ID)
+									{
+										// get other sprite component if it exists
+										if (ecs.HasComponent<Sprite>(element.elemEntity))
+										{
+											auto* spriteComp = ecs.GetComponent<Sprite>(element.elemEntity);
 											element.defaultSpriteID = spriteComp->m_spriteData.texture;
 										}
 										else
@@ -1015,6 +1049,29 @@ void GE::EditorGUI::Inspector::CreateContent()
 									}
 								}
 								
+								// THE SRC ENTITY VALUE
+								{
+									ImGui::Text("Card Entity: ");
+									SameLine();
+									int newVal{ static_cast<int>(element.cardEntity) };
+									if (InputInt(("##CDEntID" + std::to_string(currElement)).c_str(), &newVal))
+									{
+										element.cardEntity = newVal;
+									}
+									if (element.cardEntity != ECS::INVALID_ID)
+									{
+										// get other sprite component if it exists
+										if (ecs.HasComponent<Sprite>(element.cardEntity))
+										{
+											auto* spriteComp = ecs.GetComponent<Sprite>(element.cardEntity);
+											element.spriteID = spriteComp->m_spriteData.texture;
+										}
+										else
+										{
+											element.spriteID = 0; // invalid
+										}
+									}
+								}
 								// THE SPRITE ID (FOR REFERENCE)
 								{
 									BeginDisabled(true);
@@ -1022,14 +1079,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 									ImGui::Text("Default Sprite: ");
 									SameLine();
 									auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
-									if (element.defaultSpriteID)
+									if (element.elemEntity != ECS::INVALID_ID && element.defaultSpriteID)
 									{
 										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f },
 											(textureManager.GetTextureName(element.defaultSpriteID)
 												+ std::string(" | ")).c_str());
 										SameLine();
 										ImGui::TextColored(ImVec4{ 1.f, .7333f, 0.f, 1.f },
-											ecs.GetEntityName(element.entityVal).c_str());
+											ecs.GetEntityName(element.elemEntity).c_str());
 									}
 									else
 									{
@@ -1039,10 +1096,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 									// USED SPRITE
 									ImGui::Text("Used Sprite: ");
 									SameLine();
-									if (element.spriteID)
+									if (element.cardEntity != ECS::INVALID_ID && element.spriteID)
 									{
-										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f }, 
-											textureManager.GetTextureName(element.spriteID).c_str());
+										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f },
+											(textureManager.GetTextureName(element.spriteID)
+												+ std::string(" | ")).c_str());
+										SameLine();
+										ImGui::TextColored(ImVec4{ 1.f, .7333f, 0.f, 1.f },
+											ecs.GetEntityName(element.cardEntity).c_str());
 									}
 									else
 									{
