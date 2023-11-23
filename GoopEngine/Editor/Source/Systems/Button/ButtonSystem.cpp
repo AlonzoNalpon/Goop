@@ -17,20 +17,26 @@ namespace GE
 
 		void ButtonSystem::Update()
 		{
+			m_shouldHandle = false;
 			for (GE::ECS::Entity entity : GetUpdatableEntities())
 			{
 				GE::Component::BoxCollider* entity1Col = m_ecs->GetComponent<GE::Component::BoxCollider>(entity);
-				// static GE::Input::InputManager& input = GE::Input::InputManager::GetInstance();
 
 				if (entity1Col->m_mouseCollided)
 				{
-					std::cout << "SPECIFIC CLICK DETECTED!!" << std::endl;
+					m_shouldHandle = true;
 				}
 			}
 		}
 
 		void ButtonSystem::HandleEvent(Events::Event* event)
 		{
+			// Only handle when system is running
+			if (!m_shouldHandle)
+			{
+				return;
+			}
+
 			bool triggered = false;
 			for (GE::ECS::Entity entity : m_entities)
 			{
@@ -62,6 +68,11 @@ namespace GE
 							{
 								GE::ECS::Entity pauseMenu{ std::stoul(btn->m_param) };
 								m_ecs->SetIsActiveEntity(pauseMenu, false);
+								break;
+							}
+							case GE::Component::GE_Button::NEXT_TURN:
+							{
+								GE::Events::EventManager::GetInstance().Dispatch(GE::Events::GameNextTurn());
 								break;
 							}
 							default:

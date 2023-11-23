@@ -24,9 +24,9 @@ namespace GE
 			void HandleEvent(Events::Event* event) override;
 
 		private:
-			// bool m_isClicked = false;
+			bool m_shouldHandle;
 			GE::ECS::Entity m_buttonEntity;
-			// std::string m_param = "Start";
+			// std::string m_param = "Start";			
 		};
 	}
 }

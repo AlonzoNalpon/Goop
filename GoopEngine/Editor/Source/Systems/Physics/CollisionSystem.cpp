@@ -2,14 +2,13 @@
 #include <Systems/Physics/CollisionSystem.h>
 #include <Graphics/GraphicsEngine.h>
 #include <Systems/Audio/AudioSystem.h>
+#include <Component/Transform.h>
 
 using namespace GE::Math;
-
-using namespace GE;
-using namespace ECS;
-using namespace Systems;
-using namespace Component;
-using namespace Input;
+using namespace GE::ECS;
+using namespace GE::Systems;
+using namespace GE::Component;
+using namespace GE::Input;
 using namespace Graphics;
 
 //AABB & mouse input
@@ -79,13 +78,28 @@ void CollisionSystem::Update()
 		{
 			//mouse click check
 			BoxCollider* entity1Col = m_ecs->GetComponent<BoxCollider>(entity1);
+			Transform* entityPos = m_ecs->GetComponent<Transform>(entity1);
 			dVec2 mousePos{};
+			double highestZCoor = *(--partition.m_zCoor.end());
+			//std::cout << "Highest Z coor: " << highestZCoor << std::endl;
 
-			InputManager* input = &(GE::Input::InputManager::GetInstance());
-			mousePos = input->GetMousePosWorld();
-
-			entity1Col->m_mouseCollided = Collide(*entity1Col, mousePos);
+			entity1Col->m_mouseCollided = false;
 			entity1Col->m_collided.clear();
+      
+			if (entityPos->m_pos.z == highestZCoor)
+			{
+				InputManager* input = &(GE::Input::InputManager::GetInstance());
+				if (input->IsKeyTriggered(GPK_MOUSE_LEFT))
+				{
+					mousePos = input->GetMousePosWorld();
+					entity1Col->m_mouseCollided = Collide(*entity1Col, mousePos);
+				}
+			}
+
+			if (entity1Col->m_mouseCollided == true)
+			{
+				std::cout << "Entity collided with mouse" << std::endl;
+			}
 
 			//obj collide check
 			for (Entity entity2 : partition.m_entitiesInPartition)
@@ -147,7 +161,9 @@ void CollisionSystem::CreatePartitions(int rows, int cols)
 				BoxCollider* pos = m_ecs->GetComponent<BoxCollider>(entity);
 				if (!(pos->m_max.y < partition.min.y || pos->m_min.x > partition.max.x || pos->m_max.x < partition.min.x || pos->m_min.y > partition.max.y))
 				{
+					Transform* entityPos = m_ecs->GetComponent<Transform>(entity);
 					partition.m_entitiesInPartition.push_back(entity);
+					partition.m_zCoor.insert(entityPos->m_pos.z);
 				}
 			}
 			m_partitions[row * m_colsPartition + col] = std::move(partition);
