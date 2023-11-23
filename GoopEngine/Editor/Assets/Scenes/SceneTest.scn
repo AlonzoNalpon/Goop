@@ -339,21 +339,21 @@
                 "CardHolder": {
                     "elements": [
                         {
-                            "entityVal": 12,
+                            "entityVal": 2,
                             "spriteID": 0,
-                            "defaultSpriteID": 2,
+                            "defaultSpriteID": 14,
                             "used": false
                         },
                         {
-                            "entityVal": 13,
+                            "entityVal": 0,
                             "spriteID": 0,
-                            "defaultSpriteID": 2,
+                            "defaultSpriteID": 6,
                             "used": false
                         },
                         {
-                            "entityVal": 14,
+                            "entityVal": 4,
                             "spriteID": 0,
-                            "defaultSpriteID": 2,
+                            "defaultSpriteID": 29,
                             "used": false
                         }
                     ]
@@ -388,6 +388,11 @@
             {
                 "Sprite": {
                     "spriteName": "DAA2402_CardBaseBack_v01"
+                }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 4294967295
                 }
             }
         ]
