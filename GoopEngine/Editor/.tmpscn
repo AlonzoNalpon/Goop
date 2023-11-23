@@ -1,0 +1,180 @@
+[
+    {
+        "Name": "Player",
+        "ID": 0,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -350, 350, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -350, 350 }",
+                    "width": 150.0,
+                    "height": 150.0,
+                    "min": "{ -425, 275 }",
+                    "max": "{ -275, 425 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteName": "SS_MineWorm"
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MineWorm"
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "target": "{ -900, 0, 0 }",
+                            "duration": 0.3
+                        },
+                        {
+                            "target": "{ 0, -350, 0 }",
+                            "duration": 1.0
+                        },
+                        {
+                            "target": "{ 784, 250, 0 }",
+                            "duration": 5.0
+                        }
+                    ],
+                    "timeTaken": 3.0,
+                    "timeElapsed": 0.0,
+                    "originalPos": "{ 0, 0, 0 }",
+                    "started": false,
+                    "paused": false
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 0,
+                    "scriptMap": [
+                        "Player"
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 1",
+        "ID": 1,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 200, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 200, 0 }",
+                    "width": 150.0,
+                    "height": 150.0,
+                    "min": "{ 125, -75 }",
+                    "max": "{ 275, 75 }",
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Background",
+        "ID": 2,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, -997 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteName": "Background"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 3",
+        "ID": 3,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 4",
+        "ID": 4,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 0,
+                    "scriptMap": [
+                        "Stats"
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 5",
+        "ID": 5,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 1460661505,
+                    "scriptMap": [
+                        "Stats"
+                    ]
+                }
+            }
+        ]
+    }
+]

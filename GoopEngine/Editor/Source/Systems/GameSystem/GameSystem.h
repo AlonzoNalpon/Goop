@@ -9,6 +9,6 @@ namespace GE::Systems
   public:
     void Update();
 
-    void HandleEvent(GE::Events::Event const* event);
+    void HandleEvent(GE::Events::Event* event);
   };
 }

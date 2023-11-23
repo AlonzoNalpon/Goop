@@ -16,18 +16,26 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SceneManager.h"
 #include <Serialization/Serializer.h>
 #include <AssetManager/AssetManager.h>
+#include <Events/EventManager.h>
 
 using namespace GE::Scenes;
 
+SceneManager::SceneManager() : m_currentScene{ "Start" }, m_nextScene{ "Start" } {}
+
 void SceneManager::Init()
 {
+  m_tempScene = am->GetConfigData<std::string>("TempDir") + ".tmpscn";
+  // subscribe to scene events
+  Events::EventManager& em{ Events::EventManager::GetInstance() };
+  em.Subscribe<Events::StartSceneEvent>(this); em.Subscribe<Events::PauseSceneEvent>(this); em.Subscribe<Events::StopSceneEvent>(this);
+
   // Load data into map
   m_nextScene = m_currentScene = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("StartUpScn");
 }
 
 void SceneManager::LoadScene()
 {
-  scene.Load(m_currentScene);
+  scene.Load(GE::Assets::AssetManager::GetInstance().GetScene(m_currentScene));
 }
 
 void SceneManager::InitScene()
@@ -50,7 +58,7 @@ void SceneManager::SetNextScene(std::string nextScene)
   std::string tmpScene {m_currentScene};
   UnloadScene();
   FreeScene();
-  m_nextScene = m_currentScene = nextScene;
+  m_nextScene = m_currentScene = std::move(nextScene);
   
   try
   {
@@ -92,6 +100,19 @@ void GE::Scenes::SceneManager::RestartScene()
   InitScene();
 }
 
+void GE::Scenes::SceneManager::HandleEvent(Events::Event* event)
+{
+  switch (event->GetCategory())
+  {
+  case Events::EVENT_TYPE::START_SCENE:
+    TemporarySave();  // temporarily save scene before play
+    break;
+  case Events::EVENT_TYPE::STOP_SCENE:
+    LoadTemporarySave();  // revert to previous state before play
+    break;
+  }
+}
+
 void GE::Scenes::SceneManager::LoadSceneFromExplorer(std::string const& filepath)
 {
   std::string::size_type const startPos{ filepath.find_last_of("\\") + 1 };
@@ -127,8 +148,18 @@ void GE::Scenes::SceneManager::SaveScene() const
 
 void GE::Scenes::SceneManager::TemporarySave() const
 {
-  std::string const filepath{ am->GetConfigData<std::string>("TempDir") + m_tempScene + am->GetConfigData<std::string>("Scene File Extension") };
+  std::string const filepath{ m_tempScene };
   Serialization::Serializer::SerializeScene(filepath);
 
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Scene has been temporarily saved");
+}
+
+void GE::Scenes::SceneManager::LoadTemporarySave()
+{
+  UnloadScene();
+  FreeScene();
+
+  GE::Debug::ErrorLogger::GetInstance().LogMessage("Reverting scene's previous state...");
+  scene.Load(m_tempScene);
+  std::remove(m_tempScene.c_str()); // delete temp scene file
 }

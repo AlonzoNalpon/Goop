@@ -77,7 +77,6 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::EnemyAI>("EnemyAI")
-    //.constructor<>()
     .constructor<unsigned>()
     (
       rttr::parameter_names("treeID")

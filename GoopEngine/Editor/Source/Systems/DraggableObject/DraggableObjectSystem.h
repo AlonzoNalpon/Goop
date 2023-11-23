@@ -21,7 +21,7 @@ namespace GE
 			\param event
 				The event to handle
 			************************************************************************/
-			void HandleEvent(Events::Event const* event) override;
+			void HandleEvent(Events::Event* event) override;
 
 		private:
 			bool m_isHeld = false;
