@@ -1762,6 +1762,7 @@ namespace
 					EndCombo();
 				}
 				PopID();
+				++i;
 			}
 
 			Separator();
