@@ -53,12 +53,12 @@ void GE::Systems::GameSystem::Update()
       {
         if (name == "Stats")
         {
-          it = script;
+          it2 = script;
           break;
         }
       }
       double dt = frc.GetDeltaTime();
-      void* args[] = { &dt, &it.m_classInst, &game->m_player, &it2.m_classInst, &game->m_enemy };
+      void* args[] = { &dt, it.m_classInst, &game->m_player, it2.m_classInst, &game->m_enemy };
       mono_runtime_invoke(onUpdateFunc, game->m_gameSystemScript.m_classInst, args, nullptr);
     }
   }
