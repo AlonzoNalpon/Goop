@@ -58,6 +58,12 @@ namespace GE
 							case GE::Component::GE_Button::CHANGE_SCENE:
 								GE::GSM::GameStateManager::GetInstance().SetNextScene(entityButton->m_param);
 								break;
+							case GE::Component::GE_Button::UNPAUSE:
+							{
+								GE::ECS::Entity pauseMenu{ std::stoul(btn->m_param) };
+								m_ecs->SetIsActiveEntity(pauseMenu, false);
+								break;
+							}
 							default:
 								break;
 							}

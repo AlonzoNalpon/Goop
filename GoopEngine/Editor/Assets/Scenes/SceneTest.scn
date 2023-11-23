@@ -7,18 +7,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -350, 350, 0 }",
+                    "worldPos": "{ 784, 250, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -350, 350 }",
+                    "center": "{ 784, 250 }",
                     "width": 150.0,
                     "height": 150.0,
-                    "min": "{ -425, 275 }",
-                    "max": "{ -275, 425 }",
+                    "min": "{ 709, 175 }",
+                    "max": "{ 859, 325 }",
                     "render": false
                 }
             },
@@ -34,24 +34,11 @@
             },
             {
                 "Tween": {
-                    "tweens": [
-                        {
-                            "target": "{ -900, 0, 0 }",
-                            "duration": 0.3
-                        },
-                        {
-                            "target": "{ 0, -350, 0 }",
-                            "duration": 1.0
-                        },
-                        {
-                            "target": "{ 784, 250, 0 }",
-                            "duration": 5.0
-                        }
-                    ],
+                    "tweens": [],
                     "timeTaken": 3.0,
-                    "timeElapsed": 0.0,
-                    "originalPos": "{ 0, 0, 0 }",
-                    "started": false,
+                    "timeElapsed": 0.039999999999981814,
+                    "originalPos": "{ 784, 250, 0 }",
+                    "started": true,
                     "paused": false
                 }
             },
@@ -73,18 +60,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 200, 0, 0 }",
-                    "worldScale": "{ 0, 0, 0 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldPos": "{ 589.574, 33.4778, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 200, 0 }",
+                    "center": "{ 589.574, 33.4778 }",
                     "width": 150.0,
                     "height": 150.0,
-                    "min": "{ 125, -75 }",
-                    "max": "{ 275, 75 }",
+                    "min": "{ 514.574, -41.5222 }",
+                    "max": "{ 664.574, 108.478 }",
                     "render": true
                 }
             }
@@ -142,6 +129,16 @@
                 }
             },
             {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
+                    "render": true
+                }
+            },
+            {
                 "Sprite": {
                     "spriteName": "Pause_GreyOverlay"
                 }
@@ -174,18 +171,137 @@
         "Name": "Menu BG",
         "ID": 6,
         "Parent": 3,
-        "Child Entities": [],
+        "Child Entities": [
+            7,
+            8
+        ],
         "Components": [
             {
                 "Transform": {
                     "worldPos": "{ 0, 0, 0 }",
-                    "worldScale": "{ 500, 800, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Sprite": {
                     "spriteName": "Pause_BG"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Resume Button",
+        "ID": 7,
+        "Parent": 6,
+        "Child Entities": [
+            9
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, -300, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, -300 }",
+                    "width": 456.0,
+                    "height": 154.0,
+                    "min": "{ -228, -377 }",
+                    "max": "{ 228, -223 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteName": "Button_Base"
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "3",
+                    "eventType": "UNPAUSE"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Level Select Button",
+        "ID": 8,
+        "Parent": 6,
+        "Child Entities": [
+            10
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, -100, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteName": "Button_Base"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 9,
+        "Parent": 7,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -120, -325, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Resume",
+                    "clr": {
+                        "r": 0.8980392217636108,
+                        "g": 0.8352941274642944,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.25600001215934753,
+                    "fontID": 1
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 10,
+        "Parent": 8,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -185, -125, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Level Select",
+                    "clr": {
+                        "r": 0.8980392217636108,
+                        "g": 0.8352941274642944,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.25600001215934753,
+                    "fontID": 1
                 }
             }
         ]

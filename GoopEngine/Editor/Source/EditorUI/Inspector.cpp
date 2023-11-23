@@ -1070,6 +1070,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					EndTable();
 				}
+				Separator();
 				break;
 			}
 			default:

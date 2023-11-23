@@ -19,6 +19,7 @@ namespace GE::Component
 			SELECT_CARD,
 			UNSELECT_CARD,
 			CHANGE_SCENE,
+			UNPAUSE,
 			TOTAL_EVENTS,
 		};
 
