@@ -80,11 +80,11 @@ RTTR_REGISTRATION
     .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
     ;
 
-  rttr::registration::class_<Component::CardHolder::CardHolderElem>("CardHolderElem")
-    .property("entityVal", &Component::CardHolder::CardHolderElem::entityVal)
-    .property("spriteID", &Component::CardHolder::CardHolderElem::spriteID)
-    .property("defaultSpriteID", &Component::CardHolder::CardHolderElem::defaultSpriteID)
-    .property("used", &Component::CardHolder::CardHolderElem::used)
+  rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
+    .property("entityVal", &Component::CardHolder::CardHolderEntry::entityVal)
+    .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)
+    .property("defaultSpriteID", &Component::CardHolder::CardHolderEntry::defaultSpriteID)
+    .property("used", &Component::CardHolder::CardHolderEntry::used)
     ;
 
   /* ------------------- ENUMERATIONS ------------------- */
@@ -120,13 +120,14 @@ RTTR_REGISTRATION
       rttr::value("TOTAL_TYPES", GE::Component::Anchor::AnchorType::TOTAL_TYPES)
       );
 
-  rttr::registration::enumeration<GE::Component::GE_Button::ButtonEventType>("AnchorType")
+  rttr::registration::enumeration<GE::Component::GE_Button::ButtonEventType>("ButtonEventType")
     (
       rttr::value("NO_EVENT", GE::Component::GE_Button::ButtonEventType::NO_EVENT),
       rttr::value("SELECT_CARD", GE::Component::GE_Button::ButtonEventType::SELECT_CARD),
       rttr::value("UNSELECT_CARD", GE::Component::GE_Button::ButtonEventType::UNSELECT_CARD),
       rttr::value("CHANGE_SCENE", GE::Component::GE_Button::ButtonEventType::CHANGE_SCENE),
       rttr::value("UNPAUSE", GE::Component::GE_Button::ButtonEventType::UNPAUSE),
+      rttr::value("NEXT_TURN", GE::Component::GE_Button::ButtonEventType::NEXT_TURN),
       rttr::value("TOTAL_EVENTS", GE::Component::GE_Button::ButtonEventType::TOTAL_EVENTS)
       );
 
