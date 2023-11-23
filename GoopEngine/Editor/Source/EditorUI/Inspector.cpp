@@ -913,8 +913,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndCombo();
 					}
-					Separator();
 					InputText("Param", &button->m_param);
+					Separator();
 				}
 				break;
 			}
