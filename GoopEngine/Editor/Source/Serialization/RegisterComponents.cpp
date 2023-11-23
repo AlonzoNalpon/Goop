@@ -120,12 +120,18 @@ RTTR_REGISTRATION
     .property("paused", &Component::Tween::m_paused)
     ;
 
+  rttr::registration::class_<Component::Audio::Sound>("Sound")
+    .constructor<>()
+    .property("sound", &Component::Audio::Sound::m_sound)
+    .property("loop", &Component::Audio::Sound::m_loop)
+    .property("playOnStart", &Component::Audio::Sound::m_playOnStart)
+    .property("channel", &Component::Audio::Sound::m_channel)
+    .property("channel", &Component::Audio::Sound::m_volume)
+    ;
+
   rttr::registration::class_<Component::Audio>("Audio")
     .constructor<>()
-    .property("name", &Component::Audio::m_name)
-    .property("loop", &Component::Audio::m_loop)
-    .property("playOnStart", &Component::Audio::m_playOnStart)
-    .property("channel", &Component::Audio::channel)
+    .property("sounds", &Component::Audio::m_sounds)
     ;
 
   rttr::registration::class_<Component::GE_Button>("GE_Button")
