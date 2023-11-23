@@ -61,9 +61,9 @@
     <Compile Include="AI\SelectorNode.cs" />
     <Compile Include="AI\SequenceNode.cs" />
     <Compile Include="Cards\Attack.cs" />
+    <Compile Include="Cards\CardManager.cs" />
     <Compile Include="Cards\Rage.cs" />
     <Compile Include="Cards\Block.cs" />
-    <Compile Include="Cards\CardManager.cs" />
     <Compile Include="Cards\CardBase.cs" />
     <Compile Include="Cards\DawsonChargeUp.cs" />
     <Compile Include="Cards\DawsonSpeedUp.cs" />

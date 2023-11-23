@@ -240,11 +240,17 @@ namespace GoopScripts.Mono
 
     // /*!*********************************************************************
     //
-    //    Functions For Animation
+    //    Functions For Game System
     //
     //************************************************************************/
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static void PlayAnimation(string animname);
-  }
+    extern public static void PlayAnimation(string animName, uint entity);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		extern public static void PlaySound(int soundIterator, uint entity);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		extern public static void GameSystemResolved();
+	}
 
 }
