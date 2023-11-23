@@ -476,8 +476,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndCombo();
 					}
-					EndTable();
-					Separator();
 #pragma endregion
 #pragma region SPRITE_DEBUG_INFO 
 					int imageDims[2]{ static_cast<int>(spriteObj->m_spriteData.info.width), 
@@ -494,6 +492,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					if (ImGui::Button("Reset"))
 					{
 						auto const& texture{ textureManager.GetTexture(spriteObj->m_spriteData.texture) };
+						// Name's not necessary. Remove in the future if still not needed.
 						spriteObj->m_spriteName = textureManager.GetTextureName(spriteObj->m_spriteData.texture);
 						spriteObj->m_spriteData.texture = texture.textureHandle;
 						spriteObj->m_spriteData.info.height = texture.height;
@@ -501,6 +500,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 						spriteObj->m_spriteData.info.texDims = { 1.f, 1.f }; // default
 						spriteObj->m_spriteData.info.texCoords = {}; // bottom left
 					}
+					SameLine();
+					if (ImGui::Button("Force Width To Match Tex AR"))
+					{
+						auto const& texture{ textureManager.GetTexture(spriteObj->m_spriteData.texture) };
+						double ar = static_cast<double>(texture.width) / texture.height;
+						spriteObj->m_spriteData.info.width = static_cast<GLint>(spriteObj->m_spriteData.info.height * ar);
+					}
+
+					EndTable();
+					Separator();
 #pragma endregion
 				}
 				break;

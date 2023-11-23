@@ -112,7 +112,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -128,7 +128,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 2 }",
                     "worldScale": "{ 1920, 1080, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -185,7 +185,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -208,7 +208,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -300, 0 }",
+                    "worldPos": "{ 0, -300, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -247,7 +247,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -100, 0 }",
+                    "worldPos": "{ 0, -100, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -268,7 +268,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -120, -325, 0 }",
+                    "worldPos": "{ -120, -325, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -297,7 +297,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -185, -125, 0 }",
+                    "worldPos": "{ -185, -125, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -313,6 +313,143 @@
                     },
                     "scale": 0.25600001215934753,
                     "fontID": 1
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardHolder",
+        "ID": 11,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            12,
+            13,
+            14
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "CardHolder": {
+                    "elements": [
+                        {
+                            "entityVal": 12,
+                            "spriteID": 0,
+                            "defaultSpriteID": 2,
+                            "used": false
+                        },
+                        {
+                            "entityVal": 13,
+                            "spriteID": 0,
+                            "defaultSpriteID": 2,
+                            "used": false
+                        },
+                        {
+                            "entityVal": 14,
+                            "spriteID": 0,
+                            "defaultSpriteID": 2,
+                            "used": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "HElem1",
+        "ID": 12,
+        "isActive": true,
+        "Parent": 11,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -700, 320, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -700, 320 }",
+                    "width": 182.0,
+                    "height": 256.0,
+                    "min": "{ -791, 192 }",
+                    "max": "{ -609, 448 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteName": "DAA2402_CardBaseBack_v01"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "HElem2",
+        "ID": 13,
+        "isActive": true,
+        "Parent": 11,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -700, 50, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -700, 50 }",
+                    "width": 182.0,
+                    "height": 256.0,
+                    "min": "{ -791, -78 }",
+                    "max": "{ -609, 178 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteName": "DAA2402_CardBaseBack_v01"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "HElem3",
+        "ID": 14,
+        "isActive": true,
+        "Parent": 11,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -700, -220, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -700, -220 }",
+                    "width": 182.0,
+                    "height": 256.0,
+                    "min": "{ -791, -348 }",
+                    "max": "{ -609, -92 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteName": "DAA2402_CardBaseBack_v01"
                 }
             }
         ]
