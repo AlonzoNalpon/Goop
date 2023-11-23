@@ -27,7 +27,7 @@ namespace GE
       \param event
         The event to be handled
       ************************************************************************/
-      virtual void HandleEvent(Event const* event) = 0;
+      virtual void HandleEvent(Event* event) = 0;
 
     protected:
     };

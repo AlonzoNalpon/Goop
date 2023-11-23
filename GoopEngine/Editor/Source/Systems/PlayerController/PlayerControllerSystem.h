@@ -48,7 +48,7 @@ namespace GE
 			\param event
 				Event occuring.
 			************************************************************************/
-			void HandleEvent(Events::Event const* event) override;
+			void HandleEvent(Events::Event* event) override;
 
 			/*!*********************************************************************
 			\brief

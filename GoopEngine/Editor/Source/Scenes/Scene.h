@@ -27,11 +27,11 @@ namespace GE::Scenes
     \brief
       Loads the scene file and adds all the entities into the relevant maps.
 
-    \param sceneName
-      Scenename in string which should be automatically added by the asset
+    \param filepath
+      filepath in string which should be automatically added by the asset
       manager.
     ************************************************************************/
-    virtual void Load(std::string sceneName);
+    virtual void Load(std::string filepath);
 
     /*!*********************************************************************
     \brief

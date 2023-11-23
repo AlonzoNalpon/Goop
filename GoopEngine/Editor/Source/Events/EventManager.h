@@ -59,7 +59,9 @@ namespace GE
         The event to dispatch
       ************************************************************************/
       template <typename EventType>
-      void Dispatch(EventType const& event); // Dispatches / Triggers an event
+      void Dispatch(EventType& event); // Dispatches / Triggers an event
+      template <typename EventType>
+      void Dispatch(EventType&& event);
 
     private:
       // alias for function that handles events

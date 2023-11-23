@@ -13,6 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ImGui/imgui_internal.h>
 #include "SceneControls.h"
 #include "ImGuiUI.h"
+#include <Events/EventManager.h>
 
 using namespace ImGui;
 using namespace GE::EditorGUI;
@@ -26,10 +27,12 @@ void GE::EditorGUI::SceneControls::CreateContent()
     {
       if (Button(stop))
       {
+        Events::EventManager::GetInstance().Dispatch(Events::StopSceneEvent());
         ImGuiHelper::Restart();
       }
       if (Button(pause))
       {
+        Events::EventManager::GetInstance().Dispatch(Events::PauseSceneEvent());
         ImGuiHelper::Pause();
       }
       BeginDisabled();
@@ -54,6 +57,7 @@ void GE::EditorGUI::SceneControls::CreateContent()
     {
       if (Button(play))
       {
+        Events::EventManager::GetInstance().Dispatch(Events::StartSceneEvent());
         ImGuiHelper::Play();
       }
       BeginDisabled();

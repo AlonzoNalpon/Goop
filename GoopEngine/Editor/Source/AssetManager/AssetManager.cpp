@@ -400,7 +400,6 @@ namespace GE::Assets
 			m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(GoopUtils::ExtractPrevFolderAndFileName(path), TMID));
 			m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(TMID, GoopUtils::ExtractPrevFolderAndFileName(path)));
 		}
-		 
 		return TMID;
 	}
 
@@ -477,6 +476,12 @@ namespace GE::Assets
 		}
 
 		std::cout << std::endl;
+
+		std::cout << "==== [ m_loadedImages ] ====" << std::endl;
+		for (const auto& x : m_loadedImages)
+		{
+			std::cout << x.first << " : " << x.second.GetName() << std::endl;
+		}
 
 		std::cout << "==== [ m_loadedImagesStringLookUp ] ====" << std::endl;
 		for (const auto& x : m_loadedImagesStringLookUp)

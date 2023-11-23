@@ -63,7 +63,7 @@ void PlayerControllerSystem::FixedUpdate()
 	frc.EndSystemTimer("Player Controller");
 }
 
-void PlayerControllerSystem::HandleEvent(Events::Event const* event)
+void PlayerControllerSystem::HandleEvent(Events::Event* event)
 {
 	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 	for (Entity entity : m_entities) {
@@ -72,7 +72,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 		Sprite*	sprite = m_ecs->GetComponent<Sprite>(entity);
 		if (event->GetCategory() == Events::EVENT_TYPE::KEY_HELD)
 		{
-			KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
+			KEY_CODE const key{ static_cast<Events::KeyHeldEvent*>(event)->GetKey() };
 			if (key == GPK_H)
 			{
 				constexpr double ROTATE_SPEED{ 2.0 };
@@ -95,7 +95,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event const* event)
 		}
 		else if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
 		{
-			KEY_CODE const key{ static_cast<Events::KeyHeldEvent const*>(event)->GetKey() };
+			KEY_CODE const key{ static_cast<Events::KeyHeldEvent*>(event)->GetKey() };
 			if (key == GPK_K)
 			{
 				spriteAnim->m_currFrame = 0;

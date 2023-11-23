@@ -19,9 +19,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ImGui/backends/imgui_impl_opengl3.h>
 #include <ImGui/backends/imgui_impl_glfw.h>
 #include "../ImNode/NodeEditor.h"
-#include "../ObjectFactory/ObjectFactory.h"
-#include "../Component/Transform.h"
-#include "../Component/BoxCollider.h"
+#include <ObjectFactory/ObjectFactory.h>
+#include <Component/Transform.h>
+#include <Component/BoxCollider.h>
 #include <Systems/Audio/AudioSystem.h>
 #include "SceneHierachy.h"
 #include "ToolBar.h"
@@ -38,6 +38,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Commands/CommandManager.h>
 #include <ImGuizmo_1_83/ImGuizmo.h>
 #include <EditorUI/GizmoEditor.h>
+
 using namespace GE::EditorGUI;
 using namespace DataViz;
 using namespace ImGui;
@@ -405,7 +406,6 @@ bool GE::EditorGUI::ImGuiHelper::ShouldPlay()
 
 void GE::EditorGUI::ImGuiHelper::Play()
 {
-  GSM::GameStateManager::GetInstance().TemporarySave();
   m_play = true;
   m_step = false;
   m_pause = true;
@@ -427,6 +427,7 @@ void GE::EditorGUI::ImGuiHelper::Restart()
   m_restart = true;
   m_play = false;
   m_step = false;
+  m_pause = false;
 }
 
 bool GE::EditorGUI::ImGuiHelper::IsRunning()

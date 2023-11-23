@@ -269,7 +269,7 @@ namespace GE
 				Has component
 			************************************************************************/
 			template <typename T>
-			bool HasComponent(const Entity& entity);
+			bool HasComponent(const Entity& entity) const;
 
 			/*!*********************************************************************
 			\brief

@@ -14,7 +14,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rapidjson/IStreamWrapper.h>
 #include <Component/Components.h>
 #include <rttr/enumeration.h>
-#include <ObjectFactory/SerializeComponents.h>
 #include <rapidjson/prettywriter.h>
 #include <stdarg.h>
 #include <AssetManager/AssetManager.h>
@@ -137,22 +136,24 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
   ObjectFactory::ObjectFactory::EntityDataContainer ret{};
 
   // check if scn file contains all basic keys
-  if (!ScanJsonFileForMembers(document, 5,
+  if (!ScanJsonFileForMembers(document, 6,
     Serializer::JsonNameKey, rapidjson::kStringType, Serializer::JsonChildEntitiesKey, rapidjson::kArrayType,
     Serializer::JsonIdKey, rapidjson::kNumberType, Serializer::JsonParentKey, rapidjson::kNumberType,
-    Serializer::JsonComponentsKey, rapidjson::kArrayType)) { ifs.close(); return {}; }
+    Serializer::JsonComponentsKey, rapidjson::kArrayType, Serializer::JsonEntityStateKey, rapidjson::kFalseType)) { ifs.close(); return {}; }
 
   // okay code starts here
   for (auto const& entity : document.GetArray())
   {
     ECS::Entity const parent_id{ entity[Serializer::JsonParentKey].IsNull() ? ECS::INVALID_ID : entity[Serializer::JsonParentKey].GetUint() };
-    ObjectFactory::VariantEntity entityVar{ entity[Serializer::JsonNameKey].GetString(), parent_id };  // set parent
+    ObjectFactory::VariantEntity entityVar{ entity[Serializer::JsonNameKey].GetString(),
+      parent_id, entity[Serializer::JsonEntityStateKey].GetBool() };  // set parent
     // get child ids
     for (auto const& child : entity[Serializer::JsonChildEntitiesKey].GetArray())
     {
       entityVar.m_childEntities.emplace_back(child.GetUint());
     }
 
+    // restore components
     std::vector<rttr::variant>& compVector{ entityVar.m_components };
     for (auto const& elem : entity[Serializer::JsonComponentsKey].GetArray())
     {
@@ -322,9 +323,9 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
 
 void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const& compType, rapidjson::Value const& compJson)
 {
-#ifdef DESERIALIZER_DEBUG
-  std::cout << "  Type of component variant is " << compType << "\n";
-#endif
+  #ifdef DESERIALIZER_DEBUG
+  std::cout <<  "  Type of component variant is " << compType << "\n";
+  #endif
 
   // check for components that need to be handled differently
   if (!DeserializeOtherComponents(compVar, compType, compJson))
@@ -333,16 +334,16 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
     if (compCtr.get_parameter_infos().empty())  // if default ctr
     {
       compVar = compCtr.invoke();
-#ifdef DESERIALIZER_DEBUG
+      #ifdef DESERIALIZER_DEBUG
       std::cout << "  Invoking default ctor...\n";
-#endif
+      #endif
       DeserializeBasedOnType(compVar, compJson);
     }
     else
     {
-#ifdef DESERIALIZER_DEBUG
+      #ifdef DESERIALIZER_DEBUG
       std::cout << "  Invoking non-default ctor...\n";
-#endif
+      #endif
 
       std::vector<rttr::argument> args{};
       auto const properties{ compType.get_properties() };
@@ -364,18 +365,18 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
             }
 
             args.emplace_back(DeserializeElement(prop.get_type(), iter->value));
-#ifdef DESERIALIZER_DEBUG
+            #ifdef DESERIALIZER_DEBUG
             std::cout << "    Added " << param.get_name() << " of type " << args.back().get_type() << " to args list\n";
-#endif
+            #endif
             break;
           }
         }
       }
 
       compVar = compCtr.invoke_variadic(args);
-#ifdef DESERIALIZER_DEBUG
+      #ifdef DESERIALIZER_DEBUG
       std::cout << "    Invoked ctor, returning " << compVar.get_type() << "\n";
-#endif
+      #endif
     }
   }
 }
@@ -621,7 +622,20 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
           continue;
         }
 
-        if (!elem[keyName.c_str()].IsNull() && elem[keyName.c_str()].GetType() != type)
+        if ((type == rapidjson::kTrueType || type == rapidjson::kFalseType))
+        {
+          if (!elem[keyName.c_str()].IsBool())
+          {
+            std::ostringstream oss{};
+            oss << "Element \"" << keyName << "\" is not of type bool";
+            GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#ifdef _DEBUG
+            std::cout << oss.str() << "\n";
+#endif
+            status = false;
+          }
+        }
+        else if (!elem[keyName.c_str()].IsNull() && elem[keyName.c_str()].GetType() != type)
         {
           std::ostringstream oss{};
           oss << "Element \"" << keyName << "\" is not of rapidjson type:" << type;
@@ -630,7 +644,6 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
           std::cout << oss.str() << "\n";
           #endif
           status = false;
-          continue;
         }
       }
     }
@@ -651,7 +664,20 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
         continue;
       }
 
-      if (!document[keyName.c_str()].IsNull() && document[keyName.c_str()].GetType() != type)
+      if ((type == rapidjson::kTrueType || type == rapidjson::kFalseType))
+      {
+        if (!document[keyName.c_str()].IsBool())
+        {
+          std::ostringstream oss{};
+          oss << "Element \"" << keyName << "\" is not of type bool";
+          GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#ifdef _DEBUG
+          std::cout << oss.str() << "\n";
+#endif
+          status = false;
+        }
+      }
+      else if (!document[keyName.c_str()].IsNull() && document[keyName.c_str()].GetType() != type)
       {
         std::ostringstream oss{};
         oss << "Element \"" << keyName << "\" is not of rapidjson type:" << type;
@@ -660,7 +686,6 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
         std::cout << oss.str() << "\n";
         #endif
         status = false;
-        continue;
       }
     }
   }

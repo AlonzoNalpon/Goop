@@ -28,6 +28,7 @@ namespace GE
     // Both Serializer and Deserializer uses these to determine the name of  the keys
     const char Serializer::JsonNameKey[]          = "Name";
     const char Serializer::JsonIdKey[]            = "ID";
+    const char Serializer::JsonEntityStateKey[]   = "isActive";
     const char Serializer::JsonParentKey[]        = "Parent";
     const char Serializer::JsonChildEntitiesKey[] = "Child Entities";
     const char Serializer::JsonComponentsKey[]    = "Components";
@@ -101,6 +102,11 @@ namespace GE
       jsonId.SetUint(id);
       entity.AddMember(JsonIdKey, jsonId, allocator);
 
+      // serialize state
+      rapidjson::Value jsonState{};
+      jsonState.SetBool(ecs.GetIsActiveEntity(id));
+      entity.AddMember(JsonEntityStateKey, jsonState, allocator);
+
       // serialize parent id
       rapidjson::Value jsonParent{ rapidjson::kNullType };
       ECS::Entity const parentID{ ecs.GetParentEntity(id) };
@@ -110,6 +116,7 @@ namespace GE
       }
       entity.AddMember(JsonParentKey, jsonParent, allocator);
 
+      // serialize child entities
       rapidjson::Value childrenArr{ rapidjson::kArrayType };
       for (ECS::Entity const& child : ecs.GetChildEntities(id))
       {
@@ -207,17 +214,16 @@ namespace GE
 
     rttr::variant Serializer::GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type)
     {
+      ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
       switch (type)
       {
       case ECS::COMPONENT_TYPES::TRANSFORM:
       {
-        Component::Transform* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Transform>(id) };
-        return ret ? ret : rttr::variant();
+        return ecs.HasComponent<Component::Transform>(id) ? ecs.GetComponent<Component::Transform>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::BOX_COLLIDER:
       {
-        Component::BoxCollider* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::BoxCollider>(id) };
-        return ret ? ret : rttr::variant();
+        return ecs.HasComponent<Component::BoxCollider>(id) ? ecs.GetComponent<Component::BoxCollider>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::VELOCITY:
       {
@@ -226,63 +232,51 @@ namespace GE
       }
       case ECS::COMPONENT_TYPES::SCRIPTS:
       {
-        Component::Scripts* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Scripts>(id) };
-        return ret ? ret : rttr::variant();
+        return ecs.HasComponent<Component::Scripts>(id) ? ecs.GetComponent<Component::Scripts>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::SPRITE:
       {
-        Component::Sprite* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Sprite>(id) };
-        return ret ? ret : rttr::variant();
+        return ecs.HasComponent<Component::Sprite>(id) ? ecs.GetComponent<Component::Sprite>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::SPRITE_ANIM:
       {
-        Component::SpriteAnim* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::SpriteAnim>(id) };
-        return ret ? ret : rttr::variant();
+        return ecs.HasComponent<Component::SpriteAnim>(id) ? ecs.GetComponent<Component::SpriteAnim>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::TWEEN:
       {
-        Component::Tween* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Tween>(id) };
-        return ret ? ret : rttr::variant();
+        return ecs.HasComponent<Component::Tween>(id) ? ecs.GetComponent<Component::Tween>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::ENEMY_AI:
       {
-        Component::EnemyAI* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::EnemyAI>(id) };
-        return ret ? ret : rttr::variant();
+        return ecs.HasComponent<Component::EnemyAI>(id) ? ecs.GetComponent<Component::EnemyAI>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::DRAGGABLE:
       {
-        Component::Draggable* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Draggable>(id) };
-        return ret ? ret : rttr::variant();
+        return ecs.HasComponent<Component::Draggable>(id) ? ecs.GetComponent<Component::Draggable>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::TEXT:
       {
-        Component::Text* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Text>(id) };
-        return ret ? ret : rttr::variant();
+        return ecs.HasComponent<Component::Text>(id) ? ecs.GetComponent<Component::Text>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::AUDIO:
       {
-        Component::Audio* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Audio>(id) };
-        return ret ? ret : rttr::variant();
+        return ecs.HasComponent<Component::Audio>(id) ? ecs.GetComponent<Component::Audio>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::GE_BUTTON:
       {
-        Component::GE_Button* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::GE_Button>(id) };
-        return ret ? ret : rttr::variant();
+        return ecs.HasComponent<Component::GE_Button>(id) ? ecs.GetComponent<Component::GE_Button>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::ANCHOR:
       {
-        Component::Anchor* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Anchor>(id) };
-        return ret ? *ret : rttr::variant();
+        return ecs.HasComponent<Component::Anchor>(id) ? ecs.GetComponent<Component::Anchor>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::CARD:
       {
-        Component::Card* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Card>(id) };
-        return ret ? *ret : rttr::variant();
+        return ecs.HasComponent<Component::Card>(id) ? ecs.GetComponent<Component::Card>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::CARD_HOLDER:
       {
-        Component::CardHolder* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::CardHolder>(id) };
-        return ret ? *ret : rttr::variant();
+        return ecs.HasComponent<Component::CardHolder>(id) ? ecs.GetComponent<Component::CardHolder>(id) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::GAME:
       {

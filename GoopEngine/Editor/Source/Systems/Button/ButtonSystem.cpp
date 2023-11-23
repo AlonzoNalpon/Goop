@@ -29,7 +29,7 @@ namespace GE
 			}
 		}
 
-		void ButtonSystem::HandleEvent(Events::Event const* event)
+		void ButtonSystem::HandleEvent(Events::Event* event)
 		{
 			bool triggered = false;
 			for (GE::ECS::Entity entity : m_entities)
@@ -38,7 +38,7 @@ namespace GE
 
 				if (event->GetCategory() == Events::EVENT_TYPE::MOUSE_TRIGGERED)
 				{
-					if (static_cast<Events::MouseTriggeredEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT)
+					if (static_cast<Events::MouseTriggeredEvent*>(event)->GetKey() == GPK_MOUSE_LEFT)
 					{
 						GE::Component::BoxCollider* entity1Col = m_ecs->GetComponent<GE::Component::BoxCollider>(entity);
 						GE::Component::GE_Button* btn = m_ecs->GetComponent<GE::Component::GE_Button>(entity);

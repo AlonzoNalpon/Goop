@@ -14,6 +14,27 @@ namespace GE
 {
   namespace Events
   {
+    class StartSceneEvent : public Event
+    {
+    public:
+      StartSceneEvent() : Event(EVENT_TYPE::START_SCENE) {}
+      inline std::string GetName() const noexcept override { return "Scene Started"; }
+    };
+
+    class PauseSceneEvent : public Event
+    {
+    public:
+      PauseSceneEvent() : Event(EVENT_TYPE::PAUSE_SCENE) {}
+      inline std::string GetName() const noexcept override { return "Scene Paused"; }
+    };
+
+    class StopSceneEvent : public Event
+    {
+    public:
+      StopSceneEvent() : Event(EVENT_TYPE::STOP_SCENE) {}
+      inline std::string GetName() const noexcept override { return "Scene Stopped"; }
+    };
+
     class WindowLoseFocusEvent : public Event
     {
     public:

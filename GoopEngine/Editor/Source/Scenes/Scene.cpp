@@ -21,11 +21,11 @@ using namespace GE;
 using namespace ECS;
 using namespace Component;
 
-void GE::Scenes::Scene::Load(std::string scene_name)
+void GE::Scenes::Scene::Load(std::string filepath)
 {
 	ecs = { &GE::ECS::EntityComponentSystem::GetInstance() };
 	of = { &GE::ObjectFactory::ObjectFactory::GetInstance() };
-	of->LoadSceneJson(scene_name);
+	of->LoadSceneJson(filepath);
 	GE::Systems::EnemySystem::InitTree();
 }
 
@@ -54,7 +54,7 @@ void GE::Scenes::Scene::TestScene()
 {
 	
 	of->ClearSceneObjects();
-	of->LoadSceneJson("SceneTest");
+	of->LoadSceneJson(GE::Assets::AssetManager::GetInstance().GetScene("SceneTest"));
 	std::set<Entity> stackObj;
 	of->LoadSceneObjects(stackObj);
 	Entity gameSys = ecs->CreateEntity();

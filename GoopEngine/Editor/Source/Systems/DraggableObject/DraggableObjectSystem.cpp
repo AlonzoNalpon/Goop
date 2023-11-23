@@ -60,18 +60,18 @@ void DraggableObjectSystem::Update()
 	frc.EndSystemTimer("Draggable Objects");
 }
 
-void DraggableObjectSystem::HandleEvent(Events::Event const* event)
+void DraggableObjectSystem::HandleEvent(Events::Event* event)
 {
 	if (event->GetCategory() == Events::EVENT_TYPE::MOUSE_HELD)
 	{
-		if (static_cast<Events::MouseHeldEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT) 
+		if (static_cast<Events::MouseHeldEvent*>(event)->GetKey() == GPK_MOUSE_LEFT) 
 		{ 
 			m_isHeld = true;
 		}
 	}
 	else if (event->GetCategory() == Events::EVENT_TYPE::MOUSE_RELEASED)
 	{
-		if (static_cast<Events::MouseReleasedEvent const*>(event)->GetKey() == GPK_MOUSE_LEFT)
+		if (static_cast<Events::MouseReleasedEvent*>(event)->GetKey() == GPK_MOUSE_LEFT)
 		{
 			m_isHeld = false;
 		}

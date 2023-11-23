@@ -2,6 +2,7 @@
     {
         "Name": "Right Eye",
         "ID": 0,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -30,6 +31,7 @@
     {
         "Name": "Left Eye",
         "ID": 1,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -55,6 +57,7 @@
     {
         "Name": "Entity 19",
         "ID": 2,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [
             16,
@@ -65,7 +68,7 @@
                 "Transform": {
                     "worldPos": "{ 1.59175e+06, -6705, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             }
         ]
@@ -73,6 +76,7 @@
     {
         "Name": "Entity 18",
         "ID": 3,
+        "isActive": true,
         "Parent": 7,
         "Child Entities": [],
         "Components": [
@@ -88,6 +92,7 @@
     {
         "Name": "Entity 17",
         "ID": 4,
+        "isActive": true,
         "Parent": 5,
         "Child Entities": [],
         "Components": [
@@ -103,6 +108,7 @@
     {
         "Name": "Entity 16",
         "ID": 5,
+        "isActive": true,
         "Parent": 7,
         "Child Entities": [
             4,
@@ -121,6 +127,7 @@
     {
         "Name": "Entity 15",
         "ID": 6,
+        "isActive": true,
         "Parent": 5,
         "Child Entities": [
             12
@@ -138,6 +145,7 @@
     {
         "Name": "x worldPos changing",
         "ID": 7,
+        "isActive": true,
         "Parent": 18,
         "Child Entities": [
             3,
@@ -156,6 +164,7 @@
     {
         "Name": "Head",
         "ID": 8,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -181,6 +190,7 @@
     {
         "Name": "Right Leg",
         "ID": 9,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -206,6 +216,7 @@
     {
         "Name": "Left Leg",
         "ID": 10,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -231,6 +242,7 @@
     {
         "Name": "Right Arm",
         "ID": 11,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -256,6 +268,7 @@
     {
         "Name": "on",
         "ID": 12,
+        "isActive": true,
         "Parent": 6,
         "Child Entities": [],
         "Components": [
@@ -271,6 +284,7 @@
     {
         "Name": "going",
         "ID": 13,
+        "isActive": true,
         "Parent": 19,
         "Child Entities": [],
         "Components": [
@@ -286,6 +300,7 @@
     {
         "Name": "is",
         "ID": 14,
+        "isActive": true,
         "Parent": 18,
         "Child Entities": [],
         "Components": [
@@ -301,6 +316,7 @@
     {
         "Name": "what",
         "ID": 15,
+        "isActive": true,
         "Parent": 17,
         "Child Entities": [],
         "Components": [
@@ -316,6 +332,7 @@
     {
         "Name": "what",
         "ID": 16,
+        "isActive": true,
         "Parent": 2,
         "Child Entities": [
             24
@@ -333,6 +350,7 @@
     {
         "Name": "and this too",
         "ID": 17,
+        "isActive": true,
         "Parent": 18,
         "Child Entities": [
             15
@@ -350,6 +368,7 @@
     {
         "Name": "same for this",
         "ID": 18,
+        "isActive": true,
         "Parent": 19,
         "Child Entities": [
             7,
@@ -369,6 +388,7 @@
     {
         "Name": "y worldPos changing",
         "ID": 19,
+        "isActive": true,
         "Parent": 2,
         "Child Entities": [
             13,
@@ -387,6 +407,7 @@
     {
         "Name": "Left Arm",
         "ID": 20,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -412,6 +433,7 @@
     {
         "Name": "Body",
         "ID": 21,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -437,6 +459,7 @@
     {
         "Name": "Mouth",
         "ID": 22,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -462,6 +485,7 @@
     {
         "Name": "Hat Bottom",
         "ID": 23,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -487,6 +511,7 @@
     {
         "Name": "rip",
         "ID": 24,
+        "isActive": true,
         "Parent": 16,
         "Child Entities": [
             25
@@ -504,6 +529,7 @@
     {
         "Name": "Entity 25",
         "ID": 25,
+        "isActive": true,
         "Parent": 24,
         "Child Entities": [
             26
@@ -521,6 +547,7 @@
     {
         "Name": "Entity 26",
         "ID": 26,
+        "isActive": true,
         "Parent": 25,
         "Child Entities": [],
         "Components": [
@@ -536,6 +563,7 @@
     {
         "Name": "Hat Top",
         "ID": 27,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -561,6 +589,7 @@
     {
         "Name": "Hammer Handle",
         "ID": 28,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -586,6 +615,7 @@
     {
         "Name": "Hammer Face",
         "ID": 29,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
