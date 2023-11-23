@@ -22,6 +22,7 @@ namespace GoopScripts.Player
 {
   public class PlayerScriptTest : MonoBehaviour
   {
+    public float scriptTestFloat = 69.0f;
 
     /*!*********************************************************************
    \brief

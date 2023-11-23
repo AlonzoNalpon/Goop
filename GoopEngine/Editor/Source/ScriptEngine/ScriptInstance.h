@@ -17,6 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <iostream>
 #include <fstream>
 #include <Math/GEM.h>
+#include <any>
 #include "../ECS/EntityComponentSystem.h"
 #include <ScriptEngine/ScripUtils.h>
 
@@ -25,7 +26,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 namespace GE {
 	namespace MONO {
 
-		const size_t maxBufferSize{ 10000000 };
+		const size_t maxBufferSize{ 1000 };
 
 		struct ScriptField
 		{
@@ -34,14 +35,28 @@ namespace GE {
 			MonoClassField* m_classField;
 		};
 
+		template<typename T>
+		struct ScriptFieldInstance
+		{
+			ScriptField m_scriptField;
+			T m_data;
+		};
+
+
 		struct ScriptClassInfo
 		{
 			MonoClass* m_scriptClass{ nullptr };
 			std::map<std::string, ScriptField> m_ScriptFieldMap;
+		};
 
+		struct ScriptFieldInstInfo
+		{
+			MonoClass* m_scriptClass{ nullptr };
+			std::map<std::string, std::any> m_ScriptFieldMap;
 		};
 
 		struct ScriptInstance{
+			std::string m_scriptName;
 			ScriptClassInfo m_scriptClassInfo{ nullptr };
 			MonoObject* m_classInst{ nullptr };
 			MonoMethod* m_onUpdateMethod{ nullptr };
