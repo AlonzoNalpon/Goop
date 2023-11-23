@@ -65,7 +65,7 @@ void ScriptInstance::InvokeOnCreate()
 void ScriptInstance::GetFields()
 {
   GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
-  ScriptClassInfo sci = sm->GetScriptField(m_scriptName);
+  ScriptClassInfo sci = sm->GetScriptClassInfo(m_scriptName);
 	const auto& fields = sci.m_ScriptFieldMap;
 	for (const auto& [fieldName, field] : fields)
 	{
