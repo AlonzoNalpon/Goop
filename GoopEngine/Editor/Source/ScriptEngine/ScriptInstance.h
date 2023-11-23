@@ -77,6 +77,8 @@ namespace GE {
 
 			ScriptInstance(const std::string& scriptName);
 
+			void GetFields();
+
 
 			/*!*********************************************************************
 			\brief
@@ -104,10 +106,10 @@ namespace GE {
 
 			void InvokeOnUpdate(double dt);
 
-			/*template<typename T>
-			T GetFieldValue(const std::string& name)
+			template<typename T>
+			T GetFieldValue(MonoClassField* field)
 			{
-				if constexpr (sizeof(T) > maxBufferSize)
+				/*if constexpr (sizeof(T) > maxBufferSize)
 				{
 					throw GE::Debug::Exception<ScriptInstance>(GE::Debug::LEVEL_ERROR, "Data type you provided is too big ", ERRLG_FUNC, ERRLG_LINE);
 				}
@@ -116,19 +118,18 @@ namespace GE {
 				if (it == m_scriptClassInfo.m_ScriptFieldMap.end())
 				{
 					throw GE::Debug::Exception<ScriptInstance>(GE::Debug::LEVEL_ERROR, "This class does not contain such data type " , ERRLG_FUNC, ERRLG_LINE);
-				}
+				}*/
 					
-				const ScriptField& field = it->second;
-				mono_field_get_value(m_classInst, field.m_classField, m_fieldValBuffer);
+				mono_field_get_value(m_classInst, field, m_fieldValBuffer);
 				return *(T*)m_fieldValBuffer;
 			}
 
 
 			template<typename T>
-			std::vector<T> GetFieldValueArr(const std::string& name, MonoDomain* md)
+			std::vector<T> GetFieldValueArr(MonoDomain* md, MonoClassField* field)
 			{
-				auto it = m_scriptClassInfo.m_ScriptFieldMap.find(name);
-				MonoClassField* field = it->second.m_classField;
+				//auto it = m_scriptClassInfo.m_ScriptFieldMap.find(name);
+				//MonoClassField* field = it->second.m_classField;
 				MonoArray* newArray{};
 				
 				mono_field_get_value(m_classInst, field, &newArray);
@@ -141,35 +142,35 @@ namespace GE {
 
 				return test;
 			}
-		*/
+		
 
-		/*	template<typename T>
-			void SetFieldValue(const std::string& name, T value)
+			template<typename T>
+			void SetFieldValue( T value, MonoClassField* field)
 			{
-				if constexpr (sizeof(T) > maxBufferSize)
-				{
-					GE::Debug::ErrorLogger::GetInstance().LogWarning("Data type you provided is too big", false);
-				}
-				auto it = m_scriptClassInfo.m_ScriptFieldMap.find(name);
-				if (it == m_scriptClassInfo.m_ScriptFieldMap.end())
-					GE::Debug::ErrorLogger::GetInstance().LogWarning("This class does not contain such data type", false);
+				//if constexpr (sizeof(T) > maxBufferSize)
+				//{
+				//	GE::Debug::ErrorLogger::GetInstance().LogWarning("Data type you provided is too big", false);
+				//}
+				//auto it = m_scriptClassInfo.m_ScriptFieldMap.find(name);
+				//if (it == m_scriptClassInfo.m_ScriptFieldMap.end())
+				//	GE::Debug::ErrorLogger::GetInstance().LogWarning("This class does not contain such data type", false);
 
-				const ScriptField& field = it->second;
+				//const ScriptField& field = it->second;
 				std::memcpy(m_fieldValBuffer, &value, sizeof(T));
-				mono_field_set_value(m_classInst, field.m_classField, m_fieldValBuffer);
+				mono_field_set_value(m_classInst, field, m_fieldValBuffer);
 			}
 
 
 			template<typename T>
-			void SetFieldValueArr(const std::string& name, std::vector<T> value, MonoDomain* md)
+			void SetFieldValueArr( std::vector<T> value, MonoDomain* md, MonoClassField* field)
 			{
-				if constexpr (sizeof(T) > maxBufferSize)
-				{
-					GE::Debug::ErrorLogger::GetInstance().LogWarning("Data type you provided is too big", false);
-				}
-				auto it = m_scriptClassInfo.m_ScriptFieldMap.find(name);
-				if (it == m_scriptClassInfo.m_ScriptFieldMap.end())
-					GE::Debug::ErrorLogger::GetInstance().LogWarning("This class does not contain such data type", false);
+				//if constexpr (sizeof(T) > maxBufferSize)
+				//{
+				//	GE::Debug::ErrorLogger::GetInstance().LogWarning("Data type you provided is too big", false);
+				//}
+				//auto it = m_scriptClassInfo.m_ScriptFieldMap.find(name);
+				//if (it == m_scriptClassInfo.m_ScriptFieldMap.end())
+				//	GE::Debug::ErrorLogger::GetInstance().LogWarning("This class does not contain such data type", false);
 
 
 				MonoArray* newArray = GetMonoArray<T>(md, value.size());
@@ -177,9 +178,9 @@ namespace GE {
 					mono_array_set(newArray, int, i, value[i]);
 				}
 
-				const ScriptField& field = it->second;
-				mono_field_set_value(m_classInst, field.m_classField , newArray);
-			}*/
+				//const ScriptField& field = it->second;
+				mono_field_set_value(m_classInst, field , newArray);
+			}
 		};
 		
 	}
