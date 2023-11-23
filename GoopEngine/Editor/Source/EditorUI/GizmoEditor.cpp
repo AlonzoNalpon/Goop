@@ -35,7 +35,8 @@ namespace GE::EditorGUI
   {
     GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
     auto trans = ecs.GetComponent<GE::Component::Transform>(g_gizmoInfo.entity);
-
+    if (!trans)
+      return;
     // Reassign the new transform
     float newScale[3], newRotation[3], newTrans[3];
     ImGuizmo::DecomposeMatrixToComponents(g_gizmoInfo.trans, newTrans, newRotation, newScale);
