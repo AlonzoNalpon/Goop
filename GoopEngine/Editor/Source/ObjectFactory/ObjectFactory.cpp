@@ -156,6 +156,9 @@ void ObjectFactory::RegisterComponentsAndSystems() const
     case COMPONENT_TYPES::CARD_HOLDER:
       ecs.RegisterComponent<GE::Component::CardHolder>();
       break;
+    case COMPONENT_TYPES::CARD_HOLDER_ELEM:
+      ecs.RegisterComponent<GE::Component::CardHolderElem>();
+      break;
     default:
       std::ostringstream oss{};
       oss << "Trying to register unknown component type, " << " update function: ObjectFactory::RegisterComponentsAndSystems()";

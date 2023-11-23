@@ -278,6 +278,10 @@ namespace GE
       {
         return ecs.HasComponent<Component::CardHolder>(id) ? ecs.GetComponent<Component::CardHolder>(id) : rttr::variant();
       }
+      case ECS::COMPONENT_TYPES::CARD_HOLDER_ELEM:
+      {
+        return ecs.HasComponent<Component::CardHolderElem>(id) ? ecs.GetComponent<Component::CardHolderElem>(id) : rttr::variant();
+      }
       case ECS::COMPONENT_TYPES::GAME:
       {
         Component::Game* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Game>(id) };

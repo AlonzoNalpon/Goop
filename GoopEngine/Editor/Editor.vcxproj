@@ -306,6 +306,7 @@
     <ClInclude Include="Source\Component\Button.h" />
     <ClInclude Include="Source\Component\Card.h" />
     <ClInclude Include="Source\Component\CardHolder.h" />
+    <ClInclude Include="Source\Component\CardHolderElem.h" />
     <ClInclude Include="Source\Events\Events.h" />
     <ClInclude Include="Source\Fmod\FmodSystem.h" />
     <ClInclude Include="Source\Commands\CommandManager.h" />

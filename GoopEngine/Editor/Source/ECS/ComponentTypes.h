@@ -35,6 +35,7 @@ namespace GE
 			GE_BUTTON,
 			CARD,
 			CARD_HOLDER,
+			CARD_HOLDER_ELEM,
 			COMPONENTS_TOTAL
 		};
 
@@ -60,7 +61,8 @@ namespace GE
 			{ COMPONENT_TYPES::ANCHOR, "Anchor" },
 			{ COMPONENT_TYPES::GE_BUTTON, "Button" },
 			{ COMPONENT_TYPES::CARD, "Card" },
-			{ COMPONENT_TYPES::CARD_HOLDER, "CardHolder"}
+			{ COMPONENT_TYPES::CARD_HOLDER, "CardHolder"},
+			{ COMPONENT_TYPES::CARD_HOLDER_ELEM, "CardHolderElem"}
 		};
 
 		// Const map so only interated through ranged for,
@@ -82,7 +84,8 @@ namespace GE
 			{ "Game", COMPONENT_TYPES::GAME },
 			{ "Anchor", COMPONENT_TYPES::ANCHOR },
 			{ "Card", COMPONENT_TYPES::CARD },
-			{ "CardHolder",  COMPONENT_TYPES::CARD_HOLDER}
+			{ "CardHolder",  COMPONENT_TYPES::CARD_HOLDER},
+			{ "CardHolderElem", COMPONENT_TYPES::CARD_HOLDER_ELEM }
 		};
 
 		/*!*********************************************************************
