@@ -120,13 +120,14 @@ RTTR_REGISTRATION
       rttr::value("TOTAL_TYPES", GE::Component::Anchor::AnchorType::TOTAL_TYPES)
       );
 
-  rttr::registration::enumeration<GE::Component::GE_Button::ButtonEventType>("AnchorType")
+  rttr::registration::enumeration<GE::Component::GE_Button::ButtonEventType>("ButtonEventType")
     (
       rttr::value("NO_EVENT", GE::Component::GE_Button::ButtonEventType::NO_EVENT),
       rttr::value("SELECT_CARD", GE::Component::GE_Button::ButtonEventType::SELECT_CARD),
       rttr::value("UNSELECT_CARD", GE::Component::GE_Button::ButtonEventType::UNSELECT_CARD),
       rttr::value("CHANGE_SCENE", GE::Component::GE_Button::ButtonEventType::CHANGE_SCENE),
       rttr::value("UNPAUSE", GE::Component::GE_Button::ButtonEventType::UNPAUSE),
+      rttr::value("NEXT_TURN", GE::Component::GE_Button::ButtonEventType::NEXT_TURN),
       rttr::value("TOTAL_EVENTS", GE::Component::GE_Button::ButtonEventType::TOTAL_EVENTS)
       );
 
