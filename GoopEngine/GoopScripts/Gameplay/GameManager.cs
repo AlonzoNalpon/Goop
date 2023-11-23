@@ -36,6 +36,9 @@ namespace GoopScripts.Gameplay
 				m_numResolves = player.m_cardQueue.Length >= enemy.m_cardQueue.Length ? player.m_cardQueue.Length : enemy.m_cardQueue.Length;
         newTurn = false;
 
+				Console.WriteLine("Player health " + player.m_health);
+				Console.WriteLine("Enemy health " + enemy.m_health);
+
 				Console.WriteLine("Player queue size " + player.m_cardQueue.Length);
 				Console.WriteLine("Enemy queue size " + enemy.m_cardQueue.Length);
 				// Do 1 turn of stuff
