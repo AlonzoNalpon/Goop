@@ -48,18 +48,12 @@ namespace GE::ObjectFactory
       Empties the loaded map of object data.
     ************************************************************************/
     void EmptyMap();
-
-#ifndef RTTR_DESERIALIZE
+    
     /*!*********************************************************************
     \brief
-      Creates an entity with the given object.
-    \param
-      ObjectData (Data to be converted into an entity)
+      Extracts a component from an rttr::variant and adds it to an entity
     ************************************************************************/
-    void AddComponentToObject(ECS::Entity id, ObjectData const& data) const;
-#else
     void AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const;
-#endif
 
     /*!*********************************************************************
     \brief
@@ -111,7 +105,6 @@ namespace GE::ObjectFactory
     ************************************************************************/
     void ReloadPrefabs();
 
-#ifdef RTTR_DESERIALIZE
     /*!*********************************************************************
     \brief
       Loads the data into the class map.
@@ -119,7 +112,6 @@ namespace GE::ObjectFactory
       String& (filepath of the serialized file)
     ************************************************************************/
     void AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const;
-#endif
 
     /*!*********************************************************************
     \brief
@@ -164,14 +156,10 @@ namespace GE::ObjectFactory
       std::set<ECS::Entity>& entities{ ECS::EntityComponentSystem::GetInstance().GetSystem<T>()->GetEntities() };
       if (entities.find(entity) != entities.end()) { sig[static_cast<unsigned>(type)] = true; }
     }
-
-#ifndef RTTR_DESERIALIZE
-    std::vector<std::pair<ECS::Entity, ObjectData>> m_deserialized;   // Map of objects with pair of name, and ObjectData.
-    std::unordered_map<std::string, ObjectData> m_prefabs;  // Map of prefabs with pair of name, and ObjectData.
-#else
+    
     EntityDataContainer m_deserialized;   // Container of deserialized entity data in format <id, data>
     PrefabDataContainer m_prefabs;        // Map of deserialized prefab data in format <name, data>
-#endif
+
   };
   #include "ObjectFactory.tpp"
 }

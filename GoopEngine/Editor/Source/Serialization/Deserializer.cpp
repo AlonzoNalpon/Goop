@@ -14,7 +14,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rapidjson/IStreamWrapper.h>
 #include <Component/Components.h>
 #include <rttr/enumeration.h>
-#include <ObjectFactory/SerializeComponents.h>
 #include <rapidjson/prettywriter.h>
 #include <stdarg.h>
 #include <AssetManager/AssetManager.h>
