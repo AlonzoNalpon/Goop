@@ -339,19 +339,22 @@
                 "CardHolder": {
                     "elements": [
                         {
-                            "entityVal": 12,
+                            "elemEntity": 12,
+                            "cardEntity": 16,
+                            "spriteID": 15,
+                            "defaultSpriteID": 2,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 13,
+                            "cardEntity": 4294967295,
                             "spriteID": 0,
                             "defaultSpriteID": 2,
                             "used": false
                         },
                         {
-                            "entityVal": 13,
-                            "spriteID": 0,
-                            "defaultSpriteID": 2,
-                            "used": false
-                        },
-                        {
-                            "entityVal": 14,
+                            "elemEntity": 14,
+                            "cardEntity": 4294967295,
                             "spriteID": 0,
                             "defaultSpriteID": 2,
                             "used": false

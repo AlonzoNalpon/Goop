@@ -1022,19 +1022,32 @@ void GE::EditorGUI::Inspector::CreateContent()
 							ImGui::TextColored(ImVec4{ 1.f, 1.f, 0.f, 1.f }, 
 								("Element: " + std::to_string(currElement)).c_str());
 							{
-								// THE ENTITY VALUE
+								// THE DST ENTITY VALUE
 								{
-									ImGui::Text("Entity ID: ");
+									ImGui::Text("Elem Entity: ");
 									SameLine();
-									int newVal{ static_cast<int>(element.entityVal) };
-									if (InputInt(("##CDEntID" + std::to_string(currElement)).c_str(), &newVal))
+									int newVal{ static_cast<int>(element.elemEntity) };
+									if (InputInt(("##CDElmID" + std::to_string(currElement)).c_str(), &newVal))
 									{
-										element.entityVal = newVal;
+										element.elemEntity = newVal;
 										
 										// get other sprite component if it exists
-										if (ecs.HasComponent<Sprite>(element.entityVal))
+										if (ecs.HasComponent<Sprite>(element.elemEntity))
 										{
-											auto* spriteComp = ecs.GetComponent<Sprite>(element.entityVal);
+											auto* spriteComp = ecs.GetComponent<Sprite>(element.elemEntity);
+											element.defaultSpriteID = spriteComp->m_spriteData.texture;
+										}
+										else
+										{
+											element.defaultSpriteID = 0; // invalid
+										}
+									}
+									if (element.elemEntity != ECS::INVALID_ID)
+									{
+										// get other sprite component if it exists
+										if (ecs.HasComponent<Sprite>(element.elemEntity))
+										{
+											auto* spriteComp = ecs.GetComponent<Sprite>(element.elemEntity);
 											element.defaultSpriteID = spriteComp->m_spriteData.texture;
 										}
 										else
@@ -1044,6 +1057,29 @@ void GE::EditorGUI::Inspector::CreateContent()
 									}
 								}
 								
+								// THE SRC ENTITY VALUE
+								{
+									ImGui::Text("Card Entity: ");
+									SameLine();
+									int newVal{ static_cast<int>(element.cardEntity) };
+									if (InputInt(("##CDEntID" + std::to_string(currElement)).c_str(), &newVal))
+									{
+										element.cardEntity = newVal;
+									}
+									if (element.cardEntity != ECS::INVALID_ID)
+									{
+										// get other sprite component if it exists
+										if (ecs.HasComponent<Sprite>(element.cardEntity))
+										{
+											auto* spriteComp = ecs.GetComponent<Sprite>(element.cardEntity);
+											element.spriteID = spriteComp->m_spriteData.texture;
+										}
+										else
+										{
+											element.spriteID = 0; // invalid
+										}
+									}
+								}
 								// THE SPRITE ID (FOR REFERENCE)
 								{
 									BeginDisabled(true);
@@ -1051,14 +1087,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 									ImGui::Text("Default Sprite: ");
 									SameLine();
 									auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
-									if (element.defaultSpriteID)
+									if (element.elemEntity != ECS::INVALID_ID && element.defaultSpriteID)
 									{
 										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f },
 											(textureManager.GetTextureName(element.defaultSpriteID)
 												+ std::string(" | ")).c_str());
 										SameLine();
 										ImGui::TextColored(ImVec4{ 1.f, .7333f, 0.f, 1.f },
-											ecs.GetEntityName(element.entityVal).c_str());
+											ecs.GetEntityName(element.elemEntity).c_str());
 									}
 									else
 									{
@@ -1068,10 +1104,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 									// USED SPRITE
 									ImGui::Text("Used Sprite: ");
 									SameLine();
-									if (element.spriteID)
+									if (element.cardEntity != ECS::INVALID_ID && element.spriteID)
 									{
-										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f }, 
-											textureManager.GetTextureName(element.spriteID).c_str());
+										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f },
+											(textureManager.GetTextureName(element.spriteID)
+												+ std::string(" | ")).c_str());
+										SameLine();
+										ImGui::TextColored(ImVec4{ 1.f, .7333f, 0.f, 1.f },
+											ecs.GetEntityName(element.cardEntity).c_str());
 									}
 									else
 									{
