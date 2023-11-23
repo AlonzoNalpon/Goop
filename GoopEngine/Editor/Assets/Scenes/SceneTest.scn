@@ -330,7 +330,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -339,21 +339,21 @@
                 "CardHolder": {
                     "elements": [
                         {
-                            "entityVal": 2,
+                            "entityVal": 12,
                             "spriteID": 0,
-                            "defaultSpriteID": 14,
+                            "defaultSpriteID": 2,
                             "used": false
                         },
                         {
-                            "entityVal": 0,
+                            "entityVal": 13,
                             "spriteID": 0,
-                            "defaultSpriteID": 6,
+                            "defaultSpriteID": 2,
                             "used": false
                         },
                         {
-                            "entityVal": 4,
+                            "entityVal": 14,
                             "spriteID": 0,
-                            "defaultSpriteID": 29,
+                            "defaultSpriteID": 2,
                             "used": false
                         }
                     ]
@@ -391,6 +391,12 @@
                 }
             },
             {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "UNSELECT_CARD"
+                }
+            },
+            {
                 "CardHolderElem": {
                     "holder": 4294967295
                 }
@@ -425,6 +431,12 @@
                 "Sprite": {
                     "spriteName": "DAA2402_CardBaseBack_v01"
                 }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "UNSELECT_CARD"
+                }
             }
         ]
     },
@@ -455,6 +467,67 @@
             {
                 "Sprite": {
                     "spriteName": "DAA2402_CardBaseBack_v01"
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "UNSELECT_CARD"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PlayerHand",
+        "ID": 15,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            16
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "HCard1",
+        "ID": 16,
+        "isActive": true,
+        "Parent": 15,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -400, -350, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -400, -350 }",
+                    "width": 214.0,
+                    "height": 300.0,
+                    "min": "{ -507, -500 }",
+                    "max": "{ -293, -200 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteName": "DAA2402_Card_LeahAttack_Slash"
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "BASIC_LUNGE_ATTACK",
+                    "tgtEntity": 11
                 }
             }
         ]

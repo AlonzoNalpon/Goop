@@ -933,6 +933,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 						card->tgtEntity = newVal;
 
 						// check if entity has card holder
+						{
+							if (ecs.HasComponent<CardHolder>(card->tgtEntity))
+							{
+								ImGui::TextColored({ 0.f, 1.f, 0.f, 1.f }, "Target Has Holder Component");
+							}
+							else
+							{
+								ImGui::TextColored({ 1.f, 0.f, 0.f, 1.f }, "Target Missing Holder Component");
+							}
+						}
 
 
 						Separator();
