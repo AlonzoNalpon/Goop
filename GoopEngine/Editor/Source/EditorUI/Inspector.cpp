@@ -881,9 +881,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextColumn();
 
 					// Value to store in card
-					int newVal{ static_cast<int>(card->tgtEntity) };
-					ImGui::InputInt("Entity Value", &newVal);
-					card->tgtEntity = newVal;
+					{
+
+						ImGui::Text("Target Entity: ");
+						SameLine();
+						int newVal{ static_cast<int>(card->tgtEntity) };
+						ImGui::InputInt(("##CEntTgt" + std::to_string(entity)).c_str(), &newVal);
+						card->tgtEntity = newVal;
+
+						// check if entity has card holder
+
+
+						Separator();
+					}
 
 					rttr::type const type{ rttr::type::get<GE::Component::Card::CardID>() };
 					
