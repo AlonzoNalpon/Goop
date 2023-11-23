@@ -27,6 +27,9 @@ namespace GE
     class Deserializer
     {
     public:
+      // pure static class
+      Deserializer() = delete;
+
       static ObjectFactory::ObjectFactory::EntityDataContainer DeserializeScene(std::string const& filepath);
 
       static std::vector<AI::TreeTemplate> DeserializeTrees(std::string const& filename);

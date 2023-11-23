@@ -26,6 +26,8 @@ namespace GE
     class Serializer
     {
     public:
+      // pure static class
+      Serializer() = delete;
 
       static const char JsonNameKey[], JsonIdKey[], JsonEntityStateKey[], JsonParentKey[],
         JsonChildEntitiesKey[], JsonComponentsKey[], JsonPrefabKey[];
