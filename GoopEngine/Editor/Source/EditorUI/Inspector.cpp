@@ -219,7 +219,7 @@ namespace
 		Label name
 
 	\param[in] list
-		Vector of entities
+		Vector of ints
 
 	\param[in] fieldWidth
 		Width of input field
@@ -229,6 +229,26 @@ namespace
 	************************************************************************/
 	template <>
 	void InputList(std::string propertyName, std::vector<int>& list, float fieldWidth, bool disabled);
+
+	/*!*********************************************************************
+	\brief
+		Wrapper to create specialized inspector list of vector of
+		sounds in Audio component
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] list
+		Vector of audio sounds
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
+	template <>
+	void InputList(std::string propertyName, std::vector<GE::Component::Audio::Sound>& list, float fieldWidth, bool disabled);
 
 	/*!*********************************************************************
 	\brief
@@ -617,108 +637,124 @@ void GE::EditorGUI::Inspector::CreateContent()
 				//auto scripts = ecs.GetComponent<Scripts>(entity);
 				if (ImGui::CollapsingHeader("Script", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					float inputWidth = (contentSize - charSize - 30) / 3;
-					GE::Component::Scripts* allScripts = ecs.GetComponent<Scripts>(entity);
+					//float inputWidth = (contentSize - charSize - 30) / 3;
+					//GE::Component::Scripts* allScripts = ecs.GetComponent<Scripts>(entity);
 					if (RemoveComponentPopup<Scripts>("Script", entity))
 					{
 						break;
 					}
-					Separator();
-					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 					//GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
-					for (std::pair<std::string, ScriptInstance> s : allScripts->m_scriptMap)
-					{
-						/*TableNextRow();
-						BeginDisabled(false);
-						TableNextColumn();
-						ImGui::Text("Scripts");
-						TableNextColumn();
-						SetNextItemWidth(GetWindowSize().x);
-						if (ImGui::BeginCombo("Scripts", s.first.c_str(), ImGuiComboFlags_NoArrowButton))
-						{
-							for (const std::string& sn : sm->m_allScriptNames)
-							{
-								bool is_selected = (s.first.c_str() == sn);
-								if (ImGui::Selectable(sn.c_str(), is_selected))
-								{
-									if(sn != s.first.c_str()){
-										std::cout << "selected: " << sn << "\n";
-									}
-									
-								}
-								if (is_selected)
-								{
-									ImGui::SetItemDefaultFocus();
-								}
-							}
-							ImGui::EndCombo();
-						}
-						EndDisabled();*/
+					//for (std::pair<std::string, ScriptInstance>& s : allScripts->m_scriptList)
+					//{
+					//	
+
+					//	Separator();
+					//	BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					//	ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+
+					//	TableNextRow();
+					//	BeginDisabled(false);
+					//	TableNextColumn();
+					//	ImGui::Text("Script");
+					//	TableNextColumn();
+					//	ImGuiStyle& style = GetStyle();
+					//	ImVec4 originalColor = style.Colors[ImGuiCol_FrameBg];
+					//	ImVec4 originalHColor = style.Colors[ImGuiCol_FrameBgHovered];
+					//	style.Colors[ImGuiCol_FrameBg] = ImVec4(0.28f, 0.21f, 0.11f, 1.0f);
+					//	style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.38f, 0.31f, 0.21f, 1.0f);
+					//	if (ImGui::BeginCombo("", s.first.c_str()))
+					//	{
+					//		for (const std::string& sn : sm->m_allScriptNames)
+					//		{
+					//			auto it = std::find_if(allScripts->m_scriptList.begin(), allScripts->m_scriptList.end(), [sn](const std::pair<std::string, ScriptInstance>& pair) { return pair.first == sn; });
+					//			if (it == allScripts->m_scriptList.end())
+					//			{
+					//				bool is_selected = (s.first.c_str() == sn);
+					//				if (ImGui::Selectable(sn.c_str(), is_selected))
+					//				{
+					//					if (sn != s.first) {
+					//						s.first = sn;
+					//						s.second.Clear();
+					//						s.second = ScriptInstance(sn);
+					//					}
+					//				}
+					//				if (is_selected)
+					//				{
+					//					ImGui::SetItemDefaultFocus();
+					//				}
+					//			}
+					//		}
+					//		ImGui::EndCombo();
+					//	}
+					//	EndDisabled();
+					//	style.Colors[ImGuiCol_FrameBg] = originalColor;
+					//	style.Colors[ImGuiCol_FrameBgHovered] = originalHColor;
+
+
+					//	const auto& fields = s.second.m_scriptClassInfo.m_ScriptFieldMap;
+					//	for (const auto& [fieldName, field] : fields)
+					//	{
+					//		if (field.m_fieldType == ScriptFieldType::Float)
+					//		{
+					//			TableNextRow();
+					//			BeginDisabled(false);
+					//			float value = s.second.GetFieldValue<float>(fieldName);
+					//			TableNextColumn();
+					//			ImGui::Text(fieldName.c_str());
+					//			TableNextColumn();
+					//			SetNextItemWidth(GetWindowSize().x);
+					//			if (ImGui::InputFloat(("##" + fieldName).c_str(), &value, 0, 0, 0)) { s.second.SetFieldValue<float>(fieldName, value); }
+					//			EndDisabled();
+
+					//		}
+					//		else if (field.m_fieldType == ScriptFieldType::Int)
+					//		{
+					//			TableNextRow();
+					//			BeginDisabled(false);
+					//			int value = s.second.GetFieldValue<int>(fieldName);
+					//			TableNextColumn();
+					//			ImGui::Text(fieldName.c_str());
+					//			TableNextColumn();
+					//			SetNextItemWidth(GetWindowSize().x);
+					//			if (ImGui::InputInt(("##" + fieldName).c_str(), &value, 0, 0, 0)) { s.second.SetFieldValue<int>(fieldName, value); }
+					//			EndDisabled();
+					//		}
+					//		else if (field.m_fieldType == ScriptFieldType::Double)
+					//		{
+					//			TableNextRow();
+					//			BeginDisabled(false);
+					//			double value = s.second.GetFieldValue<double>(fieldName);
+					//			TableNextColumn();
+					//			ImGui::Text(fieldName.c_str());
+					//			TableNextColumn();
+					//			SetNextItemWidth(GetWindowSize().x);
+					//			if (ImGui::InputDouble(("##" + fieldName).c_str(), &value, 0, 0, 0)) { s.second.SetFieldValue<double>(fieldName, value); }
+					//			EndDisabled();
+					//		}
+					//		else if (field.m_fieldType == ScriptFieldType::DVec3)
+					//		{
+					//			TableNextRow();
+					//			GE::Math::dVec3 value = s.second.GetFieldValue<GE::Math::dVec3>(fieldName);
+					//			if (InputDouble3(("##" + fieldName).c_str(), value, inputWidth)) { s.second.SetFieldValue<GE::Math::dVec3 >(fieldName, value); };
+					//		}
+					//		else if (field.m_fieldType == ScriptFieldType::IntArr)
+					//		{
+					//			TableNextRow();							
+					//			//std::vector<int> val = s.second.GetFieldValueArr<int>(fieldName, sm->m_appDomain);
+					//			
+					//		
+					//			//if()
+					//		}
+					//	}
+
+					//	EndTable();
+					//	Separator();
+					//	//ImGui::Spacing();
+					//}
 
 
 
-						const auto& fields = s.second.m_scriptClassInfo.m_ScriptFieldMap;
-						for (const auto& [fieldName, field] : fields)
-						{
-							if (field.m_fieldType == ScriptFieldType::Float)
-							{
-								TableNextRow();
-								BeginDisabled(false);
-								float value = s.second.GetFieldValue<float>(fieldName);
-								TableNextColumn();
-								ImGui::Text(fieldName.c_str());
-								TableNextColumn();
-								SetNextItemWidth(GetWindowSize().x);
-								if (ImGui::InputFloat(("##" + fieldName).c_str(), &value, 0, 0, 0)) { s.second.SetFieldValue<float>(fieldName, value); }
-								EndDisabled();
-
-							}
-							else if (field.m_fieldType == ScriptFieldType::Int)
-							{
-								TableNextRow();
-								BeginDisabled(false);
-								int value = s.second.GetFieldValue<int>(fieldName);
-								TableNextColumn();
-								ImGui::Text(fieldName.c_str());
-								TableNextColumn();
-								SetNextItemWidth(GetWindowSize().x);
-								if (ImGui::InputInt(("##" + fieldName).c_str(), &value, 0, 0, 0)) { s.second.SetFieldValue<int>(fieldName, value); }
-								EndDisabled();
-							}
-							else if (field.m_fieldType == ScriptFieldType::Double)
-							{
-								TableNextRow();
-								BeginDisabled(false);
-								double value = s.second.GetFieldValue<double>(fieldName);
-								TableNextColumn();
-								ImGui::Text(fieldName.c_str());
-								TableNextColumn();
-								SetNextItemWidth(GetWindowSize().x);
-								if (ImGui::InputDouble(("##" + fieldName).c_str(), &value, 0, 0, 0)) { s.second.SetFieldValue<double>(fieldName, value); }
-								EndDisabled();
-							}
-							else if (field.m_fieldType == ScriptFieldType::DVec3)
-							{
-								TableNextRow();
-								GE::Math::dVec3 value = s.second.GetFieldValue<GE::Math::dVec3>(fieldName);
-								if (InputDouble3(("##" + fieldName).c_str(), value, inputWidth)) { s.second.SetFieldValue<GE::Math::dVec3 >(fieldName, value); };
-							}
-							else if (field.m_fieldType == ScriptFieldType::IntArr)
-							{
-								TableNextRow();							
-								//std::vector<int> val = s.second.GetFieldValueArr<int>(fieldName, sm->m_appDomain);
-								
-							
-								//if()
-							}
-						}
-					}
-
-
-
-					EndTable();
-					Separator();
+			
 
 				}
 				break;
@@ -794,37 +830,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 
 					Separator();
-					InputText("Sound File", &audio->m_name);
-					if (BeginDragDropTarget())
-					{
-						if (const ImGuiPayload* payload = AcceptDragDropPayload("ASSET_BROWSER_AUDIO"))
-						{
-							audio->m_name = static_cast<const char*>(payload->Data);
-						}
-						EndDragDropTarget();
-					}
+					InputList("Audio", audio->m_sounds, charSize);
 
-					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					TableNextRow();
-					InputCheckBox("Loop", audio->m_loop);
-					TableNextRow();
-					InputCheckBox("Play on Start", audio->m_playOnStart);
-					TableNextRow();
-					InputCheckBox("Paused", audio->m_paused);
-					EndTable();
 
-					if (BeginCombo("Channel", GE::fMOD::FmodSystem::m_channelToString.at(audio->channel).c_str()))
-					{
-						for (auto const& [channel, audioName] : GE::fMOD::FmodSystem::m_channelToString)
-						{
-							if (Selectable(audioName.c_str()))
-							{
-								audio->channel = channel;
-							}
-						}
-						EndCombo();
-					}
 
 					Separator();
 				}
@@ -902,8 +910,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndCombo();
 					}
-					Separator();
 					InputText("Param", &button->m_param);
+					Separator();
 				}
 				break;
 			}
@@ -933,6 +941,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 						card->tgtEntity = newVal;
 
 						// check if entity has card holder
+						{
+							if (ecs.HasComponent<CardHolder>(card->tgtEntity))
+							{
+								ImGui::TextColored({ 0.f, 1.f, 0.f, 1.f }, "Target Has Holder Component");
+							}
+							else
+							{
+								ImGui::TextColored({ 1.f, 0.f, 0.f, 1.f }, "Target Missing Holder Component");
+							}
+						}
 
 
 						Separator();
@@ -1001,19 +1019,41 @@ void GE::EditorGUI::Inspector::CreateContent()
 							ImGui::TextColored(ImVec4{ 1.f, 1.f, 0.f, 1.f }, 
 								("Element: " + std::to_string(currElement)).c_str());
 							{
-								// THE ENTITY VALUE
+								// THE DST ENTITY VALUE
 								{
-									ImGui::Text("Entity ID: ");
+									ImGui::Text("Elem Entity: ");
 									SameLine();
-									int newVal{ static_cast<int>(element.entityVal) };
-									if (InputInt(("##CDEntID" + std::to_string(currElement)).c_str(), &newVal))
+									int newVal{ static_cast<int>(element.elemEntity) };
+									if (InputInt(("##CDElmID" + std::to_string(currElement)).c_str(), &newVal))
 									{
-										element.entityVal = newVal;
+										element.elemEntity = newVal;
 										
 										// get other sprite component if it exists
-										if (ecs.HasComponent<Sprite>(element.entityVal))
+										if (ecs.HasComponent<Sprite>(element.elemEntity))
 										{
-											auto* spriteComp = ecs.GetComponent<Sprite>(element.entityVal);
+											auto* spriteComp = ecs.GetComponent<Sprite>(element.elemEntity);
+											element.defaultSpriteID = spriteComp->m_spriteData.texture;
+											if (ecs.HasComponent<CardHolderElem>(element.elemEntity))
+											{
+												auto* holderElem = ecs.GetComponent<CardHolderElem>(element.elemEntity);
+												holderElem->elemIdx = currElement - 1; // since element started from 1, we subtract 1
+												holderElem->holder = entity;
+											}
+											else
+												GE::Debug::ErrorLogger::GetInstance().LogWarning((std::string(ecs.GetEntityName(element.elemEntity)) + 
+													" is missing the CardHolderElem component! Add and reassign ID to Elem Entity in holder!").c_str());
+										}
+										else
+										{
+											element.defaultSpriteID = 0; // invalid
+										}
+									}
+									if (element.elemEntity != ECS::INVALID_ID)
+									{
+										// get other sprite component if it exists
+										if (ecs.HasComponent<Sprite>(element.elemEntity))
+										{
+											auto* spriteComp = ecs.GetComponent<Sprite>(element.elemEntity);
 											element.defaultSpriteID = spriteComp->m_spriteData.texture;
 										}
 										else
@@ -1023,6 +1063,29 @@ void GE::EditorGUI::Inspector::CreateContent()
 									}
 								}
 								
+								// THE SRC ENTITY VALUE
+								{
+									ImGui::Text("Card Entity: ");
+									SameLine();
+									int newVal{ static_cast<int>(element.cardEntity) };
+									if (InputInt(("##CDEntID" + std::to_string(currElement)).c_str(), &newVal))
+									{
+										element.cardEntity = newVal;
+									}
+									if (element.cardEntity != ECS::INVALID_ID)
+									{
+										// get other sprite component if it exists
+										if (ecs.HasComponent<Sprite>(element.cardEntity))
+										{
+											auto* spriteComp = ecs.GetComponent<Sprite>(element.cardEntity);
+											element.spriteID = spriteComp->m_spriteData.texture;
+										}
+										else
+										{
+											element.spriteID = 0; // invalid
+										}
+									}
+								}
 								// THE SPRITE ID (FOR REFERENCE)
 								{
 									BeginDisabled(true);
@@ -1030,14 +1093,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 									ImGui::Text("Default Sprite: ");
 									SameLine();
 									auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
-									if (element.defaultSpriteID)
+									if (element.elemEntity != ECS::INVALID_ID && element.defaultSpriteID)
 									{
 										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f },
 											(textureManager.GetTextureName(element.defaultSpriteID)
 												+ std::string(" | ")).c_str());
 										SameLine();
 										ImGui::TextColored(ImVec4{ 1.f, .7333f, 0.f, 1.f },
-											ecs.GetEntityName(element.entityVal).c_str());
+											ecs.GetEntityName(element.elemEntity).c_str());
 									}
 									else
 									{
@@ -1047,10 +1110,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 									// USED SPRITE
 									ImGui::Text("Used Sprite: ");
 									SameLine();
-									if (element.spriteID)
+									if (element.cardEntity != ECS::INVALID_ID && element.spriteID)
 									{
-										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f }, 
-											textureManager.GetTextureName(element.spriteID).c_str());
+										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f },
+											(textureManager.GetTextureName(element.spriteID)
+												+ std::string(" | ")).c_str());
+										SameLine();
+										ImGui::TextColored(ImVec4{ 1.f, .7333f, 0.f, 1.f },
+											ecs.GetEntityName(element.cardEntity).c_str());
 									}
 									else
 									{
@@ -1097,6 +1164,30 @@ void GE::EditorGUI::Inspector::CreateContent()
 					if (RemoveComponentPopup<Draggable>("Card Holder Element", entity))
 					{
 						break;
+					}
+					auto* holderElem = ecs.GetComponent<CardHolderElem>(entity);
+					// FOR MEMBER: HOLDER ID
+					{
+						ImGui::Text("holder entity ID");
+						SameLine();
+						int newHolderID{ static_cast<int>(holderElem->holder) };
+						InputInt("##holderID", &newHolderID);
+						if (newHolderID < -1)
+							newHolderID = -1;
+						holderElem->holder = newHolderID;
+						if (holderElem->holder != ECS::INVALID_ID && ecs.HasComponent<CardHolder>(holderElem->holder))
+							ImGui::TextColored({ 0.f, 1.f, 0.f, 1.f }, "Holder ID has holder component!");
+						else
+							ImGui::TextColored({ 1.f, 0.f, 0.f, 1.f }, "Invalid holder/missing holder component!");
+					}
+					// FOR MEMBER: INDEX
+					{
+						ImGui::Text("holder entity index");
+						SameLine();
+						ImGui::BeginDisabled();
+						int newHolderID{ static_cast<int>(holderElem->elemIdx) };
+						InputInt("##elemIdx", &newHolderID);
+						ImGui::EndDisabled();
 					}
 				}
 				break;
@@ -1176,6 +1267,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 						else
 						{
 							ss << "Unable to add component " << typeid(BoxCollider).name() << ". Component already exist";
+						}
+						break;
+					}
+					case GE::ECS::COMPONENT_TYPES::TWEEN:
+					{
+						if (!ecs.HasComponent<Tween>(entity))
+						{
+							Tween comp;
+							ecs.AddComponent(entity, comp);
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Tween).name() << ". Component already exist";
 						}
 						break;
 					}
@@ -1600,6 +1704,79 @@ namespace
 			Separator();
 			TreePop();
 		}
+	}
+
+	template <>
+	void InputList(std::string propertyName, std::vector<GE::Component::Audio::Sound>& list, float fieldWidth, bool disabled)
+	{
+		// 12 characters for property name
+		float charSize = CalcTextSize("012345678901").x;
+
+		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			int i{};
+			for (auto& sound : list)
+			{
+				PushID((std::to_string(i)).c_str());
+				Separator();
+				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+				TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+				TableNextColumn();
+				ImGui::Text("Sound Name");
+				TableNextColumn();
+				InputText("##", &sound.m_sound);
+				if (BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = AcceptDragDropPayload("ASSET_BROWSER_AUDIO"))
+					{
+						sound.m_sound = static_cast<const char*>(payload->Data);
+					}
+					EndDragDropTarget();
+				}
+
+				TableNextRow();
+				InputCheckBox("Loop", sound.m_loop);
+				TableNextRow();
+				InputCheckBox("Play on Start", sound.m_playOnStart);
+				TableNextRow();
+				InputCheckBox("Paused", sound.m_paused);
+				TableNextRow();
+				TableNextColumn();
+				ImGui::Text("Volume");
+				TableNextColumn();
+				if (DragFloat(("##" + sound.m_sound + "volume").c_str(), &sound.m_volume, 0.001f, 0.f, 1.f))
+				{
+					GE::fMOD::FmodSystem::GetInstance().SetVolume(sound.m_sound, sound.m_volume);
+				}
+				EndTable();
+
+				if (BeginCombo("Channel", GE::fMOD::FmodSystem::m_channelToString.at(sound.m_channel).c_str()))
+				{
+					for (auto const& [channel, audioName] : GE::fMOD::FmodSystem::m_channelToString)
+					{
+						if (Selectable(audioName.c_str()))
+						{
+							sound.m_channel = channel;
+						}
+					}
+					EndCombo();
+				}
+				PopID();
+				++i;
+			}
+
+			Separator();
+
+			Unindent();
+			// 20 magic number cuz the button looks good
+			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
+			{
+				list.emplace_back(GE::Component::Audio::Sound{});
+			}
+
+			TreePop();
+		}
+		Indent();
 	}
 
 	template <typename T>

@@ -17,7 +17,35 @@ namespace GoopScripts.Gameplay
 		// List of cards in the queue
 		public CardBase.CardID[] m_cardQueue { get; set; }
 
+    public CardBase.CardID[] m_hand { get; set; }
+
     public BuffManager m_buffs { get; set; }
+
+    // Hard coded for testing
+    // cards are not properly implemented yet
+    Random rng;
+    public Stats()
+		{
+      rng = new Random();
+
+			m_deck = new CardBase.CardID[20];
+      for (int i = 0; i < m_deck.Length; ++i)
+      {
+        m_deck[i] = (CardBase.CardID)rng.Next(1, (int)CardBase.CardID.TOTAL_CARDS);
+			}
+      
+			m_cardQueue = new CardBase.CardID[3];
+      // Attack cards causes crash
+      m_cardQueue[0] = CardBase.CardID.BASIC_NORMAL_SHIELD;
+      m_cardQueue[1] = CardBase.CardID.BASIC_NORMAL_BUFF;
+      m_cardQueue[2] = CardBase.CardID.PLAYER_DEBUFF_FLASH_BANG;
+
+			m_hand = new CardBase.CardID[5];
+			for (int i = 0; i < m_hand.Length; ++i)
+			{
+				m_hand[i] = (CardBase.CardID)rng.Next(1, (int)CardBase.CardID.TOTAL_CARDS);
+			}
+		}
 
     public int GetHealth()
     {

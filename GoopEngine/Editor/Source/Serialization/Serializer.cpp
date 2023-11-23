@@ -299,7 +299,7 @@ namespace GE
       }
     }
 
-    rapidjson::Value Serializer::SerializeScriptMap(std::map<std::string, MONO::ScriptInstance> const& scripts, rapidjson::Document::AllocatorType& allocator)
+    rapidjson::Value Serializer::SerializeScriptMap(std::vector<std::pair<std::string, MONO::ScriptInstance>> const& scripts, rapidjson::Document::AllocatorType& allocator)
     {
       rapidjson::Value ret{ rapidjson::kArrayType };
       for (auto const& [s1, s2] : scripts)
@@ -481,7 +481,7 @@ namespace GE
           // Handling special cases here (e.g. Scripts's script map)
           if (value.get_type() == rttr::type::get<std::map<std::string, GE::MONO::ScriptInstance>>())
           {
-            jsonVal = SerializeScriptMap(value.get_value<std::map<std::string, GE::MONO::ScriptInstance> const&>(), allocator);
+            jsonVal = SerializeScriptMap(value.get_value<std::vector<std::pair<std::string, GE::MONO::ScriptInstance>> const&>(), allocator);
           }
           else
           {

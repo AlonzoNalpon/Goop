@@ -20,6 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "mono/metadata/tabledefs.h"
 #include "mono/metadata/mono-debug.h"
 #include "mono/metadata/threads.h"
+#include <Systems/GameSystem/GameSystem.h>
 
 using namespace GE::MONO;
 
@@ -116,9 +117,10 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetResult", GE::Systems::EnemySystem::SetResult);
   mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
 
-  // Animation
+  // Game system stuff
   //mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", <PLAY ANIMIATION FUNCTION HERE>);
-
+  mono_add_internal_call("GoopScripts.Mono.Utils::GameSystemResolved", GE::MONO::GameSystemResolved);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
 
   //Load the CSharpAssembly (dll file)
   std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
@@ -176,7 +178,12 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
           }
         }
         m_monoClassMap[line.substr(commaPosition + 1).c_str()] = newScriptClassInfo;
-        m_allScriptNames.push_back(line.substr(commaPosition + 1).c_str());
+        MonoMethod* ctor = mono_class_get_method_from_name(newClass, ".ctor", 0);
+        if (ctor)
+        {
+          m_allScriptNames.push_back(line.substr(commaPosition + 1).c_str());
+        }
+
       }
     }
   }
@@ -340,10 +347,17 @@ MonoClass* GE::MONO::GetClassInAssembly(MonoAssembly* assembly, const char* name
   return klass;
 }
 
-ScriptClassInfo GE::MONO::ScriptManager::GetScriptClassInfo(std::string className)
+MonoClass* GE::MONO::ScriptManager::GetScriptClass(std::string className)
 {
-  return m_monoClassMap[className];
+  return m_monoClassMap[className].m_scriptClass;
 }
+
+
+ScriptField GE::MONO::ScriptManager::GetScriptField(std::string className, std::string fieldName)
+{
+  return m_monoClassMap[className].m_ScriptFieldMap[fieldName];
+}
+
 
 
 // /*!*********************************************************************
@@ -414,12 +428,33 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
   return oldTransform->m_rot;
 }
 
-void PlayAnimation(std::string /*animName*/)
+void GE::MONO::PlayAnimation(std::string /*animName*/, GE::ECS::Entity /*entity*/)
 {
   // call play animation here
+}
+
+void GE::MONO::PlaySound(int soundIterator, GE::ECS::Entity entity)
+{
+  GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+  auto* comp = ecs->GetComponent<GE::Component::Audio>(entity);
+
+  if (comp)
+  {
+    if (soundIterator < comp->m_sounds.size())
+    {
+      comp->Play((*(comp->m_sounds.begin() + soundIterator)).m_sound);
+      return;
+    }
+  }
+  GE::Debug::ErrorLogger::GetInstance().LogError("Trying to play a sound that does not exist from a script");
 }
 
 int GE::MONO::CalculateGCD(int large, int small)
 {
   return small == 0 ? large : CalculateGCD(small, large % small);
+}
+
+void GE::MONO::GameSystemResolved()
+{
+  GE::Events::EventManager::GetInstance().Dispatch(GE::Events::GameTurnResolved());
 }

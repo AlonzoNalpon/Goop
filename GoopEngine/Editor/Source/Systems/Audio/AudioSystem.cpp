@@ -25,21 +25,25 @@ void AudioSystem::Update()
   {
     Audio* audio = m_ecs->GetComponent<Audio>(entity);
 
-    if (audio->m_playOnStart && !audio->m_playedOnStart)
+    for (auto& sound : audio->m_sounds)
     {
-      audio->m_playedOnStart = true;
-      audio->Play();
-    }
-
-    if (audio->m_lastPausedState != audio->m_paused)
-    {
-      if (audio->m_paused)
+      if (sound.m_playOnStart && !sound.m_playedOnStart)
       {
-        audio->Pause();
+        sound.m_playedOnStart = true;
+        audio->Play(sound.m_sound);
       }
-      else
+
+      if (sound.m_lastPausedState != sound.m_paused)
       {
-        audio->Play();
+        if (sound.m_paused)
+        {
+          audio->Pause(sound.m_sound);
+        }
+        else
+        {
+          audio->Play(sound.m_sound);
+        }
+        sound.m_lastPausedState = sound.m_paused;
       }
     }
   }

@@ -9,7 +9,8 @@ namespace GE::Component
   {
     struct CardHolderEntry
     {
-      GE::ECS::Entity entityVal{ ECS::INVALID_ID }; //!< entity ID of element
+      GE::ECS::Entity elemEntity{ ECS::INVALID_ID }; //!< entity ID of holder element
+      GE::ECS::Entity cardEntity{ ECS::INVALID_ID }; //!< entity ID of card
       GLuint  spriteID{};         //!< the id of sprite to render if used
       GLuint  defaultSpriteID{};  //!< the default sprite ID to render
       bool used{}; //!< is the slot used?

@@ -9,6 +9,7 @@ namespace GE::Component
   struct CardHolderElem
   {
     ECS::Entity holder{ECS::INVALID_ID};
+    size_t elemIdx{ECS::INVALID_ID}; // !< which element in the container of holder
   };
 }
 

@@ -6,8 +6,16 @@ namespace GE::Systems
 {
   class GameSystem : public GE::ECS::System, public GE::Events::IEventListener
   {
+  private:
+    bool m_shouldIterate;
+    bool m_shouldPause;
   public:
+    void Start();
+
     void Update();
+
+    void PlaySoundPlayer(int soundIterator);
+    void PlaySoundEnemy(int soundIterator);
 
     void HandleEvent(GE::Events::Event* event);
   };

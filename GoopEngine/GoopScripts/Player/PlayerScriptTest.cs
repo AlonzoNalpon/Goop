@@ -22,6 +22,7 @@ namespace GoopScripts.Player
 {
   public class PlayerScriptTest : MonoBehaviour
   {
+    public float scriptTestFloat = 69.0f;
 
     /*!*********************************************************************
    \brief
@@ -31,6 +32,11 @@ namespace GoopScripts.Player
     ID of the owner of this scipt
    ************************************************************************/
     public PlayerScriptTest(uint entityID) : base(entityID)
+    {
+
+    }
+
+    public PlayerScriptTest() 
     {
 
     }

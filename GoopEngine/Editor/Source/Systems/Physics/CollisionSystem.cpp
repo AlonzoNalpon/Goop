@@ -89,16 +89,8 @@ void CollisionSystem::Update()
 			if (entityPos->m_pos.z == highestZCoor)
 			{
 				InputManager* input = &(GE::Input::InputManager::GetInstance());
-				if (input->IsKeyTriggered(GPK_MOUSE_LEFT))
-				{
-					mousePos = input->GetMousePosWorld();
-					entity1Col->m_mouseCollided = Collide(*entity1Col, mousePos);
-				}
-			}
-
-			if (entity1Col->m_mouseCollided == true)
-			{
-				std::cout << "Entity collided with mouse" << std::endl;
+				mousePos = input->GetMousePosWorld();
+				entity1Col->m_mouseCollided = Collide(*entity1Col, mousePos);
 			}
 
 			//obj collide check

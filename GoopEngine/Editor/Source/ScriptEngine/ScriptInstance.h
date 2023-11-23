@@ -17,6 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <iostream>
 #include <fstream>
 #include <Math/GEM.h>
+#include <rttr/type.h>
 #include "../ECS/EntityComponentSystem.h"
 #include <ScriptEngine/ScripUtils.h>
 
@@ -25,7 +26,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 namespace GE {
 	namespace MONO {
 
-		const size_t maxBufferSize{ 10000000 };
+		const size_t maxBufferSize{ 1000 };
 
 		struct ScriptField
 		{
@@ -34,18 +35,28 @@ namespace GE {
 			MonoClassField* m_classField;
 		};
 
+		template<typename T>
+		struct ScriptFieldInstance
+		{
+			ScriptField m_scriptField;
+			T m_data;
+		};
+
+
 		struct ScriptClassInfo
 		{
 			MonoClass* m_scriptClass{ nullptr };
 			std::map<std::string, ScriptField> m_ScriptFieldMap;
-
 		};
 
+
 		struct ScriptInstance{
-			ScriptClassInfo m_scriptClassInfo{ nullptr };
+			std::string m_scriptName;
+			MonoClass* m_scriptClass{ nullptr };
 			MonoObject* m_classInst{ nullptr };
 			MonoMethod* m_onUpdateMethod{ nullptr };
 			MonoMethod* m_onCreateMethod = { nullptr };
+			std::vector<rttr::variant> m_scriptFieldInstList;
 			inline static char m_fieldValBuffer[maxBufferSize];
 			
 			/*!*********************************************************************
@@ -61,7 +72,7 @@ namespace GE {
 			\params objectInstance
 				Pointer to the instance of a MonoClass
 			************************************************************************/
-			ScriptInstance( const std::string& scriptName, std::vector<void*>& arg);
+			ScriptInstance(const std::string& scriptName, std::vector<void*>& arg);
 
 			ScriptInstance(const std::string& scriptName);
 
@@ -86,11 +97,13 @@ namespace GE {
 				whatever return value that c# method returns, but as a MonoOBject pointer. To access it in c++, cast it to oriiginal data type (e.g. (int*) )
 			************************************************************************/
 
+			void Clear();
+
 			void InvokeOnCreate();
 
 			void InvokeOnUpdate(double dt);
 
-			template<typename T>
+			/*template<typename T>
 			T GetFieldValue(const std::string& name)
 			{
 				if constexpr (sizeof(T) > maxBufferSize)
@@ -127,9 +140,9 @@ namespace GE {
 
 				return test;
 			}
-		
+		*/
 
-			template<typename T>
+		/*	template<typename T>
 			void SetFieldValue(const std::string& name, T value)
 			{
 				if constexpr (sizeof(T) > maxBufferSize)
@@ -165,7 +178,7 @@ namespace GE {
 
 				const ScriptField& field = it->second;
 				mono_field_set_value(m_classInst, field.m_classField , newArray);
-			}
+			}*/
 		};
 		
 	}

@@ -10,6 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <ScriptEngine/ScriptManager.h>
 #include <AssetManager/AssetManager.h>
+#include <algorithm>
 
 namespace GE
 {
@@ -21,7 +22,7 @@ namespace GE
 		struct Scripts
 		{
 			ECS::Entity  m_entityId;
-			std::map<std::string, ScriptInstance> m_scriptMap;
+			std::vector<std::pair<std::string, ScriptInstance>> m_scriptList; //m_scriptMap
 
 			Scripts() {}
 
@@ -39,13 +40,14 @@ namespace GE
 			{
 				for (const std::string& s : scriptNames)
 				{
-					if (m_scriptMap.find(s) == m_scriptMap.end())
+					std::vector<std::pair<std::string, ScriptInstance>>::iterator it = std::find_if(m_scriptList.begin(), m_scriptList.end(), [s](const std::pair<std::string, ScriptInstance>& pair) { return pair.first ==s; });
+					if (it == m_scriptList.end())
 					{
 						try
 						{
 							unsigned int copy = entityID;
 							std::vector<void*> arg{ &copy };
-							m_scriptMap[s] = ScriptInstance(s,arg);
+							m_scriptList.push_back(std::make_pair(s,ScriptInstance(s,arg)));
 						}
 						catch (GE::Debug::IExceptionBase& e)
 						{
@@ -61,11 +63,12 @@ namespace GE
 			{
 				for (const std::string& s : scriptNames)
 				{
-					if (m_scriptMap.find(s) == m_scriptMap.end())
+					std::vector<std::pair<std::string, ScriptInstance>>::iterator it = std::find_if(m_scriptList.begin(), m_scriptList.end(), [s](const std::pair<std::string, ScriptInstance>& pair) { return pair.first == s; });
+					if (it == m_scriptList.end())
 					{
 						try
 						{
-							m_scriptMap[s] = ScriptInstance(s);
+							m_scriptList.push_back(std::make_pair(s, ScriptInstance(s)));
 						}
 						catch (GE::Debug::IExceptionBase& e)
 						{
@@ -77,6 +80,8 @@ namespace GE
 
 				}
 			}
+
+			Scripts(unsigned int entityID) : m_entityId{ entityID }{}
 
 
 
@@ -120,7 +125,7 @@ namespace GE
 			void UpdateAllScripts()
 			{
 				double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
-				for (std::pair<std::string, ScriptInstance> cs : m_scriptMap) {
+				for (std::pair<std::string, ScriptInstance> cs : m_scriptList) {
 					cs.second.InvokeOnUpdate(dt);
 				}
 			}
