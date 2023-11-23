@@ -54,16 +54,16 @@ namespace GE
       /*!*********************************************************************
       \brief
         Loads sound into a new channel and plays it. Loads sound if not in sound map already.
-      \param sound
+      \param audio
         Sound filename.
-      \param volumedB
-        Volume in db. Default: 0.0f.
-      \param isLooping
+      \param volume
+        Normalized volume
+      \param channel
+        Channel the sound is controlled by
+      \param looped
         Boolean for looping the sound. Default: false.
-      \param isStreaming
-        Boolean for streaming the sound. Default: true.
       ************************************************************************/
-      void PlaySound(std::string audio, ChannelType channel, bool looped = false);
+      void PlaySound(std::string audio, float volume, ChannelType channel, bool looped = false);
 
       void Pause(std::string audio);
 
@@ -78,6 +78,8 @@ namespace GE
       void SetChannelVolume(ChannelType channel, float volume);
 
       float GetChannelVolume(ChannelType channel) const;
+
+      void SetVolume(std::string audio, float volume);
 
       void SetMasterVolume(float volume);
 

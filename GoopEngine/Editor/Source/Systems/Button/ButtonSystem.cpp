@@ -1,6 +1,7 @@
 #include <pch.h>
 #include <Systems/Button/ButtonSystem.h>
 // #include <Component/Button.h>
+#include <Component/CardHolder.h>
 #include <Events/InputEvents.h>
 #include <GameStateManager/GameStateManager.h>
 #include <InputManager/InputManager.h>
@@ -57,9 +58,59 @@ namespace GE
 							case GE::Component::GE_Button::NO_EVENT:
 								break;
 							case GE::Component::GE_Button::SELECT_CARD:
-								//ECS::Entity cardHolder = m_ecs->GetComponent<>
+							{
+									// A card has called select card button event:
+									//	This requires caller to have a card component
+									auto* card = m_ecs->GetComponent<Component::Card>(entity);
+									if (!card) break; // no card -> bad behavior
+
+									auto* cardHolder = m_ecs->GetComponent<Component::CardHolder>(card->tgtEntity);
+									if (!cardHolder) break; // no holder -> bad behavior
+
+									// Check if there's a free element
+									for (auto& elem : cardHolder->elements)
+									{
+										if (elem.used) // skip if it's used!
+											continue;
+
+										auto const* cardSprite = m_ecs->GetComponent<Component::Sprite>(entity);
+										auto* elemSprite = m_ecs->GetComponent<Component::Sprite>(elem.elemEntity);
+
+										elem.cardEntity = entity; // record card entity and image
+										elem.spriteID = cardSprite->m_spriteData.texture; // tex ID but not the dimensions
+										elem.defaultSpriteID = elemSprite->m_spriteData.texture; // set default tex ID
+										m_ecs->SetIsActiveEntity(entity, false); // make the card inactive
+										elem.used = true; // now it's used!
+										
+										// Visual update:
+										elemSprite->m_spriteData.texture = elem.spriteID; // make the sprite now hold the card sprite
+										break; // we're done here: a card has been assigned
+									}
+							}
 								break;
 							case GE::Component::GE_Button::UNSELECT_CARD:
+								// An element of cardholder should run this event
+								//	Therefore, it needs CardHolderElem
+							{
+								auto* holderElem = m_ecs->GetComponent<Component::CardHolderElem>(entity);
+								if (!holderElem) break;
+
+								auto* cardHolder = m_ecs->GetComponent<Component::CardHolder>(holderElem->holder);
+								if (!cardHolder) break; // no holder -> bad behavior
+
+								// Break immediately if the used flag is false
+								if (!cardHolder->elements[holderElem->elemIdx].used)
+									break;
+								// We set used flag to false and restore sprite
+								auto* elemSprite = m_ecs->GetComponent<Component::Sprite>(entity);
+								elemSprite->m_spriteData.texture = cardHolder->elements[holderElem->elemIdx].defaultSpriteID;
+								cardHolder->elements[holderElem->elemIdx].used = false;
+
+
+								// now enable the card to be unselected
+								auto cardEntity = cardHolder->elements[holderElem->elemIdx].cardEntity;
+								m_ecs->SetIsActiveEntity(cardEntity, true);
+							}
 								break;
 							case GE::Component::GE_Button::CHANGE_SCENE:
 								GE::GSM::GameStateManager::GetInstance().SetNextScene(entityButton->m_param);

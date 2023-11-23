@@ -23,7 +23,9 @@ namespace Graphics {
     gVec2     texDims;        //!< texture dimensions of a sprite in float ranging from [0,1] (for shader uniforms)
     GLuint    width, height;  //!< integral sprite pixel dimensions in width and height (x and y) (can be useful in the future)
     SpriteSubData(gVec2 _texCoords, gVec2 _texDims, GLuint _width, GLuint _height) : 
-      texCoords{ _texCoords }, texDims{ _texDims }, width{ _width }, height{ _height } {}
+      texCoords{ _texCoords }, texDims{ _texDims }, width{ _width }, height{ _height } {
+      std::cout << "SpriteSubData ctor called\n";
+    }
     SpriteSubData() : texCoords{}, texDims{1, 1}, width{}, height{} {}
     // It is possible that sprite data can have varying sizes which requires offsets. 
     // This is the place to put offset if it's to be implemented (in pixels based on dimensions).

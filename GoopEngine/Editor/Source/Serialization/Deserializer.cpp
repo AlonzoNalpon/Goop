@@ -197,6 +197,7 @@ void Deserializer::DeserializeBasedOnType(rttr::instance object, rapidjson::Valu
   {
     object.get_type().get_raw_type().is_wrapper() ? object.get_wrapped_instance() : object
   };
+
   auto const properties{ objInstance.get_type().get_properties() }; // list of properties (data members of a class)
   #ifdef DESERIALIZER_DEBUG
   std::cout << "  Original instance: " << object.get_type() << "\n";
@@ -273,7 +274,7 @@ rttr::variant Deserializer::DeserializeElement(rttr::type const& valueType, rapi
   bool const result{ ret.convert(valueType) };
   if (!result)
   {
-    if (!value.IsObject())
+    if (value.IsObject())
     {
       rttr::constructor ctor{ valueType.get_constructor() };
       for (auto& elem : valueType.get_constructors())
@@ -354,6 +355,9 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
         {
           if (param.get_name() == prop.get_name())
           {
+#ifdef DESERIALIZER_DEBUG
+            std::cout << "    Extracting property: " << prop.get_name().to_string() << " of type: " << prop.get_type() << "\n";
+#endif
             rapidjson::Value::ConstMemberIterator iter{ compJson.FindMember(prop.get_name().to_string().c_str()) };
             if (iter == compJson.MemberEnd())
             {
@@ -364,7 +368,8 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
               continue;
             }
 
-            args.emplace_back(DeserializeElement(prop.get_type(), iter->value));
+            rttr::type const propType{ prop.get_type() };
+            args.emplace_back(DeserializeElement(propType, iter->value));
             #ifdef DESERIALIZER_DEBUG
             std::cout << "    Added " << param.get_name() << " of type " << args.back().get_type() << " to args list\n";
             #endif
@@ -384,25 +389,22 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
 {
   if (type == rttr::type::get<Component::Sprite>())
   {
-    auto const& gEngine{ Graphics::GraphicsEngine::GetInstance() };
-    auto& am{ GE::Assets::AssetManager::GetInstance() };
-
-    rapidjson::Value::ConstMemberIterator iter{ value.FindMember(type.get_properties().begin()->get_name().to_string().c_str()) };
-    if (iter == value.MemberEnd())
+    rapidjson::Value::ConstMemberIterator sprData{ value.FindMember("spriteData") };
+    if (sprData == value.MemberEnd())
     {
-      std::ostringstream oss{};
-      oss << "Unable to find " << type.get_properties().begin()->get_name().to_string().c_str()
-        << " property in " << type.get_name().to_string();
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteData in Sprite component");
       return false;
     }
-
-    try { am.GetData(iter->value.GetString()); }
-    catch (GE::Debug::IExceptionBase&) { am.LoadImageW(iter->value.GetString()); }
-
-    compVar = type.create({ gEngine.textureManager.GetTextureID(iter->value.GetString()) });
+    rapidjson::Value::ConstMemberIterator sprName{ value.FindMember("spriteName") };
+    if (sprData == value.MemberEnd())
+    {
+      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteName in Sprite component");
+      return false;
+    }
+    
+    compVar = type.create({ *DeserializeElement(rttr::type::get<Graphics::SpriteData>(), sprData->value).get_value<Graphics::SpriteData*>(), std::string(sprName->value.GetString())});
     return true;
-  }
+  }  
   else if (type == rttr::type::get<Component::SpriteAnim>())
   {
     rapidjson::Value::ConstMemberIterator iter{ value.FindMember(type.get_properties().begin()->get_name().to_string().c_str()) };

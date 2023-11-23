@@ -7,34 +7,121 @@ namespace GE
 	{
 		struct Audio
 		{
-			std::string m_name = {""};
-			bool m_loop = false;
-			bool m_playOnStart = false;
-			bool m_paused = false;
+			struct Sound
+			{
+				float m_volume{1.0};
+				std::string m_sound;
 
-			bool m_playedOnStart = false;
-			bool m_lastPausedState = m_paused;
-			GE::fMOD::FmodSystem::ChannelType channel{GE::fMOD::FmodSystem::ChannelType::BGM};
+				bool m_loop = false;
+				bool m_playOnStart = false;
+				bool m_paused = false;
+
+				bool m_playedOnStart = false;
+				bool m_lastPausedState = m_paused;
+				GE::fMOD::FmodSystem::ChannelType m_channel{GE::fMOD::FmodSystem::ChannelType::BGM};
+			};
+			std::vector<Sound> m_sounds;
 		
+			/*!*********************************************************************
+			\brief
+			  Plays all sounds in the component
+			************************************************************************/
 			void Play()
 			{
-				m_paused = false;
-				m_lastPausedState = m_paused;
-				GE::fMOD::FmodSystem::GetInstance().PlaySound(m_name, channel, m_loop);
+				for (auto sound : m_sounds)
+				{
+					sound.m_paused = false;
+					sound.m_lastPausedState = sound.m_paused;
+					GE::fMOD::FmodSystem::GetInstance().PlaySound(sound.m_sound, sound.m_volume, sound.m_channel, sound.m_loop);
+				}
 			}
 
+			/*!*********************************************************************
+			\brief
+				Plays a sound
+			************************************************************************/
+			void Play(std::string soundName)
+			{
+				for (auto sound : m_sounds)
+				{
+					if (sound.m_sound != soundName)
+					{
+						continue;
+					}
+
+					sound.m_paused = false;
+					sound.m_lastPausedState = sound.m_paused;
+					GE::fMOD::FmodSystem::GetInstance().PlaySound(sound.m_sound, sound.m_volume, sound.m_channel, sound.m_loop);
+					break;
+				}
+			}
+
+			/*!*********************************************************************
+			\brief
+				Plays all sounds in the component
+			************************************************************************/
 			void Stop()
 			{
-				m_paused = true;
-				m_lastPausedState = m_paused;
-				GE::fMOD::FmodSystem::GetInstance().StopSound(m_name);
+				for (auto sound : m_sounds)
+				{
+					sound.m_paused = true;
+					sound.m_lastPausedState = sound.m_paused;
+					GE::fMOD::FmodSystem::GetInstance().StopSound(sound.m_sound);
+				}
 			}
 
+			/*!*********************************************************************
+			\brief
+				Stops a sound
+			************************************************************************/
+			void Stop(std::string soundName)
+			{
+				for (auto sound : m_sounds)
+				{
+					if (sound.m_sound != soundName)
+					{
+						continue;
+					}
+
+					sound.m_paused = true;
+					sound.m_lastPausedState = sound.m_paused;
+					GE::fMOD::FmodSystem::GetInstance().StopSound(sound.m_sound);
+					break;
+				}
+			}
+
+			/*!*********************************************************************
+			\brief
+				Pause all sounds in the component
+			************************************************************************/
 			void Pause()
 			{
-				m_paused = true;
-				m_lastPausedState = m_paused;
-				GE::fMOD::FmodSystem::GetInstance().Pause(m_name);
+				for (auto sound : m_sounds)
+				{
+					sound.m_paused = true;
+					sound.m_lastPausedState = sound.m_paused;
+					GE::fMOD::FmodSystem::GetInstance().Pause(sound.m_sound);
+				}
+			}
+
+			/*!*********************************************************************
+			\brief
+				Pauses a sound
+			************************************************************************/
+			void Pause(std::string soundName)
+			{
+				for (auto sound : m_sounds)
+				{
+					if (sound.m_sound != soundName)
+					{
+						continue;
+					}
+
+					sound.m_paused = true;
+					sound.m_lastPausedState = sound.m_paused;
+					GE::fMOD::FmodSystem::GetInstance().Pause(sound.m_sound);
+					break;
+				}
 			}
 		};
 	}
