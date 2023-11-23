@@ -34,6 +34,7 @@ namespace GE
       PAUSE_SCENE,
       STOP_SCENE,
       WINDOW_LOSE_FOCUS,
+      NEXT_TURN,
       MAX_EVENTS
     };
 
