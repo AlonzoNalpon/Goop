@@ -76,7 +76,9 @@ void GE::Scenes::Scene::TestScene()
 	GE::Component::Scripts testPLayerScript = Scripts(listOFScripts);
 	GE::Component::Scripts testEnemyScript = Scripts(listOFScripts);
 	testPLayerScript.m_scriptList[0].GetFields();
-
+	testPLayerScript.m_entityId = testPlayer;
+	testEnemyScript.m_scriptList[0].GetFields();
+	testEnemyScript.m_entityId = testEnemy;
 
 	ecs->SetEntityName(gameSys, "GameSys");
 	ecs->AddComponent(gameSys, GameComp);
