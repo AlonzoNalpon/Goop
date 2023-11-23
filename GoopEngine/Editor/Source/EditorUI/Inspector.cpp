@@ -212,6 +212,26 @@ namespace
 
 	/*!*********************************************************************
 	\brief
+		Wrapper to create specialized inspector list of vector of
+		Entities
+
+	\param[in] propertyName
+		Label name
+
+	\param[in] list
+		Vector of entities
+
+	\param[in] fieldWidth
+		Width of input field
+
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
+	template <>
+	void InputList(std::string propertyName, std::vector<int>& list, float fieldWidth, bool disabled);
+
+	/*!*********************************************************************
+	\brief
 		Predefined behaviour of a remove component popup
 
 	\param[in] name
@@ -1547,6 +1567,32 @@ namespace
 				ImGui::Text(propertyName.c_str());
 				TableNextColumn();
 				InputEntity("Entity", entity);
+				TableNextRow();
+				PopID();
+			}
+			EndTable();
+			Separator();
+			TreePop();
+		}
+	}
+
+	template <>
+	void InputList(std::string propertyName, std::vector<int>& list, float fieldWidth, bool disabled)
+	{
+		// 12 characters for property name
+		float charSize = CalcTextSize("012345678901").x;
+
+		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			Separator();
+			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
+			for (int i{}; i < list.size(); ++i)
+			{
+				PushID((std::to_string(i)).c_str());
+				ImGui::Text(propertyName.c_str());
+				TableNextColumn();
+				InputInt(("##" + (propertyName + std::to_string(i))).c_str(), &list[i], 0);
 				TableNextRow();
 				PopID();
 			}
