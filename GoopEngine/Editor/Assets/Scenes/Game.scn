@@ -68,32 +68,6 @@
         ]
     },
     {
-        "Name": "Entity 1",
-        "ID": 1,
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 589.574, 33.4778, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 589.574, 33.4778 }",
-                    "width": 150.0,
-                    "height": 150.0,
-                    "min": "{ 514.574, -41.5222 }",
-                    "max": "{ 664.574, 108.478 }",
-                    "render": true
-                }
-            }
-        ]
-    },
-    {
         "Name": "Background",
         "ID": 2,
         "isActive": true,
@@ -244,8 +218,8 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 768,
-                            "height": 128
+                            "width": 500,
+                            "height": 800
                         }
                     },
                     "spriteName": "Pause_BG"
@@ -291,8 +265,8 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 768,
-                            "height": 128
+                            "width": 456,
+                            "height": 154
                         }
                     },
                     "spriteName": "Button_Base"
@@ -334,8 +308,8 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 768,
-                            "height": 128
+                            "width": 456,
+                            "height": 154
                         }
                     },
                     "spriteName": "Button_Base"
@@ -425,7 +399,7 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 0,
+                            "spriteID": 15,
                             "defaultSpriteID": 2,
                             "used": false
                         },
@@ -692,7 +666,7 @@
             },
             {
                 "Card": {
-                    "cardID": "BASIC_LUNGE_ATTACK",
+                    "cardID": "NO_CARD",
                     "tgtEntity": 11
                 }
             }
@@ -806,7 +780,7 @@
             },
             {
                 "Card": {
-                    "cardID": "PLAYER_DEBUFF_FLASH_BANG",
+                    "cardID": "PLAYER_EMPOWERED_SWING",
                     "tgtEntity": 11
                 }
             }
