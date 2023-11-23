@@ -33,6 +33,7 @@ namespace GE
     const char Serializer::JsonChildEntitiesKey[] = "Child Entities";
     const char Serializer::JsonComponentsKey[]    = "Components";
     const char Serializer::JsonPrefabKey[]        = "Prefab";
+    const char Serializer::JsonAssociativeKey[] = "key", Serializer::JsonAssociativeValue[] = "value";
 
     void Serializer::SerializeVariantToPrefab(ObjectFactory::VariantPrefab const& prefab, std::string const& filename)
     {
@@ -287,13 +288,15 @@ namespace GE
         Component::Game* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Game>(id) };
         return ret ? *ret : rttr::variant();
       }
+      default:
+      {
+        std::ostringstream oss{};
+        std::string const enumString = rttr::type::get<ECS::COMPONENT_TYPES>().get_enumeration().value_to_name(type).to_string();
+        oss << "Trying to get unsupported component type (" << enumString << ") from Entity " << id;
+        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        return rttr::variant();
       }
-
-      std::ostringstream oss{};
-      std::string const enumString = rttr::type::get<ECS::COMPONENT_TYPES>().get_enumeration().value_to_name(type).to_string();
-      oss << "Trying to get unsupported component type (" << enumString << ") from Entity " << id;
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-      return rttr::variant();
+      }
     }
 
     rapidjson::Value Serializer::SerializeScriptMap(std::map<std::string, MONO::ScriptInstance> const& scripts, rapidjson::Document::AllocatorType& allocator)
@@ -527,6 +530,11 @@ namespace GE
         value.SetArray();
         SerializeSequentialContainer(object, value, allocator);
       }
+      else if (wrappedType.is_associative_container())
+      {
+        value.SetArray();
+        SerializeAssociativeContainer(object, value, allocator);
+      }
       else  // if class type
       {
         value.SetObject();
@@ -552,6 +560,35 @@ namespace GE
           rttr::variant wrappedVal = elem.extract_wrapped_value();
           // else serialize element normally
           jsonArray.PushBack(SerializeBasedOnType(wrappedVal, allocator).Move(), allocator);
+        }
+      }
+    }
+
+    void Serializer::SerializeAssociativeContainer(rttr::variant const& object,
+      rapidjson::Value& jsonArray, rapidjson::Document::AllocatorType& allocator)
+    {
+      auto containerIter = object.create_associative_view();
+      rttr::string_view const key_name{ JsonAssociativeKey }, value_name{ JsonAssociativeValue };
+
+      if (containerIter.is_key_only_type())
+      {
+        for (auto const& elem : containerIter)
+        {
+          jsonArray.PushBack(SerializeBasedOnType(elem.first, allocator).Move(), allocator);
+        }
+      }
+      else
+      {
+        for (auto const& elem : containerIter)
+        {
+          rapidjson::Value jsonEntry{ rapidjson::kObjectType };
+          rapidjson::Value jsonKey{ SerializeBasedOnType(elem.first, allocator) },
+            jsonValue{ SerializeBasedOnType(elem.second, allocator) };
+
+          jsonEntry.AddMember(JsonAssociativeKey, jsonKey, allocator);
+          jsonEntry.AddMember(JsonAssociativeKey, jsonValue, allocator);
+          // else serialize element normally
+          jsonArray.PushBack(jsonEntry.Move(), allocator);
         }
       }
     }
