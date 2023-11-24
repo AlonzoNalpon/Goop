@@ -13,9 +13,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Window/Window.h>
 #include <DebugTools/Exception/Exception.h>
 #include <Events/EventManager.h>
-#ifdef NO_IMGUI
-#define FULLSCREEN
-#endif
 
 namespace WindowSystem {
   Window::Window(int width, int height, char const* title) :
