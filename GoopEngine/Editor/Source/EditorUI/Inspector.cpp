@@ -638,6 +638,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 				if (ImGui::CollapsingHeader("Script", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					//float inputWidth = (contentSize - charSize - 30) / 3;
+
+					std::vector <std::string> toDeleteList{};
+
 					GE::Component::Scripts* allScripts = ecs.GetComponent<Scripts>(entity);
 					if (RemoveComponentPopup<Scripts>("Script", entity))
 					{
@@ -682,9 +685,25 @@ void GE::EditorGUI::Inspector::CreateContent()
 							}
 							ImGui::EndCombo();
 						}
+						ImGui::SameLine();
+						ImVec4 boriginalColor = style.Colors[ImGuiCol_Button];
+						ImVec4 boriginalHColor = style.Colors[ImGuiCol_ButtonHovered];
+						ImVec4 boriginalAColor = style.Colors[ImGuiCol_ButtonActive];
+						style.Colors[ImGuiCol_Button] = ImVec4(0.6f, 0.f, 0.29f, 1.0f);
+						style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.8f, 0.1f, 0.49f, 1.0f);
+						style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.7f, 0.3f, 0.39f, 1.0f);
+						if(ImGui::Button("Delete"))
+						{
+							toDeleteList.push_back(s.m_scriptName);
+						}
+						style.Colors[ImGuiCol_Button] = boriginalColor;
+						style.Colors[ImGuiCol_ButtonHovered] = boriginalHColor;
+						style.Colors[ImGuiCol_ButtonActive] = boriginalAColor;
 						EndDisabled();
 						style.Colors[ImGuiCol_FrameBg] = originalColor;
 						style.Colors[ImGuiCol_FrameBgHovered] = originalHColor;
+
+						
 
 						//for (const rttr::variant& f  : s.m_scriptFieldInstList)
 						//{
@@ -753,6 +772,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						//	}
 						//}
 
+						// Check if the mouse is over the second table and the right mouse button is clicked
 						EndTable();
 						Separator();
 
@@ -777,9 +797,20 @@ void GE::EditorGUI::Inspector::CreateContent()
 					style.Colors[ImGuiCol_ButtonHovered] = originalHColor;
 					Separator();
 
-
+				/*	bool displayPopup = ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) && ImGui::IsMouseClicked(1);
+					if (displayPopup) {
+						std::cout << "Display delete\n";
+					}
+					else
+					{
+						std::cout << "Nope\n";
+					}*/
+					for (const std::string& tds : toDeleteList)
+					{
+						auto it = std::find_if(allScripts->m_scriptList.begin(), allScripts->m_scriptList.end(), [tds](const ScriptInstance pair) { return pair.m_scriptName == tds; });
+						allScripts->m_scriptList.erase(it);
+					}
 			
-
 				}
 				break;
 			}
