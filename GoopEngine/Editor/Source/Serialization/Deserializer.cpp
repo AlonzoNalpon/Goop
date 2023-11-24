@@ -239,12 +239,14 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
       {
         if (prop.get_name().to_string() == "scriptFieldInstList")
         {
-
+          DeserializeScriptFieldInstList(ret, jsonVal);          
         }
-
-        ret = prop.get_value(object);
-        rttr::variant_sequential_view view = ret.create_sequential_view();
-        DeserializeSequentialContainer(view, jsonVal);
+        else
+        {
+          ret = prop.get_value(object);
+          rttr::variant_sequential_view view = ret.create_sequential_view();
+          DeserializeSequentialContainer(view, jsonVal);
+        }
       }
       else if (prop.get_type().is_associative_container())
       {
@@ -464,26 +466,26 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
   }
   else if (type == rttr::type::get<Component::Scripts>())
   {
-    GE::Debug::ErrorLogger::GetInstance().LogMessage("Deserializing of Script component is skipped for now");
+    //GE::Debug::ErrorLogger::GetInstance().LogMessage("Deserializing of Script component is skipped for now");
     // get entity id
-    //rapidjson::Value::ConstMemberIterator iter{ value.FindMember("entityId") };
-    //if (iter == value.MemberEnd())
-    //{
-    //  GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"entityId\" property in Script component");
-    //  return true;
-    //}
+    rapidjson::Value::ConstMemberIterator idIter{ value.FindMember("entityId") };
+    if (idIter == value.MemberEnd())
+    {
+      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"entityId\" property in Script component");
+      return true;
+    }
 
-    //// get vector of script instances
-    //rttr::variant scriptMap{ Component::Scripts::ScriptInstances{} };
-    //iter = value.FindMember("scriptList");
-    //if (iter == value.MemberEnd())
-    //{
-    //  GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"scriptList\" property in Script component");
-    //  return true;
-    //}
-    //DeserializeBasedOnType(scriptMap, iter->value);
+    // get vector of script instances
+    rttr::variant scriptMap{ Component::Scripts::ScriptInstances{} };
+    rapidjson::Value::ConstMemberIterator listIter{ value.FindMember("scriptList") };
+    if (listIter == value.MemberEnd())
+    {
+      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"scriptList\" property in Script component");
+      return true;
+    }
+    DeserializeBasedOnType(scriptMap, listIter ->value);
 
-    //compVar = type.create({ iter->value.GetUint(), scriptMap });
+    compVar = type.create({ idIter->value.GetUint(), scriptMap.get_value<Component::Scripts::ScriptInstances>() });
 
     return true;
 
@@ -535,6 +537,33 @@ rttr::variant Deserializer::DeserializeBasicTypes(rapidjson::Value const& value)
   default:
     return rttr::variant();
   }
+}
+
+void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value)
+{
+#ifdef DESERIALIZER_DEBUG
+  std::cout << "Deserializing ScriptFieldInstList...\n";
+#endif
+  if (!value.IsArray()) { Debug::ErrorLogger::GetInstance().LogError("scriptFieldInstList is not a rapidjson Array!"); return; }
+
+  std::vector<rttr::variant> scriptFieldInstList{};
+  for (rapidjson::SizeType i{}; i < value.Size(); ++i)
+  {
+    rapidjson::Value const& elem{ value[i] };
+    if (!elem.HasMember("type")) { Debug::ErrorLogger::GetInstance().LogError("ScriptInstance missing \"scriptFieldInstList\" member"); continue; }
+    
+    rttr::variant scriptFieldInst{ rttr::type::get_by_name(elem["type"].GetString()).create() };
+#ifdef DESERIALIZER_DEBUG
+    std::cout << "  Reading " << elem["type"].GetString() << "...\n";
+#endif
+    DeserializeBasedOnType(scriptFieldInst, elem);
+    scriptFieldInstList.emplace_back(scriptFieldInst);
+#ifdef DESERIALIZER_DEBUG
+    std::cout << "  Added " << scriptFieldInst.get_type() << "to ScriptFieldInstList\n";
+#endif
+  }
+
+  object = scriptFieldInstList;
 }
 
 std::vector<AI::TreeTemplate> Deserializer::DeserializeTrees(std::string const& filename)
