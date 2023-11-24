@@ -184,5 +184,12 @@ namespace GE {
 		  Informs everyone that the current turn has finished resolving
 		************************************************************************/
 		void GameSystemResolved();
+
+
+		int GetCardIDFromQueue(GE::ECS::Entity queueEntity, int queueIndex);
+
+		void SetCardIDFromQueue(GE::ECS::Entity queueEntity, int queueIndex, int cardID);
+
+		void SetPlayerHand(GE::ECS::Entity playerHand, int cardID1, int cardID2, int cardID3, int cardID4, int cardID5);
 	}
 }
