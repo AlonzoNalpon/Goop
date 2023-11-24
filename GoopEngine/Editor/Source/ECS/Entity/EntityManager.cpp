@@ -99,11 +99,21 @@ void EntityManager::DestroyEntity(Entity& entity)
 
 bool GE::ECS::EntityManager::IsActiveEntity(Entity& entity)
 {
+	if (entity == INVALID_ID)
+	{
+		return false;
+	}
+
 	return m_mapOfActive[entity];
 }
 
 void GE::ECS::EntityManager::SetActiveEntity(Entity& entity, bool active)
 {
+	if (entity == INVALID_ID)
+	{
+		return;
+	}
+
 	m_mapOfActive[entity] = active;
 }
 
@@ -114,11 +124,21 @@ Entity GE::ECS::EntityManager::GetParentEntity(Entity& entity)
 
 void GE::ECS::EntityManager::SetParentEntity(Entity const& parent, Entity const& child)
 {
+	if (child == INVALID_ID)
+	{
+		return;
+	}
+
 	m_parent[child] = parent;
 }
 
 std::set<Entity>& GE::ECS::EntityManager::GetChildEntities(Entity& parent)
 {
+	if (parent == INVALID_ID)
+	{
+		throw GE::Debug::Exception<EntityComponentSystem>(GE::Debug::LEVEL_ERROR, ErrMsg("Unable to get child from non existant parent"));
+	}
+
 	return m_children[parent];
 }
 

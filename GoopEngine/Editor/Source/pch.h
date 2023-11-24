@@ -1,6 +1,7 @@
 #pragma once
 
 //#define EVENT_DEBUG
+//#define NO_IMGUI
 
 #if defined _DEBUG || defined EVENT_DEBUG
 #include <iostream>
