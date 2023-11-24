@@ -29,11 +29,11 @@ namespace GE::Systems
       {
         // get the sprite animation
         Graphics::SpriteAnimation const& spriteAnim
-        { gEngine.animManager.GetAnim(animData->m_animID) };
+        { gEngine.animManager.GetAnim(animData->animID) };
 
 
         // setting the new sprite based on data
-        sprite->m_spriteData.info = spriteAnim.frames[animData->m_currFrame];
+        sprite->m_spriteData.info = spriteAnim.frames[animData->currFrame];
       }
     }
   }
@@ -54,24 +54,24 @@ namespace GE::Systems
       {
         // get the sprite animation
         Graphics::SpriteAnimation const& spriteAnim
-        { gEngine.animManager.GetAnim(animData->m_animID) };
+        { gEngine.animManager.GetAnim(animData->animID) };
 
         // Updating sprite animation data
         {
           // Update the timer and see if frame should be changed
-          animData->m_currTime += dt;
-          if (animData->m_currTime >= spriteAnim.speed)
+          animData->currTime += dt;
+          if (animData->currTime >= spriteAnim.speed)
           {
-            animData->m_currTime -= spriteAnim.speed; // reset speed for next frame
+            animData->currTime -= spriteAnim.speed; // reset speed for next frame
             // move to next frame, or wrap back to start
-            u32 const newFrame{ (animData->m_currFrame + 1) };
-            animData->m_currFrame = (newFrame >= spriteAnim.frames.size() ?
+            u32 const newFrame{ (animData->currFrame + 1) };
+            animData->currFrame = (newFrame >= spriteAnim.frames.size() ?
               0 : newFrame);
           }
         }
 
         // setting the new sprite based on data
-        sprite->m_spriteData.info = spriteAnim.frames[animData->m_currFrame];
+        sprite->m_spriteData.info = spriteAnim.frames[animData->currFrame];
       }
     }
     frc.EndSystemTimer("Sprite Animation");

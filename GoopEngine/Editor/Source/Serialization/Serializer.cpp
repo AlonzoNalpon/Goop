@@ -467,7 +467,7 @@ namespace GE
         if (var.get_type().get_raw_type() == rttr::type::get<Component::SpriteAnim>())
         {
           Component::SpriteAnim const& sprAnim{ *var.get_value<Component::SpriteAnim*>() };
-          jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(sprAnim.m_animID).c_str(), allocator);
+          jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(sprAnim.animID).c_str(), allocator);
           //val.AddMember(jsonKey, jsonVal, allocator);
           //jsonVal = val.Move();
           //jsonVal.SetObject();

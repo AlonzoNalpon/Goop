@@ -22,7 +22,7 @@ namespace Graphics
   enum class SPRITE_ANIM_FLAGS : u32 {
     LOOPING         = 0x00000001, //0 - Looping the animation
     REWIND_COMPLETE = 0x00000002, //1 - Rewind animation on complete
-    //Bit2 = 0x00000004, // Bit 2
+    FINISHED        = 0x00000004, //2 - animation has completed: this flag would be true
     //Bit3 = 0x00000008, // Bit 3
     //Bit4 = 0x00000010, // Bit 4
     //Bit5 = 0x00000020, // Bit 5

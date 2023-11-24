@@ -367,7 +367,7 @@ void PrefabEditor::CreateContent()
             if (component2.get_type() == rttr::type::get<Component::Sprite>())
             {
               Component::Sprite const& sprite = *component2.get_value<Component::Sprite*>();
-              spriteAnim.m_animID = Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(sprite.m_spriteName);
+              spriteAnim.animID = Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(sprite.m_spriteName);
               flag = true;
               break;
             }

@@ -573,7 +573,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
 					auto const& textureLT{ animManager.GetAnimLT()};
-					if (BeginCombo("Sprite Anim", animManager.GetAnimName(spriteAnimObj->m_animID).c_str()))
+					if (BeginCombo("Sprite Anim", animManager.GetAnimName(spriteAnimObj->animID).c_str()))
 					{
 						for (auto const& it : textureLT)
 						{
@@ -581,9 +581,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 							{
 								auto const& anim = animManager.GetAnim(it.second);
 								auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
-								spriteAnimObj->m_animID = it.second;
-								spriteAnimObj->m_currFrame = 0;
-								spriteAnimObj->m_currTime	 = 0;
+								spriteAnimObj->animID = it.second;
+								spriteAnimObj->currFrame = 0;
+								spriteAnimObj->currTime	 = 0;
 
 								// setting correct attributes for sprite
 								auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
@@ -599,7 +599,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						EndCombo();
 					}
 					// Display animation ID for users to know
-					TextColored({ 1.f, .7333f, 0.f, 1.f }, ("Animation ID: " + std::to_string(spriteAnimObj->m_animID)).c_str());
+					TextColored({ 1.f, .7333f, 0.f, 1.f }, ("Animation ID: " + std::to_string(spriteAnimObj->animID)).c_str());
 
 					EndTable();
 					Separator();
