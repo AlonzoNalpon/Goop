@@ -27,29 +27,26 @@ namespace GoopScripts.Gameplay
     // function to allow c++ to edit the list of cards in cardmanager
     // this should use cardmanager's c++ interface function
 
-    public void OnUpdate(double dt, Stats player, uint playerEntity, Stats enemy, uint enemyEntity)
-    //public void OnUpdate(double dt, Stats player, Stats enemy)
+    public void OnUpdate(double dt, Stats player, uint playerEntity, Stats enemy, uint enemyEntity, uint playerHand, uint playerQueue, uint enemyQueue)
 		{
-			Console.WriteLine("Updating");
 			if (newTurn)
 			{
 				m_numResolves = player.m_cardQueue.Length >= enemy.m_cardQueue.Length ? player.m_cardQueue.Length : enemy.m_cardQueue.Length;
         newTurn = false;
 
-				Console.WriteLine("Player health " + player.m_health);
-				Console.WriteLine("Enemy health " + enemy.m_health);
-
-				Console.WriteLine("Player queue size " + player.m_cardQueue.Length);
-				Console.WriteLine("Enemy queue size " + enemy.m_cardQueue.Length);
 				// Do 1 turn of stuff
 				m_cardManager.Cards[(int)player.m_cardQueue[m_currResolves]].Play(ref player, ref enemy);
         m_cardManager.Cards[(int)enemy.m_cardQueue[m_currResolves]].Play(ref enemy, ref player);
 
         Utils.PlaySound(m_rng.Next(0, 1), playerEntity);
-				Console.WriteLine("Player played card " + player.m_cardQueue[m_currResolves]);
+        Utils.SetQueueCardID(playerQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
         Utils.PlaySound(m_rng.Next(0, 1), enemyEntity);
-        Console.WriteLine("Enemy played card " + enemy.m_cardQueue[m_currResolves]);
+        Utils.SetQueueCardID(enemyQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
         //play anim?
+
+        // remove card
+        player.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
+        enemy.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
         ++m_currResolves;
 			}
 
@@ -59,15 +56,21 @@ namespace GoopScripts.Gameplay
         // Overflow the time
         m_currTime = m_animTime - m_currTime;
 
-        Console.WriteLine(m_currResolves);
 				// Do 1 turn of stuff
 				m_cardManager.Cards[(int)player.m_cardQueue[m_currResolves]].Play(ref player, ref enemy);
 				m_cardManager.Cards[(int)enemy.m_cardQueue[m_currResolves]].Play(ref enemy, ref player);
 
-				Console.WriteLine("Player played card " + player.m_cardQueue[m_currResolves]);
-				Console.WriteLine("Enemy played card " + enemy.m_cardQueue[m_currResolves]);
-				//play anim? play sound?
-				++m_currResolves;
+        //play anim? play sound?
+        Utils.PlaySound(m_rng.Next(0, 1), playerEntity);
+        Utils.SetQueueCardID(playerQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
+        Utils.PlaySound(m_rng.Next(0, 1), enemyEntity);
+        Utils.SetQueueCardID(enemyQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
+
+        // remove card
+        player.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
+        enemy.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
+
+        ++m_currResolves;
 
 				if (m_currResolves >= m_numResolves)
 				{
@@ -81,29 +84,31 @@ namespace GoopScripts.Gameplay
 
       if (shouldEnd)
 			{
-        // Draw cards here.
-        Console.WriteLine("Turn end");
-
+        // Draw cards here.        
 				Utils.GameSystemResolved();
+        int i = 0;
+        for (; i < player.m_hand.Length; ++i)
+        {
+          if (player.m_hand[i] == CardBase.CardID.NO_CARD)
+          {
+            break;
+          }
+        }
+        // Draw card if there is space, if no space burn card
+        if (i < player.m_hand.Length && player.m_deck.Length > 0)
+        {
+          int drawnCard = m_rng.Next(0, player.m_deck.Length - 1);
+
+          List<CardBase.CardID> temp = player.m_deck.ToList();
+          temp.Remove((CardBase.CardID)drawnCard);
+          player.m_deck = temp.ToArray();
+
+          Utils.SetHandCardID(playerHand, i, drawnCard);
+        }
         m_currResolves = 0;
         m_currTime = 0;
         newTurn = true;
-			}      
-
-
-      //// Play cards in queue
-      //cardManager.Cards[(int)playerStats.m_cardQueue.First()].Play(ref playerStats, ref enemyStats);
-      //playerStats.m_cardQueue.RemoveAt(0);
-      //cardManager.Cards[(int)enemyStats.m_cardQueue.First()].Play(ref playerStats, ref enemyStats);
-      //enemyStats.m_cardQueue.RemoveAt(0);
-      //// Should probably record state here, such as win, lose and continue battle
-      //// Indicate cards being played to c++ too
-
-      //// Everyone add 1 card to queue from deck
-      //// Calls a c++ function to do the animations?
-      //// or c++ can check if queue size changed and then do the animations for it
-      //playerStats.m_cardQueue.Add(playerStats.m_deck[rng.Next(0, playerStats.m_deck.Count() - 1)]);
-      //enemyStats.m_cardQueue.Add(enemyStats.m_deck[rng.Next(0, enemyStats.m_deck.Count() - 1)]);
+			}
     }
   }
 }

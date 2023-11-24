@@ -123,9 +123,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
 
 
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetCardIDFromQueue", GE::MONO::GetCardIDFromQueue);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetCardIDFromQueue", GE::MONO::SetCardIDFromQueue);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetPlayerHand", GE::MONO::SetPlayerHand);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetQueueCardID", GE::MONO::SetQueueCardID);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetHandCardID", GE::MONO::SetHandCardID);
 
   //Load the CSharpAssembly (dll file)
   std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
@@ -464,18 +463,13 @@ void GE::MONO::GameSystemResolved()
   GE::Events::EventManager::GetInstance().Dispatch(GE::Events::GameTurnResolved());
 }
 
-int GE::MONO::GetCardIDFromQueue(GE::ECS::Entity queueEntity, int queueIndex)
+void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int cardID)
 {
-  std::cout << "CALLED GetCardIDFromQueue" << std::endl;
-  return 0;
+  GE::Debug::ErrorLogger::GetInstance().LogMessage("Assigning queue of " + std::to_string(queueEntity) + " with index " + std::to_string(queueIndex) + "with ID" + std::to_string(cardID));
 }
 
-void GE::MONO::SetCardIDFromQueue(GE::ECS::Entity queueEntity, int queueIndex, int cardID)
+void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID)
 {
-  std::cout << "CALLED SetCardIDFromQueue" << std::endl;
+  GE::Debug::ErrorLogger::GetInstance().LogMessage("Assigning queue of " + std::to_string(handEntity) + " with index " + std::to_string(handIndex) + "with ID" + std::to_string(cardID));
 }
 
-void GE::MONO::SetPlayerHand(GE::ECS::Entity playerHand, int cardID1, int cardID2, int cardID3, int cardID4, int cardID5)
-{
-  std::cout << "CALLED SetPlayerHand" << std::endl;
-}
