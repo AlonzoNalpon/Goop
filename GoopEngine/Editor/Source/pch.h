@@ -21,6 +21,7 @@
 #include <deque>
 #include <list>
 #include <stack>
+#include <algorithm>
 
 // Engine
 #include "Math/GEM.h"
