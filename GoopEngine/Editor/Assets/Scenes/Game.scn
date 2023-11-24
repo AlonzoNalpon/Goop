@@ -56,14 +56,6 @@
                     "started": true,
                     "paused": false
                 }
-            },
-            {
-                "Scripts": {
-                    "entityId": 0,
-                    "scriptMap": [
-                        "Player"
-                    ]
-                }
             }
         ]
     },
