@@ -41,6 +41,7 @@ namespace GE::EditorGUI
     // Reassign the new transform
     float newScale[3], newRotation[3], newTrans[3];
     ImGuizmo::DecomposeMatrixToComponents(g_gizmoInfo.trans, newTrans, newRotation, newScale);
+    // Changed local transform
     trans->m_pos.x = newTrans[0];
     trans->m_pos.y = newTrans[1];
     trans->m_pos.z = newTrans[2];
@@ -53,7 +54,9 @@ namespace GE::EditorGUI
 
     if (ImGuizmo::IsUsing())
       GE::Systems::PostRootTransformSystem::Propergate(g_gizmoInfo.entity, trans->m_parentWorldTransform);
+    // Sets world transform relative to parent.
     
+    // Update world transform
     trans->m_worldPos.x = newTrans[0];
     trans->m_worldPos.y = newTrans[1];
     trans->m_worldPos.z = newTrans[2];
@@ -66,6 +69,7 @@ namespace GE::EditorGUI
 
     if (ImGuizmo::IsUsing())
       GE::Systems::PreRootTransformSystem::Propergate(g_gizmoInfo.entity, trans->m_parentWorldTransform);
+    // Sets world transform based on ... huh?! What am I doing?!
   }
 
   void GizmoEditor::SetVisible(bool enable)
