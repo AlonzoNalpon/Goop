@@ -490,11 +490,6 @@ void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int car
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Assigning queue of " + std::to_string(handEntity) + " with index " + std::to_string(handIndex) + "with ID" + std::to_string(cardID));
 }
 
-void GE::MONO::SetPlayerHand(GE::ECS::Entity playerHand, int cardID1, int cardID2, int cardID3, int cardID4, int cardID5)
-{
-  std::cout << "CALLED SetPlayerHand" << std::endl;
-}
-
 void GE::MONO::SendString(MonoString* str)
 {
   std::string test = GE::MONO::MonoStringToSTD(str);

@@ -1220,6 +1220,12 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputEntity("Enemy Entity", game->m_enemy);
 					TableNextRow();
 					InputEntity("Pause Menu", game->m_pauseMenu);
+					TableNextRow();
+					InputEntity("Player Hand", game->m_playerHand);
+					TableNextRow();
+					InputEntity("Player Queue", game->m_playerQueue);
+					TableNextRow();
+					InputEntity("Enemy Queue", game->m_enemyQueue);
 
 					EndTable();
 				}
