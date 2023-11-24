@@ -131,6 +131,12 @@
                     },
                     "spriteName": "UI_Button_Quit"
                 }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "QUIT_GAME"
+                }
             }
         ]
     },

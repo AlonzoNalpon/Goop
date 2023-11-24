@@ -128,6 +128,41 @@ namespace GE
 								GE::Events::EventManager::GetInstance().Dispatch(GE::Events::GameNextTurn());
 								break;
 							}
+							case GE::Component::GE_Button::QUIT_GAME:
+							{
+								GE::Events::EventManager::GetInstance().Dispatch(GE::Events::QuitGame());
+								break;
+							}
+							case GE::Component::GE_Button::POPUP:
+							{
+								std::vector<std::string> multi_param = GoopUtils::SplitStringByPipe(btn->m_param);
+
+								if (multi_param[0] == "Return")
+								{
+									GE::ECS::Entity hideMenu{ std::stoul(multi_param[1]) };
+									m_ecs->SetIsActiveEntity(hideMenu, false);
+								}
+								else if (multi_param[0] == "Popup")
+								{
+									GE::ECS::Entity showMenu{ std::stoul(multi_param[1]) };
+									m_ecs->SetIsActiveEntity(showMenu, true);
+								}
+
+								if (multi_param.size() > 2)
+								{
+									if (multi_param[2] == "Hide")
+									{
+										GE::ECS::Entity showMenu{ std::stoul(multi_param[3]) };
+										m_ecs->SetIsActiveEntity(showMenu, false);
+									}
+									else if (multi_param[2] == "Show")
+									{
+										GE::ECS::Entity showMenu{ std::stoul(multi_param[3]) };
+										m_ecs->SetIsActiveEntity(showMenu, true);
+									}
+								}
+								break;
+							}
 							default:
 								break;
 							}

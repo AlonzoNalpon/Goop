@@ -45,11 +45,7 @@ void AssetBrowser::CreateContentDir()
 		// std::cout << "Reload Asset Browser" << std::endl;
 		GE::Debug::ErrorLogger::GetInstance().LogError("=== [ Reloading Asset Browser ] ===");
 
-		assetManager.ClearConfigData();
-		assetManager.LoadConfigData("./Assets/Config.cfg");
-		assetManager.ReloadAllFiles();
-		//assetManager.LoadFiles();
-		of.LoadPrefabsFromFile();
+		GoopUtils::ReloadFileData();
 	}
 
 	assetsDirectory = assetManager.GetConfigData<std::string>("Assets Dir");

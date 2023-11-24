@@ -210,7 +210,7 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
   PrefabDataContainer::const_iterator iter{ m_prefabs.find(key) };
   if (iter == m_prefabs.end())
   {
-    ReloadPrefabs();
+    Reload();
     if ((iter = m_prefabs.find(key)) == m_prefabs.end())
     {
       throw GE::Debug::Exception<ObjectFactory>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
@@ -223,9 +223,8 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
   return newEntity;
 }
 
-void ObjectFactory::ReloadPrefabs()
+void ObjectFactory::Reload()
 {
-  GoopUtils::ReloadFileData();
   m_prefabs.clear();
   LoadPrefabsFromFile();
 }
@@ -261,6 +260,8 @@ void ObjectFactory::CloneObject(ECS::Entity entity, ECS::Entity parent) const
     CloneObject(child, newEntity);  // recursively clone all children
   }
 }
+
+
 
 void ObjectFactory::ClearSceneObjects()
 {
