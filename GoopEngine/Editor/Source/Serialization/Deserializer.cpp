@@ -239,7 +239,7 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
       {
         if (prop.get_name().to_string() == "scriptFieldInstList")
         {
-          DeserializeScriptFieldInstList(ret, jsonVal);          
+          DeserializeScriptFieldInstList(ret, jsonVal);
         }
         else
         {
@@ -539,6 +539,8 @@ rttr::variant Deserializer::DeserializeBasicTypes(rapidjson::Value const& value)
   }
 }
 
+
+
 void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value)
 {
 #ifdef DESERIALIZER_DEBUG
@@ -547,6 +549,7 @@ void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjs
   if (!value.IsArray()) { Debug::ErrorLogger::GetInstance().LogError("scriptFieldInstList is not a rapidjson Array!"); return; }
 
   std::vector<rttr::variant> scriptFieldInstList{};
+  scriptFieldInstList.reserve(value.Size());
   for (rapidjson::SizeType i{}; i < value.Size(); ++i)
   {
     rapidjson::Value const& elem{ value[i] };
@@ -556,12 +559,33 @@ void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjs
 #ifdef DESERIALIZER_DEBUG
     std::cout << "  Reading " << elem["type"].GetString() << "...\n";
 #endif
-    DeserializeBasedOnType(scriptFieldInst, elem);
+    // should check before doing this in ccase of crash
+    if (elem["data"].IsArray()) {
+      rttr::variant_sequential_view view{ scriptFieldInst.create_sequential_view() };
+      DeserializeSequentialContainer(view, elem["data"]);
+    }
+    else {
+      scriptFieldInst = DeserializeBasicTypes(elem["data"]);
+    }
+    //DeserializeBasedOnType(scriptFieldInst, elem["data"]);
     scriptFieldInstList.emplace_back(scriptFieldInst);
 #ifdef DESERIALIZER_DEBUG
     std::cout << "  Added " << scriptFieldInst.get_type() << "to ScriptFieldInstList\n";
 #endif
   }
+
+#ifdef DESERIALIZER_DEBUG
+  for (auto const& i : scriptFieldInstList)
+  {
+    if (i.get_type() == rttr::type::get<std::shared_ptr<GE::MONO::ScriptFieldInstance<std::vector<int>>>>()) {
+      GE::MONO::ScriptFieldInstance<std::vector<int>> const& vec = *i.get_value< GE::MONO::ScriptFieldInstance<std::vector<int>>*>();
+      for (auto const& j : vec.m_data) {
+        std::cout << j << " ";
+      }
+    }
+  }
+  std::cout << "\n";
+#endif
 
   object = scriptFieldInstList;
 }

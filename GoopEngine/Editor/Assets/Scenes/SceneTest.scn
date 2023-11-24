@@ -190,7 +190,7 @@
     },
     {
         "Name": "GameSys",
-        "ID": 8,
+        "ID": 5,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -217,7 +217,7 @@
     },
     {
         "Name": "Test Player",
-        "ID": 9,
+        "ID": 6,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -231,7 +231,7 @@
             },
             {
                 "Scripts": {
-                    "entityId": 9,
+                    "entityId": 6,
                     "scriptList": [
                         {
                             "scriptName": "Stats",
@@ -246,19 +246,31 @@
                                         2,
                                         1
                                     ],
-                                    "type": "ScriptFieldInstVecInt"
+                                    "type": "System.Int32[]",
+                                    "ScriptField": {
+                                        "fieldName": "listintTest"
+                                    }
                                 },
                                 {
                                     "data": 102.0,
-                                    "type": "ScriptFieldInstDouble"
+                                    "type": "System.Double",
+                                    "ScriptField": {
+                                        "fieldName": "m_d"
+                                    }
                                 },
                                 {
                                     "data": 101.0,
-                                    "type": "ScriptFieldInstFloat"
+                                    "type": "System.Single",
+                                    "ScriptField": {
+                                        "fieldName": "m_float"
+                                    }
                                 },
                                 {
                                     "data": 100,
-                                    "type": "ScriptFieldInstInt"
+                                    "type": "System.Int32",
+                                    "ScriptField": {
+                                        "fieldName": "m_health"
+                                    }
                                 },
                                 {}
                             ]
@@ -270,7 +282,7 @@
     },
     {
         "Name": "Test Enemy",
-        "ID": 10,
+        "ID": 7,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -284,7 +296,7 @@
             },
             {
                 "Scripts": {
-                    "entityId": 10,
+                    "entityId": 7,
                     "scriptList": [
                         {
                             "scriptName": "Stats",
@@ -299,19 +311,31 @@
                                         2,
                                         1
                                     ],
-                                    "type": "ScriptFieldInstVecInt"
+                                    "type": "System.Int32[]",
+                                    "ScriptField": {
+                                        "fieldName": "listintTest"
+                                    }
                                 },
                                 {
                                     "data": 102.0,
-                                    "type": "ScriptFieldInstDouble"
+                                    "type": "System.Double",
+                                    "ScriptField": {
+                                        "fieldName": "m_d"
+                                    }
                                 },
                                 {
                                     "data": 101.0,
-                                    "type": "ScriptFieldInstFloat"
+                                    "type": "System.Single",
+                                    "ScriptField": {
+                                        "fieldName": "m_float"
+                                    }
                                 },
                                 {
                                     "data": 100,
-                                    "type": "ScriptFieldInstInt"
+                                    "type": "System.Int32",
+                                    "ScriptField": {
+                                        "fieldName": "m_health"
+                                    }
                                 },
                                 {}
                             ]

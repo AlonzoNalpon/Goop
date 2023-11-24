@@ -88,39 +88,45 @@ RTTR_REGISTRATION
     .property("spriteSubData", &Graphics::SpriteData::info)
     ;
 
-  /*rttr::registration::class_<GE::MONO::ScriptField>("ScriptField")
+  rttr::registration::class_<GE::MONO::ScriptField>("ScriptField")
     .constructor<>()
     .property("fieldName", &GE::MONO::ScriptField::m_fieldName)
-    ;*/
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<int>>("ScriptFieldInstInt")
+    ;
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<int>>("System.Int32")
     .constructor<>()
     .property("data", &GE::MONO::ScriptFieldInstance<int>::m_data)
     .property("type", &GE::MONO::ScriptFieldInstance<int>::m_type)
+    .property("ScriptField", &GE::MONO::ScriptFieldInstance<int>::m_scriptField)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<float>>("ScriptFieldInstFloat")
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<float>>("System.Single")
     .constructor<>()
     .property("data", &GE::MONO::ScriptFieldInstance<float>::m_data)
     .property("type", &GE::MONO::ScriptFieldInstance<float>::m_type)
+    .property("ScriptField", &GE::MONO::ScriptFieldInstance<float>::m_scriptField)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<double>>("ScriptFieldInstDouble")
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<double>>("System.Double")
     .constructor<>()
     .property("data", &GE::MONO::ScriptFieldInstance<double>::m_data)
     .property("type", &GE::MONO::ScriptFieldInstance<double>::m_type)
+    .property("ScriptField", &GE::MONO::ScriptFieldInstance<double>::m_scriptField)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<unsigned>>("ScriptFieldInstUInt")
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<unsigned>>("System.UInt32")
     .constructor<>()
     .property("data", &GE::MONO::ScriptFieldInstance<unsigned>::m_data)
     .property("type", &GE::MONO::ScriptFieldInstance<unsigned>::m_type)
+    .property("ScriptField", &GE::MONO::ScriptFieldInstance<unsigned>::m_scriptField)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<int>>>("ScriptFieldInstVecInt")
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<int>>>("System.Int32[]")
     .constructor<>()
     .property("data", &GE::MONO::ScriptFieldInstance<std::vector<int>>::m_data)
     .property("type", &GE::MONO::ScriptFieldInstance<std::vector<int>>::m_type)
+    .property("ScriptField", &GE::MONO::ScriptFieldInstance<std::vector<int>>::m_scriptField)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>("ScriptFieldInstVecUInt")
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>("System.UInt32[]")
     .constructor<>()
     .property("data", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_data)
     .property("type", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
+    .property("ScriptField", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
     ;
 
   rttr::registration::class_<GE::MONO::ScriptInstance>("ScriptInstance")
