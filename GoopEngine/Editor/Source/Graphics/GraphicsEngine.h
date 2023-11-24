@@ -207,6 +207,15 @@ namespace Graphics {
       
     ************************************************************************/
     Rendering::FrameBufferInfo& GetFrameBuffer(gObjID id);
+
+    /*!*********************************************************************
+    \brief
+      Gets animation mutable manager. use animManager instead if not editing
+    \params
+    \return
+      
+    ************************************************************************/
+    SpriteAnimationManager& GetAnimManager();
   public: // DRAW PRIMITIVE METHODS
     /*!*********************************************************************
     \brief Draws a line in world coordinates (0,0 is center of screen)
@@ -259,6 +268,7 @@ namespace Graphics {
 
     ************************************************************************/
     Model GenerateFontMdl();
+
 
     // SHADERS ARE ONLY TO BE QUERIED BY MODELS REQUESTING A HANDLE
     // USERS MUST SPECIFY SHADER NAME WHILE CREATING A MODEL

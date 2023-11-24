@@ -64,7 +64,7 @@ namespace Graphics::Rendering
     ************************************************************************/
     void RenderObject(SpriteData const& sprite, GE::Math::dMat4 const& trans);
     
-    void RenderFontObject(gVec2 pos, GLfloat scale, std::string const& str, Colorf color, gObjID fontID);
+    void RenderFontObject(gVec3 pos, GLfloat scale, std::string const& str, Colorf color, gObjID fontID);
 
     void RenderLineDebug(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf const& clr);
 
@@ -76,13 +76,7 @@ namespace Graphics::Rendering
     ************************************************************************/
     void Draw(Camera & camera);
 
-    /*!*********************************************************************
-    \brief
-      Clears all render data.
-    \params
-    \return
-    ************************************************************************/
-    void ClearRenderData();
+    void DrawSpriteObj(size_t sprite);
 
     /*!*********************************************************************
     \brief
@@ -109,6 +103,8 @@ namespace Graphics::Rendering
       
     ************************************************************************/
     Camera& GetCamera();
+
+    void PreRenderSetup(); // sorts based on depth
   private:
     // Private methods
     /*!*********************************************************************
@@ -124,11 +120,12 @@ namespace Graphics::Rendering
     glm::mat4 CalculateTransform(gVec3 const& scale, GLfloat rotation, gVec3 const& pos) const;
 
   private:
-    std::vector<RenderData>             m_renderCalls;     //!< container for all render calls
+    std::vector<SpriteRenderData>             m_spriteRenderCalls;     //!< container for all sprite render calls
     std::vector<FontRenderData>         m_fontRenderCalls; //!< font
     std::vector<LineRenderData>         m_lineRenderCalls; //!< DEBUG drawing lines with colors
-
+    std::vector<RenderData>             m_renderData;     //!< list of all rendered objects with their depth and types
     Camera                              m_camera;   //!< camera for rendering
+    RenderDataTypes                     m_prevMode; //!< previous rendering mode
 
     std::vector<Model> const&           r_mdlContainer; //!< reference to the model container
     TextureManager const&               r_texManager;   //!< reference to the texture manager
