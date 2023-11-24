@@ -187,6 +187,9 @@ namespace GE {
 				//const ScriptField& field = it->second;
 				mono_field_set_value(m_classInst, field , newArray);
 			}
+
+
+			void GetAllUpdatedFields();
 		};
 		
 	}
