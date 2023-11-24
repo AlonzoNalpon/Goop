@@ -24,21 +24,18 @@ RTTR_REGISTRATION
 {
   /* ------------------- CLASSES / STRUCTS ------------------- */
   rttr::registration::class_<Math::dVec2>("dVec2")
-    .constructor<>()
     .property("x", &Math::dVec2::x)
     .property("y", &Math::dVec2::y)
     .method("ToString", &Math::dVec2::ToString)
     ;
   
   rttr::registration::class_<Math::Vec2>("Vec2")
-    .constructor<>()
     .property("x", &Math::Vec2::x)
     .property("y", &Math::Vec2::y)
     .method("ToString", &Math::Vec2::ToString)
     ;
 
   rttr::registration::class_<Math::dVec3>("dVec3")
-    .constructor<>()
     .property("x", &Math::dVec3::x)
     .property("y", &Math::dVec3::y)
     .property("z", &Math::dVec3::z) 
@@ -77,19 +74,16 @@ RTTR_REGISTRATION
     (
       rttr::parameter_names("texCoords", "texDims", "width", "height")
     )*/
-    .constructor<>()
     .property("texCoords", &Graphics::SpriteSubData::texCoords)
     .property("texDims", &Graphics::SpriteSubData::texDims)
     .property("width", &Graphics::SpriteSubData::width)
     .property("height", &Graphics::SpriteSubData::height)
     ;
   rttr::registration::class_<Graphics::SpriteData>("SpriteData")
-    .constructor<>()
     .property("spriteSubData", &Graphics::SpriteData::info)
     ;
 
   rttr::registration::class_<GE::MONO::ScriptField>("ScriptField")
-    .constructor<>()
     .property("fieldName", &GE::MONO::ScriptField::m_fieldName)
     ;
   rttr::registration::class_<GE::MONO::ScriptFieldInstance<int>>("System.Int32")

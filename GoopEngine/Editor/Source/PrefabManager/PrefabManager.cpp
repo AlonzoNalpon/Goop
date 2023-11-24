@@ -1,6 +1,7 @@
 #include <pch.h>
-#include <PrefabManager/PrefabManager.h>
 #ifndef NO_IMGUI
+#include <PrefabManager/PrefabManager.h>
+#include <ECS/EntityComponentSystem.h>
 
 using namespace GE::Prefabs;
 
@@ -30,6 +31,14 @@ std::string PrefabManager::GetEntityPrefab(ECS::Entity entity) const
   }
 
   return entry->second;
+}
+
+void PrefabManager::UpdateEntitiesFromPrefab()
+{
+  for (auto const& [entity, prefab] : m_entitiesToPrefabs)
+  {
+
+  }
 }
 
 #endif

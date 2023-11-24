@@ -20,6 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Components.h>
 #include <Utilities/GoopUtils.h>
 #include <EditorUI/AssetBrowser.h>
+#include <PrefabManager/PrefabManager.h>
 
 using namespace GE::EditorGUI;
 using namespace ImGui;
@@ -375,6 +376,7 @@ void PrefabEditor::CreateContent()
           if (flag) { break; }
         }
       }
+      Prefabs::PrefabManager::GetInstance().UpdateEntitiesFromPrefab();
       Serialization::Serializer::SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
       GE::Debug::ErrorLogger::GetInstance().LogMessage(m_currPrefab.m_name + " successfully saved");
     }
