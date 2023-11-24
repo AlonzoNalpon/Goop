@@ -221,7 +221,7 @@ namespace GE::Assets
 		for (auto const& curr : m_loadedSpriteData)
 		{
 			gEngine.CreateAnimation(curr.first, curr.second.m_slices, curr.second.m_stacks
-				, curr.second.m_frames, curr.second.m_speed, 0, gEngine.textureManager.GetTextureID(curr.second.m_filePath));
+				, curr.second.m_frames, curr.second.m_speed, curr.second.m_flags, gEngine.textureManager.GetTextureID(curr.second.m_filePath));
 		}
 	}
 
@@ -519,7 +519,7 @@ namespace GE::Assets
 		// For each entry in assets, print out its details
 		for (auto const& entry : assets)
 		{
-			SpriteData loadedData{ entry.m_id, entry.m_filePath, entry.m_slices, entry.m_stacks, entry.m_frames, entry.m_speed };
+			SpriteData loadedData{ entry.m_id, entry.m_filePath, entry.m_slices, entry.m_stacks, entry.m_frames, entry.m_speed, entry.m_flags };
 			m_loadedSpriteData.insert({ entry.m_id, loadedData });
 		}
 	}

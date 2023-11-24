@@ -30,6 +30,7 @@ namespace GE::Systems {
 
     virtual void Update();
 
+    static void SetAnimation(ECS::Entity entity, size_t animID);
   };
 }
 #endif

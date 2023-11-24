@@ -57,5 +57,8 @@ namespace Graphics
   u32& operator|=(u32& lhs, SPRITE_ANIM_FLAGS rhs);
   u32 operator&(u32 lhs, SPRITE_ANIM_FLAGS rhs);
   u32& operator&=(u32& lhs, SPRITE_ANIM_FLAGS rhs);
+  u32  operator^(u32 lhs, SPRITE_ANIM_FLAGS rhs);
+  u32& operator^=(u32& lhs, SPRITE_ANIM_FLAGS rhs);
+  u32 operator~(SPRITE_ANIM_FLAGS val);
 }
 #endif

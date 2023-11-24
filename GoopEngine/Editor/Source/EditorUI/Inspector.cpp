@@ -18,6 +18,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../ImGui/misc/cpp/imgui_stdlib.h"
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <Commands/CommandManager.h>
 #include <Graphics/GraphicsEngine.h>
 #include <EditorUI/GizmoEditor.h>
@@ -464,7 +465,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 			case GE::ECS::COMPONENT_TYPES::SPRITE:
 			{
-				auto sprite = ecs.GetComponent<Sprite>(entity);
+				bool hasSpriteAnim = ecs.HasComponent<SpriteAnim>(entity);
+				auto* sprite = ecs.GetComponent<Sprite>(entity);
 				if (ImGui::CollapsingHeader("Sprite", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					if (RemoveComponentPopup<Sprite>("Sprite", entity))
@@ -489,6 +491,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 					//ImGui::Columns(1);
 
+					if (hasSpriteAnim) // If there's a sprite anim component, we shouldn't be able to edit
+					{
+						TextColored({ 1.f, 0.f, 0.f, 1.f }, "SpriteAnim detected! Unable to edit!");
+						BeginDisabled();
+					}
 #pragma region SPRITE_LIST
 					auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
 					Separator();
@@ -548,6 +555,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						spriteObj->m_spriteData.info.width = static_cast<GLint>(spriteObj->m_spriteData.info.height * ar);
 					}
 
+					if (hasSpriteAnim)
+						EndDisabled();
 					EndTable();
 					Separator();
 #pragma endregion
@@ -579,20 +588,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							if (Selectable(it.first.c_str()))
 							{
-								auto const& anim = animManager.GetAnim(it.second);
 								auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
-								spriteAnimObj->animID = it.second;
-								spriteAnimObj->currFrame = 0;
-								spriteAnimObj->currTime	 = 0;
+								auto const& anim = animManager.GetAnim(it.second);
+								Systems::SpriteAnimSystem::SetAnimation(entity, it.second);
 
 								// setting correct attributes for sprite
 								auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
-								textureManager.GetTextureName(anim.texture);
 
-								// Set sprite name and the texture handle
+								// Set sprite name and the texture handle. This is for rendering in editor
 								spriteObj->m_spriteName = textureManager.GetTextureName(anim.texture);
 								spriteObj->m_spriteData.texture = anim.texture;
-
 								spriteObj->m_spriteData.info = anim.frames[0]; // and set actual sprite info
 							}
 						}

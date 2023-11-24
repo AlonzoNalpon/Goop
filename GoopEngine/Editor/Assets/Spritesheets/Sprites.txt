@@ -1,5 +1,5 @@
-Name        FilePath        Slices  Stacks  Frames  Speed
-SS_MineWorm    SS_MineWorm        6       1       6       0.1    # Headers must be on line 1
-SS_Shark       SS_Shark           4       1       4       0.1    
-SS_LeahIdle    SS_LeahIdle        4	  1	  4	  0.1
+Name        FilePath        Slices  Stacks  Frames  Speed		Flags
+SS_MineWorm    SS_MineWorm        6       1       6       0.1   1 # Headers must be on line 1
+SS_Shark       SS_Shark           4       1       4       0.1   1
+SS_LeahIdle    SS_LeahIdle        4	  1	  4	  0.1				0
 #You can add comments with '#' symbol
