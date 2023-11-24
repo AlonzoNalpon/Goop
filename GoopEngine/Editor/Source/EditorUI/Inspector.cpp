@@ -262,6 +262,8 @@ namespace
 	************************************************************************/
 	template <typename T>
 	bool RemoveComponentPopup(std::string name, GE::ECS::Entity entity);
+
+	bool InputScriptList(std::string propertyName, std::vector<int>& list, float fieldWidth, bool disabled = false);
 }
 
 void GE::EditorGUI::Inspector::CreateContent()
@@ -637,7 +639,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 				//auto scripts = ecs.GetComponent<Scripts>(entity);
 				if (ImGui::CollapsingHeader("Script", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					//float inputWidth = (contentSize - charSize - 30) / 3;
+					float inputWidth = (contentSize - charSize - 30) / 3;
+					std::vector <std::string> toDeleteList{};
+
 					GE::Component::Scripts* allScripts = ecs.GetComponent<Scripts>(entity);
 					if (RemoveComponentPopup<Scripts>("Script", entity))
 					{
@@ -682,77 +686,104 @@ void GE::EditorGUI::Inspector::CreateContent()
 							}
 							ImGui::EndCombo();
 						}
+						ImGui::SameLine();
+						ImVec4 boriginalColor = style.Colors[ImGuiCol_Button];
+						ImVec4 boriginalHColor = style.Colors[ImGuiCol_ButtonHovered];
+						ImVec4 boriginalAColor = style.Colors[ImGuiCol_ButtonActive];
+						style.Colors[ImGuiCol_Button] = ImVec4(0.6f, 0.f, 0.29f, 1.0f);
+						style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.8f, 0.1f, 0.49f, 1.0f);
+						style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.7f, 0.3f, 0.39f, 1.0f);
+						if(ImGui::Button("Delete"))
+						{
+							toDeleteList.push_back(s.m_scriptName);
+						}
+						style.Colors[ImGuiCol_Button] = boriginalColor;
+						style.Colors[ImGuiCol_ButtonHovered] = boriginalHColor;
+						style.Colors[ImGuiCol_ButtonActive] = boriginalAColor;
 						EndDisabled();
 						style.Colors[ImGuiCol_FrameBg] = originalColor;
 						style.Colors[ImGuiCol_FrameBgHovered] = originalHColor;
 
-						//for (const rttr::variant& f  : s.m_scriptFieldInstList)
-						//{
-						//	rttr::type dataType{ f.get_type() };
-						//	// get underlying type if it's wrapped in a pointer
-						//	dataType = dataType.is_wrapper() ? dataType.get_wrapped_type().get_raw_type() : dataType.is_pointer() ? dataType.get_raw_type() : dataType;
-						//	if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<int>>())
-						//	{
-						//		TableNextRow();
-						//		BeginDisabled(false);
-						//		GE::MONO::ScriptFieldInstance<int> sfi = *f.get_value<GE::MONO::ScriptFieldInstance<int>*>();
-						//		TableNextColumn();
-						//		ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
-						//		TableNextColumn();
-						//		SetNextItemWidth(GetWindowSize().x);
-						//		if (ImGui::InputInt(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<int>(sfi.m_data,sfi.m_scriptField.m_classField ); }
-						//		EndDisabled();
+						for (const rttr::variant& f  : s.m_scriptFieldInstList)
+						{
+							rttr::type dataType{ f.get_type() };
+							// get underlying type if it's wrapped in a pointer
+							if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<int>>())
+							{
+								TableNextRow();
+								BeginDisabled(false);
+								GE::MONO::ScriptFieldInstance<int> sfi = f.get_value<GE::MONO::ScriptFieldInstance<int>>();
+								TableNextColumn();
+								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
+								TableNextColumn();
+								SetNextItemWidth(GetWindowSize().x);
+								if (ImGui::InputInt(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<int>(sfi.m_data,sfi.m_scriptField.m_classField ); }
+								EndDisabled();
 
-						//	}
-						//	else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<float>>())
-						//	{
-						//		TableNextRow();
-						//		BeginDisabled(false);
-						//		GE::MONO::ScriptFieldInstance<float> sfi = *f.get_value<GE::MONO::ScriptFieldInstance<float>*>();
-						//		TableNextColumn();
-						//		ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
-						//		TableNextColumn();
-						//		SetNextItemWidth(GetWindowSize().x);
-						//		if (ImGui::InputFloat(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<float>(sfi.m_data, sfi.m_scriptField.m_classField); }
-						//		EndDisabled();
-						//	}
-						//	else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<double>>())
-						//	{
-						//		TableNextRow();
-						//		BeginDisabled(false);
-						//		GE::MONO::ScriptFieldInstance<double> sfi = *f.get_value<GE::MONO::ScriptFieldInstance<double>*>();
-						//		TableNextColumn();
-						//		ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
-						//		TableNextColumn();
-						//		SetNextItemWidth(GetWindowSize().x);
-						//		if (ImGui::InputDouble(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<double>(sfi.m_data, sfi.m_scriptField.m_classField); }
-						//		EndDisabled();;
-						//	}
-						//	else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>())
-						//	{
-						//		TableNextRow();
-						//		GE::MONO::ScriptFieldInstance<GE::Math::dVec3> sfi = *f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>*>();
-						//		if (InputDouble3(("##" + sfi.m_scriptField.m_fieldName).c_str(), sfi.m_data, inputWidth)) { s.SetFieldValue<GE::Math::dVec3>(sfi.m_data, sfi.m_scriptField.m_classField); };
-						//	}
-						//	else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>())
-						//	{
-						//		TableNextRow();						
-						//		GE::MONO::ScriptFieldInstance<std::vector<int>> sfi = *f.get_value<GE::MONO::ScriptFieldInstance<std::vector<int>>*>();
-						//		InputList("##" + sfi.m_scriptField.m_fieldName, sfi.m_data, inputWidth);
-						//		std::vector<int> val = sfi.m_data;
-						//		std::cout << sfi.m_data.size() << "SIZE\n";
-						//		for (int in : sfi.m_data)
-						//		{
-						//			std::cout << in << ", ";
-						//		}
-						//		std::cout << "\n";
-						//		//std::vector<int> val = s.second.GetFieldValueArr<int>(fieldName, sm->m_appDomain);
-						//		
-						//	
-						//		//if()
-						//	}
-						//}
+							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<float>>())
+							{
+								TableNextRow();
+								BeginDisabled(false);
+								GE::MONO::ScriptFieldInstance<float> sfi = f.get_value<GE::MONO::ScriptFieldInstance<float>>();
+								TableNextColumn();
+								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
+								TableNextColumn();
+								SetNextItemWidth(GetWindowSize().x);
+								if (ImGui::InputFloat(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<float>(sfi.m_data, sfi.m_scriptField.m_classField); }
+								EndDisabled();
+							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<double>>())
+							{
+								TableNextRow();
+								BeginDisabled(false);
+								GE::MONO::ScriptFieldInstance<double> sfi = f.get_value<GE::MONO::ScriptFieldInstance<double>>();
+								TableNextColumn();
+								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
+								TableNextColumn();
+								SetNextItemWidth(GetWindowSize().x);
+								if (ImGui::InputDouble(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<double>(sfi.m_data, sfi.m_scriptField.m_classField); }
+								EndDisabled();
+							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>())
+							{
+								TableNextRow();
+								GE::MONO::ScriptFieldInstance<GE::Math::dVec3> sfi = f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>();
+								if (InputDouble3(("##" + sfi.m_scriptField.m_fieldName).c_str(), sfi.m_data, inputWidth)) { s.SetFieldValue<GE::Math::dVec3>(sfi.m_data, sfi.m_scriptField.m_classField); };
+							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>())
+							{
+								GE::MONO::ScriptFieldInstance<std::vector<int>> sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<int>>>();
+								TableNextRow();
+								BeginDisabled(false);
+								TableNextColumn();
+								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
+								TableNextColumn(); 
+								if (InputScriptList("##" + sfi.m_scriptField.m_fieldName, sfi.m_data, inputWidth))
+								{
+									std::cout << "changed\n";
+									for (int in : sfi.m_data)
+									{
+										std::cout << in << ", ";
+									}
+									std::cout << "\n";
+								}
+								std::vector<int> val = sfi.m_data;
+								EndDisabled();
+								//std::cout << sfi.m_data.size() << "SIZE\n";
+								//for (int in : sfi.m_data)
+								//{
+								//	std::cout << in << ", ";
+								//}
+								//std::cout << "\n";
+								//std::vector<int> val = s.second.GetFieldValueArr<int>(fieldName, sm->m_appDomain);
+								
+							
+								//if()
+							}
+						}
 
+						// Check if the mouse is over the second table and the right mouse button is clicked
 						EndTable();
 						Separator();
 
@@ -777,9 +808,20 @@ void GE::EditorGUI::Inspector::CreateContent()
 					style.Colors[ImGuiCol_ButtonHovered] = originalHColor;
 					Separator();
 
-
+				/*	bool displayPopup = ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) && ImGui::IsMouseClicked(1);
+					if (displayPopup) {
+						std::cout << "Display delete\n";
+					}
+					else
+					{
+						std::cout << "Nope\n";
+					}*/
+					for (const std::string& tds : toDeleteList)
+					{
+						auto it = std::find_if(allScripts->m_scriptList.begin(), allScripts->m_scriptList.end(), [tds](const ScriptInstance pair) { return pair.m_scriptName == tds; });
+						allScripts->m_scriptList.erase(it);
+					}
 			
-
 				}
 				break;
 			}
@@ -1728,6 +1770,32 @@ namespace
 			Separator();
 			TreePop();
 		}
+	}
+
+	bool InputScriptList(std::string propertyName, std::vector<int>& list, float fieldWidth, bool disabled)
+	{
+		// 12 characters for property name
+		float charSize = CalcTextSize("012345678901").x;
+		bool changed{ false };
+		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			Separator();
+			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
+			for (int i{}; i < list.size(); ++i)
+			{
+				PushID((std::to_string(i)).c_str());
+				ImGui::Text(propertyName.c_str());
+				TableNextColumn();
+				if (InputInt(("##" + (propertyName + std::to_string(i))).c_str(), &list[i], 0)) { changed = true; }
+				TableNextRow();
+				PopID();
+			}
+			EndTable();
+			Separator();
+			TreePop();
+		}
+		return changed;
 	}
 
 	template <>
