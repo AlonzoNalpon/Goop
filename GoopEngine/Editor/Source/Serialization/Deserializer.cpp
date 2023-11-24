@@ -567,12 +567,14 @@ rttr::variant Deserializer::DeserializeBasicTypes(rapidjson::Value const& value)
   }
 }
 
-rttr::variant TryDeserializeIntoInt(rapidjson::Value const& value)
+rttr::variant Deserializer::TryDeserializeIntoInt(rapidjson::Value const& value)
 {
   if (value.IsInt())
   {
     return value.GetInt();
   }
+
+  return {};
 }
 
 

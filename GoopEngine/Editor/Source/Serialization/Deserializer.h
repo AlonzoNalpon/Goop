@@ -100,6 +100,8 @@ namespace GE
       static void DeserializeSequentialContainer(rttr::variant_sequential_view& view, rapidjson::Value const& value);
 
       static void DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value);
+
+      static rttr::variant TryDeserializeIntoInt(rapidjson::Value const& value);
     };
 
   } // namespace Serialization
