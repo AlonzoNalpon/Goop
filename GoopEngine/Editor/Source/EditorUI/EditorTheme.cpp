@@ -11,8 +11,8 @@ void GE::EditorGUI::EditorTheme::SetImGuiTheme()
   // Modify the colors in the ImGui style
   ImVec4* colors = style.Colors;
 
-  colors[ImGuiCol_WindowBg] = ImVec4(0.016f, 0.2f, 0.f, 1.0f);
-  colors[ImGuiCol_TitleBg] = ImVec4(0.055f, 0.569f, 0.f, 1.0f);
+  colors[ImGuiCol_WindowBg] = ImVec4(0.016f, 0.12f, 0.f, 1.0f);
+  colors[ImGuiCol_TitleBg] = ImVec4(0.055f, 0.369f, 0.f, 1.0f);
 
   // Example: Set the text color to a dark gray
   colors[ImGuiCol_Text] = ImVec4(1.f, 1.f, 1.f, 1.0f);

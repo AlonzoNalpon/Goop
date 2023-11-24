@@ -49,6 +49,7 @@ namespace GE::EditorGUI
     trans->m_worldScale.x = newScale[0];
     trans->m_worldScale.y = newScale[1];
     trans->m_worldScale.z = newScale[2];
+    if (ImGuizmo::IsUsing())
     GE::Systems::PreRootTransformSystem::Propergate(g_gizmoInfo.entity, trans->m_parentWorldTransform);
   }
 
