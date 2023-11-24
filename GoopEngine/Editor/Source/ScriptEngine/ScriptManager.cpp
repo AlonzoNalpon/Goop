@@ -382,12 +382,41 @@ MonoClass* GE::MONO::ScriptManager::GetScriptClass(std::string className)
 }
 
 
+ScriptClassInfo GE::MONO::ScriptManager::GetScriptClassInfo(std::string className)
+{
+  return m_monoClassMap[className];
+}
+
 ScriptField GE::MONO::ScriptManager::GetScriptField(std::string className, std::string fieldName)
 {
   return m_monoClassMap[className].m_ScriptFieldMap[fieldName];
 }
 
+rttr::variant  GE::MONO::ScriptManager::GetScriptFieldInst(std::string const& listType) {
+  if (listType == "System.Int32")
+  {
+    return GE::MONO::ScriptFieldInstance<int>();
+  }
+  if (listType == "System.Single")
+  {
+    return GE::MONO::ScriptFieldInstance<float>();
+  }
+  if (listType == "System.Double")
+  {
+    return GE::MONO::ScriptFieldInstance<double>();
+  }
+  if (listType == "System.UInt32")
+  {
+    return GE::MONO::ScriptFieldInstance<unsigned>();
+  }
+  if (listType == "System.Int32[]")
+  {
+    return GE::MONO::ScriptFieldInstance < std::vector<int> > ();
+  }
 
+  return GE::MONO::ScriptFieldInstance<std::vector<unsigned>>();
+  
+}
 
 // /*!*********************************************************************
 //

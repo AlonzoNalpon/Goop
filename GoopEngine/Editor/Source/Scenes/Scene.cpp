@@ -82,9 +82,9 @@ void GE::Scenes::Scene::TestScene()
 
 	ecs->SetEntityName(testPlayer, "Test Player");
 	ecs->AddComponent(testPlayer, GSTrans);
-	ecs->AddComponent(testPlayer, testPLayerScript);
+	//ecs->AddComponent(testPlayer, testPLayerScript);
 
 	ecs->SetEntityName(testEnemy, "Test Enemy");
 	ecs->AddComponent(testEnemy, GSTrans);
-	ecs->AddComponent(testEnemy, testEnemyScript);
+	//ecs->AddComponent(testEnemy, testEnemyScript);
 }

@@ -13,6 +13,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
+#ifndef NO_IMGUI
 #include "ErrorLogger.h"
 #include <spdlog/sinks/basic_file_sink.h>
 #include <chrono>
@@ -156,3 +157,4 @@ std::string ErrorLogger::LogCritical(std::string msg, bool logToFile)
 
 	return msg;
 }
+#endif
