@@ -357,6 +357,7 @@
     <ClInclude Include="Source\EditorUI\PrefabEditor.h" />
     <ClInclude Include="Source\EditorUI\SceneControls.h" />
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
+    <ClInclude Include="Source\GameDef.h" />
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
     <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
     <ClInclude Include="Source\Graphics\Renderer\FrameBufferInfo.h" />

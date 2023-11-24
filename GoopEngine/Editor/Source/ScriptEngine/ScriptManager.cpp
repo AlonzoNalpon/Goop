@@ -22,6 +22,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "mono/metadata/threads.h"
 #include <Systems/GameSystem/GameSystem.h>
 
+#include <Component/Card.h>
+#include <Component/CardHolder.h>
 using namespace GE::MONO;
 
 namespace GE 
@@ -482,14 +484,19 @@ void GE::MONO::GameSystemResolved()
 
 void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int cardID)
 {
-  // Implement this alonzo
-  GE::Debug::ErrorLogger::GetInstance().LogMessage("Assigning queue of " + std::to_string(queueEntity) + " with index " + std::to_string(queueIndex) + "with ID" + std::to_string(cardID));
+  ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
+  ECS::Entity cardEntity = ecs.GetComponent<Component::CardHolder>(queueEntity)->elements[queueIndex].cardEntity;
+  ecs.GetComponent<Component::Card>(cardEntity)->cardID = static_cast<Component::Card::CardID>(cardID);
+  // Done but the Sprite has not been set!
 }
 
 void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID)
 {
-  // Implement this alonzo
-  GE::Debug::ErrorLogger::GetInstance().LogMessage("Assigning queue of " + std::to_string(handEntity) + " with index " + std::to_string(handIndex) + "with ID" + std::to_string(cardID));
+  ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
+  ECS::Entity cardEntity = ecs.GetComponent<Component::CardHolder>(handEntity)->elements[handEntity].cardEntity;
+  ecs.GetComponent<Component::Card>(cardEntity)->cardID = static_cast<Component::Card::CardID>(cardID);
+  // Done but the Sprite has not been set!
+  // Just realized that since holder component is used for hand and queue, this code is practically the same as SetQueueCardID
 }
 
 void GE::MONO::SendString(MonoString* str)
