@@ -24,4 +24,5 @@ void EventManager::SubscribeAllListeners()
   Subscribe<MouseHeldEvent>(ecs.GetSystem<GE::Systems::DraggableObjectSystem>());
   Subscribe<MouseReleasedEvent>(ecs.GetSystem<GE::Systems::DraggableObjectSystem>());
   Subscribe<MouseTriggeredEvent>(ecs.GetSystem<GE::Systems::ButtonSystem>());
+  Subscribe<KeyTriggeredEvent>(ecs.GetSystem<GE::Systems::GameSystem>());
 }

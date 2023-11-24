@@ -67,9 +67,7 @@ namespace GE::Assets
 	{
 		if (m_loadedImagesIDLookUp.find(id) == m_loadedImagesIDLookUp.end())
 		{
-#ifdef ASSET_MANAGER_DEBUG
-			std::cout << "DIDN'T FIND IMAGE DATA WITH ID: " << id << "\n";
-#endif
+			GE::Debug::ErrorLogger::GetInstance().LogError("Didn't find image data with this ID: " + id);
 			return m_loadedImagesIDLookUp[id];
 		}
 
@@ -79,9 +77,7 @@ namespace GE::Assets
 	{
 		if (m_loadedImagesStringLookUp.find(GoopUtils::ExtractPrevFolderAndFileName(name)) == m_loadedImagesStringLookUp.end())
 		{
-#ifdef ASSET_MANAGER_DEBUG
-			std::cout << "DIDN'T FIND ID WITH KEY: " << name << "\n";
-#endif
+			GE::Debug::ErrorLogger::GetInstance().LogError("Didn't find ID with this key: " + name);
 			return m_loadedImagesStringLookUp[GoopUtils::ExtractPrevFolderAndFileName(name)];
 		}
 
@@ -285,11 +281,22 @@ namespace GE::Assets
 
 	void AssetManager::ReloadAllFiles()
 	{
-		m_scenes.clear();
-		m_prefabs.clear();
 		m_images.clear();
 		m_audio.clear();
+		m_prefabs.clear();
+		m_scenes.clear();
+		m_shaders.clear();
+		m_fonts.clear();
+		m_loadedImages.clear();
+		m_loadedImagesStringLookUp.clear();
+		m_loadedImagesIDLookUp.clear();
+		m_loadedSpriteData.clear();
 		LoadFiles();
+	}
+
+	void AssetManager::ClearConfigData()
+	{
+		m_configData.clear();
 	}
 
 	// The AssetManager class method to load JSON data from a file
@@ -311,9 +318,11 @@ namespace GE::Assets
 	{
 		for (auto const& entry : m_loadedSpriteData)
 		{
-			std::cout << "Name: " << entry.second.m_id << "\nFile: " << entry.second.m_filePath
-				<< "\nSlices: " << entry.second.m_slices << "\nStacks: " << entry.second.m_stacks
-				<< "\nFrames: " << entry.second.m_frames << "\n";
+			Debug::ErrorLogger::GetInstance().LogMessage("Name: " + entry.second.m_id);
+			Debug::ErrorLogger::GetInstance().LogMessage("File: " + entry.second.m_filePath);
+			Debug::ErrorLogger::GetInstance().LogMessage("Slices: " + entry.second.m_slices);
+			Debug::ErrorLogger::GetInstance().LogMessage("Stacks: " + entry.second.m_stacks);
+			Debug::ErrorLogger::GetInstance().LogMessage("Frames: " + entry.second.m_frames);
 		}
 	}
 
@@ -469,32 +478,34 @@ namespace GE::Assets
 
 	void AssetManager::GetMapData()
 	{
-		std::cout << "==== [ m_images ] ====" << std::endl;
+		Debug::ErrorLogger::GetInstance().LogMessage("=== [ m_images ] ===");
 		for (const auto& x : m_images)
 		{
-			std::cout << x.first << " : " << x.second << std::endl;
+			Debug::ErrorLogger::GetInstance().LogMessage(x.first + " : " + x.second);
 		}
 
-		std::cout << std::endl;
+		Debug::ErrorLogger::GetInstance().LogMessage("");
+		Debug::ErrorLogger::GetInstance().LogMessage("==== [ m_loadedImages ] ====");
 
-		std::cout << "==== [ m_loadedImages ] ====" << std::endl;
 		for (const auto& x : m_loadedImages)
 		{
-			std::cout << x.first << " : " << x.second.GetName() << std::endl;
+			Debug::ErrorLogger::GetInstance().LogMessage(x.second.GetName());
 		}
 
-		std::cout << "==== [ m_loadedImagesStringLookUp ] ====" << std::endl;
+		Debug::ErrorLogger::GetInstance().LogMessage("");
+		Debug::ErrorLogger::GetInstance().LogMessage("==== [ m_loadedImagesStringLookUp ] ====");
+
 		for (const auto& x : m_loadedImagesStringLookUp)
 		{
-			std::cout << x.first << " : " << x.second << std::endl;
+			Debug::ErrorLogger::GetInstance().LogMessage(x.first);
 		}
 
-		std::cout << std::endl;
+		Debug::ErrorLogger::GetInstance().LogMessage("");
+		Debug::ErrorLogger::GetInstance().LogMessage("==== [ m_scenes ] ====");
 
-		std::cout << "==== [ m_scenes ] ====" << std::endl;
 		for (const auto& x : m_scenes)
 		{
-			std::cout << x.first << " : " << x.second << std::endl;
+			Debug::ErrorLogger::GetInstance().LogMessage(x.first + " : " + x.second);
 		}
 
 	}
@@ -508,12 +519,16 @@ namespace GE::Assets
 		// If the SpriteGooStream object is not valid, print an error message
 		if (!sgs)
 		{
-			std::cout << "Error deserializing " << fileName << "\n";
+			Debug::ErrorLogger::GetInstance().LogMessage("Error deserializing " + fileName);
+
+			// std::cout << "Error deserializing " << fileName << "\n";
 		}
 		// If unloading assets into the container was not successful, print an error message
 		if (!sgs.Unload(assets))
 		{
-			std::cout << "Error unloading assets into container" << "\n";
+			Debug::ErrorLogger::GetInstance().LogMessage("Error unloading assets into container ");
+
+			// std::cout << "Error unloading assets into container" << "\n";
 		}
 
 		// For each entry in assets, print out its details
