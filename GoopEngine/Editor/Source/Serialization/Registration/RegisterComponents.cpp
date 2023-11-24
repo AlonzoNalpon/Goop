@@ -89,7 +89,6 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Graphics::Colorf>("Colorf")
-    .constructor<>()
     .property("r", &Graphics::Colorf::r)
     .property("g", &Graphics::Colorf::g)
     .property("b", &Graphics::Colorf::b)
@@ -119,7 +118,6 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::Audio::Sound>("Sound")
-    .constructor<>()
     .property("sound", &Component::Audio::Sound::m_sound)
     .property("loop", &Component::Audio::Sound::m_loop)
     .property("playOnStart", &Component::Audio::Sound::m_playOnStart)

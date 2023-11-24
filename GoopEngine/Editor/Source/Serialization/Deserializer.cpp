@@ -197,7 +197,7 @@ bool Deserializer::InvokeConstructor(rttr::variant& var, rttr::type const& varTy
   if (ctors.empty())
   {
 #ifdef DESERIALIZER_DEBUG
-    std::cout << "  No ctors found. Deseirializing normally\n";
+    std::cout << "  No ctors found. Deserializing normally\n";
 #endif
     return false;
   }
@@ -364,7 +364,15 @@ void Deserializer::DeserializeBasedOnType(rttr::variant& object, rapidjson::Valu
   {
   case rapidjson::kObjectType:
   {
-    if (!InvokeConstructor(object, object.get_type(), value))
+    if (object.get_type() == rttr::type::get<Component::ScriptInstance>())
+    {
+      rapidjson::Value::ConstMemberIterator iter{ value.FindMember("scriptName") };
+      if (iter == value.MemberEnd()) { object = {}; return; }
+
+      object = Component::ScriptInstance(value["scriptName"].GetString());
+      DeserializeClassTypes(object, value);
+    }
+    else if (!InvokeConstructor(object, object.get_type(), value))
       DeserializeClassTypes(object, value);
     break;
   }
