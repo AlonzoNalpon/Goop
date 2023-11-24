@@ -55,6 +55,8 @@ namespace GE::Application
   
   void AppController::Init()
   {
+    GE::Events::EventManager::GetInstance().Subscribe<GE::Events::QuitGame>(this);
+
     // INIT FUNCTIONS
     GE::Assets::AssetManager* am = &GE::Assets::AssetManager::GetInstance();
     am->LoadConfigData("./Assets/Config.cfg");
@@ -226,6 +228,13 @@ namespace GE::Application
     {
       PrintException(e);
     }
+  }
+
+  void AppController::HandleEvent(GE::Events::Event* e)
+  {
+    GE::Events::QuitGame* quitEvent = dynamic_cast<GE::Events::QuitGame*>(e);
+    if (quitEvent)
+      glfwSetWindowShouldClose(window.GetWindow(), 1);
   }
 
 }

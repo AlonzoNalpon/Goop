@@ -19,12 +19,12 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AI/TreeManager.h>
 #include <GameStateManager/GameStateManager.h>
 #include <Fmod/FmodSystem.h>
-
+#include <Events/Listener.h>
 
 namespace GE::Application
 {
   // AppController singleton
-  class AppController
+  class AppController : public GE::Events::IEventListener
   {
   public:
     /*!*********************************************************************
@@ -63,5 +63,7 @@ namespace GE::Application
     GE::Input::InputManager& im;
     GE::GSM::GameStateManager& gsm;
     GE::fMOD::FmodSystem& fMod;
+
+    void HandleEvent(GE::Events::Event* e) override;
   };
 }

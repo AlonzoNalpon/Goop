@@ -36,6 +36,7 @@ namespace GE
       WINDOW_LOSE_FOCUS,
       NEXT_TURN,
       TURN_RESOLVED,
+      QUIT_GAME,
       MAX_EVENTS
     };
 

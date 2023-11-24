@@ -12,7 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <iostream>
 #include <Window/Window.h>
 #include <DebugTools/Exception/Exception.h>
-
+#include <Events/EventManager.h>
 #ifdef NO_IMGUI
 #define FULLSCREEN
 #endif
@@ -116,11 +116,8 @@ namespace WindowSystem {
       return glfwGetWindowAttrib(m_window, GLFW_FOCUSED);
   }
 
-  void Window::KeyCallback(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods*/)
+  void Window::KeyCallback(GLFWwindow* /*window*/, int key, int /*scancode*/, int /*action*/, int /*mods*/)
   {
-    // For now, escape key will shut the thing down
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-      glfwSetWindowShouldClose(window, GLFW_TRUE);
   }
 
   void Window::WindowFocusedCallback(GLFWwindow* /*window*/, int focused)
