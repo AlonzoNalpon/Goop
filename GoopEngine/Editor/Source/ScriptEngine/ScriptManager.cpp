@@ -482,11 +482,13 @@ void GE::MONO::GameSystemResolved()
 
 void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int cardID)
 {
+  // Implement this alonzo
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Assigning queue of " + std::to_string(queueEntity) + " with index " + std::to_string(queueIndex) + "with ID" + std::to_string(cardID));
 }
 
 void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID)
 {
+  // Implement this alonzo
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Assigning queue of " + std::to_string(handEntity) + " with index " + std::to_string(handIndex) + "with ID" + std::to_string(cardID));
 }
 
