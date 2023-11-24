@@ -251,6 +251,9 @@ namespace GoopScripts.Mono
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static void GameSystemResolved();
-	}
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SendString(string s);
+  }
 
 }

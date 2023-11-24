@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Cards;
 using GoopScripts.Mono;
+using static GoopScripts.Mono.Utils;
 
 namespace GoopScripts.Gameplay
 {
@@ -30,6 +31,7 @@ namespace GoopScripts.Gameplay
     public void OnUpdate(double dt, Stats player, uint playerEntity, Stats enemy, uint enemyEntity)
     //public void OnUpdate(double dt, Stats player, Stats enemy)
 		{
+      SendString("NIGGATO\n");
 			Console.WriteLine("Updating");
 			if (newTurn)
 			{

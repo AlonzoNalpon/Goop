@@ -191,5 +191,11 @@ namespace GE {
 		void SetCardIDFromQueue(GE::ECS::Entity queueEntity, int queueIndex, int cardID);
 
 		void SetPlayerHand(GE::ECS::Entity playerHand, int cardID1, int cardID2, int cardID3, int cardID4, int cardID5);
+
+		//This Function takes in a string from c#.
+		void SendString(MonoString* str);
+
+		std::string MonoStringToSTD(MonoString* str);
+		bool CheckMonoError(MonoError& error);
 	}
 }
