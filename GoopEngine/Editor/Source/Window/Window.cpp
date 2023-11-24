@@ -116,7 +116,7 @@ namespace WindowSystem {
       return glfwGetWindowAttrib(m_window, GLFW_FOCUSED);
   }
 
-  void Window::KeyCallback(GLFWwindow* /*window*/, int key, int /*scancode*/, int /*action*/, int /*mods*/)
+  void Window::KeyCallback(GLFWwindow* /*window*/, int /*key*/, int /*scancode*/, int /*action*/, int /*mods*/)
   {
   }
 
