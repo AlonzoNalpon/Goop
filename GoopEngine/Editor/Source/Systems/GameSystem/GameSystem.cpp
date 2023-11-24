@@ -42,17 +42,17 @@ void GE::Systems::GameSystem::Update()
       Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->m_player);
       Scripts* enemyScript = m_ecs->GetComponent<Scripts>(game->m_enemy);
       GE::MONO::ScriptInstance it, it2;
-      for (auto& [name, script] : playerScript->m_scriptList)
+      for (auto& script : playerScript->m_scriptList)
       {
-        if (name == "Stats")
+        if (script.m_scriptName == "Stats")
         {
           it = script;
           break;
         }
       }
-      for (auto& [name, script] : enemyScript->m_scriptList)
+      for (auto& script : enemyScript->m_scriptList)
       {
-        if (name == "Stats")
+        if (script.m_scriptName == "Stats")
         {
           it2 = script;
           break;

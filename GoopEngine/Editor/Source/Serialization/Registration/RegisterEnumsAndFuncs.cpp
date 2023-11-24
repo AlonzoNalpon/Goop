@@ -1,19 +1,17 @@
 /*!*********************************************************************
-\file   RegisterClasses.cpp
+\file   RegisterEnumsAndFuncs.cpp
 \date   3-November-2023
-\brief  This file handles the registration of custom classes used in
-        our engine to be recognized by RTTR library. Anything that
-        needs to be serialized/deserialized needs to be registered.
-  
- 
+\brief  This file handles the registration of converter functions  and
+        enumerations used in our engine to be recognized by RTTR library.
+        Anything that needs to be serialized/deserialized needs to be
+        registered.
+
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <Component/Components.h>
 #include <Systems/Systems.h>
 #include <rttr/registration>
-#include <Serialization/Serializer.h>
-#include <Systems/Enemy/EnemySystem.h>
 
 using namespace GE;
 
@@ -25,134 +23,21 @@ using namespace GE;
 namespace RttrHelper
 {
   GE::Math::Vec2 Vec2FromString(std::string const& str, bool& ok)
-  {
-    GE::Math::Vec2 ret{};
-    ret << str;
-    ok = true;
-    return ret;
-  }
+  { GE::Math::Vec2 ret{}; ret << str; ok = true; return ret; }
 
   GE::Math::dVec2 dVec2FromString(std::string const& str, bool& ok)
-  {
-    GE::Math::dVec2 ret{};
-    ret << str;
-    ok = true;
-    return ret;
-  }
+  { GE::Math::dVec2 ret{}; ret << str; ok = true; return ret; }
 
   GE::Math::dVec3 dVec3FromString(std::string const& str, bool& ok)
-  {
-    GE::Math::dVec3 ret{};
-    ret << str;
-    ok = true;
-    return ret;
-  }
+  { GE::Math::dVec3 ret{}; ret << str; ok = true; return ret; }
 }
 
 RTTR_REGISTRATION
 {
-  /* ------------------- CLASSES / STRUCTS ------------------- */
-  rttr::registration::class_<Math::dVec2>("dVec2")
-    .constructor<>()
-    .property("x", &Math::dVec2::x)
-    .property("y", &Math::dVec2::y)
-    .method("ToString", &Math::dVec2::ToString)
-    ;
-  
-  rttr::registration::class_<Math::Vec2>("Vec2")
-    .constructor<>()
-    .property("x", &Math::Vec2::x)
-    .property("y", &Math::Vec2::y)
-    .method("ToString", &Math::Vec2::ToString)
-    ;
-
-  rttr::registration::class_<Math::dVec3>("dVec3")
-    .constructor<>()
-    .property("x", &Math::dVec3::x)
-    .property("y", &Math::dVec3::y)
-    .property("z", &Math::dVec3::z) 
-    .method("ToString", &Math::dVec3::ToString)
-    ;
-
-  rttr::registration::class_<glm::vec2>("glm_vec2")
-    .constructor<>()
-    .property("x", &glm::vec2::x)
-    .property("y", &glm::vec2::y)
-    ;
-
-  rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")
-    .property("nodeType", &AI::NodeTemplate::m_nodeType)
-    .property("parentNode", &AI::NodeTemplate::m_parentNode)
-    .property("childrenNode", &AI::NodeTemplate::m_childrenNode)
-    .property("scriptName", &AI::NodeTemplate::m_scriptName)
-    .property("pos", &AI::NodeTemplate::m_pos)
-    ;
-  rttr::registration::class_<AI::TreeTemplate>("TreeTemplate")
-    .property("tree", &AI::TreeTemplate::m_tree)
-    .property("treeName", &AI::TreeTemplate::m_treeName)
-    .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
-    ;
-
-  rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
-    .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
-    .property("cardEntity", &Component::CardHolder::CardHolderEntry::cardEntity)
-    .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)
-    .property("defaultSpriteID", &Component::CardHolder::CardHolderEntry::defaultSpriteID)
-    .property("used", &Component::CardHolder::CardHolderEntry::used)
-    ;
-
-  rttr::registration::class_<Graphics::SpriteSubData>("SpriteSubData")
-    /*.constructor<Graphics::gVec2, Graphics::gVec2, GLuint, GLuint>()
-    (
-      rttr::parameter_names("texCoords", "texDims", "width", "height")
-    )*/
-    .constructor<>()
-    .property("texCoords", &Graphics::SpriteSubData::texCoords)
-    .property("texDims", &Graphics::SpriteSubData::texDims)
-    .property("width", &Graphics::SpriteSubData::width)
-    .property("height", &Graphics::SpriteSubData::height)
-    ;
-  rttr::registration::class_<Graphics::SpriteData>("SpriteData")
-    .constructor<>()
-    .property("spriteSubData", &Graphics::SpriteData::info)
-    ;
-
-
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<int>>("ScriptFieldInstInt")
-    .constructor<>()
-    .property("data", &GE::MONO::ScriptFieldInstance<int>::m_data)
-    ;
-
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<float>>("ScriptFieldInstFloat")
-    .constructor<>()
-    .property("data", &GE::MONO::ScriptFieldInstance<float>::m_data)
-    ;
-
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<double>>("ScriptFieldInstDouble")
-    .constructor<>()
-    .property("data", &GE::MONO::ScriptFieldInstance<double>::m_data)
-    ;
-
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<unsigned>>("ScriptFieldInstUInt")
-    .constructor<>()
-    .property("data", &GE::MONO::ScriptFieldInstance<unsigned>::m_data)
-    ;
-
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<int>>>("ScriptFieldInstVecInt")
-    .constructor<>()
-    .property("data", &GE::MONO::ScriptFieldInstance<std::vector<int>>::m_data)
-    ;
-
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>("ScriptFieldInstVecUInt")
-    .constructor<>()
-    .property("data", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_data)
-    ;
-
-  rttr::registration::class_<GE::MONO::ScriptInstance>("ScriptInstance")
-    .constructor<>()
-    .property("data", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_data)
-    ;
-
+  /* ------------------- FUNCTIONS ------------------- */
+  rttr::type::register_converter_func(RttrHelper::dVec2FromString);
+  rttr::type::register_converter_func(RttrHelper::dVec3FromString);
+  rttr::type::register_converter_func(RttrHelper::Vec2FromString);
 
   /* ------------------- ENUMERATIONS ------------------- */
   rttr::registration::enumeration<AI::NODE_TYPE>("NODE_TYPE")
@@ -249,8 +134,4 @@ RTTR_REGISTRATION
   //    rttr::value("TOTAL_SYSTEMS", ECS::SYSTEM_TYPES::TOTAL_SYSTEMS)
   //    );
 
-  /* ------------------- FUNCTIONS ------------------- */
-  rttr::type::register_converter_func(RttrHelper::dVec2FromString);
-  rttr::type::register_converter_func(RttrHelper::dVec3FromString);
-  rttr::type::register_converter_func(RttrHelper::Vec2FromString);
 } // RTTR Registration

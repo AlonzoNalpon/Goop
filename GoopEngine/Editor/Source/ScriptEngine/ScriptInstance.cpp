@@ -19,18 +19,17 @@ using namespace MONO;
 
 
 
-ScriptInstance::ScriptInstance(const std::string& scriptName, std::vector<void*>& arg)
+ScriptInstance::ScriptInstance(const std::string& scriptName, std::vector<void*>& arg) : m_scriptName{ scriptName }
 {
   GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
   m_scriptClass = sm->GetScriptClass(scriptName);
   m_classInst = sm->InstantiateClass(scriptName.c_str(), arg);
   m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClass,"OnUpdate", 1);
-
   //m_onCreateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "onCreate", 1);
 }
 
 
-ScriptInstance::ScriptInstance(const std::string& scriptName)
+ScriptInstance::ScriptInstance(const std::string& scriptName) : m_scriptName{ scriptName }
 {
   GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
   m_scriptClass = sm->GetScriptClass(scriptName);
@@ -62,8 +61,77 @@ void ScriptInstance::InvokeOnCreate()
   }
 }
 
+void ScriptInstance::GetFields()
+{
+  GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
+  ScriptClassInfo sci = sm->GetScriptClassInfo(m_scriptName);
+	const auto& fields = sci.m_ScriptFieldMap;
+	for (const auto& [fieldName, field] : fields)
+	{
+    std::cout << field.m_fieldName << "\n";
+		if (field.m_fieldType == ScriptFieldType::Float)
+		{
+			float value = GetFieldValue<float>(field.m_classField);
+      ScriptFieldInstance<float> test{ field,value };
+      
+      m_scriptFieldInstList.emplace_back(test);
+		}
+		else if (field.m_fieldType == ScriptFieldType::Int)
+		{
+      int value = GetFieldValue<int>(field.m_classField);
+      ScriptFieldInstance<int> test{ field,value };
+      m_scriptFieldInstList.emplace_back(test);
+		}
+		else if (field.m_fieldType == ScriptFieldType::Double)
+		{
+      double value = GetFieldValue<double>(field.m_classField);
+      ScriptFieldInstance<double> test{ field,value };
+      m_scriptFieldInstList.emplace_back(test);
+		}
+		else if (field.m_fieldType == ScriptFieldType::DVec3)
+		{
+      GE::Math::dVec3 value = GetFieldValue<GE::Math::dVec3>(field.m_classField);
+      ScriptFieldInstance<GE::Math::dVec3> test{ field,value };
+      m_scriptFieldInstList.emplace_back(test);
+		}
+		else if (field.m_fieldType == ScriptFieldType::IntArr)
+		{
+      std::vector<int> value = GetFieldValueArr<int>(sm->m_appDomain, field.m_classField);
+      ScriptFieldInstance<std::vector<int>> test{ field,value };
+      m_scriptFieldInstList.emplace_back(test);
+		}
+	}
+}
 
 
+void ScriptInstance::GetAllUpdatedFields()
+{
+  //GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
+  //for (const rttr::variant& v: m_scriptFieldInstList)
+  //{
+  //  //if (field.m_fieldType == ScriptFieldType::Float) //If it is float
+  //  //{
+  //  //  float value = GetFieldValue<float>(field.m_classField);
+  //  //}
+  //  //else if (field.m_fieldType == ScriptFieldType::Int)
+  //  //{
+  //  //  int value = GetFieldValue<int>(field.m_classField);
+  //  //}
+  //  //else if (field.m_fieldType == ScriptFieldType::Double)
+  //  //{
+  //  //  double value = GetFieldValue<double>(field.m_classField);
+  //  //}
+  //  //else if (field.m_fieldType == ScriptFieldType::DVec3)
+  //  //{
+  //  //  GE::Math::dVec3 value = GetFieldValue<GE::Math::dVec3>(field.m_classField);
+  //  //}
+  //  //else if (field.m_fieldType == ScriptFieldType::IntArr)
+  //  //{
+  //  //  std::vector<int> value = GetFieldValueArr<int>(sm->m_appDomain, field.m_classField);
+
+  //  //}
+  //}
+}
 
 
 

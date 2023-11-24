@@ -5,15 +5,20 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Cards;
-
+using GoopScripts.Mono;
 
 namespace GoopScripts.Gameplay
 {
 	public  class Stats
 	{
 		public int m_health=100;
-		// List of card IDs
-		public CardBase.CardID[] m_deck { get; set; }  // HQD: I had to initialize them, or else they would gives me error. you can remove it
+    // List of card IDs
+    public float m_float = 101.0f;
+    public double m_d = 102.0;
+    public Vec3<double> m_vecd = new Vec3<double>(69.0, -200.0, 96.0);
+    public int[] listintTest = {9,8,5,4,3,2,1};
+
+    public CardBase.CardID[] m_deck { get; set; }  // HQD: I had to initialize them, or else they would gives me error. you can remove it
 		// List of cards in the queue
 		public CardBase.CardID[] m_cardQueue { get; set; }
 

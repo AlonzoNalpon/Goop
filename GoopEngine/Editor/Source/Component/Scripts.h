@@ -21,8 +21,10 @@ namespace GE
 
 		struct Scripts
 		{
-			ECS::Entity  m_entityId;
-			std::vector<std::pair<std::string, ScriptInstance>> m_scriptList; //m_scriptMap
+			using ScriptInstances = std::vector<ScriptInstance>;
+
+			ECS::Entity m_entityId;
+			ScriptInstances m_scriptList; //m_scriptMap
 
 			Scripts() {}
 
@@ -40,14 +42,14 @@ namespace GE
 			{
 				for (const std::string& s : scriptNames)
 				{
-					std::vector<std::pair<std::string, ScriptInstance>>::iterator it = std::find_if(m_scriptList.begin(), m_scriptList.end(), [s](const std::pair<std::string, ScriptInstance>& pair) { return pair.first ==s; });
+					ScriptInstances::iterator it = std::find_if(m_scriptList.begin(), m_scriptList.end(), [s](const ScriptInstance& script) { return script.m_scriptName == s; });
 					if (it == m_scriptList.end())
 					{
 						try
 						{
 							unsigned int copy = entityID;
 							std::vector<void*> arg{ &copy };
-							m_scriptList.push_back(std::make_pair(s,ScriptInstance(s,arg)));
+							m_scriptList.emplace_back(s,arg);
 						}
 						catch (GE::Debug::IExceptionBase& e)
 						{
@@ -63,12 +65,12 @@ namespace GE
 			{
 				for (const std::string& s : scriptNames)
 				{
-					std::vector<std::pair<std::string, ScriptInstance>>::iterator it = std::find_if(m_scriptList.begin(), m_scriptList.end(), [s](const std::pair<std::string, ScriptInstance>& pair) { return pair.first == s; });
+					ScriptInstances::iterator it = std::find_if(m_scriptList.begin(), m_scriptList.end(), [s](const ScriptInstance& script) { return script.m_scriptName == s; });
 					if (it == m_scriptList.end())
 					{
 						try
 						{
-							m_scriptList.push_back(std::make_pair(s, ScriptInstance(s)));
+							m_scriptList.emplace_back(s);
 						}
 						catch (GE::Debug::IExceptionBase& e)
 						{
@@ -81,7 +83,7 @@ namespace GE
 				}
 			}
 
-			Scripts(unsigned int entityID) : m_entityId{ entityID }{}
+			Scripts(unsigned int entityID, const ScriptInstances& scriptList) : m_entityId{ entityID }, m_scriptList{ scriptList } {}
 
 
 
@@ -125,8 +127,8 @@ namespace GE
 			void UpdateAllScripts()
 			{
 				double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
-				for (std::pair<std::string, ScriptInstance> cs : m_scriptList) {
-					cs.second.InvokeOnUpdate(dt);
+				for (ScriptInstance cs : m_scriptList) {
+					cs.InvokeOnUpdate(dt);
 				}
 			}
 		};

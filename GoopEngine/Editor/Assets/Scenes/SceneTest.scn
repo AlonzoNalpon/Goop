@@ -187,5 +187,162 @@
                 }
             }
         ]
+    },
+    {
+        "Name": "GameSys",
+        "ID": 5,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Game": {
+                    "player": 3,
+                    "enemy": 4,
+                    "pauseMenu": 4294967295,
+                    "gameSystemScript": {
+                        "scriptName": "GameManager",
+                        "scriptFieldInstList": []
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Test Player",
+        "ID": 6,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 6,
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        9,
+                                        8,
+                                        5,
+                                        4,
+                                        3,
+                                        2,
+                                        1
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "ScriptField": {
+                                        "fieldName": "listintTest"
+                                    }
+                                },
+                                {
+                                    "data": 102.0,
+                                    "type": "System.Double",
+                                    "ScriptField": {
+                                        "fieldName": "m_d"
+                                    }
+                                },
+                                {
+                                    "data": 101.0,
+                                    "type": "System.Single",
+                                    "ScriptField": {
+                                        "fieldName": "m_float"
+                                    }
+                                },
+                                {
+                                    "data": 100,
+                                    "type": "System.Int32",
+                                    "ScriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                },
+                                {}
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Test Enemy",
+        "ID": 7,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 7,
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        9,
+                                        8,
+                                        5,
+                                        4,
+                                        3,
+                                        2,
+                                        1
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "ScriptField": {
+                                        "fieldName": "listintTest"
+                                    }
+                                },
+                                {
+                                    "data": 102.0,
+                                    "type": "System.Double",
+                                    "ScriptField": {
+                                        "fieldName": "m_d"
+                                    }
+                                },
+                                {
+                                    "data": 101.0,
+                                    "type": "System.Single",
+                                    "ScriptField": {
+                                        "fieldName": "m_float"
+                                    }
+                                },
+                                {
+                                    "data": 100,
+                                    "type": "System.Int32",
+                                    "ScriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                },
+                                {}
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
     }
 ]

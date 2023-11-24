@@ -31,6 +31,7 @@ namespace GE
 
       static const char JsonNameKey[], JsonIdKey[], JsonEntityStateKey[], JsonParentKey[],
         JsonChildEntitiesKey[], JsonComponentsKey[], JsonPrefabKey[];
+      static const char JsonAssociativeKey[], JsonAssociativeValue[], ScriptFieldInstListTypeKey[];
 
       /*!*********************************************************************
       \brief  
@@ -161,6 +162,19 @@ namespace GE
       ************************************************************************/
       static void SerializeSequentialContainer(rttr::variant const& object, rapidjson::Value& jsonArray, rapidjson::Document::AllocatorType& allocator);
       
+      /*!*********************************************************************
+      \brief
+        Serializes an rttr::variant containing an associative container type
+        (such as std::map)
+      \param object
+        The rttr::variant of the object
+      \param jsonArray
+        The rapidjson::Value object to serialize into
+      \param allocator
+        The document's allocator
+      ************************************************************************/
+      static void SerializeAssociativeContainer(rttr::variant const& object, rapidjson::Value& jsonArray, rapidjson::Document::AllocatorType& allocator);
+
       /*!*********************************************************************
       \brief
         Serializes an entity into a rapidjson::Value object containing its
