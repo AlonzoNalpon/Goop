@@ -1627,7 +1627,7 @@
         ]
     },
     {
-        "Name": "Text_AreYouSure",
+        "Name": "[Image] Text_AreYouSure",
         "ID": 67,
         "isActive": true,
         "Parent": 60,
