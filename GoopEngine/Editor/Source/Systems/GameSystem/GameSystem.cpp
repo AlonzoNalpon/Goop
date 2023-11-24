@@ -85,13 +85,12 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
       }
       case GE::Events::EVENT_TYPE::KEY_TRIGGERED:
       {
-        if (GE::EditorGUI::ImGuiHelper::ShouldPlay())
+
+        if (dynamic_cast<Events::KeyTriggeredEvent*>(event)->GetKey() == GPK_ESCAPE)
         {
-          if (dynamic_cast<Events::KeyTriggeredEvent*>(event)->GetKey() == GPK_ESCAPE)
-          {
-            m_shouldPause = !m_shouldPause;
-          }
+          m_shouldPause = !m_shouldPause;
         }
+        
         break;
       }
       case GE::Events::EVENT_TYPE::NEXT_TURN:

@@ -31,7 +31,6 @@ namespace GE::Component
       m_spriteData{ spriteData }, m_spriteName{std::move(spriteName)}
     {
       m_spriteData.texture = Graphics::GraphicsEngine::GetInstance().textureManager.GetTextureID(m_spriteName);
-      std::cout << "Sprite ctor called\n";
     }
 
     Graphics::SpriteData m_spriteData; //!< composed of sprite data
