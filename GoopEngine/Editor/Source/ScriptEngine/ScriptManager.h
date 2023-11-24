@@ -68,7 +68,7 @@ namespace GE {
 			ScriptClassInfo GetScriptClassInfo(std::string className);
 			ScriptField GetScriptField(std::string className, std::string fieldName);
 			ScriptFieldType MonoTypeToScriptFieldType(MonoType* monoType);
-			rttr::variant GetScriptFieldInst(std::string listType);
+			rttr::variant GetScriptFieldInst(std::string const& listType);
 
 		};
 

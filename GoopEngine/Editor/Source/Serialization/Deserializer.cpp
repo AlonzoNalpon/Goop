@@ -17,9 +17,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rapidjson/prettywriter.h>
 #include <stdarg.h>
 #include <AssetManager/AssetManager.h>
+#include <ScriptEngine/ScriptManager.h>
 
 #ifdef _DEBUG
-#define DESERIALIZER_DEBUG
+//#define DESERIALIZER_DEBUG
 #endif
 
 using namespace GE;
@@ -246,6 +247,15 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
           ret = prop.get_value(object);
           rttr::variant_sequential_view view = ret.create_sequential_view();
           DeserializeSequentialContainer(view, jsonVal);
+#ifdef DESERIALIZER_DEBUG
+          if (prop.get_type() == rttr::type::get<std::vector<int>>()) {
+            std::vector<int> const& vec = prop.get_value(objInst).get_value<std::vector<int>>();
+            for (auto const& j : vec) {
+              std::cout << j << " ";
+            }
+          }
+          std::cout << "\n";
+#endif
         }
       }
       else if (prop.get_type().is_associative_container())
@@ -297,6 +307,15 @@ void Deserializer::DeserializeBasedOnType(rttr::variant& object, rapidjson::Valu
     {
       rttr::variant_sequential_view view = object.create_sequential_view();
       DeserializeSequentialContainer(view, value);
+#ifdef DESERIALIZER_DEBUG
+      if (type == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>()) {
+        GE::MONO::ScriptFieldInstance<std::vector<int>> const& vec = object.get_value< GE::MONO::ScriptFieldInstance<std::vector<int>>>();
+        for (auto const& j : vec.m_data) {
+          std::cout << j << " ";
+        }
+      }
+      std::cout << "\n";
+#endif
     }
     else if (type.is_associative_container())
     {
@@ -338,6 +357,14 @@ rttr::variant Deserializer::DeserializeElement(rttr::type const& valueType, rapi
 
 void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view& view, rapidjson::Value const& value)
 {
+#ifdef DESERIALIZER_DEBUG
+  std::cout << "DeserializeSequentialContainer: " << view.get_type() << "\n";
+  rapidjson::StringBuffer buffer;
+  rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+  value.Accept(writer);
+
+  std::cout << "Json:\n" << buffer.GetString() << "\n";
+#endif
   view.set_size(value.Size());  // set view size based on element count in rapidjson arr
   for (rapidjson::SizeType i{}; i < value.Size(); ++i)
   {
@@ -353,7 +380,16 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
     {
       rttr::variant elem{ view.get_value(i).extract_wrapped_value() };
       DeserializeBasedOnType(elem, indexVal);
-      view.set_value(i, elem);
+      if (!view.set_value(i, elem))
+      {
+        if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))
+        {
+          std::ostringstream oss{};
+          oss << "Unable to set element " << i << " of type " << elem.get_type().get_name().to_string()
+              << " to container of " << view.get_type().get_name().to_string();
+          GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        }
+      }
     }
     // else deserialize normally
     else
@@ -361,7 +397,20 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
       rttr::type const arrType{ view.get_rank_type(i) };
       rttr::variant elem{ DeserializeBasicTypes(indexVal) };
       
-      view.set_value(i, elem);
+      if (!view.set_value(i, elem))
+      {
+        if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))
+        {
+          std::ostringstream oss{};
+          oss << "Unable to set element " << i << " of type " << elem.get_type().get_name().to_string()
+            << " to container of " << view.get_type().get_name().to_string();
+          GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        }
+    }
+#ifdef DESERIALIZER_DEBUG
+      if (elem.get_type() == rttr::type::get<int>() || elem.get_type() == rttr::type::get<unsigned>())
+        std::cout << view.get_type() << " against " << elem.get_type() << "\n";
+#endif
     }
   }
 }
@@ -483,32 +532,11 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
       GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"scriptList\" property in Script component");
       return true;
     }
-    DeserializeBasedOnType(scriptMap, listIter ->value);
+    DeserializeBasedOnType(scriptMap, listIter->value);
 
     compVar = type.create({ idIter->value.GetUint(), scriptMap.get_value<Component::Scripts::ScriptInstances>() });
 
     return true;
-
-    /*rttr::variant scriptMap{ std::vector<MONO::ScriptInstance>{} };
-    std::vector<rttr::argument> args{};
-    args.reserve(2);
-    try
-    {
-      rttr::variant_sequential_view view = scriptMap.create_sequential_view();
-      DeserializeSequentialContainer(view, value["scriptMap"]);
-      args.emplace_back(std::move(scriptMap));
-      args.emplace_back(value["entityId"].GetUint());
-    }
-    catch (...)
-    {
-      std::ostringstream oss{};
-      oss << "Unable to deserialize " << type.get_name().to_string();
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-      return false;
-    }
-
-    compVar = type.create(std::move(args));
-    return true;*/
   }
 
   return false;
@@ -539,6 +567,13 @@ rttr::variant Deserializer::DeserializeBasicTypes(rapidjson::Value const& value)
   }
 }
 
+rttr::variant TryDeserializeIntoInt(rapidjson::Value const& value)
+{
+  if (value.IsInt())
+  {
+    return value.GetInt();
+  }
+}
 
 
 void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value)
@@ -555,30 +590,38 @@ void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjs
     rapidjson::Value const& elem{ value[i] };
     if (!elem.HasMember("type")) { Debug::ErrorLogger::GetInstance().LogError("ScriptInstance missing \"scriptFieldInstList\" member"); continue; }
     
-    rttr::variant scriptFieldInst{ rttr::type::get_by_name(elem["type"].GetString()).create() };
+    rttr::variant scriptFieldInst{ MONO::ScriptManager::GetInstance().GetScriptFieldInst(elem["type"].GetString()) };
+    DeserializeBasedOnType(scriptFieldInst, elem);
 #ifdef DESERIALIZER_DEBUG
     std::cout << "  Reading " << elem["type"].GetString() << "...\n";
 #endif
     // should check before doing this in ccase of crash
-    if (elem["data"].IsArray()) {
+    /*if (elem["data"].IsArray()) {
       rttr::variant_sequential_view view{ scriptFieldInst.create_sequential_view() };
       DeserializeSequentialContainer(view, elem["data"]);
     }
     else {
       scriptFieldInst = DeserializeBasicTypes(elem["data"]);
-    }
+    }*/
     //DeserializeBasedOnType(scriptFieldInst, elem["data"]);
     scriptFieldInstList.emplace_back(scriptFieldInst);
 #ifdef DESERIALIZER_DEBUG
     std::cout << "  Added " << scriptFieldInst.get_type() << "to ScriptFieldInstList\n";
+      if (scriptFieldInst.get_type() == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>()) {
+        GE::MONO::ScriptFieldInstance<std::vector<int>> const& vec = scriptFieldInst.get_value< GE::MONO::ScriptFieldInstance<std::vector<int>>>();
+        for (auto const& j : vec.m_data) {
+          std::cout << j << " ";
+        }
+      }
+    std::cout << "\n";
 #endif
   }
 
 #ifdef DESERIALIZER_DEBUG
   for (auto const& i : scriptFieldInstList)
   {
-    if (i.get_type() == rttr::type::get<std::shared_ptr<GE::MONO::ScriptFieldInstance<std::vector<int>>>>()) {
-      GE::MONO::ScriptFieldInstance<std::vector<int>> const& vec = *i.get_value< GE::MONO::ScriptFieldInstance<std::vector<int>>*>();
+    if (i.get_type() == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>()) {
+      GE::MONO::ScriptFieldInstance<std::vector<int>> const& vec = i.get_value< GE::MONO::ScriptFieldInstance<std::vector<int>>>();
       for (auto const& j : vec.m_data) {
         std::cout << j << " ";
       }

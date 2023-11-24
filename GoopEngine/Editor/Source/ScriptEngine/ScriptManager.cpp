@@ -363,7 +363,7 @@ ScriptField GE::MONO::ScriptManager::GetScriptField(std::string className, std::
   return m_monoClassMap[className].m_ScriptFieldMap[fieldName];
 }
 
-rttr::variant  GE::MONO::ScriptManager::GetScriptFieldInst(std::string listType) {
+rttr::variant  GE::MONO::ScriptManager::GetScriptFieldInst(std::string const& listType) {
   if (listType == "System.Int32")
   {
     return GE::MONO::ScriptFieldInstance<int>();
@@ -380,7 +380,7 @@ rttr::variant  GE::MONO::ScriptManager::GetScriptFieldInst(std::string listType)
   {
     return GE::MONO::ScriptFieldInstance<unsigned>();
   }
-  if (listType == "System.Int32")
+  if (listType == "System.Int32[]")
   {
     return GE::MONO::ScriptFieldInstance < std::vector<int> > ();
   }
