@@ -598,6 +598,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndCombo();
 					}
+					// Display animation ID for users to know
+					TextColored({ 1.f, .7333f, 0.f, 1.f }, ("Animation ID: " + std::to_string(spriteAnimObj->m_animID)).c_str());
+
 					EndTable();
 					Separator();
 #pragma endregion
