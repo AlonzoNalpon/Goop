@@ -179,11 +179,15 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
           uint32_t flags = mono_field_get_flags(field);
           if (flags & FIELD_ATTRIBUTE_PUBLIC)
           {
+#ifdef  _DEBUG
             std::cout << line.substr(commaPosition + 1).c_str() << "::";
+#endif //  _DEBUG
             MonoType* type = mono_field_get_type(field);
             ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
             newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
+#ifdef  _DEBUG
             std::cout << fieldName << "\n";
+#endif
           }
         }
         m_monoClassMap[line.substr(commaPosition + 1).c_str()] = newScriptClassInfo;

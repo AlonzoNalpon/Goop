@@ -24,10 +24,8 @@ namespace GE
 			GE::AI::TreeID m_treeID;
 
 			EnemyAI() = default;
-			EnemyAI(TreeID treeID)
+			EnemyAI(TreeID treeID) : m_treeID{ treeID }
 			{
-				std::cout << "Signed to: " << treeID << "\n";
-				m_treeID = treeID;
 			}
 			/************************************************************************/ /*!
 			\ brief
