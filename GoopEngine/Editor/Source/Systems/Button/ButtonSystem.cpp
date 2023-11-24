@@ -5,6 +5,7 @@
 #include <Events/InputEvents.h>
 #include <GameStateManager/GameStateManager.h>
 #include <InputManager/InputManager.h>
+#include <Systems/GameSystem/GameSystem.h>
 
 namespace GE
 {
@@ -39,7 +40,7 @@ namespace GE
 			}
 
 			bool triggered = false;
-			for (GE::ECS::Entity entity : m_entities)
+			for (GE::ECS::Entity entity : GetUpdatableEntities())
 			{
 				GE::Component::GE_Button* entityButton = m_ecs->GetComponent<GE::Component::GE_Button>(entity);
 
@@ -119,6 +120,7 @@ namespace GE
 							{
 								GE::ECS::Entity pauseMenu{ std::stoul(btn->m_param) };
 								m_ecs->SetIsActiveEntity(pauseMenu, false);
+								m_ecs->GetSystem<GE::Systems::GameSystem>()->FlipPauseBool();
 								break;
 							}
 							case GE::Component::GE_Button::NEXT_TURN:

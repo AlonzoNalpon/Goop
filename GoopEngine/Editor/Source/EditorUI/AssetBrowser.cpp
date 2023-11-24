@@ -42,9 +42,13 @@ void AssetBrowser::CreateContentDir()
 
 	if (Button("Reload Library"))
 	{
-		std::cout << "Reload Asset Browser" << std::endl;
+		// std::cout << "Reload Asset Browser" << std::endl;
+		GE::Debug::ErrorLogger::GetInstance().LogError("=== [ Reloading Asset Browser ] ===");
+
+		assetManager.ClearConfigData();
 		assetManager.LoadConfigData("./Assets/Config.cfg");
-		assetManager.LoadFiles();
+		assetManager.ReloadAllFiles();
+		//assetManager.LoadFiles();
 		of.LoadPrefabsFromFile();
 	}
 

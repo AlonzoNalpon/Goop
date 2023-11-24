@@ -3,6 +3,7 @@
 #include <Component/Game.h>
 #include <Component/Scripts.h>
 #include <Component/Audio.h>
+#include <EditorUI/ImGuiUI.h>
 
 using namespace GE::Component;
 using namespace GE::ECS;
@@ -28,10 +29,10 @@ void GE::Systems::GameSystem::Update()
       return;
     }
 
-    if (m_shouldPause)
+    if (m_lastShouldPause != m_shouldPause)
     {
-      m_ecs->SetIsActiveEntity(game->m_pauseMenu, true);
-      m_shouldPause = false;
+      m_ecs->SetIsActiveEntity(game->m_pauseMenu, m_shouldPause);
+      m_lastShouldPause = m_shouldPause;
     }
 
     if (m_shouldIterate)
@@ -79,7 +80,18 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
     {
       case GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS:
       {
-        m_shouldPause = true;
+        //m_shouldPause = true;
+        break;
+      }
+      case GE::Events::EVENT_TYPE::KEY_TRIGGERED:
+      {
+        if (GE::EditorGUI::ImGuiHelper::ShouldPlay())
+        {
+          if (dynamic_cast<Events::KeyTriggeredEvent*>(event)->GetKey() == GPK_ESCAPE)
+          {
+            m_shouldPause = !m_shouldPause;
+          }
+        }
         break;
       }
       case GE::Events::EVENT_TYPE::NEXT_TURN:
@@ -94,4 +106,9 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
       }
     }
   }
+}
+
+void GE::Systems::GameSystem::FlipPauseBool()
+{
+  m_shouldPause = !m_shouldPause;
 }

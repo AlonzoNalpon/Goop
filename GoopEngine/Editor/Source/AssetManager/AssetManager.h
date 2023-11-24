@@ -100,6 +100,12 @@ namespace GE::Assets
 
     /*!*********************************************************************
     \brief
+      Clears the asset manager's config map.
+    ************************************************************************/
+    void ClearConfigData();
+
+    /*!*********************************************************************
+    \brief
       Loads the json data into the asset manager's map.
     \param
       const std::string& filepath (filepath of the json file)

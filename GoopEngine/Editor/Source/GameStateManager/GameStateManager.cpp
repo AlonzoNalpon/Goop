@@ -71,14 +71,6 @@ void GameStateManager::Update()
 	{
 		SetNextScene("SceneTest");
 	}
-	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_LEFT))
-	{
-		SetNextScene("Robot");
-	}
-	if (Input::InputManager::GetInstance().IsKeyTriggered(GPK_UP))
-	{
-		Restart();
-	}
 }
 
 void GE::GSM::GameStateManager::Exit()

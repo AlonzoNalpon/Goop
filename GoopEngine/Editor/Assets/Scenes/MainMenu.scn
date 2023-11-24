@@ -1,6 +1,6 @@
 [
     {
-        "Name": "White",
+        "Name": "Background",
         "ID": 0,
         "isActive": true,
         "Parent": null,
@@ -39,52 +39,7 @@
                             "height": 1080
                         }
                     },
-                    "spriteName": "White"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Temp_Logo",
-        "ID": 1,
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -330, 0, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -330, 0 }",
-                    "width": 782.0,
-                    "height": 331.0,
-                    "min": "{ -721, -165.5 }",
-                    "max": "{ 61, 165.5 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 782,
-                            "height": 331
-                        }
-                    },
-                    "spriteName": "Temp_Logo"
+                    "spriteName": "UI_Background_Menu"
                 }
             }
         ]
@@ -98,18 +53,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 450, -115, 1 }",
+                    "worldPos": "{ 380, -115, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 450, -115 }",
-                    "width": 452.0,
-                    "height": 144.0,
-                    "min": "{ 224, -187 }",
-                    "max": "{ 676, -43 }",
+                    "center": "{ 380, -115 }",
+                    "width": 410.0,
+                    "height": 120.0,
+                    "min": "{ 175, -175 }",
+                    "max": "{ 585, -55 }",
                     "render": true
                 }
             },
@@ -129,7 +84,7 @@
                             "height": 144
                         }
                     },
-                    "spriteName": "Button_Credits"
+                    "spriteName": "UI_Button_Credits"
                 }
             }
         ]
@@ -143,18 +98,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 450, -280, 1 }",
+                    "worldPos": "{ 380, -280, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 450, -280 }",
-                    "width": 452.0,
-                    "height": 144.0,
-                    "min": "{ 224, -352 }",
-                    "max": "{ 676, -208 }",
+                    "center": "{ 380, -280 }",
+                    "width": 410.0,
+                    "height": 120.0,
+                    "min": "{ 175, -340 }",
+                    "max": "{ 585, -220 }",
                     "render": true
                 }
             },
@@ -174,7 +129,7 @@
                             "height": 144
                         }
                     },
-                    "spriteName": "Button_Quit"
+                    "spriteName": "UI_Button_Quit"
                 }
             }
         ]
@@ -188,18 +143,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 450, 50, 1 }",
+                    "worldPos": "{ 380, 50, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 450, 50 }",
-                    "width": 452.0,
-                    "height": 144.0,
-                    "min": "{ 224, -22 }",
-                    "max": "{ 676, 122 }",
+                    "center": "{ 380, 50 }",
+                    "width": 410.0,
+                    "height": 120.0,
+                    "min": "{ 175, -10 }",
+                    "max": "{ 585, 110 }",
                     "render": true
                 }
             },
@@ -219,7 +174,7 @@
                             "height": 144
                         }
                     },
-                    "spriteName": "Button_Setting"
+                    "spriteName": "UI_Button_Setting"
                 }
             },
             {
@@ -239,18 +194,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 450, 215, 1 }",
+                    "worldPos": "{ 380, 215, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 450, 215 }",
-                    "width": 452.0,
-                    "height": 144.0,
-                    "min": "{ 224, 143 }",
-                    "max": "{ 676, 287 }",
+                    "center": "{ 380, 215 }",
+                    "width": 370.0,
+                    "height": 140.0,
+                    "min": "{ 195, 145 }",
+                    "max": "{ 565, 285 }",
                     "render": true
                 }
             },
@@ -266,17 +221,17 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 452,
-                            "height": 144
+                            "width": 410,
+                            "height": 164
                         }
                     },
-                    "spriteName": "Button_Start"
+                    "spriteName": "UI_Button_Start"
                 }
             },
             {
                 "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT"
+                    "param": "Game",
+                    "eventType": "CHANGE_SCENE"
                 }
             }
         ]

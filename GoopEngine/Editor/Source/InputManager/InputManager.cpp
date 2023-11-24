@@ -132,6 +132,14 @@ void InputManager::DispatchInputEvents()
 	{
 		eventMan.Dispatch(KeyTriggeredEvent(GPK_R));
 	}
+	if (IsKeyTriggered(GPK_ESCAPE))
+	{
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_ESCAPE));
+	}
+	if (IsKeyTriggered(GPK_M)) // TEST FOR PAUSE SO FAR
+	{
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_M));
+	}
 }
 
 bool InputManager::IsKeyTriggered(KEY_CODE key)
