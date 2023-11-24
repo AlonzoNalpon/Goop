@@ -450,7 +450,7 @@
                             "cardEntity": 17,
                             "spriteID": 17,
                             "defaultSpriteID": 2,
-                            "used": true
+                            "used": false
                         }
                     ]
                 }
