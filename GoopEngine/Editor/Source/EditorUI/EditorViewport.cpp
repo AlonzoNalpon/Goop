@@ -168,8 +168,23 @@ void GE::EditorGUI::EditorViewport::UpdateViewport(Graphics::Rendering::FrameBuf
 
           for (GE::ECS::Entity curr : ecs->GetEntities())
           {
-            if (!ecs->GetIsActiveEntity(curr))
-              continue;
+            // Check if this entity is updatable
+            {
+              GE::ECS::Entity parent{ curr };
+              bool active{ true };
+              while (parent != GE::ECS::INVALID_ID)
+              {
+                if (!ecs->GetIsActiveEntity(parent))
+                {
+                  active = false;
+                  break;
+                }
+
+                parent = ecs->GetParentEntity(parent);
+              }
+              if (!active)
+                continue;
+            }
 
             auto const* transPtr = ecs->GetComponent<GE::Component::Transform>(curr);
             auto const& trans{ *transPtr };
