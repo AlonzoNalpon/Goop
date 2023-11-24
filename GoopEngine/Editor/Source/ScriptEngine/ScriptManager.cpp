@@ -121,6 +121,7 @@ void GE::MONO::ScriptManager::InitMono()
   //mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", <PLAY ANIMIATION FUNCTION HERE>);
   mono_add_internal_call("GoopScripts.Mono.Utils::GameSystemResolved", GE::MONO::GameSystemResolved);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
 
 
   mono_add_internal_call("GoopScripts.Mono.Utils::SetQueueCardID", GE::MONO::SetQueueCardID);
@@ -293,6 +294,22 @@ GE::MONO::ScriptManager::~ScriptManager()
 //    Functions for getting C# script Data
 //
 //************************************************************************/
+
+
+bool GE::MONO::CheckMonoError(MonoError& error)
+{
+  bool hasError = !mono_error_ok(&error);
+  if (hasError)
+  {
+    unsigned short errorCode = mono_error_get_error_code(&error);
+    const char* errorMessage = mono_error_get_message(&error);
+    printf("Mono Error!\n");
+    printf("\tError Code: %hu\n", errorCode);
+    printf("\tError Message: %s\n", errorMessage);
+    mono_error_cleanup(&error);
+  }
+  return hasError;
+}
 
 MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
 {
@@ -473,3 +490,30 @@ void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int car
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Assigning queue of " + std::to_string(handEntity) + " with index " + std::to_string(handIndex) + "with ID" + std::to_string(cardID));
 }
 
+void GE::MONO::SetPlayerHand(GE::ECS::Entity playerHand, int cardID1, int cardID2, int cardID3, int cardID4, int cardID5)
+{
+  std::cout << "CALLED SetPlayerHand" << std::endl;
+}
+
+void GE::MONO::SendString(MonoString* str)
+{
+  std::string test = GE::MONO::MonoStringToSTD(str);
+  //Do what ever yo want with the string
+}
+
+std::string GE::MONO::MonoStringToSTD(MonoString* str)
+{
+  if (str == nullptr || mono_string_length(str) == 0)
+   return"";
+
+  MonoError error;
+  char* utf8 = mono_string_to_utf8_checked(str, &error);
+  if (CheckMonoError(error))
+    return "";
+
+  std::string result(utf8);
+  mono_free(utf8);
+
+  return result;
+
+}
