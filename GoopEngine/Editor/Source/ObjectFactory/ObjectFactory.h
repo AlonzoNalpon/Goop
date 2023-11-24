@@ -65,6 +65,12 @@ namespace GE::ObjectFactory
     void CloneObject(ECS::Entity entity, ECS::Entity parent = ECS::INVALID_ID) const;
 
     /*!*********************************************************************
+    \brief
+      Clears the prefab container and loads prefabs from files again
+    ************************************************************************/
+    void Reload();
+
+    /*!*********************************************************************
     \brief     
       Gets the file path from the asset manager and loads all prefabs
     ************************************************************************/
@@ -99,12 +105,6 @@ namespace GE::ObjectFactory
     void ClearSceneObjects();
 
   private:
-    /*!*********************************************************************
-    \brief
-      Clears the prefab container and loads prefabs from files again
-    ************************************************************************/
-    void ReloadPrefabs();
-
     /*!*********************************************************************
     \brief
       Loads the data into the class map.

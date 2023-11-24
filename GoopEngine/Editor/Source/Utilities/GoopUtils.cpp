@@ -13,13 +13,26 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 namespace GE::GoopUtils 
 {
+	std::vector<std::string> SplitStringByPipe(const std::string& input) {
+		std::istringstream iss(input);
+		std::vector<std::string> tokens;
+		std::string token;
+
+		while (std::getline(iss, token, '|')) {
+			tokens.push_back(token);
+		}
+
+		return tokens;
+	}
+
 	void ReloadFileData()
 	{
 		auto& am{ GE::Assets::AssetManager::GetInstance() };
 		auto& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
+		am.ClearConfigData();
 		am.LoadConfigData("./Assets/Config.cfg");
-		am.LoadFiles();
-		of.LoadPrefabsFromFile();
+		am.ReloadAllFiles();
+		of.Reload();
 	}
 
   std::string GetFileExtension(const std::string& filePath)

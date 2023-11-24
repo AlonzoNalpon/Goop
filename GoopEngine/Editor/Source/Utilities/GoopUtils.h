@@ -13,6 +13,17 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 namespace GE::GoopUtils
 {
+	/*!*********************************************************************
+		\brief
+			Takes in a string and splits it into a vector of strings delimtited
+			by whitespace.
+		\param input
+			String that you would like to split.
+		\return
+			Vector of strings.
+		************************************************************************/
+	std::vector<std::string> SplitStringByPipe(const std::string& input);
+
   /*!*********************************************************************
     \brief
       Reloads the asset manager's and the Object Factory's maps.
