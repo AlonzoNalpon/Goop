@@ -20,7 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ScriptEngine/ScriptManager.h>
 
 #ifdef _DEBUG
-#define DESERIALIZER_DEBUG
+//#define DESERIALIZER_DEBUG
 #endif
 
 using namespace GE;
@@ -475,10 +475,6 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
           GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
         }
     }
-#ifdef DESERIALIZER_DEBUG
-      if (elem.get_type() == rttr::type::get<int>() || elem.get_type() == rttr::type::get<unsigned>())
-        std::cout << view.get_type() << " against " << elem.get_type() << "\n";
-#endif
     }
   }
 }
@@ -605,7 +601,8 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
     }
     DeserializeBasedOnType(scriptMap, listIter->value);
 
-    compVar = type.create({ idIter->value.GetUint(), scriptMap.get_value<Component::Scripts::ScriptInstances>() });
+    Component::Scripts::ScriptInstances const& test = scriptMap.get_value<Component::Scripts::ScriptInstances>();
+    compVar = type.create({ idIter->value.GetUint(),  test});
 
     return true;
   }
@@ -657,18 +654,9 @@ void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjs
 #ifdef DESERIALIZER_DEBUG
     std::cout << "  Reading " << elem["type"].GetString() << "...\n";
 #endif
-    // should check before doing this in ccase of crash
-    /*if (elem["data"].IsArray()) {
-      rttr::variant_sequential_view view{ scriptFieldInst.create_sequential_view() };
-      DeserializeSequentialContainer(view, elem["data"]);
-    }
-    else {
-      scriptFieldInst = DeserializeBasicTypes(elem["data"]);
-    }*/
-    //DeserializeBasedOnType(scriptFieldInst, elem["data"]);
     scriptFieldInstList.emplace_back(scriptFieldInst);
 #ifdef DESERIALIZER_DEBUG
-    std::cout << "  Added " << scriptFieldInst.get_type() << "to ScriptFieldInstList\n";
+    std::cout << "  Added " << scriptFieldInst.get_type() << " to ScriptFieldInstList\n";
       if (scriptFieldInst.get_type() == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>()) {
         GE::MONO::ScriptFieldInstance<std::vector<int>> const& vec = scriptFieldInst.get_value< GE::MONO::ScriptFieldInstance<std::vector<int>>>();
         for (auto const& j : vec.m_data) {
