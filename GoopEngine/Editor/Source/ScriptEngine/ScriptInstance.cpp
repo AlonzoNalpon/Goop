@@ -38,6 +38,13 @@ ScriptInstance::ScriptInstance(const std::string& scriptName) : m_scriptName{ sc
   //m_onCreateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "onCreate", 1);
 }
 
+template<typename T>
+void ScriptFieldInstance<T>::SetMyScriptField(const std::string& className, const std::string& fieldName)
+{
+  GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
+  m_scriptField = sm->GetScriptField(className, fieldName);
+}
+
 void ScriptInstance::Clear()
 {
   //mono_free(m_classInst);
