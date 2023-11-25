@@ -21,6 +21,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Utilities/GoopUtils.h>
 #include <EditorUI/AssetBrowser.h>
 #include <PrefabManager/PrefabManager.h>
+#include <rttr/enumeration.h>
 // Disable reinterpret to larger size
 #pragma warning(disable : 4312)
 
@@ -102,14 +103,11 @@ void PrefabEditor::CreateContent()
 
       rttr::type const compType{ component.get_type().get_wrapped_type().get_raw_type() };
       Text(compType.get_name().to_string().c_str());
-      ImGui::NewLine();
+      ImGui::Separator();
 
       if (compType == rttr::type::get<Component::Sprite>())
       {
         Component::Sprite& sprite = *component.get_value<Component::Sprite*>();
-        ImGui::Columns(2, 0, true);
-        ImGui::SetColumnWidth(0, 118.f);
-        ImGui::NextColumn();
 
         ImVec2 const imgSize{ 100, 100 };
         SetCursorPosX(GetContentRegionAvail().x / 2 - imgSize.x / 2);
@@ -126,7 +124,6 @@ void PrefabEditor::CreateContent()
             }
           }
         }
-        //ImGui::Columns(1);
 
         if (hasSpriteAnim) // If there's a sprite anim component, we shouldn't be able to edit
         {
@@ -193,17 +190,15 @@ void PrefabEditor::CreateContent()
         if (hasSpriteAnim)
           EndDisabled();
         EndTable();
-        Separator();
+        ImGui::Separator();
         continue;
       }
       else if (compType == rttr::type::get<Component::SpriteAnim>())
       {
         Component::SpriteAnim& spriteAnimObj = *component.get_value<Component::SpriteAnim*>();
-        ImGui::Separator();
 
         BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
         ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, GetWindowSize().x);
-
         TableNextColumn();
 
         auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
@@ -237,29 +232,14 @@ void PrefabEditor::CreateContent()
         }
         // Display animation ID for users to know
         TextColored({ 1.f, .7333f, 0.f, 1.f }, ("Animation ID: " + std::to_string(spriteAnimObj.animID)).c_str());
-
         EndTable();
-        Separator();
-
+        ImGui::Separator();
         continue;
       }
       else if (compType == rttr::type::get<Component::Text>())
       {
-        if (IsItemClicked(ImGuiMouseButton_Right))
-        {
-          OpenPopup("RemoveComponent");
-        }
-        if (BeginPopup("RemoveComponent"))
-        {
-          if (Selectable("Remove Component"))
-          {
-
-          }
-          EndPopup();
-        }
-
         Component::Text& textObj = *component.get_value<Component::Text*>();
-        Separator();
+
         BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
         ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, GetWindowSize().x);
 
@@ -282,9 +262,35 @@ void PrefabEditor::CreateContent()
           EndCombo();
         }
         EndTable();
-        Separator();
+        ImGui::Separator();
         continue;
       }
+      else if (compType == rttr::type::get<Component::GE_Button>())
+      {
+        Component::GE_Button& button = *component.get_value<Component::GE_Button*>();
+
+        rttr::type const type{ rttr::type::get<GE::Component::GE_Button::ButtonEventType>() };
+        if (BeginCombo("Event", type.get_enumeration().value_to_name(button.m_eventType).to_string().c_str()))
+        {
+          for (Component::GE_Button::ButtonEventType currType{}; currType != Component::GE_Button::ButtonEventType::TOTAL_EVENTS;)
+          {
+            // get the string ...
+            std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
+
+            if (Selectable(str.c_str(), currType == button.m_eventType))
+            {
+              button.m_eventType = currType; // set the current type if selected 
+            }
+            // and now iterate through
+            currType = static_cast<Component::GE_Button::ButtonEventType>(static_cast<int>(currType) + 1);
+          }
+          EndCombo();
+        }
+        InputText("Param", &button.m_param);
+        ImGui::Separator();
+        continue;
+      }
+
       rttr::instance compInst{ component };
       rttr::instance inst
       {
@@ -297,7 +303,7 @@ void PrefabEditor::CreateContent()
         rttr::type const propType{ prop.get_type() };
         std::string const propName{ prop.get_name().to_string() };
 
-        Text(propName.c_str());
+        ImGui::Text(propName.c_str());
         if (propType == rttr::type::get<Math::dVec3>())
         {
           Math::dVec3 value = prop.get_value(inst).get_value<Math::dVec3>();
@@ -346,7 +352,7 @@ void PrefabEditor::CreateContent()
       ImGui::Separator();
     }   // end component for loop
     
-    Text("Add Component");
+    ImGui::Text("Add Component");
     if (BeginCombo("##AddComponent", GE::ECS::componentsToString.at(static_cast<GE::ECS::COMPONENT_TYPES>(0)).c_str()))
     {
       for (int i{}; i < GE::ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)
@@ -472,8 +478,8 @@ void PrefabEditor::CreateContent()
       Assets::AssetManager::GetInstance().ReloadFiles(Assets::FileType::PREFAB);
       ObjectFactory::ObjectFactory::GetInstance().ReloadPrefabs();
       Prefabs::PrefabManager::GetInstance().UpdateEntitiesFromPrefab(m_currPrefab.m_name);
-      ResetPrefabEditor();
       GE::Debug::ErrorLogger::GetInstance().LogMessage(m_currPrefab.m_name + " successfully saved");
+      ResetPrefabEditor();
     }
   }
 }

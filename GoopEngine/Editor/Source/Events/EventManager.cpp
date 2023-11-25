@@ -14,7 +14,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Events/Events.h>
 #include <Systems/Button/ButtonSystem.h>
 #include <Systems/GameSystem/GameSystem.h>
+#ifndef NO_IMGUI
 #include <EditorUI/EditorViewport.h>
+#include <PrefabManager/PrefabManager.h>
+#endif
 
 using namespace GE::Events;
 
@@ -28,6 +31,7 @@ void EventManager::SubscribeAllListeners()
   Subscribe<KeyTriggeredEvent>(ecs.GetSystem<GE::Systems::GameSystem>());
 #ifndef NO_IMGUI
   Subscribe<KeyTriggeredEvent>(&GE::EditorGUI::EditorViewport::GetInstance());
+  Subscribe<RemoveEntityEvent>(&GE::Prefabs::PrefabManager::GetInstance());
 #endif
 
 }

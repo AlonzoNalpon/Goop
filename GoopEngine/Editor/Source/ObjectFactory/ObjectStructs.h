@@ -36,10 +36,10 @@ namespace GE
     struct VariantEntity
     {
       VariantEntity() = default;
-      VariantEntity(std::string name, ECS::Entity parent, bool active)
+      VariantEntity(std::string name, ECS::Entity parent = ECS::INVALID_ID, bool active = true)
         : m_name{ std::move(name) }, m_components{}, m_childEntities{}, m_parent{ parent }, m_isActive{ active } {}
 
-      std::string m_name;
+      std::string m_name, m_prefab;
       std::vector<rttr::variant> m_components;
       std::vector<ECS::Entity> m_childEntities;
       ECS::Entity m_parent = ECS::INVALID_ID;

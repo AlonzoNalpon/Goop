@@ -12,22 +12,22 @@
                 "nodeType": "COMPOSITE_NODE",
                 "parentNode": 0,
                 "childrenNode": [],
-                "scriptName": "SelectorNode",
-                "pos": "{ 548, 136 }"
+                "scriptName": "SequenceNode",
+                "pos": "{ 580, 142 }"
             },
             {
                 "nodeType": "LEAF_NODE",
                 "parentNode": 0,
                 "childrenNode": [],
-                "scriptName": "IsWithinPlayerRange",
-                "pos": "{ 781, 59 }"
+                "scriptName": "IsOutsideAttackRange",
+                "pos": "{ 848, 89 }"
             },
             {
                 "nodeType": "LEAF_NODE",
                 "parentNode": 0,
                 "childrenNode": [],
                 "scriptName": "MoveToPlayer",
-                "pos": "{ 781, 218 }"
+                "pos": "{ 847, 217 }"
             }
         ],
         "treeName": "WormTree",

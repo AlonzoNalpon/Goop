@@ -2,6 +2,7 @@
     {
         "Name": "Background",
         "ID": 0,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -35,15 +36,16 @@
         ]
     },
     {
-        "Name": "MineWorm",
+        "Name": "MineWorm One",
         "ID": 1,
+        "Prefab": "MineWorm",
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 2, 4, 0 }",
+                    "worldPos": "{ -231.001, -47, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -57,10 +59,10 @@
                                 "y": 0.0
                             },
                             "texDims": {
-                                "x": 1.0,
+                                "x": 0.1666666716337204,
                                 "y": 1.0
                             },
-                            "width": 768,
+                            "width": 128,
                             "height": 128
                         }
                     },
@@ -71,91 +73,45 @@
                 "SpriteAnim": {
                     "name": "SS_MineWorm"
                 }
+            },
+            {
+                "Text": {
+                    "text": "hi",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.13725490868091583
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
             }
         ]
     },
     {
-        "Name": "Testing Serializing",
+        "Name": "MineWorm Two",
         "ID": 2,
+        "Prefab": "MineWorm",
         "isActive": true,
         "Parent": null,
-        "Child Entities": [
-            3
-        ],
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -8.14806, 228.916, 0 }",
+                    "worldPos": "{ 221, -32, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -8.14806, 228.916 }",
-                    "width": 100.0,
-                    "height": 100.0,
-                    "min": "{ -58.1481, 178.916 }",
-                    "max": "{ 41.8519, 278.916 }",
+                    "center": "{ 221, -32 }",
+                    "width": 128.0,
+                    "height": 128.0,
+                    "min": "{ 157, -96 }",
+                    "max": "{ 285, 32 }",
                     "render": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "of Game Component",
-        "ID": 3,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Game": {
-                    "player": 1,
-                    "enemy": 4,
-                    "pauseMenu": 5,
-                    "gameSystemScript": {
-                        "scriptName": ""
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Entity 4",
-        "ID": 4,
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Entity 5",
-        "ID": 5,
-        "isActive": false,
-        "Parent": null,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
@@ -167,14 +123,32 @@
                                 "y": 0.0
                             },
                             "texDims": {
-                                "x": 1.0,
+                                "x": 0.1666666716337204,
                                 "y": 1.0
                             },
-                            "width": 782,
-                            "height": 331
+                            "width": 128,
+                            "height": 128
                         }
                     },
-                    "spriteName": "Temp_Logo"
+                    "spriteName": "SS_MineWorm"
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MineWorm"
+                }
+            },
+            {
+                "Text": {
+                    "text": "hi",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 0.13725490868091583
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
                 }
             }
         ]

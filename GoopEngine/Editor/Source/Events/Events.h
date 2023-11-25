@@ -9,6 +9,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include "Event.h"
+#include <ECS/Entity/Entity.h>
 
 namespace GE
 {
@@ -37,14 +38,14 @@ namespace GE
       inline std::string GetName() const noexcept override { return "Scene Stopped"; }
     };
 
-    class PrefabSavedEvent : public Event
+   /* class PrefabSavedEvent : public Event
     {
     public:
       PrefabSavedEvent(std::string prefab) : Event(EVENT_TYPE::PREFAB_SAVED), m_prefab{ std::move(prefab) } {}
       inline std::string GetName() const noexcept override { return "Prefab Saved"; }
 
       std::string const m_prefab;
-    };
+    };*/
 
 #endif
 
@@ -95,6 +96,24 @@ namespace GE
     public:
       WindowMinimize() : Event(EVENT_TYPE::WINDOW_MINIMIZE) {}
       inline std::string GetName() const noexcept override { return "Window Minimize"; }
+    };
+
+    //class NewEntityEvent : public Event
+    //{
+    //public:
+    //  NewEntityEvent(ECS::Entity id) : Event(EVENT_TYPE::NEW_ENTITY), m_entityId{ id } {}
+    //  inline std::string GetName() const noexcept override { return "Entity " + std::to_string(m_entityId) + " Created"; }
+
+    //  ECS::Entity const m_entityId;
+    //};
+
+    class RemoveEntityEvent : public Event
+    {
+    public:
+      RemoveEntityEvent(ECS::Entity id) : Event(EVENT_TYPE::REMOVE_ENTITY), m_entityId{ id } {}
+      inline std::string GetName() const noexcept override { return "Entity " + std::to_string(m_entityId) + " Removed"; }
+
+      ECS::Entity const m_entityId;
     };
   }
 }
