@@ -28,7 +28,7 @@
                     "spriteData": {
                         "spriteSubData": {
                             "texCoords": {
-                                "x": 0.75,
+                                "x": 0.0,
                                 "y": 0.0
                             },
                             "texDims": {
@@ -261,6 +261,41 @@
                         "scriptName": "GameManager",
                         "scriptFieldInstList": []
                     }
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Instructions",
+        "ID": 6,
+        "isActive": true,
+        "Parent": 56,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 689,
+                            "height": 209
+                        }
+                    },
+                    "spriteName": "Instructions"
                 }
             }
         ]
@@ -669,7 +704,7 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "DAA2402_Card_LeahAttack_Slash"
+                    "spriteName": "DAA2402_Card_LeahAttack_Slash_v02"
                 }
             },
             {
@@ -767,7 +802,7 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "DAA2402_Card_LeahSpecial_Beam"
+                    "spriteName": "DAA2402_Card_LeahAttack_BeamShot_v02"
                 }
             },
             {
@@ -865,7 +900,7 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "DAA2402_Card_LeahSpecial_Flash"
+                    "spriteName": "DAA2402_Card_LeahSpecial_Smokescreen_v01"
                 }
             },
             {
@@ -917,7 +952,7 @@
             },
             {
                 "Card": {
-                    "cardID": "PLAYER_EMPOWERED_SWING",
+                    "cardID": "PLAYER_BUFF_SMOKESCREEN",
                     "tgtEntity": 11
                 }
             }
@@ -963,7 +998,7 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "DAA2402_Card_LeahMovement_Dash"
+                    "spriteName": "DAA2402_Card_LeahDefense_Shield_v01"
                 }
             },
             {
@@ -1061,7 +1096,7 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "DAA2402_Card_LeahMovement_Dash"
+                    "spriteName": "DAA2402_Card_LeahDefense_Shield_v01"
                 }
             },
             {
@@ -1660,6 +1695,7 @@
         "isActive": false,
         "Parent": 26,
         "Child Entities": [
+            6,
             57,
             58,
             59,

@@ -41,6 +41,19 @@
                     },
                     "spriteName": "MainMenu_BG"
                 }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "menu",
+                            "loop": true,
+                            "playOnStart": true,
+                            "channel": "BGM",
+                            "volume": 0.800000011920929
+                        }
+                    ]
+                }
             }
         ]
     },
