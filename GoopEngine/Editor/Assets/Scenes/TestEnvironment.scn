@@ -1,0 +1,184 @@
+[
+    {
+        "Name": "Gizmo Tester",
+        "ID": 0,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -800, 350, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -800, 350 }",
+                    "width": 200.0,
+                    "height": 200.0,
+                    "min": "{ -900, 250 }",
+                    "max": "{ -700, 450 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 200
+                        }
+                    },
+                    "spriteName": "GizmoTester"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Prefab Tester",
+        "ID": 1,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 61.2976, 260.094, 0 }",
+                    "worldScale": "{ 0.75, 0.75, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 61.2976, 260.094 }",
+                    "width": 900.0,
+                    "height": 450.0,
+                    "min": "{ -388.702, 35.094 }",
+                    "max": "{ 511.298, 485.094 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1200,
+                            "height": 600
+                        }
+                    },
+                    "spriteName": "PrefabTester"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Gizmo Target",
+        "ID": 2,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            3
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -500, 350, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -500, 350 }",
+                    "width": 100.0,
+                    "height": 100.0,
+                    "min": "{ -550, 300 }",
+                    "max": "{ -450, 400 }",
+                    "render": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Text] Target",
+        "ID": 3,
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -543.611, 404.63, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Target",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.1120000034570694,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "GoNextButtonGhost",
+        "ID": 4,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 786, -445.5, 0 }",
+                    "worldScale": "{ 0.7, 0.7, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 300,
+                            "height": 108
+                        }
+                    },
+                    "spriteName": "GoNextButtonGhost"
+                }
+            }
+        ]
+    }
+]
