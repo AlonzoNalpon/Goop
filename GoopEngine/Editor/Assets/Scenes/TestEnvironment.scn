@@ -605,5 +605,63 @@
                 }
             }
         ]
+    },
+    {
+        "Name": ".[Test Prefab] Priest",
+        "ID": 17,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -191.815, 235.889, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -191.815, 235.889 }",
+                    "width": 140.0,
+                    "height": 280.0,
+                    "min": "{ -261.815, 95.8889 }",
+                    "max": "{ -121.815, 375.889 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 143,
+                            "height": 280
+                        }
+                    },
+                    "spriteName": "Priest"
+                }
+            },
+            {
+                "Text": {
+                    "text": "For Testing Purposes",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
     }
 ]
