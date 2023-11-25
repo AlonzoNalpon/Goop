@@ -32,7 +32,7 @@
                                 "y": 0.0
                             },
                             "texDims": {
-                                "x": 0.25,
+                                "x": 1.0,
                                 "y": 1.0
                             },
                             "width": 875,
@@ -44,19 +44,18 @@
             },
             {
                 "SpriteAnim": {
-                    "currTime": "SS_LeahIdle",
-                    "currFrame": "SS_LeahIdle",
-                    "flags": "SS_LeahIdle"
+                    "name": "SS_LeahIdle"
                 }
             },
             {
-                "Tween": {
-                    "tweens": [],
-                    "timeTaken": 3.0,
-                    "timeElapsed": 0.039999999999981814,
-                    "originalPos": "{ 784, 250, 0 }",
-                    "started": true,
-                    "paused": false
+                "Scripts": {
+                    "entityId": 0,
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             }
         ]
@@ -159,7 +158,7 @@
                             "sound": "CaveWithWaterDrops_Loop",
                             "loop": true,
                             "playOnStart": true,
-                            "channel": "SFX",
+                            "channel": "BGM",
                             "volume": 0.4860000014305115
                         },
                         {
@@ -210,6 +209,33 @@
         ]
     },
     {
+        "Name": "Enemy",
+        "ID": 4,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 0,
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
         "Name": "GameSystem",
         "ID": 5,
         "isActive": true,
@@ -226,7 +252,7 @@
             {
                 "Game": {
                     "player": 0,
-                    "enemy": 1,
+                    "enemy": 4,
                     "pauseMenu": 27,
                     "playerHand": 15,
                     "playerQueue": 11,
