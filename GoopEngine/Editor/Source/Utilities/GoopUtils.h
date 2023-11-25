@@ -59,4 +59,22 @@ namespace GE::GoopUtils
 			The filename of the string.
 		************************************************************************/
   std::string ExtractFilename(const std::string& filepath);
+
+	/*!*********************************************************************
+	\brief 
+	  Creates a random int value between a range [min, max]
+
+	\param min
+		Min value of the range
+
+	\param max
+		Max value of the range
+
+	\return
+		Random int value
+	************************************************************************/
+	int RandomValue(int min, int max);
 }
+
+
+
