@@ -70,7 +70,7 @@ namespace GE
 									// A card has called select card button event:
 									//	This requires caller to have a card component
 									auto* card = m_ecs->GetComponent<Component::Card>(entity);
-									if (!card) break; // no card -> bad behavior
+									if (!card || card->cardID == Component::Card::NO_CARD) break; // no card -> bad behavior
 
 									auto* cardHolder = m_ecs->GetComponent<Component::CardHolder>(card->tgtEntity);
 									if (!cardHolder) break; // no holder -> bad behavior
