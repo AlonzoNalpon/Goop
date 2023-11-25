@@ -44,9 +44,7 @@
             },
             {
                 "SpriteAnim": {
-                    "currTime": "SS_LeahIdle",
-                    "currFrame": "SS_LeahIdle",
-                    "flags": "SS_LeahIdle"
+                    "name": "SS_LeahIdle"
                 }
             },
             {
