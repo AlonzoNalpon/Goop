@@ -234,73 +234,71 @@ namespace GE
       {
       case ECS::COMPONENT_TYPES::TRANSFORM:
       {
-        return ecs.HasComponent<Component::Transform>(id) ? ecs.GetComponent<Component::Transform>(id) : rttr::variant();
+        return ecs.HasComponent<Component::Transform>(id) ? std::make_shared<Component::Transform>(*ecs.GetComponent<Component::Transform>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::BOX_COLLIDER:
       {
-        return ecs.HasComponent<Component::BoxCollider>(id) ? ecs.GetComponent<Component::BoxCollider>(id) : rttr::variant();
+        return ecs.HasComponent<Component::BoxCollider>(id) ? std::make_shared<Component::BoxCollider>(*ecs.GetComponent<Component::BoxCollider>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::VELOCITY:
       {
-        Component::Velocity* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Velocity>(id) };
-        return ret ? ret : rttr::variant();
+        return ecs.HasComponent<Component::Velocity>(id) ? std::make_shared<Component::Velocity>(*ecs.GetComponent<Component::Velocity>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::SCRIPTS:
       {
-        return ecs.HasComponent<Component::Scripts>(id) ? ecs.GetComponent<Component::Scripts>(id) : rttr::variant();
+        return ecs.HasComponent<Component::Scripts>(id) ? std::make_shared<Component::Scripts>(*ecs.GetComponent<Component::Scripts>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::SPRITE:
       {
-        return ecs.HasComponent<Component::Sprite>(id) ? ecs.GetComponent<Component::Sprite>(id) : rttr::variant();
+        return ecs.HasComponent<Component::Sprite>(id) ? std::make_shared<Component::Sprite>(*ecs.GetComponent<Component::Sprite>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::SPRITE_ANIM:
       {
-        return ecs.HasComponent<Component::SpriteAnim>(id) ? ecs.GetComponent<Component::SpriteAnim>(id) : rttr::variant();
+        return ecs.HasComponent<Component::SpriteAnim>(id) ? std::make_shared<Component::SpriteAnim>(*ecs.GetComponent<Component::SpriteAnim>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::TWEEN:
       {
-        return ecs.HasComponent<Component::Tween>(id) ? ecs.GetComponent<Component::Tween>(id) : rttr::variant();
+        return ecs.HasComponent<Component::Tween>(id) ? std::make_shared<Component::Tween>(*ecs.GetComponent<Component::Tween>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::ENEMY_AI:
       {
-        return ecs.HasComponent<Component::EnemyAI>(id) ? ecs.GetComponent<Component::EnemyAI>(id) : rttr::variant();
+        return ecs.HasComponent<Component::EnemyAI>(id) ? std::make_shared<Component::EnemyAI>(*ecs.GetComponent<Component::EnemyAI>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::DRAGGABLE:
       {
-        return ecs.HasComponent<Component::Draggable>(id) ? ecs.GetComponent<Component::Draggable>(id) : rttr::variant();
+        return ecs.HasComponent<Component::Draggable>(id) ? std::make_shared<Component::Draggable>(*ecs.GetComponent<Component::Draggable>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::TEXT:
       {
-        return ecs.HasComponent<Component::Text>(id) ? ecs.GetComponent<Component::Text>(id) : rttr::variant();
+        return ecs.HasComponent<Component::Text>(id) ? std::make_shared<Component::Text>(*ecs.GetComponent<Component::Text>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::AUDIO:
       {
-        return ecs.HasComponent<Component::Audio>(id) ? ecs.GetComponent<Component::Audio>(id) : rttr::variant();
+        return ecs.HasComponent<Component::Audio>(id) ? std::make_shared<Component::Audio>(*ecs.GetComponent<Component::Audio>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::GE_BUTTON:
       {
-        return ecs.HasComponent<Component::GE_Button>(id) ? ecs.GetComponent<Component::GE_Button>(id) : rttr::variant();
+        return ecs.HasComponent<Component::GE_Button>(id) ? std::make_shared<Component::GE_Button>(*ecs.GetComponent<Component::GE_Button>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::ANCHOR:
       {
-        return ecs.HasComponent<Component::Anchor>(id) ? ecs.GetComponent<Component::Anchor>(id) : rttr::variant();
+        return ecs.HasComponent<Component::Anchor>(id) ? std::make_shared<Component::Anchor>(*ecs.GetComponent<Component::Anchor>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::CARD:
       {
-        return ecs.HasComponent<Component::Card>(id) ? ecs.GetComponent<Component::Card>(id) : rttr::variant();
+        return ecs.HasComponent<Component::Card>(id) ? std::make_shared<Component::Card>(*ecs.GetComponent<Component::Card>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::CARD_HOLDER:
       {
-        return ecs.HasComponent<Component::CardHolder>(id) ? ecs.GetComponent<Component::CardHolder>(id) : rttr::variant();
+        return ecs.HasComponent<Component::CardHolder>(id) ? std::make_shared<Component::CardHolder>(*ecs.GetComponent<Component::CardHolder>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::CARD_HOLDER_ELEM:
       {
-        return ecs.HasComponent<Component::CardHolderElem>(id) ? ecs.GetComponent<Component::CardHolderElem>(id) : rttr::variant();
+        return ecs.HasComponent<Component::CardHolderElem>(id) ? std::make_shared<Component::CardHolderElem>(*ecs.GetComponent<Component::CardHolderElem>(id)) : rttr::variant();
       }
       case ECS::COMPONENT_TYPES::GAME:
       {
-        Component::Game* ret{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Game>(id) };
-        return ret ? *ret : rttr::variant();
+        return ecs.HasComponent<Component::Game>(id) ? std::make_shared<Component::Game>(*ecs.GetComponent<Component::Game>(id)) : rttr::variant();
       }
       default:
       {
