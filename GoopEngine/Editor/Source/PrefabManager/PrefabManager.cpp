@@ -35,13 +35,26 @@ std::string PrefabManager::GetEntityPrefab(ECS::Entity entity) const
   return entry->second;
 }
 
-void PrefabManager::UpdateEntitiesFromPrefab()
+void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
 {
   //ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
   ObjectFactory::ObjectFactory const& of{ ObjectFactory::ObjectFactory::GetInstance() };
-  for (auto const& [entity, prefab] : m_entitiesToPrefabs)
+  for (auto const& [entity, name] : m_entitiesToPrefabs)
   {
-    ObjectFactory::VariantPrefab const& prefabVar{ of.GetVariantPrefab(prefab) };
+    if (name != prefab) { continue; }
+
+    ObjectFactory::VariantPrefab const& prefabVar{ of.GetVariantPrefab(name) };
+    for (rttr::variant const& comp : prefabVar.m_components)
+    {
+      if (comp.get_type().get_wrapped_type() == rttr::type::get<Component::Transform*>())
+      {
+        Component::Transform const& newTrans{ *comp.get_value<Component::Transform*>() };
+        Component::Transform* trans{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Transform>(entity) };
+        auto pos{ std::move(trans->m_worldPos) };
+        *trans = newTrans;
+        trans->m_worldPos = std::move(pos);
+      }
+    }
     of.AddComponentsToEntity(entity, prefabVar.m_components);
   }
 
@@ -61,7 +74,7 @@ void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const
 
   Assets::AssetManager& am{ Assets::AssetManager::GetInstance() };
   Serialization::Serializer::SerializeVariantToPrefab(prefab,
-    am.GetConfigData<std::string>("Prefabs Dir") + name + am.GetConfigData<std::string>("Prefab File Extension"));
+  am.GetConfigData<std::string>("Prefabs Dir") + name + am.GetConfigData<std::string>("Prefab File Extension"));
   am.ReloadFiles(Assets::FileType::PREFAB);
 
   GE::Debug::ErrorLogger::GetInstance().LogMessage(name + " saved to Prefabs");

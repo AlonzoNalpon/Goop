@@ -30,7 +30,7 @@
                             "x": 0.25,
                             "y": 1.0
                         },
-                        "width": 41,
+                        "width": 164,
                         "height": 38
                     }
                 },
@@ -38,13 +38,8 @@
             }
         },
         {
-            "SpriteAnim": {
-                "name": "SS_Shark"
-            }
-        },
-        {
             "Text": {
-                "text": "YOUR TEXT HERE",
+                "text": "YOUR END IS NO LONGER NEAR",
                 "clr": {
                     "r": 1.0,
                     "g": 0.0,
@@ -53,6 +48,11 @@
                 },
                 "scale": 0.10000000149011612,
                 "fontID": 0
+            }
+        },
+        {
+            "SpriteAnim": {
+                "name": "SS_LeahIdle"
             }
         }
     ]

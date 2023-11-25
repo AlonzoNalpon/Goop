@@ -20,7 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Components.h>
 #include <Utilities/GoopUtils.h>
 #include <EditorUI/AssetBrowser.h>
-#include <algorithm>
+#include <PrefabManager/PrefabManager.h>
 // Disable reinterpret to larger size
 #pragma warning(disable : 4312)
 
@@ -470,6 +470,8 @@ void PrefabEditor::CreateContent()
       }*/
       Serialization::Serializer::SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
       Assets::AssetManager::GetInstance().ReloadFiles(Assets::FileType::PREFAB);
+      ObjectFactory::ObjectFactory::GetInstance().ReloadPrefabs();
+      Prefabs::PrefabManager::GetInstance().UpdateEntitiesFromPrefab(m_currPrefab.m_name);
       ResetPrefabEditor();
       GE::Debug::ErrorLogger::GetInstance().LogMessage(m_currPrefab.m_name + " successfully saved");
     }
