@@ -244,11 +244,9 @@ void GE::fMOD::FmodSystem::HandleEvent(GE::Events::Event* event)
   switch (event->GetCategory())
   {
   case GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS:
-    std::cout << "lose focus\n";
     m_masterGroup->setPaused(true);
     break;
   case GE::Events::EVENT_TYPE::WINDOW_GAIN_FOCUS:
-    std::cout << "gain focus\n";
     m_masterGroup->setPaused(false);
     break;
   default:
