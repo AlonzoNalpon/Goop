@@ -4,6 +4,7 @@
 #include <Component/Scripts.h>
 #include <Component/Audio.h>
 #include <EditorUI/ImGuiUI.h>
+#include <GameStateManager/GameStateManager.h>
 
 using namespace GE::Component;
 using namespace GE::ECS;
@@ -62,6 +63,17 @@ void GE::Systems::GameSystem::Update()
       void* args[] = { &dt, it.m_classInst, &game->m_player, it2.m_classInst, &game->m_enemy, &game->m_playerHand, &game->m_playerQueue, &game->m_enemyQueue };
       mono_runtime_invoke(onUpdateFunc, game->m_gameSystemScript.m_classInst, args, nullptr);
     }
+
+    if (m_shouldWin)
+    {
+      m_shouldWin = false;
+      GE::GSM::GameStateManager::GetInstance().SetNextScene("Victory");
+    }
+    else if (m_shouldLose)
+    {
+      m_shouldLose = false;
+      GE::GSM::GameStateManager::GetInstance().SetNextScene("Defeat");
+    }
   }
 }
 
@@ -85,10 +97,25 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
       }
       case GE::Events::EVENT_TYPE::KEY_TRIGGERED:
       {
-
-        if (dynamic_cast<Events::KeyTriggeredEvent*>(event)->GetKey() == GPK_ESCAPE)
+        KEY_CODE code = dynamic_cast<Events::KeyTriggeredEvent*>(event)->GetKey();
+        switch (code)
         {
+        case GPK_ESCAPE:
+          // If lose or win, cannot pause
+          if (m_shouldLose || m_shouldWin)
+          {
+            break;
+          }
           m_shouldPause = !m_shouldPause;
+          break;
+        case GPK_1:
+          m_shouldWin = true;
+          break;
+        case GPK_2:
+          m_shouldLose = true;
+          break;
+        default:
+          break;
         }
         
         break;

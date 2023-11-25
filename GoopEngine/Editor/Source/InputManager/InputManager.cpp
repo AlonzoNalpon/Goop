@@ -148,6 +148,14 @@ void InputManager::DispatchInputEvents()
 	{
 		eventMan.Dispatch(KeyTriggeredEvent(GPK_M));
 	}
+	if (IsKeyTriggered(GPK_1))
+	{
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_1));
+	}
+	if (IsKeyTriggered(GPK_2))
+	{
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_2));
+	}
 	// ALT TAB = MINIMIZE
 	if (IsKeyPressed(GPK_LEFT_ALT) && IsKeyTriggered(GPK_TAB))
 	{
