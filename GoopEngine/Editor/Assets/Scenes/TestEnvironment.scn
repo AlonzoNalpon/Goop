@@ -190,18 +190,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 200, -431.852, 0 }",
+                    "worldPos": "{ 143.312, -438.521, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 200, -431.852 }",
+                    "center": "{ 143.312, -438.521 }",
                     "width": 30.0,
                     "height": 60.0,
-                    "min": "{ 185, -461.852 }",
-                    "max": "{ 215, -401.852 }",
+                    "min": "{ 128.312, -468.521 }",
+                    "max": "{ 158.312, -408.521 }",
                     "render": true
                 }
             },
@@ -210,18 +210,23 @@
                     "spriteData": {
                         "spriteSubData": {
                             "texCoords": {
-                                "x": 0.0,
+                                "x": 0.75,
                                 "y": 0.0
                             },
                             "texDims": {
-                                "x": 1.0,
+                                "x": 0.25,
                                 "y": 1.0
                             },
-                            "width": 30,
-                            "height": 60
+                            "width": 41,
+                            "height": 38
                         }
                     },
-                    "spriteName": "Player"
+                    "spriteName": "SS_Shark"
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_Shark"
                 }
             },
             {
@@ -232,6 +237,39 @@
                     "originalPos": "{ 350, 350, 0 }",
                     "started": false,
                     "paused": false
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 5,
+                    "scriptList": [
+                        {
+                            "scriptName": "Player",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        0,
+                                        2,
+                                        4,
+                                        6,
+                                        8,
+                                        10
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "ListIntTest"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "health"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             }
         ]

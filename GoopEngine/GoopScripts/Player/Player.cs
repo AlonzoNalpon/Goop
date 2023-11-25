@@ -42,11 +42,13 @@ namespace GoopScripts.Player
    ************************************************************************/
     public Player(uint entityID) : base(entityID)
     {
+      base.m_entityID = 5;
       Console.WriteLine("size of Array: " + Marshal.SizeOf(ListIntTest[0]) * ListIntTest.Count());
     }
 
     public Player()
     {
+      base.m_entityID = 5;
       Console.WriteLine("size of Array: " + Marshal.SizeOf(ListIntTest[0]) * ListIntTest.Count());
     }
 
