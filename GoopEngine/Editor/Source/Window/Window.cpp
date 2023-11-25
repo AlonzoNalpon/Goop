@@ -147,6 +147,10 @@ namespace WindowSystem {
     {
       GE::Events::EventManager::GetInstance().Dispatch(GE::Events::WindowLoseFocusEvent());
     }
+    else
+    {
+      GE::Events::EventManager::GetInstance().Dispatch(GE::Events::WindowGainFocusEvent());
+    }
   }
 
   void Window::ErrorCallback(int /*error*/, const char* desc)

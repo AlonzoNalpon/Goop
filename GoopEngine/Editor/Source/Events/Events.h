@@ -42,6 +42,13 @@ namespace GE
       inline std::string GetName() const noexcept override { return "Window Lost Focus"; }
     };
 
+    class WindowGainFocusEvent : public Event
+    {
+    public:
+      WindowGainFocusEvent() : Event(EVENT_TYPE::WINDOW_GAIN_FOCUS) {}
+      inline std::string GetName() const noexcept override { return "Window Gain Focus"; }
+    };
+
     class GameNextTurn : public Event
     {
     public:

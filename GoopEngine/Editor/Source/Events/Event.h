@@ -34,6 +34,7 @@ namespace GE
       PAUSE_SCENE,
       STOP_SCENE,
       WINDOW_LOSE_FOCUS,
+      WINDOW_GAIN_FOCUS,
       NEXT_TURN,
       TURN_RESOLVED,
       QUIT_GAME,
