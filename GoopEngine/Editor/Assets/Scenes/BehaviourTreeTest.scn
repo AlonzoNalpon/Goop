@@ -102,8 +102,8 @@
                                 {
                                     "data": [
                                         99,
-                                        77,
-                                        64
+                                        88,
+                                        77
                                     ],
                                     "type": "System.Int32[]",
                                     "scriptField": {
@@ -111,7 +111,7 @@
                                     }
                                 },
                                 {
-                                    "data": 0,
+                                    "data": 3,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "health"
@@ -127,10 +127,7 @@
                                         9,
                                         8,
                                         5,
-                                        4,
-                                        3,
-                                        2,
-                                        1
+                                        4
                                     ],
                                     "type": "System.Int32[]",
                                     "scriptField": {
@@ -145,7 +142,7 @@
                                     }
                                 },
                                 {
-                                    "data": 666.0,
+                                    "data": 9801.0,
                                     "type": "System.Single",
                                     "scriptField": {
                                         "fieldName": "m_float"
@@ -158,7 +155,13 @@
                                         "fieldName": "m_health"
                                     }
                                 },
-                                {}
+                                {
+                                    "data": "{ 69, -200, 96 }",
+                                    "type": "GoopScripts.Mono.Vec3<System.Double>",
+                                    "scriptField": {
+                                        "fieldName": "m_vecd"
+                                    }
+                                }
                             ]
                         }
                     ]

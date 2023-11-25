@@ -136,6 +136,11 @@ RTTR_REGISTRATION
     .property("type", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
     .property("scriptField", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
     ;
+  rttr::registration::class_<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>("GoopScripts.Mono.Vec3<System.Double>")
+    .property("data", &GE::MONO::ScriptFieldInstance<GE::Math::dVec3>::m_data)
+    .property("type", &GE::MONO::ScriptFieldInstance<GE::Math::dVec3>::m_type)
+    .property("scriptField", &GE::MONO::ScriptFieldInstance<GE::Math::dVec3>::m_scriptField)
+    ;
 
   rttr::registration::class_<GE::MONO::ScriptInstance>("ScriptInstance")
     .property("scriptName", &GE::MONO::ScriptInstance::m_scriptName)

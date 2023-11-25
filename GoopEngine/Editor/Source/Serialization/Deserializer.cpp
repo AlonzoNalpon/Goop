@@ -388,7 +388,11 @@ void Deserializer::DeserializeBasedOnType(rttr::variant& object, rapidjson::Valu
 
           // if types or fieldNames don't match, skip to next elem
           rttr::variant scriptFieldVar{ var.get_type().get_property("scriptField").get_value(var) };
-          if (elem["type"].GetString() != var.get_type().get_property("type").get_name().to_string()
+#ifdef DESERIALIZER_DEBUG
+          std::cout << "    Comparing " << elem["type"].GetString() << " with " << var.get_type().get_property("type").get_value(var).get_value<std::string>()
+            << "\nComparing " << jsonField["fieldName"].GetString() << " with " << scriptFieldVar.get_type().get_property("fieldName").get_value(scriptFieldVar).get_value<std::string>();
+#endif
+          if (elem["type"].GetString() != var.get_type().get_property("type").get_value(var).get_value<std::string>()
             || jsonField["fieldName"].GetString() != scriptFieldVar.get_type().get_property("fieldName").get_value(scriptFieldVar).get_value<std::string>())
           {
             continue;
