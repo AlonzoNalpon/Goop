@@ -19,9 +19,6 @@
             }
         },
         {
-            "Draggable": {}
-        },
-        {
             "Text": {
                 "text": "For Testing Purposes",
                 "clr": {
