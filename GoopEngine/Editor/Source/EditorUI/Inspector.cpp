@@ -1303,6 +1303,51 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputEntity("Player Queue", game->m_playerQueue);
 					TableNextRow();
 					InputEntity("Enemy Queue", game->m_enemyQueue);
+					TableNextRow();
+					TableNextColumn();
+					ImGui::Text("Script");
+					TableNextColumn();
+					GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
+					if (ImGui::BeginCombo("", game->m_gameSystemScript.m_scriptName.c_str()))
+					{
+						for (const std::string& sn : sm->m_allScriptNames)
+						{
+							if (game->m_gameSystemScript.m_scriptName != sn)
+							{
+								bool is_selected = (game->m_gameSystemScript.m_scriptName.c_str() == sn);
+								if (ImGui::Selectable(sn.c_str()))
+								{
+									game->m_gameSystemScript = ScriptInstance(sn);
+									game->m_gameSystemScript.GetFields();
+								}
+								if (is_selected)
+								{
+									ImGui::SetItemDefaultFocus();
+								}
+							}
+						}
+						ImGui::EndCombo();
+					}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 					EndTable();
 				}
