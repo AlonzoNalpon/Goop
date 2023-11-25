@@ -10,6 +10,7 @@ GoopScripts.AI.Enemy,IsWithinPlayerRange
 GoopScripts.AI.Enemy,MoveToPlayer
 GoopScripts.AI.Enemy,RunFromPlayer
 GoopScripts.Cards,Attack
+GoopScripts.Cards,BlankCard
 GoopScripts.Cards,Block
 GoopScripts.Cards,CardBase
 GoopScripts.Cards,CardManager

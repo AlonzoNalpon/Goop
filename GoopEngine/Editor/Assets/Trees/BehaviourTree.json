@@ -4,35 +4,9 @@
             {
                 "nodeType": "ROOT_NODE",
                 "parentNode": 0,
-                "childrenNode": [
-                    1
-                ],
+                "childrenNode": [],
                 "scriptName": "RootNode",
                 "pos": "{ 403.154, -24.0243 }"
-            },
-            {
-                "nodeType": "COMPOSITE_NODE",
-                "parentNode": 0,
-                "childrenNode": [
-                    2,
-                    3
-                ],
-                "scriptName": "SequenceNode",
-                "pos": "{ 633, -22 }"
-            },
-            {
-                "nodeType": "LEAF_NODE",
-                "parentNode": 1,
-                "childrenNode": [],
-                "scriptName": "IsOutsideAttackRange",
-                "pos": "{ 899, -82 }"
-            },
-            {
-                "nodeType": "LEAF_NODE",
-                "parentNode": 1,
-                "childrenNode": [],
-                "scriptName": "MoveToPlayer",
-                "pos": "{ 902, 38 }"
             }
         ],
         "treeName": "WormTree",
