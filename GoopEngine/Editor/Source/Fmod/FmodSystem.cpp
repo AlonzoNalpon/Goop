@@ -20,6 +20,9 @@ FmodSystem::~FmodSystem()
 
 void FmodSystem::Init()
 {
+  GE::Events::EventManager::GetInstance().Subscribe<GE::Events::WindowGainFocusEvent>(this);
+  GE::Events::EventManager::GetInstance().Subscribe<GE::Events::WindowLoseFocusEvent>(this);
+
   ErrorCheck(FMOD::System_Create(&m_fModSystem)); // Create the FMOD Core system
   int maxSounds = GE::Assets::AssetManager::GetInstance().GetConfigData<int>("MaxPlayingSounds");
   ErrorCheck(m_fModSystem->init(maxSounds, FMOD_INIT_STREAM_FROM_UPDATE, NULL)); // Initialize the FMOD Core system
@@ -234,6 +237,23 @@ float FmodSystem::dbToVolume(float dB) const
 float FmodSystem::VolumeTodb(float volume) const
 {
   return static_cast<float>(20.0 * log10(volume));
+}
+
+void GE::fMOD::FmodSystem::HandleEvent(GE::Events::Event* event)
+{
+  switch (event->GetCategory())
+  {
+  case GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS:
+    std::cout << "lose focus\n";
+    m_masterGroup->setPaused(true);
+    break;
+  case GE::Events::EVENT_TYPE::WINDOW_GAIN_FOCUS:
+    std::cout << "gain focus\n";
+    m_masterGroup->setPaused(false);
+    break;
+  default:
+    break;
+  }
 }
 
 void FmodSystem::ErrorCheck(FMOD_RESULT result)

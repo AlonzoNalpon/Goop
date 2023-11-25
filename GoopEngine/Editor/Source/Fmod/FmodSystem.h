@@ -15,7 +15,7 @@ namespace GE
 {
 	namespace fMOD
 	{
-    class FmodSystem : public Singleton<FmodSystem> 
+    class FmodSystem : public Singleton<FmodSystem>, public GE::Events::IEventListener
     {
     public:
       enum ChannelType
@@ -158,6 +158,8 @@ namespace GE
         db converted from volume.
       ************************************************************************/
       float VolumeTodb(float volume) const;
+
+      void HandleEvent(GE::Events::Event* event);
     };
 	}
 }
