@@ -58,6 +58,7 @@ namespace GE::Application
   {
     GE::Events::EventManager::GetInstance().Subscribe<GE::Events::QuitGame>(this);
     GE::Events::EventManager::GetInstance().Subscribe<GE::Events::ToggleFullscreen>(this);
+    GE::Events::EventManager::GetInstance().Subscribe<GE::Events::WindowMinimize>(this);
 
     // INIT FUNCTIONS
     GE::Assets::AssetManager* am = &GE::Assets::AssetManager::GetInstance();
@@ -235,10 +236,12 @@ namespace GE::Application
 
   void AppController::HandleEvent(GE::Events::Event* e)
   {
-    if      (dynamic_cast<GE::Events::QuitGame*>(e))
+    if (dynamic_cast<GE::Events::QuitGame*>(e))
       glfwSetWindowShouldClose(window.GetWindow(), 1);
     else if (dynamic_cast<GE::Events::ToggleFullscreen*>(e))
       window.ToggleFullscreen();
+    else if (dynamic_cast<GE::Events::WindowMinimize*>(e))
+      window.MinimizeWindow();
   }
 
 }
