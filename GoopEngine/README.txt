@@ -1,0 +1,1 @@
+Our sprites are to be in this format: 32bit RGBA (images with 24 bit depth are not supported!)
