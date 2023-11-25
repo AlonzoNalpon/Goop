@@ -267,7 +267,7 @@ char* GE::MONO::ReadBytes(const std::string& filepath, uint32_t* outSize)
 ScriptFieldType GE::MONO::ScriptManager::MonoTypeToScriptFieldType(MonoType* monoType)
 {
   std::string typeName = mono_type_get_name(monoType);
-  std::cout << typeName << ": ";
+
 
   auto it = m_ScriptFieldTypeMap.find(typeName);
   if (it == m_ScriptFieldTypeMap.end())
