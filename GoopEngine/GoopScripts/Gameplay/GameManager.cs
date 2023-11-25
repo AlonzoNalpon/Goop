@@ -30,6 +30,9 @@ namespace GoopScripts.Gameplay
 
     public void OnUpdate(double dt, Stats player, uint playerEntity, Stats enemy, uint enemyEntity, uint playerHand, uint playerQueue, uint enemyQueue)
 		{
+
+  
+
 			if (newTurn)
 			{
 				m_numResolves = player.m_cardQueue.Length >= enemy.m_cardQueue.Length ? player.m_cardQueue.Length : enemy.m_cardQueue.Length;

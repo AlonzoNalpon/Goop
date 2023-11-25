@@ -114,6 +114,13 @@ void ScriptInstance::GetFields()
       ScriptFieldInstance<std::vector<int>> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
 		}
+    else if (field.m_fieldType == ScriptFieldType::UIntArr)
+    {
+      std::cout << field.m_fieldName << "\n";
+      std::vector<unsigned> value = GetFieldValueArr<unsigned>(sm->m_appDomain, field.m_classField);
+      ScriptFieldInstance<std::vector<unsigned>> test{ field,value };
+      m_scriptFieldInstList.emplace_back(test);
+    }
 	}
 }
 

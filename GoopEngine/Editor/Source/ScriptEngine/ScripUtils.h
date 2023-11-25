@@ -25,7 +25,8 @@ namespace GE {
 			DVec3,
 			IntArr,
 			FloatArr,
-			DoubleArr
+			DoubleArr,
+			UIntArr
 		};
 
 		template <typename T>

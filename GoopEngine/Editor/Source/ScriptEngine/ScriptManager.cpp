@@ -49,7 +49,10 @@ namespace GE
       { "GoopScripts.Mono.Vec3<System.Single>", ScriptFieldType::Vec3 },
       { "GoopScripts.Mono.Vec2<System.Double>", ScriptFieldType::DVec2 },
       { "GoopScripts.Mono.Vec3<System.Double>", ScriptFieldType::DVec3 },
-      { "System.Int32[]", ScriptFieldType::IntArr }
+      { "System.Int32[]", ScriptFieldType::IntArr },
+      { "GoopScripts.Cards.CardBase.CardID[]", ScriptFieldType::UIntArr }
+
+      
       //{ "System.Single[]", ScriptFieldType::FloatArr },
       //{ "System.Double[]", ScriptFieldType::DoubleArr }
 
@@ -413,6 +416,11 @@ rttr::variant  GE::MONO::ScriptManager::GetScriptFieldInst(std::string const& li
   if (listType == "System.Int32[]")
   {
     return GE::MONO::ScriptFieldInstance < std::vector<int> > ();
+  }
+  if (listType == "Stats::GoopScripts.Cards.CardBase.CardID[]")
+  {
+    return GE::MONO::ScriptFieldInstance<std::vector<unsigned>>();
+
   }
 
   return GE::MONO::ScriptFieldInstance<std::vector<unsigned>>();

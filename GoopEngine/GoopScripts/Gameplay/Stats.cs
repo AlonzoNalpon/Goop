@@ -12,17 +12,13 @@ namespace GoopScripts.Gameplay
 	public  class Stats
 	{
 		public int m_health=100;
-    // List of card IDs
-    public float m_float = 101.0f;
-    public double m_d = 102.0;
-    public Vec3<double> m_vecd = new Vec3<double>(69.0, -200.0, 96.0);
-    public int[] listintTest = {9,8,5,4,3,2,1};
+    // List of card ID
 
-    public CardBase.CardID[] m_deck { get; set; }  // HQD: I had to initialize them, or else they would gives me error. you can remove it
+    public CardBase.CardID[] m_deck = { };
 		// List of cards in the queue
-		public CardBase.CardID[] m_cardQueue { get; set; }
+		public CardBase.CardID[] m_cardQueue = { };
 
-    public CardBase.CardID[] m_hand { get; set; }
+    public CardBase.CardID[] m_hand = { };
 
     public BuffManager m_buffs { get; set; }
 
