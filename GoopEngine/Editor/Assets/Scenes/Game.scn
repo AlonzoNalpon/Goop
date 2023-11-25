@@ -114,71 +114,6 @@
         ]
     },
     {
-        "Name": "Pause Menu",
-        "ID": 3,
-        "isActive": false,
-        "Parent": null,
-        "Child Entities": [
-            6,
-            37,
-            43
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 5 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Overlay",
-        "ID": 4,
-        "isActive": true,
-        "Parent": 6,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 5 }",
-                    "worldScale": "{ 1920, 1080, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 1920.0,
-                    "height": 1080.0,
-                    "min": "{ -960, -540 }",
-                    "max": "{ 960, 540 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1920,
-                            "height": 1080
-                        }
-                    },
-                    "spriteName": "Pause_GreyOverlay"
-                }
-            }
-        ]
-    },
-    {
         "Name": "GameSystem",
         "ID": 5,
         "isActive": true,
@@ -196,216 +131,10 @@
                 "Game": {
                     "player": 0,
                     "enemy": 1,
-                    "pauseMenu": 3,
+                    "pauseMenu": 27,
                     "playerHand": 0,
                     "playerQueue": 0,
                     "enemyQueue": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Menu] Pause",
-        "ID": 6,
-        "isActive": true,
-        "Parent": 3,
-        "Child Entities": [
-            4,
-            7,
-            8,
-            25,
-            32,
-            45
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 5 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 720,
-                            "height": 800
-                        }
-                    },
-                    "spriteName": "Pause_BG"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Button] Resume",
-        "ID": 7,
-        "isActive": true,
-        "Parent": 6,
-        "Child Entities": [
-            9
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -180, -200, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -180, -200 }",
-                    "width": 296.0,
-                    "height": 100.0,
-                    "min": "{ -328, -250 }",
-                    "max": "{ -32, -150 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 296,
-                            "height": 100
-                        }
-                    },
-                    "spriteName": "Button_Base"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "3",
-                    "eventType": "UNPAUSE"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Button] Quit Game",
-        "ID": 8,
-        "isActive": true,
-        "Parent": 6,
-        "Child Entities": [
-            10
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 170, -200, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 170, -200 }",
-                    "width": 296.0,
-                    "height": 100.0,
-                    "min": "{ 22, -250 }",
-                    "max": "{ 318, -150 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 296,
-                            "height": 100
-                        }
-                    },
-                    "spriteName": "Button_Base"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "Popup|37|Hide|6",
-                    "eventType": "POPUP"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Text] Resume",
-        "ID": 9,
-        "isActive": true,
-        "Parent": 7,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -274.963, -211.333, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Resume",
-                    "clr": {
-                        "r": 0.8980392217636108,
-                        "g": 0.8352941274642944,
-                        "b": 0.7764706015586853,
-                        "a": 1.0
-                    },
-                    "scale": 0.17000000178813934,
-                    "fontID": 1
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Text] Quit Game",
-        "ID": 10,
-        "isActive": true,
-        "Parent": 8,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 75.037, -211.333, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Quit Game",
-                    "clr": {
-                        "r": 0.8980392217636108,
-                        "g": 0.8352941274642944,
-                        "b": 0.7764706015586853,
-                        "a": 1.0
-                    },
-                    "scale": 0.17000000178813934,
-                    "fontID": 1
                 }
             }
         ]
@@ -1106,26 +835,68 @@
         ]
     },
     {
-        "Name": "[Button] Close",
-        "ID": 25,
+        "Name": "[Folder] Menus",
+        "ID": 26,
         "isActive": true,
-        "Parent": 6,
+        "Parent": null,
+        "Child Entities": [
+            27,
+            56,
+            60
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Menu] Pause Menu",
+        "ID": 27,
+        "isActive": false,
+        "Parent": 26,
+        "Child Entities": [
+            47,
+            49,
+            50,
+            51,
+            52
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Overlay",
+        "ID": 47,
+        "isActive": true,
+        "Parent": 27,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 302.185, 334.908, 10 }",
+                    "worldPos": "{ 0, 0, 100 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 302.185, 334.908 }",
-                    "width": 75.0,
-                    "height": 75.0,
-                    "min": "{ 264.685, 297.408 }",
-                    "max": "{ 339.685, 372.408 }",
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
                     "render": true
                 }
             },
@@ -1141,8 +912,432 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 75,
-                            "height": 75
+                            "width": 1920,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "Pause_OverlayBG"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Pause Base",
+        "ID": 49,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 818,
+                            "height": 511
+                        }
+                    },
+                    "spriteName": "Pause_Menu_Base"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Options Banner",
+        "ID": 50,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 320, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 227,
+                            "height": 71
+                        }
+                    },
+                    "spriteName": "Pause_Header_Options"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Words & Sliders",
+        "ID": 51,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 55, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 608,
+                            "height": 251
+                        }
+                    },
+                    "spriteName": "Pause_Words_Sliders"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Buttons",
+        "ID": 52,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [
+            53,
+            54,
+            55
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Buttons] How To Play",
+        "ID": 53,
+        "isActive": true,
+        "Parent": 52,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -260, -180, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -260, -180 }",
+                    "width": 239.0,
+                    "height": 86.0,
+                    "min": "{ -379.5, -223 }",
+                    "max": "{ -140.5, -137 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 239,
+                            "height": 86
+                        }
+                    },
+                    "spriteName": "Pause_HTP"
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "Popup|56|Hide|27",
+                    "eventType": "POPUP"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Buttons] Resume",
+        "ID": 54,
+        "isActive": true,
+        "Parent": 52,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, -180, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, -180 }",
+                    "width": 239.0,
+                    "height": 86.0,
+                    "min": "{ -119.5, -223 }",
+                    "max": "{ 119.5, -137 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 239,
+                            "height": 86
+                        }
+                    },
+                    "spriteName": "Pause_Resume"
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "27",
+                    "eventType": "UNPAUSE"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Buttons] Quit",
+        "ID": 55,
+        "isActive": true,
+        "Parent": 52,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 260, -180, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 260, -180 }",
+                    "width": 239.0,
+                    "height": 86.0,
+                    "min": "{ 140.5, -223 }",
+                    "max": "{ 379.5, -137 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 239,
+                            "height": 86
+                        }
+                    },
+                    "spriteName": "Pause_Quit"
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "Popup|60|Hide|27",
+                    "eventType": "POPUP"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Menu] How To Play",
+        "ID": 56,
+        "isActive": false,
+        "Parent": 26,
+        "Child Entities": [
+            57,
+            58,
+            59,
+            65
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Overlay",
+        "ID": 57,
+        "isActive": true,
+        "Parent": 56,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 100 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "Pause_OverlayBG"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] How To Play Base",
+        "ID": 58,
+        "isActive": true,
+        "Parent": 56,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 818,
+                            "height": 511
+                        }
+                    },
+                    "spriteName": "Pause_Menu_Base"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] Exit",
+        "ID": 59,
+        "isActive": true,
+        "Parent": 56,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 350, 195, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 350, 195 }",
+                    "width": 60.0,
+                    "height": 60.0,
+                    "min": "{ 320, 165 }",
+                    "max": "{ 380, 225 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 60,
+                            "height": 60
                         }
                     },
                     "spriteName": "UI_Close"
@@ -1150,477 +1345,56 @@
             },
             {
                 "GE_Button": {
-                    "param": "3",
-                    "eventType": "UNPAUSE"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Sound Slider",
-        "ID": 28,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 140, 230, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 140, 230 }",
-                    "width": 330.0,
-                    "height": 70.0,
-                    "min": "{ -25, 195 }",
-                    "max": "{ 305, 265 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 330,
-                            "height": 70
-                        }
-                    },
-                    "spriteName": "UI_Temp_Slider"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Music Slider",
-        "ID": 29,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 140, 130, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 140, 130 }",
-                    "width": 330.0,
-                    "height": 70.0,
-                    "min": "{ -25, 95 }",
-                    "max": "{ 305, 165 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 330,
-                            "height": 70
-                        }
-                    },
-                    "spriteName": "UI_Temp_Slider"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "SFX Slider",
-        "ID": 30,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 140, 30, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 140, 30 }",
-                    "width": 330.0,
-                    "height": 70.0,
-                    "min": "{ -25, -5 }",
-                    "max": "{ 305, 65 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 330,
-                            "height": 70
-                        }
-                    },
-                    "spriteName": "UI_Temp_Slider"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Voice Slider",
-        "ID": 31,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 140, -70, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 140, -70 }",
-                    "width": 330.0,
-                    "height": 70.0,
-                    "min": "{ -25, -105 }",
-                    "max": "{ 305, -35 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 330,
-                            "height": 70
-                        }
-                    },
-                    "spriteName": "UI_Temp_Slider"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Temp Sliders",
-        "ID": 32,
-        "isActive": true,
-        "Parent": 6,
-        "Child Entities": [
-            28,
-            29,
-            30,
-            31,
-            33,
-            34,
-            35,
-            36
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 140, -70, 5 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Sound",
-        "ID": 33,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -260, 210, 5 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Sound",
-                    "clr": {
-                        "r": 0.0,
-                        "g": 0.0,
-                        "b": 0.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.17800000309944153,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Music",
-        "ID": 34,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -260, 110, 5 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Music",
-                    "clr": {
-                        "r": 0.0,
-                        "g": 0.0,
-                        "b": 0.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.17800000309944153,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "SFX",
-        "ID": 35,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -260, 10, 5 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "SFX",
-                    "clr": {
-                        "r": 0.0,
-                        "g": 0.0,
-                        "b": 0.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.17800000309944153,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Voice",
-        "ID": 36,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -260, -85, 5 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Voice",
-                    "clr": {
-                        "r": 0.0,
-                        "g": 0.0,
-                        "b": 0.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.17800000309944153,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Menu] Confirm Quit",
-        "ID": 37,
-        "isActive": false,
-        "Parent": 3,
-        "Child Entities": [
-            38,
-            40,
-            42
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 55 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 720,
-                            "height": 300
-                        }
-                    },
-                    "spriteName": "Pause_BG"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Button] No",
-        "ID": 38,
-        "isActive": true,
-        "Parent": 37,
-        "Child Entities": [
-            39
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -180, -70, 60 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -180, -70 }",
-                    "width": 296.0,
-                    "height": 100.0,
-                    "min": "{ -328, -120 }",
-                    "max": "{ -32, -20 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 296,
-                            "height": 100
-                        }
-                    },
-                    "spriteName": "Button_Base"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "Return|37|Show|6",
+                    "param": "Return|56|Show|27",
                     "eventType": "POPUP"
                 }
             }
         ]
     },
     {
-        "Name": "[Text] No",
-        "ID": 39,
-        "isActive": true,
-        "Parent": 38,
-        "Child Entities": [],
+        "Name": "[Menu] Confirm Quit",
+        "ID": 60,
+        "isActive": false,
+        "Parent": 26,
+        "Child Entities": [
+            61,
+            62,
+            63,
+            64,
+            66,
+            67
+        ],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -218.926, -82.9812, 60 }",
+                    "worldPos": "{ 0, 0, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "No",
-                    "clr": {
-                        "r": 0.8980392217636108,
-                        "g": 0.8352941274642944,
-                        "b": 0.7764706015586853,
-                        "a": 1.0
-                    },
-                    "scale": 0.17000000178813934,
-                    "fontID": 1
                 }
             }
         ]
     },
     {
-        "Name": "[Button] Yes",
-        "ID": 40,
+        "Name": "[Image] Overlay",
+        "ID": 61,
         "isActive": true,
-        "Parent": 37,
-        "Child Entities": [
-            41
-        ],
+        "Parent": 60,
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 170, -70, 60 }",
+                    "worldPos": "{ 0, 0, 100 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 170, -70 }",
-                    "width": 296.0,
-                    "height": 100.0,
-                    "min": "{ 22, -120 }",
-                    "max": "{ 318, -20 }",
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
                     "render": true
                 }
             },
@@ -1636,11 +1410,142 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 296,
-                            "height": 100
+                            "width": 1920,
+                            "height": 1080
                         }
                     },
-                    "spriteName": "Button_Base"
+                    "spriteName": "Pause_OverlayBG"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] No",
+        "ID": 62,
+        "isActive": true,
+        "Parent": 60,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 150, -75, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 150, -75 }",
+                    "width": 239.0,
+                    "height": 86.0,
+                    "min": "{ 30.5, -118 }",
+                    "max": "{ 269.5, -32 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 239,
+                            "height": 86
+                        }
+                    },
+                    "spriteName": "Quit_No"
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "Return|60|Show|27",
+                    "eventType": "POPUP"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Confirm Quit Base",
+        "ID": 63,
+        "isActive": true,
+        "Parent": 60,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 650,
+                            "height": 300
+                        }
+                    },
+                    "spriteName": "Pause_Menu_Base"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] Yes",
+        "ID": 64,
+        "isActive": true,
+        "Parent": 60,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -150, -75, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -150, -75 }",
+                    "width": 239.0,
+                    "height": 86.0,
+                    "min": "{ -269.5, -118 }",
+                    "max": "{ -30.5, -32 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 239,
+                            "height": 86
+                        }
+                    },
+                    "spriteName": "Quit_Yes"
                 }
             },
             {
@@ -1652,92 +1557,15 @@
         ]
     },
     {
-        "Name": "[Text] Yes",
-        "ID": 41,
+        "Name": "[Image] HTP Banner",
+        "ID": 65,
         "isActive": true,
-        "Parent": 40,
+        "Parent": 56,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 127.776, -86.2775, 60 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Yes",
-                    "clr": {
-                        "r": 0.8980392217636108,
-                        "g": 0.8352941274642944,
-                        "b": 0.7764706015586853,
-                        "a": 1.0
-                    },
-                    "scale": 0.17000000178813934,
-                    "fontID": 1
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Overlay (Copy)",
-        "ID": 42,
-        "isActive": true,
-        "Parent": 37,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 53 }",
-                    "worldScale": "{ 1920, 1080, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 1920.0,
-                    "height": 1080.0,
-                    "min": "{ -960, -540 }",
-                    "max": "{ 960, 540 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1920,
-                            "height": 1080
-                        }
-                    },
-                    "spriteName": "Pause_GreyOverlay"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Menu] Instructions",
-        "ID": 43,
-        "isActive": false,
-        "Parent": 3,
-        "Child Entities": [
-            44,
-            48
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 55 }",
+                    "worldPos": "{ 0, 320, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1754,37 +1582,27 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 887,
-                            "height": 649
+                            "width": 306,
+                            "height": 71
                         }
                     },
-                    "spriteName": "Instructions"
+                    "spriteName": "Pause_Header_HowToPlay"
                 }
             }
         ]
     },
     {
-        "Name": "[Button] Close (Copy)",
-        "ID": 44,
+        "Name": "[Image] Quit Game Banner",
+        "ID": 66,
         "isActive": true,
-        "Parent": 43,
+        "Parent": 60,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 377.188, 270.408, 60 }",
+                    "worldPos": "{ 0, 210, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 377.188, 270.408 }",
-                    "width": 75.0,
-                    "height": 75.0,
-                    "min": "{ 339.688, 232.908 }",
-                    "max": "{ 414.688, 307.908 }",
-                    "render": true
                 }
             },
             {
@@ -1799,45 +1617,27 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 75,
-                            "height": 75
+                            "width": 256,
+                            "height": 71
                         }
                     },
-                    "spriteName": "UI_Close"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "Return|43|Show|6",
-                    "eventType": "POPUP"
+                    "spriteName": "Pause_Header_QuitGame"
                 }
             }
         ]
     },
     {
-        "Name": "[Button] How To Play",
-        "ID": 45,
+        "Name": "[Image] Text_AreYouSure",
+        "ID": 67,
         "isActive": true,
-        "Parent": 6,
-        "Child Entities": [
-            46
-        ],
+        "Parent": 60,
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -2.50021, -323, 10 }",
+                    "worldPos": "{ 0, 63.2407, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -2.50021, -323 }",
-                    "width": 296.0,
-                    "height": 100.0,
-                    "min": "{ -150.5, -373 }",
-                    "max": "{ 145.5, -273 }",
-                    "render": true
                 }
             },
             {
@@ -1852,97 +1652,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 296,
-                            "height": 100
+                            "width": 281,
+                            "height": 37
                         }
                     },
-                    "spriteName": "Button_Base"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "Popup|43|Hide|6",
-                    "eventType": "POPUP"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Text] Quit Game (Copy)",
-        "ID": 46,
-        "isActive": true,
-        "Parent": 45,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ -109.463, -334.333, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "How To Play",
-                    "clr": {
-                        "r": 0.8980392217636108,
-                        "g": 0.8352941274642944,
-                        "b": 0.7764706015586853,
-                        "a": 1.0
-                    },
-                    "scale": 0.14399999380111694,
-                    "fontID": 1
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "Popup|43",
-                    "eventType": "POPUP"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Overlay (Copy) (Copy)",
-        "ID": 48,
-        "isActive": true,
-        "Parent": 43,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, 53 }",
-                    "worldScale": "{ 1920, 1080, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 1920.0,
-                    "height": 1080.0,
-                    "min": "{ -960, -540 }",
-                    "max": "{ 960, 540 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1920,
-                            "height": 1080
-                        }
-                    },
-                    "spriteName": "Pause_GreyOverlay"
+                    "spriteName": "Text_AreYouSure"
                 }
             }
         ]

@@ -12,6 +12,7 @@
 #include <ECS/Entity/Entity.h>
 #include <Component/Transform.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Systems/RootTransform/PostRootTransformSystem.h>
 namespace GE::EditorGUI
 {
   ImGuizmo::OPERATION GizmoEditor::g_currOp{ ImGuizmo::OPERATION::TRANSLATE };
@@ -40,6 +41,22 @@ namespace GE::EditorGUI
     // Reassign the new transform
     float newScale[3], newRotation[3], newTrans[3];
     ImGuizmo::DecomposeMatrixToComponents(g_gizmoInfo.trans, newTrans, newRotation, newScale);
+    // Changed local transform
+    trans->m_pos.x = newTrans[0];
+    trans->m_pos.y = newTrans[1];
+    trans->m_pos.z = newTrans[2];
+    trans->m_rot.x = newRotation[0];
+    trans->m_rot.y = newRotation[1];
+    trans->m_rot.z = newRotation[2];
+    trans->m_scale.x = newScale[0];
+    trans->m_scale.y = newScale[1];
+    trans->m_scale.z = newScale[2];
+
+    if (ImGuizmo::IsUsing())
+      GE::Systems::PostRootTransformSystem::Propergate(g_gizmoInfo.entity, trans->m_parentWorldTransform);
+    // Sets world transform relative to parent.
+    
+    // Update world transform
     trans->m_worldPos.x = newTrans[0];
     trans->m_worldPos.y = newTrans[1];
     trans->m_worldPos.z = newTrans[2];
@@ -49,8 +66,10 @@ namespace GE::EditorGUI
     trans->m_worldScale.x = newScale[0];
     trans->m_worldScale.y = newScale[1];
     trans->m_worldScale.z = newScale[2];
+
     if (ImGuizmo::IsUsing())
-    GE::Systems::PreRootTransformSystem::Propergate(g_gizmoInfo.entity, trans->m_parentWorldTransform);
+      GE::Systems::PreRootTransformSystem::Propergate(g_gizmoInfo.entity, trans->m_parentWorldTransform);
+    // Sets world transform based on ... huh?! What am I doing?!
   }
 
   void GizmoEditor::SetVisible(bool enable)
