@@ -266,6 +266,41 @@
         ]
     },
     {
+        "Name": "Entity 6",
+        "ID": 6,
+        "isActive": true,
+        "Parent": 56,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 689,
+                            "height": 209
+                        }
+                    },
+                    "spriteName": "Instructions"
+                }
+            }
+        ]
+    },
+    {
         "Name": "PlayerQueue",
         "ID": 11,
         "isActive": true,
@@ -1660,6 +1695,7 @@
         "isActive": false,
         "Parent": 26,
         "Child Entities": [
+            6,
             57,
             58,
             59,
