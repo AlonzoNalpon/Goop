@@ -39,6 +39,7 @@ namespace GE
       TURN_RESOLVED,
       QUIT_GAME,
       TOGGLE_FULLSCREEN,
+      WINDOW_MINIMIZE,
       MAX_EVENTS
     };
 
