@@ -115,12 +115,12 @@ namespace GoopScripts.Gameplay
       return dmgDealt;
     }
 
-    public void SetHandCardID(int index, CardBase.CardID cardID)
+    public void SetCardInHand(int index, CardBase.CardID cardID)
     {
       m_hand[index] = cardID;
     }
 
-    public void SetQueueCardID(int index, CardBase.CardID cardID)
+    public void SetCardInQueue(int index, CardBase.CardID cardID)
     {
       m_cardQueue[index] = cardID;
     }
