@@ -20,7 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ScriptEngine/ScriptManager.h>
 
 #ifdef _DEBUG
-//#define DESERIALIZER_DEBUG
+ #define DESERIALIZER_DEBUG
 #endif
 
 using namespace GE;
@@ -305,12 +305,6 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
       rttr::variant ret{};
       if (prop.get_type().is_sequential_container())
       {
-        if (prop.get_name().to_string() == "scriptFieldInstList")
-        {
-          DeserializeScriptFieldInstList(ret, jsonVal);
-        }
-        else
-        {
           ret = prop.get_value(object);
           rttr::variant_sequential_view view = ret.create_sequential_view();
           DeserializeSequentialContainer(view, jsonVal);
@@ -323,7 +317,6 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
           }
           std::cout << "\n";
 #endif
-        }
       }
       else if (prop.get_type().is_associative_container())
       {
@@ -368,9 +361,15 @@ void Deserializer::DeserializeBasedOnType(rttr::variant& object, rapidjson::Valu
     {
       rapidjson::Value::ConstMemberIterator iter{ value.FindMember("scriptName") };
       if (iter == value.MemberEnd()) { object = {}; return; }
+      Component::ScriptInstance sI = Component::ScriptInstance(value["scriptName"].GetString());
+      for (rttr::variant& rv : sI.m_scriptFieldInstList)
+      {
 
-      object = Component::ScriptInstance(value["scriptName"].GetString());
+      }
+      object = sI;
       DeserializeClassTypes(object, value);
+      //object = 
+        //DeserializeClassTypes(object, value);
     }
    // else if (!InvokeConstructor(object, object.get_type(), value))
     DeserializeClassTypes(object, value);
