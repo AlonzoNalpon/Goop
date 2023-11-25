@@ -94,9 +94,73 @@
             },
             {
                 "Scripts": {
-                    "entityId": 1,
-                    "scriptMap": [
-                        "Player"
+                    "entityId": 0,
+                    "scriptList": [
+                        {
+                            "scriptName": "Player",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        99,
+                                        77,
+                                        64
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "ListIntTest"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "health"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        9,
+                                        8,
+                                        5,
+                                        4,
+                                        3,
+                                        2,
+                                        1
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "listintTest"
+                                    }
+                                },
+                                {
+                                    "data": 66.0,
+                                    "type": "System.Double",
+                                    "scriptField": {
+                                        "fieldName": "m_d"
+                                    }
+                                },
+                                {
+                                    "data": 666.0,
+                                    "type": "System.Single",
+                                    "scriptField": {
+                                        "fieldName": "m_float"
+                                    }
+                                },
+                                {
+                                    "data": 666,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                },
+                                {}
+                            ]
+                        }
                     ]
                 }
             }
