@@ -13,7 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Window/Window.h>
 #include <DebugTools/Exception/Exception.h>
 #include <Events/EventManager.h>
-
+#include <InputManager/InputManager.h>
 namespace WindowSystem {
   Window::Window(int width, int height, char const* title) :
     m_windowWidth{ width }, m_windowHeight{ height }, m_title{ title }, m_window {} {}
@@ -137,8 +137,14 @@ namespace WindowSystem {
     }
   }
 
+  void Window::MinimizeWindow()
+  {
+    glfwIconifyWindow(m_window);
+  }
+
   void Window::KeyCallback(GLFWwindow* /*window*/, int /*key*/, int /*scancode*/, int /*action*/, int /*mods*/)
   {
+
   }
 
   void Window::WindowFocusedCallback(GLFWwindow* /*window*/, int focused)
@@ -146,6 +152,9 @@ namespace WindowSystem {
     if (!focused)
     {
       GE::Events::EventManager::GetInstance().Dispatch(GE::Events::WindowLoseFocusEvent());
+      
+      if (GE::Input::InputManager::GetInstance().IsKeyPressed(GPK_LEFT_ALT))
+        GE::Events::EventManager::GetInstance().Dispatch(GE::Events::WindowMinimize());
     }
     else
     {
