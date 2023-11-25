@@ -78,7 +78,6 @@ RTTR_REGISTRATION
     (
       rttr::parameter_names("texCoords", "texDims", "width", "height")
     )*/
-    .constructor<>()
     .property("texCoords", &Graphics::SpriteSubData::texCoords)
     .property("texDims", &Graphics::SpriteSubData::texDims)
     .property("width", &Graphics::SpriteSubData::width)
