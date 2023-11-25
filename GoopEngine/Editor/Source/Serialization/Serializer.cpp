@@ -471,9 +471,12 @@ namespace GE
       rapidjson::Value comp{ rapidjson::kObjectType };
       rapidjson::Value compInner{ rapidjson::kObjectType };
       rapidjson::Value compName{};
-      compName.SetString(var.get_type().get_raw_type().get_name().to_string().c_str(), allocator);
+      // extract the raw type of the object
+      rttr::type const varType{ var.get_type().is_wrapper() ? var.get_type().get_wrapped_type().get_raw_type() :
+        var.get_type().is_pointer() ? var.get_type().get_raw_type() : var.get_type() };
+      compName.SetString(varType.get_name().to_string().c_str(), allocator);
 
-      if (var.get_type().get_raw_type() == rttr::type::get<Component::SpriteAnim>())
+      if (varType == rttr::type::get<Component::SpriteAnim>())
       {
         Component::SpriteAnim const& sprAnim{ *var.get_value<Component::SpriteAnim*>() };
         rapidjson::Value jsonAnimVal{};
@@ -481,7 +484,7 @@ namespace GE
         compInner.AddMember("name", jsonAnimVal, allocator);
       }
 
-      for (auto const& prop : var.get_type().get_properties())
+      for (auto const& prop : varType.get_properties())
       {
         rapidjson::Value jsonVal{ rapidjson::kNullType };
         rapidjson::Value jsonKey{ prop.get_name().to_string().c_str(), allocator };

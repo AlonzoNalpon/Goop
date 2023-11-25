@@ -101,6 +101,8 @@ namespace GE
 
       static void DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value);
 
+      static bool InvokeConstructor(rttr::variant& var, rttr::type const& compType, rapidjson::Value const& value);
+
       static rttr::variant TryDeserializeIntoInt(rapidjson::Value const& value);
     };
 

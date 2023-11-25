@@ -27,6 +27,8 @@ namespace GE
       ************************************************************************/
       std::string GetEntityPrefab(ECS::Entity entity) const;
 
+      void UpdateEntitiesFromPrefab();
+
     private:
       using EntityPrefabMap = std::unordered_map<ECS::Entity, std::string>;
 

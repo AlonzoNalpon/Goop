@@ -89,7 +89,6 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Graphics::Colorf>("Colorf")
-    .constructor<>()
     .property("r", &Graphics::Colorf::r)
     .property("g", &Graphics::Colorf::g)
     .property("b", &Graphics::Colorf::b)

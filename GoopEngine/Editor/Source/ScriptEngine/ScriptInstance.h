@@ -46,6 +46,8 @@ namespace GE {
 			std::string m_type;
 			ScriptField m_scriptField;
 			T m_data;
+
+			void SetMyScriptField(const std::string&, const std::string&);
 		};
 
 
@@ -162,6 +164,14 @@ namespace GE {
 				//	GE::Debug::ErrorLogger::GetInstance().LogWarning("This class does not contain such data type", false);
 
 				//const ScriptField& field = it->second;
+				if (m_classInst) {
+					std::cout << "Inst exsit\n";
+				}
+				else
+				{
+					std::cout << "Inst does not exsit\n";
+				}
+
 				std::memcpy(m_fieldValBuffer, &value, sizeof(T));
 				mono_field_set_value(m_classInst, field, m_fieldValBuffer);
 			}
