@@ -287,10 +287,6 @@ namespace GE::Assets
 		m_scenes.clear();
 		m_shaders.clear();
 		m_fonts.clear();
-		m_loadedImages.clear();
-		m_loadedImagesStringLookUp.clear();
-		m_loadedImagesIDLookUp.clear();
-		m_loadedSpriteData.clear();
 		LoadFiles();
 	}
 
