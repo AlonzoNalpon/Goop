@@ -178,6 +178,7 @@ RTTR_REGISTRATION
     .property("playerHand", &Component::Game::m_playerHand)
     .property("playerQueue", &Component::Game::m_playerQueue)
     .property("enemyQueue", &Component::Game::m_enemyQueue)
+    .property("gameSystemScript", &Component::Game::m_gameSystemScript)
     ;
 
 } // RTTR Registration
