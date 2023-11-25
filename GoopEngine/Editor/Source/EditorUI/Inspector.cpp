@@ -660,6 +660,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
 					for (ScriptInstance& s : allScripts->m_scriptList)
 					{
+						s.GetAllUpdatedFields();
 						Separator();
 						BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 						ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
