@@ -256,17 +256,6 @@ namespace GE::EditorGUI
         else
           mouseLHeld = false;
       }
-
-      // If the delete key is pressed, delete the selected en
-      if (m_deleteKeyTriggered && !ImGuizmo::IsUsing() && ImGuiHelper::GetSelectedEntity() != GE::ECS::INVALID_ID)
-      {
-        GE::CMD::RemoveObjectCmd newRemCmd = GE::CMD::RemoveObjectCmd(ImGuiHelper::GetSelectedEntity());
-        GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
-        cmdMan.AddCommand(newRemCmd);
-        m_deleteKeyTriggered = false;
-        GE::ECS::Entity Inv = GE::ECS::INVALID_ID;
-        ImGuiHelper::SetSelectedEntity(Inv);
-      }
     }
     else
       focused = false;
@@ -296,10 +285,18 @@ namespace GE::EditorGUI
   {
     if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
     {
-
       if (static_cast<Events::KeyTriggeredEvent*>(event)->GetKey() == GPK_DELETE)
       {
-        m_deleteKeyTriggered = true;
+        // If the delete key is pressed, delete the selected en
+        if (ImGuiHelper::GetSelectedEntity() != GE::ECS::INVALID_ID && !ImGui::GetIO().WantTextInput)
+        {
+          GE::CMD::RemoveObjectCmd newRemCmd = GE::CMD::RemoveObjectCmd(ImGuiHelper::GetSelectedEntity());
+          GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+          cmdMan.AddCommand(newRemCmd);
+          m_deleteKeyTriggered = false;
+          GE::ECS::Entity Inv = GE::ECS::INVALID_ID;
+          ImGuiHelper::SetSelectedEntity(Inv);
+        }
       }
     }
   }
