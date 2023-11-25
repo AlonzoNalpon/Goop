@@ -45,12 +45,12 @@ void GE::EditorGUI::EditorTheme::SetImGuiTheme()
   colors[ImGuiCol_ResizeGripHovered] =    ImVec4(0.81f, 0.81f, 0.81f, 0.67f);
   colors[ImGuiCol_ResizeGripActive] =     ImVec4(0.46f, 0.46f, 0.46f, 0.95f);
 
-  colors[ImGuiCol_Tab] = ImVec4(0.f, 0.6f, 0.f, 1.00f); // the tab when it's not active
-  colors[ImGuiCol_TabHovered] = ImVec4(0.f, 1.0f, 0.f, 0.80f); // the tab when it's hovered on
-  colors[ImGuiCol_TabActive] = ImVec4(0.f, 0.8f, 0.18f, 1.00f); // the tab when it's active
+  colors[ImGuiCol_Tab] =                  ImVec4(0.f, 0.6f, 0.f, 1.00f); // the tab when it's not active
+  colors[ImGuiCol_TabHovered] =           ImVec4(0.f, 1.0f, 0.f, 0.80f); // the tab when it's hovered on
+  colors[ImGuiCol_TabActive] =            ImVec4(0.f, 0.8f, 0.18f, 1.00f); // the tab when it's active
 
-  colors[ImGuiCol_TabUnfocused] = ImVec4(0.f, 0.6f, 0.10f, 1.00f);
-  colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.15f, 0.5f, 0.15f, 1.00f);
+  colors[ImGuiCol_TabUnfocused] =         ImVec4(0.f, 0.6f, 0.10f, 1.00f);
+  colors[ImGuiCol_TabUnfocusedActive] =   ImVec4(0.15f, 0.5f, 0.15f, 1.00f);
 
 }
 
