@@ -16,7 +16,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/Deserializer.h>
 #ifndef NO_IMGUI
 #include <PrefabManager/PrefabManager.h>
-#include <ObjectFactory/ObjectFactory.h>
 #endif
 
 using namespace GE::ObjectFactory;
@@ -294,6 +293,11 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
     ecs.CreateEntity({}, id, data.m_name);
     ecs.SetIsActiveEntity(const_cast<ECS::Entity&>(id), data.m_isActive);
     AddComponentsToEntity(id, data.m_components);
+
+#ifndef NO_IMGUI
+    Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
+    if (!data.m_prefab.empty()) { pm.AttachPrefab(id, data.m_prefab); }
+#endif
   }
 
   for (auto const& [id, data] : m_deserialized)
@@ -305,6 +309,10 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
       ecs.AddChildEntity(id, child);
     }
   }
+
+#ifndef NO_IMGUI
+  //pm.
+#endif
 }
 
 void ObjectFactory::LoadSceneJson(std::string const& filename)

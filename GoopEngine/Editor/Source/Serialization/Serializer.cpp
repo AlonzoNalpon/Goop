@@ -18,14 +18,16 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Components.h>
 #include <ObjectFactory/ObjectFactory.h>
 #include <rttr/enumeration.h>
+#ifndef NO_IMGUI
 #include <PrefabManager/PrefabManager.h>
+#endif
 
 namespace GE
 {
   namespace Serialization
   {
     // Names of Keys used when serializing to file
-    // Both Serializer and Deserializer uses these to determine the name of  the keys
+    // Both Serializer and Deserializer uses these to determine the name of the keys
     const char Serializer::JsonNameKey[]          = "Name";
     const char Serializer::JsonIdKey[]            = "ID";
     const char Serializer::JsonEntityStateKey[]   = "isActive";
@@ -112,17 +114,25 @@ namespace GE
       // serialize name
       rapidjson::Value entityName{};
       entityName.SetString(ecs.GetEntityName(id).c_str(), allocator);
-      entity.AddMember(JsonNameKey, entityName, allocator);
+      entity.AddMember(JsonNameKey, entityName.Move(), allocator);
 
       // serialize entity id
       rapidjson::Value jsonId{};
       jsonId.SetUint(id);
-      entity.AddMember(JsonIdKey, jsonId, allocator);
+      entity.AddMember(JsonIdKey, jsonId.Move(), allocator);
+
+#ifndef NO_IMGUI
+      // serialize prefab created from
+      rapidjson::Value prefabJson{ rapidjson::kNullType };
+      std::string const prefabName{ Prefabs::PrefabManager::GetInstance().GetEntityPrefab(id) };
+      if (!prefabName.empty()) { prefabJson.SetString(prefabName.c_str(), allocator); }
+      entity.AddMember(JsonPrefabKey, prefabJson.Move(), allocator);
+#endif
 
       // serialize state
       rapidjson::Value jsonState{};
       jsonState.SetBool(ecs.GetIsActiveEntity(id));
-      entity.AddMember(JsonEntityStateKey, jsonState, allocator);
+      entity.AddMember(JsonEntityStateKey, jsonState.Move(), allocator);
 
       // serialize parent id
       rapidjson::Value jsonParent{ rapidjson::kNullType };
@@ -131,7 +141,7 @@ namespace GE
       {
         jsonParent.SetUint(parentID);
       }
-      entity.AddMember(JsonParentKey, jsonParent, allocator);
+      entity.AddMember(JsonParentKey, jsonParent.Move(), allocator);
 
       // serialize child entities
       rapidjson::Value childrenArr{ rapidjson::kArrayType };
@@ -141,7 +151,7 @@ namespace GE
         childJson.SetUint(child);
         childrenArr.PushBack(childJson.Move(), allocator);
       }
-      entity.AddMember(JsonChildEntitiesKey, childrenArr, allocator);
+      entity.AddMember(JsonChildEntitiesKey, childrenArr.Move(), allocator);
 
       rapidjson::Value compArr{ rapidjson::kArrayType };
       for (ECS::COMPONENT_TYPES i{ static_cast<ECS::COMPONENT_TYPES>(0) }; i < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)

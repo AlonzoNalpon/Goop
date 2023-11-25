@@ -961,7 +961,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 
 					rttr::type const type{ rttr::type::get<GE::Component::GE_Button::ButtonEventType>() };
-					if (BeginCombo("Card", type.get_enumeration().value_to_name(button->m_eventType).to_string().c_str()))
+					if (BeginCombo("Event", type.get_enumeration().value_to_name(button->m_eventType).to_string().c_str()))
 					{
 						for (GE_Button::ButtonEventType currType{}; currType != GE_Button::ButtonEventType::TOTAL_EVENTS;)
 						{

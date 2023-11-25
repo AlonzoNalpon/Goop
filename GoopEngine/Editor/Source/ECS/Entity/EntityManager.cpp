@@ -12,6 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <DebugTools/ErrorLogger/ErrorLogger.h>
 #include <DebugTools/Exception/Exception.h>
 #include <limits>
+#include <Events/EventManager.h>
 
 using namespace GE::ECS;
 
@@ -50,6 +51,7 @@ Entity EntityManager::CreateEntity()
 	m_mapOfActive[entity] = true;
 	m_entities.insert(entity);
 	m_names[entity] = "Entity " + std::to_string(entity);
+
 	return entity;
 }
 
@@ -66,6 +68,7 @@ void GE::ECS::EntityManager::CreateEntity(Entity entity, std::string name)
 	m_mapOfActive[entity] = true;
 	m_entities.insert(entity);
 	m_names[entity] = name;
+
 }
 
 void EntityManager::DestroyEntity(Entity& entity)
@@ -95,6 +98,7 @@ void EntityManager::DestroyEntity(Entity& entity)
 		DestroyEntity(childEntity);
 	}
 	m_children[entity].clear();
+	Events::EventManager::GetInstance().Dispatch(Events::RemoveEntityEvent(entity));
 }
 
 bool GE::ECS::EntityManager::IsActiveEntity(Entity& entity)
@@ -136,7 +140,7 @@ std::set<Entity>& GE::ECS::EntityManager::GetChildEntities(Entity& parent)
 {
 	if (parent == INVALID_ID)
 	{
-		throw GE::Debug::Exception<EntityComponentSystem>(GE::Debug::LEVEL_ERROR, ErrMsg("Unable to get child from non existant parent"));
+		throw GE::Debug::Exception<EntityComponentSystem>(GE::Debug::LEVEL_ERROR, ErrMsg("Unable to get child from non existent parent"));
 	}
 
 	return m_children[parent];

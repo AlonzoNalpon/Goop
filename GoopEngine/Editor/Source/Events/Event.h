@@ -37,12 +37,14 @@ namespace GE
       QUIT_GAME,
       NEXT_TURN,
       TURN_RESOLVED,
+      NEW_ENTITY,
+      REMOVE_ENTITY,
 
 #ifndef NO_IMGUI
       START_SCENE,
       PAUSE_SCENE,
       STOP_SCENE,
-      PREFAB_SAVED,
+      //PREFAB_SAVED,
 #endif
       MAX_EVENTS
     };

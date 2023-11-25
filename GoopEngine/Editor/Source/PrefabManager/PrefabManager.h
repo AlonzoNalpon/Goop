@@ -3,12 +3,13 @@
 #include <Singleton/Singleton.h>
 #include <unordered_map>
 #include <ECS/Entity/Entity.h>
+#include <Events/Listener.h>
 
 namespace GE
 {
   namespace Prefabs
   {
-    class PrefabManager : public Singleton<PrefabManager>
+    class PrefabManager : public Singleton<PrefabManager>, public Events::IEventListener
     {
     public:
 
@@ -30,6 +31,10 @@ namespace GE
       void CreatePrefabFromEntity(ECS::Entity entity, std::string const& name) const;
 
       void UpdateEntitiesFromPrefab(std::string const& prefab);
+
+      void UpdateAllEntitiesFromPrefab();
+
+      void HandleEvent(Events::Event* event) override;
 
     private:
       using EntityPrefabMap = std::unordered_map<ECS::Entity, std::string>;
