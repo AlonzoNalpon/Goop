@@ -44,7 +44,9 @@
             },
             {
                 "SpriteAnim": {
-                    "name": "SS_LeahIdle"
+                    "currTime": "SS_LeahIdle",
+                    "currFrame": "SS_LeahIdle",
+                    "flags": "SS_LeahIdle"
                 }
             },
             {
@@ -1264,7 +1266,7 @@
     {
         "Name": "[Folder] Menus",
         "ID": 26,
-        "isActive": false,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [
             27,
@@ -1284,7 +1286,7 @@
     {
         "Name": "[Menu] Pause Menu",
         "ID": 27,
-        "isActive": true,
+        "isActive": false,
         "Parent": 26,
         "Child Entities": [
             47,
