@@ -148,7 +148,7 @@ void ImGuiUI::Update()
   Begin("Extras");
   ImGui::InputInt("Change Row", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetRow(), 1);
   ImGui::InputInt("Change Col", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetCol(), 1);
-  if (Button("Create MineWorm"))
+  /*if (Button("Create MineWorm"))
   {
     GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
   }
@@ -187,22 +187,17 @@ void ImGuiUI::Update()
     {
       ecs->DestroyEntity(entity);
     }
-  }
-  else if (Button("Load \"Robot\" Scene"))
+  }*/
+  if (Button("To \"Main Menu\""))
   {
     GE::GSM::GameStateManager& gsm = { GE::GSM::GameStateManager::GetInstance() };
-    gsm.SetNextScene("Robot");
+    gsm.SetNextScene("MainMenu");
   }
-  else if (Button("Load \"SceneTest\" Scene"))
-  {
-    GE::GSM::GameStateManager& gsm = { GE::GSM::GameStateManager::GetInstance() };
-    gsm.SetNextScene("SceneTest");
-  }
-  else if (Button("CHECK ASSET MANAGER MAP"))
-  {
-    GE::Assets::AssetManager& am = { GE::Assets::AssetManager::GetInstance() };
-    am.GetMapData();
-  }
+  //else if (Button("CHECK ASSET MANAGER MAP"))
+  //{
+  //  GE::Assets::AssetManager& am = { GE::Assets::AssetManager::GetInstance() };
+  //  am.GetMapData();
+  //}
 
   static GE::fMOD::FmodSystem& fMod = GE::fMOD::FmodSystem::GetInstance();
   if (Button("Stop all sounds"))
