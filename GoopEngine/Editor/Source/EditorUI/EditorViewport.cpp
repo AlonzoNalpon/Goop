@@ -263,8 +263,8 @@ namespace GE::EditorGUI
     // Get the size of the GLFW window
     ImGuiIO& io = ImGui::GetIO();
     windowSize = { io.DisplaySize.x, io.DisplaySize.y };
-    viewportSize = ImGui::GetContentRegionAvail();  // Get the top-left position of the viewport
-    viewportPosition = ImGui::GetCursorScreenPos();
+    viewportSize = ImGui::GetContentRegionAvail();  
+    viewportPosition = ImGui::GetCursorScreenPos(); // Get the top-left position of the viewport
     viewportEnd = ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y);
 
     uv0.x = 1.f + (viewportEnd.x - windowSize.x) / windowSize.x;
