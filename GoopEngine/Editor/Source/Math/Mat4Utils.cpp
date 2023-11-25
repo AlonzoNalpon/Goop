@@ -1,13 +1,7 @@
 /*!*********************************************************************
-<<<<<<< HEAD
 \file   Mat4Utils.h
 \author chengen.lau\@digipen.edu
 \date   29-September-2023
-=======
-\file   Mat3Utils.h
-\author chengen.lau\@digipen.edu
-\date   23-October-2023
->>>>>>> main
 \brief  Matrix 4x4 utility functions (only for floats and doubles)
 
 

@@ -67,12 +67,12 @@ void GE::Systems::GameSystem::Update()
     if (m_shouldWin)
     {
       m_shouldWin = false;
-      GE::GSM::GameStateManager::GetInstance().SetNextScene("Victory");
+      //GE::GSM::GameStateManager::GetInstance().SetNextScene("Victory");
     }
     else if (m_shouldLose)
     {
       m_shouldLose = false;
-      GE::GSM::GameStateManager::GetInstance().SetNextScene("Defeat");
+      //GE::GSM::GameStateManager::GetInstance().SetNextScene("Defeat");
     }
   }
 }
@@ -110,9 +110,11 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
           break;
         case GPK_1:
           m_shouldWin = true;
+          GE::GSM::GameStateManager::GetInstance().SetNextScene("Victory");
           break;
         case GPK_2:
           m_shouldLose = true;
+          GE::GSM::GameStateManager::GetInstance().SetNextScene("Defeat");
           break;
         default:
           break;

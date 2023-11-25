@@ -469,6 +469,7 @@ void PrefabEditor::CreateContent()
         }
       }*/
       Serialization::Serializer::SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
+      Assets::AssetManager::GetInstance().ReloadFiles(Assets::FileType::PREFAB);
       ResetPrefabEditor();
       GE::Debug::ErrorLogger::GetInstance().LogMessage(m_currPrefab.m_name + " successfully saved");
     }

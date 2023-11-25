@@ -33,6 +33,19 @@
                     },
                     "spriteName": "Game_DefeatScreen"
                 }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "caveFighting",
+                            "loop": false,
+                            "playOnStart": true,
+                            "channel": "BGM",
+                            "volume": 0.5479999780654907
+                        }
+                    ]
+                }
             }
         ]
     },
