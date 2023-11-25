@@ -70,10 +70,10 @@ RTTR_REGISTRATION
 
   rttr::registration::class_<Component::SpriteAnim>("SpriteAnim")
     .constructor<Graphics::gObjID>()
-    .property("currTime", &Component::SpriteAnim::currTime)
+    //.property("currTime", &Component::SpriteAnim::currTime)
     //.property("name", &Component::SpriteAnim::animID)
-    .property("currFrame", &Component::SpriteAnim::currFrame)
-    .property("flags", &Component::SpriteAnim::flags)
+    //.property("currFrame", &Component::SpriteAnim::currFrame)
+    //.property("flags", &Component::SpriteAnim::flags)
     ;
 
   rttr::registration::class_<Component::Draggable>("Draggable")

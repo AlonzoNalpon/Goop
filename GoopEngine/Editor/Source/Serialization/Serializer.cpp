@@ -474,6 +474,15 @@ namespace GE
       rapidjson::Value compInner{ rapidjson::kObjectType };
       rapidjson::Value compName{};
       compName.SetString(var.get_type().get_raw_type().get_name().to_string().c_str(), allocator);
+
+      if (var.get_type().get_raw_type() == rttr::type::get<Component::SpriteAnim>())
+      {
+        Component::SpriteAnim const& sprAnim{ *var.get_value<Component::SpriteAnim*>() };
+        rapidjson::Value jsonAnimVal{};
+        jsonAnimVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(sprAnim.animID).c_str(), allocator);
+        compInner.AddMember("name", jsonAnimVal, allocator);
+      }
+
       for (auto const& prop : var.get_type().get_properties())
       {
         rapidjson::Value jsonVal{ rapidjson::kNullType };
@@ -481,16 +490,7 @@ namespace GE
 
         rttr::variant value{ prop.get_value(var) };
 
-        if (var.get_type().get_raw_type() == rttr::type::get<Component::SpriteAnim>())
-        {
-          Component::SpriteAnim const& sprAnim{ *var.get_value<Component::SpriteAnim*>() };
-          jsonVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(sprAnim.animID).c_str(), allocator);
-          //val.AddMember(jsonKey, jsonVal, allocator);
-          //jsonVal = val.Move();
-          //jsonVal.SetObject();
-          //jsonVal.AddMember(key, val, allocator);
-        }
-        else if (prop.get_type().is_class())  // else if custom types
+        if (prop.get_type().is_class())  // else if custom types
         {
           // Handling special cases here (e.g. Scripts's script map)
           if (value.get_type() == rttr::type::get<std::map<std::string, GE::MONO::ScriptInstance>>())
