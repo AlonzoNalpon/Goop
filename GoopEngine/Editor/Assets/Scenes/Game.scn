@@ -28,11 +28,11 @@
                     "spriteData": {
                         "spriteSubData": {
                             "texCoords": {
-                                "x": 0.0,
+                                "x": 0.75,
                                 "y": 0.0
                             },
                             "texDims": {
-                                "x": 1.0,
+                                "x": 0.25,
                                 "y": 1.0
                             },
                             "width": 875,
@@ -45,17 +45,6 @@
             {
                 "SpriteAnim": {
                     "name": "SS_LeahIdle"
-                }
-            },
-            {
-                "Scripts": {
-                    "entityId": 0,
-                    "scriptList": [
-                        {
-                            "scriptName": "Stats",
-                            "scriptFieldInstList": []
-                        }
-                    ]
                 }
             },
             {
@@ -300,8 +289,8 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 18,
-                            "defaultSpriteID": 80,
+                            "spriteID": 15,
+                            "defaultSpriteID": 94,
                             "used": false
                         },
                         {
@@ -1026,7 +1015,7 @@
             },
             {
                 "Card": {
-                    "cardID": "BASIC_NORMAL_ATTACK",
+                    "cardID": "PLAYER_NORMAL_SHIELD",
                     "tgtEntity": 11
                 }
             }
@@ -1124,7 +1113,7 @@
             },
             {
                 "Card": {
-                    "cardID": "BASIC_NORMAL_ATTACK",
+                    "cardID": "PLAYER_NORMAL_SHIELD",
                     "tgtEntity": 11
                 }
             }
