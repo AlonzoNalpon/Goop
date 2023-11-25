@@ -567,17 +567,6 @@ rttr::variant Deserializer::DeserializeBasicTypes(rapidjson::Value const& value)
   }
 }
 
-rttr::variant Deserializer::TryDeserializeIntoInt(rapidjson::Value const& value)
-{
-  if (value.IsInt())
-  {
-    return value.GetInt();
-  }
-
-  return {};
-}
-
-
 void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value)
 {
 #ifdef DESERIALIZER_DEBUG
@@ -857,4 +846,15 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
 
   va_end(args);
   return status;
+}
+
+
+rttr::variant Deserializer::TryDeserializeIntoInt(rapidjson::Value const& value)
+{
+  if (value.IsInt())
+  {
+    return value.GetInt();
+  }
+
+  return {};
 }

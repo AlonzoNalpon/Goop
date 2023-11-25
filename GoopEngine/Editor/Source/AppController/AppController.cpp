@@ -17,6 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
+#include <EditorUI/EditorViewport.h>
 #endif
 
 using namespace GE::ECS;
@@ -56,6 +57,7 @@ namespace GE::Application
   void AppController::Init()
   {
     GE::Events::EventManager::GetInstance().Subscribe<GE::Events::QuitGame>(this);
+    GE::Events::EventManager::GetInstance().Subscribe<GE::Events::ToggleFullscreen>(this);
 
     // INIT FUNCTIONS
     GE::Assets::AssetManager* am = &GE::Assets::AssetManager::GetInstance();
@@ -103,6 +105,7 @@ namespace GE::Application
       {
         fRC.StartFrame();
 
+        
         gEngine.ClearBuffer();
 
         /////////////////
@@ -116,7 +119,7 @@ namespace GE::Application
 
 #ifndef NO_IMGUI
           // Enable/disable editor view with G key
-          if (im.IsKeyTriggered(KEY_CODE::KEY_G))
+          if (im.IsKeyTriggered(KEY_CODE::KEY_G) && EditorGUI::EditorViewport::isFocused)
           {
             showEditor = !showEditor;
             im.SetCurrFramebuffer(showEditor == true? 0:1);
@@ -232,9 +235,10 @@ namespace GE::Application
 
   void AppController::HandleEvent(GE::Events::Event* e)
   {
-    GE::Events::QuitGame* quitEvent = dynamic_cast<GE::Events::QuitGame*>(e);
-    if (quitEvent)
+    if      (dynamic_cast<GE::Events::QuitGame*>(e))
       glfwSetWindowShouldClose(window.GetWindow(), 1);
+    else if (dynamic_cast<GE::Events::ToggleFullscreen*>(e))
+      window.ToggleFullscreen();
   }
 
 }

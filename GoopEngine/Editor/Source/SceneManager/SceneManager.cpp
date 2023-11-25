@@ -58,7 +58,7 @@ void SceneManager::SetNextScene(std::string nextScene)
   std::string tmpScene {m_currentScene};
   UnloadScene();
   FreeScene();
-  m_nextScene = m_currentScene = std::move(nextScene);
+  m_nextScene = m_currentScene = nextScene;
   
   try
   {

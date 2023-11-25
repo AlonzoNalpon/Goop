@@ -87,6 +87,24 @@ namespace WindowSystem {
       
     ************************************************************************/
     bool IsFocused();
+
+    /*!*********************************************************************
+    \brief
+      Checks if a window is fullscreen.
+    \params
+    \return
+      
+    ************************************************************************/
+    bool IsFullscreen();
+
+    /*!*********************************************************************
+    \brief
+      Toggles fullscreen. Takes note of window position automatically.
+    \params
+    \return
+    ************************************************************************/
+    void ToggleFullscreen();
+
   protected:
     /*!*********************************************************************
     \brief
@@ -101,6 +119,7 @@ namespace WindowSystem {
     ************************************************************************/
     static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
     int m_windowWidth{}, m_windowHeight{}; //!< Dimensions of window
+    int m_windowXPos{}, m_windowYPos{}; //!< window position (only for toggling fullscreen)
     const char* m_title{}; //!< title of window
     GLFWwindow* m_window{}; //!< pointer to window
   private:

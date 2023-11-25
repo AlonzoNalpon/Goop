@@ -24,6 +24,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 #include <Component/Card.h>
 #include <Component/CardHolder.h>
+#include <GameDef.h>
+#include <Graphics/GraphicsEngine.h>
 using namespace GE::MONO;
 
 namespace GE 
@@ -177,11 +179,15 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
           uint32_t flags = mono_field_get_flags(field);
           if (flags & FIELD_ATTRIBUTE_PUBLIC)
           {
+#ifdef  _DEBUG
             std::cout << line.substr(commaPosition + 1).c_str() << "::";
+#endif //  _DEBUG
             MonoType* type = mono_field_get_type(field);
             ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
             newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
+#ifdef  _DEBUG
             std::cout << fieldName << "\n";
+#endif
           }
         }
         m_monoClassMap[line.substr(commaPosition + 1).c_str()] = newScriptClassInfo;
@@ -515,17 +521,22 @@ void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int 
 {
   ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
   ECS::Entity cardEntity = ecs.GetComponent<Component::CardHolder>(queueEntity)->elements[queueIndex].cardEntity;
-  ecs.GetComponent<Component::Card>(cardEntity)->cardID = static_cast<Component::Card::CardID>(cardID);
-  // Done but the Sprite has not been set!
+  auto* cardComp = ecs.GetComponent<Component::Card>(cardEntity);
+  // Set the card ID ...
+  cardComp->cardID = static_cast<Component::Card::CardID>(cardID);
+  
+  // Now set the sprite ...
+  auto* spriteComp = ecs.GetComponent<Component::Sprite>(cardEntity);
+  if (spriteComp)
+  {
+    auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+    spriteComp->m_spriteData.texture = texManager.GetTextureID(CardSpriteNames[cardComp->cardID]);
+  }
 }
 
 void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID)
 {
-  ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
-  ECS::Entity cardEntity = ecs.GetComponent<Component::CardHolder>(handEntity)->elements[handEntity].cardEntity;
-  ecs.GetComponent<Component::Card>(cardEntity)->cardID = static_cast<Component::Card::CardID>(cardID);
-  // Done but the Sprite has not been set!
-  // Just realized that since holder component is used for hand and queue, this code is practically the same as SetQueueCardID
+  SetQueueCardID(handEntity, handIndex, cardID);
 }
 
 void GE::MONO::SendString(MonoString* str)

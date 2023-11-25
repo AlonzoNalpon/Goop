@@ -74,23 +74,29 @@ void CollisionSystem::Update()
 			continue;
 		}
 
+		// Sort from highest
+		std::sort(partition.m_entitiesInPartition.begin(), partition.m_entitiesInPartition.end(), [this](GE::ECS::Entity entity1, GE::ECS::Entity entity2) {
+			Transform* trans1 = this->m_ecs->GetComponent<Transform>(entity1);
+			Transform* trans2 = this->m_ecs->GetComponent<Transform>(entity2);
+			return trans1->m_worldPos.z > trans2->m_worldPos.z;
+			});
+
+		bool stopMouseCheck{ false };
 		for (Entity& entity1 : partition.m_entitiesInPartition)
 		{
 			//mouse click check
 			BoxCollider* entity1Col = m_ecs->GetComponent<BoxCollider>(entity1);
-			Transform* entityPos = m_ecs->GetComponent<Transform>(entity1);
 			dVec2 mousePos{};
-			double highestZCoor = *(--partition.m_zCoor.end());
-			//std::cout << "Highest Z coor: " << highestZCoor << std::endl;
 
 			entity1Col->m_mouseCollided = false;
 			entity1Col->m_collided.clear();
       
-			if (entityPos->m_pos.z == highestZCoor)
+			// Only need to check the highest z coordinate member
+			InputManager* input = &(GE::Input::InputManager::GetInstance());
+			mousePos = input->GetMousePosWorld();
+			if (entity1Col->m_mouseCollided = Collide(*entity1Col, mousePos) && !stopMouseCheck)
 			{
-				InputManager* input = &(GE::Input::InputManager::GetInstance());
-				mousePos = input->GetMousePosWorld();
-				entity1Col->m_mouseCollided = Collide(*entity1Col, mousePos);
+				stopMouseCheck = true;
 			}
 
 			//obj collide check

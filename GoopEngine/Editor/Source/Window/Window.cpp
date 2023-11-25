@@ -13,9 +13,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Window/Window.h>
 #include <DebugTools/Exception/Exception.h>
 #include <Events/EventManager.h>
-#ifdef NO_IMGUI
-#define FULLSCREEN
-#endif
 
 namespace WindowSystem {
   Window::Window(int width, int height, char const* title) :
@@ -114,6 +111,30 @@ namespace WindowSystem {
   bool Window::IsFocused()
   {
       return glfwGetWindowAttrib(m_window, GLFW_FOCUSED);
+  }
+
+  bool Window::IsFullscreen()
+  {
+    return glfwGetWindowMonitor(m_window) != nullptr;
+  }
+
+  void Window::ToggleFullscreen()
+  {
+    if (IsFullscreen())
+    {
+      // Switch to windowed mode
+      glfwSetWindowMonitor(m_window, nullptr, m_windowXPos, m_windowYPos, m_windowWidth, m_windowHeight, GLFW_DONT_CARE);
+    }
+    else
+    {
+      glfwGetWindowPos(m_window, &m_windowXPos, &m_windowYPos);
+      // Switch to fullscreen mode
+      int monitorCount{};
+      auto** monitors = glfwGetMonitors(&monitorCount);
+      auto* currMonitor = monitors[0];
+      const GLFWvidmode* mode = glfwGetVideoMode(currMonitor);
+      glfwSetWindowMonitor(m_window, currMonitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+    }
   }
 
   void Window::KeyCallback(GLFWwindow* /*window*/, int /*key*/, int /*scancode*/, int /*action*/, int /*mods*/)

@@ -31,6 +31,7 @@ namespace GE
   {
     class ErrorLogger : public Singleton<ErrorLogger>
     {
+#ifndef NO_IMGUI
     private:
       // Alias
       using LoggerPtr = std::unique_ptr<spdlog::logger>;
@@ -42,9 +43,9 @@ namespace GE
       std::string m_fileName;
 
       /*!******************************************************************
-      \brief 
+      \brief
         Returns a shared pointer to a logger with a file sink of a type
-      \return 
+      \return
         Pointer to a logger
       ********************************************************************/
       template <typename T>
@@ -61,7 +62,7 @@ namespace GE
 
     public:
       /*!******************************************************************
-      \brief 
+      \brief
         Setups all the intial sink and loggers to different streams.
       ********************************************************************/
       ErrorLogger();
@@ -73,7 +74,7 @@ namespace GE
       ~ErrorLogger();
 
       /*!******************************************************************
-      \brief 
+      \brief
         Adds a sink to the ostream logger.
 
       \param[in] sink
@@ -91,7 +92,7 @@ namespace GE
       void AddFileSink(spdlog::sink_ptr sink);
 
       /*!******************************************************************
-      \brief 
+      \brief
         Causes spdlog to ignore all logs of level log.
 
       \param[in] flag
@@ -100,7 +101,7 @@ namespace GE
       void SuppressLogMessages(bool flag);
 
       /*!******************************************************************
-      \brief 
+      \brief
         Logs a message with Logger name being T, with custom input message.
         The log level of this function is info.
 
@@ -110,8 +111,8 @@ namespace GE
       \param logToFile
         Flag to indicate if this msg should be written to file.
 
-			\return 
-				Logged message.
+      \return
+        Logged message.
       ********************************************************************/
       template <typename T>
       std::string LogMessage(std::string msg, bool logToFile = SHOULD_LOG_FILE);
@@ -127,8 +128,8 @@ namespace GE
       \param logToFile
         Flag to indicate if this msg should be written to file.
 
-			\return 
-				Logged message.
+      \return
+        Logged message.
       ********************************************************************/
       std::string LogMessage(std::string msg, bool logToFile = SHOULD_LOG_FILE);
 
@@ -143,8 +144,8 @@ namespace GE
       \param logToFile
         Flag to indicate if this msg should be written to file.
 
-			\return 
-				Logged message.
+      \return
+        Logged message.
       ********************************************************************/
       template <typename T>
       std::string LogWarning(std::string msg, bool logToFile = SHOULD_LOG_FILE);
@@ -160,8 +161,8 @@ namespace GE
       \param logToFile
         Flag to indicate if this msg should be written to file.
 
-			\return 
-				Logged message.
+      \return
+        Logged message.
       ********************************************************************/
       std::string LogWarning(std::string msg, bool logToFile = SHOULD_LOG_FILE);
 
@@ -176,8 +177,8 @@ namespace GE
       \param logToFile
         Flag to indicate if this msg should be written to file.
 
-			\return 
-				Logged message.
+      \return
+        Logged message.
       ********************************************************************/
       template <typename T>
       std::string LogError(std::string msg, bool logToFile = SHOULD_LOG_FILE);
@@ -193,8 +194,8 @@ namespace GE
       \param logToFile
         Flag to indicate if this msg should be written to file.
 
-			\return 
-				Logged message.
+      \return
+        Logged message.
       ********************************************************************/
       std::string LogError(std::string msg, bool logToFile = SHOULD_LOG_FILE);
 
@@ -209,8 +210,8 @@ namespace GE
       \param logToFile
         Flag to indicate if this msg should be written to file.
 
-			\return 
-				Logged message.
+      \return
+        Logged message.
       ********************************************************************/
       template <typename T>
       std::string LogCritical(std::string msg, bool logToFile = SHOULD_LOG_FILE);
@@ -226,12 +227,24 @@ namespace GE
       \param logToFile
         Flag to indicate if this msg should be written to file.
 
-			\return 
-				Logged message.
+      \return
+        Logged message.
       ********************************************************************/
       std::string LogCritical(std::string msg, bool logToFile = SHOULD_LOG_FILE);
     };
 
 #include "ErrorLogger.tpp"
+#else
+public:
+    template <typename T> std::string LogMessage(std::string, bool = true) { return {}; }
+    std::string LogMessage(std::string, bool = true) { return {}; }
+    template <typename T> std::string LogWarning(std::string, bool = true) { return {}; }
+    std::string LogWarning(std::string, bool = true) { return {}; }
+    template <typename T> std::string LogError(std::string, bool = true) { return {}; }
+    std::string LogError(std::string, bool = true) { return {}; }
+    template <typename T> std::string LogCritical(std::string, bool = true) { return {}; }
+    std::string LogCritical(std::string, bool = true) { return {}; }
+    };
+#endif
   }
 }

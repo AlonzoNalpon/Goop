@@ -43,6 +43,7 @@ namespace GE
 			for (GE::ECS::Entity entity : GetUpdatableEntities())
 			{
 				GE::Component::GE_Button* entityButton = m_ecs->GetComponent<GE::Component::GE_Button>(entity);
+				
 
 				if (event->GetCategory() == Events::EVENT_TYPE::MOUSE_TRIGGERED)
 				{
@@ -53,6 +54,12 @@ namespace GE
 
 						if (entity1Col->m_mouseCollided)
 						{
+							// play sound randomize
+							if (m_ecs->HasComponent<GE::Component::Audio>(entity))
+							{
+								GE::Component::Audio* entitySound = m_ecs->GetComponent<GE::Component::Audio>(entity);
+								entitySound->Play();
+							}
 							triggered = true;
 							switch (btn->m_eventType)
 							{

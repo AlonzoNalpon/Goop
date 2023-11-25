@@ -18,7 +18,10 @@ namespace GE::EditorGUI
   class EditorViewport
   {
   private:
+    static bool focused;
   public:
+    static bool const& isFocused;
+
     /*!*********************************************************************
     \brief
       Updates the editor viewport. Includes input from mouse.
