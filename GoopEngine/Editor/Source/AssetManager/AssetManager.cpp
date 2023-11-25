@@ -272,7 +272,7 @@ namespace GE::Assets
 			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
 
 			std::string const& currExt{ file.path().extension().string() };
-			if (currExt == fileExt)
+			if (currExt.find(fileExt) != std::string::npos)
 			{
 				ptrToMap->emplace(file.path().stem().string(), file.path().string());
 			}
