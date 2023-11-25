@@ -13,12 +13,15 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #define EDITOR_VIEWPORT_H
 #ifndef NO_IMGUI
 #include <Graphics/Renderer/FrameBufferInfo.h>
+#include <ECS/System/System.h>
+#include <Events/EventManager.h>
 namespace GE::EditorGUI
 {
-  class EditorViewport
+  class EditorViewport : public GE::Events::IEventListener, public Singleton<EditorViewport>
   {
   private:
     static bool focused;
+    static bool m_deleteKeyTriggered;
   public:
     static bool const& isFocused;
 
@@ -32,6 +35,15 @@ namespace GE::EditorGUI
     static void UpdateViewport(Graphics::Rendering::FrameBufferInfo & fbInfo);
 
     static void RenderViewport(Graphics::Rendering::FrameBufferInfo& fbInfo);
+
+    /*!*********************************************************************
+    \brief
+      Callback function to handle an event. Overriden from
+      EventListener base class.
+    \param event
+      The event to handle
+    ************************************************************************/
+    void HandleEvent(Events::Event* event) override;
   };
 }
 #endif

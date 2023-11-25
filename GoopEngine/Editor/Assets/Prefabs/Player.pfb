@@ -1,39 +1,56 @@
 {
-  "Name": "Player",
-  "Components": [
-    {
-      "Transform": {
-        "worldPos": "{ 2.0, 4.0, 0.0 }",
-        "worldScale": "{ 0.3, 0.3, 1.0 }",
-        "worldRot": "{ 0.0, 0.0, 0.0 }"
-      }
-    },
-    {
-      "BoxCollider": {
-        "center": "{ 189.957, 183.292 }",
-        "width": 100.0,
-        "height": 100.0,
-        "render": true
-      }
-    },
-    {
-      "Tween": {
-        "tweens": [],
-        "timePerTween": 1.0,
-        "timeTaken": 3.0,
-        "timeElapsed": 0.020000000000001333,
-        "originalPos": "{ 350, 350, 0 }"
-      }
-    },
-    {
-      "Sprite": {
-        "spriteName": "SS_LeahIdle"
-      }
-    },
-    {
-      "SpriteAnim": {
-        "name": "SS_LeahIdle"
-      }
-    }
-  ]
+    "Name": "Player",
+    "Components": [
+        {
+            "Transform": {
+                "worldPos": "{ 2, 4, 0 }",
+                "worldScale": "{ 0.3, 0.3, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 189.957, 183.292 }",
+                "width": 100.0,
+                "height": 100.0,
+                "min": "{ 0, 0 }",
+                "max": "{ 0, 0 }",
+                "render": true
+            }
+        },
+        {
+            "Tween": {
+                "tweens": [],
+                "timeTaken": 3.0,
+                "timeElapsed": 0.020000000000001333,
+                "originalPos": "{ 350, 350, 0 }",
+                "started": false,
+                "paused": false
+            }
+        },
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 0.25,
+                            "y": 1.0
+                        },
+                        "width": 875,
+                        "height": 1500
+                    }
+                },
+                "spriteName": "SS_LeahIdle"
+            }
+        },
+        {
+          "SpriteAnim": {
+            "name": "SS_LeahIdle"
+          }
+        }
+    ]
 }

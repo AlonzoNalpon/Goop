@@ -9,15 +9,12 @@
             }
         },
         {
-          "Sprite": {
-            "spriteName": "Priest"
-          }
-        },
-        {
             "BoxCollider": {
                 "center": "{ 210, 283 }",
                 "width": 140.0,
                 "height": 280.0,
+                "min": "{ 0, 0 }",
+                "max": "{ 0, 0 }",
                 "render": true
             }
         },
@@ -27,6 +24,38 @@
         {
             "Text": {
                 "text": "YOUR TEXT HEREhefhehhefhe",
+                "clr": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "scale": 0.10000000149011612,
+                "fontID": 0
+            }
+        },
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "width": 143,
+                        "height": 280
+                    }
+                },
+                "spriteName": "Priest"
+            }
+        },
+        {
+            "Text": {
+                "text": "YOUR TEXT HERE wfwefwefwfwefwefwe",
                 "clr": {
                     "r": 1.0,
                     "g": 0.0,

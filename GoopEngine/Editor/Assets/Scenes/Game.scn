@@ -44,10 +44,7 @@
             },
             {
                 "SpriteAnim": {
-                    "currTime": "SS_LeahIdle",
-                    "name": "SS_LeahIdle",
-                    "currFrame": "SS_LeahIdle",
-                    "flags": "SS_LeahIdle"
+                    "name": "SS_LeahIdle"
                 }
             },
             {
@@ -229,9 +226,13 @@
                     "player": 0,
                     "enemy": 1,
                     "pauseMenu": 27,
-                    "playerHand": 0,
-                    "playerQueue": 0,
-                    "enemyQueue": 0
+                    "playerHand": 15,
+                    "playerQueue": 11,
+                    "enemyQueue": 21,
+                    "gameSystemScript": {
+                        "scriptName": "",
+                        "scriptFieldInstList": []
+                    }
                 }
             }
         ]
@@ -260,22 +261,22 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 17,
-                            "defaultSpriteID": 73,
+                            "spriteID": 18,
+                            "defaultSpriteID": 80,
                             "used": false
                         },
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
-                            "spriteID": 22,
-                            "defaultSpriteID": 74,
+                            "spriteID": 23,
+                            "defaultSpriteID": 81,
                             "used": false
                         },
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
-                            "spriteID": 18,
-                            "defaultSpriteID": 21,
+                            "spriteID": 19,
+                            "defaultSpriteID": 22,
                             "used": false
                         }
                     ]
@@ -692,7 +693,7 @@
             },
             {
                 "Card": {
-                    "cardID": "NO_CARD",
+                    "cardID": "PLAYER_STRIKE_ATTACK",
                     "tgtEntity": 11
                 }
             }
@@ -1115,21 +1116,21 @@
                             "elemEntity": 22,
                             "cardEntity": 4294967295,
                             "spriteID": 20,
-                            "defaultSpriteID": 73,
+                            "defaultSpriteID": 80,
                             "used": false
                         },
                         {
                             "elemEntity": 23,
                             "cardEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 74,
+                            "defaultSpriteID": 81,
                             "used": false
                         },
                         {
                             "elemEntity": 24,
                             "cardEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 21,
+                            "defaultSpriteID": 22,
                             "used": false
                         }
                     ]

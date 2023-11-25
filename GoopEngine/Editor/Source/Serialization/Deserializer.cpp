@@ -20,7 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ScriptEngine/ScriptManager.h>
 
 #ifdef _DEBUG
-//#define DESERIALIZER_DEBUG
+#define DESERIALIZER_DEBUG
 #endif
 
 using namespace GE;
@@ -378,7 +378,7 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
     // else if key-value pair
     else if (indexVal.IsObject())
     {
-      rttr::variant elem{ view.get_value(i).extract_wrapped_value() };
+      rttr::variant elem{ view.get_value(i) };
       DeserializeBasedOnType(elem, indexVal);
       if (!view.set_value(i, elem))
       {
@@ -486,13 +486,13 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
     if (sprData == value.MemberEnd())
     {
       GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteData in Sprite component");
-      return false;
+      return true;
     }
     rapidjson::Value::ConstMemberIterator sprName{ value.FindMember("spriteName") };
     if (sprData == value.MemberEnd())
     {
       GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteName in Sprite component");
-      return false;
+      return true;
     }
     
     compVar = type.create({ *DeserializeElement(rttr::type::get<Graphics::SpriteData>(), sprData->value).get_value<Graphics::SpriteData*>(), std::string(sprName->value.GetString())});
@@ -500,17 +500,19 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
   }  
   else if (type == rttr::type::get<Component::SpriteAnim>())
   {
-    rapidjson::Value::ConstMemberIterator iter{ value.FindMember(type.get_properties().begin()->get_name().to_string().c_str()) };
-    if (iter == value.MemberEnd())
+    rapidjson::Value::ConstMemberIterator animName{ value.FindMember("name") };
+    if (animName == value.MemberEnd())
     {
-      std::ostringstream oss{};
-      oss << "Unable to find " << type.get_properties().begin()->get_name().to_string().c_str()
-        << " property in " << type.get_name().to_string();
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find name in SpriteAnim component");
       return true;
     }
+    Component::SpriteAnim sprAnim{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(animName->value.GetString()) };
+    //sprAnim.currFrame = value["currFrame"].GetUint();
+    //sprAnim.currTime = value["currTime"].GetDouble();
+    //sprAnim.flags = value["currTime"].GetUint();
 
-    compVar = type.create({ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(iter->value.GetString()) });
+    compVar = std::make_shared<Component::SpriteAnim>(sprAnim);
+    
     return true;
   }
   else if (type == rttr::type::get<Component::Scripts>())

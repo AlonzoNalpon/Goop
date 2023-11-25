@@ -7,6 +7,7 @@
 #include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <Serialization/Serializer.h>
 #include <map>
+#include <vector>
 
 namespace GE
 {
@@ -37,7 +38,7 @@ namespace GE
       {
         GE::ECS::Entity m_entityID;
         std::string m_entityName;
-        std::map<ECS::COMPONENT_TYPES, rttr::variant> m_compList;
+        std::vector<rttr::variant> m_compList;
         std::vector<EntityTemplate> m_childList;
       };
 
@@ -49,7 +50,6 @@ namespace GE
       void Execute() override;
       void Undo() override;
       void Redo() override;
-      void RestoreComp(GE::ECS::Entity entityID, std::map<ECS::COMPONENT_TYPES, rttr::variant>& compList);
       EntityTemplate SaveEntityData(GE::ECS::Entity e);
       GE::ECS::Entity RestoreEntityData(EntityTemplate& eTemp);
    

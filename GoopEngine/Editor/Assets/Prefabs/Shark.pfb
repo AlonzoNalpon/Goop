@@ -9,21 +9,37 @@
             }
         },
         {
-          "Sprite": {
-            "spriteName": "SS_Shark"
-          }
-        },
-        {
-            "SpriteAnim": {
-                "name": "SS_Shark"
-            }
-        },
-        {
             "BoxCollider": {
                 "center": "{ 15, 278 }",
                 "width": 10.0,
                 "height": 10.0,
+                "min": "{ 0, 0 }",
+                "max": "{ 0, 0 }",
                 "render": true
+            }
+        },
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 0.25,
+                            "y": 1.0
+                        },
+                        "width": 41,
+                        "height": 38
+                    }
+                },
+                "spriteName": "SS_Shark"
+            }
+        },
+        {
+            "SpriteAnim": {
+                "name": "SS_Shark"
             }
         },
         {

@@ -65,6 +65,7 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
+    .constructor<>()
     .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
     .property("cardEntity", &Component::CardHolder::CardHolderEntry::cardEntity)
     .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)
@@ -77,7 +78,6 @@ RTTR_REGISTRATION
     (
       rttr::parameter_names("texCoords", "texDims", "width", "height")
     )*/
-    .constructor<>()
     .property("texCoords", &Graphics::SpriteSubData::texCoords)
     .property("texDims", &Graphics::SpriteSubData::texDims)
     .property("width", &Graphics::SpriteSubData::width)
