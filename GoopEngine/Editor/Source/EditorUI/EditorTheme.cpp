@@ -6,19 +6,19 @@
 void GE::EditorGUI::EditorTheme::SetImGuiTheme()
 {
   // Get the default ImGui style
-  ImGuiStyle& style = ImGui::GetStyle();
+  //ImGuiStyle& style = ImGui::GetStyle();
 
   // Modify the colors in the ImGui style
-  ImVec4* colors = style.Colors;
+  //ImVec4* colors = style.Colors;
 
-  colors[ImGuiCol_WindowBg] = ImVec4(0.016f, 0.12f, 0.f, 1.0f);
-  colors[ImGuiCol_TitleBg] = ImVec4(0.055f, 0.369f, 0.f, 1.0f);
-  colors[ImGuiCol_Button]         = ImVec4(0.055f, 0.269f, 0.f, 1.0f);
-  colors[ImGuiCol_ButtonHovered]  = ImVec4(0.055f, 0.569f, 0.f, 1.0f);
-  colors[ImGuiCol_ButtonActive]   = ImVec4(0.055f, 0.469f, 0.f, 1.0f);
+  //colors[ImGuiCol_WindowBg] = ImVec4(0.016f, 0.12f, 0.f, 1.0f);
+  //colors[ImGuiCol_TitleBg] = ImVec4(0.055f, 0.369f, 0.f, 1.0f);
+  //colors[ImGuiCol_Button]         = ImVec4(0.055f, 0.269f, 0.f, 1.0f);
+  //colors[ImGuiCol_ButtonHovered]  = ImVec4(0.055f, 0.569f, 0.f, 1.0f);
+  //colors[ImGuiCol_ButtonActive]   = ImVec4(0.055f, 0.469f, 0.f, 1.0f);
 
   // Example: Set the text color to a dark gray
-  colors[ImGuiCol_Text] = ImVec4(1.f, 1.f, 1.f, 1.0f);
+  //colors[ImGuiCol_Text] = ImVec4(1.f, 1.f, 1.f, 1.0f);
 
   // Example: Set the button color
   //colors[ImGuiCol_Button] = ImVec4(0.4f, 0.4f, 0.4f, 1.0f);
