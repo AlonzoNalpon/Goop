@@ -2,6 +2,8 @@
 #ifndef NO_IMGUI
 #include <PrefabManager/PrefabManager.h>
 #include <ECS/EntityComponentSystem.h>
+#include <ObjectFactory/ObjectFactory.h>
+#include <Serialization/Serializer.h>
 
 using namespace GE::Prefabs;
 
@@ -35,10 +37,15 @@ std::string PrefabManager::GetEntityPrefab(ECS::Entity entity) const
 
 void PrefabManager::UpdateEntitiesFromPrefab()
 {
+  //ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  ObjectFactory::ObjectFactory const& of{ ObjectFactory::ObjectFactory::GetInstance() };
   for (auto const& [entity, prefab] : m_entitiesToPrefabs)
   {
-
+    ObjectFactory::VariantPrefab const& prefabVar{ of.GetVariantPrefab(prefab) };
+    of.AddComponentsToEntity(entity, prefabVar.m_components);
   }
+
+  GE::Debug::ErrorLogger::GetInstance().LogMessage("Entities in scene have been updated with prefab changes");
 }
 
 #endif

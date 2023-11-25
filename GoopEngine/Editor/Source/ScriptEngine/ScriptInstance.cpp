@@ -17,7 +17,11 @@ using namespace GE;
 using namespace MONO;
 
 
-
+void ScriptField::SetField(std::string const& className)
+{
+  GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
+  *this = sm->GetScriptField(className, m_fieldName);
+}
 
 ScriptInstance::ScriptInstance(const std::string& scriptName, std::vector<void*>& arg) : m_scriptName{ scriptName }
 {
@@ -36,13 +40,6 @@ ScriptInstance::ScriptInstance(const std::string& scriptName) : m_scriptName{ sc
   m_classInst = sm->InstantiateClass(scriptName.c_str());
   m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClass, "OnUpdate", 1);
   //m_onCreateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "onCreate", 1);
-}
-
-template<typename T>
-void ScriptFieldInstance<T>::SetMyScriptField(const std::string& className, const std::string& fieldName)
-{
-  GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
-  m_scriptField = sm->GetScriptField(className, fieldName);
 }
 
 void ScriptInstance::Clear()
@@ -139,7 +136,3 @@ void ScriptInstance::GetAllUpdatedFields()
   //  //}
   //}
 }
-
-
-
-

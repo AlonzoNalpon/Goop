@@ -602,8 +602,7 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
     }
     DeserializeBasedOnType(scriptMap, listIter->value);
 
-    Component::Scripts::ScriptInstances const& test = scriptMap.get_value<Component::Scripts::ScriptInstances>();
-    compVar = type.create({ idIter->value.GetUint(),  test});
+    compVar = type.create({ idIter->value.GetUint(), scriptMap.get_value<Component::Scripts::ScriptInstances>() });
 
     return true;
   }
@@ -652,6 +651,9 @@ void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjs
     
     rttr::variant scriptFieldInst{ MONO::ScriptManager::GetInstance().GetScriptFieldInst(elem["type"].GetString()) };
     DeserializeBasedOnType(scriptFieldInst, elem);
+    //scriptFieldInst.get_type().invoke("SetMyScriptField", scriptFieldInst, { elem["scriptName"].GetString() });
+
+
 #ifdef DESERIALIZER_DEBUG
     std::cout << "  Reading " << elem["type"].GetString() << "...\n";
 #endif

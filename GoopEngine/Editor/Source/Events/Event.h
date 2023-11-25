@@ -30,15 +30,19 @@ namespace GE
       MOUSE_TRIGGERED,
       MOUSE_HELD,
       MOUSE_RELEASED,
+      WINDOW_LOSE_FOCUS,
+      WINDOW_GAIN_FOCUS,
+      TOGGLE_FULLSCREEN,
+      QUIT_GAME,
+      NEXT_TURN,
+      TURN_RESOLVED,
+
+#ifndef NO_IMGUI
       START_SCENE,
       PAUSE_SCENE,
       STOP_SCENE,
-      WINDOW_LOSE_FOCUS,
-      WINDOW_GAIN_FOCUS,
-      NEXT_TURN,
-      TURN_RESOLVED,
-      QUIT_GAME,
-      TOGGLE_FULLSCREEN,
+      PREFAB_SAVED,
+#endif
       MAX_EVENTS
     };
 

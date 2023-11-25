@@ -14,6 +14,8 @@ namespace GE
 {
   namespace Events
   {
+#ifndef NO_IMGUI
+
     class StartSceneEvent : public Event
     {
     public:
@@ -34,6 +36,17 @@ namespace GE
       StopSceneEvent() : Event(EVENT_TYPE::STOP_SCENE) {}
       inline std::string GetName() const noexcept override { return "Scene Stopped"; }
     };
+
+    class PrefabSavedEvent : public Event
+    {
+    public:
+      PrefabSavedEvent(std::string prefab) : Event(EVENT_TYPE::PREFAB_SAVED), m_prefab{ std::move(prefab) } {}
+      inline std::string GetName() const noexcept override { return "Prefab Saved"; }
+
+      std::string const m_prefab;
+    };
+
+#endif
 
     class WindowLoseFocusEvent : public Event
     {

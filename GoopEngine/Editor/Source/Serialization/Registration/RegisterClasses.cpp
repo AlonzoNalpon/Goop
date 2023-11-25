@@ -48,11 +48,39 @@ RTTR_REGISTRATION
     .property("y", &glm::vec2::y)
     ;
 
+  rttr::registration::class_<Component::LinearForce>("LinearForce")
+    .constructor<>()
+    .property("magnitude", &Component::LinearForce::m_magnitude)
+    .property("lifetime", &Component::LinearForce::m_lifetime)
+    .property("isActive", &Component::LinearForce::m_isActive)
+    .property("age", &Component::LinearForce::m_age)
+    ;
+
+  rttr::registration::class_<Component::DragForce>("DragForce")
+    .constructor<>()
+    .property("magnitude", &Component::DragForce::m_magnitude)
+    .property("isActive", &Component::DragForce::m_isActive)
+    ;
+
   rttr::registration::class_<Graphics::Colorf>("Colorf")
     .property("r", &Graphics::Colorf::r)
     .property("g", &Graphics::Colorf::g)
     .property("b", &Graphics::Colorf::b)
     .property("a", &Graphics::Colorf::a)
+    ;
+
+  rttr::registration::class_<Component::Tween::Action>("Action")
+    .constructor<>()
+    .property("target", &Component::Tween::Action::m_target)
+    .property("duration", &Component::Tween::Action::m_duration)
+    ;
+
+  rttr::registration::class_<Component::Audio::Sound>("Sound")
+    .property("sound", &Component::Audio::Sound::m_sound)
+    .property("loop", &Component::Audio::Sound::m_loop)
+    .property("playOnStart", &Component::Audio::Sound::m_playOnStart)
+    .property("channel", &Component::Audio::Sound::m_channel)
+    .property("volume", &Component::Audio::Sound::m_volume)
     ;
 
   rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")
@@ -110,31 +138,37 @@ RTTR_REGISTRATION
     .property("data", &GE::MONO::ScriptFieldInstance<int>::m_data)
     .property("type", &GE::MONO::ScriptFieldInstance<int>::m_type)
     .property("ScriptField", &GE::MONO::ScriptFieldInstance<int>::m_scriptField)
+    .method("SetMyScriptField", &GE::MONO::ScriptFieldInstance<int>::SetMyScriptField)
     ;
   rttr::registration::class_<GE::MONO::ScriptFieldInstance<float>>("System.Single")
     .property("data", &GE::MONO::ScriptFieldInstance<float>::m_data)
     .property("type", &GE::MONO::ScriptFieldInstance<float>::m_type)
     .property("ScriptField", &GE::MONO::ScriptFieldInstance<float>::m_scriptField)
+    .method("SetMyScriptField", &GE::MONO::ScriptFieldInstance<float>::SetMyScriptField)
     ;
   rttr::registration::class_<GE::MONO::ScriptFieldInstance<double>>("System.Double")
     .property("data", &GE::MONO::ScriptFieldInstance<double>::m_data)
     .property("type", &GE::MONO::ScriptFieldInstance<double>::m_type)
     .property("ScriptField", &GE::MONO::ScriptFieldInstance<double>::m_scriptField)
+    .method("SetMyScriptField", &GE::MONO::ScriptFieldInstance<double>::SetMyScriptField)
     ;
   rttr::registration::class_<GE::MONO::ScriptFieldInstance<unsigned>>("System.UInt32")
     .property("data", &GE::MONO::ScriptFieldInstance<unsigned>::m_data)
     .property("type", &GE::MONO::ScriptFieldInstance<unsigned>::m_type)
     .property("ScriptField", &GE::MONO::ScriptFieldInstance<unsigned>::m_scriptField)
+    .method("SetMyScriptField", &GE::MONO::ScriptFieldInstance<unsigned>::SetMyScriptField)
     ;
   rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<int>>>("System.Int32[]")
     .property("data", &GE::MONO::ScriptFieldInstance<std::vector<int>>::m_data)
     .property("type", &GE::MONO::ScriptFieldInstance<std::vector<int>>::m_type)
     .property("ScriptField", &GE::MONO::ScriptFieldInstance<std::vector<int>>::m_scriptField)
+    .method("SetMyScriptField", &GE::MONO::ScriptFieldInstance<std::vector<int>>::SetMyScriptField)
     ;
   rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>("System.UInt32[]")
     .property("data", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_data)
     .property("type", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
     .property("ScriptField", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
+    .method("SetMyScriptField", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::SetMyScriptField)
     ;
 
   rttr::registration::class_<GE::MONO::ScriptInstance>("ScriptInstance")

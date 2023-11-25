@@ -14,6 +14,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SerializeComponents.h"
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Serialization/Deserializer.h>
+#ifndef NO_IMGUI
+#include <PrefabManager/PrefabManager.h>
+#endif
 
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
@@ -210,7 +213,7 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
   PrefabDataContainer::const_iterator iter{ m_prefabs.find(key) };
   if (iter == m_prefabs.end())
   {
-    Reload();
+    ReloadPrefabs();
     if ((iter = m_prefabs.find(key)) == m_prefabs.end())
     {
       throw GE::Debug::Exception<ObjectFactory>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
@@ -219,11 +222,22 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
 
   ECS::Entity const newEntity{ ECS::EntityComponentSystem::GetInstance().CreateEntity() };
   AddComponentsToEntity(newEntity, iter->second.m_components);
+#ifndef NO_IMGUI
+  Prefabs::PrefabManager::GetInstance().AttachPrefab(newEntity, key);
+#endif
 
   return newEntity;
 }
 
-void ObjectFactory::Reload()
+VariantPrefab const& ObjectFactory::GetVariantPrefab(std::string const& name) const
+{
+  PrefabDataContainer::const_iterator ret{ m_prefabs.find(name) };
+  if (ret == m_prefabs.cend()) { throw Debug::Exception<ObjectFactory>(Debug::LEVEL_ERROR, ErrMsg("Unable to find prefab with name: " + name)); }
+
+  return ret->second;
+}
+
+void ObjectFactory::ReloadPrefabs()
 {
   m_prefabs.clear();
   LoadPrefabsFromFile();
