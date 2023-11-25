@@ -26,6 +26,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/CardHolder.h>
 #include <GameDef.h>
 #include <Graphics/GraphicsEngine.h>
+#include <Systems/SpriteAnim/SpriteAnimSystem.h>
 using namespace GE::MONO;
 
 namespace GE 
@@ -486,9 +487,11 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
   return oldTransform->m_rot;
 }
 
-void GE::MONO::PlayAnimation(std::string /*animName*/, GE::ECS::Entity /*entity*/)
+void GE::MONO::PlayAnimation(std::string animName, GE::ECS::Entity entity)
 {
   // call play animation here
+  Graphics::gObjID spriteID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(animName) };
+  GE::Systems::SpriteAnimSystem::SetAnimation(entity, spriteID); // play anim yes!
 }
 
 void GE::MONO::PlaySound(int soundIterator, GE::ECS::Entity entity)
