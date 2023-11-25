@@ -1,0 +1,57 @@
+{
+    "Name": ".[Test Prefab] Priest",
+    "Components": [
+        {
+            "Transform": {
+                "worldPos": "{ 2, 4, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 210, 283 }",
+                "width": 140.0,
+                "height": 280.0,
+                "min": "{ 0, 0 }",
+                "max": "{ 0, 0 }",
+                "render": true
+            }
+        },
+        {
+            "Draggable": {}
+        },
+        {
+            "Text": {
+                "text": "For Testing Purposes",
+                "clr": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "scale": 0.1,
+                "fontID": 0
+            }
+        },
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "width": 143,
+                        "height": 280
+                    }
+                },
+                "spriteName": "Priest"
+            }
+        }
+    ]
+}

@@ -89,5 +89,12 @@ namespace GE
       ToggleFullscreen() : Event(EVENT_TYPE::TOGGLE_FULLSCREEN) {}
       inline std::string GetName() const noexcept override { return "Toggle Fullscreen"; }
     };
+
+    class WindowMinimize : public Event
+    {
+    public:
+      WindowMinimize() : Event(EVENT_TYPE::WINDOW_MINIMIZE) {}
+      inline std::string GetName() const noexcept override { return "Window Minimize"; }
+    };
   }
 }

@@ -35,10 +35,12 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, std::vector<void*>
 
 ScriptInstance::ScriptInstance(const std::string& scriptName) : m_scriptName{ scriptName }
 {
+  std::cout << scriptName << ":: called\n";
   GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
   m_scriptClass = sm->GetScriptClass(scriptName);
   m_classInst = sm->InstantiateClass(scriptName.c_str());
   m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClass, "OnUpdate", 1);
+  GetFields();
   //m_onCreateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "onCreate", 1);
 }
 
@@ -72,9 +74,10 @@ void ScriptInstance::GetFields()
 	const auto& fields = sci.m_ScriptFieldMap;
 	for (const auto& [fieldName, field] : fields)
 	{
-    std::cout << field.m_fieldName << "\n";
+
 		if (field.m_fieldType == ScriptFieldType::Float)
 		{
+      std::cout << field.m_fieldName << "\n";
 			float value = GetFieldValue<float>(field.m_classField);
       ScriptFieldInstance<float> test{ field,value };
       
@@ -82,24 +85,28 @@ void ScriptInstance::GetFields()
 		}
 		else if (field.m_fieldType == ScriptFieldType::Int)
 		{
+      std::cout << field.m_fieldName << "\n";
       int value = GetFieldValue<int>(field.m_classField);
       ScriptFieldInstance<int> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
 		}
 		else if (field.m_fieldType == ScriptFieldType::Double)
 		{
+      std::cout << field.m_fieldName << "\n";
       double value = GetFieldValue<double>(field.m_classField);
       ScriptFieldInstance<double> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
 		}
 		else if (field.m_fieldType == ScriptFieldType::DVec3)
 		{
+      std::cout << field.m_fieldName << "\n";
       GE::Math::dVec3 value = GetFieldValue<GE::Math::dVec3>(field.m_classField);
       ScriptFieldInstance<GE::Math::dVec3> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
 		}
 		else if (field.m_fieldType == ScriptFieldType::IntArr)
 		{
+      std::cout << field.m_fieldName << "\n";
       std::vector<int> value = GetFieldValueArr<int>(sm->m_appDomain, field.m_classField);
       ScriptFieldInstance<std::vector<int>> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);

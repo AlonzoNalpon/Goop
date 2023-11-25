@@ -219,13 +219,15 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
       throw GE::Debug::Exception<ObjectFactory>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
     }
   }
+  auto& ecs = ECS::EntityComponentSystem::GetInstance();
 
-  ECS::Entity const newEntity{ ECS::EntityComponentSystem::GetInstance().CreateEntity() };
+  ECS::Entity newEntity{ ecs.CreateEntity() };
   AddComponentsToEntity(newEntity, iter->second.m_components);
 #ifndef NO_IMGUI
   Prefabs::PrefabManager::GetInstance().AttachPrefab(newEntity, key);
 #endif
 
+  ecs.SetEntityName(newEntity, key);
   return newEntity;
 }
 

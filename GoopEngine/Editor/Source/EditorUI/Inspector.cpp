@@ -713,7 +713,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						style.Colors[ImGuiCol_FrameBg] = originalColor;
 						style.Colors[ImGuiCol_FrameBgHovered] = originalHColor;
 
-						for (const rttr::variant& f  : s.m_scriptFieldInstList)
+						for (rttr::variant& f  : s.m_scriptFieldInstList)
 						{
 							rttr::type dataType{ f.get_type() };
 							// get underlying type if it's wrapped in a pointer
@@ -721,7 +721,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							{
 								TableNextRow();
 								BeginDisabled(false);
-								GE::MONO::ScriptFieldInstance<int> sfi = f.get_value<GE::MONO::ScriptFieldInstance<int>>();
+								GE::MONO::ScriptFieldInstance<int>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<int>>();
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								TableNextColumn();
@@ -734,7 +734,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							{
 								TableNextRow();
 								BeginDisabled(false);
-								GE::MONO::ScriptFieldInstance<float> sfi = f.get_value<GE::MONO::ScriptFieldInstance<float>>();
+								GE::MONO::ScriptFieldInstance<float>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<float>>();
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								TableNextColumn();
@@ -746,7 +746,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							{
 								TableNextRow();
 								BeginDisabled(false);
-								GE::MONO::ScriptFieldInstance<double> sfi = f.get_value<GE::MONO::ScriptFieldInstance<double>>();
+								GE::MONO::ScriptFieldInstance<double>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<double>>();
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								TableNextColumn();
@@ -757,12 +757,12 @@ void GE::EditorGUI::Inspector::CreateContent()
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>())
 							{
 								TableNextRow();
-								GE::MONO::ScriptFieldInstance<GE::Math::dVec3> sfi = f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>();
+								GE::MONO::ScriptFieldInstance<GE::Math::dVec3>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>();
 								if (InputDouble3(("##" + sfi.m_scriptField.m_fieldName).c_str(), sfi.m_data, inputWidth)) { s.SetFieldValue<GE::Math::dVec3>(sfi.m_data, sfi.m_scriptField.m_classField); };
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>())
 							{
-								GE::MONO::ScriptFieldInstance<std::vector<int>> sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<int>>>();
+								GE::MONO::ScriptFieldInstance<std::vector<int>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<int>>>();
 								TableNextRow();
 								BeginDisabled(false);
 								TableNextColumn();
