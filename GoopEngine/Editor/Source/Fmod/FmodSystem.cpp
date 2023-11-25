@@ -22,7 +22,7 @@ void FmodSystem::Init()
 {
   ErrorCheck(FMOD::System_Create(&m_fModSystem)); // Create the FMOD Core system
   int maxSounds = GE::Assets::AssetManager::GetInstance().GetConfigData<int>("MaxPlayingSounds");
-  ErrorCheck(m_fModSystem->init(maxSounds, FMOD_INIT_NORMAL, NULL)); // Initialize the FMOD Core system
+  ErrorCheck(m_fModSystem->init(maxSounds, FMOD_INIT_STREAM_FROM_UPDATE, NULL)); // Initialize the FMOD Core system
   m_fModSystem->getMasterChannelGroup(&m_masterGroup);
 
   for (int i{}; i < TOTAL_CHANNELS; ++i)
@@ -117,10 +117,20 @@ void FmodSystem::PlaySound(std::string audio, float volume, ChannelType channel,
   }
   else
   {
-    bool isPaused;
+    bool isPaused{};
     try
     {
       ErrorCheck(soundChannel->getPaused(&isPaused));
+      // if sound paused, unpause
+      if (isPaused)
+      {
+        ErrorCheck(soundChannel->setPaused(false));
+      }
+      else
+      {
+        ErrorCheck(m_fModSystem->playSound(soundFound->second, m_channelGroups[channel], false, &soundChannel));
+        soundChannel->setVolume(volume);
+      }
     }
     catch (GE::Debug::IExceptionBase&)
     {
@@ -128,11 +138,6 @@ void FmodSystem::PlaySound(std::string audio, float volume, ChannelType channel,
       // not an actual thrown error
       ErrorCheck(m_fModSystem->playSound(soundFound->second, m_channelGroups[channel], false, &soundChannel));
       soundChannel->setVolume(volume);
-    }
-    // if sound paused, unpause
-    if (isPaused)
-    {
-      ErrorCheck(soundChannel->setPaused(false));
     }
   }
 }

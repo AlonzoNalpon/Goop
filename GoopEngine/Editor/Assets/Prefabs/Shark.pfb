@@ -19,19 +19,6 @@
             }
         },
         {
-            "Text": {
-                "text": "YOUR TEXT HERE",
-                "clr": {
-                    "r": 1.0,
-                    "g": 0.0,
-                    "b": 1.0,
-                    "a": 1.0
-                },
-                "scale": 0.10000000149011612,
-                "fontID": 0
-            }
-        },
-        {
             "Sprite": {
                 "spriteData": {
                     "spriteSubData": {
@@ -51,9 +38,22 @@
             }
         },
         {
-          "SpriteAnim": {
-            "name": "SS_Shark"
-          }
+            "SpriteAnim": {
+                "name": "SS_Shark"
+            }
+        },
+        {
+            "Text": {
+                "text": "YOUR TEXT HERE",
+                "clr": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "scale": 0.10000000149011612,
+                "fontID": 0
+            }
         }
     ]
 }

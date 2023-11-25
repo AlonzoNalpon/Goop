@@ -455,7 +455,7 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
     else if (indexVal.IsObject())
     {
       rttr::variant elem{ view.get_value(i) };
-      DeserializeComponent(elem, elem.get_type().get_wrapped_type().get_raw_type(), indexVal);
+      DeserializeBasedOnType(elem, indexVal);
       if (!view.set_value(i, elem))
       {
         if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))

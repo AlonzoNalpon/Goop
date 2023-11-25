@@ -39,7 +39,6 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::LinearForce>("LinearForce")
-    .constructor<>()
     .property("magnitude", &Component::LinearForce::m_magnitude)
     .property("lifetime", &Component::LinearForce::m_lifetime)
     .property("isActive", &Component::LinearForce::m_isActive)
@@ -47,13 +46,11 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::DragForce>("DragForce")
-    .constructor<>()
     .property("magnitude", &Component::DragForce::m_magnitude)
     .property("isActive", &Component::DragForce::m_isActive)
     ;
 
   rttr::registration::class_<Component::Velocity>("Velocity")
-    .constructor<>()
     .property("vel", &Component::Velocity::m_vel)
     .property("acc", &Component::Velocity::m_acc)
     .property("mass", &Component::Velocity::m_mass)
@@ -106,7 +103,6 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::Tween::Action>("Action")
-    .constructor<>()
     .property("target", &Component::Tween::Action::m_target)
     .property("duration", &Component::Tween::Action::m_duration)
     ;
