@@ -54,12 +54,6 @@ namespace GE
 
 						if (entity1Col->m_mouseCollided)
 						{
-							// play sound randomize
-							if (m_ecs->HasComponent<GE::Component::Audio>(entity))
-							{
-								GE::Component::Audio* entitySound = m_ecs->GetComponent<GE::Component::Audio>(entity);
-								entitySound->Play();
-							}
 							triggered = true;
 							switch (btn->m_eventType)
 							{
@@ -67,33 +61,41 @@ namespace GE
 								break;
 							case GE::Component::GE_Button::SELECT_CARD:
 							{
-									// A card has called select card button event:
-									//	This requires caller to have a card component
-									auto* card = m_ecs->GetComponent<Component::Card>(entity);
-									if (!card || card->cardID == Component::Card::NO_CARD) break; // no card -> bad behavior
+								// A card has called select card button event:
+								//	This requires caller to have a card component
+								auto* card = m_ecs->GetComponent<Component::Card>(entity);
+								if (!card || card->cardID == Component::Card::NO_CARD) break; // no card -> bad behavior
 
-									auto* cardHolder = m_ecs->GetComponent<Component::CardHolder>(card->tgtEntity);
-									if (!cardHolder) break; // no holder -> bad behavior
+								auto* cardHolder = m_ecs->GetComponent<Component::CardHolder>(card->tgtEntity);
+								if (!cardHolder) break; // no holder -> bad behavior
 
-									// Check if there's a free element
-									for (auto& elem : cardHolder->elements)
-									{
-										if (elem.used) // skip if it's used!
-											continue;
+								// Check if there's a free element
+								for (auto& elem : cardHolder->elements)
+								{
+									if (elem.used) // skip if it's used!
+										continue;
 
-										auto const* cardSprite = m_ecs->GetComponent<Component::Sprite>(entity);
-										auto* elemSprite = m_ecs->GetComponent<Component::Sprite>(elem.elemEntity);
+									auto const* cardSprite = m_ecs->GetComponent<Component::Sprite>(entity);
+									auto* elemSprite = m_ecs->GetComponent<Component::Sprite>(elem.elemEntity);
 
-										elem.cardEntity = entity; // record card entity and image
-										elem.spriteID = cardSprite->m_spriteData.texture; // tex ID but not the dimensions
-										elem.defaultSpriteID = elemSprite->m_spriteData.texture; // set default tex ID
-										m_ecs->SetIsActiveEntity(entity, false); // make the card inactive
-										elem.used = true; // now it's used!
+									elem.cardEntity = entity; // record card entity and image
+									elem.spriteID = cardSprite->m_spriteData.texture; // tex ID but not the dimensions
+									elem.defaultSpriteID = elemSprite->m_spriteData.texture; // set default tex ID
+									m_ecs->SetIsActiveEntity(entity, false); // make the card inactive
+									elem.used = true; // now it's used!
 										
-										// Visual update:
-										elemSprite->m_spriteData.texture = elem.spriteID; // make the sprite now hold the card sprite
-										break; // we're done here: a card has been assigned
+									// Visual update:
+									elemSprite->m_spriteData.texture = elem.spriteID; // make the sprite now hold the card sprite
+
+									// play sound randomize
+									if (m_ecs->HasComponent<GE::Component::Audio>(entity))
+									{
+										GE::Component::Audio* entitySound = m_ecs->GetComponent<GE::Component::Audio>(entity);
+										entitySound->PlayRandom();
 									}
+
+									break; // we're done here: a card has been assigned
+								}
 							}
 								break;
 							case GE::Component::GE_Button::UNSELECT_CARD:
@@ -114,12 +116,19 @@ namespace GE
 								elemSprite->m_spriteData.texture = cardHolder->elements[holderElem->elemIdx].defaultSpriteID;
 								cardHolder->elements[holderElem->elemIdx].used = false;
 
-
 								// now enable the card to be unselected
 								auto cardEntity = cardHolder->elements[holderElem->elemIdx].cardEntity;
 								m_ecs->SetIsActiveEntity(cardEntity, true);
-							}
+
+								// play sound randomize
+								if (m_ecs->HasComponent<GE::Component::Audio>(entity))
+								{
+									GE::Component::Audio* entitySound = m_ecs->GetComponent<GE::Component::Audio>(entity);
+									entitySound->PlayRandom();
+								}
+
 								break;
+							}
 							case GE::Component::GE_Button::CHANGE_SCENE:
 								GE::GSM::GameStateManager::GetInstance().SetNextScene(entityButton->m_param);
 								break;

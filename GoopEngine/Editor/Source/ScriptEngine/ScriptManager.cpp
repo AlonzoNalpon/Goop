@@ -520,23 +520,42 @@ void GE::MONO::GameSystemResolved()
 void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int cardID)
 {
   ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
-  ECS::Entity cardEntity = ecs.GetComponent<Component::CardHolder>(queueEntity)->elements[queueIndex].cardEntity;
-  auto* cardComp = ecs.GetComponent<Component::Card>(cardEntity);
-  // Set the card ID ...
-  cardComp->cardID = static_cast<Component::Card::CardID>(cardID);
+  Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(queueEntity);
+  ECS::Entity elemEntity = cardHolder->elements[queueIndex].elemEntity;
+
+  if (cardHolder->elements[queueIndex].used)
+  {
+    cardHolder->elements[queueIndex].used = false; // no longer using this slot if it's overriden
+    // But now we reenable the card that it disabled ...
+    ecs.SetIsActiveEntity(cardHolder->elements[queueIndex].cardEntity, true);
+  }
   
   // Now set the sprite ...
+  auto* spriteComp = ecs.GetComponent<Component::Sprite>(elemEntity);
+  if (spriteComp)
+  {
+    auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+    spriteComp->m_spriteData.texture = texManager.GetTextureID(CardSpriteNames[cardID]);
+  }
+}
+
+void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID)
+{
+  ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
+  Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(handIndex);
+  ECS::Entity cardEntity = cardHolder->elements[handIndex].cardEntity;
+  auto* cardComp = ecs.GetComponent<Component::Card>(cardEntity);
+
+  // Set the card ID ...
+  cardComp->cardID = static_cast<Component::Card::CardID>(cardID);
+
+  // Now set the sprite of card ...
   auto* spriteComp = ecs.GetComponent<Component::Sprite>(cardEntity);
   if (spriteComp)
   {
     auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
     spriteComp->m_spriteData.texture = texManager.GetTextureID(CardSpriteNames[cardComp->cardID]);
   }
-}
-
-void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID)
-{
-  SetQueueCardID(handEntity, handIndex, cardID);
 }
 
 void GE::MONO::SendString(MonoString* str)

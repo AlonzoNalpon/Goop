@@ -907,8 +907,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 					InputList("Audio", audio->m_sounds, charSize);
 
-
-
 					Separator();
 				}
 				break;
@@ -1833,13 +1831,15 @@ namespace
 
 		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
+			std::vector<std::vector<GE::Component::Audio::Sound>::iterator> removeIt;
 			int i{};
 			for (auto& sound : list)
 			{
 				PushID((std::to_string(i)).c_str());
 				Separator();
-				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+				BeginTable("Whoooo", 2, ImGuiTableFlags_BordersInnerV);
 				TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+
 				TableNextColumn();
 				ImGui::Text("Sound Name");
 				TableNextColumn();
@@ -1880,8 +1880,19 @@ namespace
 					}
 					EndCombo();
 				}
+
+				if (Button("Remove"))
+				{
+					removeIt.emplace_back(list.begin() + i);
+				}
+
 				PopID();
 				++i;
+			}
+
+			for (auto it : removeIt)
+			{				
+				list.erase(it);
 			}
 
 			Separator();
