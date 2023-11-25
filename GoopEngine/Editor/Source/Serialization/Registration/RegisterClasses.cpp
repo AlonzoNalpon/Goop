@@ -62,6 +62,7 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
+    .constructor<>()
     .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
     .property("cardEntity", &Component::CardHolder::CardHolderEntry::cardEntity)
     .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)

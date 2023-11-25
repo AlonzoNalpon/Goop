@@ -21,6 +21,8 @@ namespace GE::Component
 			CHANGE_SCENE,
 			UNPAUSE,
 			NEXT_TURN,
+			QUIT_GAME,
+			POPUP,
 			TOTAL_EVENTS,
 		};
 

@@ -69,7 +69,8 @@ void  GE::AI::NodeEditor::NodeEditorShow()
     m_displayPopup = ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) && ImNodes::IsEditorHovered() && ImGui::IsMouseClicked(1);
     ShowTree();
   }
-
+  ImNodes::MiniMap(0.2f, ImNodesMiniMapLocation_TopRight);
+  ImNodes::MiniMap();
   ImNodes::EndNodeEditor();
 
   if (m_currentTree != nullptr)

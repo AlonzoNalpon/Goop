@@ -38,7 +38,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Commands/CommandManager.h>
 #include <ImGuizmo_1_83/ImGuizmo.h>
 #include <EditorUI/GizmoEditor.h>
-
+#include <EditorUI/EditorTheme.h>
 using namespace GE::EditorGUI;
 using namespace DataViz;
 using namespace ImGui;
@@ -79,6 +79,7 @@ void ImGuiUI::Init(WindowSystem::Window& prgmWindow)
 
   GE::AI::NodeEditor* ne = &(GE::AI::NodeEditor::GetInstance());
   ne->NodeEditorInit();
+  GE::EditorGUI::EditorTheme::SetImGuiTheme();
 }
 
 void ImGuiUI::Update()

@@ -9,6 +9,7 @@ namespace GE::Systems
   private:
     bool m_shouldIterate;
     bool m_shouldPause;
+    bool m_lastShouldPause;
   public:
     void Start();
 
@@ -18,5 +19,7 @@ namespace GE::Systems
     void PlaySoundEnemy(int soundIterator);
 
     void HandleEvent(GE::Events::Event* event);
+
+    void FlipPauseBool();
   };
 }

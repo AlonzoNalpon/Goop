@@ -186,5 +186,14 @@ namespace GE {
 		  Informs everyone that the current turn has finished resolving
 		************************************************************************/
 		void GameSystemResolved();
+
+		void SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int cardID);
+		void SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID);
+
+		//This Function takes in a string from c#.
+		void SendString(MonoString* str);
+
+		std::string MonoStringToSTD(MonoString* str);
+		bool CheckMonoError(MonoError& error);
 	}
 }

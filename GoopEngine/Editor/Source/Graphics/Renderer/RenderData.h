@@ -35,13 +35,19 @@ namespace Graphics::Rendering
 
   };
 
+  enum class RenderDataTypes : u32
+  {
+    SPRITE,
+    FONT,
+    LINE
+  };
 
   /*!
    * \struct RenderData
    * \brief  struct containing info for rendering
    * Dataset containing model information for rendering object.
    */
-  struct RenderData 
+  struct SpriteRenderData 
   {
     //gObjID mdl;         //!< model data (ALL MODELS MUST USE THIS). It has shader stored within
     SpriteData sprite;  //!< sprite data handle (optional)
@@ -69,8 +75,15 @@ namespace Graphics::Rendering
     Colorf clr;
   };
 
+  struct RenderData
+  {
+    RenderDataTypes type;
+    size_t element;
+    f32 zVal;
+  };
+
   struct DepthComp {
-    bool operator()(RenderData const& a, RenderData const& b)const {
+    bool operator()(SpriteRenderData const& a, SpriteRenderData const& b)const {
       return a.transform[3][2] < b.transform[3][2];
     }
   };

@@ -67,18 +67,14 @@ void GE::Scenes::Scene::TestScene()
 	GE::Component::Game GameComp{};
 	ScriptInstance GameMan{ "GameManager",arg };
 	GameComp.m_gameSystemScript = GameMan;
-	GameComp.m_enemy = 4;
-	GameComp.m_player = 3;
+	GameComp.m_enemy = testEnemy;
+	GameComp.m_player = testPlayer;
 	GameComp.m_pauseMenu = (unsigned) - 1;
 
 	GE::Component::Transform GSTrans{};
 	std::vector<std::string> listOFScripts{ "Stats" };
-	//GE::Component::Scripts testPLayerScript = Scripts(listOFScripts);
-	//GE::Component::Scripts testEnemyScript = Scripts(listOFScripts);
-	/*testPLayerScript.m_scriptList[0].GetFields();
-	testPLayerScript.m_entityId = testPlayer;
-	testEnemyScript.m_scriptList[0].GetFields();
-	testEnemyScript.m_entityId = testEnemy;*/
+	GE::Component::Scripts testPLayerScript = Scripts(listOFScripts);
+	GE::Component::Scripts testEnemyScript = Scripts(listOFScripts);
 
 	ecs->SetEntityName(gameSys, "GameSys");
 	ecs->AddComponent(gameSys, GameComp);
@@ -86,9 +82,9 @@ void GE::Scenes::Scene::TestScene()
 
 	ecs->SetEntityName(testPlayer, "Test Player");
 	ecs->AddComponent(testPlayer, GSTrans);
-	//ecs->AddComponent(testPlayer, testPLayerScript);
+	ecs->AddComponent(testPlayer, testPLayerScript);
 
 	ecs->SetEntityName(testEnemy, "Test Enemy");
 	ecs->AddComponent(testEnemy, GSTrans);
-	//ecs->AddComponent(testEnemy, testEnemyScript);
+	ecs->AddComponent(testEnemy, testEnemyScript);
 }

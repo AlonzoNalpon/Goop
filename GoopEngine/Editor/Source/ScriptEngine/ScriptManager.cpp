@@ -22,6 +22,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "mono/metadata/threads.h"
 #include <Systems/GameSystem/GameSystem.h>
 
+#include <Component/Card.h>
+#include <Component/CardHolder.h>
+#include <GameDef.h>
+#include <Graphics/GraphicsEngine.h>
 using namespace GE::MONO;
 
 namespace GE 
@@ -121,6 +125,11 @@ void GE::MONO::ScriptManager::InitMono()
   //mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", <PLAY ANIMIATION FUNCTION HERE>);
   mono_add_internal_call("GoopScripts.Mono.Utils::GameSystemResolved", GE::MONO::GameSystemResolved);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
+
+
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetQueueCardID", GE::MONO::SetQueueCardID);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetHandCardID", GE::MONO::SetHandCardID);
 
   //Load the CSharpAssembly (dll file)
   std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
@@ -170,11 +179,15 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
           uint32_t flags = mono_field_get_flags(field);
           if (flags & FIELD_ATTRIBUTE_PUBLIC)
           {
+#ifdef  _DEBUG
             std::cout << line.substr(commaPosition + 1).c_str() << "::";
+#endif //  _DEBUG
             MonoType* type = mono_field_get_type(field);
             ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
             newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
+#ifdef  _DEBUG
             std::cout << fieldName << "\n";
+#endif
           }
         }
         m_monoClassMap[line.substr(commaPosition + 1).c_str()] = newScriptClassInfo;
@@ -289,6 +302,22 @@ GE::MONO::ScriptManager::~ScriptManager()
 //    Functions for getting C# script Data
 //
 //************************************************************************/
+
+
+bool GE::MONO::CheckMonoError(MonoError& error)
+{
+  bool hasError = !mono_error_ok(&error);
+  if (hasError)
+  {
+    unsigned short errorCode = mono_error_get_error_code(&error);
+    const char* errorMessage = mono_error_get_message(&error);
+    printf("Mono Error!\n");
+    printf("\tError Code: %hu\n", errorCode);
+    printf("\tError Message: %s\n", errorMessage);
+    mono_error_cleanup(&error);
+  }
+  return hasError;
+}
 
 MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
 {
@@ -486,4 +515,68 @@ int GE::MONO::CalculateGCD(int large, int small)
 void GE::MONO::GameSystemResolved()
 {
   GE::Events::EventManager::GetInstance().Dispatch(GE::Events::GameTurnResolved());
+}
+
+void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int cardID)
+{
+  ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
+  Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(queueEntity);
+  ECS::Entity elemEntity = cardHolder->elements[queueIndex].elemEntity;
+
+  if (cardHolder->elements[queueIndex].used)
+  {
+    cardHolder->elements[queueIndex].used = false; // no longer using this slot if it's overriden
+    // But now we reenable the card that it disabled ...
+    ecs.SetIsActiveEntity(cardHolder->elements[queueIndex].cardEntity, true);
+  }
+  
+  // Now set the sprite ...
+  auto* spriteComp = ecs.GetComponent<Component::Sprite>(elemEntity);
+  if (spriteComp)
+  {
+    auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+    spriteComp->m_spriteData.texture = texManager.GetTextureID(CardSpriteNames[cardID]);
+  }
+}
+
+void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID)
+{
+  ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
+  Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(handIndex);
+  ECS::Entity cardEntity = cardHolder->elements[handIndex].cardEntity;
+  auto* cardComp = ecs.GetComponent<Component::Card>(cardEntity);
+
+  // Set the card ID ...
+  cardComp->cardID = static_cast<Component::Card::CardID>(cardID);
+
+  // Now set the sprite of card ...
+  auto* spriteComp = ecs.GetComponent<Component::Sprite>(cardEntity);
+  if (spriteComp)
+  {
+    auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+    spriteComp->m_spriteData.texture = texManager.GetTextureID(CardSpriteNames[cardComp->cardID]);
+  }
+}
+
+void GE::MONO::SendString(MonoString* str)
+{
+  std::string test = GE::MONO::MonoStringToSTD(str);
+  //Do what ever yo want with the string
+}
+
+std::string GE::MONO::MonoStringToSTD(MonoString* str)
+{
+  if (str == nullptr || mono_string_length(str) == 0)
+   return"";
+
+  MonoError error;
+  char* utf8 = mono_string_to_utf8_checked(str, &error);
+  if (CheckMonoError(error))
+    return "";
+
+  std::string result(utf8);
+  mono_free(utf8);
+
+  return result;
+
 }

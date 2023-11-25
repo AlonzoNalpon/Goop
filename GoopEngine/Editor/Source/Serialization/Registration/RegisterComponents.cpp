@@ -73,7 +73,10 @@ RTTR_REGISTRATION
 
   rttr::registration::class_<Component::SpriteAnim>("SpriteAnim")
     .constructor<Graphics::gObjID>()
-    .property("name", &Component::SpriteAnim::m_animID)
+    .property("currTime", &Component::SpriteAnim::currTime)
+    //.property("name", &Component::SpriteAnim::animID)
+    .property("currFrame", &Component::SpriteAnim::currFrame)
+    .property("flags", &Component::SpriteAnim::flags)
     ;
 
   rttr::registration::class_<Component::Draggable>("Draggable")
@@ -170,6 +173,9 @@ RTTR_REGISTRATION
     .property("player", &Component::Game::m_player)
     .property("enemy", &Component::Game::m_enemy)
     .property("pauseMenu", &Component::Game::m_pauseMenu)
+    .property("playerHand", &Component::Game::m_playerHand)
+    .property("playerQueue", &Component::Game::m_playerQueue)
+    .property("enemyQueue", &Component::Game::m_enemyQueue)
     .property("gameSystemScript", &Component::Game::m_gameSystemScript)
     ;
 

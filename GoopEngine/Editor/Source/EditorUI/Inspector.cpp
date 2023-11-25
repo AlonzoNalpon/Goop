@@ -18,11 +18,13 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "../ImGui/misc/cpp/imgui_stdlib.h"
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
+#include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <Commands/CommandManager.h>
 #include <Graphics/GraphicsEngine.h>
 #include <EditorUI/GizmoEditor.h>
 #include <rttr/type.h>
 #include <Systems/Button/ButtonTypes.h>
+#include <GameDef.h>
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
 // Disable reinterpret to larger size
@@ -466,7 +468,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 			case GE::ECS::COMPONENT_TYPES::SPRITE:
 			{
-				auto sprite = ecs.GetComponent<Sprite>(entity);
+				bool hasSpriteAnim = ecs.HasComponent<SpriteAnim>(entity);
+				auto* sprite = ecs.GetComponent<Sprite>(entity);
 				if (ImGui::CollapsingHeader("Sprite", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					if (RemoveComponentPopup<Sprite>("Sprite", entity))
@@ -491,6 +494,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 					//ImGui::Columns(1);
 
+					if (hasSpriteAnim) // If there's a sprite anim component, we shouldn't be able to edit
+					{
+						TextColored({ 1.f, 0.f, 0.f, 1.f }, "SpriteAnim detected! Unable to edit!");
+						BeginDisabled();
+					}
 #pragma region SPRITE_LIST
 					auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
 					Separator();
@@ -550,6 +558,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						spriteObj->m_spriteData.info.width = static_cast<GLint>(spriteObj->m_spriteData.info.height * ar);
 					}
 
+					if (hasSpriteAnim)
+						EndDisabled();
 					EndTable();
 					Separator();
 #pragma endregion
@@ -575,31 +585,30 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
 					auto const& textureLT{ animManager.GetAnimLT()};
-					if (BeginCombo("Sprite Anim", animManager.GetAnimName(spriteAnimObj->m_animID).c_str()))
+					if (BeginCombo("Sprite Anim", animManager.GetAnimName(spriteAnimObj->animID).c_str()))
 					{
 						for (auto const& it : textureLT)
 						{
 							if (Selectable(it.first.c_str()))
 							{
-								auto const& anim = animManager.GetAnim(it.second);
 								auto spriteObj = ecs.GetComponent<Component::Sprite>(entity);
-								spriteAnimObj->m_animID = it.second;
-								spriteAnimObj->m_currFrame = 0;
-								spriteAnimObj->m_currTime	 = 0;
+								auto const& anim = animManager.GetAnim(it.second);
+								Systems::SpriteAnimSystem::SetAnimation(entity, it.second);
 
 								// setting correct attributes for sprite
 								auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
-								textureManager.GetTextureName(anim.texture);
 
-								// Set sprite name and the texture handle
+								// Set sprite name and the texture handle. This is for rendering in editor
 								spriteObj->m_spriteName = textureManager.GetTextureName(anim.texture);
 								spriteObj->m_spriteData.texture = anim.texture;
-
 								spriteObj->m_spriteData.info = anim.frames[0]; // and set actual sprite info
 							}
 						}
 						EndCombo();
 					}
+					// Display animation ID for users to know
+					TextColored({ 1.f, .7333f, 0.f, 1.f }, ("Animation ID: " + std::to_string(spriteAnimObj->animID)).c_str());
+
 					EndTable();
 					Separator();
 #pragma endregion
@@ -898,8 +907,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 					InputList("Audio", audio->m_sounds, charSize);
 
-
-
 					Separator();
 				}
 				break;
@@ -1032,7 +1039,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 							std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
 
 							if (Selectable(str.c_str(), currType == card->cardID))
+							{
 								card->cardID = currType; // set the current type if selected 
+								
+								if (ecs.HasComponent<Sprite>(entity))
+								{
+									auto* spriteComp = ecs.GetComponent<Sprite>(entity);
+									auto const& textureManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+									GLuint texID{ textureManager.GetTextureID(CardSpriteNames[card->cardID]) };
+									//Graphics::Texture const& newSprite = textureManager.GetTexture(texID);
+
+									spriteComp->m_spriteData.texture = texID;
+								}
+							}
 							// and now iterate through
 							currType = static_cast<Card::CardID>(static_cast<int>(currType) + 1);
 						}
@@ -1278,6 +1297,12 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputEntity("Enemy Entity", game->m_enemy);
 					TableNextRow();
 					InputEntity("Pause Menu", game->m_pauseMenu);
+					TableNextRow();
+					InputEntity("Player Hand", game->m_playerHand);
+					TableNextRow();
+					InputEntity("Player Queue", game->m_playerQueue);
+					TableNextRow();
+					InputEntity("Enemy Queue", game->m_enemyQueue);
 
 					EndTable();
 				}
@@ -1806,13 +1831,15 @@ namespace
 
 		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
+			std::vector<std::vector<GE::Component::Audio::Sound>::iterator> removeIt;
 			int i{};
 			for (auto& sound : list)
 			{
 				PushID((std::to_string(i)).c_str());
 				Separator();
-				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+				BeginTable("Whoooo", 2, ImGuiTableFlags_BordersInnerV);
 				TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+
 				TableNextColumn();
 				ImGui::Text("Sound Name");
 				TableNextColumn();
@@ -1853,8 +1880,19 @@ namespace
 					}
 					EndCombo();
 				}
+
+				if (Button("Remove"))
+				{
+					removeIt.emplace_back(list.begin() + i);
+				}
+
 				PopID();
 				++i;
+			}
+
+			for (auto it : removeIt)
+			{				
+				list.erase(it);
 			}
 
 			Separator();

@@ -80,6 +80,8 @@ RTTR_REGISTRATION
       rttr::value("CHANGE_SCENE", GE::Component::GE_Button::ButtonEventType::CHANGE_SCENE),
       rttr::value("UNPAUSE", GE::Component::GE_Button::ButtonEventType::UNPAUSE),
       rttr::value("NEXT_TURN", GE::Component::GE_Button::ButtonEventType::NEXT_TURN),
+      rttr::value("QUIT_GAME", GE::Component::GE_Button::ButtonEventType::QUIT_GAME),
+      rttr::value("POPUP", GE::Component::GE_Button::ButtonEventType::POPUP),
       rttr::value("TOTAL_EVENTS", GE::Component::GE_Button::ButtonEventType::TOTAL_EVENTS)
       );
 

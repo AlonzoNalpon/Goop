@@ -3,7 +3,6 @@
 
 int main(int /*argc*/, char* /*argv*/[])
 {
-  srand(static_cast<unsigned int>(time(NULL)));
   // Enable run-time memory check for debug builds.
 #if defined(DEBUG) | defined(_DEBUG)
 #define _CRTDBG_MAP_ALLOC

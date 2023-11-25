@@ -17,6 +17,12 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
+#ifdef _DEBUG
+#define SHOULD_LOG_FILE true
+#else
+#define SHOULD_LOG_FILE false
+#endif
+
 using namespace spdlog;
 
 namespace GE
@@ -109,7 +115,7 @@ namespace GE
         Logged message.
       ********************************************************************/
       template <typename T>
-      std::string LogMessage(std::string msg, bool logToFile = true);
+      std::string LogMessage(std::string msg, bool logToFile = SHOULD_LOG_FILE);
 
       /*!******************************************************************
       \brief
@@ -125,7 +131,7 @@ namespace GE
       \return
         Logged message.
       ********************************************************************/
-      std::string LogMessage(std::string msg, bool logToFile = true);
+      std::string LogMessage(std::string msg, bool logToFile = SHOULD_LOG_FILE);
 
       /*!******************************************************************
       \brief
@@ -142,7 +148,7 @@ namespace GE
         Logged message.
       ********************************************************************/
       template <typename T>
-      std::string LogWarning(std::string msg, bool logToFile = true);
+      std::string LogWarning(std::string msg, bool logToFile = SHOULD_LOG_FILE);
 
       /*!******************************************************************
       \brief
@@ -158,7 +164,7 @@ namespace GE
       \return
         Logged message.
       ********************************************************************/
-      std::string LogWarning(std::string msg, bool logToFile = true);
+      std::string LogWarning(std::string msg, bool logToFile = SHOULD_LOG_FILE);
 
       /*!******************************************************************
       \brief
@@ -175,7 +181,7 @@ namespace GE
         Logged message.
       ********************************************************************/
       template <typename T>
-      std::string LogError(std::string msg, bool logToFile = true);
+      std::string LogError(std::string msg, bool logToFile = SHOULD_LOG_FILE);
 
       /*!******************************************************************
       \brief
@@ -191,7 +197,7 @@ namespace GE
       \return
         Logged message.
       ********************************************************************/
-      std::string LogError(std::string msg, bool logToFile = true);
+      std::string LogError(std::string msg, bool logToFile = SHOULD_LOG_FILE);
 
       /*!******************************************************************
       \brief
@@ -208,7 +214,7 @@ namespace GE
         Logged message.
       ********************************************************************/
       template <typename T>
-      std::string LogCritical(std::string msg, bool logToFile = true);
+      std::string LogCritical(std::string msg, bool logToFile = SHOULD_LOG_FILE);
 
       /*!******************************************************************
       \brief
@@ -224,7 +230,7 @@ namespace GE
       \return
         Logged message.
       ********************************************************************/
-      std::string LogCritical(std::string msg, bool logToFile = true);
+      std::string LogCritical(std::string msg, bool logToFile = SHOULD_LOG_FILE);
     };
 
 #include "ErrorLogger.tpp"

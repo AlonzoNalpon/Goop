@@ -11,8 +11,9 @@ namespace GE::Component
 
     GE::ECS::Entity m_pauseMenu;
 
-    //GE::MONO::ScriptInstance playerScript;
-    //GE::MONO::ScriptInstance enemyScript;
+    GE::ECS::Entity m_playerHand;
+    GE::ECS::Entity m_playerQueue;
+    GE::ECS::Entity m_enemyQueue;
 
     GE::MONO::ScriptInstance m_gameSystemScript;
   };

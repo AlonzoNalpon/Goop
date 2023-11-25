@@ -9,15 +9,12 @@
             }
         },
         {
-            "Sprite": {
-                "spriteName": "Knight"
-            }
-        },
-        {
             "BoxCollider": {
                 "center": "{ 15, 278 }",
                 "width": 215.0,
                 "height": 280.0,
+                "min": "{ 0, 0 }",
+                "max": "{ 0, 0 }",
                 "render": true
             }
         },
@@ -32,6 +29,25 @@
                 },
                 "scale": 0.847000002861023,
                 "fontID": 0
+            }
+        },
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "width": 209,
+                        "height": 272
+                    }
+                },
+                "spriteName": "BG_Lv1"
             }
         }
     ]

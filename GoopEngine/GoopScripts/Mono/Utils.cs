@@ -251,6 +251,15 @@ namespace GoopScripts.Mono
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static void GameSystemResolved();
-	}
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetQueueCardID(uint queueEntity, int queueIndex, int cardID);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetHandCardID(uint handEntity, int handIndex, int cardID);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SendString(string s);
+  }
 
 }

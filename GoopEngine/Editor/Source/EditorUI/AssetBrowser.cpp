@@ -42,10 +42,10 @@ void AssetBrowser::CreateContentDir()
 
 	if (Button("Reload Library"))
 	{
-		std::cout << "Reload Asset Browser" << std::endl;
-		assetManager.LoadConfigData("./Assets/Config.cfg");
-		assetManager.LoadFiles();
-		of.LoadPrefabsFromFile();
+		// std::cout << "Reload Asset Browser" << std::endl;
+		GE::Debug::ErrorLogger::GetInstance().LogError("=== [ Reloading Asset Browser ] ===");
+
+		GoopUtils::ReloadFileData();
 	}
 
 	assetsDirectory = assetManager.GetConfigData<std::string>("Assets Dir");
@@ -108,10 +108,10 @@ void AssetBrowser::CreateContentView()
 
 		std::string path = file.path().filename().string();
 		const char* pathCStr = path.c_str();
-		ImTextureID img = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
 
 		if (assetManager.ImageFileExt.find(extension) != std::string::npos)
 		{
+			ImTextureID img = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
 			BeginGroup();
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
 			ImVec2 imgsize{ 100, 100 };
@@ -197,17 +197,6 @@ void AssetBrowser::CreateContentView()
 		else
 		{
 			Text(pathCStr);
-			/*if (ImGui::BeginDragDropSource())
-			{
-				if (extension == m_prefabFile ||
-					extension == m_imageFile ||
-					assetManager.FontFileExt.find(extension) != std::string::npos)
-				{
-					ImGui::SetDragDropPayload("ASSET_BROWSER_IMAGE", pathCStr, strlen(pathCStr) + 1);
-					Text(pathCStr);
-				}
-				ImGui::EndDragDropSource();
-			}*/
 		}
 	}
 	EndGroup();

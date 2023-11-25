@@ -157,7 +157,7 @@ namespace {
     m_renderer.RenderObject(0, spriteData, xform);
 #endif
 
-
+    m_renderer.PreRenderSetup();
     for (auto& fbInfo : m_frameBuffers)
     {
       glBindFramebuffer(GL_FRAMEBUFFER, fbInfo.second.frameBuffer);
@@ -332,6 +332,11 @@ namespace {
 
     retval.vaoid = vaoid;
     return retval;
+  }
+
+  SpriteAnimationManager& GraphicsEngine::GetAnimManager()
+  {
+    return m_animManager;
   }
 
   void GraphicsEngine::DestroyTexture(GLuint texture)

@@ -5,11 +5,12 @@ namespace GE::Component
   struct SpriteAnim
   {
     SpriteAnim() = default;
-    SpriteAnim(Graphics::gObjID animID) : m_animID{ animID } {}
+    SpriteAnim(Graphics::gObjID animID) : animID{ animID } {}
 
-    f64 m_currTime{};
-    Graphics::gObjID m_animID{}; // object ID
-    u32 m_currFrame{};
+    f64 currTime{};
+    Graphics::gObjID animID{}; // object ID
+    u32 currFrame{};
+    u32 flags{};
   };
 }
 #endif

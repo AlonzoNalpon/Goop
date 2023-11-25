@@ -160,6 +160,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AI\TreeManager.cpp" />
+    <ClCompile Include="Source\EditorUI\EditorTheme.cpp" />
+    <ClCompile Include="Source\EditorUI\SpriteAnimEditor.cpp" />
     <ClCompile Include="Source\PrefabManager\PrefabManager.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptUtils.cpp" />
     <ClCompile Include="Source\Serialization\Registration\RegisterEnumsAndFuncs.cpp" />
@@ -309,6 +311,8 @@
     <ClInclude Include="Source\Component\CardHolder.h" />
     <ClInclude Include="Source\Component\CardHolderElem.h" />
     <ClInclude Include="Source\Component\Game.h" />
+    <ClInclude Include="Source\EditorUI\EditorTheme.h" />
+    <ClInclude Include="Source\EditorUI\SpriteAnimEditor.h" />
     <ClInclude Include="Source\Events\Events.h" />
     <ClInclude Include="Source\Fmod\FmodSystem.h" />
     <ClInclude Include="Source\Commands\CommandManager.h" />
@@ -354,6 +358,7 @@
     <ClInclude Include="Source\EditorUI\PrefabEditor.h" />
     <ClInclude Include="Source\EditorUI\SceneControls.h" />
     <ClInclude Include="Source\EditorUI\ToolBar.h" />
+    <ClInclude Include="Source\GameDef.h" />
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
     <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
     <ClInclude Include="Source\Graphics\Renderer\FrameBufferInfo.h" />

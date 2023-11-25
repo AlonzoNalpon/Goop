@@ -90,7 +90,9 @@ namespace Graphics {
     }
     // Getting the shader file
     std::ifstream ifs{ SHADER_PATH + filePath };
+#ifdef _DEBUG
     std::cout << SHADER_PATH + filePath << std::endl;
+#endif
     if (!ifs)
     {
       std::string errorStr{ "Unable to open shader file: " };

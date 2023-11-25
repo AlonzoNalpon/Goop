@@ -55,5 +55,19 @@ namespace GE
       GameTurnResolved() : Event(EVENT_TYPE::TURN_RESOLVED) {}
       inline std::string GetName() const noexcept override { return "Turn Resolved"; }
     };
+
+    class QuitGame : public Event
+    {
+    public:
+      QuitGame() : Event(EVENT_TYPE::QUIT_GAME) {}
+      inline std::string GetName() const noexcept override { return "Quit Game"; }
+    };
+
+    class ToggleFullscreen : public Event
+    {
+    public:
+      ToggleFullscreen() : Event(EVENT_TYPE::TOGGLE_FULLSCREEN) {}
+      inline std::string GetName() const noexcept override { return "Toggle Fullscreen"; }
+    };
   }
 }

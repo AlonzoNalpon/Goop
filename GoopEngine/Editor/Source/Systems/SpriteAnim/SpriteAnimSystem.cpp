@@ -29,11 +29,11 @@ namespace GE::Systems
       {
         // get the sprite animation
         Graphics::SpriteAnimation const& spriteAnim
-        { gEngine.animManager.GetAnim(animData->m_animID) };
+        { gEngine.animManager.GetAnim(animData->animID) };
 
 
         // setting the new sprite based on data
-        sprite->m_spriteData.info = spriteAnim.frames[animData->m_currFrame];
+        sprite->m_spriteData.info = spriteAnim.frames[animData->currFrame];
       }
     }
   }
@@ -54,27 +54,54 @@ namespace GE::Systems
       {
         // get the sprite animation
         Graphics::SpriteAnimation const& spriteAnim
-        { gEngine.animManager.GetAnim(animData->m_animID) };
+        { gEngine.animManager.GetAnim(animData->animID) };
+
+        if (spriteAnim.flags & Graphics::SPRITE_ANIM_FLAGS::FINISHED)
+          continue; // we skip those that finished
 
         // Updating sprite animation data
         {
           // Update the timer and see if frame should be changed
-          animData->m_currTime += dt;
-          if (animData->m_currTime >= spriteAnim.speed)
+          animData->currTime += dt;
+          if (animData->currTime >= spriteAnim.speed)
           {
-            animData->m_currTime -= spriteAnim.speed; // reset speed for next frame
+            animData->currTime -= spriteAnim.speed; // reset speed for next frame
             // move to next frame, or wrap back to start
-            u32 const newFrame{ (animData->m_currFrame + 1) };
-            animData->m_currFrame = (newFrame >= spriteAnim.frames.size() ?
-              0 : newFrame);
+            u32 const newFrame{ (animData->currFrame + 1) };
+
+            // If we reached the end of the spritesheet
+            if (newFrame >= spriteAnim.frames.size())
+            {
+              // If it's a looping animation
+              if (animData->flags & Graphics::SPRITE_ANIM_FLAGS::LOOPING)
+                animData->currFrame = 0; // it goes back to 0
+              else
+                animData->flags |= Graphics::SPRITE_ANIM_FLAGS::FINISHED; // and now set to finished
+            }
+            else
+              animData->currFrame = newFrame;
           }
         }
 
         // setting the new sprite based on data
-        sprite->m_spriteData.info = spriteAnim.frames[animData->m_currFrame];
+        sprite->m_spriteData.info = spriteAnim.frames[animData->currFrame];
       }
     }
     frc.EndSystemTimer("Sprite Animation");
+  }
+
+  void SpriteAnimSystem::SetAnimation(ECS::Entity entity, size_t animID)
+  {
+    static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+    auto* spriteAnim = ecs.GetComponent<Component::SpriteAnim>(entity);
+    auto const& animManager = Graphics::GraphicsEngine::GetInstance().animManager;
+    NULL_CHECK_RET(spriteAnim);
+
+    spriteAnim->animID = animID;
+    spriteAnim->currFrame = 0;
+    spriteAnim->flags = animManager.GetAnim(spriteAnim->animID).flags;
+    spriteAnim->flags &= ~Graphics::SPRITE_ANIM_FLAGS::FINISHED; // we're not finished anymore
+    spriteAnim->currTime = 0.0;
   }
 
 }

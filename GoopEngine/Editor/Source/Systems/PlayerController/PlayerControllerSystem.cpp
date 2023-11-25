@@ -98,17 +98,17 @@ void PlayerControllerSystem::HandleEvent(Events::Event* event)
 			KEY_CODE const key{ static_cast<Events::KeyHeldEvent*>(event)->GetKey() };
 			if (key == GPK_K)
 			{
-				spriteAnim->m_currFrame = 0;
-				spriteAnim->m_currTime = 0.0;
+				spriteAnim->currFrame = 0;
+				spriteAnim->currTime = 0.0;
 				// changing sprite
-				if (spriteAnim->m_animID == sharkAnimID)
+				if (spriteAnim->animID == sharkAnimID)
 				{
-					spriteAnim->m_animID = wormAnimID;
+					spriteAnim->animID = wormAnimID;
 					sprite->m_spriteData.texture = wormSpriteID;
 				}
-				else if (spriteAnim->m_animID == wormAnimID)
+				else if (spriteAnim->animID == wormAnimID)
 				{
-					spriteAnim->m_animID = sharkAnimID;
+					spriteAnim->animID = sharkAnimID;
 					sprite->m_spriteData.texture = sharkSpriteID;
 				}
 			}

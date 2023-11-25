@@ -43,7 +43,7 @@ namespace GoopScripts.Gameplay
       // Attack cards causes crash
       m_cardQueue[0] = CardBase.CardID.BASIC_NORMAL_SHIELD;
       m_cardQueue[1] = CardBase.CardID.BASIC_NORMAL_BUFF;
-      m_cardQueue[2] = CardBase.CardID.PLAYER_DEBUFF_FLASH_BANG;
+      m_cardQueue[2] = CardBase.CardID.BASIC_NORMAL_SHIELD;
 
 			m_hand = new CardBase.CardID[5];
 			for (int i = 0; i < m_hand.Length; ++i)
@@ -114,5 +114,15 @@ namespace GoopScripts.Gameplay
 
       return dmgDealt;
     }
-	}
+
+    public void SetCardInHand(int index, CardBase.CardID cardID)
+    {
+      m_hand[index] = cardID;
+    }
+
+    public void SetCardInQueue(int index, CardBase.CardID cardID)
+    {
+      m_cardQueue[index] = cardID;
+    }
+  }
 }
