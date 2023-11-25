@@ -104,7 +104,6 @@ namespace GE::ObjectFactory
    ************************************************************************/
     void ClearSceneObjects();
 
-  private:
     /*!*********************************************************************
     \brief
       Loads the data into the class map.
@@ -113,6 +112,7 @@ namespace GE::ObjectFactory
     ************************************************************************/
     void AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const;
 
+  private:
     /*!*********************************************************************
     \brief
       Clones the component the source entity to the destination entity

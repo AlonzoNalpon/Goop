@@ -1,6 +1,7 @@
 #include<pch.h>
 #include <Commands/ImGuiCommands.h>
 #include <Serialization/Serializer.h>
+#include <ObjectFactory/ObjectFactory.h>
 
 #include <Component/BoxCollider.h>
 #include <Component/Camera.h>
@@ -44,9 +45,8 @@ RemoveObjectCmd::RemoveObjectCmd(GE::ECS::Entity e)
 	{
 		rttr::variant inst = Serialization::Serializer::GetEntityComponent(e, i);
 
-		// skip if component wasn't found
-		if (!inst.is_valid()) { continue; }
-		m_entityData.m_compList.emplace(i, inst);
+		if (!inst.is_valid()) {  continue; }
+		m_entityData.m_compList.push_back(inst);
 	}
 	std::set<ECS::Entity>& children = ecs.GetChildEntities(e);
 
@@ -68,7 +68,7 @@ RemoveObjectCmd::EntityTemplate RemoveObjectCmd::SaveEntityData(GE::ECS::Entity 
 
 			// skip if component wasn't found
 			if (!inst.is_valid()) { continue; }
-			newEntityTemp.m_compList.emplace(j, inst);
+			newEntityTemp.m_compList.push_back(inst);
 		}
 		std::set<ECS::Entity>& grandChildren = ecs.GetChildEntities(e);
 
@@ -88,15 +88,25 @@ void RemoveObjectCmd::Execute()
 
 void RemoveObjectCmd::Undo()
 {
+
+	for (rttr::variant inst: m_entityData.m_compList)
+	{
+		if (inst.get_type().get_wrapped_type() == rttr::type::get<Component::Transform*>())
+		{
+			GE::Component::Transform* tr = inst.get_value<GE::Component::Transform*>();
+			std::cout << tr->m_pos;
+		}
+	}
+
 	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 	m_entityData.m_entityID = ecs.CreateEntity();
 	ecs.SetEntityName(m_entityData.m_entityID, m_entityData.m_entityName);
-	RestoreComp(m_entityData.m_entityID, m_entityData.m_compList);
+	GE::ObjectFactory::ObjectFactory* oj = &GE::ObjectFactory::ObjectFactory::GetInstance();
+	oj->AddComponentsToEntity(m_entityData.m_entityID, m_entityData.m_compList);
 	ecs.SetParentEntity(m_entityData.m_entityID);
 
 	for (EntityTemplate& entTemp : m_entityData.m_childList)
 	{
-		//std::cout << "GET CHILD\n";
 		GE::ECS::Entity child = RestoreEntityData(entTemp);
 		ecs.SetParentEntity(child, m_entityData.m_entityID);
 		ecs.AddChildEntity(m_entityData.m_entityID, child);
@@ -116,7 +126,8 @@ GE::ECS::Entity RemoveObjectCmd::RestoreEntityData(EntityTemplate& eTemp)
 	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 	eTemp.m_entityID = ecs.CreateEntity();
 	ecs.SetEntityName(eTemp.m_entityID, eTemp.m_entityName);
-	RestoreComp(eTemp.m_entityID, eTemp.m_compList);
+	GE::ObjectFactory::ObjectFactory* oj = &GE::ObjectFactory::ObjectFactory::GetInstance();
+	oj->AddComponentsToEntity(eTemp.m_entityID, eTemp.m_compList);
 
 
 	for (EntityTemplate& entTemp : eTemp.m_childList)
@@ -127,47 +138,6 @@ GE::ECS::Entity RemoveObjectCmd::RestoreEntityData(EntityTemplate& eTemp)
 	}
 
 	return eTemp.m_entityID;
-}
-
-void RemoveObjectCmd::RestoreComp(GE::ECS::Entity entityID, std::map<ECS::COMPONENT_TYPES, rttr::variant>& compList)
-{
-	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::TRANSFORM); it != compList.end())
-	{
-		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Transform*>());
-	}
-		
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::BOX_COLLIDER); it != compList.end())
-		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::BoxCollider*>());
-
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::VELOCITY); it != compList.end())
-		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Velocity*>());
-
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::SPRITE); it != compList.end())
-		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Sprite*>());
-
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::SPRITE_ANIM); it != compList.end())
-		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::SpriteAnim*>());
-
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::TWEEN); it != compList.end())
-		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Tween*>());
-
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::SCRIPTS); it != compList.end())
-		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Scripts*>());
-
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::DRAGGABLE); it != compList.end())
-		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Transform*>());
-
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::ENEMY_AI); it != compList.end())
-		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::EnemyAI*>());
-
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::AUDIO); it != compList.end())
-		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::Audio*>());
-
-	if (auto it = compList.find(GE::ECS::COMPONENT_TYPES::GE_BUTTON); it != compList.end())
-		ecs.AddComponent(entityID, *it->second.get_value<GE::Component::GE_Button*>());
-
 }
 
 

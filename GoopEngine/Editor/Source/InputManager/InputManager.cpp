@@ -136,6 +136,10 @@ void InputManager::DispatchInputEvents()
 	{
 		eventMan.Dispatch(KeyTriggeredEvent(GPK_ESCAPE));
 	}
+	if (IsKeyTriggered(GPK_DELETE))
+	{
+		eventMan.Dispatch(KeyTriggeredEvent(GPK_DELETE));
+	}
 	if (IsKeyTriggered(GPK_F11))
 	{
 		eventMan.Dispatch(ToggleFullscreen());

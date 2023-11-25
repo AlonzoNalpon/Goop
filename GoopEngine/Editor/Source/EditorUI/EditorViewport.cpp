@@ -15,6 +15,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/GraphicsEngine.h>
 #include <ImGui/imgui.h>
 #include <EditorUI/ImGuiUI.h>
+#include <Events/InputEvents.h>
+#include <Commands/CommandManager.h>
+
 
 #include <Component/Transform.h>
 #include <Component/BoxCollider.h>
@@ -45,6 +48,7 @@ namespace GE::EditorGUI
   }
 
   bool EditorViewport::focused{};
+  bool EditorViewport::m_deleteKeyTriggered{ false };
   bool const& EditorViewport::isFocused{ focused };
 
 
@@ -252,6 +256,17 @@ namespace GE::EditorGUI
         else
           mouseLHeld = false;
       }
+
+      // If the delete key is pressed, delete the selected en
+      if (m_deleteKeyTriggered && !ImGuizmo::IsUsing() && ImGuiHelper::GetSelectedEntity() != GE::ECS::INVALID_ID)
+      {
+        GE::CMD::RemoveObjectCmd newRemCmd = GE::CMD::RemoveObjectCmd(ImGuiHelper::GetSelectedEntity());
+        GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+        cmdMan.AddCommand(newRemCmd);
+        m_deleteKeyTriggered = false;
+        GE::ECS::Entity Inv = GE::ECS::INVALID_ID;
+        ImGuiHelper::SetSelectedEntity(Inv);
+      }
     }
     else
       focused = false;
@@ -263,8 +278,8 @@ namespace GE::EditorGUI
     // Get the size of the GLFW window
     ImGuiIO& io = ImGui::GetIO();
     windowSize = { io.DisplaySize.x, io.DisplaySize.y };
-    viewportSize = ImGui::GetContentRegionAvail();  // Get the top-left position of the viewport
-    viewportPosition = ImGui::GetCursorScreenPos();
+    viewportSize = ImGui::GetContentRegionAvail();  
+    viewportPosition = ImGui::GetCursorScreenPos(); // Get the top-left position of the viewport
     viewportEnd = ImVec2(viewportPosition.x + viewportSize.x, viewportPosition.y + viewportSize.y);
 
     uv0.x = 1.f + (viewportEnd.x - windowSize.x) / windowSize.x;
@@ -276,5 +291,20 @@ namespace GE::EditorGUI
     GLuint texture = fbInfo.renderTexture;
     ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
   }
+
+  void EditorViewport::HandleEvent(Events::Event* event)
+  {
+    if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
+    {
+
+      if (static_cast<Events::KeyTriggeredEvent*>(event)->GetKey() == GPK_DELETE)
+      {
+        m_deleteKeyTriggered = true;
+      }
+    }
+  }
+
 }
+
+
 #endif
