@@ -5,7 +5,8 @@
 #include <Component/Card.h>
 namespace GE
 {
-
+  // ALL LINKED FILES - if you edit one, you must edit the rest
+  // Card.h, RegisterEnumsAndFuncs, CardBase.cs, <this file>(GameDef.h)
   inline constexpr std::array<const char*, Component::Card::CardID::TOTAL_CARDS> CardSpriteNames
   {
     "DAA2402_CardBaseBack_v01",									  // NO_CARD 
