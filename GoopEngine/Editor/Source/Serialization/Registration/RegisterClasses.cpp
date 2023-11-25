@@ -48,6 +48,13 @@ RTTR_REGISTRATION
     .property("y", &glm::vec2::y)
     ;
 
+  rttr::registration::class_<Graphics::Colorf>("Colorf")
+    .property("r", &Graphics::Colorf::r)
+    .property("g", &Graphics::Colorf::g)
+    .property("b", &Graphics::Colorf::b)
+    .property("a", &Graphics::Colorf::a)
+    ;
+
   rttr::registration::class_<AI::NodeTemplate>("NodeTemplate")
     .property("nodeType", &AI::NodeTemplate::m_nodeType)
     .property("parentNode", &AI::NodeTemplate::m_parentNode)
@@ -62,12 +69,24 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
-    .constructor<>()
     .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
     .property("cardEntity", &Component::CardHolder::CardHolderEntry::cardEntity)
     .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)
     .property("defaultSpriteID", &Component::CardHolder::CardHolderEntry::defaultSpriteID)
     .property("used", &Component::CardHolder::CardHolderEntry::used)
+    ;
+
+  rttr::registration::class_<Component::Audio::Sound>("Sound")
+    .property("sound", &Component::Audio::Sound::m_sound)
+    .property("loop", &Component::Audio::Sound::m_loop)
+    .property("playOnStart", &Component::Audio::Sound::m_playOnStart)
+    .property("channel", &Component::Audio::Sound::m_channel)
+    .property("volume", &Component::Audio::Sound::m_volume)
+    ;
+
+  rttr::registration::class_<Component::Tween::Action>("Action")
+    .property("target", &Component::Tween::Action::m_target)
+    .property("duration", &Component::Tween::Action::m_duration)
     ;
 
   rttr::registration::class_<Graphics::SpriteSubData>("SpriteSubData")

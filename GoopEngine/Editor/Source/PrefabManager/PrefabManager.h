@@ -27,6 +27,8 @@ namespace GE
       ************************************************************************/
       std::string GetEntityPrefab(ECS::Entity entity) const;
 
+      void CreatePrefabFromEntity(ECS::Entity entity, std::string const& name) const;
+
       void UpdateEntitiesFromPrefab();
 
     private:

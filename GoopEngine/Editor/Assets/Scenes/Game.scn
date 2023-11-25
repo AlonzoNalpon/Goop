@@ -16,7 +16,7 @@
             {
                 "BoxCollider": {
                     "center": "{ -320.445, 85.3704 }",
-                    "width": 350.0,
+                    "width": 350.0000052154064,
                     "height": 600.0000089406967,
                     "min": "{ -495.445, -214.63 }",
                     "max": "{ -145.445, 385.37 }",
@@ -32,7 +32,7 @@
                                 "y": 0.0
                             },
                             "texDims": {
-                                "x": 0.25,
+                                "x": 1.0,
                                 "y": 1.0
                             },
                             "width": 875,
@@ -44,19 +44,33 @@
             },
             {
                 "SpriteAnim": {
-                    "currTime": "SS_LeahIdle",
-                    "currFrame": "SS_LeahIdle",
-                    "flags": "SS_LeahIdle"
+                    "name": "SS_LeahIdle"
                 }
             },
             {
                 "Tween": {
-                    "tweens": [],
+                    "tweens": [
+                        {
+                            "target": "{ 0, 0, 0 }",
+                            "duration": 0.0
+                        }
+                    ],
                     "timeTaken": 3.0,
                     "timeElapsed": 0.039999999999981814,
                     "originalPos": "{ 784, 250, 0 }",
                     "started": true,
                     "paused": false
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 0,
+                    "scriptList": [
+                        {
+                            "scriptName": "PlayerScriptTest",
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             }
         ]

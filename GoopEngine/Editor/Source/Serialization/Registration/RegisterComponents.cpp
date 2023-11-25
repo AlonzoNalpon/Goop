@@ -88,24 +88,6 @@ RTTR_REGISTRATION
     .property("treeID", &Component::EnemyAI::m_treeID)
     ;
 
-  rttr::registration::class_<Graphics::Colorf>("Colorf")
-    .property("r", &Graphics::Colorf::r)
-    .property("g", &Graphics::Colorf::g)
-    .property("b", &Graphics::Colorf::b)
-    .property("a", &Graphics::Colorf::a)
-    ;
-  rttr::registration::class_<Component::Text>("Text")
-    .constructor<>()
-    .property("text", &Component::Text::m_text)
-    .property("clr", &Component::Text::m_clr)
-    .property("scale", &Component::Text::m_scale)
-    .property("fontID", &Component::Text::m_fontID)
-    ;
-
-  rttr::registration::class_<Component::Tween::Action>("Action")
-    .property("target", &Component::Tween::Action::m_target)
-    .property("duration", &Component::Tween::Action::m_duration)
-    ;
   rttr::registration::class_<Component::Tween>("Tween")
     .constructor<>()
     .property("tweens", &Component::Tween::m_tweens)
@@ -116,12 +98,12 @@ RTTR_REGISTRATION
     .property("paused", &Component::Tween::m_paused)
     ;
 
-  rttr::registration::class_<Component::Audio::Sound>("Sound")
-    .property("sound", &Component::Audio::Sound::m_sound)
-    .property("loop", &Component::Audio::Sound::m_loop)
-    .property("playOnStart", &Component::Audio::Sound::m_playOnStart)
-    .property("channel", &Component::Audio::Sound::m_channel)
-    .property("volume", &Component::Audio::Sound::m_volume)
+  rttr::registration::class_<Component::Text>("Text")
+    .constructor<>()
+    .property("text", &Component::Text::m_text)
+    .property("clr", &Component::Text::m_clr)
+    .property("scale", &Component::Text::m_scale)
+    .property("fontID", &Component::Text::m_fontID)
     ;
 
   rttr::registration::class_<Component::Audio>("Audio")

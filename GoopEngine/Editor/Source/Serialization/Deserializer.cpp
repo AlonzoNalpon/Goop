@@ -20,7 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ScriptEngine/ScriptManager.h>
 
 #ifdef _DEBUG
-//#define DESERIALIZER_DEBUG
+#define DESERIALIZER_DEBUG
 #endif
 
 using namespace GE;
@@ -372,8 +372,8 @@ void Deserializer::DeserializeBasedOnType(rttr::variant& object, rapidjson::Valu
       object = Component::ScriptInstance(value["scriptName"].GetString());
       DeserializeClassTypes(object, value);
     }
-    else if (!InvokeConstructor(object, object.get_type(), value))
-      DeserializeClassTypes(object, value);
+   // else if (!InvokeConstructor(object, object.get_type(), value))
+    DeserializeClassTypes(object, value);
     break;
   }
   case rapidjson::kArrayType:
@@ -383,15 +383,6 @@ void Deserializer::DeserializeBasedOnType(rttr::variant& object, rapidjson::Valu
     {
       rttr::variant_sequential_view view = object.create_sequential_view();
       DeserializeSequentialContainer(view, value);
-#ifdef DESERIALIZER_DEBUG
-      if (type == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>()) {
-        GE::MONO::ScriptFieldInstance<std::vector<int>> const& vec = object.get_value< GE::MONO::ScriptFieldInstance<std::vector<int>>>();
-        for (auto const& j : vec.m_data) {
-          std::cout << j << " ";
-        }
-      }
-      std::cout << "\n";
-#endif
     }
     else if (type.is_associative_container())
     {
@@ -454,7 +445,7 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
     // else if key-value pair
     else if (indexVal.IsObject())
     {
-      rttr::variant elem{ view.get_value(i) };
+      rttr::variant elem{ view.get_value(i).get_type().is_wrapper() ? view.get_value(i).extract_wrapped_value() : view.get_value(i) };
       DeserializeBasedOnType(elem, indexVal);
       if (!view.set_value(i, elem))
       {
