@@ -48,4 +48,23 @@ void PrefabManager::UpdateEntitiesFromPrefab()
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Entities in scene have been updated with prefab changes");
 }
 
+void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const& name) const
+{
+  ObjectFactory::VariantPrefab prefab{ name };
+  for (unsigned i{}; i < static_cast<unsigned>(ECS::COMPONENT_TYPES::COMPONENTS_TOTAL); ++i)
+  {
+    rttr::variant comp{ Serialization::Serializer::GetEntityComponent(entity, static_cast<ECS::COMPONENT_TYPES>(i)) };
+    if (!comp.is_valid()) { continue; }
+    
+    prefab.m_components.emplace_back(std::move(comp));
+  }
+
+  Assets::AssetManager& am{ Assets::AssetManager::GetInstance() };
+  Serialization::Serializer::SerializeVariantToPrefab(prefab,
+    am.GetConfigData<std::string>("Prefabs Dir") + name + am.GetConfigData<std::string>("Prefab File Extension"));
+  am.ReloadFiles(Assets::FileType::PREFAB);
+
+  GE::Debug::ErrorLogger::GetInstance().LogMessage(name + " saved to Prefabs");
+}
+
 #endif
