@@ -3,14 +3,14 @@
         "Name": "Gizmo Tester",
         "ID": 0,
         "isActive": true,
-        "Parent": null,
+        "Parent": 7,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
                     "worldPos": "{ -800, 350, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -45,17 +45,17 @@
         ]
     },
     {
-        "Name": "Prefab Tester",
+        "Name": "[Image] Prefab Tester Base",
         "ID": 1,
         "isActive": true,
-        "Parent": null,
+        "Parent": 8,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 61.2976, 260.094, 0 }",
+                    "worldPos": "{ 61.2976, 260.094, -1 }",
                     "worldScale": "{ 0.75, 0.75, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -93,16 +93,16 @@
         "Name": "Gizmo Target",
         "ID": 2,
         "isActive": true,
-        "Parent": null,
+        "Parent": 7,
         "Child Entities": [
             3
         ],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -500, 350, 0 }",
+                    "worldPos": "{ -500, 350, -1 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -126,7 +126,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -543.611, 404.63, 0 }",
+                    "worldPos": "{ -543.611, 404.63, -1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -150,14 +150,14 @@
         "Name": "GoNextButtonGhost",
         "ID": 4,
         "isActive": true,
-        "Parent": null,
+        "Parent": 10,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
                     "worldPos": "{ 786, -445.5, 0 }",
                     "worldScale": "{ 0.7, 0.7, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -185,23 +185,23 @@
         "Name": "Player",
         "ID": 5,
         "isActive": true,
-        "Parent": null,
+        "Parent": 9,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 281.266, 226.292, 0 }",
+                    "worldPos": "{ 200, -431.852, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 281.266, 226.292 }",
-                    "width": 100.0,
-                    "height": 100.0,
-                    "min": "{ 231.266, 176.292 }",
-                    "max": "{ 331.266, 276.292 }",
+                    "center": "{ 200, -431.852 }",
+                    "width": 30.0,
+                    "height": 60.0,
+                    "min": "{ 185, -461.852 }",
+                    "max": "{ 215, -401.852 }",
                     "render": true
                 }
             },
@@ -217,11 +217,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 768,
-                            "height": 128
+                            "width": 30,
+                            "height": 60
                         }
                     },
-                    "spriteName": "SS_MineWorm"
+                    "spriteName": "Player"
                 }
             },
             {
@@ -240,23 +240,23 @@
         "Name": "Enemy",
         "ID": 6,
         "isActive": true,
-        "Parent": null,
+        "Parent": 9,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -163.712, 228.907, 0 }",
+                    "worldPos": "{ -200, -431.852, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -163.712, 228.907 }",
-                    "width": 100.0,
-                    "height": 100.0,
-                    "min": "{ -213.712, 178.907 }",
-                    "max": "{ -113.712, 278.907 }",
+                    "center": "{ -200, -431.852 }",
+                    "width": 30.0,
+                    "height": 60.0,
+                    "min": "{ -215, -461.852 }",
+                    "max": "{ -185, -401.852 }",
                     "render": true
                 }
             },
@@ -269,19 +269,93 @@
                                 "y": 0.0
                             },
                             "texDims": {
-                                "x": 0.25,
+                                "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 41,
-                            "height": 38
+                            "width": 30,
+                            "height": 60
                         }
                     },
-                    "spriteName": "SS_Shark"
+                    "spriteName": "Enemy"
                 }
             },
             {
                 "EnemyAI": {
                     "treeID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Group] Gizmo Test",
+        "ID": 7,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            0,
+            2
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Group] Prefab Test",
+        "ID": 8,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            1
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Group] Node Editor Test",
+        "ID": 9,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            5,
+            6
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, -431.852, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Group] Prefab Drag & Drop Test",
+        "ID": 10,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            4
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             }
         ]
