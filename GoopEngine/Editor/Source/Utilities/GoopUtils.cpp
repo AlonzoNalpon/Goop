@@ -34,7 +34,7 @@ namespace GE::GoopUtils
 		am.ClearConfigData();
 		am.LoadConfigData("./Assets/Config.cfg");
 		am.ReloadAllFiles();
-		of.Reload();
+		of.ReloadPrefabs();
 	}
 
   std::string GetFileExtension(const std::string& filePath)

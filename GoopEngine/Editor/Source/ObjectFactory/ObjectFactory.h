@@ -48,12 +48,6 @@ namespace GE::ObjectFactory
       Empties the loaded map of object data.
     ************************************************************************/
     void EmptyMap();
-    
-    /*!*********************************************************************
-    \brief
-      Extracts a component from an rttr::variant and adds it to an entity
-    ************************************************************************/
-    void AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const;
 
     /*!*********************************************************************
     \brief
@@ -63,12 +57,6 @@ namespace GE::ObjectFactory
       dVec2&& (Position of the cloned object)
     ************************************************************************/
     void CloneObject(ECS::Entity entity, ECS::Entity parent = ECS::INVALID_ID) const;
-
-    /*!*********************************************************************
-    \brief
-      Clears the prefab container and loads prefabs from files again
-    ************************************************************************/
-    void Reload();
 
     /*!*********************************************************************
     \brief     
@@ -106,13 +94,35 @@ namespace GE::ObjectFactory
 
     /*!*********************************************************************
     \brief
-      Loads the data into the class map.
-    \param
-      String& (filepath of the serialized file)
+     Extracts a component from an rttr::variant and adds it to an entity
+   ************************************************************************/
+    void AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const;
+
+    /*!*********************************************************************
+    \brief
+      Adds all components within a vector of rttr::variants to an entity
     ************************************************************************/
     void AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const;
 
+    /*!*********************************************************************
+    \brief
+      Gets the deserialized data of a prefab in the form of a VariantPrefab
+      object. Throws a GE::Debug::Exception if not found.
+    \param name
+      The name of the prefab
+    \return
+      The VariantPrefab object
+    ************************************************************************/
+    VariantPrefab const& GetVariantPrefab(std::string const& name) const;
+
+    /*!*********************************************************************
+    \brief
+      Clears the prefab container and loads prefabs from files again
+    ************************************************************************/
+    void ReloadPrefabs();
+
   private:
+
     /*!*********************************************************************
     \brief
       Clones the component the source entity to the destination entity

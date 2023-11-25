@@ -199,6 +199,7 @@ void AssetBrowser::CreateContentView()
 			Text(pathCStr);
 		}
 	}
+
 	EndGroup();
 }
 
