@@ -31,6 +31,8 @@ namespace GE
       static std::string m_currentFilepath;  // current prefab being edited
       static bool m_isEditing;
 
+      static void ResetPrefabEditor();
+
       /*!*********************************************************************
       \brief
         Helper function to generate UI for Math::dVec3s.

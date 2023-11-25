@@ -38,6 +38,19 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+				Plays a random sound in the component
+			************************************************************************/
+			void PlayRandom()
+			{
+				int index = GE::GoopUtils::RandomValue(0, static_cast<int>(m_sounds.size() - 1));
+				auto& sound{ m_sounds[index] };
+				sound.m_paused = false;
+				sound.m_lastPausedState = sound.m_paused;
+				GE::fMOD::FmodSystem::GetInstance().PlaySound(sound.m_sound, sound.m_volume, sound.m_channel, sound.m_loop);
+			}
+
+			/*!*********************************************************************
+			\brief
 				Plays a sound
 			************************************************************************/
 			void Play(std::string soundName)

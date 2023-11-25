@@ -20,7 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ScriptEngine/ScriptManager.h>
 
 #ifdef _DEBUG
-//#define DESERIALIZER_DEBUG
+#define DESERIALIZER_DEBUG
 #endif
 
 using namespace GE;
@@ -378,8 +378,8 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
     // else if key-value pair
     else if (indexVal.IsObject())
     {
-      rttr::variant elem{ view.get_value(i).extract_wrapped_value() };
-      DeserializeBasedOnType(elem, indexVal);
+      rttr::variant elem{ view.get_value(i) };
+      DeserializeComponent(elem, elem.get_type().get_wrapped_type().get_raw_type(), indexVal);
       if (!view.set_value(i, elem))
       {
         if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))
@@ -500,18 +500,21 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
   }  
   else if (type == rttr::type::get<Component::SpriteAnim>())
   {
-    rapidjson::Value::ConstMemberIterator iter{ value.FindMember(type.get_properties().begin()->get_name().to_string().c_str()) };
-    if (iter == value.MemberEnd())
+    try
     {
-      std::ostringstream oss{};
-      oss << "Unable to find " << type.get_properties().begin()->get_name().to_string().c_str()
-        << " property in " << type.get_name().to_string();
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-      return true;
-    }
+      Component::SpriteAnim sprAnim{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(value["name"].GetString()) };
+      //sprAnim.currFrame = value["currFrame"].GetUint();
+      //sprAnim.currTime = value["currTime"].GetDouble();
+      //sprAnim.flags = value["currTime"].GetUint();
 
-    compVar = type.create({ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(iter->value.GetString()) });
-    return true;
+      compVar = std::make_shared<Component::SpriteAnim>(sprAnim);
+    }
+    catch (...)
+    {
+      compVar = {};
+      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to deserialize sprite component");
+    }
+      return true;
   }
   else if (type == rttr::type::get<Component::Scripts>())
   {

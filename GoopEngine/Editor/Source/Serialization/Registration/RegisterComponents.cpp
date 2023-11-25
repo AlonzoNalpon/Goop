@@ -74,7 +74,7 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::SpriteAnim>("SpriteAnim")
     .constructor<Graphics::gObjID>()
     .property("currTime", &Component::SpriteAnim::currTime)
-    .property("name", &Component::SpriteAnim::animID)
+    //.property("name", &Component::SpriteAnim::animID)
     .property("currFrame", &Component::SpriteAnim::currFrame)
     .property("flags", &Component::SpriteAnim::flags)
     ;
@@ -178,6 +178,7 @@ RTTR_REGISTRATION
     .property("playerHand", &Component::Game::m_playerHand)
     .property("playerQueue", &Component::Game::m_playerQueue)
     .property("enemyQueue", &Component::Game::m_enemyQueue)
+    .property("gameSystemScript", &Component::Game::m_gameSystemScript)
     ;
 
 } // RTTR Registration

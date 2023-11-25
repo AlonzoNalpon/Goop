@@ -16,11 +16,11 @@
             {
                 "BoxCollider": {
                     "center": "{ -320.445, 85.3704 }",
-                    "width": 150.0,
-                    "height": 150.0,
-                    "min": "{ -395.445, 10.3704 }",
-                    "max": "{ -245.445, 160.37 }",
-                    "render": true
+                    "width": 350.0,
+                    "height": 600.0000089406967,
+                    "min": "{ -495.445, -214.63 }",
+                    "max": "{ -145.445, 385.37 }",
+                    "render": false
                 }
             },
             {
@@ -63,7 +63,7 @@
         ]
     },
     {
-        "Name": "Entity 1",
+        "Name": "Button_EndTurn",
         "ID": 1,
         "isActive": true,
         "Parent": null,
@@ -71,9 +71,44 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, 0, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldPos": "{ 780, -445, 10 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 780, -445 }",
+                    "width": 322.5,
+                    "height": 115.5,
+                    "min": "{ 618.75, -502.75 }",
+                    "max": "{ 941.25, -387.25 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 215,
+                            "height": 77
+                        }
+                    },
+                    "spriteName": "Button_EndTurn"
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NEXT_TURN"
                 }
             }
         ]
@@ -108,7 +143,69 @@
                             "height": 1080
                         }
                     },
-                    "spriteName": "BG_Lv1"
+                    "spriteName": "DAA2402_InGame_Environment2_v05"
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "caveFighting",
+                            "loop": true,
+                            "playOnStart": true,
+                            "channel": "BGM",
+                            "volume": 0.800000011920929
+                        },
+                        {
+                            "sound": "CaveWithWaterDrops_Loop",
+                            "loop": true,
+                            "playOnStart": true,
+                            "channel": "SFX",
+                            "volume": 0.4860000014305115
+                        },
+                        {
+                            "sound": "Fog",
+                            "loop": true,
+                            "playOnStart": true,
+                            "channel": "BGM",
+                            "volume": 0.753000020980835
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Card Base",
+        "ID": 3,
+        "isActive": true,
+        "Parent": 15,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, -380, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1925,
+                            "height": 314
+                        }
+                    },
+                    "spriteName": "Hand_Base"
                 }
             }
         ]
@@ -152,7 +249,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, 0, 3 }",
+                    "worldPos": "{ -800, 0, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -163,22 +260,22 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 16,
-                            "defaultSpriteID": 2,
+                            "spriteID": 17,
+                            "defaultSpriteID": 73,
                             "used": false
                         },
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
-                            "spriteID": 19,
-                            "defaultSpriteID": 2,
+                            "spriteID": 22,
+                            "defaultSpriteID": 74,
                             "used": false
                         },
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
-                            "spriteID": 17,
-                            "defaultSpriteID": 2,
+                            "spriteID": 18,
+                            "defaultSpriteID": 21,
                             "used": false
                         }
                     ]
@@ -195,19 +292,19 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -800, 320, 3 }",
+                    "worldPos": "{ -800, 160, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -800, 320 }",
-                    "width": 182.0,
-                    "height": 256.0,
-                    "min": "{ -891, 192 }",
-                    "max": "{ -709, 448 }",
-                    "render": true
+                    "center": "{ -800, 160 }",
+                    "width": 165.0,
+                    "height": 165.0,
+                    "min": "{ -882.5, 77.5 }",
+                    "max": "{ -717.5, 242.5 }",
+                    "render": false
                 }
             },
             {
@@ -222,11 +319,52 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 178,
-                            "height": 250
+                            "width": 211,
+                            "height": 212
                         }
                     },
-                    "spriteName": "DAA2402_CardBaseBack_v01"
+                    "spriteName": "Queue_Sequence_1"
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "SFX_CardPlay1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        }
+                    ]
                 }
             },
             {
@@ -252,19 +390,19 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -800, 50, 3 }",
+                    "worldPos": "{ -800, -30, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -800, 50 }",
-                    "width": 182.0,
-                    "height": 256.0,
-                    "min": "{ -891, -78 }",
-                    "max": "{ -709, 178 }",
-                    "render": true
+                    "center": "{ -800, -30 }",
+                    "width": 165.0,
+                    "height": 165.0,
+                    "min": "{ -882.5, -112.5 }",
+                    "max": "{ -717.5, 52.5 }",
+                    "render": false
                 }
             },
             {
@@ -279,11 +417,52 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 178,
-                            "height": 250
+                            "width": 211,
+                            "height": 212
                         }
                     },
-                    "spriteName": "DAA2402_CardBaseBack_v01"
+                    "spriteName": "Queue_Sequence_2"
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "SFX_CardPlay1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        }
+                    ]
                 }
             },
             {
@@ -317,11 +496,11 @@
             {
                 "BoxCollider": {
                     "center": "{ -800, -220 }",
-                    "width": 182.0,
-                    "height": 256.0,
-                    "min": "{ -891, -348 }",
-                    "max": "{ -709, -92 }",
-                    "render": true
+                    "width": 165.0,
+                    "height": 165.0,
+                    "min": "{ -882.5, -302.5 }",
+                    "max": "{ -717.5, -137.5 }",
+                    "render": false
                 }
             },
             {
@@ -336,11 +515,52 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 178,
-                            "height": 250
+                            "width": 211,
+                            "height": 212
                         }
                     },
-                    "spriteName": "DAA2402_CardBaseBack_v01"
+                    "spriteName": "Queue_Sequence_3"
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "SFX_CardPlay1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        }
+                    ]
                 }
             },
             {
@@ -363,6 +583,7 @@
         "isActive": true,
         "Parent": null,
         "Child Entities": [
+            3,
             16,
             17,
             18,
@@ -372,7 +593,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, 0, 3 }",
+                    "worldPos": "{ 0, -385, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -388,19 +609,19 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -550, -350, 3 }",
+                    "worldPos": "{ -550, -385, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -550, -350 }",
+                    "center": "{ -550, -385 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -657, -500 }",
-                    "max": "{ -443, -200 }",
-                    "render": true
+                    "min": "{ -657, -535 }",
+                    "max": "{ -443, -235 }",
+                    "render": false
                 }
             },
             {
@@ -420,6 +641,47 @@
                         }
                     },
                     "spriteName": "DAA2402_Card_LeahAttack_Slash"
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "SFX_CardPlay1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        }
+                    ]
                 }
             },
             {
@@ -445,19 +707,19 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -290, -350, 3 }",
+                    "worldPos": "{ -290, -385, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -290, -350 }",
+                    "center": "{ -290, -385 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -397, -500 }",
-                    "max": "{ -183, -200 }",
-                    "render": true
+                    "min": "{ -397, -535 }",
+                    "max": "{ -183, -235 }",
+                    "render": false
                 }
             },
             {
@@ -477,6 +739,47 @@
                         }
                     },
                     "spriteName": "DAA2402_Card_LeahSpecial_Beam"
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "SFX_CardPlay1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        }
+                    ]
                 }
             },
             {
@@ -502,19 +805,19 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -30, -350, 3 }",
+                    "worldPos": "{ -30, -385, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -30, -350 }",
+                    "center": "{ -30, -385 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -137, -500 }",
-                    "max": "{ 77, -200 }",
-                    "render": true
+                    "min": "{ -137, -535 }",
+                    "max": "{ 77, -235 }",
+                    "render": false
                 }
             },
             {
@@ -534,6 +837,47 @@
                         }
                     },
                     "spriteName": "DAA2402_Card_LeahSpecial_Flash"
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "SFX_CardPlay1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        }
+                    ]
                 }
             },
             {
@@ -559,19 +903,19 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 230, -350, 3 }",
+                    "worldPos": "{ 230, -385, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 230, -350 }",
+                    "center": "{ 230, -385 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ 123, -500 }",
-                    "max": "{ 337, -200 }",
-                    "render": true
+                    "min": "{ 123, -535 }",
+                    "max": "{ 337, -235 }",
+                    "render": false
                 }
             },
             {
@@ -591,6 +935,47 @@
                         }
                     },
                     "spriteName": "DAA2402_Card_LeahMovement_Dash"
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "SFX_CardPlay1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        }
+                    ]
                 }
             },
             {
@@ -616,19 +1001,19 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 490, -350, 3 }",
+                    "worldPos": "{ 490, -385, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 490, -350 }",
+                    "center": "{ 490, -385 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ 383, -500 }",
-                    "max": "{ 597, -200 }",
-                    "render": true
+                    "min": "{ 383, -535 }",
+                    "max": "{ 597, -235 }",
+                    "render": false
                 }
             },
             {
@@ -648,6 +1033,47 @@
                         }
                     },
                     "spriteName": "DAA2402_Card_LeahMovement_Dash"
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "SFX_CardPlay1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        }
+                    ]
                 }
             },
             {
@@ -677,7 +1103,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, 0, 0 }",
+                    "worldPos": "{ 800, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -689,21 +1115,21 @@
                             "elemEntity": 22,
                             "cardEntity": 4294967295,
                             "spriteID": 20,
-                            "defaultSpriteID": 2,
+                            "defaultSpriteID": 73,
                             "used": false
                         },
                         {
                             "elemEntity": 23,
                             "cardEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 2,
+                            "defaultSpriteID": 74,
                             "used": false
                         },
                         {
                             "elemEntity": 24,
                             "cardEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 2,
+                            "defaultSpriteID": 21,
                             "used": false
                         }
                     ]
@@ -720,7 +1146,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 800, 320, 3 }",
+                    "worldPos": "{ 800, 160, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -737,11 +1163,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 178,
-                            "height": 250
+                            "width": 211,
+                            "height": 212
                         }
                     },
-                    "spriteName": "DAA2402_CardBaseBack_v01"
+                    "spriteName": "Queue_Sequence_1"
                 }
             },
             {
@@ -761,7 +1187,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 800, 50, 3 }",
+                    "worldPos": "{ 800, -30, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -778,11 +1204,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 178,
-                            "height": 250
+                            "width": 211,
+                            "height": 212
                         }
                     },
-                    "spriteName": "DAA2402_CardBaseBack_v01"
+                    "spriteName": "Queue_Sequence_2"
                 }
             },
             {
@@ -819,11 +1245,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 178,
-                            "height": 250
+                            "width": 211,
+                            "height": 212
                         }
                     },
-                    "spriteName": "DAA2402_CardBaseBack_v01"
+                    "spriteName": "Queue_Sequence_3"
                 }
             },
             {
@@ -837,7 +1263,7 @@
     {
         "Name": "[Folder] Menus",
         "ID": 26,
-        "isActive": true,
+        "isActive": false,
         "Parent": null,
         "Child Entities": [
             27,
@@ -857,7 +1283,7 @@
     {
         "Name": "[Menu] Pause Menu",
         "ID": 27,
-        "isActive": false,
+        "isActive": true,
         "Parent": 26,
         "Child Entities": [
             47,

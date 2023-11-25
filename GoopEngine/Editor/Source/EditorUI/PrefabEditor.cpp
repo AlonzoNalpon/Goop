@@ -20,6 +20,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Components.h>
 #include <Utilities/GoopUtils.h>
 #include <EditorUI/AssetBrowser.h>
+#include <algorithm>
+// Disable reinterpret to larger size
+#pragma warning(disable : 4312)
 
 using namespace GE::EditorGUI;
 using namespace ImGui;
@@ -86,21 +89,31 @@ void PrefabEditor::CreateContent()
   if (m_isEditing)
   {
     // iterate through components and render UI elements based on type
-    for (rttr::variant& component : m_currPrefab.m_components)
+    std::vector<rttr::variant>& components{ m_currPrefab.m_components };
+    for (rttr::variant& component : components)
     {
-      rttr::type const compType{ component.get_type().get_raw_type() };
+      bool hasSpriteAnim{ false };
+      for (rttr::variant& i : components) {
+        if (i.get_type().get_wrapped_type() == rttr::type::get<Component::SpriteAnim*>())
+        {
+          hasSpriteAnim = true; break;
+        }
+      }
+
+      rttr::type const compType{ component.get_type().get_wrapped_type().get_raw_type() };
       Text(compType.get_name().to_string().c_str());
       ImGui::NewLine();
 
       if (compType == rttr::type::get<Component::Sprite>())
       {
-        Component::Sprite& sprite = *component.get_value<std::shared_ptr<Component::Sprite>>();
+        Component::Sprite& sprite = *component.get_value<Component::Sprite*>();
         ImGui::Columns(2, 0, true);
         ImGui::SetColumnWidth(0, 118.f);
         ImGui::NextColumn();
 
-        unsigned long long val{ sprite.m_spriteData.texture };
-        ImageButton(reinterpret_cast<ImTextureID>(val), { 100, 100 }, { 0, 1 }, { 1, 0 });
+        ImVec2 const imgSize{ 100, 100 };
+        SetCursorPosX(GetContentRegionAvail().x / 2 - imgSize.x / 2);
+        ImageButton(reinterpret_cast<ImTextureID>(sprite.m_spriteData.texture), imgSize, { 0, 1 }, { 1, 0 });
         if (ImGui::BeginDragDropTarget())
         {
           if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
@@ -113,7 +126,13 @@ void PrefabEditor::CreateContent()
             }
           }
         }
-        ImGui::Columns(1);
+        //ImGui::Columns(1);
+
+        if (hasSpriteAnim) // If there's a sprite anim component, we shouldn't be able to edit
+        {
+          TextColored({ 1.f, 0.f, 0.f, 1.f }, "SpriteAnim detected! Unable to edit!");
+          BeginDisabled();
+        }
 
         Separator();
         BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
@@ -131,6 +150,7 @@ void PrefabEditor::CreateContent()
             {
               auto const& texture{ textureManager.GetTexture(it.second) };
               sprite.m_spriteData.texture = texture.textureHandle;
+              sprite.m_spriteName = textureManager.GetTextureName(sprite.m_spriteData.texture);
               sprite.m_spriteData.info.height = texture.height;
               sprite.m_spriteData.info.width = texture.width;
               sprite.m_spriteData.info.texDims = { 1.f, 1.f }; // default
@@ -139,22 +159,88 @@ void PrefabEditor::CreateContent()
           }
           EndCombo();
         }
+       
+        int imageDims[2]{ static_cast<int>(sprite.m_spriteData.info.width),
+                            static_cast<int>(sprite.m_spriteData.info.height) };
+        if (ImGui::InputInt("Image Width", &imageDims[0]))
+          imageDims[0] = imageDims[0] < 0 ? 0 : imageDims[0];
+        if (ImGui::InputInt("Image Height", &imageDims[1]))
+          imageDims[1] = imageDims[1] < 0 ? 0 : imageDims[1];
+        sprite.m_spriteData.info.width = static_cast<GLuint>(imageDims[0]);
+        sprite.m_spriteData.info.height = static_cast<GLuint>(imageDims[1]);
+        ImGui::InputFloat2("Tex Coords", &sprite.m_spriteData.info.texCoords.r);
+        ImGui::InputFloat2("Tex Dims", &sprite.m_spriteData.info.texDims.x);
+        if (ImGui::Button("Reset"))
+        {
+          auto const& texture{ textureManager.GetTexture(sprite.m_spriteData.texture) };
+          // Name's not necessary. Remove in the future if still not needed.
+          sprite.m_spriteName = textureManager.GetTextureName(sprite.m_spriteData.texture);
+          sprite.m_spriteData.texture = texture.textureHandle;
+          sprite.m_spriteName = textureManager.GetTextureName(sprite.m_spriteData.texture);
+          sprite.m_spriteData.info.height = texture.height;
+          sprite.m_spriteData.info.width = texture.width;
+          sprite.m_spriteData.info.texDims = { 1.f, 1.f }; // default
+          sprite.m_spriteData.info.texCoords = {}; // bottom left
+        }
+        SameLine();
+        if (ImGui::Button("Force Width To Match Tex AR"))
+        {
+          auto const& texture{ textureManager.GetTexture(sprite.m_spriteData.texture) };
+          double ar = static_cast<double>(texture.width) / texture.height;
+          sprite.m_spriteData.info.width = static_cast<GLint>(sprite.m_spriteData.info.height * ar);
+        }
+
+        if (hasSpriteAnim)
+          EndDisabled();
         EndTable();
         Separator();
-        // texcoordinates and info you can't edit
-        BeginDisabled();
-        int imageDims[2]{ static_cast<int>(sprite.m_spriteData.info.width),
-                          static_cast<int>(sprite.m_spriteData.info.height) };
-        ImGui::InputInt("Image Width", &imageDims[0]);
-        ImGui::InputInt("Image Width", &imageDims[1]);
-        ImGui::InputFloat2("Tex Coords", &sprite.m_spriteData.info.texCoords.r);
-        EndDisabled();
-        ImGui::Separator();
         continue;
       }
       else if (compType == rttr::type::get<Component::SpriteAnim>())
       {
+        Component::SpriteAnim& spriteAnimObj = *component.get_value<Component::SpriteAnim*>();
         ImGui::Separator();
+
+        BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+        ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, GetWindowSize().x);
+
+        TableNextColumn();
+
+        auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
+        auto const& textureLT{ animManager.GetAnimLT() };
+        if (BeginCombo("Sprite Anim", animManager.GetAnimName(spriteAnimObj.animID).c_str()))
+        {
+          for (auto const& it : textureLT)
+          {
+            if (Selectable(it.first.c_str()))
+            {
+              Component::Sprite* spriteObj{ nullptr };
+              for (rttr::variant& i : components)
+              {
+                if (i.get_type().get_wrapped_type() == rttr::type::get<Component::Sprite*>())
+                {
+                  spriteObj = i.get_value<Component::Sprite*>();
+                }
+              }
+              auto const& anim = animManager.GetAnim(it.second);
+
+              // setting correct attributes for sprite
+              auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
+
+              // Set sprite name and the texture handle. This is for rendering in editor
+              spriteObj->m_spriteName = textureManager.GetTextureName(anim.texture);
+              spriteObj->m_spriteData.texture = anim.texture;
+              spriteObj->m_spriteData.info = anim.frames[0]; // and set actual sprite info
+            }
+          }
+          EndCombo();
+        }
+        // Display animation ID for users to know
+        TextColored({ 1.f, .7333f, 0.f, 1.f }, ("Animation ID: " + std::to_string(spriteAnimObj.animID)).c_str());
+
+        EndTable();
+        Separator();
+
         continue;
       }
       else if (compType == rttr::type::get<Component::Text>())
@@ -288,37 +374,50 @@ void PrefabEditor::CreateContent()
             switch (i)
             {
             case GE::ECS::COMPONENT_TYPES::TRANSFORM:
-              ret = Component::Transform();
+              ret = rttr::type::get_by_name("Transform").create();
               break;
             case GE::ECS::COMPONENT_TYPES::BOX_COLLIDER:
-              ret = Component::BoxCollider();
+              ret = rttr::type::get_by_name("BoxCollider").create();
               break;
             case GE::ECS::COMPONENT_TYPES::VELOCITY:
-              ret = Component::Velocity();
+              ret = rttr::type::get_by_name("Velocity").create();
               break;
             case GE::ECS::COMPONENT_TYPES::SPRITE:
-              ret = Component::Sprite();
+            {
+              Component::Sprite comp{};
+              auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
+              auto const& textureLT{ textureManager.GetTextureLT() };
+              auto textureIt = textureLT.begin(); // iterator for first texture (alphabetically)
+              auto const& texture = textureManager.GetTexture(textureIt->second);
+              comp.m_spriteName = textureIt->first;
+              comp.m_spriteData.texture = textureIt->second;
+              comp.m_spriteData.info.height = texture.height;
+              comp.m_spriteData.info.width = texture.width;
+              comp.m_spriteData.info.texDims = { 1.f, 1.f }; // default
+              comp.m_spriteData.info.texCoords = {}; // bottom left
+              ret = std::make_shared<Component::Sprite>(comp);
               break;
+            }
             case GE::ECS::COMPONENT_TYPES::SPRITE_ANIM:
-              ret = Component::SpriteAnim();
+              ret = std::make_shared<Component::SpriteAnim>();
               break;
             case GE::ECS::COMPONENT_TYPES::TWEEN:
-              ret = Component::Tween();
+              ret = rttr::type::get_by_name("Tween").create();
               break;
             case GE::ECS::COMPONENT_TYPES::SCRIPTS:
-              ret = Component::Scripts();
+              ret = rttr::type::get_by_name("Scripts").create();
               break;
             case GE::ECS::COMPONENT_TYPES::DRAGGABLE:
-              ret = Component::Draggable();
+              ret = rttr::type::get_by_name("Draggable").create();
               break;
             case GE::ECS::COMPONENT_TYPES::TEXT:
-              ret = Component::Text();
+              ret = rttr::type::get_by_name("Text").create();
               break;
             case GE::ECS::COMPONENT_TYPES::AUDIO:
-              ret = Component::Audio();
+              ret = rttr::type::get_by_name("Audio").create();
               break;
             case GE::ECS::COMPONENT_TYPES::GE_BUTTON:
-              ret = Component::GE_Button();
+              ret = rttr::type::get_by_name("GE_Button").create();
               break;
             }
             m_currPrefab.m_components.emplace_back(ret);
@@ -333,7 +432,7 @@ void PrefabEditor::CreateContent()
     {
       for (auto iter{ m_currPrefab.m_components.begin() }; iter != m_currPrefab.m_components.end(); ++iter)
       {
-        if (Selectable(iter->get_type().get_name().to_string().c_str()))
+        if (Selectable(iter->get_type().get_wrapped_type().get_raw_type().get_name().to_string().c_str()))
         {
           m_currPrefab.m_components.erase(iter);
           break;
@@ -345,18 +444,12 @@ void PrefabEditor::CreateContent()
 
     if (ImGui::Button("Cancel"))
     {
-      if (m_currPrefab.m_components.empty())
-      {
-        std::remove(m_currentFilepath.c_str());
-      }
-      m_currPrefab.Clear();
-      m_currentFilepath.clear();
-      m_isEditing = false;
+      ResetPrefabEditor();
     }
     ImGui::SameLine();
     if (ImGui::Button("Save Changes"))
     {
-      bool flag{ false };
+      /*bool flag{ false };
       for (rttr::variant& component : m_currPrefab.m_components)
       {
         if (component.get_type() == rttr::type::get<Component::SpriteAnim*>())
@@ -374,13 +467,24 @@ void PrefabEditor::CreateContent()
           }
           if (flag) { break; }
         }
-      }
+      }*/
       Serialization::Serializer::SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
+      ResetPrefabEditor();
       GE::Debug::ErrorLogger::GetInstance().LogMessage(m_currPrefab.m_name + " successfully saved");
     }
   }
 }
 
+void PrefabEditor::ResetPrefabEditor()
+{
+  if (m_currPrefab.m_components.empty())
+  {
+    std::remove(m_currentFilepath.c_str());
+  }
+  m_currPrefab.Clear();
+  m_currentFilepath.clear();
+  m_isEditing = false;
+}
 
 bool PrefabEditor::InputDouble3(std::string propertyName, GE::Math::dVec3& property, float fieldWidth, bool disabled)
 {

@@ -285,7 +285,7 @@ namespace GE::Assets
     ************************************************************************/
     void LoadSpritesheets();
 
-    IDGenerator m_generator; // Generates Unique ID to assign to loaded image data.
+    // IDGenerator m_generator; // Generates Unique ID to assign to loaded image data.
 
     // maps storing each type of file with format <name : filepath>
     std::unordered_map<std::string, std::string> m_images;
