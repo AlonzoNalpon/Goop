@@ -36,6 +36,7 @@ namespace GE
     const char Serializer::JsonAssociativeKey[] = "key", Serializer::JsonAssociativeValue[] = "value";
     const char Serializer::ScriptFieldInstListTypeKey[] = "type";
 
+#ifndef NO_IMGUI
     void Serializer::SerializeVariantToPrefab(ObjectFactory::VariantPrefab const& prefab, std::string const& filename)
     {
       std::ofstream ofs{ filename };
@@ -81,6 +82,7 @@ namespace GE
 
       ofs.close();
     }
+#endif
 
     void Serializer::SerializeAny(std::string const& filename, rttr::variant object)
     {

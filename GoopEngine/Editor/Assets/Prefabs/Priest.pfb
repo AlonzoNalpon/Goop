@@ -46,8 +46,8 @@
                             "x": 1.0,
                             "y": 1.0
                         },
-                        "width": 143,
-                        "height": 280
+                        "width": 300,
+                        "height": 100
                     }
                 },
                 "spriteName": "Priest"
@@ -55,7 +55,7 @@
         },
         {
             "Text": {
-                "text": "YOUR TEXT HERE wfwefwefwfwefwefwe",
+                "text": "YOUR TEXT THERE",
                 "clr": {
                     "r": 1.0,
                     "g": 0.0,

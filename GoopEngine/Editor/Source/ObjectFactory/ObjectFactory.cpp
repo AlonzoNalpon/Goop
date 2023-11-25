@@ -16,6 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/Deserializer.h>
 #ifndef NO_IMGUI
 #include <PrefabManager/PrefabManager.h>
+#include <ObjectFactory/ObjectFactory.h>
 #endif
 
 using namespace GE::ObjectFactory;
