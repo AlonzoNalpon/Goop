@@ -16,11 +16,11 @@
             {
                 "BoxCollider": {
                     "center": "{ -800, 350 }",
-                    "width": 200.0,
-                    "height": 200.0,
-                    "min": "{ -900, 250 }",
-                    "max": "{ -700, 450 }",
-                    "render": true
+                    "width": 100.0,
+                    "height": 100.0,
+                    "min": "{ -850, 300 }",
+                    "max": "{ -750, 400 }",
+                    "render": false
                 }
             },
             {
@@ -375,16 +375,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 1920.0,
-                    "height": 1080.0,
-                    "min": "{ -960, -540 }",
-                    "max": "{ 960, 540 }",
-                    "render": true
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -401,6 +391,179 @@
                         }
                     },
                     "spriteName": "White"
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "menu",
+                            "loop": true,
+                            "playOnStart": true,
+                            "channel": "BGM",
+                            "volume": 0.20000000298023224
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Undo Test",
+        "ID": 12,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -800, -200, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 200
+                        }
+                    },
+                    "spriteName": "UndoRedoTester"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Group] Undo Redo Test",
+        "ID": 13,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            14,
+            15,
+            16
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "DottedBox",
+        "ID": 14,
+        "isActive": true,
+        "Parent": 13,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -500, -200, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 200
+                        }
+                    },
+                    "spriteName": "DottedBox"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "DottedBox2",
+        "ID": 15,
+        "isActive": true,
+        "Parent": 13,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -500, -200, 0 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, -90 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 200
+                        }
+                    },
+                    "spriteName": "DottedBox"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "DottedBox3",
+        "ID": 16,
+        "isActive": true,
+        "Parent": 13,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ -104, -200, 0 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, -90 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 200
+                        }
+                    },
+                    "spriteName": "DottedBox"
                 }
             }
         ]
