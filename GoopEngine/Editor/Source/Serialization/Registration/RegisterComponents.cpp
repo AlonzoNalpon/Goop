@@ -38,16 +38,6 @@ RTTR_REGISTRATION
 #endif
     ;
 
-  rttr::registration::class_<Component::LinearForce>("LinearForce")
-    .property("magnitude", &Component::LinearForce::m_magnitude)
-    .property("lifetime", &Component::LinearForce::m_lifetime)
-    .property("isActive", &Component::LinearForce::m_isActive)
-    .property("age", &Component::LinearForce::m_age)
-    ;
-
-  rttr::registration::class_<Component::DragForce>("DragForce")
-    .property("magnitude", &Component::DragForce::m_magnitude)
-    .property("isActive", &Component::DragForce::m_isActive)
     ;
 
   rttr::registration::class_<Component::Velocity>("Velocity")
@@ -84,18 +74,8 @@ RTTR_REGISTRATION
     .constructor<unsigned>()
     (
       rttr::parameter_names("treeID")
-    )
+      )
     .property("treeID", &Component::EnemyAI::m_treeID)
-    ;
-
-  rttr::registration::class_<Component::Tween>("Tween")
-    .constructor<>()
-    .property("tweens", &Component::Tween::m_tweens)
-    .property("timeTaken", &Component::Tween::m_timeTaken)
-    .property("timeElapsed", &Component::Tween::m_timeElapsed)
-    .property("originalPos", &Component::Tween::m_originalPos)
-    .property("started", &Component::Tween::m_started)
-    .property("paused", &Component::Tween::m_paused)
     ;
 
   rttr::registration::class_<Component::Text>("Text")
@@ -104,6 +84,17 @@ RTTR_REGISTRATION
     .property("clr", &Component::Text::m_clr)
     .property("scale", &Component::Text::m_scale)
     .property("fontID", &Component::Text::m_fontID)
+    ;
+
+    ;
+  rttr::registration::class_<Component::Tween>("Tween")
+    .constructor<>()
+    .property("tweens", &Component::Tween::m_tweens)
+    .property("timeTaken", &Component::Tween::m_timeTaken)
+    .property("timeElapsed", &Component::Tween::m_timeElapsed)
+    .property("originalPos", &Component::Tween::m_originalPos)
+    .property("started", &Component::Tween::m_started)
+    .property("paused", &Component::Tween::m_paused)
     ;
 
   rttr::registration::class_<Component::Audio>("Audio")

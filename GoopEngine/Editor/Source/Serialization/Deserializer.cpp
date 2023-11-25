@@ -634,8 +634,7 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
     }
     DeserializeBasedOnType(scriptMap, listIter->value);
 
-    Component::Scripts::ScriptInstances const& test = scriptMap.get_value<Component::Scripts::ScriptInstances>();
-    compVar = type.create({ idIter->value.GetUint(),  test});
+    compVar = type.create({ idIter->value.GetUint(), scriptMap.get_value<Component::Scripts::ScriptInstances>() });
 
     return true;
   }

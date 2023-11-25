@@ -33,6 +33,8 @@ namespace GE {
 			ScriptFieldType m_fieldType;
 			std::string m_fieldName;
 			MonoClassField* m_classField;
+
+			void SetField(std::string const& className);
 		};
 
 		template<typename T>
@@ -47,7 +49,7 @@ namespace GE {
 			ScriptField m_scriptField;
 			T m_data;
 
-			void SetMyScriptField(const std::string&, const std::string&);
+			void inline SetMyScriptField(const std::string& className) { m_scriptField.SetField(className); }
 		};
 
 
