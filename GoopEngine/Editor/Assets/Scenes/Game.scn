@@ -230,7 +230,7 @@
                     "playerQueue": 11,
                     "enemyQueue": 21,
                     "gameSystemScript": {
-                        "scriptName": "",
+                        "scriptName": "GameManager",
                         "scriptFieldInstList": []
                     }
                 }
