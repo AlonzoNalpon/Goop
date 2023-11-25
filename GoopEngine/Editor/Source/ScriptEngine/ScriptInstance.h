@@ -72,7 +72,7 @@ namespace GE {
 			\brief
 				Default constructor of Script Class
 			************************************************************************/
-			ScriptInstance() {}
+			ScriptInstance() {  }
 	
 			/*!*********************************************************************
 			\brief
