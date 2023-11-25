@@ -56,31 +56,54 @@
                             "scriptFieldInstList": [
                                 {
                                     "data": [
-                                        9,
-                                        8,
-                                        5,
-                                        4,
-                                        3,
-                                        2,
-                                        1
+                                        0,
+                                        0,
+                                        0
                                     ],
-                                    "type": "System.Int32[]",
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
-                                        "fieldName": "listintTest"
+                                        "fieldName": "m_cardQueue"
                                     }
                                 },
                                 {
-                                    "data": 102.0,
-                                    "type": "System.Double",
+                                    "data": [
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
-                                        "fieldName": "m_d"
+                                        "fieldName": "m_deck"
                                     }
                                 },
                                 {
-                                    "data": 101.0,
-                                    "type": "System.Single",
+                                    "data": [
+                                        7,
+                                        3,
+                                        8,
+                                        2,
+                                        2
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
-                                        "fieldName": "m_float"
+                                        "fieldName": "m_hand"
                                     }
                                 },
                                 {
@@ -88,13 +111,6 @@
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_health"
-                                    }
-                                },
-                                {
-                                    "data": "{ 69, -200, 96 }",
-                                    "type": "GoopScripts.Mono.Vec3<System.Double>",
-                                    "scriptField": {
-                                        "fieldName": "m_vecd"
                                     }
                                 }
                             ]
@@ -275,31 +291,54 @@
                             "scriptFieldInstList": [
                                 {
                                     "data": [
-                                        9,
-                                        8,
-                                        5,
-                                        4,
-                                        3,
-                                        2,
-                                        1
+                                        0,
+                                        0,
+                                        0
                                     ],
-                                    "type": "System.Int32[]",
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
-                                        "fieldName": "listintTest"
+                                        "fieldName": "m_cardQueue"
                                     }
                                 },
                                 {
-                                    "data": 102.0,
-                                    "type": "System.Double",
+                                    "data": [
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2,
+                                        2
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
-                                        "fieldName": "m_d"
+                                        "fieldName": "m_deck"
                                     }
                                 },
                                 {
-                                    "data": 101.0,
-                                    "type": "System.Single",
+                                    "data": [
+                                        7,
+                                        3,
+                                        8,
+                                        2,
+                                        2
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
-                                        "fieldName": "m_float"
+                                        "fieldName": "m_hand"
                                     }
                                 },
                                 {
@@ -307,13 +346,6 @@
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_health"
-                                    }
-                                },
-                                {
-                                    "data": "{ 69, -200, 96 }",
-                                    "type": "GoopScripts.Mono.Vec3<System.Double>",
-                                    "scriptField": {
-                                        "fieldName": "m_vecd"
                                     }
                                 }
                             ]
@@ -792,7 +824,7 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "DAA2402_Card_LeahAttack_Slash_v02"
+                    "spriteName": "DAA2402_Card_LeahSpecial_FlashBang_v02"
                 }
             },
             {
@@ -844,7 +876,7 @@
             },
             {
                 "Card": {
-                    "cardID": "PLAYER_STRIKE_ATTACK",
+                    "cardID": "PLAYER_DEBUFF_FLASH_BANG",
                     "tgtEntity": 11
                 }
             }
@@ -890,7 +922,7 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "DAA2402_Card_LeahAttack_BeamShot_v02"
+                    "spriteName": "DAA2402_Card_BasicSpecial_Screech_v01"
                 }
             },
             {
@@ -942,7 +974,7 @@
             },
             {
                 "Card": {
-                    "cardID": "PLAYER_BEAM_ATTACK",
+                    "cardID": "BASIC_NORMAL_BUFF",
                     "tgtEntity": 11
                 }
             }
