@@ -13,6 +13,8 @@
 #include <Component/Transform.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <Systems/RootTransform/PostRootTransformSystem.h>
+#include <Commands/CommandManager.h>
+
 namespace GE::EditorGUI
 {
   ImGuizmo::OPERATION GizmoEditor::g_currOp{ ImGuizmo::OPERATION::TRANSLATE };
@@ -28,8 +30,22 @@ namespace GE::EditorGUI
   void GizmoEditor::RenderGizmo()
   {
     //ImGuizmo::DrawGrid(g_gizmoInfo.view, g_gizmoInfo.proj, identityMatrix, 100.f);
+
+    bool oldMode = ImGuizmo::IsUsing(); // get the old isusing flag before updating imguizmo
     ImGuizmo::Manipulate(g_gizmoInfo.view, g_gizmoInfo.proj, g_currOp
       , ImGuizmo::MODE::LOCAL, g_gizmoInfo.trans);
+
+    bool newMode = ImGuizmo::IsUsing();
+    if ((oldMode != newMode) && newMode == true) // if the mode changed from not using to using
+    {
+      GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+      // Save the entity's transform command here
+      auto* trans = ecs.GetComponent<Component::Transform>(g_gizmoInfo.entity);
+      GE::CMD::PRS oldPRS{ trans->m_pos, trans->m_rot, trans->m_scale };
+      GE::CMD::ChangeTransCmd newTransCmd = GE::CMD::ChangeTransCmd(oldPRS, { trans->m_pos, trans->m_rot, trans->m_scale }, g_gizmoInfo.entity);
+      GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+      cmdMan.AddCommand(newTransCmd);
+    }
   }
 
   void GizmoEditor::PostRenderUpdate()
