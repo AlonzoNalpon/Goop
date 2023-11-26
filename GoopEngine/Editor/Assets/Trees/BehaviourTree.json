@@ -4,18 +4,14 @@
             {
                 "nodeType": "ROOT_NODE",
                 "parentNode": 0,
-                "childrenNode": [
-                    1
-                ],
+                "childrenNode": [],
                 "scriptName": "RootNode",
                 "pos": "{ 320, 150 }"
             },
             {
                 "nodeType": "COMPOSITE_NODE",
                 "parentNode": 0,
-                "childrenNode": [
-                    3
-                ],
+                "childrenNode": [],
                 "scriptName": "SequenceNode",
                 "pos": "{ 580, 142 }"
             },
@@ -28,10 +24,10 @@
             },
             {
                 "nodeType": "LEAF_NODE",
-                "parentNode": 1,
+                "parentNode": 0,
                 "childrenNode": [],
                 "scriptName": "MoveToPlayer",
-                "pos": "{ 852, 205 }"
+                "pos": "{ 856, 230 }"
             }
         ],
         "treeName": "WormTree",
