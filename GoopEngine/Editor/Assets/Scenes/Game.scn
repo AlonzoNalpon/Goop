@@ -817,6 +817,47 @@
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
+            },
+            {
+                "CardHolder": {
+                    "elements": [
+                        {
+                            "elemEntity": 4294967295,
+                            "cardEntity": 16,
+                            "spriteID": 35,
+                            "defaultSpriteID": 0,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 4294967295,
+                            "cardEntity": 17,
+                            "spriteID": 23,
+                            "defaultSpriteID": 0,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 4294967295,
+                            "cardEntity": 18,
+                            "spriteID": 37,
+                            "defaultSpriteID": 0,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 4294967295,
+                            "cardEntity": 19,
+                            "spriteID": 8,
+                            "defaultSpriteID": 0,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 4294967295,
+                            "cardEntity": 20,
+                            "spriteID": 8,
+                            "defaultSpriteID": 0,
+                            "used": false
+                        }
+                    ]
+                }
             }
         ]
     },
