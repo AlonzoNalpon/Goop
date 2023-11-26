@@ -160,17 +160,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AI\TreeManager.cpp" />
-    <ClCompile Include="Source\EditorUI\EditorTheme.cpp" />
-    <ClCompile Include="Source\EditorUI\SpriteAnimEditor.cpp" />
     <ClCompile Include="Source\PrefabManager\PrefabManager.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptUtils.cpp" />
     <ClCompile Include="Source\Serialization\Registration\RegisterEnumsAndFuncs.cpp" />
     <ClCompile Include="Source\Systems\Audio\AudioSystem.cpp" />
     <ClCompile Include="Source\Commands\CommandManager.cpp" />
     <ClCompile Include="Source\Commands\ImGuiCommands.cpp" />
-    <ClCompile Include="Source\EditorUI\AssetBrowser.cpp" />
-    <ClCompile Include="Source\EditorUI\AssetPreview.cpp" />
-    <ClCompile Include="Source\EditorUI\Console.cpp" />
     <ClCompile Include="Source\AppController\AppController.cpp" />
     <ClCompile Include="Source\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Source\AssetManager\AssetStructs.cpp" />
@@ -180,13 +175,6 @@
     <ClCompile Include="Source\ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="Source\ECS\Entity\EntityManager.cpp" />
     <ClCompile Include="Source\ECS\System\System.cpp" />
-    <ClCompile Include="Source\EditorUI\DataViz\Visualizer.cpp" />
-    <ClCompile Include="Source\EditorUI\EditorViewport.cpp" />
-    <ClCompile Include="Source\EditorUI\GizmoEditor.cpp" />
-    <ClCompile Include="Source\EditorUI\Inspector.cpp" />
-    <ClCompile Include="Source\EditorUI\PrefabEditor.cpp" />
-    <ClCompile Include="Source\EditorUI\SceneControls.cpp" />
-    <ClCompile Include="Source\EditorUI\ToolBar.cpp" />
     <ClCompile Include="Source\Events\EventManager.cpp" />
     <ClCompile Include="Source\GameStateManager\GameStateManager.cpp" />
     <ClCompile Include="Source\Graphics\Fonts\FontManager.cpp" />
@@ -194,64 +182,12 @@
     <ClCompile Include="Source\Graphics\Renderer\Camera.cpp" />
     <ClCompile Include="Source\Graphics\Renderer\Renderer.cpp" />
     <ClCompile Include="Source\Graphics\TextureManager.cpp" />
-    <ClCompile Include="Source\ImGuizmo_1_83\ImGuizmo.cpp" />
-    <ClCompile Include="Source\ImGui\backends\imgui_impl_glfw.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Source\ImGui\backends\imgui_impl_opengl3.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Source\ImGui\imgui.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Source\ImGui\imgui_demo.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Source\ImGui\imgui_draw.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Source\ImGui\imgui_tables.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Source\ImGui\imgui_widgets.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Source\ImGui\misc\cpp\imgui_stdlib.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Source\ImNode\imnodes.cpp" />
-    <ClCompile Include="Source\ImNode\NodeEditor.cpp" />
     <ClCompile Include="Source\InputManager\InputManager.cpp" />
     <ClCompile Include="Source\Math\Mat4Utils.cpp" />
     <ClCompile Include="Source\ObjectFactory\ObjectFactory.cpp" />
     <ClCompile Include="Source\MemoryManager\BaseAllocator.cpp" />
     <ClCompile Include="Source\MemoryManager\ListAllocator.cpp" />
     <ClCompile Include="Source\MemoryManager\MemoryManager.cpp" />
-    <ClCompile Include="Source\EditorUI\SceneHierachy.cpp" />
     <ClCompile Include="Source\pch.cpp">
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">Create</PrecompiledHeader>
@@ -291,7 +227,6 @@
     <ClCompile Include="Source\Systems\PlayerController\PlayerControllerSystem.cpp" />
     <ClCompile Include="Source\Systems\Rendering\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Rendering\RenderingSystem.cpp" />
-    <ClCompile Include="Source\EditorUI\ImGuiUI.cpp" />
     <ClCompile Include="Source\Systems\RootTransform\PostRootTransformSystem.cpp" />
     <ClCompile Include="Source\Systems\RootTransform\PreRootTransformSystem.cpp" />
     <ClCompile Include="Source\Systems\SpriteAnim\SpriteAnimSystem.cpp" />
@@ -311,8 +246,6 @@
     <ClInclude Include="Source\Component\CardHolder.h" />
     <ClInclude Include="Source\Component\CardHolderElem.h" />
     <ClInclude Include="Source\Component\Game.h" />
-    <ClInclude Include="Source\EditorUI\EditorTheme.h" />
-    <ClInclude Include="Source\EditorUI\SpriteAnimEditor.h" />
     <ClInclude Include="Source\Events\Events.h" />
     <ClInclude Include="Source\Fmod\FmodSystem.h" />
     <ClInclude Include="Source\Commands\CommandManager.h" />
@@ -326,9 +259,6 @@
     <ClInclude Include="Source\Component\Scripts.h" />
     <ClInclude Include="Source\Component\Stats.h" />
     <ClInclude Include="Source\Component\Text.h" />
-    <ClInclude Include="Source\EditorUI\AssetBrowser.h" />
-    <ClInclude Include="Source\EditorUI\AssetPreview.h" />
-    <ClInclude Include="Source\EditorUI\Console.h" />
     <ClInclude Include="Source\AI\ActionNode.h" />
     <ClInclude Include="Source\AI\BehaviourTree.h" />
     <ClInclude Include="Source\AI\CompositeNode.h" />
@@ -351,26 +281,11 @@
     <ClInclude Include="Source\ECS\Component\Component.h" />
     <ClInclude Include="Source\ECS\Component\ComponentArray.h" />
     <ClInclude Include="Source\ECS\Component\ComponentManager.h" />
-    <ClInclude Include="Source\EditorUI\DataViz\Visualizer.h" />
-    <ClInclude Include="Source\EditorUI\EditorViewport.h" />
-    <ClInclude Include="Source\EditorUI\GizmoEditor.h" />
-    <ClInclude Include="Source\EditorUI\Inspector.h" />
-    <ClInclude Include="Source\EditorUI\PrefabEditor.h" />
-    <ClInclude Include="Source\EditorUI\SceneControls.h" />
-    <ClInclude Include="Source\EditorUI\ToolBar.h" />
     <ClInclude Include="Source\GameDef.h" />
     <ClInclude Include="Source\GameStateManager\GameStateList.h" />
     <ClInclude Include="Source\GameStateManager\GameStateManager.h" />
     <ClInclude Include="Source\Graphics\Renderer\FrameBufferInfo.h" />
-    <ClInclude Include="Source\ImGuizmo_1_83\ImGuizmo.h" />
-    <ClInclude Include="Source\ImNode\imnodes.h" />
-    <ClInclude Include="Source\ImNode\imnodes_internal.h" />
-    <ClInclude Include="Source\ImNode\NodeEditor.h" />
-    <ClInclude Include="Source\ImTerm\misc.hpp" />
-    <ClInclude Include="Source\ImTerm\terminal.hpp" />
     <ClInclude Include="Source\ImTerm\terminal_commands.hpp" />
-    <ClInclude Include="Source\ImTerm\terminal_helpers.hpp" />
-    <ClInclude Include="Source\ImTerm\utils.hpp" />
     <ClInclude Include="Source\Math\Mat4Utils.h" />
     <ClInclude Include="Source\pch.h" />
     <ClInclude Include="Source\ECS\EntityComponentSystem.h" />
@@ -391,17 +306,7 @@
     <ClInclude Include="Source\Graphics\Renderer\Renderer.h" />
     <ClInclude Include="Source\Graphics\SpriteSubData.h" />
     <ClInclude Include="Source\Graphics\TextureManager.h" />
-    <ClInclude Include="Source\ImGui\backends\imgui_impl_glfw.h" />
-    <ClInclude Include="Source\ImGui\backends\imgui_impl_opengl3.h" />
-    <ClInclude Include="Source\ImGui\backends\imgui_impl_opengl3_loader.h" />
     <ClInclude Include="ImGui\backends\imgui_impl_win32.h" />
-    <ClInclude Include="Source\ImGui\imconfig.h" />
-    <ClInclude Include="Source\ImGui\imgui.h" />
-    <ClInclude Include="Source\ImGui\imgui_internal.h" />
-    <ClInclude Include="Source\ImGui\imstb_rectpack.h" />
-    <ClInclude Include="Source\ImGui\imstb_textedit.h" />
-    <ClInclude Include="Source\ImGui\imstb_truetype.h" />
-    <ClInclude Include="Source\ImGui\misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="Source\InputManager\InputManager.h" />
     <ClInclude Include="Source\InputManager\KeyCode.h" />
     <ClInclude Include="Source\Math\Mat3Utils.h" />
@@ -410,7 +315,6 @@
     <ClInclude Include="Source\MemoryManager\BaseAllocator.h" />
     <ClInclude Include="Source\MemoryManager\ListAllocator.h" />
     <ClInclude Include="Source\MemoryManager\MemoryManager.h" />
-    <ClInclude Include="Source\EditorUI\SceneHierachy.h" />
     <ClInclude Include="Source\PrefabManager\PrefabManager.h" />
     <ClInclude Include="Source\SceneManager\SceneManager.h" />
     <ClInclude Include="Source\Scenes\Scene.h" />
@@ -445,7 +349,6 @@
     <ClInclude Include="Source\Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />
-    <ClInclude Include="Source\EditorUI\ImGuiUI.h" />
     <ClInclude Include="Source\Systems\Rendering\CameraSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\PostRootTransformSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\PreRootTransformSystem.h" />
