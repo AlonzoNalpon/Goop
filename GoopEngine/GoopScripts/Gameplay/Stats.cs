@@ -61,7 +61,7 @@ namespace GoopScripts.Gameplay
           case 8:
 						m_deck[i] = CardBase.CardID.DAWSON_DEBUFF_TIME_WARP;
 						break;
-        }
+				}
 			}
       
 			m_cardQueue = new CardBase.CardID[3];
