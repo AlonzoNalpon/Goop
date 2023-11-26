@@ -51,13 +51,7 @@ namespace WindowSystem {
       throw GE::Debug::Exception<Window>(GE::Debug::LEVEL_CRITICAL,
         ErrMsg("OpenGL context creation has failed!"));
     }
-#ifdef FULLSCREEN
-    int monitorCount{};
-    auto** monitors = glfwGetMonitors(&monitorCount);
-    auto* currMonitor = monitors[0];
-    const GLFWvidmode* mode = glfwGetVideoMode(currMonitor);
-    glfwSetWindowMonitor(m_window, currMonitor, 0, 0, mode->width, mode->height, mode->refreshRate);
-#endif
+
     MakeCurrent();
 
     // Attempt to initialize glew
@@ -70,6 +64,8 @@ namespace WindowSystem {
     glfwSetErrorCallback(ErrorCallback);       // Error callback
     glfwSetKeyCallback(m_window, KeyCallback); // key callback
 
+
+    ToggleFullscreen(); // Switch to fullscreen
     return true;
   }
 
