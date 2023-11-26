@@ -61,7 +61,6 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
         break;
       }
     }
-    if (iter == m_entitiesToPrefabs.cend()) { return; } // if no entities to update
 
     of.AddComponentsToEntity(iter->first, prefabVar.m_components);
   }

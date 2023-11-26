@@ -44,29 +44,49 @@ void GE::Systems::GameSystem::Update()
     if (m_shouldIterate)
     {
       static GE::FPS::FrameRateController& frc { GE::FPS::FrameRateController::GetInstance() };
+
+      static GE::Debug::ErrorLogger& er = GE::Debug::ErrorLogger::GetInstance();
+      bool hasError{ false };
+      if (game->m_gameSystemScript.m_scriptClass == nullptr)
+      {
+        hasError = true;
+        er.LogError("Game component does not have a game script");
+        return;
+      }
+
       MonoMethod* onUpdateFunc = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClass, "OnUpdate", 8);
       Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->m_player);
       Scripts* enemyScript = m_ecs->GetComponent<Scripts>(game->m_enemy);
-      GE::MONO::ScriptInstance it, it2;
-      for (auto& script : playerScript->m_scriptList)
+      GE::MONO::ScriptInstance *playerStats, *enemyStats;
+      playerStats = playerScript->Get("Stats");
+      enemyStats = enemyScript->Get("Stats");
+
+      if (onUpdateFunc == nullptr)
       {
-        if (script.m_scriptName == "Stats")
-        {
-          it = script;
-          break;
-        }
+        hasError = true;
+        er.LogError("Game script does not have a function \"OnUpdate\" that takes in 8 parameters");
       }
-      for (auto& script : enemyScript->m_scriptList)
+      if (playerStats == nullptr)
       {
-        if (script.m_scriptName == "Stats")
-        {
-          it2 = script;
-          break;
-        }
+        hasError = true;
+        er.LogError("Player stats script does not exist");
       }
-      double dt = frc.GetDeltaTime();
-      void* args[] = { &dt, it.m_classInst, &game->m_player, it2.m_classInst, &game->m_enemy, &game->m_playerHand, &game->m_playerQueue, &game->m_enemyQueue };
-      mono_runtime_invoke(onUpdateFunc, game->m_gameSystemScript.m_classInst, args, nullptr);
+      if (enemyStats == nullptr)
+      {
+        hasError = true;
+        er.LogError("Enemy stats script does not exist");
+      }
+
+      if (hasError)
+      {
+        return;
+      }
+      else
+      {
+        double dt = frc.GetDeltaTime();
+        void* args[] = { &dt, playerStats->m_classInst, &game->m_player, enemyStats->m_classInst, &game->m_enemy, &game->m_playerHand, &game->m_playerQueue, &game->m_enemyQueue };
+        mono_runtime_invoke(onUpdateFunc, game->m_gameSystemScript.m_classInst, args, nullptr);
+      }
     }
 
     if (m_shouldWin)
