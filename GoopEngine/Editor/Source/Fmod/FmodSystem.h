@@ -1,9 +1,11 @@
 /*!*********************************************************************
-\file   Audio.h
+\file   FmodSystem.h
 \author c.phua\@digipen.edu
 \date   8 November 2023
 \brief
-  Integrates fMOD into an Audio Component.
+    Fmod system.
+    Uses the fMOD library to create sounds and channels.
+    There are four channels: BGM, SFX, Voice, TotalChannels.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -65,24 +67,58 @@ namespace GE
       ************************************************************************/
       void PlaySound(std::string audio, float volume, ChannelType channel, bool looped = false);
 
+      /*!*********************************************************************
+      \brief
+        Pauses the audio.
+      \param audio
+        Audio file name.
+      ************************************************************************/
       void Pause(std::string audio);
 
       /*!*********************************************************************
       \brief
-        Modifies channel's volume.
-      \param channelID
-        ID of the channel.
-      \param volumedB
-        Volume in db.
+        Sets channel's volume.
+      \param channel
+        The channel to set the volume of.
+      \param volume
+        Volume.
       ************************************************************************/
       void SetChannelVolume(ChannelType channel, float volume);
 
+      /*!*********************************************************************
+      \brief
+        Gets the channel's current volume.
+      \param channel
+        The channel to get the volume from.
+      \return float
+        Returns the volume of the channel.
+      ************************************************************************/
       float GetChannelVolume(ChannelType channel) const;
 
+      /*!*********************************************************************
+      \brief
+        Sets audio's volume.
+      \param audio
+        The audio to set the volum of.
+      \param volume
+        Volume.
+      ************************************************************************/
       void SetVolume(std::string audio, float volume);
 
+      /*!*********************************************************************
+      \brief
+        Sets all channel's volume.
+      \param volume
+        Volume.
+      ************************************************************************/
       void SetMasterVolume(float volume);
 
+      /*!*********************************************************************
+      \brief
+        Gets the master volume.
+      \return float
+        Returns the volume of the channel.
+      ************************************************************************/
       float GetMasterVolume() const;
 
       /*!*********************************************************************
@@ -93,8 +129,18 @@ namespace GE
       ************************************************************************/
       void StopSound(std::string audio);
 
+      /*!*********************************************************************
+      \brief
+        Stops all sounds and channels.
+      ************************************************************************/
       void StopAllSound();
 
+      /*!*********************************************************************
+      \brief
+        Stops the channel.
+      \param channel
+        The channel to stop.
+      ************************************************************************/
       void StopChannel(ChannelType channel);
 
     private:
@@ -159,6 +205,12 @@ namespace GE
       ************************************************************************/
       float VolumeTodb(float volume) const;
 
+      /*!*********************************************************************
+      \brief
+        Handles events happening to the audio system.
+      \param event
+        The current event happening.
+      ************************************************************************/
       void HandleEvent(GE::Events::Event* event);
     };
 	}
