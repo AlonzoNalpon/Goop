@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   ButtonSystem.h
+\author loh.j@digipen.edu
+\date   26-November-2023
+\brief
+	System to allow entities to do something after being interacted
+	with a click.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include <ECS/System/System.h>
 // #include <Events/EventManager.h>
@@ -12,6 +22,7 @@ namespace GE
 		public:
 			void Start();
 
+
 			void Update();
 
 			/*!*********************************************************************
@@ -25,8 +36,7 @@ namespace GE
 
 		private:
 			bool m_shouldHandle;
-			GE::ECS::Entity m_buttonEntity;
-			// std::string m_param = "Start";			
+			GE::ECS::Entity m_buttonEntity;	
 		};
 	}
 }

@@ -25,6 +25,14 @@ namespace GE::Component
 
 		std::vector<GE::ECS::Entity> m_anchored;
 
+		/*!*********************************************************************
+		\brief
+		  Converts the enum to string
+		\param type
+			Enum to convert
+		\return std::string
+			Enum as a string		  
+		************************************************************************/
 		inline static std::string toString(AnchorType type)
 		{
 			std::string ret;
@@ -42,6 +50,15 @@ namespace GE::Component
 			}
 			return ret;
 		}
+
+		/*!*********************************************************************
+		\brief
+			Converts the string to enum
+		\param type
+			String to convert
+		\return AnchorType
+			String as a enum
+		************************************************************************/
 		inline static AnchorType toType(std::string type)
 		{
 			AnchorType ret{IS_ANCHOR};
