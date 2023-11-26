@@ -58,7 +58,9 @@ public:
 	void Initialise(std::size_t sz) noexcept;
 	virtual void Free() override;
 
+#ifdef _DEBUG
 	virtual void PrintDetails() override;
+#endif // _DEBUG
 	virtual void PrintMemLeak() override;
 
 
@@ -359,7 +361,7 @@ T* ListAllocator::Reserve(const T& object)
 
 	if (!bestFit) //Unable to find a fitting memory block 
 	{
-		//std::cout << "FAILED\n";
+		// << "FAILED\n";
 		return nullptr;
 	}
 

@@ -9,9 +9,6 @@ using namespace GE::Prefabs;
 
 void PrefabManager::AttachPrefab(ECS::Entity entity, std::string prefabName)
 {
-#ifdef _DEBUG
-  std::cout << "Entity " << entity << ": " << prefabName << "\n";
-#endif
   m_entitiesToPrefabs[entity] = std::move(prefabName);
 }
 

@@ -517,14 +517,14 @@ namespace GE::Assets
 		{
 			Debug::ErrorLogger::GetInstance().LogMessage("Error deserializing " + fileName);
 
-			// std::cout << "Error deserializing " << fileName << "\n";
+			//  << "Error deserializing " << fileName << "\n";
 		}
 		// If unloading assets into the container was not successful, print an error message
 		if (!sgs.Unload(assets))
 		{
 			Debug::ErrorLogger::GetInstance().LogMessage("Error unloading assets into container ");
 
-			// std::cout << "Error unloading assets into container" << "\n";
+			//  << "Error unloading assets into container" << "\n";
 		}
 
 		// For each entry in assets, print out its details

@@ -6,11 +6,6 @@ void EventManager::Subscribe(Listener* listener)
 
   if (std::find(subscribers.begin(), subscribers.end(), listener) != subscribers.end())
   {
-    #ifdef _DEBUG
-    std::cout << "EventManager::Subscribe: " << typeid(Listener).name() 
-    << " already subscribed to " << typeid(EventType).name() << "\n";
-    #endif
-
     return;
   }
 
@@ -58,16 +53,12 @@ void EventManager::Dispatch(EventType& event)
   for (SubscriberList::iterator it{ subscribers.begin() }; it != subscribers.end();)
   {
     #ifdef EVENT_DEBUG
-    std::cout << event.GetName() << " Event dispatched\n";
+     << event.GetName() << " Event dispatched\n";
     #endif
     if (event.IsHandled()) { return; }
     // if listener being pointed to no longer exists, remove it
     if (!(*it))
     {
-      #ifdef _DEBUG
-      std::cout << "EventManager::Dispatch: Invalid pointer found and removed\n";
-      #endif
-
       it = subscribers.erase(it);
       continue;
     }
@@ -84,16 +75,12 @@ void EventManager::Dispatch(EventType&& event)
   for (SubscriberList::iterator it{ subscribers.begin() }; it != subscribers.end();)
   {
     #ifdef EVENT_DEBUG
-    std::cout << event.GetName() << " Event dispatched\n";
+     << event.GetName() << " Event dispatched\n";
     #endif
     if (event.IsHandled()) { return; }
     // if listener being pointed to no longer exists, remove it
     if (!(*it))
     {
-      #ifdef _DEBUG
-      std::cout << "EventManager::Dispatch: Invalid pointer found and removed\n";
-      #endif
-
       it = subscribers.erase(it);
       continue;
     }

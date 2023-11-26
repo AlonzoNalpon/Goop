@@ -42,7 +42,7 @@ void AssetBrowser::CreateContentDir()
 
 	if (Button("Reload Library"))
 	{
-		// std::cout << "Reload Asset Browser" << std::endl;
+		//  << "Reload Asset Browser" << std::endl;
 		GE::Debug::ErrorLogger::GetInstance().LogError("=== [ Reloading Asset Browser ] ===");
 
 		GoopUtils::ReloadFileData();

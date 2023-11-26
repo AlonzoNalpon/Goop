@@ -13,7 +13,6 @@ namespace GE {
 
 	template <>
 	MonoArray* GetMonoArray<int>(MonoDomain* md, uintptr_t sz) {
-		std::cout << sz << "int\n";
 		return mono_array_new(md, mono_get_int32_class(), sz);
 	}
 

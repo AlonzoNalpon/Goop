@@ -155,7 +155,9 @@ namespace GE {
 			function to print the detail of the current displayed tree. 
 			*/
 			/************************************************************************/
+#ifdef _DEBUG
 			void PrintDetails();
+#endif // _DEBUG
 			//void AddNode();
 
 

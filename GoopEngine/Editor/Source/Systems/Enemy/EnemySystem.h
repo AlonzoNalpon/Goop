@@ -220,7 +220,9 @@ namespace GE
 			 end of each frame
 			*/
 			/************************************************************************/
+#ifdef _DEBUG
 			static void PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp);
+#endif // _DEBUG
 
 			//static void SetPlayerID();
 		};

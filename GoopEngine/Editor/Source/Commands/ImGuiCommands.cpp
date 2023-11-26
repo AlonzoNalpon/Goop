@@ -94,7 +94,7 @@ void RemoveObjectCmd::Undo()
 	//	if (inst.get_type().get_wrapped_type() == rttr::type::get<Component::Transform*>())
 	//	{
 	//		GE::Component::Transform* tr = inst.get_value<GE::Component::Transform*>();
-	//		std::cout << tr->m_pos;
+	//		 << tr->m_pos;
 	//	}
 	//}
 

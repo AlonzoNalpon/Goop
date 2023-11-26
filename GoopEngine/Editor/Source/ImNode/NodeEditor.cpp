@@ -309,9 +309,6 @@ void GE::AI::NodeEditor::DisplayPopup()
 
 void GE::AI::NodeEditor::UpdateNewTree()
 {
-#ifdef _DEBUG
-  std::cout << "-----------------------------------------------------------------------------\n";
-#endif
   //Create the newTempTree
   TreeTemplate treeTemp{};
   treeTemp.m_treeName = m_currentTree->m_treeName;
@@ -357,31 +354,14 @@ void GE::AI::NodeEditor::UpdateNewTree()
       }
     }
 
-#ifdef _DEBUG
-    std::cout << "CHILD:\n";
-    for (NodeID n : nodeTemp.m_childrenNode)
-    {
-      std::cout << n << "\n";
-    }
-    std::cout << "\n";
-#endif
     ++currID;
     treeTemp.m_tree.push_back(nodeTemp);
   }
 
-#ifdef _DEBUG
-  std::cout << "-----------------------------------------------------------------------------\n";
-#endif
   //Sent the updated tree to Tree Manager
   if (!hasEmptyNode)
   {
     GE::AI::TreeManager::GetInstance().UpdateTreeList(treeTemp);
-  }
-  else
-  {
-#ifdef _DEBUG
-    std::cout << "You have a node with no script, we will not update the in game tree until all nodes have a script\n";
-#endif
   }
   m_currentTree->m_changedData = false;
 
@@ -460,6 +440,7 @@ void GE::AI::NodeEditor::ClearRunningNode()
 }
 */
 
+#ifdef _DEBUG
 void GE::AI::NodeEditor::PrintDetails()
 {
   for (size_t i{ 0 }; i < m_currentTree->m_displayNodes.size(); ++i)
@@ -475,4 +456,5 @@ void GE::AI::NodeEditor::PrintDetails()
     std::cout << m_currentLinkList->m_linkList[i].m_pinIDs.first << "::" << m_currentLinkList->m_linkList[i].m_pinIDs.second << "\n";
   }
 }
+#endif // _DEBUG
 

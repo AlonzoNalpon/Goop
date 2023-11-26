@@ -22,7 +22,6 @@ namespace Graphics {
       m_pgmHandle = glCreateProgram();
       if (0 == m_pgmHandle) 
       {
-        std::cout << "Unable to create program handle" << std::endl;
         return GL_FALSE;
       } 
     }
@@ -39,7 +38,6 @@ namespace Graphics {
       // An unknown enumerated value specified!
       std::string errorStr{ "Incorrect shader type enum specified: " };
       errorStr += std::to_string(shaderType);
-      std::cout << errorStr << std::endl;
     }
     GLchar const* shdrCode[]{ shaderSrc.c_str() };
     glShaderSource(shaderHandle, 1, shdrCode, NULL);
@@ -64,7 +62,6 @@ namespace Graphics {
         errorStr += log;
         delete[] log;
       }
-      std::cout << errorStr << std::endl;
       return GL_FALSE; // return false after printing error
     }
 
@@ -84,20 +81,15 @@ namespace Graphics {
       m_pgmHandle = glCreateProgram();
       if (0 == m_pgmHandle)
       {
-        std::cout << "Unable to create program handle" << std::endl;
         return GL_FALSE;
       }
     }
     // Getting the shader file
     std::ifstream ifs{ SHADER_PATH + filePath };
-#ifdef _DEBUG
-    std::cout << SHADER_PATH + filePath << std::endl;
-#endif
     if (!ifs)
     {
       std::string errorStr{ "Unable to open shader file: " };
       errorStr += filePath;
-      std::cout << errorStr << std::endl;
       return GL_FALSE;
     }
     
@@ -138,7 +130,6 @@ namespace Graphics {
         errorStr += log;
         delete[] log;
       }
-      std::cout << errorStr << std::endl;
       return GL_FALSE; // return false after printing error
     }
     
@@ -170,7 +161,6 @@ namespace Graphics {
         errorStr += log;
         delete[] log;
       }
-      std::cout << errorStr << std::endl;
       return GL_FALSE; // return false after printing error
     }
     return GL_TRUE;

@@ -813,11 +813,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 				/*	bool displayPopup = ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) && ImGui::IsMouseClicked(1);
 					if (displayPopup) {
-						std::cout << "Display delete\n";
+						 << "Display delete\n";
 					}
 					else
 					{
-						std::cout << "Nope\n";
+						 << "Nope\n";
 					}*/
 					for (const std::string& tds : toDeleteList)
 					{

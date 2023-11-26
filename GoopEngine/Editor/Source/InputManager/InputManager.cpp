@@ -276,9 +276,9 @@ void InputManager::MouseScrollCallback(GLFWwindow* pwin, double xoffset, double 
 	ImGui_ImplGlfw_ScrollCallback(pwin, xoffset, yoffset);
 #endif
 	//y_off = ((y_off + yoffset) > 4) ? 4 : ((y_off + yoffset) < -4) ? -4 : y_off + yoffset;
-	//std::cout << y_off << "\n";
+	// << y_off << "\n";
 	////#ifdef _DEBUG
-	////  std::cout << "Mouse scroll wheel offset: ("
+	////   << "Mouse scroll wheel offset: ("
 	////    << xoffset << ", " << yoffset << ")" << std::endl;
 	////#endif
 }
@@ -287,17 +287,17 @@ void InputManager::MouseScrollCallback(GLFWwindow* pwin, double xoffset, double 
 //void InputManager::TestInputManager() {
 //	InputManager* im = &(GE::Input::InputManager::GetInstance());
 //	if (im->IsKeyTriggered(GPK_A)) {
-//		std::cout << "Key A is Triggered\n";
+//		 << "Key A is Triggered\n";
 //	}
 //	if (im->IsKeyHeld(GPK_A)) {
-//		std::cout << "Key A is Held\n";
+//		 << "Key A is Held\n";
 //	}
 //	if (im->IsKeyReleased(GPK_A)) {
-//		std::cout << "Key A is Released\n";
+//		 << "Key A is Released\n";
 //	}
 //
 //	if (im->IsKeyPressed(GPK_MOUSE_LEFT)) {
-//		std::cout << "Mouse Pos: " << im->GetMousePosWorld().x << "," << im->GetMousePosWorld().y << "\n";
+//		 << "Mouse Pos: " << im->GetMousePosWorld().x << "," << im->GetMousePosWorld().y << "\n";
 //	}
 //}
 

@@ -90,7 +90,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event* event)
 			}
 
 #ifdef EVENT_DEBUG
-			std::cout << "PlayerControllerSystem: " << event->GetName() + " Event handled\n";
+			 << "PlayerControllerSystem: " << event->GetName() + " Event handled\n";
 #endif
 		}
 		else if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
@@ -114,7 +114,7 @@ void PlayerControllerSystem::HandleEvent(Events::Event* event)
 			}
 
 #ifdef EVENT_DEBUG
-			std::cout << "PlayerControllerSystem: " << event->GetName() + " Event handled\n";
+			 << "PlayerControllerSystem: " << event->GetName() + " Event handled\n";
 #endif
 		}
 	}

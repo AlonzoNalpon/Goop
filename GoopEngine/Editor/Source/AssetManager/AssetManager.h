@@ -211,7 +211,7 @@ namespace GE::Assets
 
     /*!*********************************************************************
     \brief
-      For Debugging purposes. Prints to std::cout all the items in the map.
+      For Debugging purposes. Prints to  all the items in the map.
     ************************************************************************/
     void GetMapData();
 

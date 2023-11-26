@@ -244,10 +244,9 @@ unsigned int  EnemySystem::GetPlayerID()
 	return m_playerID;
 }
 
-
+#ifdef _DEBUG
 void EnemySystem::PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp)
 {
-
 	std::cout << "Tree Cache Detail:\n";
 	std::cout << "-----------------------\n";
 	for (const GE::AI::NodeCache& n : temp)
@@ -256,6 +255,7 @@ void EnemySystem::PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp)
 	}
 	std::cout << "-----------------------\n\n";
 }
+#endif // _DEBUG
 
 bool EnemySystem::PlayerExist()
 {

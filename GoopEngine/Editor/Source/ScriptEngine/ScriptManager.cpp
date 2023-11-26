@@ -183,15 +183,9 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
           uint32_t flags = mono_field_get_flags(field);
           if (flags & FIELD_ATTRIBUTE_PUBLIC)
           {
-#ifdef  _DEBUG
-            std::cout << line.substr(commaPosition + 1).c_str() << "::";
-#endif //  _DEBUG
             MonoType* type = mono_field_get_type(field);
             ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
             newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
-#ifdef  _DEBUG
-            std::cout << fieldName << "\n";
-#endif
           }
         }
         m_monoClassMap[line.substr(commaPosition + 1).c_str()] = newScriptClassInfo;
@@ -555,7 +549,6 @@ void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int 
 
 void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID)
 {
-  std::cout << "HAND CARD " << std::endl;
   ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
   Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(handEntity);
   ECS::Entity cardEntity = cardHolder->elements[handIndex].cardEntity;
@@ -578,7 +571,6 @@ void GE::MONO::SendString(MonoString* str)
 {
   std::string test = GE::MONO::MonoStringToSTD(str);
   //Do what ever yo want with the string
-  std::cout << test << std::endl;
 }
 
 std::string GE::MONO::MonoStringToSTD(MonoString* str)
