@@ -76,7 +76,7 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
     of.AddComponentsToEntity(iter->first, prefabVar.m_components);
   }
 
-  GE::Debug::ErrorLogger::GetInstance().LogMessage("Entities in scene have been updated with prefab changes");
+  //GE::Debug::ErrorLogger::GetInstance().LogMessage("Entities in scene have been updated with prefab changes");
 }
 
 void PrefabManager::UpdateAllEntitiesFromPrefab()

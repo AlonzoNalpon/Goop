@@ -21,11 +21,19 @@ Components can be added via the Add Component button at the end of the component
 Components (except transform) can be removed by right clicking the component name header
 Able to view the following components:
 Transform (Every entity MUST have a transform)
+Box Collider
 Sprite
+Sprite Animation
 Velocity
 Tween
 Draggable
 Text
+Script
+Audio
+Button
+Card
+Card Holder
+Card Holder Element
 
 [ Performance Graph ]
 All recorded times are shown in milliseconds
@@ -38,7 +46,8 @@ You can change the minimum shown log level with the drop down
 [ Hierachy ]
 Drag and drop entities onto each other to parent/unparent them
 Child entities should follow parent
-You can right click entities to duplicate/delete them
+You can right click entities to duplicate/delete them (applies to children)
+You can right click an entity to save them as Prefabs
 You can right click the anywhere in the hierchy tab to create a new entitiy
 
 [ Scenes ]
@@ -63,6 +72,26 @@ Drag and Drop:
 1. images and prefab file into viewport.
 2. images to scene hierarchy.
 3. images into sprite box within the inspector.
+
+[ Scene Loading/Saving ]
+From Toolbar, click on "File" > "Open" > Select any ".scn" file, it will load it to the
+state it was last saved in.
+"File" > "Save" to save the current state of the scene to the file that it loaded from
+"File" > "New Scene" and enter filename + ".scn" to create a new scene and load it
+
+*Note: The file explorer may not open to the solution directory sometimes.
+       In that case, navigate to GoopEngine/Editor/Assets/Scenes
+
+[ Prefab Editor ]
+Allows a new prefab to be created (through file explorer) on right-click
+Drag and drop is supported from Assets Browser window
+Allows adding and removing of components to the current prefab
+"Cancel" will stop the current editing session and "Save changes" will save the changes made back to the file
+"Add Component" and "Remove Component" dropdowns are available.
+"Cancel" will stop the current editing session and "Save changes" will save the changes made back to the file
+Alternatively, you can do Right click > New Prefab to create a new prefab from file explorer and start editing
+*Note: The file explorer may not open to the solution directory sometimes.
+       In that case, navigate to GoopEngine/Editor/Assets/Prefabs
 
 [ Node Editor ]
 Allows user to edit enemy's behaviour tree. Any changes made will be displayed in the game at runtime, if the tree is valid (will explain more about it bellow)
@@ -93,9 +122,3 @@ Users are able to perform these actions:
      the type of node you select. e.g. (If you select the root node, you will only see ("delete node, change to composite node, change to leaf node"))
    - If you choose to change the node type, it will remove any links the node had, but the script remains unchanged.
    - If you choose to delete the node, it will remove the node and any links it had
-
-[ Prefab Editor ]
-Allows a new prefab to be created (through file explorer) on right-click
-Drag and drop is supported from Assets Browser window
-Allows adding and removing of components to the current prefab
-"Cancel" will stop the current editing session and "Save changes" will save the changes made back to the file

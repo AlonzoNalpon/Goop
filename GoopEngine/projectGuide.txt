@@ -8,11 +8,6 @@ Program starts at a sample scene
 Press right arrow to switch to testing scene
 Press left to switch back
 
-[ Player Control MonoScript ]
-Player is the interpolating sprite
-W,A,S,D -> Move player 
-E,R -> Rotate player clockwise/counter clockwise
-
 [ ErrorLogging ]
 Errors are logged into Imgui console and to a file
 Dumped log file is named after the time of program
@@ -20,36 +15,20 @@ Dumped log file is named after the time of program
 [ Multiple Animations ]
 Animations do not begin playing until simulation is started
 
-[ Scene Loading/Saving ]
-From Toolbar, click on "File" > "Open" > Select any ".scn" file, it will load it to the
-state it was last saved in.
-"File" > "Save" to save the current state of the scene to the file that it loaded from
-"File" > "New Scene" and enter filename + ".scn" to create a new scene and load it
-
-*Note: The file explorer may not open to the solution directory sometimes.
-       In that case, navigate to GoopEngine/Editor/Assets/Scenes
-
-[ Event System (Subscriber-Listener) ]
-InputManager polls for key/mouse triggers and holds ("DispatchInputEvents" from InputManager.cpp)
-When detected, it dispatches the event together with the key code
-The PlayerController (K,E,Q,R) and DraggableObject Systems (LEFT MOUSE HOLD) who are subscribed to the event
-receive the event and handles it through their HandleEvent() function
-*To display output for events, you can uncomment the #define EVENT_DEBUG flag in file pch.h
-
 [ Prefab Editor ]
-Navigate to "Prefab Editor" window. 
-Drag and drop from asset browser is supported (Go to Prefab directory and drag into window)
-"Add Component" and "Remove Component" buttons are available.
-"Cancel" will stop the current editing session and "Save changes" will save the changes made back to the file
-Alternatively, you can do Right click > New Prefab to create a new prefab from file explorer and start editing
-*Note: The file explorer may not open to the solution directory sometimes.
-       In that case, navigate to GoopEngine/Editor/Assets/Prefabs
-
 Upon saving the changes, all instances created from that prefab in the scene are updated with the prefab's components.
 If the entity does not currently exist in the scene, it will be updated when it is loaded to reflect the changes accordingly.
 
 To test:
- 1. Head to PrefabTest.scn.
+  1. Head to PrefabTest.scn.
+  2. Drag either "Mineworm" or "TestBtn" from "Prefabs" directory into the prefab editor window
+  3. Add any new components or modify existing components.
+  4. Save Changes
+  5. Changes should now be reflected on the existing entities in the scene. (except for the 2 entities that weren't created from the prefab)
+  Additionally, you can drag an existing prefab into the scene, then modify it after. The same behaviour should be seen.
+
+  E.g. you can add Button component to TestBtn prefab and save to give all buttons that component
+
 
 [ Disable ImGui ]
 ImGui can be disabled by including the code "#define NO_IMGUI" in pch.h
