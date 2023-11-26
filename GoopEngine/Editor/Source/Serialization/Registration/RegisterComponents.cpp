@@ -38,9 +38,8 @@ RTTR_REGISTRATION
 #endif
     ;
 
-    ;
-
   rttr::registration::class_<Component::Velocity>("Velocity")
+    .constructor<>()
     .property("vel", &Component::Velocity::m_vel)
     .property("acc", &Component::Velocity::m_acc)
     .property("mass", &Component::Velocity::m_mass)
