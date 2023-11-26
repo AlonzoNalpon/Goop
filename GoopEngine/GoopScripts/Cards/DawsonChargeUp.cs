@@ -15,7 +15,7 @@ namespace GoopScripts.Cards
 
     public override void Play(ref Stats source, ref Stats target)
     {
-      target.TakeDamage(source.DamageDealt(Value));
+      //target.TakeDamage(source.DamageDealt(Value));
       //target.m_buffs.AddDebuff(new Buff(Buff.BuffType.ADDITIVE, Value, Duration));
     }
   }
