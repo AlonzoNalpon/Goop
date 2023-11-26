@@ -131,6 +131,18 @@ namespace GE
 					cs.InvokeOnUpdate(dt);
 				}
 			}
+
+			ScriptInstance* Get(std::string scriptName)
+			{
+				for (auto& script : m_scriptList)
+				{
+					if (script.m_scriptName == scriptName)
+					{
+						return &script;
+					}
+				}
+				return nullptr;
+			}
 		};
 	}
 }
