@@ -1,7 +1,8 @@
 /*!*********************************************************************
-\file   SceneManager.h
-\author loh.j@digipen.edu
-\date   24-October-2023
+\file       SceneManager.h
+\author     loh.j\@digipen.edu
+\co-author  chengen.lau\@digipen.edu
+\date       24-October-2023
 \brief
   In charge of:
     - Initializing,
@@ -80,6 +81,20 @@ namespace GE::Scenes
     ************************************************************************/
     void RestartScene();
 
+    /*!*********************************************************************
+    \brief
+      Handles the events the SceneManager subscribed to
+
+      START_SCENE
+        - Trigger a temporary save before the scene is played in the 
+          editor (to later revert to)
+      STOP_SCENE
+        - Revert to the temporary save when the scene is stopped in
+          the editor
+
+    \param event
+      The event to handle
+    ************************************************************************/
     void HandleEvent(Events::Event* event) override;
 
     /*!*********************************************************************
@@ -111,8 +126,18 @@ namespace GE::Scenes
     std::string m_nextScene;
     std::string m_tempScene, m_tempPath;  // used to temporarily save scene when playing/stopping
 
+    /*!*********************************************************************
+    \brief
+      Temporarily saves the scene to m_tempPath and stores the scene name
+      in m_tempScene.
+    ************************************************************************/
     void TemporarySave();
 
+    /*!*********************************************************************
+    \brief
+      Loads the scene back from m_tempPath and restores the scene name to
+      m_tempScene.
+    ************************************************************************/
     void LoadTemporarySave();
 
     /* Map of all the scene files.Currently the way scenes are inserted

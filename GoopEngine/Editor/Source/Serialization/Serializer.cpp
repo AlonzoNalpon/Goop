@@ -3,7 +3,7 @@
 \author chengen.lau\@digipen.edu
 \date   3-November-2023
 \brief  Contians the class encapsulating functions related to 
-        serialization Implementation makes use of RTTR reflection
+        serialization. Implementation makes use of RTTR reflection
         library. Applies a standard algorithm of recursion 
         to work for any type and size for sequential containers. This
         is so that not much code has to be modified when any 
@@ -53,11 +53,13 @@ namespace GE
       name.SetString(prefab.m_name.c_str(), document.GetAllocator());
 
       rapidjson::Value compArray{ rapidjson::kArrayType };
+      // for each component, extract the string of the class and serialize
       for (rttr::variant const& comp : prefab.m_components) 
       {
         rapidjson::Value compName;
         compName.SetString(comp.get_type().get_wrapped_type().get_raw_type().get_name().to_string().c_str(), document.GetAllocator());
         rapidjson::Value compJson{ rapidjson::kObjectType };
+        // handle SpriteAnim component: Get animation sprite name
         if (comp.get_type().get_wrapped_type() == rttr::type::get<Component::SpriteAnim*>())
         {
           Component::SpriteAnim const& sprAnim{ *comp.get_value<Component::SpriteAnim*>() };

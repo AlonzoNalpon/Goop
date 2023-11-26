@@ -1,5 +1,5 @@
 /*!*********************************************************************
-\file   RegisterClasses2.cpp
+\file   RegisterComponents.cpp
 \date   3-November-2023
 \brief  This file handles the registration of custom classes used in
         our engine to be recognized by RTTR library. Anything that

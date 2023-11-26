@@ -61,7 +61,8 @@ namespace GE
       /*!*********************************************************************
       \brief
         Returns the component of an entity given the Enumeration type. The
-        component is returned in the form of an rttr::variant
+        component is returned in the form of an rttr::variant containing
+        a shared_ptr to the object
       \param id
         The id of the entity
       \param type
