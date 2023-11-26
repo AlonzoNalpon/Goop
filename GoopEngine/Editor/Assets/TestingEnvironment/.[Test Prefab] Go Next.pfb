@@ -1,47 +1,48 @@
 {
-    "Name": ".[Test Prefab] Go Next",
-    "Components": [
-        {
-            "Transform": {
-                "worldPos": "{ 2, 4, 0 }",
-                "worldScale": "{ 1, 1, 1 }",
-                "worldRot": "{ 0, 0, 0 }"
-            }
+  "Name": ".[Test Prefab] Go Next",
+  "Version": 0,
+  "Components": [
+    {
+      "Transform": {
+        "worldPos": "{ 2, 4, 0 }",
+        "worldScale": "{ 1, 1, 1 }",
+        "worldRot": "{ 0, 0, 0 }"
+      }
+    },
+    {
+      "BoxCollider": {
+        "center": "{ 210, 283 }",
+        "width": 300.0,
+        "height": 108.0,
+        "min": "{ 0, 0 }",
+        "max": "{ 0, 0 }",
+        "render": true
+      }
+    },
+    {
+      "Sprite": {
+        "spriteData": {
+          "spriteSubData": {
+            "texCoords": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "texDims": {
+              "x": 1.0,
+              "y": 1.0
+            },
+            "width": 300,
+            "height": 108
+          }
         },
-        {
-            "BoxCollider": {
-                "center": "{ 210, 283 }",
-                "width": 300.0,
-                "height": 108.0,
-                "min": "{ 0, 0 }",
-                "max": "{ 0, 0 }",
-                "render": true
-            }
-        },
-        {
-            "Sprite": {
-                "spriteData": {
-                    "spriteSubData": {
-                        "texCoords": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "texDims": {
-                            "x": 1.0,
-                            "y": 1.0
-                        },
-                        "width": 300,
-                        "height": 108
-                    }
-                },
-                "spriteName": "GoNextButton"
-            }
-        },
-        {
-            "GE_Button": {
-                "param": "Game",
-                "eventType": "CHANGE_SCENE"
-            }
-        }
-    ]
+        "spriteName": "GoNextButton"
+      }
+    },
+    {
+      "GE_Button": {
+        "param": "Game",
+        "eventType": "CHANGE_SCENE"
+      }
+    }
+  ]
 }

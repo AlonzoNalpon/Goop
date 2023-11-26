@@ -1,37 +1,37 @@
 {
-  "Name": "MineWorm",
-  "Version": 0,
-  "Components": [
-    {
-      "Transform": {
-        "worldPos": "{ 2, 4, 0 }",
-        "worldScale": "{ 1, 1, 1 }",
-        "worldRot": "{ 0, 0, 0 }"
-      }
-    },
-    {
-      "Sprite": {
-        "spriteData": {
-          "spriteSubData": {
-            "texCoords": {
-              "x": 0.0,
-              "y": 0.0
-            },
-            "texDims": {
-              "x": 0.1666666716337204,
-              "y": 1.0
-            },
-            "width": 128,
-            "height": 128
-          }
+    "Name": "MineWorm",
+    "Version": 4,
+    "Components": [
+        {
+            "Transform": {
+                "worldPos": "{ 2, 4, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
         },
-        "spriteName": "SS_MineWorm"
-      }
-    },
-    {
-      "SpriteAnim": {
-        "name": "SS_MineWorm"
-      }
-    }
-  ]
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 0.1666666716337204,
+                            "y": 1.0
+                        },
+                        "width": 128,
+                        "height": 128
+                    }
+                },
+                "spriteName": "SS_MineWorm"
+            }
+        },
+        {
+            "SpriteAnim": {
+                "name": "SS_MineWorm"
+            }
+        }
+    ]
 }

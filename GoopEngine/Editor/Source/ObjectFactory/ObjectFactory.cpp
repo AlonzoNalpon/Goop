@@ -225,7 +225,7 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
   AddComponentsToEntity(newEntity, iter->second.m_components);
 #ifndef NO_IMGUI
   Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
-  pm.AttachPrefab(newEntity, key, pm.GetPrefabVersion(key));
+  pm.AttachPrefab(newEntity, { key, pm.GetPrefabVersion(key) });
 #endif
 
   ecs.SetEntityName(newEntity, key);

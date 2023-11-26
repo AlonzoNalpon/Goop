@@ -6,17 +6,17 @@
 #include <Serialization/Serializer.h>
 
 #ifdef _DEBUG
-#define PREFAB_MANAGER_DEBUG
+//#define PREFAB_MANAGER_DEBUG
 #endif
 
 using namespace GE::Prefabs;
 
-void PrefabManager::AttachPrefab(ECS::Entity entity, std::string const& prefabName, PrefabVersion version)
+void PrefabManager::AttachPrefab(ECS::Entity entity, EntityPrefabMap::mapped_type&& prefab)
 {
 #ifdef PREFAB_MANAGER_DEBUG
-  std::cout << "Entity " << entity << ": " << prefabName << ", version " << version << "\n";
+  std::cout << "Entity " << entity << ": " << prefab.first << ", version " << prefab.second << "\n";
 #endif
-  m_entitiesToPrefabs[entity] = std::make_pair(prefabName, version);
+  m_entitiesToPrefabs[entity] = prefab;
 }
 
 void PrefabManager::DetachPrefab(ECS::Entity entity)
@@ -30,7 +30,7 @@ void PrefabManager::DetachPrefab(ECS::Entity entity)
 
 bool PrefabManager::DoesEntityHavePrefab(ECS::Entity entity) const
 {
-  return m_entitiesToPrefabs.find(entity) == m_entitiesToPrefabs.cend();
+  return m_entitiesToPrefabs.find(entity) != m_entitiesToPrefabs.cend();
 }
 
 PrefabManager::EntityPrefabMap::mapped_type const& PrefabManager::GetEntityPrefab(ECS::Entity entity) const
@@ -70,10 +70,10 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
 
     // if prefab versions match, means its up-to-date so continue
     ObjectFactory::VariantPrefab const& prefabRef{ of.GetVariantPrefab(iterVal.first) };
-    if (prefabRef.m_version == iterVal.second)
+    if (m_prefabVersions[prefab] == iterVal.second)
     {
       #ifdef PREFAB_MANAGER_DEBUG
-      std::cout << " Entity " << iter->first << " matches " << prefab << "'s version of " << prefabRef.m_version << "\n";
+      std::cout << " Entity " << iter->first << " matches " << prefab << "'s version of " << m_prefabVersions[prefab] << "\n";
       #endif
       continue; 
     }
@@ -95,13 +95,11 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
     }
 
     of.AddComponentsToEntity(iter->first, prefabVar.m_components);
-    iterVal.second = prefabRef.m_version;  // update version of entity
+    iterVal.second = m_prefabVersions[prefab];  // update version of entity
 #ifdef PREFAB_MANAGER_DEBUG
     std::cout << " Entity " << iter->first << " updated with " << prefab << " version " << iterVal.second << "\n";
 #endif
   }
-
-  GE::Debug::ErrorLogger::GetInstance().LogMessage("Entities in scene have been updated with prefab changes");
 }
 
 void PrefabManager::UpdateAllEntitiesFromPrefab()
@@ -133,10 +131,22 @@ void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const
 
 void PrefabManager::HandleEvent(Events::Event* event)
 {
-  if (event->GetCategory() == Events::EVENT_TYPE::REMOVE_ENTITY)
+  switch (event->GetCategory())
+  {
+  case Events::EVENT_TYPE::REMOVE_ENTITY:
   {
     EntityPrefabMap::const_iterator iter{ m_entitiesToPrefabs.find(static_cast<Events::RemoveEntityEvent*>(event)->m_entityId) };
-    if (iter!= m_entitiesToPrefabs.cend()) { m_entitiesToPrefabs.erase(iter); }
+    if (iter != m_entitiesToPrefabs.cend()) { m_entitiesToPrefabs.erase(iter); }
+    break;
+  }
+  case Events::EVENT_TYPE::PREFAB_SAVED:
+  {
+    std::string const prefabName{ static_cast<Events::PrefabSavedEvent*>(event)->m_prefab };
+    ++m_prefabVersions[prefabName];
+    UpdateEntitiesFromPrefab(prefabName);
+    GE::Debug::ErrorLogger::GetInstance().LogMessage("Entities in scene have been updated with changes to " + prefabName);
+    break;
+  }
   }
 }
 

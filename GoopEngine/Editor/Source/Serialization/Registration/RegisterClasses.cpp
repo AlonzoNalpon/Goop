@@ -132,53 +132,60 @@ RTTR_REGISTRATION
     .property("spriteSubData", &Graphics::SpriteData::info)
     ;
 
-  rttr::registration::class_<GE::MONO::ScriptField>("ScriptField")
-    .property("fieldName", &GE::MONO::ScriptField::m_fieldName)
+  rttr::registration::class_<MONO::ScriptField>("ScriptField")
+    .property("fieldName", &MONO::ScriptField::m_fieldName)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<int>>("System.Int32")
-    .property("data", &GE::MONO::ScriptFieldInstance<int>::m_data)
-    .property("type", &GE::MONO::ScriptFieldInstance<int>::m_type)
-    .property("scriptField", &GE::MONO::ScriptFieldInstance<int>::m_scriptField)
+  rttr::registration::class_<MONO::ScriptFieldInstance<int>>("System.Int32")
+    .property("data", &MONO::ScriptFieldInstance<int>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<int>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<int>::m_scriptField)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<float>>("System.Single")
-    .property("data", &GE::MONO::ScriptFieldInstance<float>::m_data)
-    .property("type", &GE::MONO::ScriptFieldInstance<float>::m_type)
-    .property("scriptField", &GE::MONO::ScriptFieldInstance<float>::m_scriptField)
+  rttr::registration::class_<MONO::ScriptFieldInstance<float>>("System.Single")
+    .property("data", &MONO::ScriptFieldInstance<float>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<float>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<float>::m_scriptField)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<double>>("System.Double")
-    .property("data", &GE::MONO::ScriptFieldInstance<double>::m_data)
-    .property("type", &GE::MONO::ScriptFieldInstance<double>::m_type)
-    .property("scriptField", &GE::MONO::ScriptFieldInstance<double>::m_scriptField)
+  rttr::registration::class_<MONO::ScriptFieldInstance<double>>("System.Double")
+    .property("data", &MONO::ScriptFieldInstance<double>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<double>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<double>::m_scriptField)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<unsigned>>("System.UInt32")
-    .property("data", &GE::MONO::ScriptFieldInstance<unsigned>::m_data)
-    .property("type", &GE::MONO::ScriptFieldInstance<unsigned>::m_type)
-    .property("scriptField", &GE::MONO::ScriptFieldInstance<unsigned>::m_scriptField)
+  rttr::registration::class_<MONO::ScriptFieldInstance<unsigned>>("System.UInt32")
+    .property("data", &MONO::ScriptFieldInstance<unsigned>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<unsigned>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<unsigned>::m_scriptField)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<int>>>("System.Int32[]")
-    .property("data", &GE::MONO::ScriptFieldInstance<std::vector<int>>::m_data)
-    .property("type", &GE::MONO::ScriptFieldInstance<std::vector<int>>::m_type)
-    .property("scriptField", &GE::MONO::ScriptFieldInstance<std::vector<int>>::m_scriptField)
+  rttr::registration::class_<MONO::ScriptFieldInstance<std::vector<int>>>("System.Int32[]")
+    .property("data", &MONO::ScriptFieldInstance<std::vector<int>>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<std::vector<int>>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<std::vector<int>>::m_scriptField)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>("System.UInt32[]")
-    .property("data", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_data)
-    .property("type", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
-    .property("scriptField", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
+  rttr::registration::class_<MONO::ScriptFieldInstance<std::vector<unsigned>>>("System.UInt32[]")
+    .property("data", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>("GoopScripts.Mono.Vec3<System.Double>")
-    .property("data", &GE::MONO::ScriptFieldInstance<GE::Math::dVec3>::m_data)
-    .property("type", &GE::MONO::ScriptFieldInstance<GE::Math::dVec3>::m_type)
-    .property("scriptField", &GE::MONO::ScriptFieldInstance<GE::Math::dVec3>::m_scriptField)
+  rttr::registration::class_<MONO::ScriptFieldInstance<Math::dVec3>>("GoopScripts.Mono.Vec3<System.Double>")
+    .property("data", &MONO::ScriptFieldInstance<Math::dVec3>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<Math::dVec3>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<Math::dVec3>::m_scriptField)
     ;
-  rttr::registration::class_<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>("GoopScripts.Cards.CardBase.CardID[]")
-    .property("data", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_data)
-    .property("type", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
-    .property("scriptField", &GE::MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
+  rttr::registration::class_<MONO::ScriptFieldInstance<std::vector<unsigned>>>("GoopScripts.Cards.CardBase.CardID[]")
+    .property("data", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
     ;
 
-  rttr::registration::class_<GE::MONO::ScriptInstance>("ScriptInstance")
-    .property("scriptName", &GE::MONO::ScriptInstance::m_scriptName)
-    .property("scriptFieldInstList", &GE::MONO::ScriptInstance::m_scriptFieldInstList)
+  rttr::registration::class_<MONO::ScriptInstance>("ScriptInstance")
+    .property("scriptName", &MONO::ScriptInstance::m_scriptName)
+    .property("scriptFieldInstList", &MONO::ScriptInstance::m_scriptFieldInstList)
     ;
+
+#ifndef NO_IMGUI
+  rttr::registration::class_<std::pair<std::string, unsigned>>("StringUnsignedPair")
+    .property("first", &std::pair<std::string, unsigned>::first)
+    .property("second", &std::pair<std::string, unsigned>::second)
+    ;
+#endif
 
 } // RTTR Registration

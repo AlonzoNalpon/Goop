@@ -480,10 +480,10 @@ void PrefabEditor::CreateContent()
           if (flag) { break; }
         }
       }*/
+      Events::EventManager::GetInstance().Dispatch(Events::PrefabSavedEvent(m_currPrefab.m_name));
       Serialization::Serializer::SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
       Assets::AssetManager::GetInstance().ReloadFiles(Assets::FileType::PREFAB);
       ObjectFactory::ObjectFactory::GetInstance().ReloadPrefabs();
-      Prefabs::PrefabManager::GetInstance().UpdateEntitiesFromPrefab(m_currPrefab.m_name);
       GE::Debug::ErrorLogger::GetInstance().LogMessage(m_currPrefab.m_name + " successfully saved");
       ResetPrefabEditor();
     }

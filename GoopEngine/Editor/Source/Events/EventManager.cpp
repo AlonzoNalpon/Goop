@@ -32,6 +32,7 @@ void EventManager::SubscribeAllListeners()
 #ifndef NO_IMGUI
   Subscribe<KeyTriggeredEvent>(&GE::EditorGUI::EditorViewport::GetInstance());
   Subscribe<RemoveEntityEvent>(&GE::Prefabs::PrefabManager::GetInstance());
+  Subscribe<PrefabSavedEvent>(&GE::Prefabs::PrefabManager::GetInstance());
 #endif
 
 }

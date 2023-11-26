@@ -39,6 +39,7 @@ You can change the minimum shown log level with the drop down
 Drag and drop entities onto each other to parent/unparent them
 Child entities should follow parent
 You can right click entities to duplicate/delete them
+You can right click entities to Create a Prefab from them
 You can right click the anywhere in the hierchy tab to create a new entitiy
 
 [ Scenes ]

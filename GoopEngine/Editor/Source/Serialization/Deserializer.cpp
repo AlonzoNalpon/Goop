@@ -65,6 +65,7 @@ ObjectFactory::VariantPrefab Deserializer::DeserializePrefabToVariant(std::strin
     Serializer::JsonComponentsKey, rapidjson::kArrayType, Serializer::JsonPrefabVerKey, rapidjson::kNumberType)) { ifs.close(); return {}; }
 
   ObjectFactory::VariantPrefab prefab{ document[Serializer::JsonNameKey].GetString(), document[Serializer::JsonPrefabVerKey].GetUint() };
+  Prefabs::PrefabManager::GetInstance().SetPrefabVersion(prefab.m_name, prefab.m_version);
   // iterate through component objects in json array
   std::vector<rttr::variant>& compVector{ prefab.m_components };
   for (auto const& elem : document[Serializer::JsonComponentsKey].GetArray())
@@ -162,9 +163,9 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
     Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
     if (entity.HasMember(Serializer::JsonPrefabKey) && !entity[Serializer::JsonPrefabKey].IsNull())
     {
-      Prefabs::PrefabManager::PrefabVersion ver{};
-      if (entity.HasMember(Serializer::JsonPrefabVerKey)) { ver = entity[Serializer::JsonPrefabVerKey].GetUint(); }
-      pm.AttachPrefab(entityId, entity[Serializer::JsonPrefabKey].GetString(), ver);
+      rttr::variant entry{ std::pair<std::string, unsigned>{} };
+      DeserializeBasedOnType(entry, entity[Serializer::JsonPrefabKey]);
+      pm.AttachPrefab(entityId, std::move(entry.get_value<std::pair<std::string, unsigned>>()));;
     }
 #endif
 

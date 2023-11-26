@@ -44,7 +44,7 @@ namespace GE
       START_SCENE,
       PAUSE_SCENE,
       STOP_SCENE,
-      //PREFAB_SAVED,
+      PREFAB_SAVED,
 #endif
       MAX_EVENTS
     };

@@ -52,40 +52,41 @@ namespace GE
       }
 
       rapidjson::Document document{ rapidjson::kObjectType };
+      auto& allocator{ document.GetAllocator() };
       // name field
       rapidjson::Value name;
-      name.SetString(prefab.m_name.c_str(), document.GetAllocator());
+      name.SetString(prefab.m_name.c_str(), allocator);
 
       // version field
       rapidjson::Value version;
-      name.SetUint(prefab.m_version);
+      version.SetUint(Prefabs::PrefabManager::GetInstance().GetPrefabVersion(prefab.m_name));
 
       rapidjson::Value compArray{ rapidjson::kArrayType };
       for (rttr::variant const& comp : prefab.m_components) 
       {
         rapidjson::Value compName;
-        compName.SetString(comp.get_type().get_wrapped_type().get_raw_type().get_name().to_string().c_str(), document.GetAllocator());
+        compName.SetString(comp.get_type().get_wrapped_type().get_raw_type().get_name().to_string().c_str(), allocator);
         rapidjson::Value compJson{ rapidjson::kObjectType };
         if (comp.get_type().get_wrapped_type() == rttr::type::get<Component::SpriteAnim*>())
         {
           Component::SpriteAnim const& sprAnim{ *comp.get_value<Component::SpriteAnim*>() };
           rapidjson::Value key, val;
           rapidjson::Value obj{ rapidjson::kObjectType };
-          key.SetString("name", document.GetAllocator());
-          val.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(sprAnim.animID).c_str(), document.GetAllocator());
-          obj.AddMember(key, val, document.GetAllocator());
-          compJson.AddMember(compName.Move(), obj, document.GetAllocator());
+          key.SetString("name", allocator);
+          val.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(sprAnim.animID).c_str(), allocator);
+          obj.AddMember(key, val, allocator);
+          compJson.AddMember(compName.Move(), obj, allocator);
         }
         else
         {
-          compJson.AddMember(compName.Move(), SerializeBasedOnType(comp, document.GetAllocator()), document.GetAllocator());
+          compJson.AddMember(compName.Move(), SerializeBasedOnType(comp, allocator), allocator);
         }
         if (!compJson.ObjectEmpty())
-          compArray.PushBack(compJson, document.GetAllocator());
+          compArray.PushBack(compJson, allocator);
       }
-      document.AddMember(JsonNameKey, name.Move(), document.GetAllocator());
-      document.AddMember(JsonPrefabVerKey, version.Move(), document.GetAllocator());
-      document.AddMember(JsonComponentsKey, compArray.Move(), document.GetAllocator());
+      document.AddMember(JsonNameKey, name.Move(), allocator);
+      document.AddMember(JsonPrefabVerKey, version.Move(), allocator);
+      document.AddMember(JsonComponentsKey, compArray.Move(), allocator);
 
       rapidjson::OStreamWrapper osw{ ofs };
       rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
@@ -133,16 +134,19 @@ namespace GE
 #ifndef NO_IMGUI
       // serialize prefab created from
       Prefabs::PrefabManager const& pm{ Prefabs::PrefabManager::GetInstance() };
-      rapidjson::Value prefabJson{ rapidjson::kNullType }, versionJson{};
+      //rapidjson::Value prefabJson{ rapidjson::kNullType }, versionJson{};
       
+      rapidjson::Value prefabJson{ rapidjson::kNullType };
       if (pm.DoesEntityHavePrefab(id))
       {
         auto const& prefab{ pm.GetEntityPrefab(id) };
-        prefabJson.SetString(prefab.first.c_str(), allocator); 
-        versionJson.SetUint(prefab.second);
+        prefabJson = SerializeBasedOnType(prefab, allocator);
+        //prefabJson.SetString(prefab.first.c_str(), allocator); 
+        //versionJson.SetUint(prefab.second);
       }
-      entity.AddMember(JsonPrefabKey, prefabJson.Move(), allocator);
-      entity.AddMember(JsonPrefabVerKey, versionJson.Move(), allocator);
+      entity.AddMember(JsonPrefabKey, prefabJson, allocator);
+      //entity.AddMember(JsonPrefabKey, prefabJson.Move(), allocator);
+      //entity.AddMember(JsonPrefabVerKey, versionJson.Move(), allocator);
 #endif
 
       // serialize state

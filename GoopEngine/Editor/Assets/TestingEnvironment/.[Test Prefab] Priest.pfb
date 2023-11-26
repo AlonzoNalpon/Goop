@@ -1,54 +1,55 @@
 {
-    "Name": ".[Test Prefab] Priest",
-    "Components": [
-        {
-            "Transform": {
-                "worldPos": "{ 2, 4, 0 }",
-                "worldScale": "{ 1, 1, 1 }",
-                "worldRot": "{ 0, 0, 0 }"
-            }
+  "Name": ".[Test Prefab] Priest",
+  "Version": 0,
+  "Components": [
+    {
+      "Transform": {
+        "worldPos": "{ 2, 4, 0 }",
+        "worldScale": "{ 1, 1, 1 }",
+        "worldRot": "{ 0, 0, 0 }"
+      }
+    },
+    {
+      "BoxCollider": {
+        "center": "{ 210, 283 }",
+        "width": 140.0,
+        "height": 280.0,
+        "min": "{ 0, 0 }",
+        "max": "{ 0, 0 }",
+        "render": true
+      }
+    },
+    {
+      "Text": {
+        "text": "Hello",
+        "clr": {
+          "r": 0.14057090878486633,
+          "g": 0.6372548937797546,
+          "b": 0.31587105989456177,
+          "a": 1.0
         },
-        {
-            "BoxCollider": {
-                "center": "{ 210, 283 }",
-                "width": 140.0,
-                "height": 280.0,
-                "min": "{ 0, 0 }",
-                "max": "{ 0, 0 }",
-                "render": true
-            }
+        "scale": 0.10000000149011612,
+        "fontID": 0
+      }
+    },
+    {
+      "Sprite": {
+        "spriteData": {
+          "spriteSubData": {
+            "texCoords": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "texDims": {
+              "x": 1.0,
+              "y": 1.0
+            },
+            "width": 143,
+            "height": 280
+          }
         },
-        {
-            "Text": {
-                "text": "Hello",
-                "clr": {
-                    "r": 0.14057090878486633,
-                    "g": 0.6372548937797546,
-                    "b": 0.31587105989456177,
-                    "a": 1.0
-                },
-                "scale": 0.10000000149011612,
-                "fontID": 0
-            }
-        },
-        {
-            "Sprite": {
-                "spriteData": {
-                    "spriteSubData": {
-                        "texCoords": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "texDims": {
-                            "x": 1.0,
-                            "y": 1.0
-                        },
-                        "width": 143,
-                        "height": 280
-                    }
-                },
-                "spriteName": "Priest"
-            }
-        }
-    ]
+        "spriteName": "Priest"
+      }
+    }
+  ]
 }
