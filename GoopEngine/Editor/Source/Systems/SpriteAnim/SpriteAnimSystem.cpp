@@ -96,12 +96,20 @@ namespace GE::Systems
     auto* spriteAnim = ecs.GetComponent<Component::SpriteAnim>(entity);
     auto const& animManager = Graphics::GraphicsEngine::GetInstance().animManager;
     NULL_CHECK_RET(spriteAnim);
+    auto const& animData = animManager.GetAnim(animID);
 
     spriteAnim->animID = animID;
     spriteAnim->currFrame = 0;
-    spriteAnim->flags = animManager.GetAnim(spriteAnim->animID).flags;
+    spriteAnim->flags = animData.flags;
     spriteAnim->flags &= ~Graphics::SPRITE_ANIM_FLAGS::FINISHED; // we're not finished anymore
     spriteAnim->currTime = 0.0;
+    
+
+    auto* sprite = ecs.GetComponent<Component::Sprite>(entity);
+    //auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
+    //sprite->m_spriteName = textureManager.GetTextureName(animData.texture); //EFFICIENCY  
+    sprite->m_spriteData.texture = animData.texture;
+    sprite->m_spriteData.info = animData.frames[0]; // load the first frame information
   }
 
 }
