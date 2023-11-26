@@ -491,7 +491,7 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
 
 void GE::MONO::PlayAnimation(MonoString* animName, GE::ECS::Entity entity)
 {
-  std::string str = GE::MONO::MonoStringToSTD(animName);
+   std::string str = GE::MONO::MonoStringToSTD(animName);
   // call play animation here
   // Error check for invalid pls!!!!!
   Graphics::gObjID spriteID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(str) };

@@ -80,7 +80,9 @@ namespace GE::Application
     GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
     scriptMan->InitMono();
 
+#ifndef IMGUI_DISABLE
     GE::AI::TreeManager::GetInstance().Init();
+#endif
 
 #ifndef IMGUI_DISABLE
     imgui.Init(window);
@@ -219,10 +221,11 @@ namespace GE::Application
   
   void AppController::Exit()
   {
-
     try
     {
+#ifndef IMGUI_DISABLE
       GE::AI::TreeManager::GetInstance().ShutDown();
+#endif
       gsm.Exit();
 #ifndef IMGUI_DISABLE
       imgui.Exit();

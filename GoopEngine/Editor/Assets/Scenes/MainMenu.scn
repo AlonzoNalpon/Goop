@@ -58,43 +58,6 @@
         ]
     },
     {
-        "Name": "[Temp] Blanko",
-        "ID": 1,
-        "isActive": true,
-        "Parent": 10,
-        "Child Entities": [
-            13
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 501.926, 238.963, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 123,
-                            "height": 80
-                        }
-                    },
-                    "spriteName": "Pause_BG"
-                }
-            }
-        ]
-    },
-    {
         "Name": "[Folder] Buttons",
         "ID": 2,
         "isActive": true,
@@ -183,16 +146,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 445, 235 }",
-                    "width": 374.0,
-                    "height": 136.0,
-                    "min": "{ 258, 167 }",
-                    "max": "{ 632, 303 }",
-                    "render": true
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -209,12 +162,6 @@
                         }
                     },
                     "spriteName": "MainMenu_LoadGame"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "TestEnvironment",
-                    "eventType": "CHANGE_SCENE"
                 }
             }
         ]
@@ -371,191 +318,6 @@
                 "GE_Button": {
                     "param": "",
                     "eventType": "QUIT_GAME"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Temp] Blanko",
-        "ID": 9,
-        "isActive": true,
-        "Parent": 10,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 440, -244, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 440, -244 }",
-                    "width": 250.0,
-                    "height": 80.0,
-                    "min": "{ 315, -284 }",
-                    "max": "{ 565, -204 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 280,
-                            "height": 80
-                        }
-                    },
-                    "spriteName": "Pause_BG"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Folder] Temp",
-        "ID": 10,
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [
-            1,
-            9,
-            11,
-            12
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 440, 396, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Temp] Blanko",
-        "ID": 11,
-        "isActive": true,
-        "Parent": 10,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 440, -84, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 440, -84 }",
-                    "width": 250.0,
-                    "height": 80.0,
-                    "min": "{ 315, -124 }",
-                    "max": "{ 565, -44 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 280,
-                            "height": 80
-                        }
-                    },
-                    "spriteName": "Pause_BG"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Temp] Blanko",
-        "ID": 12,
-        "isActive": true,
-        "Parent": 10,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 440, 76, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 440, 76 }",
-                    "width": 250.0,
-                    "height": 80.0,
-                    "min": "{ 315, 36 }",
-                    "max": "{ 565, 116 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 280,
-                            "height": 80
-                        }
-                    },
-                    "spriteName": "Pause_BG"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Text] Test",
-        "ID": 13,
-        "isActive": true,
-        "Parent": 1,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 451.407, 219.407, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Test",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.18700000643730164,
-                    "fontID": 2
                 }
             }
         ]
