@@ -45,6 +45,12 @@ Alternatively, you can do Right click > New Prefab to create a new prefab from f
 *Note: The file explorer may not open to the solution directory sometimes.
        In that case, navigate to GoopEngine/Editor/Assets/Prefabs
 
+Upon saving the changes, all instances created from that prefab in the scene are updated with the prefab's components.
+If the entity does not currently exist in the scene, it will be updated when it is loaded to reflect the changes accordingly.
+
+To test:
+ 1. Head to PrefabTest.scn.
+
 [ Disable ImGui ]
 ImGui can be disabled by including the code "#define NO_IMGUI" in pch.h
 The program is not fully seperated from ImGui and may result in undefined behaviour
