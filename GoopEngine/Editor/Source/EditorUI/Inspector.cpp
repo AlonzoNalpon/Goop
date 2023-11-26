@@ -1165,6 +1165,21 @@ void GE::EditorGUI::Inspector::CreateContent()
 										}
 									}
 								}
+								// THE TARGET SCRIPT VALUE
+								{
+									ImGui::Text("Target Script: ");
+									SameLine();
+									int newVal{ static_cast<int>(element.scriptEntity) };
+									if (InputInt(("##CDScrptID" + std::to_string(currElement)).c_str(), &newVal))
+									{
+										element.scriptEntity = newVal;
+									}
+									if (element.scriptEntity != ECS::INVALID_ID)
+									{
+										// check if valid
+										//TODO
+									}
+								}
 								// THE SPRITE ID (FOR REFERENCE)
 								{
 									BeginDisabled(true);

@@ -6,7 +6,8 @@
 #include <GameStateManager/GameStateManager.h>
 #include <InputManager/InputManager.h>
 #include <Systems/GameSystem/GameSystem.h>
-
+#include <ECS/System/System.h> // monomethod
+#include <Component/Scripts.h>
 namespace GE
 {
 	namespace Systems
@@ -64,6 +65,7 @@ namespace GE
 								// A card has called select card button event:
 								//	This requires caller to have a card component
 								auto* card = m_ecs->GetComponent<Component::Card>(entity);
+								int handIdx{ static_cast<int>(m_ecs->GetComponent<Component::CardHolderElem>(entity)->elemIdx) };
 								if (!card) break; 
 								if (card->cardID == Component::Card::NO_CARD)
 								{
@@ -74,11 +76,16 @@ namespace GE
 								auto* cardHolder = m_ecs->GetComponent<Component::CardHolder>(card->tgtEntity);
 								if (!cardHolder) break; // no holder -> bad behavior
 
+
+								int elemIdx{};
 								// Check if there's a free element
 								for (auto& elem : cardHolder->elements)
 								{
 									if (elem.used) // skip if it's used!
+									{
+										++elemIdx;
 										continue;
+									}
 
 									auto const* cardSprite = m_ecs->GetComponent<Component::Sprite>(entity);
 									auto* elemSprite = m_ecs->GetComponent<Component::Sprite>(elem.elemEntity);
@@ -99,6 +106,37 @@ namespace GE
 										entitySound->PlayRandom();
 									}
 
+									 //MONO SECTION
+									{
+										GE::ECS::Entity player = elem.scriptEntity;
+										Component::Scripts* scripts = m_ecs->GetComponent<Component::Scripts>(player);
+
+										// Get player's stats script
+										GE::MONO::ScriptInstance* statsScriptInst{};
+										for (auto& scriptInst : scripts->m_scriptList)
+										{
+											if (scriptInst.m_scriptName == "Stats")
+											{
+												statsScriptInst = &scriptInst;
+											}
+										}
+										if (!statsScriptInst)
+										{
+											GE::Debug::ErrorLogger::GetInstance().LogError("target player entity missing in button event SELECT_CARD!");
+											break;
+										}
+
+										// Now we get the player's script functions
+										MonoMethod* SetCardInHand = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInHand", 2);
+										MonoMethod* SetCardInQueue = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInQueue", 2);
+										
+										Component::Card::CardID blankCard{ Component::Card::NO_CARD };// we will replace hand card with this
+										void* argsHand []{ &handIdx, &blankCard };
+										void* argsQueue[]{ &elemIdx, &card->cardID };
+										mono_runtime_invoke(SetCardInHand, statsScriptInst->m_classInst, argsHand, nullptr);
+										mono_runtime_invoke(SetCardInQueue, statsScriptInst->m_classInst, argsQueue, nullptr);
+									}
+									// Don't need to increment cardIdx since we're ending the loop
 									break; // we're done here: a card has been assigned
 								}
 							}
@@ -132,6 +170,39 @@ namespace GE
 									entitySound->PlayRandom();
 								}
 
+								// MONO SECTION
+								{
+								 
+									GE::ECS::Entity player = cardHolder->elements[holderElem->elemIdx].scriptEntity;
+									Component::Scripts* scripts = m_ecs->GetComponent<Component::Scripts>(player);
+
+									// Get player's stats script
+									GE::MONO::ScriptInstance* statsScriptInst{};
+									for (auto& scriptInst : scripts->m_scriptList)
+									{
+										if (scriptInst.m_scriptName == "Stats")
+										{
+											statsScriptInst = &scriptInst;
+										}
+									}
+									if (!statsScriptInst)
+									{
+										GE::Debug::ErrorLogger::GetInstance().LogError("target player entity missing in button event SELECT_CARD!");
+										break;
+									}
+
+									// Now we get the player's script functions
+									int handIdx{ static_cast<int>(m_ecs->GetComponent<Component::CardHolderElem>(cardEntity)->elemIdx) }; // get the player entity ID
+									auto* cardComp = m_ecs->GetComponent<Component::Card>(cardEntity);
+									MonoMethod* SetCardInHand = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInHand", 2);
+									MonoMethod* SetCardInQueue = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInQueue", 2);
+
+									Component::Card::CardID blankCard{ Component::Card::NO_CARD };// we will replace hand card with this
+									void* argsHand[]	{ &handIdx, &cardComp->cardID };
+									void* argsQueue[] { &holderElem->elemIdx, &blankCard };
+									mono_runtime_invoke(SetCardInHand, statsScriptInst->m_classInst, argsHand, nullptr);
+									mono_runtime_invoke(SetCardInQueue, statsScriptInst->m_classInst, argsQueue, nullptr);
+								}
 								break;
 							}
 							case GE::Component::GE_Button::CHANGE_SCENE:
