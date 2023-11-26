@@ -1,4 +1,5 @@
 #pragma once
+#ifndef IMGUI_DISABLE
 #include <Commands/ICommand.h>
 #include <rttr/registration.h>
 
@@ -14,10 +15,6 @@ namespace GE
 	namespace CMD
 	{
     using PRS = std::array<GE::Component::Transform::vec3,3>;
-
- 
-    
-
 
     class AddObjectCmd : public ICommand {
       PRS m_newTransform;
@@ -79,3 +76,4 @@ namespace GE
 
 	}
 }
+#endif // !IMGUI_DISABLE

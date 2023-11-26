@@ -15,7 +15,7 @@ namespace GE
 {
   namespace Events
   {
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 
     class StartSceneEvent : public Event
     {

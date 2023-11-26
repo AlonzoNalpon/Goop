@@ -1,6 +1,6 @@
 #ifndef SPRITE_ANIM_EDITOR
 #define SPRITE_ANIM_EDITOR
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <Graphics/Def/GraphicsTypes.h>
 namespace GE::EditorGUI
 {

@@ -10,7 +10,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include "ImGuiUI.h"
 #include "Inspector.h"
 #include <ImGui/imgui.h>
@@ -404,7 +404,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputDouble1("Height", col->m_height);
 					TableNextRow();
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 					InputCheckBox("Show Collider", col->m_render);
 #endif
 					if (Button("Match Sprite Unscaled"))

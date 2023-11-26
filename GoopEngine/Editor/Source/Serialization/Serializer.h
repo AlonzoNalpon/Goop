@@ -32,7 +32,7 @@ namespace GE
       static const char JsonNameKey[], JsonIdKey[], JsonEntityStateKey[], JsonParentKey[],
         JsonChildEntitiesKey[], JsonComponentsKey[], JsonPrefabKey[];
       static const char JsonAssociativeKey[], JsonAssociativeValue[], ScriptFieldInstListTypeKey[];
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
       /*!*********************************************************************
       \brief  
         Serializes a VariantPrefab object into a json file. The VariantPrefab

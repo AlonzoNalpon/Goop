@@ -43,6 +43,7 @@
 // -------------------------------------------------------------------------------------------
 // Example
 #pragma once
+#ifndef IMGUI_DISABLE
 #if 0
 void EditTransform(const Camera& camera, matrix_t& matrix)
 {
@@ -214,3 +215,4 @@ namespace ImGuizmo
    // When false, they always stay along the positive world/local axis
    IMGUI_API void AllowAxisFlip(bool value);
 }
+#endif

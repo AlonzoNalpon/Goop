@@ -31,7 +31,7 @@ namespace GE
   {
     class ErrorLogger : public Singleton<ErrorLogger>
     {
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
     private:
       // Alias
       using LoggerPtr = std::unique_ptr<spdlog::logger>;

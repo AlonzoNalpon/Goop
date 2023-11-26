@@ -6,9 +6,9 @@
 #include <EditorUI/ImGuiUI.h>
 #include <GameStateManager/GameStateManager.h>
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <EditorUI/ImGuiUI.h>
-#endif // !NO_IMGUI
+#endif // !IMGUI_DISABLE
 
 
 using namespace GE::Component;
@@ -134,16 +134,16 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
           m_shouldPause = !m_shouldPause;
           break;
         case GPK_1:
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
           if (GE::EditorGUI::ImGuiHelper::IsRunning())
-#endif // !NO_IMGUI
+#endif // !IMGUI_DISABLE
             GE::GSM::GameStateManager::GetInstance().SetNextScene("Victory");
           //m_shouldWin = true;
           break;
         case GPK_2:
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
           if (GE::EditorGUI::ImGuiHelper::IsRunning())
-#endif // !NO_IMGUI
+#endif // !IMGUI_DISABLE
           //m_shouldLose = true;
             GE::GSM::GameStateManager::GetInstance().SetNextScene("Defeat");
           break;

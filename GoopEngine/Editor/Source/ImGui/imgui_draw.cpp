@@ -22,6 +22,7 @@ Index of this file:
 
 */
 
+#ifndef IMGUI_DISABLE
 #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -31,7 +32,6 @@ Index of this file:
 #endif
 
 #include "imgui.h"
-#ifndef IMGUI_DISABLE
 #include "imgui_internal.h"
 #ifdef IMGUI_ENABLE_FREETYPE
 #include "misc/freetype/imgui_freetype.h"

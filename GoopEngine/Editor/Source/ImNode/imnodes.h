@@ -1,5 +1,6 @@
 #pragma once
 
+#ifndef IMGUI_DISABLE
 #include <stddef.h>
 #include <ImGui/imgui.h>
 
@@ -436,3 +437,4 @@ void SaveEditorStateToIniFile(const ImNodesEditorContext* editor, const char* fi
 void LoadCurrentEditorStateFromIniFile(const char* file_name);
 void LoadEditorStateFromIniFile(ImNodesEditorContext* editor, const char* file_name);
 } // namespace IMNODES_NAMESPACE
+#endif

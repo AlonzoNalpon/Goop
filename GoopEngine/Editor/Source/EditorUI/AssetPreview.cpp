@@ -1,5 +1,5 @@
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include "AssetPreview.h"
 
 // Disable reinterpret to larger size

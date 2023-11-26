@@ -13,7 +13,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include "ErrorLogger.h"
 #include <spdlog/sinks/basic_file_sink.h>
 #include <chrono>

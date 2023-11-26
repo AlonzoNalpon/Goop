@@ -18,7 +18,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <stdarg.h>
 #include <AssetManager/AssetManager.h>
 #include <ScriptEngine/ScriptManager.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <PrefabManager/PrefabManager.h>
 #endif
 
@@ -157,7 +157,7 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
       entityVar.m_childEntities.emplace_back(child.GetUint());
     }
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
     if (entity.HasMember(Serializer::JsonPrefabKey) && !entity[Serializer::JsonPrefabKey].IsNull())
     {
       entityVar.m_prefab = entity[Serializer::JsonPrefabKey].GetString();

@@ -33,7 +33,7 @@ RTTR_REGISTRATION
     .property("height", &Component::BoxCollider::m_height)
     .property("min", &Component::BoxCollider::m_min)
     .property("max", &Component::BoxCollider::m_max)
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
     .property("render", &Component::BoxCollider::m_render)
 #endif
     ;

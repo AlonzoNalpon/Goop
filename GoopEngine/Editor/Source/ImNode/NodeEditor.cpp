@@ -1,4 +1,5 @@
 #include <pch.h>
+#ifndef IMGUI_DISABLE
 #include <ImNode/NodeEditor.h>
 #include <algorithm>
 #include <filesystem>
@@ -458,3 +459,4 @@ void GE::AI::NodeEditor::PrintDetails()
 }
 #endif // _DEBUG
 
+#endif

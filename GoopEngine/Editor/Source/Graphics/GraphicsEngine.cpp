@@ -95,7 +95,7 @@ namespace {
 #pragma endregion
 
 // compiler directive To be removed in future if engine does not need
-#ifdef NO_IMGUI
+#ifdef IMGUI_DISABLE
     CreateFrameBuffer(w, h);
 #endif
 

@@ -55,6 +55,7 @@
 
 #ifndef __gl3w_h_
 #define __gl3w_h_
+#ifndef IMGUI_DISABLE
 
 // Adapted from KHR/khrplatform.h to avoid including entire file.
 #ifndef __khrplatform_h_
@@ -805,5 +806,6 @@ static void load_procs(GL3WGetProcAddressProc proc)
 
 #ifdef __cplusplus
 }
+#endif
 #endif
 #endif

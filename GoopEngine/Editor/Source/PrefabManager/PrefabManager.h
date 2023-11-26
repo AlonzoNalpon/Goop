@@ -1,5 +1,5 @@
 #pragma once
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <Singleton/Singleton.h>
 #include <unordered_map>
 #include <ECS/Entity/Entity.h>
