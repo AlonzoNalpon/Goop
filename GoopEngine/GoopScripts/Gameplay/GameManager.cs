@@ -30,7 +30,6 @@ namespace GoopScripts.Gameplay
 
     public void OnUpdate(double dt, Stats player, uint playerEntity, Stats enemy, uint enemyEntity, uint playerHand, uint playerQueue, uint enemyQueue)
 		{
-
       if (newTurn)
 			{
 				m_numResolves = player.m_cardQueue.Length >= enemy.m_cardQueue.Length ? player.m_cardQueue.Length : enemy.m_cardQueue.Length;
@@ -45,7 +44,6 @@ namespace GoopScripts.Gameplay
         Utils.PlaySound(m_rng.Next(0, 1), enemyEntity);
         Utils.SetQueueCardID(enemyQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
         //play anim?
-        Utils.SendString("hi friend");
         Utils.PlayAnimation("SS_LeahShoot", playerEntity);
 
         // remove card
@@ -88,7 +86,7 @@ namespace GoopScripts.Gameplay
 
       if (shouldEnd)
 			{
-        // Draw cards here.        
+				// Draw cards here.        
 				Utils.GameSystemResolved();
         int i = 0;
         for (; i < player.m_hand.Length; ++i)
@@ -108,6 +106,7 @@ namespace GoopScripts.Gameplay
           player.m_deck = temp.ToArray();
 
           Utils.SetHandCardID(playerHand, i, drawnCard);
+          player.m_hand[i] = player.m_deck[drawnCard];
         }
         m_currResolves = 0;
         m_currTime = 0;
