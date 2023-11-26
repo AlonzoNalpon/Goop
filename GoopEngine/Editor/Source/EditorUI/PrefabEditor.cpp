@@ -215,9 +215,15 @@ void PrefabEditor::CreateContent()
                 if (i.get_type().get_wrapped_type() == rttr::type::get<Component::Sprite*>())
                 {
                   spriteObj = i.get_value<Component::Sprite*>();
+                  break;
                 }
               }
               auto const& anim = animManager.GetAnim(it.second);
+              spriteAnimObj.animID = it.second;
+              spriteAnimObj.currFrame = 0;
+              spriteAnimObj.flags = animManager.GetAnim(spriteAnimObj.animID).flags;
+              spriteAnimObj.flags &= ~Graphics::SPRITE_ANIM_FLAGS::FINISHED; // we're not finished anymore
+              spriteAnimObj.currTime = 0.0;
 
               // setting correct attributes for sprite
               auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };

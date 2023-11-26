@@ -11,8 +11,8 @@
         {
             "BoxCollider": {
                 "center": "{ 210, 283 }",
-                "width": 140.0,
-                "height": 280.0,
+                "width": 51.0,
+                "height": 100.0,
                 "min": "{ 0, 0 }",
                 "max": "{ 0, 0 }",
                 "render": true
@@ -46,7 +46,7 @@
                             "x": 1.0,
                             "y": 1.0
                         },
-                        "width": 300,
+                        "width": 51,
                         "height": 100
                     }
                 },
