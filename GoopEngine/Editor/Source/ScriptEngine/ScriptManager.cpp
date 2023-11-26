@@ -126,7 +126,7 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
 
   // Game system stuff
-  //mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", <PLAY ANIMIATION FUNCTION HERE>);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", GE::MONO::PlayAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::GameSystemResolved", GE::MONO::GameSystemResolved);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
   mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
@@ -495,11 +495,14 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
   return oldTransform->m_rot;
 }
 
-void GE::MONO::PlayAnimation(std::string animName, GE::ECS::Entity entity)
+void GE::MONO::PlayAnimation(MonoString* animName, GE::ECS::Entity entity)
 {
+  std::string str = GE::MONO::MonoStringToSTD(animName);
   // call play animation here
-  Graphics::gObjID spriteID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(animName) };
-  GE::Systems::SpriteAnimSystem::SetAnimation(entity, spriteID); // play anim yes!
+  // Error check for invalid pls!!!!!
+  Graphics::gObjID spriteID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(str) };
+  // Doesnt set the sprite!!!
+  GE::Systems::SpriteAnimSystem::SetAnimation(0, spriteID); // play anim yes!
 }
 
 void GE::MONO::PlaySound(int soundIterator, GE::ECS::Entity entity)
