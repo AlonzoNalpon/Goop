@@ -89,14 +89,14 @@ void RemoveObjectCmd::Execute()
 void RemoveObjectCmd::Undo()
 {
 
-	for (rttr::variant inst: m_entityData.m_compList)
+	/*for (rttr::variant inst: m_entityData.m_compList)
 	{
 		if (inst.get_type().get_wrapped_type() == rttr::type::get<Component::Transform*>())
 		{
 			GE::Component::Transform* tr = inst.get_value<GE::Component::Transform*>();
 			std::cout << tr->m_pos;
 		}
-	}
+	}*/
 
 	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 	m_entityData.m_entityID = ecs.CreateEntity();
