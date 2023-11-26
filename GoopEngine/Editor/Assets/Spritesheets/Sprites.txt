@@ -2,4 +2,5 @@ Name        FilePath        Slices  Stacks  Frames  Speed		Flags
 SS_MineWorm    SS_MineWorm        6       1       6       0.1   1 # Headers must be on line 1
 SS_Shark       SS_Shark           4       1       4       0.1   1
 SS_LeahIdle    SS_LeahIdle        4	  1	  4	  0.1	1
+SS_LeahShoot   SS_LeahShoot       8       1       8       0.1   1
 #You can add comments with '#' symbol
