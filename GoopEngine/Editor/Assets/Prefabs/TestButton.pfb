@@ -1,9 +1,9 @@
 {
-    "Name": "MineWorm",
+    "Name": "TestButton",
     "Components": [
         {
             "Transform": {
-                "worldPos": "{ 2, 4, 0 }",
+                "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
             }
@@ -17,19 +17,24 @@
                             "y": 0.0
                         },
                         "texDims": {
-                            "x": 0.1666666716337204,
+                            "x": 1.0,
                             "y": 1.0
                         },
-                        "width": 128,
-                        "height": 128
+                        "width": 456,
+                        "height": 154
                     }
                 },
-                "spriteName": "SS_MineWorm"
+                "spriteName": "Button_Base"
             }
         },
         {
-            "SpriteAnim": {
-                "name": "SS_MineWorm"
+            "BoxCollider": {
+                "center": "{ 0, 0 }",
+                "width": 456.0,
+                "height": 154.0,
+                "min": "{ 0, 0 }",
+                "max": "{ 0, 0 }",
+                "render": false
             }
         }
     ]
