@@ -1,13 +1,15 @@
 #pragma once
 
 //#define EVENT_DEBUG
-#define IMGUI_DISABLE
+//#define IMGUI_DISABLE
+//#define FULLSCREEN
 
 #if defined _DEBUG || defined EVENT_DEBUG
 #include <iostream>
 #include <iomanip>
 #endif
 
+//stdlib
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -41,7 +43,3 @@
 #include <Events/Events.h>
 #include <Events/InputEvents.h>
 #include <Utilities/GoopUtils.h>
-
-#ifdef IMGUI_DISABLE
-//#define FULLSCREEN
-#endif
