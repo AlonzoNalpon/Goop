@@ -19,7 +19,7 @@ The node editor and the Enemy system will get Tree data from Tree Manager.
 namespace GE {
 	namespace CMD {
 
-
+    const size_t MaxQueueSize{ 25 };
 
     RTTR_REGISTRATION{
      using namespace rttr;
@@ -50,7 +50,7 @@ namespace GE {
 
 		class CommandManager : public Singleton<CommandManager>
 		{
-			size_t queueSize;
+      size_t queueSize{ MaxQueueSize };
 			std::deque<rttr::variant> m_undoQueue;
 			std::deque<rttr::variant> m_redoQueue;
 
