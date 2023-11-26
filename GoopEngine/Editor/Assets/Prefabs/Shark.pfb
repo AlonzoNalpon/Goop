@@ -4,7 +4,7 @@
         {
             "Transform": {
                 "worldPos": "{ 0, 0, 0 }",
-                "worldScale": "{ 1, 5, 1 }",
+                "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
             }
         },
@@ -30,7 +30,7 @@
                             "x": 0.25,
                             "y": 1.0
                         },
-                        "width": 164,
+                        "width": 41,
                         "height": 38
                     }
                 },
@@ -52,7 +52,7 @@
         },
         {
             "SpriteAnim": {
-                "name": "SS_LeahIdle"
+                "name": "SS_Shark"
             }
         }
     ]

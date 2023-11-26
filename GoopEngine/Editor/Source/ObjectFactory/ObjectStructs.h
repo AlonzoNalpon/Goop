@@ -18,10 +18,11 @@ namespace GE
     struct VariantPrefab
     {
       VariantPrefab() : m_components{}, m_name{ "Empty" } {}
-      VariantPrefab(std::string name) : m_components{}, m_name{ std::move(name) } {}
+      VariantPrefab(std::string name, unsigned version = 0) : m_components{}, m_name{ std::move(name) }, m_version{ version } {}
 
       std::vector<rttr::variant> m_components;
       std::string m_name;
+      unsigned m_version;
 
       void Clear() noexcept
       {
