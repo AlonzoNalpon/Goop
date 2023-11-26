@@ -72,12 +72,12 @@ void GE::Systems::GameSystem::Update()
     if (m_shouldWin)
     {
       m_shouldWin = false;
-      GE::GSM::GameStateManager::GetInstance().SetNextScene("Victory");
+      //GE::GSM::GameStateManager::GetInstance().SetNextScene("Victory");
     }
     else if (m_shouldLose)
     {
       m_shouldLose = false;
-      GE::GSM::GameStateManager::GetInstance().SetNextScene("Defeat");
+      //GE::GSM::GameStateManager::GetInstance().SetNextScene("Defeat");
     }
   }
 }
@@ -117,13 +117,15 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
 #ifndef NO_IMGUI
           if (GE::EditorGUI::ImGuiHelper::IsRunning())
 #endif // !NO_IMGUI
-          m_shouldWin = true;
+            GE::GSM::GameStateManager::GetInstance().SetNextScene("Victory");
+          //m_shouldWin = true;
           break;
         case GPK_2:
 #ifndef NO_IMGUI
           if (GE::EditorGUI::ImGuiHelper::IsRunning())
 #endif // !NO_IMGUI
-          m_shouldLose = true;
+          //m_shouldLose = true;
+            GE::GSM::GameStateManager::GetInstance().SetNextScene("Defeat");
           break;
         default:
           break;

@@ -9,6 +9,9 @@ using namespace GE::Prefabs;
 
 void PrefabManager::AttachPrefab(ECS::Entity entity, std::string prefabName)
 {
+#ifdef _DEBUG
+  std::cout << "Entity " << entity << ": " << prefabName << "\n";
+#endif
   m_entitiesToPrefabs[entity] = std::move(prefabName);
 }
 
@@ -26,9 +29,9 @@ std::string PrefabManager::GetEntityPrefab(ECS::Entity entity) const
   EntityPrefabMap::const_iterator entry{ m_entitiesToPrefabs.find(entity) };
   if (entry == m_entitiesToPrefabs.cend())
   {
-    std::ostringstream oss{};
+    /*std::ostringstream oss{};
     oss << "Entity " << entity << " has no associated prefab";
-    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());*/
     return {};
   }
 

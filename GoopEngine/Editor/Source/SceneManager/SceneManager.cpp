@@ -25,9 +25,11 @@ SceneManager::SceneManager() : m_currentScene{ "Start" }, m_nextScene{ "Start" }
 void SceneManager::Init()
 {
   m_tempPath = am->GetConfigData<std::string>("TempDir") + ".tmpscn";
+#ifndef NO_IMGUI
   // subscribe to scene events
   Events::EventManager& em{ Events::EventManager::GetInstance() };
   em.Subscribe<Events::StartSceneEvent>(this); em.Subscribe<Events::PauseSceneEvent>(this); em.Subscribe<Events::StopSceneEvent>(this);
+#endif
 
   // Load data into map
   m_nextScene = m_currentScene = GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>("StartUpScn");
@@ -102,6 +104,7 @@ void GE::Scenes::SceneManager::RestartScene()
 
 void GE::Scenes::SceneManager::HandleEvent(Events::Event* event)
 {
+#ifndef NO_IMGUI
   switch (event->GetCategory())
   {
   case Events::EVENT_TYPE::START_SCENE:
@@ -111,6 +114,7 @@ void GE::Scenes::SceneManager::HandleEvent(Events::Event* event)
     LoadTemporarySave();  // revert to previous state before play
     break;
   }
+#endif
 }
 
 void GE::Scenes::SceneManager::LoadSceneFromExplorer(std::string const& filepath)
