@@ -160,7 +160,7 @@ namespace GE {
 		\param entity
 			Entity to play the animation on
 		********************************************************************/
-		void PlayAnimation(std::string animName, GE::ECS::Entity entity);
+		void PlayAnimation(MonoString* animName, GE::ECS::Entity entity);
 
 		/*!******************************************************************
 		\brief

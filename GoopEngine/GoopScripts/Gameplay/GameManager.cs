@@ -40,11 +40,13 @@ namespace GoopScripts.Gameplay
 				m_cardManager.Cards[(int)player.m_cardQueue[m_currResolves]].Play(ref player, ref enemy);
         m_cardManager.Cards[(int)enemy.m_cardQueue[m_currResolves]].Play(ref enemy, ref player);
 
-        Utils.PlaySound(m_rng.Next(0, 1), playerEntity);
+        Utils.PlaySound(m_rng.Next(1, 1), playerEntity);
         Utils.SetQueueCardID(playerQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
         Utils.PlaySound(m_rng.Next(0, 1), enemyEntity);
         Utils.SetQueueCardID(enemyQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
         //play anim?
+        Utils.SendString("hi friend");
+        Utils.PlayAnimation("SS_LeahShoot", playerEntity);
 
         // remove card
         player.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
