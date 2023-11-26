@@ -541,7 +541,7 @@ void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int 
   {
     cardHolder->elements[queueIndex].used = false; // no longer using this slot if it's overriden
     // But now we reenable the card that it disabled ...
-    ecs.SetIsActiveEntity(cardHolder->elements[queueIndex].cardEntity, true);
+    //ecs.SetIsActiveEntity(cardHolder->elements[queueIndex].cardEntity, true);
   }
   
   // Now set the sprite ...
@@ -570,6 +570,7 @@ void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int car
   {
     auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
     spriteComp->m_spriteData.texture = texManager.GetTextureID(CardSpriteNames[cardComp->cardID]);
+    ecs.SetIsActiveEntity(cardEntity, true);
   }
 }
 
