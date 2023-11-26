@@ -340,8 +340,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						// ROTATE
 						{
 							if (ImGui::RadioButton("Rotate",
-								GizmoEditor::GetCurrOperation() == ImGuizmo::OPERATION::ROTATE))
-								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE);
+								GizmoEditor::GetCurrOperation() == ImGuizmo::OPERATION::ROTATE_Z))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE_Z);
 						}
 						ImGui::SameLine();
 						// SCALE
