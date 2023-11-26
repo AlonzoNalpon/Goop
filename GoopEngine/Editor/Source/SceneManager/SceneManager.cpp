@@ -24,7 +24,7 @@ SceneManager::SceneManager() : m_currentScene{ "Start" }, m_nextScene{ "Start" }
 
 void SceneManager::Init()
 {
-  m_tempScene = am->GetConfigData<std::string>("TempDir") + ".tmpscn";
+  m_tempPath = am->GetConfigData<std::string>("TempDir") + ".tmpscn";
   // subscribe to scene events
   Events::EventManager& em{ Events::EventManager::GetInstance() };
   em.Subscribe<Events::StartSceneEvent>(this); em.Subscribe<Events::PauseSceneEvent>(this); em.Subscribe<Events::StopSceneEvent>(this);
@@ -146,10 +146,10 @@ void GE::Scenes::SceneManager::SaveScene() const
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Successfully saved scene to " + filepath.str());
 }
 
-void GE::Scenes::SceneManager::TemporarySave() const
+void GE::Scenes::SceneManager::TemporarySave()
 {
-  std::string const filepath{ m_tempScene };
-  Serialization::Serializer::SerializeScene(filepath);
+  m_tempScene = m_currentScene;
+  Serialization::Serializer::SerializeScene(m_tempPath);
 
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Scene has been temporarily saved");
 }
@@ -159,7 +159,9 @@ void GE::Scenes::SceneManager::LoadTemporarySave()
   UnloadScene();
   FreeScene();
 
-  GE::Debug::ErrorLogger::GetInstance().LogMessage("Reverting scene's previous state...");
-  scene.Load(m_tempScene);
-  std::remove(m_tempScene.c_str()); // delete temp scene file
+  m_nextScene = m_currentScene = m_tempScene;
+  GE::Debug::ErrorLogger::GetInstance().LogMessage("Reverting scene's previous state... (" + m_tempScene + ")");
+  scene.Load(m_tempPath);
+  std::remove(m_tempPath.c_str()); // delete temp scene file
+  scene.Init();
 }
