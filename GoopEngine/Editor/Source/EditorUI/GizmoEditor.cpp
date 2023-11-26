@@ -56,9 +56,14 @@ namespace GE::EditorGUI
     // ONLY IF USING, WE UPDATE (messing with values in inspector means gizmo shouldn't do anything)
     if (ImGuizmo::IsUsing())
     {
+      const Math::dMat4 identity{ 1, 0, 0, 0,
+                                  0, 1, 0, 0,
+                                  0, 0, 1, 0,
+                                  0, 0, 0, 1 };
 
       float newScale[3], newRotation[3], newTrans[3];
       ImGuizmo::DecomposeMatrixToComponents(g_gizmoInfo.trans, newTrans, newRotation, newScale);
+      
       // Changed local transform
       trans->m_pos.x = newTrans[0];
       trans->m_pos.y = newTrans[1];
@@ -70,7 +75,11 @@ namespace GE::EditorGUI
       trans->m_scale.y = newScale[1];
       trans->m_scale.z = newScale[2];
 
-      GE::Systems::PostRootTransformSystem::Propergate(g_gizmoInfo.entity, trans->m_parentWorldTransform);
+      /*
+      Propergate all transform changes to children
+			Takes a reference to ECS to prevent multiple Singleton GetInstance
+			calls to the ECS*/
+      GE::Systems::PostRootTransformSystem::Propergate(g_gizmoInfo.entity, identity);
       // Sets world transform relative to parent.
     
       // Update world transform
@@ -84,9 +93,14 @@ namespace GE::EditorGUI
       trans->m_worldScale.y = newScale[1];
       trans->m_worldScale.z = newScale[2];
 
+      /*
+      Propergate transform changes in world to local for all children
+			Takes a reference to ECS to prevent multiple Singleton GetInstance
+			calls to the ECS*/
       GE::Systems::PreRootTransformSystem::Propergate(g_gizmoInfo.entity, trans->m_parentWorldTransform);
+
+      // Sets world transform based on ... huh?! What am I doing?!
     }
-    // Sets world transform based on ... huh?! What am I doing?!
   }
 
   void GizmoEditor::SetVisible(bool enable)
