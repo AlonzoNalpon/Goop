@@ -369,7 +369,7 @@ void PrefabEditor::CreateContent()
           std::stringstream ss;
           for (auto const& comp : m_currPrefab.m_components)
           {
-            if (compStr == comp.get_type().get_name().to_string())
+            if (compStr == comp.get_type().get_wrapped_type().get_raw_type().get_name().to_string())
             {
               ss << "Unable to add component " << comp.get_type().get_name().to_string() << ". Component already exist";
               break;
@@ -416,23 +416,27 @@ void PrefabEditor::CreateContent()
             case GE::ECS::COMPONENT_TYPES::TWEEN:
               ret = rttr::type::get_by_name("Tween").create();
               break;
-            case GE::ECS::COMPONENT_TYPES::SCRIPTS:
-              ret = rttr::type::get_by_name("Scripts").create();
-              break;
+            //case GE::ECS::COMPONENT_TYPES::SCRIPTS:
+            //  ret = rttr::type::get_by_name("Scripts").create();
+            //  break;
             case GE::ECS::COMPONENT_TYPES::DRAGGABLE:
               ret = rttr::type::get_by_name("Draggable").create();
               break;
             case GE::ECS::COMPONENT_TYPES::TEXT:
               ret = rttr::type::get_by_name("Text").create();
-              break;
+              break;/*
             case GE::ECS::COMPONENT_TYPES::AUDIO:
               ret = rttr::type::get_by_name("Audio").create();
-              break;
+              break;*/
             case GE::ECS::COMPONENT_TYPES::GE_BUTTON:
               ret = rttr::type::get_by_name("GE_Button").create();
               break;
+            default:
+              GE::Debug::ErrorLogger::GetInstance().LogMessage("Selected Component Type is not Supported");
+              break;
             }
-            m_currPrefab.m_components.emplace_back(ret);
+            if (ret.is_valid())
+              m_currPrefab.m_components.emplace_back(ret);
           }
           break;
         }
