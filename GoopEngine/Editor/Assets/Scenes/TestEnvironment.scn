@@ -305,23 +305,23 @@
                     "spriteData": {
                         "spriteSubData": {
                             "texCoords": {
-                                "x": 0.75,
+                                "x": 0.0,
                                 "y": 0.0
                             },
                             "texDims": {
-                                "x": 0.25,
+                                "x": 0.5,
                                 "y": 1.0
                             },
-                            "width": 41,
-                            "height": 38
+                            "width": 30,
+                            "height": 60
                         }
                     },
-                    "spriteName": "SS_Shark"
+                    "spriteName": "SS_EnemyTest"
                 }
             },
             {
                 "SpriteAnim": {
-                    "name": "SS_Shark"
+                    "name": "SS_EnemyTest"
                 }
             },
             {
@@ -648,7 +648,7 @@
                 "Transform": {
                     "worldPos": "{ -195.63, 249.963, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -682,11 +682,11 @@
             },
             {
                 "Text": {
-                    "text": "ENTER TEXT HERE",
+                    "text": "HELLO",
                     "clr": {
-                        "r": 0.5368147492408752,
-                        "g": 0.0926806852221489,
-                        "b": 0.6519607901573181,
+                        "r": 0.6712039113044739,
+                        "g": 0.11024606227874756,
+                        "b": 0.7254902124404907,
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,

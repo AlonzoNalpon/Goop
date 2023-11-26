@@ -27,14 +27,14 @@
                             "y": 0.0
                         },
                         "texDims": {
-                            "x": 0.25,
+                            "x": 0.5,
                             "y": 1.0
                         },
-                        "width": 41,
-                        "height": 38
+                        "width": 30,
+                        "height": 60
                     }
                 },
-                "spriteName": "SS_Shark"
+                "spriteName": "SS_EnemyTest"
             }
         },
         {
@@ -52,7 +52,7 @@
         },
         {
             "SpriteAnim": {
-                "name": "SS_Shark"
+                "name": "SS_EnemyTest"
             }
         }
     ]

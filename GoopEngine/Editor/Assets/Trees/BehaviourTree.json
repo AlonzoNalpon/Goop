@@ -21,13 +21,6 @@
                 "childrenNode": [],
                 "scriptName": "IsOutsideAttackRange",
                 "pos": "{ 848, 89 }"
-            },
-            {
-                "nodeType": "LEAF_NODE",
-                "parentNode": 0,
-                "childrenNode": [],
-                "scriptName": "MoveToPlayer",
-                "pos": "{ 847, 217 }"
             }
         ],
         "treeName": "WormTree",

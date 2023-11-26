@@ -23,7 +23,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #endif
 
 #ifdef _DEBUG
-//#define DESERIALIZER_DEBUG
+#define DESERIALIZER_DEBUG
 #endif
 
 using namespace GE;
@@ -614,7 +614,9 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
       GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find name in SpriteAnim component");
       return true;
     }
-    Component::SpriteAnim sprAnim{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(animName->value.GetString()) };
+    auto const& gEngine = Graphics::GraphicsEngine::GetInstance();
+    Component::SpriteAnim sprAnim{ gEngine.animManager.GetAnimID(animName->value.GetString()) };
+    sprAnim.flags = gEngine.animManager.GetAnim(sprAnim.animID).flags;
     //sprAnim.currFrame = value["currFrame"].GetUint();
     //sprAnim.currTime = value["currTime"].GetDouble();
     //sprAnim.flags = value["currTime"].GetUint();

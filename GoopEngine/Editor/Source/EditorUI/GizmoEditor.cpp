@@ -29,8 +29,6 @@ namespace GE::EditorGUI
 
   void GizmoEditor::RenderGizmo()
   {
-    //ImGuizmo::DrawGrid(g_gizmoInfo.view, g_gizmoInfo.proj, identityMatrix, 100.f);
-
     bool oldMode = ImGuizmo::IsUsing(); // get the old isusing flag before updating imguizmo
     ImGuizmo::Manipulate(g_gizmoInfo.view, g_gizmoInfo.proj, g_currOp
       , ImGuizmo::MODE::LOCAL, g_gizmoInfo.trans);
@@ -55,37 +53,51 @@ namespace GE::EditorGUI
     if (!trans)
       return;
     // Reassign the new transform
-    float newScale[3], newRotation[3], newTrans[3];
-    ImGuizmo::DecomposeMatrixToComponents(g_gizmoInfo.trans, newTrans, newRotation, newScale);
-    // Changed local transform
-    trans->m_pos.x = newTrans[0];
-    trans->m_pos.y = newTrans[1];
-    trans->m_pos.z = newTrans[2];
-    trans->m_rot.x = newRotation[0];
-    trans->m_rot.y = newRotation[1];
-    trans->m_rot.z = newRotation[2];
-    trans->m_scale.x = newScale[0];
-    trans->m_scale.y = newScale[1];
-    trans->m_scale.z = newScale[2];
-
+    // ONLY IF USING, WE UPDATE (messing with values in inspector means gizmo shouldn't do anything)
     if (ImGuizmo::IsUsing())
-      GE::Systems::PostRootTransformSystem::Propergate(g_gizmoInfo.entity, trans->m_parentWorldTransform);
-    // Sets world transform relative to parent.
+    {
+      float newScale[3], newRotation[3], newTrans[3];
+      ImGuizmo::DecomposeMatrixToComponents(g_gizmoInfo.trans, newTrans, newRotation, newScale);
+      
+      // Changed local transform as if we had no parent (so this transform is basically the world transform)
+      trans->m_pos.x = newTrans[0];
+      trans->m_pos.y = newTrans[1];
+      trans->m_pos.z = newTrans[2];
+      trans->m_rot.x = newRotation[0];
+      trans->m_rot.y = newRotation[1];
+      trans->m_rot.z = newRotation[2];
+      trans->m_scale.x = newScale[0];
+      trans->m_scale.y = newScale[1];
+      trans->m_scale.z = newScale[2];
+
+      // This is the identity matrix we will use as parent transform
+      const Math::dMat4 identity{ 1, 0, 0, 0,
+                                  0, 1, 0, 0,
+                                  0, 0, 1, 0,
+                                  0, 0, 0, 1 };
+      GE::Systems::PostRootTransformSystem::Propergate(g_gizmoInfo.entity, identity);
+
+      // Propergate changes to children ...
+      //  Instead of passing in parent, we pass in an IDENTITY matrix (allowing transforming children with children to work)
+      //    This means that when we transform using gizmo, we assume that this entity has no parent (so its parent transform is identity)
+      // Sets world transform relative to parent.
     
-    // Update world transform
-    trans->m_worldPos.x = newTrans[0];
-    trans->m_worldPos.y = newTrans[1];
-    trans->m_worldPos.z = newTrans[2];
-    trans->m_worldRot.x = newRotation[0];
-    trans->m_worldRot.y = newRotation[1];
-    trans->m_worldRot.z = newRotation[2];
-    trans->m_worldScale.x = newScale[0];
-    trans->m_worldScale.y = newScale[1];
-    trans->m_worldScale.z = newScale[2];
+      // Update world transform based on the world transform from gizmo
+      trans->m_worldPos.x = newTrans[0];
+      trans->m_worldPos.y = newTrans[1];
+      trans->m_worldPos.z = newTrans[2];
+      trans->m_worldRot.x = newRotation[0];
+      trans->m_worldRot.y = newRotation[1];
+      trans->m_worldRot.z = newRotation[2];
+      trans->m_worldScale.x = newScale[0];
+      trans->m_worldScale.y = newScale[1];
+      trans->m_worldScale.z = newScale[2];
 
-    if (ImGuizmo::IsUsing())
+      // And now we propergate changes but we also take into account the parent's transform for accurate results
       GE::Systems::PreRootTransformSystem::Propergate(g_gizmoInfo.entity, trans->m_parentWorldTransform);
-    // Sets world transform based on ... huh?! What am I doing?!
+
+      // Sets world transform based on ... huh?! What am I doing?!
+    }
   }
 
   void GizmoEditor::SetVisible(bool enable)
