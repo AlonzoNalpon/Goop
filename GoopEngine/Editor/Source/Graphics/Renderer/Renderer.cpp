@@ -53,7 +53,13 @@ namespace Graphics::Rendering {
 
   void Renderer::RenderLineDebug(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf const& clr)
   {
+#ifndef NO_IMGUI
     m_lineRenderCalls.emplace_back(startPt, endPt, clr);
+#else
+    UNREFERENCED_PARAMETER(startPt);
+    UNREFERENCED_PARAMETER(endPt);
+    UNREFERENCED_PARAMETER(clr);
+#endif
   }
 
   void Renderer::Draw(Camera& camera)
