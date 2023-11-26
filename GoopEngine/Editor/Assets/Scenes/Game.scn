@@ -108,6 +108,19 @@
                         }
                     ]
                 }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "damageTaken_Leah",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        }
+                    ]
+                }
             }
         ]
     },

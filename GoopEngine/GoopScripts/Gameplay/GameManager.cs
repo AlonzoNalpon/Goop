@@ -78,7 +78,8 @@ namespace GoopScripts.Gameplay
 				{
 					shouldEnd = true;
 				}
-      }
+				Utils.PlayAnimation("SS_LeahShoot", playerEntity);
+			}
       else
       {
 				m_currTime += dt;
@@ -111,6 +112,8 @@ namespace GoopScripts.Gameplay
         m_currResolves = 0;
         m_currTime = 0;
         newTurn = true;
+
+				Utils.PlayAnimation("SS_LeahIdle", playerEntity);
 			}
     }
   }
