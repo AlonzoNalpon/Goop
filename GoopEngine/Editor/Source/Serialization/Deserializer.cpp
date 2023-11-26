@@ -23,7 +23,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #endif
 
 #ifdef _DEBUG
-#define DESERIALIZER_DEBUG
+//#define DESERIALIZER_DEBUG
 #endif
 
 using namespace GE;

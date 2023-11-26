@@ -132,10 +132,10 @@ void PrefabEditor::CreateContent()
         }
 
         Separator();
-        BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+        /*BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
         ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, GetWindowSize().x);
 
-        TableNextColumn();
+        TableNextColumn();*/
 
         auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
         auto const& textureLT{ textureManager.GetTextureLT() };
@@ -189,7 +189,7 @@ void PrefabEditor::CreateContent()
 
         if (hasSpriteAnim)
           EndDisabled();
-        EndTable();
+        //EndTable();
         ImGui::Separator();
         continue;
       }
@@ -197,9 +197,9 @@ void PrefabEditor::CreateContent()
       {
         Component::SpriteAnim& spriteAnimObj = *component.get_value<Component::SpriteAnim*>();
 
-        BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+        /*BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
         ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, GetWindowSize().x);
-        TableNextColumn();
+        TableNextColumn();*/
 
         auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
         auto const& textureLT{ animManager.GetAnimLT() };
@@ -238,7 +238,7 @@ void PrefabEditor::CreateContent()
         }
         // Display animation ID for users to know
         TextColored({ 1.f, .7333f, 0.f, 1.f }, ("Animation ID: " + std::to_string(spriteAnimObj.animID)).c_str());
-        EndTable();
+        //EndTable();
         ImGui::Separator();
         continue;
       }
@@ -246,10 +246,10 @@ void PrefabEditor::CreateContent()
       {
         Component::Text& textObj = *component.get_value<Component::Text*>();
 
-        BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+        /*BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
         ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, GetWindowSize().x);
 
-        TableNextColumn();
+        TableNextColumn();*/
         ImGui::ColorEdit4("Color", textObj.m_clr.rgba);
         ImGui::DragFloat("Scale", &textObj.m_scale, .001f, 0.f, 5.f);
         ImGui::InputTextMultiline("Text", &textObj.m_text);
@@ -267,7 +267,7 @@ void PrefabEditor::CreateContent()
           }
           EndCombo();
         }
-        EndTable();
+        //EndTable();
         ImGui::Separator();
         continue;
       }
