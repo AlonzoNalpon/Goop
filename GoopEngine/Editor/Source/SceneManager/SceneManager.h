@@ -109,9 +109,9 @@ namespace GE::Scenes
   private:
     std::string m_currentScene;
     std::string m_nextScene;
-    std::string m_tempScene;  // used to temporarily save scene when playing/stopping
+    std::string m_tempScene, m_tempPath;  // used to temporarily save scene when playing/stopping
 
-    void TemporarySave() const;
+    void TemporarySave();
 
     void LoadTemporarySave();
 
