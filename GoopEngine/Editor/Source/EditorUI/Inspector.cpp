@@ -326,7 +326,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_W))
 								GizmoEditor::SetOperation(ImGuizmo::OPERATION::TRANSLATE);
 							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_E))
-								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE);
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE_Z);
 							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_R))
 								GizmoEditor::SetOperation(ImGuizmo::OPERATION::SCALE);
 						}
