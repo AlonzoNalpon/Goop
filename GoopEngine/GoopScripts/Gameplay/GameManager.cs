@@ -106,7 +106,7 @@ namespace GoopScripts.Gameplay
           temp.Remove((CardBase.CardID)drawnCard);
           player.m_deck = temp.ToArray();
 
-          Utils.SetHandCardID(playerHand, i, drawnCard);
+          Utils.SetHandCardID(playerHand, i, (int)player.m_deck[drawnCard]);
           player.m_hand[i] = player.m_deck[drawnCard];
         }
         m_currResolves = 0;
