@@ -1,13 +1,24 @@
 #pragma once
-/*!************************************************************************
-\file TreeManager.h
-\author Han Qin Ding
-
+/*!*********************************************************************
+\file   CommandManager.h
+\author han.q\@digipen.edu
+\date   26 November 2023
 \brief
-This file contains function declaration for the TreeManager class
-The Tree Manager class is in charge of serializing and deserializing the behaviour tree.
-The node editor and the Enemy system will get Tree data from Tree Manager.
-**************************************************************************/
+  Command Manager for our game engine. The command manager has queues to 
+  keep track of the actions the made by the user. BUt storing certain
+  actions inside the queues as commands, we allow user the user to undo and 
+  redo actions.
+
+  User can undo and redo Changing of transform, Adding of entity and deleting of entitys
+  To Undo, press Ctrl-Z, to redo press Ctril-shift-Z.
+
+  The undo and redo queue has a max size of 25, if user tries to add in more commands, the manager
+  will pop put the oldest the commands from the queue, this means those old commands will not be able to
+  be undo/redo
+
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #ifndef IMGUI_DISABLE
 #include "../Singleton/Singleton.h"
@@ -42,10 +53,6 @@ namespace GE {
        .method("Execute", &RemoveObjectCmd::Execute)
        .method("Undo", &RemoveObjectCmd::Undo)
        .method("Redo", &RemoveObjectCmd::Redo);
-
-     //registration::class_<Derived2>("Derived2")
-     //    .constructor<>()
-     //    .property("value", &Derived2::value);
     }
 
 		class CommandManager : public Singleton<CommandManager>
@@ -57,8 +64,27 @@ namespace GE {
 
 
 		public:
+      /*!*********************************************************************
+      \brief
+        Function to add and execute a command. If the queue has already reached
+        max capcity, the manager will remove the oldest command from the undo queue
+
+       \param
+        rttr::variant newCmd
+        The new command that the user wants to execute.
+      ************************************************************************/
 			void AddCommand(rttr::variant newCmd);
+
+      /*!*********************************************************************
+      \brief
+        Function to undo the latest action made by the user.
+      ************************************************************************/
       void Undo();
+
+      /*!*********************************************************************
+      \brief
+       Function to reddo the latest action undid by the user.
+      ************************************************************************/
       void Redo();
 		
 		};

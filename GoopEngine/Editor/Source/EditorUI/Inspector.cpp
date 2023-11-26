@@ -252,6 +252,45 @@ namespace
 	template <>
 	void InputList(std::string propertyName, std::vector<GE::Component::Audio::Sound>& list, float fieldWidth, bool disabled);
 
+
+	/*!*********************************************************************
+\brief
+	Wrapper to create specialized inspector list of vector of integers.
+	This function is specifically for diaplying script fields/data members
+
+\param[in] propertyName
+	Label name
+
+\param[in] list
+	Vector of int values
+
+\param[in] fieldWidth
+	Width of input field
+
+\param[in] disabled
+	Draw disabled
+************************************************************************/
+	bool InputScriptList(std::string propertyName, std::vector<int>& list, float fieldWidth, bool disabled = false);
+
+	/*!*********************************************************************
+\brief
+		Wrapper to create specialized inspector list of vector of unsigned int.
+	This function is specifically for diaplying script fields/data members
+
+\param[in] propertyName
+	Label name
+
+\param[in] list
+	Vector of unsigned int
+
+\param[in] fieldWidth
+	Width of input field
+
+\param[in] disabled
+	Draw disabled
+************************************************************************/
+	bool  InputScriptList(std::string propertyName, std::vector<unsigned>& list, float fieldWidth, bool disabled = false);
+
 	/*!*********************************************************************
 	\brief
 		Predefined behaviour of a remove component popup
@@ -265,8 +304,7 @@ namespace
 	template <typename T>
 	bool RemoveComponentPopup(std::string name, GE::ECS::Entity entity);
 
-	bool InputScriptList(std::string propertyName, std::vector<int>& list, float fieldWidth, bool disabled = false);
-	bool  InputScriptList(std::string propertyName, std::vector<unsigned>& list, float fieldWidth, bool disabled = false);
+
 }
 
 void GE::EditorGUI::Inspector::CreateContent()
@@ -715,6 +753,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						style.Colors[ImGuiCol_FrameBg] = originalColor;
 						style.Colors[ImGuiCol_FrameBgHovered] = originalHColor;
 
+						// Gets all the script field/data member from the vector of rttr:variant and display them inside the inspector
 						for (rttr::variant& f  : s.m_scriptFieldInstList)
 						{
 							rttr::type dataType{ f.get_type() };

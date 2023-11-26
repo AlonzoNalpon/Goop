@@ -1,6 +1,27 @@
+/*!*********************************************************************
+\file   CommandManager.cpp
+\author han.q\@digipen.edu
+\date   26 November 2023
+\brief
+	Command Manager for our game engine. The command manager has queues to
+	keep track of the actions the made by the user. BUt storing certain
+	actions inside the queues as commands, we allow user the user to undo and
+	redo actions.
+
+	User can undo and redo Changing of transform, Adding of entity and deleting of entitys
+	To Undo, press Ctrl-Z, to redo press Ctril-shift-Z.
+
+	The undo and redo queue has a max size of 25, if user tries to add in more commands, the manager
+	will pop put the oldest the commands from the queue, this means those old commands will not be able to
+	be undo/redo
+
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #ifndef IMGUI_DISABLE
-#include <Commands/CommandManager.h>
+#include <Commands/CommandManager.h>\
+
 
 
 using namespace GE;
