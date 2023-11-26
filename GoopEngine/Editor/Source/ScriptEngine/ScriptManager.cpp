@@ -488,7 +488,7 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
   return oldTransform->m_rot;
 }
-
+#include <iostream>
 void GE::MONO::PlayAnimation(MonoString* animName, GE::ECS::Entity entity)
 {
    std::string str = GE::MONO::MonoStringToSTD(animName);
