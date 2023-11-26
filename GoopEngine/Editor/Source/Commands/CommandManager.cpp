@@ -1,6 +1,7 @@
 #include <pch.h>
+#ifndef IMGUI_DISABLE
 #include <Commands/CommandManager.h>
-#
+
 
 using namespace GE;
 using namespace CMD;
@@ -37,3 +38,4 @@ void CommandManager::Redo()
 }
 
 
+#endif

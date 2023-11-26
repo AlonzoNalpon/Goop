@@ -1,4 +1,5 @@
 #include<pch.h>
+#ifndef IMGUI_DISABLE
 #include <Commands/ImGuiCommands.h>
 #include <Serialization/Serializer.h>
 #include <ObjectFactory/ObjectFactory.h>
@@ -217,3 +218,4 @@ void ChangeTransCmd::Redo()
 	trans->m_scale = m_newTransform[2];
 	GE::Systems::PostRootTransformSystem::Propergate(m_entityID, trans->m_parentWorldTransform);
 }
+#endif

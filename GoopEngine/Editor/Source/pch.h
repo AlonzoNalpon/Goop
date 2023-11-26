@@ -1,7 +1,7 @@
 #pragma once
 
 //#define EVENT_DEBUG
-//#define NO_IMGUI
+//#define IMGUI_DISABLE
 
 #if defined _DEBUG || defined EVENT_DEBUG
 #include <iostream>
@@ -43,6 +43,6 @@
 #include <Events/InputEvents.h>
 #include <Utilities/GoopUtils.h>
 
-#ifdef NO_IMGUI
+#ifdef IMGUI_DISABLE
 //#define FULLSCREEN
 #endif

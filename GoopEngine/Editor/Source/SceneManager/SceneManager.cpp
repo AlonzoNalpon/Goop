@@ -25,7 +25,7 @@ SceneManager::SceneManager() : m_currentScene{ "Start" }, m_nextScene{ "Start" }
 void SceneManager::Init()
 {
   m_tempPath = am->GetConfigData<std::string>("TempDir") + ".tmpscn";
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
   // subscribe to scene events
   Events::EventManager& em{ Events::EventManager::GetInstance() };
   em.Subscribe<Events::StartSceneEvent>(this); em.Subscribe<Events::PauseSceneEvent>(this); em.Subscribe<Events::StopSceneEvent>(this);
@@ -104,7 +104,7 @@ void GE::Scenes::SceneManager::RestartScene()
 
 void GE::Scenes::SceneManager::HandleEvent(Events::Event* event)
 {
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
   switch (event->GetCategory())
   {
   case Events::EVENT_TYPE::START_SCENE:

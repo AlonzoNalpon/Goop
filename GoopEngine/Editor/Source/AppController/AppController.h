@@ -56,7 +56,7 @@ namespace GE::Application
     WindowSystem::Window window;
     Graphics::GraphicsEngine& gEngine;
     GE::FPS::FrameRateController& fRC;
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
     GE::EditorGUI::ImGuiUI imgui;
     bool showEditor{true}; // !< flag for whether editor should be rendered (vs game camera)
 #endif

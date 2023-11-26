@@ -1,5 +1,5 @@
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <PrefabManager/PrefabManager.h>
 #include <ECS/EntityComponentSystem.h>
 #include <ObjectFactory/ObjectFactory.h>

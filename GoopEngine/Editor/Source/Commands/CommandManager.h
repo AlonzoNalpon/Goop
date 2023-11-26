@@ -9,6 +9,7 @@ The Tree Manager class is in charge of serializing and deserializing the behavio
 The node editor and the Enemy system will get Tree data from Tree Manager.
 **************************************************************************/
 #pragma once
+#ifndef IMGUI_DISABLE
 #include "../Singleton/Singleton.h"
 #include <Commands/ImGuiCommands.h>
 #include <deque>
@@ -65,3 +66,4 @@ namespace GE {
 
 
 }
+#endif

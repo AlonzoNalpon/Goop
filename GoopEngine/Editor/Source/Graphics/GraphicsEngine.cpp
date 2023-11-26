@@ -66,22 +66,24 @@ namespace {
     }
     m_spriteQuadMdl = GenerateQuad();
     m_renderQuad    = GenerateQuad(1.f, 1.f); // a render quad covering the full screen!
-    m_lineMdl       = GenerateLine();
     m_fontMdl = GenerateFontMdl();
 
     // INITIALIZING ALL SHADERS
     ShaderInitCont spriteShaders{ { GL_VERTEX_SHADER, "sprite.vert" }, {GL_FRAGMENT_SHADER, "sprite.frag"}};
     ShaderInitCont finalPassShaders{ { GL_VERTEX_SHADER, "final_pass.vert" }, {GL_FRAGMENT_SHADER, "final_pass.frag"} };
-    ShaderInitCont debugLineShaders{ { GL_VERTEX_SHADER, "debug_line.vert" }, {GL_FRAGMENT_SHADER, "debug_line.frag"} };
     ShaderInitCont fontShaders{ { GL_VERTEX_SHADER, "font.vert" }, {GL_FRAGMENT_SHADER, "font.frag"} };
 
     m_spriteQuadMdl.shader = CreateShader(spriteShaders, "sprite");
     m_renderQuad.shader    = CreateShader(finalPassShaders, "finalPass");
     m_fontMdl.shader       = CreateShader(fontShaders, "font");
     // Adding the basic shader for rendering lines etc...
-    m_lineMdl.shader       = CreateShader(debugLineShaders, "debug_line");
     m_models.emplace_back(m_spriteQuadMdl);
+#ifndef NO_IMGUI
+    m_lineMdl       = GenerateLine();
+    ShaderInitCont debugLineShaders{ { GL_VERTEX_SHADER, "debug_line.vert" }, {GL_FRAGMENT_SHADER, "debug_line.frag"} };
+    m_lineMdl.shader       = CreateShader(debugLineShaders, "debug_line");
     m_models.emplace_back(m_lineMdl); // always load line model last! for renderer init
+#endif
 
     //Initialize renderer with a camera: WILL BE REMOVED WHEN GAME CAMERA COMPONENTS ARE COMPLETED
     {
@@ -95,7 +97,7 @@ namespace {
 #pragma endregion
 
 // compiler directive To be removed in future if engine does not need
-#ifdef NO_IMGUI
+#ifdef IMGUI_DISABLE
     CreateFrameBuffer(w, h);
 #endif
 

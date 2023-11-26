@@ -48,19 +48,19 @@ void CollisionSystem::Update()
 		BoxCollider* updateEntity = m_ecs->GetComponent<BoxCollider>(entity);
 		Transform* newCenter = m_ecs->GetComponent<Transform>(entity);
 		UpdateAABB(*updateEntity, newCenter->m_worldPos);
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 		if (updateEntity->m_render)
 		{
 			updateEntity->Render(); 
 		}
-#endif // !NO_IMGUI
+#endif // !IMGUI_DISABLE
 	}
 
 	//spatial partitioning -> uniform grid
 	CreatePartitions(m_rowsPartition, m_colsPartition);
 	for (Partition& partition : m_partitions)
 	{
-//#ifndef NO_IMGUI
+//#ifndef IMGUI_DISABLE
 #if 0
 		[[maybe_unused]] auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
 		//drawing partition's border
@@ -68,7 +68,7 @@ void CollisionSystem::Update()
 		gEngine.DrawLine({ partition.max.x, partition.min.y }, partition.max);
 		gEngine.DrawLine(partition.max, { partition.min.x, partition.max.y });
 		gEngine.DrawLine({ partition.min.x, partition.max.y }, partition.min);
-#endif // !NO_IMGUI
+#endif // !IMGUI_DISABLE
 
 		if (partition.m_entitiesInPartition.empty()) 
 		{

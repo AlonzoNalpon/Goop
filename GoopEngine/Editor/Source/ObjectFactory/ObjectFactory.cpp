@@ -14,7 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SerializeComponents.h"
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Serialization/Deserializer.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <PrefabManager/PrefabManager.h>
 #endif
 
@@ -223,7 +223,7 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
 
   ECS::Entity newEntity{ ecs.CreateEntity() };
   AddComponentsToEntity(newEntity, iter->second.m_components);
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
   Prefabs::PrefabManager::GetInstance().AttachPrefab(newEntity, key);
 #endif
 
@@ -286,7 +286,7 @@ void ObjectFactory::ClearSceneObjects()
 void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
 {
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
   Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
 #endif
 
@@ -296,7 +296,7 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
     ecs.SetIsActiveEntity(const_cast<ECS::Entity&>(id), data.m_isActive);
     AddComponentsToEntity(id, data.m_components);
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
     if (!data.m_prefab.empty()) { pm.AttachPrefab(id, data.m_prefab); }
 #endif
   }
@@ -311,7 +311,7 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
     }
   }
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
   pm.UpdateAllEntitiesFromPrefab();
 #endif
 }

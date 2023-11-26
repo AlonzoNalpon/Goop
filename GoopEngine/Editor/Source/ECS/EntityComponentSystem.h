@@ -423,9 +423,9 @@ namespace GE
 			\param ...
 				typeid(System Class).name() of systems
 			************************************************************************/
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 			void UpdateSystems(int systemCount, ...);
-#endif // !NO_IMGUI
+#endif // !IMGUI_DISABLE
 		};
 
 #include "EntityComponentSystem.tpp"

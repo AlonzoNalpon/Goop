@@ -9,6 +9,7 @@ User can Move Nodes Arounf, link nodes with each other, add nodes and edit nodes
 ( Wrote down the guide on how to use it inside editorGuide file )
 **************************************************************************/
 #pragma once
+#ifndef IMGUI_DISABLE
 #include <ImNode/imnodes.h>
 #include <AI/TreeManager.h>
 #include <vector>
@@ -169,3 +170,4 @@ namespace GE {
 
 	}
 }
+#endif

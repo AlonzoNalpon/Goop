@@ -18,7 +18,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Components.h>
 #include <ObjectFactory/ObjectFactory.h>
 #include <rttr/enumeration.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <PrefabManager/PrefabManager.h>
 #endif
 
@@ -38,7 +38,7 @@ namespace GE
     const char Serializer::JsonAssociativeKey[] = "key", Serializer::JsonAssociativeValue[] = "value";
     const char Serializer::ScriptFieldInstListTypeKey[] = "type";
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
     void Serializer::SerializeVariantToPrefab(ObjectFactory::VariantPrefab const& prefab, std::string const& filename)
     {
       std::ofstream ofs{ filename };
@@ -121,7 +121,7 @@ namespace GE
       jsonId.SetUint(id);
       entity.AddMember(JsonIdKey, jsonId.Move(), allocator);
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
       // serialize prefab created from
       rapidjson::Value prefabJson{ rapidjson::kNullType };
       std::string const prefabName{ Prefabs::PrefabManager::GetInstance().GetEntityPrefab(id) };

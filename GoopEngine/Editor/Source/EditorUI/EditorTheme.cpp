@@ -1,5 +1,5 @@
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 
 #include <EditorUI/EditorTheme.h>
 #include <ImGui/imgui.h>

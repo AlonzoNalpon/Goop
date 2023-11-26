@@ -1,5 +1,5 @@
 #pragma once
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
 #include <AssetManager/AssetManager.h>

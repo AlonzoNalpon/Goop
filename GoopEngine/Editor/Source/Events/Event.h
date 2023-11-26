@@ -40,7 +40,7 @@ namespace GE
       NEW_ENTITY,
       REMOVE_ENTITY,
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
       START_SCENE,
       PAUSE_SCENE,
       STOP_SCENE,
