@@ -56,10 +56,10 @@ namespace GE::EditorGUI
     // ONLY IF USING, WE UPDATE (messing with values in inspector means gizmo shouldn't do anything)
     if (ImGuizmo::IsUsing())
     {
-
       float newScale[3], newRotation[3], newTrans[3];
       ImGuizmo::DecomposeMatrixToComponents(g_gizmoInfo.trans, newTrans, newRotation, newScale);
-      // Changed local transform
+      
+      // Changed local transform as if we had no parent (so this transform is basically the world transform)
       trans->m_pos.x = newTrans[0];
       trans->m_pos.y = newTrans[1];
       trans->m_pos.z = newTrans[2];
@@ -70,10 +70,19 @@ namespace GE::EditorGUI
       trans->m_scale.y = newScale[1];
       trans->m_scale.z = newScale[2];
 
-      GE::Systems::PostRootTransformSystem::Propergate(g_gizmoInfo.entity, trans->m_parentWorldTransform);
+      // This is the identity matrix we will use as parent transform
+      const Math::dMat4 identity{ 1, 0, 0, 0,
+                                  0, 1, 0, 0,
+                                  0, 0, 1, 0,
+                                  0, 0, 0, 1 };
+      GE::Systems::PostRootTransformSystem::Propergate(g_gizmoInfo.entity, identity);
+
+      // Propergate changes to children ...
+      //  Instead of passing in parent, we pass in an IDENTITY matrix (allowing transforming children with children to work)
+      //    This means that when we transform using gizmo, we assume that this entity has no parent (so its parent transform is identity)
       // Sets world transform relative to parent.
     
-      // Update world transform
+      // Update world transform based on the world transform from gizmo
       trans->m_worldPos.x = newTrans[0];
       trans->m_worldPos.y = newTrans[1];
       trans->m_worldPos.z = newTrans[2];
@@ -84,9 +93,11 @@ namespace GE::EditorGUI
       trans->m_worldScale.y = newScale[1];
       trans->m_worldScale.z = newScale[2];
 
+      // And now we propergate changes but we also take into account the parent's transform for accurate results
       GE::Systems::PreRootTransformSystem::Propergate(g_gizmoInfo.entity, trans->m_parentWorldTransform);
+
+      // Sets world transform based on ... huh?! What am I doing?!
     }
-    // Sets world transform based on ... huh?! What am I doing?!
   }
 
   void GizmoEditor::SetVisible(bool enable)
