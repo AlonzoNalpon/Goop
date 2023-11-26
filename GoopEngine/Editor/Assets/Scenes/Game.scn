@@ -9,19 +9,9 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -500, 50, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -500, 100, 0 }",
+                    "worldScale": "{ 0.9, 0.9, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -500, 50 }",
-                    "width": 350.0000052154064,
-                    "height": 600.0000089406967,
-                    "min": "{ -675, -250 }",
-                    "max": "{ -325, 350 }",
-                    "render": false
                 }
             },
             {
@@ -29,15 +19,15 @@
                     "spriteData": {
                         "spriteSubData": {
                             "texCoords": {
-                                "x": 0.0,
+                                "x": 0.75,
                                 "y": 0.0
                             },
                             "texDims": {
                                 "x": 0.25,
                                 "y": 1.0
                             },
-                            "width": 875,
-                            "height": 1500
+                            "width": 1000,
+                            "height": 750
                         }
                     },
                     "spriteName": "SS_LeahIdle"
@@ -282,8 +272,8 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 300, 50, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ 150, 50, 0 }",
+                    "worldScale": "{ 0.9, 0.9, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
@@ -292,15 +282,15 @@
                     "spriteData": {
                         "spriteSubData": {
                             "texCoords": {
-                                "x": 0.0,
+                                "x": 0.8333333134651184,
                                 "y": 0.0
                             },
                             "texDims": {
                                 "x": 0.1666666716337204,
                                 "y": 1.0
                             },
-                            "width": 128,
-                            "height": 128
+                            "width": 1250,
+                            "height": 750
                         }
                     },
                     "spriteName": "SS_MineWorm"
