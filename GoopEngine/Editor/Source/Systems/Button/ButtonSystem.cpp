@@ -1,6 +1,15 @@
+/*!*********************************************************************
+\file   ButtonSystem.cpp
+\author loh.j@digipen.edu
+\date   26-November-2023
+\brief
+	System to allow entities to do something after being interacted
+	with a click.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <Systems/Button/ButtonSystem.h>
-// #include <Component/Button.h>
 #include <Component/CardHolder.h>
 #include <Events/InputEvents.h>
 #include <GameStateManager/GameStateManager.h>
