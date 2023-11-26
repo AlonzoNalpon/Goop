@@ -12,10 +12,15 @@ namespace GE
     class PrefabManager : public Singleton<PrefabManager>, public Events::IEventListener
     {
     public:
+      using PrefabVersion = unsigned;
+      using EntityPrefabMap = std::unordered_map<ECS::Entity, std::pair<std::string, PrefabVersion>>;
+
 
       void AttachPrefab(ECS::Entity entity, std::string prefabName);
 
       void DetachPrefab(ECS::Entity entity);
+
+      bool DoesEntityHavePrefab(ECS::Entity entity) const;
 
       /*!*********************************************************************
       \brief
@@ -26,7 +31,17 @@ namespace GE
       \return
         The prefab an entity was created from and an empty string otherwise
       ************************************************************************/
-      std::string GetEntityPrefab(ECS::Entity entity) const;
+      EntityPrefabMap::mapped_type const& GetEntityPrefab(ECS::Entity entity) const;
+
+      /*!*********************************************************************
+      \brief
+        Gets the current version of a prefab
+      \param prefab
+        The prefab to get the version of
+      \return
+        The version of the prefab
+      ************************************************************************/
+      PrefabVersion GetPrefabVersion(std::string const& prefab) const;
 
       void CreatePrefabFromEntity(ECS::Entity entity, std::string const& name) const;
 
@@ -37,10 +52,8 @@ namespace GE
       void HandleEvent(Events::Event* event) override;
 
     private:
-      using EntityPrefabMap = std::unordered_map<ECS::Entity, std::string>;
-
       EntityPrefabMap m_entitiesToPrefabs;
-      std::unordered_map<std::string, unsigned> m_prefabVersions;
+      std::unordered_map<std::string, PrefabVersion> m_prefabVersions;
     };
   }
 }

@@ -28,13 +28,16 @@ namespace GE
   {
     // Names of Keys used when serializing to file
     // Both Serializer and Deserializer uses these to determine the name of the keys
+    // These are for internal usage (what its named in the file) and most likely will
+    // not have to be cared about or changed by external users
     const char Serializer::JsonNameKey[]          = "Name";
     const char Serializer::JsonIdKey[]            = "ID";
     const char Serializer::JsonEntityStateKey[]   = "isActive";
     const char Serializer::JsonParentKey[]        = "Parent";
     const char Serializer::JsonChildEntitiesKey[] = "Child Entities";
     const char Serializer::JsonComponentsKey[]    = "Components";
-    const char Serializer::JsonPrefabKey[]        = "Prefab";
+    const char Serializer::JsonPrefabKey[]        = "Prefab",   
+               Serializer::JsonPrefabVerKey[]     = "Version";
     const char Serializer::JsonAssociativeKey[] = "key", Serializer::JsonAssociativeValue[] = "value";
     const char Serializer::ScriptFieldInstListTypeKey[] = "type";
 
@@ -49,8 +52,13 @@ namespace GE
       }
 
       rapidjson::Document document{ rapidjson::kObjectType };
+      // name field
       rapidjson::Value name;
       name.SetString(prefab.m_name.c_str(), document.GetAllocator());
+
+      // version field
+      rapidjson::Value version;
+      name.SetUint(prefab.m_version);
 
       rapidjson::Value compArray{ rapidjson::kArrayType };
       for (rttr::variant const& comp : prefab.m_components) 
@@ -76,6 +84,7 @@ namespace GE
           compArray.PushBack(compJson, document.GetAllocator());
       }
       document.AddMember(JsonNameKey, name.Move(), document.GetAllocator());
+      document.AddMember(JsonPrefabVerKey, version.Move(), document.GetAllocator());
       document.AddMember(JsonComponentsKey, compArray.Move(), document.GetAllocator());
 
       rapidjson::OStreamWrapper osw{ ofs };
@@ -123,10 +132,17 @@ namespace GE
 
 #ifndef NO_IMGUI
       // serialize prefab created from
-      rapidjson::Value prefabJson{ rapidjson::kNullType };
-      std::string const prefabName{ Prefabs::PrefabManager::GetInstance().GetEntityPrefab(id) };
-      if (!prefabName.empty()) { prefabJson.SetString(prefabName.c_str(), allocator); }
+      Prefabs::PrefabManager const& pm{ Prefabs::PrefabManager::GetInstance() };
+      rapidjson::Value prefabJson{ rapidjson::kNullType }, versionJson{};
+      
+      if (pm.DoesEntityHavePrefab(id))
+      {
+        auto const& prefab{ pm.GetEntityPrefab(id) };
+        prefabJson.SetString(prefab.first.c_str(), allocator); 
+        versionJson.SetUint(prefab.second);
+      }
       entity.AddMember(JsonPrefabKey, prefabJson.Move(), allocator);
+      entity.AddMember(JsonPrefabVerKey, versionJson.Move(), allocator);
 #endif
 
       // serialize state

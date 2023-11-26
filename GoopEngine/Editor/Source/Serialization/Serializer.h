@@ -30,7 +30,7 @@ namespace GE
       Serializer() = delete;
 
       static const char JsonNameKey[], JsonIdKey[], JsonEntityStateKey[], JsonParentKey[],
-        JsonChildEntitiesKey[], JsonComponentsKey[], JsonPrefabKey[];
+        JsonChildEntitiesKey[], JsonComponentsKey[], JsonPrefabKey[], JsonPrefabVerKey[];
       static const char JsonAssociativeKey[], JsonAssociativeValue[], ScriptFieldInstListTypeKey[];
 #ifndef NO_IMGUI
       /*!*********************************************************************

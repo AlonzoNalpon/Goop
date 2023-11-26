@@ -1,59 +1,60 @@
 {
-    "Name": "Shark",
-    "Components": [
-        {
-            "Transform": {
-                "worldPos": "{ 0, 0, 0 }",
-                "worldScale": "{ 1, 1, 1 }",
-                "worldRot": "{ 0, 0, 0 }"
-            }
+  "Name": "Shark",
+  "Version": 0,
+  "Components": [
+    {
+      "Transform": {
+        "worldPos": "{ 0, 0, 0 }",
+        "worldScale": "{ 1, 1, 1 }",
+        "worldRot": "{ 0, 0, 0 }"
+      }
+    },
+    {
+      "BoxCollider": {
+        "center": "{ 15, 278 }",
+        "width": 10.0,
+        "height": 10.0,
+        "min": "{ 0, 0 }",
+        "max": "{ 0, 0 }",
+        "render": true
+      }
+    },
+    {
+      "Sprite": {
+        "spriteData": {
+          "spriteSubData": {
+            "texCoords": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "texDims": {
+              "x": 0.5,
+              "y": 1.0
+            },
+            "width": 30,
+            "height": 60
+          }
         },
-        {
-            "BoxCollider": {
-                "center": "{ 15, 278 }",
-                "width": 10.0,
-                "height": 10.0,
-                "min": "{ 0, 0 }",
-                "max": "{ 0, 0 }",
-                "render": true
-            }
+        "spriteName": "SS_EnemyTest"
+      }
+    },
+    {
+      "Text": {
+        "text": "YOUR END IS NO LONGER NEAR",
+        "clr": {
+          "r": 1.0,
+          "g": 0.0,
+          "b": 1.0,
+          "a": 1.0
         },
-        {
-            "Sprite": {
-                "spriteData": {
-                    "spriteSubData": {
-                        "texCoords": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "texDims": {
-                            "x": 0.5,
-                            "y": 1.0
-                        },
-                        "width": 30,
-                        "height": 60
-                    }
-                },
-                "spriteName": "SS_EnemyTest"
-            }
-        },
-        {
-            "Text": {
-                "text": "YOUR END IS NO LONGER NEAR",
-                "clr": {
-                    "r": 1.0,
-                    "g": 0.0,
-                    "b": 1.0,
-                    "a": 1.0
-                },
-                "scale": 0.10000000149011612,
-                "fontID": 0
-            }
-        },
-        {
-            "SpriteAnim": {
-                "name": "SS_EnemyTest"
-            }
-        }
-    ]
+        "scale": 0.10000000149011612,
+        "fontID": 0
+      }
+    },
+    {
+      "SpriteAnim": {
+        "name": "SS_EnemyTest"
+      }
+    }
+  ]
 }

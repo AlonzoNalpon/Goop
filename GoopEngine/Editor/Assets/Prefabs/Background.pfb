@@ -1,31 +1,32 @@
 {
-    "Name": "Background",
-    "Components": [
-        {
-            "Transform": {
-                "worldPos": "{ 1, 1, -5 }",
-                "worldScale": "{ 1, 1, 1 }",
-                "worldRot": "{ 0, 0, 0 }"
-            }
+  "Name": "Background",
+  "Version": 0,
+  "Components": [
+    {
+      "Transform": {
+        "worldPos": "{ 1, 1, -5 }",
+        "worldScale": "{ 1, 1, 1 }",
+        "worldRot": "{ 0, 0, 0 }"
+      }
+    },
+    {
+      "Sprite": {
+        "spriteData": {
+          "spriteSubData": {
+            "texCoords": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "texDims": {
+              "x": 1.0,
+              "y": 1.0
+            },
+            "width": 1920,
+            "height": 1080
+          }
         },
-        {
-            "Sprite": {
-                "spriteData": {
-                    "spriteSubData": {
-                        "texCoords": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "texDims": {
-                            "x": 1.0,
-                            "y": 1.0
-                        },
-                        "width": 1920,
-                        "height": 1080
-                    }
-                },
-                "spriteName": "BG_Lv1"
-            }
-        }
-    ]
+        "spriteName": "BG_Lv1"
+      }
+    }
+  ]
 }

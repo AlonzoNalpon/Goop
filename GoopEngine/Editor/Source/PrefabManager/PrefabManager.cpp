@@ -5,14 +5,22 @@
 #include <ObjectFactory/ObjectFactory.h>
 #include <Serialization/Serializer.h>
 
+#ifdef _DEBUG
+#define PREFAB_MANAGER_DEBUG
+#endif
+
 using namespace GE::Prefabs;
 
 void PrefabManager::AttachPrefab(ECS::Entity entity, std::string prefabName)
 {
-#ifdef _DEBUG
+#ifdef PREFAB_MANAGER_DEBUG
   std::cout << "Entity " << entity << ": " << prefabName << "\n";
 #endif
-  m_entitiesToPrefabs[entity] = std::move(prefabName);
+  std::istringstream iss{ prefabName };
+  std::string name; iss >> name;
+  ECS::Entity ver; iss >> ver;
+  m_prefabVersions[name] = ver;
+  m_entitiesToPrefabs[entity] = std::make_pair(prefabName, ver);
 }
 
 void PrefabManager::DetachPrefab(ECS::Entity entity)
@@ -24,15 +32,30 @@ void PrefabManager::DetachPrefab(ECS::Entity entity)
   m_entitiesToPrefabs.erase(entry);
 }
 
-std::string PrefabManager::GetEntityPrefab(ECS::Entity entity) const
+bool PrefabManager::DoesEntityHavePrefab(ECS::Entity entity) const
+{
+  return m_entitiesToPrefabs.find(entity) == m_entitiesToPrefabs.cend();
+}
+
+PrefabManager::EntityPrefabMap::mapped_type const& PrefabManager::GetEntityPrefab(ECS::Entity entity) const
 {
   EntityPrefabMap::const_iterator entry{ m_entitiesToPrefabs.find(entity) };
   if (entry == m_entitiesToPrefabs.cend())
   {
-    /*std::ostringstream oss{};
-    oss << "Entity " << entity << " has no associated prefab";
-    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());*/
-    return {};
+    std::ostringstream oss{}; oss << "Entity " << entity << " does not have a registered prefab";
+    throw Debug::Exception<PrefabManager>(Debug::LEVEL_ERROR, ErrMsg(oss.str()));
+  }
+
+  return entry->second;
+}
+
+PrefabManager::PrefabVersion PrefabManager::GetPrefabVersion(std::string const& prefab) const
+{
+  std::unordered_map<std::string, PrefabVersion>::const_iterator entry{m_prefabVersions.find(prefab)};
+  if (entry == m_prefabVersions.cend())
+  {
+    std::ostringstream oss{}; oss << "Prefab " << prefab << " does not exist";
+    throw Debug::Exception<PrefabManager>(Debug::LEVEL_ERROR, ErrMsg(oss.str()));
   }
 
   return entry->second;
@@ -42,12 +65,24 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
 {
   //ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
   ObjectFactory::ObjectFactory const& of{ ObjectFactory::ObjectFactory::GetInstance() };
-  EntityPrefabMap::const_iterator iter{ m_entitiesToPrefabs.cbegin() };
+  EntityPrefabMap::iterator iter{ m_entitiesToPrefabs.begin() };
   for (; iter != m_entitiesToPrefabs.cend(); ++iter)
   {
-    if (iter->second != prefab) { continue; }
+    EntityPrefabMap::mapped_type& iterVal{ iter->second };
+    // if prefabs name don't match, continue
+    if (iterVal.first != prefab) { continue; }
 
-    ObjectFactory::VariantPrefab prefabVar{ of.GetVariantPrefab(iter->second) };
+    // if prefab versions match, means its up-to-date so continue
+    ObjectFactory::VariantPrefab const& prefabRef{ of.GetVariantPrefab(iterVal.first) };
+    if (prefabRef.m_version == iterVal.second) { 
+      #ifdef PREFAB_MANAGER_DEBUG
+      std::cout << " Entity " << iter->first << " matches " << prefab << "'s version of " << prefabRef.m_version << "\n";
+      #endif
+      continue; 
+    }
+
+    ObjectFactory::VariantPrefab prefabVar{ prefabRef };
+
     for (std::vector<rttr::variant>::const_iterator comp{ prefabVar.m_components.cbegin() }; comp != prefabVar.m_components.cend(); ++comp)
     {
       if (comp->get_type().get_wrapped_type() == rttr::type::get<Component::Transform*>())
@@ -63,6 +98,10 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
     }
 
     of.AddComponentsToEntity(iter->first, prefabVar.m_components);
+    iterVal.second = prefabRef.m_version;  // update version of entity
+#ifdef PREFAB_MANAGER_DEBUG
+    std::cout << " Entity " << iter->first << " updated with " << prefab << " version " << iterVal.second << "\n";
+#endif
   }
 
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Entities in scene have been updated with prefab changes");
@@ -89,7 +128,7 @@ void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const
 
   Assets::AssetManager& am{ Assets::AssetManager::GetInstance() };
   Serialization::Serializer::SerializeVariantToPrefab(prefab,
-  am.GetConfigData<std::string>("Prefabs Dir") + name + am.GetConfigData<std::string>("Prefab File Extension"));
+    am.GetConfigData<std::string>("Prefabs Dir") + name + am.GetConfigData<std::string>("Prefab File Extension"));
   am.ReloadFiles(Assets::FileType::PREFAB);
 
   GE::Debug::ErrorLogger::GetInstance().LogMessage(name + " saved to Prefabs");

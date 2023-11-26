@@ -23,7 +23,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #endif
 
 #ifdef _DEBUG
-#define DESERIALIZER_DEBUG
+//#define DESERIALIZER_DEBUG
 #endif
 
 using namespace GE;
@@ -61,10 +61,10 @@ ObjectFactory::VariantPrefab Deserializer::DeserializePrefabToVariant(std::strin
     return {};
   }
 
-  if (!ScanJsonFileForMembers(document, 2, Serializer::JsonNameKey, rapidjson::kStringType, 
-    Serializer::JsonComponentsKey, rapidjson::kArrayType)) { ifs.close(); return {}; }
+  if (!ScanJsonFileForMembers(document, 3, Serializer::JsonNameKey, rapidjson::kStringType, 
+    Serializer::JsonComponentsKey, rapidjson::kArrayType, Serializer::JsonPrefabVerKey, rapidjson::kNumberType)) { ifs.close(); return {}; }
 
-  ObjectFactory::VariantPrefab prefab{ document[Serializer::JsonNameKey].GetString() };
+  ObjectFactory::VariantPrefab prefab{ document[Serializer::JsonNameKey].GetString(), document[Serializer::JsonPrefabVerKey].GetUint() };
   // iterate through component objects in json array
   std::vector<rttr::variant>& compVector{ prefab.m_components };
   for (auto const& elem : document[Serializer::JsonComponentsKey].GetArray())
