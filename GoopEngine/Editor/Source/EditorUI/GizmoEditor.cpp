@@ -29,8 +29,6 @@ namespace GE::EditorGUI
 
   void GizmoEditor::RenderGizmo()
   {
-    //ImGuizmo::DrawGrid(g_gizmoInfo.view, g_gizmoInfo.proj, identityMatrix, 100.f);
-
     bool oldMode = ImGuizmo::IsUsing(); // get the old isusing flag before updating imguizmo
     ImGuizmo::Manipulate(g_gizmoInfo.view, g_gizmoInfo.proj, g_currOp
       , ImGuizmo::MODE::LOCAL, g_gizmoInfo.trans);
@@ -55,6 +53,7 @@ namespace GE::EditorGUI
     if (!trans)
       return;
     // Reassign the new transform
+    // ONLY IF USING, WE UPDATE (messing with values in inspector means gizmo shouldn't do anything)
     if (ImGuizmo::IsUsing())
     {
 
