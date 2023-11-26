@@ -1,4 +1,13 @@
-﻿using GoopScripts.Gameplay;
+﻿/*!*********************************************************************
+\file   DawsonChargeUp.cs
+\author w.chinkitbryan\@digipen.edu
+\date   26-November-2023
+\brief  
+  DawsonChargeUp card, derived from card base.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Gameplay;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,15 +22,18 @@ namespace GoopScripts.Cards
 {
 	internal class CardManager
 	{
-		// Supposed to be a bunch of polymorphic cards of tye card base
-		// the card objects are set via c++ interface
 		CardBase[] m_cards;
 		public CardBase[] Cards { get { return m_cards; } set { m_cards = value; } }
-		// Function to pass m_cards.ToArray() to c++ 
-		// public void ...()
 
+		/*!*********************************************************************
+		\brief
+      Default constructor of all cards. Creates an array of all existing
+      cards to then later be used for as a lookup during game logic processing
+		************************************************************************/
 		public CardManager()
 		{
+      // All cards calling TakeDamage() function currently causes crashes.
+      // The function has not yet been properly implemented for gameplay
       m_cards = new CardBase[(int)CardBase.CardID.TOTAL_CARDS];
 
       m_cards[(int)CardBase.CardID.NO_CARD] = new BlankCard(CardBase.CardID.NO_CARD);

@@ -2,6 +2,7 @@
 
 //#define EVENT_DEBUG
 //#define IMGUI_DISABLE
+//#define FULLSCREEN
 
 #if defined _DEBUG || defined EVENT_DEBUG
 #include <iostream>
@@ -42,7 +43,3 @@
 #include <Events/Events.h>
 #include <Events/InputEvents.h>
 #include <Utilities/GoopUtils.h>
-
-#ifdef IMGUI_DISABLE
-//#define FULLSCREEN
-#endif
