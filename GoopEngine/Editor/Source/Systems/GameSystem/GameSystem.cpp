@@ -1,3 +1,15 @@
+/*!*********************************************************************
+\file   GameSystem.cpp
+\author w.chinkitbryan\@digipen.edu
+\date   26-November-2023
+\brief  
+  Single point interface where all our game logic will go through.
+  A entity with the Game component with a GameManager.cs script will
+  run and call all our game logic in 1 script which will then handle
+  logic in scripts entirely enclosed in the C# enviroment.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "GameSystem.h"
 #include <Component/Game.h>
