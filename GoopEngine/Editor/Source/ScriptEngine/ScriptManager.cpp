@@ -552,8 +552,9 @@ void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int 
 
 void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID)
 {
+  std::cout << "HAND CARD " << std::endl;
   ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
-  Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(handIndex);
+  Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(handEntity);
   ECS::Entity cardEntity = cardHolder->elements[handIndex].cardEntity;
   auto* cardComp = ecs.GetComponent<Component::Card>(cardEntity);
 
@@ -573,6 +574,7 @@ void GE::MONO::SendString(MonoString* str)
 {
   std::string test = GE::MONO::MonoStringToSTD(str);
   //Do what ever yo want with the string
+  std::cout << test << std::endl;
 }
 
 std::string GE::MONO::MonoStringToSTD(MonoString* str)
