@@ -15,8 +15,7 @@ namespace GE
       using PrefabVersion = unsigned;
       using EntityPrefabMap = std::unordered_map<ECS::Entity, std::pair<std::string, PrefabVersion>>;
 
-
-      void AttachPrefab(ECS::Entity entity, std::string prefabName);
+      void AttachPrefab(ECS::Entity entity, std::string const& prefabName, PrefabVersion version);
 
       void DetachPrefab(ECS::Entity entity);
 

@@ -148,9 +148,10 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
   // okay code starts here
   for (auto const& entity : document.GetArray())
   {
-    ECS::Entity const parent_id{ entity[Serializer::JsonParentKey].IsNull() ? ECS::INVALID_ID : entity[Serializer::JsonParentKey].GetUint() };
+    ECS::Entity const entityId{ entity[Serializer::JsonIdKey].GetUint() };
+    ECS::Entity const parentId{ entity[Serializer::JsonParentKey].IsNull() ? ECS::INVALID_ID : entity[Serializer::JsonParentKey].GetUint() };
     ObjectFactory::VariantEntity entityVar{ entity[Serializer::JsonNameKey].GetString(),
-      parent_id, entity[Serializer::JsonEntityStateKey].GetBool() };  // set parent
+      parentId, entity[Serializer::JsonEntityStateKey].GetBool() };  // set parent
     // get child ids
     for (auto const& child : entity[Serializer::JsonChildEntitiesKey].GetArray())
     {
@@ -158,9 +159,12 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
     }
 
 #ifndef NO_IMGUI
+    Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
     if (entity.HasMember(Serializer::JsonPrefabKey) && !entity[Serializer::JsonPrefabKey].IsNull())
     {
-      entityVar.m_prefab = entity[Serializer::JsonPrefabKey].GetString();
+      Prefabs::PrefabManager::PrefabVersion ver{};
+      if (entity.HasMember(Serializer::JsonPrefabVerKey)) { ver = entity[Serializer::JsonPrefabVerKey].GetUint(); }
+      pm.AttachPrefab(entityId, entity[Serializer::JsonPrefabKey].GetString(), ver);
     }
 #endif
 
@@ -195,7 +199,7 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
       }
     }
 
-    ret.emplace_back(std::make_pair(entity[Serializer::JsonIdKey].GetUint(), std::move(entityVar)));
+    ret.emplace_back(std::make_pair(entityId, std::move(entityVar)));
   }
 
   return ret;

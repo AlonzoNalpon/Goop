@@ -11,16 +11,12 @@
 
 using namespace GE::Prefabs;
 
-void PrefabManager::AttachPrefab(ECS::Entity entity, std::string prefabName)
+void PrefabManager::AttachPrefab(ECS::Entity entity, std::string const& prefabName, PrefabVersion version)
 {
 #ifdef PREFAB_MANAGER_DEBUG
-  std::cout << "Entity " << entity << ": " << prefabName << "\n";
+  std::cout << "Entity " << entity << ": " << prefabName << ", version " << version << "\n";
 #endif
-  std::istringstream iss{ prefabName };
-  std::string name; iss >> name;
-  ECS::Entity ver; iss >> ver;
-  m_prefabVersions[name] = ver;
-  m_entitiesToPrefabs[entity] = std::make_pair(prefabName, ver);
+  m_entitiesToPrefabs[entity] = std::make_pair(prefabName, version);
 }
 
 void PrefabManager::DetachPrefab(ECS::Entity entity)
@@ -74,7 +70,8 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
 
     // if prefab versions match, means its up-to-date so continue
     ObjectFactory::VariantPrefab const& prefabRef{ of.GetVariantPrefab(iterVal.first) };
-    if (prefabRef.m_version == iterVal.second) { 
+    if (prefabRef.m_version == iterVal.second)
+    {
       #ifdef PREFAB_MANAGER_DEBUG
       std::cout << " Entity " << iter->first << " matches " << prefab << "'s version of " << prefabRef.m_version << "\n";
       #endif
