@@ -40,6 +40,7 @@ namespace GE
       using EntityPrefabMap = std::unordered_map<ECS::Entity, std::string>;
 
       EntityPrefabMap m_entitiesToPrefabs;
+      std::unordered_map<std::string, unsigned> m_prefabVersions;
     };
   }
 }

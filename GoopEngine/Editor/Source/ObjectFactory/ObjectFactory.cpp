@@ -248,7 +248,6 @@ void ObjectFactory::ReloadPrefabs()
 void GE::ObjectFactory::ObjectFactory::EmptyMap()
 {
   m_deserialized.clear();
-  m_prefabs.clear();
 }
 
 void ObjectFactory::CloneObject(ECS::Entity entity, ECS::Entity parent) const
@@ -287,6 +286,9 @@ void ObjectFactory::ClearSceneObjects()
 void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
 {
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+#ifndef NO_IMGUI
+  Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
+#endif
 
   for (auto const& [id, data] : m_deserialized)
   {
@@ -295,7 +297,6 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
     AddComponentsToEntity(id, data.m_components);
 
 #ifndef NO_IMGUI
-    Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
     if (!data.m_prefab.empty()) { pm.AttachPrefab(id, data.m_prefab); }
 #endif
   }
@@ -311,7 +312,7 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
   }
 
 #ifndef NO_IMGUI
-  //pm.
+  pm.UpdateAllEntitiesFromPrefab();
 #endif
 }
 

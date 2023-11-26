@@ -42,17 +42,18 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
 {
   //ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
   ObjectFactory::ObjectFactory const& of{ ObjectFactory::ObjectFactory::GetInstance() };
-  for (auto const& [entity, name] : m_entitiesToPrefabs)
+  EntityPrefabMap::const_iterator iter{ m_entitiesToPrefabs.cbegin() };
+  for (; iter != m_entitiesToPrefabs.cend(); ++iter)
   {
-    if (name != prefab) { continue; }
+    if (iter->second != prefab) { continue; }
 
-    ObjectFactory::VariantPrefab prefabVar{ of.GetVariantPrefab(name) };
+    ObjectFactory::VariantPrefab prefabVar{ of.GetVariantPrefab(iter->second) };
     for (std::vector<rttr::variant>::const_iterator comp{ prefabVar.m_components.cbegin() }; comp != prefabVar.m_components.cend(); ++comp)
     {
       if (comp->get_type().get_wrapped_type() == rttr::type::get<Component::Transform*>())
       {
         Component::Transform const& newTrans{ *comp->get_value<Component::Transform*>() };
-        Component::Transform* trans{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Transform>(entity) };
+        Component::Transform* trans{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Transform>(iter->first) };
         auto pos{ std::move(trans->m_worldPos) };
         *trans = newTrans;
         trans->m_worldPos = std::move(pos);
@@ -60,7 +61,9 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
         break;
       }
     }
-    of.AddComponentsToEntity(entity, prefabVar.m_components);
+    if (iter == m_entitiesToPrefabs.cend()) { return; } // if no entities to update
+
+    of.AddComponentsToEntity(iter->first, prefabVar.m_components);
   }
 
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Entities in scene have been updated with prefab changes");
@@ -68,7 +71,10 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
 
 void PrefabManager::UpdateAllEntitiesFromPrefab()
 {
-
+  for (auto const& [prefab, path] : Assets::AssetManager::GetInstance().GetPrefabs())
+  {
+    UpdateEntitiesFromPrefab(prefab);
+  }
 }
 
 void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const& name) const
