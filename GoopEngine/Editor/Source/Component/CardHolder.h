@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   CardHolder.h
+\author a.nalpon\@digipen.edu
+\date   27-November-2023
+\brief  This file contains the definition for the card holder component
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef CARD_HOLDER_H
 #define CARD_HOLDER_H
 #include <ECS/Entity/Entity.h>
