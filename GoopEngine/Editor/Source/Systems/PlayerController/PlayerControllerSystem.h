@@ -12,7 +12,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include <Math/GEM.h>
 #include <ECS/System/System.h>
-#include <Events/EventManager.h>
 #include <Component/Transform.h>
 
 using vec3 = GE::Math::dVec3;
@@ -21,7 +20,7 @@ namespace GE
 {
 	namespace Systems
 	{
-		class PlayerControllerSystem : public GE::ECS::System, public GE::Events::IEventListener
+		class PlayerControllerSystem : public GE::ECS::System
 		{
 		public:
 			/*!*********************************************************************
@@ -41,14 +40,6 @@ namespace GE
 				System update.
 			************************************************************************/
 			void FixedUpdate();
-
-			/*!*********************************************************************
-			\brief
-				Event handler for the system.
-			\param event
-				Event occuring.
-			************************************************************************/
-			void HandleEvent(Events::Event* event) override;
 
 			/*!*********************************************************************
 			\brief

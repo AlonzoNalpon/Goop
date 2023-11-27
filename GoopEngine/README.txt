@@ -13,3 +13,7 @@ During gameplay, unfocusing the window or pressing escape will bring up the paus
 In the pause menu, the "How to Play", "Resume", "Quit", "X", "Yes" and "No" button works.
 Pressing "1", in the game scene, will bring up the Victory screen. The "Leave" button works and returns to the main menu.
 Pressing "2", in the game scene, will bring up the Defeat screen. The "Leave" button works and returns to the main menu.
+
+known bugs:
+when pause menu is triggered, and you enter another pop up screen like how to play or quit game, you can press escape again to trigger the pause menu to appear below the new pop up which will create more UI menus on top of UI menus.
+Pressing doing another action i.e Cheat button, End turn while the turn is still resolve leads to undefined behaviour
