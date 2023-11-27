@@ -2,6 +2,7 @@
     {
         "Name": "[Image] Background",
         "ID": 0,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -11,16 +12,6 @@
                     "worldPos": "{ 0, 0, -2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 1920.0,
-                    "height": 1080.0,
-                    "min": "{ -960, -540 }",
-                    "max": "{ 960, 540 }",
-                    "render": true
                 }
             },
             {
@@ -35,8 +26,8 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 1920,
-                            "height": 1080
+                            "width": 2133,
+                            "height": 1200
                         }
                     },
                     "spriteName": "MainMenu_BG"
@@ -60,6 +51,7 @@
     {
         "Name": "[Temp] Blanko",
         "ID": 1,
+        "Prefab": null,
         "isActive": true,
         "Parent": 10,
         "Child Entities": [
@@ -68,7 +60,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 501.926, 238.963, 1 }",
+                    "worldPos": "{ 544.204, 238.963, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -97,6 +89,7 @@
     {
         "Name": "[Folder] Buttons",
         "ID": 2,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -110,7 +103,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 445, 395, 0 }",
+                    "worldPos": "{ 490.66, 395, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -120,24 +113,25 @@
     {
         "Name": "[Button] New Game",
         "ID": 3,
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 445, 395, 0 }",
+                    "worldPos": "{ 494.66, 395, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 445, 395 }",
+                    "center": "{ 494.66, 395 }",
                     "width": 374.0,
                     "height": 136.0,
-                    "min": "{ 258, 327 }",
-                    "max": "{ 632, 463 }",
+                    "min": "{ 307.66, 327 }",
+                    "max": "{ 681.66, 463 }",
                     "render": true
                 }
             },
@@ -171,24 +165,25 @@
     {
         "Name": "[Button] Load Game",
         "ID": 4,
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 445, 235, 0 }",
+                    "worldPos": "{ 490.66, 235, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 445, 235 }",
+                    "center": "{ 490.66, 235 }",
                     "width": 374.0,
                     "height": 136.0,
-                    "min": "{ 258, 167 }",
-                    "max": "{ 632, 303 }",
+                    "min": "{ 303.66, 167 }",
+                    "max": "{ 677.66, 303 }",
                     "render": true
                 }
             },
@@ -222,13 +217,14 @@
     {
         "Name": "[Button] Options",
         "ID": 5,
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 445, 75, 0 }",
+                    "worldPos": "{ 490.66, 75, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -257,13 +253,14 @@
     {
         "Name": "[Button] How To Play",
         "ID": 6,
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 445, -85, 0 }",
+                    "worldPos": "{ 490.66, -85, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -292,13 +289,14 @@
     {
         "Name": "[Button] Credits",
         "ID": 7,
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 445, -245, 0 }",
+                    "worldPos": "{ 490.66, -245, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -327,24 +325,25 @@
     {
         "Name": "[Button] Quit Game",
         "ID": 8,
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 445, -405, 0 }",
+                    "worldPos": "{ 490.66, -405, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 445, -405 }",
+                    "center": "{ 490.66, -405 }",
                     "width": 374.0,
                     "height": 136.0,
-                    "min": "{ 258, -473 }",
-                    "max": "{ 632, -337 }",
+                    "min": "{ 303.66, -473 }",
+                    "max": "{ 677.66, -337 }",
                     "render": true
                 }
             },
@@ -378,24 +377,25 @@
     {
         "Name": "[Temp] Blanko",
         "ID": 9,
+        "Prefab": null,
         "isActive": true,
         "Parent": 10,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 440, -244, 0 }",
+                    "worldPos": "{ 482.278, -244, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 440, -244 }",
-                    "width": 250.0,
+                    "center": "{ 482.278, -244 }",
+                    "width": 280.0,
                     "height": 80.0,
-                    "min": "{ 315, -284 }",
-                    "max": "{ 565, -204 }",
+                    "min": "{ 342.278, -284 }",
+                    "max": "{ 622.278, -204 }",
                     "render": true
                 }
             },
@@ -423,6 +423,7 @@
     {
         "Name": "[Folder] Temp",
         "ID": 10,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -434,7 +435,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 440, 396, 0 }",
+                    "worldPos": "{ 482.278, 396, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -444,24 +445,25 @@
     {
         "Name": "[Temp] Blanko",
         "ID": 11,
+        "Prefab": null,
         "isActive": true,
         "Parent": 10,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 440, -84, 0 }",
+                    "worldPos": "{ 482.278, -84, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 440, -84 }",
-                    "width": 250.0,
+                    "center": "{ 482.278, -84 }",
+                    "width": 280.0,
                     "height": 80.0,
-                    "min": "{ 315, -124 }",
-                    "max": "{ 565, -44 }",
+                    "min": "{ 342.278, -124 }",
+                    "max": "{ 622.278, -44 }",
                     "render": true
                 }
             },
@@ -489,24 +491,25 @@
     {
         "Name": "[Temp] Blanko",
         "ID": 12,
+        "Prefab": null,
         "isActive": true,
         "Parent": 10,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 440, 76, 0 }",
+                    "worldPos": "{ 482.278, 76, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 440, 76 }",
-                    "width": 250.0,
+                    "center": "{ 482.278, 76 }",
+                    "width": 280.0,
                     "height": 80.0,
-                    "min": "{ 315, 36 }",
-                    "max": "{ 565, 116 }",
+                    "min": "{ 342.278, 36 }",
+                    "max": "{ 622.278, 116 }",
                     "render": true
                 }
             },
@@ -534,13 +537,14 @@
     {
         "Name": "[Text] Test",
         "ID": 13,
+        "Prefab": null,
         "isActive": true,
         "Parent": 1,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 451.407, 219.407, 1 }",
+                    "worldPos": "{ 493.685, 219.407, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }

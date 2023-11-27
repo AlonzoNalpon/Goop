@@ -59,25 +59,25 @@
                                 {
                                     "data": [
                                         2,
+                                        7,
+                                        13,
+                                        7,
                                         2,
+                                        6,
+                                        8,
+                                        9,
+                                        7,
+                                        13,
+                                        7,
                                         2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2
+                                        9,
+                                        7,
+                                        7,
+                                        3,
+                                        6,
+                                        7,
+                                        13,
+                                        7
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
@@ -204,7 +204,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1200
                         }
                     },
                     "spriteName": "DAA2402_InGame_Environment2_v05"
@@ -249,7 +249,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -380, 0 }",
+                    "worldPos": "{ 0, -440, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -288,6 +288,16 @@
                     "worldPos": "{ 150, 50, 0 }",
                     "worldScale": "{ 0.9, 0.9, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 718.335, 373.233 }",
+                    "width": 456.0,
+                    "height": 154.0,
+                    "min": "{ 490.335, 296.233 }",
+                    "max": "{ 946.335, 450.233 }",
+                    "render": false
                 }
             },
             {
@@ -400,6 +410,25 @@
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 0, 0, 0 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 456,
+                            "height": 154
+                        }
+                    },
+                    "spriteName": "Button_Base"
                 }
             },
             {
@@ -821,7 +850,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -385, 3 }",
+                    "worldPos": "{ 0, -445, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -884,18 +913,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -550, -385, 3 }",
+                    "worldPos": "{ -550, -445, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -550, -385 }",
+                    "center": "{ -550, -445 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -657, -535 }",
-                    "max": "{ -443, -235 }",
+                    "min": "{ -657, -595 }",
+                    "max": "{ -443, -295 }",
                     "render": false
                 }
             },
@@ -989,18 +1018,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -290, -385, 3 }",
+                    "worldPos": "{ -290, -445, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -290, -385 }",
+                    "center": "{ -290, -445 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -397, -535 }",
-                    "max": "{ -183, -235 }",
+                    "min": "{ -397, -595 }",
+                    "max": "{ -183, -295 }",
                     "render": false
                 }
             },
@@ -1094,18 +1123,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -30, -385, 3 }",
+                    "worldPos": "{ -30, -445, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -30, -385 }",
+                    "center": "{ -30, -445 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -137, -535 }",
-                    "max": "{ 77, -235 }",
+                    "min": "{ -137, -595 }",
+                    "max": "{ 77, -295 }",
                     "render": false
                 }
             },
@@ -1199,18 +1228,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 230, -385, 3 }",
+                    "worldPos": "{ 230, -445, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 230, -385 }",
+                    "center": "{ 230, -445 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ 123, -535 }",
-                    "max": "{ 337, -235 }",
+                    "min": "{ 123, -595 }",
+                    "max": "{ 337, -295 }",
                     "render": false
                 }
             },
@@ -1304,18 +1333,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 490, -385, 3 }",
+                    "worldPos": "{ 490, -445, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 490, -385 }",
+                    "center": "{ 490, -445 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ 383, -535 }",
-                    "max": "{ 597, -235 }",
+                    "min": "{ 383, -595 }",
+                    "max": "{ 597, -295 }",
                     "render": false
                 }
             },
@@ -1639,9 +1668,9 @@
                 "BoxCollider": {
                     "center": "{ 0, 0 }",
                     "width": 1920.0,
-                    "height": 1080.0,
-                    "min": "{ -960, -540 }",
-                    "max": "{ 960, 540 }",
+                    "height": 1200.0,
+                    "min": "{ -960, -600 }",
+                    "max": "{ 960, 600 }",
                     "render": true
                 }
             },
@@ -1658,7 +1687,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1200
                         }
                     },
                     "spriteName": "Pause_OverlayBG"
@@ -1993,7 +2022,7 @@
                 "BoxCollider": {
                     "center": "{ 0, 0 }",
                     "width": 1920.0,
-                    "height": 1080.0,
+                    "height": 1200.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
                     "render": true
@@ -2012,7 +2041,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1200
                         }
                     },
                     "spriteName": "Pause_OverlayBG"
@@ -2151,7 +2180,7 @@
                 "BoxCollider": {
                     "center": "{ 0, 0 }",
                     "width": 1920.0,
-                    "height": 1080.0,
+                    "height": 1200.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
                     "render": true
@@ -2170,7 +2199,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1200
                         }
                     },
                     "spriteName": "Pause_OverlayBG"
