@@ -413,25 +413,6 @@
                 }
             },
             {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 456,
-                            "height": 154
-                        }
-                    },
-                    "spriteName": "Button_Base"
-                }
-            },
-            {
                 "Game": {
                     "player": 0,
                     "enemy": 4,
