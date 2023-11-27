@@ -129,23 +129,23 @@
         "ID": 1,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 15,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 780, -445, 10 }",
+                    "worldPos": "{ 780, -495, 4 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 780, -445 }",
+                    "center": "{ 780, -495 }",
                     "width": 322.5,
                     "height": 115.5,
-                    "min": "{ 618.75, -502.75 }",
-                    "max": "{ 941.25, -387.25 }",
+                    "min": "{ 618.75, -552.75 }",
+                    "max": "{ 941.25, -437.25 }",
                     "render": false
                 }
             },
@@ -292,11 +292,11 @@
             },
             {
                 "BoxCollider": {
-                    "center": "{ 718.335, 373.233 }",
+                    "center": "{ 150, 50 }",
                     "width": 456.0,
                     "height": 154.0,
-                    "min": "{ 490.335, 296.233 }",
-                    "max": "{ 946.335, 450.233 }",
+                    "min": "{ -78, -27 }",
+                    "max": "{ 378, 127 }",
                     "render": false
                 }
             },
@@ -840,6 +840,7 @@
         "isActive": true,
         "Parent": 14,
         "Child Entities": [
+            1,
             3,
             16,
             17,
