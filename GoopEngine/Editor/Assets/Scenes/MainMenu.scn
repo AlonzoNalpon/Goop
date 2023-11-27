@@ -1,567 +1,333 @@
 [
-    {
-        "Name": "[Image] Background",
-        "ID": 0,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 0, 0, -2 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 2133,
-                            "height": 1200
-                        }
-                    },
-                    "spriteName": "MainMenu_BG"
-                }
-            },
-            {
-                "Audio": {
-                    "sounds": [
-                        {
-                            "sound": "menu",
-                            "loop": true,
-                            "playOnStart": true,
-                            "channel": "BGM",
-                            "volume": 0.800000011920929
-                        }
-                    ]
-                }
+  {
+    "Name": "[Image] Background",
+    "ID": 0,
+    "Prefab": null,
+    "isActive": true,
+    "Parent": null,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "worldPos": "{ 0, 0, -2 }",
+          "worldScale": "{ 1, 1, 1 }",
+          "worldRot": "{ 0, -0, 0 }"
+        }
+      },
+      {
+        "Sprite": {
+          "spriteData": {
+            "spriteSubData": {
+              "texCoords": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "texDims": {
+                "x": 1.0,
+                "y": 1.0
+              },
+              "width": 2133,
+              "height": 1200
             }
-        ]
-    },
-    {
-        "Name": "[Temp] Blanko",
-        "ID": 1,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 10,
-        "Child Entities": [
-            13
-        ],
-        "Components": [
+          },
+          "spriteName": "MainMenu_BG"
+        }
+      },
+      {
+        "Audio": {
+          "sounds": [
             {
-                "Transform": {
-                    "worldPos": "{ 544.204, 238.963, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 123,
-                            "height": 80
-                        }
-                    },
-                    "spriteName": "Pause_BG"
-                }
+              "sound": "menu",
+              "loop": true,
+              "playOnStart": true,
+              "channel": "BGM",
+              "volume": 0.800000011920929
             }
-        ]
-    },
-    {
-        "Name": "[Folder] Buttons",
-        "ID": 2,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 490.66, 395, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Name": "[Folder] Buttons",
+    "ID": 2,
+    "Prefab": null,
+    "isActive": true,
+    "Parent": null,
+    "Child Entities": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "Components": [
+      {
+        "Transform": {
+          "worldPos": "{ 490.66, 395, 0 }",
+          "worldScale": "{ 1, 1, 1 }",
+          "worldRot": "{ 0, -0, 0 }"
+        }
+      }
+    ]
+  },
+  {
+    "Name": "[Button] New Game",
+    "ID": 3,
+    "Prefab": null,
+    "isActive": true,
+    "Parent": 2,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "worldPos": "{ 494.66, 395, 0 }",
+          "worldScale": "{ 1, 1, 1 }",
+          "worldRot": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "BoxCollider": {
+          "center": "{ 494.66, 395 }",
+          "width": 374.0,
+          "height": 136.0,
+          "min": "{ 307.66, 327 }",
+          "max": "{ 681.66, 463 }",
+          "render": true
+        }
+      },
+      {
+        "Sprite": {
+          "spriteData": {
+            "spriteSubData": {
+              "texCoords": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "texDims": {
+                "x": 1.0,
+                "y": 1.0
+              },
+              "width": 374,
+              "height": 136
             }
-        ]
-    },
-    {
-        "Name": "[Button] New Game",
-        "ID": 3,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 494.66, 395, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 494.66, 395 }",
-                    "width": 374.0,
-                    "height": 136.0,
-                    "min": "{ 307.66, 327 }",
-                    "max": "{ 681.66, 463 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_NewGame"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "Game",
-                    "eventType": "CHANGE_SCENE"
-                }
+          },
+          "spriteName": "MainMenu_NewGame"
+        }
+      },
+      {
+        "GE_Button": {
+          "param": "Game",
+          "eventType": "CHANGE_SCENE"
+        }
+      }
+    ]
+  },
+  {
+    "Name": "[Button] Load Game",
+    "ID": 4,
+    "Prefab": null,
+    "isActive": true,
+    "Parent": 2,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "worldPos": "{ 490.66, 235, 0 }",
+          "worldScale": "{ 1, 1, 1 }",
+          "worldRot": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "BoxCollider": {
+          "center": "{ 490.66, 235 }",
+          "width": 374.0,
+          "height": 136.0,
+          "min": "{ 303.66, 167 }",
+          "max": "{ 677.66, 303 }",
+          "render": true
+        }
+      },
+      {
+        "Sprite": {
+          "spriteData": {
+            "spriteSubData": {
+              "texCoords": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "texDims": {
+                "x": 1.0,
+                "y": 1.0
+              },
+              "width": 374,
+              "height": 136
             }
-        ]
-    },
-    {
-        "Name": "[Button] Load Game",
-        "ID": 4,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 490.66, 235, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 490.66, 235 }",
-                    "width": 374.0,
-                    "height": 136.0,
-                    "min": "{ 303.66, 167 }",
-                    "max": "{ 677.66, 303 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_LoadGame"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "TestEnvironment",
-                    "eventType": "CHANGE_SCENE"
-                }
+          },
+          "spriteName": "MainMenu_LoadGame"
+        }
+      }
+    ]
+  },
+  {
+    "Name": "[Button] Options",
+    "ID": 5,
+    "Prefab": null,
+    "isActive": true,
+    "Parent": 2,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "worldPos": "{ 490.66, 75, 0 }",
+          "worldScale": "{ 1, 1, 1 }",
+          "worldRot": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "Sprite": {
+          "spriteData": {
+            "spriteSubData": {
+              "texCoords": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "texDims": {
+                "x": 1.0,
+                "y": 1.0
+              },
+              "width": 374,
+              "height": 136
             }
-        ]
-    },
-    {
-        "Name": "[Button] Options",
-        "ID": 5,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 490.66, 75, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_Options"
-                }
+          },
+          "spriteName": "MainMenu_Options"
+        }
+      }
+    ]
+  },
+  {
+    "Name": "[Button] How To Play",
+    "ID": 6,
+    "Prefab": null,
+    "isActive": true,
+    "Parent": 2,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "worldPos": "{ 490.66, -85, 0 }",
+          "worldScale": "{ 1, 1, 1 }",
+          "worldRot": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "Sprite": {
+          "spriteData": {
+            "spriteSubData": {
+              "texCoords": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "texDims": {
+                "x": 1.0,
+                "y": 1.0
+              },
+              "width": 374,
+              "height": 136
             }
-        ]
-    },
-    {
-        "Name": "[Button] How To Play",
-        "ID": 6,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 490.66, -85, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_HowToPlay"
-                }
+          },
+          "spriteName": "MainMenu_HowToPlay"
+        }
+      }
+    ]
+  },
+  {
+    "Name": "[Button] Credits",
+    "ID": 7,
+    "Prefab": null,
+    "isActive": true,
+    "Parent": 2,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "worldPos": "{ 490.66, -245, 0 }",
+          "worldScale": "{ 1, 1, 1 }",
+          "worldRot": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "Sprite": {
+          "spriteData": {
+            "spriteSubData": {
+              "texCoords": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "texDims": {
+                "x": 1.0,
+                "y": 1.0
+              },
+              "width": 374,
+              "height": 136
             }
-        ]
-    },
-    {
-        "Name": "[Button] Credits",
-        "ID": 7,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 490.66, -245, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_QuitGame"
-                }
+          },
+          "spriteName": "MainMenu_QuitGame"
+        }
+      }
+    ]
+  },
+  {
+    "Name": "[Button] Quit Game",
+    "ID": 8,
+    "Prefab": null,
+    "isActive": true,
+    "Parent": 2,
+    "Child Entities": [],
+    "Components": [
+      {
+        "Transform": {
+          "worldPos": "{ 490.66, -405, 0 }",
+          "worldScale": "{ 1, 1, 1 }",
+          "worldRot": "{ 0, 0, 0 }"
+        }
+      },
+      {
+        "BoxCollider": {
+          "center": "{ 490.66, -405 }",
+          "width": 374.0,
+          "height": 136.0,
+          "min": "{ 303.66, -473 }",
+          "max": "{ 677.66, -337 }",
+          "render": true
+        }
+      },
+      {
+        "Sprite": {
+          "spriteData": {
+            "spriteSubData": {
+              "texCoords": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "texDims": {
+                "x": 1.0,
+                "y": 1.0
+              },
+              "width": 374,
+              "height": 136
             }
-        ]
-    },
-    {
-        "Name": "[Button] Quit Game",
-        "ID": 8,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 490.66, -405, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 490.66, -405 }",
-                    "width": 374.0,
-                    "height": 136.0,
-                    "min": "{ 303.66, -473 }",
-                    "max": "{ 677.66, -337 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_Credits"
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "QUIT_GAME"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Temp] Blanko",
-        "ID": 9,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 10,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 482.278, -244, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 482.278, -244 }",
-                    "width": 280.0,
-                    "height": 80.0,
-                    "min": "{ 342.278, -284 }",
-                    "max": "{ 622.278, -204 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 280,
-                            "height": 80
-                        }
-                    },
-                    "spriteName": "Pause_BG"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Folder] Temp",
-        "ID": 10,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [
-            1,
-            9,
-            11,
-            12
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 482.278, 396, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Temp] Blanko",
-        "ID": 11,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 10,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 482.278, -84, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 482.278, -84 }",
-                    "width": 280.0,
-                    "height": 80.0,
-                    "min": "{ 342.278, -124 }",
-                    "max": "{ 622.278, -44 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 280,
-                            "height": 80
-                        }
-                    },
-                    "spriteName": "Pause_BG"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Temp] Blanko",
-        "ID": 12,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 10,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 482.278, 76, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 482.278, 76 }",
-                    "width": 280.0,
-                    "height": 80.0,
-                    "min": "{ 342.278, 36 }",
-                    "max": "{ 622.278, 116 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 280,
-                            "height": 80
-                        }
-                    },
-                    "spriteName": "Pause_BG"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Text] Test",
-        "ID": 13,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 1,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "worldPos": "{ 493.685, 219.407, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Test",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.18700000643730164,
-                    "fontID": 2
-                }
-            }
-        ]
-    }
+          },
+          "spriteName": "MainMenu_Credits"
+        }
+      },
+      {
+        "GE_Button": {
+          "param": "",
+          "eventType": "QUIT_GAME"
+        }
+      }
+    ]
+  }
 ]
