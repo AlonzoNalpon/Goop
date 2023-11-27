@@ -1,2 +1,3 @@
 - Our sprites are to be in this format: 32bit RGBA (images with 24 bit depth are not supported!)
 - Assigning script "Root Node" to a composite node will crash the program.
+- Ending turn while the turn is progressing (Cards switching out and card drawing) leads to undefined behaviour.

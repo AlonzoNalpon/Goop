@@ -12,11 +12,9 @@ Options
 
 [ Viewport ]
 Resizable and truncates rendered texture
-Able to pick objects (but not drag to transform)
-	Mouse checks collision with existing component in priority: (collider -> sprite dimensions -> transform)
+Able to pick objects; Mouse checks collision with existing component in priority: (collider -> sprite dimensions -> transform)
 
 [ Inspector ]
-Not RTTR integrated yet
 Components can be added via the Add Component button at the end of the component list
 Components (except transform) can be removed by right clicking the component name header
 Able to view the following components:
@@ -43,6 +41,10 @@ System time percentage may show nan due to number being too low to calculate
 Info, Errors and Warnings are logged into this
 You can change the minimum shown log level with the drop down
 
+[ Extras ]
+Audio channels controls are present here.
+Able to increase/decrease spatial partitioning size (5x5 is the most optimal with lots of entities)
+
 [ Hierachy ]
 Drag and drop entities onto each other to parent/unparent them
 Child entities should follow parent
@@ -50,24 +52,11 @@ You can right click entities to duplicate/delete them (applies to children)
 You can right click an entity to save them as Prefabs
 You can right click the anywhere in the hierchy tab to create a new entitiy
 
-[ Scenes ]
-Program starts at a sample scene
-Press right arrow key to switch to testing scene
-Press left arrow key to switch back
-
-[ Audio ]
-Background music is hardcoded to begin playing when the test scene is loaded
-There exist a temporary audio tab with buttons to play sounds
-Q,E,R also plays some sound effects
-
-[ Extras ]
-You can edit the spatial partitoning grid here (5x5 is the most efficient from initial testing)
-Button to duplicate 500 of the selected entity
-Depreciated but still working button to spawn a worm prefab
-
 [ Asset Browser ]
 Directory holds all folders and sub folders within Asset Directory.
 Displays files within each folder selected from Directory. Images are printed for .png files.
+Double click on an Image to switch focus to the asset preview.
+All images must be loaded as RGBA
 Drag and Drop:
 1. images and prefab file into viewport.
 2. images to scene hierarchy.
@@ -102,6 +91,9 @@ Tween
 Draggable
 Text
 Button
+
+[ Undo/Redo ]
+
 
 [ Node Editor ]
 Allows user to edit enemy's behaviour tree. Any changes made will be displayed in the game at runtime, if the tree is valid (will explain more about it bellow)

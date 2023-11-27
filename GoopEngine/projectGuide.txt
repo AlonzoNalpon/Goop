@@ -3,11 +3,6 @@
 On startup, either select debug or release mode
 For target, set to x64 instead of "Any CPU"
 
-[ Scenes ]
-Program starts at a sample scene
-Press right arrow to switch to testing scene
-Press left to switch back
-
 [ ErrorLogging ]
 Errors are logged into Imgui console and to a file
 Dumped log file is named after the time of program
@@ -29,7 +24,7 @@ To test:
 
   E.g. you can add Button component to TestBtn prefab and save to give all buttons that component
 
-
 [ Disable ImGui ]
-ImGui can be disabled by including the code "#define NO_IMGUI" in pch.h
-The program is not fully seperated from ImGui and may result in undefined behaviour
+ImGui can be disabled by including the code "#define IMGUI_DISABLE" in pch.h
+The program is may not be fully seperated from ImGui and may result in undefined behaviour, to prevent this. 
+Remove all the folders; ImGui, ImTerm, ImNode, ImGuizmo_1_83, EditorUI. To compile fully without ImGui with the macro defined
