@@ -93,6 +93,16 @@ Alternatively, you can do Right click > New Prefab to create a new prefab from f
 *Note: The file explorer may not open to the solution directory sometimes.
        In that case, navigate to GoopEngine/Editor/Assets/Prefabs
 
+The following components are supported by the Prefab Editor:
+Box Collider
+Sprite
+Sprite Animation
+Velocity
+Tween
+Draggable
+Text
+Button
+
 [ Node Editor ]
 Allows user to edit enemy's behaviour tree. Any changes made will be displayed in the game at runtime, if the tree is valid (will explain more about it bellow)
 There are 3 types of nodes available, Root Node, Composite Node and Leaf Node (Each of them are displayed with a different colored heading)
