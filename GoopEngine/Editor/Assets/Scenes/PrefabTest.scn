@@ -9,9 +9,9 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 15.0002, 142.682, -1 }",
+                    "worldPos": "{ 0, 0, -1 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -27,7 +27,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1200
                         }
                     },
                     "spriteName": "BG_Lv1"
@@ -240,7 +240,7 @@
                 "Transform": {
                     "worldPos": "{ 711.667, 177.502, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -293,6 +293,25 @@
                     "worldPos": "{ 590.002, 347.785, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 0.5,
+                                "y": 1.0
+                            },
+                            "width": 30,
+                            "height": 60
+                        }
+                    },
+                    "spriteName": "SS_EnemyTest"
                 }
             },
             {
