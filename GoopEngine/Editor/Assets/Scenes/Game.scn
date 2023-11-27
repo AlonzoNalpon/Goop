@@ -1650,7 +1650,7 @@
                 "BoxCollider": {
                     "center": "{ 0, 0 }",
                     "width": 1920.0,
-                    "height": 1200.0,
+                    "height": 1080.0,
                     "min": "{ -960, -600 }",
                     "max": "{ 960, 600 }",
                     "render": true

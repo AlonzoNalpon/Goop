@@ -28,8 +28,8 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 2133,
-                            "height": 1200
+                            "width": 1920,
+                            "height": 1080
                         }
                     },
                     "spriteName": "Game_VictoryScreen"
