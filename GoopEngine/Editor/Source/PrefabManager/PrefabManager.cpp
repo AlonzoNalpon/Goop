@@ -1,3 +1,17 @@
+/*!*********************************************************************
+\file   PrefabManager.cpp
+\author chengen.lau\@digipen.edu
+\date   27-November-2023
+\brief  
+  This file contains the definition of PrefabManager singleton.
+  It is responsible for the mapping of entities to the prefabs they
+  were created from. This is to allow each instance to be updated by
+  any changes made to the prefab itself. The functions below are
+  used to facilitate the adding and removing of entities to prefabs,
+  as well as the updating of components based on prefabs.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #ifndef IMGUI_DISABLE
 #include <PrefabManager/PrefabManager.h>
