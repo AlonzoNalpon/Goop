@@ -105,7 +105,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1200
+                            "height": 1080
                         }
                     },
                     "spriteName": "BG_Lv1"
@@ -178,6 +178,25 @@
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 0, 0, 0 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 456,
+                            "height": 154
+                        }
+                    },
+                    "spriteName": "Button_Base"
                 }
             },
             {
@@ -339,6 +358,213 @@
                                         12,
                                         2,
                                         13
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_deck"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        7,
+                                        3,
+                                        8,
+                                        2,
+                                        2
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_hand"
+                                    }
+                                },
+                                {
+                                    "data": 100,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "GameSys",
+        "ID": 7,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Game": {
+                    "player": 8,
+                    "enemy": 9,
+                    "pauseMenu": 4294967295,
+                    "playerHand": 0,
+                    "playerQueue": 0,
+                    "enemyQueue": 0,
+                    "gameSystemScript": {
+                        "scriptName": "GameManager",
+                        "scriptFieldInstList": []
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Test Player",
+        "ID": 8,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 3588188736,
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        0,
+                                        0,
+                                        0
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_cardQueue"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        13,
+                                        9,
+                                        9,
+                                        3,
+                                        12,
+                                        13,
+                                        13,
+                                        7,
+                                        9,
+                                        7,
+                                        13,
+                                        2,
+                                        6,
+                                        8,
+                                        3,
+                                        8,
+                                        9,
+                                        13,
+                                        7,
+                                        13
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_deck"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        7,
+                                        3,
+                                        8,
+                                        2,
+                                        2
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_hand"
+                                    }
+                                },
+                                {
+                                    "data": 100,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Test Enemy",
+        "ID": 9,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 8,
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        0,
+                                        0,
+                                        0
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_cardQueue"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        6,
+                                        3,
+                                        7,
+                                        2,
+                                        13,
+                                        13,
+                                        9,
+                                        2,
+                                        8,
+                                        12,
+                                        2,
+                                        13,
+                                        8,
+                                        3,
+                                        13,
+                                        12,
+                                        3,
+                                        6,
+                                        9,
+                                        2
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {

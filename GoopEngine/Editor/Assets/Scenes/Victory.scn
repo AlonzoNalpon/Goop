@@ -28,8 +28,8 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 2133,
-                            "height": 1200
+                            "width": 1920,
+                            "height": 1080
                         }
                     },
                     "spriteName": "Game_VictoryScreen"
@@ -60,18 +60,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -316.34, 0 }",
+                    "worldPos": "{ 0, -286.97, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, -316.34 }",
+                    "center": "{ 0, -286.97 }",
                     "width": 300.0,
                     "height": 80.0,
-                    "min": "{ -150, -356.34 }",
-                    "max": "{ 150, -276.34 }",
+                    "min": "{ -150, -326.97 }",
+                    "max": "{ 150, -246.97 }",
                     "render": true
                 }
             },

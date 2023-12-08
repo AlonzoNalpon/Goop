@@ -9,8 +9,8 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -500, 100, 0 }",
-                    "worldScale": "{ 0.9, 0.9, 1 }",
+                    "worldPos": "{ -591.924, 101.667, -9 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
@@ -58,26 +58,26 @@
                                 },
                                 {
                                     "data": [
-                                        2,
+                                        13,
+                                        8,
+                                        12,
+                                        6,
                                         7,
+                                        6,
                                         13,
                                         7,
+                                        3,
+                                        13,
+                                        7,
+                                        7,
                                         2,
-                                        6,
                                         8,
                                         9,
                                         7,
-                                        13,
-                                        7,
-                                        2,
-                                        9,
-                                        7,
-                                        7,
-                                        3,
                                         6,
-                                        7,
-                                        13,
-                                        7
+                                        8,
+                                        2,
+                                        2
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
@@ -204,7 +204,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1200
+                            "height": 1080
                         }
                     },
                     "spriteName": "DAA2402_InGame_Environment2_v05"
@@ -249,7 +249,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -440, 0 }",
+                    "worldPos": "{ 0, -381.259, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -292,11 +292,11 @@
             },
             {
                 "BoxCollider": {
-                    "center": "{ 718.335, 373.233 }",
+                    "center": "{ 150, 50 }",
                     "width": 456.0,
                     "height": 154.0,
-                    "min": "{ 490.335, 296.233 }",
-                    "max": "{ 946.335, 450.233 }",
+                    "min": "{ -78, -27 }",
+                    "max": "{ 378, 127 }",
                     "render": false
                 }
             },
@@ -344,26 +344,26 @@
                                 },
                                 {
                                     "data": [
+                                        7,
+                                        13,
+                                        9,
+                                        12,
+                                        9,
+                                        7,
+                                        12,
                                         2,
+                                        3,
+                                        8,
+                                        8,
                                         2,
+                                        9,
+                                        13,
                                         2,
+                                        8,
                                         2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2
+                                        9,
+                                        6,
+                                        8
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
@@ -497,7 +497,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -800, 0, 3 }",
+                    "worldPos": "{ -800, 58.7408, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -544,18 +544,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -800, 160, 3 }",
+                    "worldPos": "{ -800, 218.741, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -800, 160 }",
+                    "center": "{ -800, 218.741 }",
                     "width": 165.0,
                     "height": 165.0,
-                    "min": "{ -882.5, 77.5 }",
-                    "max": "{ -717.5, 242.5 }",
+                    "min": "{ -882.5, 136.241 }",
+                    "max": "{ -717.5, 301.241 }",
                     "render": false
                 }
             },
@@ -643,18 +643,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -800, -30, 3 }",
+                    "worldPos": "{ -800, 28.7408, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -800, -30 }",
+                    "center": "{ -800, 28.7408 }",
                     "width": 165.0,
                     "height": 165.0,
-                    "min": "{ -882.5, -112.5 }",
-                    "max": "{ -717.5, 52.5 }",
+                    "min": "{ -882.5, -53.7592 }",
+                    "max": "{ -717.5, 111.241 }",
                     "render": false
                 }
             },
@@ -744,18 +744,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -800, -220, 3 }",
+                    "worldPos": "{ -800, -161.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -800, -220 }",
+                    "center": "{ -800, -161.259 }",
                     "width": 165.0,
                     "height": 165.0,
-                    "min": "{ -882.5, -302.5 }",
-                    "max": "{ -717.5, -137.5 }",
+                    "min": "{ -882.5, -243.759 }",
+                    "max": "{ -717.5, -78.759 }",
                     "render": false
                 }
             },
@@ -850,7 +850,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -445, 3 }",
+                    "worldPos": "{ 0, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -913,18 +913,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -550, -445, 3 }",
+                    "worldPos": "{ -550, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -550, -445 }",
+                    "center": "{ -550, -386.259 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -657, -595 }",
-                    "max": "{ -443, -295 }",
+                    "min": "{ -657, -536.259 }",
+                    "max": "{ -443, -236.259 }",
                     "render": false
                 }
             },
@@ -1018,18 +1018,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -290, -445, 3 }",
+                    "worldPos": "{ -290, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -290, -445 }",
+                    "center": "{ -290, -386.259 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -397, -595 }",
-                    "max": "{ -183, -295 }",
+                    "min": "{ -397, -536.259 }",
+                    "max": "{ -183, -236.259 }",
                     "render": false
                 }
             },
@@ -1123,18 +1123,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -30, -445, 3 }",
+                    "worldPos": "{ -30, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -30, -445 }",
+                    "center": "{ -30, -386.259 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -137, -595 }",
-                    "max": "{ 77, -295 }",
+                    "min": "{ -137, -536.259 }",
+                    "max": "{ 77, -236.259 }",
                     "render": false
                 }
             },
@@ -1228,18 +1228,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 230, -445, 3 }",
+                    "worldPos": "{ 230, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 230, -445 }",
+                    "center": "{ 230, -386.259 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ 123, -595 }",
-                    "max": "{ 337, -295 }",
+                    "min": "{ 123, -536.259 }",
+                    "max": "{ 337, -236.259 }",
                     "render": false
                 }
             },
@@ -1333,18 +1333,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 490, -445, 3 }",
+                    "worldPos": "{ 490, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 490, -445 }",
+                    "center": "{ 490, -386.259 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ 383, -595 }",
-                    "max": "{ 597, -295 }",
+                    "min": "{ 383, -536.259 }",
+                    "max": "{ 597, -236.259 }",
                     "render": false
                 }
             },
@@ -1442,7 +1442,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 800, 0, 0 }",
+                    "worldPos": "{ 800, 58.7408, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -1489,7 +1489,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 800, 160, 3 }",
+                    "worldPos": "{ 800, 218.741, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1531,7 +1531,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 800, -30, 3 }",
+                    "worldPos": "{ 800, 28.7408, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1573,7 +1573,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 800, -220, 3 }",
+                    "worldPos": "{ 800, -161.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1668,9 +1668,9 @@
                 "BoxCollider": {
                     "center": "{ 0, 0 }",
                     "width": 1920.0,
-                    "height": 1200.0,
-                    "min": "{ -960, -600 }",
-                    "max": "{ 960, 600 }",
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
                     "render": true
                 }
             },
@@ -1687,7 +1687,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1200
+                            "height": 1080
                         }
                     },
                     "spriteName": "Pause_OverlayBG"
@@ -2022,7 +2022,7 @@
                 "BoxCollider": {
                     "center": "{ 0, 0 }",
                     "width": 1920.0,
-                    "height": 1200.0,
+                    "height": 1080.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
                     "render": true
@@ -2041,7 +2041,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1200
+                            "height": 1080
                         }
                     },
                     "spriteName": "Pause_OverlayBG"
@@ -2180,7 +2180,7 @@
                 "BoxCollider": {
                     "center": "{ 0, 0 }",
                     "width": 1920.0,
-                    "height": 1200.0,
+                    "height": 1080.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
                     "render": true
@@ -2199,7 +2199,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1200
+                            "height": 1080
                         }
                     },
                     "spriteName": "Pause_OverlayBG"
