@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   GameDef.h
+\author a.nalpon\@digipen.edu
+\date   27-November-2023
+\brief  This file defines all the corresponding card sprites based on
+the card's ID
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef GAME_DEF_H
 #define GAME_DEF_H
 #include <utility>

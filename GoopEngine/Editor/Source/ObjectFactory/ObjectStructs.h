@@ -1,9 +1,12 @@
 /*!*********************************************************************
-\file   ObjectStructs.h
-\author loh.j@digipen.edu
-\date   28 September 2023
+\file       ObjectStructs.h
+\author     loh.j\@digipen.edu
+\co-author  chengen.lau\@digipen.edu
+\date       28 September 2023
 \brief
-  Contains the structs required for ObjectFactory.cpp
+    Contains the structs used to store deserialized data for entities
+    and prefabs. Used for loading of scenes, creating and duplicating
+    of entities, as well as editing tools in the engine.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -15,6 +18,8 @@ namespace GE
 {
   namespace ObjectFactory
   {
+    // struct encapsulating deserialized prefab data
+    // components are stored in an std::vector of rttr::variants
     struct VariantPrefab
     {
       VariantPrefab() : m_components{}, m_name{ "Empty" } {}

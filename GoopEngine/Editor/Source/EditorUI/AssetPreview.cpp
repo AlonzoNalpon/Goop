@@ -1,5 +1,14 @@
+/*!*********************************************************************
+\file   AssetPreview.cpp
+\author loh.j\@digipen.edu
+\date   26-November-2023
+\brief
+	Allows user to view assets from the asset browser.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include "AssetPreview.h"
 
 // Disable reinterpret to larger size

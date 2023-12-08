@@ -1,6 +1,6 @@
 {
     "Name": "MineWorm",
-    "Version": 4,
+    "Version": 23,
     "Components": [
         {
             "Transform": {

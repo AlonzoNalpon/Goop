@@ -33,7 +33,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <ImGui/backends/imgui_impl_glfw.h>
 #endif
 #include "InputManager.h"
@@ -216,7 +216,7 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scanCode, int ac
 	UNREFERENCED_PARAMETER(scanCode);
 	UNREFERENCED_PARAMETER(mod);
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 	ImGuiIO& io = ImGui::GetIO();
 	if (io.WantCaptureKeyboard)
 	{
@@ -237,7 +237,7 @@ void InputManager::KeyCallback(GLFWwindow* window, int key, int scanCode, int ac
 // Mouse callback function
 void InputManager::MousePosCallback(GLFWwindow* window, double xpos, double ypos)
 {
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 	ImGui_ImplGlfw_CursorPosCallback(window, xpos, ypos);
 #else
 	UNREFERENCED_PARAMETER(window);
@@ -252,7 +252,7 @@ void InputManager::MouseButtonCallback(GLFWwindow* pwin, int button, int action,
 	UNREFERENCED_PARAMETER(pwin);
 	UNREFERENCED_PARAMETER(mod);
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 	ImGuiIO& io = ImGui::GetIO();
 
 	if (io.WantCaptureMouse)
@@ -272,13 +272,13 @@ void InputManager::MouseScrollCallback(GLFWwindow* pwin, double xoffset, double 
 	m_scrollX = xoffset;
 	m_scrollY = yoffset;
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 	ImGui_ImplGlfw_ScrollCallback(pwin, xoffset, yoffset);
 #endif
 	//y_off = ((y_off + yoffset) > 4) ? 4 : ((y_off + yoffset) < -4) ? -4 : y_off + yoffset;
-	//std::cout << y_off << "\n";
+	// << y_off << "\n";
 	////#ifdef _DEBUG
-	////  std::cout << "Mouse scroll wheel offset: ("
+	////   << "Mouse scroll wheel offset: ("
 	////    << xoffset << ", " << yoffset << ")" << std::endl;
 	////#endif
 }
@@ -287,17 +287,17 @@ void InputManager::MouseScrollCallback(GLFWwindow* pwin, double xoffset, double 
 //void InputManager::TestInputManager() {
 //	InputManager* im = &(GE::Input::InputManager::GetInstance());
 //	if (im->IsKeyTriggered(GPK_A)) {
-//		std::cout << "Key A is Triggered\n";
+//		 << "Key A is Triggered\n";
 //	}
 //	if (im->IsKeyHeld(GPK_A)) {
-//		std::cout << "Key A is Held\n";
+//		 << "Key A is Held\n";
 //	}
 //	if (im->IsKeyReleased(GPK_A)) {
-//		std::cout << "Key A is Released\n";
+//		 << "Key A is Released\n";
 //	}
 //
 //	if (im->IsKeyPressed(GPK_MOUSE_LEFT)) {
-//		std::cout << "Mouse Pos: " << im->GetMousePosWorld().x << "," << im->GetMousePosWorld().y << "\n";
+//		 << "Mouse Pos: " << im->GetMousePosWorld().x << "," << im->GetMousePosWorld().y << "\n";
 //	}
 //}
 

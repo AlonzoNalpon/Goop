@@ -2,7 +2,7 @@
 #include "ScriptInstance.h"
 #include "ScriptManager.h"
 /*!*********************************************************************
-\file   Script.cpp
+\file   ScriptInstance.cpp
 \author han.q\@digipen.edu
 \date   28 September 2023
 \brief
@@ -44,10 +44,6 @@ ScriptInstance::ScriptInstance(const std::string& scriptName) : m_scriptName{ sc
   //m_onCreateMethod = mono_class_get_method_from_name(m_scriptClassInfo.m_scriptClass, "onCreate", 1);
 }
 
-void ScriptInstance::Clear()
-{
-  //mono_free(m_classInst);
-}
 
 void ScriptInstance::InvokeOnUpdate(double dt)
 {

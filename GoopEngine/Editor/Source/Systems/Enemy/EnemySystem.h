@@ -1,6 +1,7 @@
 /*!************************************************************************
 \file EnemySystem.h
 \author Han Qin Ding
+\date  26-November-2023
 
 \brief
 This file contains function declaration for the Enemy System Class
@@ -220,7 +221,9 @@ namespace GE
 			 end of each frame
 			*/
 			/************************************************************************/
+#ifdef _DEBUG
 			static void PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp);
+#endif // _DEBUG
 
 			//static void SetPlayerID();
 		};

@@ -20,7 +20,6 @@ namespace Graphics
     if (it == m_animLookupTable.end()) 
     {
       std::string error{ "No such animation with matching name exists: " };
-      std::cout << error + name << std::endl;
     }
 #endif
     return it == m_animLookupTable.end() ? BAD_OBJ_ID : it->second; // return ID or BAD_OBJ_ID if not found
@@ -32,7 +31,6 @@ namespace Graphics
     if (it == m_animID_NameLT.end())
     {
       std::string error{ "No such animation with matching ID exists: " };
-      std::cout << error << static_cast<long long>(ID) << std::endl;
       return std::string{};
     }
     return it->second;
@@ -54,7 +52,7 @@ namespace Graphics
         "SpriteAnimationManager: Animation " + name + " already exists, replacing animation.");
       /*std::string error{ "Another animation of this name exists: " };
       (error += name) += " | replacing this animation ...";
-      std::cout << error << std::endl;*/
+       << error << std::endl;*/
 
       size_t animID{ it->second };
       m_spriteAnimations[animID] = animation; // replace this animation

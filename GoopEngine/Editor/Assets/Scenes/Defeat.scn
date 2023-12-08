@@ -2,6 +2,7 @@
     {
         "Name": "Defeat Screen",
         "ID": 0,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -52,24 +53,25 @@
     {
         "Name": "Button",
         "ID": 1,
+        "Prefab": null,
         "isActive": true,
         "Parent": 0,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -285, 0 }",
+                    "worldPos": "{ 0, -284.71, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, -285 }",
+                    "center": "{ 0, -284.71 }",
                     "width": 300.0,
                     "height": 80.0,
-                    "min": "{ -150, -325 }",
-                    "max": "{ 150, -245 }",
+                    "min": "{ -150, -324.71 }",
+                    "max": "{ 150, -244.71 }",
                     "render": true
                 }
             },

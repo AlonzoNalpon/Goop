@@ -135,11 +135,12 @@
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -437,7 +438,6 @@
     <ClInclude Include="Source\SpriteAnimation\SpriteAnimGenerator.h" />
     <ClInclude Include="Source\Systems\Audio\AudioSystem.h" />
     <ClInclude Include="Source\Systems\Button\ButtonSystem.h" />
-    <ClInclude Include="Source\Systems\Button\ButtonTypes.h" />
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
     <ClInclude Include="Source\Systems\GameSystem\GameSystem.h" />

@@ -23,6 +23,7 @@
 
 // Library Version
 // (Integer encoded as XYYZZ for use in #if preprocessor conditionals, e.g. '#if IMGUI_VERSION_NUM >= 12345')
+#ifndef IMGUI_DISABLE
 #define IMGUI_VERSION       "1.90 WIP"
 #define IMGUI_VERSION_NUM   18992
 #define IMGUI_HAS_TABLE
@@ -57,8 +58,6 @@ Index of this file:
 #include IMGUI_USER_CONFIG
 #endif
 #include "imconfig.h"
-
-#ifndef IMGUI_DISABLE
 
 //-----------------------------------------------------------------------------
 // [SECTION] Header mess

@@ -9,8 +9,8 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -500, 100, 0 }",
-                    "worldScale": "{ 0.9, 0.9, 1 }",
+                    "worldPos": "{ -591.924, 101.667, -9 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
@@ -58,24 +58,24 @@
                                 },
                                 {
                                     "data": [
+                                        13,
+                                        8,
+                                        12,
+                                        6,
+                                        7,
+                                        6,
+                                        13,
+                                        7,
+                                        3,
+                                        13,
+                                        7,
+                                        7,
                                         2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
+                                        8,
+                                        9,
+                                        7,
+                                        6,
+                                        8,
                                         2,
                                         2
                                     ],
@@ -105,6 +105,19 @@
                                     }
                                 }
                             ]
+                        }
+                    ]
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "damageTaken_Leah",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
                         }
                     ]
                 }
@@ -236,7 +249,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -380, 0 }",
+                    "worldPos": "{ 0, -381.259, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -275,6 +288,16 @@
                     "worldPos": "{ 150, 50, 0 }",
                     "worldScale": "{ 0.9, 0.9, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 150, 50 }",
+                    "width": 456.0,
+                    "height": 154.0,
+                    "min": "{ -78, -27 }",
+                    "max": "{ 378, 127 }",
+                    "render": false
                 }
             },
             {
@@ -321,26 +344,26 @@
                                 },
                                 {
                                     "data": [
+                                        7,
+                                        13,
+                                        9,
+                                        12,
+                                        9,
+                                        7,
+                                        12,
                                         2,
+                                        3,
+                                        8,
+                                        8,
                                         2,
+                                        9,
+                                        13,
                                         2,
+                                        8,
                                         2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2
+                                        9,
+                                        6,
+                                        8
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
@@ -387,6 +410,25 @@
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 0, 0, 0 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 456,
+                            "height": 154
+                        }
+                    },
+                    "spriteName": "Button_Base"
                 }
             },
             {
@@ -455,7 +497,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -800, 0, 3 }",
+                    "worldPos": "{ -800, 58.7408, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -466,22 +508,25 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 15,
-                            "defaultSpriteID": 94,
+                            "scriptEntity": 0,
+                            "spriteID": 34,
+                            "defaultSpriteID": 103,
                             "used": false
                         },
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
-                            "spriteID": 23,
-                            "defaultSpriteID": 81,
+                            "scriptEntity": 0,
+                            "spriteID": 36,
+                            "defaultSpriteID": 20,
                             "used": false
                         },
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
-                            "spriteID": 19,
-                            "defaultSpriteID": 22,
+                            "scriptEntity": 0,
+                            "spriteID": 23,
+                            "defaultSpriteID": 104,
                             "used": false
                         }
                     ]
@@ -499,18 +544,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -800, 160, 3 }",
+                    "worldPos": "{ -800, 218.741, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -800, 160 }",
+                    "center": "{ -800, 218.741 }",
                     "width": 165.0,
                     "height": 165.0,
-                    "min": "{ -882.5, 77.5 }",
-                    "max": "{ -717.5, 242.5 }",
+                    "min": "{ -882.5, 136.241 }",
+                    "max": "{ -717.5, 301.241 }",
                     "render": false
                 }
             },
@@ -598,18 +643,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -800, -30, 3 }",
+                    "worldPos": "{ -800, 28.7408, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -800, -30 }",
+                    "center": "{ -800, 28.7408 }",
                     "width": 165.0,
                     "height": 165.0,
-                    "min": "{ -882.5, -112.5 }",
-                    "max": "{ -717.5, 52.5 }",
+                    "min": "{ -882.5, -53.7592 }",
+                    "max": "{ -717.5, 111.241 }",
                     "render": false
                 }
             },
@@ -693,22 +738,24 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 11,
-        "Child Entities": [],
+        "Child Entities": [
+            15
+        ],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -800, -220, 3 }",
+                    "worldPos": "{ -800, -161.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -800, -220 }",
+                    "center": "{ -800, -161.259 }",
                     "width": 165.0,
                     "height": 165.0,
-                    "min": "{ -882.5, -302.5 }",
-                    "max": "{ -717.5, -137.5 }",
+                    "min": "{ -882.5, -243.759 }",
+                    "max": "{ -717.5, -78.759 }",
                     "render": false
                 }
             },
@@ -791,7 +838,7 @@
         "ID": 15,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 14,
         "Child Entities": [
             3,
             16,
@@ -803,47 +850,52 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -385, 3 }",
+                    "worldPos": "{ 0, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "CardHolder": {
                     "elements": [
                         {
-                            "elemEntity": 4294967295,
+                            "elemEntity": 16,
                             "cardEntity": 16,
-                            "spriteID": 35,
-                            "defaultSpriteID": 0,
+                            "scriptEntity": 0,
+                            "spriteID": 34,
+                            "defaultSpriteID": 34,
                             "used": false
                         },
                         {
-                            "elemEntity": 4294967295,
+                            "elemEntity": 17,
                             "cardEntity": 17,
+                            "scriptEntity": 0,
                             "spriteID": 23,
-                            "defaultSpriteID": 0,
+                            "defaultSpriteID": 23,
                             "used": false
                         },
                         {
-                            "elemEntity": 4294967295,
+                            "elemEntity": 18,
                             "cardEntity": 18,
-                            "spriteID": 37,
-                            "defaultSpriteID": 0,
+                            "scriptEntity": 0,
+                            "spriteID": 36,
+                            "defaultSpriteID": 36,
                             "used": false
                         },
                         {
-                            "elemEntity": 4294967295,
+                            "elemEntity": 19,
                             "cardEntity": 19,
+                            "scriptEntity": 0,
                             "spriteID": 8,
-                            "defaultSpriteID": 0,
+                            "defaultSpriteID": 8,
                             "used": false
                         },
                         {
-                            "elemEntity": 4294967295,
+                            "elemEntity": 20,
                             "cardEntity": 20,
+                            "scriptEntity": 0,
                             "spriteID": 8,
-                            "defaultSpriteID": 0,
+                            "defaultSpriteID": 8,
                             "used": false
                         }
                     ]
@@ -861,18 +913,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -550, -385, 3 }",
+                    "worldPos": "{ -550, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -550, -385 }",
+                    "center": "{ -550, -386.259 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -657, -535 }",
-                    "max": "{ -443, -235 }",
+                    "min": "{ -657, -536.259 }",
+                    "max": "{ -443, -236.259 }",
                     "render": false
                 }
             },
@@ -947,6 +999,12 @@
                     "cardID": "PLAYER_DEBUFF_FLASH_BANG",
                     "tgtEntity": 11
                 }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 15,
+                    "elemIdx": 0
+                }
             }
         ]
     },
@@ -960,18 +1018,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -290, -385, 3 }",
+                    "worldPos": "{ -290, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -290, -385 }",
+                    "center": "{ -290, -386.259 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -397, -535 }",
-                    "max": "{ -183, -235 }",
+                    "min": "{ -397, -536.259 }",
+                    "max": "{ -183, -236.259 }",
                     "render": false
                 }
             },
@@ -1046,6 +1104,12 @@
                     "cardID": "BASIC_NORMAL_BUFF",
                     "tgtEntity": 11
                 }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 15,
+                    "elemIdx": 1
+                }
             }
         ]
     },
@@ -1059,18 +1123,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -30, -385, 3 }",
+                    "worldPos": "{ -30, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -30, -385 }",
+                    "center": "{ -30, -386.259 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -137, -535 }",
-                    "max": "{ 77, -235 }",
+                    "min": "{ -137, -536.259 }",
+                    "max": "{ 77, -236.259 }",
                     "render": false
                 }
             },
@@ -1145,6 +1209,12 @@
                     "cardID": "PLAYER_BUFF_SMOKESCREEN",
                     "tgtEntity": 11
                 }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 15,
+                    "elemIdx": 2
+                }
             }
         ]
     },
@@ -1158,18 +1228,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 230, -385, 3 }",
+                    "worldPos": "{ 230, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 230, -385 }",
+                    "center": "{ 230, -386.259 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ 123, -535 }",
-                    "max": "{ 337, -235 }",
+                    "min": "{ 123, -536.259 }",
+                    "max": "{ 337, -236.259 }",
                     "render": false
                 }
             },
@@ -1243,6 +1313,12 @@
                 "Card": {
                     "cardID": "PLAYER_NORMAL_SHIELD",
                     "tgtEntity": 11
+                }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 15,
+                    "elemIdx": 3
                 }
             }
         ]
@@ -1257,18 +1333,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 490, -385, 3 }",
+                    "worldPos": "{ 490, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 490, -385 }",
+                    "center": "{ 490, -386.259 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ 383, -535 }",
-                    "max": "{ 597, -235 }",
+                    "min": "{ 383, -536.259 }",
+                    "max": "{ 597, -236.259 }",
                     "render": false
                 }
             },
@@ -1342,6 +1418,12 @@
                 "Card": {
                     "cardID": "PLAYER_NORMAL_SHIELD",
                     "tgtEntity": 11
+                }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 15,
+                    "elemIdx": 4
                 }
             }
         ]
@@ -1360,7 +1442,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 800, 0, 0 }",
+                    "worldPos": "{ 800, 58.7408, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -1371,22 +1453,25 @@
                         {
                             "elemEntity": 22,
                             "cardEntity": 4294967295,
+                            "scriptEntity": 4294967295,
                             "spriteID": 20,
-                            "defaultSpriteID": 80,
+                            "defaultSpriteID": 103,
                             "used": false
                         },
                         {
                             "elemEntity": 23,
                             "cardEntity": 4294967295,
+                            "scriptEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 81,
+                            "defaultSpriteID": 20,
                             "used": false
                         },
                         {
                             "elemEntity": 24,
                             "cardEntity": 4294967295,
+                            "scriptEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 22,
+                            "defaultSpriteID": 104,
                             "used": false
                         }
                     ]
@@ -1404,7 +1489,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 800, 160, 3 }",
+                    "worldPos": "{ 800, 218.741, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1446,7 +1531,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 800, -30, 3 }",
+                    "worldPos": "{ 800, 28.7408, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1488,7 +1573,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 800, -220, 3 }",
+                    "worldPos": "{ 800, -161.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }

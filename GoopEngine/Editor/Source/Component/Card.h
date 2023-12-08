@@ -1,3 +1,14 @@
+/*!*********************************************************************
+\file   Card.h
+\author a.nalpon\@digipen.edu
+\date   27-November-2023
+\brief  Card component to store card ID of card and target entity
+				(like a holder). See GameDef.h for additional info
+				on the struct
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef CARD_H
 #define CARD_H
 
@@ -41,7 +52,7 @@ namespace GE::Component
 
 			TOTAL_CARDS,
 		};
-		CardID cardID{};
+		CardID cardID{};	// The card ID that identifies the type of card (to interact with C#)
 		GE::ECS::Entity tgtEntity{ GE::ECS::INVALID_ID }; //!< an entity ID. Possibly for card holder
 	};
 }

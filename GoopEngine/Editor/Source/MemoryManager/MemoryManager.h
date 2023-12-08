@@ -109,13 +109,13 @@ namespace GE
 
 			~TestObject()
 			{
-				//std::cout << "DESTROYED\n";
+				// << "DESTROYED\n";
 			}
 			TestObject()
 			{
 				std::random_device rd;  // Seed the engine with a random device
 				std::mt19937 gen(rd()); // Mersenne Twister engine
-				//std::cout << "Created\n";
+				// << "Created\n";
 				// Define a distribution for generating integers between 1 and 100 (inclusive)
 				std::uniform_int_distribution<int> dis(1, 100);
 				m_testInt = dis(gen);
@@ -399,7 +399,9 @@ namespace GE
 			(this function is used for testing and debugging)
 			*/
 			/************************************************************************/
+#ifdef _DEBUG
 			void TestAllAllocators();
+#endif // _DEBUG
 		};
 
 	}

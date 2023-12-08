@@ -14,7 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SerializeComponents.h"
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Serialization/Deserializer.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <PrefabManager/PrefabManager.h>
 #endif
 
@@ -223,7 +223,9 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
 
   ECS::Entity newEntity{ ecs.CreateEntity() };
   AddComponentsToEntity(newEntity, iter->second.m_components);
-#ifndef NO_IMGUI
+
+#ifndef IMGUI_DISABLE
+  // update entity's prefab if needed
   Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
   pm.AttachPrefab(newEntity, { key, pm.GetPrefabVersion(key) });
 #endif
@@ -238,6 +240,19 @@ VariantPrefab const& ObjectFactory::GetVariantPrefab(std::string const& name) co
   if (ret == m_prefabs.cend()) { throw Debug::Exception<ObjectFactory>(Debug::LEVEL_ERROR, ErrMsg("Unable to find prefab with name: " + name)); }
 
   return ret->second;
+}
+
+void ObjectFactory::ReloadPrefab(std::string const& name)
+{
+  auto const& prefabs{ GE::Assets::AssetManager::GetInstance().GetPrefabs() };
+  auto path{ GE::Assets::AssetManager::GetInstance().GetPrefabs().find(name) };
+
+  if (path == prefabs.cend())
+  {
+    throw Debug::Exception<ObjectFactory>(Debug::LEVEL_ERROR, ErrMsg("Unable to get path of prefab: " + name));
+  }
+
+  m_prefabs[name] = Serialization::Deserializer::DeserializePrefabToVariant(path->second);
 }
 
 void ObjectFactory::ReloadPrefabs()
@@ -267,6 +282,16 @@ void ObjectFactory::CloneObject(ECS::Entity entity, ECS::Entity parent) const
 
     AddComponentToEntity(newEntity, compVar);
   }
+
+#ifndef IMGUI_DISABLE
+  // update entity's prefab if needed
+  Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
+  auto const entityPrefab{ pm.GetEntityPrefab(entity) };
+  if (entityPrefab)
+  {
+    pm.AttachPrefab(newEntity, *entityPrefab);
+  }
+#endif
 
   // set parent/child
   ecs.SetParentEntity(newEntity, parent);
@@ -305,7 +330,7 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
     }
   }
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
   Prefabs::PrefabManager::GetInstance().UpdateAllEntitiesFromPrefab();
 #endif
 }

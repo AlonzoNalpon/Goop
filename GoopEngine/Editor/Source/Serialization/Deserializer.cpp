@@ -18,7 +18,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <stdarg.h>
 #include <AssetManager/AssetManager.h>
 #include <ScriptEngine/ScriptManager.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <PrefabManager/PrefabManager.h>
 #endif
 
@@ -159,7 +159,7 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
       entityVar.m_childEntities.emplace_back(child.GetUint());
     }
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
     Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
     if (entity.HasMember(Serializer::JsonPrefabKey) && !entity[Serializer::JsonPrefabKey].IsNull())
     {
@@ -535,7 +535,8 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
   if (!DeserializeOtherComponents(compVar, compType, compJson))
   {
     rttr::constructor const& compCtr{ *compType.get_constructors().begin() };
-    if (compCtr.get_parameter_infos().empty())  // if default ctr
+    // if ctor is default, invoke it and proceed
+    if (compCtr.get_parameter_infos().empty())
     {
       compVar = compCtr.invoke();
       #ifdef DESERIALIZER_DEBUG
@@ -549,13 +550,16 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
       std::cout << "  Invoking non-default ctor...\n";
       #endif
 
-      std::vector<rttr::argument> args{};
+      std::vector<rttr::argument> args{}; // vector of args for ctor
+      // iterate through data members of component
       auto const properties{ compType.get_properties() };
       args.reserve(compCtr.get_parameter_infos().size());
       for (auto const& param : compCtr.get_parameter_infos())
       {
         for (auto& prop : properties)
         {
+          // match param name with property name
+          // to get the right order of args to invoke ctor
           if (param.get_name() == prop.get_name())
           {
 #ifdef DESERIALIZER_DEBUG

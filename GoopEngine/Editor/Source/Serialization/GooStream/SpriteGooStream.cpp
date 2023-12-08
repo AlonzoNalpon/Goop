@@ -31,9 +31,6 @@ bool SpriteGooStream::Read(std::string const& file)
   if (!ifs)
   {
     GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + file);
-    #ifdef _DEBUG
-    std::cout << "SpriteGooStream: Unable to read " + file << std::endl;
-    #endif
     return m_status = false;
   }
   std::ostringstream& data{ std::get<std::ostringstream>(m_data) };
@@ -51,7 +48,7 @@ bool SpriteGooStream::Read(std::string const& file)
 
 
   #ifdef SERIALIZE_TEST
-  std::cout << json << " successfully read" << "\n";
+   << json << " successfully read" << "\n";
   #endif
 
   ifs.close();
@@ -64,10 +61,6 @@ bool SpriteGooStream::Unload(container_type& container)
     std::ostringstream oss{ "SpriteGooStream corrupted before unloading into " };
     oss << typeid(container).name();
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-
-    #ifdef _DEBUG
-    std::cout <<  oss.str() << std::endl;
-    #endif
     return false;
   }
   std::ostringstream& data{ std::get<std::ostringstream>(m_data) };
@@ -103,7 +96,7 @@ bool SpriteGooStream::Unload(container_type& container)
 //  if (!ifs)
 //  {
 //#ifdef _DEBUG
-//    std::cout << "Error: Unable to load " << json << "\n";
+//     << "Error: Unable to load " << json << "\n";
 //#endif
 //    return m_status = false;
 //  }
@@ -115,7 +108,7 @@ bool SpriteGooStream::Unload(container_type& container)
 //    ifs.close();
 //
 //#ifdef _DEBUG
-//    std::cout << "JSON parse error: " << rapidjson::GetParseErrorFunc(m_data.GetParseError()) << "\n";
+//     << "JSON parse error: " << rapidjson::GetParseErrorFunc(m_data.GetParseError()) << "\n";
 //#endif
 //    return m_status = false;
 //  }
@@ -133,7 +126,7 @@ bool SpriteGooStream::Unload(container_type& container)
 //  }
 //
 //#ifdef SERIALIZE_TEST
-//  std::cout << json << " successfully read" << "\n";
+//   << json << " successfully read" << "\n";
 //#endif
 //
 //  ifs.close();

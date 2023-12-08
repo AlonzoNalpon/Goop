@@ -8,7 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include "ToolBar.h"
 #include <ImGui/imgui.h>
 #include <AssetManager/AssetManager.h>

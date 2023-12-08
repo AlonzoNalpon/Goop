@@ -1,5 +1,6 @@
 #pragma once
 
+#ifndef IMGUI_DISABLE
 #include "imnodes.h"
 
 
@@ -501,3 +502,4 @@ static inline T& ObjectPoolFindOrCreateObject(ImObjectPool<T>& objects, const in
     return objects.Pool[index];
 }
 } // namespace IMNODES_NAMESPACE
+#endif

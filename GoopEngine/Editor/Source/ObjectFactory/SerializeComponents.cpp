@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   SerializeComponents.cpp
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   28 September 2023
 \brief
   Template functions to assign data into the components of the entity.
@@ -15,7 +15,6 @@ namespace GE
 {
 	namespace ObjectFactory
 	{
-#ifndef RTTR_DESERIALIZE
 		template<typename CompType>
 		CompType DeserializeComponent(std::string const& componentData)
 		{
@@ -177,6 +176,5 @@ namespace GE
 			return button;
 		}
 
-#endif
 	}	// namespace ObjectFactory
 }	// namespace GE

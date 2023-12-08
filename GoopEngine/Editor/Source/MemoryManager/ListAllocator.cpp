@@ -15,13 +15,13 @@ void ListAllocator::Initialise(std::size_t sz) noexcept {
 	BaseAllocator::m_size = sz;
 	BaseAllocator::m_usedBytes = 0;
 	BaseAllocator::m_numAllocations = 0;
-	//std::cout << "Free Block Header Size: " << sizeof(FreeBlock) << "\n";
-	//std::cout << "Allocated Block Header Size: " << sizeof(AllocatedBlock) << "\n";
+	// << "Free Block Header Size: " << sizeof(FreeBlock) << "\n";
+	// << "Allocated Block Header Size: " << sizeof(AllocatedBlock) << "\n";
 }
 
-
-void ListAllocator::PrintDetails() {
-
+#ifdef _DEBUG
+void ListAllocator::PrintDetails()
+{
 	std::cout << "List Allocator:\n";
 	std::cout << "---------------------------------------------\n";
 	std::cout << "Total Memory Size: " << BaseAllocator::m_size << " bytes\n";
@@ -38,7 +38,7 @@ void ListAllocator::PrintDetails() {
 	}
 	std::cout << "----------------------------------------------\n";
 }
-
+#endif // _DEBUG
 
 void ListAllocator::PrintMemLeak()
 {

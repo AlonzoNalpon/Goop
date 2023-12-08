@@ -1,19 +1,20 @@
 /*!*********************************************************************
-\file   ObjectFactory.h
-\author loh.j@digipen.edu
-\date   28 September 2023
+\file       ObjectFactory.h
+\author     loh.j\@digipen.edu
+\co-author  chengen.lau\@digipen.edu
+\date       28 September 2023
 \brief
-  Parses in data and stores it in a map to be used in the future.
-  
-  Object Factory is capable of:
-    - SpawnPrefab
-        Creates an entity using the prefab data.
+  This file contains the definition of the ObjectFactory singleton
+  class, which encapsulates functions and data members to facilitate
+  the creation of objects in the scene. The class serves as a middle-
+  man between serialization and the actual entities in the scene.
+  It is responsible for the creation/cloning of entities and adding
+  of components through the ECS.
 
-    - CreateObject
-        Creates an entity with the data from a json file.
-
-    - CloneObject
-        Clones an existing entity.
+  On load, the ObjectFactory holds the deserialized data for the scene.
+  Upon reloading, the objects are loaded from here without the need to
+  deserialize again. Only when changing scenes will a full reload be
+  required.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -51,10 +52,15 @@ namespace GE::ObjectFactory
 
     /*!*********************************************************************
     \brief
-      Copies an entity and set the position of it.
-    \param
-      Entity (Source),
-      dVec2&& (Position of the cloned object)
+      Creates a copy of an entity along with its components. This also
+      duplicates all child entities, which is done through recursive calls
+      to this function
+    \param entity
+      The entity to duplicate
+    \param parent
+      The parent of the entity. It is set to ECS::INVALID_ID by default,
+      indicating no parent.
+    \return
     ************************************************************************/
     void CloneObject(ECS::Entity entity, ECS::Entity parent = ECS::INVALID_ID) const;
 
@@ -117,20 +123,17 @@ namespace GE::ObjectFactory
 
     /*!*********************************************************************
     \brief
+      Reloads a particular prefab given its name
+    ************************************************************************/
+    void ReloadPrefab(std::string const& name);
+
+    /*!*********************************************************************
+    \brief
       Clears the prefab container and loads prefabs from files again
     ************************************************************************/
     void ReloadPrefabs();
 
   private:
-
-    /*!*********************************************************************
-    \brief
-      Clones the component the source entity to the destination entity
-    \param
-      Entity (Destination),
-      Entity (source)
-    ************************************************************************/
-    void CloneComponents(GE::ECS::Entity destObj, GE::ECS::Entity srcObj) const;
 
     /*!*********************************************************************
     \brief

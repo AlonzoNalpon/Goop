@@ -7,6 +7,7 @@
 // See more C++ related extension (fmt, RAII, syntaxis sugar) on Wiki:
 //   https://github.com/ocornut/imgui/wiki/Useful-Extensions#cness
 
+#ifndef IMGUI_DISABLE
 #include "../../imgui.h"
 #include "imgui_stdlib.h"
 
@@ -82,4 +83,5 @@ bool ImGui::InputTextWithHint(const char* label, const char* hint, std::string* 
 
 #if defined(__clang__)
 #pragma clang diagnostic pop
+#endif
 #endif

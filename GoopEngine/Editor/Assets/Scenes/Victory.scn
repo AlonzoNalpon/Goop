@@ -2,6 +2,7 @@
     {
         "Name": "Victory Screen",
         "ID": 0,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -33,30 +34,44 @@
                     },
                     "spriteName": "Game_VictoryScreen"
                 }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "caveFighting",
+                            "loop": false,
+                            "playOnStart": true,
+                            "channel": "BGM",
+                            "volume": 0.5479999780654907
+                        }
+                    ]
+                }
             }
         ]
     },
     {
         "Name": "Leave Button",
         "ID": 1,
+        "Prefab": null,
         "isActive": true,
         "Parent": 0,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -285, 0 }",
+                    "worldPos": "{ 0, -286.97, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, -285 }",
+                    "center": "{ 0, -286.97 }",
                     "width": 300.0,
                     "height": 80.0,
-                    "min": "{ -150, -325 }",
-                    "max": "{ 150, -245 }",
+                    "min": "{ -150, -326.97 }",
+                    "max": "{ 150, -246.97 }",
                     "render": true
                 }
             },

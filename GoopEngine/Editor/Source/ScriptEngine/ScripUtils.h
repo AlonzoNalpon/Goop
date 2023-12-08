@@ -1,3 +1,14 @@
+/*!*********************************************************************
+\file   ScriptUtils.h
+\author han.q\@digipen.edu
+\date   26 November 2023
+\brief
+	This file contains the Enums and utils function required to transfer data between 
+	C# and C++
+
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include <mono/jit/jit.h>
 #include <mono/metadata/assembly.h>
