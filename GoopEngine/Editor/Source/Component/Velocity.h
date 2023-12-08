@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   Velocity.h
+\author c.phua\@digipen.edu
+\date   8 November 2023
+\brief
+	Component for Linear Force and Velocity.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 
 namespace GE

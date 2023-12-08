@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   AudioSystem.h
+\author c.phua\@digipen.edu
+\date   8 November 2023
+\brief
+	Audio system.
+	Updates entity's audio. Calls FmodSystems.h functions to play sounds.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include <ECS/System/System.h>
 #include <Events/EventManager.h>

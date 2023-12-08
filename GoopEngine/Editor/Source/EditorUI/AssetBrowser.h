@@ -10,7 +10,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include "ImGuiUI.h"
 #include <ImGui/imgui.h>
 

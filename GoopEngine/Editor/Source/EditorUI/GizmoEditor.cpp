@@ -1,5 +1,17 @@
+/*!*********************************************************************
+\file   GizmoEditor.cpp
+\author a.nalpon\@digipen.edu
+\date   27-November-2023
+\brief  This file contains the implementation for GizmoEditor.
+It handles rendering and updating objects from gizmos.
+This class stores global states so it's assumed to be used once
+every frame at most
+  
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <EditorUI/GizmoEditor.h>
 
 #include <glm.hpp>

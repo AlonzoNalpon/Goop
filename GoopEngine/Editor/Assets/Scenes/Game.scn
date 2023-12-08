@@ -59,25 +59,25 @@
                                 {
                                     "data": [
                                         2,
+                                        7,
+                                        13,
+                                        7,
                                         2,
+                                        6,
+                                        8,
+                                        9,
+                                        7,
+                                        13,
+                                        7,
                                         2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2
+                                        9,
+                                        7,
+                                        7,
+                                        3,
+                                        6,
+                                        7,
+                                        13,
+                                        7
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
@@ -105,6 +105,19 @@
                                     }
                                 }
                             ]
+                        }
+                    ]
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "damageTaken_Leah",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
                         }
                     ]
                 }
@@ -191,7 +204,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1200
                         }
                     },
                     "spriteName": "DAA2402_InGame_Environment2_v05"
@@ -236,7 +249,7 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -380, 0 }",
+                    "worldPos": "{ 0, -440, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -275,6 +288,16 @@
                     "worldPos": "{ 150, 50, 0 }",
                     "worldScale": "{ 0.9, 0.9, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 718.335, 373.233 }",
+                    "width": 456.0,
+                    "height": 154.0,
+                    "min": "{ 490.335, 296.233 }",
+                    "max": "{ 946.335, 450.233 }",
+                    "render": false
                 }
             },
             {
@@ -390,6 +413,25 @@
                 }
             },
             {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 456,
+                            "height": 154
+                        }
+                    },
+                    "spriteName": "Button_Base"
+                }
+            },
+            {
                 "Game": {
                     "player": 0,
                     "enemy": 4,
@@ -466,22 +508,25 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 15,
-                            "defaultSpriteID": 94,
+                            "scriptEntity": 0,
+                            "spriteID": 34,
+                            "defaultSpriteID": 103,
                             "used": false
                         },
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
-                            "spriteID": 23,
-                            "defaultSpriteID": 81,
+                            "scriptEntity": 0,
+                            "spriteID": 36,
+                            "defaultSpriteID": 20,
                             "used": false
                         },
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
-                            "spriteID": 19,
-                            "defaultSpriteID": 22,
+                            "scriptEntity": 0,
+                            "spriteID": 23,
+                            "defaultSpriteID": 104,
                             "used": false
                         }
                     ]
@@ -693,7 +738,9 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 11,
-        "Child Entities": [],
+        "Child Entities": [
+            15
+        ],
         "Components": [
             {
                 "Transform": {
@@ -791,7 +838,7 @@
         "ID": 15,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 14,
         "Child Entities": [
             3,
             16,
@@ -803,47 +850,52 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, -385, 3 }",
+                    "worldPos": "{ 0, -445, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "CardHolder": {
                     "elements": [
                         {
-                            "elemEntity": 4294967295,
+                            "elemEntity": 16,
                             "cardEntity": 16,
-                            "spriteID": 35,
-                            "defaultSpriteID": 0,
+                            "scriptEntity": 0,
+                            "spriteID": 34,
+                            "defaultSpriteID": 34,
                             "used": false
                         },
                         {
-                            "elemEntity": 4294967295,
+                            "elemEntity": 17,
                             "cardEntity": 17,
+                            "scriptEntity": 0,
                             "spriteID": 23,
-                            "defaultSpriteID": 0,
+                            "defaultSpriteID": 23,
                             "used": false
                         },
                         {
-                            "elemEntity": 4294967295,
+                            "elemEntity": 18,
                             "cardEntity": 18,
-                            "spriteID": 37,
-                            "defaultSpriteID": 0,
+                            "scriptEntity": 0,
+                            "spriteID": 36,
+                            "defaultSpriteID": 36,
                             "used": false
                         },
                         {
-                            "elemEntity": 4294967295,
+                            "elemEntity": 19,
                             "cardEntity": 19,
+                            "scriptEntity": 0,
                             "spriteID": 8,
-                            "defaultSpriteID": 0,
+                            "defaultSpriteID": 8,
                             "used": false
                         },
                         {
-                            "elemEntity": 4294967295,
+                            "elemEntity": 20,
                             "cardEntity": 20,
+                            "scriptEntity": 0,
                             "spriteID": 8,
-                            "defaultSpriteID": 0,
+                            "defaultSpriteID": 8,
                             "used": false
                         }
                     ]
@@ -861,18 +913,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -550, -385, 3 }",
+                    "worldPos": "{ -550, -445, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -550, -385 }",
+                    "center": "{ -550, -445 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -657, -535 }",
-                    "max": "{ -443, -235 }",
+                    "min": "{ -657, -595 }",
+                    "max": "{ -443, -295 }",
                     "render": false
                 }
             },
@@ -947,6 +999,12 @@
                     "cardID": "PLAYER_DEBUFF_FLASH_BANG",
                     "tgtEntity": 11
                 }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 15,
+                    "elemIdx": 0
+                }
             }
         ]
     },
@@ -960,18 +1018,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -290, -385, 3 }",
+                    "worldPos": "{ -290, -445, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -290, -385 }",
+                    "center": "{ -290, -445 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -397, -535 }",
-                    "max": "{ -183, -235 }",
+                    "min": "{ -397, -595 }",
+                    "max": "{ -183, -295 }",
                     "render": false
                 }
             },
@@ -1046,6 +1104,12 @@
                     "cardID": "BASIC_NORMAL_BUFF",
                     "tgtEntity": 11
                 }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 15,
+                    "elemIdx": 1
+                }
             }
         ]
     },
@@ -1059,18 +1123,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -30, -385, 3 }",
+                    "worldPos": "{ -30, -445, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -30, -385 }",
+                    "center": "{ -30, -445 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -137, -535 }",
-                    "max": "{ 77, -235 }",
+                    "min": "{ -137, -595 }",
+                    "max": "{ 77, -295 }",
                     "render": false
                 }
             },
@@ -1145,6 +1209,12 @@
                     "cardID": "PLAYER_BUFF_SMOKESCREEN",
                     "tgtEntity": 11
                 }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 15,
+                    "elemIdx": 2
+                }
             }
         ]
     },
@@ -1158,18 +1228,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 230, -385, 3 }",
+                    "worldPos": "{ 230, -445, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 230, -385 }",
+                    "center": "{ 230, -445 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ 123, -535 }",
-                    "max": "{ 337, -235 }",
+                    "min": "{ 123, -595 }",
+                    "max": "{ 337, -295 }",
                     "render": false
                 }
             },
@@ -1243,6 +1313,12 @@
                 "Card": {
                     "cardID": "PLAYER_NORMAL_SHIELD",
                     "tgtEntity": 11
+                }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 15,
+                    "elemIdx": 3
                 }
             }
         ]
@@ -1257,18 +1333,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 490, -385, 3 }",
+                    "worldPos": "{ 490, -445, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 490, -385 }",
+                    "center": "{ 490, -445 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ 383, -535 }",
-                    "max": "{ 597, -235 }",
+                    "min": "{ 383, -595 }",
+                    "max": "{ 597, -295 }",
                     "render": false
                 }
             },
@@ -1342,6 +1418,12 @@
                 "Card": {
                     "cardID": "PLAYER_NORMAL_SHIELD",
                     "tgtEntity": 11
+                }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 15,
+                    "elemIdx": 4
                 }
             }
         ]
@@ -1371,22 +1453,25 @@
                         {
                             "elemEntity": 22,
                             "cardEntity": 4294967295,
+                            "scriptEntity": 4294967295,
                             "spriteID": 20,
-                            "defaultSpriteID": 80,
+                            "defaultSpriteID": 103,
                             "used": false
                         },
                         {
                             "elemEntity": 23,
                             "cardEntity": 4294967295,
+                            "scriptEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 81,
+                            "defaultSpriteID": 20,
                             "used": false
                         },
                         {
                             "elemEntity": 24,
                             "cardEntity": 4294967295,
+                            "scriptEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 22,
+                            "defaultSpriteID": 104,
                             "used": false
                         }
                     ]
@@ -1583,9 +1668,9 @@
                 "BoxCollider": {
                     "center": "{ 0, 0 }",
                     "width": 1920.0,
-                    "height": 1080.0,
-                    "min": "{ -960, -540 }",
-                    "max": "{ 960, 540 }",
+                    "height": 1200.0,
+                    "min": "{ -960, -600 }",
+                    "max": "{ 960, 600 }",
                     "render": true
                 }
             },
@@ -1602,7 +1687,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1200
                         }
                     },
                     "spriteName": "Pause_OverlayBG"
@@ -1937,7 +2022,7 @@
                 "BoxCollider": {
                     "center": "{ 0, 0 }",
                     "width": 1920.0,
-                    "height": 1080.0,
+                    "height": 1200.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
                     "render": true
@@ -1956,7 +2041,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1200
                         }
                     },
                     "spriteName": "Pause_OverlayBG"
@@ -2095,7 +2180,7 @@
                 "BoxCollider": {
                     "center": "{ 0, 0 }",
                     "width": 1920.0,
-                    "height": 1080.0,
+                    "height": 1200.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
                     "render": true
@@ -2114,7 +2199,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1200
                         }
                     },
                     "spriteName": "Pause_OverlayBG"

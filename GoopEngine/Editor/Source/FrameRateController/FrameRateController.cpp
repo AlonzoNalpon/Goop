@@ -143,7 +143,7 @@ void FrameRateController::EndFrame()
 	++m_framePassed;
 	++m_frameCount;
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 	// update graph for system timers if window is shown
 	EditorGUI::DataViz::Visualizer::UpdateSystemTimers();
 #endif

@@ -1,5 +1,19 @@
+/*!*********************************************************************
+\file   PrefabManager.cpp
+\author chengen.lau\@digipen.edu
+\date   27-November-2023
+\brief  
+  This file contains the definition of PrefabManager singleton.
+  It is responsible for the mapping of entities to the prefabs they
+  were created from. This is to allow each instance to be updated by
+  any changes made to the prefab itself. The functions below are
+  used to facilitate the adding and removing of entities to prefabs,
+  as well as the updating of components based on prefabs.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <PrefabManager/PrefabManager.h>
 #include <ECS/EntityComponentSystem.h>
 #include <ObjectFactory/ObjectFactory.h>
@@ -13,9 +27,6 @@ using namespace GE::Prefabs;
 
 void PrefabManager::AttachPrefab(ECS::Entity entity, EntityPrefabMap::mapped_type&& prefab)
 {
-#ifdef PREFAB_MANAGER_DEBUG
-  std::cout << "Entity " << entity << ": " << prefab.first << ", version " << prefab.second << "\n";
-#endif
   m_entitiesToPrefabs[entity] = prefab;
 }
 
@@ -70,13 +81,7 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
 
     // if prefab versions match, means its up-to-date so continue
     ObjectFactory::VariantPrefab const& prefabRef{ of.GetVariantPrefab(iterVal.first) };
-    if (m_prefabVersions[prefab] == iterVal.second)
-    {
-      #ifdef PREFAB_MANAGER_DEBUG
-      std::cout << " Entity " << iter->first << " matches " << prefab << "'s version of " << m_prefabVersions[prefab] << "\n";
-      #endif
-      continue; 
-    }
+    if (m_prefabVersions[prefab] == iterVal.second) { continue; }
 
     ObjectFactory::VariantPrefab prefabVar{ prefabRef };
 
@@ -96,9 +101,6 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
 
     of.AddComponentsToEntity(iter->first, prefabVar.m_components);
     iterVal.second = m_prefabVersions[prefab];  // update version of entity
-#ifdef PREFAB_MANAGER_DEBUG
-    std::cout << " Entity " << iter->first << " updated with " << prefab << " version " << iterVal.second << "\n";
-#endif
   }
 }
 

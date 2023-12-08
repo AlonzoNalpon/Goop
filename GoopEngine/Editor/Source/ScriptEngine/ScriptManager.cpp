@@ -126,7 +126,7 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
 
   // Game system stuff
-  //mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", <PLAY ANIMIATION FUNCTION HERE>);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", GE::MONO::PlayAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::GameSystemResolved", GE::MONO::GameSystemResolved);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
   mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
@@ -183,15 +183,9 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
           uint32_t flags = mono_field_get_flags(field);
           if (flags & FIELD_ATTRIBUTE_PUBLIC)
           {
-#ifdef  _DEBUG
-            std::cout << line.substr(commaPosition + 1).c_str() << "::";
-#endif //  _DEBUG
             MonoType* type = mono_field_get_type(field);
             ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
             newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
-#ifdef  _DEBUG
-            std::cout << fieldName << "\n";
-#endif
           }
         }
         m_monoClassMap[line.substr(commaPosition + 1).c_str()] = newScriptClassInfo;
@@ -495,11 +489,14 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
   return oldTransform->m_rot;
 }
 
-void GE::MONO::PlayAnimation(std::string animName, GE::ECS::Entity entity)
+void GE::MONO::PlayAnimation(MonoString* animName, GE::ECS::Entity entity)
 {
+  std::string str = GE::MONO::MonoStringToSTD(animName);
   // call play animation here
-  Graphics::gObjID spriteID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(animName) };
-  GE::Systems::SpriteAnimSystem::SetAnimation(entity, spriteID); // play anim yes!
+  // Error check for invalid pls!!!!!
+  Graphics::gObjID spriteID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(str) };
+  // Doesnt set the sprite!!!
+  GE::Systems::SpriteAnimSystem::SetAnimation(0, spriteID); // play anim yes!
 }
 
 void GE::MONO::PlaySound(int soundIterator, GE::ECS::Entity entity)
@@ -538,7 +535,7 @@ void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int 
   {
     cardHolder->elements[queueIndex].used = false; // no longer using this slot if it's overriden
     // But now we reenable the card that it disabled ...
-    ecs.SetIsActiveEntity(cardHolder->elements[queueIndex].cardEntity, true);
+    //ecs.SetIsActiveEntity(cardHolder->elements[queueIndex].cardEntity, true);
   }
   
   // Now set the sprite ...
@@ -553,7 +550,7 @@ void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int 
 void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID)
 {
   ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
-  Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(handIndex);
+  Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(handEntity);
   ECS::Entity cardEntity = cardHolder->elements[handIndex].cardEntity;
   auto* cardComp = ecs.GetComponent<Component::Card>(cardEntity);
 
@@ -566,6 +563,7 @@ void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int car
   {
     auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
     spriteComp->m_spriteData.texture = texManager.GetTextureID(CardSpriteNames[cardComp->cardID]);
+    ecs.SetIsActiveEntity(cardEntity, true);
   }
 }
 

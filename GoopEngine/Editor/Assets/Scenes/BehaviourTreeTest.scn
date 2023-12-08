@@ -27,7 +27,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1200
                         }
                     },
                     "spriteName": "BG_Lv1"
@@ -45,18 +45,18 @@
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ -253.734, 229.292, 0 }",
+                    "worldPos": "{ -253.734, -197.28, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -253.734, 229.292 }",
-                    "width": 100.0,
-                    "height": 100.0,
-                    "min": "{ -303.734, 179.292 }",
-                    "max": "{ -203.734, 279.292 }",
+                    "center": "{ -253.734, -197.28 }",
+                    "width": 50.0,
+                    "height": 50.0,
+                    "min": "{ -278.734, -222.28 }",
+                    "max": "{ -228.734, -172.28 }",
                     "render": true
                 }
             },
@@ -65,15 +65,15 @@
                     "spriteData": {
                         "spriteSubData": {
                             "texCoords": {
-                                "x": 0.3333333432674408,
+                                "x": 0.0,
                                 "y": 0.0
                             },
                             "texDims": {
                                 "x": 0.1666666716337204,
                                 "y": 1.0
                             },
-                            "width": 128,
-                            "height": 128
+                            "width": 1250,
+                            "height": 750
                         }
                     },
                     "spriteName": "SS_MineWorm"
@@ -114,26 +114,26 @@
                                 },
                                 {
                                     "data": [
+                                        6,
+                                        3,
+                                        2,
+                                        3,
+                                        7,
+                                        2,
+                                        12,
+                                        8,
+                                        6,
+                                        9,
+                                        3,
                                         2,
                                         2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2,
-                                        2
+                                        3,
+                                        6,
+                                        9,
+                                        8,
+                                        8,
+                                        13,
+                                        9
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {

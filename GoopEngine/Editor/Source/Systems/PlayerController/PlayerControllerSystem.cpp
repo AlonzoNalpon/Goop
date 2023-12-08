@@ -29,8 +29,6 @@ static					 GLuint sharkSpriteID{};		// this is the worm animation ID
 void PlayerControllerSystem::Awake() 
 {
 	m_ecs = &EntityComponentSystem::GetInstance();
-	Events::EventManager::GetInstance().Subscribe<Events::KeyHeldEvent>(this);
-	Events::EventManager::GetInstance().Subscribe<Events::KeyTriggeredEvent>(this);
 
 }
 
@@ -61,63 +59,6 @@ void PlayerControllerSystem::FixedUpdate()
 	}
 	
 	frc.EndSystemTimer("Player Controller");
-}
-
-void PlayerControllerSystem::HandleEvent(Events::Event* event)
-{
-	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
-	for (Entity entity : m_entities) {
-		Transform* trans = m_ecs->GetComponent<Transform>(entity);
-		SpriteAnim* spriteAnim = m_ecs->GetComponent<SpriteAnim>(entity);
-		Sprite*	sprite = m_ecs->GetComponent<Sprite>(entity);
-		if (event->GetCategory() == Events::EVENT_TYPE::KEY_HELD)
-		{
-			KEY_CODE const key{ static_cast<Events::KeyHeldEvent*>(event)->GetKey() };
-			if (key == GPK_H)
-			{
-				constexpr double ROTATE_SPEED{ 2.0 };
-				trans->m_rot.z = fmod(trans->m_rot.z + dt * ROTATE_SPEED, pi * 2.0); // ROTATING PLAYER
-			}
-			if (key == GPK_J)
-			{
-				constexpr double SCALE_SPEED{ 30.0 };
-				constexpr double MAX_SCALE{ 200.0 };
-				constexpr double MIN_SCALE{ 100.0 };
-				trans->m_scale.x = fmod(trans->m_scale.x + dt * SCALE_SPEED, MAX_SCALE); // SCALING PLAYER
-				trans->m_scale.y = fmod(trans->m_scale.y + dt * SCALE_SPEED, MAX_SCALE); // SCALING PLAYER
-				trans->m_scale.x = fmax(trans->m_scale.x, MIN_SCALE);
-				trans->m_scale.y = fmax(trans->m_scale.y, MIN_SCALE);
-			}
-
-#ifdef EVENT_DEBUG
-			std::cout << "PlayerControllerSystem: " << event->GetName() + " Event handled\n";
-#endif
-		}
-		else if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
-		{
-			KEY_CODE const key{ static_cast<Events::KeyHeldEvent*>(event)->GetKey() };
-			if (key == GPK_K)
-			{
-				spriteAnim->currFrame = 0;
-				spriteAnim->currTime = 0.0;
-				// changing sprite
-				if (spriteAnim->animID == sharkAnimID)
-				{
-					spriteAnim->animID = wormAnimID;
-					sprite->m_spriteData.texture = wormSpriteID;
-				}
-				else if (spriteAnim->animID == wormAnimID)
-				{
-					spriteAnim->animID = sharkAnimID;
-					sprite->m_spriteData.texture = sharkSpriteID;
-				}
-			}
-
-#ifdef EVENT_DEBUG
-			std::cout << "PlayerControllerSystem: " << event->GetName() + " Event handled\n";
-#endif
-		}
-	}
 }
 
 vec3 PlayerControllerSystem::Tweening(vec3 start, vec3 end, double normalisedTime)

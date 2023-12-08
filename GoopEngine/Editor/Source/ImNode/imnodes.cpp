@@ -6,7 +6,7 @@
 // [SECTION] render helpers
 // [SECTION] API implementation
 #include <pch.h>
-
+#ifndef IMGUI_DISABLE
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include "imnodes.h"
@@ -3264,3 +3264,4 @@ void LoadEditorStateFromIniFile(ImNodesEditorContext* const editor, const char* 
     ImGui::MemFree(file_data);
 }
 } // namespace IMNODES_NAMESPACE
+#endif

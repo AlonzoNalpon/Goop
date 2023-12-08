@@ -12,7 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include <AppController/AppController.h>
 #include "../EditorUI/ImGuiUI.h"
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <Systems/RootTransform/PostRootTransformSystem.h>
@@ -82,7 +82,7 @@ namespace GE::Application
 
     GE::AI::TreeManager::GetInstance().Init();
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
     imgui.Init(window);
 #endif
     // Creation of game framebuffer MUST OCCUR AFTER IMGUI INIT (editor has their own)
@@ -118,7 +118,7 @@ namespace GE::Application
           im.UpdateInput();
           fRC.EndSystemTimer("Input");
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
           // Enable/disable editor view with G key
           if (im.IsKeyTriggered(KEY_CODE::KEY_G) && EditorGUI::EditorViewport::isFocused)
           {
@@ -133,7 +133,7 @@ namespace GE::Application
           fRC.EndSystemTimer("ImGui Update");
 #endif
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
           if (GE::EditorGUI::ImGuiHelper::IsRunning())
           {
             ecs->UpdateSystems();
@@ -152,7 +152,7 @@ namespace GE::Application
           }
 #else
           ecs->UpdateSystems();
-#endif  // NO_IMGUI
+#endif  // IMGUI_DISABLE
 
           fMod.Update();
           gsm.Update();
@@ -175,7 +175,7 @@ namespace GE::Application
           gEngine.Draw();
           fRC.EndSystemTimer("Deferred Render");
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
           fRC.StartSystemTimer();
           if (showEditor)
             imgui.Render();
@@ -199,12 +199,12 @@ namespace GE::Application
         window.SwapBuffers();
         fRC.EndFrame();
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
         if (GE::EditorGUI::ImGuiHelper::ShouldRestart())
         {
           gsm.Restart();
         }
-#endif // NO_IMGUI
+#endif // IMGUI_DISABLE
       }
       catch (GE::Debug::IExceptionBase& e)
       {
@@ -224,7 +224,7 @@ namespace GE::Application
     {
       GE::AI::TreeManager::GetInstance().ShutDown();
       gsm.Exit();
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
       imgui.Exit();
 #endif
     }

@@ -10,7 +10,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include "AssetBrowser.h"
 #include <AssetManager/AssetManager.h>
 #include <ObjectFactory/ObjectFactory.h>
@@ -42,7 +42,7 @@ void AssetBrowser::CreateContentDir()
 
 	if (Button("Reload Library"))
 	{
-		// std::cout << "Reload Asset Browser" << std::endl;
+		//  << "Reload Asset Browser" << std::endl;
 		GE::Debug::ErrorLogger::GetInstance().LogError("=== [ Reloading Asset Browser ] ===");
 
 		GoopUtils::ReloadFileData();

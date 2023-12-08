@@ -60,14 +60,102 @@ namespace GE {
 			************************************************************************/
 			~ScriptManager();
 
+			/*!*********************************************************************
+			\brief
+				Function to create a C# class instance by calling its non-default contstructor
+				and passing in the relevant arguments
+
+			\params const char* className
+				class Name of the c# class object we want to instantiate
+
+			\params std::vector<void*>& arg
+			 arguments to pass into the class's non-default constructor
+
+			 \return
+			 Instance of the c# class in the form of MonoObject*
+			************************************************************************/
 			MonoObject* InstantiateClass(const char* className, std::vector<void*>& arg);
+
+			/*!*********************************************************************
+			\brief
+				Function to create a C# class instance by calling its default contstructor
+				
+
+			\params const char* className
+				class Name of the c# class object we want to instantiate
+
+			 \return
+			 Instance of the c# class in the form of MonoObject*
+			************************************************************************/
 			MonoObject* InstantiateClass(const char* className);
 
+			/*!*********************************************************************
+			\brief
+				This function is called during ScriptManager Init to create all the MonoClass*
+				By having a list of all the pre-made MonoClass, user only needs to pass in the name of the
+				script when they want to create an instance of a script
+
+			\params std::ifstream& ifs
+				Ifs stream to a text file containing all the script names and their namespaces
+			************************************************************************/
 			void LoadAllMonoClass(std::ifstream& ifs);
+
+			/*!*********************************************************************
+			\brief
+				Function to get A MonoClass* from the ScriptManager
+
+			\params std::string className
+				name of the class
+
+			\return
+			 MonoClass* obejct that will be used to generate and instance of a c# class
+			************************************************************************/
 			MonoClass* GetScriptClass(std::string className);
+
+			/*!*********************************************************************
+			\brief
+				Function to get the script class info of  c# class
+
+			\params std::string className
+				name of the class
+
+			\return
+			 A scriptClassInfo object that contains all the details of a c# class's public data member
+			************************************************************************/
 			ScriptClassInfo GetScriptClassInfo(std::string className);
+
+			/*!*********************************************************************
+			\brief
+				Load the C# Assembly Data from the DLL file
+
+			\params assemblyPath
+				path to the C# DLL file
+			************************************************************************/
 			ScriptField GetScriptField(std::string className, std::string fieldName);
+
+			/*!*********************************************************************
+			\brief
+				Function to convert a monotype to my ScriptFieldType enum
+
+			\params MonoType* monoType
+			C# mono type
+
+			\return
+			A ScriptFieldTYpe enum representing the monotype
+			************************************************************************/
 			ScriptFieldType MonoTypeToScriptFieldType(MonoType* monoType);
+
+			/*!*********************************************************************
+			\brief
+				return a rttr variant of the script field instance.
+				Used to generate an empty script field instance of a specific template type
+
+			\params std::string const& listType
+				the template type of the scriptfield iinstance
+
+			\return 
+			an empty script field instance of a specific template type, in the form of rttr::variant
+			************************************************************************/
 			rttr::variant GetScriptFieldInst(std::string const& listType);
 
 		};
@@ -160,7 +248,7 @@ namespace GE {
 		\param entity
 			Entity to play the animation on
 		********************************************************************/
-		void PlayAnimation(std::string animName, GE::ECS::Entity entity);
+		void PlayAnimation(MonoString* animName, GE::ECS::Entity entity);
 
 		/*!******************************************************************
 		\brief
@@ -190,10 +278,37 @@ namespace GE {
 		void SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int cardID);
 		void SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID);
 
-		//This Function takes in a string from c#.
+		/*!*********************************************************************
+		\brief
+			function that will be called by a c# script to pass a string from c# to c++
+
+		\param MonoString* str
+		  The string we want to pass from c# to c++
+		************************************************************************/
 		void SendString(MonoString* str);
 
+		/*!*********************************************************************
+		\brief
+			Function to convert a C# MonoString to C++ std::String
+
+		\param MonoString* str
+		C# Monostring we want to convert
+
+		\return
+		The covnerted std::string
+		************************************************************************/
 		std::string MonoStringToSTD(MonoString* str);
+
+		/*!*********************************************************************
+		\brief
+			Function to check if a monostring is valid
+
+		\param MonoError& error
+		MonoError belonging to a MonoString
+
+		\return
+		bool alue to indicate if the Monostring is valid
+		************************************************************************/
 		bool CheckMonoError(MonoError& error);
 	}
 }

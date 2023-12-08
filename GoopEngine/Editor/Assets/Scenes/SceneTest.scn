@@ -2,6 +2,7 @@
     {
         "Name": "Player",
         "ID": 0,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -35,8 +36,8 @@
                                 "x": 0.25,
                                 "y": 1.0
                             },
-                            "width": 875,
-                            "height": 1500
+                            "width": 1000,
+                            "height": 750
                         }
                     },
                     "spriteName": "SS_LeahIdle"
@@ -44,10 +45,7 @@
             },
             {
                 "SpriteAnim": {
-                    "currTime": "SS_LeahIdle",
-                    "name": "SS_LeahIdle",
-                    "currFrame": "SS_LeahIdle",
-                    "flags": "SS_LeahIdle"
+                    "name": "SS_LeahIdle"
                 }
             },
             {
@@ -65,6 +63,7 @@
     {
         "Name": "Entity 1",
         "ID": 1,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -81,6 +80,7 @@
     {
         "Name": "Background",
         "ID": 2,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -105,7 +105,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1200
                         }
                     },
                     "spriteName": "BG_Lv1"
@@ -116,6 +116,7 @@
     {
         "Name": "Button",
         "ID": 3,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -165,8 +166,216 @@
         ]
     },
     {
+        "Name": "GameSys",
+        "ID": 4,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Game": {
+                    "player": 5,
+                    "enemy": 6,
+                    "pauseMenu": 4294967295,
+                    "playerHand": 0,
+                    "playerQueue": 0,
+                    "enemyQueue": 0,
+                    "gameSystemScript": {
+                        "scriptName": "GameManager",
+                        "scriptFieldInstList": []
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Test Player",
+        "ID": 5,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 904474864,
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        0,
+                                        0,
+                                        0
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_cardQueue"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        2,
+                                        9,
+                                        8,
+                                        12,
+                                        3,
+                                        6,
+                                        8,
+                                        8,
+                                        9,
+                                        13,
+                                        8,
+                                        12,
+                                        7,
+                                        13,
+                                        6,
+                                        2,
+                                        2,
+                                        7,
+                                        13,
+                                        12
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_deck"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        7,
+                                        3,
+                                        8,
+                                        2,
+                                        2
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_hand"
+                                    }
+                                },
+                                {
+                                    "data": 100,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Test Enemy",
+        "ID": 6,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "entityId": 8,
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        0,
+                                        0,
+                                        0
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_cardQueue"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        8,
+                                        13,
+                                        9,
+                                        7,
+                                        7,
+                                        7,
+                                        9,
+                                        12,
+                                        8,
+                                        6,
+                                        2,
+                                        7,
+                                        13,
+                                        6,
+                                        8,
+                                        3,
+                                        3,
+                                        12,
+                                        2,
+                                        13
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_deck"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        7,
+                                        3,
+                                        8,
+                                        2,
+                                        2
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_hand"
+                                    }
+                                },
+                                {
+                                    "data": 100,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
         "Name": "PlayerQueue",
         "ID": 11,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -188,6 +397,7 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
+                            "scriptEntity": 4294967295,
                             "spriteID": 17,
                             "defaultSpriteID": 2,
                             "used": false
@@ -195,6 +405,7 @@
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
+                            "scriptEntity": 4294967295,
                             "spriteID": 21,
                             "defaultSpriteID": 2,
                             "used": false
@@ -202,6 +413,7 @@
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
+                            "scriptEntity": 4294967295,
                             "spriteID": 18,
                             "defaultSpriteID": 2,
                             "used": false
@@ -214,6 +426,7 @@
     {
         "Name": "PQElem1",
         "ID": 12,
+        "Prefab": null,
         "isActive": true,
         "Parent": 11,
         "Child Entities": [],
@@ -271,6 +484,7 @@
     {
         "Name": "PQElem2",
         "ID": 13,
+        "Prefab": null,
         "isActive": true,
         "Parent": 11,
         "Child Entities": [],
@@ -328,6 +542,7 @@
     {
         "Name": "PQElem3",
         "ID": 14,
+        "Prefab": null,
         "isActive": true,
         "Parent": 11,
         "Child Entities": [],
@@ -385,6 +600,7 @@
     {
         "Name": "HandCards",
         "ID": 15,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -408,6 +624,7 @@
                         {
                             "elemEntity": 16,
                             "cardEntity": 16,
+                            "scriptEntity": 4294967295,
                             "spriteID": 18,
                             "defaultSpriteID": 18,
                             "used": false
@@ -415,6 +632,7 @@
                         {
                             "elemEntity": 17,
                             "cardEntity": 17,
+                            "scriptEntity": 4294967295,
                             "spriteID": 17,
                             "defaultSpriteID": 17,
                             "used": false
@@ -422,6 +640,7 @@
                         {
                             "elemEntity": 18,
                             "cardEntity": 18,
+                            "scriptEntity": 4294967295,
                             "spriteID": 17,
                             "defaultSpriteID": 17,
                             "used": false
@@ -429,6 +648,7 @@
                         {
                             "elemEntity": 19,
                             "cardEntity": 19,
+                            "scriptEntity": 4294967295,
                             "spriteID": 17,
                             "defaultSpriteID": 17,
                             "used": false
@@ -436,6 +656,7 @@
                         {
                             "elemEntity": 20,
                             "cardEntity": 20,
+                            "scriptEntity": 4294967295,
                             "spriteID": 17,
                             "defaultSpriteID": 17,
                             "used": false
@@ -448,6 +669,7 @@
     {
         "Name": "HCard1",
         "ID": 16,
+        "Prefab": null,
         "isActive": true,
         "Parent": 15,
         "Child Entities": [],
@@ -505,6 +727,7 @@
     {
         "Name": "HCard2",
         "ID": 17,
+        "Prefab": null,
         "isActive": true,
         "Parent": 15,
         "Child Entities": [],
@@ -562,6 +785,7 @@
     {
         "Name": "HCard3",
         "ID": 18,
+        "Prefab": null,
         "isActive": true,
         "Parent": 15,
         "Child Entities": [],
@@ -619,6 +843,7 @@
     {
         "Name": "HCard4",
         "ID": 19,
+        "Prefab": null,
         "isActive": true,
         "Parent": 15,
         "Child Entities": [],
@@ -676,6 +901,7 @@
     {
         "Name": "HCard5",
         "ID": 20,
+        "Prefab": null,
         "isActive": true,
         "Parent": 15,
         "Child Entities": [],
@@ -733,6 +959,7 @@
     {
         "Name": "EnemyHand",
         "ID": 21,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -754,6 +981,7 @@
                         {
                             "elemEntity": 22,
                             "cardEntity": 22,
+                            "scriptEntity": 4294967295,
                             "spriteID": 2,
                             "defaultSpriteID": 2,
                             "used": false
@@ -761,6 +989,7 @@
                         {
                             "elemEntity": 23,
                             "cardEntity": 23,
+                            "scriptEntity": 4294967295,
                             "spriteID": 2,
                             "defaultSpriteID": 2,
                             "used": false
@@ -768,6 +997,7 @@
                         {
                             "elemEntity": 24,
                             "cardEntity": 24,
+                            "scriptEntity": 4294967295,
                             "spriteID": 2,
                             "defaultSpriteID": 2,
                             "used": false
@@ -780,6 +1010,7 @@
     {
         "Name": "EQElem1",
         "ID": 22,
+        "Prefab": null,
         "isActive": true,
         "Parent": 21,
         "Child Entities": [],
@@ -827,6 +1058,7 @@
     {
         "Name": "EQElem2",
         "ID": 23,
+        "Prefab": null,
         "isActive": true,
         "Parent": 21,
         "Child Entities": [],
@@ -874,6 +1106,7 @@
     {
         "Name": "EQElem3",
         "ID": 24,
+        "Prefab": null,
         "isActive": true,
         "Parent": 21,
         "Child Entities": [],
@@ -921,6 +1154,7 @@
     {
         "Name": "[Folder] Menus",
         "ID": 26,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -941,6 +1175,7 @@
     {
         "Name": "[Menu] Pause Menu",
         "ID": 27,
+        "Prefab": null,
         "isActive": false,
         "Parent": 26,
         "Child Entities": [
@@ -963,6 +1198,7 @@
     {
         "Name": "[Image] Overlay",
         "ID": 47,
+        "Prefab": null,
         "isActive": true,
         "Parent": 27,
         "Child Entities": [],
@@ -1008,6 +1244,7 @@
     {
         "Name": "[Image] Pause Base",
         "ID": 49,
+        "Prefab": null,
         "isActive": true,
         "Parent": 27,
         "Child Entities": [],
@@ -1043,6 +1280,7 @@
     {
         "Name": "[Image] Options Banner",
         "ID": 50,
+        "Prefab": null,
         "isActive": true,
         "Parent": 27,
         "Child Entities": [],
@@ -1078,6 +1316,7 @@
     {
         "Name": "[Image] Words & Sliders",
         "ID": 51,
+        "Prefab": null,
         "isActive": true,
         "Parent": 27,
         "Child Entities": [],
@@ -1113,6 +1352,7 @@
     {
         "Name": "[Folder] Buttons",
         "ID": 52,
+        "Prefab": null,
         "isActive": true,
         "Parent": 27,
         "Child Entities": [
@@ -1133,6 +1373,7 @@
     {
         "Name": "[Buttons] How To Play",
         "ID": 53,
+        "Prefab": null,
         "isActive": true,
         "Parent": 52,
         "Child Entities": [],
@@ -1184,6 +1425,7 @@
     {
         "Name": "[Buttons] Resume",
         "ID": 54,
+        "Prefab": null,
         "isActive": true,
         "Parent": 52,
         "Child Entities": [],
@@ -1235,6 +1477,7 @@
     {
         "Name": "[Buttons] Quit",
         "ID": 55,
+        "Prefab": null,
         "isActive": true,
         "Parent": 52,
         "Child Entities": [],
@@ -1286,6 +1529,7 @@
     {
         "Name": "[Menu] How To Play",
         "ID": 56,
+        "Prefab": null,
         "isActive": false,
         "Parent": 26,
         "Child Entities": [
@@ -1307,6 +1551,7 @@
     {
         "Name": "[Image] Overlay",
         "ID": 57,
+        "Prefab": null,
         "isActive": true,
         "Parent": 56,
         "Child Entities": [],
@@ -1352,6 +1597,7 @@
     {
         "Name": "[Image] How To Play Base",
         "ID": 58,
+        "Prefab": null,
         "isActive": true,
         "Parent": 56,
         "Child Entities": [],
@@ -1387,6 +1633,7 @@
     {
         "Name": "[Button] Exit",
         "ID": 59,
+        "Prefab": null,
         "isActive": true,
         "Parent": 56,
         "Child Entities": [],
@@ -1438,6 +1685,7 @@
     {
         "Name": "[Menu] Confirm Quit",
         "ID": 60,
+        "Prefab": null,
         "isActive": false,
         "Parent": 26,
         "Child Entities": [
@@ -1461,6 +1709,7 @@
     {
         "Name": "[Image] Overlay",
         "ID": 61,
+        "Prefab": null,
         "isActive": true,
         "Parent": 60,
         "Child Entities": [],
@@ -1506,6 +1755,7 @@
     {
         "Name": "[Button] No",
         "ID": 62,
+        "Prefab": null,
         "isActive": true,
         "Parent": 60,
         "Child Entities": [],
@@ -1557,6 +1807,7 @@
     {
         "Name": "[Image] Confirm Quit Base",
         "ID": 63,
+        "Prefab": null,
         "isActive": true,
         "Parent": 60,
         "Child Entities": [],
@@ -1592,6 +1843,7 @@
     {
         "Name": "[Button] Yes",
         "ID": 64,
+        "Prefab": null,
         "isActive": true,
         "Parent": 60,
         "Child Entities": [],
@@ -1643,6 +1895,7 @@
     {
         "Name": "[Image] HTP Banner",
         "ID": 65,
+        "Prefab": null,
         "isActive": true,
         "Parent": 56,
         "Child Entities": [],
@@ -1678,6 +1931,7 @@
     {
         "Name": "[Image] Quit Game Banner",
         "ID": 66,
+        "Prefab": null,
         "isActive": true,
         "Parent": 60,
         "Child Entities": [],
@@ -1713,6 +1967,7 @@
     {
         "Name": "[Image] Text_AreYouSure",
         "ID": 67,
+        "Prefab": null,
         "isActive": true,
         "Parent": 60,
         "Child Entities": [],

@@ -11,7 +11,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include "PrefabEditor.h"
 #include <filesystem>
 #include <Serialization/Serializer.h>
@@ -132,10 +132,10 @@ void PrefabEditor::CreateContent()
         }
 
         Separator();
-        BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+        /*BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
         ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, GetWindowSize().x);
 
-        TableNextColumn();
+        TableNextColumn();*/
 
         auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
         auto const& textureLT{ textureManager.GetTextureLT() };
@@ -189,7 +189,7 @@ void PrefabEditor::CreateContent()
 
         if (hasSpriteAnim)
           EndDisabled();
-        EndTable();
+        //EndTable();
         ImGui::Separator();
         continue;
       }
@@ -197,9 +197,9 @@ void PrefabEditor::CreateContent()
       {
         Component::SpriteAnim& spriteAnimObj = *component.get_value<Component::SpriteAnim*>();
 
-        BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+        /*BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
         ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, GetWindowSize().x);
-        TableNextColumn();
+        TableNextColumn();*/
 
         auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
         auto const& textureLT{ animManager.GetAnimLT() };
@@ -238,7 +238,7 @@ void PrefabEditor::CreateContent()
         }
         // Display animation ID for users to know
         TextColored({ 1.f, .7333f, 0.f, 1.f }, ("Animation ID: " + std::to_string(spriteAnimObj.animID)).c_str());
-        EndTable();
+        //EndTable();
         ImGui::Separator();
         continue;
       }
@@ -246,10 +246,10 @@ void PrefabEditor::CreateContent()
       {
         Component::Text& textObj = *component.get_value<Component::Text*>();
 
-        BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+        /*BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
         ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, GetWindowSize().x);
 
-        TableNextColumn();
+        TableNextColumn();*/
         ImGui::ColorEdit4("Color", textObj.m_clr.rgba);
         ImGui::DragFloat("Scale", &textObj.m_scale, .001f, 0.f, 5.f);
         ImGui::InputTextMultiline("Text", &textObj.m_text);
@@ -267,7 +267,7 @@ void PrefabEditor::CreateContent()
           }
           EndCombo();
         }
-        EndTable();
+        //EndTable();
         ImGui::Separator();
         continue;
       }
@@ -369,7 +369,7 @@ void PrefabEditor::CreateContent()
           std::stringstream ss;
           for (auto const& comp : m_currPrefab.m_components)
           {
-            if (compStr == comp.get_type().get_name().to_string())
+            if (compStr == comp.get_type().get_wrapped_type().get_raw_type().get_name().to_string())
             {
               ss << "Unable to add component " << comp.get_type().get_name().to_string() << ". Component already exist";
               break;
@@ -416,23 +416,27 @@ void PrefabEditor::CreateContent()
             case GE::ECS::COMPONENT_TYPES::TWEEN:
               ret = rttr::type::get_by_name("Tween").create();
               break;
-            case GE::ECS::COMPONENT_TYPES::SCRIPTS:
-              ret = rttr::type::get_by_name("Scripts").create();
-              break;
+            //case GE::ECS::COMPONENT_TYPES::SCRIPTS:
+            //  ret = rttr::type::get_by_name("Scripts").create();
+            //  break;
             case GE::ECS::COMPONENT_TYPES::DRAGGABLE:
               ret = rttr::type::get_by_name("Draggable").create();
               break;
             case GE::ECS::COMPONENT_TYPES::TEXT:
               ret = rttr::type::get_by_name("Text").create();
-              break;
+              break;/*
             case GE::ECS::COMPONENT_TYPES::AUDIO:
               ret = rttr::type::get_by_name("Audio").create();
-              break;
+              break;*/
             case GE::ECS::COMPONENT_TYPES::GE_BUTTON:
               ret = rttr::type::get_by_name("GE_Button").create();
               break;
+            default:
+              GE::Debug::ErrorLogger::GetInstance().LogMessage("Selected Component Type is not Supported");
+              break;
             }
-            m_currPrefab.m_components.emplace_back(ret);
+            if (ret.is_valid())
+              m_currPrefab.m_components.emplace_back(ret);
           }
           break;
         }

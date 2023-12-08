@@ -118,7 +118,7 @@ void SystemManager::UpdateSystems()
 	}
 }
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 void GE::ECS::SystemManager::UpdateSystems(int systemCount, va_list args)
 {
 	std::set<const char*> allowedSystems;
@@ -188,4 +188,4 @@ void GE::ECS::SystemManager::UpdateSystems(int systemCount, va_list args)
 	}
 	fpsC.EndSystemTimer("Late Update");
 }
-#endif // !NO_IMGUI
+#endif // !IMGUI_DISABLE

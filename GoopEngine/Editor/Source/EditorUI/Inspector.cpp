@@ -10,7 +10,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include "ImGuiUI.h"
 #include "Inspector.h"
 #include <ImGui/imgui.h>
@@ -252,6 +252,45 @@ namespace
 	template <>
 	void InputList(std::string propertyName, std::vector<GE::Component::Audio::Sound>& list, float fieldWidth, bool disabled);
 
+
+	/*!*********************************************************************
+\brief
+	Wrapper to create specialized inspector list of vector of integers.
+	This function is specifically for diaplying script fields/data members
+
+\param[in] propertyName
+	Label name
+
+\param[in] list
+	Vector of int values
+
+\param[in] fieldWidth
+	Width of input field
+
+\param[in] disabled
+	Draw disabled
+************************************************************************/
+	bool InputScriptList(std::string propertyName, std::vector<int>& list, float fieldWidth, bool disabled = false);
+
+	/*!*********************************************************************
+\brief
+		Wrapper to create specialized inspector list of vector of unsigned int.
+	This function is specifically for diaplying script fields/data members
+
+\param[in] propertyName
+	Label name
+
+\param[in] list
+	Vector of unsigned int
+
+\param[in] fieldWidth
+	Width of input field
+
+\param[in] disabled
+	Draw disabled
+************************************************************************/
+	bool  InputScriptList(std::string propertyName, std::vector<unsigned>& list, float fieldWidth, bool disabled = false);
+
 	/*!*********************************************************************
 	\brief
 		Predefined behaviour of a remove component popup
@@ -265,8 +304,7 @@ namespace
 	template <typename T>
 	bool RemoveComponentPopup(std::string name, GE::ECS::Entity entity);
 
-	bool InputScriptList(std::string propertyName, std::vector<int>& list, float fieldWidth, bool disabled = false);
-	bool  InputScriptList(std::string propertyName, std::vector<unsigned>& list, float fieldWidth, bool disabled = false);
+
 }
 
 void GE::EditorGUI::Inspector::CreateContent()
@@ -326,7 +364,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_W))
 								GizmoEditor::SetOperation(ImGuizmo::OPERATION::TRANSLATE);
 							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_E))
-								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE);
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE_Z);
 							if (ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_R))
 								GizmoEditor::SetOperation(ImGuizmo::OPERATION::SCALE);
 						}
@@ -340,8 +378,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 						// ROTATE
 						{
 							if (ImGui::RadioButton("Rotate",
-								GizmoEditor::GetCurrOperation() == ImGuizmo::OPERATION::ROTATE))
-								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE);
+								GizmoEditor::GetCurrOperation() == ImGuizmo::OPERATION::ROTATE_Z))
+								GizmoEditor::SetOperation(ImGuizmo::OPERATION::ROTATE_Z);
 						}
 						ImGui::SameLine();
 						// SCALE
@@ -404,7 +442,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextRow();
 					InputDouble1("Height", col->m_height);
 					TableNextRow();
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 					InputCheckBox("Show Collider", col->m_render);
 #endif
 					if (Button("Match Sprite Unscaled"))
@@ -715,6 +753,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						style.Colors[ImGuiCol_FrameBg] = originalColor;
 						style.Colors[ImGuiCol_FrameBgHovered] = originalHColor;
 
+						// Gets all the script field/data member from the vector of rttr:variant and display them inside the inspector
 						for (rttr::variant& f  : s.m_scriptFieldInstList)
 						{
 							rttr::type dataType{ f.get_type() };
@@ -813,11 +852,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 				/*	bool displayPopup = ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) && ImGui::IsMouseClicked(1);
 					if (displayPopup) {
-						std::cout << "Display delete\n";
+						 << "Display delete\n";
 					}
 					else
 					{
-						std::cout << "Nope\n";
+						 << "Nope\n";
 					}*/
 					for (const std::string& tds : toDeleteList)
 					{
@@ -1163,6 +1202,21 @@ void GE::EditorGUI::Inspector::CreateContent()
 										{
 											element.spriteID = 0; // invalid
 										}
+									}
+								}
+								// THE TARGET SCRIPT VALUE
+								{
+									ImGui::Text("Target Script: ");
+									SameLine();
+									int newVal{ static_cast<int>(element.scriptEntity) };
+									if (InputInt(("##CDScrptID" + std::to_string(currElement)).c_str(), &newVal))
+									{
+										element.scriptEntity = newVal;
+									}
+									if (element.scriptEntity != ECS::INVALID_ID)
+									{
+										// check if valid
+										//TODO
 									}
 								}
 								// THE SPRITE ID (FOR REFERENCE)

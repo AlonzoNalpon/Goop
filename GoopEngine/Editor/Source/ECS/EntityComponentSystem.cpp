@@ -121,7 +121,7 @@ void EntityComponentSystem::UpdateSystems()
 	m_systemManager->UpdateSystems();
 }
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 void GE::ECS::EntityComponentSystem::UpdateSystems(int systemCount, ...)
 {
 	va_list args;
@@ -130,4 +130,4 @@ void GE::ECS::EntityComponentSystem::UpdateSystems(int systemCount, ...)
 	m_systemManager->UpdateSystems(systemCount, args);
 	va_end(args);
 }
-#endif // !NO_IMGUI
+#endif // !IMGUI_DISABLE

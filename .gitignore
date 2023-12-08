@@ -62,3 +62,4 @@ bld/
 GoopEngine/Editor/.tmpscn
 GoopEngine/GoopScripts/GoopScripts.dll
 *.pdb
+/GoopEngine/Editor/imgui.ini

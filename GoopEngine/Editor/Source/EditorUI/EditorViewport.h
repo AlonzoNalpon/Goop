@@ -11,7 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef EDITOR_VIEWPORT_H
 #define EDITOR_VIEWPORT_H
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <Graphics/Renderer/FrameBufferInfo.h>
 #include <ECS/System/System.h>
 #include <Events/EventManager.h>

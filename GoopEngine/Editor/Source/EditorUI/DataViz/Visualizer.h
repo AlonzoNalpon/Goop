@@ -10,7 +10,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <vector>
 #include <string>
 #include <FrameRateController/FrameRateController.h>

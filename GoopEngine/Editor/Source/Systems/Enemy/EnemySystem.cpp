@@ -1,3 +1,18 @@
+/*!************************************************************************
+\file EnemySystem.cpp
+\author Han Qin Ding
+\date  26-November-2023
+
+\brief
+This file contains functions for the Enemy System Class
+The enemy system is in charge of running all the AI behaviours of the enemies.
+Each behaviour tree can be used by multiple enemies.
+Instead of created 1 copy of the tree for each enemy, we will only have 1 copy of the tree at all times.
+Each enemy will have a tree cache. This cache will be used to keep track of the enemy's progress within the behaivour tree.
+Each enemy will only resolve 1 leaf node per frame, their cache will help the system determin which node the enemy will traverse
+to in the current frame.
+
+**************************************************************************/
 #include <pch.h>
 #include <Systems/Enemy/EnemySystem.h>
 #include <AssetManager/AssetManager.h>
@@ -244,10 +259,9 @@ unsigned int  EnemySystem::GetPlayerID()
 	return m_playerID;
 }
 
-
+#ifdef _DEBUG
 void EnemySystem::PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp)
 {
-
 	std::cout << "Tree Cache Detail:\n";
 	std::cout << "-----------------------\n";
 	for (const GE::AI::NodeCache& n : temp)
@@ -256,6 +270,7 @@ void EnemySystem::PrintNodeCache(const std::deque<GE::AI::NodeCache>& temp)
 	}
 	std::cout << "-----------------------\n\n";
 }
+#endif // _DEBUG
 
 bool EnemySystem::PlayerExist()
 {

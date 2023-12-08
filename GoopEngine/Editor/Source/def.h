@@ -28,8 +28,8 @@ std::string const SHADER_PATH{ ASSETS_PATH + "Shaders/" };
 #pragma endregion
 
 #ifndef _DEBUG // RELEASE MODE
-#define NULL_CHECK_RET(x) if(x)return     // Returns if value is null
-#define NULL_CHECK_BREAK(x) if(x)break    // breaks if value is null
+#define NULL_CHECK_RET(x) if(!x)return     // Returns if value is null
+#define NULL_CHECK_BREAK(x) if(!x)break    // breaks if value is null
 #else
 #define NULL_CHECK_RET(x)   // does nothing in debug. Hope to crash.
 #define NULL_CHECK_BREAK(x) // does nothing in debug. Hope to crash

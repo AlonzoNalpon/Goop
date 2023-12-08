@@ -14,7 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SerializeComponents.h"
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Serialization/Deserializer.h>
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 #include <PrefabManager/PrefabManager.h>
 #endif
 
@@ -223,10 +223,6 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
 
   ECS::Entity newEntity{ ecs.CreateEntity() };
   AddComponentsToEntity(newEntity, iter->second.m_components);
-#ifndef NO_IMGUI
-  Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
-  pm.AttachPrefab(newEntity, { key, pm.GetPrefabVersion(key) });
-#endif
 
   ecs.SetEntityName(newEntity, key);
   return newEntity;
@@ -305,7 +301,7 @@ void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
     }
   }
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
   Prefabs::PrefabManager::GetInstance().UpdateAllEntitiesFromPrefab();
 #endif
 }

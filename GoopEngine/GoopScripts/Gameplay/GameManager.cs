@@ -30,7 +30,6 @@ namespace GoopScripts.Gameplay
 
     public void OnUpdate(double dt, Stats player, uint playerEntity, Stats enemy, uint enemyEntity, uint playerHand, uint playerQueue, uint enemyQueue)
 		{
-
       if (newTurn)
 			{
 				m_numResolves = player.m_cardQueue.Length >= enemy.m_cardQueue.Length ? player.m_cardQueue.Length : enemy.m_cardQueue.Length;
@@ -40,11 +39,12 @@ namespace GoopScripts.Gameplay
 				m_cardManager.Cards[(int)player.m_cardQueue[m_currResolves]].Play(ref player, ref enemy);
         m_cardManager.Cards[(int)enemy.m_cardQueue[m_currResolves]].Play(ref enemy, ref player);
 
-        Utils.PlaySound(m_rng.Next(0, 1), playerEntity);
+        Utils.PlaySound(m_rng.Next(1, 1), playerEntity);
         Utils.SetQueueCardID(playerQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
         Utils.PlaySound(m_rng.Next(0, 1), enemyEntity);
         Utils.SetQueueCardID(enemyQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
         //play anim?
+        Utils.PlayAnimation("SS_LeahShoot", playerEntity);
 
         // remove card
         player.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
@@ -78,7 +78,8 @@ namespace GoopScripts.Gameplay
 				{
 					shouldEnd = true;
 				}
-      }
+				Utils.PlayAnimation("SS_LeahShoot", playerEntity);
+			}
       else
       {
 				m_currTime += dt;
@@ -86,7 +87,7 @@ namespace GoopScripts.Gameplay
 
       if (shouldEnd)
 			{
-        // Draw cards here.        
+				// Draw cards here.        
 				Utils.GameSystemResolved();
         int i = 0;
         for (; i < player.m_hand.Length; ++i)
@@ -105,11 +106,14 @@ namespace GoopScripts.Gameplay
           temp.Remove((CardBase.CardID)drawnCard);
           player.m_deck = temp.ToArray();
 
-          Utils.SetHandCardID(playerHand, i, drawnCard);
+          Utils.SetHandCardID(playerHand, i, (int)player.m_deck[drawnCard]);
+          player.m_hand[i] = player.m_deck[drawnCard];
         }
         m_currResolves = 0;
         m_currTime = 0;
         newTurn = true;
+
+				Utils.PlayAnimation("SS_LeahIdle", playerEntity);
 			}
     }
   }

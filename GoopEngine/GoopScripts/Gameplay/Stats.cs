@@ -32,7 +32,36 @@ namespace GoopScripts.Gameplay
 			m_deck = new CardBase.CardID[20];
       for (int i = 0; i < m_deck.Length; ++i)
       {
-        m_deck[i] = CardBase.CardID.BASIC_NORMAL_SHIELD;
+        switch (rng.Next(0, 8))
+        {
+          case 0:
+						m_deck[i] = CardBase.CardID.BASIC_NORMAL_SHIELD;
+						break;
+					case 1:
+						m_deck[i] = CardBase.CardID.BASIC_NORMAL_BUFF;
+						break;
+          case 2:
+						m_deck[i] = CardBase.CardID.PLAYER_NORMAL_SHIELD;
+						break;
+          case 3:
+						m_deck[i] = CardBase.CardID.PLAYER_DEBUFF_FLASH_BANG;
+						break;
+          case 4:
+						m_deck[i] = CardBase.CardID.PLAYER_BUFF_SMOKESCREEN;
+						break;
+          case 5:
+						m_deck[i] = CardBase.CardID.PLAYER_BUFF_RAGE;
+						break;  
+          case 6:
+						m_deck[i] = CardBase.CardID.DAWSON_NORMAL_SHIELD;
+						break; 
+          case 7:
+						m_deck[i] = CardBase.CardID.DAWSON_BUFF_CHARGE_UP;
+						break; 
+          case 8:
+						m_deck[i] = CardBase.CardID.DAWSON_DEBUFF_TIME_WARP;
+						break;
+				}
 			}
       
 			m_cardQueue = new CardBase.CardID[3];

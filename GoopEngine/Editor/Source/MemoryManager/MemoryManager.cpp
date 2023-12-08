@@ -105,11 +105,9 @@ void MemoryManager::PrintMemLeak()
 	}
 }
 
-
+#ifdef _DEBUG
 void MemoryManager::TestAllAllocators()
 {
-
-
 	MemoryManager* mm = &MemoryManager::GetInstance();
 	auto startTime = std::chrono::high_resolution_clock::now();
 	std::cout << "\nAllocator Test\n";
@@ -130,7 +128,7 @@ void MemoryManager::TestAllAllocators()
 	//TestObject* testt2 = new TestObject[100];
 	//auto endTime2 = std::chrono::high_resolution_clock::now();
 	//auto second_duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime2 - startTime2);
-	//std::cout << "Time needed for std::allocator to allocate memory (Mircoseconds)" << second_duration.count() << "\n\n\n";
+	// << "Time needed for std::allocator to allocate memory (Mircoseconds)" << second_duration.count() << "\n\n\n";
 
 
 	std::cout << "\nTime needed for my allocator to allocate memory (Mircoseconds)" << first_duration.count() << "\n";
@@ -149,3 +147,4 @@ void MemoryManager::TestAllAllocators()
 	mm->PrintAllDetails();
 	delete nope;
 }
+#endif // _DEBUG

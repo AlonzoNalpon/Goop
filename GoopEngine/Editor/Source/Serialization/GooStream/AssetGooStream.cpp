@@ -31,9 +31,6 @@ bool AssetGooStream::Read(std::string const& json)
   if (!ifs)
   {
     GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + json);
-    #ifdef _DEBUG
-    std::cout << "AssetGooStream: Unable to read " + json << std::endl;
-    #endif
     return m_status = false;
   }
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
@@ -44,10 +41,6 @@ bool AssetGooStream::Read(std::string const& json)
   {
     ifs.close();
     GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + json);
-
-    #ifdef _DEBUG
-    std::cout << "AssetGooStream: Unable to read " << json << std::endl;
-    #endif
     return m_status = false;
   }
 
@@ -59,10 +52,6 @@ bool AssetGooStream::Read(std::string const& json)
     std::ostringstream oss{};
     oss << "AssetGooStream: " << json << " is not in the right format ";
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-
-    #ifdef _DEBUG
-    std::cout << oss.str() << std::endl;
-    #endif
     return m_status = false;
   }
 
@@ -79,10 +68,6 @@ bool AssetGooStream::Read(container_type const& container)
     std::ostringstream oss{ "AssetGooStream corrupted before reading from " };
     oss << typeid(container).name();
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-
-    #ifdef _DEBUG
-    std::cout << oss.str() << std::endl;
-    #endif
     return false;
   }
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
@@ -115,9 +100,6 @@ bool AssetGooStream::Unload(container_type& container)
     oss << typeid(container).name();
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
 
-    #ifdef _DEBUG
-    std::cout << oss.str() << std::endl;
-    #endif
     return false;
   }
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
@@ -137,10 +119,6 @@ bool AssetGooStream::Unload(std::string const& json, bool overwrite)
     std::ostringstream oss{ "AssetGooStream corrupted before unloading into " };
     oss << json;
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-
-    #ifdef _DEBUG
-    std::cout << oss.str() << std::endl;
-    #endif
     return false;
   }
   rapidjson::Document& data{ std::get<rapidjson::Document>(m_data) };
@@ -151,10 +129,6 @@ bool AssetGooStream::Unload(std::string const& json, bool overwrite)
     std::ostringstream oss{ "Unable to create output file " };
     oss << json;
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-
-    #ifdef _DEBUG
-    std::cout << oss.str() << std::endl;
-    #endif
     return m_status = false;
   }
 

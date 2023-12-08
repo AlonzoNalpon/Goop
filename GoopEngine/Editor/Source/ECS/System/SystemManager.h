@@ -190,7 +190,7 @@ namespace GE
 			************************************************************************/
 			void UpdateSystems();
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
 			/*!*********************************************************************
 			\brief
 				Update systems except the following systems. Usage of system name is
@@ -205,7 +205,7 @@ namespace GE
 				Variadic argument list of const char*
 			************************************************************************/
 			void UpdateSystems(int systemCount, va_list args);
-#endif // NO_IMGUI
+#endif // IMGUI_DISABLE
 
 		private:
 			// This is a map of unique signatures each system has

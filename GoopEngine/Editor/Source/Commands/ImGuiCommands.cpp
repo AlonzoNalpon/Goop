@@ -1,4 +1,19 @@
+/*!*********************************************************************
+\file   ImGuiCommands.h
+\author han.q\@digipen.edu
+\date   26 November 2023
+\brief
+	Contains all the Child Command Classes. Whenever we want to undo/redo
+	a specific action (e.g. delete/add entity, update transform), we will
+	create a child command for that action.
+
+	When the user executes the command, we push it into Command Manager, this
+	allows us to undo/redo it later
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include<pch.h>
+#ifndef IMGUI_DISABLE
 #include <Commands/ImGuiCommands.h>
 #include <Serialization/Serializer.h>
 #include <ObjectFactory/ObjectFactory.h>
@@ -94,7 +109,7 @@ void RemoveObjectCmd::Undo()
 	//	if (inst.get_type().get_wrapped_type() == rttr::type::get<Component::Transform*>())
 	//	{
 	//		GE::Component::Transform* tr = inst.get_value<GE::Component::Transform*>();
-	//		std::cout << tr->m_pos;
+	//		 << tr->m_pos;
 	//	}
 	//}
 
@@ -217,3 +232,4 @@ void ChangeTransCmd::Redo()
 	trans->m_scale = m_newTransform[2];
 	GE::Systems::PostRootTransformSystem::Propergate(m_entityID, trans->m_parentWorldTransform);
 }
+#endif
