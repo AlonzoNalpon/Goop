@@ -28,6 +28,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <unordered_map>
 #include <ECS/Entity/Entity.h>
 #include <Events/Listener.h>
+#include <optional>
 
 namespace GE
 {
@@ -47,6 +48,7 @@ namespace GE
       \param prefab
         std::pair containing the prefab name and version
       ************************************************************************/
+      void AttachPrefab(ECS::Entity entity, EntityPrefabMap::mapped_type const& prefab);
       void AttachPrefab(ECS::Entity entity, EntityPrefabMap::mapped_type&& prefab);
 
       /*!*********************************************************************
@@ -59,29 +61,28 @@ namespace GE
 
       inline void SetPrefabVersion(std::string const& prefab, PrefabVersion version) noexcept { m_prefabVersions[prefab] = version; }
 
-      bool DoesEntityHavePrefab(ECS::Entity entity) const;
-
       /*!*********************************************************************
       \brief
-        Gets the prefab an entity was created from. Returns an empty string
-        if there isn't one.
+        Gets the prefab an entity if it was created from one and std::nullopt
+        otherwise
       \param entity
         The entity to get the prefab of
       \return
-        The prefab an entity was created from and an empty string otherwise
+        std::optional containing the prefab an entity was created from
       ************************************************************************/
-      EntityPrefabMap::mapped_type const& GetEntityPrefab(ECS::Entity entity) const;
+      std::optional<EntityPrefabMap::mapped_type> GetEntityPrefab(ECS::Entity entity) const;
 
       /*!*********************************************************************
       \brief
-        Gets the current version of a prefab
+        Gets the current version of a prefab. If it doesn't exist, an entry
+        of 0 will be created and returned.
       \param prefab
         The prefab to get the version of
       \return
         The version of the prefab
       ************************************************************************/
-      PrefabVersion GetPrefabVersion(std::string const& prefab) const;
-
+      PrefabVersion GetPrefabVersion(std::string const& prefab);
+      
       /*!*********************************************************************
       \brief
         This function creates a prefab from an entity's components and saves

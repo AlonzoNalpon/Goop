@@ -224,6 +224,12 @@ GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
   ECS::Entity newEntity{ ecs.CreateEntity() };
   AddComponentsToEntity(newEntity, iter->second.m_components);
 
+#ifndef IMGUI_DISABLE
+  // update entity's prefab if needed
+  Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
+  pm.AttachPrefab(newEntity, { key, pm.GetPrefabVersion(key) });
+#endif
+
   ecs.SetEntityName(newEntity, key);
   return newEntity;
 }
@@ -234,6 +240,19 @@ VariantPrefab const& ObjectFactory::GetVariantPrefab(std::string const& name) co
   if (ret == m_prefabs.cend()) { throw Debug::Exception<ObjectFactory>(Debug::LEVEL_ERROR, ErrMsg("Unable to find prefab with name: " + name)); }
 
   return ret->second;
+}
+
+void ObjectFactory::ReloadPrefab(std::string const& name)
+{
+  auto const& prefabs{ GE::Assets::AssetManager::GetInstance().GetPrefabs() };
+  auto path{ GE::Assets::AssetManager::GetInstance().GetPrefabs().find(name) };
+
+  if (path == prefabs.cend())
+  {
+    throw Debug::Exception<ObjectFactory>(Debug::LEVEL_ERROR, ErrMsg("Unable to get path of prefab: " + name));
+  }
+
+  m_prefabs[name] = Serialization::Deserializer::DeserializePrefabToVariant(path->second);
 }
 
 void ObjectFactory::ReloadPrefabs()
@@ -263,6 +282,16 @@ void ObjectFactory::CloneObject(ECS::Entity entity, ECS::Entity parent) const
 
     AddComponentToEntity(newEntity, compVar);
   }
+
+#ifndef IMGUI_DISABLE
+  // update entity's prefab if needed
+  Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
+  auto const entityPrefab{ pm.GetEntityPrefab(entity) };
+  if (entityPrefab)
+  {
+    pm.AttachPrefab(newEntity, *entityPrefab);
+  }
+#endif
 
   // set parent/child
   ecs.SetParentEntity(newEntity, parent);

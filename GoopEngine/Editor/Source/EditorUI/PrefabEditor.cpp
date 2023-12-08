@@ -484,11 +484,15 @@ void PrefabEditor::CreateContent()
           if (flag) { break; }
         }
       }*/
-      Events::EventManager::GetInstance().Dispatch(Events::PrefabSavedEvent(m_currPrefab.m_name));
+      // save to file
+      ++m_currPrefab.m_version;
       Serialization::Serializer::SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);
-      Assets::AssetManager::GetInstance().ReloadFiles(Assets::FileType::PREFAB);
-      ObjectFactory::ObjectFactory::GetInstance().ReloadPrefabs();
       GE::Debug::ErrorLogger::GetInstance().LogMessage(m_currPrefab.m_name + " successfully saved");
+
+      // reload prefab and dispatch event
+      ObjectFactory::ObjectFactory::GetInstance().ReloadPrefab(m_currPrefab.m_name);
+      Events::EventManager::GetInstance().Dispatch(Events::PrefabSavedEvent(m_currPrefab.m_name));
+
       ResetPrefabEditor();
     }
   }

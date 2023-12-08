@@ -123,6 +123,12 @@ namespace GE::ObjectFactory
 
     /*!*********************************************************************
     \brief
+      Reloads a particular prefab given its name
+    ************************************************************************/
+    void ReloadPrefab(std::string const& name);
+
+    /*!*********************************************************************
+    \brief
       Clears the prefab container and loads prefabs from files again
     ************************************************************************/
     void ReloadPrefabs();

@@ -1,17 +1,3 @@
-/*!*********************************************************************
-\file   PrefabManager.cpp
-\author chengen.lau\@digipen.edu
-\date   27-November-2023
-\brief  
-  This file contains the definition of PrefabManager singleton.
-  It is responsible for the mapping of entities to the prefabs they
-  were created from. This is to allow each instance to be updated by
-  any changes made to the prefab itself. The functions below are
-  used to facilitate the adding and removing of entities to prefabs,
-  as well as the updating of components based on prefabs.
-
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
-************************************************************************/
 #include <pch.h>
 #ifndef IMGUI_DISABLE
 #include <PrefabManager/PrefabManager.h>
@@ -25,9 +11,20 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 using namespace GE::Prefabs;
 
+void PrefabManager::AttachPrefab(ECS::Entity entity, EntityPrefabMap::mapped_type const& prefab)
+{
+#ifdef PREFAB_MANAGER_DEBUG
+  std::cout << "Entity " << entity << ": " << prefab.first << ", v ersion " << prefab.second << "\n";
+#endif
+  m_entitiesToPrefabs[entity] = prefab;
+}
+
 void PrefabManager::AttachPrefab(ECS::Entity entity, EntityPrefabMap::mapped_type&& prefab)
 {
-  m_entitiesToPrefabs[entity] = prefab;
+#ifdef PREFAB_MANAGER_DEBUG
+  std::cout << "Entity " << entity << ": " << prefab.first << ", version " << prefab.second << "\n";
+#endif
+  m_entitiesToPrefabs[entity] = std::move(prefab);
 }
 
 void PrefabManager::DetachPrefab(ECS::Entity entity)
@@ -39,31 +36,18 @@ void PrefabManager::DetachPrefab(ECS::Entity entity)
   m_entitiesToPrefabs.erase(entry);
 }
 
-bool PrefabManager::DoesEntityHavePrefab(ECS::Entity entity) const
-{
-  return m_entitiesToPrefabs.find(entity) != m_entitiesToPrefabs.cend();
-}
-
-PrefabManager::EntityPrefabMap::mapped_type const& PrefabManager::GetEntityPrefab(ECS::Entity entity) const
+std::optional<PrefabManager::EntityPrefabMap::mapped_type> PrefabManager::GetEntityPrefab(ECS::Entity entity) const
 {
   EntityPrefabMap::const_iterator entry{ m_entitiesToPrefabs.find(entity) };
-  if (entry == m_entitiesToPrefabs.cend())
-  {
-    std::ostringstream oss{}; oss << "Entity " << entity << " does not have a registered prefab";
-    throw Debug::Exception<PrefabManager>(Debug::LEVEL_ERROR, ErrMsg(oss.str()));
-  }
+  if (entry == m_entitiesToPrefabs.cend()) { return std::nullopt; }
 
   return entry->second;
 }
 
-PrefabManager::PrefabVersion PrefabManager::GetPrefabVersion(std::string const& prefab) const
+PrefabManager::PrefabVersion PrefabManager::GetPrefabVersion(std::string const& prefab)
 {
-  std::unordered_map<std::string, PrefabVersion>::const_iterator entry{m_prefabVersions.find(prefab)};
-  if (entry == m_prefabVersions.cend())
-  {
-    std::ostringstream oss{}; oss << "Prefab " << prefab << " does not exist";
-    throw Debug::Exception<PrefabManager>(Debug::LEVEL_ERROR, ErrMsg(oss.str()));
-  }
+  std::unordered_map<std::string, PrefabVersion>::const_iterator entry{ m_prefabVersions.find(prefab) };
+  if (entry == m_prefabVersions.cend()) { return m_prefabVersions[prefab] = 0; }
 
   return entry->second;
 }
@@ -80,27 +64,31 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
     if (iterVal.first != prefab) { continue; }
 
     // if prefab versions match, means its up-to-date so continue
-    ObjectFactory::VariantPrefab const& prefabRef{ of.GetVariantPrefab(iterVal.first) };
-    if (m_prefabVersions[prefab] == iterVal.second) { continue; }
+    if (m_prefabVersions[prefab] == iterVal.second)
+    {
+#ifdef PREFAB_MANAGER_DEBUG
+      std::cout << " Entity " << iter->first << " matches " << prefab << "'s version of " << m_prefabVersions[prefab] << "\n";
+#endif
+      continue;
+    }
 
-    ObjectFactory::VariantPrefab prefabVar{ prefabRef };
+    ObjectFactory::VariantPrefab const& prefabVar{ of.GetVariantPrefab(iterVal.first) };
 
     for (std::vector<rttr::variant>::const_iterator comp{ prefabVar.m_components.cbegin() }; comp != prefabVar.m_components.cend(); ++comp)
     {
       if (comp->get_type().get_wrapped_type() == rttr::type::get<Component::Transform*>())
       {
-        Component::Transform const& newTrans{ *comp->get_value<Component::Transform*>() };
-        Component::Transform* trans{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Transform>(iter->first) };
-        auto pos{ std::move(trans->m_worldPos) };
-        *trans = newTrans;
-        trans->m_worldPos = std::move(pos);
-        prefabVar.m_components.erase(comp);
+        Component::Transform& newTrans{ *comp->get_value<Component::Transform*>() };
+        newTrans.m_worldPos = ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Transform>(iter->first)->m_worldPos;
         break;
       }
     }
 
     of.AddComponentsToEntity(iter->first, prefabVar.m_components);
     iterVal.second = m_prefabVersions[prefab];  // update version of entity
+#ifdef PREFAB_MANAGER_DEBUG
+    std::cout << " Entity " << iter->first << " updated with " << prefab << " version " << iterVal.second << "\n";
+#endif
   }
 }
 
@@ -119,7 +107,7 @@ void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const
   {
     rttr::variant comp{ Serialization::Serializer::GetEntityComponent(entity, static_cast<ECS::COMPONENT_TYPES>(i)) };
     if (!comp.is_valid()) { continue; }
-    
+
     prefab.m_components.emplace_back(std::move(comp));
   }
 

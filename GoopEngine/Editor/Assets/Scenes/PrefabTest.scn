@@ -2,16 +2,19 @@
     {
         "Name": "Background",
         "ID": 0,
-        "Prefab": null,
+        "Prefab": {
+            "first": "Background",
+            "second": 0
+        },
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "worldPos": "{ 0, 0, -1 }",
+                    "worldPos": "{ 15.0002, 142.682, -1 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
@@ -27,7 +30,7 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1200
+                            "height": 1080
                         }
                     },
                     "spriteName": "BG_Lv1"
@@ -38,7 +41,10 @@
     {
         "Name": "MineWorm 1",
         "ID": 1,
-        "Prefab": null,
+        "Prefab": {
+            "first": "MineWorm",
+            "second": 4
+        },
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -72,8 +78,8 @@
                                 "x": 0.1666666716337204,
                                 "y": 1.0
                             },
-                            "width": 1250,
-                            "height": 750
+                            "width": 128,
+                            "height": 128
                         }
                     },
                     "spriteName": "SS_MineWorm"
@@ -89,7 +95,10 @@
     {
         "Name": "MineWorm 2",
         "ID": 2,
-        "Prefab": null,
+        "Prefab": {
+            "first": "MineWorm",
+            "second": 4
+        },
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -123,8 +132,8 @@
                                 "x": 0.1666666716337204,
                                 "y": 1.0
                             },
-                            "width": 1250,
-                            "height": 750
+                            "width": 128,
+                            "height": 128
                         }
                     },
                     "spriteName": "SS_MineWorm"
@@ -164,8 +173,8 @@
                                 "x": 0.1666666716337204,
                                 "y": 1.0
                             },
-                            "width": 1250,
-                            "height": 750
+                            "width": 128,
+                            "height": 128
                         }
                     },
                     "spriteName": "SS_MineWorm"
@@ -173,7 +182,7 @@
             },
             {
                 "SpriteAnim": {
-                    "name": "SS_MineWorm"
+                    "name": "SS_LeahIdle"
                 }
             }
         ]
@@ -181,7 +190,10 @@
     {
         "Name": "TestButton 1",
         "ID": 4,
-        "Prefab": null,
+        "Prefab": {
+            "first": "TestButton",
+            "second": 0
+        },
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -229,7 +241,10 @@
     {
         "Name": "TestButton 2",
         "ID": 5,
-        "Prefab": null,
+        "Prefab": {
+            "first": "TestButton",
+            "second": 0
+        },
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -240,7 +255,7 @@
                 "Transform": {
                     "worldPos": "{ 711.667, 177.502, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {

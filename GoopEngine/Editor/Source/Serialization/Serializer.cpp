@@ -58,8 +58,8 @@ namespace GE
       name.SetString(prefab.m_name.c_str(), allocator);
 
       // version field
-      rapidjson::Value version;
-      version.SetUint(Prefabs::PrefabManager::GetInstance().GetPrefabVersion(prefab.m_name));
+      rapidjson::Value verJson;
+      verJson.SetUint(prefab.m_version);
 
       rapidjson::Value compArray{ rapidjson::kArrayType };
       // for each component, extract the string of the class and serialize
@@ -87,7 +87,7 @@ namespace GE
           compArray.PushBack(compJson, allocator);
       }
       document.AddMember(JsonNameKey, name.Move(), allocator);
-      document.AddMember(JsonPrefabVerKey, version.Move(), allocator);
+      document.AddMember(JsonPrefabVerKey, verJson.Move(), allocator);
       document.AddMember(JsonComponentsKey, compArray.Move(), allocator);
 
       rapidjson::OStreamWrapper osw{ ofs };
@@ -136,19 +136,14 @@ namespace GE
 #ifndef IMGUI_DISABLE
       // serialize prefab created from
       Prefabs::PrefabManager const& pm{ Prefabs::PrefabManager::GetInstance() };
-      //rapidjson::Value prefabJson{ rapidjson::kNullType }, versionJson{};
       
       rapidjson::Value prefabJson{ rapidjson::kNullType };
-      if (pm.DoesEntityHavePrefab(id))
+      auto const entityPrefab{ pm.GetEntityPrefab(id) };
+      if (entityPrefab)
       {
-        auto const& prefab{ pm.GetEntityPrefab(id) };
-        prefabJson = SerializeBasedOnType(prefab, allocator);
-        //prefabJson.SetString(prefab.first.c_str(), allocator); 
-        //versionJson.SetUint(prefab.second);
+        prefabJson = SerializeBasedOnType(*entityPrefab, allocator);
       }
       entity.AddMember(JsonPrefabKey, prefabJson, allocator);
-      //entity.AddMember(JsonPrefabKey, prefabJson.Move(), allocator);
-      //entity.AddMember(JsonPrefabVerKey, versionJson.Move(), allocator);
 #endif
 
       // serialize state
