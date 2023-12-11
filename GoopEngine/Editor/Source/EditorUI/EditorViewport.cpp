@@ -23,7 +23,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/BoxCollider.h>
 
 #include <Component/Sprite.h>
-#include <ObjectFactory/ObjectFactory.h>
+#include <PrefabManager/PrefabManager.h>
 #include <InputManager/InputManager.h>
 #include <filesystem>
 #include <GameStateManager/GameStateManager.h>
@@ -56,7 +56,6 @@ namespace GE::EditorGUI
   {
     auto* ecs = &GE::ECS::EntityComponentSystem::GetInstance();
     auto& gEngine = Graphics::GraphicsEngine::GetInstance();
-    GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
 
     // Calculate the UV coordinates based on viewport position and size
     // Get the size of the GLFW window
@@ -105,7 +104,7 @@ namespace GE::EditorGUI
         if (extension == ".pfb")
         {
           auto const mousePosition = GE::Input::InputManager::GetInstance().GetMousePosWorld();
-          ECS::Entity entity{ of.SpawnPrefab(filepath.stem().string()) };
+          ECS::Entity entity{ Prefabs::PrefabManager::GetInstance().SpawnPrefab(filepath.stem().string())};
           GE::Component::Transform& trans{ *ecs->GetComponent<GE::Component::Transform>(entity) };
           trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
         }

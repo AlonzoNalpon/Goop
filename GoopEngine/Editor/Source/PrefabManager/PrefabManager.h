@@ -25,6 +25,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #ifndef IMGUI_DISABLE
 #include <Singleton/Singleton.h>
+#include <ObjectFactory/ObjectStructs.h>
 #include <unordered_map>
 #include <ECS/Entity/Entity.h>
 #include <Events/Listener.h>
@@ -38,7 +39,47 @@ namespace GE
     {
     public:
       using PrefabVersion = unsigned;
+      using PrefabDataContainer = std::unordered_map<std::string, VariantPrefab>;
       using EntityPrefabMap = std::unordered_map<ECS::Entity, std::pair<std::string, PrefabVersion>>;
+
+      /*!*********************************************************************
+    \brief
+      Goes through the map and create an entity with the data.
+    \param key
+      string& (name of the prefab in the m_prefabs map)
+    \return
+      Entity of the prefab.
+    ************************************************************************/
+      GE::ECS::Entity SpawnPrefab(const std::string& key);
+
+      /*!*********************************************************************
+      \brief
+        Gets the file path from the asset manager and loads all prefabs
+      ************************************************************************/
+      void LoadPrefabsFromFile();
+
+      /*!*********************************************************************
+      \brief
+        Gets the deserialized data of a prefab in the form of a VariantPrefab
+        object. Throws a GE::Debug::Exception if not found.
+      \param name
+        The name of the prefab
+      \return
+        The VariantPrefab object
+      ************************************************************************/
+      VariantPrefab const& GetVariantPrefab(std::string const& name) const;
+
+      /*!*********************************************************************
+      \brief
+        Reloads a particular prefab given its name
+      ************************************************************************/
+      void ReloadPrefab(std::string const& name);
+
+      /*!*********************************************************************
+      \brief
+        Clears the prefab container and loads prefabs from files again
+      ************************************************************************/
+      void ReloadPrefabs();
 
       /*!*********************************************************************
       \brief
@@ -94,6 +135,7 @@ namespace GE
         The name of the new prefab
       ************************************************************************/
       void CreatePrefabFromEntity(ECS::Entity entity, std::string const& name) const;
+      void CreatePrefabFromEntity2(ECS::Entity entity, std::string const& name) const;
 
       /*!*********************************************************************
       \brief
@@ -126,6 +168,7 @@ namespace GE
     private:
       EntityPrefabMap m_entitiesToPrefabs;
       std::unordered_map<std::string, PrefabVersion> m_prefabVersions;
+      PrefabDataContainer m_prefabs;  // Map of deserialized prefab data in format <name, data>
     };
   }
 }

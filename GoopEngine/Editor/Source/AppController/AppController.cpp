@@ -18,6 +18,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <EditorUI/EditorViewport.h>
+#include <PrefabManager/PrefabManager.h>
 #endif
 
 using namespace GE::ECS;
@@ -75,7 +76,9 @@ namespace GE::Application
 
     gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
     am->LoadFiles();
-    of.LoadPrefabsFromFile();
+#ifndef IMGUI_DISABLE
+    Prefabs::PrefabManager::GetInstance().LoadPrefabsFromFile();
+#endif
 
     GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
     scriptMan->InitMono();

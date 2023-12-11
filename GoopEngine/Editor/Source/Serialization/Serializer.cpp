@@ -28,7 +28,7 @@ namespace GE
   namespace Serialization
   {
 #ifndef IMGUI_DISABLE
-    void Serializer::SerializeVariantToPrefab(ObjectFactory::VariantPrefab const& prefab, std::string const& filename)
+    void Serializer::SerializeVariantToPrefab(Prefabs::VariantPrefab const& prefab, std::string const& filename)
     {
       std::ofstream ofs{ filename };
       if (!ofs)

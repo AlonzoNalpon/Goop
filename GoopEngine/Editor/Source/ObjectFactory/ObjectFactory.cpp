@@ -199,68 +199,6 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   }
 }
 
-void ObjectFactory::LoadPrefabsFromFile()
-{
-  auto const& prefabs{ GE::Assets::AssetManager::GetInstance().GetPrefabs() };
-  for (auto const& [name, path] : prefabs)
-  {
-    m_prefabs.emplace(name, Serialization::Deserializer::DeserializePrefabToVariant(path));
-  }
-}
-
-GE::ECS::Entity ObjectFactory::SpawnPrefab(const std::string& key)
-{
-  PrefabDataContainer::const_iterator iter{ m_prefabs.find(key) };
-  if (iter == m_prefabs.end())
-  {
-    ReloadPrefabs();
-    if ((iter = m_prefabs.find(key)) == m_prefabs.end())
-    {
-      throw GE::Debug::Exception<ObjectFactory>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
-    }
-  }
-  auto& ecs = ECS::EntityComponentSystem::GetInstance();
-
-  ECS::Entity newEntity{ ecs.CreateEntity() };
-  AddComponentsToEntity(newEntity, iter->second.m_components);
-
-#ifndef IMGUI_DISABLE
-  // update entity's prefab if needed
-  Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
-  pm.AttachPrefab(newEntity, { key, pm.GetPrefabVersion(key) });
-#endif
-
-  ecs.SetEntityName(newEntity, key);
-  return newEntity;
-}
-
-VariantPrefab const& ObjectFactory::GetVariantPrefab(std::string const& name) const
-{
-  PrefabDataContainer::const_iterator ret{ m_prefabs.find(name) };
-  if (ret == m_prefabs.cend()) { throw Debug::Exception<ObjectFactory>(Debug::LEVEL_ERROR, ErrMsg("Unable to find prefab with name: " + name)); }
-
-  return ret->second;
-}
-
-void ObjectFactory::ReloadPrefab(std::string const& name)
-{
-  auto const& prefabs{ GE::Assets::AssetManager::GetInstance().GetPrefabs() };
-  auto path{ GE::Assets::AssetManager::GetInstance().GetPrefabs().find(name) };
-
-  if (path == prefabs.cend())
-  {
-    throw Debug::Exception<ObjectFactory>(Debug::LEVEL_ERROR, ErrMsg("Unable to get path of prefab: " + name));
-  }
-
-  m_prefabs[name] = Serialization::Deserializer::DeserializePrefabToVariant(path->second);
-}
-
-void ObjectFactory::ReloadPrefabs()
-{
-  m_prefabs.clear();
-  LoadPrefabsFromFile();
-}
-
 void GE::ObjectFactory::ObjectFactory::EmptyMap()
 {
   m_deserialized.clear();

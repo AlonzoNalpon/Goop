@@ -40,7 +40,7 @@ namespace GE
       \param filename
         The name of the output file
       ************************************************************************/
-      static void SerializeVariantToPrefab(ObjectFactory::VariantPrefab const& prefab, std::string const& filename);
+      static void SerializeVariantToPrefab(Prefabs::VariantPrefab const& prefab, std::string const& filename);
 #endif
 
       /*!*********************************************************************

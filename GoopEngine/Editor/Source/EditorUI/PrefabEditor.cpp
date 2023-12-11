@@ -28,7 +28,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace GE::EditorGUI;
 using namespace ImGui;
 
-GE::ObjectFactory::VariantPrefab PrefabEditor::m_currPrefab;
+GE::Prefabs::VariantPrefab PrefabEditor::m_currPrefab;
 std::string PrefabEditor::m_currentFilepath{};
 bool PrefabEditor::m_isEditing{ false };
 
@@ -72,7 +72,7 @@ void PrefabEditor::CreateContent()
           return;
         }
         m_currentFilepath = filename;
-        m_currPrefab = ObjectFactory::VariantPrefab();
+        m_currPrefab = Prefabs::VariantPrefab();
         std::string::size_type const startPos{ filename.find_last_of('\\') + 1 };
         m_currPrefab.m_name = filename.substr(startPos, filename.find_last_of('.') - startPos);
         m_isEditing = true;
@@ -471,7 +471,7 @@ void PrefabEditor::CreateContent()
       GE::Debug::ErrorLogger::GetInstance().LogMessage(m_currPrefab.m_name + " successfully saved");
 
       // reload prefab and dispatch event
-      ObjectFactory::ObjectFactory::GetInstance().ReloadPrefab(m_currPrefab.m_name);
+      Prefabs::PrefabManager::GetInstance().ReloadPrefab(m_currPrefab.m_name);
       Events::EventManager::GetInstance().Dispatch(Events::PrefabSavedEvent(m_currPrefab.m_name));
 
       ResetPrefabEditor();

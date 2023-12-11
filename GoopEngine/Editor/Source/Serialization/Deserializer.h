@@ -55,9 +55,7 @@ namespace GE
       \return
         An std::vector of AI::TreeTemplates with the data read from the file
       ************************************************************************/
-      static std::vector<AI::TreeTemplate> DeserializeTrees(std::string const& filename);
-
-      static ObjectFactory::VariantPrefab2 DeserializePrefabToVariant2(std::string const& json);
+      static std::vector<AI::TreeTemplate> DeserializeTrees(std::string const& filename);      
 
       /*!*********************************************************************
       \brief
@@ -69,7 +67,8 @@ namespace GE
       \return
         The VariantPrefab object
       ************************************************************************/
-      static ObjectFactory::VariantPrefab DeserializePrefabToVariant(std::string const& json);
+      static Prefabs::VariantPrefab DeserializePrefabToVariant(std::string const& json);
+      static Prefabs::VariantPrefab2 DeserializePrefabToVariant2(std::string const& json);
 
       /*!*********************************************************************
       \brief

@@ -32,18 +32,7 @@ namespace GE::ObjectFactory
   {
   public:
     using EntityDataContainer = std::vector<std::pair<ECS::Entity, VariantEntity>>;
-    using PrefabDataContainer = std::unordered_map<std::string, VariantPrefab>;
 
-    /*!*********************************************************************
-    \brief
-      Goes through the map and create an entity with the data.
-    \param key
-      string& (name of the prefab in the m_prefabs map)
-    \return
-      Entity of the prefab.
-    ************************************************************************/
-    GE::ECS::Entity SpawnPrefab(const std::string& key);
-    
     /*!*********************************************************************
     \brief
       Empties the loaded map of object data.
@@ -63,12 +52,6 @@ namespace GE::ObjectFactory
     \return
     ************************************************************************/
     void CloneObject(ECS::Entity entity, ECS::Entity parent = ECS::INVALID_ID) const;
-
-    /*!*********************************************************************
-    \brief     
-      Gets the file path from the asset manager and loads all prefabs
-    ************************************************************************/
-    void LoadPrefabsFromFile();
 
     /*!*********************************************************************
     \brief
@@ -110,29 +93,6 @@ namespace GE::ObjectFactory
     ************************************************************************/
     void AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const;
 
-    /*!*********************************************************************
-    \brief
-      Gets the deserialized data of a prefab in the form of a VariantPrefab
-      object. Throws a GE::Debug::Exception if not found.
-    \param name
-      The name of the prefab
-    \return
-      The VariantPrefab object
-    ************************************************************************/
-    VariantPrefab const& GetVariantPrefab(std::string const& name) const;
-
-    /*!*********************************************************************
-    \brief
-      Reloads a particular prefab given its name
-    ************************************************************************/
-    void ReloadPrefab(std::string const& name);
-
-    /*!*********************************************************************
-    \brief
-      Clears the prefab container and loads prefabs from files again
-    ************************************************************************/
-    void ReloadPrefabs();
-
   private:
 
     /*!*********************************************************************
@@ -164,15 +124,9 @@ namespace GE::ObjectFactory
       SYSTEM_TYPES (SYSTEM_TYPE)
     ************************************************************************/
     template <typename T, typename Signature>
-    void SetBitIfFound(ECS::Entity entity, Signature& sig, ECS::SYSTEM_TYPES type) const
-    {
-      std::set<ECS::Entity>& entities{ ECS::EntityComponentSystem::GetInstance().GetSystem<T>()->GetEntities() };
-      if (entities.find(entity) != entities.end()) { sig[static_cast<unsigned>(type)] = true; }
-    }
+    void SetBitIfFound(ECS::Entity entity, Signature& sig, ECS::SYSTEM_TYPES type) const;
     
     EntityDataContainer m_deserialized;   // Container of deserialized entity data in format <id, data>
-    PrefabDataContainer m_prefabs;        // Map of deserialized prefab data in format <name, data>
-
   };
   #include "ObjectFactory.tpp"
 }

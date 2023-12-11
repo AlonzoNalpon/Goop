@@ -12,6 +12,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <GameStateManager/GameStateManager.h>
 #include "GoopUtils.h"
 #include <random>
+#ifndef IMGUI_DISABLE
+#include <PrefabManager/PrefabManager.h>
+#endif
 
 namespace GE::GoopUtils 
 {
@@ -30,11 +33,12 @@ namespace GE::GoopUtils
 	void ReloadFileData()
 	{
 		auto& am{ GE::Assets::AssetManager::GetInstance() };
-		auto& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
 		am.ClearConfigData();
 		am.LoadConfigData("./Assets/Config.cfg");
 		am.ReloadAllFiles();
-		of.ReloadPrefabs();
+#ifndef IMGUI_DISABLE
+		Prefabs::PrefabManager::GetInstance().ReloadPrefabs();
+#endif
 	}
 
   std::string GetFileExtension(const std::string& filePath)

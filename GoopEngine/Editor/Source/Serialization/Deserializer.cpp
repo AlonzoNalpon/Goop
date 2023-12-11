@@ -9,12 +9,12 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#include <Serialization/JsonKeys.h>
 #include "Deserializer.h"
+#include <Serialization/JsonKeys.h>
 #include <rapidjson/IStreamWrapper.h>
+#include <rapidjson/prettywriter.h>
 #include <Component/Components.h>
 #include <rttr/enumeration.h>
-#include <rapidjson/prettywriter.h>
 #include <stdarg.h>
 #include <AssetManager/AssetManager.h>
 #include <ScriptEngine/ScriptManager.h>
@@ -38,7 +38,8 @@ std::ostream& operator<<(std::ostream& os, rttr::type const& type)
 }
 #endif
 
-ObjectFactory::VariantPrefab2 Deserializer::DeserializePrefabToVariant2(std::string const& json)
+#ifndef IMGUI_DISABLE
+Prefabs::VariantPrefab2 Deserializer::DeserializePrefabToVariant2(std::string const& json)
 {
   std::ifstream ifs{ json };
   if (!ifs)
@@ -64,37 +65,35 @@ ObjectFactory::VariantPrefab2 Deserializer::DeserializePrefabToVariant2(std::str
   if (!ScanJsonFileForMembers(document, 4, JsonNameKey, rapidjson::kStringType, JsonPrefabDataKey, rapidjson::kArrayType,
     JsonComponentsKey, rapidjson::kArrayType, JsonPrefabVerKey, rapidjson::kNumberType)) { ifs.close(); return {}; }
 
-  ObjectFactory::VariantPrefab2 prefab{ document[JsonNameKey].GetString(), document[JsonPrefabVerKey].GetUint() };
+  Prefabs::VariantPrefab2 prefab{ document[JsonNameKey].GetString(), document[JsonPrefabVerKey].GetUint() };
   Prefabs::PrefabManager::GetInstance().SetPrefabVersion(prefab.m_name, prefab.m_version);
   // iterate through component objects in json array
   std::vector<rttr::variant>& compVector{ prefab.m_components };
   for (auto const& elem : document[JsonComponentsKey].GetArray())
   {
-    for (rapidjson::Value::ConstMemberIterator comp{ elem.MemberBegin() }; comp != elem.MemberEnd(); ++comp)
+    rapidjson::Value::ConstMemberIterator comp{ elem.MemberBegin() };
+    std::string const compName{ comp->name.GetString() };
+    rapidjson::Value const& compJson{ comp->value };
+
+    rttr::type compType = rttr::type::get_by_name(compName);
+    #ifdef DESERIALIZER_DEBUG
+    std::cout << "  [P] Deserializing " << compType << "\n";
+    #endif
+    if (!compType.is_valid())
     {
-      std::string const compName{ comp->name.GetString() };
-      rapidjson::Value const& compJson{ comp->value };
-
-      rttr::type compType = rttr::type::get_by_name(compName);
-      #ifdef DESERIALIZER_DEBUG
-      std::cout << "  [P] Deserializing " << compType << "\n";
+      std::ostringstream oss{};
+      oss << "Trying to deserialize an invalid component: " << compName;
+      Debug::ErrorLogger::GetInstance().LogError(oss.str());
+      #ifdef _DEBUG
+      std::cout << oss.str() << "\n";
       #endif
-      if (!compType.is_valid())
-      {
-        std::ostringstream oss{};
-        oss << "Trying to deserialize an invalid component: " << compName;
-        Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        #ifdef _DEBUG
-        std::cout << oss.str() << "\n";
-        #endif
-        continue;
-      }
-
-      rttr::variant compVar{};
-      DeserializeComponent(compVar, compType, compJson);
-
-      compVector.emplace_back(compVar);
+      continue;
     }
+
+    rttr::variant compVar{};
+    DeserializeComponent(compVar, compType, compJson);
+
+    compVector.emplace_back(compVar);
   }
 
   for (auto const& elem : document[JsonPrefabDataKey].GetArray())
@@ -102,7 +101,7 @@ ObjectFactory::VariantPrefab2 Deserializer::DeserializePrefabToVariant2(std::str
     if (!ScanJsonFileForMembers(elem, 4, JsonIdKey, rapidjson::kNumberType, JsonNameKey, rapidjson::kStringType,
       JsonComponentsKey, rapidjson::kArrayType, JsonParentKey, rapidjson::kNumberType)) { continue; }
 
-    ObjectFactory::PrefabSubData subObj{ elem[JsonNameKey].GetString(), elem[JsonIdKey].GetUint(), elem[JsonParentKey].GetUint() };
+    Prefabs::PrefabSubData subObj{ elem[JsonNameKey].GetString(), elem[JsonIdKey].GetUint(), elem[JsonParentKey].GetUint() };
     for (auto const& component : elem[JsonComponentsKey].GetArray())
     {
       rapidjson::Value::ConstMemberIterator comp{ component.MemberBegin() };
@@ -136,7 +135,7 @@ ObjectFactory::VariantPrefab2 Deserializer::DeserializePrefabToVariant2(std::str
   return prefab;
 }
 
-ObjectFactory::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string const& json)
+Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string const& json)
 {
   std::ifstream ifs{ json };
   if (!ifs)
@@ -162,7 +161,7 @@ ObjectFactory::VariantPrefab Deserializer::DeserializePrefabToVariant(std::strin
   if (!ScanJsonFileForMembers(document, 3, JsonNameKey, rapidjson::kStringType, 
     JsonComponentsKey, rapidjson::kArrayType, JsonPrefabVerKey, rapidjson::kNumberType)) { ifs.close(); return {}; }
 
-  ObjectFactory::VariantPrefab prefab{ document[JsonNameKey].GetString(), document[JsonPrefabVerKey].GetUint() };
+  Prefabs::VariantPrefab prefab{ document[JsonNameKey].GetString(), document[JsonPrefabVerKey].GetUint() };
   Prefabs::PrefabManager::GetInstance().SetPrefabVersion(prefab.m_name, prefab.m_version);
   // iterate through component objects in json array
   std::vector<rttr::variant>& compVector{ prefab.m_components };
@@ -197,6 +196,7 @@ ObjectFactory::VariantPrefab Deserializer::DeserializePrefabToVariant(std::strin
 
   return prefab;
 }
+#endif
 
 ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene(std::string const& filepath)
 {

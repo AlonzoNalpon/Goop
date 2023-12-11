@@ -1,10 +1,9 @@
 #pragma once
 
-//#define EVENT_DEBUG
 //#define IMGUI_DISABLE
 //#define FULLSCREEN
 
-#if defined _DEBUG || defined EVENT_DEBUG
+#if defined _DEBUG
 #include <iostream>
 #include <iomanip>
 #endif

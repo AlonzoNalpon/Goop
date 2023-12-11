@@ -38,3 +38,10 @@ void ObjectFactory::RegisterComponentsToSystem(ECS::ComponentSignature sig) cons
    if (IsBitSet(sig, ECS::COMPONENT_TYPES::CARD_HOLDER_ELEM))
    ecs.RegisterComponentToSystem<GE::Component::CardHolderElem, T>();
 }
+
+template <typename T, typename Signature>
+void ObjectFactory::SetBitIfFound(ECS::Entity entity, Signature& sig, ECS::SYSTEM_TYPES type) const
+{
+  std::set<ECS::Entity>& entities{ ECS::EntityComponentSystem::GetInstance().GetSystem<T>()->GetEntities() };
+  if (entities.find(entity) != entities.end()) { sig[static_cast<unsigned>(type)] = true; }
+}
