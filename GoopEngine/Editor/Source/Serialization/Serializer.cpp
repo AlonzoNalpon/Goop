@@ -13,6 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "Serializer.h"
+#include <Serialization/JsonKeys.h>
 #include <rapidjson/ostreamwrapper.h>
 #include <rapidjson/prettywriter.h>
 #include <Component/Components.h>
@@ -26,21 +27,6 @@ namespace GE
 {
   namespace Serialization
   {
-    // Names of Keys used when serializing to file
-    // Both Serializer and Deserializer uses these to determine the name of the keys
-    // These are for internal usage (what its named in the file) and most likely will
-    // not have to be cared about or changed by external users
-    const char Serializer::JsonNameKey[]          = "Name";
-    const char Serializer::JsonIdKey[]            = "ID";
-    const char Serializer::JsonEntityStateKey[]   = "isActive";
-    const char Serializer::JsonParentKey[]        = "Parent";
-    const char Serializer::JsonChildEntitiesKey[] = "Child Entities";
-    const char Serializer::JsonComponentsKey[]    = "Components";
-    const char Serializer::JsonPrefabKey[]        = "Prefab",   
-               Serializer::JsonPrefabVerKey[]     = "Version";
-    const char Serializer::JsonAssociativeKey[] = "key", Serializer::JsonAssociativeValue[] = "value";
-    const char Serializer::ScriptFieldInstListTypeKey[] = "type";
-
 #ifndef IMGUI_DISABLE
     void Serializer::SerializeVariantToPrefab(ObjectFactory::VariantPrefab const& prefab, std::string const& filename)
     {

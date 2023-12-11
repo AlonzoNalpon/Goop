@@ -9,7 +9,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#include <Serialization/Serializer.h>
+#include <Serialization/JsonKeys.h>
 #include "Deserializer.h"
 #include <rapidjson/IStreamWrapper.h>
 #include <Component/Components.h>
@@ -38,6 +38,104 @@ std::ostream& operator<<(std::ostream& os, rttr::type const& type)
 }
 #endif
 
+ObjectFactory::VariantPrefab2 Deserializer::DeserializePrefabToVariant2(std::string const& json)
+{
+  std::ifstream ifs{ json };
+  if (!ifs)
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + json);
+    #ifdef _DEBUG
+    std::cout << "Unable to read " << json << "\n";
+    #endif
+    return {};
+  }
+  rapidjson::Document document{};
+  // parse into document object
+  rapidjson::IStreamWrapper isw{ ifs };
+  if (document.ParseStream(isw).HasParseError())
+  {
+    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + json);
+    #ifdef _DEBUG
+    std::cout << "Unable to parse " + json << "\n";
+    #endif
+    return {};
+  }
+
+  if (!ScanJsonFileForMembers(document, 4, JsonNameKey, rapidjson::kStringType, JsonPrefabDataKey, rapidjson::kArrayType,
+    JsonComponentsKey, rapidjson::kArrayType, JsonPrefabVerKey, rapidjson::kNumberType)) { ifs.close(); return {}; }
+
+  ObjectFactory::VariantPrefab2 prefab{ document[JsonNameKey].GetString(), document[JsonPrefabVerKey].GetUint() };
+  Prefabs::PrefabManager::GetInstance().SetPrefabVersion(prefab.m_name, prefab.m_version);
+  // iterate through component objects in json array
+  std::vector<rttr::variant>& compVector{ prefab.m_components };
+  for (auto const& elem : document[JsonComponentsKey].GetArray())
+  {
+    for (rapidjson::Value::ConstMemberIterator comp{ elem.MemberBegin() }; comp != elem.MemberEnd(); ++comp)
+    {
+      std::string const compName{ comp->name.GetString() };
+      rapidjson::Value const& compJson{ comp->value };
+
+      rttr::type compType = rttr::type::get_by_name(compName);
+      #ifdef DESERIALIZER_DEBUG
+      std::cout << "  [P] Deserializing " << compType << "\n";
+      #endif
+      if (!compType.is_valid())
+      {
+        std::ostringstream oss{};
+        oss << "Trying to deserialize an invalid component: " << compName;
+        Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        #ifdef _DEBUG
+        std::cout << oss.str() << "\n";
+        #endif
+        continue;
+      }
+
+      rttr::variant compVar{};
+      DeserializeComponent(compVar, compType, compJson);
+
+      compVector.emplace_back(compVar);
+    }
+  }
+
+  for (auto const& elem : document[JsonPrefabDataKey].GetArray())
+  {
+    if (!ScanJsonFileForMembers(elem, 4, JsonIdKey, rapidjson::kNumberType, JsonNameKey, rapidjson::kStringType,
+      JsonComponentsKey, rapidjson::kArrayType, JsonParentKey, rapidjson::kNumberType)) { continue; }
+
+    ObjectFactory::PrefabSubData subObj{ elem[JsonNameKey].GetString(), elem[JsonIdKey].GetUint(), elem[JsonParentKey].GetUint() };
+    for (auto const& component : elem[JsonComponentsKey].GetArray())
+    {
+      rapidjson::Value::ConstMemberIterator comp{ component.MemberBegin() };
+      std::string const compName{ comp->name.GetString() };
+      rapidjson::Value const& compJson{ comp->value };
+
+      rttr::type compType = rttr::type::get_by_name(compName);
+      #ifdef DESERIALIZER_DEBUG
+      std::cout << "  [P] Deserializing " << compType << "\n";
+      #endif
+      if (!compType.is_valid())
+      {
+        std::ostringstream oss{};
+        oss << "Trying to deserialize an invalid component: " << compName;
+        Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        #ifdef _DEBUG
+        std::cout << oss.str() << "\n";
+        #endif
+        continue;
+      }
+
+      rttr::variant compVar{};
+      DeserializeComponent(compVar, compType, compJson);
+
+      subObj.AddComponent(std::move(compVar));
+    }
+
+    prefab.m_objects.emplace_back(std::move(subObj));
+  }
+
+  return prefab;
+}
+
 ObjectFactory::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string const& json)
 {
   std::ifstream ifs{ json };
@@ -61,14 +159,14 @@ ObjectFactory::VariantPrefab Deserializer::DeserializePrefabToVariant(std::strin
     return {};
   }
 
-  if (!ScanJsonFileForMembers(document, 3, Serializer::JsonNameKey, rapidjson::kStringType, 
-    Serializer::JsonComponentsKey, rapidjson::kArrayType, Serializer::JsonPrefabVerKey, rapidjson::kNumberType)) { ifs.close(); return {}; }
+  if (!ScanJsonFileForMembers(document, 3, JsonNameKey, rapidjson::kStringType, 
+    JsonComponentsKey, rapidjson::kArrayType, JsonPrefabVerKey, rapidjson::kNumberType)) { ifs.close(); return {}; }
 
-  ObjectFactory::VariantPrefab prefab{ document[Serializer::JsonNameKey].GetString(), document[Serializer::JsonPrefabVerKey].GetUint() };
+  ObjectFactory::VariantPrefab prefab{ document[JsonNameKey].GetString(), document[JsonPrefabVerKey].GetUint() };
   Prefabs::PrefabManager::GetInstance().SetPrefabVersion(prefab.m_name, prefab.m_version);
   // iterate through component objects in json array
   std::vector<rttr::variant>& compVector{ prefab.m_components };
-  for (auto const& elem : document[Serializer::JsonComponentsKey].GetArray())
+  for (auto const& elem : document[JsonComponentsKey].GetArray())
   {
     for (rapidjson::Value::ConstMemberIterator comp{ elem.MemberBegin() }; comp != elem.MemberEnd(); ++comp)
     {
@@ -142,36 +240,36 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
 
   // check if scn file contains all basic keys
   if (!ScanJsonFileForMembers(document, 6,
-    Serializer::JsonNameKey, rapidjson::kStringType, Serializer::JsonChildEntitiesKey, rapidjson::kArrayType,
-    Serializer::JsonIdKey, rapidjson::kNumberType, Serializer::JsonParentKey, rapidjson::kNumberType,
-    Serializer::JsonComponentsKey, rapidjson::kArrayType, Serializer::JsonEntityStateKey, rapidjson::kFalseType)) { ifs.close(); return {}; }
+    JsonNameKey, rapidjson::kStringType, JsonChildEntitiesKey, rapidjson::kArrayType,
+    JsonIdKey, rapidjson::kNumberType, JsonParentKey, rapidjson::kNumberType,
+    JsonComponentsKey, rapidjson::kArrayType, JsonEntityStateKey, rapidjson::kFalseType)) { ifs.close(); return {}; }
 
   // okay code starts here
   for (auto const& entity : document.GetArray())
   {
-    ECS::Entity const entityId{ entity[Serializer::JsonIdKey].GetUint() };
-    ECS::Entity const parentId{ entity[Serializer::JsonParentKey].IsNull() ? ECS::INVALID_ID : entity[Serializer::JsonParentKey].GetUint() };
-    ObjectFactory::VariantEntity entityVar{ entity[Serializer::JsonNameKey].GetString(),
-      parentId, entity[Serializer::JsonEntityStateKey].GetBool() };  // set parent
+    ECS::Entity const entityId{ entity[JsonIdKey].GetUint() };
+    ECS::Entity const parentId{ entity[JsonParentKey].IsNull() ? ECS::INVALID_ID : entity[JsonParentKey].GetUint() };
+    ObjectFactory::VariantEntity entityVar{ entity[JsonNameKey].GetString(),
+      parentId, entity[JsonEntityStateKey].GetBool() };  // set parent
     // get child ids
-    for (auto const& child : entity[Serializer::JsonChildEntitiesKey].GetArray())
+    for (auto const& child : entity[JsonChildEntitiesKey].GetArray())
     {
       entityVar.m_childEntities.emplace_back(child.GetUint());
     }
 
 #ifndef IMGUI_DISABLE
     Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
-    if (entity.HasMember(Serializer::JsonPrefabKey) && !entity[Serializer::JsonPrefabKey].IsNull())
+    if (entity.HasMember(JsonPrefabKey) && !entity[JsonPrefabKey].IsNull())
     {
       rttr::variant entry{ std::pair<std::string, unsigned>{} };
-      DeserializeBasedOnType(entry, entity[Serializer::JsonPrefabKey]);
+      DeserializeBasedOnType(entry, entity[JsonPrefabKey]);
       pm.AttachPrefab(entityId, std::move(entry.get_value<std::pair<std::string, unsigned>>()));;
     }
 #endif
 
     // restore components
     std::vector<rttr::variant>& compVector{ entityVar.m_components };
-    for (auto const& elem : entity[Serializer::JsonComponentsKey].GetArray())
+    for (auto const& elem : entity[JsonComponentsKey].GetArray())
     {
       for (rapidjson::Value::ConstMemberIterator comp{ elem.MemberBegin() }; comp != elem.MemberEnd(); ++comp)
       {
@@ -855,7 +953,7 @@ std::vector<std::pair<std::string, ECS::ComponentSignature>> Deserializer::Deser
   return ret;
 }
 
-bool Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, unsigned keyCount, ...)
+bool Deserializer::ScanJsonFileForMembers(rapidjson::Value const& value, unsigned keyCount, ...)
 {
   va_list args;
   va_start(args, keyCount);
@@ -868,18 +966,18 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
     keys.emplace_back(std::move(test), static_cast<rapidjson::Type>(va_arg(args, int)));
   }
 
-  if (document.IsArray())
+  if (value.IsArray())
   {
-    for (unsigned i{}; i < document.GetArray().Size(); ++i)
+    for (unsigned i{}; i < value.GetArray().Size(); ++i)
     {
       for (auto const& [keyName, type] : keys)
       {
-        rapidjson::Value const& elem{ document[i] };
+        rapidjson::Value const& elem{ value[i] };
         auto result{ elem.FindMember(keyName.c_str()) };
         if (result == elem.MemberEnd())
         {
           std::ostringstream oss{};
-          oss << "Unable to find key \"" + keyName + "\" of element: " << i << " in rapidjson document";
+          oss << "Unable to find key \"" + keyName + "\" of element: " << i << " in rapidjson value";
           GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
           #ifdef _DEBUG
           std::cout << oss.str() << "\n";
@@ -918,10 +1016,10 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
   {
     for (auto const& [keyName, type] : keys)
     {
-      auto result{ document.FindMember(keyName.c_str()) };
-      if (result == document.MemberEnd())
+      auto result{ value.FindMember(keyName.c_str()) };
+      if (result == value.MemberEnd())
       {
-        std::string const msg{ "Unable to find key \"" + keyName + "\" in rapidjson document" };
+        std::string const msg{ "Unable to find key \"" + keyName + "\" in rapidjson value" };
         GE::Debug::ErrorLogger::GetInstance().LogError(msg);
         #ifdef _DEBUG
         std::cout << msg << "\n";
@@ -932,7 +1030,7 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
 
       if ((type == rapidjson::kTrueType || type == rapidjson::kFalseType))
       {
-        if (!document[keyName.c_str()].IsBool())
+        if (!value[keyName.c_str()].IsBool())
         {
           std::ostringstream oss{};
           oss << "Element \"" << keyName << "\" is not of type bool";
@@ -943,7 +1041,7 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Document const& document, u
           status = false;
         }
       }
-      else if (!document[keyName.c_str()].IsNull() && document[keyName.c_str()].GetType() != type)
+      else if (!value[keyName.c_str()].IsNull() && value[keyName.c_str()].GetType() != type)
       {
         std::ostringstream oss{};
         oss << "Element \"" << keyName << "\" is not of rapidjson type:" << type;

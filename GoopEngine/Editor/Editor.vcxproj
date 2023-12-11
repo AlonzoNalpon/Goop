@@ -423,6 +423,7 @@
     <ClInclude Include="Source\Serialization\GooStream\GooStream.h" />
     <ClInclude Include="Source\Serialization\GooStream\IGooStream.h" />
     <ClInclude Include="Source\Serialization\GooStream\SpriteGooStream.h" />
+    <ClInclude Include="Source\Serialization\JsonKeys.h" />
     <ClInclude Include="Source\Serialization\Serializer.h" />
     <ClInclude Include="Source\Serialization\GooStream\SpriteData.h" />
     <ClInclude Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.h" />

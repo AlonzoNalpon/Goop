@@ -29,9 +29,6 @@ namespace GE
       // pure static class
       Serializer() = delete;
 
-      static const char JsonNameKey[], JsonIdKey[], JsonEntityStateKey[], JsonParentKey[],
-        JsonChildEntitiesKey[], JsonComponentsKey[], JsonPrefabKey[], JsonPrefabVerKey[];
-      static const char JsonAssociativeKey[], JsonAssociativeValue[], ScriptFieldInstListTypeKey[];
 #ifndef IMGUI_DISABLE
       /*!*********************************************************************
       \brief  

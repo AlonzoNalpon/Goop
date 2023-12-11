@@ -465,25 +465,6 @@ void PrefabEditor::CreateContent()
     ImGui::SameLine();
     if (ImGui::Button("Save Changes"))
     {
-      /*bool flag{ false };
-      for (rttr::variant& component : m_currPrefab.m_components)
-      {
-        if (component.get_type() == rttr::type::get<Component::SpriteAnim*>())
-        {
-          Component::SpriteAnim& spriteAnim = *component.get_value<Component::SpriteAnim*>();
-          for (rttr::variant& component2 : m_currPrefab.m_components)
-          {
-            if (component2.get_type() == rttr::type::get<Component::Sprite>())
-            {
-              Component::Sprite const& sprite = *component2.get_value<Component::Sprite*>();
-              spriteAnim.animID = Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(sprite.m_spriteName);
-              flag = true;
-              break;
-            }
-          }
-          if (flag) { break; }
-        }
-      }*/
       // save to file
       ++m_currPrefab.m_version;
       Serialization::Serializer::SerializeVariantToPrefab(m_currPrefab, m_currentFilepath);

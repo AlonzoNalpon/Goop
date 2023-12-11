@@ -57,6 +57,8 @@ namespace GE
       ************************************************************************/
       static std::vector<AI::TreeTemplate> DeserializeTrees(std::string const& filename);
 
+      static ObjectFactory::VariantPrefab2 DeserializePrefabToVariant2(std::string const& json);
+
       /*!*********************************************************************
       \brief
         Deserializes a prefab from a json file into a VariantPrefab object.
@@ -101,11 +103,11 @@ namespace GE
           For a file that contains the following key-value pairs:
             "Name": "string" and "Components": [ "bla", "bla" ]
           You would invoke the function with:
-            ScanJsonFileForMembers(document, 2,
+            ScanJsonFileForMembers(jsonValue, 2,
               "Name", rapidjson::kStringType,
               "Components", rapidjson::kArrayType)
-      \param document
-        The rapidjson::Document to validate
+      \param value
+        The rapidjson::Value to validate
       \param keyCount
         The number of fields (key-value pairs) to check
       \param ...
@@ -114,7 +116,7 @@ namespace GE
        
       \return
       ************************************************************************/
-      static bool ScanJsonFileForMembers(rapidjson::Document const& document, unsigned keyCount, ...);
+      static bool ScanJsonFileForMembers(rapidjson::Value const& value, unsigned keyCount, ...);
 
     private:
 
