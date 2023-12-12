@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   ScriptSystem.cpp
+\author c.phua\@digipen.edu
+\date   20 September 2023
+\brief
+	Updates all updatable script on the entities
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include "ScriptSystem.h"
 #include <Events/EventManager.h>
