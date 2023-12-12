@@ -57,20 +57,6 @@ namespace GE
 
       /*!*********************************************************************
       \brief
-        Returns the component of an entity given the Enumeration type. The
-        component is returned in the form of an rttr::variant containing
-        a shared_ptr to the object
-      \param id
-        The id of the entity
-      \param type
-        The ECS::COMPONENT_TYPES of the entity
-      \return
-        An rttr::variant of the component
-      ************************************************************************/
-      static rttr::variant GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type);
-
-      /*!*********************************************************************
-      \brief
         Serializes the current system order and their components into a json
         file
       \param json
@@ -202,6 +188,18 @@ namespace GE
       ************************************************************************/
       static rapidjson::Value SerializeComponent(rttr::variant const& var, rapidjson::Document::AllocatorType& allocator);
       
+      /*!*********************************************************************
+      \brief
+        
+      \param value
+
+      \param components
+
+      \param allocator
+       
+      ************************************************************************/
+      static void SerializeVariantComponents(rapidjson::Value& value, std::vector<rttr::variant> const& components, rapidjson::Document::AllocatorType& allocator);
+
       /*!*********************************************************************
       \brief
         The conversion function for Component::Scripts's m_scriptMap

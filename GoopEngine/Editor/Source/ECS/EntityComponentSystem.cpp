@@ -49,7 +49,7 @@ void GE::ECS::EntityComponentSystem::SetIsActiveEntity(Entity& entity, bool acti
 	m_systemManager->EntityActiveStateChanged(entity, active);
 }
 
-Entity GE::ECS::EntityComponentSystem::GetParentEntity(Entity& entity)
+Entity GE::ECS::EntityComponentSystem::GetParentEntity(Entity const& entity) const
 {
 	return m_entityManager->GetParentEntity(entity);
 }
@@ -81,7 +81,7 @@ void EntityComponentSystem::DestroyEntity(Entity& entity)
 	m_systemManager->EntityDestroyed(entity);
 }
 
-std::string GE::ECS::EntityComponentSystem::GetEntityName(Entity& entity)
+std::string GE::ECS::EntityComponentSystem::GetEntityName(Entity const& entity) const
 {
 	return m_entityManager->GetEntityName(entity);
 }
@@ -101,9 +101,22 @@ std::set<Entity>& GE::ECS::EntityComponentSystem::GetEntities()
 	return m_entityManager->GetEntities();
 }
 
-ComponentSignature GE::ECS::EntityComponentSystem::GetComponentSignature(Entity& entity)
+ComponentSignature GE::ECS::EntityComponentSystem::GetComponentSignature(Entity& entity) const
 {
 	return m_entityManager->GetComponentSignature(entity);
+}
+
+unsigned GE::ECS::EntityComponentSystem::GetEntityComponentCount(Entity const& entity) const
+{
+	auto sig{ m_entityManager->GetComponentSignature(entity).to_ulong() };
+	unsigned count{};
+	while (sig != 0)
+	{
+		sig &= sig - 1;
+		++count;
+	}
+
+	return count;
 }
 
 std::unordered_map<const char*, ComponentSignature>& GE::ECS::EntityComponentSystem::GetSystemSignatures()

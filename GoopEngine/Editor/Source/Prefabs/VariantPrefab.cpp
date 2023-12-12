@@ -20,7 +20,7 @@ using namespace Prefabs;
 
 PrefabSubData::PrefabSubData() : m_parent{ BasePrefabId } {}
 
-PrefabSubData::PrefabSubData(std::string name, ECS::Entity id, ECS::Entity parent) :
+PrefabSubData::PrefabSubData(std::string name, SubDataId id, SubDataId parent) :
   m_name{ std::move(name) }, m_components{}, m_id{ id }, m_parent{ parent } {}
 
 ECS::Entity PrefabSubData::Construct() const
@@ -48,7 +48,7 @@ void VariantPrefab::Clear() noexcept
 
 ECS::Entity VariantPrefab::Construct() const
 {
-  std::unordered_map<ECS::Entity, ECS::Entity> idsToEntities;
+  std::unordered_map<PrefabSubData::SubDataId, ECS::Entity> idsToEntities;
   idsToEntities.reserve(m_objects.size() + 1);
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
 
@@ -87,3 +87,20 @@ void VariantPrefab::Clear() noexcept
   m_version = 0;
 }
 #endif
+
+void VariantPrefab::CreateSubData(std::set<ECS::Entity> const& children, PrefabSubData::SubDataId parent)
+{
+  if (children.empty()) { return; }
+
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  
+  for (ECS::Entity const& child : children)
+  {
+    PrefabSubData::SubDataId const currId{ static_cast<PrefabSubData::SubDataId>(m_objects.size() + 1) };
+    PrefabSubData obj{ ecs.GetEntityName(child), currId, parent };
+
+    obj.m_components = ObjectFactory::ObjectFactory::GetInstance().GetEntityComponents(child);
+    m_objects.emplace_back(std::move(obj));
+    CreateSubData(ecs.GetChildEntities(const_cast<ECS::Entity&>(child)), currId);
+  }
+}

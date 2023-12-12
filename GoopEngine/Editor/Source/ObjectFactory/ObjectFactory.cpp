@@ -31,6 +31,100 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace GE::ObjectFactory;
 using namespace GE::ECS;
 
+void ObjectFactory::AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const
+{
+  for (rttr::variant const& component : components)
+  {
+    AddComponentToEntity(id, component);
+  }
+}
+
+std::vector<rttr::variant> ObjectFactory::GetEntityComponents(ECS::Entity id) const
+{
+  std::vector<rttr::variant> ret;
+  ret.reserve(ECS::EntityComponentSystem::GetInstance().GetEntityComponentCount(id));
+  for (unsigned i{}; i < static_cast<unsigned>(ECS::COMPONENT_TYPES::COMPONENTS_TOTAL); ++i)
+  {
+    rttr::variant comp{ GetEntityComponent(id, static_cast<ECS::COMPONENT_TYPES>(i)) };
+    if (!comp.is_valid()) { continue; }
+
+    ret.emplace_back(std::move(comp));
+  }
+
+  return ret;
+}
+
+void GE::ObjectFactory::ObjectFactory::EmptyMap()
+{
+  m_deserialized.clear();
+}
+
+void ObjectFactory::CloneObject(ECS::Entity entity, ECS::Entity parent) const
+{
+  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+
+  Entity newEntity = ecs.CreateEntity();
+  ecs.SetEntityName(newEntity, ecs.GetEntityName(entity) + " (Copy)");
+  ecs.SetIsActiveEntity(newEntity, ecs.GetIsActiveEntity(entity));
+
+  std::vector<rttr::variant> const components{ GetEntityComponents(entity) };
+  AddComponentsToEntity(entity, components);
+
+#ifndef IMGUI_DISABLE
+  // update entity's prefab if needed
+  Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
+  auto const entityPrefab{ pm.GetEntityPrefab(entity) };
+  if (entityPrefab)
+  {
+    pm.AttachPrefab(newEntity, *entityPrefab);
+  }
+#endif
+
+  // set parent/child
+  ecs.SetParentEntity(newEntity, parent);
+  if (parent != ECS::INVALID_ID) { ecs.AddChildEntity(parent, newEntity); }
+  for (ECS::Entity const& child : ecs.GetChildEntities(entity))
+  {
+    CloneObject(child, newEntity);  // recursively clone all children
+  }
+}
+
+void ObjectFactory::ClearSceneObjects()
+{
+  m_deserialized.clear();
+}
+
+void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
+{
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+
+  for (auto const& [id, data] : m_deserialized)
+  {
+    ecs.CreateEntity({}, id, data.m_name);
+    ecs.SetIsActiveEntity(const_cast<ECS::Entity&>(id), data.m_isActive);
+    AddComponentsToEntity(id, data.m_components);
+  }
+
+  for (auto const& [id, data] : m_deserialized)
+  {
+    ecs.SetParentEntity(id, data.m_parent);
+
+    for (ECS::Entity const& child : data.m_childEntities)
+    {
+      ecs.AddChildEntity(id, child);
+    }
+  }
+
+#ifndef IMGUI_DISABLE
+  Prefabs::PrefabManager::GetInstance().UpdateAllEntitiesFromPrefab();
+#endif
+}
+
+void ObjectFactory::LoadSceneJson(std::string const& filename)
+{
+  m_deserialized = GE::Serialization::Deserializer::DeserializeScene(filename);
+}
+
 void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
@@ -118,11 +212,87 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   }
 }
 
-void ObjectFactory::AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const
+rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type) const
 {
-  for (rttr::variant const& component : components)
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  switch (type)
   {
-    AddComponentToEntity(id, component);
+  case ECS::COMPONENT_TYPES::TRANSFORM:
+  {
+    return ecs.HasComponent<Component::Transform>(id) ? std::make_shared<Component::Transform>(*ecs.GetComponent<Component::Transform>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::BOX_COLLIDER:
+  {
+    return ecs.HasComponent<Component::BoxCollider>(id) ? std::make_shared<Component::BoxCollider>(*ecs.GetComponent<Component::BoxCollider>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::VELOCITY:
+  {
+    return ecs.HasComponent<Component::Velocity>(id) ? std::make_shared<Component::Velocity>(*ecs.GetComponent<Component::Velocity>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::SCRIPTS:
+  {
+    return ecs.HasComponent<Component::Scripts>(id) ? std::make_shared<Component::Scripts>(*ecs.GetComponent<Component::Scripts>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::SPRITE:
+  {
+    return ecs.HasComponent<Component::Sprite>(id) ? std::make_shared<Component::Sprite>(*ecs.GetComponent<Component::Sprite>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::SPRITE_ANIM:
+  {
+    return ecs.HasComponent<Component::SpriteAnim>(id) ? std::make_shared<Component::SpriteAnim>(*ecs.GetComponent<Component::SpriteAnim>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::TWEEN:
+  {
+    return ecs.HasComponent<Component::Tween>(id) ? std::make_shared<Component::Tween>(*ecs.GetComponent<Component::Tween>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::ENEMY_AI:
+  {
+    return ecs.HasComponent<Component::EnemyAI>(id) ? std::make_shared<Component::EnemyAI>(*ecs.GetComponent<Component::EnemyAI>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::DRAGGABLE:
+  {
+    return ecs.HasComponent<Component::Draggable>(id) ? std::make_shared<Component::Draggable>(*ecs.GetComponent<Component::Draggable>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::TEXT:
+  {
+    return ecs.HasComponent<Component::Text>(id) ? std::make_shared<Component::Text>(*ecs.GetComponent<Component::Text>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::AUDIO:
+  {
+    return ecs.HasComponent<Component::Audio>(id) ? std::make_shared<Component::Audio>(*ecs.GetComponent<Component::Audio>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::GE_BUTTON:
+  {
+    return ecs.HasComponent<Component::GE_Button>(id) ? std::make_shared<Component::GE_Button>(*ecs.GetComponent<Component::GE_Button>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::ANCHOR:
+  {
+    return ecs.HasComponent<Component::Anchor>(id) ? std::make_shared<Component::Anchor>(*ecs.GetComponent<Component::Anchor>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::CARD:
+  {
+    return ecs.HasComponent<Component::Card>(id) ? std::make_shared<Component::Card>(*ecs.GetComponent<Component::Card>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::CARD_HOLDER:
+  {
+    return ecs.HasComponent<Component::CardHolder>(id) ? std::make_shared<Component::CardHolder>(*ecs.GetComponent<Component::CardHolder>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::CARD_HOLDER_ELEM:
+  {
+    return ecs.HasComponent<Component::CardHolderElem>(id) ? std::make_shared<Component::CardHolderElem>(*ecs.GetComponent<Component::CardHolderElem>(id)) : rttr::variant();
+  }
+  case ECS::COMPONENT_TYPES::GAME:
+  {
+    return ecs.HasComponent<Component::Game>(id) ? std::make_shared<Component::Game>(*ecs.GetComponent<Component::Game>(id)) : rttr::variant();
+  }
+  default:
+  {
+    std::ostringstream oss{};
+    std::string const enumString = rttr::type::get<ECS::COMPONENT_TYPES>().get_enumeration().value_to_name(type).to_string();
+    oss << "Trying to get unsupported component type (" << enumString << ") from Entity " << id;
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    return rttr::variant();
+  }
   }
 }
 
@@ -207,85 +377,6 @@ void ObjectFactory::RegisterComponentsAndSystems() const
     }
     RegisterSystemWithEnum(iter->second, elem.second);
   }
-}
-
-void GE::ObjectFactory::ObjectFactory::EmptyMap()
-{
-  m_deserialized.clear();
-}
-
-void ObjectFactory::CloneObject(ECS::Entity entity, ECS::Entity parent) const
-{
-  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
-
-  Entity newEntity = ecs.CreateEntity();
-  ecs.SetEntityName(newEntity, ecs.GetEntityName(entity) + " (Copy)");
-  ecs.SetIsActiveEntity(newEntity, ecs.GetIsActiveEntity(entity));
-
-  for (ECS::COMPONENT_TYPES component{ static_cast<ECS::COMPONENT_TYPES>(0) }; component < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++component)
-  {
-    rttr::variant compVar{ Serialization::Serializer::GetEntityComponent(entity, component) };
-    // skip if component wasn't found
-    if (!compVar.is_valid()) { continue; }
-
-    AddComponentToEntity(newEntity, compVar);
-  }
-
-#ifndef IMGUI_DISABLE
-  // update entity's prefab if needed
-  Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
-  auto const entityPrefab{ pm.GetEntityPrefab(entity) };
-  if (entityPrefab)
-  {
-    pm.AttachPrefab(newEntity, *entityPrefab);
-  }
-#endif
-
-  // set parent/child
-  ecs.SetParentEntity(newEntity, parent);
-  if (parent != ECS::INVALID_ID) { ecs.AddChildEntity(parent, newEntity); }
-  for (ECS::Entity const& child : ecs.GetChildEntities(entity))
-  {
-    CloneObject(child, newEntity);  // recursively clone all children
-  }
-}
-
-
-
-void ObjectFactory::ClearSceneObjects()
-{
-  m_deserialized.clear();
-}
-
-void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
-{
-  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-
-  for (auto const& [id, data] : m_deserialized)
-  {
-    ecs.CreateEntity({}, id, data.m_name);
-    ecs.SetIsActiveEntity(const_cast<ECS::Entity&>(id), data.m_isActive);
-    AddComponentsToEntity(id, data.m_components);
-  }
-
-  for (auto const& [id, data] : m_deserialized)
-  {
-    ecs.SetParentEntity(id, data.m_parent);
-
-    for (ECS::Entity const& child : data.m_childEntities)
-    {
-      ecs.AddChildEntity(id, child);
-    }
-  }
-
-#ifndef IMGUI_DISABLE
-  Prefabs::PrefabManager::GetInstance().UpdateAllEntitiesFromPrefab();
-#endif
-}
-
-void ObjectFactory::LoadSceneJson(std::string const& filename)
-{
-  m_deserialized = GE::Serialization::Deserializer::DeserializeScene(filename);
 }
 
 void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::ComponentSignature sig) const

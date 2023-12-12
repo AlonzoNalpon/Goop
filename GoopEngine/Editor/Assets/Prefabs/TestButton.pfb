@@ -1,43 +1,43 @@
 {
-  "Name": "TestButton",
-  "Version": 0,
-  "Components": [
-    {
-      "Transform": {
-        "worldPos": "{ 0, 0, 0 }",
-        "worldScale": "{ 1, 1, 1 }",
-        "worldRot": "{ 0, 0, 0 }"
-      }
-    },
-    {
-      "Sprite": {
-        "spriteData": {
-          "spriteSubData": {
-            "texCoords": {
-              "x": 0.0,
-              "y": 0.0
-            },
-            "texDims": {
-              "x": 1.0,
-              "y": 1.0
-            },
-            "width": 456,
-            "height": 154
-          }
+    "Name": "TestButton",
+    "Version": 2,
+    "Components": [
+        {
+            "Transform": {
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
         },
-        "spriteName": "Button_Base"
-      }
-    },
-    {
-      "BoxCollider": {
-        "center": "{ 0, 0 }",
-        "width": 456.0,
-        "height": 154.0,
-        "min": "{ 0, 0 }",
-        "max": "{ 0, 0 }",
-        "render": false
-      }
-    }
-  ],
-  "SubData": []
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "width": 456,
+                        "height": 154
+                    }
+                },
+                "spriteName": "Button_Base"
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 0, 0 }",
+                "width": 456.0,
+                "height": 154.0,
+                "min": "{ 0, 0 }",
+                "max": "{ 0, 0 }",
+                "render": false
+            }
+        }
+    ],
+    "SubData": []
 }

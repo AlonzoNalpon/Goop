@@ -93,6 +93,31 @@ namespace GE::ObjectFactory
     ************************************************************************/
     void AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const;
 
+    /*!*********************************************************************
+    \brief
+      Returns the component of an entity given the Enumeration type. The
+      component is returned in the form of an rttr::variant containing
+      a shared_ptr to the object
+    \param id
+      The id of the entity
+    \param type
+      The ECS::COMPONENT_TYPES of the entity
+    \return
+      An rttr::variant of the component
+    ************************************************************************/
+    rttr::variant GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type) const;
+
+    /*!*********************************************************************
+    \brief
+      Returns the components of a given entity in the form of a vector of
+      rttr::variants, with each variant holding a component.
+    \param id
+      The id of the entity
+    \return
+      An std::vector of components in the form of rttr::variants
+    ************************************************************************/
+    std::vector<rttr::variant> GetEntityComponents(ECS::Entity id) const;
+
   private:
 
     /*!*********************************************************************

@@ -28,12 +28,59 @@ namespace GE
   namespace Serialization
   {
 #ifndef IMGUI_DISABLE
+#ifdef PREFAB_V2
     void Serializer::SerializeVariantToPrefab(Prefabs::VariantPrefab const& prefab, std::string const& filename)
     {
       std::ofstream ofs{ filename };
       if (!ofs)
       {
-        GE::Debug::ErrorLogger::GetInstance().LogError("Unable to serialize scene into " + filename);
+        GE::Debug::ErrorLogger::GetInstance().LogError("Unable to serialize prefab into " + filename);
+        return;
+      }
+
+      rapidjson::Document document{ rapidjson::kObjectType };
+      auto& allocator{ document.GetAllocator() };
+
+      // serialize the base layer of the prefab
+      rapidjson::Value nameJson{ prefab.m_name.c_str(), allocator };
+      rapidjson::Value verJson{ prefab.m_version };
+
+      document.AddMember(JsonNameKey, nameJson.Move(), allocator);
+      document.AddMember(JsonPrefabVerKey, verJson.Move(), allocator);
+
+      SerializeVariantComponents(document,prefab.m_components, allocator);
+
+      // serialize nested components if prefab has multiple layers
+      rapidjson::Value subDataJson{ rapidjson::kArrayType };
+      for (Prefabs::PrefabSubData const& obj : prefab.m_objects)
+      {
+        rapidjson::Value objJson{ rapidjson::kObjectType };
+        rapidjson::Value idJson{ obj.m_id };
+        rapidjson::Value subNameJson{ obj.m_name.c_str(), allocator };
+        rapidjson::Value parentJson{ obj.m_parent };
+
+        objJson.AddMember(JsonIdKey, idJson.Move(), allocator);
+        objJson.AddMember(JsonNameKey, subNameJson.Move(), allocator);
+        objJson.AddMember(JsonParentKey, parentJson.Move(), allocator);
+        SerializeVariantComponents(objJson, obj.m_components, allocator);
+
+        subDataJson.PushBack(objJson.Move(), allocator);
+      }
+      document.AddMember(JsonPrefabDataKey, subDataJson.Move(), allocator);
+
+      rapidjson::OStreamWrapper osw{ ofs };
+      rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
+      document.Accept(writer);
+
+      ofs.close();
+    }
+#else
+    void Serializer::SerializeVariantToPrefab(Prefabs::VariantPrefab const& prefab, std::string const& filename)
+    {
+      std::ofstream ofs{ filename };
+      if (!ofs)
+      {
+        GE::Debug::ErrorLogger::GetInstance().LogError("Unable to serialize prefab into " + filename);
         return;
       }
 
@@ -83,6 +130,7 @@ namespace GE
       ofs.close();
     }
 #endif
+#endif
 
     void Serializer::SerializeAny(std::string const& filename, rttr::variant object)
     {
@@ -109,13 +157,14 @@ namespace GE
     {
       ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
       rapidjson::Value entity{ rapidjson::kObjectType };
+      rapidjson::Value entityName, jsonId, jsonState, jsonParent{ rapidjson::kNullType };
+      rapidjson::Value childrenArr{ rapidjson::kArrayType }, compArr{ rapidjson::kArrayType };
+
       // serialize name
-      rapidjson::Value entityName{};
       entityName.SetString(ecs.GetEntityName(id).c_str(), allocator);
       entity.AddMember(JsonNameKey, entityName.Move(), allocator);
 
       // serialize entity id
-      rapidjson::Value jsonId{};
       jsonId.SetUint(id);
       entity.AddMember(JsonIdKey, jsonId.Move(), allocator);
 
@@ -133,12 +182,10 @@ namespace GE
 #endif
 
       // serialize state
-      rapidjson::Value jsonState{};
       jsonState.SetBool(ecs.GetIsActiveEntity(id));
       entity.AddMember(JsonEntityStateKey, jsonState.Move(), allocator);
 
       // serialize parent id
-      rapidjson::Value jsonParent{ rapidjson::kNullType };
       ECS::Entity const parentID{ ecs.GetParentEntity(id) };
       if (parentID != ECS::INVALID_ID)
       {
@@ -147,7 +194,6 @@ namespace GE
       entity.AddMember(JsonParentKey, jsonParent.Move(), allocator);
 
       // serialize child entities
-      rapidjson::Value childrenArr{ rapidjson::kArrayType };
       for (ECS::Entity const& child : ecs.GetChildEntities(id))
       {
         rapidjson::Value childJson{};
@@ -156,18 +202,14 @@ namespace GE
       }
       entity.AddMember(JsonChildEntitiesKey, childrenArr.Move(), allocator);
 
-      rapidjson::Value compArr{ rapidjson::kArrayType };
-      for (ECS::COMPONENT_TYPES i{ static_cast<ECS::COMPONENT_TYPES>(0) }; i < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)
+      std::vector<rttr::variant> const components{ ObjectFactory::ObjectFactory::GetInstance().GetEntityComponents(id) };
+      for (rttr::variant const& c : components)
       {
-        rttr::variant compVar{ GetEntityComponent(id, i) };
-        
-        // skip if component wasn't found
-        if (!compVar.is_valid()) { continue; }
-
-        rapidjson::Value comp{ SerializeComponent(compVar, allocator) };
+        rapidjson::Value comp{ SerializeComponent(c, allocator) };
         compArr.PushBack(comp, allocator);
       }
       entity.AddMember(JsonComponentsKey, compArr, allocator);
+
       return entity;
     }
 
@@ -242,88 +284,34 @@ namespace GE
       ofs.close();
     }
 
-    rttr::variant Serializer::GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type)
+    void Serializer::SerializeVariantComponents(rapidjson::Value& value, std::vector<rttr::variant> const& components, rapidjson::Document::AllocatorType& allocator)
     {
-      ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-      switch (type)
+      rapidjson::Value compArray{ rapidjson::kArrayType };
+      // for each component, extract the string of the class and serialize
+      for (rttr::variant const& comp : components)
       {
-      case ECS::COMPONENT_TYPES::TRANSFORM:
-      {
-        return ecs.HasComponent<Component::Transform>(id) ? std::make_shared<Component::Transform>(*ecs.GetComponent<Component::Transform>(id)) : rttr::variant();
+        rapidjson::Value compName, compJson{ rapidjson::kObjectType };
+        compName.SetString(comp.get_type().get_wrapped_type().get_raw_type().get_name().to_string().c_str(), allocator);
+
+        // handle SpriteAnim component: Get animation sprite name
+        if (comp.get_type().get_wrapped_type() == rttr::type::get<Component::SpriteAnim*>())
+        {
+          Component::SpriteAnim const& sprAnim{ *comp.get_value<Component::SpriteAnim*>() };
+          rapidjson::Value key, val, obj{ rapidjson::kObjectType };
+
+          key.SetString("name", allocator);
+          val.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(sprAnim.animID).c_str(), allocator);
+          obj.AddMember(key.Move(), val.Move(), allocator);
+          compJson.AddMember(compName.Move(), obj, allocator);
+        }
+        else
+        {
+          compJson.AddMember(compName.Move(), SerializeBasedOnType(comp, allocator), allocator);
+        }
+        if (!compJson.ObjectEmpty())
+          compArray.PushBack(compJson, allocator);
       }
-      case ECS::COMPONENT_TYPES::BOX_COLLIDER:
-      {
-        return ecs.HasComponent<Component::BoxCollider>(id) ? std::make_shared<Component::BoxCollider>(*ecs.GetComponent<Component::BoxCollider>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::VELOCITY:
-      {
-        return ecs.HasComponent<Component::Velocity>(id) ? std::make_shared<Component::Velocity>(*ecs.GetComponent<Component::Velocity>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::SCRIPTS:
-      {
-        return ecs.HasComponent<Component::Scripts>(id) ? std::make_shared<Component::Scripts>(*ecs.GetComponent<Component::Scripts>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::SPRITE:
-      {
-        return ecs.HasComponent<Component::Sprite>(id) ? std::make_shared<Component::Sprite>(*ecs.GetComponent<Component::Sprite>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::SPRITE_ANIM:
-      {
-        return ecs.HasComponent<Component::SpriteAnim>(id) ? std::make_shared<Component::SpriteAnim>(*ecs.GetComponent<Component::SpriteAnim>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::TWEEN:
-      {
-        return ecs.HasComponent<Component::Tween>(id) ? std::make_shared<Component::Tween>(*ecs.GetComponent<Component::Tween>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::ENEMY_AI:
-      {
-        return ecs.HasComponent<Component::EnemyAI>(id) ? std::make_shared<Component::EnemyAI>(*ecs.GetComponent<Component::EnemyAI>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::DRAGGABLE:
-      {
-        return ecs.HasComponent<Component::Draggable>(id) ? std::make_shared<Component::Draggable>(*ecs.GetComponent<Component::Draggable>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::TEXT:
-      {
-        return ecs.HasComponent<Component::Text>(id) ? std::make_shared<Component::Text>(*ecs.GetComponent<Component::Text>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::AUDIO:
-      {
-        return ecs.HasComponent<Component::Audio>(id) ? std::make_shared<Component::Audio>(*ecs.GetComponent<Component::Audio>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::GE_BUTTON:
-      {
-        return ecs.HasComponent<Component::GE_Button>(id) ? std::make_shared<Component::GE_Button>(*ecs.GetComponent<Component::GE_Button>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::ANCHOR:
-      {
-        return ecs.HasComponent<Component::Anchor>(id) ? std::make_shared<Component::Anchor>(*ecs.GetComponent<Component::Anchor>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::CARD:
-      {
-        return ecs.HasComponent<Component::Card>(id) ? std::make_shared<Component::Card>(*ecs.GetComponent<Component::Card>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::CARD_HOLDER:
-      {
-        return ecs.HasComponent<Component::CardHolder>(id) ? std::make_shared<Component::CardHolder>(*ecs.GetComponent<Component::CardHolder>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::CARD_HOLDER_ELEM:
-      {
-        return ecs.HasComponent<Component::CardHolderElem>(id) ? std::make_shared<Component::CardHolderElem>(*ecs.GetComponent<Component::CardHolderElem>(id)) : rttr::variant();
-      }
-      case ECS::COMPONENT_TYPES::GAME:
-      {
-        return ecs.HasComponent<Component::Game>(id) ? std::make_shared<Component::Game>(*ecs.GetComponent<Component::Game>(id)) : rttr::variant();
-      }
-      default:
-      {
-        std::ostringstream oss{};
-        std::string const enumString = rttr::type::get<ECS::COMPONENT_TYPES>().get_enumeration().value_to_name(type).to_string();
-        oss << "Trying to get unsupported component type (" << enumString << ") from Entity " << id;
-        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        return rttr::variant();
-      }
-      }
+      value.AddMember(JsonComponentsKey, compArray.Move(), allocator);
     }
 
     rapidjson::Value Serializer::SerializeScriptMap(std::vector<std::pair<std::string, MONO::ScriptInstance>> const& scripts, rapidjson::Document::AllocatorType& allocator)
@@ -483,9 +471,8 @@ namespace GE
 
     rapidjson::Value Serializer::SerializeComponent(rttr::variant const& var, rapidjson::Document::AllocatorType& allocator)
     {
-      rapidjson::Value comp{ rapidjson::kObjectType };
-      rapidjson::Value compInner{ rapidjson::kObjectType };
-      rapidjson::Value compName{};
+      rapidjson::Value compName, comp{ rapidjson::kObjectType }, compInner{ rapidjson::kObjectType };
+
       // extract the raw type of the object
       rttr::type const varType{ var.get_type().is_wrapper() ? var.get_type().get_wrapped_type().get_raw_type() :
         var.get_type().is_pointer() ? var.get_type().get_raw_type() : var.get_type() };
@@ -493,8 +480,8 @@ namespace GE
 
       if (varType == rttr::type::get<Component::SpriteAnim>())
       {
+        rapidjson::Value jsonAnimVal;
         Component::SpriteAnim const& sprAnim{ *var.get_value<Component::SpriteAnim*>() };
-        rapidjson::Value jsonAnimVal{};
         jsonAnimVal.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(sprAnim.animID).c_str(), allocator);
         compInner.AddMember("name", jsonAnimVal, allocator);
       }

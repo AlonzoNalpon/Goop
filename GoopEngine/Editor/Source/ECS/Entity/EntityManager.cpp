@@ -121,7 +121,7 @@ void GE::ECS::EntityManager::SetActiveEntity(Entity& entity, bool active)
 	m_mapOfActive[entity] = active;
 }
 
-Entity GE::ECS::EntityManager::GetParentEntity(Entity& entity)
+Entity GE::ECS::EntityManager::GetParentEntity(Entity const& entity) const
 {
 	return m_parent[entity];
 }
@@ -169,7 +169,7 @@ std::string GE::ECS::EntityManager::SetEntityName(Entity const& entity, std::str
 	}
 }
 
-std::string GE::ECS::EntityManager::GetEntityName(Entity& entity)
+std::string GE::ECS::EntityManager::GetEntityName(Entity const& entity)
 {
 	// Entity should not exist
 	if (m_names.find(entity) == m_names.end())

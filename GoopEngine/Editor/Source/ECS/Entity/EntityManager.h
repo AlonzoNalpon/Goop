@@ -120,7 +120,7 @@ namespace GE
 			\return 
 				Parent of the entity.
 			********************************************************************/
-			Entity GetParentEntity(Entity& entity);
+			Entity GetParentEntity(Entity const& entity) const;
 
 			/*!******************************************************************
 			\brief 
@@ -195,7 +195,7 @@ namespace GE
 			\return
 				Given name of an entity as a string
 			********************************************************************/
-			std::string GetEntityName(Entity& entity);
+			std::string GetEntityName(Entity const& entity);
 
 			/*!*********************************************************************
 			\brief

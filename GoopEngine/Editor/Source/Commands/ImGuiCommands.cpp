@@ -56,13 +56,7 @@ RemoveObjectCmd::RemoveObjectCmd(GE::ECS::Entity e)
 	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 
 	m_entityData.m_entityName = ecs.GetEntityName(m_entityData.m_entityID);
-	for (ECS::COMPONENT_TYPES i{ static_cast<ECS::COMPONENT_TYPES>(0) }; i < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)
-	{
-		rttr::variant inst = Serialization::Serializer::GetEntityComponent(e, i);
-
-		if (!inst.is_valid()) {  continue; }
-		m_entityData.m_compList.push_back(inst);
-	}
+	m_entityData.m_compList = ObjectFactory::ObjectFactory::GetInstance().GetEntityComponents(e);
 	std::set<ECS::Entity>& children = ecs.GetChildEntities(e);
 
 	for (ECS::Entity ent : children)
@@ -77,14 +71,7 @@ RemoveObjectCmd::EntityTemplate RemoveObjectCmd::SaveEntityData(GE::ECS::Entity 
 		EntityTemplate newEntityTemp;
 		newEntityTemp.m_entityID = e;
 		newEntityTemp.m_entityName = ecs.GetEntityName(newEntityTemp.m_entityID);
-		for (ECS::COMPONENT_TYPES j{ static_cast<ECS::COMPONENT_TYPES>(0) }; j < ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++j)
-		{
-			rttr::variant inst = GE::Serialization::Serializer::GetEntityComponent(newEntityTemp.m_entityID, j);
-
-			// skip if component wasn't found
-			if (!inst.is_valid()) { continue; }
-			newEntityTemp.m_compList.push_back(inst);
-		}
+		newEntityTemp.m_compList = ObjectFactory::ObjectFactory::GetInstance().GetEntityComponents(e);
 		std::set<ECS::Entity>& grandChildren = ecs.GetChildEntities(e);
 
 		for (ECS::Entity ent : grandChildren)

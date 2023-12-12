@@ -133,7 +133,7 @@ namespace GE
       \param name
         The name of the new prefab
       ************************************************************************/
-      void CreatePrefabFromEntity(ECS::Entity entity, std::string const& name) const;
+      void CreatePrefabFromEntity(ECS::Entity entity, std::string const& name);
 
       /*!*********************************************************************
       \brief

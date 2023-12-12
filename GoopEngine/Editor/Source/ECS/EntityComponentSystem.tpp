@@ -48,7 +48,7 @@ bool EntityComponentSystem::HasComponent(const Entity& entity) const
 }
 
 template <typename T>
-ComponentType EntityComponentSystem::GetComponentSignature()
+ComponentType EntityComponentSystem::GetComponentSignature() const
 {
 	return m_componentManager->GetComponentSignature<T>();
 }

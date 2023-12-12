@@ -25,10 +25,27 @@ namespace GE::Prefabs
   // this should only be instantiated for use with a VariantPrefab
   struct PrefabSubData
   {
-    PrefabSubData();
-    PrefabSubData(std::string name, ECS::Entity id, ECS::Entity parent = BasePrefabId);
+    using SubDataId = unsigned;
 
+    PrefabSubData();
+    PrefabSubData(std::string name, SubDataId id, SubDataId parent = BasePrefabId);
+
+    /*!*********************************************************************
+    \brief
+      Adds a component held by an rttr::variant object into the SubData's
+      vector of components
+    \param comp
+      The component to add
+    ************************************************************************/
     void AddComponent(rttr::variant const& comp) { m_components.emplace_back(comp); }
+
+    /*!*********************************************************************
+    \brief
+      Adds a component held by an rttr::variant object into the SubData's
+      vector of components
+    \param comp
+      The component to add
+    ************************************************************************/
     void AddComponent(rttr::variant&& comp) { m_components.emplace_back(std::move(comp)); }
 
     /*!*********************************************************************
@@ -47,7 +64,7 @@ namespace GE::Prefabs
     ECS::Entity m_id, m_parent;
 
     // id of the first layer of the prefab
-    static ECS::Entity const BasePrefabId = 0;
+    static SubDataId const BasePrefabId = 0;
   };
 #ifdef PREFAB_V2
   // struct encapsulating deserialized prefab data
@@ -57,7 +74,13 @@ namespace GE::Prefabs
     VariantPrefab() = default;
     VariantPrefab(std::string name, unsigned version = 0);
 
-    inline bool HasChildComponents() const noexcept { return m_objects.empty(); }
+    /*!*********************************************************************
+    \brief
+      Checks if the current prefab contains any child/nested components
+    \return
+      True if child components exist and false otherwise
+    ************************************************************************/
+    inline bool HasChildComponents() const noexcept { return !m_objects.empty(); }
 
     /*!*********************************************************************
     \brief
@@ -69,6 +92,26 @@ namespace GE::Prefabs
     ************************************************************************/
     ECS::Entity Construct() const;
 
+    /*!*********************************************************************
+    \brief
+      Creates a sub-object of given the set of entity IDs from the ECS and
+      adds it to m_objects vector. Calling this function does not require
+      the 2nd argument to be used. This function is called recursively 
+      called downwards for each child in the set until an entity without 
+      children is encountered.
+    \param children
+      The list of child entities of the current entity
+    \param parent
+      The SubDataId of the parent (current) object
+      This is defaulted to the BasePrefabId and should not be used
+      externally.
+    ************************************************************************/
+    void CreateSubData(std::set<ECS::Entity> const& children, PrefabSubData::SubDataId parent = PrefabSubData::BasePrefabId);
+
+    /*!*********************************************************************
+    \brief
+      Resets the VariantPrefab object 
+    ************************************************************************/
     void Clear() noexcept;
 
     std::string m_name;

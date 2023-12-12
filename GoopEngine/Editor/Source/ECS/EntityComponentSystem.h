@@ -112,7 +112,7 @@ namespace GE
 			\return
 				Parent of the entity.
 			********************************************************************/
-			Entity GetParentEntity(Entity& entity);
+			Entity GetParentEntity(Entity const& entity) const;
 
 			/*!******************************************************************
 			\brief
@@ -186,7 +186,7 @@ namespace GE
 			\return
 				Name of the entity
 			********************************************************************/
-			std::string GetEntityName(Entity& entity);
+			std::string GetEntityName(Entity const& entity) const;
 
 			/*!*********************************************************************
 			\brief
@@ -279,16 +279,31 @@ namespace GE
 				A specific component's signature.
 			************************************************************************/
 			template <typename T>
-			ComponentType GetComponentSignature();
+			ComponentType GetComponentSignature() const;
 
 			/*!******************************************************************
 			\brief
 				Calls EntityManager's GetComponentSignature function.
 
+			\param entity
+				Entity to get the signature of
+
 			\return
 				The component signature makeup of an entity
 			********************************************************************/
-			ComponentSignature GetComponentSignature(Entity& entity);
+			ComponentSignature GetComponentSignature(Entity& entity) const;
+
+			/*!*********************************************************************
+			\brief
+			  Returns the number of components of an entity
+
+			\param entity
+				Entity to count the components of
+
+			\return
+			  The number of components the entity has
+			************************************************************************/
+			unsigned GetEntityComponentCount(Entity const& entity) const;
 
 			/*!******************************************************************
 			\brief
