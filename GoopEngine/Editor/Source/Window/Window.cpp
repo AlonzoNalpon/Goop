@@ -38,6 +38,10 @@ namespace WindowSystem {
       throw GE::Debug::Exception<Window>(GE::Debug::LEVEL_CRITICAL,
         ErrMsg("Failed to initialize GLFW!"));
     }
+
+    // Get window width and height
+    GetMonitorDimensions(m_windowWidth, m_windowHeight);
+
     // Set the window hint to make the window non-resizable
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
@@ -136,6 +140,16 @@ namespace WindowSystem {
   void Window::MinimizeWindow()
   {
     glfwIconifyWindow(m_window);
+  }
+
+  void Window::GetMonitorDimensions(int& width, int& height)
+  {
+    int monitorCount{};
+    auto** monitors = glfwGetMonitors(&monitorCount);
+    auto* currMonitor = monitors[0];
+    const GLFWvidmode* mode = glfwGetVideoMode(currMonitor);
+    width = mode->width;
+    height = mode->height;
   }
 
   void Window::KeyCallback(GLFWwindow* /*window*/, int /*key*/, int /*scancode*/, int /*action*/, int /*mods*/)

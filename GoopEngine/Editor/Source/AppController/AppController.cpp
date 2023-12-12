@@ -47,7 +47,7 @@ namespace
 namespace GE::Application
 {
   AppController::AppController() :
-    window{ 0, 0, nullptr },
+    window{ 0, 0, "Goop Engine" },
     gEngine{ Graphics::GraphicsEngine::GetInstance() },
     fRC{ GE::FPS::FrameRateController::GetInstance() },
     im{ GE::Input::InputManager::GetInstance() },
@@ -71,7 +71,9 @@ namespace GE::Application
 
     fRC.InitFrameRateController(am->GetConfigData<int>("FPS Limit"), am->GetConfigData<int>("Steps Per Second"), am->GetConfigData<int>("FPS Check Interval"));
 
-    window = { am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), "Goop Engine"};
+    // window = { am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), "Goop Engine"};
+    // Now we create window with detected resolution
+    
     window.CreateAppWindow();
 
     gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color

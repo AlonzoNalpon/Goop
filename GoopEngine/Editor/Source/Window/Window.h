@@ -105,7 +105,24 @@ namespace WindowSystem {
     ************************************************************************/
     void ToggleFullscreen();
 
+    /*!*********************************************************************
+    \brief
+      Minimizes the window. This function does nothing if window is already
+      minimized.
+    \params
+    \return
+    ************************************************************************/
     void MinimizeWindow();
+
+    /*!*********************************************************************
+    \brief
+      Gets the monitor resolution. Typically used for setting resolution.
+    \params
+      width
+      height
+    \return
+    ************************************************************************/
+    static void GetMonitorDimensions(int& width, int& height);
   protected:
     /*!*********************************************************************
     \brief
