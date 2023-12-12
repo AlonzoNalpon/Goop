@@ -1,6 +1,29 @@
+/*!*********************************************************************
+\file   PrefabManager.cpp
+\author chengen.lau\@digipen.edu
+\date   27-November-2023
+\brief
+  This file contains the definition of PrefabManager singleton.
+  It is responsible for the mapping of entities to the prefabs they
+  were created from. This is to allow each instance to be updated by
+  any changes made to the prefab itself. The functions below are
+  used to facilitate the adding and removing of entities to prefabs,
+  as well as the updating of components based on prefabs.
+  Currently, the PrefabManager attaches a "version" to each prefab so
+  that only outdated entities are updated with the prefab's components
+  upon loading a scene.
+
+  ** THIS CLASS ONLY RUNS IN THE EDITOR **
+  
+  Further improvements can be made so that an entity's component 
+  should no longer be updated if it was changed externally through
+  inspector.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #ifndef IMGUI_DISABLE
-#include <PrefabManager/PrefabManager.h>
+#include <Prefabs/PrefabManager.h>
 #include <ECS/EntityComponentSystem.h>
 #include <ObjectFactory/ObjectFactory.h>
 #include <Serialization/Serializer.h>
@@ -44,24 +67,32 @@ GE::ECS::Entity PrefabManager::SpawnPrefab(const std::string& key)
   PrefabDataContainer::const_iterator iter{ m_prefabs.find(key) };
   if (iter == m_prefabs.end())
   {
-    ReloadPrefabs();
-    if ((iter = m_prefabs.find(key)) == m_prefabs.end())
-    {
-      throw GE::Debug::Exception<PrefabManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
-    }
-  }
-  auto& ecs = ECS::EntityComponentSystem::GetInstance();
+    throw GE::Debug::Exception<PrefabManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
 
+    // Commented out for now - I think reloading should be responsibility of whoever calls this function
+    //ReloadPrefabs();
+    //if ((iter = m_prefabs.find(key)) == m_prefabs.end())
+    //{
+    //  throw GE::Debug::Exception<PrefabManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
+    //}
+  }
+
+#ifdef PREFAB_V2
+  ECS::Entity newEntity{ iter->second.Construct() };
+
+  // set entity's prefab source
+  m_entitiesToPrefabs[newEntity] = { key, GetPrefabVersion(key) };
+#else
+  auto& ecs = ECS::EntityComponentSystem::GetInstance();
   ECS::Entity newEntity{ ecs.CreateEntity() };
   ObjectFactory::ObjectFactory::GetInstance().AddComponentsToEntity(newEntity, iter->second.m_components);
 
-#ifndef IMGUI_DISABLE
-  // update entity's prefab if needed
-  Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
-  pm.AttachPrefab(newEntity, { key, pm.GetPrefabVersion(key) });
-#endif
+  // set entity's prefab source
+  m_entitiesToPrefabs[newEntity] = { key, GetPrefabVersion(key) };
 
   ecs.SetEntityName(newEntity, key);
+#endif
+
   return newEntity;
 }
 

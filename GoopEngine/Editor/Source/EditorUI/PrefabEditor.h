@@ -14,7 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #ifndef IMGUI_DISABLE
 #include <ImGui/imgui.h>
 #include <rttr/type.h>
-#include <ObjectFactory/ObjectStructs.h>
+#include <Prefabs/VariantPrefab.h>
 #include <Component/Velocity.h>
 
 namespace GE

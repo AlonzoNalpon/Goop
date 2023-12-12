@@ -156,7 +156,7 @@ void GE::ECS::EntityManager::RemoveChildEntity(Entity& parent, Entity& child)
 	m_children[parent].erase(child);
 }
 
-std::string GE::ECS::EntityManager::SetEntityName(Entity& entity, std::string newName)
+std::string GE::ECS::EntityManager::SetEntityName(Entity const& entity, std::string newName)
 {
 	// Entity should not exist
 	if (m_names.find(entity) == m_names.end())

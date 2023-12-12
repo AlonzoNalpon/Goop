@@ -212,7 +212,7 @@ namespace GE
 			\return
 				New name of the entity
 			********************************************************************/
-			std::string SetEntityName(Entity& entity, std::string newName);
+			std::string SetEntityName(Entity const& entity, std::string newName);
 
 			/*!*********************************************************************
 			\brief

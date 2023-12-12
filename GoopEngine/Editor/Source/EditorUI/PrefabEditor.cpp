@@ -20,7 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Components.h>
 #include <Utilities/GoopUtils.h>
 #include <EditorUI/AssetBrowser.h>
-#include <PrefabManager/PrefabManager.h>
+#include <Prefabs/PrefabManager.h>
 #include <rttr/enumeration.h>
 // Disable reinterpret to larger size
 #pragma warning(disable : 4312)

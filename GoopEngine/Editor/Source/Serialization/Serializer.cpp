@@ -20,7 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ObjectFactory/ObjectFactory.h>
 #include <rttr/enumeration.h>
 #ifndef IMGUI_DISABLE
-#include <PrefabManager/PrefabManager.h>
+#include <Prefabs/PrefabManager.h>
 #endif
 
 namespace GE

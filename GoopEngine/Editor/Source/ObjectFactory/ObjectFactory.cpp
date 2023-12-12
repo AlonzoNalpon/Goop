@@ -3,7 +3,17 @@
 \author loh.j@digipen.edu
 \date   28 September 2023
 \brief
-  Parses in data and stores it in a map to be used in the future.
+  Contains the definition of the ObjectFactory singleton class, which
+  encapsulates functions and data members to facilitate the creation
+  of objects in the scene. The class serves as a middle-man between
+  serialization and the actual entities in the scene. It is responsible
+  for the creation/cloning of entities and adding of components through
+  the ECS.
+
+  On load, the ObjectFactory holds the deserialized data for the scene.
+  Upon reloading, the objects are loaded from here without the need to
+  deserialize again. Only when changing scenes will a full reload be
+  required.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -15,7 +25,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Serialization/Deserializer.h>
 #ifndef IMGUI_DISABLE
-#include <PrefabManager/PrefabManager.h>
+#include <Prefabs/PrefabManager.h>
 #endif
 
 using namespace GE::ObjectFactory;

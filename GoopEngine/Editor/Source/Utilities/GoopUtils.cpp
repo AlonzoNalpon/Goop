@@ -13,7 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "GoopUtils.h"
 #include <random>
 #ifndef IMGUI_DISABLE
-#include <PrefabManager/PrefabManager.h>
+#include <Prefabs/PrefabManager.h>
 #endif
 
 namespace GE::GoopUtils 

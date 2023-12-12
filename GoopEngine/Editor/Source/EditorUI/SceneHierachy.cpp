@@ -19,7 +19,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <ObjectFactory/SerializeComponents.h>
 #include <Commands/CommandManager.h>
-#include <PrefabManager/PrefabManager.h>
+#include <Prefabs/PrefabManager.h>
 
 #define _USE_MATH_DEFINES
 #include <math.h>

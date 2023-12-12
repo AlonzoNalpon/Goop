@@ -9,23 +9,22 @@
   any changes made to the prefab itself. The functions below are
   used to facilitate the adding and removing of entities to prefabs,
   as well as the updating of components based on prefabs.
+  Currently, the PrefabManager attaches a "version" to each prefab so
+  that only outdated entities are updated with the prefab's components
+  upon loading a scene.
 
   ** THIS CLASS ONLY RUNS IN THE EDITOR **
-
-  Currently, the PrefabManager will update all instances upon loading
-  a scene or saving a prefab (through listening for the event).
-  In future, it aims to be optimized through attaching a "version"
-  to each prefab so that only outdated entities need to be updated
-  with the prefab's components.
-  Additionally, an entity's component should also not be updated if
-  it was changed externally.
+  
+  Further improvements can be made so that an entity's component 
+  should no longer be updated if it was changed externally through
+  inspector.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #ifndef IMGUI_DISABLE
 #include <Singleton/Singleton.h>
-#include <ObjectFactory/ObjectStructs.h>
+#include <Prefabs/VariantPrefab.h>
 #include <unordered_map>
 #include <ECS/Entity/Entity.h>
 #include <Events/Listener.h>
@@ -135,7 +134,6 @@ namespace GE
         The name of the new prefab
       ************************************************************************/
       void CreatePrefabFromEntity(ECS::Entity entity, std::string const& name) const;
-      void CreatePrefabFromEntity2(ECS::Entity entity, std::string const& name) const;
 
       /*!*********************************************************************
       \brief

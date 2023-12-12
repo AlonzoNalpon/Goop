@@ -18,7 +18,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <EditorUI/EditorViewport.h>
-#include <PrefabManager/PrefabManager.h>
+#include <Prefabs/PrefabManager.h>
 #endif
 
 using namespace GE::ECS;

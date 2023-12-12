@@ -163,7 +163,8 @@
     <ClCompile Include="Source\AI\TreeManager.cpp" />
     <ClCompile Include="Source\EditorUI\EditorTheme.cpp" />
     <ClCompile Include="Source\EditorUI\SpriteAnimEditor.cpp" />
-    <ClCompile Include="Source\PrefabManager\PrefabManager.cpp" />
+    <ClCompile Include="Source\Prefabs\PrefabManager.cpp" />
+    <ClCompile Include="Source\Prefabs\VariantPrefab.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptUtils.cpp" />
     <ClCompile Include="Source\Serialization\Registration\RegisterEnumsAndFuncs.cpp" />
     <ClCompile Include="Source\Systems\Audio\AudioSystem.cpp" />
@@ -412,7 +413,8 @@
     <ClInclude Include="Source\MemoryManager\ListAllocator.h" />
     <ClInclude Include="Source\MemoryManager\MemoryManager.h" />
     <ClInclude Include="Source\EditorUI\SceneHierachy.h" />
-    <ClInclude Include="Source\PrefabManager\PrefabManager.h" />
+    <ClInclude Include="Source\Prefabs\PrefabManager.h" />
+    <ClInclude Include="Source\Prefabs\VariantPrefab.h" />
     <ClInclude Include="Source\SceneManager\SceneManager.h" />
     <ClInclude Include="Source\Scenes\Scene.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptInstance.h" />

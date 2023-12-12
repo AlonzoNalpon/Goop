@@ -23,7 +23,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/BoxCollider.h>
 
 #include <Component/Sprite.h>
-#include <PrefabManager/PrefabManager.h>
+#include <Prefabs/PrefabManager.h>
 #include <InputManager/InputManager.h>
 #include <filesystem>
 #include <GameStateManager/GameStateManager.h>

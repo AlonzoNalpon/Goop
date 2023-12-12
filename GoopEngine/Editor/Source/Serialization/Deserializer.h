@@ -16,6 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rttr/type.h>
 #include <AI/TreeManager.h>
 #include <ObjectFactory/ObjectFactory.h>
+#include <Prefabs/VariantPrefab.h>
 
 #ifdef _DEBUG
 std::ostream& operator<<(std::ostream& os, rttr::type const& type);
@@ -68,7 +69,6 @@ namespace GE
         The VariantPrefab object
       ************************************************************************/
       static Prefabs::VariantPrefab DeserializePrefabToVariant(std::string const& json);
-      static Prefabs::VariantPrefab2 DeserializePrefabToVariant2(std::string const& json);
 
       /*!*********************************************************************
       \brief
@@ -107,6 +107,8 @@ namespace GE
               "Components", rapidjson::kArrayType)
       \param value
         The rapidjson::Value to validate
+      \param filename
+        The name of the file (used for printing err msg)
       \param keyCount
         The number of fields (key-value pairs) to check
       \param ...
@@ -115,7 +117,7 @@ namespace GE
        
       \return
       ************************************************************************/
-      static bool ScanJsonFileForMembers(rapidjson::Value const& value, unsigned keyCount, ...);
+      static bool ScanJsonFileForMembers(rapidjson::Value const& value, std::string const& filename, unsigned keyCount, ...);
 
     private:
 

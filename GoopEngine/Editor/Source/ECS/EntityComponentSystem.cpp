@@ -91,7 +91,7 @@ Entity GE::ECS::EntityComponentSystem::GetEntity(std::string const& name)
 	return m_entityManager.get()->GetEntity(name);
 }
 
-std::string GE::ECS::EntityComponentSystem::SetEntityName(Entity& entity, std::string newName)
+std::string GE::ECS::EntityComponentSystem::SetEntityName(Entity const& entity, std::string newName)
 {
 	return m_entityManager->SetEntityName(entity, newName);
 }

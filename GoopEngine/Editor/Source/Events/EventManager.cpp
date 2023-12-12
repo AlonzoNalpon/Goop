@@ -16,7 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/GameSystem/GameSystem.h>
 #ifndef IMGUI_DISABLE
 #include <EditorUI/EditorViewport.h>
-#include <PrefabManager/PrefabManager.h>
+#include <Prefabs/PrefabManager.h>
 #endif
 
 using namespace GE::Events;

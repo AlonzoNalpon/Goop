@@ -4,12 +4,12 @@
 \co-author  chengen.lau\@digipen.edu
 \date       28 September 2023
 \brief
-  This file contains the definition of the ObjectFactory singleton
-  class, which encapsulates functions and data members to facilitate
-  the creation of objects in the scene. The class serves as a middle-
-  man between serialization and the actual entities in the scene.
-  It is responsible for the creation/cloning of entities and adding
-  of components through the ECS.
+  Contains the definition of the ObjectFactory singleton class, which 
+  encapsulates functions and data members to facilitate the creation 
+  of objects in the scene. The class serves as a middle-man between
+  serialization and the actual entities in the scene. It is responsible 
+  for the creation/cloning of entities and adding of components through
+  the ECS.
 
   On load, the ObjectFactory holds the deserialized data for the scene.
   Upon reloading, the objects are loaded from here without the need to

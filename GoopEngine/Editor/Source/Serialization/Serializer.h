@@ -17,7 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Scripts.h>
 #include <Component/Sprite.h>
 #include <rttr/type.h>
-#include <ObjectFactory/ObjectStructs.h>
+#include <Prefabs/VariantPrefab.h>
 
 namespace GE
 {
