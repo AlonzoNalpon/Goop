@@ -16,7 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <vector>
 #include <initializer_list>
 #include <glm.hpp>
-namespace Graphics {
+namespace GE::Graphics {
 // Minimize this region if you want to see the instances below templates
 #pragma region TEMPLATES
 #pragma warning(disable : 4201)   // anonymous structure in union

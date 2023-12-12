@@ -14,7 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/Def/GraphicsTypes.h>
 #include <Graphics/ShaderProgram.h>
 
-namespace Graphics::Rendering
+namespace GE::Graphics::Rendering
 {
   /*!
    * \class FontRenderer

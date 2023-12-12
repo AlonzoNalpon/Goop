@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include <Graphics/Fonts/FontManager.h>
 #include <DebugTools/Exception/Exception.h>
-namespace Graphics::Fonts
+namespace GE::Graphics::Fonts
 {
   void FontManager::Init(GLuint _fontShader, GLuint _fontQuad)
   {

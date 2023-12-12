@@ -13,7 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <SpriteAnimation/SpriteAnimGenerator.h>
 #include <SpriteAnimation/SpriteAnimation.h>
 #include <SpriteAnimation/Def/SpriteAnimGenFormat.h>
-namespace Graphics{
+namespace GE::Graphics{
   /*!
    * \class SpriteAnimGenerator
    * \brief  

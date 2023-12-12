@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include <SpriteAnimation/SpriteAnimationManager.h>
 
-namespace Graphics
+namespace GE::Graphics
 {
 
   size_t SpriteAnimationManager::GetAnimID(std::string const& name) const noexcept

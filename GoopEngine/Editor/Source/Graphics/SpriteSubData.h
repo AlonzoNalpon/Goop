@@ -12,7 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #define SPRITE_SUB_DATA
 
 #include <Graphics/Def/GraphicsTypes.h>
-namespace Graphics {
+namespace GE::Graphics {
   /*!
    * \struct SpriteData
    * \brief

@@ -2,7 +2,7 @@
 #define FRAME_BUFFER_INFO_H
 #include <Graphics/Def/GraphicsTypes.h>
 #include <Graphics/Renderer/Camera.h>
-namespace Graphics::Rendering
+namespace GE::Graphics::Rendering
 {
 
   struct FrameBufferInfo

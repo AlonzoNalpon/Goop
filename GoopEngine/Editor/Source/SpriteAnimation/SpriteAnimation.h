@@ -13,7 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/Def/GraphicsTypes.h>
 #include <Graphics/SpriteData.h>
 #include <SpriteAnimation/Def/SpriteAnimationFlags.h>
-namespace Graphics 
+namespace GE::Graphics 
 {
   /*!
    * \struct SpriteAnimation

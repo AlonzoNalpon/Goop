@@ -16,7 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
  * The class is also in charge of allocation/deallocation of texture objects
  * stored in the GPU.
  */
-namespace Graphics {
+namespace GE::Graphics {
 
   struct Texture
   {

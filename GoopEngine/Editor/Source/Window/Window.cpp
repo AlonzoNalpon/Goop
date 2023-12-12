@@ -11,17 +11,20 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Def.h>
 #include <iostream>
 #include <Window/Window.h>
-#include <DebugTools/Exception/Exception.h>
-#include <Events/EventManager.h>
-#include <InputManager/InputManager.h>
-namespace WindowSystem {
+#include <Graphics/GraphicsEngine.h>
+
+namespace WindowSystem 
+{
+
   Window::Window(int width, int height, char const* title) :
     m_windowWidth{ width }, m_windowHeight{ height }, m_title{ title }, m_window {} {}
+
   Window::~Window()
   {
     glfwDestroyWindow(m_window);
     glfwTerminate();
   }
+
   Window& Window::operator=(const Window* other)
   {
     // Copy the value from the other object
@@ -31,6 +34,7 @@ namespace WindowSystem {
     this->m_window = other->m_window;
     return *this;
   }
+
   bool Window::CreateAppWindow()
   {
     // Attempt to initialize GLFW
@@ -39,8 +43,18 @@ namespace WindowSystem {
         ErrMsg("Failed to initialize GLFW!"));
     }
 
-    // Get window width and height
-    GetMonitorDimensions(m_windowWidth, m_windowHeight);
+    GE::Assets::AssetManager& am { GE::Assets::AssetManager::GetInstance() };
+    bool shouldFullScreen = am.GetConfigData<bool>("Fullscreen");
+    if (shouldFullScreen)
+    {
+      // Get window width and height
+      GetMonitorDimensions(m_windowWidth, m_windowHeight);
+    }
+    else
+    {
+      m_windowWidth = am.GetConfigData<int>("Window Width");
+      m_windowHeight = am.GetConfigData<int>("Window Height");
+    }
 
     // Set the window hint to make the window non-resizable
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
@@ -68,8 +82,10 @@ namespace WindowSystem {
     glfwSetErrorCallback(ErrorCallback);       // Error callback
     glfwSetKeyCallback(m_window, KeyCallback); // key callback
 
-
-    ToggleFullscreen(); // Switch to fullscreen
+    if (shouldFullScreen)
+    {
+      ToggleFullscreen(); // Switch to fullscreen
+    }
     return true;
   }
 
@@ -124,6 +140,8 @@ namespace WindowSystem {
     {
       // Switch to windowed mode
       glfwSetWindowMonitor(m_window, nullptr, m_windowXPos, m_windowYPos, m_windowWidth, m_windowHeight, GLFW_DONT_CARE);
+      GE::Input::InputManager::GetInstance().SetDim(m_windowWidth, m_windowHeight);
+      GE::Graphics::GraphicsEngine::GetInstance().SetDim(m_windowWidth, m_windowHeight);
     }
     else
     {
@@ -134,6 +152,8 @@ namespace WindowSystem {
       auto* currMonitor = monitors[0];
       const GLFWvidmode* mode = glfwGetVideoMode(currMonitor);
       glfwSetWindowMonitor(m_window, currMonitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+      GE::Input::InputManager::GetInstance().SetDim(mode->width, mode->height);
+      GE::Graphics::GraphicsEngine::GetInstance().SetDim(mode->width, mode->height);
     }
   }
 

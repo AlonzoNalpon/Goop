@@ -12,7 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #define CHARACTER_H
 #include <Graphics/Def/GraphicsTypes.h>
 #include <def.h>
-namespace Graphics::Fonts
+namespace GE::Graphics::Fonts
 {
   /*!
    * \struct Character

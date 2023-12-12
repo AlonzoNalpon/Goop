@@ -12,7 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #define RENDER_DATA_H
 #include <Graphics/Def/GraphicsTypes.h>
 
-namespace Graphics::Rendering
+namespace GE::Graphics::Rendering
 {
   /*!
    * \struct Transform

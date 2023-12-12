@@ -16,7 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <FrameRateController/FrameRateController.h>
 #include <SpriteAnimation/SpriteAnimGenerator.h>
   
-namespace Graphics {
+namespace GE::Graphics {
   
 namespace {
   struct 
@@ -126,6 +126,12 @@ namespace {
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
       // Handle error
     }
+  }
+
+  void GraphicsEngine::SetDim(int width, int height)
+  {
+    m_vpWidth = width;
+    m_vpHeight = height;
   }
 
   GLuint GraphicsEngine::GetRenderTexture()

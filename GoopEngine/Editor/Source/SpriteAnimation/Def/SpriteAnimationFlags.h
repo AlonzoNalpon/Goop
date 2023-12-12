@@ -11,7 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #ifndef SPRITE_ANIMATION_FLAGS_H
 #define SPRITE_ANIMATION_FLAGS_H
 #include <def.h>
-namespace Graphics
+namespace GE::Graphics
 {
   /*!
    * \class SPRITE_ANIM_FLAGS

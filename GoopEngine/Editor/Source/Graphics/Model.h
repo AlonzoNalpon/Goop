@@ -16,7 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
  * This struct contains basic information required for rendering objects.
  * 
  */
-namespace Graphics
+namespace GE::Graphics
 {
   struct Model {
     GLenum primitive_type; //!<which OpenGL primitive to be rendered? (triangle strip for example)

@@ -19,7 +19,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <def.h>
 #include <Graphics/Fonts/Character.h>
 #include <Graphics/Model.h>
-namespace Graphics::Fonts
+namespace GE::Graphics::Fonts
 {
   /*!
    * \class FontManager

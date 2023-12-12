@@ -13,7 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Def.h>
 #include <fstream>
 #include <sstream>
-namespace Graphics {
+namespace GE::Graphics {
 
   GLboolean ShaderProgram::CompileFromString(GLenum shaderType, std::string const& shaderSrc)
   {

@@ -14,7 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <vector>
 #include <map>
 // a better alternative to automatically storing and deleting textures coming soon
-namespace Graphics {
+namespace GE::Graphics {
   class TextureManager{
   public:
     /*!*********************************************************************

@@ -16,7 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/Renderer/Camera.h>
 #include <Graphics/Fonts/FontManager.h>
 #include <Graphics/Renderer/FrameBufferInfo.h>
-namespace Graphics::Rendering
+namespace GE::Graphics::Rendering
 {
   /*!
    * \class Renderer

@@ -13,7 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <map>
 #include <string>
 #include <SpriteAnimation/SpriteAnimation.h>
-namespace Graphics 
+namespace GE::Graphics 
 {
   /*!
    * \class SpriteAnimationManager

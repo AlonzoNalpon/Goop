@@ -11,7 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include <Graphics/TextureManager.h>
 #include <DebugTools/Exception/Exception.h>
-namespace Graphics
+namespace GE::Graphics
 {
 
   GLuint TextureManager::AddTexture(std::string const& name, GLint w, GLint h, unsigned char const* imageData)

@@ -11,7 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/Renderer/Camera.h>
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
-namespace Graphics::Rendering
+namespace GE::Graphics::Rendering
 {
   Camera::Camera(gVec3 pos, gVec3 tgt, gVec3 up,
     GLfloat left, GLfloat right, GLfloat bottom, GLfloat top,

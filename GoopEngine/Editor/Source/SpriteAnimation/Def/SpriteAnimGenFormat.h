@@ -11,7 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef SPRITE_ANIM_GEN_FORMAT_H
 #define SPRITE_ANIM_GEN_FORMAT_H
-namespace Graphics {
+namespace GE::Graphics {
 
   enum class SPRITE_ANIM_FORMAT
   {

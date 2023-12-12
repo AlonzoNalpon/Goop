@@ -15,7 +15,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <gl/glew.h>
 #include <string>
 #include <vector>
-namespace Graphics {
+namespace GE::Graphics {
   using ShaderInitCont = std::vector<std::pair<GLenum, std::string>>;
   
   /*!

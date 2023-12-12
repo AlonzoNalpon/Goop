@@ -18,8 +18,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Math/GEM.h>
 #include <Graphics/Fonts/FontManager.h>
 #include <Graphics/Renderer/FrameBufferInfo.h>
-namespace Graphics {
-    
+namespace GE::Graphics {
+
   // The graphics engine responsible for any opengl calls
   class GraphicsEngine : public GE::Singleton<GraphicsEngine>
   {
@@ -41,6 +41,20 @@ namespace Graphics {
     \return
     ************************************************************************/
     void Init(Colorf clearColor, GLint w, GLint h);
+
+    /*!*********************************************************************
+    \brief
+      Sets the new dimensions to compute the input with
+
+    \param width
+      New input region width
+
+    \param height
+      New input region height
+
+    \return
+    ************************************************************************/
+    void SetDim(int width, int height);
 
     /*!*********************************************************************
     \brief Initializes the main framebuffer.

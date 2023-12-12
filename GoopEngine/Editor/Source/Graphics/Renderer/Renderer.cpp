@@ -16,7 +16,7 @@ namespace
   };
 }
 
-namespace Graphics::Rendering {
+namespace GE::Graphics::Rendering {
   Renderer::Renderer(std::vector<Model> const& mdlContainer, TextureManager const& texManager,
     ShaderCont const& shaderCont, Fonts::FontManager const& fontManager, GLint const& vpWidth, GLint const& vpHeight,
     std::map < gObjID, FrameBufferInfo> const& frameBuffers)

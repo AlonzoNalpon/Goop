@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #ifndef CAMERA_H
 #define CAMERA_H
 #include <Graphics/Def/GraphicsTypes.h>
-namespace Graphics::Rendering
+namespace GE::Graphics::Rendering
 {
   /*!
    * \class Camera

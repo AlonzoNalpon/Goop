@@ -12,7 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include <SpriteAnimation/SpriteAnimGenerator.h>
 #include <DebugTools/Exception/Exception.h>
-namespace Graphics {
+namespace GE::Graphics {
   SpriteAnimation SpriteAnimGenerator::GenerateAnimData(GLuint slices, GLuint stacks, GLuint frames,
     GLuint spriteW, GLuint spriteH, f64 speed, u32 flags, GLuint texture)
   {
