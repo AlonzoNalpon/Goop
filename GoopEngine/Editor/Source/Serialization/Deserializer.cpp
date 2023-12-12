@@ -737,14 +737,6 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
   else if (type == rttr::type::get<Component::Scripts>())
   {
     //GE::Debug::ErrorLogger::GetInstance().LogMessage("Deserializing of Script component is skipped for now");
-    // get entity id
-    rapidjson::Value::ConstMemberIterator idIter{ value.FindMember("entityId") };
-    if (idIter == value.MemberEnd())
-    {
-      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"entityId\" property in Script component");
-      return true;
-    }
-
     // get vector of script instances
     rttr::variant scriptMap{ Component::Scripts::ScriptInstances{} };
     rapidjson::Value::ConstMemberIterator listIter{ value.FindMember("scriptList") };
@@ -755,7 +747,7 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
     }
     DeserializeBasedOnType(scriptMap, listIter->value);
 
-    compVar = type.create({ idIter->value.GetUint(), scriptMap.get_value<Component::Scripts::ScriptInstances>() });
+    compVar = type.create({ scriptMap.get_value<Component::Scripts::ScriptInstances>() });
 
     return true;
   }

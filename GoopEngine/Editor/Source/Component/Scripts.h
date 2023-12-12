@@ -23,7 +23,6 @@ namespace GE
 		{
 			using ScriptInstances = std::vector<ScriptInstance>;
 
-			ECS::Entity m_entityId;
 			ScriptInstances m_scriptList; //m_scriptMap
 
 			Scripts() {}
@@ -38,29 +37,6 @@ namespace GE
 			\params entityID
 			 ID of the entity this component belongs to
 			************************************************************************/
-			Scripts(std::vector<std::string> const& scriptNames, unsigned int entityID) : m_entityId{ entityID }
-			{
-				for (const std::string& s : scriptNames)
-				{
-					ScriptInstances::iterator it = std::find_if(m_scriptList.begin(), m_scriptList.end(), [s](const ScriptInstance& script) { return script.m_scriptName == s; });
-					if (it == m_scriptList.end())
-					{
-						try
-						{
-							unsigned int copy = entityID;
-							std::vector<void*> arg{ &copy };
-							m_scriptList.emplace_back(s,arg);
-						}
-						catch (GE::Debug::IExceptionBase& e)
-						{
-							e.LogSource();
-							e.Log();
-							throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + s, ERRLG_FUNC, ERRLG_LINE);
-						}
-					}
-
-				}
-			}
 			Scripts(std::vector<std::string> const& scriptNames)
 			{
 				for (const std::string& s : scriptNames)
@@ -83,7 +59,7 @@ namespace GE
 				}
 			}
 
-			Scripts(unsigned int entityID, const ScriptInstances& scriptList) : m_entityId{ entityID }, m_scriptList{ scriptList } {}
+			Scripts(const ScriptInstances& scriptList) : m_scriptList{ scriptList } {}
 
 
 
@@ -124,11 +100,11 @@ namespace GE
 			\brief
 				function to update all the script attacehed to the entity
 			************************************************************************/
-			void UpdateAllScripts()
+			void UpdateAllScripts(GE::ECS::Entity entityId)
 			{
 				double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 				for (ScriptInstance cs : m_scriptList) {
-					cs.InvokeOnUpdate(dt);
+					cs.InvokeOnUpdate(entityId, dt);
 				}
 			}
 

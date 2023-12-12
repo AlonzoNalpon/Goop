@@ -2,7 +2,7 @@
 #include <Systems/DraggableObject/DraggableObjectSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <Systems/Physics/PhysicsSystem.h>
-#include <Systems/PlayerController/PlayerControllerSystem.h>
+#include <Systems/ScriptSystem/ScriptSystem.h>
 #include <Systems/Rendering/CameraSystem.h>
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/RootTransform/PostRootTransformSystem.h>

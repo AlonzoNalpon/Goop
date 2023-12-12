@@ -9,7 +9,7 @@ using namespace GE::ECS;
 using namespace GE::Systems;
 using namespace GE::Component;
 using namespace GE::Input;
-using namespace Graphics;
+using namespace GE::Graphics;
 
 //AABB & mouse input
 bool CollisionSystem::Collide(BoxCollider& box, dVec2& input)

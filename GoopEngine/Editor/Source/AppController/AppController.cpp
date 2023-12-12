@@ -96,7 +96,7 @@ namespace GE::Application
 
     fMod.Init();
 
-    im.InitInputManager(window.GetWindow(), am->GetConfigData<int>("Window Width"), am->GetConfigData<int>("Window Height"), 0.1);
+    im.InitInputManager(window.GetWindow(), window.GetWinWidth(), window.GetWinHeight(), 0.1);
   }
   
   void AppController::Run()

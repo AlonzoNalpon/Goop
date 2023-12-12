@@ -40,7 +40,6 @@
             },
             {
                 "Scripts": {
-                    "entityId": 0,
                     "scriptList": [
                         {
                             "scriptName": "Stats",
@@ -326,7 +325,6 @@
             },
             {
                 "Scripts": {
-                    "entityId": 0,
                     "scriptList": [
                         {
                             "scriptName": "Stats",

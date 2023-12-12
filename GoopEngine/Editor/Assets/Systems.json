@@ -3,10 +3,7 @@
 	"GameSystem": [
 		"Game"
 	],
-	"PlayerControllerSystem": [	
-		"Transform",
-        "Sprite",
-        "SpriteAnim",
+	"ScriptSystem": [	
 		"Scripts"
 	],
 	"TweenSystem" : [

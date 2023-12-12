@@ -396,8 +396,8 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     RegisterComponentsToSystem<Systems::PhysicsSystem>(sig);
     break;
   case SYSTEM_TYPES::PLAYER_CONTROLLER:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PlayerControllerSystem>();
-    RegisterComponentsToSystem<Systems::PlayerControllerSystem>(sig);
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::ScriptSystem>();
+    RegisterComponentsToSystem<Systems::ScriptSystem>(sig);
     break;
   case SYSTEM_TYPES::RENDERING:
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::RenderSystem>();

@@ -287,7 +287,7 @@ namespace
 				{
 					if (payload->Data)
 					{
-						auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+						auto const& texManager = GE::Graphics::GraphicsEngine::GetInstance().textureManager;
 						const char* droppedPath = static_cast<const char*>(payload->Data);
 						std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
 						if (ecs.HasComponent<GE::Component::Sprite>(entity))
@@ -297,7 +297,7 @@ namespace
 						}
 						else
 						{
-							auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+							auto& gEngine = GE::Graphics::GraphicsEngine::GetInstance();
 							GE::Component::Sprite sprite{ gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
 							ecs.AddComponent(entity, sprite);
 						}
@@ -308,7 +308,7 @@ namespace
 				{
 					if (payload->Data)
 					{
-						auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+						auto& gEngine = GE::Graphics::GraphicsEngine::GetInstance();
 
 						//auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
 						const char* droppedPath = static_cast<const char*>(payload->Data);

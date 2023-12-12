@@ -122,7 +122,7 @@ namespace GE {
 			\brief
 				Function to invoke the OnUpdate method of the c# script class
 			************************************************************************/
-			void InvokeOnUpdate(double dt);
+			void InvokeOnUpdate(GE::ECS::Entity m_entityId, double dt);
 
 
 			/*!*********************************************************************

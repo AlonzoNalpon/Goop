@@ -149,6 +149,17 @@ namespace GoopScripts.Gameplay
     public void SetCardInQueue(int index, CardBase.CardID cardID)
     {
       m_cardQueue[index] = cardID;
-    }
-  }
+		}
+
+		public void OnDestroy(uint entity)
+		{
+
+		}
+
+		public void OnUpdate(uint entity, double dt)
+		{
+      //Utils.SendString($"{entity} and {dt}");
+		}
+
+	}
 }

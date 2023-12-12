@@ -72,6 +72,11 @@ void InputManager::InitInputManager(GLFWwindow* window, int width, int height, d
 	glfwSetScrollCallback(window, MouseScrollCallback);
 }
 
+void InputManager::SetDim(int width, int height)
+{
+	m_height = height;
+	m_width = width;
+}
 
 void InputManager::UpdateInput()
 {

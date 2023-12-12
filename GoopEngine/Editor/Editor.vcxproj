@@ -290,7 +290,7 @@
     <ClCompile Include="Source\Systems\Text\TextRenderSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\PhysicsSystem.cpp" />
-    <ClCompile Include="Source\Systems\PlayerController\PlayerControllerSystem.cpp" />
+    <ClCompile Include="Source\Systems\ScriptSystem\ScriptSystem.cpp" />
     <ClCompile Include="Source\Systems\Rendering\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="Source\EditorUI\ImGuiUI.cpp" />
@@ -447,7 +447,7 @@
     <ClInclude Include="Source\Systems\ObjectAnchor\ObjectAnchorSystem.h" />
     <ClInclude Include="Source\Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
-    <ClInclude Include="Source\Systems\PlayerController\PlayerControllerSystem.h" />
+    <ClInclude Include="Source\Systems\ScriptSystem\ScriptSystem.h" />
     <ClInclude Include="Source\EditorUI\ImGuiUI.h" />
     <ClInclude Include="Source\Systems\Rendering\CameraSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\PostRootTransformSystem.h" />

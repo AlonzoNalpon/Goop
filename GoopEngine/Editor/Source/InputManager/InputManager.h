@@ -154,6 +154,20 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+				Sets the new dimensions to compute the input with
+			  
+			\param width
+				New input region width
+
+			\param height
+				New input region height
+
+			\return
+			************************************************************************/
+			void SetDim(int width, int height);
+
+			/*!*********************************************************************
+			\brief
 				.Function to update the Input for this frame. It will call GLFWPollEvents to get all key triggers and update the btiset
 
 			************************************************************************/

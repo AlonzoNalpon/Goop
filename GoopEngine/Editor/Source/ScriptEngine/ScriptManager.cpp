@@ -570,6 +570,7 @@ void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int car
 void GE::MONO::SendString(MonoString* str)
 {
   std::string test = GE::MONO::MonoStringToSTD(str);
+  GE::Debug::ErrorLogger::GetInstance().LogMessage(test);
   //Do what ever yo want with the string
 }
 

@@ -10,7 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "Scene.h"
 #include <Systems/DraggableObject/DraggableObjectSystem.h>
-#include <Systems/PlayerController/PlayerControllerSystem.h>
+#include <Systems/ScriptSystem/ScriptSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
@@ -41,6 +41,19 @@ void GE::Scenes::Scene::Unload()
 	std::set<ECS::Entity> entities = ecs->GetEntities();
 	for (auto entity : entities)
 	{
+		if (ecs->HasComponent<GE::Component::Scripts>(entity))
+		{
+			GE::Component::Scripts* scripts = ecs->GetComponent<GE::Component::Scripts>(entity);
+			for (auto script : scripts->m_scriptList)
+			{
+				MonoMethod* onDestroy = mono_class_get_method_from_name(script.m_scriptClass, "OnDestroy", 1);
+				if (onDestroy)
+				{
+					std::vector<void*> params = { &entity };
+					mono_runtime_invoke(onDestroy, script.m_classInst, params.data(), nullptr);
+				}
+			}
+		}
 		ecs->DestroyEntity(entity);
 	}
 }
