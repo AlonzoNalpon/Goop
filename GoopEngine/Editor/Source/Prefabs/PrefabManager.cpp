@@ -110,14 +110,14 @@ void PrefabManager::ReloadPrefabs()
 void PrefabManager::AttachPrefab(ECS::Entity entity, EntityPrefabMap::mapped_type const& prefab)
 {
 #ifdef PREFAB_MANAGER_DEBUG
-  std::cout << "Entity " << entity << ": " << prefab.first << ", version " << prefab.second << "\n";
+  std::cout << "Entity " << entity << ": " << prefab.m_prefab << ", version " << prefab.m_version << "\n";
 #endif
   m_entitiesToPrefabs[entity] = prefab;
 }
 void PrefabManager::AttachPrefab(ECS::Entity entity, EntityPrefabMap::mapped_type&& prefab)
 {
 #ifdef PREFAB_MANAGER_DEBUG
-  std::cout << "Entity " << entity << ": " << prefab.first << ", version " << prefab.second << "\n";
+  std::cout << "Entity " << entity << ": " << prefab.m_prefab << ", version " << prefab.m_version << "\n";
 #endif
   m_entitiesToPrefabs[entity] = std::move(prefab);
 }
@@ -209,7 +209,7 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
 
     iterVal.m_version = m_prefabVersions[prefab];  // update version of entity
 #ifdef PREFAB_MANAGER_DEBUG
-    std::cout << " Entity " << iter->first << " updated with " << prefab << " version " << iterVal.second << "\n";
+    std::cout << "  Entity " << iter->first << " updated with " << prefab << " version " << iterVal.m_version << "\n";
 #endif
   }
 }

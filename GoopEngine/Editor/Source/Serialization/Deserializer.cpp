@@ -263,9 +263,9 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
     Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
     if (entity.HasMember(JsonPrefabKey) && !entity[JsonPrefabKey].IsNull())
     {
-      rttr::variant entry{ std::pair<std::string, unsigned>{} };
-      DeserializeBasedOnType(entry, entity[JsonPrefabKey]);
-      pm.AttachPrefab(entityId, std::move(entry.get_value<std::pair<std::string, unsigned>>()));;
+      rttr::variant mappedData{ Prefabs::VariantPrefab::EntityMappings{} };
+      DeserializeBasedOnType(mappedData, entity[JsonPrefabKey]);
+      pm.AttachPrefab(entityId, std::move(mappedData.get_value<Prefabs::VariantPrefab::EntityMappings>()));;
     }
 #endif
 
@@ -421,7 +421,7 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
       if (prop.get_type().is_sequential_container())
       {
           ret = prop.get_value(object);
-          rttr::variant_sequential_view view = ret.create_sequential_view();
+          rttr::variant_sequential_view view{ ret.create_sequential_view() };
           DeserializeSequentialContainer(view, jsonVal);
 #ifdef DESERIALIZER_DEBUG
           if (prop.get_type() == rttr::type::get<std::vector<int>>()) {
@@ -435,8 +435,9 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
       }
       else if (prop.get_type().is_associative_container())
       {
-        GE::Debug::ErrorLogger::GetInstance().LogMessage(
-          prop.get_name().to_string() + ": Associative Containers are not yet supported");
+        ret = prop.get_value(object);
+        rttr::variant_associative_view view{ ret.create_associative_view() };
+        DeserializeAssociativeContainer(view, jsonVal);
       }
 
       prop.set_value(object, ret);
@@ -633,7 +634,7 @@ void Deserializer::DeserializeAssociativeContainer(rttr::variant_associative_vie
     if (elem.IsObject())  // if element is key-value format
     {
       auto keyIter{ elem.FindMember(JsonAssociativeKey) }, valueIter{ elem.FindMember(JsonAssociativeValue) };
-      if (keyIter == value.MemberEnd() || valueIter == value.MemberEnd())
+      if (keyIter == elem.MemberEnd() || valueIter == elem.MemberEnd())
       {
         std::ostringstream oss;
         oss << "Element " << i << " of " << view.get_type().get_name().to_string() << " missing " 
@@ -642,11 +643,20 @@ void Deserializer::DeserializeAssociativeContainer(rttr::variant_associative_vie
         continue;
       }
 
-      rttr::variant key{ DeserializeElement() }
+      rttr::variant key{ DeserializeElement(view.get_key_type(), keyIter->value) };
+      rttr::variant val{ DeserializeElement(view.get_value_type(), valueIter->value) };
+      if (key && val)
+      {
+        view.insert(key, val);
+      }
     }
     else // if its key-only
     {
-
+      rttr::variant val{ DeserializeBasicTypes(elem) };
+      if (val && val.convert(view.get_key_type()))
+      {
+        view.insert(val);
+      }
     }
   }
 }

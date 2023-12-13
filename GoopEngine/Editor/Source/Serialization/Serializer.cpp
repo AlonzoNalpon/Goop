@@ -603,7 +603,7 @@ namespace GE
             jsonValue{ SerializeBasedOnType(elem.second, allocator) };
 
           jsonEntry.AddMember(JsonAssociativeKey, jsonKey, allocator);
-          jsonEntry.AddMember(JsonAssociativeKey, jsonValue, allocator);
+          jsonEntry.AddMember(JsonAssociativeValue, jsonValue, allocator);
           // else serialize element normally
           jsonArray.PushBack(jsonEntry.Move(), allocator);
         }

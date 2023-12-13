@@ -190,6 +190,9 @@ RTTR_REGISTRATION
     .property("second", &std::pair<std::string, unsigned>::second)
     ;
 
+  //rttr::registration::class_<std::unordered_map<Prefabs::PrefabSubData::SubDataId, ECS::Entity>>("UnsignedUnsignedUMap")
+  //  .property("")
+
   rttr::registration::class_<Prefabs::VariantPrefab::EntityMappings>("EntityMappings")
     .property("name", &Prefabs::VariantPrefab::EntityMappings::m_prefab)
     .property("version", &Prefabs::VariantPrefab::EntityMappings::m_version)
