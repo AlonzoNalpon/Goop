@@ -9,6 +9,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, -997 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, -997 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -45,6 +48,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -253.734, -197.28, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ -253.734, -197.28, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -96,7 +102,6 @@
             },
             {
                 "Scripts": {
-                    "entityId": 0,
                     "scriptList": [
                         {
                             "scriptName": "Stats",
@@ -177,6 +182,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -251.174, 228.958, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ -251.174, 228.958, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"

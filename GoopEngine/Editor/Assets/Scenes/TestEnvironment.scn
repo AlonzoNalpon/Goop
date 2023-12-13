@@ -9,6 +9,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -800, 350, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -800, 350, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -55,6 +58,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 61.2976, 260.094, -1 }",
+                    "scale": "{ 0.75, 0.75, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 61.2976, 260.094, -1 }",
                     "worldScale": "{ 0.75, 0.75, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -103,6 +109,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -500, 350, -1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -500, 350, -1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -130,6 +139,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -43.611, 54.63, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -543.611, 404.63, -1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -160,6 +172,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 786, -445.5, 0 }",
+                    "scale": "{ 0.7, 0.7, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 786, -445.5, 0 }",
                     "worldScale": "{ 0.7, 0.7, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -196,6 +211,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 143.312, -6.669, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 143.312, -438.521, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -242,7 +260,6 @@
             },
             {
                 "Scripts": {
-                    "entityId": 5,
                     "scriptList": [
                         {
                             "scriptName": "Player",
@@ -278,13 +295,19 @@
     {
         "Name": "Enemy",
         "ID": 6,
-        "Prefab": "Shark",
+        "Prefab": {
+            "first": "Shark",
+            "second": 0
+        },
         "isActive": true,
         "Parent": 9,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -200, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -200, -431.852, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -357,6 +380,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -376,6 +402,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -396,6 +425,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, -431.852, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, -431.852, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -415,6 +447,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -432,6 +467,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, -2 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, -2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -481,6 +519,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -800, -200, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ -800, -200, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -521,6 +562,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -538,6 +582,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -500, -200, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -500, -200, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -574,6 +621,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -500, -200, 0 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, -90 }",
                     "worldPos": "{ -500, -200, 0 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, 0, -90 }"
@@ -610,6 +660,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -104, -200, 0 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, -90 }",
                     "worldPos": "{ -104, -200, 0 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, 0, -90 }"
@@ -639,13 +692,19 @@
     {
         "Name": ".[Test Prefab] Priest",
         "ID": 17,
-        "Prefab": ".[Test Prefab] Priest",
+        "Prefab": {
+            "first": ".[Test Prefab] Priest",
+            "second": 0
+        },
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -195.63, 249.963, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -195.63, 249.963, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"

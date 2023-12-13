@@ -46,22 +46,30 @@ void VariantPrefab::Clear() noexcept
   m_version = 0;
 }
 
-ECS::Entity VariantPrefab::Construct() const
+std::pair<ECS::Entity, VariantPrefab::EntityMappings> VariantPrefab::Construct() const
 {
   std::unordered_map<PrefabSubData::SubDataId, ECS::Entity> idsToEntities;
-  idsToEntities.reserve(m_objects.size() + 1);
+  EntityMappings mappedData{ m_name, m_version };
+  size_t const numObjs{ m_objects.size() + 1 };
+  idsToEntities.reserve(numObjs);
+  mappedData.m_entityToObj.reserve(numObjs);
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
 
   // first, create the base entity
   ECS::Entity const entity{ ecs.CreateEntity() };
   ObjectFactory::ObjectFactory::GetInstance().AddComponentsToEntity(entity, m_components);
   ecs.SetEntityName(entity, m_name);
-  idsToEntities.emplace(PrefabSubData::BasePrefabId, entity);   // map base ID to this entity ID
+
+  // map base ID to this entity ID
+  idsToEntities.emplace(PrefabSubData::BasePrefabId, entity);  
+  mappedData.m_entityToObj.emplace(PrefabSubData::BasePrefabId, entity);
 
   // then, create child entities and map IDs
   for (PrefabSubData const& obj : m_objects)
   {
-    idsToEntities.emplace(obj.m_id, obj.Construct());
+    ECS::Entity const subId{ obj.Construct() };
+    idsToEntities.emplace(obj.m_id, subId);
+    mappedData.m_entityToObj.emplace(obj.m_id, subId);
   }
 
   // establish the hierarchy
@@ -72,7 +80,7 @@ ECS::Entity VariantPrefab::Construct() const
     ecs.AddChildEntity(parent, child);
   }
 
-  return entity;
+  return { entity, mappedData };
 }
 #else
 VariantPrefab::VariantPrefab() : m_components{}, m_name{ "Empty" } {}

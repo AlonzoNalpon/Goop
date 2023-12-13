@@ -60,10 +60,11 @@ GE::ECS::Entity PrefabManager::SpawnPrefab(const std::string& key)
   }
 
 #ifdef PREFAB_V2
-  ECS::Entity newEntity{ iter->second.Construct() };
+  auto mappedData{ iter->second.Construct() };
+  ECS::Entity const newEntity{ mappedData.first };
 
   // set entity's prefab source
-  m_entitiesToPrefabs[newEntity] = { key, GetPrefabVersion(key) };
+  m_entitiesToPrefabs[newEntity] = std::move(mappedData.second);
 #else
   auto& ecs = ECS::EntityComponentSystem::GetInstance();
   ECS::Entity newEntity{ ecs.CreateEntity() };
@@ -138,9 +139,9 @@ std::optional<PrefabManager::EntityPrefabMap::mapped_type> PrefabManager::GetEnt
   return entry->second;
 }
 
-PrefabManager::PrefabVersion PrefabManager::GetPrefabVersion(std::string const& prefab)
+VariantPrefab::PrefabVersion PrefabManager::GetPrefabVersion(std::string const& prefab)
 {
-  std::unordered_map<std::string, PrefabVersion>::const_iterator entry{ m_prefabVersions.find(prefab) };
+  std::unordered_map<std::string, VariantPrefab::PrefabVersion>::const_iterator entry{ m_prefabVersions.find(prefab) };
   if (entry == m_prefabVersions.cend()) { return m_prefabVersions[prefab] = 0; }
 
   return entry->second;
@@ -151,14 +152,16 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
   //ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
   ObjectFactory::ObjectFactory const& of{ ObjectFactory::ObjectFactory::GetInstance() };
   EntityPrefabMap::iterator iter{ m_entitiesToPrefabs.begin() };
+  rttr::type const transType{ rttr::type::get<Component::Transform*>() };
+
   for (; iter != m_entitiesToPrefabs.cend(); ++iter)
   {
     EntityPrefabMap::mapped_type& iterVal{ iter->second };
     // if prefabs name don't match, continue
-    if (iterVal.first != prefab) { continue; }
+    if (iterVal.m_prefab != prefab) { continue; }
 
     // if prefab versions match, means its up-to-date so continue
-    if (m_prefabVersions[prefab] == iterVal.second)
+    if (m_prefabVersions[prefab] == iterVal.m_version)
     {
 #ifdef PREFAB_MANAGER_DEBUG
       std::cout << " Entity " << iter->first << " matches " << prefab << "'s version of " << m_prefabVersions[prefab] << "\n";
@@ -166,20 +169,45 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
       continue;
     }
 
-    VariantPrefab const& prefabVar{ GetVariantPrefab(iterVal.first) };
-
-    for (std::vector<rttr::variant>::const_iterator comp{ prefabVar.m_components.cbegin() }; comp != prefabVar.m_components.cend(); ++comp)
+    // for parent, update all components except worldPos in transform
+    VariantPrefab const& prefabVar{ GetVariantPrefab(iterVal.m_prefab) };
+    for (rttr::variant const& comp : prefabVar.m_components)
     {
-      if (comp->get_type().get_wrapped_type() == rttr::type::get<Component::Transform*>())
+      if (comp.get_type().get_wrapped_type() == transType)
       {
-        Component::Transform& newTrans{ *comp->get_value<Component::Transform*>() };
+        Component::Transform& newTrans{ *comp.get_value<Component::Transform*>() };
         newTrans.m_worldPos = ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Transform>(iter->first)->m_worldPos;
         break;
       }
     }
-
     of.AddComponentsToEntity(iter->first, prefabVar.m_components);
-    iterVal.second = m_prefabVersions[prefab];  // update version of entity
+
+    // update components of children but for transform, only update local pos, rot and scale
+    auto const& mappedData{ iterVal.m_entityToObj };
+    for (PrefabSubData const& obj : prefabVar.m_objects)
+    {
+      auto childEntity{ mappedData.find(obj.m_id) };
+      if (childEntity == mappedData.cend())
+      {
+        std::ostringstream oss;
+        oss << "Entity " << iter->first << " missing child object: " << obj.m_name << ". Skipping entity...";
+        Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        continue;
+      }
+
+     /* for (rttr::variant const& comp : obj.m_components)
+      {
+        if (comp.get_type().get_wrapped_type() == transType)
+        {
+          Component::Transform& newTrans{ *comp.get_value<Component::Transform*>() };
+          newTrans.m_worldPos = ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Transform>(iter->first)->m_worldPos;
+          break;
+        }
+      }*/
+      of.AddComponentsToEntity(childEntity->second, obj.m_components);
+    }
+
+    iterVal.m_version = m_prefabVersions[prefab];  // update version of entity
 #ifdef PREFAB_MANAGER_DEBUG
     std::cout << " Entity " << iter->first << " updated with " << prefab << " version " << iterVal.second << "\n";
 #endif

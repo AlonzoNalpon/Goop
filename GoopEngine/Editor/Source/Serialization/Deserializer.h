@@ -218,6 +218,8 @@ namespace GE
       ************************************************************************/
       static void DeserializeSequentialContainer(rttr::variant_sequential_view& view, rapidjson::Value const& value);
 
+      static void DeserializeAssociativeContainer(rttr::variant_associative_view& view, rapidjson::Value const& value);
+
       //static void DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value);
 
       //static bool InvokeConstructor(rttr::variant& var, rttr::type const& compType, rapidjson::Value const& value);

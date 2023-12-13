@@ -12,6 +12,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Components.h>
 #include <Systems/Systems.h>
 #include <rttr/registration>
+#ifndef IMGUI_DISABLE
+#include <Prefabs/VariantPrefab.h>
+#endif
 
 using namespace GE;
 
@@ -185,6 +188,12 @@ RTTR_REGISTRATION
   rttr::registration::class_<std::pair<std::string, unsigned>>("StringUnsignedPair")
     .property("first", &std::pair<std::string, unsigned>::first)
     .property("second", &std::pair<std::string, unsigned>::second)
+    ;
+
+  rttr::registration::class_<Prefabs::VariantPrefab::EntityMappings>("EntityMappings")
+    .property("name", &Prefabs::VariantPrefab::EntityMappings::m_prefab)
+    .property("version", &Prefabs::VariantPrefab::EntityMappings::m_version)
+    .property("entityToObj", &Prefabs::VariantPrefab::EntityMappings::m_entityToObj)
     ;
 #endif
 

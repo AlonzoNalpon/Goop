@@ -11,6 +11,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -60,6 +63,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, -286.97, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, -286.97, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"

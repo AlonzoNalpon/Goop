@@ -69,7 +69,8 @@ namespace GE::Graphics::Rendering
    * \brief  
    * struct containing info for rendering lines.
    */
-  struct LineRenderData {
+  struct LineRenderData
+  {
     GE::Math::dVec2 startPt;
     GE::Math::dVec2 endPt;
     Colorf clr;
@@ -82,8 +83,10 @@ namespace GE::Graphics::Rendering
     f32 zVal;
   };
 
-  struct DepthComp {
-    bool operator()(SpriteRenderData const& a, SpriteRenderData const& b)const {
+  struct DepthComp
+  {
+    bool operator()(SpriteRenderData const& a, SpriteRenderData const& b)const
+    {
       return a.transform[3][2] < b.transform[3][2];
     }
   };

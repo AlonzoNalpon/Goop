@@ -9,6 +9,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -320.445, 85.3704, 0 }",
+                    "scale": "{ 0.4, 0.4, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ -320.445, 85.3704, 0 }",
                     "worldScale": "{ 0.4, 0.4, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -70,6 +73,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -87,6 +93,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, -997 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, -997 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -123,6 +132,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 489.999, 44.9992, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 489.999, 44.9992, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -175,6 +187,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0, 0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 0, 0, 0 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -225,6 +240,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0, 0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 0, 0, 0 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -232,7 +250,6 @@
             },
             {
                 "Scripts": {
-                    "entityId": 904474864,
                     "scriptList": [
                         {
                             "scriptName": "Stats",
@@ -313,6 +330,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0, 0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 0, 0, 0 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -320,7 +340,6 @@
             },
             {
                 "Scripts": {
-                    "entityId": 8,
                     "scriptList": [
                         {
                             "scriptName": "Stats",
@@ -401,6 +420,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0, 0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 0, 0, 0 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -432,6 +454,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0, 0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 0, 0, 0 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -439,7 +464,6 @@
             },
             {
                 "Scripts": {
-                    "entityId": 3588188736,
                     "scriptList": [
                         {
                             "scriptName": "Stats",
@@ -520,6 +544,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0, 0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 0, 0, 0 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -527,7 +554,6 @@
             },
             {
                 "Scripts": {
-                    "entityId": 8,
                     "scriptList": [
                         {
                             "scriptName": "Stats",
@@ -599,6 +625,40 @@
         ]
     },
     {
+        "Name": "GameSys",
+        "ID": 10,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0, 0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Game": {
+                    "player": 25,
+                    "enemy": 28,
+                    "pauseMenu": 4294967295,
+                    "playerHand": 0,
+                    "playerQueue": 0,
+                    "enemyQueue": 0,
+                    "gameSystemScript": {
+                        "scriptName": "GameManager",
+                        "scriptFieldInstList": []
+                    }
+                }
+            }
+        ]
+    },
+    {
         "Name": "PlayerQueue",
         "ID": 11,
         "Prefab": null,
@@ -612,6 +672,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -659,6 +722,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -800, 320, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -800, 320, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -717,6 +783,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -800, 50, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -800, 50, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -775,6 +844,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -800, -220, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -800, -220, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -839,6 +911,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -902,6 +977,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -550, -350, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -550, -350, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -960,6 +1038,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -290, -350, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -290, -350, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1018,6 +1099,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -30, -350, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -30, -350, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1076,6 +1160,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 230, -350, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 230, -350, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1134,6 +1221,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 490, -350, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 490, -350, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1196,6 +1286,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -1243,6 +1336,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 800, 320, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 800, 320, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1291,6 +1387,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 800, 50, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 800, 50, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1339,6 +1438,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 800, -220, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 800, -220, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1378,6 +1480,96 @@
         ]
     },
     {
+        "Name": "Test Player",
+        "ID": 25,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0, 0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        0,
+                                        0,
+                                        0
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_cardQueue"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        2,
+                                        9,
+                                        6,
+                                        3,
+                                        12,
+                                        2,
+                                        9,
+                                        2,
+                                        13,
+                                        8,
+                                        8,
+                                        9,
+                                        12,
+                                        7,
+                                        6,
+                                        8,
+                                        3,
+                                        8,
+                                        12,
+                                        2
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_deck"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        7,
+                                        3,
+                                        8,
+                                        2,
+                                        2
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_hand"
+                                    }
+                                },
+                                {
+                                    "data": 100,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
         "Name": "[Folder] Menus",
         "ID": 26,
         "Prefab": null,
@@ -1391,6 +1583,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 101 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -1414,9 +1609,102 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Test Enemy",
+        "ID": 28,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0, 0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        0,
+                                        0,
+                                        0
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_cardQueue"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        8,
+                                        13,
+                                        6,
+                                        9,
+                                        8,
+                                        12,
+                                        9,
+                                        6,
+                                        13,
+                                        6,
+                                        7,
+                                        8,
+                                        13,
+                                        8,
+                                        6,
+                                        13,
+                                        9,
+                                        6,
+                                        6,
+                                        2
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_deck"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        7,
+                                        3,
+                                        8,
+                                        2,
+                                        2
+                                    ],
+                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "scriptField": {
+                                        "fieldName": "m_hand"
+                                    }
+                                },
+                                {
+                                    "data": 100,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             }
         ]
@@ -1431,6 +1719,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, -1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 100 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1477,6 +1768,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1513,6 +1807,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 320, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 320, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1549,6 +1846,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 55, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 55, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1589,6 +1889,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 102 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1606,6 +1909,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -260, -180, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -260, -180, 102 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1658,6 +1964,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, -180, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, -180, 102 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1710,6 +2019,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 260, -180, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 260, -180, 102 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1767,6 +2079,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1784,6 +2099,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, -1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 100 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1830,6 +2148,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1866,6 +2187,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 350, 195, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 350, 195, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1925,6 +2249,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1942,6 +2269,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, -1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 100 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -1988,6 +2318,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 150, -75, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 150, -75, 102 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -2040,6 +2373,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -2076,6 +2412,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -150, -75, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -150, -75, 102 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -2128,6 +2467,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 320, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 320, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -2164,6 +2506,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 210, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 210, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -2200,6 +2545,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 63.2407, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 63.2407, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"

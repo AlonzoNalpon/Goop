@@ -24,7 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #ifndef IMGUI_DISABLE
 #include <Singleton/Singleton.h>
-#include <Prefabs/VariantPrefab.h>
+#include "VariantPrefab.h"
 #include <unordered_map>
 #include <ECS/Entity/Entity.h>
 #include <Events/Listener.h>
@@ -37,18 +37,17 @@ namespace GE
     class PrefabManager : public Singleton<PrefabManager>, public Events::IEventListener
     {
     public:
-      using PrefabVersion = unsigned;
       using PrefabDataContainer = std::unordered_map<std::string, VariantPrefab>;
-      using EntityPrefabMap = std::unordered_map<ECS::Entity, std::pair<std::string, PrefabVersion>>;
+      using EntityPrefabMap = std::unordered_map<ECS::Entity, VariantPrefab::EntityMappings>;
 
       /*!*********************************************************************
-    \brief
-      Goes through the map and create an entity with the data.
-    \param key
-      string& (name of the prefab in the m_prefabs map)
-    \return
-      Entity of the prefab.
-    ************************************************************************/
+      \brief
+        Goes through the map and create an entity with the data.
+      \param key
+        string& (name of the prefab in the m_prefabs map)
+      \return
+        Entity of the prefab.
+      ************************************************************************/
       GE::ECS::Entity SpawnPrefab(const std::string& key);
 
       /*!*********************************************************************
@@ -99,7 +98,15 @@ namespace GE
       ************************************************************************/
       void DetachPrefab(ECS::Entity entity);
 
-      inline void SetPrefabVersion(std::string const& prefab, PrefabVersion version) noexcept { m_prefabVersions[prefab] = version; }
+      /*!*********************************************************************
+      \brief
+        Sets the version of a prefab
+      \param prefab
+        The prefab to set the version of
+      \param version
+        The new version        
+      ************************************************************************/
+      inline void SetPrefabVersion(std::string const& prefab, VariantPrefab::PrefabVersion version) noexcept { m_prefabVersions[prefab] = version; }
 
       /*!*********************************************************************
       \brief
@@ -121,7 +128,7 @@ namespace GE
       \return
         The version of the prefab
       ************************************************************************/
-      PrefabVersion GetPrefabVersion(std::string const& prefab);
+      VariantPrefab::PrefabVersion GetPrefabVersion(std::string const& prefab);
       
       /*!*********************************************************************
       \brief
@@ -165,7 +172,7 @@ namespace GE
 
     private:
       EntityPrefabMap m_entitiesToPrefabs;
-      std::unordered_map<std::string, PrefabVersion> m_prefabVersions;
+      std::unordered_map<std::string, VariantPrefab::PrefabVersion> m_prefabVersions;
       PrefabDataContainer m_prefabs;  // Map of deserialized prefab data in format <name, data>
     };
   }

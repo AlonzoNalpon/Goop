@@ -2,12 +2,16 @@
     {
         "Name": "Right Eye",
         "ID": 0,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 15, 278, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 15, 278, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -31,12 +35,16 @@
     {
         "Name": "Left Eye",
         "ID": 1,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -16, 278, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -16, 278, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -57,6 +65,7 @@
     {
         "Name": "Entity 19",
         "ID": 2,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -66,6 +75,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 1.59175e+06, -6705, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 1.59175e+06, -6705, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
@@ -76,12 +88,16 @@
     {
         "Name": "Entity 18",
         "ID": 3,
+        "Prefab": null,
         "isActive": true,
         "Parent": 7,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -6.6826e+18, 3.53839e+17, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -3.37447e+18, 3.51395e+17, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -92,12 +108,16 @@
     {
         "Name": "Entity 17",
         "ID": 4,
+        "Prefab": null,
         "isActive": true,
         "Parent": 5,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 2.36736e+22, -1.81834e+19, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 2.36702e+22, -1.7832e+19, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -108,6 +128,7 @@
     {
         "Name": "Entity 16",
         "ID": 5,
+        "Prefab": null,
         "isActive": true,
         "Parent": 7,
         "Child Entities": [
@@ -117,6 +138,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -6.6826e+18, 3.53839e+17, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -3.37447e+18, 3.51395e+17, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -127,6 +151,7 @@
     {
         "Name": "Entity 15",
         "ID": 6,
+        "Prefab": null,
         "isActive": true,
         "Parent": 5,
         "Child Entities": [
@@ -135,6 +160,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 2.36736e+22, -1.81834e+19, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 2.36702e+22, -1.7832e+19, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -145,6 +173,7 @@
     {
         "Name": "x worldPos changing",
         "ID": 7,
+        "Prefab": null,
         "isActive": true,
         "Parent": 18,
         "Child Entities": [
@@ -154,6 +183,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 3.30814e+18, -2.44489e+15, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 3.30813e+18, -2.44422e+15, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -164,12 +196,16 @@
     {
         "Name": "Head",
         "ID": 8,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 263, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 263, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -190,12 +226,16 @@
     {
         "Name": "Right Leg",
         "ID": 9,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 50, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 50, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -216,12 +256,16 @@
     {
         "Name": "Left Leg",
         "ID": 10,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -50, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -50, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -242,12 +286,16 @@
     {
         "Name": "Right Arm",
         "ID": 11,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 176, 180, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 176, 180, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -268,12 +316,16 @@
     {
         "Name": "on",
         "ID": 12,
+        "Prefab": null,
         "isActive": true,
         "Parent": 6,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -4.78153e+22, 2.53203e+21, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -2.41451e+22, 2.5142e+21, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -284,12 +336,16 @@
     {
         "Name": "going",
         "ID": 13,
+        "Prefab": null,
         "isActive": true,
         "Parent": 19,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -1.27179e+13, 6.77126e+11, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -6.41525e+12, 6.72437e+11, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -300,12 +356,16 @@
     {
         "Name": "is",
         "ID": 14,
+        "Prefab": null,
         "isActive": true,
         "Parent": 18,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 6.92295e+16, -5.27092e+13, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 6.92231e+16, -5.20368e+13, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -316,12 +376,16 @@
     {
         "Name": "what",
         "ID": 15,
+        "Prefab": null,
         "isActive": true,
         "Parent": 17,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -1.39777e+17, 7.42634e+15, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -7.05535e+16, 7.3743e+15, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -332,6 +396,7 @@
     {
         "Name": "what",
         "ID": 16,
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [
@@ -340,6 +405,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -3.9442e+13, 2.02358e+14, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -3.9442e+13, 2.02358e+14, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -350,6 +418,7 @@
     {
         "Name": "and this too",
         "ID": 17,
+        "Prefab": null,
         "isActive": true,
         "Parent": 18,
         "Child Entities": [
@@ -358,6 +427,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 6.92295e+16, -5.27092e+13, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 6.92231e+16, -5.20368e+13, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -368,6 +440,7 @@
     {
         "Name": "same for this",
         "ID": 18,
+        "Prefab": null,
         "isActive": true,
         "Parent": 19,
         "Child Entities": [
@@ -378,6 +451,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -1.27179e+13, 6.77126e+11, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -6.41525e+12, 6.72437e+11, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -388,6 +464,7 @@
     {
         "Name": "y worldPos changing",
         "ID": 19,
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [
@@ -397,6 +474,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 6.30266e+12, -4.68865e+09, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 6.30266e+12, -4.68866e+09, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -407,12 +487,16 @@
     {
         "Name": "Left Arm",
         "ID": 20,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -175, 180, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -175, 180, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -433,12 +517,16 @@
     {
         "Name": "Body",
         "ID": 21,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 150, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 150, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -459,12 +547,16 @@
     {
         "Name": "Mouth",
         "ID": 22,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 245, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 245, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -485,12 +577,16 @@
     {
         "Name": "Hat Bottom",
         "ID": 23,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 311, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 311, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -511,6 +607,7 @@
     {
         "Name": "rip",
         "ID": 24,
+        "Prefab": null,
         "isActive": true,
         "Parent": 16,
         "Child Entities": [
@@ -519,6 +616,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 3.41814e+17, -5.13805e+14, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 3.41775e+17, -3.11447e+14, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -529,6 +629,7 @@
     {
         "Name": "Entity 25",
         "ID": 25,
+        "Prefab": null,
         "isActive": true,
         "Parent": 24,
         "Child Entities": [
@@ -537,6 +638,9 @@
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ -1.11056e+18, 2.19072e+18, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -7.68782e+17, 2.19041e+18, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -547,12 +651,16 @@
     {
         "Name": "Entity 26",
         "ID": 26,
+        "Prefab": null,
         "isActive": true,
         "Parent": 25,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 3.68562e+21, -5.48802e+18, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 3.68485e+21, -3.29761e+18, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -563,12 +671,16 @@
     {
         "Name": "Hat Top",
         "ID": 27,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 0, 336, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 336, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -589,12 +701,16 @@
     {
         "Name": "Hammer Handle",
         "ID": 28,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 210, 233, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 210, 233, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
@@ -615,12 +731,16 @@
     {
         "Name": "Hammer Face",
         "ID": 29,
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
+                    "pos": "{ 210, 283, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 210, 283, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"

@@ -71,6 +71,9 @@ namespace GE::Prefabs
   // components are stored in an std::vector of rttr::variants
   struct VariantPrefab
   {
+    using PrefabVersion = unsigned;
+    struct EntityMappings;  // forward declaration; definition below
+
     VariantPrefab() = default;
     VariantPrefab(std::string name, unsigned version = 0);
 
@@ -90,19 +93,19 @@ namespace GE::Prefabs
     \return
       The ID of the created entity
     ************************************************************************/
-    ECS::Entity Construct() const;
+    std::pair<ECS::Entity, EntityMappings> Construct() const;
 
     /*!*********************************************************************
     \brief
       Creates a sub-object of given the set of entity IDs from the ECS and
       adds it to m_objects vector. Calling this function does not require
-      the 2nd argument to be used. This function is called recursively 
-      called downwards for each child in the set until an entity without 
+      the 2nd argument to be used. This function is recursively called 
+      downwards for each child in the set until an entity without
       children is encountered.
     \param children
       The list of child entities of the current entity
     \param parent
-      The SubDataId of the parent (current) object
+      The SubDataId of the parent (current) object.
       This is defaulted to the BasePrefabId and should not be used
       externally.
     ************************************************************************/
@@ -117,7 +120,7 @@ namespace GE::Prefabs
     std::string m_name;
     std::vector<PrefabSubData> m_objects;
     std::vector<rttr::variant> m_components;
-    unsigned m_version;
+    PrefabVersion m_version;
   };
 #else
   // struct encapsulating deserialized prefab data
@@ -134,4 +137,14 @@ namespace GE::Prefabs
     void Clear() noexcept;
   };
 #endif
+
+  struct VariantPrefab::EntityMappings
+  {
+    EntityMappings() = default;
+    EntityMappings(std::string prefab, VariantPrefab::PrefabVersion version) : m_prefab{ std::move(prefab) }, m_version{ version }, m_entityToObj{} {}
+
+    std::string m_prefab;
+    VariantPrefab::PrefabVersion m_version;
+    std::unordered_map<PrefabSubData::SubDataId, ECS::Entity> m_entityToObj;
+  };
 }

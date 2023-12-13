@@ -625,6 +625,32 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
   }
 }
 
+void Deserializer::DeserializeAssociativeContainer(rttr::variant_associative_view& view, rapidjson::Value const& value)
+{
+  for (rapidjson::SizeType i{}; i < value.Size(); ++i)
+  {
+    rapidjson::Value const& elem{ value[i] };
+    if (elem.IsObject())  // if element is key-value format
+    {
+      auto keyIter{ elem.FindMember(JsonAssociativeKey) }, valueIter{ elem.FindMember(JsonAssociativeValue) };
+      if (keyIter == value.MemberEnd() || valueIter == value.MemberEnd())
+      {
+        std::ostringstream oss;
+        oss << "Element " << i << " of " << view.get_type().get_name().to_string() << " missing " 
+          << JsonAssociativeKey << " or " << JsonAssociativeValue << " fields";
+        
+        continue;
+      }
+
+      rttr::variant key{ DeserializeElement() }
+    }
+    else // if its key-only
+    {
+
+    }
+  }
+}
+
 void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const& compType, rapidjson::Value const& compJson)
 {
   #ifdef DESERIALIZER_DEBUG
