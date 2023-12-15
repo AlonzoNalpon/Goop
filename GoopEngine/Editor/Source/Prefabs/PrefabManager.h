@@ -117,7 +117,7 @@ namespace GE
       \return
         std::optional containing the prefab an entity was created from
       ************************************************************************/
-      std::optional<EntityPrefabMap::mapped_type> GetEntityPrefab(ECS::Entity entity) const;
+      std::optional<std::reference_wrapper<PrefabManager::EntityPrefabMap::mapped_type const>> GetEntityPrefab(ECS::Entity entity) const;
 
       /*!*********************************************************************
       \brief

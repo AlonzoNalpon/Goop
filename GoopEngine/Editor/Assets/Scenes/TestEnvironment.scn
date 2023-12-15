@@ -295,10 +295,11 @@
     {
         "Name": "Enemy",
         "ID": 6,
-        "Prefab": {
-            "first": "Shark",
-            "second": 0
-        },
+      "Prefab": {
+        "name": "Shark",
+        "version": 0,
+        "entityToObj": []
+      },
         "isActive": true,
         "Parent": 9,
         "Child Entities": [],
@@ -692,10 +693,11 @@
     {
         "Name": ".[Test Prefab] Priest",
         "ID": 17,
-        "Prefab": {
-            "first": ".[Test Prefab] Priest",
-            "second": 0
-        },
+      "Prefab": {
+        "name": ".[Test Prefab] Priest",
+        "version": 0,
+        "entityToObj": []
+      },
         "isActive": true,
         "Parent": null,
         "Child Entities": [],

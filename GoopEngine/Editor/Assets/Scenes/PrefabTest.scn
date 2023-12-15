@@ -3,8 +3,9 @@
         "Name": "Background",
         "ID": 0,
         "Prefab": {
-            "first": "Background",
-            "second": 0
+            "name": "Background",
+            "version": 1,
+            "entityToObj": []
         },
         "isActive": true,
         "Parent": null,
@@ -12,12 +13,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 15.0002, 142.682, -1 }",
+                    "pos": "{ 15.0002, 142.682, -99 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 15.0002, 142.682, -1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 15.0002, 142.682, -99 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -45,8 +46,9 @@
         "Name": "MineWorm 1",
         "ID": 1,
         "Prefab": {
-            "first": "MineWorm",
-            "second": 23
+            "name": "MineWorm",
+            "version": 23,
+            "entityToObj": []
         },
         "isActive": true,
         "Parent": null,
@@ -65,10 +67,10 @@
             {
                 "BoxCollider": {
                     "center": "{ 226.666, 78.3333 }",
-                    "width": 226.6656036376953,
-                    "height": 78.33332824707031,
-                    "min": "{ 113.333, 39.1666 }",
-                    "max": "{ 339.999, 117.5 }",
+                    "width": 128.0,
+                    "height": 128.0,
+                    "min": "{ 162.666, 14.3333 }",
+                    "max": "{ 290.666, 142.333 }",
                     "render": false
                 }
             },
@@ -102,8 +104,9 @@
         "Name": "MineWorm 2",
         "ID": 2,
         "Prefab": {
-            "first": "MineWorm",
-            "second": 23
+            "name": "MineWorm",
+            "version": 23,
+            "entityToObj": []
         },
         "isActive": true,
         "Parent": null,
@@ -122,10 +125,10 @@
             {
                 "BoxCollider": {
                     "center": "{ -565, 4.61675 }",
-                    "width": -566.6666259765625,
-                    "height": -68.33332824707031,
-                    "min": "{ -281.667, 38.7834 }",
-                    "max": "{ -848.333, -29.5499 }",
+                    "width": 128.0,
+                    "height": 128.0,
+                    "min": "{ -629, -59.3833 }",
+                    "max": "{ -501, 68.6167 }",
                     "render": false
                 }
             },
@@ -203,8 +206,9 @@
         "Name": "TestButton 1",
         "ID": 4,
         "Prefab": {
-            "first": "TestButton",
-            "second": 2
+            "name": "TestButton",
+            "version": 2,
+            "entityToObj": []
         },
         "isActive": true,
         "Parent": null,
@@ -257,8 +261,9 @@
         "Name": "TestButton 2",
         "ID": 5,
         "Prefab": {
-            "first": "TestButton",
-            "second": 2
+            "name": "TestButton",
+            "version": 2,
+            "entityToObj": []
         },
         "isActive": true,
         "Parent": null,

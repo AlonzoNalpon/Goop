@@ -131,7 +131,7 @@ void PrefabManager::DetachPrefab(ECS::Entity entity)
   m_entitiesToPrefabs.erase(entry);
 }
 
-std::optional<PrefabManager::EntityPrefabMap::mapped_type> PrefabManager::GetEntityPrefab(ECS::Entity entity) const
+std::optional<std::reference_wrapper<PrefabManager::EntityPrefabMap::mapped_type const>> PrefabManager::GetEntityPrefab(ECS::Entity entity) const
 {
   EntityPrefabMap::const_iterator entry{ m_entitiesToPrefabs.find(entity) };
   if (entry == m_entitiesToPrefabs.cend()) { return std::nullopt; }

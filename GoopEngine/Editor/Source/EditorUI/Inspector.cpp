@@ -25,6 +25,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rttr/type.h>
 #include <Systems/Button/ButtonTypes.h>
 #include <GameDef.h>
+#include <Prefabs/PrefabManager.h>
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
 // Disable reinterpret to larger size
@@ -330,6 +331,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 		ecs.SetEntityName(entity, name);
 	}
 	ImGui::Text(("Entity ID: " + std::to_string(entity)).c_str());
+
+	auto const prefabSource{ Prefabs::PrefabManager::GetInstance().GetEntityPrefab(entity) };
+	if (prefabSource)
+	{
+		ImGui::Text(("Prefab Source: " + prefabSource->get().m_prefab).c_str());
+	}
+
 	//ImGui::ImageButton(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { newW, newH }, { 0, 1 }, { 1, 0 });
 
 	/*if (ImageButton(reinterpret_cast<ImTextureID>(ecs.GetComponent<GE::Component::Sprite>(entity)->m_spriteData.texture), { 0, 0 }, { 0, 1 }, { 1, 0 }))
