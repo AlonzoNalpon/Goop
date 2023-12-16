@@ -442,6 +442,10 @@ void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::Componen
     EntityComponentSystem::GetInstance().RegisterSystem<Systems::ButtonSystem>();
     RegisterComponentsToSystem<Systems::ButtonSystem>(sig);
     break;
+  case SYSTEM_TYPES::BUTTON_SCRIPT_SYSTEM:
+    EntityComponentSystem::GetInstance().RegisterSystem<Systems::ButtonScriptSystem>();
+    RegisterComponentsToSystem<Systems::ButtonScriptSystem>(sig);
+    break;
   default:
     std::ostringstream oss{};
     oss << "Trying to register unknown system type, " << " update function: ObjectFactory::RegisterSystemWithEnum()";

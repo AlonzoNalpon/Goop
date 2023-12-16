@@ -60,6 +60,12 @@
     <Compile Include="AI\RootNode.cs" />
     <Compile Include="AI\SelectorNode.cs" />
     <Compile Include="AI\SequenceNode.cs" />
+    <Compile Include="Button\IButtonClick.cs" />
+    <Compile Include="Button\IButtonHoverEnter.cs" />
+    <Compile Include="Button\IButtonHoverExit.cs" />
+    <Compile Include="Button\type1.cs" />
+    <Compile Include="Button\type2.cs" />
+    <Compile Include="Button\type3.cs" />
     <Compile Include="Cards\Attack.cs" />
     <Compile Include="Cards\BlankCard.cs" />
     <Compile Include="Cards\CardManager.cs" />

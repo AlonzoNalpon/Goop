@@ -107,7 +107,9 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::GE_Button>("GE_Button")
     .constructor<>()
     .property("param", &Component::GE_Button::m_param)
-    .property("eventType", &Component::GE_Button::m_eventType);
+    .property("eventType", &Component::GE_Button::m_eventType)
+    .property("lastCollided", &Component::GE_Button::m_lastCollided)
+    .property("currCollided", &Component::GE_Button::m_currCollided)
     ;
 
   rttr::registration::class_<Component::Anchor>("Anchor")
