@@ -3,7 +3,8 @@
 \author w.chinkitbryan\@digipen.edu
 \date   16-December-2023
 \brief  
-  
+  This systems calls the appropriate script of behaviour for the
+  appropriate entity  
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
