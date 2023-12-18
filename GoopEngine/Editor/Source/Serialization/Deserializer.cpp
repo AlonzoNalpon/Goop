@@ -39,7 +39,6 @@ std::ostream& operator<<(std::ostream& os, rttr::type const& type)
 #endif
 
 #ifndef IMGUI_DISABLE
-#ifdef PREFAB_V2
 Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string const& json)
 {
   std::ifstream ifs{ json };
@@ -67,7 +66,6 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
     JsonComponentsKey, rapidjson::kArrayType, JsonPrefabVerKey, rapidjson::kNumberType)) { ifs.close(); return {}; }
 
   Prefabs::VariantPrefab prefab{ document[JsonNameKey].GetString(), document[JsonPrefabVerKey].GetUint() };
-  Prefabs::PrefabManager::GetInstance().SetPrefabVersion(prefab.m_name, prefab.m_version);
   // iterate through component objects in json array
   std::vector<rttr::variant>& compVector{ prefab.m_components };
   for (auto const& elem : document[JsonComponentsKey].GetArray())
@@ -135,69 +133,6 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
 
   return prefab;
 }
-#else
-Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string const& json)
-{
-  std::ifstream ifs{ json };
-  if (!ifs)
-  {
-    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + json);
-    #ifdef _DEBUG
-    std::cout << "Unable to read " << json << "\n";
-    #endif
-    return {};
-  }
-  rapidjson::Document document{};
-  // parse into document object
-  rapidjson::IStreamWrapper isw{ ifs };
-  if (document.ParseStream(isw).HasParseError())
-  {
-    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + json);
-    #ifdef _DEBUG
-    std::cout << "Unable to parse " + json << "\n";
-    #endif
-    return {};
-  }
-
-  if (!ScanJsonFileForMembers(document, json, 3, JsonNameKey, rapidjson::kStringType, 
-    JsonComponentsKey, rapidjson::kArrayType, JsonPrefabVerKey, rapidjson::kNumberType)) { ifs.close(); return {}; }
-
-  Prefabs::VariantPrefab prefab{ document[JsonNameKey].GetString(), document[JsonPrefabVerKey].GetUint() };
-  Prefabs::PrefabManager::GetInstance().SetPrefabVersion(prefab.m_name, prefab.m_version);
-  // iterate through component objects in json array
-  std::vector<rttr::variant>& compVector{ prefab.m_components };
-  for (auto const& elem : document[JsonComponentsKey].GetArray())
-  {
-    for (rapidjson::Value::ConstMemberIterator comp{ elem.MemberBegin() }; comp != elem.MemberEnd(); ++comp)
-    {
-      std::string const compName{ comp->name.GetString() };
-      rapidjson::Value const& compJson{ comp->value };
-
-      rttr::type compType = rttr::type::get_by_name(compName);
-      #ifdef DESERIALIZER_DEBUG
-      std::cout << "  [P] Deserializing " << compType << "\n";
-      #endif
-      if (!compType.is_valid())
-      {
-        std::ostringstream oss{};
-        oss << "Trying to deserialize an invalid component: " << compName;
-        Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        #ifdef _DEBUG
-        std::cout << oss.str() << "\n";
-        #endif
-        continue;
-      }
-
-      rttr::variant compVar{};
-      DeserializeComponent(compVar, compType, compJson);
-
-      compVector.emplace_back(compVar);
-    }
-  }
-
-  return prefab;
-}
-#endif
 #endif
 
 ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene(std::string const& filepath)

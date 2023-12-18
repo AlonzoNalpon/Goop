@@ -144,7 +144,7 @@ namespace GE
 			\return 
 				Vector of entities.
 			********************************************************************/
-			std::set<Entity>& GetChildEntities(Entity& parent);
+			std::set<Entity>& GetChildEntities(Entity const& parent);
 
 			/*!******************************************************************
 			\brief 

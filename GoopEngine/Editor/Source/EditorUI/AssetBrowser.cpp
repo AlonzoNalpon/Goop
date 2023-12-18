@@ -18,6 +18,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include<Graphics/GraphicsEngine.h>
 #include <stb_image.h>
 #include <commdlg.h>	// to open file explorer
+#include <Events/EventManager.h>
+#include "PrefabEditor.h"
 
 using namespace ImGui;
 using namespace GE::Assets;
@@ -26,7 +28,7 @@ using namespace GE::EditorGUI;
 std::set<ImTextureID> GE::EditorGUI::AssetBrowser::m_textID;
 std::set<int> GE::EditorGUI::AssetBrowser::m_assetIDs;
 std::vector<int> GE::EditorGUI::AssetBrowser::toUnload;
-
+bool AssetBrowser::m_assetsMenuOpen{ false };
 
 namespace
 {
@@ -99,14 +101,14 @@ void AssetBrowser::CreateContentView()
 	BeginGroup();
 	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
 	{
-		std::string const& extension{ file.path().extension().string() };
+		std::string const extension{ file.path().extension().string() };
 
 		if (!file.is_regular_file())
 		{
 			continue;
 		}
 
-		std::string path = file.path().filename().string();
+		std::string const path = file.path().filename().string();
 		const char* pathCStr = path.c_str();
 
 		if (assetManager.ImageFileExt.find(extension) != std::string::npos)
@@ -145,8 +147,6 @@ void AssetBrowser::CreateContentView()
 		else if (assetManager.PrefabFileExt.find(extension) != std::string::npos)
 		{
 			Selectable(pathCStr);
-			if (IsItemClicked())
-				ImGuiHelper::SetSelectedAsset("");
 			
 			if (ImGui::BeginDragDropSource())
 			{
@@ -159,8 +159,6 @@ void AssetBrowser::CreateContentView()
 		else if (assetManager.FontFileExt.find(extension) != std::string::npos)
 		{
 			Selectable(pathCStr);
-			if (IsItemClicked())
-				ImGuiHelper::SetSelectedAsset("");
 
 			if (ImGui::BeginDragDropSource())
 			{
@@ -172,8 +170,6 @@ void AssetBrowser::CreateContentView()
 		else if (assetManager.SceneFileExt.find(extension) != std::string::npos)
 		{
 			Selectable(pathCStr);
-			if (IsItemClicked())
-				ImGuiHelper::SetSelectedAsset("");
 
 			if (ImGui::BeginDragDropSource())
 			{
@@ -196,10 +192,76 @@ void AssetBrowser::CreateContentView()
 		}
 		else
 		{
-			Text(pathCStr);
+			Selectable(pathCStr);
+		}
+
+		if (ImGui::IsItemClicked(ImGuiMouseButton_Right))
+		{
+			ImGuiHelper::SetSelectedAsset(file);
+			OpenPopup("AssetsMenu");
 		}
 	}
 
+	static bool deletePopup{ false };
+	if (BeginPopup("AssetsMenu"))
+	{
+		// only enabled for prefabs
+		if (ImGuiHelper::GetSelectedAsset().extension().string() == ".pfb")
+		{
+			ImGui::BeginDisabled(GE::EditorGUI::PrefabEditor::IsEditingPrefab());
+			if (Selectable("Edit Prefab"))
+			{
+				Events::EventManager::GetInstance().Dispatch(Events::EditPrefabEvent(
+					ImGuiHelper::GetSelectedAsset().stem().string(),
+					ImGuiHelper::GetSelectedAsset().relative_path().string())
+				);
+			}
+			ImGui::EndDisabled();
+		}
+
+		if (Selectable("Delete"))
+		{
+			deletePopup = true;
+		}
+
+		EndPopup();
+	}
+
+	if (deletePopup)
+	{
+		ImGui::OpenPopup("Confirm Delete");
+		deletePopup = false;
+	}
+
+	ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+	if (ImGui::BeginPopupModal("Confirm Delete", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Are you sure you want to delete");
+		ImGui::SameLine();
+		// highlight next text
+		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), ImGuiHelper::GetSelectedAsset().filename().string().c_str());
+		ImGui::SameLine();
+		ImGui::Text("?");
+		
+		ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x * 0.5f - ImGui::CalcTextSize("Yes ").x);
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 1.f));
+		if (ImGui::Button("No"))
+		{
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::PopStyleColor();
+
+		ImGui::SameLine();
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.f, 0.65f, 0.f, 1.f));
+		if (ImGui::Button("Yes"))
+		{
+			std::remove(ImGuiHelper::GetSelectedAsset().relative_path().string().c_str());
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::PopStyleColor();
+
+		ImGui::EndPopup();
+	}
 	EndGroup();
 }
 

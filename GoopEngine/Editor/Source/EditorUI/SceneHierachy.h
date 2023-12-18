@@ -22,6 +22,9 @@ namespace GE::EditorGUI
 			Wrapper to create Scene graph
 		********************************************************************/
 		static void CreateContent();
+
+	private:
+
 	};
 }
 

@@ -23,6 +23,19 @@ namespace GE
 {
   namespace Events
   {
+    enum class PRIORITY
+    {
+      HIGH = 0,
+      MEDIUM,
+      LOW
+    };
+
+    struct SubscriberList
+    {
+      std::vector<IEventListener*> m_listeners;
+      std::vector<IEventListener*>::size_type m_medPriorityIndex = 0;  // index at which MEDIUM priority begins
+    };
+
     class EventManager : public Singleton<EventManager>
     {
     public:
@@ -40,7 +53,7 @@ namespace GE
         The listener to subscribe to the event
       ************************************************************************/
       template <typename EventType, typename Listener>
-      void Subscribe(Listener* listener);  // Subscribes a listener to an event
+      void Subscribe(Listener* listener, PRIORITY priority = PRIORITY::LOW);  // Subscribes a listener to an event
 
       /*!*********************************************************************
       \brief
@@ -49,7 +62,7 @@ namespace GE
         The listener to unsubscribe from the event
       ************************************************************************/
       template <typename EventType, typename Listener>
-      void Unsubscribe(Listener* listener);  // Unsubscribes a listener to an event
+      void Unsubscribe(Listener* listener);  // Unsubscribes a listener from an event
 
       /*!*********************************************************************
       \brief
@@ -64,13 +77,11 @@ namespace GE
       void Dispatch(EventType&& event);
 
     private:
-      // alias for function that handles events
-      using SubscriberList = std::vector<IEventListener*>;
       using SubscriberMap = std::unordered_map<std::type_index, SubscriberList>;
 
       // list of subscribers for each event
       // each event in the map will have its own list of subscribers
-      SubscriberMap m_Subscribers;
+      SubscriberMap m_subscribers;
     };
 
     #include "EventManager.tpp"

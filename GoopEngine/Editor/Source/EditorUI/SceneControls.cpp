@@ -14,6 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SceneControls.h"
 #include "ImGuiUI.h"
 #include <Events/EventManager.h>
+#include "PrefabEditor.h"
 
 using namespace ImGui;
 using namespace GE::EditorGUI;
@@ -21,6 +22,7 @@ using namespace GE::EditorGUI;
 void GE::EditorGUI::SceneControls::CreateContent()
 {
   char const play[] = "Play", stop[] = "Stop", pause[] = "Pause", step[] = "Step";
+  BeginDisabled(PrefabEditor::IsEditingPrefab());
   if (ImGui::BeginMenuBar())
   {
     if (ImGuiHelper::IsRunning())
@@ -68,5 +70,6 @@ void GE::EditorGUI::SceneControls::CreateContent()
 
     EndMenuBar();
   }
+  EndDisabled();
 }
 #endif

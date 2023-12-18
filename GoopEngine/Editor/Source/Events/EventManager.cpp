@@ -17,6 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #ifndef IMGUI_DISABLE
 #include <EditorUI/EditorViewport.h>
 #include <Prefabs/PrefabManager.h>
+#include <EditorUI/PrefabEditor.h>
 #endif
 
 using namespace GE::Events;
@@ -29,10 +30,14 @@ void EventManager::SubscribeAllListeners()
   Subscribe<MouseReleasedEvent>(ecs.GetSystem<GE::Systems::DraggableObjectSystem>());
   Subscribe<MouseTriggeredEvent>(ecs.GetSystem<GE::Systems::ButtonSystem>());
   Subscribe<KeyTriggeredEvent>(ecs.GetSystem<GE::Systems::GameSystem>());
-#ifndef IMGUI_DISABLE
-  Subscribe<KeyTriggeredEvent>(&GE::EditorGUI::EditorViewport::GetInstance());
-  Subscribe<RemoveEntityEvent>(&GE::Prefabs::PrefabManager::GetInstance());
-  Subscribe<PrefabSavedEvent>(&GE::Prefabs::PrefabManager::GetInstance());
-#endif
 
+#ifndef IMGUI_DISABLE
+  EditorGUI::EditorViewport& evp{ EditorGUI::EditorViewport::GetInstance() };
+  Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
+  EditorGUI::PrefabEditor& pe{ EditorGUI::PrefabEditor::GetInstance() };
+
+  Subscribe<KeyTriggeredEvent>(&evp);
+  Subscribe<RemoveEntityEvent>(&pm);
+  Subscribe<EditPrefabEvent>(&pe); Subscribe<KeyTriggeredEvent>(&pe);
+#endif
 }

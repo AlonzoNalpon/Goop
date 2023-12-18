@@ -136,7 +136,7 @@ void GE::ECS::EntityManager::SetParentEntity(Entity const& parent, Entity const&
 	m_parent[child] = parent;
 }
 
-std::set<Entity>& GE::ECS::EntityManager::GetChildEntities(Entity& parent)
+std::set<Entity>& GE::ECS::EntityManager::GetChildEntities(Entity const& parent)
 {
 	if (parent == INVALID_ID)
 	{

@@ -1,20 +1,33 @@
 template <typename EventType, typename Listener>
-void EventManager::Subscribe(Listener* listener)
+void EventManager::Subscribe(Listener* listener, PRIORITY priority)
 {
-  SubscriberList& subscribers{ m_Subscribers[typeid(EventType)] };
+  SubscriberList& sList{ m_subscribers[typeid(EventType)] };
   // if already in list, return
 
-  if (std::find(subscribers.begin(), subscribers.end(), listener) != subscribers.end())
+  if (std::find(sList.m_listeners.begin(), sList.m_listeners.end(), listener) != sList.m_listeners.end())
   {
     return;
   }
 
-  subscribers.emplace_back(static_cast<IEventListener*>(listener));
+  // insert based on priority
+  switch (priority)
+  {
+  case PRIORITY::HIGH:
+    sList.m_listeners.emplace(sList.m_listeners.begin(), static_cast<IEventListener*>(listener));
+    ++sList.m_medPriorityIndex;
+    break;
+  case PRIORITY::MEDIUM:
+    sList.m_listeners.emplace(sList.m_listeners.begin() + sList.m_medPriorityIndex, static_cast<IEventListener*>(listener));
+    break;
+  case PRIORITY::LOW:
+    sList.m_listeners.emplace_back(static_cast<IEventListener*>(listener));
+    break;
+  }
 
   #ifdef _DEBUG
   std::ostringstream oss{};
   oss << "EventManager: " << typeid(EventType).name() 
-  << " subscribed to " << typeid(EventType).name() << "\n";
+      << " subscribed to " << typeid(EventType).name() << "\n";
   Debug::ErrorLogger::GetInstance().LogMessage(oss.str());
   #endif
 }
@@ -22,26 +35,30 @@ void EventManager::Subscribe(Listener* listener)
 template <typename EventType, typename Listener>
 void EventManager::Unsubscribe(Listener* listener)
 {
-  SubscriberList& subscribers{ m_Subscribers[typeid(EventType)] };
-  typename SubscriberList::const_iterator result{ std::find(subscribers.cbegin(), subscribers.cend(), listener) };
-  if (result == subscribers.end())
+  SubscriberList& sList{ m_subscribers[typeid(EventType)] };
+  std::vector<IEventListener*>::const_iterator result{ std::find(sList.m_listeners.cbegin(), sList.m_listeners.cend(), listener) };
+  if (result == sList.m_listeners.cend())
   {
     #ifdef _DEBUG
     std::ostringstream oss{};
     oss << "EventManager::Unsubscribe: " << typeid(Listener).name()
-    << " is not currently subscribed to " << typeid(EventType).name() << "\n";
+        << " is not currently subscribed to " << typeid(EventType).name() << "\n";
     Debug::ErrorLogger::GetInstance().LogMessage(oss.str());
     #endif
 
     return;
   }
 
-  subscribers.erase(result);
+  // if removing high priority listener, decrement medium index
+  if (sList.m_medPriorityIndex != 0 && result <= sList.m_listeners.cbegin() + sList.m_medPriorityIndex)
+  {
+    --sList.m_medPriorityIndex;
+  }
+  sList.m_listeners.erase(result);
 
   #ifdef _DEBUG
   std::ostringstream oss{};
-  oss << "EventManager: " << typeid(Listener).name() << 
-  " unsubscribed from " << typeid(EventType).name() << "\n";
+  oss << "EventManager: " << typeid(Listener).name() << " unsubscribed from " << typeid(EventType).name() << "\n";
   Debug::ErrorLogger::GetInstance().LogMessage(oss.str());
   #endif
 }
@@ -49,12 +66,9 @@ void EventManager::Unsubscribe(Listener* listener)
 template <typename EventType>
 void EventManager::Dispatch(EventType& event)
 {
-  SubscriberList& subscribers{ m_Subscribers[typeid(EventType)] };
-  for (SubscriberList::iterator it{ subscribers.begin() }; it != subscribers.end();)
+  std::vector<IEventListener*>& subscribers{ m_subscribers[typeid(EventType)].m_listeners };
+  for (std::vector<IEventListener*>::iterator it{ subscribers.begin() }; it != subscribers.end();)
   {
-    #ifdef EVENT_DEBUG
-     << event.GetName() << " Event dispatched\n";
-    #endif
     if (event.IsHandled()) { return; }
     // if listener being pointed to no longer exists, remove it
     if (!(*it))
@@ -71,13 +85,11 @@ void EventManager::Dispatch(EventType& event)
 template <typename EventType>
 void EventManager::Dispatch(EventType&& event)
 {
-  SubscriberList& subscribers{ m_Subscribers[typeid(EventType)] };
-  for (SubscriberList::iterator it{ subscribers.begin() }; it != subscribers.end();)
+  std::vector<IEventListener*>& subscribers{ m_subscribers[typeid(EventType)].m_listeners };
+  for (std::vector<IEventListener*>::iterator it{ subscribers.begin() }; it != subscribers.end();)
   {
-    #ifdef EVENT_DEBUG
-     << event.GetName() << " Event dispatched\n";
-    #endif
     if (event.IsHandled()) { return; }
+
     // if listener being pointed to no longer exists, remove it
     if (!(*it))
     {

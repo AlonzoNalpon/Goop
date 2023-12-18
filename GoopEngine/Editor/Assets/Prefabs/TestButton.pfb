@@ -1,12 +1,25 @@
 {
     "Name": "TestButton",
-    "Version": 2,
+    "Version": 5,
     "Components": [
         {
             "Transform": {
+                "pos": "{ 0, 0, 0 }",
+                "scale": "{ 1, 1, 1 }",
+                "rot": "{ 0, 0, 0 }",
                 "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 0, 0 }",
+                "width": 456.0,
+                "height": 154.0,
+                "min": "{ -228, -77 }",
+                "max": "{ 228, 77 }",
+                "render": false
             }
         },
         {
@@ -26,16 +39,6 @@
                     }
                 },
                 "spriteName": "Button_Base"
-            }
-        },
-        {
-            "BoxCollider": {
-                "center": "{ 0, 0 }",
-                "width": 456.0,
-                "height": 154.0,
-                "min": "{ 0, 0 }",
-                "max": "{ 0, 0 }",
-                "render": false
             }
         }
     ],

@@ -124,7 +124,18 @@ namespace GE::Scenes
   private:
     std::string m_currentScene;
     std::string m_nextScene;
-    std::string m_tempScene, m_tempPath;  // used to temporarily save scene when playing/stopping
+
+#ifndef IMGUI_DISABLE
+
+    struct SceneSave
+    {
+      SceneSave(std::string name, std::string path) : m_name{ std::move(name) }, m_path{ std::move(path) } {}
+
+      std::string const m_name, m_path;
+    };
+
+    std::string m_tempPath;
+    std::stack<SceneSave> m_tempSaves;  // used to temporarily save scene when playing/stopping
 
     /*!*********************************************************************
     \brief
@@ -139,6 +150,7 @@ namespace GE::Scenes
       m_tempScene.
     ************************************************************************/
     void LoadTemporarySave();
+#endif
 
     /* Map of all the scene files.Currently the way scenes are inserted
     into this map is hardcoded. */

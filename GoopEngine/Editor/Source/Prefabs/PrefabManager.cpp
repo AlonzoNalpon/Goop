@@ -28,9 +28,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ObjectFactory/ObjectFactory.h>
 #include <Serialization/Serializer.h>
 #include <Serialization/Deserializer.h>
+#include <Systems/RootTransform/PostRootTransformSystem.h>
 
 #ifdef _DEBUG
-//#define PREFAB_MANAGER_DEBUG
+#define PREFAB_MANAGER_DEBUG
 #endif
 
 using namespace GE::Prefabs;
@@ -44,37 +45,30 @@ void PrefabManager::LoadPrefabsFromFile()
   }
 }
 
-GE::ECS::Entity PrefabManager::SpawnPrefab(const std::string& key)
+GE::ECS::Entity PrefabManager::SpawnPrefab(const std::string& key, Math::dVec3 const& pos)
 {
   PrefabDataContainer::const_iterator iter{ m_prefabs.find(key) };
   if (iter == m_prefabs.end())
   {
     throw GE::Debug::Exception<PrefabManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
-
-    // Commented out for now - I think reloading should be responsibility of whoever calls this function
-    //ReloadPrefabs();
-    //if ((iter = m_prefabs.find(key)) == m_prefabs.end())
-    //{
-    //  throw GE::Debug::Exception<PrefabManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to load prefab " + key));
-    //}
   }
 
-#ifdef PREFAB_V2
   auto mappedData{ iter->second.Construct() };
   ECS::Entity const newEntity{ mappedData.first };
-
+  GE::Component::Transform& trans{ *ECS::EntityComponentSystem::GetInstance().GetComponent<GE::Component::Transform>(newEntity)};
+  trans.m_pos = pos;
   // set entity's prefab source
   m_entitiesToPrefabs[newEntity] = std::move(mappedData.second);
-#else
-  auto& ecs = ECS::EntityComponentSystem::GetInstance();
-  ECS::Entity newEntity{ ecs.CreateEntity() };
-  ObjectFactory::ObjectFactory::GetInstance().AddComponentsToEntity(newEntity, iter->second.m_components);
 
-  // set entity's prefab source
-  m_entitiesToPrefabs[newEntity] = { key, GetPrefabVersion(key) };
-
-  ecs.SetEntityName(newEntity, key);
-#endif
+  Math::dMat4 identity
+  {
+    { 1, 0, 0, 0 },
+    { 0, 1, 0, 0 },
+    { 0, 0, 1, 0 },
+    { 0, 0, 0, 1 }
+  };
+  // Update recursively using entity's world transformation matrix
+  Systems::PostRootTransformSystem::Propergate(newEntity, identity);
 
   return newEntity;
 }
@@ -139,75 +133,79 @@ std::optional<std::reference_wrapper<PrefabManager::EntityPrefabMap::mapped_type
   return entry->second;
 }
 
-VariantPrefab::PrefabVersion PrefabManager::GetPrefabVersion(std::string const& prefab)
-{
-  std::unordered_map<std::string, VariantPrefab::PrefabVersion>::const_iterator entry{ m_prefabVersions.find(prefab) };
-  if (entry == m_prefabVersions.cend()) { return m_prefabVersions[prefab] = 0; }
-
-  return entry->second;
-}
-
 void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
 {
-  //ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
   ObjectFactory::ObjectFactory const& of{ ObjectFactory::ObjectFactory::GetInstance() };
-  EntityPrefabMap::iterator iter{ m_entitiesToPrefabs.begin() };
   rttr::type const transType{ rttr::type::get<Component::Transform*>() };
 
-  for (; iter != m_entitiesToPrefabs.cend(); ++iter)
+  VariantPrefab const& prefabVar{ GetVariantPrefab(prefab) };
+  for (EntityPrefabMap::iterator iter{ m_entitiesToPrefabs.begin() }; iter != m_entitiesToPrefabs.cend(); ++iter)
   {
     EntityPrefabMap::mapped_type& iterVal{ iter->second };
+    ECS::Entity const& entity{ iter->first };
+
     // if prefabs name don't match, continue
     if (iterVal.m_prefab != prefab) { continue; }
 
     // if prefab versions match, means its up-to-date so continue
-    if (m_prefabVersions[prefab] == iterVal.m_version)
+    if (iterVal.m_version == prefabVar.m_version)
     {
 #ifdef PREFAB_MANAGER_DEBUG
-      std::cout << " Entity " << iter->first << " matches " << prefab << "'s version of " << m_prefabVersions[prefab] << "\n";
+      std::cout << " Entity " << entity << " matches " << prefab << "'s version of " << prefabVar.m_version << "\n";
 #endif
       continue;
     }
 
+    ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
     // for parent, update all components except worldPos in transform
-    VariantPrefab const& prefabVar{ GetVariantPrefab(iterVal.m_prefab) };
-    for (rttr::variant const& comp : prefabVar.m_components)
-    {
-      if (comp.get_type().get_wrapped_type() == transType)
-      {
-        Component::Transform& newTrans{ *comp.get_value<Component::Transform*>() };
-        newTrans.m_worldPos = ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Transform>(iter->first)->m_worldPos;
-        break;
-      }
-    }
-    of.AddComponentsToEntity(iter->first, prefabVar.m_components);
+    auto pos{ ecs.GetComponent<Component::Transform>(entity)->m_pos };
+    of.AddComponentsToEntity(entity, prefabVar.m_components);
+    ecs.GetComponent<Component::Transform>(entity)->m_pos = std::move(pos);
 
     // update components of children but for transform, only update local pos, rot and scale
-    auto const& mappedData{ iterVal.m_entityToObj };
+    auto& mappedData{ iterVal.m_entityToObj };
+    bool newEntityCreated{ false };
     for (PrefabSubData const& obj : prefabVar.m_objects)
     {
       auto childEntity{ mappedData.find(obj.m_id) };
       if (childEntity == mappedData.cend())
       {
-        std::ostringstream oss;
-        oss << "Entity " << iter->first << " missing child object: " << obj.m_name << ". Skipping entity...";
-        Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        continue;
+#ifdef PREFAB_MANAGER_DEBUG
+        std::cout << "Entity " << iter->first << " missing child object: " << obj.m_name << ". Creating...";
+#endif
+        ECS::Entity const newChild{ obj.Construct() };
+        mappedData.emplace(obj.m_id, newChild);
+        newEntityCreated = true;
       }
-
-     /* for (rttr::variant const& comp : obj.m_components)
+      else
       {
-        if (comp.get_type().get_wrapped_type() == transType)
-        {
-          Component::Transform& newTrans{ *comp.get_value<Component::Transform*>() };
-          newTrans.m_worldPos = ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Transform>(iter->first)->m_worldPos;
-          break;
-        }
-      }*/
-      of.AddComponentsToEntity(childEntity->second, obj.m_components);
+        of.AddComponentsToEntity(childEntity->second, obj.m_components);
+      }
     }
 
-    iterVal.m_version = m_prefabVersions[prefab];  // update version of entity
+    // if new entity was created, iterate through all mappings
+    // and establish hierarchy
+    if (newEntityCreated)
+    {
+      for (PrefabSubData const& obj : prefabVar.m_objects)
+      {
+        ECS::Entity const child{ mappedData[obj.m_id] }, parent{ mappedData[obj.m_parent] };
+        ecs.SetParentEntity(child, parent);
+        ecs.AddChildEntity(parent, child);
+      }
+    }
+
+    // set all child positions based on parent transform
+    Math::dMat4 const identity
+    {
+      { 1, 0, 0, 0 },
+      { 0, 1, 0, 0 },
+      { 0, 0, 1, 0 },
+      { 0, 0, 0, 1 }
+    };
+    Systems::PostRootTransformSystem::Propergate(entity, identity);
+
+    iterVal.m_version = prefabVar.m_version;  // update version of entity
 #ifdef PREFAB_MANAGER_DEBUG
     std::cout << "  Entity " << iter->first << " updated with " << prefab << " version " << iterVal.m_version << "\n";
 #endif
@@ -222,37 +220,46 @@ void PrefabManager::UpdateAllEntitiesFromPrefab()
   }
 }
 
-#ifdef PREFAB_V2
-void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const& name)
+void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const& name, std::string const& path)
 {
   VariantPrefab prefab{ name };
   prefab.m_components = ObjectFactory::ObjectFactory::GetInstance().GetEntityComponents(entity);
 
   prefab.CreateSubData(ECS::EntityComponentSystem::GetInstance().GetChildEntities(entity));
 
-  Assets::AssetManager& am{ Assets::AssetManager::GetInstance() };
-  Serialization::Serializer::SerializeVariantToPrefab(prefab,
-    am.GetConfigData<std::string>("Prefabs Dir") + name + am.GetConfigData<std::string>("Prefab File Extension"));
-  am.ReloadFiles(Assets::FileType::PREFAB);
-  ReloadPrefabs();
-
-  GE::Debug::ErrorLogger::GetInstance().LogMessage(name + " saved to Prefabs");
-}
-#else
-void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const& name) const
-{
-  VariantPrefab prefab{ name };
-  prefab.m_components = ObjectFactory::ObjectFactory::GetInstance().GetEntityComponents(entity);
+  // if prefab already exists, update version accordingly
+  auto iter{ m_prefabs.find(name) };
+  if (iter != m_prefabs.end())
+  {
+    prefab.m_version = iter->second.m_version + 1;
+  }
 
   Assets::AssetManager& am{ Assets::AssetManager::GetInstance() };
-  Serialization::Serializer::SerializeVariantToPrefab(prefab,
-    am.GetConfigData<std::string>("Prefabs Dir") + name + am.GetConfigData<std::string>("Prefab File Extension"));
-  am.ReloadFiles(Assets::FileType::PREFAB);
-  ReloadPrefab(name);
+  if (path.empty())
+  {
+    Serialization::Serializer::SerializeVariantToPrefab(prefab,
+      am.GetConfigData<std::string>("Prefabs Dir") + name + am.GetConfigData<std::string>("Prefab File Extension"));
+  }
+  else
+  {
+    Serialization::Serializer::SerializeVariantToPrefab(prefab, path);
+  }
 
-  GE::Debug::ErrorLogger::GetInstance().LogMessage(name + " saved to Prefabs");
+  // if it already exists, just update directly
+  if (iter != m_prefabs.end())
+  {
+    m_prefabs[name] = std::move(prefab);
+    // update all instances
+    UpdateEntitiesFromPrefab(name);
+    GE::Debug::ErrorLogger::GetInstance().LogMessage("Entities in scene have been updated with changes to " + name);
+  }
+  else // else reload
+  {
+    am.ReloadFiles(Assets::FileType::PREFAB);
+    ReloadPrefabs();
+    GE::Debug::ErrorLogger::GetInstance().LogMessage(name + " saved to Prefabs");
+  }
 }
-#endif
 
 
 void PrefabManager::HandleEvent(Events::Event* event)
@@ -263,14 +270,6 @@ void PrefabManager::HandleEvent(Events::Event* event)
   {
     EntityPrefabMap::const_iterator iter{ m_entitiesToPrefabs.find(static_cast<Events::RemoveEntityEvent*>(event)->m_entityId) };
     if (iter != m_entitiesToPrefabs.cend()) { m_entitiesToPrefabs.erase(iter); }
-    break;
-  }
-  case Events::EVENT_TYPE::PREFAB_SAVED:
-  {
-    std::string const prefabName{ static_cast<Events::PrefabSavedEvent*>(event)->m_prefab };
-    ++m_prefabVersions[prefabName];
-    UpdateEntitiesFromPrefab(prefabName);
-    GE::Debug::ErrorLogger::GetInstance().LogMessage("Entities in scene have been updated with changes to " + prefabName);
     break;
   }
   }

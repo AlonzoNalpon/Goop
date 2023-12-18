@@ -59,7 +59,7 @@ namespace GE::ObjectFactory
     \param
       std::set<GE::ECS::Entity>& (map of loaded objects to be deleted later)
     ************************************************************************/
-    void LoadSceneObjects(std::set<GE::ECS::Entity>& map);
+    void LoadSceneObjects();
 
     /*!*********************************************************************
     \brief

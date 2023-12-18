@@ -42,9 +42,18 @@ namespace GE
     {
     public:
       PrefabSavedEvent(std::string prefab) : Event(EVENT_TYPE::PREFAB_SAVED), m_prefab{ std::move(prefab) } {}
-      inline std::string GetName() const noexcept override { return "Prefab Saved"; }
+      inline std::string GetName() const noexcept override { return "Prefab Saved: " + m_prefab; }
 
       std::string const m_prefab;
+    };
+
+    class EditPrefabEvent : public Event
+    {
+    public:
+      EditPrefabEvent(std::string prefab, std::string path) : Event(EVENT_TYPE::EDIT_PREFAB), m_prefab{ std::move(prefab) }, m_path{ std::move(path) } {}
+      inline std::string GetName() const noexcept override { return "Editing Prefab: " + m_prefab; }
+
+      std::string const m_prefab, m_path;
     };
 
 #endif

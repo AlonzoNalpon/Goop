@@ -16,6 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <EditorUI/DataViz/Visualizer.h>
 #include <ImGui/imgui_internal.h>
 #include <EditorUI/AssetBrowser.h>
+#include "PrefabEditor.h"
 
 using namespace ImGui;
 using namespace GE::EditorGUI::DataViz;
@@ -28,6 +29,7 @@ void GE::EditorGUI::ToolBar::CreateContent()
     {
       const char* const sceneFilter{ "Scenes (*.scn)\0*.scn" }, *const initialDir{"./Assets/Scenes"};
 
+      ImGui::BeginDisabled(PrefabEditor::IsEditingPrefab());
       if (Selectable("New Scene"))
       {
         std::string const newScenePath{ GE::EditorGUI::AssetBrowser::SaveFileToExplorer(sceneFilter, 1, initialDir) };
@@ -52,6 +54,7 @@ void GE::EditorGUI::ToolBar::CreateContent()
           GE::GSM::GameStateManager::GetInstance().LoadSceneFromExplorer(scenePath);
         }
       }
+      ImGui::EndDisabled();
 
       ImGui::EndMenu();
     }

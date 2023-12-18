@@ -26,6 +26,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Button/ButtonTypes.h>
 #include <GameDef.h>
 #include <Prefabs/PrefabManager.h>
+#include "PrefabEditor.h"
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
 // Disable reinterpret to larger size
@@ -326,10 +327,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 	}
 	SameLine();
 	std::string name = ecs.GetEntityName(entity);
+
+	bool const canRename{ PrefabEditor::IsEditingPrefab() && PrefabEditor::GetCurrentEntity() == entity };
+	ImGui::BeginDisabled(canRename);
 	if (InputText("##Name", &name))
 	{
 		ecs.SetEntityName(entity, name);
 	}
+	ImGui::EndDisabled();
 	ImGui::Text(("Entity ID: " + std::to_string(entity)).c_str());
 
 	auto const prefabSource{ Prefabs::PrefabManager::GetInstance().GetEntityPrefab(entity) };

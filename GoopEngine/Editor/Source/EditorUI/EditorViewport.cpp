@@ -18,7 +18,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Events/InputEvents.h>
 #include <Commands/CommandManager.h>
 
-
 #include <Component/Transform.h>
 #include <Component/BoxCollider.h>
 
@@ -28,7 +27,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <filesystem>
 #include <GameStateManager/GameStateManager.h>
 #include <ImGuizmo_1_83/ImGuizmo.h>
-
+#include "PrefabEditor.h"
 
 namespace GE::EditorGUI
 
@@ -54,8 +53,8 @@ namespace GE::EditorGUI
 
   void EditorViewport::UpdateViewport(Graphics::Rendering::FrameBufferInfo& fbInfo)
   {
-    auto* ecs = &GE::ECS::EntityComponentSystem::GetInstance();
-    auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+    static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+    static auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 
     // Calculate the UV coordinates based on viewport position and size
     // Get the size of the GLFW window
@@ -70,6 +69,7 @@ namespace GE::EditorGUI
     GLuint texture = fbInfo.renderTexture;
     ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
 #endif
+
     if (ImGui::BeginDragDropTarget())
     {
       if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
@@ -81,7 +81,7 @@ namespace GE::EditorGUI
         if (extension == "png")
         {
           GLuint textureID = gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
-          GE::ECS::Entity imageEntity = ecs->CreateEntity();
+          GE::ECS::Entity imageEntity = ecs.CreateEntity();
           GE::Component::Transform trans{};
           trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
           trans.m_worldScale = { 1, 1, 1 };
@@ -90,10 +90,10 @@ namespace GE::EditorGUI
 #ifndef IMGUI_DISABLE
           boxCollider.m_render = true;
 #endif
-          ecs->AddComponent(imageEntity, trans);
-          ecs->AddComponent(imageEntity, sprite);
-          ecs->AddComponent(imageEntity, boxCollider);
-          ecs->SetEntityName(imageEntity, GE::GoopUtils::ExtractFilename(droppedPath));
+          ecs.AddComponent(imageEntity, trans);
+          ecs.AddComponent(imageEntity, sprite);
+          ecs.AddComponent(imageEntity, boxCollider);
+          ecs.SetEntityName(imageEntity, GE::GoopUtils::ExtractFilename(droppedPath));
         }
       }
       if (const ImGuiPayload* payload2 = ImGui::AcceptDragDropPayload("ASSET_BROWSER_PREFAB"))
@@ -104,9 +104,7 @@ namespace GE::EditorGUI
         if (extension == ".pfb")
         {
           auto const mousePosition = GE::Input::InputManager::GetInstance().GetMousePosWorld();
-          ECS::Entity entity{ Prefabs::PrefabManager::GetInstance().SpawnPrefab(filepath.stem().string())};
-          GE::Component::Transform& trans{ *ecs->GetComponent<GE::Component::Transform>(entity) };
-          trans.m_worldPos = { mousePosition.x, mousePosition.y, 0 };
+          Prefabs::PrefabManager::GetInstance().SpawnPrefab(filepath.stem().string(), { mousePosition.x, mousePosition.y, 0 });          
         }
         // retrieve payload and cast back to base type]
       }
@@ -176,7 +174,7 @@ namespace GE::EditorGUI
             double depthVal{ std::numeric_limits<double>::lowest() };
             GE::ECS::Entity selectedID = GE::ECS::INVALID_ID;
 
-            for (GE::ECS::Entity curr : ecs->GetEntities())
+            for (GE::ECS::Entity curr : ecs.GetEntities())
             {
               // Check if this entity is updatable
               {
@@ -184,24 +182,24 @@ namespace GE::EditorGUI
                 bool active{ true };
                 while (parent != GE::ECS::INVALID_ID)
                 {
-                  if (!ecs->GetIsActiveEntity(parent))
+                  if (!ecs.GetIsActiveEntity(parent))
                   {
                     active = false;
                     break;
                   }
 
-                  parent = ecs->GetParentEntity(parent);
+                  parent = ecs.GetParentEntity(parent);
                 }
                 if (!active)
                   continue;
               }
 
-              auto const* transPtr = ecs->GetComponent<GE::Component::Transform>(curr);
+              auto const* transPtr = ecs.GetComponent<GE::Component::Transform>(curr);
               auto const& trans{ *transPtr };
               // CASE 1: CHECKING WITH COLLIDER
-              if (ecs->HasComponent<GE::Component::BoxCollider>(curr))
+              if (ecs.HasComponent<GE::Component::BoxCollider>(curr))
               {
-                auto const* colliderPtr = ecs->GetComponent<GE::Component::BoxCollider>(curr);
+                auto const* colliderPtr = ecs.GetComponent<GE::Component::BoxCollider>(curr);
                 auto const& coll{ *colliderPtr };
                 GE::Math::dVec2 min{ coll.m_min };
                 GE::Math::dVec2 max{ coll.m_max };
@@ -213,9 +211,9 @@ namespace GE::EditorGUI
                   continue;
               }
               // CASE 2: CHECKING WITH TEXTURE
-              else if (ecs->HasComponent<GE::Component::Sprite>(curr))
+              else if (ecs.HasComponent<GE::Component::Sprite>(curr))
               {
-                GE::Component::Sprite* sprite = ecs->GetComponent<GE::Component::Sprite>(curr);
+                GE::Component::Sprite* sprite = ecs.GetComponent<GE::Component::Sprite>(curr);
                 GE::Math::dVec2 min{ trans.m_worldPos.x - sprite->m_spriteData.info.width * trans.m_scale.x * 0.5,
                   trans.m_worldPos.y - sprite->m_spriteData.info.height * trans.m_scale.y * 0.5 };
                 GE::Math::dVec2 max{ trans.m_worldPos.x + sprite->m_spriteData.info.width * trans.m_scale.x * 0.5,
@@ -274,17 +272,27 @@ namespace GE::EditorGUI
     uv1.y = -(viewportPosition.y) / windowSize.y;
     uv0.y = -(1.f + (viewportEnd.y - windowSize.y) / windowSize.y);
     uv1.x = (viewportPosition.x) / windowSize.x;
+
     // render the image
     //auto& renderer = gEngine.GetRenderer(); // renderer for setting camera
     GLuint texture = fbInfo.renderTexture;
     ImGui::Image((void*)(intptr_t)texture, viewportSize, uv1, uv0);
+
+    if (PrefabEditor::IsEditingPrefab())
+    {
+      ImGui::GetWindowDrawList()->AddText(viewportPosition, IM_COL32_WHITE, "PRESS ESC TO RETURN TO SCENE");
+      PrefabEditor::RenderBackToScenePopup();
+    }
   }
 
   void EditorViewport::HandleEvent(Events::Event* event)
   {
-    if (event->GetCategory() == Events::EVENT_TYPE::KEY_TRIGGERED)
+    switch (event->GetCategory())
     {
-      if (static_cast<Events::KeyTriggeredEvent*>(event)->GetKey() == GPK_DELETE)
+    case Events::EVENT_TYPE::KEY_TRIGGERED:
+    {
+      auto const keyCode{ static_cast<Events::KeyTriggeredEvent*>(event)->GetKey() };
+      if (keyCode == GPK_DELETE)
       {
         // If the delete key is pressed, delete the selected en
         if (ImGuiHelper::GetSelectedEntity() != GE::ECS::INVALID_ID && !ImGui::GetIO().WantTextInput)
@@ -297,6 +305,9 @@ namespace GE::EditorGUI
           ImGuiHelper::SetSelectedEntity(Inv);
         }
       }
+
+      break;
+    }
     }
   }
 

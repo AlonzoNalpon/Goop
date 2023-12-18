@@ -12,6 +12,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ECS/EntityComponentSystem.h>
 #include <Window/Window.h>
 #include <Graphics/Renderer/FrameBufferInfo.h>
+#include <filesystem>
+
 namespace GE::EditorGUI
 {
 	class ImGuiUI
@@ -53,11 +55,12 @@ namespace GE::EditorGUI
 	{
 	private:		
 		static GE::ECS::Entity m_selectedEntity;		
-		static std::string m_selectedAsset;
+		static std::filesystem::path m_selectedAsset;
 		static bool m_play;
 		static bool m_pause;
 		static bool m_step;
 		static bool m_restart;
+
 	public:
 		/*!******************************************************************
 		\brief 
@@ -99,7 +102,7 @@ namespace GE::EditorGUI
 		\return
 			Selected asset
 		********************************************************************/
-		static std::string GetSelectedAsset();
+		static std::filesystem::path const& GetSelectedAsset();
 
 		/*!******************************************************************
 		\brief
@@ -108,7 +111,7 @@ namespace GE::EditorGUI
 		\param[in] selectedEntity
 			Entity asset
 		********************************************************************/
-		static void SetSelectedAsset(std::string selectedAssetPath);
+		static void SetSelectedAsset(std::filesystem::path const& selectedAssetPath);
 
 		/*!*********************************************************************
 		\brief

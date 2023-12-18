@@ -20,6 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ObjectFactory/SerializeComponents.h>
 #include <Commands/CommandManager.h>
 #include <Prefabs/PrefabManager.h>
+#include "PrefabEditor.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -125,6 +126,7 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 	}
 	if (BeginPopup("EntityCreate"))
 	{
+		//ImGui::BeginDisabled(PrefabEditor::IsEditingPrefab());
 		if (Selectable("Create"))
 		{
 			GE::Component::Transform trans{ {0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 } };
@@ -133,6 +135,8 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 			GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
 			cmdMan.AddCommand(newTransCmd);
 		}
+		//ImGui::EndDisabled();
+
 		EndPopup();
 	}
 
@@ -239,6 +243,7 @@ namespace
 			if (BeginPopup("EntityManip"))
 			{
 				style.Colors[ImGuiCol_Text] = ImColor{ 255,255,255 };
+				// create entity as child of selected
 				if (Selectable("Create"))
 				{
 					GE::Component::Transform trans{ {0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 } };
@@ -253,10 +258,12 @@ namespace
 					GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity);
 				}
 
+				ImGui::BeginDisabled(GE::EditorGUI::PrefabEditor::IsEditingPrefab());
 				if (Selectable("Save as Prefab"))
 				{
 					GE::Prefabs::PrefabManager::GetInstance().CreatePrefabFromEntity(entity, ecs.GetEntityName(entity));
 				}
+				ImGui::EndDisabled();
 
 				if (Selectable("Delete"))
 				{

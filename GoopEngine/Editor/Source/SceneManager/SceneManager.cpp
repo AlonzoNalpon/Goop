@@ -17,6 +17,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/Serializer.h>
 #include <AssetManager/AssetManager.h>
 #include <Events/EventManager.h>
+#ifndef IMGUI_DISABLE
+#include <Prefabs/PrefabManager.h>
+#include <filesystem>
+#endif
 
 using namespace GE::Scenes;
 
@@ -24,11 +28,22 @@ SceneManager::SceneManager() : m_currentScene{ "Start" }, m_nextScene{ "Start" }
 
 void SceneManager::Init()
 {
-  m_tempPath = am->GetConfigData<std::string>("TempDir") + ".tmpscn";
 #ifndef IMGUI_DISABLE
+  std::string const tempDir{ am->GetConfigData<std::string>("TempDir") };
+  m_tempPath = tempDir + ".tmpscn";
+  // create temp directory if it doesn't already exist
+  if (!std::filesystem::exists(tempDir) || !std::filesystem::is_directory(tempDir))
+  {
+    if (std::filesystem::create_directory(tempDir))
+      Debug::ErrorLogger::GetInstance().LogMessage("Created temp directory at: " + tempDir);
+    else
+      Debug::ErrorLogger::GetInstance().LogError("Unable to create temp directory at: " + tempDir + ". Scene reloading features may be unavailable!");
+  }
+
   // subscribe to scene events
   Events::EventManager& em{ Events::EventManager::GetInstance() };
-  em.Subscribe<Events::StartSceneEvent>(this); em.Subscribe<Events::PauseSceneEvent>(this); em.Subscribe<Events::StopSceneEvent>(this);
+  em.Subscribe<Events::StartSceneEvent>(this); em.Subscribe<Events::StopSceneEvent>(this);
+  em.Subscribe<Events::EditPrefabEvent>(this, Events::PRIORITY::HIGH);
 #endif
 
   // Load data into map
@@ -113,6 +128,16 @@ void GE::Scenes::SceneManager::HandleEvent(Events::Event* event)
   case Events::EVENT_TYPE::STOP_SCENE:
     LoadTemporarySave();  // revert to previous state before play
     break;
+  case Events::EVENT_TYPE::EDIT_PREFAB:
+  {
+    // save and unload
+    TemporarySave();
+    UnloadScene();
+    FreeScene();
+
+    m_nextScene = m_currentScene = "Prefab Editor";
+    break;
+  }
   }
 #endif
 }
@@ -150,10 +175,12 @@ void GE::Scenes::SceneManager::SaveScene() const
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Successfully saved scene to " + filepath.str());
 }
 
+#ifndef IMGUI_DISABLE
 void GE::Scenes::SceneManager::TemporarySave()
 {
-  m_tempScene = m_currentScene;
-  Serialization::Serializer::SerializeScene(m_tempPath);
+  std::string const path{ m_tempPath + std::to_string(m_tempSaves.size()) };
+  m_tempSaves.emplace(m_currentScene, path);
+  Serialization::Serializer::SerializeScene(path);
 
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Scene has been temporarily saved");
 }
@@ -163,9 +190,11 @@ void GE::Scenes::SceneManager::LoadTemporarySave()
   UnloadScene();
   FreeScene();
 
-  m_nextScene = m_currentScene = m_tempScene;
-  GE::Debug::ErrorLogger::GetInstance().LogMessage("Reverting scene's previous state... (" + m_tempScene + ")");
-  scene.Load(m_tempPath);
-  std::remove(m_tempPath.c_str()); // delete temp scene file
+  m_nextScene = m_currentScene = m_tempSaves.top().m_name;
+  GE::Debug::ErrorLogger::GetInstance().LogMessage("Reverting scene's previous state... (" + m_currentScene + ")");
+  scene.Load(m_tempSaves.top().m_path);
+  std::remove(m_tempSaves.top().m_path.c_str()); // delete temp scene file
+  m_tempSaves.pop();
   scene.Init();
 }
+#endif

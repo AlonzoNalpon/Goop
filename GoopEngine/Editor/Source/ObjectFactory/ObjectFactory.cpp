@@ -94,7 +94,7 @@ void ObjectFactory::ClearSceneObjects()
   m_deserialized.clear();
 }
 
-void ObjectFactory::LoadSceneObjects(std::set<GE::ECS::Entity>& map)
+void ObjectFactory::LoadSceneObjects()
 {
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
 

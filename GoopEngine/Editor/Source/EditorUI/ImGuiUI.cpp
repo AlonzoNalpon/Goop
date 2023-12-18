@@ -32,20 +32,20 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "SceneControls.h"
 #include "AssetBrowser.h"
 #include <EditorUI/EditorViewport.h>
-#include <EditorUI/PrefabEditor.h>
 #include <EditorUI/AssetPreview.h>
 #include <GameStateManager/GameStateManager.h>
 #include <Commands/CommandManager.h>
 #include <ImGuizmo_1_83/ImGuizmo.h>
 #include <EditorUI/GizmoEditor.h>
 #include <EditorUI/EditorTheme.h>
+
 using namespace GE::EditorGUI;
 using namespace DataViz;
 using namespace ImGui;
 
 // Initialize static
 GE::ECS::Entity ImGuiHelper::m_selectedEntity = GE::ECS::INVALID_ID;
-std::string ImGuiHelper::m_selectedAsset = "";
+std::filesystem::path ImGuiHelper::m_selectedAsset;
 bool ImGuiHelper::m_play = false;
 bool ImGuiHelper::m_pause = false;
 bool ImGuiHelper::m_step = false;
@@ -105,10 +105,6 @@ void ImGuiUI::Update()
 
   Begin("Inspector");
   Inspector::CreateContent();
-  End();
-
-  Begin("Prefab Editor");
-  PrefabEditor::CreateContent();
   End();
 
   Begin("Node editor");
@@ -367,12 +363,12 @@ void GE::EditorGUI::ImGuiHelper::SetSelectedEntity(GE::ECS::Entity& selectedEnti
   m_selectedEntity = selectedEntity;
 }
 
-std::string GE::EditorGUI::ImGuiHelper::GetSelectedAsset()
+std::filesystem::path const& GE::EditorGUI::ImGuiHelper::GetSelectedAsset()
 {
   return m_selectedAsset;
 }
 
-void GE::EditorGUI::ImGuiHelper::SetSelectedAsset(std::string selectedAssetPath)
+void GE::EditorGUI::ImGuiHelper::SetSelectedAsset(std::filesystem::path const& selectedAssetPath)
 {
   m_selectedAsset = selectedAssetPath;
 }

@@ -31,8 +31,7 @@ void GE::Scenes::Scene::Load(std::string filepath)
 
 void GE::Scenes::Scene::Init()
 {
-	std::set<Entity> stackObj;
-	of->LoadSceneObjects(stackObj); 
+	of->LoadSceneObjects(); 
 }
 
 void GE::Scenes::Scene::Unload()
@@ -68,8 +67,7 @@ void GE::Scenes::Scene::TestScene()
 	
 	of->ClearSceneObjects();
 	of->LoadSceneJson(GE::Assets::AssetManager::GetInstance().GetScene("SceneTest"));
-	std::set<Entity> stackObj;
-	of->LoadSceneObjects(stackObj);
+	of->LoadSceneObjects();
 	Entity gameSys = ecs->CreateEntity();
 	std::vector<void*> arg{};
 

@@ -35,6 +35,6 @@ namespace GE::Systems
 		\param entity
 			Entity that is propergating
 		************************************************************************/
-		static void Propergate(GE::ECS::Entity& entity, const Math::dMat4& parentWorldTrans);
+		static void Propergate(GE::ECS::Entity const& entity, const Math::dMat4& parentWorldTrans);
 	};
 }

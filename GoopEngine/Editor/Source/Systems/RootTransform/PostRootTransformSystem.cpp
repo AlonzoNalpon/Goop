@@ -42,7 +42,7 @@ void GE::Systems::PostRootTransformSystem::LateUpdate()
 	frc.EndSystemTimer("LocalToWorld Transform");
 }
 
-void GE::Systems::PostRootTransformSystem::Propergate(GE::ECS::Entity& entity, const Math::dMat4& parentWorldTrans)
+void GE::Systems::PostRootTransformSystem::Propergate(GE::ECS::Entity const& entity, const Math::dMat4& parentWorldTrans)
 {
 	static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 	GE::Component::Transform* trans = ecs.GetComponent<GE::Component::Transform>(entity);

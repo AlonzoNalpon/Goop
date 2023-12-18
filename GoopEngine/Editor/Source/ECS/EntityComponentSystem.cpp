@@ -59,7 +59,7 @@ void GE::ECS::EntityComponentSystem::SetParentEntity(Entity const& child, Entity
 	m_entityManager->SetParentEntity(parent, child);
 }
 
-std::set<Entity>& GE::ECS::EntityComponentSystem::GetChildEntities(Entity& parent)
+std::set<Entity>& GE::ECS::EntityComponentSystem::GetChildEntities(Entity const& parent)
 {
 	return m_entityManager->GetChildEntities(parent);
 }

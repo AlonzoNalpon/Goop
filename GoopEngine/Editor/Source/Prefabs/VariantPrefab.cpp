@@ -14,6 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "VariantPrefab.h"
 #include <ObjectFactory/ObjectFactory.h>
+#include <Systems/RootTransform/PostRootTransformSystem.h>
 
 using namespace GE;
 using namespace Prefabs;
@@ -34,7 +35,6 @@ ECS::Entity PrefabSubData::Construct() const
   return entity;
 }
 
-#ifdef PREFAB_V2
 VariantPrefab::VariantPrefab(std::string name, unsigned version) :
   m_name{ std::move(name) }, m_objects{}, m_components{}, m_version{ version } {}
 
@@ -82,19 +82,6 @@ std::pair<ECS::Entity, VariantPrefab::EntityMappings> VariantPrefab::Construct()
 
   return { entity, mappedData };
 }
-#else
-VariantPrefab::VariantPrefab() : m_components{}, m_name{ "Empty" } {}
-
-VariantPrefab::VariantPrefab(std::string name, unsigned version) :
-  m_name{ std::move(name) }, m_components{}, m_version{ version } {}
-
-void VariantPrefab::Clear() noexcept
-{
-  m_name.clear();
-  m_components.clear();
-  m_version = 0;
-}
-#endif
 
 void VariantPrefab::CreateSubData(std::set<ECS::Entity> const& children, PrefabSubData::SubDataId parent)
 {
@@ -108,6 +95,20 @@ void VariantPrefab::CreateSubData(std::set<ECS::Entity> const& children, PrefabS
     PrefabSubData obj{ ecs.GetEntityName(child), currId, parent };
 
     obj.m_components = ObjectFactory::ObjectFactory::GetInstance().GetEntityComponents(child);
+
+    rttr::type const transType{ rttr::type::get<Component::Transform*>() };
+    for (rttr::variant& comp : obj.m_components)
+    {
+      if (comp.get_type().get_wrapped_type() == transType)
+      {
+        Component::Transform& trans{ *comp.get_value<Component::Transform*>() };
+        trans.m_worldPos = trans.m_pos;
+        trans.m_worldRot = trans.m_rot;
+        trans.m_worldScale = trans.m_scale;
+        break;
+      }
+    }
+
     m_objects.emplace_back(std::move(obj));
     CreateSubData(ecs.GetChildEntities(const_cast<ECS::Entity&>(child)), currId);
   }

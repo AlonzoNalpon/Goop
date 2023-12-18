@@ -25,7 +25,7 @@ void GE::EditorGUI::AssetPreview::CreateContent()
 	if (ImGuiHelper::GetSelectedAsset() == "")
 		return;
 	
-	am.GetDimensions(am.GetID(ImGuiHelper::GetSelectedAsset()), w, h);
+	am.GetDimensions(am.GetID(ImGuiHelper::GetSelectedAsset().filename().string()), w, h);
 
 	if (w == 0 || h == 0)
 	{
@@ -53,6 +53,6 @@ void GE::EditorGUI::AssetPreview::CreateContent()
 	}
 
 	ImGui::SetCursorPos({ ImGui::GetCursorPosX() + (ImGui::GetWindowSize().x * 0.5f) - (newW * 0.5f) , yPadding });
-	ImGui::Image(reinterpret_cast<ImTextureID>(am.GetID(ImGuiHelper::GetSelectedAsset())), { newW, newH }, { 0 ,1 }, { 1, 0 });
+	ImGui::Image(reinterpret_cast<ImTextureID>(am.GetID(ImGuiHelper::GetSelectedAsset().filename().string())), { newW, newH }, { 0 ,1 }, { 1, 0 });
 }
 #endif
