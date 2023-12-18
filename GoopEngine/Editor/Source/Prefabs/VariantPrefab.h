@@ -17,8 +17,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rttr/type.h>
 #include <ECS/Entity/Entity.h>
 
-#define PREFAB_V2
-
 namespace GE::Prefabs
 {
   // struct encapsulating deserialized data of a prefab's child components
@@ -66,7 +64,6 @@ namespace GE::Prefabs
     // id of the first layer of the prefab
     static SubDataId const BasePrefabId = 0;
   };
-#ifdef PREFAB_V2
   // struct encapsulating deserialized prefab data
   // components are stored in an std::vector of rttr::variants
   struct VariantPrefab
@@ -122,21 +119,6 @@ namespace GE::Prefabs
     std::vector<rttr::variant> m_components;
     PrefabVersion m_version;
   };
-#else
-  // struct encapsulating deserialized prefab data
-  // components are stored in an std::vector of rttr::variants
-  struct VariantPrefab
-  {
-    VariantPrefab();
-    VariantPrefab(std::string name, unsigned version = 0);
-
-    std::string m_name;
-    std::vector<rttr::variant> m_components;
-    unsigned m_version;
-
-    void Clear() noexcept;
-  };
-#endif
 
   struct VariantPrefab::EntityMappings
   {

@@ -28,7 +28,6 @@ namespace GE
   namespace Serialization
   {
 #ifndef IMGUI_DISABLE
-#ifdef PREFAB_V2
     void Serializer::SerializeVariantToPrefab(Prefabs::VariantPrefab const& prefab, std::string const& filename)
     {
       std::ofstream ofs{ filename };
@@ -74,62 +73,6 @@ namespace GE
 
       ofs.close();
     }
-#else
-    void Serializer::SerializeVariantToPrefab(Prefabs::VariantPrefab const& prefab, std::string const& filename)
-    {
-      std::ofstream ofs{ filename };
-      if (!ofs)
-      {
-        GE::Debug::ErrorLogger::GetInstance().LogError("Unable to serialize prefab into " + filename);
-        return;
-      }
-
-      rapidjson::Document document{ rapidjson::kObjectType };
-      auto& allocator{ document.GetAllocator() };
-      // name field
-      rapidjson::Value name;
-      name.SetString(prefab.m_name.c_str(), allocator);
-
-      // version field
-      rapidjson::Value verJson;
-      verJson.SetUint(prefab.m_version);
-
-      rapidjson::Value compArray{ rapidjson::kArrayType };
-      // for each component, extract the string of the class and serialize
-      for (rttr::variant const& comp : prefab.m_components) 
-      {
-        rapidjson::Value compName;
-        compName.SetString(comp.get_type().get_wrapped_type().get_raw_type().get_name().to_string().c_str(), allocator);
-        rapidjson::Value compJson{ rapidjson::kObjectType };
-        // handle SpriteAnim component: Get animation sprite name
-        if (comp.get_type().get_wrapped_type() == rttr::type::get<Component::SpriteAnim*>())
-        {
-          Component::SpriteAnim const& sprAnim{ *comp.get_value<Component::SpriteAnim*>() };
-          rapidjson::Value key, val;
-          rapidjson::Value obj{ rapidjson::kObjectType };
-          key.SetString("name", allocator);
-          val.SetString(Graphics::GraphicsEngine::GetInstance().animManager.GetAnimName(sprAnim.animID).c_str(), allocator);
-          obj.AddMember(key, val, allocator);
-          compJson.AddMember(compName.Move(), obj, allocator);
-        }
-        else
-        {
-          compJson.AddMember(compName.Move(), SerializeBasedOnType(comp, allocator), allocator);
-        }
-        if (!compJson.ObjectEmpty())
-          compArray.PushBack(compJson, allocator);
-      }
-      document.AddMember(JsonNameKey, name.Move(), allocator);
-      document.AddMember(JsonPrefabVerKey, verJson.Move(), allocator);
-      document.AddMember(JsonComponentsKey, compArray.Move(), allocator);
-
-      rapidjson::OStreamWrapper osw{ ofs };
-      rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
-      document.Accept(writer);
-
-      ofs.close();
-    }
-#endif
 #endif
 
     void Serializer::SerializeAny(std::string const& filename, rttr::variant object)

@@ -31,7 +31,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 
 #ifdef _DEBUG
-#define PREFAB_MANAGER_DEBUG
+//#define PREFAB_MANAGER_DEBUG
 #endif
 
 using namespace GE::Prefabs;

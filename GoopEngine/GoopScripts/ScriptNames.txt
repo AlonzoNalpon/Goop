@@ -9,6 +9,9 @@ GoopScripts.AI.Enemy,IsOutsideAttackRange
 GoopScripts.AI.Enemy,IsWithinPlayerRange
 GoopScripts.AI.Enemy,MoveToPlayer
 GoopScripts.AI.Enemy,RunFromPlayer
+GoopScripts.Button,IButtonClick
+GoopScripts.Button,IButtonHoverEnter
+GoopScripts.Button,IButtonHoverExit
 GoopScripts.Cards,Attack
 GoopScripts.Cards,BlankCard
 GoopScripts.Cards,Block

@@ -42,11 +42,13 @@ namespace GE
 
       /*!*********************************************************************
       \brief
-        Goes through the map and create an entity with the data.
+        Creates an instance of a prefab
       \param key
-        string& (name of the prefab in the m_prefabs map)
+        Name of the prefab
+      \param pos
+        The position to spawn the prefab at
       \return
-        Entity of the prefab.
+        Entity id of the instance.
       ************************************************************************/
       GE::ECS::Entity SpawnPrefab(const std::string& key, Math::dVec3 const& pos = {});
 
@@ -98,17 +100,6 @@ namespace GE
       ************************************************************************/
       void DetachPrefab(ECS::Entity entity);
 
-#ifndef PREFAB_V2
-      /*!*********************************************************************
-      \brief
-        Sets the version of a prefab
-      \param prefab
-        The prefab to set the version of
-      \param version
-        The new version        
-      ************************************************************************/
-      inline void SetPrefabVersion(std::string const& prefab, VariantPrefab::PrefabVersion version) noexcept { m_prefabVersions[prefab] = version; }
-#endif
       /*!*********************************************************************
       \brief
         Gets the prefab an entity if it was created from one and std::nullopt
@@ -119,18 +110,7 @@ namespace GE
         std::optional containing the prefab an entity was created from
       ************************************************************************/
       std::optional<std::reference_wrapper<PrefabManager::EntityPrefabMap::mapped_type const>> GetEntityPrefab(ECS::Entity entity) const;
-#ifndef PREFAB_V2
-      /*!*********************************************************************
-      \brief
-        Gets the current version of a prefab. If it doesn't exist, an entry
-        of 0 will be created and returned.
-      \param prefab
-        The prefab to get the version of
-      \return
-        The version of the prefab
-      ************************************************************************/
-      VariantPrefab::PrefabVersion GetPrefabVersion(std::string const& prefab);
-#endif
+
       /*!*********************************************************************
       \brief
         This function creates a prefab from an entity's components. If the
@@ -175,9 +155,6 @@ namespace GE
 
     private:
       EntityPrefabMap m_entitiesToPrefabs;
-#ifndef PREFAB_V2
-      std::unordered_map<std::string, VariantPrefab::PrefabVersion> m_prefabVersions;
-#endif
       PrefabDataContainer m_prefabs;  // Map of deserialized prefab data in format <name, data>
     };
   }
