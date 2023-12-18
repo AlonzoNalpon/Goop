@@ -18,6 +18,11 @@
         "Button",
         "BoxCollider"
     ],
+    "ButtonScriptSystem": [
+        "Button",
+        "BoxCollider",
+		"Scripts"
+    ],
     "CollisionSystem": [
         "Transform",
         "BoxCollider"

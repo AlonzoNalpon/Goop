@@ -282,6 +282,7 @@
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimGenerator.cpp" />
     <ClCompile Include="Source\Math\Mat3Utils.cpp" />
     <ClCompile Include="Source\Fmod\FmodSystem.cpp" />
+    <ClCompile Include="Source\Systems\Button\ButtonScriptSystem.cpp" />
     <ClCompile Include="Source\Systems\Button\ButtonSystem.cpp" />
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
@@ -440,6 +441,7 @@
     <ClInclude Include="Source\Graphics\ShaderProgram.h" />
     <ClInclude Include="Source\SpriteAnimation\SpriteAnimGenerator.h" />
     <ClInclude Include="Source\Systems\Audio\AudioSystem.h" />
+    <ClInclude Include="Source\Systems\Button\ButtonScriptSystem.h" />
     <ClInclude Include="Source\Systems\Button\ButtonSystem.h" />
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />

@@ -32,6 +32,7 @@ namespace GE::ECS
 		AUDIO_SYSTEM,
 		OBJECT_ANCHOR_SYSTEM,
 		BUTTON_SYSTEM,
+		BUTTON_SCRIPT_SYSTEM,
 		TOTAL_SYSTEMS // Total number of system types
 	};
 
@@ -56,7 +57,8 @@ namespace GE::ECS
 		{ SYSTEM_TYPES::AUDIO_SYSTEM, "AudioSystem" },
 		{ SYSTEM_TYPES::BUTTON_SYSTEM, "ButtonSystem" },
 		{ SYSTEM_TYPES::GAME_SYSTEMS, "GameSystem" },
-		{ SYSTEM_TYPES::OBJECT_ANCHOR_SYSTEM, "ObjectAnchorSystem" }
+		{ SYSTEM_TYPES::OBJECT_ANCHOR_SYSTEM, "ObjectAnchorSystem" },
+		{ SYSTEM_TYPES::BUTTON_SCRIPT_SYSTEM, "ButtonScriptSystem" }
 	};
 
 	// Const map so only interated through ranged for,
@@ -77,7 +79,8 @@ namespace GE::ECS
 		{ "GameSystem", SYSTEM_TYPES::GAME_SYSTEMS },
 		{ "AudioSystem", SYSTEM_TYPES::AUDIO_SYSTEM },
 		{ "ObjectAnchorSystem", SYSTEM_TYPES::OBJECT_ANCHOR_SYSTEM },
-		{ "ButtonSystem", SYSTEM_TYPES::BUTTON_SYSTEM }
+		{ "ButtonSystem", SYSTEM_TYPES::BUTTON_SYSTEM },
+		{ "ButtonScriptSystem", SYSTEM_TYPES::BUTTON_SCRIPT_SYSTEM}
 	};
 
 	/*!*********************************************************************

@@ -29,5 +29,7 @@ namespace GE::Component
 
 		ButtonEventType m_eventType{NO_EVENT};
 		std::string m_param = "";
+		bool m_lastCollided{ false };
+		bool m_currCollided{ false };
 	};
 }
