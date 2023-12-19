@@ -1,6 +1,6 @@
 {
     "Name": "MineWorm",
-    "Version": 31,
+    "Version": 2,
     "Components": [
         {
             "Transform": {
@@ -35,6 +35,9 @@
             "SpriteAnim": {
                 "name": "SS_MineWorm"
             }
+        },
+        {
+            "Draggable": {}
         }
     ],
     "SubData": []

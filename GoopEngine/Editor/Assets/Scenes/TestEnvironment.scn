@@ -298,7 +298,12 @@
       "Prefab": {
         "name": "Shark",
         "version": 0,
-        "entityToObj": []
+        "objToEntity": [
+          {
+            "key": 0,
+            "value": 6
+          }
+        ]
       },
         "isActive": true,
         "Parent": 9,
@@ -696,7 +701,7 @@
       "Prefab": {
         "name": ".[Test Prefab] Priest",
         "version": 0,
-        "entityToObj": []
+        "objToEntity": []
       },
         "isActive": true,
         "Parent": null,

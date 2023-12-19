@@ -19,8 +19,12 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace GE::EditorGUI;
 
 GE::ECS::Entity PrefabEditor::m_prefabInstance{ ECS::INVALID_ID };
+std::unordered_map<GE::ECS::Entity, GE::Prefabs::PrefabSubData::SubDataId> PrefabEditor::m_entityToSubData;
+std::vector<GE::Prefabs::PrefabSubData::SubDataId> PrefabEditor::m_removedChildren;
+std::vector<std::pair<GE::Prefabs::PrefabSubData::SubDataId, rttr::type>> PrefabEditor::m_removedComponents;
 std::string PrefabEditor::m_prefabName, PrefabEditor::m_prefabPath;
-bool PrefabEditor::m_isEditing{ false }, PrefabEditor::m_escapeTriggered{ false };
+bool PrefabEditor::m_newPrefab{ false }, PrefabEditor::m_isEditing{ false }, PrefabEditor::m_escapeTriggered{ false };
+
 
 void PrefabEditor::HandleEvent(Events::Event* event)
 {
@@ -30,14 +34,30 @@ void PrefabEditor::HandleEvent(Events::Event* event)
   {
     Events::EditPrefabEvent* prefabEvent{ static_cast<Events::EditPrefabEvent*>(event) };
 
-    m_prefabPath = prefabEvent->m_path;
     m_prefabName = prefabEvent->m_prefab;
-    m_prefabInstance = Prefabs::PrefabManager::GetInstance().SpawnPrefab(m_prefabName, {});
+    m_newPrefab = prefabEvent->m_path.empty();
+    if (m_newPrefab)
+    {
+      ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+      m_prefabInstance = ecs.CreateEntity();
+      ecs.SetEntityName(m_prefabInstance, m_prefabName);
+    }
+    else
+    {
+      Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
+      m_prefabPath = prefabEvent->m_path;
+      m_prefabInstance = pm.SpawnPrefab(m_prefabName, {});
+      for (auto const& [objId, entityId] : pm.GetEntityPrefab(m_prefabInstance)->get().m_objToEntity)
+      {
+        m_entityToSubData.emplace(entityId, objId);
+      }
+    }
 
     // set pos to center
     Component::Transform* trans{ ECS::EntityComponentSystem::GetInstance().GetComponent<Component::Transform>(m_prefabInstance) };
     trans->m_worldPos = {};
     m_isEditing = true;
+
     break;
   }
   case Events::EVENT_TYPE::KEY_TRIGGERED:
@@ -48,6 +68,37 @@ void PrefabEditor::HandleEvent(Events::Event* event)
     {
       m_escapeTriggered = true;
     }
+
+    break;
+  }
+  case Events::EVENT_TYPE::DELETE_PREFAB_CHILD:
+  {
+    auto iter{ m_entityToSubData.find(static_cast<Events::DeletePrefabChildEvent*>(event)->m_entity) };
+    if (iter == m_entityToSubData.end())
+    {
+      Debug::ErrorLogger::GetInstance().LogError("Deletion of unknown Entity of ID "
+        + std::to_string(static_cast<Events::DeletePrefabChildEvent*>(event)->m_entity));
+      return;
+    }
+
+    m_removedChildren.emplace_back(iter->second);
+    break;
+  }
+  case Events::EVENT_TYPE::DELETE_PREFAB_COMPONENT:
+  {
+    Events::DeletePrefabComponentEvent* deleteEvent{ static_cast<Events::DeletePrefabComponentEvent*>(event) };
+    auto iter{ m_entityToSubData.find(deleteEvent->m_entity) };
+    if (iter == m_entityToSubData.end())
+    {
+      std::ostringstream oss{};
+      oss << "Deletion of " << deleteEvent->m_type.get_name().to_string()
+          << " component for unknown Entity of ID " << deleteEvent->m_entity;
+      Debug::ErrorLogger::GetInstance().LogError(oss.str());
+      return;
+    }
+
+    m_removedComponents.emplace_back(std::make_pair(iter->second, deleteEvent->m_type));
+    break;
   }
   }
 }
@@ -82,9 +133,25 @@ void PrefabEditor::RenderBackToScenePopup()
     {
       Events::EventManager& em{ Events::EventManager::GetInstance() };
 
-      // check if valid here
+      if (m_removedChildren.empty() && m_removedComponents.empty())
+      {
+        Prefabs::PrefabManager::GetInstance().CreatePrefabFromEntity(m_prefabInstance, m_prefabName, m_prefabPath);
+      }
+      else
+      {
+        Prefabs::VariantPrefab prefab{ Prefabs::PrefabManager::GetInstance().CreateVariantPrefab(m_prefabInstance, m_prefabName) };
+        Prefabs::PrefabVersion const& ver{ ++prefab.m_version };
+        for (auto const& id : m_removedChildren)
+        {
+          prefab.m_removedChildren.emplace_back(id, ver);
+        }
+        for (auto const& [id, type] : m_removedComponents)
+        {
+          prefab.m_removedComponents.emplace_back(id, type, ver);
+        }
 
-      Prefabs::PrefabManager::GetInstance().CreatePrefabFromEntity(m_prefabInstance, m_prefabName, m_prefabPath);
+        Prefabs::PrefabManager::GetInstance().UpdatePrefabFromEditor(m_prefabName, std::move(prefab));
+      }
       em.Dispatch(Events::StopSceneEvent());
       
       ResetPrefabEditor();
@@ -96,12 +163,27 @@ void PrefabEditor::RenderBackToScenePopup()
   }
 }
 
+void PrefabEditor::UpdateDeletedObjects(Prefabs::VariantPrefab& prefab)
+{
+  //Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
+
+  // check through removed children for obsolete entries
+  // e.g. if user removed a child and then added it back afterwards
+  /*for (auto const& id : m_removedChildren)
+  {
+
+  }*/
+}
+
 void PrefabEditor::ResetPrefabEditor()
 {
   m_prefabInstance = ECS::INVALID_ID;
   m_prefabName.clear();
   m_prefabPath.clear();
-  m_isEditing = false;
+  m_entityToSubData.clear();
+  m_removedChildren.clear();
+  m_removedComponents.clear();
+  m_isEditing = m_newPrefab = false;
 }
 
 #endif

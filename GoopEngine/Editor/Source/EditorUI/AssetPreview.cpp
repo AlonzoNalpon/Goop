@@ -21,11 +21,13 @@ void GE::EditorGUI::AssetPreview::CreateContent()
 	float newW, newH;
 	constexpr float WINDOW_SCALE{ 0.85f };
 	float yPadding{};
-	
-	if (ImGuiHelper::GetSelectedAsset() == "")
+	std::filesystem::path const& selectedAsset{ ImGuiHelper::GetSelectedAsset() };
+
+	// if empty or not image, return
+	if (selectedAsset.empty() || am.ImageFileExt.find(selectedAsset.extension().string()) == std::string::npos)
 		return;
 	
-	am.GetDimensions(am.GetID(ImGuiHelper::GetSelectedAsset().filename().string()), w, h);
+	am.GetDimensions(am.GetID(selectedAsset.filename().string()), w, h);
 
 	if (w == 0 || h == 0)
 	{
@@ -53,6 +55,6 @@ void GE::EditorGUI::AssetPreview::CreateContent()
 	}
 
 	ImGui::SetCursorPos({ ImGui::GetCursorPosX() + (ImGui::GetWindowSize().x * 0.5f) - (newW * 0.5f) , yPadding });
-	ImGui::Image(reinterpret_cast<ImTextureID>(am.GetID(ImGuiHelper::GetSelectedAsset().filename().string())), { newW, newH }, { 0 ,1 }, { 1, 0 });
+	ImGui::Image(reinterpret_cast<ImTextureID>(am.GetID(selectedAsset.filename().string())), { newW, newH }, { 0 ,1 }, { 1, 0 });
 }
 #endif

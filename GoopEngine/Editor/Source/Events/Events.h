@@ -10,6 +10,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include "Event.h"
 #include <ECS/Entity/Entity.h>
+#ifndef IMGUI_DISABLE
+#include <rttr/type.h>
+#endif
 
 namespace GE
 {
@@ -54,6 +57,25 @@ namespace GE
       inline std::string GetName() const noexcept override { return "Editing Prefab: " + m_prefab; }
 
       std::string const m_prefab, m_path;
+    };
+
+    class DeletePrefabComponentEvent : public Event
+    {
+    public:
+      DeletePrefabComponentEvent(ECS::Entity entity, rttr::type const& type) : Event(EVENT_TYPE::DELETE_PREFAB_COMPONENT), m_entity{ entity }, m_type{ type } {}
+      inline std::string GetName() const noexcept override { return "Deleted " + m_type.get_name().to_string() + " from Entity " + std::to_string(m_entity); }
+
+      ECS::Entity const m_entity;
+      rttr::type const m_type;
+    };
+
+    class DeletePrefabChildEvent : public Event
+    {
+    public:
+      DeletePrefabChildEvent(ECS::Entity entity) : Event(EVENT_TYPE::DELETE_PREFAB_CHILD), m_entity{ entity } {}
+      inline std::string GetName() const noexcept override { return "Deleted entity " + std::to_string(m_entity) + " of prefab"; }
+
+      ECS::Entity const m_entity;
     };
 
 #endif

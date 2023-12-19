@@ -19,6 +19,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 namespace GE::Prefabs
 {
+  using PrefabVersion = unsigned;
+
   // struct encapsulating deserialized data of a prefab's child components
   // this should only be instantiated for use with a VariantPrefab
   struct PrefabSubData
@@ -68,7 +70,6 @@ namespace GE::Prefabs
   // components are stored in an std::vector of rttr::variants
   struct VariantPrefab
   {
-    using PrefabVersion = unsigned;
     struct EntityMappings;  // forward declaration; definition below
 
     VariantPrefab() = default;
@@ -108,25 +109,41 @@ namespace GE::Prefabs
     ************************************************************************/
     void CreateSubData(std::set<ECS::Entity> const& children, PrefabSubData::SubDataId parent = PrefabSubData::BasePrefabId);
 
+
+
     /*!*********************************************************************
     \brief
       Resets the VariantPrefab object 
     ************************************************************************/
     void Clear() noexcept;
 
+    struct RemovedComponent
+    {
+      RemovedComponent(PrefabSubData::SubDataId id, rttr::type const& type, PrefabVersion ver) :
+        m_id{ id }, m_type{ type }, m_version{ ver } {}
+
+      PrefabSubData::SubDataId m_id;
+      rttr::type m_type;
+      PrefabVersion m_version;
+    };
+
     std::string m_name;
     std::vector<PrefabSubData> m_objects;
     std::vector<rttr::variant> m_components;
+    std::vector<std::pair<PrefabSubData::SubDataId, PrefabVersion>> m_removedChildren;
+    std::vector<RemovedComponent> m_removedComponents;
     PrefabVersion m_version;
   };
 
   struct VariantPrefab::EntityMappings
   {
     EntityMappings() = default;
-    EntityMappings(std::string prefab, VariantPrefab::PrefabVersion version) : m_prefab{ std::move(prefab) }, m_version{ version }, m_entityToObj{} {}
+    EntityMappings(std::string prefab, PrefabVersion version) : m_prefab{ std::move(prefab) }, m_objToEntity{}, m_version{ version } {}
+
+    void Validate();
 
     std::string m_prefab;
-    VariantPrefab::PrefabVersion m_version;
-    std::unordered_map<PrefabSubData::SubDataId, ECS::Entity> m_entityToObj;
+    std::unordered_map<PrefabSubData::SubDataId, ECS::Entity> m_objToEntity;
+    PrefabVersion m_version;
   };
 }

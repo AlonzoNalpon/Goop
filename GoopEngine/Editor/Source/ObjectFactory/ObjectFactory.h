@@ -83,15 +83,31 @@ namespace GE::ObjectFactory
 
     /*!*********************************************************************
     \brief
-     Extracts a component from an rttr::variant and adds it to an entity
+      Extracts a component from an rttr::variant and adds it to an entity
+    \param entity
+      The entity to add to
+    \param compVar
+      The component to add
    ************************************************************************/
     void AddComponentToEntity(ECS::Entity entity, rttr::variant const& compVar) const;
 
     /*!*********************************************************************
     \brief
       Adds all components within a vector of rttr::variants to an entity
+    \param id
+      Id of the entity
+    \param components
+      The vector of components
     ************************************************************************/
     void AddComponentsToEntity(ECS::Entity id, std::vector<rttr::variant> const& components) const;
+
+    /*!*********************************************************************
+    \brief
+      Removes a component from an entity given the rttr::type
+    \param compType
+      The type of the component
+    ************************************************************************/
+    void RemoveComponentFromEntity(ECS::Entity entity, rttr::type compType) const;
 
     /*!*********************************************************************
     \brief

@@ -268,6 +268,11 @@ namespace
 				if (Selectable("Delete"))
 				{
 					entitiesToDestroy.push_back(entity);
+
+					if (GE::EditorGUI::PrefabEditor::IsEditingPrefab())
+					{
+						GE::Events::EventManager::GetInstance().Dispatch(GE::Events::DeletePrefabChildEvent(entity));
+					}
 				}
 				style.Colors[ImGuiCol_Text] = textClr;				
 				EndPopup();

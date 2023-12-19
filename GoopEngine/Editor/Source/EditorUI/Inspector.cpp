@@ -27,6 +27,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <GameDef.h>
 #include <Prefabs/PrefabManager.h>
 #include "PrefabEditor.h"
+#include <Events/EventManager.h>
+
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
 // Disable reinterpret to larger size
@@ -1390,26 +1392,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						ImGui::EndCombo();
 					}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 					EndTable();
 				}
 				Separator();
@@ -2061,6 +2043,12 @@ namespace
 				static GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
 				ecs.RemoveComponent<T>(entity);
 				EndPopup();
+
+				if (GE::EditorGUI::PrefabEditor::IsEditingPrefab())
+				{
+					GE::Events::EventManager::GetInstance().Dispatch(GE::Events::DeletePrefabComponentEvent(entity, rttr::type::get<T>()));
+				}
+
 				return true;
 			}
 			EndPopup();

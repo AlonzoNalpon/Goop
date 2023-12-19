@@ -162,8 +162,41 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
     of.AddComponentsToEntity(entity, prefabVar.m_components);
     ecs.GetComponent<Component::Transform>(entity)->m_pos = std::move(pos);
 
-    // update components of children but for transform, only update local pos, rot and scale
-    auto& mappedData{ iterVal.m_entityToObj };
+    auto& mappedData{ iterVal.m_objToEntity };
+
+    // apply each child removal that is later than current entity version
+    for (auto childIter{ prefabVar.m_removedChildren.rbegin() };
+      childIter != prefabVar.m_removedChildren.rend() && childIter->second > iterVal.m_version; ++childIter)
+    {
+      auto dataIter{ mappedData.find(childIter->first) };
+      if (dataIter == mappedData.end())
+      {
+        std::ostringstream oss{};
+        oss << "Unable to remove obj ID " << childIter->first << " when updating prefab instances of " << prefab;
+        Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        continue;
+      }
+      ecs.DestroyEntity(dataIter->second);
+      mappedData.erase(dataIter);
+    }
+    iterVal.Validate();
+
+    // apply component removals that are later than current version
+    for (auto compIter{ prefabVar.m_removedComponents.rbegin() };
+      compIter != prefabVar.m_removedComponents.rend() && compIter->m_version > iterVal.m_version; ++compIter)
+    {
+      auto dataIter{ mappedData.find(compIter->m_id) };
+      if (dataIter == mappedData.end())
+      {
+        std::ostringstream oss{};
+        oss << "Unable to remove " << compIter->m_type.get_name().to_string() << " component from obj with ID "
+          << compIter->m_id << " when updating prefab instances of " << prefab;
+        Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        continue;
+      }
+      ObjectFactory::ObjectFactory::GetInstance().RemoveComponentFromEntity(dataIter->second, compIter->m_type);
+    }
+
     bool newEntityCreated{ false };
     for (PrefabSubData const& obj : prefabVar.m_objects)
     {
@@ -220,12 +253,39 @@ void PrefabManager::UpdateAllEntitiesFromPrefab()
   }
 }
 
-void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const& name, std::string const& path)
+void PrefabManager::UpdatePrefabFromEditor(std::string const& name, VariantPrefab&& prefab)
+{
+  auto iter{ m_prefabs.find(name) };
+  if (iter == m_prefabs.end())
+  {
+    throw Debug::Exception<PrefabManager>(Debug::LEVEL_ERROR, ErrMsg("Trying to update non-existent prefab: " + name));
+  }
+
+  if (!iter->second.m_removedChildren.empty())
+  {
+    //for (auto const& elem : prefab.m_removedChildren)
+  }
+
+  if (!iter->second.m_removedComponents.empty())
+  {
+
+  }
+
+  iter->second = std::move(prefab);
+}
+
+VariantPrefab PrefabManager::CreateVariantPrefab(ECS::Entity entity, std::string const& name)
 {
   VariantPrefab prefab{ name };
   prefab.m_components = ObjectFactory::ObjectFactory::GetInstance().GetEntityComponents(entity);
-
   prefab.CreateSubData(ECS::EntityComponentSystem::GetInstance().GetChildEntities(entity));
+
+  return prefab;
+}
+
+void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const& name, std::string const& path)
+{
+  VariantPrefab prefab{ CreateVariantPrefab(entity, name) };
 
   // if prefab already exists, update version accordingly
   auto iter{ m_prefabs.find(name) };

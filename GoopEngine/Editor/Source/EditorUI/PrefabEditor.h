@@ -12,6 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Singleton/Singleton.h>
 #include <Events/Listener.h>
 #include <ECS/Entity/Entity.h>
+#include <Prefabs/VariantPrefab.h>
 
 namespace GE
 {
@@ -28,10 +29,15 @@ namespace GE
       void HandleEvent(Events::Event* event);
 
     private:
-      static ECS::Entity m_prefabInstance;
       static std::string m_prefabName, m_prefabPath;
-      static bool m_isEditing, m_escapeTriggered;
+      static std::unordered_map<ECS::Entity, Prefabs::PrefabSubData::SubDataId> m_entityToSubData;  // to track removal of children/components
+      static std::vector<Prefabs::PrefabSubData::SubDataId> m_removedChildren;
+      static std::vector<std::pair<Prefabs::PrefabSubData::SubDataId, rttr::type>> m_removedComponents;
+      static ECS::Entity m_prefabInstance;
+      static bool m_newPrefab, m_isEditing, m_escapeTriggered;
 
+      static void UpdateDeletedObjects(Prefabs::VariantPrefab& prefab);
+      
       static void ResetPrefabEditor();
     };
   }

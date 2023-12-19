@@ -196,7 +196,7 @@ RTTR_REGISTRATION
   rttr::registration::class_<Prefabs::VariantPrefab::EntityMappings>("EntityMappings")
     .property("name", &Prefabs::VariantPrefab::EntityMappings::m_prefab)
     .property("version", &Prefabs::VariantPrefab::EntityMappings::m_version)
-    .property("entityToObj", &Prefabs::VariantPrefab::EntityMappings::m_entityToObj)
+    .property("objToEntity", &Prefabs::VariantPrefab::EntityMappings::m_objToEntity)
     ;
 #endif
 

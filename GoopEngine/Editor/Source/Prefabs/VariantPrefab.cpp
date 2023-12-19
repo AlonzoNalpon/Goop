@@ -36,13 +36,15 @@ ECS::Entity PrefabSubData::Construct() const
 }
 
 VariantPrefab::VariantPrefab(std::string name, unsigned version) :
-  m_name{ std::move(name) }, m_objects{}, m_components{}, m_version{ version } {}
+  m_name{ std::move(name) }, m_objects{}, m_components{},
+  m_removedChildren{}, m_removedComponents{}, m_version { version } {}
 
 void VariantPrefab::Clear() noexcept
 {
   m_name.clear();
   m_components.clear();
   m_objects.clear();
+  m_removedChildren.clear();
   m_version = 0;
 }
 
@@ -52,7 +54,7 @@ std::pair<ECS::Entity, VariantPrefab::EntityMappings> VariantPrefab::Construct()
   EntityMappings mappedData{ m_name, m_version };
   size_t const numObjs{ m_objects.size() + 1 };
   idsToEntities.reserve(numObjs);
-  mappedData.m_entityToObj.reserve(numObjs);
+  mappedData.m_objToEntity.reserve(numObjs);
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
 
   // first, create the base entity
@@ -62,14 +64,14 @@ std::pair<ECS::Entity, VariantPrefab::EntityMappings> VariantPrefab::Construct()
 
   // map base ID to this entity ID
   idsToEntities.emplace(PrefabSubData::BasePrefabId, entity);  
-  mappedData.m_entityToObj.emplace(PrefabSubData::BasePrefabId, entity);
+  mappedData.m_objToEntity.emplace(PrefabSubData::BasePrefabId, entity);
 
   // then, create child entities and map IDs
   for (PrefabSubData const& obj : m_objects)
   {
     ECS::Entity const subId{ obj.Construct() };
     idsToEntities.emplace(obj.m_id, subId);
-    mappedData.m_entityToObj.emplace(obj.m_id, subId);
+    mappedData.m_objToEntity.emplace(obj.m_id, subId);
   }
 
   // establish the hierarchy
@@ -111,5 +113,20 @@ void VariantPrefab::CreateSubData(std::set<ECS::Entity> const& children, PrefabS
 
     m_objects.emplace_back(std::move(obj));
     CreateSubData(ecs.GetChildEntities(const_cast<ECS::Entity&>(child)), currId);
+  }
+}
+
+void VariantPrefab::EntityMappings::Validate()
+{
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  for (auto iter{ m_objToEntity.begin() }; iter != m_objToEntity.end();)
+  {
+    // if entity destroyed, remove entry from map
+    if (!ecs.GetIsActiveEntity(iter->second))
+    {
+      iter = m_objToEntity.erase(iter);
+      continue;
+    }
+    ++iter;
   }
 }

@@ -296,6 +296,92 @@ rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, ECS::COMPONENT_T
   }
 }
 
+void ObjectFactory::RemoveComponentFromEntity(ECS::Entity entity, rttr::type compType) const
+{
+  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+  // get underlying type if it's wrapped in a pointer
+  compType = compType.is_wrapper() ? compType.get_wrapped_type().get_raw_type() : compType.is_pointer() ? compType.get_raw_type() : compType;
+
+  if (compType == rttr::type::get<Component::Transform>())
+  {
+    ecs.RemoveComponent<Transform>(entity);
+  }
+  else if (compType == rttr::type::get<Component::BoxCollider>())
+  {
+    ecs.RemoveComponent<BoxCollider>(entity);
+  }
+  else if (compType == rttr::type::get<Component::Velocity>())
+  {
+    ecs.RemoveComponent<Velocity>(entity);
+  }
+  else if (compType == rttr::type::get<Component::Sprite>())
+  {
+    ecs.RemoveComponent<Sprite>(entity);
+  }
+  else if (compType == rttr::type::get<Component::SpriteAnim>())
+  {
+    ecs.RemoveComponent<SpriteAnim>(entity);
+  }
+  else if (compType == rttr::type::get<Component::Model>())
+  {
+    ecs.RemoveComponent<Model>(entity);
+  }
+  else if (compType == rttr::type::get<Component::Tween>())
+  {
+    ecs.RemoveComponent<Tween>(entity);
+  }
+  else if (compType == rttr::type::get<Component::Scripts>())
+  {
+    ecs.RemoveComponent<Scripts>(entity);
+  }
+  else if (compType == rttr::type::get<Component::Draggable>())
+  {
+    ecs.RemoveComponent<Draggable>(entity);
+  }
+  else if (compType == rttr::type::get<Component::EnemyAI>())
+  {
+    ecs.RemoveComponent<EnemyAI>(entity);
+  }
+  else if (compType == rttr::type::get<Component::Text>())
+  {
+    ecs.RemoveComponent<Text>(entity);
+  }
+  else if (compType == rttr::type::get<Component::Audio>())
+  {
+    ecs.RemoveComponent<Audio>(entity);
+  }
+  else if (compType == rttr::type::get<Component::GE_Button>())
+  {
+    ecs.RemoveComponent<GE_Button>(entity);
+  }
+  else if (compType == rttr::type::get<Component::Anchor>())
+  {
+    ecs.RemoveComponent<Anchor>(entity);
+  }
+  else if (compType == rttr::type::get<Component::Card>())
+  {
+    ecs.RemoveComponent<Card>(entity);
+  }
+  else if (compType == rttr::type::get<Component::Game>())
+  {
+    ecs.RemoveComponent<Game>(entity);
+  }
+  else if (compType == rttr::type::get<Component::CardHolder>())
+  {
+    ecs.RemoveComponent<CardHolder>(entity);
+  }
+  else if (compType == rttr::type::get<Component::CardHolderElem>())
+  {
+    ecs.RemoveComponent<CardHolderElem>(entity);
+  }
+  else
+  {
+    std::ostringstream oss{};
+    oss << "Trying to remove unknown component type: " << compType.get_name().to_string() << " to entity " << entity << " | Update ObjectFactory::RemoveComponentFromEntity";
+    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+  }
+}
+
 void ObjectFactory::RegisterComponentsAndSystems() const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
