@@ -36,7 +36,7 @@ namespace GE
       static ECS::Entity m_prefabInstance;
       static bool m_newPrefab, m_isEditing, m_escapeTriggered;
 
-      static void UpdateDeletedObjects(Prefabs::VariantPrefab& prefab);
+      static void VerifyDeletedObjects(Prefabs::VariantPrefab const& prefab);
       
       static void ResetPrefabEditor();
     };

@@ -16,6 +16,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ImGui/imgui.h>
 #include <filesystem>
 
+#ifdef _DEBUG
+#define PREFAB_EDITOR_DEBUG
+#endif
+
 using namespace GE::EditorGUI;
 
 GE::ECS::Entity PrefabEditor::m_prefabInstance{ ECS::INVALID_ID };
@@ -80,6 +84,9 @@ void PrefabEditor::HandleEvent(Events::Event* event)
         + std::to_string(static_cast<Events::DeletePrefabChildEvent*>(event)->m_entity));
       return;
     }
+#ifdef PREFAB_EDITOR_DEBUG
+    std::cout << "Child deletion detected: Added " << iter->second << " to m_removedChildren\n";
+#endif
 
     m_removedChildren.emplace_back(iter->second);
     break;
@@ -96,6 +103,9 @@ void PrefabEditor::HandleEvent(Events::Event* event)
       Debug::ErrorLogger::GetInstance().LogError(oss.str());
       return;
     }
+#ifdef PREFAB_EDITOR_DEBUG
+    std::cout << "Component deletion detected: Added <" << iter->second << ", " << deleteEvent->m_type << "> to m_removedComponents\n";
+#endif
 
     m_removedComponents.emplace_back(std::make_pair(iter->second, deleteEvent->m_type));
     break;
@@ -132,15 +142,21 @@ void PrefabEditor::RenderBackToScenePopup()
     if (ImGui::Button("Save"))
     {
       Events::EventManager& em{ Events::EventManager::GetInstance() };
+      Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
 
       if (m_removedChildren.empty() && m_removedComponents.empty())
       {
-        Prefabs::PrefabManager::GetInstance().CreatePrefabFromEntity(m_prefabInstance, m_prefabName, m_prefabPath);
+        pm.CreatePrefabFromEntity(m_prefabInstance, m_prefabName, m_prefabPath);
       }
       else
       {
-        Prefabs::VariantPrefab prefab{ Prefabs::PrefabManager::GetInstance().CreateVariantPrefab(m_prefabInstance, m_prefabName) };
+#ifdef PREFAB_EDITOR_DEBUG
+        std::cout << "Saving...\n";
+#endif
+        Prefabs::VariantPrefab prefab{ pm.CreateVariantPrefab(m_prefabInstance, m_prefabName) };
         Prefabs::PrefabVersion const& ver{ ++prefab.m_version };
+
+        VerifyDeletedObjects(prefab);
         for (auto const& id : m_removedChildren)
         {
           prefab.m_removedChildren.emplace_back(id, ver);
@@ -149,8 +165,8 @@ void PrefabEditor::RenderBackToScenePopup()
         {
           prefab.m_removedComponents.emplace_back(id, type, ver);
         }
+        pm.UpdatePrefabFromEditor(m_prefabName, std::move(prefab));
 
-        Prefabs::PrefabManager::GetInstance().UpdatePrefabFromEditor(m_prefabName, std::move(prefab));
       }
       em.Dispatch(Events::StopSceneEvent());
       
@@ -163,16 +179,59 @@ void PrefabEditor::RenderBackToScenePopup()
   }
 }
 
-void PrefabEditor::UpdateDeletedObjects(Prefabs::VariantPrefab& prefab)
+void PrefabEditor::VerifyDeletedObjects(Prefabs::VariantPrefab const& prefab)
 {
-  //Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
-
-  // check through removed children for obsolete entries
-  // e.g. if user removed a child and then added it back afterwards
-  /*for (auto const& id : m_removedChildren)
+#ifdef PREFAB_EDITOR_DEBUG
+  std::cout << "Verifying deleted objects...\n";
+#endif
+  // check through removed components for obsolete entries
+  // e.g. if user removed a component and then added it back afterwards
+  for (auto iter{ m_removedComponents.begin() }; iter != m_removedComponents.end();)
   {
+    // if curr id is base entity
+    if (iter->first == Prefabs::PrefabSubData::BasePrefabId)
+    {
+      rttr::type const& type{ iter->second };
+      // if component exists in final prefab, remove entry
+      if (std::find_if(prefab.m_components.cbegin(), prefab.m_components.cend(),
+        [&type](rttr::variant const& comp) { return comp.get_type() == type; }) != prefab.m_components.cend())
+      {
+#ifdef PREFAB_EDITOR_DEBUG
+        std::cout << "  Found " << type << " component in base object. Removing entry...\n";
+#endif
+        iter = m_removedComponents.erase(iter);
+        continue;
+      }
+    }
+    // if child was already removed, remove the entry
+    else if (std::find(m_removedChildren.cbegin(), m_removedChildren.cend(), iter->first) != m_removedChildren.cend())
+    {
+#ifdef PREFAB_EDITOR_DEBUG
+      std::cout << "  Found ID " << iter->first << " in deleted component entries. Removing entry since object is to be deleted...\n";
+#endif
+      iter = m_removedComponents.erase(iter);
+      continue;
+    }
+    // if component exists in final prefab, remove entry
+    auto const& [id, type] { *iter };
+    auto obj{ std::find_if(prefab.m_objects.cbegin(), prefab.m_objects.cend(), [&id](Prefabs::PrefabSubData const& data) { return id == data.m_id; }) };
+    if (obj == prefab.m_objects.cend())
+    {
+      Debug::ErrorLogger::GetInstance().LogError("Could not find child of prefab " + prefab.m_name + " with id " + std::to_string(id));
+      iter = m_removedComponents.erase(iter);
+      continue;
+    }
 
-  }*/
+    if (std::find_if(obj->m_components.cbegin(), obj->m_components.cend(),
+      [&type](rttr::variant const& comp) { return comp.get_type() == type; }) != obj->m_components.cend())
+    {
+#ifdef PREFAB_EDITOR_DEBUG
+      std::cout << "  Found " << type << " component in obj " << id << " . Removing entry...\n";
+#endif
+      iter = m_removedComponents.erase(iter);
+      continue;
+    }
+  }
 }
 
 void PrefabEditor::ResetPrefabEditor()

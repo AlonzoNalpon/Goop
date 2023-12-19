@@ -31,7 +31,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 
 #ifdef _DEBUG
-//#define PREFAB_MANAGER_DEBUG
+#define PREFAB_MANAGER_DEBUG
 #endif
 
 using namespace GE::Prefabs;
@@ -166,7 +166,7 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
 
     // apply each child removal that is later than current entity version
     for (auto childIter{ prefabVar.m_removedChildren.rbegin() };
-      childIter != prefabVar.m_removedChildren.rend() && childIter->second > iterVal.m_version; ++childIter)
+      childIter != prefabVar.m_removedChildren.rend() && childIter->second < iterVal.m_version; ++childIter)
     {
       auto dataIter{ mappedData.find(childIter->first) };
       if (dataIter == mappedData.end())
@@ -176,6 +176,9 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
         Debug::ErrorLogger::GetInstance().LogError(oss.str());
         continue;
       }
+#ifdef PREFAB_MANAGER_DEBUG
+      std::cout << "Updating child deletion: Removed entity " << dataIter->second << " (id: " << childIter->first << ")\n";
+#endif
       ecs.DestroyEntity(dataIter->second);
       mappedData.erase(dataIter);
     }
@@ -183,17 +186,22 @@ void PrefabManager::UpdateEntitiesFromPrefab(std::string const& prefab)
 
     // apply component removals that are later than current version
     for (auto compIter{ prefabVar.m_removedComponents.rbegin() };
-      compIter != prefabVar.m_removedComponents.rend() && compIter->m_version > iterVal.m_version; ++compIter)
+      compIter != prefabVar.m_removedComponents.rend() && compIter->m_version < iterVal.m_version; ++compIter)
     {
       auto dataIter{ mappedData.find(compIter->m_id) };
       if (dataIter == mappedData.end())
       {
         std::ostringstream oss{};
-        oss << "Unable to remove " << compIter->m_type.get_name().to_string() << " component from obj with ID "
+        oss << "  Unable to remove " << compIter->m_type.get_name().to_string() << " component from obj with ID "
           << compIter->m_id << " when updating prefab instances of " << prefab;
         Debug::ErrorLogger::GetInstance().LogError(oss.str());
         continue;
       }
+
+#ifdef PREFAB_MANAGER_DEBUG
+      std::cout << "  Updating component deletion: Removed " << compIter->m_type 
+        << " component from entity " << dataIter->second << " (id: " << compIter->m_id << ")\n";
+#endif
       ObjectFactory::ObjectFactory::GetInstance().RemoveComponentFromEntity(dataIter->second, compIter->m_type);
     }
 
