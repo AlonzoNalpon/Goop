@@ -2044,11 +2044,6 @@ namespace
 				ecs.RemoveComponent<T>(entity);
 				EndPopup();
 
-				if (GE::EditorGUI::PrefabEditor::IsEditingPrefab())
-				{
-					GE::Events::EventManager::GetInstance().Dispatch(GE::Events::DeletePrefabComponentEvent(entity, rttr::type::get<T>()));
-				}
-
 				return true;
 			}
 			EndPopup();

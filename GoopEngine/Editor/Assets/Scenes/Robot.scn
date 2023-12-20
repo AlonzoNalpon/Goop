@@ -59,6 +59,11 @@
                     "max": "{ -11, 283 }",
                     "render": true
                 }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MineWorm"
+                }
             }
         ]
     },
@@ -81,6 +86,29 @@
                     "worldPos": "{ 1.59175e+06, -6705, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 1.59175e+06, -6705 }",
+                    "width": 1.30485515646e-311,
+                    "height": 6.95332401827133e-310,
+                    "min": "{ 1.59175e+06, -6705 }",
+                    "max": "{ 1.59175e+06, -6705 }",
+                    "render": false
+                }
+            },
+            {
+                "Velocity": {
+                    "vel": "{ 0, 0, 0 }",
+                    "acc": "{ 0, 0, 0 }",
+                    "mass": 1.0,
+                    "gravity": "{ 0, 0, 0 }",
+                    "dragForce": {
+                        "magnitude": 2.604661707593e-312,
+                        "isActive": true
+                    },
+                    "forces": []
                 }
             }
         ]
@@ -280,6 +308,22 @@
                     "max": "{ -12.5, 75 }",
                     "render": true
                 }
+            },
+            {
+                "Velocity": {
+                    "vel": "{ 0, 0, 0 }",
+                    "acc": "{ 0, 0, 0 }",
+                    "mass": 1.0,
+                    "gravity": "{ 0, 0, 0 }",
+                    "dragForce": {
+                        "magnitude": 1.372339590915e-312,
+                        "isActive": true
+                    },
+                    "forces": []
+                }
+            },
+            {
+                "Draggable": {}
             }
         ]
     },
@@ -330,6 +374,53 @@
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -2.41451e+22, 2.5142e+21 }",
+                    "width": 40.0,
+                    "height": 40.0,
+                    "min": "{ -2.41451e+22, 2.5142e+21 }",
+                    "max": "{ -2.41451e+22, 2.5142e+21 }",
+                    "render": true
+                }
+            },
+            {
+                "Velocity": {
+                    "vel": "{ 0, 0, 0 }",
+                    "acc": "{ 0, 0, 0 }",
+                    "mass": 1.0,
+                    "gravity": "{ 0, 0, 0 }",
+                    "dragForce": {
+                        "magnitude": 1.202664444167e-312,
+                        "isActive": true
+                    },
+                    "forces": []
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 200
+                        }
+                    },
+                    "spriteName": "DottedBox"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": []
+                }
             }
         ]
     },
@@ -370,6 +461,43 @@
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 6.92231e+16, -5.20368e+13 }",
+                    "width": 9.097496599607e-312,
+                    "height": 6.95302961466827e-310,
+                    "min": "{ 6.92231e+16, -5.20368e+13 }",
+                    "max": "{ 6.92231e+16, -5.20368e+13 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 0.1666666716337204,
+                                "y": 1.0
+                            },
+                            "width": 128,
+                            "height": 128
+                        }
+                    },
+                    "spriteName": "SS_MineWorm"
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MineWorm"
+                }
+            },
+            {
+                "Draggable": {}
             }
         ]
     },
@@ -389,6 +517,29 @@
                     "worldPos": "{ -7.05535e+16, 7.3743e+15, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -7.05535e+16, 7.3743e+15 }",
+                    "width": 40.0,
+                    "height": 40.0,
+                    "min": "{ -7.05535e+16, 7.3743e+15 }",
+                    "max": "{ -7.05535e+16, 7.3743e+15 }",
+                    "render": true
+                }
+            },
+            {
+                "Velocity": {
+                    "vel": "{ 0, 0, 0 }",
+                    "acc": "{ 0, 0, 0 }",
+                    "mass": 1.0,
+                    "gravity": "{ 0, 0, 0 }",
+                    "dragForce": {
+                        "magnitude": 1.202664444167e-312,
+                        "isActive": true
+                    },
+                    "forces": []
                 }
             }
         ]

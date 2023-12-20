@@ -59,16 +59,6 @@ namespace GE
       std::string const m_prefab, m_path;
     };
 
-    class DeletePrefabComponentEvent : public Event
-    {
-    public:
-      DeletePrefabComponentEvent(ECS::Entity entity, rttr::type const& type) : Event(EVENT_TYPE::DELETE_PREFAB_COMPONENT), m_entity{ entity }, m_type{ type } {}
-      inline std::string GetName() const noexcept override { return "Deleted " + m_type.get_name().to_string() + " from Entity " + std::to_string(m_entity); }
-
-      ECS::Entity const m_entity;
-      rttr::type const m_type;
-    };
-
     class DeletePrefabChildEvent : public Event
     {
     public:

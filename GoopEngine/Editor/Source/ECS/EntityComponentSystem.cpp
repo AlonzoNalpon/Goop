@@ -38,7 +38,7 @@ Entity EntityComponentSystem::CreateEntity()
 	return m_entityManager->CreateEntity();
 }
 
-bool GE::ECS::EntityComponentSystem::GetIsActiveEntity(Entity& entity)
+bool GE::ECS::EntityComponentSystem::GetIsActiveEntity(Entity const& entity) const
 {
 	return m_entityManager->IsActiveEntity(entity);
 }

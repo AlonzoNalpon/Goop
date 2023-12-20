@@ -232,36 +232,8 @@ void AssetBrowser::CreateContentView()
 		ImGui::OpenPopup("Confirm Delete");
 		deletePopup = false;
 	}
+	RunConfirmDeletePopup();
 
-	ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-	if (ImGui::BeginPopupModal("Confirm Delete", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text("Are you sure you want to delete");
-		ImGui::SameLine();
-		// highlight next text
-		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), ImGuiHelper::GetSelectedAsset().filename().string().c_str());
-		ImGui::SameLine();
-		ImGui::Text("?");
-		
-		ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x * 0.5f - ImGui::CalcTextSize("Yes ").x);
-		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 1.f));
-		if (ImGui::Button("No"))
-		{
-			ImGui::CloseCurrentPopup();
-		}
-		ImGui::PopStyleColor();
-
-		ImGui::SameLine();
-		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.f, 0.65f, 0.f, 1.f));
-		if (ImGui::Button("Yes"))
-		{
-			std::remove(ImGuiHelper::GetSelectedAsset().relative_path().string().c_str());
-			ImGui::CloseCurrentPopup();
-		}
-		ImGui::PopStyleColor();
-
-		ImGui::EndPopup();
-	}
 	EndGroup();
 }
 
@@ -392,6 +364,39 @@ void AssetBrowser::Traverse(std::filesystem::path filepath)
 			}
 		}
 		TreePop();
+	}
+}
+
+void AssetBrowser::RunConfirmDeletePopup()
+{
+	ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+	if (ImGui::BeginPopupModal("Confirm Delete", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Are you sure you want to delete");
+		ImGui::SameLine();
+		// highlight next text
+		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), ImGuiHelper::GetSelectedAsset().filename().string().c_str());
+		ImGui::SameLine();
+		ImGui::Text("?");
+
+		ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x * 0.5f - ImGui::CalcTextSize("Yes ").x);
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.f, 0.65f, 0.f, 1.f));
+		if (ImGui::Button("No"))
+		{
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::PopStyleColor();
+
+		ImGui::SameLine();
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 1.f));
+		if (ImGui::Button("Yes"))
+		{
+			std::remove(ImGuiHelper::GetSelectedAsset().relative_path().string().c_str());
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::PopStyleColor();
+
+		ImGui::EndPopup();
 	}
 }
 

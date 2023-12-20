@@ -101,7 +101,7 @@ void EntityManager::DestroyEntity(Entity& entity)
 	Events::EventManager::GetInstance().Dispatch(Events::RemoveEntityEvent(entity));
 }
 
-bool GE::ECS::EntityManager::IsActiveEntity(Entity& entity)
+bool GE::ECS::EntityManager::IsActiveEntity(Entity const& entity) const
 {
 	if (entity == INVALID_ID)
 	{

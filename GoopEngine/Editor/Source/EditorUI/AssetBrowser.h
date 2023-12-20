@@ -32,6 +32,12 @@ namespace GE::EditorGUI
 		************************************************************************/
 		static void Traverse(std::filesystem::path filepath);
 
+		/*!*********************************************************************
+		\brief
+		  Creates the confirmation popup for when an asset is deleted
+		************************************************************************/
+		static void RunConfirmDeletePopup();
+
 	public:
 		/*!*********************************************************************
 		\brief

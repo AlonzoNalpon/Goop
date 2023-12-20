@@ -39,6 +39,6 @@ void EventManager::SubscribeAllListeners()
   Subscribe<KeyTriggeredEvent>(&evp);
   Subscribe<RemoveEntityEvent>(&pm);
   Subscribe<EditPrefabEvent>(&pe); Subscribe<KeyTriggeredEvent>(&pe);
-  Subscribe<DeletePrefabChildEvent>(&pe); Subscribe<DeletePrefabComponentEvent>(&pe);
+  Subscribe<DeletePrefabChildEvent>(&pe);
 #endif
 }

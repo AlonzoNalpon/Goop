@@ -19,6 +19,17 @@ namespace GE::EditorGUI
 			Wrapper to create tool bar ribbon
 		********************************************************************/
 		static void CreateContent();
+
+	private:
+
+		static bool m_prefabPopup;
+
+		/*!*********************************************************************
+		\brief
+		  Runs the code for the popup when "New Prefab" option has been
+			selected from the toolbar
+		************************************************************************/
+		static void RunNewPrefabPopup();
 	};
 }
 

@@ -190,14 +190,24 @@ RTTR_REGISTRATION
     .property("second", &std::pair<std::string, unsigned>::second)
     ;
 
-  //rttr::registration::class_<std::unordered_map<Prefabs::PrefabSubData::SubDataId, ECS::Entity>>("UnsignedUnsignedUMap")
-  //  .property("")
-
   rttr::registration::class_<Prefabs::VariantPrefab::EntityMappings>("EntityMappings")
     .property("name", &Prefabs::VariantPrefab::EntityMappings::m_prefab)
     .property("version", &Prefabs::VariantPrefab::EntityMappings::m_version)
     .property("objToEntity", &Prefabs::VariantPrefab::EntityMappings::m_objToEntity)
     ;
+
+  rttr::registration::class_<Prefabs::VariantPrefab::RemovedComponent>("RemovedComponent")
+    .property("id", &Prefabs::VariantPrefab::RemovedComponent::m_id)
+    .property("type", &Prefabs::VariantPrefab::RemovedComponent::m_type)
+    .property("version", &Prefabs::VariantPrefab::RemovedComponent::m_version)
+    ;
+
+  rttr::registration::class_<std::pair<Prefabs::PrefabSubData::SubDataId, Prefabs::PrefabVersion>>("UnsignedUnsignedPair")
+    .property("first", &std::pair<Prefabs::PrefabSubData::SubDataId, Prefabs::PrefabVersion>::first)
+    .property("second", &std::pair<Prefabs::PrefabSubData::SubDataId, Prefabs::PrefabVersion>::second)
+    ;
+
+  rttr::registration::class_<rttr::type>("RttrType");
 #endif
 
 } // RTTR Registration

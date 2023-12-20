@@ -50,7 +50,7 @@ namespace GE
       \return
         Entity id of the instance.
       ************************************************************************/
-      GE::ECS::Entity SpawnPrefab(const std::string& key, Math::dVec3 const& pos = {});
+      GE::ECS::Entity SpawnPrefab(const std::string& key, Math::dVec3 const& pos = {}, bool mapEntity = true);
 
       /*!*********************************************************************
       \brief
@@ -127,7 +127,7 @@ namespace GE
       ************************************************************************/
       void CreatePrefabFromEntity(ECS::Entity entity, std::string const& name, std::string const& path = {});
 
-      void UpdatePrefabFromEditor(std::string const& name, VariantPrefab&& prefab);
+      void UpdatePrefabFromEditor(VariantPrefab&& prefab, std::string const& filepath);
 
       /*!*********************************************************************
       \brief

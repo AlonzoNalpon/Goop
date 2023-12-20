@@ -62,10 +62,10 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
     return {};
   }
 
-  if (!ScanJsonFileForMembers(document, json, 4, JsonNameKey, rapidjson::kStringType, JsonPrefabDataKey, rapidjson::kArrayType,
-    JsonComponentsKey, rapidjson::kArrayType, JsonPrefabVerKey, rapidjson::kNumberType)) { ifs.close(); return {}; }
+  if (!ScanJsonFileForMembers(document, json, 4, JsonNameKey, rapidjson::kStringType, JsonPfbDataKey, rapidjson::kArrayType,
+    JsonComponentsKey, rapidjson::kArrayType, JsonPfbVerKey, rapidjson::kNumberType)) { ifs.close(); return {}; }
 
-  Prefabs::VariantPrefab prefab{ document[JsonNameKey].GetString(), document[JsonPrefabVerKey].GetUint() };
+  Prefabs::VariantPrefab prefab{ document[JsonNameKey].GetString(), document[JsonPfbVerKey].GetUint() };
   // iterate through component objects in json array
   std::vector<rttr::variant>& compVector{ prefab.m_components };
   for (auto const& elem : document[JsonComponentsKey].GetArray())
@@ -95,7 +95,7 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
     compVector.emplace_back(compVar);
   }
 
-  for (auto const& elem : document[JsonPrefabDataKey].GetArray())
+  for (auto const& elem : document[JsonPfbDataKey].GetArray())
   {
     if (!ScanJsonFileForMembers(elem, json, 4, JsonIdKey, rapidjson::kNumberType, JsonNameKey, rapidjson::kStringType,
       JsonComponentsKey, rapidjson::kArrayType, JsonParentKey, rapidjson::kNumberType)) { continue; }
@@ -129,6 +129,44 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
     }
 
     prefab.m_objects.emplace_back(std::move(subObj));
+  }
+
+  if (document.HasMember(JsonRemovedChildrenKey))
+  {
+    rttr::variant removedChildrenVar{ std::vector<std::pair<Prefabs::PrefabSubData::SubDataId, Prefabs::PrefabVersion>>{} };
+    DeserializeBasedOnType(removedChildrenVar, document[JsonRemovedChildrenKey]);
+    if (removedChildrenVar.is_valid())
+    {
+      prefab.m_removedChildren = std::move(removedChildrenVar.get_value<
+        std::vector<std::pair<Prefabs::PrefabSubData::SubDataId, Prefabs::PrefabVersion>>
+      >());
+    }
+    else
+    {
+      std::string const msg{ "Unable to deserialize m_removedChildren of prefab " + prefab.m_name };
+      Debug::ErrorLogger::GetInstance().LogError(msg);
+#ifdef _DEBUG
+      std::cout << msg << "\n";
+#endif
+    }
+  }
+
+  if (document.HasMember(JsonRemovedCompKey))
+  {
+    rttr::variant removedCompVar{ std::vector<Prefabs::VariantPrefab::RemovedComponent>{} };
+    DeserializeBasedOnType(removedCompVar, document[JsonRemovedCompKey]);
+    if (removedCompVar.is_valid())
+    {
+      prefab.m_removedComponents = std::move(removedCompVar.get_value<std::vector<Prefabs::VariantPrefab::RemovedComponent>>());
+    }
+    else
+    {
+      std::string const msg{ "Unable to deserialize m_removedComponents of prefab " + prefab.m_name };
+      Debug::ErrorLogger::GetInstance().LogError(msg);
+#ifdef _DEBUG
+      std::cout << msg << "\n";
+#endif
+    }
   }
 
   return prefab;

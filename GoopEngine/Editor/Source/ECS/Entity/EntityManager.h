@@ -96,7 +96,7 @@ namespace GE
 			\return
 			  Active flag of entity.
 			************************************************************************/
-			bool IsActiveEntity(Entity& entity);
+			bool IsActiveEntity(Entity const& entity) const;
 
 			/*!*********************************************************************
 			\brief

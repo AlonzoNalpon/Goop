@@ -45,7 +45,7 @@ namespace GE
       rapidjson::Value verJson{ prefab.m_version };
 
       document.AddMember(JsonNameKey, nameJson.Move(), allocator);
-      document.AddMember(JsonPrefabVerKey, verJson.Move(), allocator);
+      document.AddMember(JsonPfbVerKey, verJson.Move(), allocator);
 
       SerializeVariantComponents(document,prefab.m_components, allocator);
 
@@ -65,7 +65,22 @@ namespace GE
 
         subDataJson.PushBack(objJson.Move(), allocator);
       }
-      document.AddMember(JsonPrefabDataKey, subDataJson.Move(), allocator);
+      document.AddMember(JsonPfbDataKey, subDataJson.Move(), allocator);
+
+      // serialize removed objects
+      if (!prefab.m_removedChildren.empty())
+      {
+        rttr::variant removedChildren{ prefab.m_removedChildren };
+        rapidjson::Value removedChildrenJson{ SerializeBasedOnType(removedChildren, allocator) };
+        document.AddMember(JsonRemovedChildrenKey, removedChildrenJson.Move(), allocator);
+      }
+
+      if (!prefab.m_removedComponents.empty())
+      {
+        rttr::variant removedComp{ prefab.m_removedComponents };
+        rapidjson::Value removedCompJson{ SerializeBasedOnType(removedComp, allocator) };
+        document.AddMember(JsonRemovedCompKey, removedCompJson.Move(), allocator);
+      }
 
       rapidjson::OStreamWrapper osw{ ofs };
       rapidjson::PrettyWriter<rapidjson::OStreamWrapper> writer(osw);
@@ -347,6 +362,10 @@ namespace GE
       {
         jsonVal.SetString(valueType.get_method("ToString").invoke(value).to_string().c_str(),
           allocator);
+      }
+      else if (valueType == rttr::type::get<rttr::type>())
+      {
+        jsonVal.SetString(value.to_string().c_str(), allocator);
       }
       else if (valueType == rttr::type::get<std::deque<Math::dVec3>>())
       {

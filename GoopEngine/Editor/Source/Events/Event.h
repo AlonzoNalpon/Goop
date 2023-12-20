@@ -46,7 +46,6 @@ namespace GE
       STOP_SCENE,
       PREFAB_SAVED,
       EDIT_PREFAB,
-      DELETE_PREFAB_COMPONENT,
       DELETE_PREFAB_CHILD,
 #endif
       MAX_EVENTS

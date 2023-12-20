@@ -30,6 +30,12 @@ namespace RttrHelper
 
   GE::Math::dVec3 dVec3FromString(std::string const& str, bool& ok)
   { GE::Math::dVec3 ret{}; ret << str; ok = true; return ret; }
+
+  std::string StringFromRttrType(rttr::type const& type, bool& ok)
+  { return type.get_name().to_string(); }
+
+  rttr::type RttrTypeFromString(std::string const& str, bool& ok)
+  { return rttr::type::get_by_name(str); }
 }
 
 RTTR_REGISTRATION
@@ -38,6 +44,8 @@ RTTR_REGISTRATION
   rttr::type::register_converter_func(RttrHelper::dVec2FromString);
   rttr::type::register_converter_func(RttrHelper::dVec3FromString);
   rttr::type::register_converter_func(RttrHelper::Vec2FromString);
+  rttr::type::register_converter_func(RttrHelper::StringFromRttrType);
+  rttr::type::register_converter_func(RttrHelper::RttrTypeFromString);
 
   /* ------------------- ENUMERATIONS ------------------- */
   rttr::registration::enumeration<AI::NODE_TYPE>("NODE_TYPE")

@@ -119,6 +119,7 @@ namespace GE::Prefabs
 
     struct RemovedComponent
     {
+      RemovedComponent() : m_id{}, m_type{ rttr::type::get<void>() }, m_version{} {}
       RemovedComponent(PrefabSubData::SubDataId id, rttr::type const& type, PrefabVersion ver) :
         m_id{ id }, m_type{ type }, m_version{ ver } {}
 
