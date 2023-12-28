@@ -1,6 +1,6 @@
 {
     "Name": "TestButton",
-    "Version": 5,
+    "Version": 19,
     "Components": [
         {
             "Transform": {
@@ -42,5 +42,36 @@
             }
         }
     ],
-    "SubData": []
+    "SubData": [
+        {
+            "ID": 1,
+            "Name": "Btn Text",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -73.2595, -23.8518, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -73.2595, -23.8518, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Hello",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 0.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.24500000476837158,
+                        "fontID": 0
+                    }
+                }
+            ]
+        }
+    ]
 }

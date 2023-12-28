@@ -2,11 +2,7 @@
     {
         "Name": "Background",
         "ID": 0,
-        "Prefab": {
-            "name": "Background",
-            "version": 1,
-            "objToEntity": []
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -39,19 +35,6 @@
                     },
                     "spriteName": "BG_Lv1"
                 }
-            },
-            {
-                "SpriteAnim": {
-                    "name": "SS_MineWorm"
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": []
-                }
-            },
-            {
-                "Draggable": {}
             }
         ]
     },
@@ -60,39 +43,25 @@
         "ID": 1,
         "Prefab": {
             "name": "MineWorm",
-            "version": 32,
+            "version": 1,
             "objToEntity": [
                 {
                     "key": 0,
                     "value": 1
-                },
-                {
-                    "key": 1,
-                    "value": 10
-                },
-                {
-                    "key": 2,
-                    "value": 11
-                },
-                {
-                    "key": 3,
-                    "value": 12
                 }
-            ]
+            ],
+            "registered": true
         },
         "isActive": true,
         "Parent": null,
-        "Child Entities": [
-            10,
-            12
-        ],
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -383, -9, 0 }",
+                    "pos": "{ -579.259, 22.1481, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -383, -9, 0 }",
+                    "worldPos": "{ -579.259, 22.1481, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -120,14 +89,6 @@
                 "SpriteAnim": {
                     "name": "SS_MineWorm"
                 }
-            },
-            {
-                "Scripts": {
-                    "scriptList": []
-                }
-            },
-            {
-                "Draggable": {}
             }
         ]
     },
@@ -136,39 +97,25 @@
         "ID": 2,
         "Prefab": {
             "name": "MineWorm",
-            "version": 32,
+            "version": 1,
             "objToEntity": [
                 {
                     "key": 0,
                     "value": 2
-                },
-                {
-                    "key": 1,
-                    "value": 13
-                },
-                {
-                    "key": 2,
-                    "value": 14
-                },
-                {
-                    "key": 3,
-                    "value": 15
                 }
-            ]
+            ],
+            "registered": true
         },
         "isActive": true,
         "Parent": null,
-        "Child Entities": [
-            13,
-            15
-        ],
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 334.074, 115.704, 0 }",
+                    "pos": "{ 155.037, 146.519, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 334.074, 115.704, 0 }",
+                    "worldPos": "{ 155.037, 146.519, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -196,14 +143,6 @@
                 "SpriteAnim": {
                     "name": "SS_MineWorm"
                 }
-            },
-            {
-                "Scripts": {
-                    "scriptList": []
-                }
-            },
-            {
-                "Draggable": {}
             }
         ]
     },
@@ -256,13 +195,18 @@
         "ID": 4,
         "Prefab": {
             "name": "TestButton",
-            "version": 5,
+            "version": 19,
             "objToEntity": [
                 {
                     "key": 0,
                     "value": 4
+                },
+                {
+                    "key": 1,
+                    "value": 6
                 }
-            ]
+            ],
+            "registered": true
         },
         "isActive": true,
         "Parent": null,
@@ -272,21 +216,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 718.335, 373.233, 0 }",
+                    "pos": "{ 720.667, 344.148, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 718.335, 373.233, 0 }",
+                    "worldPos": "{ 720.667, 344.148, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 718.335, 373.233 }",
+                    "center": "{ 0, 0 }",
                     "width": 456.0,
                     "height": 154.0,
-                    "min": "{ 490.335, 296.233 }",
-                    "max": "{ 946.335, 450.233 }",
+                    "min": "{ -228, -77 }",
+                    "max": "{ 228, 77 }",
                     "render": false
                 }
             },
@@ -316,13 +260,18 @@
         "ID": 5,
         "Prefab": {
             "name": "TestButton",
-            "version": 5,
+            "version": 19,
             "objToEntity": [
                 {
                     "key": 0,
                     "value": 5
+                },
+                {
+                    "key": 1,
+                    "value": 7
                 }
-            ]
+            ],
+            "registered": true
         },
         "isActive": true,
         "Parent": null,
@@ -332,21 +281,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 711.667, 177.502, 0 }",
+                    "pos": "{ 720.667, 153.333, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 711.667, 177.502, 0 }",
+                    "worldPos": "{ 720.667, 153.333, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 711.667, 177.502 }",
+                    "center": "{ 0, 0 }",
                     "width": 456.0,
                     "height": 154.0,
-                    "min": "{ 483.667, 100.502 }",
-                    "max": "{ 939.667, 254.502 }",
+                    "min": "{ -228, -77 }",
+                    "max": "{ 228, 77 }",
                     "render": false
                 }
             },
@@ -368,19 +317,11 @@
                     },
                     "spriteName": "Button_Base"
                 }
-            },
-            {
-                "GE_Button": {
-                    "param": "anyhhow",
-                    "eventType": "CHANGE_SCENE",
-                    "lastCollided": false,
-                    "currCollided": false
-                }
             }
         ]
     },
     {
-        "Name": "BtnText 1",
+        "Name": "Btn Text",
         "ID": 6,
         "Prefab": null,
         "isActive": true,
@@ -389,31 +330,31 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -128.333, -25.448, 0 }",
+                    "pos": "{ -73.2595, -23.8518, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 590.002, 347.785, 0 }",
+                    "worldPos": "{ 647.408, 320.296, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Button 1",
+                    "text": "Hello",
                     "clr": {
-                        "r": 0.0,
+                        "r": 1.0,
                         "g": 0.0,
-                        "b": 0.0,
+                        "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.27900001406669617,
+                    "scale": 0.24500000476837158,
                     "fontID": 0
                 }
             }
         ]
     },
     {
-        "Name": "BtnText 2",
+        "Name": "Btn Text",
         "ID": 7,
         "Prefab": null,
         "isActive": true,
@@ -422,24 +363,24 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -128.334, -25.447, 0 }",
+                    "pos": "{ -73.2595, -23.8518, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 583.333, 152.055, 0 }",
+                    "worldPos": "{ 647.408, 129.481, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Button 2",
+                    "text": "Hello",
                     "clr": {
-                        "r": 0.0,
+                        "r": 1.0,
                         "g": 0.0,
-                        "b": 0.0,
+                        "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.27900001406669617,
+                    "scale": 0.24500000476837158,
                     "fontID": 0
                 }
             }
@@ -533,230 +474,6 @@
                     },
                     "scale": 0.27900001406669617,
                     "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Forces Tween",
-        "ID": 10,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 1,
-        "Child Entities": [
-            11
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -383, -9, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Velocity": {
-                    "vel": "{ 0, 0, 0 }",
-                    "acc": "{ 0, 0, 0 }",
-                    "mass": 1.0,
-                    "gravity": "{ 0, 0, 0 }",
-                    "dragForce": {
-                        "magnitude": 4.059984748333e-312,
-                        "isActive": true
-                    },
-                    "forces": []
-                }
-            },
-            {
-                "Tween": {
-                    "tweens": [],
-                    "timeTaken": 0.0,
-                    "timeElapsed": 0.0,
-                    "originalPos": "{ 0, 0, 0 }",
-                    "started": false,
-                    "paused": false
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Draggable Scripts",
-        "ID": 11,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 10,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -383, -9, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": []
-                }
-            },
-            {
-                "Draggable": {}
-            }
-        ]
-    },
-    {
-        "Name": "Sprite",
-        "ID": 12,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 1,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -383, -9, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 434,
-                            "height": 367
-                        }
-                    },
-                    "spriteName": "Buta PIG"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Forces Tween",
-        "ID": 13,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [
-            14
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 334.074, 115.704, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Velocity": {
-                    "vel": "{ 0, 0, 0 }",
-                    "acc": "{ 0, 0, 0 }",
-                    "mass": 1.0,
-                    "gravity": "{ 0, 0, 0 }",
-                    "dragForce": {
-                        "magnitude": 4.059984748333e-312,
-                        "isActive": true
-                    },
-                    "forces": []
-                }
-            },
-            {
-                "Tween": {
-                    "tweens": [],
-                    "timeTaken": 0.0,
-                    "timeElapsed": 0.0,
-                    "originalPos": "{ 0, 0, 0 }",
-                    "started": false,
-                    "paused": false
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Draggable Scripts",
-        "ID": 14,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 13,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 334.074, 115.704, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": []
-                }
-            },
-            {
-                "Draggable": {}
-            }
-        ]
-    },
-    {
-        "Name": "Sprite",
-        "ID": 15,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 334.074, 115.704, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 434,
-                            "height": 367
-                        }
-                    },
-                    "spriteName": "Buta PIG"
                 }
             }
         ]

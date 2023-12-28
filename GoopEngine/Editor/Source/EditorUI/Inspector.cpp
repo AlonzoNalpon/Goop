@@ -339,10 +339,17 @@ void GE::EditorGUI::Inspector::CreateContent()
 	ImGui::EndDisabled();
 	ImGui::Text(("Entity ID: " + std::to_string(entity)).c_str());
 
-	auto const prefabSource{ Prefabs::PrefabManager::GetInstance().GetEntityPrefab(entity) };
-	if (prefabSource)
+	if (!PrefabEditor::IsEditingPrefab())
 	{
-		ImGui::Text(("Prefab Source: " + prefabSource->get().m_prefab).c_str());
+		auto prefabSource{ Prefabs::PrefabManager::GetInstance().GetEntityPrefab(entity) };
+		if (prefabSource)
+		{
+			auto& prefab{ prefabSource->get() };
+			ImGui::Text(("Prefab Source: " + prefab.m_prefab).c_str());
+			ImGui::Text("Receive Prefab Updates");
+			ImGui::SameLine();
+			ImGui::Checkbox("##PrefabUpdates", &prefab.m_registered);
+		}
 	}
 
 	//ImGui::ImageButton(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { newW, newH }, { 0, 1 }, { 1, 0 });

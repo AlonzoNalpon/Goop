@@ -109,7 +109,7 @@ namespace GE
       \return
         std::optional containing the prefab an entity was created from
       ************************************************************************/
-      std::optional<std::reference_wrapper<PrefabManager::EntityPrefabMap::mapped_type const>> GetEntityPrefab(ECS::Entity entity) const;
+      std::optional<std::reference_wrapper<PrefabManager::EntityPrefabMap::mapped_type>> GetEntityPrefab(ECS::Entity entity);
 
       VariantPrefab CreateVariantPrefab(ECS::Entity entity, std::string const& name);
 
@@ -127,22 +127,41 @@ namespace GE
       ************************************************************************/
       void CreatePrefabFromEntity(ECS::Entity entity, std::string const& name, std::string const& path = {});
 
-      void UpdatePrefabFromEditor(VariantPrefab&& prefab, std::string const& filepath);
+      /*!*********************************************************************
+      \brief
+        Updates a prefab and saves it to file after modification. The current
+        VariantPrefab in the prefab manager is replaced with a new copy and
+        updated with any removed objects passed from the prefab editor.
+      \param prefabInstance
+        The entity ID of the prefab instance
+      \param removedChildren
+        The vector of SubDataIds of removed children
+      \param removedComponents
+        The vector of removed components along with the respective SubDataId
+      \param filepath
+        The path to save the prefab to
+      ************************************************************************/
+      void UpdatePrefabFromEditor(ECS::Entity prefabInstance, std::vector<Prefabs::PrefabSubData::SubDataId> const& removedChildren,
+        std::vector<std::pair<Prefabs::PrefabSubData::SubDataId, rttr::type>> const& removedComponents, std::string const& filepath);
 
       /*!*********************************************************************
       \brief
         This function updates all entities associated with the given prefab
       \param prefab
         The prefab to update all entities with
+      \return
+        True if any instance was updated and false otherwise
       ************************************************************************/
-      void UpdateEntitiesFromPrefab(std::string const& prefab);
+      bool UpdateEntitiesFromPrefab(std::string const& prefab);
 
       /*!*********************************************************************
       \brief
         This function updates all entities in the map based on their 
         respective prefabs
+      \return
+        True if any instance was updated and false otherwise
       ************************************************************************/
-      void UpdateAllEntitiesFromPrefab();
+      bool UpdateAllEntitiesFromPrefab();
       
       /*!*********************************************************************
       \brief

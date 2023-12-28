@@ -50,6 +50,13 @@ namespace GE
       std::string const m_prefab;
     };
 
+    class PrefabInstancesUpdatedEvent : public Event
+    {
+    public:
+      PrefabInstancesUpdatedEvent() : Event(EVENT_TYPE::PREFAB_INSTANCES_UPDATED) {}
+      inline std::string GetName() const noexcept override { return "Scene Updated with Prefab Instances"; }
+    };
+
     class EditPrefabEvent : public Event
     {
     public:

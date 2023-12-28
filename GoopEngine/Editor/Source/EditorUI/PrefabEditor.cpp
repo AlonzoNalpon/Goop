@@ -2,8 +2,10 @@
 \file   PrefabEditor.cpp
 \author chengen.lau\@digipen.edu
 \date   3-November-2023
-\brief  Contains the class encapsulating functions for the prefab editor
-        feature.
+\brief  Contains the class encapsulating functions for the prefab 
+        editor feature. Different windows in the engine reference
+        this class to determine which mode is currently running
+        (scene or prefab editor).
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -18,7 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ECS/ComponentTypes.h>
 
 #ifdef _DEBUG
-//#define PREFAB_EDITOR_DEBUG
+#define PREFAB_EDITOR_DEBUG
 #endif
 
 using namespace GE::EditorGUI;
@@ -108,7 +110,14 @@ void PrefabEditor::RenderBackToScenePopup()
   if (ImGui::BeginPopupModal("Return to Scene", NULL, ImGuiWindowFlags_AlwaysAutoResize))
   {
     ImGui::Text("Save changes made to prefab?");
-    ImGui::SetCursorPosX(0.5f * (ImGui::GetWindowContentRegionMax().x - ImGui::CalcTextSize("Discard Changes Save ").x));
+    ImGui::SetCursorPosX(0.5f * (ImGui::GetWindowContentRegionMax().x - ImGui::CalcTextSize("Cancel Discard Changes Save ").x));
+
+    if (ImGui::Button("Cancel"))
+    {
+      ImGui::CloseCurrentPopup();
+    }
+    
+    ImGui::SameLine();
     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 1.f));
     if (ImGui::Button("Discard Changes"))
     {
@@ -143,18 +152,7 @@ void PrefabEditor::RenderBackToScenePopup()
 #ifdef PREFAB_EDITOR_DEBUG
           std::cout << "Saving...\n";
 #endif
-          Prefabs::VariantPrefab prefab{ pm.CreateVariantPrefab(m_prefabInstance, m_prefabName) };
-          Prefabs::PrefabVersion const ver{ pm.GetVariantPrefab(m_prefabName).m_version + 1 };
-
-          for (auto const& id : m_removedChildren)
-          {
-            prefab.m_removedChildren.emplace_back(id, ver);
-          }
-          for (auto const& [id, type] : m_removedComponents)
-          {
-            prefab.m_removedComponents.emplace_back(id, type, ver);
-          }
-          pm.UpdatePrefabFromEditor(std::move(prefab), m_prefabPath);
+          pm.UpdatePrefabFromEditor(m_prefabInstance, m_removedChildren, m_removedComponents, m_prefabPath);
         }
       }
       em.Dispatch(Events::StopSceneEvent());

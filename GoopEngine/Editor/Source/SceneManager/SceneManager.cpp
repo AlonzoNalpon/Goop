@@ -44,6 +44,7 @@ void SceneManager::Init()
   Events::EventManager& em{ Events::EventManager::GetInstance() };
   em.Subscribe<Events::StartSceneEvent>(this); em.Subscribe<Events::StopSceneEvent>(this);
   em.Subscribe<Events::EditPrefabEvent>(this, Events::PRIORITY::HIGH);
+  em.Subscribe<Events::PrefabInstancesUpdatedEvent>(this);
 #endif
 
   // Load data into map
@@ -127,6 +128,18 @@ void GE::Scenes::SceneManager::HandleEvent(Events::Event* event)
     break;
   case Events::EVENT_TYPE::STOP_SCENE:
     LoadTemporarySave();  // revert to previous state before play
+    break;
+  case Events::EVENT_TYPE::PREFAB_INSTANCES_UPDATED:
+    if (m_tempSaves.empty())
+    {
+      SaveScene();
+    }
+    else
+    {
+      Serialization::Serializer::SerializeScene(m_tempSaves.top().m_path);
+    }
+
+    GE::Debug::ErrorLogger::GetInstance().LogMessage("Scene's prefab instances have been updated");
     break;
   case Events::EVENT_TYPE::EDIT_PREFAB:
   {

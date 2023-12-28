@@ -116,7 +116,10 @@ void ObjectFactory::LoadSceneObjects()
   }
 
 #ifndef IMGUI_DISABLE
-  Prefabs::PrefabManager::GetInstance().UpdateAllEntitiesFromPrefab();
+  if (Prefabs::PrefabManager::GetInstance().UpdateAllEntitiesFromPrefab())
+  {
+    Events::EventManager::GetInstance().Dispatch(Events::PrefabInstancesUpdatedEvent());
+  }
 #endif
 }
 

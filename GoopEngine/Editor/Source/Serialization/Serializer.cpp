@@ -128,7 +128,7 @@ namespace GE
 
 #ifndef IMGUI_DISABLE
       // serialize prefab created from
-      Prefabs::PrefabManager const& pm{ Prefabs::PrefabManager::GetInstance() };
+      Prefabs::PrefabManager& pm{ Prefabs::PrefabManager::GetInstance() };
       
       rapidjson::Value prefabJson{ rapidjson::kNullType };
       auto const entityPrefab{ pm.GetEntityPrefab(id) };

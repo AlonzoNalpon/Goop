@@ -194,6 +194,7 @@ RTTR_REGISTRATION
     .property("name", &Prefabs::VariantPrefab::EntityMappings::m_prefab)
     .property("version", &Prefabs::VariantPrefab::EntityMappings::m_version)
     .property("objToEntity", &Prefabs::VariantPrefab::EntityMappings::m_objToEntity)
+    .property("registered", &Prefabs::VariantPrefab::EntityMappings::m_registered)
     ;
 
   rttr::registration::class_<Prefabs::VariantPrefab::RemovedComponent>("RemovedComponent")

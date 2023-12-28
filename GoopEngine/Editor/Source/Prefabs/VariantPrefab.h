@@ -117,6 +117,7 @@ namespace GE::Prefabs
     ************************************************************************/
     void Clear() noexcept;
 
+    // stores data relating to a removed component
     struct RemovedComponent
     {
       RemovedComponent() : m_id{}, m_type{ rttr::type::get<void>() }, m_version{} {}
@@ -136,15 +137,17 @@ namespace GE::Prefabs
     PrefabVersion m_version;
   };
 
+  // stores information pertaining to each prefab instance
   struct VariantPrefab::EntityMappings
   {
-    EntityMappings() = default;
-    EntityMappings(std::string prefab, PrefabVersion version) : m_prefab{ std::move(prefab) }, m_objToEntity{}, m_version{ version } {}
+    EntityMappings() : m_prefab{}, m_objToEntity{}, m_version{}, m_registered{ true } {}
+    EntityMappings(std::string prefab, PrefabVersion version) : m_prefab{ std::move(prefab) }, m_objToEntity{}, m_version{ version }, m_registered{ true } {}
 
     void Validate();
 
     std::string m_prefab;
     std::unordered_map<PrefabSubData::SubDataId, ECS::Entity> m_objToEntity;
     PrefabVersion m_version;
+    bool m_registered = true;  // whether the entity should be updated by the prefab
   };
 }

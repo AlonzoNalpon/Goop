@@ -45,6 +45,7 @@ namespace GE
       PAUSE_SCENE,
       STOP_SCENE,
       PREFAB_SAVED,
+      PREFAB_INSTANCES_UPDATED,
       EDIT_PREFAB,
       DELETE_PREFAB_CHILD,
 #endif
