@@ -276,7 +276,7 @@
     <ClCompile Include="Source\Serialization\GooStream\AssetGooStream.cpp" />
     <ClCompile Include="Source\Serialization\GooStream\SpriteGooStream.cpp" />
     <ClCompile Include="Source\Serialization\Registration\RegisterClasses.cpp" />
-    <ClCompile Include="Source\Serialization\Registration\RegisterComponents.cpp" />
+    <ClCompile Include="Source\Serialization\Registration\RegisterSystemsComponents.cpp" />
     <ClCompile Include="Source\Serialization\Serializer.cpp" />
     <ClCompile Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.cpp" />
     <ClCompile Include="Source\SpriteAnimation\SpriteAnimGenerator.cpp" />
@@ -379,7 +379,6 @@
     <ClInclude Include="Source\ECS\EntityComponentSystem.h" />
     <ClInclude Include="Source\ECS\Entity\Entity.h" />
     <ClInclude Include="Source\ECS\Entity\EntityManager.h" />
-    <ClInclude Include="Source\ECS\SystemTypes.h" />
     <ClInclude Include="Source\ECS\System\System.h" />
     <ClInclude Include="Source\ECS\System\SystemManager.h" />
     <ClInclude Include="Source\Graphics\Fonts\Character.h" />

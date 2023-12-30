@@ -390,9 +390,9 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
   // Register components in order of COMPONENT_TYPES enum
-  for (auto const& elem : GE::ECS::componentsToString)
+  for (auto const& [comp, str] : GE::ECS::componentsToString)
   {
-    switch (elem.first)
+    switch (comp)
     {
     case COMPONENT_TYPES::TRANSFORM:
       ecs.RegisterComponent<GE::Component::Transform>();
@@ -448,7 +448,10 @@ void ObjectFactory::RegisterComponentsAndSystems() const
     default:
       std::ostringstream oss{};
       oss << "Trying to register unknown component type, " << " update function: ObjectFactory::RegisterComponentsAndSystems()";
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+      Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#ifdef _DEBUG
+      std::cout << oss.str() << "\n";
+#endif
       break;
     }
   }
@@ -457,88 +460,102 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   std::string const systemsFile{ Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
   std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::Deserializer::DeserializeSystems(systemsFile) };
 
-  for (std::pair<std::string, ECS::ComponentSignature> const& elem : systems)
+  for (auto const& [sys, sig] : systems)
   {
-    std::unordered_map<std::string, ECS::SYSTEM_TYPES>::const_iterator iter{ ECS::stringToSystems.find(elem.first) };
-    if (iter == stringToSystems.cend())
-    {
-      throw Debug::Exception<std::ifstream>(Debug::LEVEL_ERROR, ErrMsg("Unable to register system " + elem.first));
-    }
-    RegisterSystemWithEnum(iter->second, elem.second);
+    RegisterSystemWithType(rttr::type::get_by_name(sys), sig);
   }
 }
 
-void ObjectFactory::RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::ComponentSignature sig) const
+void ObjectFactory::RegisterSystemWithType(rttr::type const& systemType, ECS::ComponentSignature sig) const
 {
-  switch (name)
+  ECS::EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+  if (systemType == rttr::type::get<Systems::CollisionSystem>())
   {
-  case SYSTEM_TYPES::COLLISION:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::CollisionSystem>();
+    ecs.RegisterSystem<Systems::CollisionSystem>();
     RegisterComponentsToSystem<Systems::CollisionSystem>(sig);
-    break;
-  case SYSTEM_TYPES::DRAGGABLE_OBJECT:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::DraggableObjectSystem>();
-    RegisterComponentsToSystem<Systems::DraggableObjectSystem>(sig);
-    break;
-  case SYSTEM_TYPES::PHYSICS:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PhysicsSystem>();
+  }
+  else if (systemType == rttr::type::get<Systems::PhysicsSystem>())
+  {
+    ecs.RegisterSystem<Systems::PhysicsSystem>();
     RegisterComponentsToSystem<Systems::PhysicsSystem>(sig);
-    break;
-  case SYSTEM_TYPES::PLAYER_CONTROLLER:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::ScriptSystem>();
+  }
+  else if (systemType == rttr::type::get<Systems::DraggableObjectSystem>())
+  {
+    ecs.RegisterSystem<Systems::DraggableObjectSystem>();
+    RegisterComponentsToSystem<Systems::DraggableObjectSystem>(sig);
+  }
+  else if (systemType == rttr::type::get<Systems::ScriptSystem>())
+  {
+    ecs.RegisterSystem<Systems::ScriptSystem>();
     RegisterComponentsToSystem<Systems::ScriptSystem>(sig);
-    break;
-  case SYSTEM_TYPES::RENDERING:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::RenderSystem>();
+  }
+  else if (systemType == rttr::type::get<Systems::RenderSystem>())
+  {
+    ecs.RegisterSystem<Systems::RenderSystem>();
     RegisterComponentsToSystem<Systems::RenderSystem>(sig);
-    break;
-  case SYSTEM_TYPES::SPRITE_ANIM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::SpriteAnimSystem>();
+  }
+  else if (systemType == rttr::type::get<Systems::SpriteAnimSystem>())
+  {
+    ecs.RegisterSystem<Systems::SpriteAnimSystem>();
     RegisterComponentsToSystem<Systems::SpriteAnimSystem>(sig);
-    break;  
-  case SYSTEM_TYPES::POST_ROOT_TRANSFORM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PostRootTransformSystem>();
-    RegisterComponentsToSystem<Systems::PostRootTransformSystem>(sig);
-    break;
-  case SYSTEM_TYPES::PRE_ROOT_TRANSFORM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::PreRootTransformSystem>();
-    RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);
-  case SYSTEM_TYPES::ENEMY_SYSTEM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::EnemySystem>();
+  }
+  else if (systemType == rttr::type::get<Systems::EnemySystem>())
+  {
+    ecs.RegisterSystem<Systems::EnemySystem>();
     RegisterComponentsToSystem<Systems::EnemySystem>(sig);
-    break;
-  case SYSTEM_TYPES::TEXT_RENDER:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::TextRenderSystem>();
+  }
+  else if (systemType == rttr::type::get<Systems::PreRootTransformSystem>())
+  {
+    ecs.RegisterSystem<Systems::PreRootTransformSystem>();
+    RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);
+  }
+  else if (systemType == rttr::type::get<Systems::PostRootTransformSystem>())
+  {
+    ecs.RegisterSystem<Systems::PostRootTransformSystem>();
+    RegisterComponentsToSystem<Systems::PostRootTransformSystem>(sig);
+  }
+  else if (systemType == rttr::type::get<Systems::TextRenderSystem>())
+  {
+    ecs.RegisterSystem<Systems::TextRenderSystem>();
     RegisterComponentsToSystem<Systems::TextRenderSystem>(sig);
-    break;
-  case SYSTEM_TYPES::TWEEN_SYSTEM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::TweenSystem>();
+  }
+  else if (systemType == rttr::type::get<Systems::TweenSystem>())
+  {
+    ecs.RegisterSystem<Systems::TweenSystem>();
     RegisterComponentsToSystem<Systems::TweenSystem>(sig);
-    break;
-  case SYSTEM_TYPES::GAME_SYSTEMS:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::GameSystem>();
-    RegisterComponentsToSystem<Systems::GameSystem>(sig);
-    break;
-  case SYSTEM_TYPES::AUDIO_SYSTEM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::AudioSystem>();
+  }
+  else if (systemType == rttr::type::get<Systems::AudioSystem>())
+  {
+    ecs.RegisterSystem<Systems::AudioSystem>();
     RegisterComponentsToSystem<Systems::AudioSystem>(sig);
-    break;
-  case SYSTEM_TYPES::OBJECT_ANCHOR_SYSTEM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::ObjectAnchorSystem>();
-    RegisterComponentsToSystem<Systems::ObjectAnchorSystem>(sig);
-    break;
-  case SYSTEM_TYPES::BUTTON_SYSTEM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::ButtonSystem>();
+  }
+  else if (systemType == rttr::type::get<Systems::ButtonSystem>())
+  {
+    ecs.RegisterSystem<Systems::ButtonSystem>();
     RegisterComponentsToSystem<Systems::ButtonSystem>(sig);
-    break;
-  case SYSTEM_TYPES::BUTTON_SCRIPT_SYSTEM:
-    EntityComponentSystem::GetInstance().RegisterSystem<Systems::ButtonScriptSystem>();
+  }
+  else if (systemType == rttr::type::get<Systems::GameSystem>())
+  {
+    ecs.RegisterSystem<Systems::GameSystem>();
+    RegisterComponentsToSystem<Systems::GameSystem>(sig);
+  }
+  else if (systemType == rttr::type::get<Systems::ObjectAnchorSystem>())
+  {
+    ecs.RegisterSystem<Systems::ObjectAnchorSystem>();
+    RegisterComponentsToSystem<Systems::ObjectAnchorSystem>(sig);
+  }
+  else if (systemType == rttr::type::get<Systems::ButtonScriptSystem>())
+  {
+    ecs.RegisterSystem<Systems::ButtonScriptSystem>();
     RegisterComponentsToSystem<Systems::ButtonScriptSystem>(sig);
-    break;
-  default:
+  }
+  else
+  {
     std::ostringstream oss{};
-    oss << "Trying to register unknown system type, " << " update function: ObjectFactory::RegisterSystemWithEnum()";
-    throw Debug::Exception<ObjectFactory>(Debug::LEVEL_WARN, ErrMsg(oss.str()));
-    break;
+    oss << "Trying to register unknown system type: " << systemType.get_name().to_string();
+    Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#ifdef _DEBUG
+    std::cout << oss.str() << "\n";
+#endif
   }
 }

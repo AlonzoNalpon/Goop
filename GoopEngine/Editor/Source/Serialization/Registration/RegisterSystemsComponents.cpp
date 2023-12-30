@@ -19,6 +19,26 @@ using namespace GE;
 
 RTTR_REGISTRATION
 {
+  /* ------------------- SYSTEMS ------------------- */
+  rttr::registration::class_<Systems::PhysicsSystem>("PhysicsSystem");
+  rttr::registration::class_<Systems::CollisionSystem>("CollisionSystem");
+  rttr::registration::class_<Systems::DraggableObjectSystem>("DraggableObjectSystem");
+  rttr::registration::class_<Systems::ScriptSystem>("ScriptSystem");
+  rttr::registration::class_<Systems::RenderSystem>("RenderSystem");
+  rttr::registration::class_<Systems::SpriteAnimSystem>("SpriteAnimSystem");
+  rttr::registration::class_<Systems::EnemySystem>("EnemySystem");
+  rttr::registration::class_<Systems::PreRootTransformSystem>("PreRootTransformSystem");
+  rttr::registration::class_<Systems::PostRootTransformSystem>("PostRootTransformSystem");
+  rttr::registration::class_<Systems::TextRenderSystem>("TextRenderSystem");
+  rttr::registration::class_<Systems::TweenSystem>("TweenSystem");
+  rttr::registration::class_<Systems::AudioSystem>("AudioSystem");
+  rttr::registration::class_<Systems::ButtonSystem>("ButtonSystem");
+  rttr::registration::class_<Systems::GameSystem>("GameSystem");
+  rttr::registration::class_<Systems::ObjectAnchorSystem>("ObjectAnchorSystem");
+  rttr::registration::class_<Systems::ButtonScriptSystem>("ButtonScriptSystem");
+
+
+  /* ------------------- COMPONENTS ------------------- */
   rttr::registration::class_<Component::Transform>("Transform")
     .constructor<>()
     .property("pos", &Component::Transform::m_pos)

@@ -153,20 +153,8 @@ namespace GE::ObjectFactory
     \param name
       The enum corresponding to the system
     ************************************************************************/
-    void RegisterSystemWithEnum(ECS::SYSTEM_TYPES name, ECS::ComponentSignature sig) const;
+    void RegisterSystemWithType(rttr::type const& systemType, ECS::ComponentSignature sig) const;
 
-    /*!*********************************************************************
-    \brief
-      If the entity has a specific signature, this function will
-      set the bit as true
-    \param 
-      Entity (Entity to be compared to)
-      Signature& (SystemSignature object to be set)
-      SYSTEM_TYPES (SYSTEM_TYPE)
-    ************************************************************************/
-    template <typename T, typename Signature>
-    void SetBitIfFound(ECS::Entity entity, Signature& sig, ECS::SYSTEM_TYPES type) const;
-    
     EntityDataContainer m_deserialized;   // Container of deserialized entity data in format <id, data>
   };
   #include "ObjectFactory.tpp"

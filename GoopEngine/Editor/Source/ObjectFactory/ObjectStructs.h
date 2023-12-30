@@ -11,7 +11,6 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include <ECS/SystemTypes.h>
 #include <rttr/type.h>
 
 namespace GE
