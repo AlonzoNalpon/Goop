@@ -890,7 +890,7 @@ std::vector<AI::TreeTemplate> Deserializer::DeserializeTrees(std::string const& 
   return ret;
 }
 
-std::vector<std::pair<std::string, ECS::ComponentSignature>> Deserializer::DeserializeSystems(std::string const& json)
+std::vector<std::pair<std::string, std::vector<rttr::type>>> Deserializer::DeserializeSystems(std::string const& json)
 {
   std::ifstream ifs{ json };
   if (!ifs)
@@ -926,16 +926,16 @@ std::vector<std::pair<std::string, ECS::ComponentSignature>> Deserializer::Deser
     return {};
   }
 
-  std::vector<std::pair<std::string, ECS::ComponentSignature>> ret;
+  std::vector<std::pair<std::string, std::vector<rttr::type>>> ret;
   // iterate through systems with key-array pairs
   for (auto const& system : document.GetObj())
   {
-    ECS::ComponentSignature sig{};
+    std::vector<rttr::type> components{};
     for (auto const& component : system.value.GetArray())
     {
       // set component's corresponding bit
-      auto compType{ ECS::stringToComponents.find(component.GetString()) };
-      if (compType == ECS::stringToComponents.cend())
+      rttr::type compType{ rttr::type::get_by_name(component.GetString()) };
+      if (!compType.is_valid())
       {
         ifs.close();
         std::ostringstream oss{};
@@ -947,9 +947,9 @@ std::vector<std::pair<std::string, ECS::ComponentSignature>> Deserializer::Deser
         continue;
       }
 
-      sig[static_cast<unsigned>(compType->second)] = true;
+      components.emplace_back(std::move(compType));
     }
-    ret.emplace_back(system.name.GetString(), sig); // add entry to container
+    ret.emplace_back(system.name.GetString(), std::move(components)); // add entry to container
   }
 
   ifs.close();

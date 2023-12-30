@@ -12,7 +12,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include "../Singleton/Singleton.h"
+#include <Singleton/Singleton.h>
 #include "Listener.h"
 #include <unordered_map>
 #include <vector>

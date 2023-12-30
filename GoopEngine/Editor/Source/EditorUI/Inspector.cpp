@@ -321,13 +321,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 	GE::ECS::ComponentSignature sig = ecs.GetComponentSignature(entity);
 
-	PushID(entity);
+	ImGui::PushID(entity);
 	bool isActive{ecs.GetIsActiveEntity(entity)};
 	if (Checkbox("##IsActive", &isActive))
 	{
 		ecs.SetIsActiveEntity(entity, isActive);
 	}
-	SameLine();
+	ImGui::SameLine();
 	std::string name = ecs.GetEntityName(entity);
 
 	bool const canRename{ PrefabEditor::IsEditingPrefab() && PrefabEditor::GetCurrentEntity() == entity };
@@ -359,16 +359,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 	}*/
 	GizmoEditor::SetVisible(false);
-	for (int i{}; i < GE::ECS::MAX_COMPONENTS; ++i)
+	for (unsigned i{}; i < ECS::componentTypes.size(); ++i)
 	{
-		if (sig[i])		
+		if (sig[i])
 		{
 			float contentSize = GetWindowSize().x;
 			// 15 characters for property name
 			float charSize = CalcTextSize("012345678901234").x;
-			switch (static_cast<GE::ECS::COMPONENT_TYPES>(i))
-			{
-			case GE::ECS::COMPONENT_TYPES::TRANSFORM:
+
+			rttr::type const& compType{ ECS::componentTypes[i] };
+			if (compType == rttr::type::get<Component::Transform>())
 			{
 				auto trans = ecs.GetComponent<Transform>(entity);
 				if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
@@ -378,7 +378,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					GE::CMD::PRS oldPRS{ trans->m_pos, trans->m_rot, trans->m_scale };
 					bool valChanged{ false };
 
-					Separator();
+					ImGui::Separator();
 					// SET GIZMO RADIO BUTTONS
 					{
 						// SET MODE BASED ON KEYBINDS: W,E,R (trans, rot, scale)
@@ -414,14 +414,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 
 
-					Separator();
+					ImGui::Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					TableNextRow();
+					ImGui::TableNextRow();
 					if (InputDouble3("Position", trans->m_pos, inputWidth)) { valChanged = true; };
-					TableNextRow();
+					ImGui::TableNextRow();
 					if (InputDouble3("Scale", trans->m_scale, inputWidth)) { valChanged = true; };
-					TableNextRow();
+					ImGui::TableNextRow();
 					if (InputDouble3("Rotation", trans->m_rot, inputWidth)) { valChanged = true; };
 
 					TableNextRow();
@@ -432,7 +432,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputDouble3("World Rotation", trans->m_worldRot, inputWidth, true);
 
 					EndTable();
-					Separator();
+					ImGui::Separator();
 					if (valChanged) {
 						GizmoEditor::SetVisible(false);
 						GE::CMD::ChangeTransCmd newTransCmd = GE::CMD::ChangeTransCmd(oldPRS, { trans->m_pos, trans->m_rot, trans->m_scale }, entity);
@@ -447,7 +447,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::BOX_COLLIDER:
+			else if (compType == rttr::type::get<Component::BoxCollider>())
 			{
 				auto col = ecs.GetComponent<BoxCollider>(entity);
 				if (ImGui::CollapsingHeader("Collider", ImGuiTreeNodeFlags_DefaultOpen))
@@ -457,7 +457,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						break;
 					}
 
-					Separator();
+					ImGui::Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 					InputDouble1("Width", col->m_width);
@@ -488,11 +488,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 					}
 					EndTable();
-					Separator();
+					ImGui::Separator();
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::VELOCITY:
+			else if (compType == rttr::type::get<Component::Velocity>())
 			{
 				auto vel = ecs.GetComponent<Velocity>(entity);
 				if (ImGui::CollapsingHeader("Forces", ImGuiTreeNodeFlags_DefaultOpen))
@@ -512,22 +512,22 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputDouble3("Velocity", vel->m_vel, inputWidth);
 					TableNextRow();
 					InputDouble3("Accelaration", vel->m_acc, inputWidth);
-					TableNextRow();
+					ImGui::TableNextRow();
 					InputDouble1("Mass", vel->m_mass);
-					TableNextRow();
+					ImGui::TableNextRow();
 					InputDouble3("Gravity", vel->m_gravity, inputWidth);		
-					TableNextRow();
+					ImGui::TableNextRow();
 					InputDouble1("Drag", vel->m_dragForce.m_magnitude);
-					TableNextRow();
+					ImGui::TableNextRow();
 					InputCheckBox("Drag Active", vel->m_dragForce.m_isActive);
 					EndTable();
 					InputList("Forces", vel->m_forces, inputWidth);
-					Separator();
-					PopID();
+					ImGui::Separator();
+					ImGui::PopID();
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::SPRITE:
+			else if (compType == rttr::type::get<Component::Sprite>())
 			{
 				bool hasSpriteAnim = ecs.HasComponent<SpriteAnim>(entity);
 				auto* sprite = ecs.GetComponent<Sprite>(entity);
@@ -611,7 +611,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						spriteObj->m_spriteData.info.texDims = { 1.f, 1.f }; // default
 						spriteObj->m_spriteData.info.texCoords = {}; // bottom left
 					}
-					SameLine();
+					ImGui::SameLine();
 					if (ImGui::Button("Force Width To Match Tex AR"))
 					{
 						auto const& texture{ textureManager.GetTexture(spriteObj->m_spriteData.texture) };
@@ -627,7 +627,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::SPRITE_ANIM:
+			else if (compType == rttr::type::get<Component::SpriteAnim>())
 			{
 				//auto anim = ecs.GetComponent<SpriteAnim>(entity);
 				if (ImGui::CollapsingHeader("Sprite Animation", ImGuiTreeNodeFlags_DefaultOpen))
@@ -671,12 +671,12 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TextColored({ 1.f, .7333f, 0.f, 1.f }, ("Animation ID: " + std::to_string(spriteAnimObj->animID)).c_str());
 
 					EndTable();
-					Separator();
+					ImGui::Separator();
 #pragma endregion
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::TWEEN:
+			else if (compType == rttr::type::get<Component::Tween>())
 			{
 				// Honestly no idea why -30 makes all 3 input fields match in size but sure
 				float inputWidth = (contentSize - charSize - 30) / 3;
@@ -693,18 +693,18 @@ void GE::EditorGUI::Inspector::CreateContent()
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 					InputDouble1("Time Elapsed", tween->m_timeElapsed);
-					TableNextRow();
+					ImGui::TableNextRow();
 					InputDouble3("Last End Point", tween->m_originalPos, inputWidth);
-					TableNextRow();
+					ImGui::TableNextRow();
 					InputCheckBox("Paused", tween->m_paused);
 					EndTable();
 					InputList("Tween", tween->m_tweens, inputWidth);
-					Separator();
+					ImGui::Separator();
 				}
 
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::SCRIPTS:
+			else if (compType == rttr::type::get<Component::Scripts>())
 			{
 				//auto scripts = ecs.GetComponent<Scripts>(entity);
 				if (ImGui::CollapsingHeader("Script", ImGuiTreeNodeFlags_DefaultOpen))
@@ -721,7 +721,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					for (ScriptInstance& s : allScripts->m_scriptList)
 					{
 						s.GetAllUpdatedFields();
-						Separator();
+						ImGui::Separator();
 						BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 						ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 
@@ -787,7 +787,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 								GE::MONO::ScriptFieldInstance<int>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<int>>();
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
-								TableNextColumn();
+								ImGui::TableNextColumn();
 								SetNextItemWidth(GetWindowSize().x);
 								if (ImGui::InputInt(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<int>(sfi.m_data,sfi.m_scriptField.m_classField ); }
 								EndDisabled();
@@ -798,9 +798,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 								TableNextRow();
 								BeginDisabled(false);
 								GE::MONO::ScriptFieldInstance<float>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<float>>();
-								TableNextColumn();
+								ImGui::TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
-								TableNextColumn();
+								ImGui::TableNextColumn();
 								SetNextItemWidth(GetWindowSize().x);
 								if (ImGui::InputFloat(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<float>(sfi.m_data, sfi.m_scriptField.m_classField); }
 								EndDisabled();
@@ -812,7 +812,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 								GE::MONO::ScriptFieldInstance<double>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<double>>();
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
-								TableNextColumn();
+								ImGui::TableNextColumn();
 								SetNextItemWidth(GetWindowSize().x);
 								if (ImGui::InputDouble(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<double>(sfi.m_data, sfi.m_scriptField.m_classField); }
 								EndDisabled();
@@ -826,7 +826,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>())
 							{
 								GE::MONO::ScriptFieldInstance<std::vector<int>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<int>>>();
-								TableNextRow();
+								ImGui::TableNextRow();
 								BeginDisabled(false);
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
@@ -837,19 +837,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>())
 							{
 								GE::MONO::ScriptFieldInstance<std::vector<unsigned>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>();
-								TableNextRow();
+								ImGui::TableNextRow();
 								BeginDisabled(false);
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								TableNextColumn();
 								if (InputScriptList("##" + sfi.m_scriptField.m_fieldName, sfi.m_data, inputWidth)) { s.SetFieldValueArr<unsigned>(sfi.m_data, sm->m_appDomain, sfi.m_scriptField.m_classField); };
-								EndDisabled();
+								ImGui::EndDisabled();
 							}
 						}
 
 						// Check if the mouse is over the second table and the right mouse button is clicked
 						EndTable();
-						Separator();
+						ImGui::Separator();
 
 					}
 					ImGuiStyle& style = GetStyle();
@@ -870,7 +870,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 					style.Colors[ImGuiCol_Button] = originalColor;
 					style.Colors[ImGuiCol_ButtonHovered] = originalHColor;
-					Separator();
+					ImGui::Separator();
 
 				/*	bool displayPopup = ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) && ImGui::IsMouseClicked(1);
 					if (displayPopup) {
@@ -889,7 +889,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::DRAGGABLE:
+			else if (compType == rttr::type::get<Component::Draggable>())
 			{
 				if (CollapsingHeader("Draggable", ImGuiTreeNodeFlags_Leaf))
 				{
@@ -900,7 +900,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::TEXT:
+			else if (compType == rttr::type::get<Component::Text>())
 			{
 				if (ImGui::CollapsingHeader("Text", ImGuiTreeNodeFlags_DefaultOpen))
 				{
@@ -914,7 +914,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
 					
-					TableNextColumn();
+					ImGui::TableNextColumn();
 					ImGui::ColorEdit4("Color", textObj->m_clr.rgba);
 					ImGui::DragFloat("Scale", &textObj->m_scale, .001f, 0.f, 5.f);
 					ImGui::InputTextMultiline("Text", &textObj->m_text);
@@ -949,7 +949,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::AUDIO:
+			else if (compType == rttr::type::get<Component::Audio>())
 			{
 				auto audio = ecs.GetComponent<GE::Component::Audio>(entity);
 				if (ImGui::CollapsingHeader("Audio", ImGuiTreeNodeFlags_DefaultOpen))
@@ -966,7 +966,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::ANCHOR:
+			else if (compType == rttr::type::get<Component::Anchor>())
 			{
 				auto anchor = ecs.GetComponent<Anchor>(entity);
 
@@ -1000,7 +1000,7 @@ void GE::EditorGUI::Inspector::CreateContent()
         }
         break;
       }
-			case GE::ECS::COMPONENT_TYPES::GE_BUTTON:
+			else if (compType == rttr::type::get<Component::GE_Button>())
 			{
 				auto button = ecs.GetComponent<GE::Component::GE_Button>(entity);
 
@@ -1039,11 +1039,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 						EndCombo();
 					}
 					InputText("Param", &button->m_param);
-					Separator();
+					ImGui::Separator();
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::CARD:
+			else if (compType == rttr::type::get<Component::Card>())
 			{
 				auto* card = ecs.GetComponent<GE::Component::Card>(entity);
 				if (ImGui::CollapsingHeader("Card", ImGuiTreeNodeFlags_DefaultOpen))
@@ -1054,16 +1054,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 
 
-					Separator();
+					ImGui::Separator();
 					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
-					TableNextColumn();
+					ImGui::TableNextColumn();
 
 					// Value to store in card
 					{
 
 						ImGui::Text("Target Entity: ");
-						SameLine();
+						ImGui::SameLine();
 						int newVal{ static_cast<int>(card->tgtEntity) };
 						ImGui::InputInt(("##CEntTgt" + std::to_string(entity)).c_str(), &newVal);
 						card->tgtEntity = newVal;
@@ -1081,7 +1081,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 
 
-						Separator();
+						ImGui::Separator();
 					}
 
 					rttr::type const type{ rttr::type::get<GE::Component::Card::CardID>() };
@@ -1119,7 +1119,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::CARD_HOLDER:
+			else if (compType == rttr::type::get<Component::CardHolder>())
 			{
 				auto* cardHolder = ecs.GetComponent<GE::Component::CardHolder>(entity);
 
@@ -1130,7 +1130,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						break;
 					}
 
-					Separator();
+					ImGui::Separator();
 					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
 					TableNextColumn();
@@ -1147,7 +1147,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							cardHolder->elements.emplace_back();
 						}
-						SameLine();
+						ImGui::SameLine();
 						if (Button("-") && !cardHolder->elements.empty())
 						{
 							cardHolder->elements.pop_back();
@@ -1162,7 +1162,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 								// THE DST ENTITY VALUE
 								{
 									ImGui::Text("Elem Entity: ");
-									SameLine();
+									ImGui::SameLine();
 									int newVal{ static_cast<int>(element.elemEntity) };
 									if (InputInt(("##CDElmID" + std::to_string(currElement)).c_str(), &newVal))
 									{
@@ -1206,7 +1206,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 								// THE SRC ENTITY VALUE
 								{
 									ImGui::Text("Card Entity: ");
-									SameLine();
+									ImGui::SameLine();
 									int newVal{ static_cast<int>(element.cardEntity) };
 									if (InputInt(("##CDEntID" + std::to_string(currElement)).c_str(), &newVal))
 									{
@@ -1229,7 +1229,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 								// THE TARGET SCRIPT VALUE
 								{
 									ImGui::Text("Target Script: ");
-									SameLine();
+									ImGui::SameLine();
 									int newVal{ static_cast<int>(element.scriptEntity) };
 									if (InputInt(("##CDScrptID" + std::to_string(currElement)).c_str(), &newVal))
 									{
@@ -1246,14 +1246,14 @@ void GE::EditorGUI::Inspector::CreateContent()
 									BeginDisabled(true);
 									// DEFAULT SPRITE
 									ImGui::Text("Default Sprite: ");
-									SameLine();
+									ImGui::SameLine();
 									auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
 									if (element.elemEntity != ECS::INVALID_ID && element.defaultSpriteID)
 									{
 										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f },
 											(textureManager.GetTextureName(element.defaultSpriteID)
 												+ std::string(" | ")).c_str());
-										SameLine();
+										ImGui::SameLine();
 										ImGui::TextColored(ImVec4{ 1.f, .7333f, 0.f, 1.f },
 											ecs.GetEntityName(element.elemEntity).c_str());
 									}
@@ -1264,13 +1264,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 									// USED SPRITE
 									ImGui::Text("Used Sprite: ");
-									SameLine();
+									ImGui::SameLine();
 									if (element.cardEntity != ECS::INVALID_ID && element.spriteID)
 									{
 										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f },
 											(textureManager.GetTextureName(element.spriteID)
 												+ std::string(" | ")).c_str());
-										SameLine();
+										ImGui::SameLine();
 										ImGui::TextColored(ImVec4{ 1.f, .7333f, 0.f, 1.f },
 											ecs.GetEntityName(element.cardEntity).c_str());
 									}
@@ -1278,7 +1278,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 									{
 										ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "No Sprite");
 									}
-									EndDisabled();
+									ImGui::EndDisabled();
 								}
 
 								// THE USED FLAG
@@ -1287,7 +1287,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 									ImGui::SameLine();
 									BeginDisabled(true);
 									Checkbox(("##elemAct" + std::to_string(currElement)).c_str(), &element.used);
-									EndDisabled();
+									ImGui::EndDisabled();
 								}
 							}
 							++currElement;
@@ -1312,7 +1312,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::CARD_HOLDER_ELEM:
+			else if (compType == rttr::type::get<Component::CardHolderElem>())
 			{
 				if (CollapsingHeader("Card Holder Element", ImGuiTreeNodeFlags_Leaf))
 				{
@@ -1324,7 +1324,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					// FOR MEMBER: HOLDER ID
 					{
 						ImGui::Text("holder entity ID");
-						SameLine();
+						ImGui::SameLine();
 						int newHolderID{ static_cast<int>(holderElem->holder) };
 						InputInt("##holderID", &newHolderID);
 						if (newHolderID < -1)
@@ -1338,7 +1338,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					// FOR MEMBER: INDEX
 					{
 						ImGui::Text("holder entity index");
-						SameLine();
+						ImGui::SameLine();
 						ImGui::BeginDisabled();
 						int newHolderID{ static_cast<int>(holderElem->elemIdx) };
 						InputInt("##elemIdx", &newHolderID);
@@ -1347,7 +1347,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				break;
 			}
-			case GE::ECS::COMPONENT_TYPES::GAME:
+			else if (compType == rttr::type::get<Component::Game>())
 			{
 				auto* game = ecs.GetComponent<GE::Component::Game>(entity);
 				if (ImGui::CollapsingHeader("Game", ImGuiTreeNodeFlags_DefaultOpen))
@@ -1360,12 +1360,12 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					TableNextRow();
+					ImGui::TableNextRow();
 
 					InputEntity("Player Entity", game->m_player);
-					TableNextRow();
+					ImGui::TableNextRow();
 					InputEntity("Enemy Entity", game->m_enemy);
-					TableNextRow();
+					ImGui::TableNextRow();
 					InputEntity("Pause Menu", game->m_pauseMenu);
 					TableNextRow();
 					InputEntity("Player Hand", game->m_playerHand);
@@ -1401,17 +1401,18 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					EndTable();
 				}
-				Separator();
+				ImGui::Separator();
 				break;
 			}
-			default:
-				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled");
-				break;
+			else
+			{
+				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled: "
+					+ compType.get_name().to_string());
 			}
 		}
 	}
 
-	PopID();
+	ImGui::PopID();
 
 	static bool addingComponent{ false };
 	if (Button("Add Component", { GetContentRegionMax().x, 20 }))
@@ -1421,16 +1422,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 	if (addingComponent)
 	{
-		if (BeginCombo("Components", GE::ECS::componentsToString.at(static_cast<GE::ECS::COMPONENT_TYPES>(0)).c_str()))
+		if (BeginCombo("Components", ECS::componentTypes.front().get_name().to_string().c_str()))
 		{
-			for (int i{}; i < GE::ECS::COMPONENT_TYPES::COMPONENTS_TOTAL; ++i)
+			for (unsigned i{}; i < ECS::componentTypes.size(); ++i)
 			{		
-				if (Selectable(GE::ECS::componentsToString.at(static_cast<GE::ECS::COMPONENT_TYPES>(i)).c_str()))
+				if (Selectable(ECS::componentTypes[i].get_name().to_string().c_str()))
 				{
 					std::stringstream ss;
-					switch (i)
-					{
-					case GE::ECS::COMPONENT_TYPES::TRANSFORM:
+					rttr::type const& compType{ ECS::componentTypes[i] };
+					if (compType == rttr::type::get<Component::Transform>())
 					{
 						if (!ecs.HasComponent<Transform>(entity))
 						{
@@ -1443,7 +1443,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::BOX_COLLIDER:
+					else if (compType == rttr::type::get<Component::BoxCollider>())
 					{
 						if (!ecs.HasComponent<BoxCollider>(entity))
 						{
@@ -1456,7 +1456,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::TWEEN:
+					else if (compType == rttr::type::get<Component::Tween>())
 					{
 						if (!ecs.HasComponent<Tween>(entity))
 						{
@@ -1469,7 +1469,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::VELOCITY:
+					else if (compType == rttr::type::get<Component::Velocity>())
 					{
 						if (!ecs.HasComponent<Velocity>(entity))
 						{
@@ -1483,7 +1483,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::SPRITE:
+					else if (compType == rttr::type::get<Component::Sprite>())
 					{
 						if (!ecs.HasComponent<Sprite>(entity))
 						{
@@ -1507,7 +1507,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::SPRITE_ANIM:
+					else if (compType == rttr::type::get<Component::SpriteAnim>())
 					{
 						if (!ecs.HasComponent<SpriteAnim>(entity))
 						{
@@ -1520,7 +1520,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::SCRIPTS:
+					else if (compType == rttr::type::get<Component::Scripts>())
 					{
 						if (!ecs.HasComponent<Scripts>(entity))
 						{
@@ -1533,7 +1533,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::DRAGGABLE:
+					else if (compType == rttr::type::get<Component::Draggable>())
 					{
 						if (!ecs.HasComponent<Draggable>(entity))
 						{
@@ -1546,7 +1546,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::TEXT:
+					else if (compType == rttr::type::get<Component::Text>())
 					{
 						if (!ecs.HasComponent<Component::Text>(entity))
 						{
@@ -1559,7 +1559,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::AUDIO:
+					else if (compType == rttr::type::get<Component::Audio>())
 					{
 						if (!ecs.HasComponent<Component::Audio>(entity))
 						{
@@ -1572,7 +1572,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::ANCHOR:
+					else if (compType == rttr::type::get<Component::Anchor>())
 					{
 						if (!ecs.HasComponent<Component::Anchor>(entity))
 						{
@@ -1585,7 +1585,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::GE_BUTTON:
+					else if (compType == rttr::type::get<Component::GE_Button>())
 					{
 						if (!ecs.HasComponent<GE::Component::GE_Button>(entity))
 						{
@@ -1598,7 +1598,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::CARD:
+					else if (compType == rttr::type::get<Component::Card>())
 					{
 						if (!ecs.HasComponent<GE::Component::Card>(entity))
 						{
@@ -1611,7 +1611,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::CARD_HOLDER:
+					else if (compType == rttr::type::get<Component::CardHolder>())
 					{
 						if (!ecs.HasComponent<GE::Component::CardHolder>(entity))
 						{
@@ -1624,7 +1624,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::GAME:
+					else if (compType == rttr::type::get<Component::Game>())
 					{
 						if (!ecs.HasComponent<GE::Component::Game>(entity))
 						{
@@ -1637,7 +1637,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					case GE::ECS::COMPONENT_TYPES::CARD_HOLDER_ELEM:
+					else if (compType == rttr::type::get<Component::CardHolderElem>())
 					{
 						if (!ecs.HasComponent<CardHolderElem>(entity))
 						{
@@ -1649,9 +1649,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
-					default:
+					else
+					{
 						ss << "Try to add an unhandled component";
-						break;
 					}
 					addingComponent = false;
 
@@ -1673,15 +1673,15 @@ namespace
 		bool valChanged{ false };
 
 		BeginDisabled(disabled);
-		TableNextColumn();
+		ImGui::TableNextColumn();
 		ImGui::Text(propertyName.c_str());
 		propertyName = "##" + propertyName;
-		TableNextColumn();
-		SetNextItemWidth(fieldWidth);
+		ImGui::TableNextColumn();
+		ImGui::SetNextItemWidth(fieldWidth);
 		if (InputDouble((propertyName + "X").c_str(), &property.x, 0, 0, "%.5f")) { valChanged = true; };
 		SameLine(0, 3); SetNextItemWidth(fieldWidth); if (InputDouble((propertyName + "Y").c_str(), &property.y, 0, 0, "%.5f")) { valChanged = true; };
 		SameLine(0, 3); SetNextItemWidth(fieldWidth); if (InputDouble((propertyName + "Z").c_str(), &property.z, 0, 0, "%.5f")) { valChanged = true; };
-		EndDisabled();
+		ImGui::EndDisabled();
 
 		return valChanged;
 	}
@@ -1689,12 +1689,12 @@ namespace
 	void InputDouble1(std::string propertyName, double& property, bool disabled)
 	{
 		BeginDisabled(disabled);
-		TableNextColumn();
+		ImGui::TableNextColumn();
 		ImGui::Text(propertyName.c_str());
-		TableNextColumn();
-		SetNextItemWidth(GetWindowSize().x);
+		ImGui::TableNextColumn();
+		ImGui::SetNextItemWidth(GetWindowSize().x);
 		InputDouble(("##" + propertyName).c_str(), &property, 0, 0, "%.2f");
-		EndDisabled();
+		ImGui::EndDisabled();
 	}
 	
 	bool InputCheckBox(std::string propertyName, bool& property, bool disabled)
@@ -1702,12 +1702,12 @@ namespace
 		PushID(propertyName.c_str());
 		bool valChanged{ false };
 		BeginDisabled(disabled);
-		TableNextColumn();
+		ImGui::TableNextColumn();
 		ImGui::Text(propertyName.c_str());
-		TableNextColumn();
+		ImGui::TableNextColumn();
 		valChanged = Checkbox(("##" + propertyName).c_str(), &property);
-		EndDisabled();
-		PopID();
+		ImGui::EndDisabled();
+		ImGui::PopID();
 		return valChanged;
 	}
 
@@ -1715,17 +1715,17 @@ namespace
 	{
 		int tempEntity = static_cast<int>(entity);
 		BeginDisabled(disabled);
-		TableNextColumn();
+		ImGui::TableNextColumn();
 		ImGui::Text(propertyName.c_str());
-		TableNextColumn();
-		SetNextItemWidth(GetWindowSize().x);
+		ImGui::TableNextColumn();
+		ImGui::SetNextItemWidth(GetWindowSize().x);
 		if (InputInt(("##" + propertyName).c_str(), &tempEntity, 0))
 		{
 			entity = static_cast<GE::ECS::Entity>(tempEntity);
-			EndDisabled();
+			ImGui::EndDisabled();
 			return true;
 		}
-		EndDisabled();
+		ImGui::EndDisabled();
 		return false;
 	}
 
@@ -1737,10 +1737,10 @@ namespace
 
 		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			Separator();
-			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::Separator();
+			ImGui::BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
-			TableNextRow();
+			ImGui::TableNextRow();
 			int i{};
 			for (auto& force : list)
 			{
@@ -1749,20 +1749,20 @@ namespace
 				InputDouble1("Lifetime", force.m_lifetime);
 				InputDouble1("Age", force.m_age);
 				InputCheckBox("IsActive", force.m_isActive);
-				PopID();
-				Separator();
+				ImGui::PopID();
+				ImGui::Separator();
 			}
-			EndTable();
+			ImGui::EndTable();
 
-			Separator();
-			Unindent();
+			ImGui::Separator();
+			ImGui::Unindent();
 			// 20 magic number cuz the button looks good
 			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
 			{
 				list.push_back(LinearForce());
 			}
 
-			TreePop();
+			ImGui::TreePop();
 		}
 		Indent();
 	}
@@ -1775,28 +1775,28 @@ namespace
 
 		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			Separator();
-			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::Separator();
+			ImGui::BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
 			int i{};
 			for (auto& item : list)
 			{
 				PushID((std::to_string(i++)).c_str());
 				InputDouble3(propertyName + " " + std::to_string(i++), item, fieldWidth, disabled);
-				TableNextRow();
-				PopID();
+				ImGui::TableNextRow();
+				ImGui::PopID();
 			}
-			EndTable();
+			ImGui::EndTable();
 
-			Separator();
-			Unindent();
+			ImGui::Separator();
+			ImGui::Unindent();
 			// 20 magic number cuz the button looks good
 			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
 			{
 				list.push_back({ 0, 0, 0 });
 			}
 
-			TreePop();
+			ImGui::TreePop();
 		}
 		Indent();
 	}
@@ -1809,32 +1809,32 @@ namespace
 
 		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			Separator();
-			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::Separator();
+			ImGui::BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
 			int i{};
 			for (auto& [target, duration] : list)
 			{
 				PushID((std::to_string(i)).c_str());
 				InputDouble3(propertyName + " " + std::to_string(i++), target, fieldWidth, disabled);
-				TableNextRow();
-				TableNextColumn();
-				TableNextColumn();
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
+				ImGui::TableNextColumn();
 				InputDouble1("Duration", duration);
-				TableNextRow();
-				PopID();
+				ImGui::TableNextRow();
+				ImGui::PopID();
 			}
-			EndTable();
+			ImGui::EndTable();
 
-			Separator();
-			Unindent();
+			ImGui::Separator();
+			ImGui::Unindent();
 			// 20 magic number cuz the button looks good
 			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
 			{
 				list.emplace_back(vec3{ 0, 0, 0 }, 0);
 			}
 
-			TreePop();
+			ImGui::TreePop();
 		}
 		Indent();
 	}
@@ -1847,22 +1847,22 @@ namespace
 
 		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			Separator();
-			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::Separator();
+			ImGui::BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
 			for (unsigned int i{}; i < list.size(); ++i)
 			{
 				GE::ECS::Entity& entity{ i };
 				PushID((std::to_string(i)).c_str());
 				ImGui::Text(propertyName.c_str());
-				TableNextColumn();
+				ImGui::TableNextColumn();
 				InputEntity("Entity", entity);
-				TableNextRow();
-				PopID();
+				ImGui::TableNextRow();
+				ImGui::PopID();
 			}
-			EndTable();
-			Separator();
-			TreePop();
+			ImGui::EndTable();
+			ImGui::Separator();
+			ImGui::TreePop();
 		}
 	}
 
@@ -1874,21 +1874,21 @@ namespace
 
 		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			Separator();
-			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::Separator();
+			ImGui::BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
 			for (int i{}; i < list.size(); ++i)
 			{
 				PushID((std::to_string(i)).c_str());
 				ImGui::Text(propertyName.c_str());
-				TableNextColumn();
+				ImGui::TableNextColumn();
 				InputInt(("##" + (propertyName + std::to_string(i))).c_str(), &list[i], 0);
-				TableNextRow();
-				PopID();
+				ImGui::TableNextRow();
+				ImGui::PopID();
 			}
-			EndTable();
-			Separator();
-			TreePop();
+			ImGui::EndTable();
+			ImGui::Separator();
+			ImGui::TreePop();
 		}
 	}
 
@@ -1906,14 +1906,14 @@ namespace
 			{
 				PushID((std::to_string(i)).c_str());
 				ImGui::Text(propertyName.c_str());
-				TableNextColumn();
+				ImGui::TableNextColumn();
 				if (InputInt(("##" + (propertyName + std::to_string(i))).c_str(), &list[i], 0)) { changed = true; }
 				TableNextRow();
-				PopID();
+				ImGui::PopID();
 			}
 			EndTable();
-			Separator();
-			TreePop();
+			ImGui::Separator();
+			ImGui::TreePop();
 		}
 		return changed;
 	}
@@ -1925,25 +1925,25 @@ namespace
 		bool changed{ false };
 		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			Separator();
+			ImGui::Separator();
 			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
 			for (int i{}; i < list.size(); ++i)
 			{
 				PushID((std::to_string(i)).c_str());
 				ImGui::Text(propertyName.c_str());
-				TableNextColumn();
+				ImGui::TableNextColumn();
 				int rep = static_cast<int>(list[i]);
 				if (InputInt(("##" + (propertyName + std::to_string(i))).c_str(), &rep, 0)) { 
 					changed = true; 
 					list[i] = static_cast<unsigned>(rep);
 				}
-				TableNextRow();
-				PopID();
+				ImGui::TableNextRow();
+				ImGui::PopID();
 			}
 			EndTable();
-			Separator();
-			TreePop();
+			ImGui::Separator();
+			ImGui::TreePop();
 		}
 		return changed;
 	}
@@ -1961,13 +1961,13 @@ namespace
 			for (auto& sound : list)
 			{
 				PushID((std::to_string(i)).c_str());
-				Separator();
+				ImGui::Separator();
 				BeginTable("Whoooo", 2, ImGuiTableFlags_BordersInnerV);
 				TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 
 				TableNextColumn();
 				ImGui::Text("Sound Name");
-				TableNextColumn();
+				ImGui::TableNextColumn();
 				InputText("##", &sound.m_sound);
 				if (BeginDragDropTarget())
 				{
@@ -1978,11 +1978,11 @@ namespace
 					EndDragDropTarget();
 				}
 
-				TableNextRow();
+				ImGui::TableNextRow();
 				InputCheckBox("Loop", sound.m_loop);
-				TableNextRow();
+				ImGui::TableNextRow();
 				InputCheckBox("Play on Start", sound.m_playOnStart);
-				TableNextRow();
+				ImGui::TableNextRow();
 				InputCheckBox("Paused", sound.m_paused);
 				TableNextRow();
 				TableNextColumn();
@@ -2011,7 +2011,7 @@ namespace
 					removeIt.emplace_back(list.begin() + i);
 				}
 
-				PopID();
+				ImGui::PopID();
 				++i;
 			}
 
@@ -2020,16 +2020,16 @@ namespace
 				list.erase(it);
 			}
 
-			Separator();
+			ImGui::Separator();
 
-			Unindent();
+			ImGui::Unindent();
 			// 20 magic number cuz the button looks good
 			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
 			{
 				list.emplace_back(GE::Component::Audio::Sound{});
 			}
 
-			TreePop();
+			ImGui::TreePop();
 		}
 		Indent();
 	}

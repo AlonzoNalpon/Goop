@@ -182,15 +182,15 @@ void PrefabEditor::CheckForDeletions()
   for (rttr::variant const& comp : ref.m_components)
   {
     rttr::type const compType{ comp.get_type().get_wrapped_type().get_raw_type() };
-    auto iter{ ECS::stringToComponents.find(compType.get_name().to_string()) };
-    if (iter == ECS::stringToComponents.end())
+    auto iter{ std::find(ECS::componentTypes.cbegin(), ECS::componentTypes.cend(), compType) };
+    if (iter == ECS::componentTypes.cend())
     {
-      Debug::ErrorLogger::GetInstance().LogError("Unable to find " + compType.get_name().to_string() + " component type in ECS::stringToComponents");
+      Debug::ErrorLogger::GetInstance().LogError("Unable to find " + compType.get_name().to_string() + " component type in ECS::componentTypes");
       continue;
     }
 
     // if entity no longer contains component, means it was removed
-    if (!of.GetEntityComponent(m_prefabInstance, iter->second).is_valid())
+    if (!of.GetEntityComponent(m_prefabInstance, *iter).is_valid())
     {
 #ifdef PREFAB_EDITOR_DEBUG
       std::cout << "  Added <0, " << compType << "> to m_removedComponents\n";
@@ -217,15 +217,15 @@ void PrefabEditor::CheckForDeletions()
     for (rttr::variant const& comp : subData.m_components)
     {
       rttr::type const compType{ comp.get_type().get_wrapped_type().get_raw_type() };
-      auto iter{ ECS::stringToComponents.find(compType.get_name().to_string()) };
-      if (iter == ECS::stringToComponents.end())
+      auto iter{ std::find(ECS::componentTypes.cbegin(), ECS::componentTypes.cend(), compType) };
+      if (iter == ECS::componentTypes.cend())
       {
         Debug::ErrorLogger::GetInstance().LogError("Unable to find " + compType.get_name().to_string() + " component type in ECS::stringToComponents");
         continue;
       }
 
       // if entity no longer contains component, means it was removed
-      if (!of.GetEntityComponent(currEntity, iter->second).is_valid())
+      if (!of.GetEntityComponent(currEntity, *iter).is_valid())
       {
 #ifdef PREFAB_EDITOR_DEBUG
         std::cout << "  Added <" << subData.m_id << ", " << compType << "> to m_removedComponents\n";

@@ -161,6 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AI\TreeManager.cpp" />
+    <ClCompile Include="Source\ECS\ComponentTypes.cpp" />
     <ClCompile Include="Source\EditorUI\EditorTheme.cpp" />
     <ClCompile Include="Source\EditorUI\SpriteAnimEditor.cpp" />
     <ClCompile Include="Source\Prefabs\PrefabManager.cpp" />
@@ -177,7 +178,6 @@
     <ClCompile Include="Source\AssetManager\AssetManager.cpp" />
     <ClCompile Include="Source\AssetManager\AssetStructs.cpp" />
     <ClCompile Include="Source\DebugTools\ErrorLogger\ErrorLogger.cpp" />
-    <ClCompile Include="Source\ECS\ComponentTypes.cpp" />
     <ClCompile Include="Source\ECS\Component\ComponentManager.cpp" />
     <ClCompile Include="Source\ECS\EntityComponentSystem.cpp" />
     <ClCompile Include="Source\ECS\Entity\EntityManager.cpp" />

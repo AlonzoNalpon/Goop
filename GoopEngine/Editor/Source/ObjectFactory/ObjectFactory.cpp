@@ -43,9 +43,9 @@ std::vector<rttr::variant> ObjectFactory::GetEntityComponents(ECS::Entity id) co
 {
   std::vector<rttr::variant> ret;
   ret.reserve(ECS::EntityComponentSystem::GetInstance().GetEntityComponentCount(id));
-  for (unsigned i{}; i < static_cast<unsigned>(ECS::COMPONENT_TYPES::COMPONENTS_TOTAL); ++i)
+  for (rttr::type const& compType : ECS::componentTypes)
   {
-    rttr::variant comp{ GetEntityComponent(id, static_cast<ECS::COMPONENT_TYPES>(i)) };
+    rttr::variant comp{ GetEntityComponent(id, compType) };
     if (!comp.is_valid()) { continue; }
 
     ret.emplace_back(std::move(comp));
@@ -215,87 +215,83 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   }
 }
 
-rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type) const
+rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, rttr::type const& compType) const
 {
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-  switch (type)
-  {
-  case ECS::COMPONENT_TYPES::TRANSFORM:
+  if (compType == rttr::type::get<Component::Transform>())
   {
     return ecs.HasComponent<Component::Transform>(id) ? std::make_shared<Component::Transform>(*ecs.GetComponent<Component::Transform>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::BOX_COLLIDER:
+  else if (compType == rttr::type::get<Component::BoxCollider>())
   {
     return ecs.HasComponent<Component::BoxCollider>(id) ? std::make_shared<Component::BoxCollider>(*ecs.GetComponent<Component::BoxCollider>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::VELOCITY:
+  else if (compType == rttr::type::get<Component::Velocity>())
   {
     return ecs.HasComponent<Component::Velocity>(id) ? std::make_shared<Component::Velocity>(*ecs.GetComponent<Component::Velocity>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::SCRIPTS:
+  else if (compType == rttr::type::get<Component::Scripts>())
   {
     return ecs.HasComponent<Component::Scripts>(id) ? std::make_shared<Component::Scripts>(*ecs.GetComponent<Component::Scripts>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::SPRITE:
+  else if (compType == rttr::type::get<Component::Sprite>())
   {
     return ecs.HasComponent<Component::Sprite>(id) ? std::make_shared<Component::Sprite>(*ecs.GetComponent<Component::Sprite>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::SPRITE_ANIM:
+  else if (compType == rttr::type::get<Component::SpriteAnim>())
   {
     return ecs.HasComponent<Component::SpriteAnim>(id) ? std::make_shared<Component::SpriteAnim>(*ecs.GetComponent<Component::SpriteAnim>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::TWEEN:
+  else if (compType == rttr::type::get<Component::Tween>())
   {
     return ecs.HasComponent<Component::Tween>(id) ? std::make_shared<Component::Tween>(*ecs.GetComponent<Component::Tween>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::ENEMY_AI:
+  else if (compType == rttr::type::get<Component::EnemyAI>())
   {
     return ecs.HasComponent<Component::EnemyAI>(id) ? std::make_shared<Component::EnemyAI>(*ecs.GetComponent<Component::EnemyAI>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::DRAGGABLE:
+  else if (compType == rttr::type::get<Component::Draggable>())
   {
     return ecs.HasComponent<Component::Draggable>(id) ? std::make_shared<Component::Draggable>(*ecs.GetComponent<Component::Draggable>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::TEXT:
+  else if (compType == rttr::type::get<Component::Text>())
   {
     return ecs.HasComponent<Component::Text>(id) ? std::make_shared<Component::Text>(*ecs.GetComponent<Component::Text>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::AUDIO:
+  else if (compType == rttr::type::get<Component::Audio>())
   {
     return ecs.HasComponent<Component::Audio>(id) ? std::make_shared<Component::Audio>(*ecs.GetComponent<Component::Audio>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::GE_BUTTON:
+  else if (compType == rttr::type::get<Component::GE_Button>())
   {
     return ecs.HasComponent<Component::GE_Button>(id) ? std::make_shared<Component::GE_Button>(*ecs.GetComponent<Component::GE_Button>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::ANCHOR:
+  else if (compType == rttr::type::get<Component::Anchor>())
   {
     return ecs.HasComponent<Component::Anchor>(id) ? std::make_shared<Component::Anchor>(*ecs.GetComponent<Component::Anchor>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::CARD:
+  else if (compType == rttr::type::get<Component::Card>())
   {
     return ecs.HasComponent<Component::Card>(id) ? std::make_shared<Component::Card>(*ecs.GetComponent<Component::Card>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::CARD_HOLDER:
+  else if (compType == rttr::type::get<Component::CardHolder>())
   {
     return ecs.HasComponent<Component::CardHolder>(id) ? std::make_shared<Component::CardHolder>(*ecs.GetComponent<Component::CardHolder>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::CARD_HOLDER_ELEM:
+  else if (compType == rttr::type::get<Component::CardHolderElem>())
   {
     return ecs.HasComponent<Component::CardHolderElem>(id) ? std::make_shared<Component::CardHolderElem>(*ecs.GetComponent<Component::CardHolderElem>(id)) : rttr::variant();
   }
-  case ECS::COMPONENT_TYPES::GAME:
+  else if (compType == rttr::type::get<Component::Game>())
   {
     return ecs.HasComponent<Component::Game>(id) ? std::make_shared<Component::Game>(*ecs.GetComponent<Component::Game>(id)) : rttr::variant();
   }
-  default:
+  else
   {
     std::ostringstream oss{};
-    std::string const enumString = rttr::type::get<ECS::COMPONENT_TYPES>().get_enumeration().value_to_name(type).to_string();
-    oss << "Trying to get unsupported component type (" << enumString << ") from Entity " << id;
+    oss << "Trying to get unsupported component type (" << compType.get_name().to_string() << ") from Entity " << id;
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
     return rttr::variant();
-  }
   }
 }
 
@@ -390,164 +386,145 @@ void ObjectFactory::RegisterComponentsAndSystems() const
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
 
   // Register components in order of COMPONENT_TYPES enum
-  for (auto const& [comp, str] : GE::ECS::componentsToString)
+  for (rttr::type const& compType : ECS::componentTypes)
   {
-    switch (comp)
-    {
-    case COMPONENT_TYPES::TRANSFORM:
+    if(compType == rttr::type::get<Component::Transform>())
       ecs.RegisterComponent<GE::Component::Transform>();
-      break;
-    case COMPONENT_TYPES::BOX_COLLIDER:
+    else if (compType == rttr::type::get<Component::BoxCollider>())
       ecs.RegisterComponent<GE::Component::BoxCollider>();
-      break;
-    case COMPONENT_TYPES::SPRITE_ANIM:
+    else if (compType == rttr::type::get<Component::SpriteAnim>())
       ecs.RegisterComponent<GE::Component::SpriteAnim>();
-      break;
-    case COMPONENT_TYPES::SPRITE:
+    else if (compType == rttr::type::get<Component::Sprite>())
       ecs.RegisterComponent<GE::Component::Sprite>();
-      break;
-    case COMPONENT_TYPES::VELOCITY:
+    else if (compType == rttr::type::get<Component::Velocity>())
       ecs.RegisterComponent<GE::Component::Velocity>();
-      break;
-    case COMPONENT_TYPES::TWEEN:
+    else if (compType == rttr::type::get<Component::Tween>())
       ecs.RegisterComponent<GE::Component::Tween>();
-      break;
-    case COMPONENT_TYPES::SCRIPTS:
+    else if (compType == rttr::type::get<Component::Scripts>())
       ecs.RegisterComponent<GE::Component::Scripts>();
-      break;
-    case COMPONENT_TYPES::DRAGGABLE:
+    else if (compType == rttr::type::get<Component::Draggable>())
       ecs.RegisterComponent<GE::Component::Draggable>();
-      break;
-    case COMPONENT_TYPES::ENEMY_AI:
+    else if (compType == rttr::type::get<Component::EnemyAI>())
       ecs.RegisterComponent<GE::Component::EnemyAI>();
-      break;
-    case COMPONENT_TYPES::TEXT:
+    else if (compType == rttr::type::get<Component::Text>())
       ecs.RegisterComponent<GE::Component::Text>();
-      break;
-    case COMPONENT_TYPES::GAME:
+    else if (compType == rttr::type::get<Component::Game>())
       ecs.RegisterComponent<GE::Component::Game>();
-      break;
-    case COMPONENT_TYPES::AUDIO:
+    else if (compType == rttr::type::get<Component::Audio>())
       ecs.RegisterComponent<GE::Component::Audio>();
-      break;
-    case COMPONENT_TYPES::GE_BUTTON:
+    else if (compType == rttr::type::get<Component::GE_Button>())
       ecs.RegisterComponent<GE::Component::GE_Button>();
-      break;
-    case COMPONENT_TYPES::ANCHOR:
+    else if (compType == rttr::type::get<Component::Anchor>())
       ecs.RegisterComponent<GE::Component::Anchor>();
-      break;
-    case COMPONENT_TYPES::CARD:
+    else if (compType == rttr::type::get<Component::Card>())
       ecs.RegisterComponent<GE::Component::Card>();
-      break;
-    case COMPONENT_TYPES::CARD_HOLDER:
+    else if (compType == rttr::type::get<Component::CardHolder>())
       ecs.RegisterComponent<GE::Component::CardHolder>();
-      break;
-    case COMPONENT_TYPES::CARD_HOLDER_ELEM:
+    else if (compType == rttr::type::get<Component::CardHolderElem>())
       ecs.RegisterComponent<GE::Component::CardHolderElem>();
-      break;
-    default:
+    else
+    {
       std::ostringstream oss{};
       oss << "Trying to register unknown component type, " << " update function: ObjectFactory::RegisterComponentsAndSystems()";
       Debug::ErrorLogger::GetInstance().LogError(oss.str());
 #ifdef _DEBUG
       std::cout << oss.str() << "\n";
 #endif
-      break;
     }
   }
 
   // Register systems
   std::string const systemsFile{ Assets::AssetManager::GetInstance().GetConfigData<std::string>("Systems") };
-  std::vector<std::pair<std::string, ECS::ComponentSignature>> const systems{ Serialization::Deserializer::DeserializeSystems(systemsFile) };
+  auto const systems{ Serialization::Deserializer::DeserializeSystems(systemsFile) };
 
-  for (auto const& [sys, sig] : systems)
+  for (auto const& [sys, components] : systems)
   {
-    RegisterSystemWithType(rttr::type::get_by_name(sys), sig);
+    RegisterSystemWithType(rttr::type::get_by_name(sys), components);
   }
 }
 
-void ObjectFactory::RegisterSystemWithType(rttr::type const& systemType, ECS::ComponentSignature sig) const
+void ObjectFactory::RegisterSystemWithType(rttr::type const& systemType, std::vector<rttr::type> const& components) const
 {
   ECS::EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
   if (systemType == rttr::type::get<Systems::CollisionSystem>())
   {
     ecs.RegisterSystem<Systems::CollisionSystem>();
-    RegisterComponentsToSystem<Systems::CollisionSystem>(sig);
+    RegisterComponentsToSystem<Systems::CollisionSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::PhysicsSystem>())
   {
     ecs.RegisterSystem<Systems::PhysicsSystem>();
-    RegisterComponentsToSystem<Systems::PhysicsSystem>(sig);
+    RegisterComponentsToSystem<Systems::PhysicsSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::DraggableObjectSystem>())
   {
     ecs.RegisterSystem<Systems::DraggableObjectSystem>();
-    RegisterComponentsToSystem<Systems::DraggableObjectSystem>(sig);
+    RegisterComponentsToSystem<Systems::DraggableObjectSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::ScriptSystem>())
   {
     ecs.RegisterSystem<Systems::ScriptSystem>();
-    RegisterComponentsToSystem<Systems::ScriptSystem>(sig);
+    RegisterComponentsToSystem<Systems::ScriptSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::RenderSystem>())
   {
     ecs.RegisterSystem<Systems::RenderSystem>();
-    RegisterComponentsToSystem<Systems::RenderSystem>(sig);
+    RegisterComponentsToSystem<Systems::RenderSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::SpriteAnimSystem>())
   {
     ecs.RegisterSystem<Systems::SpriteAnimSystem>();
-    RegisterComponentsToSystem<Systems::SpriteAnimSystem>(sig);
+    RegisterComponentsToSystem<Systems::SpriteAnimSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::EnemySystem>())
   {
     ecs.RegisterSystem<Systems::EnemySystem>();
-    RegisterComponentsToSystem<Systems::EnemySystem>(sig);
+    RegisterComponentsToSystem<Systems::EnemySystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::PreRootTransformSystem>())
   {
     ecs.RegisterSystem<Systems::PreRootTransformSystem>();
-    RegisterComponentsToSystem<Systems::PreRootTransformSystem>(sig);
+    RegisterComponentsToSystem<Systems::PreRootTransformSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::PostRootTransformSystem>())
   {
     ecs.RegisterSystem<Systems::PostRootTransformSystem>();
-    RegisterComponentsToSystem<Systems::PostRootTransformSystem>(sig);
+    RegisterComponentsToSystem<Systems::PostRootTransformSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::TextRenderSystem>())
   {
     ecs.RegisterSystem<Systems::TextRenderSystem>();
-    RegisterComponentsToSystem<Systems::TextRenderSystem>(sig);
+    RegisterComponentsToSystem<Systems::TextRenderSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::TweenSystem>())
   {
     ecs.RegisterSystem<Systems::TweenSystem>();
-    RegisterComponentsToSystem<Systems::TweenSystem>(sig);
+    RegisterComponentsToSystem<Systems::TweenSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::AudioSystem>())
   {
     ecs.RegisterSystem<Systems::AudioSystem>();
-    RegisterComponentsToSystem<Systems::AudioSystem>(sig);
+    RegisterComponentsToSystem<Systems::AudioSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::ButtonSystem>())
   {
     ecs.RegisterSystem<Systems::ButtonSystem>();
-    RegisterComponentsToSystem<Systems::ButtonSystem>(sig);
+    RegisterComponentsToSystem<Systems::ButtonSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::GameSystem>())
   {
     ecs.RegisterSystem<Systems::GameSystem>();
-    RegisterComponentsToSystem<Systems::GameSystem>(sig);
+    RegisterComponentsToSystem<Systems::GameSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::ObjectAnchorSystem>())
   {
     ecs.RegisterSystem<Systems::ObjectAnchorSystem>();
-    RegisterComponentsToSystem<Systems::ObjectAnchorSystem>(sig);
+    RegisterComponentsToSystem<Systems::ObjectAnchorSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::ButtonScriptSystem>())
   {
     ecs.RegisterSystem<Systems::ButtonScriptSystem>();
-    RegisterComponentsToSystem<Systems::ButtonScriptSystem>(sig);
+    RegisterComponentsToSystem<Systems::ButtonScriptSystem>(components);
   }
   else
   {

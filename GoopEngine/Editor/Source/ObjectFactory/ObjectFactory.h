@@ -24,6 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ObjectFactory/ObjectStructs.h>
 #include <Serialization/Serializer.h>
 #include <Component/Components.h>
+#include <sstream>
 
 namespace GE::ObjectFactory
 {
@@ -117,11 +118,11 @@ namespace GE::ObjectFactory
     \param id
       The id of the entity
     \param type
-      The ECS::COMPONENT_TYPES of the entity
+      The rttr::type of the component
     \return
       An rttr::variant of the component
     ************************************************************************/
-    rttr::variant GetEntityComponent(ECS::Entity id, ECS::COMPONENT_TYPES type) const;
+    rttr::variant GetEntityComponent(ECS::Entity id, rttr::type const& compType) const;
 
     /*!*********************************************************************
     \brief
@@ -140,20 +141,22 @@ namespace GE::ObjectFactory
     \brief
       Registers components based on the given signature to a system
       specified by template argument T
-    \param sig
-      The signature of the components to register
+    \param components
+      The vector of components to register to the system
     ************************************************************************/
     template <typename T>
-    void RegisterComponentsToSystem(ECS::ComponentSignature sig) const;
+    void RegisterComponentsToSystem(std::vector<rttr::type> const& components) const;
 
     /*!*********************************************************************
     \brief
-      This function registers a system to the system given the
-      enum. This has to be updated everytime a new system is introduced.
-    \param name
-      The enum corresponding to the system
+      This function registers a system to the system given the type. This 
+      has to be updated everytime a new system is introduced.
+    \param systemType
+      The rttr::type of the system
+    \param components
+      The vector of components to register to the system
     ************************************************************************/
-    void RegisterSystemWithType(rttr::type const& systemType, ECS::ComponentSignature sig) const;
+    void RegisterSystemWithType(rttr::type const& systemType, std::vector<rttr::type> const& components) const;
 
     EntityDataContainer m_deserialized;   // Container of deserialized entity data in format <id, data>
   };

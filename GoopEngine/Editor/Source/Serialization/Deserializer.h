@@ -79,13 +79,13 @@ namespace GE
         Each element in the vector is an std::pair containing
         1. The name of the system
         2. The components that should be registered to it
-           (in the form of a signature)
+           (in the form of a vector of rttr::types)
       \param json
           The file to read from
       \return
         std::vector of systems to their respective components
       ************************************************************************/
-      static std::vector<std::pair<std::string, ECS::ComponentSignature>> DeserializeSystems(std::string const& json);
+      static std::vector<std::pair<std::string, std::vector<rttr::type>>> DeserializeSystems(std::string const& json);
 
       /*!*********************************************************************
       \brief

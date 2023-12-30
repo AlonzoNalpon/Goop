@@ -9,6 +9,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <Fmod/FmodSystem.h>
+#include <Utilities/GoopUtils.h>
 
 namespace GE
 {

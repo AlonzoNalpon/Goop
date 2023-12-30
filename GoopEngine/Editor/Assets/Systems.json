@@ -1,61 +1,61 @@
 {
-    "PreRootTransformSystem": [],
-	"GameSystem": [
-		"Game"
-	],
-	"ScriptSystem": [	
-		"Scripts"
-	],
-	"TweenSystem" : [
-		"Tween",
-		"Transform"
-	],
-    "EnemySystem": [
-       "EnemyAI",
-       "Transform"
-    ],
-    "ButtonSystem": [
-        "Button",
-        "BoxCollider"
-    ],
-    "ButtonScriptSystem": [
-        "Button",
-        "BoxCollider",
-		"Scripts"
-    ],
-    "CollisionSystem": [
-        "Transform",
-        "BoxCollider"
-    ],
-    "DraggableObjectSystem": [
-        "Transform",
-        "BoxCollider",
-        "Draggable"
-    ],
-	"ObjectAnchorSystem": [
-		"BoxCollider",
-		"Transform",
-		"Anchor"
-	],
-    "PhysicsSystem": [
-        "Transform",
-        "Velocity"
-    ],   
-    "PostRootTransformSystem": [],
-    "SpriteAnimSystem": [		
-        "Sprite",
-        "SpriteAnim"
-	  ],
-    "RenderSystem": [
-        "Transform",
-        "Sprite"
-    ],
-    "TextRenderSystem": [
-        "Text",
-        "Transform"
-    ],
-    "AudioSystem": [
-      "Audio",
-      "Transform"
-    ]
+  "PreRootTransformSystem": [],
+  "GameSystem": [
+    "Game"
+  ],
+  "ScriptSystem": [
+    "Scripts"
+  ],
+  "TweenSystem": [
+    "Tween",
+    "Transform"
+  ],
+  "EnemySystem": [
+    "EnemyAI",
+    "Transform"
+  ],
+  "ButtonSystem": [
+    "GE_Button",
+    "BoxCollider"
+  ],
+  "ButtonScriptSystem": [
+    "GE_Button",
+    "BoxCollider",
+    "Scripts"
+  ],
+  "CollisionSystem": [
+    "Transform",
+    "BoxCollider"
+  ],
+  "DraggableObjectSystem": [
+    "Transform",
+    "BoxCollider",
+    "Draggable"
+  ],
+  "ObjectAnchorSystem": [
+    "BoxCollider",
+    "Transform",
+    "Anchor"
+  ],
+  "PhysicsSystem": [
+    "Transform",
+    "Velocity"
+  ],
+  "PostRootTransformSystem": [],
+  "SpriteAnimSystem": [
+    "Sprite",
+    "SpriteAnim"
+  ],
+  "RenderSystem": [
+    "Transform",
+    "Sprite"
+  ],
+  "TextRenderSystem": [
+    "Text",
+    "Transform"
+  ],
+  "AudioSystem": [
+    "Audio",
+    "Transform"
+  ]
 }
