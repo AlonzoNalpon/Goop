@@ -106,19 +106,6 @@ ComponentSignature GE::ECS::EntityComponentSystem::GetComponentSignature(Entity&
 	return m_entityManager->GetComponentSignature(entity);
 }
 
-unsigned GE::ECS::EntityComponentSystem::GetEntityComponentCount(Entity const& entity) const
-{
-	auto sig{ m_entityManager->GetComponentSignature(entity).to_ulong() };
-	unsigned count{};
-	while (sig != 0)
-	{
-		sig &= sig - 1;
-		++count;
-	}
-
-	return count;
-}
-
 std::unordered_map<const char*, ComponentSignature>& GE::ECS::EntityComponentSystem::GetSystemSignatures()
 {
 	return m_systemManager->GetSystemSignatures();

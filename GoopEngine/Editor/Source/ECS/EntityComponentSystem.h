@@ -293,18 +293,6 @@ namespace GE
 			********************************************************************/
 			ComponentSignature GetComponentSignature(Entity& entity) const;
 
-			/*!*********************************************************************
-			\brief
-			  Returns the number of components of an entity
-
-			\param entity
-				Entity to count the components of
-
-			\return
-			  The number of components the entity has
-			************************************************************************/
-			unsigned GetEntityComponentCount(Entity const& entity) const;
-
 			/*!******************************************************************
 			\brief
 				Calls SystemManager's GetSystem function.
