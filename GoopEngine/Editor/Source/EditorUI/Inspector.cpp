@@ -445,7 +445,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						GizmoEditor::SetCurrentObject(trans->m_worldTransform, entity);
 					}
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::BoxCollider>())
 			{
@@ -490,7 +489,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 					ImGui::Separator();
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::Velocity>())
 			{
@@ -525,7 +523,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					ImGui::Separator();
 					ImGui::PopID();
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::Sprite>())
 			{
@@ -625,7 +622,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 #pragma endregion
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::SpriteAnim>())
 			{
@@ -674,7 +670,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					ImGui::Separator();
 #pragma endregion
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::Tween>())
 			{
@@ -701,8 +696,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputList("Tween", tween->m_tweens, inputWidth);
 					ImGui::Separator();
 				}
-
-				break;
 			}
 			else if (compType == rttr::type::get<Component::Scripts>())
 			{
@@ -887,7 +880,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 			
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::Draggable>())
 			{
@@ -898,7 +890,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						break;
 					}
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::Text>())
 			{
@@ -947,7 +938,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 					Separator();
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::Audio>())
 			{
@@ -964,7 +954,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					Separator();
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::Anchor>())
 			{
@@ -998,7 +987,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 					Separator();
         }
-        break;
       }
 			else if (compType == rttr::type::get<Component::GE_Button>())
 			{
@@ -1041,7 +1029,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputText("Param", &button->m_param);
 					ImGui::Separator();
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::Card>())
 			{
@@ -1117,7 +1104,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 					Separator();
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::CardHolder>())
 			{
@@ -1310,7 +1296,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 					Separator();
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::CardHolderElem>())
 			{
@@ -1345,7 +1330,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						ImGui::EndDisabled();
 					}
 				}
-				break;
 			}
 			else if (compType == rttr::type::get<Component::Game>())
 			{
@@ -1402,7 +1386,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 				}
 				ImGui::Separator();
-				break;
 			}
 			else
 			{

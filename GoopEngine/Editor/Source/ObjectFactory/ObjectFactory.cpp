@@ -42,13 +42,14 @@ void ObjectFactory::AddComponentsToEntity(ECS::Entity id, std::vector<rttr::vari
 std::vector<rttr::variant> ObjectFactory::GetEntityComponents(ECS::Entity id) const
 {
   std::vector<rttr::variant> ret;
-  ret.reserve(ECS::EntityComponentSystem::GetInstance().GetEntityComponentCount(id));
-  for (rttr::type const& compType : ECS::componentTypes)
+  ECS::ComponentSignature const sig{ ECS::EntityComponentSystem::GetInstance().GetComponentSignature(id) };
+  ret.reserve(sig.count()); // reserve based on number of bits true
+  for (unsigned i{}; i < sig.size(); ++i)
   {
-    rttr::variant comp{ GetEntityComponent(id, compType) };
-    if (!comp.is_valid()) { continue; }
-
-    ret.emplace_back(std::move(comp));
+    if (sig[i])
+    {
+      ret.emplace_back(GetEntityComponent(id, ECS::componentTypes[i]));
+    }
   }
 
   return ret;
