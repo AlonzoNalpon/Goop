@@ -374,8 +374,8 @@ void AssetBrowser::RunConfirmDeletePopup()
 	{
 		ImGui::Text("Are you sure you want to delete");
 		ImGui::SameLine();
-		// highlight next text
-		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), ImGuiHelper::GetSelectedAsset().filename().string().c_str());
+		auto const& asset{ ImGuiHelper::GetSelectedAsset() };
+		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), asset.filename().string().c_str());
 		ImGui::SameLine();
 		ImGui::Text("?");
 
@@ -391,7 +391,12 @@ void AssetBrowser::RunConfirmDeletePopup()
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 1.f));
 		if (ImGui::Button("Yes"))
 		{
-			std::remove(ImGuiHelper::GetSelectedAsset().relative_path().string().c_str());
+			// if prefab deleted
+			if (asset.extension() == ".pfb")
+			{
+				Events::EventManager::GetInstance().Dispatch(Events::DeletePrefabEvent(asset.stem().string()));
+			}
+			std::remove(asset.relative_path().string().c_str());
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::PopStyleColor();

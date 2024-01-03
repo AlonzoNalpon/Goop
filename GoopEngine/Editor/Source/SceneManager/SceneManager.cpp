@@ -64,6 +64,7 @@ void SceneManager::InitScene()
 void SceneManager::UnloadScene()
 {
   scene.Unload();
+  Events::EventManager::GetInstance().Dispatch(Events::UnloadSceneEvent());
 }
 
 void SceneManager::FreeScene()

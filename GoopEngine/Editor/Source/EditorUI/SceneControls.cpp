@@ -34,7 +34,6 @@ void GE::EditorGUI::SceneControls::CreateContent()
       }
       if (Button(pause))
       {
-        Events::EventManager::GetInstance().Dispatch(Events::PauseSceneEvent());
         ImGuiHelper::Pause();
       }
       BeginDisabled();

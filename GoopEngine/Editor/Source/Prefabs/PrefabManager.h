@@ -60,6 +60,16 @@ namespace GE
 
       /*!*********************************************************************
       \brief
+        Checks if a particular prefab exists
+      \param name
+        The name of the prefab
+      \return
+        True if it exists and false otherwise
+      ************************************************************************/
+      inline bool DoesPrefabExist(std::string const& name) const noexcept { return m_prefabs.find(name) != m_prefabs.cend(); }
+
+      /*!*********************************************************************
+      \brief
         Gets the deserialized data of a prefab in the form of a VariantPrefab
         object. Throws a GE::Debug::Exception if not found.
       \param name
@@ -168,8 +178,13 @@ namespace GE
         This function handles the corresponding events the PrefabManager
         subscribed to.
 
+        UNLOAD_SCENE
+          - Clears m_entitiesToPrefabs, which contains the mappings for
+            each entity or prefab instance to their prefabs for the scene
         REMOVE_ENTITY
           - Removes the entity entry from the map if the entity is destroyed
+        DELETE_PREFAB
+          - Deletes the respective entry from m_prefabs map
 
       \param event
         The event to be handled

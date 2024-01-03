@@ -19,6 +19,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <EditorUI/AssetBrowser.h>
 #include "PrefabEditor.h"
 #include <Events/EventManager.h>
+#include <Prefabs/PrefabManager.h>
 
 using namespace ImGui;
 using namespace GE::EditorGUI::DataViz;
@@ -106,26 +107,29 @@ void GE::EditorGUI::ToolBar::RunNewPrefabPopup()
   if (ImGui::BeginPopupModal("Create New Prefab", NULL, ImGuiWindowFlags_AlwaysAutoResize))
   {
     static std::string prefabName{};
-    static bool displayWarningText{ false };
+    static bool blankWarning{ false }, existingPrefabWarning{ false };
 
-    if (displayWarningText)
+    if (blankWarning)
     {
-      //ImVec4(0.8f, 0.2f, 0.2f, 1.f)
       ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Name cannot be blank!!!");
+    }
+    else if (existingPrefabWarning)
+    {
+      ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Prefab already exists!");
     }
 
     ImGui::Text("Name of Prefab:");
     ImGui::SameLine();
     if (ImGui::InputText("##PrefabNameInput", &prefabName))
     {
-      displayWarningText = false;
+      blankWarning = existingPrefabWarning = false;
     }
 
     ImGui::SetCursorPosX(0.5f * (ImGui::GetWindowContentRegionMax().x - ImGui::CalcTextSize("Cancel Create ").x));
     if (ImGui::Button("Cancel"))
     {
       prefabName.clear();
-      displayWarningText = false;
+      blankWarning = existingPrefabWarning = false;
       ImGui::CloseCurrentPopup();
     }
 
@@ -135,12 +139,18 @@ void GE::EditorGUI::ToolBar::RunNewPrefabPopup()
       // if name is blank / whitespace, reject it
       if (prefabName.find_first_not_of(" ") == std::string::npos)
       {
-        displayWarningText = true;
+        blankWarning = true;
+        existingPrefabWarning = false;
+      }
+      else if (Prefabs::PrefabManager::GetInstance().DoesPrefabExist(prefabName))
+      {
+        existingPrefabWarning = true;
+        blankWarning = false;
       }
       else
       {
         Events::EventManager::GetInstance().Dispatch(Events::EditPrefabEvent(prefabName, {}));
-        displayWarningText = false;
+        blankWarning = existingPrefabWarning = false;
         prefabName.clear();
         ImGui::CloseCurrentPopup();
       }

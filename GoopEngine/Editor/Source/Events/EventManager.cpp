@@ -37,7 +37,8 @@ void EventManager::SubscribeAllListeners()
   EditorGUI::PrefabEditor& pe{ EditorGUI::PrefabEditor::GetInstance() };
 
   Subscribe<KeyTriggeredEvent>(&evp);
-  Subscribe<RemoveEntityEvent>(&pm);
+  Subscribe<UnloadSceneEvent>(&pm);
+  Subscribe<RemoveEntityEvent>(&pm); Subscribe<DeletePrefabEvent>(&pm);
   Subscribe<EditPrefabEvent>(&pe); Subscribe<KeyTriggeredEvent>(&pe);
   Subscribe<DeletePrefabChildEvent>(&pe);
 #endif

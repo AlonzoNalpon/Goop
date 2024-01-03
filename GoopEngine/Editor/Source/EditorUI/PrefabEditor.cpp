@@ -20,7 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ECS/ComponentTypes.h>
 
 #ifdef _DEBUG
-#define PREFAB_EDITOR_DEBUG
+//#define PREFAB_EDITOR_DEBUG
 #endif
 
 using namespace GE::EditorGUI;
@@ -143,17 +143,10 @@ void PrefabEditor::RenderBackToScenePopup()
       else
       {
         CheckForDeletions();
-        if (m_removedChildren.empty() && m_removedComponents.empty())
-        {
-          pm.CreatePrefabFromEntity(m_prefabInstance, m_prefabName, m_prefabPath);
-        }
-        else
-        {
 #ifdef PREFAB_EDITOR_DEBUG
-          std::cout << "Saving...\n";
+        std::cout << "Saving...\n";
 #endif
-          pm.UpdatePrefabFromEditor(m_prefabInstance, m_removedChildren, m_removedComponents, m_prefabPath);
-        }
+        pm.UpdatePrefabFromEditor(m_prefabInstance, m_removedChildren, m_removedComponents, m_prefabPath);
       }
       em.Dispatch(Events::StopSceneEvent());
       

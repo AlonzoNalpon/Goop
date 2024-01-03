@@ -31,7 +31,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 
 #ifdef _DEBUG
-#define PREFAB_MANAGER_DEBUG
+//#define PREFAB_MANAGER_DEBUG
 #endif
 
 using namespace GE::Prefabs;
@@ -312,42 +312,29 @@ VariantPrefab PrefabManager::CreateVariantPrefab(ECS::Entity entity, std::string
 
 void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const& name, std::string const& path)
 {
-  VariantPrefab prefab{ CreateVariantPrefab(entity, name) };
-
-  // if prefab already exists, update version accordingly
-  auto iter{ m_prefabs.find(name) };
-  if (iter != m_prefabs.end())
+  // if prefab already exists, append "(Copy)" to it
+  std::string prefabName{ name };
+  while (DoesPrefabExist(prefabName))
   {
-    prefab.m_version = iter->second.m_version + 1;
+    prefabName += " (Copy)";
   }
+
+  VariantPrefab prefab{ CreateVariantPrefab(entity, prefabName) };
 
   Assets::AssetManager& am{ Assets::AssetManager::GetInstance() };
   if (path.empty())
   {
     Serialization::Serializer::SerializeVariantToPrefab(prefab,
-      am.GetConfigData<std::string>("Prefabs Dir") + name + am.GetConfigData<std::string>("Prefab File Extension"));
+      am.GetConfigData<std::string>("Prefabs Dir") + prefabName + am.GetConfigData<std::string>("Prefab File Extension"));
   }
   else
   {
     Serialization::Serializer::SerializeVariantToPrefab(prefab, path);
   }
 
-  // if it already exists, just update directly
-  if (iter != m_prefabs.end())
-  {
-    m_prefabs[name] = std::move(prefab);
-    // update all instances
-    if (UpdateEntitiesFromPrefab(name))
-    {
-      Events::EventManager::GetInstance().Dispatch(Events::PrefabInstancesUpdatedEvent());
-    }
-  }
-  else // else reload
-  {
-    am.ReloadFiles(Assets::FileType::PREFAB);
-    ReloadPrefabs();
-    GE::Debug::ErrorLogger::GetInstance().LogMessage(name + " saved to Prefabs");
-  }
+  am.ReloadFiles(Assets::FileType::PREFAB);
+  ReloadPrefab(prefabName);
+  GE::Debug::ErrorLogger::GetInstance().LogMessage(prefabName + " saved to Prefabs");
 }
 
 
@@ -355,10 +342,21 @@ void PrefabManager::HandleEvent(Events::Event* event)
 {
   switch (event->GetCategory())
   {
+  case Events::EVENT_TYPE::UNLOAD_SCENE:
+  {
+    m_entitiesToPrefabs.clear();
+    break;
+  }
   case Events::EVENT_TYPE::REMOVE_ENTITY:
   {
     EntityPrefabMap::const_iterator iter{ m_entitiesToPrefabs.find(static_cast<Events::RemoveEntityEvent*>(event)->m_entityId) };
     if (iter != m_entitiesToPrefabs.cend()) { m_entitiesToPrefabs.erase(iter); }
+    break;
+  }
+  case Events::EVENT_TYPE::DELETE_PREFAB:
+  {
+    PrefabDataContainer::const_iterator iter{ m_prefabs.find(static_cast<Events::DeletePrefabEvent*>(event)->m_name) };
+    if (iter != m_prefabs.cend()) { m_prefabs.erase(iter); }
     break;
   }
   }

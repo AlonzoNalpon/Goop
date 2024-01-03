@@ -27,13 +27,6 @@ namespace GE
       inline std::string GetName() const noexcept override { return "Scene Started"; }
     };
 
-    class PauseSceneEvent : public Event
-    {
-    public:
-      PauseSceneEvent() : Event(EVENT_TYPE::PAUSE_SCENE) {}
-      inline std::string GetName() const noexcept override { return "Scene Paused"; }
-    };
-
     class StopSceneEvent : public Event
     {
     public:
@@ -66,6 +59,15 @@ namespace GE
       std::string const m_prefab, m_path;
     };
 
+    class DeletePrefabEvent : public Event
+    {
+    public:
+      DeletePrefabEvent(std::string name) : Event(EVENT_TYPE::DELETE_PREFAB), m_name{ std::move(name) } {}
+      inline std::string GetName() const noexcept override { return "Deleted Prefab: " + m_name; }
+
+      std::string const m_name;
+    };
+
     class DeletePrefabChildEvent : public Event
     {
     public:
@@ -76,6 +78,13 @@ namespace GE
     };
 
 #endif
+
+    class UnloadSceneEvent : public Event
+    {
+    public:
+      UnloadSceneEvent() : Event(EVENT_TYPE::UNLOAD_SCENE) {}
+      inline std::string GetName() const noexcept override { return "Scene Unloaded"; }
+    };
 
     class WindowLoseFocusEvent : public Event
     {
@@ -125,15 +134,6 @@ namespace GE
       WindowMinimize() : Event(EVENT_TYPE::WINDOW_MINIMIZE) {}
       inline std::string GetName() const noexcept override { return "Window Minimize"; }
     };
-
-    //class NewEntityEvent : public Event
-    //{
-    //public:
-    //  NewEntityEvent(ECS::Entity id) : Event(EVENT_TYPE::NEW_ENTITY), m_entityId{ id } {}
-    //  inline std::string GetName() const noexcept override { return "Entity " + std::to_string(m_entityId) + " Created"; }
-
-    //  ECS::Entity const m_entityId;
-    //};
 
     class RemoveEntityEvent : public Event
     {
