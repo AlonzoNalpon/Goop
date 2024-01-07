@@ -332,7 +332,7 @@ void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const
     Serialization::Serializer::SerializeVariantToPrefab(prefab, path);
   }
 
-  am.ReloadFiles(Assets::FileType::PREFAB);
+  am.ReloadFiles(Assets::AssetType::PREFAB);
   ReloadPrefab(prefabName);
   GE::Debug::ErrorLogger::GetInstance().LogMessage(prefabName + " saved to Prefabs");
 }

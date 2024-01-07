@@ -24,7 +24,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace ImGui;
 using namespace GE::EditorGUI::DataViz;
 
-bool GE::EditorGUI::ToolBar::m_prefabPopup{ false };
+bool GE::EditorGUI::ToolBar::m_scenePopup{ false }, GE::EditorGUI::ToolBar::m_prefabPopup{ false };
 
 void GE::EditorGUI::ToolBar::CreateContent()
 {
@@ -38,12 +38,7 @@ void GE::EditorGUI::ToolBar::CreateContent()
       ImGui::BeginDisabled(PrefabEditor::IsEditingPrefab());
       if (Selectable("New Scene"))
       {
-        std::string const newScenePath{ GE::EditorGUI::AssetBrowser::SaveFileToExplorer(sceneFilter, 1, initialDir) };
-        
-        if (!newScenePath.empty())
-        {
-          GE::GSM::GameStateManager::GetInstance().LoadSceneFromExplorer(newScenePath);
-        }
+        m_scenePopup = true;
       }
 
       if (Selectable("New Prefab"))
@@ -90,14 +85,79 @@ void GE::EditorGUI::ToolBar::CreateContent()
       ImGui::EndMenu();
     }
 
-    if (m_prefabPopup)
+    if (m_scenePopup)
+    {
+      ImGui::OpenPopup("Create New Scene");
+      m_scenePopup = false;
+    }
+    else if (m_prefabPopup)
     {
       ImGui::OpenPopup("Create New Prefab");
       m_prefabPopup = false;
     }
+    RunNewScenePopup();
     RunNewPrefabPopup();
 
     EndMainMenuBar();
+  }
+}
+
+void GE::EditorGUI::ToolBar::RunNewScenePopup()
+{
+  ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+  if (ImGui::BeginPopupModal("Create New Scene", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+  {
+    static std::string sceneName{};
+    static bool blankWarning{ false }, existingSceneWarning{ false };
+
+    if (blankWarning)
+    {
+      ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Name cannot be blank!!!");
+    }
+    else if (existingSceneWarning)
+    {
+      ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Scene already exists!");
+    }
+
+    ImGui::Text("Name of Scene:");
+    ImGui::SameLine();
+    if (ImGui::InputText(".scn", &sceneName))
+    {
+      blankWarning = existingSceneWarning = false;
+    }
+
+    ImGui::SetCursorPosX(0.5f * (ImGui::GetWindowContentRegionMax().x - ImGui::CalcTextSize("Cancel Create ").x));
+    if (ImGui::Button("Cancel"))
+    {
+      sceneName.clear();
+      blankWarning = existingSceneWarning = false;
+      ImGui::CloseCurrentPopup();
+    }
+
+    ImGui::SameLine();
+    if (ImGui::Button("Create"))
+    {
+      // if name is blank / whitespace, reject it
+      if (sceneName.find_first_not_of(" ") == std::string::npos)
+      {
+        blankWarning = true;
+        existingSceneWarning = false;
+      }
+      else if (Assets::AssetManager::GetInstance().HasScene(sceneName))
+      {
+        existingSceneWarning = true;
+        blankWarning = false;
+      }
+      else
+      {
+        Events::EventManager::GetInstance().Dispatch(Events::NewSceneEvent(sceneName));
+        blankWarning = existingSceneWarning = false;
+        sceneName.clear();
+        ImGui::CloseCurrentPopup();
+      }
+    }
+
+    ImGui::EndPopup();
   }
 }
 

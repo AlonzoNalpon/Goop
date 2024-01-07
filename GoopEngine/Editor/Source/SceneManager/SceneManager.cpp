@@ -45,6 +45,7 @@ void SceneManager::Init()
   em.Subscribe<Events::StartSceneEvent>(this); em.Subscribe<Events::StopSceneEvent>(this);
   em.Subscribe<Events::EditPrefabEvent>(this, Events::PRIORITY::HIGH);
   em.Subscribe<Events::PrefabInstancesUpdatedEvent>(this);
+  em.Subscribe<Events::NewSceneEvent>(this);
 #endif
 
   // Load data into map
@@ -124,12 +125,20 @@ void GE::Scenes::SceneManager::HandleEvent(Events::Event* event)
 #ifndef IMGUI_DISABLE
   switch (event->GetCategory())
   {
+  case Events::EVENT_TYPE::NEW_SCENE:
+    UnloadScene();
+    FreeScene();
+    m_nextScene = m_currentScene = static_cast<Events::NewSceneEvent*>(event)->m_sceneName;
+    break;
+
   case Events::EVENT_TYPE::START_SCENE:
     TemporarySave();  // temporarily save scene before play
     break;
+
   case Events::EVENT_TYPE::STOP_SCENE:
     LoadTemporarySave();  // revert to previous state before play
     break;
+
   case Events::EVENT_TYPE::PREFAB_INSTANCES_UPDATED:
     if (m_tempSaves.empty())
     {
@@ -142,6 +151,7 @@ void GE::Scenes::SceneManager::HandleEvent(Events::Event* event)
 
     GE::Debug::ErrorLogger::GetInstance().LogMessage("Scene's prefab instances have been updated");
     break;
+
   case Events::EVENT_TYPE::EDIT_PREFAB:
   {
     // save and unload

@@ -73,6 +73,7 @@ namespace GE::Assets
 
 		return m_loadedImagesIDLookUp[id];
 	}
+
 	int AssetManager::GetID(const std::string& name)
 	{
 		if (m_loadedImagesStringLookUp.find(GoopUtils::ExtractPrevFolderAndFileName(name)) == m_loadedImagesStringLookUp.end())
@@ -84,6 +85,7 @@ namespace GE::Assets
 		return m_loadedImagesStringLookUp[GoopUtils::ExtractPrevFolderAndFileName(name)];
 
 	}
+
 	std::string AssetManager::GetScene(std::string const& sceneName)
 	{
 		auto iter{ m_scenes.find(sceneName) };
@@ -221,35 +223,35 @@ namespace GE::Assets
 		}
 	}
 
-	void AssetManager::ReloadFiles(Assets::FileType type)
+	void AssetManager::ReloadFiles(Assets::AssetType type)
 	{
 		std::string fileExt{};
 		std::unordered_map<std::string, std::string>* ptrToMap = nullptr;
 		// switch case to set the respective file extension and map
 		switch (type)
 		{
-		case FileType::SCENE:
+		case AssetType::SCENE:
 			m_scenes.clear();
 			fileExt = GetConfigData<std::string>("Scene File Extension");
 			ptrToMap = &m_scenes;
 			break;
-		case FileType::PREFAB:
+		case AssetType::PREFAB:
 			m_prefabs.clear();
 			fileExt = GetConfigData<std::string>("Prefab File Extension");
 			ptrToMap = &m_prefabs;
 			break;
-		case FileType::ANIMATION:
-		case FileType::IMAGES:
+		case AssetType::ANIMATION:
+		case AssetType::IMAGES:
 			m_images.clear();
 			fileExt = AssetManager::ImageFileExt;
 			ptrToMap = &m_images;
 			break;
-		case FileType::AUDIO:
+		case AssetType::AUDIO:
 			m_audio.clear();
 			fileExt = AssetManager::AudioFileExt;
 			ptrToMap = &m_audio;
 			break;
-		case FileType::FONTS:
+		case AssetType::FONTS:
 			m_fonts.clear();
 			fileExt = AssetManager::FontFileExt;
 			ptrToMap = &m_fonts;
@@ -308,6 +310,57 @@ namespace GE::Assets
 		
 		// Unload the config data from the AssetGooStream object into m_configData
 		ags.Unload(m_configData);
+	}
+
+	void AssetManager::HandleEvent(Events::Event* event)
+	{
+		switch (event->GetCategory())
+		{
+		case Events::EVENT_TYPE::NEW_SCENE:
+		{
+			std::string const& name{ static_cast<Events::NewSceneEvent*>(event)->m_sceneName };
+			// get path
+			std::string path{ GetConfigData<std::string>("Assets Dir") + "Scenes/" + name + SceneFileExt };
+
+			// create the file
+			std::ofstream ofs{ path };
+			if (!ofs)
+			{
+				throw Debug::Exception<AssetManager>(Debug::LEVEL_ERROR, ErrMsg("Unable to create " + path));
+			}
+			ofs.close();
+
+			// insert into map
+			m_scenes[name] = std::move(path);
+			break;
+		}
+
+		// clear from respective map
+		case Events::EVENT_TYPE::DELETE_ASSET:
+		{
+			Events::DeleteAssetEvent* assetEvent{ static_cast<Events::DeleteAssetEvent*>(event) };
+			switch (assetEvent->m_type)
+			{
+			case AssetType::SCENE:
+				m_scenes.erase(assetEvent->m_name);
+				break;
+			case AssetType::ANIMATION:
+			case AssetType::IMAGES:
+				m_images.erase(assetEvent->m_name);
+				break;
+			case AssetType::AUDIO:
+				m_audio.erase(assetEvent->m_name);
+				break;
+			case AssetType::FONTS:
+				m_fonts.erase(assetEvent->m_name);
+				break;
+			case AssetType::SHADERS:
+				m_shaders.erase(assetEvent->m_name);
+				break;
+			}
+			break;
+		}
+		}
 	}
 
 	void AssetManager::SpriteCheck()

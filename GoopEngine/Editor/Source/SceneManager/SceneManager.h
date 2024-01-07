@@ -85,12 +85,20 @@ namespace GE::Scenes
     \brief
       Handles the events the SceneManager subscribed to
 
+      NEW_SCENE
+        - Sets a new empty scene
       START_SCENE
         - Trigger a temporary save before the scene is played in the 
           editor (to later revert to)
       STOP_SCENE
         - Revert to the temporary save when the scene is stopped in
           the editor
+      PREFAB_INSTANCES_UPDATED
+        - Saves updates to prefab instances to the scene at the top of 
+          the m_saves stack
+      EDIT_PREFAB
+        - Temporarily saves the scene and pushes it to the stack before
+          transitioning to prefab editor mode
 
     \param event
       The event to handle

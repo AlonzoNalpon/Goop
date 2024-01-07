@@ -391,10 +391,15 @@ void AssetBrowser::RunConfirmDeletePopup()
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 1.f));
 		if (ImGui::Button("Yes"))
 		{
+			Assets::AssetManager const& am{ Assets::AssetManager::GetInstance() };
 			// if prefab deleted
-			if (asset.extension() == ".pfb")
+			if (asset.extension() == am.PrefabFileExt)
 			{
 				Events::EventManager::GetInstance().Dispatch(Events::DeletePrefabEvent(asset.stem().string()));
+			}
+			else if (asset.extension() == am.SceneFileExt)
+			{
+				Events::EventManager::GetInstance().Dispatch(Events::DeleteAssetEvent(Assets::SCENE, asset.stem().string()));
 			}
 			std::remove(asset.relative_path().string().c_str());
 			ImGui::CloseCurrentPopup();

@@ -43,7 +43,7 @@
         "ID": 1,
         "Prefab": {
             "name": "MineWorm",
-            "version": 1,
+            "version": 0,
             "objToEntity": [
                 {
                     "key": 0,
@@ -97,7 +97,7 @@
         "ID": 2,
         "Prefab": {
             "name": "MineWorm",
-            "version": 1,
+            "version": 0,
             "objToEntity": [
                 {
                     "key": 0,

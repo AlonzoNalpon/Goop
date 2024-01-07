@@ -14,9 +14,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include <DebugTools/ErrorLogger/ErrorLogger.h>
 #include <string>
-#ifdef _DEBUG
-#include <iostream>
-#endif
 
 namespace GE
 {
@@ -42,12 +39,14 @@ namespace GE
       REMOVE_ENTITY,
 
 #ifndef IMGUI_DISABLE
+      NEW_SCENE,
       START_SCENE,
       PAUSE_SCENE,
       STOP_SCENE,
       PREFAB_SAVED,
       PREFAB_INSTANCES_UPDATED,
       EDIT_PREFAB,
+      DELETE_ASSET,
       DELETE_PREFAB,
       DELETE_PREFAB_CHILD,
 #endif

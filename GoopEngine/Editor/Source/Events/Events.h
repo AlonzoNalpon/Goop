@@ -12,6 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ECS/Entity/Entity.h>
 #ifndef IMGUI_DISABLE
 #include <rttr/type.h>
+#include <AssetManager/AssetTypes.h>
 #endif
 
 namespace GE
@@ -19,6 +20,15 @@ namespace GE
   namespace Events
   {
 #ifndef IMGUI_DISABLE
+
+    class NewSceneEvent : public Event
+    {
+    public:
+      NewSceneEvent(std::string name) : Event(EVENT_TYPE::NEW_SCENE), m_sceneName{ name } {}
+      inline std::string GetName() const noexcept override { return "New Scene " + m_sceneName + " created"; }
+
+      std::string const m_sceneName;
+    };
 
     class StartSceneEvent : public Event
     {
@@ -65,6 +75,16 @@ namespace GE
       DeletePrefabEvent(std::string name) : Event(EVENT_TYPE::DELETE_PREFAB), m_name{ std::move(name) } {}
       inline std::string GetName() const noexcept override { return "Deleted Prefab: " + m_name; }
 
+      std::string const m_name;
+    };
+
+    class DeleteAssetEvent : public Event
+    {
+    public:
+      DeleteAssetEvent(Assets::AssetType type, std::string name) : Event(EVENT_TYPE::DELETE_ASSET), m_type{ type }, m_name { std::move(name) } {}
+      inline std::string GetName() const noexcept override { return "Deleted Asset: " + m_name + " of type " + std::to_string(static_cast<int>(m_type)); }
+
+      Assets::AssetType const m_type;
       std::string const m_name;
     };
 

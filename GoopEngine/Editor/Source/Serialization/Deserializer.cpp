@@ -190,7 +190,7 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
   rapidjson::IStreamWrapper isw{ ifs };
   if (ifs.peek() == std::ifstream::traits_type::eof())
   {
-    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Empty scene file read. Ignoring checks");
+    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogMessage("Empty scene file read. Ignoring checks");
     return {};
   }
   rapidjson::Document document{};

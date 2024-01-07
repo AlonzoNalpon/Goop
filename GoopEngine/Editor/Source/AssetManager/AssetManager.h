@@ -26,22 +26,18 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Singleton/Singleton.h>
 #include <Serialization/GooStream/SpriteGooStream.h>
 #include <DebugTools/Exception/Exception.h>
+#include "AssetTypes.h"
+#ifndef IMGUI_DISABLE
+#include <Events/Listener.h>
+#endif
 
 namespace GE::Assets
-{
-  enum FileType {
-    IMAGES,
-    CONFIG,
-    ANIMATION,
-    AUDIO,
-    SCENE,
-    PREFAB,
-    SHADERS,
-    FONTS
-  };
-    
+{    
   // AssetManager Singleton
   class AssetManager : public Singleton<AssetManager>
+#ifndef IMGUI_DISABLE
+    , public Events::IEventListener
+#endif
   {
   public:
 
@@ -133,15 +129,26 @@ namespace GE::Assets
       Key ID of the Image.
     ************************************************************************/
     int GetID(const std::string& name);
+    
+    /*!*********************************************************************
+    \brief
+      Checks whether a particular scene exists in the Scenes directory
+    \param sceneName
+      The name of the scene
+    \return
+      True if the scene exists and false otherwise
+    ************************************************************************/
+    inline bool HasScene(std::string const& sceneName) const noexcept
+    { return m_scenes.find(sceneName) != m_scenes.cend(); }
 
     /*!*********************************************************************
     \brief
-      Gets the filepath of a scene based on the specified name
-      (may need to make this function safer in future)
+      Gets the filepath of a scene based on the specified name. Returns an
+      empty string if the entry doesn't exist
     \param sceneName
       The key or name of the scene
     \return
-      The value at the entry of the specified key
+      The filepath of the scene and an empty string otherwise
     ************************************************************************/
     std::string GetScene(std::string const& sceneName);
 
@@ -239,7 +246,7 @@ namespace GE::Assets
     \brief
       Reloads files by scanning the Assets directory
     ************************************************************************/
-    void ReloadFiles(Assets::FileType type);
+    void ReloadFiles(Assets::AssetType type);
 
     /*!*********************************************************************
     \brief
@@ -269,6 +276,21 @@ namespace GE::Assets
 
     inline std::unordered_map<std::string, std::string> const& GetScenes() const noexcept { return m_scenes; }
 
+#ifndef IMGUI_DISABLE
+    /*!*********************************************************************
+    \brief
+      Handles the events the AssetManager subscribed to
+
+      NEW_SCENE
+        - Creates a new scene file and loads it into m_scenes
+      DELETE_ASSET
+        - Clears the respective entry from the map
+
+    \param event
+      The event to handle
+    ************************************************************************/
+    void HandleEvent(Events::Event* event) override;
+#endif
 
 #include "AssetManager.tpp"
 

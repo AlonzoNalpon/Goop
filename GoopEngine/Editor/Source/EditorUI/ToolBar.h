@@ -22,7 +22,14 @@ namespace GE::EditorGUI
 
 	private:
 
-		static bool m_prefabPopup;
+		static bool m_scenePopup, m_prefabPopup;
+
+		/*!*********************************************************************
+		\brief
+			Runs the code for the popup when "New Scene" option has been
+			selected from the toolbar
+		************************************************************************/
+		static void RunNewScenePopup();
 
 		/*!*********************************************************************
 		\brief
