@@ -12,6 +12,7 @@ namespace GE::Assets
 {
   enum AssetType
   {
+    NONE,
     IMAGES,
     CONFIG,
     ANIMATION,

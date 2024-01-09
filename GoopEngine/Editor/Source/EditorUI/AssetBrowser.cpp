@@ -397,9 +397,21 @@ void AssetBrowser::RunConfirmDeletePopup()
 			{
 				Events::EventManager::GetInstance().Dispatch(Events::DeletePrefabEvent(asset.stem().string()));
 			}
-			else if (asset.extension() == am.SceneFileExt)
+			else
 			{
-				Events::EventManager::GetInstance().Dispatch(Events::DeleteAssetEvent(Assets::SCENE, asset.stem().string()));
+				Assets::AssetType type{ Assets::AssetType::NONE };
+				if (asset.extension() == am.SceneFileExt)
+					type = Assets::AssetType::SCENE;
+				else if (asset.extension() == am.ImageFileExt)
+					type = Assets::AssetType::IMAGES;
+				else if (asset.extension() == am.AudioFileExt)
+					type = Assets::AssetType::AUDIO;
+				else if (asset.extension() == am.FontFileExt)
+					type = Assets::AssetType::FONTS;
+				else if (asset.extension() == am.ShaderFileExt)
+					type = Assets::AssetType::SHADERS;
+
+				Events::EventManager::GetInstance().Dispatch(Events::DeleteAssetEvent(type, asset.stem().string()));
 			}
 			std::remove(asset.relative_path().string().c_str());
 			ImGui::CloseCurrentPopup();
