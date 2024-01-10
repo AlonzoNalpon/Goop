@@ -64,6 +64,7 @@ void  GE::AI::NodeEditor::NodeEditorShow()
 {
 
   ImNodes::BeginNodeEditor();
+  DisplayTreeOption();
 
   if (m_currentTree != nullptr)
   {
@@ -182,6 +183,7 @@ void GE::AI::NodeEditor::ShowTree()
     ImGui::SameLine();
     ImGui::PushItemWidth(100.0f);
 
+
     if (ImGui::BeginCombo("##combo", dn.m_scriptName.c_str(), ImGuiComboFlags_NoArrowButton))
     {
       for (const std::string& s : m_allScriptNames)
@@ -231,6 +233,109 @@ void GE::AI::NodeEditor::ShowTree()
     ImNodes::Link(l.m_linkID, l.m_pinIDs.first, l.m_pinIDs.second); // <start,end>, <output, intput>
   }
 }
+void GE::AI::NodeEditor::DisplayTreeOption()
+{
+
+  ImVec4 originalFrameBg = ImGui::GetStyleColorVec4(ImGuiCol_FrameBg);
+  ImVec4 originalFrameBgHovered = ImGui::GetStyleColorVec4(ImGuiCol_FrameBgHovered);
+  ImVec4 originalbuttonBg = ImGui::GetStyleColorVec4(ImGuiCol_Button);
+  ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(10.0f, 5.0f));
+
+  ImVec4 customColor = ImVec4(0.f, 0.f, 0.f, 1.0f);
+  ImVec4 customColor2 = ImVec4(0.13f, 0.55f, 0.34f, 1.0f);
+  ImGui::GetStyle().Colors[ImGuiCol_FrameBg] = customColor;
+  ImGui::GetStyle().Colors[ImGuiCol_Button] = customColor;
+  ImGui::GetStyle().Colors[ImGuiCol_FrameBgHovered] = customColor2;
+
+
+  float itemWidth = 100.0f; // Set your desired item width
+  ImGui::SetCursorPosX(ImGui::GetWindowWidth() - (itemWidth+10.0f)*3.f);
+  
+ 
+  ImGui::SetNextItemWidth(100.0f); // Adjust the width as needed
+  if (ImGui::Button("Delete Tree")) {
+    // Handle button click
+  }
+
+  // Use SameLine to keep the button and the dropdown on the same line
+  ImGui::SameLine();
+  // Set your desired color
+
+  ImGui::SetNextItemWidth(100.0f); // Adjust the width as needed
+  if (ImGui::Button("Add New Tree")) {
+    // Handle button click
+    DisplayTree newTree{};
+    NodeLinkList newLink{};
+    m_treeList.push_back(std::make_pair(newTree, newLink));
+    m_currentTreeInd = static_cast<unsigned>(m_treeList.size() - 1);
+    m_currentTree = &(m_treeList[m_currentTreeInd]).first;
+    m_currentLinkList = &(m_treeList[m_currentTreeInd]).second;
+    m_selectedNodeInd = 0;
+    m_currentTree->m_changedData = true;
+    m_currentTree->m_treeName = "newTree" + std::to_string(m_currentTreeInd);
+
+
+  }
+
+
+
+  // Use SameLine to keep the button and the dropdown on the same line
+  ImGui::SameLine();
+    // Set your desired color
+
+
+
+
+  ImGui::SetNextItemWidth(100.0f); // Adjust the width as needed
+  // Create a dropdown
+  if (ImGui::BeginCombo("", m_treeList[m_currentTreeInd].first.m_treeName.c_str())) {
+
+ /*   for (const std::string& s : m_allScriptNames)
+    {
+      bool is_selected = (dn.m_scriptName.c_str() == s);
+      if (ImGui::Selectable(s.c_str(), is_selected))
+      {
+        m_currentTree->m_changedData = (dn.m_scriptName != s) ? true : m_currentTree->m_changedData;
+        dn.m_scriptName = s;
+      }
+      if (is_selected)
+      {
+        ImGui::SetItemDefaultFocus();
+      }
+    }*/
+
+
+    for (size_t i{0};i<m_treeList.size();i++)
+    {
+      bool is_selected = (i != m_currentTreeInd);
+      if (i != m_currentTreeInd)
+      {
+        if (ImGui::Selectable(m_treeList[i].first.m_treeName.c_str(),is_selected))
+        {
+          m_currentTreeInd = static_cast<unsigned>(i);
+          m_currentTree = &(m_treeList[m_currentTreeInd]).first;
+          m_currentLinkList = &(m_treeList[m_currentTreeInd]).second;
+          m_selectedNodeInd = 0;
+        }
+      }
+      if (is_selected)
+      {
+        ImGui::SetItemDefaultFocus();
+      }
+    }
+    
+
+
+    // End the dropdown
+    ImGui::EndCombo();
+  }
+
+  ImGui::GetStyle().Colors[ImGuiCol_FrameBg] = originalFrameBg;
+  ImGui::GetStyle().Colors[ImGuiCol_Button] = originalbuttonBg;
+  ImGui::GetStyle().Colors[ImGuiCol_FrameBgHovered] = originalFrameBgHovered;
+  ImGui::PopStyleVar();
+}
+
 
 void GE::AI::NodeEditor::DisplayPopup()
 {

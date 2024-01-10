@@ -129,6 +129,16 @@ namespace GE {
 			void DisplayPopup();
 
 
+
+			/************************************************************************/
+			/*!
+			\brief
+			Function to display all the trees available, allowing user to switch between trees
+			*/
+			/************************************************************************/
+			void DisplayTreeOption();
+
+
 			/************************************************************************/ 
 			/*!
 			\brief
