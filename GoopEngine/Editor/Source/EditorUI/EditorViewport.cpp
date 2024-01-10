@@ -240,7 +240,7 @@ namespace GE::EditorGUI
               }
 
               // Depth check (only take frontmost object
-              if (trans.m_worldPos.z > depthVal)
+              if (trans.m_worldPos.z >= depthVal)
               {
                 depthVal = trans.m_worldPos.z;
                 selectedID = curr;
