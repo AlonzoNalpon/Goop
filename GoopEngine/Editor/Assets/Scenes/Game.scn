@@ -1141,7 +1141,7 @@
             },
             {
                 "Card": {
-                    "cardID": "BASIC_NORMAL_BUFF",
+                    "cardID": "BASIC_BUFF_SCREECH",
                     "tgtEntity": 11
                 }
             },
@@ -1357,7 +1357,7 @@
             },
             {
                 "Card": {
-                    "cardID": "PLAYER_NORMAL_SHIELD",
+                    "cardID": "PLAYER_SHIELD",
                     "tgtEntity": 11
                 }
             },
@@ -1465,7 +1465,7 @@
             },
             {
                 "Card": {
-                    "cardID": "PLAYER_NORMAL_SHIELD",
+                    "cardID": "PLAYER_SHIELD",
                     "tgtEntity": 11
                 }
             },

@@ -80,6 +80,8 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Gameplay\BuffManager.cs" />
+    <Compile Include="Gameplay\Deck.cs" />
+    <Compile Include="Gameplay\DeckManager.cs" />
     <Compile Include="Gameplay\GameManager.cs" />
     <Compile Include="Gameplay\Stats.cs" />
     <Compile Include="Input\KeyCode.cs" />

@@ -1,9 +1,8 @@
 ﻿/*!*********************************************************************
-\file   DawsonChargeUp.cs
+\file   CardManager.cs
 \author w.chinkitbryan\@digipen.edu
 \date   26-November-2023
 \brief  
-  DawsonChargeUp card, derived from card base.
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -38,18 +37,18 @@ namespace GoopScripts.Cards
 
       m_cards[(int)CardBase.CardID.NO_CARD] = new BlankCard(CardBase.CardID.NO_CARD);
 
-      m_cards[(int)CardBase.CardID.BASIC_NORMAL_ATTACK] = new Attack(CardBase.CardID.BASIC_NORMAL_ATTACK);
-      m_cards[(int)CardBase.CardID.BASIC_NORMAL_SHIELD] = new Block(CardBase.CardID.BASIC_NORMAL_SHIELD);
-      m_cards[(int)CardBase.CardID.BASIC_NORMAL_BUFF] = new Rage(CardBase.CardID.BASIC_NORMAL_BUFF);
-      m_cards[(int)CardBase.CardID.PLAYER_BEAM_ATTACK] = new Attack(CardBase.CardID.PLAYER_BEAM_ATTACK);
-      m_cards[(int)CardBase.CardID.PLAYER_STRIKE_ATTACK] = new Attack(CardBase.CardID.PLAYER_STRIKE_ATTACK);
-      m_cards[(int)CardBase.CardID.PLAYER_NORMAL_SHIELD] = new Block(CardBase.CardID.PLAYER_NORMAL_SHIELD);
+      m_cards[(int)CardBase.CardID.BASIC_ATTACK] = new Attack(CardBase.CardID.BASIC_ATTACK);
+      m_cards[(int)CardBase.CardID.BASIC_SHIELD] = new Block(CardBase.CardID.BASIC_SHIELD);
+      m_cards[(int)CardBase.CardID.BASIC_BUFF_SCREECH] = new Rage(CardBase.CardID.BASIC_BUFF_SCREECH);
+      m_cards[(int)CardBase.CardID.PLAYER_ATTACK_T1] = new Attack(CardBase.CardID.PLAYER_ATTACK_T1);
+      m_cards[(int)CardBase.CardID.PLAYER_ATTACK_T2] = new Attack(CardBase.CardID.PLAYER_ATTACK_T2);
+      m_cards[(int)CardBase.CardID.PLAYER_SHIELD] = new Block(CardBase.CardID.PLAYER_SHIELD);
       m_cards[(int)CardBase.CardID.PLAYER_DEBUFF_FLASH_BANG] = new LeahFlashBang(CardBase.CardID.PLAYER_DEBUFF_FLASH_BANG);
       m_cards[(int)CardBase.CardID.PLAYER_BUFF_SMOKESCREEN] = new LeahSmokeScreen(CardBase.CardID.PLAYER_BUFF_SMOKESCREEN);
       m_cards[(int)CardBase.CardID.PLAYER_BUFF_RAGE] = new Rage(CardBase.CardID.PLAYER_BUFF_RAGE);
-      m_cards[(int)CardBase.CardID.DAWSON_BEAM_ATTACK] = new Attack(CardBase.CardID.DAWSON_BEAM_ATTACK);
-      m_cards[(int)CardBase.CardID.DAWSON_STRIKE_ATTACK] = new Attack(CardBase.CardID.DAWSON_STRIKE_ATTACK);
-      m_cards[(int)CardBase.CardID.DAWSON_NORMAL_SHIELD] = new Block(CardBase.CardID.DAWSON_NORMAL_SHIELD);
+      m_cards[(int)CardBase.CardID.DAWSON_ATTACK_T1] = new Attack(CardBase.CardID.DAWSON_ATTACK_T1);
+      m_cards[(int)CardBase.CardID.DAWSON_ATTACK_T2] = new Attack(CardBase.CardID.DAWSON_ATTACK_T2);
+      m_cards[(int)CardBase.CardID.DAWSON_SHIELD] = new Block(CardBase.CardID.DAWSON_SHIELD);
       m_cards[(int)CardBase.CardID.DAWSON_BUFF_CHARGE_UP] = new DawsonChargeUp(CardBase.CardID.DAWSON_BUFF_CHARGE_UP);
       // change this class lol
       m_cards[(int)CardBase.CardID.DAWSON_DEBUFF_TIME_WARP] = new DawsonSpeedUp(CardBase.CardID.DAWSON_DEBUFF_TIME_WARP);

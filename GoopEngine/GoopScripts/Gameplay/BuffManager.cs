@@ -59,7 +59,7 @@ namespace GoopScripts.Gameplay
     {
       foreach (var buff in m_buffs)
       {
-        buff.turns = buff.turns - 1;
+        buff.turns -= 1;
       }
       m_buffs.RemoveAll(buff => buff.turns <= 0);
     }

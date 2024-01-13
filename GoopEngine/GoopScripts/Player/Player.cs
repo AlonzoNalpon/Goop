@@ -23,7 +23,7 @@ using static GoopScripts.Mono.Utils;
 
 namespace GoopScripts.Player
 {
-  public  class Player : MonoBehaviour
+  public class Player : MonoBehaviour
   {
 
     public int health;

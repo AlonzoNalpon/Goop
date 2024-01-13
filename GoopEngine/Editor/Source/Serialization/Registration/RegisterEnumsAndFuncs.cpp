@@ -87,49 +87,20 @@ RTTR_REGISTRATION
   rttr::registration::enumeration<GE::Component::Card::CardID>("CardType")
     (
       rttr::value("NO_CARD", GE::Component::Card::CardID::NO_CARD),
-      rttr::value("BASIC_NORMAL_ATTACK", GE::Component::Card::CardID::BASIC_NORMAL_ATTACK),
-      rttr::value("BASIC_NORMAL_SHIELD", GE::Component::Card::CardID::BASIC_NORMAL_SHIELD),
-      rttr::value("BASIC_NORMAL_BUFF", GE::Component::Card::CardID::BASIC_NORMAL_BUFF),
-      rttr::value("PLAYER_BEAM_ATTACK", GE::Component::Card::CardID::PLAYER_BEAM_ATTACK),
-      rttr::value("PLAYER_STRIKE_ATTACK", GE::Component::Card::CardID::PLAYER_STRIKE_ATTACK),
-      rttr::value("PLAYER_NORMAL_SHIELD", GE::Component::Card::CardID::PLAYER_NORMAL_SHIELD),
+      rttr::value("BASIC_ATTACK", GE::Component::Card::CardID::BASIC_ATTACK),
+      rttr::value("BASIC_SHIELD", GE::Component::Card::CardID::BASIC_SHIELD),
+      rttr::value("BASIC_BUFF_SCREECH", GE::Component::Card::CardID::BASIC_BUFF_SCREECH),
+      rttr::value("PLAYER_ATTACK_T1", GE::Component::Card::CardID::PLAYER_ATTACK_T1),
+      rttr::value("PLAYER_ATTACK_T2", GE::Component::Card::CardID::PLAYER_ATTACK_T2),
+      rttr::value("PLAYER_SHIELD", GE::Component::Card::CardID::PLAYER_SHIELD),
       rttr::value("PLAYER_DEBUFF_FLASH_BANG", GE::Component::Card::CardID::PLAYER_DEBUFF_FLASH_BANG),
       rttr::value("PLAYER_BUFF_SMOKESCREEN", GE::Component::Card::CardID::PLAYER_BUFF_SMOKESCREEN),
       rttr::value("PLAYER_BUFF_RAGE", GE::Component::Card::CardID::PLAYER_BUFF_RAGE),
-      rttr::value("DAWSON_BEAM_ATTACK", GE::Component::Card::CardID::DAWSON_BEAM_ATTACK),
-      rttr::value("DAWSON_STRIKE_ATTACK", GE::Component::Card::CardID::DAWSON_STRIKE_ATTACK),
-      rttr::value("DAWSON_NORMAL_SHIELD", GE::Component::Card::CardID::DAWSON_NORMAL_SHIELD),
+      rttr::value("DAWSON_ATTACK_T1", GE::Component::Card::CardID::DAWSON_ATTACK_T1),
+      rttr::value("DAWSON_ATTACK_T2", GE::Component::Card::CardID::DAWSON_ATTACK_T2),
+      rttr::value("DAWSON_SHIELD", GE::Component::Card::CardID::DAWSON_SHIELD),
       rttr::value("DAWSON_BUFF_CHARGE_UP", GE::Component::Card::CardID::DAWSON_BUFF_CHARGE_UP),
       rttr::value("DAWSON_DEBUFF_TIME_WARP", GE::Component::Card::CardID::DAWSON_DEBUFF_TIME_WARP)
       );
-
-  //rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")
-  //  (
-  //    rttr::value("TRANSFORM", ECS::COMPONENT_TYPES::TRANSFORM),
-  //    rttr::value("BOX_COLLIDER", ECS::COMPONENT_TYPES::BOX_COLLIDER),
-  //    rttr::value("VELOCITY", ECS::COMPONENT_TYPES::VELOCITY),
-  //    rttr::value("SPRITE", ECS::COMPONENT_TYPES::SPRITE),
-  //    rttr::value("SPRITE_ANIM", ECS::COMPONENT_TYPES::SPRITE_ANIM),
-  //    rttr::value("MODEL", ECS::COMPONENT_TYPES::MODEL),
-  //    rttr::value("TWEEN", ECS::COMPONENT_TYPES::TWEEN),
-  //    rttr::value("SCRIPTS", ECS::COMPONENT_TYPES::SCRIPTS),
-  //    rttr::value("DRAGGABLE", ECS::COMPONENT_TYPES::DRAGGABLE),
-  //    rttr::value("ENEMY_AI", ECS::COMPONENT_TYPES::ENEMY_AI),
-  //    rttr::value("COMPONENTS_TOTAL", ECS::COMPONENT_TYPES::COMPONENTS_TOTAL)
-  //    );
-
-  //rttr::registration::enumeration<ECS::SYSTEM_TYPES>("SYSTEM_TYPES")
-  //  (
-  //    rttr::value("TRANSFORM", ECS::SYSTEM_TYPES::COLLISION),
-  //    rttr::value("PHYSICS", ECS::SYSTEM_TYPES::PHYSICS),
-  //    rttr::value("RENDERING", ECS::SYSTEM_TYPES::RENDERING),
-  //    rttr::value("SPRITE_ANIM", ECS::SYSTEM_TYPES::SPRITE_ANIM),
-  //    rttr::value("DRAGGABLE_OBJECT", ECS::SYSTEM_TYPES::DRAGGABLE_OBJECT),
-  //    rttr::value("PLAYER_CONTROLLER", ECS::SYSTEM_TYPES::PLAYER_CONTROLLER),
-  //    rttr::value("POST_ROOT_TRANSFORM", ECS::SYSTEM_TYPES::POST_ROOT_TRANSFORM),
-  //    rttr::value("PRE_ROOT_TRANSFORM", ECS::SYSTEM_TYPES::PRE_ROOT_TRANSFORM),
-  //    rttr::value("ENEMY_SYSTEM", ECS::SYSTEM_TYPES::ENEMY_SYSTEM),
-  //    rttr::value("TOTAL_SYSTEMS", ECS::SYSTEM_TYPES::TOTAL_SYSTEMS)
-  //    );
 
 } // RTTR Registration
