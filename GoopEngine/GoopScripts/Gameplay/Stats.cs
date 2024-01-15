@@ -11,7 +11,7 @@ namespace GoopScripts.Gameplay
 {
 	public class Stats
 	{
-		public int m_health=10, m_attack, m_block;
+		public int m_health = 10, m_attack = 0, m_block = 0;
     public DeckManager m_deckMngr { get; set; } 
     public BuffManager m_buffs { get; set; }
 

@@ -53,6 +53,17 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
 		\brief
+      Removes the top card of the deck.
+		************************************************************************/
+    public void BurnTop()
+    {
+      if (Empty()) { return; }
+
+      m_cards.RemoveAt(0);
+    }
+
+    /*!*********************************************************************
+		\brief
       Shuffles the deck with the Fisher-Yates algorithm
 		************************************************************************/
     public void Shuffle()
@@ -70,18 +81,31 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
 		\brief
+      Reshuffles a list of cards back into the deck. The pile is cleared.
+    \param pile
+      The list of CardIDs to return back to the deck
+		************************************************************************/
+    public void Restore(ref List<CardBase.CardID> pile)
+    {
+      m_cards = pile;
+      pile.Clear();
+      Shuffle();
+    }
+
+    /*!*********************************************************************
+		\brief
 		  Gets the number of cards in the deck
 		\return
 			The number of cards in the deck
 		************************************************************************/
     public int Size()
     {
-      return m_cards.Count();
+      return m_cards.Count;
     }
 
     public bool Empty()
     {
-      return m_cards.Count() == 0;
+      return m_cards.Count == 0;
     }
   }
 }
