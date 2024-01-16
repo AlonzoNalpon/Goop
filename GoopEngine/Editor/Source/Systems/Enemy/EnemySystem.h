@@ -94,6 +94,30 @@ namespace GE
 			/************************************************************************/
 			static GameTree GenerateGameTree(const GE::AI::TreeTemplate& treeTemp);
 
+
+			/************************************************************************/
+			/*!
+			\brief
+			Function to call when the enemy system wants to remove trees that have been deleted through node editor
+
+			\param [treeTemp] const GE::AI::TreeTemplate&
+			const reference to a tree tempate struct from tree manager
+			*/
+			/************************************************************************/
+			void DelGameTree();
+
+
+			/************************************************************************/
+			/*!
+			\brief
+			Function to call when the enemy system wants toupdate the tree list inside enemy system
+
+			\param [treeTemp] const GE::AI::TreeTemplate&
+			const reference to a tree tempate struct from tree manager
+			*/
+			/************************************************************************/
+			void UpdateTreeList();
+
 			/************************************************************************/ 
 			/*!
 			\brief

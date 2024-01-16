@@ -36,13 +36,15 @@ namespace GE {
 			std::vector<NodeTemplate> m_tree;
 			std::string m_treeName;
 			TreeID m_treeTempID;
+			bool m_treeChanged = true;  //Bool to represent if its changed
 		};
 
 		class TreeManager : public Singleton<TreeManager>
 		{
-			std::vector<TreeTemplate> m_treeTempList; //Bool to represent if its changed
-			std::vector<bool> m_treeTempCond;
-			bool m_listChanged;
+			std::vector<TreeTemplate> m_treeTempList;
+			std::vector<TreeID> m_deletedTress; //list of IDs that belong to trees that were deleted
+			bool m_listChanged; //bool to determine if we need to update the enmy system
+
 
 		public:
 
@@ -82,7 +84,7 @@ namespace GE {
 				list of behaviour tree's status
 			*/
 			/************************************************************************/
-			std::vector<bool>& GetTreeCondList();
+			std::vector<TreeID>& GetDelTreeList();
 
 			/************************************************************************/ 
 			/*!
@@ -94,6 +96,17 @@ namespace GE {
 			*/
 			/************************************************************************/
 			void UpdateTreeList(TreeTemplate& treeTemp);
+
+			/************************************************************************/
+		/*!
+		\brief
+		This function will be called if the node editor wishes to delete inside the TreeManager
+
+		\param [treeTemp] TreeTemplate&
+			reference to tree Template
+		*/
+		/************************************************************************/
+			void DeleteTree(unsigned pos);
 
 			/************************************************************************/ 
 			/*!
