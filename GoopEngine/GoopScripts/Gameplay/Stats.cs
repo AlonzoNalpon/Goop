@@ -29,39 +29,12 @@ namespace GoopScripts.Gameplay
 		{
       rng = new Random();
 
+      m_buffs = new BuffManager();
 			m_deck = new CardBase.CardID[20];
       for (int i = 0; i < m_deck.Length; ++i)
       {
-        switch (rng.Next(0, 8))
-        {
-          case 0:
-						m_deck[i] = CardBase.CardID.BASIC_NORMAL_SHIELD;
-						break;
-					case 1:
-						m_deck[i] = CardBase.CardID.BASIC_NORMAL_BUFF;
-						break;
-          case 2:
-						m_deck[i] = CardBase.CardID.PLAYER_NORMAL_SHIELD;
-						break;
-          case 3:
-						m_deck[i] = CardBase.CardID.PLAYER_DEBUFF_FLASH_BANG;
-						break;
-          case 4:
-						m_deck[i] = CardBase.CardID.PLAYER_BUFF_SMOKESCREEN;
-						break;
-          case 5:
-						m_deck[i] = CardBase.CardID.PLAYER_BUFF_RAGE;
-						break;  
-          case 6:
-						m_deck[i] = CardBase.CardID.DAWSON_NORMAL_SHIELD;
-						break; 
-          case 7:
-						m_deck[i] = CardBase.CardID.DAWSON_BUFF_CHARGE_UP;
-						break; 
-          case 8:
-						m_deck[i] = CardBase.CardID.DAWSON_DEBUFF_TIME_WARP;
-						break;
-				}
+        //m_deck[i] = (CardBase.CardID) rng.Next(1, m_deck.Length);
+        m_deck[i] = CardBase.CardID.BASIC_NORMAL_ATTACK;
 			}
       
 			m_cardQueue = new CardBase.CardID[3];
@@ -71,12 +44,17 @@ namespace GoopScripts.Gameplay
       m_cardQueue[2] = CardBase.CardID.NO_CARD;
 
 			m_hand = new CardBase.CardID[5];
-      m_hand[0] = CardBase.CardID.PLAYER_DEBUFF_FLASH_BANG;
-      m_hand[1] = CardBase.CardID.BASIC_NORMAL_BUFF;
-      m_hand[2] = CardBase.CardID.PLAYER_BUFF_SMOKESCREEN;
-      m_hand[3] = CardBase.CardID.BASIC_NORMAL_SHIELD;
-      m_hand[4] = CardBase.CardID.BASIC_NORMAL_SHIELD;
-		}
+      //m_hand[0] = CardBase.CardID.PLAYER_DEBUFF_FLASH_BANG;
+      //m_hand[1] = CardBase.CardID.BASIC_NORMAL_BUFF;
+      //m_hand[2] = CardBase.CardID.PLAYER_BUFF_SMOKESCREEN;
+      //m_hand[3] = CardBase.CardID.BASIC_NORMAL_SHIELD;
+      //m_hand[4] = CardBase.CardID.BASIC_NORMAL_SHIELD;
+      m_hand[0] = CardBase.CardID.BASIC_NORMAL_ATTACK;
+      m_hand[1] = CardBase.CardID.BASIC_NORMAL_ATTACK;
+      m_hand[2] = CardBase.CardID.BASIC_NORMAL_ATTACK;
+      m_hand[3] = CardBase.CardID.BASIC_NORMAL_ATTACK;
+      m_hand[4] = CardBase.CardID.BASIC_NORMAL_ATTACK;
+    }
 
     public int GetHealth()
     {
@@ -86,7 +64,7 @@ namespace GoopScripts.Gameplay
     public void TakeDamage(float damage)
 		{
 			// Value can be negative and < 0 means you take more dmg
-			float takenMultiplier = 0;
+			float takenMultiplier = 1;
       int takenFlat = 0;
 			foreach (var buff in m_buffs.Buffs)
 			{
@@ -107,15 +85,17 @@ namespace GoopScripts.Gameplay
 			}
 
 			int dmgTaken = (int)((damage - takenFlat) * takenMultiplier);
+      Utils.SendString(dmgTaken.ToString());
 			dmgTaken = dmgTaken < 0 ? 0 : dmgTaken;
 
-			m_health -= dmgTaken;
+      Utils.SendString($"Orignial health: {m_health}, Damage taken: {dmgTaken}, Health: {m_health - dmgTaken}");
+      m_health -= dmgTaken;
     }
 	
 		public int DamageDealt(float damage)
 		{
       // Value can be negative and < 0 means you take more dmg
-      float dealtMultiplier = 0;
+      float dealtMultiplier = 1;
       int dealtFlat = 0;
       foreach (var buff in m_buffs.Buffs)
       {
