@@ -136,14 +136,18 @@ namespace GE
 										}
 
 										// Now we get the player's script functions
-										MonoMethod* SetCardInHand = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInHand", 2);
-										MonoMethod* SetCardInQueue = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInQueue", 2);
+										//MonoMethod* SetCardInHand = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInHand", 2);
+										//MonoMethod* SetCardInQueue = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInQueue", 2);
 										
-										Component::Card::CardID blankCard{ Component::Card::NO_CARD };// we will replace hand card with this
-										void* argsHand []{ &handIdx, &blankCard };
+										//Component::Card::CardID blankCard{ Component::Card::NO_CARD };// we will replace hand card with this
+										/*void* argsHand []{ &handIdx, &blankCard };
 										void* argsQueue[]{ &elemIdx, &card->cardID };
 										mono_runtime_invoke(SetCardInHand, statsScriptInst->m_classInst, argsHand, nullptr);
-										mono_runtime_invoke(SetCardInQueue, statsScriptInst->m_classInst, argsQueue, nullptr);
+										mono_runtime_invoke(SetCardInQueue, statsScriptInst->m_classInst, argsQueue, nullptr);*/
+
+										MonoMethod* PlayCard = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "PlayCard", 1);
+										void* args[]{ &handIdx };
+										mono_runtime_invoke(PlayCard, statsScriptInst->m_classInst, args, nullptr);
 									}
 									// Don't need to increment cardIdx since we're ending the loop
 									break; // we're done here: a card has been assigned

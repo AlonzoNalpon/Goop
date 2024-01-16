@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,7 +56,22 @@ namespace GoopScripts.Gameplay
       }
     }
 
-    //public void Queue()
+    public void Queue(int index)
+    {
+      for (int i = 0; i < m_queue.Count(); ++i)
+      {
+        if (m_queue[i] == CardBase.CardID.NO_CARD)
+        {
+          m_queue[i] = m_hand[index];
+          break;
+        }
+      }
+#if (DEBUG)
+      Console.WriteLine("Queuing " + m_hand[index].ToString() + " from hand");
+#endif
+
+      m_hand.RemoveAt(index);
+    }
 
     /*!*********************************************************************
 		\brief

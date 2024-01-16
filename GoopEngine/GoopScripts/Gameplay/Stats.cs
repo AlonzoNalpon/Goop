@@ -100,7 +100,13 @@ namespace GoopScripts.Gameplay
       m_buffs.StepTurn();
     }
 
-		public void OnDestroy(uint entity)
+    public void PlayCard(int index)
+    {
+      m_deckMngr.m_hand[index]
+    }
+
+
+    public void OnDestroy(uint entity)
 		{
 
 		}
