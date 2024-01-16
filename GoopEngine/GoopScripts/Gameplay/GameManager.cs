@@ -52,9 +52,9 @@ namespace GoopScripts.Gameplay
     //    player.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
     //    enemy.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
         ++m_currResolves;
-			}
+      }
 
-			bool shouldEnd = false;
+        bool shouldEnd = false;
       if (m_currTime > m_animTime)
       {
         // Overflow the time

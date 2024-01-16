@@ -11,7 +11,7 @@ namespace GoopScripts.Gameplay
 {
   public class DeckManager
   {
-    static readonly int STARTING_CARDS = 5;
+    static readonly int STARTING_CARDS = 5, MAX_CARDS = 5;
     static readonly int QUEUE_SIZE = 3;
 
     public Deck m_deck;
@@ -55,7 +55,6 @@ namespace GoopScripts.Gameplay
         m_hand.Add(m_deck.Draw());
       }
     }
-
     public void Queue(int index)
     {
       for (int i = 0; i < m_queue.Count(); ++i)
@@ -71,6 +70,35 @@ namespace GoopScripts.Gameplay
 #endif
 
       m_hand.RemoveAt(index);
+    }
+
+    public void Draw()
+    {
+      // if empty, shuffle discard back
+      if (m_deck.Empty())
+      {
+
+        m_deck.Restore(ref m_discard);
+      }
+
+
+      // if hand full, destroy the top card
+      if (m_hand.Count >= MAX_CARDS)
+      {
+        m_deck.BurnTop();
+      }
+      else  // else draw card
+      {
+        m_hand.Add(m_deck.Draw());
+      }
+    }
+
+    public void Resolve()
+    {
+      // first compute base card values
+
+      // then resolve combos
+
     }
 
     /*!*********************************************************************
