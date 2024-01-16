@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Cards;
+using GoopScripts.Mono;
 
 namespace GoopScripts.Gameplay
 {
@@ -26,7 +28,7 @@ namespace GoopScripts.Gameplay
       m_queue = new CardBase.CardID[QUEUE_SIZE];
     }
 
-    public DeckManager(ref Deck deck)
+    public DeckManager(Deck deck)
     {
       m_deck = deck;
       m_discard = new List<CardBase.CardID>();
@@ -67,6 +69,7 @@ namespace GoopScripts.Gameplay
       }
 #if (DEBUG)
       Console.WriteLine("Queuing " + m_hand[index].ToString() + " from hand");
+      Console.WriteLine();
 #endif
 
       m_hand.RemoveAt(index);
@@ -77,7 +80,6 @@ namespace GoopScripts.Gameplay
       // if empty, shuffle discard back
       if (m_deck.Empty())
       {
-
         m_deck.Restore(ref m_discard);
       }
 
@@ -90,6 +92,10 @@ namespace GoopScripts.Gameplay
       else  // else draw card
       {
         m_hand.Add(m_deck.Draw());
+#if (DEBUG)
+        Console.WriteLine("Drew  " + m_hand.Last().ToString());
+        Console.WriteLine();
+#endif
       }
     }
 
@@ -99,6 +105,15 @@ namespace GoopScripts.Gameplay
 
       // then resolve combos
 
+
+#if (DEBUG)
+      Console.WriteLine("Resolving queue with: ");
+      foreach (CardBase.CardID c in m_queue)
+      {
+        Console.WriteLine(c.ToString());
+      }
+      Console.WriteLine();
+#endif
     }
 
     /*!*********************************************************************

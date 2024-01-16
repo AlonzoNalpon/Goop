@@ -17,6 +17,7 @@ namespace GoopScripts.Gameplay
     public Deck()
     {
       m_rand = new Random();
+      m_cards = new List<CardBase.CardID>();
     }
 
     /*!*********************************************************************

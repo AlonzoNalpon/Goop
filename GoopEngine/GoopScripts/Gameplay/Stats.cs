@@ -12,13 +12,20 @@ namespace GoopScripts.Gameplay
 	public class Stats
 	{
 		public int m_health = 10, m_attack = 0, m_block = 0;
-    public DeckManager m_deckMngr { get; set; } 
+    public DeckManager m_deckMngr;
     public BuffManager m_buffs { get; set; }
 
     public Stats()
-		{
+    {
+      Deck deck = new Deck();
+      deck.AddCard(CardBase.CardID.PLAYER_ATTACK_T1, 4);
+      deck.AddCard(CardBase.CardID.PLAYER_ATTACK_T2, 4);
+      deck.AddCard(CardBase.CardID.PLAYER_SHIELD, 4);
+      deck.AddCard(CardBase.CardID.PLAYER_DEBUFF_FLASH_BANG);
 
-		}
+      m_deckMngr = new DeckManager(deck);
+      m_deckMngr.Init();
+    }
 
     public int GetHealth()
     {
@@ -100,9 +107,9 @@ namespace GoopScripts.Gameplay
       m_buffs.StepTurn();
     }
 
-    public void PlayCard(int index)
+    public void QueueCard(int index)
     {
-      
+      m_deckMngr.Queue(index);
     }
 
 

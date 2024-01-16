@@ -145,9 +145,9 @@ namespace GE
 										mono_runtime_invoke(SetCardInHand, statsScriptInst->m_classInst, argsHand, nullptr);
 										mono_runtime_invoke(SetCardInQueue, statsScriptInst->m_classInst, argsQueue, nullptr);*/
 
-										MonoMethod* PlayCard = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "PlayCard", 1);
-										void* args[]{ &handIdx };
-										mono_runtime_invoke(PlayCard, statsScriptInst->m_classInst, args, nullptr);
+										MonoMethod* QueueCard = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "QueueCard", 1);
+										std::vector<void*> args{ &handIdx };
+										mono_runtime_invoke(QueueCard, statsScriptInst->m_classInst, args.data(), nullptr);
 									}
 									// Don't need to increment cardIdx since we're ending the loop
 									break; // we're done here: a card has been assigned

@@ -12,18 +12,18 @@ namespace GoopScripts.Gameplay
   public class GameManager
   {
     Random m_rng;
-    CardManager m_cardManager;
+    //CardManager m_cardManager;
     double m_animTime = 1.0; // hard coded for now
     double m_currTime;
-    int m_numResolves;
-    int m_currResolves = 0;
+    //int m_numResolves;
+    //int m_currResolves = 0;
 
     bool newTurn = true;  // flag for triggering a turn
 
     GameManager()
     {
       m_rng = new Random();
-      m_cardManager = new CardManager();
+      //m_cardManager = new CardManager();
     }
 
     // function to allow c++ to edit the list of cards in cardmanager
@@ -34,7 +34,7 @@ namespace GoopScripts.Gameplay
       if (newTurn)
 			{
         newTurn = false;
-        m_numResolves = 1;
+        //m_numResolves = 1;
 				//m_numResolves = player.m_cardQueue.Length >= enemy.m_cardQueue.Length ? player.m_cardQueue.Length : enemy.m_cardQueue.Length;
 
 				//// Do 1 turn of stuff
@@ -51,10 +51,10 @@ namespace GoopScripts.Gameplay
     //    // remove card
     //    player.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
     //    enemy.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
-        ++m_currResolves;
+        //++m_currResolves;
       }
 
-        bool shouldEnd = false;
+      bool shouldEnd = false;
       if (m_currTime > m_animTime)
       {
         // Overflow the time
@@ -66,20 +66,20 @@ namespace GoopScripts.Gameplay
 
         //play anim? play sound?
         Utils.PlaySound(m_rng.Next(0, 1), playerEntity);
-        Utils.SetQueueCardID(playerQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
+        //Utils.SetQueueCardID(playerQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
         Utils.PlaySound(m_rng.Next(0, 1), enemyEntity);
-        Utils.SetQueueCardID(enemyQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
+        //Utils.SetQueueCardID(enemyQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
 
         // remove card
         //player.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
         //enemy.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
 
-        ++m_currResolves;
+    //    ++m_currResolves;
 
-				if (m_currResolves >= m_numResolves)
-				{
-					shouldEnd = true;
-				}
+				//if (m_currResolves >= m_numResolves)
+				//{
+				//	shouldEnd = true;
+				//}
 				Utils.PlayAnimation("SS_LeahShoot", playerEntity);
 			}
       else
@@ -111,12 +111,17 @@ namespace GoopScripts.Gameplay
         //  Utils.SetHandCardID(playerHand, i, (int)player.m_deck[drawnCard]);
         //  player.m_hand[i] = player.m_deck[drawnCard];
         //}
-        m_currResolves = 0;
+        //m_currResolves = 0;
         m_currTime = 0;
         newTurn = true;
 
 				Utils.PlayAnimation("SS_LeahIdle", playerEntity);
 			}
+    }
+
+    public void NewTurn()
+    {
+      newTurn = true;
     }
   }
 }

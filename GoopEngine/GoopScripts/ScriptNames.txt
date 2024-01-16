@@ -12,6 +12,7 @@ GoopScripts.AI.Enemy,RunFromPlayer
 GoopScripts.Button,IButtonClick
 GoopScripts.Button,IButtonHoverEnter
 GoopScripts.Button,IButtonHoverExit
+GoopScripts.Button,TempEndTurn
 GoopScripts.Cards,Attack
 GoopScripts.Cards,BlankCard
 GoopScripts.Cards,Block

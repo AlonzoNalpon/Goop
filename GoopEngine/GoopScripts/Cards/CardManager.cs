@@ -19,9 +19,9 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Cards
 {
-	internal class CardManager
+	public class CardManager
 	{
-		CardBase[] m_cards;
+		static public CardBase[] m_cards;
 		public CardBase[] Cards { get { return m_cards; } set { m_cards = value; } }
 
 		/*!*********************************************************************

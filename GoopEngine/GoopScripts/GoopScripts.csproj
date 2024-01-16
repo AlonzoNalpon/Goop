@@ -63,6 +63,7 @@
     <Compile Include="Button\IButtonClick.cs" />
     <Compile Include="Button\IButtonHoverEnter.cs" />
     <Compile Include="Button\IButtonHoverExit.cs" />
+    <Compile Include="Button\TempEndTurn.cs" />
     <Compile Include="Cards\Attack.cs" />
     <Compile Include="Cards\BlankCard.cs" />
     <Compile Include="Cards\CardManager.cs" />
