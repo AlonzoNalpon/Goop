@@ -53,6 +53,13 @@
   <ItemGroup>
     <Compile Include="AI\Enemy\IsOutsideAttackRange.cs" />
     <Compile Include="AI\Enemy\IsWithinPlayerRange.cs" />
+    <Compile Include="AI\Enemy\MineWorm\CheckCombo.cs" />
+    <Compile Include="AI\Enemy\MineWorm\CheckForSpecialCard.cs" />
+    <Compile Include="AI\Enemy\MineWorm\DoNothing.cs" />
+    <Compile Include="AI\Enemy\MineWorm\HasCardInHand.cs" />
+    <Compile Include="AI\Enemy\MineWorm\IsHealthLow.cs" />
+    <Compile Include="AI\Enemy\MineWorm\PerformCombo.cs" />
+    <Compile Include="AI\Enemy\MineWorm\PlayLastCard.cs" />
     <Compile Include="AI\Enemy\MoveToPlayer.cs" />
     <Compile Include="AI\Enemy\RunFromPlayer.cs" />
     <Compile Include="AI\FailNode.cs" />
