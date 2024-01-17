@@ -74,7 +74,6 @@ void EnemySystem::FixedUpdate()
 				//If the nodeCacheStack is empty, it means that the enemy is going to traverse from the start of the tree again
 				if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.size() == 0)
 				{
-					std::cout << "empty\n";
 					for (size_t j{ 0 }; j < m_currentTree->m_nodeList.size(); ++j)
 					{
 						if (m_currentTree->m_nodeList[j].m_nodeType == ROOT_NODE)

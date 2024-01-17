@@ -9,6 +9,13 @@ GoopScripts.AI.Enemy,IsOutsideAttackRange
 GoopScripts.AI.Enemy,IsWithinPlayerRange
 GoopScripts.AI.Enemy,MoveToPlayer
 GoopScripts.AI.Enemy,RunFromPlayer
+GoopScripts.AI.Enemy.MineWorm,CheckCombo
+GoopScripts.AI.Enemy.MineWorm,CheckForSpecialCard
+GoopScripts.AI.Enemy.MineWorm,DoNothing
+GoopScripts.AI.Enemy.MineWorm,HasCardInHand
+GoopScripts.AI.Enemy.MineWorm,IsHealthLow
+GoopScripts.AI.Enemy.MineWorm,PerformCombo
+GoopScripts.AI.Enemy.MineWorm,PlayLastCard
 GoopScripts.Button,IButtonClick
 GoopScripts.Button,IButtonHoverEnter
 GoopScripts.Button,IButtonHoverExit
