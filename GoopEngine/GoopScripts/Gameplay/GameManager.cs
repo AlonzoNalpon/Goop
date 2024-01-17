@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using GoopScripts.Cards;
 using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
@@ -31,6 +32,8 @@ namespace GoopScripts.Gameplay
 
     public void OnUpdate(double dt, Stats player, uint playerEntity, Stats enemy, uint enemyEntity, uint playerHand, uint playerQueue, uint enemyQueue)
 		{
+     
+
       if (newTurn)
 			{
         newTurn = false;
@@ -117,6 +120,13 @@ namespace GoopScripts.Gameplay
 
 				Utils.PlayAnimation("SS_LeahIdle", playerEntity);
 			}
+
+      if (Utils.IsKeyTriggered(Input.KeyCode.MOUSE_BUTTON_1))
+      { 
+        Console.WriteLine("MOUSE CLICK 1");
+        // Utils.SetIsActiveEntity(0, false);
+        Utils.SpawnPrefab("TestButton", new Vec3<double>( Utils.GetMouseScrollX(), Utils.GetMouseScrollY(), 0 ));
+      }
     }
 
     public void NewTurn()
