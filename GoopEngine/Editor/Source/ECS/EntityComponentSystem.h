@@ -216,6 +216,18 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+			  Calls EntityManager's GetEntityFromName function.
+
+			\param entityName
+			  Entity in question
+
+			\return
+			  Entity ID
+			************************************************************************/
+			Entity GetEntityFromName(std::string entityName);
+
+			/*!*********************************************************************
+			\brief
 				Calls EntityManager's GetEntities function.
 
 			\return

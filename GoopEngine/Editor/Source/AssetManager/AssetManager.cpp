@@ -39,7 +39,7 @@ namespace GE::Assets
 		FreeImages();
 	}
 
-	std::string AssetManager::ExtractFilename(const std::string& filepath)
+	std::string AssetManager::ExtractFilename(const std::string& filepath) const
 	{
 		// Find the last occurrence of the path separator, typically '/'
 		size_t pos = filepath.find_last_of('/');
@@ -126,7 +126,7 @@ namespace GE::Assets
 		return iter->second;
 	}
 
-	ImageData const& AssetManager::GetData(int id)
+	ImageData const& AssetManager::GetData(int id) const
 	{
 		auto iter{ m_loadedImages.find(id) };
 		if (iter == m_loadedImages.end())
@@ -375,7 +375,7 @@ namespace GE::Assets
 		}
 	}
 
-	GE::Serialization::SpriteData AssetManager::GetSpriteData(std::string key)
+	GE::Serialization::SpriteData AssetManager::GetSpriteData(std::string const& key)
 	{
 		if (m_loadedSpriteData.find(key) == m_loadedSpriteData.end())
 		{
@@ -405,7 +405,7 @@ namespace GE::Assets
 		return loaded;
 	}
 
-	bool AssetManager::AlreadyLoaded(const std::string& path)
+	bool AssetManager::AlreadyLoaded(const std::string& path) const
 	{
 		auto pathLookup = m_loadedImagesStringLookUp.find(path);
 		if (pathLookup != m_loadedImagesStringLookUp.end()) {
@@ -414,7 +414,7 @@ namespace GE::Assets
 		return false;
 	}
 
-	bool AssetManager::AlreadyLoaded(int id)
+	bool AssetManager::AlreadyLoaded(int id) const
 	{
 		auto pathLookup = m_loadedImagesIDLookUp.find(id);
 		if (pathLookup != m_loadedImagesIDLookUp.end()) {
