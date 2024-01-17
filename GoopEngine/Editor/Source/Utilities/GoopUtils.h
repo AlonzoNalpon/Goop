@@ -74,6 +74,50 @@ namespace GE::GoopUtils
 		Random int value
 	************************************************************************/
 	int RandomValue(int min, int max);
+
+	/*!*********************************************************************
+	\brief
+	  Returns a value interpolated between 2 values.
+
+	\param start
+		Start of the range
+
+	\param end
+		End of the range
+
+	\param interval
+		Interval in the range to find the value
+	  
+	\return
+	  Value between start and end at interval percentage (0-1)
+	************************************************************************/
+	template <typename T>
+	T Lerp(T start, T end, float interval)
+	{
+		return start + (end - start) * interval;
+	}
+
+	/*!*********************************************************************
+	\brief
+	  Returns the interval (0-1) value of a given value between start and end.
+
+	\param value
+		Value too find
+
+	\param start
+		Start of range
+
+	\param end
+	  End of range
+
+	\return
+	  Value between (0-1) of the given range where the input value sits 
+	************************************************************************/
+	template <typename T>
+	float InverseLerp(T value, T start, T end)
+	{
+		return static_cast<float>((end - start) / (value - start));
+	}
 }
 
 
