@@ -60,6 +60,7 @@
     <Compile Include="AI\RootNode.cs" />
     <Compile Include="AI\SelectorNode.cs" />
     <Compile Include="AI\SequenceNode.cs" />
+    <Compile Include="Audio\GameOverAudioEvent.cs" />
     <Compile Include="Button\IButtonClick.cs" />
     <Compile Include="Button\IButtonHoverEnter.cs" />
     <Compile Include="Button\IButtonHoverExit.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Gameplay\GameManager.cs" />
     <Compile Include="Gameplay\Stats.cs" />
     <Compile Include="Input\KeyCode.cs" />
+    <Compile Include="Mono\IOnDestroy.cs" />
     <Compile Include="Mono\Vec2.cs" />
     <Compile Include="Mono\Vec3.cs" />
     <Compile Include="Mono\MonoBehaviour.cs" />
