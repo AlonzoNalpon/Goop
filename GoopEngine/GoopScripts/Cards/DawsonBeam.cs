@@ -3,7 +3,7 @@
 \author w.chinkitbryan\@digipen.edu
 \date   26-November-2023
 \brief  
-  Attack card, derived from card base.
+Attack card, derived from card base.
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -16,29 +16,31 @@ using GoopScripts.Gameplay;
 
 namespace GoopScripts.Cards
 {
-  internal class Attack : CardBase
-	{
-		/*!*********************************************************************
-		\brief
-			Overloaded constructor of a card
-		\param cardID
-			ID of the card 
-		************************************************************************/
-		public Attack(CardID cardID) : base(cardID)
+  internal class DawsonBeam : CardBase
+  {
+    /*!*********************************************************************
+    \brief
+      Overloaded constructor of a card
+    \param cardID
+      ID of the card 
+    ************************************************************************/
+    public DawsonBeam(CardID cardID) : base(cardID)
     {
+      Value = 1.0f;
+      Duration = 1;
     }
 
-		/*!*********************************************************************
-		\brief
+    /*!*********************************************************************
+    \brief
       Plays a card with reference from a source and target entity
-		\param source
+    \param source
       Reference to a source entity
     \param source
       Reference to a target entity
-		************************************************************************/
-		public override void Play(ref Stats source, ref Stats target)
-		{
+    ************************************************************************/
+    public override void Play(ref Stats source, ref Stats target)
+    {
       target.TakeDamage(source.DamageDealt(Value));
     }
-	}
+  }
 }

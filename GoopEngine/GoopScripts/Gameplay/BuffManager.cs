@@ -15,11 +15,15 @@ namespace GoopScripts.Gameplay
     public enum BuffType
     {
       INCREASE_ATK_DEALT,
-      INCREASE_ATK_TAKEN,
+      MULTIPLY_ATK_DEALT,
+      INCREASE_DMG_TAKEN,
       REDUCE_ATK_DEALT,
       REDUCE_DMG_TAKEN,
-      PER_DMG_TAKEN,
-      PER_DMG_DEALT,
+      REDUCE_SHIELD,
+      SKIP_TURN,
+      PENETRATE_SHIELD,
+      DRAW_CARD,
+      IMMUNITY,
     }
 
     BuffType m_type;
