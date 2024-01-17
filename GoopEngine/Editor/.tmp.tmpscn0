@@ -1559,7 +1559,7 @@
                         }
                     ],
                     "dataEntity": 0,
-                    "dataType": "HAND",
+                    "dataType": "QUEUE",
                     "targetScript": 4
                 }
             }
