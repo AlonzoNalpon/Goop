@@ -18,8 +18,21 @@ namespace GE
 {
 	namespace Systems
 	{
-    class AudioSystem : public GE::ECS::System {
+    class AudioSystem : public GE::ECS::System 
+		{
     public:
+			struct CrossFade
+			{				
+				std::string m_audio[2];
+				float m_startVol[2];
+				float m_endVol[2];
+				float m_crossFadeStartTime[2];
+				float m_crossFadeEndTime[2];
+
+				float m_crossFadeTime;
+				float m_currFadeTime;
+			};
+
 			/*!*********************************************************************
 			\brief
 			  Initializes fmodsystem
@@ -32,8 +45,13 @@ namespace GE
 			************************************************************************/
 			void Update();
 
+			void CrossFadeAudio(CrossFade fade);
+
     private:
 			GE::fMOD::FmodSystem* m_fmodSystem;
+
+
+			std::vector<CrossFade> m_crossFadeList;
     };
 	}
 }
