@@ -103,6 +103,13 @@ RTTR_REGISTRATION
       rttr::value("DAWSON_DEBUFF_TIME_WARP", GE::Component::Card::CardID::DAWSON_DEBUFF_TIME_WARP)
       );
 
+  rttr::registration::enumeration<GE::Component::CardHolder::DataType>("DataType")
+    (
+      rttr::value("QUEUE", GE::Component::CardHolder::DataType::QUEUE),
+      rttr::value("DECK", GE::Component::CardHolder::DataType::DECK),
+      rttr::value("HAND", GE::Component::CardHolder::DataType::HAND),
+      rttr::value("NONE", GE::Component::CardHolder::DataType::NONE)
+      );
   //rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")
   //  (
   //    rttr::value("TRANSFORM", ECS::COMPONENT_TYPES::TRANSFORM),

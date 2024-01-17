@@ -102,7 +102,6 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
     .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
     .property("cardEntity", &Component::CardHolder::CardHolderEntry::cardEntity)
-    .property("scriptEntity", &Component::CardHolder::CardHolderEntry::scriptEntity)
     .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)
     .property("defaultSpriteID", &Component::CardHolder::CardHolderEntry::defaultSpriteID)
     .property("used", &Component::CardHolder::CardHolderEntry::used)
