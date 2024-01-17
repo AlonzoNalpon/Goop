@@ -721,6 +721,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 								if (ImGui::Selectable(tree.first.m_treeName.c_str(), &is_selected))
 								{
 									aiComp->m_treeID = tree.first.m_treeID;
+									aiComp->RefreshCache();
 								}
 								if (is_selected)
 								{

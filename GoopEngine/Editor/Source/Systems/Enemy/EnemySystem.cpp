@@ -63,6 +63,7 @@ void EnemySystem::FixedUpdate()
 	if (m_treeList.size() != 0)
 	{
 		for (Entity entity : GetUpdatableEntities()) {
+			
 			GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
 			GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
 			GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
@@ -73,6 +74,7 @@ void EnemySystem::FixedUpdate()
 				//If the nodeCacheStack is empty, it means that the enemy is going to traverse from the start of the tree again
 				if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.size() == 0)
 				{
+					std::cout << "empty\n";
 					for (size_t j{ 0 }; j < m_currentTree->m_nodeList.size(); ++j)
 					{
 						if (m_currentTree->m_nodeList[j].m_nodeType == ROOT_NODE)
@@ -139,6 +141,12 @@ void EnemySystem::UseTree(TreeID treeID, unsigned int entityID)
 {
 	m_currentEntityID = entityID;
 	m_currentTreeID = treeID;
+	for (GE::Systems::GameTree& gt : EnemySystem::m_treeList)
+	{
+		m_currentTree = (gt.m_treeID == treeID) ? &gt : m_currentTree;
+		
+	}
+
 }
 
 int EnemySystem::GetChildResult()
