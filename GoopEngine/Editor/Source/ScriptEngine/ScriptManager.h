@@ -310,5 +310,13 @@ namespace GE {
 		bool alue to indicate if the Monostring is valid
 		************************************************************************/
 		bool CheckMonoError(MonoError& error);
+
+		static void SetIsActiveEntity(GE::ECS::Entity entity, bool active);
+
+		static GE::ECS::Entity SpawnPrefab(MonoString* key, GE::Math::dVec3 pos = {}, bool mapEntity = true);
+
+		static int GetObjectWidth(GE::ECS::Entity entity);
+
+
 	}
 }

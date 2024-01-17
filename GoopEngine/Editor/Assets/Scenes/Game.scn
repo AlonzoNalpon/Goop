@@ -60,26 +60,26 @@
                                 },
                                 {
                                     "data": [
-                                        13,
+                                        6,
                                         8,
+                                        3,
+                                        3,
                                         12,
-                                        6,
                                         7,
-                                        6,
-                                        13,
+                                        8,
+                                        8,
+                                        8,
                                         7,
                                         3,
                                         13,
-                                        7,
-                                        7,
-                                        2,
-                                        8,
-                                        9,
-                                        7,
+                                        12,
+                                        3,
+                                        12,
                                         6,
-                                        8,
                                         2,
-                                        2
+                                        3,
+                                        9,
+                                        7
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
@@ -176,7 +176,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "NEXT_TURN"
+                    "eventType": "NEXT_TURN",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -357,26 +359,26 @@
                                 },
                                 {
                                     "data": [
-                                        7,
-                                        13,
-                                        9,
-                                        12,
-                                        9,
-                                        7,
-                                        12,
                                         2,
+                                        9,
                                         3,
-                                        8,
-                                        8,
-                                        2,
+                                        9,
                                         9,
                                         13,
-                                        2,
+                                        7,
                                         8,
-                                        2,
+                                        8,
+                                        12,
                                         9,
-                                        6,
-                                        8
+                                        9,
+                                        7,
+                                        8,
+                                        13,
+                                        8,
+                                        13,
+                                        9,
+                                        7,
+                                        9
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
@@ -498,6 +500,116 @@
                         }
                     },
                     "spriteName": "Instructions"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] UI",
+        "ID": 7,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            8,
+            9
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Player",
+        "ID": 8,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 7,
+        "Child Entities": [
+            10,
+            28
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Enemy",
+        "ID": 9,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 7,
+        "Child Entities": [
+            25,
+            29
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Portrait",
+        "ID": 10,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 8,
+        "Child Entities": [
+            30
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -850, 430, 1 }",
+                    "scale": "{ 5, 5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -850, 430, 1 }",
+                    "worldScale": "{ 5, 5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 32,
+                            "height": 32
+                        }
+                    },
+                    "spriteName": "Grey"
                 }
             }
         ]
@@ -647,7 +759,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "UNSELECT_CARD"
+                    "eventType": "UNSELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -749,7 +863,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "UNSELECT_CARD"
+                    "eventType": "UNSELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -853,7 +969,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "UNSELECT_CARD"
+                    "eventType": "UNSELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1028,7 +1146,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1136,7 +1256,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1244,7 +1366,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1352,7 +1476,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1460,7 +1586,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1667,6 +1795,45 @@
         ]
     },
     {
+        "Name": "[Image] Portrait",
+        "ID": 25,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 9,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 850, 430, 0 }",
+                    "scale": "{ 5, 5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 850, 430, 0 }",
+                    "worldScale": "{ 5, 5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 32,
+                            "height": 32
+                        }
+                    },
+                    "spriteName": "Grey"
+                }
+            }
+        ]
+    },
+    {
         "Name": "[Folder] Menus",
         "ID": 26,
         "Prefab": null,
@@ -1712,6 +1879,197 @@
                     "worldPos": "{ 0, 0, 101 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] HP",
+        "ID": 28,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 8,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -620, 430, 0 }",
+                    "scale": "{ 10, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -620, 430, 0 }",
+                    "worldScale": "{ 10, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 30,
+                            "height": 60
+                        }
+                    },
+                    "spriteName": "Enemy"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "HealthBar",
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 28,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "ID"
+                                    }
+                                },
+                                {
+                                    "data": 300,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_width"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] HP",
+        "ID": 29,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 9,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 620, 430, 0 }",
+                    "scale": "{ 10, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 620, 430, 0 }",
+                    "worldScale": "{ 10, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 30,
+                            "height": 60
+                        }
+                    },
+                    "spriteName": "Enemy"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Picture",
+        "ID": 30,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 10,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, -0.1 }",
+                    "scale": "{ 0.25, 0.25, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -850, 430, 0.9 }",
+                    "worldScale": "{ 1.25, 1.25, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 128,
+                            "height": 128
+                        }
+                    },
+                    "spriteName": "Portrait"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Portrait",
+        "ID": 31,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 551, -251, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 551, -251, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 551, -251 }",
+                    "width": 128.0,
+                    "height": 128.0,
+                    "min": "{ 487, -315 }",
+                    "max": "{ 615, -187 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 128,
+                            "height": 128
+                        }
+                    },
+                    "spriteName": "Portrait"
                 }
             }
         ]
@@ -1956,7 +2314,9 @@
             {
                 "GE_Button": {
                     "param": "Popup|56|Hide|27",
-                    "eventType": "POPUP"
+                    "eventType": "POPUP",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2011,7 +2371,9 @@
             {
                 "GE_Button": {
                     "param": "27",
-                    "eventType": "UNPAUSE"
+                    "eventType": "UNPAUSE",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2066,7 +2428,9 @@
             {
                 "GE_Button": {
                     "param": "Popup|60|Hide|27",
-                    "eventType": "POPUP"
+                    "eventType": "POPUP",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2235,7 +2599,9 @@
             {
                 "GE_Button": {
                     "param": "Return|56|Show|27",
-                    "eventType": "POPUP"
+                    "eventType": "POPUP",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2366,7 +2732,9 @@
             {
                 "GE_Button": {
                     "param": "Return|60|Show|27",
-                    "eventType": "POPUP"
+                    "eventType": "POPUP",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2460,7 +2828,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "QUIT_GAME"
+                    "eventType": "QUIT_GAME",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
