@@ -184,6 +184,18 @@ std::string GE::ECS::EntityManager::GetEntityName(Entity const& entity)
 	}
 }
 
+Entity GE::ECS::EntityManager::GetEntityFromName(std::string entityName)
+{
+	for (auto const& [entity, name] : m_names)
+	{
+		if (name == entityName)
+		{
+			return entity;
+		}
+	}
+	return INVALID_ID;
+}
+
 Entity GE::ECS::EntityManager::GetEntity(std::string const& name)
 {
 	for (auto const& entity : m_names)

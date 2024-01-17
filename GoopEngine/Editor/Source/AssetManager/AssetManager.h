@@ -54,7 +54,7 @@ namespace GE::Assets
     \param
       const std::string& (filepath)
     ************************************************************************/
-    std::string ExtractFilename(const std::string& filepath);
+    std::string ExtractFilename(const std::string& filepath) const;
 
     /*!*********************************************************************
     \brief
@@ -73,7 +73,7 @@ namespace GE::Assets
     \return
       true if the file is already loaded.
     ************************************************************************/
-    bool AlreadyLoaded(const std::string& path);
+    bool AlreadyLoaded(const std::string& path) const;
 
     /*!*********************************************************************
     \brief
@@ -83,7 +83,7 @@ namespace GE::Assets
     \return
       true if the id is already loaded.
     ************************************************************************/
-    bool AlreadyLoaded(int id);
+    bool AlreadyLoaded(int id) const;
 
     /*!*********************************************************************
     \brief
@@ -171,7 +171,7 @@ namespace GE::Assets
     \return
       Image data of file
     ************************************************************************/
-    ImageData const& GetData(int id);
+    ImageData const& GetData(int id) const;
 
     /*!*********************************************************************
     \brief
@@ -262,7 +262,7 @@ namespace GE::Assets
     \return
       SpriteData for graphics
     ************************************************************************/
-    GE::Serialization::SpriteData GetSpriteData(std::string key);
+    GE::Serialization::SpriteData GetSpriteData(std::string const& key);
 
     /*!*********************************************************************
     \brief

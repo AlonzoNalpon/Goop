@@ -67,6 +67,11 @@ namespace GE::Application
     GE::ObjectFactory::ObjectFactory& of{ GE::ObjectFactory::ObjectFactory::GetInstance() };
     of.RegisterComponentsAndSystems();
 
+    GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
+    scriptMan->InitMono();
+
+    GE::AI::TreeManager::GetInstance().Init();
+
     GE::Events::EventManager::GetInstance().SubscribeAllListeners();
 
     fRC.InitFrameRateController(am->GetConfigData<int>("FPS Limit"), am->GetConfigData<int>("Steps Per Second"), am->GetConfigData<int>("FPS Check Interval"));
@@ -82,10 +87,7 @@ namespace GE::Application
     Prefabs::PrefabManager::GetInstance().LoadPrefabsFromFile();
 #endif
 
-    GE::MONO::ScriptManager* scriptMan = &(GE::MONO::ScriptManager::GetInstance());
-    scriptMan->InitMono();
 
-    GE::AI::TreeManager::GetInstance().Init();
 
 #ifndef IMGUI_DISABLE
     imgui.Init(window);

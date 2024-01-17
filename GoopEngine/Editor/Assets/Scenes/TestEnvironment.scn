@@ -295,16 +295,17 @@
     {
         "Name": "Enemy",
         "ID": 6,
-      "Prefab": {
-        "name": "Shark",
-        "version": 0,
-        "objToEntity": [
-          {
-            "key": 0,
-            "value": 6
-          }
-        ]
-      },
+        "Prefab": {
+            "name": "Shark",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 6
+                }
+            ],
+            "registered": true
+        },
         "isActive": true,
         "Parent": 9,
         "Child Entities": [],
@@ -314,18 +315,18 @@
                     "pos": "{ -200, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -200, -431.852, 0 }",
+                    "worldPos": "{ -200, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -200, -431.852 }",
-                    "width": 10.0,
-                    "height": 10.0,
-                    "min": "{ -205, -436.852 }",
-                    "max": "{ -195, -426.852 }",
+                    "center": "{ 0, 0 }",
+                    "width": 41.0,
+                    "height": 38.0,
+                    "min": "{ -20.5, -19 }",
+                    "max": "{ 20.5, 19 }",
                     "render": true
                 }
             },
@@ -338,19 +339,19 @@
                                 "y": 0.0
                             },
                             "texDims": {
-                                "x": 0.5,
+                                "x": 0.25,
                                 "y": 1.0
                             },
-                            "width": 30,
-                            "height": 60
+                            "width": 41,
+                            "height": 38
                         }
                     },
-                    "spriteName": "SS_EnemyTest"
+                    "spriteName": "SS_Shark"
                 }
             },
             {
                 "SpriteAnim": {
-                    "name": "SS_EnemyTest"
+                    "name": "SS_Shark"
                 }
             },
             {
@@ -698,11 +699,12 @@
     {
         "Name": ".[Test Prefab] Priest",
         "ID": 17,
-      "Prefab": {
-        "name": ".[Test Prefab] Priest",
-        "version": 0,
-        "objToEntity": []
-      },
+        "Prefab": {
+            "name": ".[Test Prefab] Priest",
+            "version": 0,
+            "objToEntity": [],
+            "registered": true
+        },
         "isActive": true,
         "Parent": null,
         "Child Entities": [],

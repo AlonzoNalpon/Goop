@@ -37,8 +37,8 @@ namespace GE {
 		{
 			std::string m_treeName;
 			TreeID m_treeID;
-			NodeID m_curNodeID;
-			PinID  m_currPinID;
+			NodeID m_maxNodeID;	//Used to determine the ID of the next node we r going to create
+			PinID  m_maxPinID; //Used to determine the ID of the next pin we r going to create
 			bool m_changedData;
 			bool m_changedPos;
 			std::vector<DisplayNode> m_displayNodes;
@@ -52,7 +52,7 @@ namespace GE {
 
 		struct NodeLinkList
 		{
-			LinkID m_currLinkID;
+			LinkID m_maxLinkID;		//Used to determine the ID of the next link we r going to create
 			std::vector<NodeLinks> m_linkList; //LMAO link list thats not a linked list
 		};
 
@@ -78,6 +78,7 @@ namespace GE {
 			std::vector<std::string> m_allScriptNames;
 			GE::AI::DisplayTree* m_currentTree;
 			GE::AI::NodeLinkList* m_currentLinkList;
+			TreeID m_maxTreeID;  //Used to determine the ID of the next tree we r going to create
 			unsigned int m_currentTreeInd;
 			int m_selectedNodeInd;
 			bool m_displayPopup;
@@ -129,6 +130,16 @@ namespace GE {
 			void DisplayPopup();
 
 
+
+			/************************************************************************/
+			/*!
+			\brief
+			Function to display all the trees available, allowing user to switch between trees
+			*/
+			/************************************************************************/
+			void DisplayTreeOption();
+
+
 			/************************************************************************/ 
 			/*!
 			\brief
@@ -143,12 +154,19 @@ namespace GE {
 			\ brief
 			Function to call when the node editor wants to generate the tree from the tree manager's template
 			the tree struct used by node editor is quite different from the tree struct used by tree manager,
-
-
-
 			*/
 			/************************************************************************/
 			void AddDisplayTree(const TreeTemplate& tree);
+
+
+			/************************************************************************/
+			/*!
+			\ brief
+			Function to call when the node editor wants to generate the tree from the tree manager's template
+			the tree struct used by node editor is quite different from the tree struct used by tree manager,
+			*/
+			/************************************************************************/
+			std::vector<std::pair<DisplayTree, NodeLinkList>> GetTreeList();
 
 			/************************************************************************/ 
 			/*!
