@@ -15,7 +15,7 @@ namespace GE::Systems
         continue; // skip if there's no data to read from
 
       // Now find the c# script that contains the data
-      Component::Scripts* allScripts{ m_ecs->GetComponent<Component::Scripts>(holder->dataEntity) };
+      Component::Scripts* allScripts{ m_ecs->GetComponent<Component::Scripts>(holder->targetScript) };
       // Assumption is that it is a vector of unsigned values
       
       constexpr const char* scriptName{ "Stats" }; // This is hardcoded because the logic requires this script's structure

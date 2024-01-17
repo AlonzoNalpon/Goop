@@ -348,9 +348,9 @@
                             "scriptFieldInstList": [
                                 {
                                     "data": [
-                                        0,
-                                        0,
-                                        0
+                                        1,
+                                        2,
+                                        3
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
@@ -1558,7 +1558,7 @@
                             "used": false
                         }
                     ],
-                    "dataEntity": 0,
+                    "dataEntity": 4,
                     "dataType": "QUEUE",
                     "targetScript": 4
                 }

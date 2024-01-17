@@ -148,7 +148,7 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::CardHolder>("CardHolder")
     .constructor<>()
     .property("elements", &Component::CardHolder::elements)
-    .property("dataEntity", &Component::CardHolder::dataEntity)
+    .property("dataEntity", &Component::CardHolder::targetScript)
     .property("dataType", &Component::CardHolder::dataType)
     .property("targetScript", &Component::CardHolder::targetScript)
     ;

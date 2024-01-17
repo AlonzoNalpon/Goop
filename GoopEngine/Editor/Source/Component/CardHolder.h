@@ -26,8 +26,7 @@ namespace GE::Component
     };
 
     std::vector<CardHolderEntry> elements;
-
-    GE::ECS::Entity dataEntity; //!< the entity holding the stats script
+    
     enum DataType : unsigned int
     {
       QUEUE,

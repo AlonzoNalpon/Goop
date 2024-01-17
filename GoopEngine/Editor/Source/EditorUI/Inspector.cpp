@@ -1269,7 +1269,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						rttr::type const DatatypeType{ rttr::type::get<GE::Component::CardHolder::DataType>() };
 						if (BeginCombo("BRRR", DatatypeType.get_enumeration().value_to_name(cardHolder->dataType).to_string().c_str()))
 						{
-							for (unsigned int curr{}; curr != Component::CardHolder::DataType::NONE; ++curr)
+							for (unsigned int curr{}; curr != Component::CardHolder::DataType::NONE + 1; ++curr)
 							{
 								if (Selectable(DatatypeType.get_enumeration().value_to_name(curr).to_string().c_str(), 
 									curr == cardHolder->dataType))
