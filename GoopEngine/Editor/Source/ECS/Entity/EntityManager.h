@@ -199,6 +199,16 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+			  Gets an entity id from a string name.
+			\param entityName
+			  Name of entity in question
+			\return
+			  Entity ID
+			************************************************************************/
+			Entity GetEntityFromName(std::string entityName);
+
+			/*!*********************************************************************
+			\brief
 			  Gets an entity by name.
 			\params
 			  name

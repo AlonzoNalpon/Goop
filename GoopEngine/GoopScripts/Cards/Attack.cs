@@ -26,6 +26,7 @@ namespace GoopScripts.Cards
 		************************************************************************/
 		public Attack(CardID cardID) : base(cardID)
     {
+			Value = 5;
     }
 
 		/*!*********************************************************************
@@ -38,7 +39,9 @@ namespace GoopScripts.Cards
 		************************************************************************/
 		public override void Play(ref Stats source, ref Stats target)
 		{
-      target.TakeDamage(source.DamageDealt(Value));
+      //target.TakeDamage(source.DamageDealt(Value));
+			source.TakeDamage(source.DamageDealt(Value));
+			Utils.SendString(source.GetHealth().ToString());
     }
 	}
 }

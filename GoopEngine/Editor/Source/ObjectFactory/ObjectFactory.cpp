@@ -69,7 +69,8 @@ void ObjectFactory::CloneObject(ECS::Entity entity, ECS::Entity parent) const
   ecs.SetIsActiveEntity(newEntity, ecs.GetIsActiveEntity(entity));
 
   std::vector<rttr::variant> const components{ GetEntityComponents(entity) };
-  AddComponentsToEntity(entity, components);
+
+  AddComponentsToEntity(newEntity, components);
 
 #ifndef IMGUI_DISABLE
   // update entity's prefab if needed

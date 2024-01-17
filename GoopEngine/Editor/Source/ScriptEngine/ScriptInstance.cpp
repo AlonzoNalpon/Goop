@@ -130,7 +130,7 @@ void ScriptInstance::GetAllUpdatedFields()
       GE::MONO::ScriptFieldInstance<float>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<float>>();
       sfi.m_data = GetFieldValue<float>(sfi.m_scriptField.m_classField);
     }
-    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<float>>())) 
+    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<int>>()))
     {
       GE::MONO::ScriptFieldInstance<int>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<int>>();
       sfi.m_data = GetFieldValue<int>(sfi.m_scriptField.m_classField);
@@ -140,7 +140,7 @@ void ScriptInstance::GetAllUpdatedFields()
       GE::MONO::ScriptFieldInstance<double>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<double>>();
       sfi.m_data = GetFieldValue<double>(sfi.m_scriptField.m_classField);
     }
-    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<float>>())) 
+    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>()))
     {
       GE::MONO::ScriptFieldInstance<GE::Math::dVec3>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>();
       sfi.m_data = GetFieldValue<GE::Math::dVec3>(sfi.m_scriptField.m_classField);

@@ -45,7 +45,7 @@ namespace GoopScripts.Gameplay
     public void TakeDamage(float damage)
 		{
 			// Value can be negative and < 0 means you take more dmg
-			float takenMultiplier = 0;
+			float takenMultiplier = 1;
       int takenFlat = 0;
 			foreach (var buff in m_buffs.Buffs)
 			{
@@ -65,16 +65,18 @@ namespace GoopScripts.Gameplay
         }
 			}
 
-			int dmgTaken = (int)((damage - takenFlat) * takenMultiplier) - m_block;
+			int dmgTaken = (int)((damage - takenFlat) * takenMultiplier);
+      Utils.SendString(dmgTaken.ToString());
 			dmgTaken = dmgTaken < 0 ? 0 : dmgTaken;
 
-			m_health -= dmgTaken;
+      Utils.SendString($"Orignial health: {m_health}, Damage taken: {dmgTaken}, Health: {m_health - dmgTaken}");
+      m_health -= dmgTaken;
     }
 	
 		public int DamageDealt(float damage)
 		{
       // Value can be negative and < 0 means you take more dmg
-      float dealtMultiplier = 0;
+      float dealtMultiplier = 1;
       int dealtFlat = 0;
       foreach (var buff in m_buffs.Buffs)
       {
