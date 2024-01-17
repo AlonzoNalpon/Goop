@@ -16,3 +16,4 @@
 #include <Systems/ObjectAnchor/ObjectAnchorSystem.h>
 #include <Systems/Button/ButtonSystem.h>
 #include <Systems/Button/ButtonScriptSystem.h>
+#include <Systems/CardHolder/CardHolderSystem.h>

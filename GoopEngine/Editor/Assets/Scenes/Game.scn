@@ -60,26 +60,26 @@
                                 },
                                 {
                                     "data": [
-                                        13,
-                                        8,
-                                        12,
-                                        6,
-                                        7,
-                                        6,
-                                        13,
-                                        7,
-                                        3,
-                                        13,
-                                        7,
-                                        7,
-                                        2,
-                                        8,
-                                        9,
-                                        7,
-                                        6,
-                                        8,
-                                        2,
-                                        2
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
@@ -88,11 +88,11 @@
                                 },
                                 {
                                     "data": [
-                                        7,
-                                        3,
-                                        8,
-                                        2,
-                                        2
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
@@ -176,7 +176,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "NEXT_TURN"
+                    "eventType": "NEXT_TURN",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -357,26 +359,26 @@
                                 },
                                 {
                                     "data": [
-                                        7,
-                                        13,
-                                        9,
-                                        12,
-                                        9,
-                                        7,
-                                        12,
-                                        2,
-                                        3,
-                                        8,
-                                        8,
-                                        2,
-                                        9,
-                                        13,
-                                        2,
-                                        8,
-                                        2,
-                                        9,
-                                        6,
-                                        8
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
@@ -385,11 +387,11 @@
                                 },
                                 {
                                     "data": [
-                                        7,
-                                        3,
-                                        8,
-                                        2,
-                                        2
+                                        1,
+                                        1,
+                                        1,
+                                        1,
+                                        1
                                     ],
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
@@ -530,28 +532,28 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "scriptEntity": 0,
-                            "spriteID": 34,
-                            "defaultSpriteID": 103,
+                            "spriteID": 37,
+                            "defaultSpriteID": 111,
                             "used": false
                         },
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
-                            "scriptEntity": 0,
-                            "spriteID": 36,
-                            "defaultSpriteID": 20,
+                            "spriteID": 39,
+                            "defaultSpriteID": 22,
                             "used": false
                         },
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
-                            "scriptEntity": 0,
-                            "spriteID": 23,
-                            "defaultSpriteID": 104,
+                            "spriteID": 25,
+                            "defaultSpriteID": 112,
                             "used": false
                         }
-                    ]
+                    ],
+                    "dataEntity": 0,
+                    "dataType": "QUEUE",
+                    "targetScript": 0
                 }
             }
         ]
@@ -647,7 +649,15 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "UNSELECT_CARD"
+                    "eventType": "UNSELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 11
                 }
             },
             {
@@ -749,7 +759,15 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "UNSELECT_CARD"
+                    "eventType": "UNSELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 11
                 }
             },
             {
@@ -853,7 +871,15 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "UNSELECT_CARD"
+                    "eventType": "UNSELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 11
                 }
             },
             {
@@ -895,44 +921,42 @@
                         {
                             "elemEntity": 16,
                             "cardEntity": 16,
-                            "scriptEntity": 0,
-                            "spriteID": 34,
-                            "defaultSpriteID": 34,
+                            "spriteID": 37,
+                            "defaultSpriteID": 37,
                             "used": false
                         },
                         {
                             "elemEntity": 17,
                             "cardEntity": 17,
-                            "scriptEntity": 0,
-                            "spriteID": 23,
-                            "defaultSpriteID": 23,
+                            "spriteID": 25,
+                            "defaultSpriteID": 25,
                             "used": false
                         },
                         {
                             "elemEntity": 18,
                             "cardEntity": 18,
-                            "scriptEntity": 0,
-                            "spriteID": 36,
-                            "defaultSpriteID": 36,
+                            "spriteID": 39,
+                            "defaultSpriteID": 39,
                             "used": false
                         },
                         {
                             "elemEntity": 19,
                             "cardEntity": 19,
-                            "scriptEntity": 0,
-                            "spriteID": 8,
-                            "defaultSpriteID": 8,
+                            "spriteID": 10,
+                            "defaultSpriteID": 10,
                             "used": false
                         },
                         {
                             "elemEntity": 20,
                             "cardEntity": 20,
-                            "scriptEntity": 0,
-                            "spriteID": 8,
-                            "defaultSpriteID": 8,
+                            "spriteID": 10,
+                            "defaultSpriteID": 10,
                             "used": false
                         }
-                    ]
+                    ],
+                    "dataEntity": 0,
+                    "dataType": "HAND",
+                    "targetScript": 0
                 }
             }
         ]
@@ -1028,7 +1052,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1136,7 +1162,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1244,7 +1272,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1352,7 +1382,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1460,7 +1492,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1505,28 +1539,28 @@
                         {
                             "elemEntity": 22,
                             "cardEntity": 4294967295,
-                            "scriptEntity": 4294967295,
                             "spriteID": 20,
-                            "defaultSpriteID": 103,
+                            "defaultSpriteID": 111,
                             "used": false
                         },
                         {
                             "elemEntity": 23,
                             "cardEntity": 4294967295,
-                            "scriptEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 20,
+                            "defaultSpriteID": 22,
                             "used": false
                         },
                         {
                             "elemEntity": 24,
                             "cardEntity": 4294967295,
-                            "scriptEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 104,
+                            "defaultSpriteID": 112,
                             "used": false
                         }
-                    ]
+                    ],
+                    "dataEntity": 0,
+                    "dataType": "HAND",
+                    "targetScript": 4
                 }
             }
         ]
@@ -1566,6 +1600,12 @@
                         }
                     },
                     "spriteName": "Queue_Sequence_1"
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 21
                 }
             },
             {
@@ -1614,6 +1654,12 @@
                 }
             },
             {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 21
+                }
+            },
+            {
                 "CardHolderElem": {
                     "holder": 21,
                     "elemIdx": 1
@@ -1656,6 +1702,12 @@
                         }
                     },
                     "spriteName": "Queue_Sequence_3"
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 21
                 }
             },
             {
@@ -1956,7 +2008,9 @@
             {
                 "GE_Button": {
                     "param": "Popup|56|Hide|27",
-                    "eventType": "POPUP"
+                    "eventType": "POPUP",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2011,7 +2065,9 @@
             {
                 "GE_Button": {
                     "param": "27",
-                    "eventType": "UNPAUSE"
+                    "eventType": "UNPAUSE",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2066,7 +2122,9 @@
             {
                 "GE_Button": {
                     "param": "Popup|60|Hide|27",
-                    "eventType": "POPUP"
+                    "eventType": "POPUP",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2235,7 +2293,9 @@
             {
                 "GE_Button": {
                     "param": "Return|56|Show|27",
-                    "eventType": "POPUP"
+                    "eventType": "POPUP",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2366,7 +2426,9 @@
             {
                 "GE_Button": {
                     "param": "Return|60|Show|27",
-                    "eventType": "POPUP"
+                    "eventType": "POPUP",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2460,7 +2522,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "QUIT_GAME"
+                    "eventType": "QUIT_GAME",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]

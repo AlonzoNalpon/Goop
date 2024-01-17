@@ -18,6 +18,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <string>
 #include <def.h>
 #include <Graphics/Fonts/Character.h>
+#include <Graphics/Fonts/TextObjGroup.h>
 #include <Graphics/Model.h>
 namespace GE::Graphics::Fonts
 {
@@ -104,6 +105,8 @@ namespace GE::Graphics::Fonts
       read-only table for font lookups
     ************************************************************************/
     FontID_LT const&  GetFontLT()const;
+
+    void              UpdateTextInfo(TextObjGroup& group);
   };
 }
 

@@ -57,5 +57,8 @@
   "AudioSystem": [
     "Audio",
     "Transform"
+  ],
+  "CardHolderSystem": [
+    "CardHolder"
   ]
 }

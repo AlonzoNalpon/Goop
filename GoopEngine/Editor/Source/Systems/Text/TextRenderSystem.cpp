@@ -23,6 +23,12 @@ namespace GE::Systems
       if (!m_ecs->HasComponent<Component::Text>(entity))
         continue;
       Component::Text& textComp{ *m_ecs->GetComponent<Component::Text>(entity) };
+
+      if (textComp.m_textInfo.flags.dirty)
+      {
+        // Update the text to fit
+      }
+
       Component::Transform& trans{ *m_ecs->GetComponent<Component::Transform>(entity) };
       gEngine.GetRenderer().RenderFontObject({trans.m_worldPos.x, trans.m_worldPos.y, trans.m_worldPos.z}, textComp.m_scale, textComp.m_text, textComp.m_clr, textComp.m_fontID);
     }
