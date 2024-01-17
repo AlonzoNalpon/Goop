@@ -22,6 +22,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Commands/CommandManager.h>
 #include <Graphics/GraphicsEngine.h>
 #include <EditorUI/GizmoEditor.h>
+#include <ImNode/NodeEditor.h>
 #include <rttr/type.h>
 #include <Systems/Button/ButtonTypes.h>
 #include <GameDef.h>
@@ -695,6 +696,40 @@ void GE::EditorGUI::Inspector::CreateContent()
 					EndTable();
 					InputList("Tween", tween->m_tweens, inputWidth);
 					ImGui::Separator();
+				}
+			}
+			else if (compType == rttr::type::get<Component::EnemyAI>())
+			{
+
+				if (ImGui::CollapsingHeader("EnemyAI", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					const std::vector<std::pair<DisplayTree, NodeLinkList>>& treeList = GE::AI::NodeEditor::GetInstance().GetTreeList();
+					auto aiComp = ecs.GetComponent<EnemyAI>(entity);
+					auto iter = std::find_if(treeList.begin(), treeList.end(), [aiComp](const std::pair<DisplayTree, NodeLinkList> & tree) -> bool
+						{
+							return tree.first.m_treeID == aiComp->m_treeID;
+						});
+					std::string defName = (iter != treeList.end()) ? iter->first.m_treeName : "";
+
+					if (ImGui::BeginCombo("##TreeNames", defName.c_str()))
+					{
+						for (auto tree: treeList)
+						{
+							if (tree.first.m_treeID != aiComp->m_treeID)
+							{
+								bool is_selected{ false };
+								if (ImGui::Selectable(tree.first.m_treeName.c_str(), &is_selected))
+								{
+									aiComp->m_treeID = tree.first.m_treeID;
+								}
+								if (is_selected)
+								{
+									ImGui::SetItemDefaultFocus();
+								}
+							}
+						}
+						ImGui::EndCombo();
+					}
 				}
 			}
 			else if (compType == rttr::type::get<Component::Scripts>())

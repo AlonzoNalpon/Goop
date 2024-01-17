@@ -66,9 +66,9 @@ namespace GoopScripts.Player
      Update function for the player script. This function is called every frame
      if the script is attached to an entity
     ************************************************************************/
-    public void Update()
+    public void OnUpdate(uint entityID, double dt)
     {
-      Console.WriteLine("This is the second script running specifically for player\n");
+
     }
 
     /*!*********************************************************************
