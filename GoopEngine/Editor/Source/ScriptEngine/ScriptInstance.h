@@ -73,6 +73,7 @@ namespace GE {
 			MonoObject* m_classInst{ nullptr };
 			MonoMethod* m_onUpdateMethod{ nullptr };
 			MonoMethod* m_onCreateMethod = { nullptr };
+			uint32_t m_gcHandle;
 			std::vector<rttr::variant> m_scriptFieldInstList;
 			inline static char m_fieldValBuffer[maxBufferSize];
 			

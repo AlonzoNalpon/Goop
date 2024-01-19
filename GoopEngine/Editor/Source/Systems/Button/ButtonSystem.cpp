@@ -147,7 +147,7 @@ namespace GE
 
 										MonoMethod* QueueCard = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "QueueCard", 1);
 										std::vector<void*> args{ &handIdx };
-										mono_runtime_invoke(QueueCard, statsScriptInst->m_classInst, args.data(), nullptr);
+										mono_runtime_invoke(QueueCard, mono_gchandle_get_target(statsScriptInst->m_gcHandle), args.data(), nullptr);
 									}
 									// Don't need to increment cardIdx since we're ending the loop
 									break; // we're done here: a card has been assigned
@@ -213,8 +213,8 @@ namespace GE
 									Component::Card::CardID blankCard{ Component::Card::NO_CARD };// we will replace hand card with this
 									void* argsHand[]	{ &handIdx, &cardComp->cardID };
 									void* argsQueue[] { &holderElem->elemIdx, &blankCard };
-									mono_runtime_invoke(SetCardInHand, statsScriptInst->m_classInst, argsHand, nullptr);
-									mono_runtime_invoke(SetCardInQueue, statsScriptInst->m_classInst, argsQueue, nullptr);
+									mono_runtime_invoke(SetCardInHand, mono_gchandle_get_target(statsScriptInst->m_gcHandle), argsHand, nullptr);
+									mono_runtime_invoke(SetCardInQueue, mono_gchandle_get_target(statsScriptInst->m_gcHandle), argsQueue, nullptr);
 								}
 								break;
 							}
