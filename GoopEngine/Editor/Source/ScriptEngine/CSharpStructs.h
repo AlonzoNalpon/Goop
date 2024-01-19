@@ -22,6 +22,6 @@ namespace GE::MONO
   struct DeckManager
   {
     Deck m_deck;
-    std::vector<Component::Card::CardID> m_discard, m_hand, m_queue;
+    std::vector<Component::Card::CardID> m_discardDisplay, m_hand, m_queue;
   };
 }
