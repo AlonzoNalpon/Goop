@@ -49,7 +49,7 @@ void GE::Scenes::Scene::Unload()
 				if (onDestroy)
 				{
 					std::vector<void*> params = { &entity };
-					mono_runtime_invoke(onDestroy, script.m_classInst, params.data(), nullptr);
+					mono_runtime_invoke(onDestroy, mono_gchandle_get_target(script.m_gcHandle), params.data(), nullptr);
 				}
 			}
 		}

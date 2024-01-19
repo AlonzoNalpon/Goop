@@ -21,6 +21,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "mono/metadata/mono-debug.h"
 #include "mono/metadata/threads.h"
 #include <Systems/GameSystem/GameSystem.h>
+#include <Prefabs/PrefabManager.h>
+
 
 #include <Component/Card.h>
 #include <Component/CardHolder.h>
@@ -113,7 +115,7 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetPosition", GE::MONO::SetPosition);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetRotation", GE::MONO::SetRotation);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetScale", GE::MONO::SetScale);
-
+  
   // Node Editor Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetCurrentChildIndex", GE::Systems::EnemySystem::GetCurrentChildIndex);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetNewChildIndex", GE::Systems::EnemySystem::SetNewChildIndex);
@@ -135,6 +137,11 @@ void GE::MONO::ScriptManager::InitMono()
 
   mono_add_internal_call("GoopScripts.Mono.Utils::SetQueueCardID", GE::MONO::SetQueueCardID);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetHandCardID", GE::MONO::SetHandCardID);
+
+  // Game UI Stuff
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetIsActiveEntity", GE::MONO::SetIsActiveEntity);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SpawnPrefab", GE::MONO::SpawnPrefab);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectWidth", GE::MONO::GetObjectWidth);
 
   //Load the CSharpAssembly (dll file)
   std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
@@ -353,6 +360,7 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, st
     //Init the class through non-default constructor
     MonoMethod* classCtor = mono_class_get_method_from_name(currClass, ".ctor", static_cast<int>(arg.size()));
     mono_runtime_invoke(classCtor, classInstance, arg.data(), nullptr);
+    
 
     if (classInstance == nullptr) {
       throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);
@@ -609,3 +617,28 @@ std::string GE::MONO::MonoStringToSTD(MonoString* str)
   return result;
 
 }
+
+void GE::MONO::SetIsActiveEntity(GE::ECS::Entity entity, bool active)
+{
+  GE::ECS::EntityComponentSystem::GetInstance().SetIsActiveEntity(entity, active);
+}
+
+GE::ECS::Entity GE::MONO::SpawnPrefab(MonoString* key, GE::Math::dVec3 pos, bool mapEntity)
+{
+  std::string str = GE::MONO::MonoStringToSTD(key);
+
+  return GE::Prefabs::PrefabManager::GetInstance().SpawnPrefab(str, pos, mapEntity);
+}
+
+int GE::MONO::GetObjectWidth(GE::ECS::Entity entity)
+{
+  // ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  
+  return GE::ECS::EntityComponentSystem::GetInstance().GetComponent<GE::Component::Sprite>(entity)->m_spriteData.info.width;
+  // return ecs.GetComponent<GE::Component::Sprite>(entity)->m_spriteData.info.width;
+
+  // return objectInfo.width;
+
+  //return 50;
+}
+

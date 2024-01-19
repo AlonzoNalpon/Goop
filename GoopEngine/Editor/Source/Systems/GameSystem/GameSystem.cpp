@@ -97,7 +97,7 @@ void GE::Systems::GameSystem::Update()
       {
         double dt = frc.GetDeltaTime();
         void* args[] = { &dt, playerStats->m_classInst, &game->m_player, enemyStats->m_classInst, &game->m_enemy, &game->m_playerHand, &game->m_playerQueue, &game->m_enemyQueue };
-        mono_runtime_invoke(onUpdateFunc, game->m_gameSystemScript.m_classInst, args, nullptr);
+        mono_runtime_invoke(onUpdateFunc, mono_gchandle_get_target(game->m_gameSystemScript.m_gcHandle), args, nullptr);
       }
     }
 

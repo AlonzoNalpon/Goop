@@ -4,33 +4,66 @@
             {
                 "nodeType": "ROOT_NODE",
                 "parentNode": 0,
-                "childrenNode": [],
+                "childrenNode": [
+                    1
+                ],
                 "scriptName": "RootNode",
-                "pos": "{ 320, 150 }"
+                "pos": "{ 88, 107 }"
             },
             {
                 "nodeType": "COMPOSITE_NODE",
                 "parentNode": 0,
-                "childrenNode": [],
+                "childrenNode": [
+                    2
+                ],
                 "scriptName": "SequenceNode",
-                "pos": "{ 580, 142 }"
+                "pos": "{ 328, 95 }"
             },
             {
                 "nodeType": "LEAF_NODE",
-                "parentNode": 0,
+                "parentNode": 1,
                 "childrenNode": [],
-                "scriptName": "IsOutsideAttackRange",
-                "pos": "{ 848, 89 }"
-            },
-            {
-                "nodeType": "LEAF_NODE",
-                "parentNode": 0,
-                "childrenNode": [],
-                "scriptName": "MoveToPlayer",
-                "pos": "{ 856, 230 }"
+                "scriptName": "RunFromPlayer",
+                "pos": "{ 628, 99 }"
             }
         ],
-        "treeName": "WormTree",
-        "treeTempID": 0
+        "treeName": "newTree9",
+        "treeTempID": 9
+    },
+    {
+        "tree": [],
+        "treeName": "newTree10",
+        "treeTempID": 10
+    },
+    {
+        "tree": [
+            {
+                "nodeType": "ROOT_NODE",
+                "parentNode": 0,
+                "childrenNode": [
+                    1
+                ],
+                "scriptName": "RootNode",
+                "pos": "{ 177, 153 }"
+            },
+            {
+                "nodeType": "COMPOSITE_NODE",
+                "parentNode": 0,
+                "childrenNode": [
+                    2
+                ],
+                "scriptName": "SequenceNode",
+                "pos": "{ 400, 142 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 1,
+                "childrenNode": [],
+                "scriptName": "MoveToPlayer",
+                "pos": "{ 656, 127 }"
+            }
+        ],
+        "treeName": "newTree11",
+        "treeTempID": 11
     }
 ]

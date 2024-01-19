@@ -53,6 +53,13 @@
   <ItemGroup>
     <Compile Include="AI\Enemy\IsOutsideAttackRange.cs" />
     <Compile Include="AI\Enemy\IsWithinPlayerRange.cs" />
+    <Compile Include="AI\Enemy\MineWorm\CheckCombo.cs" />
+    <Compile Include="AI\Enemy\MineWorm\CheckForSpecialCard.cs" />
+    <Compile Include="AI\Enemy\MineWorm\DoNothing.cs" />
+    <Compile Include="AI\Enemy\MineWorm\HasCardInHand.cs" />
+    <Compile Include="AI\Enemy\MineWorm\IsHealthLow.cs" />
+    <Compile Include="AI\Enemy\MineWorm\PerformCombo.cs" />
+    <Compile Include="AI\Enemy\MineWorm\PlayLastCard.cs" />
     <Compile Include="AI\Enemy\MoveToPlayer.cs" />
     <Compile Include="AI\Enemy\RunFromPlayer.cs" />
     <Compile Include="AI\FailNode.cs" />
@@ -60,20 +67,26 @@
     <Compile Include="AI\RootNode.cs" />
     <Compile Include="AI\SelectorNode.cs" />
     <Compile Include="AI\SequenceNode.cs" />
+    <Compile Include="Button\EndTurn.cs" />
     <Compile Include="Button\IButtonClick.cs" />
     <Compile Include="Button\IButtonHoverEnter.cs" />
     <Compile Include="Button\IButtonHoverExit.cs" />
     <Compile Include="Button\TempEndTurn.cs" />
-    <Compile Include="Cards\Attack.cs" />
+    <Compile Include="Cards\BasicAttack.cs" />
     <Compile Include="Cards\BlankCard.cs" />
     <Compile Include="Cards\CardManager.cs" />
-    <Compile Include="Cards\Rage.cs" />
     <Compile Include="Cards\Block.cs" />
     <Compile Include="Cards\CardBase.cs" />
-    <Compile Include="Cards\DawsonChargeUp.cs" />
-    <Compile Include="Cards\DawsonSpeedUp.cs" />
-    <Compile Include="Cards\LeahFlashBang.cs" />
-    <Compile Include="Cards\LeahSmokeScreen.cs" />
+    <Compile Include="Cards\DawsonBeam.cs" />
+    <Compile Include="Cards\DawsonSwing.cs" />
+    <Compile Include="Cards\LeahBeam.cs" />
+    <Compile Include="Cards\LeahStrike.cs" />
+    <Compile Include="Cards\SpecialChargeUp.cs" />
+    <Compile Include="Cards\SpecialFlashBang.cs" />
+    <Compile Include="Cards\SpecialRage.cs" />
+    <Compile Include="Cards\SpecialScreech.cs" />
+    <Compile Include="Cards\SpecialSmokeScreen.cs" />
+    <Compile Include="Cards\SpecialTimeWrap.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +107,7 @@
     <Compile Include="Player\PlayerScriptTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Component\Transform.cs" />
+    <Compile Include="UI\HealthBar.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

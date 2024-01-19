@@ -26,6 +26,8 @@ namespace GoopScripts.Cards
 		************************************************************************/
 		public Block(CardID cardID) : base(cardID)
     {
+      Value = 1.0f;
+      Duration = 1;
     }
 
 		/*!*********************************************************************
@@ -38,8 +40,7 @@ namespace GoopScripts.Cards
 		************************************************************************/
 		public override void Play(ref Stats source, ref Stats target)
     {
-      // Is technically a positive debuff as it reduces damage dealt by enemy
-      //source.m_buffs.AddDebuff(new Buff(Buff.BuffType.SUBTRACTIVE, Value, Duration));
+      source.m_block += (int)Value;
     }
   }
 }

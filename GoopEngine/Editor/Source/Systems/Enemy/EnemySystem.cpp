@@ -34,6 +34,7 @@ bool EnemySystem::m_playerExist;
 
 void EnemySystem::InitTree()
 {
+	EnemySystem::m_treeList.clear();
 	//Get all the trees
 	const std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
 	for (size_t i{ 0 }; i < tempTreeList.size(); ++i)
@@ -49,80 +50,55 @@ void EnemySystem::FixedUpdate()
 	
 	auto& frc = GE::FPS::FrameRateController::GetInstance();
 	frc.StartSystemTimer();
+
+#ifndef IMGUI_DISABLE
+	//The tree list has been updated with node editor, we should update the tree list inside the enemy system too
+	if (GE::AI::TreeManager::GetInstance().isTreeUpdated())
+	{
+		DelGameTree();
+		UpdateTreeList();
+		GE::AI::TreeManager::GetInstance().SetTreeBool(false);
+
+	}
+#endif
+
 	// Only update if there are actual trees
 	if (m_treeList.size() != 0)
 	{
 		for (Entity entity : GetUpdatableEntities()) {
+			
 			GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
 			GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
 			GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
-			UseTree(enemyAIComp->m_treeID, entity);
-
-			//If the nodeCacheStack is empty, it means that the enemy is going to traverse from the start of the tree again
-			if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.size() == 0)
+			if (enemyAIComp->m_treeID != GE::Component::ghostTreeID)
 			{
-				for (size_t j{ 0 }; j < m_currentTree->m_nodeList.size(); ++j)
+				UseTree(enemyAIComp->m_treeID, entity);
+
+				//If the nodeCacheStack is empty, it means that the enemy is going to traverse from the start of the tree again
+				if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.size() == 0)
 				{
-					if (m_currentTree->m_nodeList[j].m_nodeType == ROOT_NODE)
+					for (size_t j{ 0 }; j < m_currentTree->m_nodeList.size(); ++j)
 					{
-						enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.push_back(NodeCache(static_cast<NodeID>(j), 0, STATE_NEW));
-						break;
+						if (m_currentTree->m_nodeList[j].m_nodeType == ROOT_NODE)
+						{
+							enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.push_back(NodeCache(static_cast<NodeID>(j), 0, STATE_NEW));
+							break;
+						}
 					}
 				}
-			}
-			if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.size() != 0)
-			{
-				double dt = fpsControl->GetFixedDeltaTime();
-				std::vector<void*> arg{ &m_currentEntityID, &dt };
-				MonoMethod* onUpdateMethod = mono_class_get_method_from_name(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_scriptClass, "OnUpdate", static_cast<int>(arg.size()));
-				mono_runtime_invoke(onUpdateMethod, m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classInst, arg.data(), nullptr);
-				//PLEASE UNCOMMENT THIS IF YOU WANT TO SEE THE TREE CACHE OF THE ENEMY AT THE END OF EVRY FRAME
-				//PrintNodeCache(enemyAIComp->m_enemyTreeCache.m_nodeCacheStack);
-			}
-			else
-			{
-				GE::Debug::ErrorLogger::GetInstance().LogWarning("Your tree has no root node, please a root node to the start of the tree", false);
-			}
-		}
-	}
-
-	// we have a newly updated tree, need to update the in game tree
-	if (GE::AI::TreeManager::GetInstance().isTreeUpdated())
-	{
-		std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
-		std::vector<bool>& tempTreeCondList = GE::AI::TreeManager::GetInstance().GetTreeCondList();
-
-		for (size_t i{ 0 }; i < tempTreeList.size(); ++i)
-		{
-			// Only swap the trees that are newly updated
-			if (tempTreeCondList[i])
-			{
-				if (tempTreeList[i].m_treeTempID >= static_cast<unsigned>(m_treeList.size()))
+				if (enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.size() != 0)
 				{
-					AddGameTree(tempTreeList[i]);
+					double dt = fpsControl->GetFixedDeltaTime();
+					std::vector<void*> arg{ &m_currentEntityID, &dt };
+					MonoMethod* onUpdateMethod = mono_class_get_method_from_name(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_scriptClass, "OnUpdate", static_cast<int>(arg.size()));
+					mono_runtime_invoke(onUpdateMethod, mono_gchandle_get_target(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_gcHandle), arg.data(), nullptr);
+					//PLEASE UNCOMMENT THIS IF YOU WANT TO SEE THE TREE CACHE OF THE ENEMY AT THE END OF EVRY FRAME
+					//PrintNodeCache(enemyAIComp->m_enemyTreeCache.m_nodeCacheStack);
 				}
 				else
 				{
-					GameTree newGamTree = GenerateGameTree(tempTreeList[i]);
-					for (GameTree& gameTree : m_treeList)
-					{
-						if (gameTree.m_treeID == tempTreeList[i].m_treeTempID)
-						{
-							std::swap(gameTree.m_nodeList, newGamTree.m_nodeList);
-						}
-					}
-
-					GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
-					for (Entity entity : GetUpdatableEntities())
-					{
-						GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
-						if (enemyAIComp->m_treeID == tempTreeList[i].m_treeTempID)
-						{
-							enemyAIComp->RefreshCache();
-						}
-					}
+					GE::Debug::ErrorLogger::GetInstance().LogWarning("Your tree has no root node, please a root node to the start of the tree", false);
 				}
-				tempTreeCondList[i] = false;
 			}
 		}
 	}
@@ -167,6 +143,13 @@ void EnemySystem::UseTree(TreeID treeID, unsigned int entityID)
 {
 	m_currentEntityID = entityID;
 	m_currentTreeID = treeID;
+	for (GE::Systems::GameTree& gt : EnemySystem::m_treeList)
+	{
+		m_currentTree = (gt.m_treeID == treeID) ? &gt : m_currentTree;
+	}
+
+
+
 }
 
 int EnemySystem::GetChildResult()
@@ -215,7 +198,7 @@ void EnemySystem::RunChildNode(GE::AI::NodeID childNodeID)
 	double dt = fpsControl->GetDeltaTime();
 	std::vector<void*> arg{ &m_currentEntityID, &dt };
 	MonoMethod* onUpdateMethod = mono_class_get_method_from_name(m_currentTree->m_nodeList[childNodeID].m_script.m_scriptClass, "OnUpdate", static_cast<int>(arg.size()));
-	mono_runtime_invoke(onUpdateMethod, m_currentTree->m_nodeList[childNodeID].m_script.m_classInst, arg.data(), nullptr);
+	mono_runtime_invoke(onUpdateMethod, mono_gchandle_get_target(m_currentTree->m_nodeList[childNodeID].m_script.m_gcHandle), arg.data(), nullptr);
 
 
 }
@@ -239,12 +222,10 @@ void EnemySystem::JumpToParent()
 		{
 			std::vector<void*> arg{ &m_currentEntityID };
 			MonoMethod* onUpdateMethod = mono_class_get_method_from_name(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_scriptClass, "ReturnFromChild", static_cast<int>(arg.size()));
-			mono_runtime_invoke(onUpdateMethod, m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_classInst, arg.data(), nullptr);
+			mono_runtime_invoke(onUpdateMethod, mono_gchandle_get_target(m_currentTree->m_nodeList[enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.front().m_nodeID].m_script.m_gcHandle), arg.data(), nullptr);
 		}
 	}
 }
-
-
 
 void EnemySystem::ResetNode()
 {
@@ -289,18 +270,80 @@ bool EnemySystem::PlayerExist()
 	return hasPlayer;
 }
 
-//void EnemySystem::SetPlayerID()
-//{
-//	GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
-//	std::set<GE::ECS::Entity> entityList = ecs->GetEntities();
-//	m_playerExist = false;
-//	for (GE::ECS::Entity e : entityList)
-//	{
-//		if (ecs->GetEntityName(e) == "Player")
-//		{
-//			m_playerExist = true;
-//			m_playerID = e;
-//			break;
-//		}
-//	}
-//}
+void EnemySystem::DelGameTree()
+{
+	std::vector<TreeID>& delTrees = GE::AI::TreeManager::GetInstance().GetDelTreeList();
+	for (TreeID t : delTrees)	//Loop through the list of trees, remove any unwanted trees
+	{
+		auto iter = std::find_if(m_treeList.begin(), m_treeList.end(), [t](const GameTree& tree) -> bool
+			{
+				return tree.m_treeID == t;
+			});
+
+		if (iter != m_treeList.end()) 
+		{
+			m_treeList.erase(iter);
+		}
+		else   // The tree should be inside the list. if its not inside, we will log a message
+		{
+			GE::Debug::ErrorLogger::GetInstance().LogWarning("Somehow you have an ID of a tree that doesnt exist, please check the code", false);
+		}
+	}
+
+	for (Entity entity : GetUpdatableEntities()) { 
+		GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+		GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
+		auto iter = std::find_if(delTrees.begin(), delTrees.end(), [enemyAIComp](TreeID treeID) -> bool
+			{
+				return treeID == enemyAIComp->m_treeID;
+			});
+		if (iter != delTrees.end()) 
+		{
+			enemyAIComp->m_treeID = GE::Component::ghostTreeID;     // If any entity was using the deleted tree, we set its ID to an invalid ID
+			enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.clear(); // Clear the cache since the tree is gone
+		}
+	}
+
+	delTrees.clear(); //Clear the list after updating the enemy system's list
+}
+
+
+void EnemySystem::UpdateTreeList()
+{
+	std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
+	for (TreeTemplate& tt : tempTreeList)
+	{
+		if (tt.m_treeChanged == true)
+		{
+			std::vector<GameTree>::iterator iter = std::find_if(m_treeList.begin(), m_treeList.end(), [tt](GameTree& tree) -> bool
+				{
+					return tree.m_treeID == tt.m_treeTempID;
+				});
+
+			if (iter != m_treeList.end()) //If we already have that tree in our list, we will just swap
+			{
+				GameTree newGamTree = GenerateGameTree(tt);
+				std::swap(iter->m_nodeList, newGamTree.m_nodeList);
+
+			}
+			else // We got a completely new tree, we will just add it into the system
+			{
+				AddGameTree(tt);
+			}
+
+			for (Entity entity : GetUpdatableEntities()) {
+				GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+				GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
+				if (enemyAIComp->m_treeID == tt.m_treeTempID)
+				{
+					enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.clear(); // Clear the cache since the tree is updated
+				}
+			}
+
+			tt.m_treeChanged = false;
+		}
+	}
+
+
+}
+

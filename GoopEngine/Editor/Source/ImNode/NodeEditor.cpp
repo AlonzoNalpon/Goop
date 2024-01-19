@@ -1,6 +1,7 @@
 #include <pch.h>
 #ifndef IMGUI_DISABLE
 #include <ImNode/NodeEditor.h>
+#include "../ImGui/misc/cpp/imgui_stdlib.h"
 #include <algorithm>
 #include <filesystem>
 #include <fstream>
@@ -48,6 +49,7 @@ void GE::AI::NodeEditor::NodeEditorInit()
 
   //Get all the trees
   const std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
+  m_maxTreeID = 0;
 
   for (size_t i{ 0 }; i < tempTreeList.size(); ++i)
   {
@@ -57,13 +59,14 @@ void GE::AI::NodeEditor::NodeEditorInit()
   m_currentTree = (m_treeList.size() != 0) ? &(m_treeList[0].first) : nullptr;
   m_currentLinkList = (m_treeList.size() != 0) ? &(m_treeList[0].second) : nullptr;
   m_currentTreeInd = (m_treeList.size() != 0) ? 0 : static_cast<unsigned>(EMPTYID);
-
+  ++m_maxTreeID;
 }
 
 void  GE::AI::NodeEditor::NodeEditorShow()
 {
 
   ImNodes::BeginNodeEditor();
+  DisplayTreeOption();
 
   if (m_currentTree != nullptr)
   {
@@ -81,7 +84,7 @@ void  GE::AI::NodeEditor::NodeEditorShow()
     if (ImNodes::IsLinkCreated(&createdLink.m_pinIDs.first, &createdLink.m_pinIDs.second))
     {
       m_currentTree->m_changedData = true;
-      createdLink.m_linkID = m_currentLinkList->m_currLinkID++;
+      createdLink.m_linkID = m_currentLinkList->m_maxLinkID++;
       m_currentLinkList->m_linkList.push_back(createdLink);
     }
 
@@ -182,6 +185,7 @@ void GE::AI::NodeEditor::ShowTree()
     ImGui::SameLine();
     ImGui::PushItemWidth(100.0f);
 
+
     if (ImGui::BeginCombo("##combo", dn.m_scriptName.c_str(), ImGuiComboFlags_NoArrowButton))
     {
       for (const std::string& s : m_allScriptNames)
@@ -231,6 +235,113 @@ void GE::AI::NodeEditor::ShowTree()
     ImNodes::Link(l.m_linkID, l.m_pinIDs.first, l.m_pinIDs.second); // <start,end>, <output, intput>
   }
 }
+void GE::AI::NodeEditor::DisplayTreeOption()
+{
+  //ImVec4 originalFrameBg = ImGui::GetStyleColorVec4(ImGuiCol_FrameBg);
+  //ImVec4 originalFrameBgHovered = ImGui::GetStyleColorVec4(ImGuiCol_FrameBgHovered);
+  //ImVec4 originalbuttonBg = ImGui::GetStyleColorVec4(ImGuiCol_Button);
+  ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(10.0f, 5.0f));
+
+  //ImVec4 customColor = ImVec4(0.f, 0.f, 0.f, 1.0f);
+  //ImVec4 customColor2 = ImVec4(0.13f, 0.55f, 0.34f, 1.0f);
+  //ImGui::GetStyle().Colors[ImGuiCol_FrameBg] = customColor;
+  //ImGui::GetStyle().Colors[ImGuiCol_Button] = customColor;
+  //ImGui::GetStyle().Colors[ImGuiCol_FrameBgHovered] = customColor2;
+
+
+  float itemWidth = 100.0f; // Set your desired item width
+ 
+  
+ 
+ 
+  if (m_treeList.size() > 1)
+  {
+    ImGui::SetCursorPosX(ImGui::GetWindowWidth() - (itemWidth + 10.0f) * 3.f);
+    ImGui::SetNextItemWidth(100.0f); // Adjust the width as needed
+    if (ImGui::Button("Delete Tree")) {
+    // Handle button click
+  
+      m_treeList.erase(m_treeList.begin() + m_currentTreeInd);
+      GE::AI::TreeManager::GetInstance().DeleteTree(m_currentTreeInd);
+      m_currentTreeInd = static_cast<unsigned>(m_treeList.size()-1);
+      m_currentTree = &(m_treeList[m_currentTreeInd]).first;
+      m_currentLinkList = &(m_treeList[m_currentTreeInd]).second;
+      m_selectedNodeInd = 0;
+      ImNodes::ClearNodeSelection();
+      ImNodes::ClearLinkSelection();
+    }
+    ImGui::SameLine();
+  }
+  else
+  {
+    ImGui::SetCursorPosX(ImGui::GetWindowWidth() - (itemWidth + 10.0f) * 2.f);
+  }
+
+  // Use SameLine to keep the button and the dropdown on the same line
+
+  // Set your desired color
+
+  ImGui::SetNextItemWidth(100.0f); // Adjust the width as needed
+  if (ImGui::Button("Add New Tree")) {
+    // Handle button click
+    DisplayTree newTree{};
+    NodeLinkList newLink{};
+    m_treeList.push_back(std::make_pair(newTree, newLink));
+    m_currentTreeInd = static_cast<unsigned>(m_treeList.size() - 1);
+    m_currentTree = &(m_treeList[m_currentTreeInd]).first;
+    m_currentLinkList = &(m_treeList[m_currentTreeInd]).second;
+    m_selectedNodeInd = 0;
+    m_displayPopup = false;
+    m_currentTree->m_changedData = true;
+    m_currentTree->m_treeName = "newTree" + std::to_string(m_maxTreeID);
+    m_currentTree->m_treeID = m_maxTreeID++;
+    ImNodes::ClearNodeSelection();
+    ImNodes::ClearLinkSelection();
+  }
+
+  // Use SameLine to keep the button and the dropdown on the same line
+  ImGui::SameLine();
+    // Set your desired color
+
+
+
+  ImGui::SetNextItemWidth(100.0f); // Adjust the width as needed
+  // Create a dropdown
+  if (ImGui::BeginCombo("##TreeList", m_treeList[m_currentTreeInd].first.m_treeName.c_str())) {
+    for (size_t i{0};i<m_treeList.size();i++)
+    {
+      bool is_selected = (i != m_currentTreeInd);
+      if (i != m_currentTreeInd)
+      {
+        if (ImGui::Selectable(m_treeList[i].first.m_treeName.c_str(),is_selected))
+        {
+          m_currentTreeInd = static_cast<unsigned>(i);
+          m_currentTree = &(m_treeList[m_currentTreeInd]).first;
+          m_currentLinkList = &(m_treeList[m_currentTreeInd]).second;
+          m_selectedNodeInd = 0;
+          m_displayPopup = false;
+          ImNodes::ClearNodeSelection();
+          ImNodes::ClearLinkSelection();
+        }
+      }
+      if (is_selected)
+      {
+        ImGui::SetItemDefaultFocus();
+      }
+    }
+    
+
+
+    // End the dropdown
+    ImGui::EndCombo();
+  }
+
+  //ImGui::GetStyle().Colors[ImGuiCol_FrameBg] = originalFrameBg;
+  //ImGui::GetStyle().Colors[ImGuiCol_Button] = originalbuttonBg;
+  //ImGui::GetStyle().Colors[ImGuiCol_FrameBgHovered] = originalFrameBgHovered;
+  ImGui::PopStyleVar();
+}
+
 
 void GE::AI::NodeEditor::DisplayPopup()
 {
@@ -245,9 +356,9 @@ void GE::AI::NodeEditor::DisplayPopup()
       {
         DisplayNode dispNode{};
         dispNode.m_scriptName = std::string();
-        dispNode.m_intputPinID = m_currentTree->m_currPinID++;
-        dispNode.m_outputPinID = m_currentTree->m_currPinID++;
-        dispNode.m_NodeID = m_currentTree->m_curNodeID++;
+        dispNode.m_intputPinID = m_currentTree->m_maxPinID++;
+        dispNode.m_outputPinID = m_currentTree->m_maxPinID++;
+        dispNode.m_NodeID = m_currentTree->m_maxNodeID++;
         dispNode.m_nodeType = static_cast<GE::AI::NODE_TYPE>(i);
         ImNodes::SetNodeScreenSpacePos(static_cast<int>(m_currentTree->m_displayNodes.size()), nodePos);
         dispNode.m_pos = ImNodes::GetNodeGridSpacePos(static_cast<int>(m_currentTree->m_displayNodes.size()));
@@ -310,6 +421,8 @@ void GE::AI::NodeEditor::DisplayPopup()
 
 void GE::AI::NodeEditor::UpdateNewTree()
 {
+  std::cout << "NEWTREEUPDATE\n";
+  std::cout << "----------------------------------\n";
   //Create the newTempTree
   TreeTemplate treeTemp{};
   treeTemp.m_treeName = m_currentTree->m_treeName;
@@ -324,6 +437,7 @@ void GE::AI::NodeEditor::UpdateNewTree()
       hasEmptyNode = true;
       break;
     }
+    std::cout << dispNode.m_scriptName << "\n";
     NodeTemplate nodeTemp{ dispNode.m_nodeType,0,{},dispNode.m_scriptName,{dispNode.m_pos.x, dispNode.m_pos.y} };
     std::vector<int> childPinID{};
     int parentPinID{};
@@ -357,8 +471,8 @@ void GE::AI::NodeEditor::UpdateNewTree()
 
     ++currID;
     treeTemp.m_tree.push_back(nodeTemp);
-  }
 
+  }
   //Sent the updated tree to Tree Manager
   if (!hasEmptyNode)
   {
@@ -380,15 +494,16 @@ void GE::AI::NodeEditor::AddDisplayTree(const TreeTemplate& tree)
   for (const GE::AI::NodeTemplate& nt : tree.m_tree)
   {
     // Set the input pin to link with parent
-    int inputPinID = displayTree.m_currPinID++; //Root node has no parent
-    int outputPinID = displayTree.m_currPinID++; //Leaf node has no child
+    int inputPinID = displayTree.m_maxPinID++; //Root node has no parent
+    int outputPinID = displayTree.m_maxPinID++; //Leaf node has no child
     DisplayNode newDisplayNode = DisplayNode(nt.m_scriptName, outputPinID, inputPinID, currNodeID, nt.m_nodeType, ImVec2(nt.m_pos.x, nt.m_pos.y));
     displayTree.m_displayNodes.push_back(newDisplayNode);
     ++currNodeID;
   }
   displayTree.m_treeName = tree.m_treeName;
   displayTree.m_treeID = tree.m_treeTempID;
-  displayTree.m_curNodeID = currNodeID;
+  displayTree.m_maxNodeID = currNodeID;
+  m_maxTreeID = (displayTree.m_treeID >= m_maxTreeID) ? displayTree.m_treeID : m_maxTreeID;
 
 
   //Set up the links
@@ -410,12 +525,15 @@ void GE::AI::NodeEditor::AddDisplayTree(const TreeTemplate& tree)
       }
     }
   }
-  links.m_currLinkID = newLinkID;
+  links.m_maxLinkID = newLinkID;
   m_treeList.push_back(newTree);
 
 }
 
-
+std::vector<std::pair<GE::AI::DisplayTree, GE::AI::NodeLinkList>> GE::AI::NodeEditor::GetTreeList()
+{
+  return m_treeList;
+}
 /*
 void GE::AI::NodeEditor::AddRunningNode(unsigned int id)
 {

@@ -286,6 +286,20 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SendString(string s);
+
+    // /*!*********************************************************************
+    //
+    //    Functions For UI
+    //
+    //************************************************************************/
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetIsActiveEntity(uint ID, bool active);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static uint SpawnPrefab(string key, Vec3<double> pos = new Vec3<double>(), bool mapEntity = true);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static uint GetObjectWidth(uint ID);
   }
 
 }
