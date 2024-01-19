@@ -18,25 +18,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Mono
 {
-  public class MonoBehaviour
+  public interface MonoBehaviour
   {
-    protected uint m_entityID;
-
-    /*!*********************************************************************
-    \brief
-      Non default constructor of Monobehavior class
-
-    \params enityID
-     ID of the owner of this scipt
-    ************************************************************************/
-    public MonoBehaviour(uint entityID)
-    {
-      m_entityID = entityID;
-    }
-
-    public MonoBehaviour()
-    {
-      m_entityID = 0;
-    }
   }
 }

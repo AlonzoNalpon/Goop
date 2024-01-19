@@ -9,7 +9,7 @@ using static GoopScripts.Mono.Utils;
 
 namespace GoopScripts.Gameplay
 {
-  public class GameManager
+  public class GameManager : MonoBehaviour
   {
     Random m_rng;
     //CardManager m_cardManager;
@@ -18,7 +18,7 @@ namespace GoopScripts.Gameplay
     //int m_numResolves;
     //int m_currResolves = 0;
 
-    bool newTurn = true;  // flag for triggering a turn
+    bool endTurn = false;  // flag for triggering a turn
 
     GameManager()
     {
@@ -31,9 +31,13 @@ namespace GoopScripts.Gameplay
 
     public void OnUpdate(double dt, Stats player, uint playerEntity, Stats enemy, uint enemyEntity, uint playerHand, uint playerQueue, uint enemyQueue)
 		{
-      if (newTurn)
+      if (endTurn)
 			{
-        newTurn = false;
+        player.EndOfTurn();
+        enemy.EndOfTurn();
+        player.m_deckMngr.Draw();
+        enemy.m_deckMngr.Draw();
+        endTurn = false;
         //m_numResolves = 1;
 				//m_numResolves = player.m_cardQueue.Length >= enemy.m_cardQueue.Length ? player.m_cardQueue.Length : enemy.m_cardQueue.Length;
 
@@ -54,7 +58,7 @@ namespace GoopScripts.Gameplay
         //++m_currResolves;
       }
 
-      bool shouldEnd = false;
+      bool shouldEnd = true;
       if (m_currTime > m_animTime)
       {
         // Overflow the time
@@ -113,7 +117,6 @@ namespace GoopScripts.Gameplay
         //}
         //m_currResolves = 0;
         m_currTime = 0;
-        newTurn = true;
 
 				Utils.PlayAnimation("SS_LeahIdle", playerEntity);
 			}
@@ -121,7 +124,8 @@ namespace GoopScripts.Gameplay
 
     public void NewTurn()
     {
-      newTurn = true;
+      Console.WriteLine("NEW TURN");
+      endTurn = true;
     }
   }
 }

@@ -180,6 +180,32 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetScale(uint ID, Vec3<double> newScale);
 
+    /*!*********************************************************************
+		\brief
+		  Gets the object instance of a script given the entity and script name
+		\param entityName
+			The name of the entity
+		\param scriptName
+			The name of the script
+		\return
+		  The object instance
+		************************************************************************/
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static MonoBehaviour GetScript(string entityName, string scriptName);
+
+    /*!*********************************************************************
+		\brief
+		  Gets the object instance of the game system script given the
+			entity's name
+		\param gameSysEntityName
+			Name of the GameSystem entity
+		\return
+		  The object instance
+		************************************************************************/
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static MonoBehaviour GetGameSysScript(string gameSysEntityName);
+
+
     // /*!*********************************************************************
     //
     //    Functions For Behaviour Tree

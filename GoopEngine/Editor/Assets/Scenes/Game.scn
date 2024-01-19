@@ -22,7 +22,7 @@
                     "spriteData": {
                         "spriteSubData": {
                             "texCoords": {
-                                "x": 0.75,
+                                "x": 0.0,
                                 "y": 0.0
                             },
                             "texDims": {
@@ -48,55 +48,17 @@
                             "scriptName": "Stats",
                             "scriptFieldInstList": [
                                 {
-                                    "data": [
-                                        0,
-                                        0,
-                                        0
-                                    ],
-                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "data": 0,
+                                    "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "m_cardQueue"
+                                        "fieldName": "m_attack"
                                     }
                                 },
                                 {
-                                    "data": [
-                                        13,
-                                        8,
-                                        12,
-                                        6,
-                                        7,
-                                        6,
-                                        13,
-                                        7,
-                                        3,
-                                        13,
-                                        7,
-                                        7,
-                                        2,
-                                        8,
-                                        9,
-                                        7,
-                                        6,
-                                        8,
-                                        2,
-                                        2
-                                    ],
-                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "data": 0,
+                                    "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "m_deck"
-                                    }
-                                },
-                                {
-                                    "data": [
-                                        7,
-                                        3,
-                                        8,
-                                        2,
-                                        2
-                                    ],
-                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
-                                    "scriptField": {
-                                        "fieldName": "m_hand"
+                                        "fieldName": "m_block"
                                     }
                                 },
                                 {
@@ -174,9 +136,21 @@
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "TempEndTurn",
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "NEXT_TURN"
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -319,7 +293,7 @@
                     "spriteData": {
                         "spriteSubData": {
                             "texCoords": {
-                                "x": 0.8333333134651184,
+                                "x": 0.0,
                                 "y": 0.0
                             },
                             "texDims": {
@@ -345,55 +319,17 @@
                             "scriptName": "Stats",
                             "scriptFieldInstList": [
                                 {
-                                    "data": [
-                                        0,
-                                        0,
-                                        0
-                                    ],
-                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "data": 0,
+                                    "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "m_cardQueue"
+                                        "fieldName": "m_attack"
                                     }
                                 },
                                 {
-                                    "data": [
-                                        7,
-                                        13,
-                                        9,
-                                        12,
-                                        9,
-                                        7,
-                                        12,
-                                        2,
-                                        3,
-                                        8,
-                                        8,
-                                        2,
-                                        9,
-                                        13,
-                                        2,
-                                        8,
-                                        2,
-                                        9,
-                                        6,
-                                        8
-                                    ],
-                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "data": 0,
+                                    "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "m_deck"
-                                    }
-                                },
-                                {
-                                    "data": [
-                                        7,
-                                        3,
-                                        8,
-                                        2,
-                                        2
-                                    ],
-                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
-                                    "scriptField": {
-                                        "fieldName": "m_hand"
+                                        "fieldName": "m_block"
                                     }
                                 },
                                 {
@@ -647,7 +583,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "UNSELECT_CARD"
+                    "eventType": "UNSELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -749,7 +687,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "UNSELECT_CARD"
+                    "eventType": "UNSELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -853,7 +793,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "UNSELECT_CARD"
+                    "eventType": "UNSELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1028,7 +970,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1136,7 +1080,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1244,7 +1190,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1352,7 +1300,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1460,7 +1410,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "SELECT_CARD"
+                    "eventType": "SELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             },
             {
@@ -1956,7 +1908,9 @@
             {
                 "GE_Button": {
                     "param": "Popup|56|Hide|27",
-                    "eventType": "POPUP"
+                    "eventType": "POPUP",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2011,7 +1965,9 @@
             {
                 "GE_Button": {
                     "param": "27",
-                    "eventType": "UNPAUSE"
+                    "eventType": "UNPAUSE",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2066,7 +2022,9 @@
             {
                 "GE_Button": {
                     "param": "Popup|60|Hide|27",
-                    "eventType": "POPUP"
+                    "eventType": "POPUP",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2235,7 +2193,9 @@
             {
                 "GE_Button": {
                     "param": "Return|56|Show|27",
-                    "eventType": "POPUP"
+                    "eventType": "POPUP",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2366,7 +2326,9 @@
             {
                 "GE_Button": {
                     "param": "Return|60|Show|27",
-                    "eventType": "POPUP"
+                    "eventType": "POPUP",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -2460,7 +2422,9 @@
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "QUIT_GAME"
+                    "eventType": "QUIT_GAME",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]

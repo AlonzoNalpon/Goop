@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define IMGUI_ENABLE
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,13 +13,48 @@ namespace GoopScripts.Gameplay
 {
   public class Deck
   {
-    public List<CardBase.CardID> m_cards;
-    readonly Random m_rand;
+    public CardBase.CardID[] m_cards;
+    public List<CardBase.CardID> m_drawOrder; // the order of cards to draw
+
+#if IMGUI_ENABLE
+    // to display in inspector
+    public CardBase.CardID[] m_drawOrderDisplay;
+#endif
+
+    Random m_rand;
 
     public Deck()
     {
       m_rand = new Random();
-      m_cards = new List<CardBase.CardID>();
+      m_cards = new CardBase.CardID[0];
+      m_drawOrder = new List<CardBase.CardID>();
+
+#if IMGUI_ENABLE
+      m_drawOrderDisplay = m_drawOrder.ToArray();
+#endif
+    }
+
+    public Deck(List<CardBase.CardID> cardList)
+    {
+      m_rand = new Random();
+      m_cards = cardList.ToArray();
+      m_drawOrder = new List<CardBase.CardID>(m_cards.ToList());
+
+#if IMGUI_ENABLE
+      m_drawOrderDisplay = m_drawOrder.ToArray();
+#endif
+    }
+
+    public Deck(Deck deck)
+    {
+      m_rand = new Random();
+      m_cards = new CardBase.CardID[deck.m_cards.Length];
+      deck.m_cards.CopyTo(m_cards, 0);
+      m_drawOrder = new List<CardBase.CardID>(deck.m_drawOrder);
+
+#if IMGUI_ENABLE
+      m_drawOrderDisplay = m_drawOrder.ToArray();
+#endif
     }
 
     /*!*********************************************************************
@@ -31,10 +68,23 @@ namespace GoopScripts.Gameplay
 		************************************************************************/
     public void AddCard(CardBase.CardID card, uint count = 1)
     {
-      for (int i = 0; i < count; ++i)
+      int oldSize = m_cards.Length;
+      // create new array and copy into it
+      CardBase.CardID[] newCards = new CardBase.CardID[oldSize + count];
+      m_cards.CopyTo(newCards, 0);
+
+      // add new cards to the back of array
+      for (int i = oldSize; i < newCards.Length; ++i)
       {
-        m_cards.Add(card);
+        newCards[i] = card;
+        m_drawOrder.Add(card);
       }
+
+      m_cards = newCards;
+
+#if IMGUI_ENABLE
+    m_drawOrderDisplay = m_drawOrder.ToArray();
+#endif
     }
 
     /*!*********************************************************************
@@ -47,8 +97,13 @@ namespace GoopScripts.Gameplay
     {
       if (Empty()) { return CardBase.CardID.NO_CARD; }
 
-      CardBase.CardID cardDrawn = m_cards.First();
-      m_cards.RemoveAt(0);
+      CardBase.CardID cardDrawn = m_cards[(int)m_drawOrder.First()];
+      m_drawOrder.RemoveAt(0);
+
+#if IMGUI_ENABLE
+      m_drawOrderDisplay = m_drawOrder.ToArray();
+#endif
+
       return cardDrawn;
     }
 
@@ -60,7 +115,11 @@ namespace GoopScripts.Gameplay
     {
       if (Empty()) { return; }
 
-      m_cards.RemoveAt(0);
+      m_drawOrder.RemoveAt(0);
+
+#if IMGUI_ENABLE
+      m_drawOrderDisplay = m_drawOrder.ToArray();
+#endif
     }
 
     /*!*********************************************************************
@@ -74,23 +133,30 @@ namespace GoopScripts.Gameplay
       {
         int idx = m_rand.Next(0, i);
         --i;
-        CardBase.CardID temp = m_cards[idx];
-        m_cards[idx] = m_cards[i];
-        m_cards[i] = temp;
+        CardBase.CardID temp = m_drawOrder[idx];
+        m_drawOrder[idx] = m_drawOrder[i];
+        m_drawOrder[i] = temp;
       }
+
+#if IMGUI_ENABLE
+      m_drawOrderDisplay = m_drawOrder.ToArray();
+#endif
     }
 
     /*!*********************************************************************
 		\brief
-      Reshuffles a list of cards back into the deck. The pile is cleared.
+      Adds a list of cards back into the deck. The pile is cleared.
     \param pile
       The list of CardIDs to return back to the deck
 		************************************************************************/
     public void Restore(ref List<CardBase.CardID> pile)
     {
-      m_cards = pile;
+      m_drawOrder.AddRange(pile);
       pile.Clear();
-      Shuffle();
+
+#if IMGUI_ENABLE
+      m_drawOrderDisplay = m_drawOrder.ToArray();
+#endif
     }
 
     /*!*********************************************************************
@@ -101,12 +167,12 @@ namespace GoopScripts.Gameplay
 		************************************************************************/
     public int Size()
     {
-      return m_cards.Count;
+      return m_drawOrder.Count;
     }
 
     public bool Empty()
     {
-      return m_cards.Count == 0;
+      return m_drawOrder.Count == 0;
     }
   }
 }

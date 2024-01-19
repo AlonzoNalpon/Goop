@@ -190,6 +190,29 @@ namespace GE {
 
 		/*!*********************************************************************
 		\brief
+		  Gets the object instance of a script given the entity and script name
+		\param entityName
+			The name of the entity
+		\param scriptName
+			The name of the script
+		\return
+		  The object instance
+		************************************************************************/
+		MonoObject* GetScript(MonoString* entityName, MonoString* scriptName);
+
+		/*!*********************************************************************
+		\brief
+		  Gets the object instance of the game system script given the
+			entity's name
+		\param gameSysEntityName
+			Name of the GameSystem entity
+		\return
+		  The object instance
+		************************************************************************/
+		MonoObject* GetGameSysScript(MonoString* gameSysEntityName);
+
+		/*!*********************************************************************
+		\brief
 			Function to read data from a file and store it in a char buffer
 
 		\params filepath

@@ -130,7 +130,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::GameSystemResolved", GE::MONO::GameSystemResolved);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
   mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
-
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetScript", GE::MONO::GetScript);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetGameSysScript", GE::MONO::GetGameSysScript);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::SetQueueCardID", GE::MONO::SetQueueCardID);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetHandCardID", GE::MONO::SetHandCardID);
@@ -487,6 +488,24 @@ GE::Math::dVec3 GE::MONO::GetRotation(GE::ECS::Entity entity)
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
   return oldTransform->m_rot;
+}
+
+MonoObject* GE::MONO::GetScript(MonoString* entityName, MonoString* scriptName)
+{
+  GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
+  auto ss = ecs.GetComponent<GE::Component::Scripts>(ecs.GetEntity(MonoStringToSTD(entityName)));
+  GE::MONO::ScriptInstance* scriptinst = ss->Get(MonoStringToSTD(scriptName));
+
+  return scriptinst->m_classInst;
+}
+
+MonoObject* GE::MONO::GetGameSysScript(MonoString* gameSysEntityName)
+{
+  GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
+  auto gameComp = ecs.GetComponent<GE::Component::Game>(ecs.GetEntity(MonoStringToSTD(gameSysEntityName)));
+  GE::MONO::ScriptInstance& scriptinst = gameComp->m_gameSystemScript;
+
+  return scriptinst.m_classInst;
 }
 
 void GE::MONO::PlayAnimation(MonoString* animName, GE::ECS::Entity entity)

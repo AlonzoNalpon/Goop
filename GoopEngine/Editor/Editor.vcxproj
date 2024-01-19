@@ -418,6 +418,7 @@
     <ClInclude Include="Source\Prefabs\VariantPrefab.h" />
     <ClInclude Include="Source\SceneManager\SceneManager.h" />
     <ClInclude Include="Source\Scenes\Scene.h" />
+    <ClInclude Include="Source\ScriptEngine\CSharpStructs.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptInstance.h" />
     <ClInclude Include="Source\ScriptEngine\ScriptManager.h" />
     <ClInclude Include="Source\ScriptEngine\ScripUtils.h" />

@@ -31,10 +31,10 @@ namespace GoopScripts.Player
    \params enityID
     ID of the owner of this scipt
    ************************************************************************/
-    public PlayerScriptTest(uint entityID) : base(entityID)
-    {
+    //public PlayerScriptTest(uint entityID) : base(entityID)
+    //{
 
-    }
+    //}
 
     public PlayerScriptTest() 
     {
