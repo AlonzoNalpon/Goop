@@ -359,6 +359,7 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, st
     //Init the class through non-default constructor
     MonoMethod* classCtor = mono_class_get_method_from_name(currClass, ".ctor", static_cast<int>(arg.size()));
     mono_runtime_invoke(classCtor, classInstance, arg.data(), nullptr);
+    
 
     if (classInstance == nullptr) {
       throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Create the class object with non-default constructor: " + std::string(className), ERRLG_FUNC, ERRLG_LINE);

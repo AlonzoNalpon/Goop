@@ -422,6 +422,7 @@ void GE::AI::NodeEditor::DisplayPopup()
 void GE::AI::NodeEditor::UpdateNewTree()
 {
   std::cout << "NEWTREEUPDATE\n";
+  std::cout << "----------------------------------\n";
   //Create the newTempTree
   TreeTemplate treeTemp{};
   treeTemp.m_treeName = m_currentTree->m_treeName;
@@ -436,6 +437,7 @@ void GE::AI::NodeEditor::UpdateNewTree()
       hasEmptyNode = true;
       break;
     }
+    std::cout << dispNode.m_scriptName << "\n";
     NodeTemplate nodeTemp{ dispNode.m_nodeType,0,{},dispNode.m_scriptName,{dispNode.m_pos.x, dispNode.m_pos.y} };
     std::vector<int> childPinID{};
     int parentPinID{};
@@ -469,15 +471,12 @@ void GE::AI::NodeEditor::UpdateNewTree()
 
     ++currID;
     treeTemp.m_tree.push_back(nodeTemp);
-  }
 
+  }
   //Sent the updated tree to Tree Manager
   if (!hasEmptyNode)
   {
     GE::AI::TreeManager::GetInstance().UpdateTreeList(treeTemp);
-    std::cout << GE::AI::TreeManager::GetInstance().GetTreeList().size() << "::\n";
-    std::cout << "UPDATE MAIN\n";
-    std::cout << "CURRENT:: " << m_currentTreeInd << "\n";
   }
   m_currentTree->m_changedData = false;
 

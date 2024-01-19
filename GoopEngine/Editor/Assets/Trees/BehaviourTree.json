@@ -23,7 +23,7 @@
                 "nodeType": "LEAF_NODE",
                 "parentNode": 1,
                 "childrenNode": [],
-                "scriptName": "MoveToPlayer",
+                "scriptName": "RunFromPlayer",
                 "pos": "{ 628, 99 }"
             }
         ],
@@ -36,23 +36,34 @@
         "treeTempID": 10
     },
     {
-        "tree": [],
+        "tree": [
+            {
+                "nodeType": "ROOT_NODE",
+                "parentNode": 0,
+                "childrenNode": [
+                    1
+                ],
+                "scriptName": "RootNode",
+                "pos": "{ 177, 153 }"
+            },
+            {
+                "nodeType": "COMPOSITE_NODE",
+                "parentNode": 0,
+                "childrenNode": [
+                    2
+                ],
+                "scriptName": "SequenceNode",
+                "pos": "{ 400, 142 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 1,
+                "childrenNode": [],
+                "scriptName": "MoveToPlayer",
+                "pos": "{ 656, 127 }"
+            }
+        ],
         "treeName": "newTree11",
         "treeTempID": 11
-    },
-    {
-        "tree": [],
-        "treeName": "newTree12",
-        "treeTempID": 12
-    },
-    {
-        "tree": [],
-        "treeName": "newTree13",
-        "treeTempID": 13
-    },
-    {
-        "tree": [],
-        "treeName": "newTree14",
-        "treeTempID": 14
     }
 ]

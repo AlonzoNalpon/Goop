@@ -38,6 +38,7 @@ GoopScripts.Cards,SpecialSmokeScreen
 GoopScripts.Cards,SpecialTimeWrap
 GoopScripts.Component,Transform
 GoopScripts.Gameplay,BuffManager
+GoopScripts.Gameplay,ComboManager
 GoopScripts.Gameplay,Deck
 GoopScripts.Gameplay,DeckManager
 GoopScripts.Gameplay,GameManager
