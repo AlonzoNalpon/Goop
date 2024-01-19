@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,12 @@ namespace GoopScripts.Gameplay
 {
   public class ComboManager
   {
-    public void ResolveCombo(CardBase.CardID card1, CardBase.CardID card2)
+    public void ResolveCombo(ref Stats source)
+    {
+      
+    }
+
+    public void ComboEffects(CardBase.CardID card1, CardBase.CardID card2, ref int attack, ref int block, ref Queue nextTurn)
     {
       //shield
       if (card1 == CardBase.CardID.SHIELD)
@@ -17,12 +23,14 @@ namespace GoopScripts.Gameplay
         if (card2 == CardBase.CardID.SHIELD)
         {
           //+1 block
+          ++block;
         }
 
         //basic enemy
         else if (card2 == CardBase.CardID.BASIC_ATTACK)
         {
-          //-2 player shield
+          //-2 player shield next turn
+          nextTurn.Enqueue(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 2.0f, 1));
         }
 
         //dawson
@@ -33,6 +41,8 @@ namespace GoopScripts.Gameplay
         else if (card2 == CardBase.CardID.DAWSON_SWING)
         {
           //+2 block, +1 attack
+          block += 2;
+          ++attack;
         }
 
         //player
@@ -42,7 +52,8 @@ namespace GoopScripts.Gameplay
         }
         else if (card2 == CardBase.CardID.LEAH_STRIKE)
         {
-          //reflect 50% enemy damage
+          //draw an extra card
+
         }
       }
 
@@ -52,10 +63,12 @@ namespace GoopScripts.Gameplay
         if (card2 == CardBase.CardID.BASIC_ATTACK)
         {
           //+1 damage
+          ++attack;
         }
         else if (card2 == CardBase.CardID.SHIELD)
         {
-          //-2 player damage
+          //-2 player damage next turn
+          nextTurn.Enqueue(new Buff(Buff.BuffType.REDUCE_DMG_TAKEN, 2.0f, 1));
         }
       }
 
@@ -65,10 +78,12 @@ namespace GoopScripts.Gameplay
         if (card2 == CardBase.CardID.DAWSON_BEAM)
         {
           //+1 damage
+          ++attack;
         }
         else if (card2 == CardBase.CardID.DAWSON_SWING)
         {
           //+2 damage
+          attack += 2;
         }
         else if (card2 == CardBase.CardID.SHIELD)
         {
@@ -80,6 +95,7 @@ namespace GoopScripts.Gameplay
         if (card2 == CardBase.CardID.DAWSON_BEAM)
         {
           //+2 damage
+          attack += 2;
         }
         else if (card2 == CardBase.CardID.DAWSON_SWING)
         {
@@ -87,7 +103,8 @@ namespace GoopScripts.Gameplay
         }
         else if (card2 == CardBase.CardID.SHIELD)
         {
-          //+1 damage next round
+          //bleed -> -1 player health next round -> basically +1 attack next round
+          nextTurn.Enqueue(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 1));
         }
       }
 
@@ -97,6 +114,7 @@ namespace GoopScripts.Gameplay
         if (card2 == CardBase.CardID.LEAH_BEAM)
         {
           //+1 damage
+          ++atack;
         }
         else if (card2 == CardBase.CardID.LEAH_STRIKE)
         {
@@ -112,6 +130,7 @@ namespace GoopScripts.Gameplay
         if (card2 == CardBase.CardID.LEAH_BEAM)
         {
           //+1 damage & 50% chance of stunning enemy
+          ++attack;
         }
         else if (card2 == CardBase.CardID.LEAH_STRIKE)
         {
@@ -120,6 +139,7 @@ namespace GoopScripts.Gameplay
         else if (card2 == CardBase.CardID.SHIELD)
         {
           //-2 enemy shield
+          attack += 2;
         }
       }
     }

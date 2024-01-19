@@ -27,7 +27,7 @@ namespace GoopScripts.Cards
     public SpecialChargeUp(CardID cardID) : base(cardID)
     {
       Value = 2.0f;
-      Duration = 2;
+      Duration = 1;
     }
 
     /*!*********************************************************************
@@ -40,7 +40,7 @@ namespace GoopScripts.Cards
     ************************************************************************/
     public override void Play(ref Stats source, ref Stats target)
     {
-      source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 2.0f, 2));
+      source.m_nextTurn.Enqueue(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 2.0f, 1));
     }
   }
 }

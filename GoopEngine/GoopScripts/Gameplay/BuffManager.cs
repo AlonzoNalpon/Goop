@@ -16,14 +16,10 @@ namespace GoopScripts.Gameplay
     {
       INCREASE_ATK_DEALT,
       MULTIPLY_ATK_DEALT,
-      INCREASE_DMG_TAKEN,
-      REDUCE_ATK_DEALT,
       REDUCE_DMG_TAKEN,
-      REDUCE_SHIELD,
       SKIP_TURN,
       PENETRATE_SHIELD,
       DRAW_CARD,
-      IMMUNITY,
     }
 
     BuffType m_type;
