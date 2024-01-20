@@ -103,70 +103,71 @@
             {
                 "Scripts": {
                     "scriptList": [
-                        {
-                            "scriptName": "Stats",
-                            "scriptFieldInstList": [
-                                {
-                                    "data": [
-                                        0,
-                                        0,
-                                        0
-                                    ],
-                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
-                                    "scriptField": {
-                                        "fieldName": "m_cardQueue"
-                                    }
-                                },
-                                {
-                                    "data": [
-                                        6,
-                                        6,
-                                        7,
-                                        6,
-                                        8,
-                                        12,
-                                        3,
-                                        6,
-                                        8,
-                                        13,
-                                        3,
-                                        6,
-                                        12,
-                                        6,
-                                        9,
-                                        9,
-                                        6,
-                                        8,
-                                        8,
-                                        6
-                                    ],
-                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
-                                    "scriptField": {
-                                        "fieldName": "m_deck"
-                                    }
-                                },
-                                {
-                                    "data": [
-                                        7,
-                                        3,
-                                        8,
-                                        2,
-                                        2
-                                    ],
-                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
-                                    "scriptField": {
-                                        "fieldName": "m_hand"
-                                    }
-                                },
-                                {
-                                    "data": 666,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_health"
-                                    }
-                                }
-                            ]
-                        }
+                      {
+                        "scriptName": "Stats",
+                        "entityID": 1,
+                        "scriptFieldInstList": [
+                          {
+                            "data": [
+                              0,
+                              0,
+                              0
+                            ],
+                            "type": "GoopScripts.Cards.CardBase.CardID[]",
+                            "scriptField": {
+                              "fieldName": "m_cardQueue"
+                            }
+                          },
+                          {
+                            "data": [
+                              6,
+                              6,
+                              7,
+                              6,
+                              8,
+                              12,
+                              3,
+                              6,
+                              8,
+                              13,
+                              3,
+                              6,
+                              12,
+                              6,
+                              9,
+                              9,
+                              6,
+                              8,
+                              8,
+                              6
+                            ],
+                            "type": "GoopScripts.Cards.CardBase.CardID[]",
+                            "scriptField": {
+                              "fieldName": "m_deck"
+                            }
+                          },
+                          {
+                            "data": [
+                              7,
+                              3,
+                              8,
+                              2,
+                              2
+                            ],
+                            "type": "GoopScripts.Cards.CardBase.CardID[]",
+                            "scriptField": {
+                              "fieldName": "m_hand"
+                            }
+                          },
+                          {
+                            "data": 666,
+                            "type": "System.Int32",
+                            "scriptField": {
+                              "fieldName": "m_health"
+                            }
+                          }
+                        ]
+                      }
                     ]
                 }
             }

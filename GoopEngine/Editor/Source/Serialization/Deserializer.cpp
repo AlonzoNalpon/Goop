@@ -448,50 +448,7 @@ void Deserializer::DeserializeBasedOnType(rttr::variant& object, rapidjson::Valu
   {
     if (object.get_type() == rttr::type::get<Component::ScriptInstance>())
     {
-      // will move this into a function
-      if (!value.HasMember("scriptName") || !value.HasMember("scriptFieldInstList"))
-      {
-        Debug::ErrorLogger::GetInstance().LogError("ScriptInstance component is missing fields");
-        object = {}; return;
-      }
-      GE::ECS::Entity garbageID{ 1 }; //please change this to the acutal entity ID
-      Component::ScriptInstance instance{ Component::ScriptInstance(value["scriptName"].GetString(),garbageID) };
-      auto const& instArr{ value["scriptFieldInstList"].GetArray() };
-      for (unsigned i{}; i < instance.m_scriptFieldInstList.size(); ++i)
-      {
-        rttr::variant& var{ instance.m_scriptFieldInstList[i] };
-        for (unsigned j{}; j < instArr.Size(); ++j)
-        {
-          rapidjson::Value const& elem{ instArr[j] };
-          if (!elem.HasMember("type") || !elem.HasMember("scriptField") || !elem["scriptField"].IsObject())
-          {
-            std::ostringstream oss{}; oss << "Element " << i << " of scriptFieldInstList missing fields";
-            Debug::ErrorLogger::GetInstance().LogError(oss.str()); object = {}; return;
-          }
-
-          rapidjson::Value const& jsonField{ elem["scriptField"] };
-          if (!jsonField.HasMember("fieldName") || !jsonField["fieldName"].IsString())
-          {
-            std::ostringstream oss{}; oss << "Element " << i << " of scriptFieldInstList missing fieldName in its scriptField";
-            Debug::ErrorLogger::GetInstance().LogError(oss.str()); object = {}; return;
-          }
-
-          // if types or fieldNames don't match, skip to next elem
-          rttr::variant scriptFieldVar{ var.get_type().get_property("scriptField").get_value(var) };
-#ifdef DESERIALIZER_DEBUG
-          std::cout << "    Comparing " << elem["type"].GetString() << " with " << var.get_type().get_property("type").get_value(var).get_value<std::string>()
-            << "\nComparing " << jsonField["fieldName"].GetString() << " with " << scriptFieldVar.get_type().get_property("fieldName").get_value(scriptFieldVar).get_value<std::string>();
-#endif
-          if (elem["type"].GetString() != var.get_type().get_property("type").get_value(var).get_value<std::string>()
-            || jsonField["fieldName"].GetString() != scriptFieldVar.get_type().get_property("fieldName").get_value(scriptFieldVar).get_value<std::string>())
-          {
-            continue;
-          }
-
-          DeserializeBasedOnType(var, elem);
-        }
-      }
-      object = instance;
+      DeserializeScriptFieldInstList(object, value);
       return;
     }
    // else if (!InvokeConstructor(object, object.get_type(), value))
@@ -703,68 +660,6 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
   }
 }
 
-bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type const& type, rapidjson::Value const& value)
-{
-  if (type == rttr::type::get<Component::Sprite>())
-  {
-    rapidjson::Value::ConstMemberIterator sprData{ value.FindMember("spriteData") };
-    if (sprData == value.MemberEnd())
-    {
-      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteData in Sprite component");
-      return true;
-    }
-    rapidjson::Value::ConstMemberIterator sprName{ value.FindMember("spriteName") };
-    if (sprData == value.MemberEnd())
-    {
-      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteName in Sprite component");
-      return true;
-    }
-    
-    rttr::variant sprDataVar{ Graphics::SpriteData() };
-    DeserializeBasedOnType(sprDataVar, sprData->value);
-    compVar = type.create({ sprDataVar.get_value<Graphics::SpriteData>(), std::string(sprName->value.GetString())});
-    return true;
-  }  
-  else if (type == rttr::type::get<Component::SpriteAnim>())
-  {
-    rapidjson::Value::ConstMemberIterator animName{ value.FindMember("name") };
-    if (animName == value.MemberEnd())
-    {
-      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find name in SpriteAnim component");
-      return true;
-    }
-    auto const& gEngine = Graphics::GraphicsEngine::GetInstance();
-    Component::SpriteAnim sprAnim{ gEngine.animManager.GetAnimID(animName->value.GetString()) };
-    sprAnim.flags = gEngine.animManager.GetAnim(sprAnim.animID).flags;
-    //sprAnim.currFrame = value["currFrame"].GetUint();
-    //sprAnim.currTime = value["currTime"].GetDouble();
-    //sprAnim.flags = value["currTime"].GetUint();
-
-    compVar = std::make_shared<Component::SpriteAnim>(sprAnim);
-    
-    return true;
-  }
-  else if (type == rttr::type::get<Component::Scripts>())
-  {
-    //GE::Debug::ErrorLogger::GetInstance().LogMessage("Deserializing of Script component is skipped for now");
-    // get vector of script instances
-    rttr::variant scriptMap{ Component::Scripts::ScriptInstances{} };
-    rapidjson::Value::ConstMemberIterator listIter{ value.FindMember("scriptList") };
-    if (listIter == value.MemberEnd())
-    {
-      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"scriptList\" property in Script component");
-      return true;
-    }
-    DeserializeBasedOnType(scriptMap, listIter->value);
-
-    compVar = type.create({ scriptMap.get_value<Component::Scripts::ScriptInstances>() });
-
-    return true;
-  }
-
-  return false;
-}
-
 rttr::variant Deserializer::DeserializeBasicTypes(rapidjson::Value const& value)
 {
   switch (value.GetType())
@@ -790,53 +685,113 @@ rttr::variant Deserializer::DeserializeBasicTypes(rapidjson::Value const& value)
   }
 }
 
-//void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value)
-//{
-//#ifdef DESERIALIZER_DEBUG
-//  std::cout << "Deserializing ScriptFieldInstList...\n";
-//#endif
-//  if (!value.IsArray()) { Debug::ErrorLogger::GetInstance().LogError("scriptFieldInstList is not a rapidjson Array!"); return; }
-//
-//  std::vector<rttr::variant> scriptFieldInstList{};
-//  scriptFieldInstList.reserve(value.Size());
-//  for (rapidjson::SizeType i{}; i < value.Size(); ++i)
-//  {
-//    rapidjson::Value const& elem{ value[i] };
-//    if (!elem.HasMember("type")) { Debug::ErrorLogger::GetInstance().LogError("ScriptInstance missing \"scriptFieldInstList\" member"); continue; }
-//    
-//    rttr::variant scriptFieldInst{ MONO::ScriptManager::GetInstance().GetScriptFieldInst(elem["type"].GetString()) };
-//    DeserializeBasedOnType(scriptFieldInst, elem);
-//#ifdef DESERIALIZER_DEBUG
-//    std::cout << "  Reading " << elem["type"].GetString() << "...\n";
-//#endif
-//    scriptFieldInstList.emplace_back(scriptFieldInst);
-//#ifdef DESERIALIZER_DEBUG
-//    std::cout << "  Added " << scriptFieldInst.get_type() << " to ScriptFieldInstList\n";
-//      if (scriptFieldInst.get_type() == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>()) {
-//        GE::MONO::ScriptFieldInstance<std::vector<int>> const& vec = scriptFieldInst.get_value< GE::MONO::ScriptFieldInstance<std::vector<int>>>();
-//        for (auto const& j : vec.m_data) {
-//          std::cout << j << " ";
-//        }
-//      }
-//    std::cout << "\n";
-//#endif
-//  }
-//
-//#ifdef DESERIALIZER_DEBUG
-//  for (auto const& i : scriptFieldInstList)
-//  {
-//    if (i.get_type() == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>()) {
-//      GE::MONO::ScriptFieldInstance<std::vector<int>> const& vec = i.get_value< GE::MONO::ScriptFieldInstance<std::vector<int>>>();
-//      for (auto const& j : vec.m_data) {
-//        std::cout << j << " ";
-//      }
-//    }
-//  }
-//  std::cout << "\n";
-//#endif
-//
-//  object = scriptFieldInstList;
-//}
+
+bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type const& type, rapidjson::Value const& value)
+{
+  if (type == rttr::type::get<Component::Sprite>())
+  {
+    rapidjson::Value::ConstMemberIterator sprData{ value.FindMember("spriteData") };
+    if (sprData == value.MemberEnd())
+    {
+      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteData in Sprite component");
+      return true;
+    }
+    rapidjson::Value::ConstMemberIterator sprName{ value.FindMember("spriteName") };
+    if (sprData == value.MemberEnd())
+    {
+      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteName in Sprite component");
+      return true;
+    }
+
+    rttr::variant sprDataVar{ Graphics::SpriteData() };
+    DeserializeBasedOnType(sprDataVar, sprData->value);
+    compVar = type.create({ sprDataVar.get_value<Graphics::SpriteData>(), std::string(sprName->value.GetString()) });
+    return true;
+  }
+  else if (type == rttr::type::get<Component::SpriteAnim>())
+  {
+    rapidjson::Value::ConstMemberIterator animName{ value.FindMember("name") };
+    if (animName == value.MemberEnd())
+    {
+      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find name in SpriteAnim component");
+      return true;
+    }
+    auto const& gEngine = Graphics::GraphicsEngine::GetInstance();
+    Component::SpriteAnim sprAnim{ gEngine.animManager.GetAnimID(animName->value.GetString()) };
+    sprAnim.flags = gEngine.animManager.GetAnim(sprAnim.animID).flags;
+    //sprAnim.currFrame = value["currFrame"].GetUint();
+    //sprAnim.currTime = value["currTime"].GetDouble();
+    //sprAnim.flags = value["currTime"].GetUint();
+
+    compVar = std::make_shared<Component::SpriteAnim>(sprAnim);
+
+    return true;
+  }
+  else if (type == rttr::type::get<Component::Scripts>())
+  {
+    //GE::Debug::ErrorLogger::GetInstance().LogMessage("Deserializing of Script component is skipped for now");
+    // get vector of script instances
+    rttr::variant scriptMap{ Component::Scripts::ScriptInstances{} };
+    rapidjson::Value::ConstMemberIterator listIter{ value.FindMember("scriptList") };
+    if (listIter == value.MemberEnd())
+    {
+      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"scriptList\" property in Script component");
+      return true;
+    }
+    DeserializeBasedOnType(scriptMap, listIter->value);
+
+    compVar = type.create({ scriptMap.get_value<Component::Scripts::ScriptInstances>() });
+
+    return true;
+  }
+
+  return false;
+}
+
+void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value)
+{
+  if (!ScanJsonFileForMembers(value, "ScriptFieldInstList", 3, "scriptName", rapidjson::kStringType,
+      "scriptFieldInstList", rapidjson::kArrayType, "entityID", rapidjson::kNumberType)) { return; }
+
+  Component::ScriptInstance instance{ value["scriptName"].GetString(), value["entityID"].GetUint() };
+  auto const& instArr{ value["scriptFieldInstList"].GetArray() };
+  for (unsigned i{}; i < instance.m_scriptFieldInstList.size(); ++i)
+  {
+    rttr::variant& var{ instance.m_scriptFieldInstList[i] };
+    for (unsigned j{}; j < instArr.Size(); ++j)
+    {
+      rapidjson::Value const& elem{ instArr[j] };
+
+      if (!elem.HasMember("type") || !elem.HasMember("scriptField") || !elem["scriptField"].IsObject())
+      {
+        std::ostringstream oss{}; oss << "Element " << i << " of scriptFieldInstList missing fields";
+        Debug::ErrorLogger::GetInstance().LogError(oss.str()); object = {}; return;
+      }
+
+      rapidjson::Value const& jsonField{ elem["scriptField"] };
+      if (!jsonField.HasMember("fieldName") || !jsonField["fieldName"].IsString())
+      {
+        std::ostringstream oss{}; oss << "Element " << i << " of scriptFieldInstList missing fieldName in its scriptField";
+        Debug::ErrorLogger::GetInstance().LogError(oss.str()); object = {}; return;
+      }
+
+      // if types or fieldNames don't match, skip to next elem
+      rttr::variant scriptFieldVar{ var.get_type().get_property("scriptField").get_value(var) };
+#ifdef DESERIALIZER_DEBUG
+      std::cout << "    Comparing " << elem["type"].GetString() << " with " << var.get_type().get_property("type").get_value(var).get_value<std::string>()
+        << "\nComparing " << jsonField["fieldName"].GetString() << " with " << scriptFieldVar.get_type().get_property("fieldName").get_value(scriptFieldVar).get_value<std::string>();
+#endif
+      if (elem["type"].GetString() != var.get_type().get_property("type").get_value(var).get_value<std::string>()
+        || jsonField["fieldName"].GetString() != scriptFieldVar.get_type().get_property("fieldName").get_value(scriptFieldVar).get_value<std::string>())
+      {
+        continue;
+      }
+
+      DeserializeBasedOnType(var, elem);
+    }
+  }
+  object = instance;
+}
 
 std::vector<AI::TreeTemplate> Deserializer::DeserializeTrees(std::string const& filename)
 {

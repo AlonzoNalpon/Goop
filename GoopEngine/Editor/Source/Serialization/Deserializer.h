@@ -218,9 +218,28 @@ namespace GE
       ************************************************************************/
       static void DeserializeSequentialContainer(rttr::variant_sequential_view& view, rapidjson::Value const& value);
 
+      /*!*********************************************************************
+      \brief
+        Handles the deserialization of associative containers (such as 
+        std::map). It uses the strings defined in JsonKeys.h to retrieve the
+        keys and values of each entry.
+      \param view
+        The associative_view of the container
+      \param value
+        The json data of the container
+      ************************************************************************/
       static void DeserializeAssociativeContainer(rttr::variant_associative_view& view, rapidjson::Value const& value);
-
-      //static void DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value);
+      
+      /*!*********************************************************************
+      \brief
+        This function handles the deserialization of a ScriptFieldInstList
+        object. This is called when deserializing a Script component.
+      \param object
+        The rttr::variant of the ScriptFieldInstList
+      \param value
+        The json data of the ScriptFieldInstList
+      ************************************************************************/
+      static void DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value);
 
       //static bool InvokeConstructor(rttr::variant& var, rttr::type const& compType, rapidjson::Value const& value);
 

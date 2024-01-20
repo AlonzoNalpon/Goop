@@ -45,7 +45,8 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "Stats",
+                          "scriptName": "Stats",
+                            "entityID":  0,
                             "scriptFieldInstList": [
                                 {
                                     "data": 0,
@@ -159,10 +160,11 @@
             {
                 "Scripts": {
                     "scriptList": [
-                        {
-                            "scriptName": "TempEndTurn",
-                            "scriptFieldInstList": []
-                        }
+                      {
+                        "scriptName": "TempEndTurn",
+                        "entityID": 1,
+                        "scriptFieldInstList": []
+                      }
                     ]
                 }
             },
@@ -336,66 +338,67 @@
             {
                 "Scripts": {
                     "scriptList": [
-                        {
-                            "scriptName": "Stats",
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 0,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_attack"
-                                    }
-                                },
-                                {
-                                    "data": [
-                                        2,
-                                        9,
-                                        3,
-                                        9,
-                                        9,
-                                        13,
-                                        7,
-                                        8,
-                                        8,
-                                        12,
-                                        9,
-                                        9,
-                                        7,
-                                        8,
-                                        13,
-                                        8,
-                                        13,
-                                        9,
-                                        7,
-                                        9
-                                    ],
-                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
-                                    "scriptField": {
-                                        "fieldName": "m_deck"
-                                    }
-                                },
-                                {
-                                    "data": [
-                                        7,
-                                        3,
-                                        8,
-                                        2,
-                                        2
-                                    ],
-                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
-                                    "scriptField": {
-                                        "fieldName": "m_block"
-                                    }
-                                },
-                                {
-                                    "data": 100,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_health"
-                                    }
-                                }
-                            ]
-                        }
+                      {
+                        "scriptName": "Stats",
+                        "entityID": 4,
+                        "scriptFieldInstList": [
+                          {
+                            "data": 0,
+                            "type": "System.Int32",
+                            "scriptField": {
+                              "fieldName": "m_attack"
+                            }
+                          },
+                          {
+                            "data": [
+                              2,
+                              9,
+                              3,
+                              9,
+                              9,
+                              13,
+                              7,
+                              8,
+                              8,
+                              12,
+                              9,
+                              9,
+                              7,
+                              8,
+                              13,
+                              8,
+                              13,
+                              9,
+                              7,
+                              9
+                            ],
+                            "type": "GoopScripts.Cards.CardBase.CardID[]",
+                            "scriptField": {
+                              "fieldName": "m_deck"
+                            }
+                          },
+                          {
+                            "data": [
+                              7,
+                              3,
+                              8,
+                              2,
+                              2
+                            ],
+                            "type": "GoopScripts.Cards.CardBase.CardID[]",
+                            "scriptField": {
+                              "fieldName": "m_block"
+                            }
+                          },
+                          {
+                            "data": 100,
+                            "type": "System.Int32",
+                            "scriptField": {
+                              "fieldName": "m_health"
+                            }
+                          }
+                        ]
+                      }
                     ]
                 }
             }
@@ -446,10 +449,11 @@
                     "playerHand": 15,
                     "playerQueue": 11,
                     "enemyQueue": 21,
-                    "gameSystemScript": {
-                        "scriptName": "GameManager",
-                        "scriptFieldInstList": []
-                    }
+                  "gameSystemScript": {
+                    "scriptName": "GameManager",
+                    "entityID": 5,
+                    "scriptFieldInstList": []
+                  }
                 }
             }
         ]
@@ -1912,25 +1916,26 @@
             {
                 "Scripts": {
                     "scriptList": [
-                        {
-                            "scriptName": "HealthBar",
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 28,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "ID"
-                                    }
-                                },
-                                {
-                                    "data": 300,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_width"
-                                    }
-                                }
-                            ]
-                        }
+                      {
+                        "scriptName": "HealthBar",
+                        "entityID": 28,
+                        "scriptFieldInstList": [
+                          {
+                            "data": 28,
+                            "type": "System.Int32",
+                            "scriptField": {
+                              "fieldName": "ID"
+                            }
+                          },
+                          {
+                            "data": 300,
+                            "type": "System.Int32",
+                            "scriptField": {
+                              "fieldName": "m_width"
+                            }
+                          }
+                        ]
+                      }
                     ]
                 }
             }
