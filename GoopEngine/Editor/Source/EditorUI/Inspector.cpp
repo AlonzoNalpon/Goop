@@ -29,6 +29,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Prefabs/PrefabManager.h>
 #include "PrefabEditor.h"
 #include <Events/EventManager.h>
+#include <ScriptEngine/CSharpStructs.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
@@ -295,6 +296,25 @@ namespace
 	Draw disabled
 ************************************************************************/
 	bool  InputScriptList(std::string propertyName, std::vector<unsigned>& list, float fieldWidth, bool disabled = false);
+
+	/*!*********************************************************************
+\brief
+		Wrapper to create specialized inspector list of vector of unsigned int.
+	This function is specifically for diaplying script fields/data members
+
+\param[in] propertyName
+	Label name
+
+\param[in] list
+	Vector of unsigned int
+
+\param[in] fieldWidth
+	Width of input field
+
+\param[in] disabled
+	Draw disabled
+************************************************************************/
+	bool  InputCardID(std::string propertyName, std::vector<Card::CardID>& list, float fieldWidth, bool disabled = false);
 
 	/*!*********************************************************************
 	\brief
@@ -713,7 +733,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 					if (ImGui::BeginCombo("##TreeNames", defName.c_str()))
 					{
-						for (auto tree: treeList)
+						for (const std::pair<DisplayTree, NodeLinkList>& tree: treeList)
 						{
 							if (tree.first.m_treeID != aiComp->m_treeID)
 							{
@@ -852,6 +872,43 @@ void GE::EditorGUI::Inspector::CreateContent()
 								GE::MONO::ScriptFieldInstance<GE::Math::dVec3>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>();
 								if (InputDouble3(("##" + sfi.m_scriptField.m_fieldName).c_str(), sfi.m_data, inputWidth)) { s.SetFieldValue<GE::Math::dVec3>(sfi.m_data, sfi.m_scriptField.m_classField); };
 							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<DeckManager>>())
+							{
+								TableNextRow();
+								BeginDisabled(false);
+								GE::MONO::ScriptFieldInstance<DeckManager>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<DeckManager>>();
+								GE::MONO::ScriptInstance& deck = sfi.m_data.m_deckInstance;
+								GE::MONO::ScriptInstance& deckMan = sfi.m_data.m_deckManagerInstance;
+
+								for (rttr::variant& dF : deck.m_scriptFieldInstList)
+								{
+									ScriptFieldInstance<std::vector<Component::Card::CardID>>& dSFI = dF.get_value<ScriptFieldInstance<std::vector<Component::Card::CardID>>>();
+									TableNextColumn();
+									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
+									ImGui::TableNextColumn();
+									if (InputCardID("##" + dSFI.m_scriptField.m_fieldName, dSFI.m_data, inputWidth))
+									{
+										deck.SetFieldValueArr<Component::Card::CardID>(dSFI.m_data, sm->m_appDomain, dSFI.m_scriptField.m_classField);
+									}
+								
+								}
+
+								for (rttr::variant& dF : deckMan.m_scriptFieldInstList)
+								{
+									ScriptFieldInstance<std::vector<Component::Card::CardID>>& dSFI = dF.get_value<ScriptFieldInstance<std::vector<Component::Card::CardID>>>();\
+									TableNextColumn();
+									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
+									ImGui::TableNextColumn();
+									if (InputCardID("##" + dSFI.m_scriptField.m_fieldName, dSFI.m_data, inputWidth))
+									{
+										deckMan.SetFieldValueArr<Component::Card::CardID>(dSFI.m_data, sm->m_appDomain, dSFI.m_scriptField.m_classField);
+									}
+								
+								}
+
+
+								EndDisabled();
+							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>())
 							{
 								GE::MONO::ScriptFieldInstance<std::vector<int>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<int>>>();
@@ -874,6 +931,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 								if (InputScriptList("##" + sfi.m_scriptField.m_fieldName, sfi.m_data, inputWidth)) { s.SetFieldValueArr<unsigned>(sfi.m_data, sm->m_appDomain, sfi.m_scriptField.m_classField); };
 								ImGui::EndDisabled();
 							}
+
 						}
 
 						// Check if the mouse is over the second table and the right mouse button is clicked
@@ -1956,6 +2014,38 @@ namespace
 				if (InputInt(("##" + (propertyName + std::to_string(i))).c_str(), &rep, 0)) { 
 					changed = true; 
 					list[i] = static_cast<unsigned>(rep);
+				}
+				ImGui::TableNextRow();
+				ImGui::PopID();
+			}
+			EndTable();
+			ImGui::Separator();
+			ImGui::TreePop();
+		}
+		return changed;
+	}
+
+	bool InputCardID(std::string propertyName, std::vector<Card::CardID>& list, float fieldWidth, bool disabled)
+	{
+
+		// 12 characters for property name
+		float charSize = CalcTextSize("012345678901").x;
+		bool changed{ false };
+
+		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			ImGui::Separator();
+			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
+			for (int i{}; i < list.size(); ++i)
+			{
+				PushID((std::to_string(i)).c_str());
+				ImGui::Text(propertyName.c_str());
+				ImGui::TableNextColumn();
+				int rep = static_cast<int>(list[i]);
+				if (InputInt(("##" + (propertyName + std::to_string(i))).c_str(), &rep, 0)) {
+					changed = true;
+					list[i] = static_cast<Card::CardID>(rep);
 				}
 				ImGui::TableNextRow();
 				ImGui::PopID();

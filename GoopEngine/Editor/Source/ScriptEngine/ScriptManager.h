@@ -156,7 +156,7 @@ namespace GE {
 			\return 
 			an empty script field instance of a specific template type, in the form of rttr::variant
 			************************************************************************/
-			rttr::variant GetScriptFieldInst(std::string const& listType);
+			/*rttr::variant GetScriptFieldInst(std::string const& listType);*/
 
 		};
 

@@ -100,6 +100,8 @@
     <Compile Include="Gameplay\GameManager.cs" />
     <Compile Include="Gameplay\Stats.cs" />
     <Compile Include="Input\KeyCode.cs" />
+    <Compile Include="Mono\Component.cs" />
+    <Compile Include="Mono\Entity.cs" />
     <Compile Include="Mono\Vec2.cs" />
     <Compile Include="Mono\Vec3.cs" />
     <Compile Include="Mono\MonoBehaviour.cs" />
@@ -107,7 +109,6 @@
     <Compile Include="Player\Player.cs" />
     <Compile Include="Player\PlayerScriptTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Component\Transform.cs" />
     <Compile Include="UI\HealthBar.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

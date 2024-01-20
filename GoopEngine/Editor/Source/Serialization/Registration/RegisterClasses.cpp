@@ -12,8 +12,10 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Components.h>
 #include <Systems/Systems.h>
 #include <rttr/registration>
+#include <ScriptEngine/CSharpStructs.h>
 #ifndef IMGUI_DISABLE
 #include <Prefabs/VariantPrefab.h>
+#
 #endif
 
 using namespace GE;
@@ -98,6 +100,14 @@ RTTR_REGISTRATION
     .property("treeName", &AI::TreeTemplate::m_treeName)
     .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
     ;
+  //rttr::registration::class_<Deck>("Deck")
+  //  .property("Cards In Deck", &Deck::m_cards)
+  //  .property("Draw Order", &Deck::m_drawOrderDisplay)
+  //  ;
+
+
+  rttr::registration::class_<DeckManager>("DeckManager")
+    ;
 
   rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
     .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
@@ -158,6 +168,11 @@ RTTR_REGISTRATION
     .property("type", &MONO::ScriptFieldInstance<unsigned>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<unsigned>::m_scriptField)
     ;
+  rttr::registration::class_<MONO::ScriptFieldInstance<unsigned>>("System.UInt32")
+    .property("data", &MONO::ScriptFieldInstance<unsigned>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<unsigned>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<unsigned>::m_scriptField)
+    ;
   rttr::registration::class_<MONO::ScriptFieldInstance<std::vector<int>>>("System.Int32[]")
     .property("data", &MONO::ScriptFieldInstance<std::vector<int>>::m_data)
     .property("type", &MONO::ScriptFieldInstance<std::vector<int>>::m_type)
@@ -177,6 +192,11 @@ RTTR_REGISTRATION
     .property("data", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_data)
     .property("type", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
+    ;
+  rttr::registration::class_<MONO::ScriptFieldInstance<DeckManager>>("GoopScripts.Gameplay.DeckManager")
+    .property("data", &MONO::ScriptFieldInstance<DeckManager>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<DeckManager>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<DeckManager>::m_scriptField)
     ;
 
   rttr::registration::class_<MONO::ScriptInstance>("ScriptInstance")

@@ -1,6 +1,12 @@
 #include <pch.h>
 #include "ScriptInstance.h"
 #include "ScriptManager.h"
+#include "CSharpStructs.h"
+#include "mono/metadata/assembly.h"
+#include "mono/metadata/object.h"
+#include "mono/metadata/tabledefs.h"
+#include "mono/metadata/mono-debug.h"
+#include "mono/metadata/threads.h"
 /*!*********************************************************************
 \file   ScriptInstance.cpp
 \author han.q\@digipen.edu
@@ -77,43 +83,43 @@ void ScriptInstance::GetFields()
 
 		if (field.m_fieldType == ScriptFieldType::Float)
 		{
-      
 			float value = GetFieldValue<float>(field.m_classField);
       ScriptFieldInstance<float> test{ field,value };
-      
       m_scriptFieldInstList.emplace_back(test);
 		}
 		else if (field.m_fieldType == ScriptFieldType::Int)
 		{
-
       int value = GetFieldValue<int>(field.m_classField);
       ScriptFieldInstance<int> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
 		}
 		else if (field.m_fieldType == ScriptFieldType::Double)
 		{
-
       double value = GetFieldValue<double>(field.m_classField);
       ScriptFieldInstance<double> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
 		}
 		else if (field.m_fieldType == ScriptFieldType::DVec3)
 		{
-
       GE::Math::dVec3 value = GetFieldValue<GE::Math::dVec3>(field.m_classField);
       ScriptFieldInstance<GE::Math::dVec3> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
 		}
+    else if (field.m_fieldType == ScriptFieldType::DeckManagerFT)
+    {
+      DeckManager value = GetFieldValue< DeckManager>(field.m_classField);
+      //std::cout << value.m_deck.m_cards.size() << "\n";
+      ScriptFieldInstance< DeckManager> test{ field,value };
+      m_scriptFieldInstList.emplace_back(test);
+    }
 		else if (field.m_fieldType == ScriptFieldType::IntArr)
 		{
-
       std::vector<int> value = GetFieldValueArr<int>(sm->m_appDomain, field.m_classField);
       ScriptFieldInstance<std::vector<int>> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
 		}
     else if (field.m_fieldType == ScriptFieldType::UIntArr)
     {
-
       std::vector<unsigned> value = GetFieldValueArr<unsigned>(sm->m_appDomain, field.m_classField);
       ScriptFieldInstance<std::vector<unsigned>> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
@@ -126,6 +132,7 @@ void ScriptInstance::GetAllUpdatedFields()
 {
   GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
   ScriptClassInfo sci = sm->GetScriptClassInfo(m_scriptName);
+
   for (rttr::variant& f: m_scriptFieldInstList)
   {
     rttr::type dataType{ f.get_type() };
@@ -144,11 +151,52 @@ void ScriptInstance::GetAllUpdatedFields()
       GE::MONO::ScriptFieldInstance<double>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<double>>();
       sfi.m_data = GetFieldValue<double>(sfi.m_scriptField.m_classField);
     }
+    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<DeckManager>>()))
+    {
+
+      //Get the whole Deck Manager as a mnoObject
+      GE::MONO::ScriptFieldInstance<DeckManager>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<DeckManager>>();
+
+      //Check if we have created a cache for the deck manager. We will create if we didnt
+      if (!sfi.m_data.m_deckManagerInstance.m_classInst)
+      {
+        sfi.m_data.m_deckManagerInstance.m_classInst = mono_field_get_value_object(sm->m_appDomain, sfi.m_scriptField.m_classField, m_classInst); //Get the mono data of the deck manager
+        sfi.m_data.m_deckManagerInstance.m_scriptClass = mono_object_get_class(sfi.m_data.m_deckManagerInstance.m_classInst);
+
+        MonoClassField* deckfield = mono_class_get_field_from_name(sfi.m_data.m_deckManagerInstance.m_scriptClass, "m_deck"); //Get the mono data of the deck 
+        sfi.m_data.m_deckInstance.m_classInst = mono_field_get_value_object(sm->m_appDomain, deckfield, sfi.m_data.m_deckManagerInstance.m_classInst);
+        sfi.m_data.m_deckInstance.m_scriptClass = mono_object_get_class(sfi.m_data.m_deckInstance.m_classInst);
+
+        sfi.m_data.m_deckManagerInstance.m_scriptFieldInstList.push_back(ScriptFieldInstance<std::vector<Component::Card::CardID>>(ScriptField(UIntArr, "m_hand", mono_class_get_field_from_name(sfi.m_data.m_deckManagerInstance.m_scriptClass, "m_hand"))));
+        sfi.m_data.m_deckManagerInstance.m_scriptFieldInstList.push_back(ScriptFieldInstance<std::vector<Component::Card::CardID>>(ScriptField(UIntArr, "m_queue", mono_class_get_field_from_name(sfi.m_data.m_deckManagerInstance.m_scriptClass, "m_queue"))));
+        sfi.m_data.m_deckManagerInstance.m_scriptFieldInstList.push_back(ScriptFieldInstance<std::vector<Component::Card::CardID>>(ScriptField(UIntArr, "m_discardDisplay", mono_class_get_field_from_name(sfi.m_data.m_deckManagerInstance.m_scriptClass, "m_discardDisplay"))));
+        sfi.m_data.m_deckInstance.m_scriptFieldInstList.push_back(ScriptFieldInstance<std::vector<Component::Card::CardID>>(ScriptField(UIntArr, "m_cards", mono_class_get_field_from_name(sfi.m_data.m_deckInstance.m_scriptClass, "m_cards"))));
+        sfi.m_data.m_deckInstance.m_scriptFieldInstList.push_back(ScriptFieldInstance<std::vector<Component::Card::CardID>>(ScriptField(UIntArr, "m_drawOrderDisplay", mono_class_get_field_from_name(sfi.m_data.m_deckInstance.m_scriptClass, "m_drawOrderDisplay"))));
+      }
+
+      for (rttr::variant& dm : sfi.m_data.m_deckManagerInstance.m_scriptFieldInstList)
+      {
+     
+        GE::MONO::ScriptFieldInstance<std::vector<Component::Card::CardID>>& dmSFI = dm.get_value<GE::MONO::ScriptFieldInstance<std::vector<Component::Card::CardID>>>();
+        dmSFI.m_data = sfi.m_data.m_deckManagerInstance.GetFieldValueArr<GE::Component::Card::CardID>(sm->m_appDomain, dmSFI.m_scriptField.m_classField);
+
+      }
+
+      for (rttr::variant& di : sfi.m_data.m_deckInstance.m_scriptFieldInstList)
+      {
+        GE::MONO::ScriptFieldInstance<std::vector<unsigned>>& dSFI = di.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>();
+        dSFI.m_data = sfi.m_data.m_deckInstance.GetFieldValueArr<unsigned>(sm->m_appDomain, dSFI.m_scriptField.m_classField);
+
+      }  
+
+
+    }
     else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>()))
     {
       GE::MONO::ScriptFieldInstance<GE::Math::dVec3>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>();
       sfi.m_data = GetFieldValue<GE::Math::dVec3>(sfi.m_scriptField.m_classField);
     }
+
     else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>())) 
     {
       GE::MONO::ScriptFieldInstance<std::vector<int>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<int>>>();
@@ -159,5 +207,7 @@ void ScriptInstance::GetAllUpdatedFields()
       GE::MONO::ScriptFieldInstance<std::vector<unsigned>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>();
       sfi.m_data = GetFieldValueArr<unsigned>(sm->m_appDomain, sfi.m_scriptField.m_classField);
     }
+
   }
+  
 }

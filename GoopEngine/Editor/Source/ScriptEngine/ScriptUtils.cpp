@@ -42,5 +42,10 @@ namespace GE {
 		return mono_array_new(md, mono_get_double_class(), sz);
 	}
 
+	template <>
+	MonoArray* GetMonoArray<GE::Component::Card::CardID>(MonoDomain* md, size_t sz) {
+		return mono_array_new(md, mono_get_uint32_class(), sz);
+	}
+
 	}
 }
