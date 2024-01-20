@@ -12,6 +12,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Components.h>
 #include <Systems/Systems.h>
 #include <rttr/registration>
+#include <ScriptEngine/CSharpStructs.h>
 
 using namespace GE;
 
@@ -52,23 +53,20 @@ RTTR_REGISTRATION
     (
       rttr::value("ROOT_NODE", AI::NODE_TYPE::ROOT_NODE),
       rttr::value("COMPOSITE_NODE", AI::NODE_TYPE::COMPOSITE_NODE),
-      rttr::value("LEAF_NODE", AI::NODE_TYPE::LEAF_NODE),
-      rttr::value("NODE_TYPE_COUNT", AI::NODE_TYPE::NODE_TYPE_COUNT)
+      rttr::value("LEAF_NODE", AI::NODE_TYPE::LEAF_NODE)
       );
 
   rttr::registration::enumeration<fMOD::FmodSystem::ChannelType>("ChannelType")
     (
       rttr::value("BGM", fMOD::FmodSystem::ChannelType::BGM),
       rttr::value("SFX", fMOD::FmodSystem::ChannelType::SFX),
-      rttr::value("VOICE", fMOD::FmodSystem::ChannelType::VOICE),
-      rttr::value("TOTAL_CHANNELS", fMOD::FmodSystem::ChannelType::TOTAL_CHANNELS)
+      rttr::value("VOICE", fMOD::FmodSystem::ChannelType::VOICE)
       );
 
   rttr::registration::enumeration<GE::Component::Anchor::AnchorType>("AnchorType")
     (
       rttr::value("IS_ANCHOR", GE::Component::Anchor::AnchorType::IS_ANCHOR),
-      rttr::value("IS_ANCHORABLE", GE::Component::Anchor::AnchorType::IS_ANCHORABLE),
-      rttr::value("TOTAL_TYPES", GE::Component::Anchor::AnchorType::TOTAL_TYPES)
+      rttr::value("IS_ANCHORABLE", GE::Component::Anchor::AnchorType::IS_ANCHORABLE)
       );
 
   rttr::registration::enumeration<GE::Component::GE_Button::ButtonEventType>("ButtonEventType")
@@ -101,6 +99,14 @@ RTTR_REGISTRATION
       rttr::value("DAWSON_SHIELD", GE::Component::Card::CardID::DAWSON_SHIELD),
       rttr::value("SPECIAL_CHARGEUP", GE::Component::Card::CardID::SPECIAL_CHARGEUP),
       rttr::value("SPECIAL_TIMEWRAP", GE::Component::Card::CardID::SPECIAL_TIMEWRAP)
+      );
+
+  rttr::registration::enumeration<MONO::CharacterType>("CharacterType")
+    (
+      rttr::value("PLAYER", MONO::CharacterType::PLAYER),
+      rttr::value("BASIC_ENEMY", MONO::CharacterType::BASIC_ENEMY),
+      rttr::value("BOSS_P1", MONO::CharacterType::BOSS_P1),
+      rttr::value("BOSS_P2", MONO::CharacterType::BOSS_P2)
       );
 
 } // RTTR Registration

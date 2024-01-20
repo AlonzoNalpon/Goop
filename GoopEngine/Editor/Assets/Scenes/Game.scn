@@ -45,8 +45,8 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                          "scriptName": "Stats",
-                            "entityID":  0,
+                            "scriptName": "Stats",
+                            "entityID": 0,
                             "scriptFieldInstList": [
                                 {
                                     "data": 0,
@@ -56,38 +56,31 @@
                                     }
                                 },
                                 {
-                                    "data": [
-                                        6,
-                                        8,
-                                        3,
-                                        3,
-                                        12,
-                                        7,
-                                        8,
-                                        8,
-                                        8,
-                                        7,
-                                        3,
-                                        13,
-                                        12,
-                                        3,
-                                        12,
-                                        6,
-                                        2,
-                                        3,
-                                        9,
-                                        7
-                                    ],
-                                    "type": "GoopScripts.Cards.CardBase.CardID[]",
+                                    "data": 0,
+                                    "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_block"
                                     }
                                 },
                                 {
-                                    "data": 100,
+                                    "data": {},
+                                    "type": "GoopScripts.Gameplay.DeckManager",
+                                    "scriptField": {
+                                        "fieldName": "m_deckMngr"
+                                    }
+                                },
+                                {
+                                    "data": 10,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_health"
+                                    }
+                                },
+                                {
+                                    "data": "PLAYER",
+                                    "type": "GoopScripts.Gameplay.CharacterType",
+                                    "scriptField": {
+                                        "fieldName": "m_type"
                                     }
                                 }
                             ]
@@ -160,11 +153,11 @@
             {
                 "Scripts": {
                     "scriptList": [
-                      {
-                        "scriptName": "TempEndTurn",
-                        "entityID": 1,
-                        "scriptFieldInstList": []
-                      }
+                        {
+                            "scriptName": "TempEndTurn",
+                            "entityID": 1,
+                            "scriptFieldInstList": []
+                        }
                     ]
                 }
             },
@@ -316,7 +309,7 @@
                     "spriteData": {
                         "spriteSubData": {
                             "texCoords": {
-                                "x": 0.8333333134651184,
+                                "x": 0.0,
                                 "y": 0.0
                             },
                             "texDims": {
@@ -338,67 +331,47 @@
             {
                 "Scripts": {
                     "scriptList": [
-                      {
-                        "scriptName": "Stats",
-                        "entityID": 4,
-                        "scriptFieldInstList": [
-                          {
-                            "data": 0,
-                            "type": "System.Int32",
-                            "scriptField": {
-                              "fieldName": "m_attack"
-                            }
-                          },
-                          {
-                            "data": [
-                              2,
-                              9,
-                              3,
-                              9,
-                              9,
-                              13,
-                              7,
-                              8,
-                              8,
-                              12,
-                              9,
-                              9,
-                              7,
-                              8,
-                              13,
-                              8,
-                              13,
-                              9,
-                              7,
-                              9
-                            ],
-                            "type": "GoopScripts.Cards.CardBase.CardID[]",
-                            "scriptField": {
-                              "fieldName": "m_deck"
-                            }
-                          },
-                          {
-                            "data": [
-                              7,
-                              3,
-                              8,
-                              2,
-                              2
-                            ],
-                            "type": "GoopScripts.Cards.CardBase.CardID[]",
-                            "scriptField": {
-                              "fieldName": "m_block"
-                            }
-                          },
-                          {
-                            "data": 100,
-                            "type": "System.Int32",
-                            "scriptField": {
-                              "fieldName": "m_health"
-                            }
-                          }
-                        ]
-                      }
+                        {
+                            "scriptName": "Stats",
+                            "entityID": 4,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_attack"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_block"
+                                    }
+                                },
+                                {
+                                    "data": {},
+                                    "type": "GoopScripts.Gameplay.DeckManager",
+                                    "scriptField": {
+                                        "fieldName": "m_deckMngr"
+                                    }
+                                },
+                                {
+                                    "data": 10,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                },
+                                {
+                                    "data": "BASIC_ENEMY",
+                                    "type": "GoopScripts.Gameplay.CharacterType",
+                                    "scriptField": {
+                                        "fieldName": "m_type"
+                                    }
+                                }
+                            ]
+                        }
                     ]
                 }
             }
@@ -449,11 +422,11 @@
                     "playerHand": 15,
                     "playerQueue": 11,
                     "enemyQueue": 21,
-                  "gameSystemScript": {
-                    "scriptName": "GameManager",
-                    "entityID": 5,
-                    "scriptFieldInstList": []
-                  }
+                    "gameSystemScript": {
+                        "scriptName": "GameManager",
+                        "entityID": 5,
+                        "scriptFieldInstList": []
+                    }
                 }
             }
         ]
@@ -1145,10 +1118,10 @@
                 }
             },
             {
-              "Card": {
-                "cardID": "SPECIAL_FLASHBANG",
-                "tgtEntity": 11
-              }
+                "Card": {
+                    "cardID": "SPECIAL_FLASHBANG",
+                    "tgtEntity": 11
+                }
             },
             {
                 "CardHolderElem": {
@@ -1255,10 +1228,10 @@
                 }
             },
             {
-              "Card": {
-                "cardID": "SPECIAL_SCREECH",
-                "tgtEntity": 11
-              }
+                "Card": {
+                    "cardID": "SPECIAL_SCREECH",
+                    "tgtEntity": 11
+                }
             },
             {
                 "CardHolderElem": {
@@ -1365,10 +1338,10 @@
                 }
             },
             {
-              "Card": {
-                "cardID": "SPECIAL_SMOKESCREEN",
-                "tgtEntity": 11
-              }
+                "Card": {
+                    "cardID": "SPECIAL_SMOKESCREEN",
+                    "tgtEntity": 11
+                }
             },
             {
                 "CardHolderElem": {
@@ -1475,10 +1448,10 @@
                 }
             },
             {
-              "Card": {
-                "cardID": "LEAH_SHIELD",
-                "tgtEntity": 11
-              }
+                "Card": {
+                    "cardID": "LEAH_SHIELD",
+                    "tgtEntity": 11
+                }
             },
             {
                 "CardHolderElem": {
@@ -1585,10 +1558,10 @@
                 }
             },
             {
-              "Card": {
-                "cardID": "LEAH_SHIELD",
-                "tgtEntity": 11
-              }
+                "Card": {
+                    "cardID": "LEAH_SHIELD",
+                    "tgtEntity": 11
+                }
             },
             {
                 "CardHolderElem": {
@@ -1916,26 +1889,26 @@
             {
                 "Scripts": {
                     "scriptList": [
-                      {
-                        "scriptName": "HealthBar",
-                        "entityID": 28,
-                        "scriptFieldInstList": [
-                          {
-                            "data": 28,
-                            "type": "System.Int32",
-                            "scriptField": {
-                              "fieldName": "ID"
-                            }
-                          },
-                          {
-                            "data": 300,
-                            "type": "System.Int32",
-                            "scriptField": {
-                              "fieldName": "m_width"
-                            }
-                          }
-                        ]
-                      }
+                        {
+                            "scriptName": "HealthBar",
+                            "entityID": 28,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 28,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "ID"
+                                    }
+                                },
+                                {
+                                    "data": 300,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_width"
+                                    }
+                                }
+                            ]
+                        }
                     ]
                 }
             }
