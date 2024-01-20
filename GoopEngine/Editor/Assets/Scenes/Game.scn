@@ -1145,10 +1145,10 @@
                 }
             },
             {
-                "Card": {
-                    "cardID": "PLAYER_DEBUFF_FLASH_BANG",
-                    "tgtEntity": 11
-                }
+              "Card": {
+                "cardID": "SPECIAL_FLASHBANG",
+                "tgtEntity": 11
+              }
             },
             {
                 "CardHolderElem": {
@@ -1255,10 +1255,10 @@
                 }
             },
             {
-                "Card": {
-                    "cardID": "BASIC_BUFF_SCREECH",
-                    "tgtEntity": 11
-                }
+              "Card": {
+                "cardID": "SPECIAL_SCREECH",
+                "tgtEntity": 11
+              }
             },
             {
                 "CardHolderElem": {
@@ -1365,10 +1365,10 @@
                 }
             },
             {
-                "Card": {
-                    "cardID": "PLAYER_BUFF_SMOKESCREEN",
-                    "tgtEntity": 11
-                }
+              "Card": {
+                "cardID": "SPECIAL_SMOKESCREEN",
+                "tgtEntity": 11
+              }
             },
             {
                 "CardHolderElem": {
@@ -1475,10 +1475,10 @@
                 }
             },
             {
-                "Card": {
-                    "cardID": "PLAYER_SHIELD",
-                    "tgtEntity": 11
-                }
+              "Card": {
+                "cardID": "LEAH_SHIELD",
+                "tgtEntity": 11
+              }
             },
             {
                 "CardHolderElem": {
@@ -1585,10 +1585,10 @@
                 }
             },
             {
-                "Card": {
-                    "cardID": "PLAYER_SHIELD",
-                    "tgtEntity": 11
-                }
+              "Card": {
+                "cardID": "LEAH_SHIELD",
+                "tgtEntity": 11
+              }
             },
             {
                 "CardHolderElem": {

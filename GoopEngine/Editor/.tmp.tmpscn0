@@ -1091,7 +1091,7 @@
             },
             {
                 "Card": {
-                    "cardID": "PLAYER_DEBUFF_FLASH_BANG",
+                    "cardID": "SPECIAL_FLASHBANG",
                     "tgtEntity": 11
                 }
             },
@@ -1201,7 +1201,7 @@
             },
             {
                 "Card": {
-                    "cardID": "BASIC_BUFF_SCREECH",
+                    "cardID": "SPECIAL_SCREECH",
                     "tgtEntity": 11
                 }
             },
@@ -1311,7 +1311,7 @@
             },
             {
                 "Card": {
-                    "cardID": "PLAYER_BUFF_SMOKESCREEN",
+                    "cardID": "SPECIAL_SMOKESCREEN",
                     "tgtEntity": 11
                 }
             },
@@ -1421,7 +1421,7 @@
             },
             {
                 "Card": {
-                    "cardID": "PLAYER_SHIELD",
+                    "cardID": "LEAH_SHIELD",
                     "tgtEntity": 11
                 }
             },
@@ -1531,7 +1531,7 @@
             },
             {
                 "Card": {
-                    "cardID": "PLAYER_SHIELD",
+                    "cardID": "LEAH_SHIELD",
                     "tgtEntity": 11
                 }
             },

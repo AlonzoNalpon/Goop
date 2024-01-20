@@ -134,7 +134,12 @@ namespace GoopScripts.Gameplay
       }
     }
 
-    public void NewTurn()
+    public void StartOfTurn()
+    {
+
+    }
+
+    public void EndTurn()
     {
       Console.WriteLine("Current Queue:");
 

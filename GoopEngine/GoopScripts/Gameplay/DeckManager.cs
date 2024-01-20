@@ -48,24 +48,24 @@ namespace GoopScripts.Gameplay
         case CharacterType.PLAYER:
           m_deck.AddCard(CardBase.CardID.LEAH_BEAM, 4);
           m_deck.AddCard(CardBase.CardID.LEAH_STRIKE, 4);
-          m_deck.AddCard(CardBase.CardID.SHIELD, 4);
+          m_deck.AddCard(CardBase.CardID.LEAH_SHIELD, 4);
           m_deck.AddCard(CardBase.CardID.SPECIAL_FLASHBANG);
           break;
         case CharacterType.BASIC_ENEMY:
           m_deck.AddCard(CardBase.CardID.BASIC_ATTACK, 4);
-          m_deck.AddCard(CardBase.CardID.SHIELD, 3);
+          m_deck.AddCard(CardBase.CardID.BASIC_SHIELD, 3);
           m_deck.AddCard(CardBase.CardID.SPECIAL_SCREECH);
           break;
         case CharacterType.BOSS_P1:
           m_deck.AddCard(CardBase.CardID.DAWSON_BEAM, 2);
           m_deck.AddCard(CardBase.CardID.DAWSON_SWING, 2);
-          m_deck.AddCard(CardBase.CardID.SHIELD, 5);
+          m_deck.AddCard(CardBase.CardID.DAWSON_SHIELD, 5);
           m_deck.AddCard(CardBase.CardID.SPECIAL_CHARGEUP);
           break;
         case CharacterType.BOSS_P2:
           m_deck.AddCard(CardBase.CardID.DAWSON_BEAM, 3);
           m_deck.AddCard(CardBase.CardID.DAWSON_SWING, 3);
-          m_deck.AddCard(CardBase.CardID.SHIELD, 6);
+          m_deck.AddCard(CardBase.CardID.DAWSON_SHIELD, 6);
           m_deck.AddCard(CardBase.CardID.SPECIAL_CHARGEUP, 2);
           m_deck.AddCard(CardBase.CardID.SPECIAL_TIMEWRAP);
           break;

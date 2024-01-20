@@ -36,15 +36,16 @@ namespace GoopScripts.Cards
       m_cards = new CardBase[(int)CardBase.CardID.TOTAL_CARDS];
 
       m_cards[(int)CardBase.CardID.NO_CARD] = new BlankCard(CardBase.CardID.NO_CARD);
-      m_cards[(int)CardBase.CardID.SHIELD] = new Block(CardBase.CardID.SHIELD);
 
       //normal enemy
       m_cards[(int)CardBase.CardID.BASIC_ATTACK] = new BasicAttack(CardBase.CardID.BASIC_ATTACK);
+      m_cards[(int)CardBase.CardID.BASIC_SHIELD] = new Block(CardBase.CardID.BASIC_SHIELD);
       m_cards[(int)CardBase.CardID.SPECIAL_SCREECH] = new SpecialScreech(CardBase.CardID.SPECIAL_SCREECH);
 
       //player
       m_cards[(int)CardBase.CardID.LEAH_BEAM] = new LeahBeam(CardBase.CardID.LEAH_BEAM);
       m_cards[(int)CardBase.CardID.LEAH_STRIKE] = new LeahStrike(CardBase.CardID.LEAH_STRIKE);
+      m_cards[(int)CardBase.CardID.LEAH_SHIELD] = new Block(CardBase.CardID.LEAH_SHIELD);
       m_cards[(int)CardBase.CardID.SPECIAL_FLASHBANG] = new SpecialFlashBang(CardBase.CardID.SPECIAL_FLASHBANG);
       m_cards[(int)CardBase.CardID.SPECIAL_SMOKESCREEN] = new SpecialSmokeScreen(CardBase.CardID.SPECIAL_SMOKESCREEN);
       m_cards[(int)CardBase.CardID.SPECIAL_RAGE] = new SpecialRage(CardBase.CardID.SPECIAL_RAGE);
@@ -52,6 +53,7 @@ namespace GoopScripts.Cards
       //dawson
       m_cards[(int)CardBase.CardID.DAWSON_BEAM] = new DawsonBeam(CardBase.CardID.DAWSON_BEAM);
       m_cards[(int)CardBase.CardID.DAWSON_SWING] = new DawsonSwing(CardBase.CardID.DAWSON_SWING);
+      m_cards[(int)CardBase.CardID.DAWSON_SHIELD] = new Block(CardBase.CardID.DAWSON_SHIELD);
       m_cards[(int)CardBase.CardID.SPECIAL_CHARGEUP] = new SpecialChargeUp(CardBase.CardID.SPECIAL_CHARGEUP);
       m_cards[(int)CardBase.CardID.SPECIAL_TIMEWRAP] = new SpecialTimeWrap(CardBase.CardID.SPECIAL_TIMEWRAP);
     }

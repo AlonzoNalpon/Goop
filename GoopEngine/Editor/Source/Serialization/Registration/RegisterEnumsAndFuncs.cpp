@@ -89,18 +89,18 @@ RTTR_REGISTRATION
       rttr::value("NO_CARD", GE::Component::Card::CardID::NO_CARD),
       rttr::value("BASIC_ATTACK", GE::Component::Card::CardID::BASIC_ATTACK),
       rttr::value("BASIC_SHIELD", GE::Component::Card::CardID::BASIC_SHIELD),
-      rttr::value("BASIC_BUFF_SCREECH", GE::Component::Card::CardID::BASIC_BUFF_SCREECH),
-      rttr::value("PLAYER_ATTACK_T1", GE::Component::Card::CardID::PLAYER_ATTACK_T1),
-      rttr::value("PLAYER_ATTACK_T2", GE::Component::Card::CardID::PLAYER_ATTACK_T2),
-      rttr::value("PLAYER_SHIELD", GE::Component::Card::CardID::PLAYER_SHIELD),
-      rttr::value("PLAYER_DEBUFF_FLASH_BANG", GE::Component::Card::CardID::PLAYER_DEBUFF_FLASH_BANG),
-      rttr::value("PLAYER_BUFF_SMOKESCREEN", GE::Component::Card::CardID::PLAYER_BUFF_SMOKESCREEN),
-      rttr::value("PLAYER_BUFF_RAGE", GE::Component::Card::CardID::PLAYER_BUFF_RAGE),
-      rttr::value("DAWSON_ATTACK_T1", GE::Component::Card::CardID::DAWSON_ATTACK_T1),
-      rttr::value("DAWSON_ATTACK_T2", GE::Component::Card::CardID::DAWSON_ATTACK_T2),
+      rttr::value("SPECIAL_SCREECH", GE::Component::Card::CardID::SPECIAL_SCREECH),
+      rttr::value("LEAH_BEAM", GE::Component::Card::CardID::LEAH_BEAM),
+      rttr::value("LEAH_STRIKE", GE::Component::Card::CardID::LEAH_STRIKE),
+      rttr::value("LEAH_SHIELD", GE::Component::Card::CardID::LEAH_SHIELD),
+      rttr::value("SPECIAL_FLASHBANG", GE::Component::Card::CardID::SPECIAL_FLASHBANG),
+      rttr::value("SPECIAL_SMOKESCREEN", GE::Component::Card::CardID::SPECIAL_SMOKESCREEN),
+      rttr::value("SPECIAL_RAGE", GE::Component::Card::CardID::SPECIAL_RAGE),
+      rttr::value("DAWSON_BEAM", GE::Component::Card::CardID::DAWSON_BEAM),
+      rttr::value("DAWSON_SWING", GE::Component::Card::CardID::DAWSON_SWING),
       rttr::value("DAWSON_SHIELD", GE::Component::Card::CardID::DAWSON_SHIELD),
-      rttr::value("DAWSON_BUFF_CHARGE_UP", GE::Component::Card::CardID::DAWSON_BUFF_CHARGE_UP),
-      rttr::value("DAWSON_DEBUFF_TIME_WARP", GE::Component::Card::CardID::DAWSON_DEBUFF_TIME_WARP)
+      rttr::value("SPECIAL_CHARGEUP", GE::Component::Card::CardID::SPECIAL_CHARGEUP),
+      rttr::value("SPECIAL_TIMEWRAP", GE::Component::Card::CardID::SPECIAL_TIMEWRAP)
       );
 
 } // RTTR Registration
