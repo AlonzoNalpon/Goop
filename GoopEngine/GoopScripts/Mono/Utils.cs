@@ -193,6 +193,10 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static MonoBehaviour GetScript(string entityName, string scriptName);
 
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static MonoBehaviour GetScriptFromID(uint entity, string scriptName);
+
+
     /*!*********************************************************************
 		\brief
 		  Gets the object instance of the game system script given the
@@ -289,7 +293,7 @@ namespace GoopScripts.Mono
 
     // /*!*********************************************************************
     //
-    //    Functions For UI
+    //    Functions For UI (HEALTHBAR)
     //
     //************************************************************************/
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -300,6 +304,20 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static uint GetObjectWidth(uint ID);
-  }
 
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static uint GetObjectHeight(uint ID);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static uint CreateObject(string name,
+      Vec3<double> pos,
+      Vec3<double> scale,
+      Vec3<double> rotation,
+      uint ParentID = uint.MaxValue);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void UpdateSprite(uint ID, string name);
+
+
+  }
 }

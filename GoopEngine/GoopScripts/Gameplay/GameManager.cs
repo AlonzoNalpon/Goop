@@ -121,13 +121,6 @@ namespace GoopScripts.Gameplay
 
 				Utils.PlayAnimation("SS_LeahIdle", playerEntity);
 			}
-
-      if (Utils.IsKeyTriggered(Input.KeyCode.MOUSE_BUTTON_1))
-      { 
-        Console.WriteLine("MOUSE CLICK 1");
-        // Utils.SetIsActiveEntity(0, false);
-        Utils.SpawnPrefab("TestButton", new Vec3<double>( Utils.GetMouseScrollX(), Utils.GetMouseScrollY(), 0 ));
-      }
     }
 
     public void StartOfTurn()

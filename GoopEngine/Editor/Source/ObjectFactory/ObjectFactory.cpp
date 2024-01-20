@@ -60,6 +60,40 @@ void GE::ObjectFactory::ObjectFactory::EmptyMap()
   m_deserialized.clear();
 }
 
+GE::ECS::Entity GE::ObjectFactory::ObjectFactory::CreateObject(std::string name, Math::dVec3 pos, Math::dVec3 scale, Math::dVec3 rot, ECS::Entity parent)
+{
+  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+  Entity newEntity = ecs.CreateEntity();
+  ecs.SetEntityName(newEntity, name);
+  ecs.SetIsActiveEntity(newEntity, true);
+
+  GE::Component::Transform trans{pos, scale, rot};
+  ecs.AddComponent(newEntity, trans);
+
+  ecs.SetParentEntity(newEntity, parent);
+  if (parent != ECS::INVALID_ID) { ecs.AddChildEntity(parent, newEntity); }
+
+  return newEntity;
+}
+
+void GE::ObjectFactory::ObjectFactory::UpdateSprite(GE::ECS::Entity entity, std::string textureName)
+{
+  EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };
+  auto const& texManager = GE::Graphics::GraphicsEngine::GetInstance().textureManager;
+
+  if (ecs.HasComponent<GE::Component::Sprite>(entity))
+  {
+    GE::Component::Sprite* entitySpriteData = ecs.GetComponent<GE::Component::Sprite>(entity);
+    entitySpriteData->m_spriteData.texture = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(textureName));
+  }
+  else
+  {
+    auto& gEngine = GE::Graphics::GraphicsEngine::GetInstance();
+    GE::Component::Sprite sprite{ gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(textureName)) };
+    ecs.AddComponent(entity, sprite);
+  }
+}
+
 void ObjectFactory::CloneObject(ECS::Entity entity, ECS::Entity parent) const
 {
   EntityComponentSystem& ecs{ EntityComponentSystem::GetInstance() };

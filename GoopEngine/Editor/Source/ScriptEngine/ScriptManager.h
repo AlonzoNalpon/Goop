@@ -200,6 +200,9 @@ namespace GE {
 		************************************************************************/
 		MonoObject* GetScript(MonoString* entityName, MonoString* scriptName);
 
+		MonoObject* GetScriptFromID(GE::ECS::Entity entity, int id);
+
+
 		/*!*********************************************************************
 		\brief
 		  Gets the object instance of the game system script given the
@@ -340,6 +343,10 @@ namespace GE {
 
 		static int GetObjectWidth(GE::ECS::Entity entity);
 
+		static int GetObjectHeight(GE::ECS::Entity entity);
 
+		static GE::ECS::Entity CreateObject(MonoString* name, GE::Math::dVec3 pos = {}, GE::Math::dVec3 scale = {}, GE::Math::dVec3 rotation = {}, GE::ECS::Entity parent = ECS::INVALID_ID);
+
+		static void UpdateSprite(GE::ECS::Entity entity, MonoString* textureName);
 	}
 }

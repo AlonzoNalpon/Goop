@@ -133,6 +133,11 @@ namespace GE::Application
             im.SetCurrFramebuffer(showEditor == true? 0:1);
           }
 
+          if (im.IsKeyTriggered(KEY_CODE::KEY_P))
+          {
+            // MonoObject* a = GE::MONO::GetScriptFromID((unsigned int)28, 0);
+          }
+
           fRC.StartSystemTimer();
           if (showEditor)
             imgui.Update();

@@ -22,6 +22,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "mono/metadata/threads.h"
 #include <Systems/GameSystem/GameSystem.h>
 #include <Prefabs/PrefabManager.h>
+#include <ObjectFactory/ObjectFactory.h>
 
 
 #include <Component/Card.h>
@@ -135,6 +136,7 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
   mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScript", GE::MONO::GetScript);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptFromID", GE::MONO::GetScriptFromID);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetGameSysScript", GE::MONO::GetGameSysScript);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::SetQueueCardID", GE::MONO::SetQueueCardID);
@@ -144,6 +146,10 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetIsActiveEntity", GE::MONO::SetIsActiveEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::SpawnPrefab", GE::MONO::SpawnPrefab);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectWidth", GE::MONO::GetObjectWidth);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectHeight", GE::MONO::GetObjectHeight);
+  mono_add_internal_call("GoopScripts.Mono.Utils::CreateObject", GE::MONO::CreateObject);
+  mono_add_internal_call("GoopScripts.Mono.Utils::UpdateSprite", GE::MONO::UpdateSprite);
+
 
   //Load the CSharpAssembly (dll file)
   std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
@@ -529,6 +535,15 @@ MonoObject* GE::MONO::GetScript(MonoString* entityName, MonoString* scriptName)
   return scriptinst->m_classInst;
 }
 
+MonoObject* GE::MONO::GetScriptFromID(GE::ECS::Entity entity, int id)
+{
+  GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
+  auto ss = ecs.GetComponent<GE::Component::Scripts>(ecs.GetEntity(ecs.GetEntityName(entity)));
+  GE::MONO::ScriptInstance* scriptinst = ss->Get(id);
+
+  return scriptinst->m_classInst;
+}
+
 MonoObject* GE::MONO::GetGameSysScript(MonoString* gameSysEntityName)
 {
   GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
@@ -654,13 +669,25 @@ GE::ECS::Entity GE::MONO::SpawnPrefab(MonoString* key, GE::Math::dVec3 pos, bool
 
 int GE::MONO::GetObjectWidth(GE::ECS::Entity entity)
 {
-  // ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-  
   return GE::ECS::EntityComponentSystem::GetInstance().GetComponent<GE::Component::Sprite>(entity)->m_spriteData.info.width;
-  // return ecs.GetComponent<GE::Component::Sprite>(entity)->m_spriteData.info.width;
+}
 
-  // return objectInfo.width;
+int GE::MONO::GetObjectHeight(GE::ECS::Entity entity)
+{
+  return GE::ECS::EntityComponentSystem::GetInstance().GetComponent<GE::Component::Sprite>(entity)->m_spriteData.info.height;
+}
 
-  //return 50;
+GE::ECS::Entity GE::MONO::CreateObject(MonoString* name, GE::Math::dVec3 pos, GE::Math::dVec3 scale, GE::Math::dVec3 rotation, GE::ECS::Entity parent)
+{
+  std::string str = GE::MONO::MonoStringToSTD(name);
+
+  return GE::ObjectFactory::ObjectFactory::GetInstance().CreateObject(str, pos, scale, rotation, parent);
+}
+
+void GE::MONO::UpdateSprite(GE::ECS::Entity entity, MonoString* textureName)
+{
+  std::string str = GE::MONO::MonoStringToSTD(textureName);
+
+  GE::ObjectFactory::ObjectFactory::GetInstance().UpdateSprite(entity, str);
 }
 

@@ -40,6 +40,21 @@ namespace GE::ObjectFactory
     ************************************************************************/
     void EmptyMap();
 
+
+    /*!*********************************************************************
+    \brief
+      (TRANSLATE) Creates an Entity with the information given
+    \return
+      Entity ID of the created object
+    ************************************************************************/
+    GE::ECS::Entity CreateObject(std::string name, 
+      Math::dVec3 pos = { 0, 0, 0 },
+      Math::dVec3 scale = { 1, 1, 1 },
+      Math::dVec3 rot = { 0, 0, 0 },
+      ECS::Entity parent = ECS::INVALID_ID);
+
+    void UpdateSprite(GE::ECS::Entity entity, std::string textureName);
+
     /*!*********************************************************************
     \brief
       Creates a copy of an entity along with its components. This also

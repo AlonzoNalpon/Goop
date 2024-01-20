@@ -120,6 +120,15 @@ namespace GE
 				}
 				return nullptr;
 			}
+
+			ScriptInstance* Get(int scriptID)
+			{
+				if (scriptID > sizeof(m_scriptList))
+				{
+					return nullptr;
+				}
+				return &m_scriptList[scriptID];
+			}
 		};
 	}
 }
