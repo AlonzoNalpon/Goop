@@ -241,6 +241,6 @@ void GE::Scenes::SceneManager::LoadTemporarySave()
   scene.Load(m_tempSaves.top().m_path);
   std::remove(m_tempSaves.top().m_path.c_str()); // delete temp scene file
   m_tempSaves.pop();
-  scene.Init();
+  InitScene();
 }
 #endif

@@ -23,6 +23,11 @@ namespace GoopScripts.UI
       // generate bar in the bar
     }
 
+    public void OnCreate()
+    {
+      Console.WriteLine("ID is " + ID);
+    }
+
     public void DecreaseHealth(int amount)
     {
       health -= amount;
