@@ -206,7 +206,6 @@ namespace GE
 
 									// Now we get the player's script functions
 									int handIdx{ static_cast<int>(holderElem->elemIdx) }; // get the player entity ID
-									std::cout << "UnqueueCard(" << handIdx << ")\n";
 									//auto* cardComp = m_ecs->GetComponent<Component::Card>(cardEntity);
 									//MonoMethod* SetCardInHand = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInHand", 2);
 									//MonoMethod* SetCardInQueue = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInQueue", 2);

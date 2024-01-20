@@ -21,8 +21,7 @@ namespace GoopScripts.Cards
 {
 	public class CardManager
 	{
-		static public CardBase[] m_cards;
-		public CardBase[] Cards { get { return m_cards; } set { m_cards = value; } }
+		static CardBase[] m_cards;
 
 		/*!*********************************************************************
 		\brief
@@ -56,6 +55,11 @@ namespace GoopScripts.Cards
       m_cards[(int)CardBase.CardID.DAWSON_SHIELD] = new Block(CardBase.CardID.DAWSON_SHIELD);
       m_cards[(int)CardBase.CardID.SPECIAL_CHARGEUP] = new SpecialChargeUp(CardBase.CardID.SPECIAL_CHARGEUP);
       m_cards[(int)CardBase.CardID.SPECIAL_TIMEWRAP] = new SpecialTimeWrap(CardBase.CardID.SPECIAL_TIMEWRAP);
+    }
+
+    public static CardBase Get(CardBase.CardID id)
+    {
+      return m_cards[(int) id];
     }
   }
 }

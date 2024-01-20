@@ -184,22 +184,18 @@ namespace GoopScripts.Gameplay
 
       }
     }
-
-    public void Resolve()
+    
+    /*!*********************************************************************
+		\brief
+		  Sends all cards in the queue to the discard pile.
+		************************************************************************/
+    public void DiscardQueue()
     {
-      // first compute base card values
-
-      // then resolve combos
-
-
-#if (DEBUG)
-      Console.WriteLine("Resolving queue with: ");
-      foreach (CardBase.CardID c in m_queue)
+      for (int i = 0; i < m_queue.Length; ++i)
       {
-        Console.WriteLine(c.ToString());
+        m_discard.Add(m_queue[i]);
+        m_queue[i] = CardBase.CardID.NO_CARD;
       }
-      Console.WriteLine();
-#endif
     }
 
     /*!*********************************************************************

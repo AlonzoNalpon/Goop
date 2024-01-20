@@ -24,6 +24,10 @@ namespace GoopScripts.Gameplay
      
     }
 
+    /*!*********************************************************************
+    \brief
+      Initializes deck and combo managers based on the character type.
+    ************************************************************************/
     public void OnCreate()
     {
       Console.WriteLine("Create Stats for " + m_type.ToString());
@@ -87,26 +91,37 @@ namespace GoopScripts.Gameplay
       return dmgDealt;
     }
 
-
+    /*!*********************************************************************
+    \brief
+      Resets attack and block values and -1 turn to all active buffs.
+    ************************************************************************/
     public void EndOfTurn()
     {
+      m_deckMngr.DiscardQueue();
       m_attack = m_block = 0;
       m_buffs.StepTurn();
     }
 
+    /*!*********************************************************************
+    \brief
+      Adds a card from hand to the queue
+    \param index
+      The index of the card in hand
+    ************************************************************************/
     public void QueueCard(int index)
     {
       m_deckMngr.Queue(index);
     }
 
+    /*!*********************************************************************
+    \brief
+      Returns a card from the queue to hand
+    \param index
+      The index of the card in the queue
+    ************************************************************************/
     public void UnqueueCard(int index)
     {
       m_deckMngr.Unqueue(index);
-    }
-
-    public void OnDestroy(uint entity)
-    {
-
     }
 
     public void OnUpdate(uint entity, double dt)
@@ -114,5 +129,10 @@ namespace GoopScripts.Gameplay
       //Utils.SendString($"{entity} and {dt}");
     }
 
+
+    public void OnDestroy(uint entity)
+    {
+
+    }
   }
 }

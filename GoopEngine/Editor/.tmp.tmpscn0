@@ -63,7 +63,7 @@
                                     }
                                 },
                                 {
-                                    "data": 10,
+                                    "data": 100,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_health"

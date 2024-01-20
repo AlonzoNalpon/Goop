@@ -38,10 +38,6 @@ namespace GoopScripts.Gameplay
 		{
       if (endTurn)
 			{
-        player.EndOfTurn();
-        enemy.EndOfTurn();
-        player.m_deckMngr.Draw();
-        enemy.m_deckMngr.Draw();
         endTurn = false;
         //m_numResolves = 1;
 				//m_numResolves = player.m_cardQueue.Length >= enemy.m_cardQueue.Length ? player.m_cardQueue.Length : enemy.m_cardQueue.Length;
@@ -136,17 +132,53 @@ namespace GoopScripts.Gameplay
 
     public void StartOfTurn()
     {
-
+      m_playerStats.m_deckMngr.Draw();
+      m_enemyStats.m_deckMngr.Draw();
     }
 
-    public void EndTurn()
+    public void ResolutionPhase()
     {
-      Console.WriteLine("Current Queue:");
+#if (DEBUG)
+      Console.WriteLine("Player Queue:");
 
       foreach (CardBase.CardID c in m_playerStats.m_deckMngr.m_queue)
       {
         Console.WriteLine(c.ToString());
       }
+#endif
+
+      // resolve player's queue first
+      foreach (CardBase.CardID card in m_playerStats.m_deckMngr.m_queue)
+      {
+#if (DEBUG)
+        Console.WriteLine("Resolving " + card.ToString());
+#endif
+        if (card != CardBase.CardID.NO_CARD)
+        {
+          CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
+        }
+      }
+
+      // then do the same for enemy
+      foreach (CardBase.CardID card in m_enemyStats.m_deckMngr.m_queue)
+      {
+        if (card != CardBase.CardID.NO_CARD)
+        {
+          CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
+        }
+      }
+
+#if (DEBUG)
+        Console.WriteLine("PLAYER:\n Attack: " + m_playerStats.m_attack + ", Block: " + m_playerStats.m_block);
+      Console.WriteLine("\nENEMY:\n Attack: " + m_enemyStats.m_attack + ", Block: " + m_enemyStats.m_block);
+#endif
+    }
+
+    public void EndTurn()
+    {
+      ResolutionPhase();
+      m_playerStats.EndOfTurn();
+      m_enemyStats.EndOfTurn();
 
       endTurn = true;
     }
