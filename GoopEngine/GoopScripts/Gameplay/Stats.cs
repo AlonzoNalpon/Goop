@@ -97,6 +97,10 @@ namespace GoopScripts.Gameplay
       m_deckMngr.Queue(index);
     }
 
+    public void OnCreate()
+    {
+      Console.WriteLine("Create Stats");
+    }
 
     public void OnDestroy(uint entity)
     {

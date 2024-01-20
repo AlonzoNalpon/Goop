@@ -29,7 +29,7 @@ namespace GoopScripts.Gameplay
 
     // function to allow c++ to edit the list of cards in cardmanager
     // this should use cardmanager's c++ interface function
-
+  
     public void OnUpdate(double dt, Stats player, uint playerEntity, Stats enemy, uint enemyEntity, uint playerHand, uint playerQueue, uint enemyQueue)
 		{
       if (endTurn)
