@@ -199,7 +199,7 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
             MonoType* type = mono_field_get_type(field);
             ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
             std::string typeName = mono_type_get_name(type);
-            std::cout << typeName << "\n";
+            //std::cout << typeName << "\n";
             newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
           }
         }

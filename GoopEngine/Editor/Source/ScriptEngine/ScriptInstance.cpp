@@ -112,12 +112,20 @@ void ScriptInstance::GetFields()
       ScriptFieldInstance< DeckManager> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
     }
+    else if (field.m_fieldType == ScriptFieldType::CharacterTypeFT)
+    {
+      CharacterType value = GetFieldValue<CharacterType>(field.m_classField);
+      //std::cout << value.m_deck.m_cards.size() << "\n";
+      ScriptFieldInstance<CharacterType> test{ field,value };
+      m_scriptFieldInstList.emplace_back(test);
+    }
 		else if (field.m_fieldType == ScriptFieldType::IntArr)
 		{
       std::vector<int> value = GetFieldValueArr<int>(sm->m_appDomain, field.m_classField);
       ScriptFieldInstance<std::vector<int>> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
 		}
+
     else if (field.m_fieldType == ScriptFieldType::UIntArr)
     {
       std::vector<unsigned> value = GetFieldValueArr<unsigned>(sm->m_appDomain, field.m_classField);
@@ -188,8 +196,11 @@ void ScriptInstance::GetAllUpdatedFields()
         dSFI.m_data = sfi.m_data.m_deckInstance.GetFieldValueArr<unsigned>(sm->m_appDomain, dSFI.m_scriptField.m_classField);
 
       }  
-
-
+    }
+    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterType>>()))
+    {
+      GE::MONO::ScriptFieldInstance<CharacterType>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterType>>();
+      sfi.m_data = GetFieldValue<CharacterType>(sfi.m_scriptField.m_classField);
     }
     else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>()))
     {

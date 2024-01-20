@@ -872,6 +872,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 								GE::MONO::ScriptFieldInstance<GE::Math::dVec3>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>();
 								if (InputDouble3(("##" + sfi.m_scriptField.m_fieldName).c_str(), sfi.m_data, inputWidth)) { s.SetFieldValue<GE::Math::dVec3>(sfi.m_data, sfi.m_scriptField.m_classField); };
 							}
+
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<DeckManager>>())
 							{
 								TableNextRow();
@@ -908,6 +909,44 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 
 								EndDisabled();
+							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterType>>())
+							{
+								GE::MONO::ScriptFieldInstance<CharacterType>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterType>>();
+								//std::string pName = "##" + sfi.m_scriptField.m_fieldName;
+								ImGui::TableNextRow();
+								BeginDisabled(false);
+								TableNextColumn();
+								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
+								TableNextColumn();
+								if (ImGui::BeginCombo("##", CharacterTypeToString[sfi.m_data].c_str()))
+								{
+			
+									for (size_t ic{ 0 }; ic < CharacterTypeToString.size(); ++ic)
+									{
+										bool is_selected{ false };
+										if (sfi.m_data != static_cast<CharacterType>(ic))
+										{
+
+											//ImGui::Selectable(, is_selected);
+											if (ImGui::Selectable(CharacterTypeToString[ic].c_str(), is_selected))
+											{
+												sfi.m_data = static_cast<CharacterType>(ic);
+												s.SetFieldValue<CharacterType>(sfi.m_data, sfi.m_scriptField.m_classField);
+											}
+										}
+										if (is_selected)
+										{
+											ImGui::SetItemDefaultFocus();
+										}
+									}
+									// End the dropdown
+									ImGui::EndCombo();
+								}
+									
+									EndDisabled();
+
+
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>())
 							{

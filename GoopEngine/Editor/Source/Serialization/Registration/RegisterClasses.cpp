@@ -198,6 +198,12 @@ RTTR_REGISTRATION
     .property("type", &MONO::ScriptFieldInstance<DeckManager>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<DeckManager>::m_scriptField)
     ;
+  rttr::registration::class_<MONO::ScriptFieldInstance<CharacterType>>("GoopScripts.Gameplay.CharacterType")
+    .property("data", &MONO::ScriptFieldInstance<CharacterType>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<CharacterType>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<CharacterType>::m_scriptField)
+    ;
+
 
   rttr::registration::class_<MONO::ScriptInstance>("ScriptInstance")
     .property("scriptName", &MONO::ScriptInstance::m_scriptName)

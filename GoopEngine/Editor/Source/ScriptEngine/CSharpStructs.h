@@ -15,9 +15,17 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 namespace GE::MONO
 {
   // should follow order in CharacterType.cs
-  std::string const CharacterTypeToString[]
+  const std::vector<std::string> CharacterTypeToString
   {
     "PLAYER", "BASIC_ENEMY", "BOSS_P1", "BOSS_P2"
+  };
+
+  enum CharacterType
+  {
+    PLAYER,
+    BASIC_ENEMY,
+    BOSS_P1,  // phase 1
+    BOSS_P2   // phase 2
   };
 
   //// should mimic Deck.cs
