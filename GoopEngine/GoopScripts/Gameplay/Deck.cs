@@ -13,7 +13,7 @@ namespace GoopScripts.Gameplay
 {
   public class Deck
   {
-    public CardBase.CardID[] m_cards;
+    public CardBase.CardID[] m_cards; // the actual deck
     public List<CardBase.CardID> m_drawOrder; // the order of cards to draw
 
 #if IMGUI_ENABLE
@@ -78,6 +78,9 @@ namespace GoopScripts.Gameplay
       {
         newCards[i] = card;
         m_drawOrder.Add(card);
+#if (DEBUG)
+        Console.WriteLine("Added " + card.ToString() + " to deck");
+#endif
       }
 
       m_cards = newCards;
@@ -97,7 +100,12 @@ namespace GoopScripts.Gameplay
     {
       if (Empty()) { return CardBase.CardID.NO_CARD; }
 
-      CardBase.CardID cardDrawn = m_cards[(int)m_drawOrder.First()];
+      CardBase.CardID cardDrawn = m_drawOrder.First();
+
+#if (DEBUG)
+      Console.WriteLine("Draw Card: " + cardDrawn.ToString());
+#endif
+
       m_drawOrder.RemoveAt(0);
 
 #if IMGUI_ENABLE

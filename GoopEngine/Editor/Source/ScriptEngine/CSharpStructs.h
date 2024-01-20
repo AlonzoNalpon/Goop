@@ -13,12 +13,20 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 namespace GE::MONO
 {
+  // should follow order in CharacterType.cs
+  std::string const CharacterTypeToString[]
+  {
+    "PLAYER", "BASIC_ENEMY", "BOSS_P1", "BOSS_P2"
+  };
+
+  // should mimic Deck.cs
   struct Deck
   {
     std::vector<Component::Card::CardID> m_cards;
     std::vector<Component::Card::CardID> m_drawOrderDisplay;
   };
 
+  // should mimic DeckManager.cs
   struct DeckManager
   {
     Deck m_deck;

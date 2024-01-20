@@ -12,20 +12,22 @@ namespace GoopScripts.Gameplay
 {
   public class Stats
   {
+    public CharacterType m_type;
     public int m_health = 10, m_attack = 0, m_block = 0;
+
     public Queue m_nextTurn = new Queue();
     public DeckManager m_deckMngr;
     public BuffManager m_buffs { get; set; }
 
     public Stats()
     {
-      Deck deck = new Deck();
-      deck.AddCard(CardBase.CardID.LEAH_BEAM, 4);
-      deck.AddCard(CardBase.CardID.LEAH_STRIKE, 4);
-      deck.AddCard(CardBase.CardID.SHIELD, 4);
-      deck.AddCard(CardBase.CardID.SPECIAL_FLASHBANG);
+     
+    }
 
-      m_deckMngr = new DeckManager(deck);
+    public void OnCreate()
+    {
+      Console.WriteLine("Create Stats for " + m_type.ToString());
+      m_deckMngr = new DeckManager(m_type);
       m_deckMngr.Init();
     }
 
@@ -95,11 +97,6 @@ namespace GoopScripts.Gameplay
     public void QueueCard(int index)
     {
       m_deckMngr.Queue(index);
-    }
-
-    public void OnCreate()
-    {
-      Console.WriteLine("Create Stats");
     }
 
     public void OnDestroy(uint entity)

@@ -36,12 +36,45 @@ namespace GoopScripts.Gameplay
 #endif
   }
 
-  public DeckManager(Deck deck)
+  public DeckManager(CharacterType type)
     {
-      m_deck = new Deck(deck);
+      m_deck = new Deck();
       m_discard = new List<CardBase.CardID>();
       m_hand = new CardBase.CardID[MAX_CARDS];
       m_queue = new CardBase.CardID[QUEUE_SIZE];
+
+      switch (type)
+      {
+        case CharacterType.PLAYER:
+          m_deck.AddCard(CardBase.CardID.LEAH_BEAM, 4);
+          m_deck.AddCard(CardBase.CardID.LEAH_STRIKE, 4);
+          m_deck.AddCard(CardBase.CardID.SHIELD, 4);
+          m_deck.AddCard(CardBase.CardID.SPECIAL_FLASHBANG);
+          break;
+        case CharacterType.BASIC_ENEMY:
+          m_deck.AddCard(CardBase.CardID.BASIC_ATTACK, 4);
+          m_deck.AddCard(CardBase.CardID.SHIELD, 3);
+          m_deck.AddCard(CardBase.CardID.SPECIAL_SCREECH);
+          break;
+        case CharacterType.BOSS_P1:
+          m_deck.AddCard(CardBase.CardID.DAWSON_BEAM, 2);
+          m_deck.AddCard(CardBase.CardID.DAWSON_SWING, 2);
+          m_deck.AddCard(CardBase.CardID.SHIELD, 5);
+          m_deck.AddCard(CardBase.CardID.SPECIAL_CHARGEUP);
+          break;
+        case CharacterType.BOSS_P2:
+          m_deck.AddCard(CardBase.CardID.DAWSON_BEAM, 3);
+          m_deck.AddCard(CardBase.CardID.DAWSON_SWING, 3);
+          m_deck.AddCard(CardBase.CardID.SHIELD, 6);
+          m_deck.AddCard(CardBase.CardID.SPECIAL_CHARGEUP, 2);
+          m_deck.AddCard(CardBase.CardID.SPECIAL_TIMEWRAP);
+          break;
+        default:
+#if (DEBUG)
+          Console.WriteLine("Unable to create deck of type: " + type.ToString());
+#endif
+          break;
+      }
 
 #if IMGUI_ENABLED
       m_discardDisplay = m_discard.ToArray();
@@ -66,12 +99,16 @@ namespace GoopScripts.Gameplay
       m_deck.Shuffle();
       for(int i = 0; i < STARTING_CARDS; ++i)
       {
-#if (DEBUG)
-        Console.WriteLine("Added " + m_deck.m_drawOrder.First().ToString() + " to starting hand");
-#endif
         m_hand[i] = m_deck.Draw();
       }
+
+      Console.WriteLine("\nDraw Order");
+      foreach (CardBase.CardID card in m_deck.m_drawOrder)
+      {
+        Console.WriteLine(card.ToString());
+      }
     }
+
     public void Queue(int index)
     {
       for (int i = 0; i < m_queue.Count(); ++i)
