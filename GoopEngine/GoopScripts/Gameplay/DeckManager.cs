@@ -43,6 +43,11 @@ namespace GoopScripts.Gameplay
       m_hand = new CardBase.CardID[MAX_CARDS];
       m_queue = new CardBase.CardID[QUEUE_SIZE];
 
+      for (int i = 0; i < QUEUE_SIZE; i++)
+      {
+        m_queue[i] = CardBase.CardID.NO_CARD;
+      }
+
       switch (type)
       {
         case CharacterType.PLAYER:
@@ -193,6 +198,11 @@ namespace GoopScripts.Gameplay
     {
       for (int i = 0; i < m_queue.Length; ++i)
       {
+        if (m_queue[i] == CardBase.CardID.NO_CARD) { continue; }
+
+#if (DEBUG)
+        Console.WriteLine("Discarding " + m_queue[i].ToString());
+#endif
         m_discard.Add(m_queue[i]);
         m_queue[i] = CardBase.CardID.NO_CARD;
       }

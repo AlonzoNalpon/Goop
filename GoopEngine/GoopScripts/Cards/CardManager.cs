@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Cards
 {
-	public class CardManager
+	public static class CardManager
 	{
 		static CardBase[] m_cards;
 
@@ -28,7 +28,7 @@ namespace GoopScripts.Cards
       Default constructor of all cards. Creates an array of all existing
       cards to then later be used for as a lookup during game logic processing
 		************************************************************************/
-		public CardManager()
+		static CardManager()
 		{
       // All cards calling TakeDamage() function currently causes crashes.
       // The function has not yet been properly implemented for gameplay

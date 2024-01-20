@@ -150,13 +150,13 @@ namespace GoopScripts.Gameplay
       // resolve player's queue first
       foreach (CardBase.CardID card in m_playerStats.m_deckMngr.m_queue)
       {
+        if (card == CardBase.CardID.NO_CARD) { continue; }
+
 #if (DEBUG)
         Console.WriteLine("Resolving " + card.ToString());
 #endif
-        if (card != CardBase.CardID.NO_CARD)
-        {
-          CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
-        }
+
+        CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
       }
 
       // then do the same for enemy
@@ -169,8 +169,8 @@ namespace GoopScripts.Gameplay
       }
 
 #if (DEBUG)
-        Console.WriteLine("PLAYER:\n Attack: " + m_playerStats.m_attack + ", Block: " + m_playerStats.m_block);
-      Console.WriteLine("\nENEMY:\n Attack: " + m_enemyStats.m_attack + ", Block: " + m_enemyStats.m_block);
+      Console.WriteLine("\nPLAYER:\n Attack: " + m_playerStats.m_attack + ", Block: " + m_playerStats.m_block);
+      Console.WriteLine("\nENEMY:\n Attack: " + m_enemyStats.m_attack + ", Block: " + m_enemyStats.m_block + "\n");
 #endif
     }
 
@@ -179,8 +179,6 @@ namespace GoopScripts.Gameplay
       ResolutionPhase();
       m_playerStats.EndOfTurn();
       m_enemyStats.EndOfTurn();
-
-      endTurn = true;
     }
   }
 }

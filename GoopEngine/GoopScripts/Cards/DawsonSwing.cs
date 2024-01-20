@@ -40,7 +40,7 @@ namespace GoopScripts.Cards
     ************************************************************************/
     public override void Play(ref Stats source, ref Stats target)
     {
-      target.TakeDamage(source.DamageDealt(Value));
+      source.m_attack += (int)Value;
     }
   }
 }

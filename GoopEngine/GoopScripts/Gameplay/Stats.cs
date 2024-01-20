@@ -24,7 +24,7 @@ namespace GoopScripts.Gameplay
     
     public Stats()
     {
-     
+      m_buffs = new BuffManager();
     }
 
     /*!*********************************************************************
