@@ -46,6 +46,7 @@
                     "scriptList": [
                         {
                             "scriptName": "Stats",
+                            "entityID": 1,
                             "scriptFieldInstList": [
                                 {
                                     "data": 0,
@@ -140,6 +141,7 @@
                     "scriptList": [
                         {
                             "scriptName": "TempEndTurn",
+                            "entityID": 1,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -317,6 +319,7 @@
                     "scriptList": [
                         {
                             "scriptName": "Stats",
+                            "entityID": 1,
                             "scriptFieldInstList": [
                                 {
                                     "data": 0,
@@ -333,7 +336,7 @@
                                     }
                                 },
                                 {
-                                    "data": 100,
+                                    "data": 10,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_health"
@@ -393,6 +396,7 @@
                     "enemyQueue": 21,
                     "gameSystemScript": {
                         "scriptName": "GameManager",
+                        "entityID": 1,
                         "scriptFieldInstList": []
                     }
                 }
@@ -1859,6 +1863,7 @@
                     "scriptList": [
                         {
                             "scriptName": "HealthBar",
+                            "entityID": 1,
                             "scriptFieldInstList": [
                                 {
                                     "data": 28,

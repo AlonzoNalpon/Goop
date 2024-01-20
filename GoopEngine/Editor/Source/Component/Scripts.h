@@ -46,7 +46,8 @@ namespace GE
 					{
 						try
 						{
-							m_scriptList.emplace_back(s);
+						ECS::Entity garbageID{ GE::ECS::INVALID_ID };
+							m_scriptList.emplace_back(s, garbageID);
 						}
 						catch (GE::Debug::IExceptionBase& e)
 						{
@@ -59,7 +60,7 @@ namespace GE
 				}
 			}
 
-			Scripts(const ScriptInstances& scriptList) : m_scriptList{ scriptList } {}
+			Scripts(const ScriptInstances& scriptList) : m_scriptList{ scriptList } { }
 
 
 

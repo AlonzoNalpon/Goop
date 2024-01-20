@@ -454,7 +454,8 @@ void Deserializer::DeserializeBasedOnType(rttr::variant& object, rapidjson::Valu
         Debug::ErrorLogger::GetInstance().LogError("ScriptInstance component is missing fields");
         object = {}; return;
       }
-      Component::ScriptInstance instance{ Component::ScriptInstance(value["scriptName"].GetString()) };
+      GE::ECS::Entity garbageID{ 1 }; //please change this to the acutal entity ID
+      Component::ScriptInstance instance{ Component::ScriptInstance(value["scriptName"].GetString(),garbageID) };
       auto const& instArr{ value["scriptFieldInstList"].GetArray() };
       for (unsigned i{}; i < instance.m_scriptFieldInstList.size(); ++i)
       {

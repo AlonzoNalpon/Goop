@@ -775,7 +775,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 									if (ImGui::Selectable(sn.c_str(), is_selected))
 									{
 										if (sn != s.m_scriptName) {
-											s = ScriptInstance(sn);
+											s = ScriptInstance(sn, entity);
 										}
 									}
 									if (is_selected)
@@ -892,7 +892,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 							auto it = std::find_if(allScripts->m_scriptList.begin(), allScripts->m_scriptList.end(), [sn](const ScriptInstance pair) { return pair.m_scriptName == sn; });
 							if (it == allScripts->m_scriptList.end())
 							{
-								allScripts->m_scriptList.emplace_back(sn);
+								allScripts->m_scriptList.emplace_back(sn,entity);
 								break;
 							}
 						}
@@ -1407,7 +1407,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 								bool is_selected = (game->m_gameSystemScript.m_scriptName.c_str() == sn);
 								if (ImGui::Selectable(sn.c_str()))
 								{
-									game->m_gameSystemScript = ScriptInstance(sn);
+									game->m_gameSystemScript = ScriptInstance(sn,entity);
 									game->m_gameSystemScript.GetFields();
 								}
 								if (is_selected)

@@ -69,11 +69,13 @@ namespace GE {
 		struct ScriptInstance
 		{
 			std::string m_scriptName;
+			GE::ECS::Entity m_entityID;
+			uint32_t m_gcHandle;
 			MonoClass* m_scriptClass{ nullptr };
 			MonoObject* m_classInst{ nullptr };
 			MonoMethod* m_onUpdateMethod{ nullptr };
 			MonoMethod* m_onCreateMethod = { nullptr };
-			uint32_t m_gcHandle;
+
 			std::vector<rttr::variant> m_scriptFieldInstList;
 			inline static char m_fieldValBuffer[maxBufferSize];
 			
@@ -103,7 +105,7 @@ namespace GE {
 				name of the script class
 			************************************************************************/
 
-			ScriptInstance(const std::string& scriptName);
+			ScriptInstance(const std::string& scriptName, GE::ECS::Entity entityID);
 
 			/*!*********************************************************************
 			\brief

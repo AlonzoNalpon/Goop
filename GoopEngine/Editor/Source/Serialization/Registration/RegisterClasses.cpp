@@ -181,6 +181,7 @@ RTTR_REGISTRATION
 
   rttr::registration::class_<MONO::ScriptInstance>("ScriptInstance")
     .property("scriptName", &MONO::ScriptInstance::m_scriptName)
+    .property("entityID", &MONO::ScriptInstance::m_entityID)
     .property("scriptFieldInstList", &MONO::ScriptInstance::m_scriptFieldInstList)
     ;
 
