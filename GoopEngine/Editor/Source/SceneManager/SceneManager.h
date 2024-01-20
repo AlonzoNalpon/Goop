@@ -160,6 +160,8 @@ namespace GE::Scenes
     void LoadTemporarySave();
 #endif
 
+    void InvokeOnCreate() const;
+
     /* Map of all the scene files.Currently the way scenes are inserted
     into this map is hardcoded. */
     //std::map<std::string, std::unique_ptr<Scene>>Scenes;

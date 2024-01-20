@@ -24,6 +24,7 @@ namespace GoopScripts.Gameplay
     
     public Stats()
     {
+      m_deckMngr = new DeckManager();
       m_buffs = new BuffManager();
     }
 
@@ -34,8 +35,7 @@ namespace GoopScripts.Gameplay
     public void OnCreate()
     {
       Console.WriteLine("Create Stats for " + m_type.ToString());
-      m_deckMngr = new DeckManager(m_type);
-      m_deckMngr.Init();
+      m_deckMngr.Init(m_type);
     }
 
     public int GetHealth()

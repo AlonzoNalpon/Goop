@@ -24,19 +24,7 @@ namespace GoopScripts.Gameplay
     public CardBase.CardID[] m_discardDisplay;
 #endif
 
-    public DeckManager()
-    {
-      m_deck = new Deck();
-      m_discard = new List<CardBase.CardID>();
-      m_hand = new CardBase.CardID[MAX_CARDS];
-      m_queue = new CardBase.CardID[QUEUE_SIZE];
-
-#if IMGUI_ENABLED
-      m_discardDisplay = m_discard.ToArray();
-#endif
-  }
-
-  public DeckManager(CharacterType type)
+  public DeckManager()
     {
       m_deck = new Deck();
       m_discard = new List<CardBase.CardID>();
@@ -48,6 +36,18 @@ namespace GoopScripts.Gameplay
         m_queue[i] = CardBase.CardID.NO_CARD;
       }
 
+#if IMGUI_ENABLED
+      m_discardDisplay = m_discard.ToArray();
+#endif
+    }
+
+    /*!*********************************************************************
+		\brief
+		  Initializes the deck for the start of a battle. Shuffles the deck and
+      adds cards to the hand equal to STARTING_CARDS.
+		************************************************************************/
+    public void Init(CharacterType type)
+    {
       switch (type)
       {
         case CharacterType.PLAYER:
@@ -81,18 +81,6 @@ namespace GoopScripts.Gameplay
           break;
       }
 
-#if IMGUI_ENABLED
-      m_discardDisplay = m_discard.ToArray();
-#endif
-    }
-
-    /*!*********************************************************************
-		\brief
-		  Initializes the deck for the start of a battle. Shuffles the deck and
-      adds cards to the hand equal to STARTING_CARDS.
-		************************************************************************/
-    public void Init()
-    {
       if (m_deck.Size() < STARTING_CARDS)
       {
 #if (DEBUG)

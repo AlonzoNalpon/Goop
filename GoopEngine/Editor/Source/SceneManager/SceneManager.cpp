@@ -60,28 +60,10 @@ void SceneManager::LoadScene()
 void SceneManager::InitScene()
 {
   scene.Init();
-  ECS::EntityComponentSystem& ecs = { ECS::EntityComponentSystem::GetInstance() };
 
-  // invoke all scripts' OnCreate() function
-  for (auto const& e : ecs.GetEntities())
-  {
-    if (ecs.GetIsActiveEntity(e))
-    {
-      if (ecs.HasComponent<GE::Component::Scripts>(e))
-      {
-        GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(e);
-        for (auto script : scripts->m_scriptList)
-        {
-          script.InvokeOnCreate();
-        }
-      }
-      else if (ecs.HasComponent<GE::Component::Game>(e))
-      {
-        GE::Component::Game* game = ecs.GetComponent<GE::Component::Game>(e);
-        game->m_gameSystemScript.InvokeOnCreate();
-      }
-    }
-  }
+#ifdef IMGUI_DISABLE
+  InvokeOnCreate();
+#endif
 }
 
 void SceneManager::UnloadScene()
@@ -155,6 +137,7 @@ void GE::Scenes::SceneManager::HandleEvent(Events::Event* event)
 
   case Events::EVENT_TYPE::START_SCENE:
     TemporarySave();  // temporarily save scene before play
+    InvokeOnCreate();
     break;
 
   case Events::EVENT_TYPE::STOP_SCENE:
@@ -219,6 +202,32 @@ void GE::Scenes::SceneManager::SaveScene() const
   Serialization::Serializer::SerializeScene(filepath.str());
 
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Successfully saved scene to " + filepath.str());
+}
+
+void GE::Scenes::SceneManager::InvokeOnCreate() const
+{
+  ECS::EntityComponentSystem& ecs = { ECS::EntityComponentSystem::GetInstance() };
+
+  // invoke all scripts' OnCreate() function
+  for (auto const& e : ecs.GetEntities())
+  {
+    if (ecs.GetIsActiveEntity(e))
+    {
+      if (ecs.HasComponent<GE::Component::Scripts>(e))
+      {
+        GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(e);
+        for (auto script : scripts->m_scriptList)
+        {
+          script.InvokeOnCreate();
+        }
+      }
+      else if (ecs.HasComponent<GE::Component::Game>(e))
+      {
+        GE::Component::Game* game = ecs.GetComponent<GE::Component::Game>(e);
+        game->m_gameSystemScript.InvokeOnCreate();
+      }
+    }
+  }
 }
 
 #ifndef IMGUI_DISABLE
