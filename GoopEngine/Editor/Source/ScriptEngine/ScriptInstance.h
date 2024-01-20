@@ -48,6 +48,7 @@ namespace GE {
 		struct ScriptFieldInstance
 		{
 			ScriptFieldInstance() : m_scriptField{}, m_data{} { m_type = rttr::variant(*this).get_type().get_name().to_string(); }
+			ScriptFieldInstance(ScriptField const& scriptField) : m_scriptField{ scriptField }, m_data{  } {}
 			ScriptFieldInstance(ScriptField const& scriptField, T data) : m_scriptField{ scriptField }, m_data{ data }
 			{
 				m_type = rttr::variant(*this).get_type().get_name().to_string();
@@ -167,7 +168,6 @@ namespace GE {
 				MonoArray* newArray{};
 				
 				mono_field_get_value(m_classInst, field, &newArray);
-
 				std::vector<T> test{};
 				for (int i = 0; i < mono_array_length(newArray); ++i) {
 					 T element = mono_array_get(newArray, T, i);
@@ -228,6 +228,71 @@ namespace GE {
 				values are changed inside the c# script)
 			************************************************************************/
 			void GetAllUpdatedFields();
+
+
+			/*!*********************************************************************
+			\brief
+				Template Function to get a public field from the c# script class.
+				this function will be called when we want get the value of a data member that happens to be another script class
+				public field thats an array
+
+		 \param MMonoObject* obj
+			Pointer to the mono oject we are accessing
+
+			\param MonoDomain* md
+			Pointer to the mono domain we are accessing
+
+			\param MonoClassField* field
+			pointer to the field we are trying to get
+
+			\return
+			the value of the c# script class's public field
+			************************************************************************/
+			template<typename T>
+			std::vector<T> GetChildFieldValueArr(MonoObject* obj, MonoDomain* md, MonoClassField* field)
+			{
+				MonoArray* newArray{};
+				mono_field_get_value(obj, field, &newArray);
+				std::vector<T> test{};
+				for (int i = 0; i < mono_array_length(newArray); ++i) {
+					T element = mono_array_get(newArray, T, i);
+					test.push_back(element);
+				}
+
+				return test;
+			}
+
+			/*!*********************************************************************
+					\brief
+						Template Function to set a public field from the c# script class.
+						this function will be called when we want set the value of a data member that happens to be another script class
+						public field thats an array
+
+				 \param MMonoObject* obj
+					Pointer to the mono oject we are accessing
+
+					\param std::vector<T> value
+					Value we want to set
+
+					\param MonoDomain* md
+					Pointer to the mono domain we are accessing
+
+					\param MonoClassField* field
+					pointer to the field we are trying to get
+
+					\return
+					the value of the c# script class's public field
+					************************************************************************/
+			template<typename T>
+			void SetChildFieldValueArr(MonoObject* obj, std::vector<T> value, MonoDomain* md, MonoClassField* field)
+			{
+				MonoArray* newArray = GetMonoArray<T>(md, value.size());
+				for (int i = 0; i < mono_array_length(newArray); ++i) {
+					mono_array_set(newArray, int, i, value[i]);
+				}
+				mono_field_set_value(obj, field, newArray);
+			}
+
 		};
 		
 	}

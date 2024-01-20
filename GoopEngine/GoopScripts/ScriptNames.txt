@@ -36,7 +36,6 @@ GoopScripts.Cards,SpecialRage
 GoopScripts.Cards,SpecialScreech
 GoopScripts.Cards,SpecialSmokeScreen
 GoopScripts.Cards,SpecialTimeWrap
-GoopScripts.Component,Transform
 GoopScripts.Gameplay,BuffManager
 GoopScripts.Gameplay,CharacterType
 GoopScripts.Gameplay,ComboManager

@@ -29,6 +29,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <GameDef.h>
 #include <Graphics/GraphicsEngine.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
+#include <ScriptEngine/CSharpStructs.h>
 using namespace GE::MONO;
 
 namespace GE 
@@ -52,12 +53,13 @@ namespace GE
       { "GoopScripts.Mono.Vec2<System.Double>", ScriptFieldType::DVec2 },
       { "GoopScripts.Mono.Vec3<System.Double>", ScriptFieldType::DVec3 },
       { "System.Int32[]", ScriptFieldType::IntArr },
-      { "GoopScripts.Cards.CardBase.CardID[]", ScriptFieldType::UIntArr }
-
-      
-      //{ "System.Single[]", ScriptFieldType::FloatArr },
-      //{ "System.Double[]", ScriptFieldType::DoubleArr }
-
+      { "GoopScripts.Cards.CardBase.CardID[]", ScriptFieldType::UIntArr },
+      { "System.Collections.Queue", ScriptFieldType::QueueFT },
+      { "GoopScripts.Gameplay.Deck", ScriptFieldType::DeckFT },
+      { "GoopScripts.Gameplay.DeckManager", ScriptFieldType::DeckManagerFT },
+      { "GoopScripts.Gameplay.CharacterType", ScriptFieldType::CharacterTypeFT }   
+            
+  
     };
   }
 }
@@ -172,7 +174,8 @@ void GE::MONO::ScriptManager::InitMono()
 }
 
 void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
-{;
+{
+  
   std::string line{};
   while (std::getline(ifs, line)) {
     size_t commaPosition = line.find(',');
@@ -185,6 +188,8 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
         newScriptClassInfo.m_scriptClass = newClass;
         //int fieldCount = mono_class_num_fields(newClass);
         void* iterator = nullptr;
+        //std::cout << "-----------------------------------------------\n";
+        //std::cout << line.substr(commaPosition + 1).c_str() << "\n";
         while (MonoClassField* field = mono_class_get_fields(newClass, &iterator))
         {
           const char* fieldName = mono_field_get_name(field);
@@ -193,6 +198,8 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
           {
             MonoType* type = mono_field_get_type(field);
             ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
+            std::string typeName = mono_type_get_name(type);
+            std::cout << typeName << "\n";
             newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
           }
         }
@@ -202,10 +209,11 @@ void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
         {
           m_allScriptNames.push_back(line.substr(commaPosition + 1).c_str());
         }
-
+       // std::cout << "-----------------------------------------------\n";
       }
     }
   }
+
 }
 
 MonoAssembly* GE::MONO::LoadCSharpAssembly(const std::string& assemblyPath)
@@ -269,8 +277,6 @@ char* GE::MONO::ReadBytes(const std::string& filepath, uint32_t* outSize)
 ScriptFieldType GE::MONO::ScriptManager::MonoTypeToScriptFieldType(MonoType* monoType)
 {
   std::string typeName = mono_type_get_name(monoType);
-
-
   auto it = m_ScriptFieldTypeMap.find(typeName);
   if (it == m_ScriptFieldTypeMap.end())
   {
@@ -399,36 +405,52 @@ ScriptField GE::MONO::ScriptManager::GetScriptField(std::string className, std::
   return m_monoClassMap[className].m_ScriptFieldMap[fieldName];
 }
 
-rttr::variant  GE::MONO::ScriptManager::GetScriptFieldInst(std::string const& listType) {
-  if (listType == "System.Int32")
-  {
-    return GE::MONO::ScriptFieldInstance<int>();
-  }
-  if (listType == "System.Single")
-  {
-    return GE::MONO::ScriptFieldInstance<float>();
-  }
-  if (listType == "System.Double")
-  {
-    return GE::MONO::ScriptFieldInstance<double>();
-  }
-  if (listType == "System.UInt32")
-  {
-    return GE::MONO::ScriptFieldInstance<unsigned>();
-  }
-  if (listType == "System.Int32[]")
-  {
-    return GE::MONO::ScriptFieldInstance < std::vector<int> > ();
-  }
-  if (listType == "Stats::GoopScripts.Cards.CardBase.CardID[]")
-  {
-    return GE::MONO::ScriptFieldInstance<std::vector<unsigned>>();
-
-  }
-
-  return GE::MONO::ScriptFieldInstance<std::vector<unsigned>>();
-  
-}
+//rttr::variant  GE::MONO::ScriptManager::GetScriptFieldInst(std::string const& listType) {
+//  if (listType == "System.Int32")
+//  {
+//    return GE::MONO::ScriptFieldInstance<int>();
+//  }
+//  if (listType == "System.Single")
+//  {
+//    return GE::MONO::ScriptFieldInstance<float>();
+//  }
+//  if (listType == "System.Double")
+//  {
+//    return GE::MONO::ScriptFieldInstance<double>();
+//  }
+//  if (listType == "System.UInt32")
+//  {
+//    return GE::MONO::ScriptFieldInstance<unsigned>();
+//  }
+//  if (listType == "System.Int32[]")
+//  {
+//    return GE::MONO::ScriptFieldInstance < std::vector<int> > ();
+//  }
+//  if (listType == "Stats::GoopScripts.Cards.CardBase.CardID[]")
+//  {
+//    return GE::MONO::ScriptFieldInstance<std::vector<unsigned>>();
+//  }
+//
+//  //if (listType == "System.Collections.Queue")
+//  //{
+//  //  return GE::MONO::ScriptFieldInstance<Queue>();
+//  //}
+//  if (listType == "GoopScripts.Gameplay.Deck")
+//  {
+//    return GE::MONO::ScriptFieldInstance<Deck>();
+//  }
+//  if (listType == "GoopScripts.Gameplay.DeckManager")
+//  {
+//    return GE::MONO::ScriptFieldInstance<DeckManager>();
+//  }
+//  if (listType == "GoopScripts.Gameplay.CharacterType")
+//  {
+//    return GE::MONO::ScriptFieldInstance<unsigned>();
+//  }
+//
+//  return GE::MONO::ScriptFieldInstance<std::vector<unsigned>>();
+//  
+//}
 
 // /*!*********************************************************************
 //

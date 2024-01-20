@@ -13,6 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <mono/jit/jit.h>
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/object.h>
+#include <Component/Card.h>
 
 namespace GE {
 	namespace MONO {
@@ -37,7 +38,11 @@ namespace GE {
 			IntArr,
 			FloatArr,
 			DoubleArr,
-			UIntArr
+			UIntArr,
+			QueueFT,
+			DeckFT,
+			DeckManagerFT,
+			CharacterTypeFT,
 		};
 
 		template <typename T>
@@ -54,6 +59,9 @@ namespace GE {
 
 		template <>
 		MonoArray* GetMonoArray<double>(MonoDomain* md, size_t sz);
+
+		template <>
+		MonoArray* GetMonoArray<GE::Component::Card::CardID>(MonoDomain* md, size_t sz);
 
 	}
 }

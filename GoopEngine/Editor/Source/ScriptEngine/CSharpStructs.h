@@ -10,6 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include <vector>
 #include <Component/Card.h>
+#include <ScriptEngine/ScriptInstance.h>
 
 namespace GE::MONO
 {
@@ -19,17 +20,20 @@ namespace GE::MONO
     "PLAYER", "BASIC_ENEMY", "BOSS_P1", "BOSS_P2"
   };
 
-  // should mimic Deck.cs
-  struct Deck
-  {
-    std::vector<Component::Card::CardID> m_cards;
-    std::vector<Component::Card::CardID> m_drawOrderDisplay;
-  };
+  //// should mimic Deck.cs
+  //struct Deck
+  //{
+  //  std::vector<Component::Card::CardID> m_cards;
+  //  std::vector<Component::Card::CardID> m_drawOrderDisplay;
+  //};
 
   // should mimic DeckManager.cs
   struct DeckManager
   {
-    Deck m_deck;
-    std::vector<Component::Card::CardID> m_discardDisplay, m_hand, m_queue;
+    //Deck m_deck;
+    //std::vector<Component::Card::CardID> m_discardDisplay, m_hand, m_queue;
+    ScriptInstance m_deckManagerInstance, m_deckInstance; //used to cache the mono data of deck and deckmanager
   };
+
+
 }

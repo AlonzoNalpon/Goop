@@ -10,15 +10,18 @@ using GoopScripts.Mono;
 
 namespace GoopScripts.Gameplay
 {
+ 
   public class Stats
   {
+    //static int[] oi = { 1, 2, 3, 4, 5, 6, 9 };
+
     public CharacterType m_type;
     public int m_health = 10, m_attack = 0, m_block = 0;
 
     public Queue m_nextTurn = new Queue();
     public DeckManager m_deckMngr;
     public BuffManager m_buffs { get; set; }
-
+    
     public Stats()
     {
      

@@ -163,7 +163,7 @@ namespace GoopScripts.Mono
 			values to be added to the entity's transform
 		************************************************************************/
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static void SetRotation(uint ID, Vec3<double> newRot);
+    extern public static void SetRotation(uint ID,  Vec3<double> newRot);
 
 
     /*!*********************************************************************
