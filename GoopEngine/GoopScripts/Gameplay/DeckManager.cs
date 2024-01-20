@@ -120,11 +120,27 @@ namespace GoopScripts.Gameplay
         }
       }
 #if (DEBUG)
-      Console.WriteLine("Queuing " + m_hand[index].ToString() + " from hand");
-      Console.WriteLine();
+      Console.WriteLine("Queuing " + m_hand[index].ToString() + " from hand\n");
 #endif
 
       m_hand[index] = CardBase.CardID.NO_CARD;
+    }
+
+    public void Unqueue(int index)
+    {
+      // find empty slot and replace with card
+      for (int i = 0; i < MAX_CARDS; ++i)
+      {
+        if (m_hand[i] == CardBase.CardID.NO_CARD)
+        {
+          m_hand[i] = m_queue[index];
+        }
+      }
+
+#if (DEBUG)
+      Console.WriteLine("Returning " + m_queue[index].ToString() + " to hand\n");
+#endif
+      m_queue[index] = CardBase.CardID.NO_CARD;
     }
 
     public void Draw()

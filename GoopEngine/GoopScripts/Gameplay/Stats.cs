@@ -99,6 +99,11 @@ namespace GoopScripts.Gameplay
       m_deckMngr.Queue(index);
     }
 
+    public void UnqueueCard(int index)
+    {
+      m_deckMngr.Unqueue(index);
+    }
+
     public void OnDestroy(uint entity)
     {
 
