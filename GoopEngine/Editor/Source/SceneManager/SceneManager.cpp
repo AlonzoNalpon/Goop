@@ -60,6 +60,28 @@ void SceneManager::LoadScene()
 void SceneManager::InitScene()
 {
   scene.Init();
+  ECS::EntityComponentSystem& ecs = { ECS::EntityComponentSystem::GetInstance() };
+
+  // invoke all scripts' OnCreate() function
+  for (auto const& e : ecs.GetEntities())
+  {
+    if (ecs.GetIsActiveEntity(e))
+    {
+      if (ecs.HasComponent<GE::Component::Scripts>(e))
+      {
+        GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(e);
+        for (auto script : scripts->m_scriptList)
+        {
+          script.InvokeOnCreate();
+        }
+      }
+      else if (ecs.HasComponent<GE::Component::Game>(e))
+      {
+        GE::Component::Game* game = ecs.GetComponent<GE::Component::Game>(e);
+        game->m_gameSystemScript.InvokeOnCreate();
+      }
+    }
+  }
 }
 
 void SceneManager::UnloadScene()

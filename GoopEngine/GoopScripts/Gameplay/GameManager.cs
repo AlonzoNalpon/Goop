@@ -13,23 +13,23 @@ namespace GoopScripts.Gameplay
   public class GameManager : MonoBehaviour
   {
     Random m_rng;
-    //CardManager m_cardManager;
     double m_animTime = 1.0; // hard coded for now
     double m_currTime;
-    //int m_numResolves;
-    //int m_currResolves = 0;
+
+    Stats m_playerStats, m_enemyStats;
 
     bool endTurn = false;  // flag for triggering a turn
 
     GameManager()
     {
       m_rng = new Random();
-      //m_cardManager = new CardManager();
     }
 
     public void OnCreate()
     {
       Console.WriteLine("Create GameManager");
+      m_playerStats = (Stats) Utils.GetScript("Player", "Stats");
+      m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
     }
 
     // function to allow c++ to edit the list of cards in cardmanager
@@ -136,7 +136,13 @@ namespace GoopScripts.Gameplay
 
     public void NewTurn()
     {
-      Console.WriteLine("NEW TURN");
+      Console.WriteLine("Current Queue:");
+
+      foreach (CardBase.CardID c in m_playerStats.m_deckMngr.m_queue)
+      {
+        Console.WriteLine(c.ToString());
+      }
+
       endTurn = true;
     }
   }
