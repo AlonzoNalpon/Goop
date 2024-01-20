@@ -18,15 +18,16 @@ namespace GoopScripts.Cards
     public enum CardID
     {
       NO_CARD,
-      SHIELD,
 
       // Basic enemy cards
       BASIC_ATTACK,
+      BASIC_SHIELD,
       SPECIAL_SCREECH,
 
       // Player cards
       LEAH_BEAM,
       LEAH_STRIKE,
+      LEAH_SHIELD,
 
       SPECIAL_FLASHBANG,
       SPECIAL_SMOKESCREEN,
@@ -35,6 +36,7 @@ namespace GoopScripts.Cards
       // Dawson enemy cards
       DAWSON_BEAM,
       DAWSON_SWING,
+      DAWSON_SHIELD,
 
       SPECIAL_CHARGEUP,
       SPECIAL_TIMEWRAP,

@@ -48,24 +48,24 @@ namespace GoopScripts.Gameplay
         case CharacterType.PLAYER:
           m_deck.AddCard(CardBase.CardID.LEAH_BEAM, 4);
           m_deck.AddCard(CardBase.CardID.LEAH_STRIKE, 4);
-          m_deck.AddCard(CardBase.CardID.SHIELD, 4);
+          m_deck.AddCard(CardBase.CardID.LEAH_SHIELD, 4);
           m_deck.AddCard(CardBase.CardID.SPECIAL_FLASHBANG);
           break;
         case CharacterType.BASIC_ENEMY:
           m_deck.AddCard(CardBase.CardID.BASIC_ATTACK, 4);
-          m_deck.AddCard(CardBase.CardID.SHIELD, 3);
+          m_deck.AddCard(CardBase.CardID.BASIC_SHIELD, 3);
           m_deck.AddCard(CardBase.CardID.SPECIAL_SCREECH);
           break;
         case CharacterType.BOSS_P1:
           m_deck.AddCard(CardBase.CardID.DAWSON_BEAM, 2);
           m_deck.AddCard(CardBase.CardID.DAWSON_SWING, 2);
-          m_deck.AddCard(CardBase.CardID.SHIELD, 5);
+          m_deck.AddCard(CardBase.CardID.DAWSON_SHIELD, 5);
           m_deck.AddCard(CardBase.CardID.SPECIAL_CHARGEUP);
           break;
         case CharacterType.BOSS_P2:
           m_deck.AddCard(CardBase.CardID.DAWSON_BEAM, 3);
           m_deck.AddCard(CardBase.CardID.DAWSON_SWING, 3);
-          m_deck.AddCard(CardBase.CardID.SHIELD, 6);
+          m_deck.AddCard(CardBase.CardID.DAWSON_SHIELD, 6);
           m_deck.AddCard(CardBase.CardID.SPECIAL_CHARGEUP, 2);
           m_deck.AddCard(CardBase.CardID.SPECIAL_TIMEWRAP);
           break;
@@ -120,11 +120,27 @@ namespace GoopScripts.Gameplay
         }
       }
 #if (DEBUG)
-      Console.WriteLine("Queuing " + m_hand[index].ToString() + " from hand");
-      Console.WriteLine();
+      Console.WriteLine("Queuing " + m_hand[index].ToString() + " from hand\n");
 #endif
 
       m_hand[index] = CardBase.CardID.NO_CARD;
+    }
+
+    public void Unqueue(int index)
+    {
+      // find empty slot and replace with card
+      for (int i = 0; i < MAX_CARDS; ++i)
+      {
+        if (m_hand[i] == CardBase.CardID.NO_CARD)
+        {
+          m_hand[i] = m_queue[index];
+        }
+      }
+
+#if (DEBUG)
+      Console.WriteLine("Returning " + m_queue[index].ToString() + " to hand\n");
+#endif
+      m_queue[index] = CardBase.CardID.NO_CARD;
     }
 
     public void Draw()
@@ -168,22 +184,18 @@ namespace GoopScripts.Gameplay
 
       }
     }
-
-    public void Resolve()
+    
+    /*!*********************************************************************
+		\brief
+		  Sends all cards in the queue to the discard pile.
+		************************************************************************/
+    public void DiscardQueue()
     {
-      // first compute base card values
-
-      // then resolve combos
-
-
-#if (DEBUG)
-      Console.WriteLine("Resolving queue with: ");
-      foreach (CardBase.CardID c in m_queue)
+      for (int i = 0; i < m_queue.Length; ++i)
       {
-        Console.WriteLine(c.ToString());
+        m_discard.Add(m_queue[i]);
+        m_queue[i] = CardBase.CardID.NO_CARD;
       }
-      Console.WriteLine();
-#endif
     }
 
     /*!*********************************************************************

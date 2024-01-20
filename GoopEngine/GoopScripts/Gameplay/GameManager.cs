@@ -13,23 +13,23 @@ namespace GoopScripts.Gameplay
   public class GameManager : MonoBehaviour
   {
     Random m_rng;
-    //CardManager m_cardManager;
     double m_animTime = 1.0; // hard coded for now
     double m_currTime;
-    //int m_numResolves;
-    //int m_currResolves = 0;
+
+    Stats m_playerStats, m_enemyStats;
 
     bool endTurn = false;  // flag for triggering a turn
 
     GameManager()
     {
       m_rng = new Random();
-      //m_cardManager = new CardManager();
     }
 
     public void OnCreate()
     {
       Console.WriteLine("Create GameManager");
+      m_playerStats = (Stats) Utils.GetScript("Player", "Stats");
+      m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
     }
 
     // function to allow c++ to edit the list of cards in cardmanager
@@ -38,10 +38,6 @@ namespace GoopScripts.Gameplay
 		{
       if (endTurn)
 			{
-        player.EndOfTurn();
-        enemy.EndOfTurn();
-        player.m_deckMngr.Draw();
-        enemy.m_deckMngr.Draw();
         endTurn = false;
         //m_numResolves = 1;
 				//m_numResolves = player.m_cardQueue.Length >= enemy.m_cardQueue.Length ? player.m_cardQueue.Length : enemy.m_cardQueue.Length;
@@ -134,9 +130,56 @@ namespace GoopScripts.Gameplay
       }
     }
 
-    public void NewTurn()
+    public void StartOfTurn()
     {
-      Console.WriteLine("NEW TURN");
+      m_playerStats.m_deckMngr.Draw();
+      m_enemyStats.m_deckMngr.Draw();
+    }
+
+    public void ResolutionPhase()
+    {
+#if (DEBUG)
+      Console.WriteLine("Player Queue:");
+
+      foreach (CardBase.CardID c in m_playerStats.m_deckMngr.m_queue)
+      {
+        Console.WriteLine(c.ToString());
+      }
+#endif
+
+      // resolve player's queue first
+      foreach (CardBase.CardID card in m_playerStats.m_deckMngr.m_queue)
+      {
+#if (DEBUG)
+        Console.WriteLine("Resolving " + card.ToString());
+#endif
+        if (card != CardBase.CardID.NO_CARD)
+        {
+          CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
+        }
+      }
+
+      // then do the same for enemy
+      foreach (CardBase.CardID card in m_enemyStats.m_deckMngr.m_queue)
+      {
+        if (card != CardBase.CardID.NO_CARD)
+        {
+          CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
+        }
+      }
+
+#if (DEBUG)
+        Console.WriteLine("PLAYER:\n Attack: " + m_playerStats.m_attack + ", Block: " + m_playerStats.m_block);
+      Console.WriteLine("\nENEMY:\n Attack: " + m_enemyStats.m_attack + ", Block: " + m_enemyStats.m_block);
+#endif
+    }
+
+    public void EndTurn()
+    {
+      ResolutionPhase();
+      m_playerStats.EndOfTurn();
+      m_enemyStats.EndOfTurn();
+
       endTurn = true;
     }
   }

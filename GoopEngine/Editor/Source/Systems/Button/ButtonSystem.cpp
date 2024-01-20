@@ -205,16 +205,20 @@ namespace GE
 									}
 
 									// Now we get the player's script functions
-									int handIdx{ static_cast<int>(m_ecs->GetComponent<Component::CardHolderElem>(cardEntity)->elemIdx) }; // get the player entity ID
-									auto* cardComp = m_ecs->GetComponent<Component::Card>(cardEntity);
-									MonoMethod* SetCardInHand = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInHand", 2);
-									MonoMethod* SetCardInQueue = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInQueue", 2);
+									int handIdx{ static_cast<int>(holderElem->elemIdx) }; // get the player entity ID
+									//auto* cardComp = m_ecs->GetComponent<Component::Card>(cardEntity);
+									//MonoMethod* SetCardInHand = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInHand", 2);
+									//MonoMethod* SetCardInQueue = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "SetCardInQueue", 2);
 
-									Component::Card::CardID blankCard{ Component::Card::NO_CARD };// we will replace hand card with this
-									void* argsHand[]	{ &handIdx, &cardComp->cardID };
-									void* argsQueue[] { &holderElem->elemIdx, &blankCard };
-									mono_runtime_invoke(SetCardInHand, mono_gchandle_get_target(statsScriptInst->m_gcHandle), argsHand, nullptr);
-									mono_runtime_invoke(SetCardInQueue, mono_gchandle_get_target(statsScriptInst->m_gcHandle), argsQueue, nullptr);
+									//Component::Card::CardID blankCard{ Component::Card::NO_CARD };// we will replace hand card with this
+									//void* argsHand[]	{ &handIdx, &cardComp->cardID };
+									//void* argsQueue[] { &holderElem->elemIdx, &blankCard };
+									//mono_runtime_invoke(SetCardInHand, mono_gchandle_get_target(statsScriptInst->m_gcHandle), argsHand, nullptr);
+									//mono_runtime_invoke(SetCardInQueue, mono_gchandle_get_target(statsScriptInst->m_gcHandle), argsQueue, nullptr);
+
+									MonoMethod* UnqueueCard = mono_class_get_method_from_name(statsScriptInst->m_scriptClass, "UnqueueCard", 1);
+									std::vector<void*> args{ &handIdx };
+									mono_runtime_invoke(UnqueueCard, mono_gchandle_get_target(statsScriptInst->m_gcHandle), args.data(), nullptr);
 								}
 								break;
 							}

@@ -32,19 +32,6 @@ void GE::Scenes::Scene::Load(std::string filepath)
 void GE::Scenes::Scene::Init()
 {
 	of->LoadSceneObjects(); 
-	ecs = { &GE::ECS::EntityComponentSystem::GetInstance() };
-	std::set<Entity>& entities = ecs->GetEntities();
-	for (auto e : entities)
-	{
-		if (ecs->GetIsActiveEntity(e) && ecs->HasComponent<GE::Component::Scripts>(e))
-		{
-			GE::Component::Scripts* scripts = ecs->GetComponent<GE::Component::Scripts>(e);
-			for (auto script : scripts->m_scriptList)
-			{
-				script.InvokeOnCreate();
-			}
-		}
-	}
 }
 
 void GE::Scenes::Scene::Unload()
