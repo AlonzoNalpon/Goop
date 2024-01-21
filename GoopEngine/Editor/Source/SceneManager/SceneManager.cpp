@@ -62,6 +62,7 @@ void SceneManager::InitScene()
   scene.Init();
 
 #ifdef IMGUI_DISABLE
+  // when editor isn't running, invoke OnCreate after Init
   InvokeOnCreate();
 #endif
 }
@@ -137,7 +138,7 @@ void GE::Scenes::SceneManager::HandleEvent(Events::Event* event)
 
   case Events::EVENT_TYPE::START_SCENE:
     TemporarySave();  // temporarily save scene before play
-    InvokeOnCreate();
+    InvokeOnCreate(); // invoke OnCreate on Play button press
     break;
 
   case Events::EVENT_TYPE::STOP_SCENE:
