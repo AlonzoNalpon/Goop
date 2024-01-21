@@ -151,6 +151,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::CreateObject", GE::MONO::CreateObject);
   mono_add_internal_call("GoopScripts.Mono.Utils::UpdateSprite", GE::MONO::UpdateSprite);
 
+  mono_add_internal_call("GoopScripts.Mono.Utils::CrossFadeAudio", GE::MONO::CrossFadeAudio);
+
 
   //Load the CSharpAssembly (dll file)
   std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
@@ -349,9 +351,13 @@ void GE::MONO::CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1
   cf.m_startVol[1] = startVol2;
   cf.m_endVol[0] = endVol1;
   cf.m_endVol[1] = endVol2;
-  cf.m_crossFadeStartTime[0] = fadeStart1;
-  cf.m_crossFadeStartTime[1] = fadeStart2;
+  cf.m_crossFadeStartTime[0] = GE::GoopUtils::Lerp(0.f, fadeDuration, fadeStart1);
+  cf.m_crossFadeStartTime[1] = GE::GoopUtils::Lerp(0.f, fadeDuration, fadeStart2);
+  cf.m_crossFadeEndTime[0] = GE::GoopUtils::Lerp(0.f, fadeDuration, fadeEnd1);
+  cf.m_crossFadeEndTime[1] = GE::GoopUtils::Lerp(0.f, fadeDuration, fadeEnd2);
   cf.m_crossFadeTime = fadeDuration;
+  cf.m_currFadeTime = 0.f;
+  cf.isOver = false;
 
   auto as = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::AudioSystem>();
   as->CrossFadeAudio(cf);
