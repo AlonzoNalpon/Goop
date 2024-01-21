@@ -127,17 +127,6 @@ namespace GoopScripts.Gameplay
       m_deckMngr.Unqueue(index);
     }
 
-    public void OnUpdate(uint entity, double dt)
-    {
-      //Utils.SendString($"{entity} and {dt}");
-    }
-
-
-    public void OnDestroy(uint entity)
-    {
-
-    }
-
     public void QueueBuff(Buff buff)
     {
       m_nextTurn.Enqueue(buff);

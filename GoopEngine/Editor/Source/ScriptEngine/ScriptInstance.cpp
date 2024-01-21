@@ -71,7 +71,7 @@ void ScriptInstance::InvokeOnCreate()
   {
     mono_runtime_invoke(m_onCreateMethod, mono_gchandle_get_target(m_gcHandle),nullptr, nullptr);
   }
-}
+} 
 
 void ScriptInstance::GetFields()
 {
