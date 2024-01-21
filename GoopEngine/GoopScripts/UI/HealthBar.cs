@@ -14,7 +14,7 @@ namespace GoopScripts.UI
     static private readonly int PADDING_SIZE = 5;
     private int health;
     private int m_maxHealth;
-    public int ID = 28;
+    public int ID;
     private int m_width, m_height;
     private Vec3<double> m_barPos;
     private int m_individualBarWidth;
@@ -22,7 +22,6 @@ namespace GoopScripts.UI
 
     public void OnCreate()
     {
-
       m_barPos = Utils.GetPosition((uint)ID);
       m_width = (int)Utils.GetObjectWidth((uint)ID) * (int)Utils.GetScale((uint)ID).X;
       m_height = (int)Utils.GetObjectHeight((uint)ID) * (int)Utils.GetScale((uint)ID).Y - PADDING_SIZE;

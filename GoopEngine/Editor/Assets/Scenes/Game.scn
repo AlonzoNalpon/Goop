@@ -313,7 +313,7 @@
                     "center": "{ 312.725, 50 }",
                     "width": 456.0,
                     "height": 154.0,
-                    "min": "{ 84.7247, -27 }",
+                    "min": "{ 84.725, -27 }",
                     "max": "{ 540.725, 127 }",
                     "render": false
                 }
@@ -392,7 +392,7 @@
                                     }
                                 },
                                 {
-                                    "data": "PLAYER",
+                                    "data": "BASIC_ENEMY",
                                     "type": "GoopScripts.Gameplay.CharacterType",
                                     "scriptField": {
                                         "fieldName": "m_type"
