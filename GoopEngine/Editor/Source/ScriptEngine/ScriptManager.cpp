@@ -565,11 +565,11 @@ MonoObject* GE::MONO::GetScriptInstance(GE::ECS::Entity entityID, MonoString* sc
   return scriptinst->m_classInst;
 }
 
-MonoObject* GE::MONO::GetScriptFromID(GE::ECS::Entity entity, int id)
+MonoObject* GE::MONO::GetScriptFromID(GE::ECS::Entity entity, MonoString* scriptName)
 {
   GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
   auto ss = ecs.GetComponent<GE::Component::Scripts>(ecs.GetEntity(ecs.GetEntityName(entity)));
-  GE::MONO::ScriptInstance* scriptinst = ss->Get(id);
+  GE::MONO::ScriptInstance* scriptinst = ss->Get(MonoStringToSTD(scriptName));
 
   return scriptinst->m_classInst;
 }
