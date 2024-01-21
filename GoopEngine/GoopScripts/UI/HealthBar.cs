@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.UI
 {
-  public class HealthBar : MonoBehaviour
+  public class HealthBar : Entity
   {
     static private readonly int PADDING_SIZE = 5;
     private int health;
@@ -19,6 +19,11 @@ namespace GoopScripts.UI
     private Vec3<double> m_barPos;
     private int m_individualBarWidth;
     uint[] m_bars;
+
+
+    public HealthBar(uint entityID) : base(entityID)
+    {
+    }
 
     public void OnCreate()
     {

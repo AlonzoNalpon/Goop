@@ -17,7 +17,7 @@ using static GoopScripts.Mono.Utils;
 namespace GoopScripts.AI
 {
 
-  internal class RootNode : MonoBehaviour
+  internal class RootNode
   {
     List<uint> m_childID = new List<uint>();
     private uint m_nodeID = 0;
@@ -31,7 +31,7 @@ namespace GoopScripts.AI
   \params enityID
    ID of the owner of this scipt
   ************************************************************************/
-    public RootNode(uint currID, uint _, uint[] temp, uint tempSize) : base()
+    public RootNode(uint currID, uint _, uint[] temp, uint tempSize)
     {
       m_nodeID = currID;
       for (uint i = 0; i < tempSize; i++)

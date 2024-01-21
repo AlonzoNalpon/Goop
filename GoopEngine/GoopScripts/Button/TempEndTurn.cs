@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class TempEndTurn : IButtonClick
+  public class TempEndTurn : Entity, IButtonClick
   {
+
+    public TempEndTurn(uint entityID) : base(entityID)
+    {
+
+    }
     public void OnClick(uint entity)
     {
       Gameplay.GameManager gm = (Gameplay.GameManager) Utils.GetGameSysScript("GameSystem");

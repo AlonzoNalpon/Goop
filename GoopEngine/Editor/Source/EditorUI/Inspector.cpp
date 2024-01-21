@@ -1787,6 +1787,18 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						break;
 					}
+					else if (compType == rttr::type::get<Component::EnemyAI>())
+					{
+						if (!ecs.HasComponent<EnemyAI>(entity))
+						{
+							ecs.AddComponent(entity, EnemyAI{});
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(EnemyAI).name() << ". Component already exist";
+						}
+						break;
+						}
 					else
 					{
 						ss << "Try to add an unhandled component";

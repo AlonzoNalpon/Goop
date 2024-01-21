@@ -130,6 +130,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayerExist", GE::Systems::EnemySystem::PlayerExist);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetResult", GE::Systems::EnemySystem::SetResult);
   mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
+  mono_add_internal_call("GoopScripts.Mono.Utils::StartAI", GE::Systems::EnemySystem::StartAI);
+  mono_add_internal_call("GoopScripts.Mono.Utils::EndAI", GE::Systems::EnemySystem::EndAI);
 
   // Game system stuff
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", GE::MONO::PlayAnimation);
@@ -164,65 +166,66 @@ void GE::MONO::ScriptManager::InitMono()
   {
     m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssembly"));
   }
-
-
   //Load All the MonoClasses
-  std::ifstream scriptNames(assetManager.GetConfigData<std::string>("ScriptNames"));
-  if (scriptNames.good())
-  {
-     LoadAllMonoClass(scriptNames);
-  }
-  else
-  {
-    std::ifstream scriptNamesExe(assetManager.GetConfigData<std::string>("ScriptNamesExe"));
-     LoadAllMonoClass(scriptNamesExe);
-    
-  }
+  LoadAllMonoClass();
+
+
 
 }
 
-void GE::MONO::ScriptManager::LoadAllMonoClass(std::ifstream& ifs)
+void GE::MONO::ScriptManager::LoadAllMonoClass()
 {
-  
-  std::string line{};
-  while (std::getline(ifs, line)) {
-    size_t commaPosition = line.find(',');
-    if (commaPosition != std::string::npos) 
+
+  MonoImage* image = mono_assembly_get_image(m_coreAssembly);
+  const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
+  int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
+
+  for (int32_t i = 0; i < numTypes; i++)
+  {
+    uint32_t cols[MONO_TYPEDEF_SIZE];
+    mono_metadata_decode_row(typeDefinitionsTable, i, cols, MONO_TYPEDEF_SIZE);
+
+    std::string classNameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
+    std::string className = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
+
+    MonoClass* newClass = GetClassInAssembly(m_coreAssembly, classNameSpace.c_str(), className.c_str());
+    if (newClass)
     {
-      MonoClass* newClass = GetClassInAssembly(m_coreAssembly, line.substr(0, commaPosition).c_str(), line.substr(commaPosition + 1).c_str());
-      if (newClass) 
+      ScriptClassInfo newScriptClassInfo{};
+      newScriptClassInfo.m_scriptClass = newClass;
+      void* iterator = nullptr;
+      while (MonoClassField* field = mono_class_get_fields(newClass, &iterator))
       {
-        ScriptClassInfo newScriptClassInfo{};
-        newScriptClassInfo.m_scriptClass = newClass;
-        //int fieldCount = mono_class_num_fields(newClass);
-        void* iterator = nullptr;
-        //std::cout << "-----------------------------------------------\n";
-        //std::cout << line.substr(commaPosition + 1).c_str() << "\n";
-        while (MonoClassField* field = mono_class_get_fields(newClass, &iterator))
+        const char* fieldName = mono_field_get_name(field);
+        uint32_t flags = mono_field_get_flags(field);
+        if (flags & FIELD_ATTRIBUTE_PUBLIC)
         {
-          const char* fieldName = mono_field_get_name(field);
-          uint32_t flags = mono_field_get_flags(field);
-          if (flags & FIELD_ATTRIBUTE_PUBLIC)
-          {
-            MonoType* type = mono_field_get_type(field);
-            ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
-            std::string typeName = mono_type_get_name(type);
-            //std::cout << typeName << "\n";
-            newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
-          }
+          MonoType* type = mono_field_get_type(field);
+          ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
+          std::string typeName = mono_type_get_name(type);
+          //std::cout << typeName << "\n";
+          newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
         }
-        m_monoClassMap[line.substr(commaPosition + 1).c_str()] = newScriptClassInfo;
-        MonoMethod* ctor = mono_class_get_method_from_name(newClass, ".ctor", 0);
-        if (ctor)
-        {
-          m_allScriptNames.push_back(line.substr(commaPosition + 1).c_str());
-        }
-       // std::cout << "-----------------------------------------------\n";
+      }
+      m_monoClassMap[className] = newScriptClassInfo;
+      MonoMethod* ctor = mono_class_get_method_from_name(newClass, ".ctor", 0);
+      if (ctor)
+      {
+        m_allScriptNames.push_back(className);
       }
     }
+
   }
 
+      
+
 }
+
+MonoAssembly* GE::MONO::ScriptManager::GetMonoAssembly()
+{
+  return m_coreAssembly;
+}
+
 
 MonoAssembly* GE::MONO::LoadCSharpAssembly(const std::string& assemblyPath)
 {
@@ -360,6 +363,7 @@ void GE::MONO::CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1
 
 MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
 {
+
   // Get a reference to the class we want to instantiate
   if (m_monoClassMap.find(className) != m_monoClassMap.end())
   {
@@ -380,6 +384,7 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
 
 MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, std::vector<void*>& arg)  
 {
+
   if (m_monoClassMap.find(className) != m_monoClassMap.end())
   {
     MonoClass* currClass = m_monoClassMap[className].m_scriptClass;

@@ -26,6 +26,7 @@ namespace GE
 			
 			GE::AI::TreeCache m_enemyTreeCache;
 			GE::AI::TreeID m_treeID;
+			bool m_toTrigger{ true };
 			
 
 			EnemyAI() = default;

@@ -65,5 +65,119 @@
         ],
         "treeName": "newTree11",
         "treeTempID": 11
+    },
+    {
+        "tree": [
+            {
+                "nodeType": "ROOT_NODE",
+                "parentNode": 0,
+                "childrenNode": [
+                    1
+                ],
+                "scriptName": "RootNode",
+                "pos": "{ 63, 189 }"
+            },
+            {
+                "nodeType": "COMPOSITE_NODE",
+                "parentNode": 0,
+                "childrenNode": [
+                    2,
+                    3,
+                    4,
+                    5
+                ],
+                "scriptName": "SelectorNode",
+                "pos": "{ 287, 195 }"
+            },
+            {
+                "nodeType": "COMPOSITE_NODE",
+                "parentNode": 1,
+                "childrenNode": [
+                    6,
+                    7
+                ],
+                "scriptName": "SequenceNode",
+                "pos": "{ 557, 69 }"
+            },
+            {
+                "nodeType": "COMPOSITE_NODE",
+                "parentNode": 1,
+                "childrenNode": [
+                    8,
+                    9
+                ],
+                "scriptName": "SequenceNode",
+                "pos": "{ 572, 266 }"
+            },
+            {
+                "nodeType": "COMPOSITE_NODE",
+                "parentNode": 1,
+                "childrenNode": [
+                    10,
+                    11,
+                    12
+                ],
+                "scriptName": "SequenceNode",
+                "pos": "{ 569, 440 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 1,
+                "childrenNode": [],
+                "scriptName": "DoNothing",
+                "pos": "{ 574, 606 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 2,
+                "childrenNode": [],
+                "scriptName": "CheckCombo",
+                "pos": "{ 840, -32 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 2,
+                "childrenNode": [],
+                "scriptName": "PerformCombo",
+                "pos": "{ 832, 100 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 3,
+                "childrenNode": [],
+                "scriptName": "CheckForSpecialCard",
+                "pos": "{ 835, 255 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 3,
+                "childrenNode": [],
+                "scriptName": "PlayLastCard",
+                "pos": "{ 835, 357 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 4,
+                "childrenNode": [],
+                "scriptName": "HasCardInHand",
+                "pos": "{ 825, 466 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 4,
+                "childrenNode": [],
+                "scriptName": "IsHealthLow",
+                "pos": "{ 835, 575 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 4,
+                "childrenNode": [],
+                "scriptName": "PlayLastCard",
+                "pos": "{ 836, 693 }"
+            }
+        ],
+        "treeName": "newTree12",
+        "treeTempID": 12
     }
 ]

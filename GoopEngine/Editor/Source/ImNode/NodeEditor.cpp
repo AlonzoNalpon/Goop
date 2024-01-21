@@ -9,38 +9,17 @@
 #include <rapidjson/writer.h>
 #include <rapidjson/stringbuffer.h>
 #include "../AssetManager/AssetManager.h"
+#include <ScriptEngine/ScriptManager.h>
 
 
 
 void GE::AI::NodeEditor::NodeEditorInit()
 {
+
+
+
   // Get all the names of the scripts available
-  Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
-  std::ifstream file(assetManager.GetConfigData<std::string>("AIScriptNames").c_str());
-  if (!file.good())
-  {
-    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to open GoopScripts AI folder: "+ assetManager.GetConfigData<std::string>("AIScriptNames")));
-  }
-
-  std::string jsonString((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-  rapidjson::Document document;
-  document.Parse(jsonString.c_str());
-
-  if (document.HasParseError()) {
-    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Parsing error for: " + assetManager.GetConfigData<std::string>("AIScriptNames")));
-  }
-
-  if (document.HasMember("Enemy") && document["Enemy"].IsArray()) {
-    const rapidjson::Value& scriptNames = document["Enemy"];
-
-    // Iterate through the array and get the script names
-    for (rapidjson::SizeType i = 0; i < scriptNames.Size(); i++) {
-      m_allScriptNames.push_back(scriptNames[i].GetString());
-    }
-  }
-  else {
-    throw Debug::Exception<GE::AI::NodeEditor>(Debug::LEVEL_CRITICAL, ErrMsg("Json File not structed properly: " + assetManager.GetConfigData<std::string>("ScriptNames")));
-  }
+  GE::AI::NodeEditor::GetAllEnemyScript();
 
   //Create the node editor context and turn on any settings
   ImNodes::CreateContext();
@@ -533,6 +512,37 @@ void GE::AI::NodeEditor::AddDisplayTree(const TreeTemplate& tree)
 std::vector<std::pair<GE::AI::DisplayTree, GE::AI::NodeLinkList>> GE::AI::NodeEditor::GetTreeList()
 {
   return m_treeList;
+}
+
+
+void GE::AI::NodeEditor::GetAllEnemyScript()
+{
+  GE::MONO::ScriptManager* sm = &(GE::MONO::ScriptManager::GetInstance());
+  m_allScriptNames.clear();
+
+  MonoImage* image = mono_assembly_get_image(sm->GetMonoAssembly());
+  const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
+  int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
+
+  for (int32_t i = 0; i < numTypes; i++)
+  {
+    uint32_t cols[MONO_TYPEDEF_SIZE];
+    mono_metadata_decode_row(typeDefinitionsTable, i, cols, MONO_TYPEDEF_SIZE);
+
+    std::string classNameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
+    std::string className = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
+
+    if (classNameSpace.find("AI") != std::string::npos) {
+      m_allScriptNames.push_back(className);
+    }
+  }
+  std::cout << "Enemy\n------------------------------\n";
+  for (auto s : m_allScriptNames)
+  {
+    std::cout << s << "\n";
+  }
+  std::cout << "------------------------------\n";
+
 }
 /*
 void GE::AI::NodeEditor::AddRunningNode(unsigned int id)

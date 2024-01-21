@@ -18,7 +18,7 @@ using static GoopScripts.Mono.Utils;
 
 namespace GoopScripts.AI
 { 
-  public class FailNode : MonoBehaviour
+  public class FailNode 
   {
     private uint m_parentID = 0;
     private uint m_nodeID = 0;
@@ -32,7 +32,7 @@ namespace GoopScripts.AI
   \params enityID
    ID of the owner of this scipt
   ************************************************************************/
-    public FailNode(uint currID, uint parentID, uint[] temp, uint size) : base()
+    public FailNode(uint currID, uint parentID, uint[] temp, uint size) 
     {
       m_parentID = parentID;
       m_nodeID = currID;

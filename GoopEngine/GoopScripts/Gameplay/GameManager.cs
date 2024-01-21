@@ -10,7 +10,7 @@ using static GoopScripts.Mono.Utils;
 
 namespace GoopScripts.Gameplay
 {
-  public class GameManager : MonoBehaviour
+  public class GameManager : Entity
   {
     Random m_rng;
     double m_animTime = 1.0; // hard coded for now
@@ -23,7 +23,7 @@ namespace GoopScripts.Gameplay
     bool testBool = false;
 
 
-    GameManager()
+    GameManager(uint entityID):base(entityID)
     {
       m_rng = new Random();
     }
@@ -132,6 +132,7 @@ namespace GoopScripts.Gameplay
     {
       m_playerStats.m_deckMngr.Draw();
       m_enemyStats.m_deckMngr.Draw();
+      StartAI(m_enemyStats.entityID);
     }
 
     public void ResolutionPhase()
@@ -190,6 +191,9 @@ namespace GoopScripts.Gameplay
 
         //test.IncreaseHealth(1);
       }
+
+      StartOfTurn();
+
     }
   }
 }

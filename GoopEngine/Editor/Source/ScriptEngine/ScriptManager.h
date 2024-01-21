@@ -98,7 +98,7 @@ namespace GE {
 			\params std::ifstream& ifs
 				Ifs stream to a text file containing all the script names and their namespaces
 			************************************************************************/
-			void LoadAllMonoClass(std::ifstream& ifs);
+			void LoadAllMonoClass();
 
 			/*!*********************************************************************
 			\brief
@@ -158,6 +158,8 @@ namespace GE {
 			************************************************************************/
 			/*rttr::variant GetScriptFieldInst(std::string const& listType);*/
 
+
+			MonoAssembly* GetMonoAssembly();
 		};
 
 

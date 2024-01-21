@@ -18,7 +18,7 @@ using static GoopScripts.Mono.Utils;
 namespace GoopScripts.AI.Enemy
 {
 
-  internal class MoveToPlayer : MonoBehaviour
+  internal class MoveToPlayer
   {
     private uint m_parentID = 0;
     private uint m_nodeID = 0;
@@ -32,7 +32,7 @@ namespace GoopScripts.AI.Enemy
   \params enityID
    ID of the owner of this scipt
   ************************************************************************/
-    public MoveToPlayer(uint currID, uint parentID, uint[] temp, uint size) : base()
+    public MoveToPlayer(uint currID, uint parentID, uint[] temp, uint size)
     {
       m_parentID = parentID;
       m_nodeID = currID;

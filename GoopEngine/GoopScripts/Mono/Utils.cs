@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 
 namespace GoopScripts.Mono
@@ -190,10 +191,10 @@ namespace GoopScripts.Mono
 		  The object instance
 		************************************************************************/
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static MonoBehaviour GetScript(string entityName, string scriptName);
+    extern public static object GetScript(string entityName, string scriptName);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static MonoBehaviour GetScriptFromID(uint entity, string scriptName);
+    extern public static object GetScriptFromID(uint entity, string scriptName);
 
 
     /*!*********************************************************************
@@ -206,7 +207,7 @@ namespace GoopScripts.Mono
 		  The object instance
 		************************************************************************/
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static MonoBehaviour GetGameSysScript(string gameSysEntityName);
+    extern public static object GetGameSysScript(string gameSysEntityName);
 
 
 
@@ -275,6 +276,14 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static bool PlayerExist();
+
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void StartAI(uint entityID);
+
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void EndAI(uint entityID);
 
     //[MethodImplAttribute(MethodImplOptions.InternalCall)]
     //extern public static void SetCurrentRunningNode(uint currID);

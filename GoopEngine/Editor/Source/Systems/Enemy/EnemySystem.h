@@ -238,6 +238,11 @@ namespace GE
 			/************************************************************************/
 			static bool PlayerExist();
 
+
+			static void StartAI(GE::ECS::Entity entityID);
+
+			static void EndAI(GE::ECS::Entity entityID);
+
 			/************************************************************************/ 
 			/*!
 			\brief

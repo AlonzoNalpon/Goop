@@ -8,14 +8,14 @@ namespace GoopScripts.Mono
 {
   public class Entity
   {
-    protected Entity() { ID = 0; }
+    protected Entity() { entityID = 0; }
 
     internal Entity(uint id)
     {
-      ID = id;
+      entityID = id;
     }
 
-    public readonly uint ID;
+    public readonly uint entityID;
 
     //public bool HasComponent<T>() where T : Component, new()
     //{
@@ -31,7 +31,7 @@ namespace GoopScripts.Mono
 
     public T As<T>(string scriptName) where T : Entity, new()
     {
-      object scriptInstance = Utils.GetScriptInstance(ID,scriptName);
+      object scriptInstance = Utils.GetScriptInstance(entityID, scriptName);
       return scriptInstance as T;
     }
 

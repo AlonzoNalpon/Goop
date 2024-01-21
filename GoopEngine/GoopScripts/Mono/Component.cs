@@ -17,11 +17,11 @@ namespace GoopScripts.Mono
     {
       get
       {
-        return (Utils.GetPosition(Entity.ID));
+        return (Utils.GetPosition(Entity.entityID));
       }
       set
       {
-        Utils.SetPosition(Entity.ID,  value);
+        Utils.SetPosition(Entity.entityID,  value);
       }
     }
 
@@ -29,11 +29,11 @@ namespace GoopScripts.Mono
     {
       get
       {
-        return (Utils.GetScale(Entity.ID));
+        return (Utils.GetScale(Entity.entityID));
       }
       set
       {
-        Utils.SetScale(Entity.ID,  value);
+        Utils.SetScale(Entity.entityID,  value);
       }
     }
 
@@ -41,11 +41,11 @@ namespace GoopScripts.Mono
     {
       get
       {
-        return (Utils.GetRotation(Entity.ID));
+        return (Utils.GetRotation(Entity.entityID));
       }
       set
       {
-        Utils.SetRotation(Entity.ID,  value);
+        Utils.SetRotation(Entity.entityID,  value);
       }
     }
   }

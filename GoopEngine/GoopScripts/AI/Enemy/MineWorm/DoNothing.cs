@@ -15,12 +15,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Mono;
+using GoopScripts.Gameplay;
 using static GoopScripts.Mono.Utils;
 
 namespace GoopScripts.AI.Enemy.MineWorm
 {
 
-  internal class DoNothing : MonoBehaviour
+  internal class DoNothing
   {
     private uint m_parentID = 0;
     private uint m_nodeID = 0;
@@ -34,7 +35,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
   \params enityID
    ID of the owner of this scipt
   ************************************************************************/
-    public DoNothing(uint currID, uint parentID, uint[] temp, uint size) : base()
+    public DoNothing(uint currID, uint parentID, uint[] temp, uint size) 
     {
       m_parentID = parentID;
       m_nodeID = currID;
@@ -74,32 +75,8 @@ namespace GoopScripts.AI.Enemy.MineWorm
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      //Console.WriteLine("Run outside range\n");
-      if (PlayerExist())
-      {
-        uint playerID = GetPlayerID();
-        Vec3<double> playerPos = GetPosition(playerID);
-        Vec3<double> currPos = GetPosition(entityID);
-        double deltaX = currPos.X - playerPos.X;
-        double deltaY = currPos.Y - playerPos.Y;
-        double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
-
-
-        if (distance > 220.0)
-        {
-          OnSuccess();
-        }
-        else
-        {
-          OnFail();
-        }
-      }
-      else
-      {
-        OnFail();
-      }
-
-
+      Console.WriteLine("Do nothing\n");
+      EndAI(entityID);
     }
 
     /*!*********************************************************************

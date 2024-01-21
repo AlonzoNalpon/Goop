@@ -15,12 +15,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Mono;
+using GoopScripts.Gameplay;
 using static GoopScripts.Mono.Utils;
+using static GoopScripts.Cards.CardBase;
 
 namespace GoopScripts.AI.Enemy.MineWorm
 {
 
-  internal class CheckForSpecialCard : MonoBehaviour
+  internal class CheckForSpecialCard
   {
     private uint m_parentID = 0;
     private uint m_nodeID = 0;
@@ -34,7 +36,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
   \params enityID
    ID of the owner of this scipt
   ************************************************************************/
-    public CheckForSpecialCard(uint currID, uint parentID, uint[] temp, uint size) : base()
+    public CheckForSpecialCard(uint currID, uint parentID, uint[] temp, uint size)
     {
       m_parentID = parentID;
       m_nodeID = currID;
@@ -74,15 +76,20 @@ namespace GoopScripts.AI.Enemy.MineWorm
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      /*
-      Hand enemyHand = | Function to Get Enemy Hand |
-      if(enemyHand.Contain(SpecialCard)
+      Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
+      List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
+      if (EnemyStats.m_deckMngr.m_hand.Any(item => specialCards.Contains(item)))
       {
-        return OnSuccess();
+        Console.WriteLine("We have special card");
+        OnSuccess();
       }
-     return OnFail();
+      else
+      {
+         Console.WriteLine("We have no special card");
+         
+        OnFail();
+      }
 
-      */
 
 
     }

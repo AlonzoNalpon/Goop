@@ -70,7 +70,7 @@ void EnemySystem::FixedUpdate()
 			GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
 			GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
 			GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
-			if (enemyAIComp->m_treeID != GE::Component::ghostTreeID)
+			if (enemyAIComp->m_treeID != GE::Component::ghostTreeID && enemyAIComp->m_toTrigger)
 			{
 				UseTree(enemyAIComp->m_treeID, entity);
 
@@ -205,6 +205,7 @@ void EnemySystem::RunChildNode(GE::AI::NodeID childNodeID)
 
 
 
+
 void EnemySystem::JumpToParent()
 {
 	GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
@@ -269,6 +270,23 @@ bool EnemySystem::PlayerExist()
 	}
 	return hasPlayer;
 }
+
+void EnemySystem::StartAI(GE::ECS::Entity entityID)
+{
+	GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+	GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entityID);
+	enemyAIComp->m_toTrigger = true;
+}
+
+void EnemySystem::EndAI(GE::ECS::Entity entityID)
+{
+	GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+	GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entityID);
+	enemyAIComp->m_toTrigger = false;
+	enemyAIComp->RefreshCache();
+}
+
+
 
 void EnemySystem::DelGameTree()
 {

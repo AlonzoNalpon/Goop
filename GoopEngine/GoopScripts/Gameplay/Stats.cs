@@ -11,7 +11,7 @@ using GoopScripts.Mono;
 namespace GoopScripts.Gameplay
 {
  
-  public class Stats
+  public class Stats : Entity
   {
     //static int[] oi = { 1, 2, 3, 4, 5, 6, 9 };
 
@@ -22,7 +22,7 @@ namespace GoopScripts.Gameplay
     public DeckManager m_deckMngr;
     public BuffManager m_buffs { get; set; }
     
-    public Stats()
+    public Stats(uint entityID) : base(entityID)
     {
       m_deckMngr = new DeckManager();
       m_buffs = new BuffManager();

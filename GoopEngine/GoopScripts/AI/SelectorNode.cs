@@ -18,7 +18,7 @@ using static GoopScripts.Mono.Utils;
 namespace GoopScripts.AI
 {
 
-  internal class SelectorNode : MonoBehaviour
+  internal class SelectorNode
   {
     private uint m_parentID = 0;
     List<uint> m_childID = new List<uint>();
@@ -33,7 +33,7 @@ namespace GoopScripts.AI
   \params enityID
    ID of the owner of this scipt
   ************************************************************************/
-    public SelectorNode(uint currID, uint parentID, uint[] temp, uint tempSize) : base()
+    public SelectorNode(uint currID, uint parentID, uint[] temp, uint tempSize)
     {
       m_nodeID = currID;
       m_parentID = parentID;

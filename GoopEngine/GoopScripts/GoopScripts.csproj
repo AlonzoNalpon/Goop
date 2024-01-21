@@ -106,7 +106,6 @@
     <Compile Include="Mono\IOnDestroy.cs" />
     <Compile Include="Mono\Vec2.cs" />
     <Compile Include="Mono\Vec3.cs" />
-    <Compile Include="Mono\MonoBehaviour.cs" />
     <Compile Include="Mono\Utils.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Player\PlayerScriptTest.cs" />

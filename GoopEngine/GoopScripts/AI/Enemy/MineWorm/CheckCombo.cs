@@ -15,13 +15,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Mono;
+using GoopScripts.Gameplay;
 //sing GoopScripts.Player;
 using static GoopScripts.Mono.Utils;
+using static GoopScripts.Cards.CardBase;
+using GoopScripts.Cards;
 
 namespace GoopScripts.AI.Enemy.MineWorm
 {
 
-  internal class CheckCombo : MonoBehaviour
+  internal class CheckCombo
   {
     private uint m_parentID = 0;
     private uint m_nodeID = 0;
@@ -35,7 +38,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
   \params enityID
    ID of the owner of this scipt
   ************************************************************************/
-    public CheckCombo(uint currID, uint parentID, uint[] temp, uint size) : base()
+    public CheckCombo(uint currID, uint parentID, uint[] temp, uint size) 
     {
       m_parentID = parentID;
       m_nodeID = currID;
@@ -75,24 +78,38 @@ namespace GoopScripts.AI.Enemy.MineWorm
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      /*
-      Hand enemyHand = | Function to Get Enemy Hand |
-      if(enenmyHand.size() < 2)
+      Stats EnemyStats = (Stats) GetScriptFromID(entityID, "Stats");
+      int handSize = 0;
+      foreach (CardBase.CardID c in EnemyStats.m_deckMngr.m_hand)
       {
-        return OnFail();
+        handSize = (c!= CardBase.CardID.NO_CARD)? handSize+1 : handSize;
       }
 
-      else if(enemyHand.size() < 3)
+      if(handSize < 2)
       {
-        if(enemyHand.Contain(SpecialCard)
+        Console.WriteLine("Not enough card to Combo");
+        OnFail();
+      }
+      else if(handSize == 2)
+      {
+        List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
+        if (EnemyStats.m_deckMngr.m_hand.Any(item => specialCards.Contains(item)))
         {
-          return OnFail();
+          Console.WriteLine("Only has 2 cards in hand, but contains a special card, so we will not play combo");
+          OnFail();
+        }
+        else
+        {
+          Console.WriteLine("2 cards to combo, the enemy will combo");
+          OnSuccess();
         }
       }
-      return OnSuccess();
-      */
-      //PlayerScriptTest p = (PlayerScriptTest) GetScriptFromID(entityID, "PlayerScriptTest");
-
+      else
+      {
+        Console.WriteLine("Enough cards to combo, the enemy will combo");
+        OnSuccess();
+      }
+      
 
     }
 
