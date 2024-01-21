@@ -78,6 +78,8 @@ void AudioSystem::Update()
       // Fade audio
       if (cf.m_currFadeTime > cf.m_crossFadeStartTime[i])
       {
+        float clampedInterval = std::clamp(GoopUtils::InverseLerp(cf.m_currFadeTime, cf.m_crossFadeStartTime[i], cf.m_crossFadeEndTime[i]), 0.f, 1.f);
+
         // Set volume using the interpolated volume of the start, end and normalized time of current time
         m_fmodSystem->SetVolume(cf.m_audio[i], GoopUtils::Lerp(cf.m_startVol[i], cf.m_endVol[i], clampedInterval));
       }

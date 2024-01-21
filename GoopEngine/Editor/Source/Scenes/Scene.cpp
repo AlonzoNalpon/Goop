@@ -42,21 +42,21 @@ void GE::Scenes::Scene::Unload()
 	for (auto entity : entities)
 	{
 		// Ignore if entity is inactive
-		if (!ecs->GetIsActiveEntity(entity))
-			continue;
-
-		if (ecs->HasComponent<GE::Component::Scripts>(entity))
+		if (ecs->GetIsActiveEntity(entity))
 		{
-			GE::Component::Scripts* scripts = ecs->GetComponent<GE::Component::Scripts>(entity);
-			for (auto script : scripts->m_scriptList)
+			if (ecs->HasComponent<GE::Component::Scripts>(entity))
 			{
-				MonoMethod* onDestroy = mono_class_get_method_from_name(script.m_scriptClass, "OnDestroy", 1);
-				if (onDestroy)
+				GE::Component::Scripts* scripts = ecs->GetComponent<GE::Component::Scripts>(entity);
+				for (auto script : scripts->m_scriptList)
 				{
-					std::vector<void*> params = { &entity };
-					mono_runtime_invoke(onDestroy, mono_gchandle_get_target(script.m_gcHandle), params.data(), nullptr);
+					MonoMethod* onDestroy = mono_class_get_method_from_name(script.m_scriptClass, "OnDestroy", 1);
+					if (onDestroy)
+					{
+						std::vector<void*> params = { &entity };
+						mono_runtime_invoke(onDestroy, mono_gchandle_get_target(script.m_gcHandle), params.data(), nullptr);
+					}
+					mono_gchandle_free(script.m_gcHandle);
 				}
-				mono_gchandle_free(script.m_gcHandle);
 			}
 		}
 		ecs->DestroyEntity(entity);
