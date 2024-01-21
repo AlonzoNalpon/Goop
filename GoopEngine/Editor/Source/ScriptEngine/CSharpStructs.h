@@ -28,18 +28,18 @@ namespace GE::MONO
     BOSS_P2   // phase 2
   };
 
-  //// should mimic Deck.cs
-  //struct Deck
-  //{
-  //  std::vector<Component::Card::CardID> m_cards;
-  //  std::vector<Component::Card::CardID> m_drawOrderDisplay;
-  //};
+  // should mimic Deck.cs
+  struct Deck
+  {
+    std::vector<Component::Card::CardID> m_cards;
+    std::vector<Component::Card::CardID> m_drawOrderDisplay;
+  };
 
   // should mimic DeckManager.cs
   struct DeckManager
   {
-    //Deck m_deck;
-    //std::vector<Component::Card::CardID> m_discardDisplay, m_hand, m_queue;
+    Deck m_deck;
+    std::vector<Component::Card::CardID> m_discardDisplay, m_hand, m_queue;
     ScriptInstance m_deckManagerInstance, m_deckInstance; //used to cache the mono data of deck and deckmanager
   };
 

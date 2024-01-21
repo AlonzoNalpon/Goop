@@ -184,17 +184,24 @@ void ScriptInstance::GetAllUpdatedFields()
 
       for (rttr::variant& dm : sfi.m_data.m_deckManagerInstance.m_scriptFieldInstList)
       {
-     
         GE::MONO::ScriptFieldInstance<std::vector<Component::Card::CardID>>& dmSFI = dm.get_value<GE::MONO::ScriptFieldInstance<std::vector<Component::Card::CardID>>>();
         dmSFI.m_data = sfi.m_data.m_deckManagerInstance.GetFieldValueArr<GE::Component::Card::CardID>(sm->m_appDomain, dmSFI.m_scriptField.m_classField);
-
+        if (dmSFI.m_scriptField.m_fieldName == "m_hand")
+          sfi.m_data.m_hand = dmSFI.m_data;
+        if (dmSFI.m_scriptField.m_fieldName == "m_queue")
+          sfi.m_data.m_queue = dmSFI.m_data;
+        if (dmSFI.m_scriptField.m_fieldName == "m_discardDisplay")
+          sfi.m_data.m_discardDisplay = dmSFI.m_data;
       }
 
       for (rttr::variant& di : sfi.m_data.m_deckInstance.m_scriptFieldInstList)
       {
-        GE::MONO::ScriptFieldInstance<std::vector<unsigned>>& dSFI = di.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>();
-        dSFI.m_data = sfi.m_data.m_deckInstance.GetFieldValueArr<unsigned>(sm->m_appDomain, dSFI.m_scriptField.m_classField);
-
+        GE::MONO::ScriptFieldInstance<std::vector<Component::Card::CardID>>& dSFI = di.get_value<GE::MONO::ScriptFieldInstance<std::vector<Component::Card::CardID>>>();
+        dSFI.m_data = sfi.m_data.m_deckInstance.GetFieldValueArr<Component::Card::CardID>(sm->m_appDomain, dSFI.m_scriptField.m_classField);
+        if (dSFI.m_scriptField.m_fieldName == "m_cards")
+          sfi.m_data.m_deck.m_cards = dSFI.m_data;
+        if (dSFI.m_scriptField.m_fieldName == "m_drawOrderDisplay")
+          sfi.m_data.m_deck.m_drawOrderDisplay = dSFI.m_data;
       }  
     }
     else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterType>>()))

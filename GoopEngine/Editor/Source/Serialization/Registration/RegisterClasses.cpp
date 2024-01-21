@@ -100,13 +100,16 @@ RTTR_REGISTRATION
     .property("treeName", &AI::TreeTemplate::m_treeName)
     .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
     ;
-  //rttr::registration::class_<Deck>("Deck")
-  //  .property("Cards In Deck", &Deck::m_cards)
-  //  .property("Draw Order", &Deck::m_drawOrderDisplay)
-  //  ;
+  rttr::registration::class_<Deck>("Deck")
+    .property("Cards In Deck", &Deck::m_cards)
+    .property("Draw Order", &Deck::m_drawOrderDisplay)
+    ;
 
 
   rttr::registration::class_<DeckManager>("DeckManager")
+    .property("Cards In Discard", &DeckManager::m_discardDisplay)
+    .property("Cards In Hand", &DeckManager::m_hand)
+    .property("Cards In Queue", &DeckManager::m_queue)
     ;
 
   rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")

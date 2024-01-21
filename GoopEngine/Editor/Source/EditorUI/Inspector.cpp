@@ -883,26 +883,38 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 								for (rttr::variant& dF : deck.m_scriptFieldInstList)
 								{
+									
 									ScriptFieldInstance<std::vector<Component::Card::CardID>>& dSFI = dF.get_value<ScriptFieldInstance<std::vector<Component::Card::CardID>>>();
+									//std::cout << dSFI.m_scriptField.m_fieldName.c_str() << ":: " << dSFI.m_data.size() << "\n";
 									TableNextColumn();
 									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
 									ImGui::TableNextColumn();
 									if (InputCardID("##" + dSFI.m_scriptField.m_fieldName, dSFI.m_data, inputWidth))
 									{
 										deck.SetFieldValueArr<Component::Card::CardID>(dSFI.m_data, sm->m_appDomain, dSFI.m_scriptField.m_classField);
+										if (dSFI.m_scriptField.m_fieldName == "m_cards")
+											sfi.m_data.m_deck.m_cards = dSFI.m_data;
+										if (dSFI.m_scriptField.m_fieldName == "m_drawOrderDisplay")
+											sfi.m_data.m_deck.m_drawOrderDisplay = dSFI.m_data;
 									}
 								
 								}
 
 								for (rttr::variant& dF : deckMan.m_scriptFieldInstList)
 								{
-									ScriptFieldInstance<std::vector<Component::Card::CardID>>& dSFI = dF.get_value<ScriptFieldInstance<std::vector<Component::Card::CardID>>>();\
+									ScriptFieldInstance<std::vector<Component::Card::CardID>>& dSFI = dF.get_value<ScriptFieldInstance<std::vector<Component::Card::CardID>>>();
 									TableNextColumn();
 									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
 									ImGui::TableNextColumn();
 									if (InputCardID("##" + dSFI.m_scriptField.m_fieldName, dSFI.m_data, inputWidth))
 									{
 										deckMan.SetFieldValueArr<Component::Card::CardID>(dSFI.m_data, sm->m_appDomain, dSFI.m_scriptField.m_classField);
+										if (dSFI.m_scriptField.m_fieldName == "m_hand")
+											sfi.m_data.m_hand = dSFI.m_data;
+										if (dSFI.m_scriptField.m_fieldName == "m_queue")
+											sfi.m_data.m_queue = dSFI.m_data;
+										if (dSFI.m_scriptField.m_fieldName == "m_discardDisplay")
+											sfi.m_data.m_discardDisplay = dSFI.m_data;
 									}
 								
 								}
