@@ -83,7 +83,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
       int cardToPlay = 0;
       foreach (int c in EnemyStats.m_deckMngr.m_hand)
       {
-        cardToPlay = ((CardBase.CardID)c != CardID.NO_CARD) ? c : cardToPlay;
+        cardToPlay = (EnemyStats.m_deckMngr.m_hand[c] != CardID.NO_CARD) ? c : cardToPlay;
       }
 
       EnemyStats.QueueCard(cardToPlay);

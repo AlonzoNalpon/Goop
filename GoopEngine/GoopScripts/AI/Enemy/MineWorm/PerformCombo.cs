@@ -95,11 +95,14 @@ namespace GoopScripts.AI.Enemy.MineWorm
       int comboSize = random.Next(2, maxComboSize);
       List<int> cardsToPlay = new List<int>();
 
+      Console.WriteLine("HandSize:: " + handSize);
       Console.WriteLine("Numbers of Cards to Combo: "+ comboSize);
 
       while (cardsToPlay.Count < comboSize)
       {
         int c = random.Next(0, EnemyStats.m_deckMngr.m_hand.Length);
+        Console.WriteLine("Rand:: " + c + "->" + EnemyStats.m_deckMngr.m_hand[c]);
+
         if(!cardsToPlay.Contains(c) && !specialCards.Contains(EnemyStats.m_deckMngr.m_hand[c]) && EnemyStats.m_deckMngr.m_hand[c] != CardBase.CardID.NO_CARD)
         {
           cardsToPlay.Add(c);

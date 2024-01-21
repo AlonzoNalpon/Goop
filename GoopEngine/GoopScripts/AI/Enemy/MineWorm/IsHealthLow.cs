@@ -77,7 +77,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       const int minHealth = 5;
       Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
-      if (EnemyStats.GetHealth() < minHealth)
+      if (EnemyStats.m_health < minHealth)
       {
         Console.WriteLine("Enemt Low on Health");
         OnSuccess();
