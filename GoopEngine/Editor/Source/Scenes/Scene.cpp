@@ -36,10 +36,15 @@ void GE::Scenes::Scene::Init()
 
 void GE::Scenes::Scene::Unload()
 {
-	GE::fMOD::FmodSystem::GetInstance().StopAllSound();
+	// All sounds stops and play calls by script now
+	//GE::fMOD::FmodSystem::GetInstance().StopAllSound();
 	std::set<ECS::Entity> entities = ecs->GetEntities();
 	for (auto entity : entities)
 	{
+		// Ignore if entity is inactive
+		if (!ecs->GetIsActiveEntity(entity))
+			continue;
+
 		if (ecs->HasComponent<GE::Component::Scripts>(entity))
 		{
 			GE::Component::Scripts* scripts = ecs->GetComponent<GE::Component::Scripts>(entity);
