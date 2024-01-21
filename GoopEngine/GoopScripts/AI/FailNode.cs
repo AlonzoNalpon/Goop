@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Mono;
+using GoopScripts.Player;
 using static GoopScripts.Mono.Utils;
 
 namespace GoopScripts.AI
@@ -72,6 +73,8 @@ namespace GoopScripts.AI
     public void OnUpdate(uint entityID, double dt)
     {
       //Console.WriteLine("RUN FAILNODE");
+
+
       OnFail(entityID);
 
     }

@@ -139,6 +139,7 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScript", GE::MONO::GetScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptFromID", GE::MONO::GetScriptFromID);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetGameSysScript", GE::MONO::GetGameSysScript);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptInstanceGetScriptInstance", GE::MONO::GetScriptInstance);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::SetQueueCardID", GE::MONO::SetQueueCardID);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetHandCardID", GE::MONO::SetHandCardID);
@@ -550,6 +551,15 @@ MonoObject* GE::MONO::GetScript(MonoString* entityName, MonoString* scriptName)
 {
   GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
   auto ss = ecs.GetComponent<GE::Component::Scripts>(ecs.GetEntity(MonoStringToSTD(entityName)));
+  GE::MONO::ScriptInstance* scriptinst = ss->Get(MonoStringToSTD(scriptName));
+
+  return scriptinst->m_classInst;
+}
+
+MonoObject* GE::MONO::GetScriptInstance(GE::ECS::Entity entityID, MonoString* scriptName)
+{
+  GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
+  auto ss = ecs.GetComponent<GE::Component::Scripts>(entityID);
   GE::MONO::ScriptInstance* scriptinst = ss->Get(MonoStringToSTD(scriptName));
 
   return scriptinst->m_classInst;

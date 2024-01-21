@@ -214,6 +214,10 @@ namespace GE {
 		************************************************************************/
 		MonoObject* GetGameSysScript(MonoString* gameSysEntityName);
 
+
+
+		MonoObject* GetScriptInstance(GE::ECS::Entity entityID, MonoString* scriptName);
+
 		/*!*********************************************************************
 		\brief
 			Function to read data from a file and store it in a char buffer

@@ -23,14 +23,17 @@ namespace GoopScripts.Mono
     //  return InternalCalls.Entity_HasComponent(ID, componentType);
     //}
 
-    //public T GetComponent<T>() where T : Component, new()
-    //{
-    //  if (!HasComponent<T>())
-    //    return null;
+    public T GetComponent<T>() where T : Component, new()
+    {
+      T component = new T() { Entity = this };
+      return component;
+    }
 
-    //  T component = new T() { Entity = this };
-    //  return component;
-    //}
+    public T As<T>(string scriptName) where T : Entity, new()
+    {
+      object scriptInstance = Utils.GetScriptInstance(ID,scriptName);
+      return scriptInstance as T;
+    }
 
     //public Entity FindEntityByName(string name)
     //{

@@ -165,7 +165,6 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetRotation(uint ID,  Vec3<double> newRot);
 
-
     /*!*********************************************************************
 		\brief
 			function to Set the value of an entity's trnsform component. This function will be added as internal call
@@ -209,6 +208,19 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static MonoBehaviour GetGameSysScript(string gameSysEntityName);
 
+
+
+    /*!*********************************************************************
+    \brief
+      .Function to get the scriptInstance/MonoObject of an entity
+    \params
+      KEY_CODE key
+      Enum of the key you want to check
+    \return
+      returns true is key is triggered
+    ************************************************************************/
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static object GetScriptInstance(uint entityID, string scriptName);
 
     // /*!*********************************************************************
     //
