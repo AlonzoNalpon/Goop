@@ -229,7 +229,7 @@ namespace GE {
 			************************************************************************/
 			void GetAllUpdatedFields();
 
-
+			void SetAllFields();
 			/*!*********************************************************************
 			\brief
 				Template Function to get a public field from the c# script class.
@@ -293,6 +293,7 @@ namespace GE {
 				mono_field_set_value(obj, field, newArray);
 			}
 
+		
 		};
 		
 	}

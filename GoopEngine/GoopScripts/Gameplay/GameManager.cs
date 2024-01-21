@@ -20,6 +20,9 @@ namespace GoopScripts.Gameplay
 
     bool endTurn = false;  // flag for triggering a turn
 
+    bool testBool = false;
+
+
     GameManager()
     {
       m_rng = new Random();
@@ -36,6 +39,8 @@ namespace GoopScripts.Gameplay
     // this should use cardmanager's c++ interface function
     public void OnUpdate(double dt, Stats player, uint playerEntity, Stats enemy, uint enemyEntity, uint playerHand, uint playerQueue, uint enemyQueue)
 		{
+      
+
       if (endTurn)
 			{
         endTurn = false;
@@ -174,6 +179,19 @@ namespace GoopScripts.Gameplay
       ResolutionPhase();
       m_playerStats.EndOfTurn();
       m_enemyStats.EndOfTurn();
+
+      var test = (UI.HealthBar)Utils.GetScriptFromID((uint)28, "HealthBar");
+      if (!testBool)
+      {
+        testBool = true;
+        test.DecreaseHealth(5);
+      }
+      else
+      {
+        test.DecreaseHealth(1);
+
+        //test.IncreaseHealth(1);
+      }
     }
   }
 }

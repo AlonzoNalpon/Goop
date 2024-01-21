@@ -926,6 +926,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 							{
 								GE::MONO::ScriptFieldInstance<CharacterType>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterType>>();
 								//std::string pName = "##" + sfi.m_scriptField.m_fieldName;
+
+								//std::cout << entity << "CT:: " << sfi.m_data << "\n";
 								ImGui::TableNextRow();
 								BeginDisabled(false);
 								TableNextColumn();

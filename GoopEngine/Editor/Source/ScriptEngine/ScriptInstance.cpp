@@ -59,8 +59,8 @@ void ScriptInstance::InvokeOnUpdate(GE::ECS::Entity m_entityId, double dt)
   if (m_onUpdateMethod)
   {
     std::vector<void*> params = { &m_entityId, &dt };
-    mono_runtime_invoke(m_onUpdateMethod, mono_gchandle_get_target(m_gcHandle), params.data(), nullptr);
-    //mono_runtime_invoke(m_onUpdateMethod, m_classInst, nullptr, nullptr);
+    //mono_runtime_invoke(m_onUpdateMethod, mono_gchandle_get_target(m_gcHandle), params.data(), nullptr);
+    mono_runtime_invoke(m_onUpdateMethod, m_classInst, nullptr, nullptr);
   }
 }
 
@@ -136,6 +136,66 @@ void ScriptInstance::GetFields()
 }
 
 
+void ScriptInstance::SetAllFields()
+{
+  GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
+  ScriptClassInfo sci = sm->GetScriptClassInfo(m_scriptName);
+
+  for (rttr::variant& f : m_scriptFieldInstList)
+  {
+    rttr::type dataType{ f.get_type() };
+    if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<float>>()))
+    {
+      GE::MONO::ScriptFieldInstance<float>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<float>>();
+      SetFieldValue<float>(sfi.m_data,sfi.m_scriptField.m_classField);
+    }
+    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<int>>()))
+    {
+      GE::MONO::ScriptFieldInstance<int>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<int>>();
+      SetFieldValue<int>(sfi.m_data, sfi.m_scriptField.m_classField);
+    }
+    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<double>>()))
+    {
+      GE::MONO::ScriptFieldInstance<double>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<double>>();
+      SetFieldValue<double>(sfi.m_data, sfi.m_scriptField.m_classField);
+    }
+    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<DeckManager>>()))
+    {
+      GE::MONO::ScriptFieldInstance<DeckManager>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<DeckManager>>();
+      GE::MONO::ScriptInstance& deck = sfi.m_data.m_deckInstance;
+      GE::MONO::ScriptInstance& deckMan = sfi.m_data.m_deckManagerInstance;
+
+      deck.SetAllFields();
+      deckMan.SetAllFields();
+    }
+    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterType>>()))
+    {
+      GE::MONO::ScriptFieldInstance<CharacterType>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterType>>();
+      SetFieldValue<CharacterType>(sfi.m_data, sfi.m_scriptField.m_classField);
+    }
+    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>()))
+    {
+      GE::MONO::ScriptFieldInstance<GE::Math::dVec3>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>();
+      SetFieldValue<GE::Math::dVec3>(sfi.m_data, sfi.m_scriptField.m_classField);
+    }
+
+    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>()))
+    {
+      GE::MONO::ScriptFieldInstance<std::vector<int>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<int>>>();
+      SetFieldValueArr<int>(sfi.m_data, sm->m_appDomain, sfi.m_scriptField.m_classField);
+    }
+    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>()))
+    {
+      GE::MONO::ScriptFieldInstance<std::vector<unsigned>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>();
+      SetFieldValueArr<unsigned>(sfi.m_data, sm->m_appDomain, sfi.m_scriptField.m_classField);
+    }
+
+  }
+
+}
+
+
+
 void ScriptInstance::GetAllUpdatedFields()
 {
   GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
@@ -154,7 +214,7 @@ void ScriptInstance::GetAllUpdatedFields()
       GE::MONO::ScriptFieldInstance<int>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<int>>();
       sfi.m_data = GetFieldValue<int>(sfi.m_scriptField.m_classField);
     }
-    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<float>>())) 
+    else if ((dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<double>>())) 
     {
       GE::MONO::ScriptFieldInstance<double>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<double>>();
       sfi.m_data = GetFieldValue<double>(sfi.m_scriptField.m_classField);
