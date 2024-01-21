@@ -125,6 +125,14 @@ namespace GE {
 			/*!*********************************************************************
 			\brief
 				Function to invoke the OnUpdate method of the c# script class
+			\param dt
+				Delta time
+			************************************************************************/
+			void InvokeOnUpdate(double dt);
+
+			/*!*********************************************************************
+			\brief
+				Function to invoke the OnUpdate method of the c# script class
 			************************************************************************/
 			void InvokeOnUpdate(GE::ECS::Entity m_entityId, double dt);
 

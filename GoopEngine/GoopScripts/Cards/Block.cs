@@ -40,7 +40,7 @@ namespace GoopScripts.Cards
 		************************************************************************/
 		public override void Play(ref Stats source, ref Stats target)
     {
-      source.m_block += (int)Value;
+      source.AddBlock((int)Value);
     }
   }
 }

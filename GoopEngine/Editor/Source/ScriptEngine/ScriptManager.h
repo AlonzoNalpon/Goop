@@ -216,7 +216,15 @@ namespace GE {
 		************************************************************************/
 		MonoObject* GetGameSysScript(MonoString* gameSysEntityName);
 
-
+		/*!*********************************************************************
+		\brief
+			Sets the text component of an entity
+		\param entity
+			The entity to set the text component of
+		\param str
+			The string to set the text to
+		************************************************************************/
+		void SetTextComponent(GE::ECS::Entity entity, MonoString* str);
 
 		MonoObject* GetScriptInstance(GE::ECS::Entity entityID, MonoString* scriptName);
 

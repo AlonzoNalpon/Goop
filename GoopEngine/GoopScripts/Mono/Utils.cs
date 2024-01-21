@@ -339,6 +339,8 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void UpdateSprite(uint ID, string name);
 
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetTextComponent(int entity, string text);
 
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]

@@ -149,32 +149,29 @@ namespace GoopScripts.Gameplay
 #endif
       }
 
+      // find empty slot and replace with drawn card
+      int i = 0;
+      for (; i < MAX_CARDS; ++i)
+      {
+        if (m_hand[i] == CardBase.CardID.NO_CARD)
+        {
+#if (DEBUG)
+          Console.WriteLine("Drew " + m_deck.m_drawOrder.First().ToString());
+          Console.WriteLine();
+#endif
+          m_hand[i] = m_deck.Draw();
+          break;
+        }
+      }
 
       // if hand full, destroy the top card
-      if (m_hand.Length >= MAX_CARDS)
+      if (i == MAX_CARDS)
       {
 #if (DEBUG)
         Console.WriteLine("Hand Full! Burnt " + m_deck.m_drawOrder.First().ToString());
         Console.WriteLine();
 #endif
         m_deck.BurnTop();
-      }
-      else  // else draw card
-      {
-#if (DEBUG)
-        Console.WriteLine("Drew  " + m_deck.m_drawOrder.First().ToString());
-        Console.WriteLine();
-#endif
-
-        // find empty slot and replace with drawn card
-        for (int i = 0; i < MAX_CARDS; ++i)
-        {
-          if (m_hand[i] == CardBase.CardID.NO_CARD)
-          {
-            m_hand[i] = m_deck.Draw();
-          }
-        }
-
       }
     }
     

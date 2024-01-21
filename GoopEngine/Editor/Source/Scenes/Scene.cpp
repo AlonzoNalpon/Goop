@@ -36,6 +36,7 @@ void GE::Scenes::Scene::Init()
 
 void GE::Scenes::Scene::Unload()
 {
+	std::cout << "Unload\n";
 	GE::fMOD::FmodSystem::GetInstance().StopAllSound();
 	std::set<ECS::Entity> entities = ecs->GetEntities();
 	for (auto entity : entities)

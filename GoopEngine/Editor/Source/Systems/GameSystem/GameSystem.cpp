@@ -53,21 +53,25 @@ void GE::Systems::GameSystem::Update()
       m_lastShouldPause = m_shouldPause;
     }
 
-    if (m_shouldIterate)
+    /*if (m_shouldIterate)
+    {*/
+    static GE::FPS::FrameRateController& frc { GE::FPS::FrameRateController::GetInstance() };
+
+    static GE::Debug::ErrorLogger& er = GE::Debug::ErrorLogger::GetInstance();
+    bool hasError{ false };
+    if (game->m_gameSystemScript.m_scriptClass == nullptr)
     {
-      static GE::FPS::FrameRateController& frc { GE::FPS::FrameRateController::GetInstance() };
+      hasError = true;
+      er.LogError("Game component does not have a game script");
+      return;
+    }
 
-      static GE::Debug::ErrorLogger& er = GE::Debug::ErrorLogger::GetInstance();
-      bool hasError{ false };
-      if (game->m_gameSystemScript.m_scriptClass == nullptr)
-      {
-        hasError = true;
-        er.LogError("Game component does not have a game script");
-        return;
-      }
-
-      MonoMethod* onUpdateFunc = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClass, "OnUpdate", 8);
-      Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->m_player);
+    MonoMethod* onUpdateFunc = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClass, "OnUpdate", 1);
+    double dt = frc.GetDeltaTime();
+    std::vector<void*> params = { &dt };
+    mono_runtime_invoke(onUpdateFunc, mono_gchandle_get_target(game->m_gameSystemScript.m_gcHandle), params.data(), nullptr);
+      //MonoMethod* onUpdateFunc = mono_class_get_method_from_name(game->m_gameSystemScript.m_scriptClass, "OnUpdate", 8);
+      /*Scripts* playerScript = m_ecs->GetComponent<Scripts>(game->m_player);
       Scripts* enemyScript = m_ecs->GetComponent<Scripts>(game->m_enemy);
       GE::MONO::ScriptInstance *playerStats, *enemyStats;
       playerStats = playerScript->Get("Stats");
@@ -98,8 +102,8 @@ void GE::Systems::GameSystem::Update()
         double dt = frc.GetDeltaTime();
         void* args[] = { &dt, playerStats->m_classInst, &game->m_player, enemyStats->m_classInst, &game->m_enemy, &game->m_playerHand, &game->m_playerQueue, &game->m_enemyQueue };
         mono_runtime_invoke(onUpdateFunc, mono_gchandle_get_target(game->m_gameSystemScript.m_gcHandle), args, nullptr);
-      }
-    }
+      }*/
+    //}
 
     if (m_shouldWin)
     {

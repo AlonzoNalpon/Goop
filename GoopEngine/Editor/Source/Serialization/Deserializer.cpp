@@ -460,13 +460,13 @@ void Deserializer::DeserializeBasedOnType(rttr::variant& object, rapidjson::Valu
     rttr::type const type{ object.get_type() };
     if (type.is_sequential_container())
     {
-      rttr::variant_sequential_view view = object.create_sequential_view();
+      rttr::variant_sequential_view view{ object.create_sequential_view() };
       DeserializeSequentialContainer(view, value);
     }
     else if (type.is_associative_container())
     {
-      GE::Debug::ErrorLogger::GetInstance().LogMessage(
-        type.get_name().to_string() + ": Associative Containers are not yet supported");
+      rttr::variant_associative_view view{ object.create_associative_view() };
+      DeserializeAssociativeContainer(view, value);
     }
 
     break;
@@ -540,10 +540,20 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
     // else deserialize normally
     else
     {  
-      rttr::type const arrType{ view.get_rank_type(i) };
       rttr::variant elem{ DeserializeBasicTypes(indexVal) };
       
-      if (!view.set_value(i, elem))
+      if (view.get_value_type().is_enumeration())
+      {
+        rttr::variant enumValue = view.get_value_type().get_enumeration().name_to_value(indexVal.GetString());
+        if (!view.set_value(i, enumValue))
+        {
+          std::ostringstream oss{};
+          oss << "Unable to set element " << i << " of type " << enumValue.get_type().get_name().to_string()
+            << " to container of " << view.get_type().get_name().to_string();
+          GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        }
+      }
+      else if (!view.set_value(i, elem))
       {
         if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))
         {
