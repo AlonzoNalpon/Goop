@@ -214,7 +214,7 @@ namespace GE::Application
 #ifndef IMGUI_DISABLE
         if (GE::EditorGUI::ImGuiHelper::ShouldRestart())
         {
-          gsm.Restart();
+          //gsm.Restart();
         }
 #endif // IMGUI_DISABLE
       }

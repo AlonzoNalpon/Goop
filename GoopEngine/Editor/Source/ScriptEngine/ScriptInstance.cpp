@@ -37,8 +37,9 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, std::vector<void*>
   m_classInst = sm->InstantiateClass(scriptName.c_str(), arg);
   m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClass,"OnUpdate", 1);
   m_gcHandle = mono_gchandle_new(m_classInst, true);
+  std::cout << "ScriptInstance()\n";
   m_entityID = GE::ECS::INVALID_ID;
-  m_onCreateMethod = mono_class_get_method_from_name(m_scriptClass, "OnCreate",0);
+  m_onCreateMethod = mono_class_get_method_from_name(m_scriptClass, "OnCreate", 0);
 }
 
 
@@ -49,6 +50,7 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, GE::ECS::Entity  e
   m_classInst = sm->InstantiateClass(scriptName.c_str());
   m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClass, "OnUpdate", 2);
   m_gcHandle = mono_gchandle_new(m_classInst, true);
+  std::cout << "ScriptInstance()\n";
   GetFields();
   m_onCreateMethod = mono_class_get_method_from_name(m_scriptClass, "OnCreate", 0);
 }

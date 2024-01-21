@@ -161,6 +161,7 @@ void ObjectFactory::LoadSceneObjects()
 
 void ObjectFactory::LoadSceneJson(std::string const& filename)
 {
+  std::cout << "Deserializing...\n";
   m_deserialized = GE::Serialization::Deserializer::DeserializeScene(filename);
 }
 
