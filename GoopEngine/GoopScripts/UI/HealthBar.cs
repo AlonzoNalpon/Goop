@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.UI
 {
-  public class HealthBar
+  public class HealthBar : MonoBehaviour
   {
     static private readonly int PADDING_SIZE = 5;
     private int health;
@@ -22,6 +22,7 @@ namespace GoopScripts.UI
 
     public void OnCreate()
     {
+
       m_barPos = Utils.GetPosition((uint)ID);
       m_width = (int)Utils.GetObjectWidth((uint)ID) * (int)Utils.GetScale((uint)ID).X;
       m_height = (int)Utils.GetObjectHeight((uint)ID) * (int)Utils.GetScale((uint)ID).Y - PADDING_SIZE;
@@ -34,13 +35,13 @@ namespace GoopScripts.UI
       Console.WriteLine("Bar Position: " + m_barPos.X + "|" + m_barPos.Y);
       Console.WriteLine("Bar Size: " + m_width + "|" + m_height);
 
-      //for (int i = 0; i < m_maxHealth; i++)
-      //{
-      //  uint barID = Utils.CreateObject("TestHealthBar", currentBarPos, new Vec3<double>((double)m_individualBarWidth, (double)m_height, 1), new Vec3<double>(), (uint)ID);
-      //  Utils.UpdateSprite(barID, "Red");
-      //  m_bars[i] = barID;
-      //  currentBarPos.X += m_individualBarWidth + PADDING_SIZE;
-      //}
+      for (int i = 0; i < m_maxHealth; i++)
+      {
+        uint barID = Utils.CreateObject("TestHealthBar", currentBarPos, new Vec3<double>((double)m_individualBarWidth, (double)m_height, 1), new Vec3<double>(), (uint)ID);
+        Utils.UpdateSprite(barID, "Red");
+        m_bars[i] = barID;
+        currentBarPos.X += m_individualBarWidth + PADDING_SIZE;
+      }
 
     }
 
@@ -48,8 +49,22 @@ namespace GoopScripts.UI
     {
       for (int i = 0;i < amount;i++)
       {
+        if (health - 1 < 0)
+          break;
         Utils.SetIsActiveEntity(m_bars[--health], false);
         Console.WriteLine("Health Decreased");
+
+      }
+    }
+
+    public void IncreaseHealth(int amount)
+    {
+      for (int i = 0; i < amount; i++)
+      {
+        if (health + 1 > m_maxHealth)
+          break;
+        Utils.SetIsActiveEntity(m_bars[health++], true);
+        Console.WriteLine("Health Increased");
 
       }
     }

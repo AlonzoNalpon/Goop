@@ -200,7 +200,7 @@ namespace GE {
 		************************************************************************/
 		MonoObject* GetScript(MonoString* entityName, MonoString* scriptName);
 
-		MonoObject* GetScriptFromID(GE::ECS::Entity entity, int id);
+		MonoObject* GetScriptFromID(GE::ECS::Entity entity, MonoString* scriptName);
 
 
 		/*!*********************************************************************
