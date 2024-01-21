@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Mono;
-using GoopScripts.Player;
+//sing GoopScripts.Player;
 using static GoopScripts.Mono.Utils;
 
 namespace GoopScripts.AI.Enemy.MineWorm
@@ -91,7 +91,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
       }
       return OnSuccess();
       */
-      PlayerScriptTest p = (PlayerScriptTest) GetScriptFromID(entityID, "PlayerScriptTest");
+      //PlayerScriptTest p = (PlayerScriptTest) GetScriptFromID(entityID, "PlayerScriptTest");
 
 
     }
