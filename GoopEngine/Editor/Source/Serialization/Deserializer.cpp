@@ -739,7 +739,10 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
       return true;
     }
     DeserializeBasedOnType(scriptMap, listIter->value);
-
+    for (auto s : scriptMap.get_value<Component::Scripts::ScriptInstances>())
+    {
+      s.SetAllFields();
+    }
     compVar = type.create({ scriptMap.get_value<Component::Scripts::ScriptInstances>() });
 
     return true;
