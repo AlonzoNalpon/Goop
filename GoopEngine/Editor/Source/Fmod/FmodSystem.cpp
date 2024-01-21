@@ -164,7 +164,14 @@ void GE::fMOD::FmodSystem::Pause(std::string audio)
 
 void FmodSystem::StopSound(std::string audio)
 {  
-  ErrorCheck(m_channels[audio]->stop());
+  try
+  {
+    ErrorCheck(m_channels[audio]->stop());
+  }
+  catch (...)
+  {
+    // do nothing
+  }
   m_channels.erase(audio);
 }
 
