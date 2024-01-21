@@ -21,7 +21,7 @@ namespace GE::Component
    */
   struct Card
   {
-		enum CardID : int
+		enum CardID : unsigned int
 		{
 			NO_CARD,
 

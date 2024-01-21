@@ -562,6 +562,11 @@ void ObjectFactory::RegisterSystemWithType(rttr::type const& systemType, std::ve
     ecs.RegisterSystem<Systems::ButtonScriptSystem>();
     RegisterComponentsToSystem<Systems::ButtonScriptSystem>(components);
   }
+  else if (systemType == rttr::type::get<Systems::CardHolderSystem>())
+  {
+    ecs.RegisterSystem<Systems::CardHolderSystem>();
+    RegisterComponentsToSystem<Systems::CardHolderSystem>(components);
+  }
   else
   {
     std::ostringstream oss{};

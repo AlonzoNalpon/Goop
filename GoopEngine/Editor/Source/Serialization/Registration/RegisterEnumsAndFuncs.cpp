@@ -101,6 +101,41 @@ RTTR_REGISTRATION
       rttr::value("SPECIAL_TIMEWRAP", GE::Component::Card::CardID::SPECIAL_TIMEWRAP)
       );
 
+  rttr::registration::enumeration<GE::Component::CardHolder::DataType>("DataType")
+    (
+      rttr::value("QUEUE", GE::Component::CardHolder::DataType::QUEUE),
+      rttr::value("DECK", GE::Component::CardHolder::DataType::DECK),
+      rttr::value("HAND", GE::Component::CardHolder::DataType::HAND),
+      rttr::value("NONE", GE::Component::CardHolder::DataType::NONE)
+      );
+  //rttr::registration::enumeration<ECS::COMPONENT_TYPES>("COMPONENT_TYPES")
+  //  (
+  //    rttr::value("TRANSFORM", ECS::COMPONENT_TYPES::TRANSFORM),
+  //    rttr::value("BOX_COLLIDER", ECS::COMPONENT_TYPES::BOX_COLLIDER),
+  //    rttr::value("VELOCITY", ECS::COMPONENT_TYPES::VELOCITY),
+  //    rttr::value("SPRITE", ECS::COMPONENT_TYPES::SPRITE),
+  //    rttr::value("SPRITE_ANIM", ECS::COMPONENT_TYPES::SPRITE_ANIM),
+  //    rttr::value("MODEL", ECS::COMPONENT_TYPES::MODEL),
+  //    rttr::value("TWEEN", ECS::COMPONENT_TYPES::TWEEN),
+  //    rttr::value("SCRIPTS", ECS::COMPONENT_TYPES::SCRIPTS),
+  //    rttr::value("DRAGGABLE", ECS::COMPONENT_TYPES::DRAGGABLE),
+  //    rttr::value("ENEMY_AI", ECS::COMPONENT_TYPES::ENEMY_AI),
+  //    rttr::value("COMPONENTS_TOTAL", ECS::COMPONENT_TYPES::COMPONENTS_TOTAL)
+  //    );
+
+  //rttr::registration::enumeration<ECS::SYSTEM_TYPES>("SYSTEM_TYPES")
+  //  (
+  //    rttr::value("TRANSFORM", ECS::SYSTEM_TYPES::COLLISION),
+  //    rttr::value("PHYSICS", ECS::SYSTEM_TYPES::PHYSICS),
+  //    rttr::value("RENDERING", ECS::SYSTEM_TYPES::RENDERING),
+  //    rttr::value("SPRITE_ANIM", ECS::SYSTEM_TYPES::SPRITE_ANIM),
+  //    rttr::value("DRAGGABLE_OBJECT", ECS::SYSTEM_TYPES::DRAGGABLE_OBJECT),
+  //    rttr::value("PLAYER_CONTROLLER", ECS::SYSTEM_TYPES::PLAYER_CONTROLLER),
+  //    rttr::value("POST_ROOT_TRANSFORM", ECS::SYSTEM_TYPES::POST_ROOT_TRANSFORM),
+  //    rttr::value("PRE_ROOT_TRANSFORM", ECS::SYSTEM_TYPES::PRE_ROOT_TRANSFORM),
+  //    rttr::value("ENEMY_SYSTEM", ECS::SYSTEM_TYPES::ENEMY_SYSTEM),
+  //    rttr::value("TOTAL_SYSTEMS", ECS::SYSTEM_TYPES::TOTAL_SYSTEMS)
+  //    );
   rttr::registration::enumeration<MONO::CharacterType>("CharacterType")
     (
       rttr::value("PLAYER", MONO::CharacterType::PLAYER),

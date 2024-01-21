@@ -34,13 +34,13 @@ namespace GoopScripts.UI
       Console.WriteLine("Bar Position: " + m_barPos.X + "|" + m_barPos.Y);
       Console.WriteLine("Bar Size: " + m_width + "|" + m_height);
 
-      for (int i = 0; i < m_maxHealth; i++)
-      {
-        uint barID = Utils.CreateObject("TestHealthBar", currentBarPos, new Vec3<double>((double)m_individualBarWidth, (double)m_height, 1), new Vec3<double>(), (uint)ID);
-        Utils.UpdateSprite(barID, "Red");
-        m_bars[i] = barID;
-        currentBarPos.X += m_individualBarWidth + PADDING_SIZE;
-      }
+      //for (int i = 0; i < m_maxHealth; i++)
+      //{
+      //  uint barID = Utils.CreateObject("TestHealthBar", currentBarPos, new Vec3<double>((double)m_individualBarWidth, (double)m_height, 1), new Vec3<double>(), (uint)ID);
+      //  Utils.UpdateSprite(barID, "Red");
+      //  m_bars[i] = barID;
+      //  currentBarPos.X += m_individualBarWidth + PADDING_SIZE;
+      //}
 
     }
 

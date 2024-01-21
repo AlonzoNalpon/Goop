@@ -29,7 +29,7 @@
                                 "x": 0.25,
                                 "y": 1.0
                             },
-                            "width": 1000,
+                            "width": 500,
                             "height": 750
                         }
                     },
@@ -1616,7 +1616,7 @@
                             "used": false
                         }
                     ],
-                    "dataEntity": 0,
+                    "dataEntity": 4,
                     "dataType": "QUEUE",
                     "targetScript": 4
                 }

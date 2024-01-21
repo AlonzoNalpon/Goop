@@ -348,5 +348,45 @@ namespace GE {
 		static GE::ECS::Entity CreateObject(MonoString* name, GE::Math::dVec3 pos = {}, GE::Math::dVec3 scale = {}, GE::Math::dVec3 rotation = {}, GE::ECS::Entity parent = ECS::INVALID_ID);
 
 		static void UpdateSprite(GE::ECS::Entity entity, MonoString* textureName);
+
+		/*!*********************************************************************
+		\brief
+			Adds a audio cross fade event to the AudioSystem
+
+		\param MonoString* audio1
+			Name of audio1
+
+		\param float startVol1
+			Original volume of audio 1
+
+		\param float endVol1
+			Final target volume of audio1
+
+		\param float fadeStart1
+			Time to start fading
+
+		\param float fadeEnd1
+			Time to end fading
+
+		\param MonoString* audio2
+			Name of audio2
+
+		\param float startVol2
+			Original volume of audio 2
+
+		\param float endVol2
+			Final target volume of audio2
+
+		\param float fadeStart2
+			Time to start fading
+
+		\param float fadeEnd2
+			Time to end fading
+
+		\param float fadeDuration		
+		************************************************************************/
+		void CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1, float fadeStart1, float fadeEnd1,
+												MonoString* audio2, float startVol2, float endVol2, float fadeStart2, float fadeEnd2,
+												float fadeDuration);
 	}
 }

@@ -1041,7 +1041,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 					ImGui::TableNextColumn();
 					ImGui::ColorEdit4("Color", textObj->m_clr.rgba);
 					ImGui::DragFloat("Scale", &textObj->m_scale, .001f, 0.f, 5.f);
-					ImGui::InputTextMultiline("Text", &textObj->m_text);
+					ImGui::DragFloat("Width", &textObj->m_width, .001f, 0.f);
+					if (ImGui::InputTextMultiline("Text", &textObj->m_text)) textObj->m_textInfo.flags.dirty = true;
 					
 					auto const& fontManager{ Graphics::GraphicsEngine::GetInstance().fontManager };
 					auto const& fontLT{ fontManager.GetFontLT() }; //lookup table for fonts (string to ID)
@@ -1345,21 +1346,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 										}
 									}
 								}
-								// THE TARGET SCRIPT VALUE
-								{
-									ImGui::Text("Target Script: ");
-									ImGui::SameLine();
-									int newVal{ static_cast<int>(element.scriptEntity) };
-									if (InputInt(("##CDScrptID" + std::to_string(currElement)).c_str(), &newVal))
-									{
-										element.scriptEntity = newVal;
-									}
-									if (element.scriptEntity != ECS::INVALID_ID)
-									{
-										// check if valid
-										//TODO
-									}
-								}
 								// THE SPRITE ID (FOR REFERENCE)
 								{
 									BeginDisabled(true);
@@ -1410,6 +1396,28 @@ void GE::EditorGUI::Inspector::CreateContent()
 								}
 							}
 							++currElement;
+						}
+
+						//rttr::type const type{ rttr::type::get<GE::Component::GE_Button::ButtonEventType>() };
+						rttr::type const DatatypeType{ rttr::type::get<GE::Component::CardHolder::DataType>() };
+						if (BeginCombo("BRRR", DatatypeType.get_enumeration().value_to_name(cardHolder->dataType).to_string().c_str()))
+						{
+							for (unsigned int curr{}; curr != Component::CardHolder::DataType::NONE + 1; ++curr)
+							{
+								if (Selectable(DatatypeType.get_enumeration().value_to_name(curr).to_string().c_str(), 
+									curr == cardHolder->dataType))
+								{
+									cardHolder->dataType = static_cast<Component::CardHolder::DataType>(curr);
+								}
+							}
+							EndCombo();
+						}
+						{
+							int value{static_cast<int>(cardHolder->targetScript)};
+							ImGui::Text("Target Script Entity: ");
+							ImGui::SameLine();
+							ImGui::InputInt("##tgtSE", &value);
+							cardHolder->targetScript = value;
 						}
 					}
 					//if (BeginCombo("Card", type.get_enumeration().value_to_name(card->cardID).to_string().c_str()))

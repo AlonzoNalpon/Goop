@@ -77,7 +77,7 @@
                                     }
                                 },
                                 {
-                                    "data": "PLAYER",
+                                    "data": "BOSS_P1",
                                     "type": "GoopScripts.Gameplay.CharacterType",
                                     "scriptField": {
                                         "fieldName": "m_type"
@@ -364,7 +364,7 @@
                                     }
                                 },
                                 {
-                                    "data": "BASIC_ENEMY",
+                                    "data": "BOSS_P1",
                                     "type": "GoopScripts.Gameplay.CharacterType",
                                     "scriptField": {
                                         "fieldName": "m_type"
@@ -608,28 +608,28 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 37,
-                            "defaultSpriteID": 111,
+                            "scriptEntity": 0,
+                            "spriteID": 34,
+                            "defaultSpriteID": 103,
                             "used": false
                         },
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
-                            "spriteID": 39,
-                            "defaultSpriteID": 22,
+                            "scriptEntity": 0,
+                            "spriteID": 36,
+                            "defaultSpriteID": 20,
                             "used": false
                         },
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
-                            "spriteID": 25,
-                            "defaultSpriteID": 112,
+                            "scriptEntity": 0,
+                            "spriteID": 23,
+                            "defaultSpriteID": 104,
                             "used": false
                         }
-                    ],
-                    "dataEntity": 0,
-                    "dataType": "QUEUE",
-                    "targetScript": 0
+                    ]
                 }
             }
         ]
@@ -979,42 +979,44 @@
                         {
                             "elemEntity": 16,
                             "cardEntity": 16,
-                            "spriteID": 37,
-                            "defaultSpriteID": 37,
+                            "scriptEntity": 0,
+                            "spriteID": 34,
+                            "defaultSpriteID": 34,
                             "used": false
                         },
                         {
                             "elemEntity": 17,
                             "cardEntity": 17,
-                            "spriteID": 25,
-                            "defaultSpriteID": 25,
+                            "scriptEntity": 0,
+                            "spriteID": 23,
+                            "defaultSpriteID": 23,
                             "used": false
                         },
                         {
                             "elemEntity": 18,
                             "cardEntity": 18,
-                            "spriteID": 39,
-                            "defaultSpriteID": 39,
+                            "scriptEntity": 0,
+                            "spriteID": 36,
+                            "defaultSpriteID": 36,
                             "used": false
                         },
                         {
                             "elemEntity": 19,
                             "cardEntity": 19,
-                            "spriteID": 10,
-                            "defaultSpriteID": 10,
+                            "scriptEntity": 0,
+                            "spriteID": 8,
+                            "defaultSpriteID": 8,
                             "used": false
                         },
                         {
                             "elemEntity": 20,
                             "cardEntity": 20,
-                            "spriteID": 10,
-                            "defaultSpriteID": 10,
+                            "scriptEntity": 0,
+                            "spriteID": 8,
+                            "defaultSpriteID": 8,
                             "used": false
                         }
-                    ],
-                    "dataEntity": 0,
-                    "dataType": "HAND",
-                    "targetScript": 0
+                    ]
                 }
             }
         ]
@@ -1597,28 +1599,28 @@
                         {
                             "elemEntity": 22,
                             "cardEntity": 4294967295,
+                            "scriptEntity": 4294967295,
                             "spriteID": 20,
-                            "defaultSpriteID": 111,
+                            "defaultSpriteID": 103,
                             "used": false
                         },
                         {
                             "elemEntity": 23,
                             "cardEntity": 4294967295,
+                            "scriptEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 22,
+                            "defaultSpriteID": 20,
                             "used": false
                         },
                         {
                             "elemEntity": 24,
                             "cardEntity": 4294967295,
+                            "scriptEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 112,
+                            "defaultSpriteID": 104,
                             "used": false
                         }
-                    ],
-                    "dataEntity": 0,
-                    "dataType": "QUEUE",
-                    "targetScript": 4
+                    ]
                 }
             }
         ]
@@ -1658,12 +1660,6 @@
                         }
                     },
                     "spriteName": "Queue_Sequence_1"
-                }
-            },
-            {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 21
                 }
             },
             {
@@ -1712,12 +1708,6 @@
                 }
             },
             {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 21
-                }
-            },
-            {
                 "CardHolderElem": {
                     "holder": 21,
                     "elemIdx": 1
@@ -1760,12 +1750,6 @@
                         }
                     },
                     "spriteName": "Queue_Sequence_3"
-                }
-            },
-            {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 21
                 }
             },
             {
@@ -1871,7 +1855,10 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 8,
-        "Child Entities": [],
+        "Child Entities": [
+            32,
+            33
+        ],
         "Components": [
             {
                 "Transform": {
@@ -2046,6 +2033,46 @@
                         }
                     },
                     "spriteName": "Portrait"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "TestHealthBar",
+        "ID": 32,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 28,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -14.2, 0, 0.1 }",
+                    "scale": "{ 2.6, 29.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -762, 430, 0.1 }",
+                    "worldScale": "{ 26, 59, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "TestHealthBar",
+        "ID": 33,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 28,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -14.2, 0, 0.1 }",
+                    "scale": "{ 2.6, 29.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -762, 430, 0.1 }",
+                    "worldScale": "{ 26, 59, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             }
         ]

@@ -20,13 +20,21 @@ namespace GE::Component
     {
       GE::ECS::Entity elemEntity{ ECS::INVALID_ID }; //!< entity ID of holder element
       GE::ECS::Entity cardEntity{ ECS::INVALID_ID }; //!< entity ID of card
-      GE::ECS::Entity scriptEntity{ ECS::INVALID_ID };
       GLuint  spriteID{};         //!< the id of sprite to render if used
       GLuint  defaultSpriteID{};  //!< the default sprite ID to render
       bool used{}; //!< is the slot used?
     };
 
     std::vector<CardHolderEntry> elements;
+    
+    enum DataType : unsigned int
+    {
+      QUEUE,
+      DECK, // deck
+      HAND,
+      NONE
+    } dataType{NONE};
+    GE::ECS::Entity targetScript{ ECS::INVALID_ID };
   };
 }
 

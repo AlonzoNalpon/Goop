@@ -319,5 +319,10 @@ namespace GoopScripts.Mono
     extern public static void UpdateSprite(uint ID, string name);
 
 
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void CrossFadeAudio(string audio1, float startVol1, float endVol1, float fadeStart1, float fadeEnd1,
+                                             string audio2, float startVol2, float endVol2, float fadeStart2, float fadeEnd2,
+                                             float fadeDuration);
   }
 }

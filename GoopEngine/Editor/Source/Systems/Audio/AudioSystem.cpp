@@ -47,5 +47,45 @@ void AudioSystem::Update()
       }
     }
   }
+
+  float dt = static_cast<float>(frc.GetDeltaTime());
+  for (auto it{ m_crossFadeList.begin() }; it != m_crossFadeList.end(); ++it)
+  {
+    auto& cf{ *it };
+
+    // Remove from list if done cross fading
+    if (cf.m_currFadeTime >= cf.m_crossFadeTime)
+    {
+      m_crossFadeList.erase(it);
+      // Go back one so when loop iterates it will be at the correct item
+      --it;
+      continue;
+    }
+
+    for (int i{ 0 }; i < 2; ++i)
+    {
+      // Fade audio
+      if (cf.m_crossFadeStartTime[i] > cf.m_currFadeTime)
+      {
+        // Fade finished
+        if (cf.m_crossFadeEndTime[i] > cf.m_currFadeTime)
+        {
+          m_fmodSystem->StopSound(cf.m_audio[i]);
+        }
+
+        // Set volume using the interpolated volume of the start, end and normalized time of current time
+        m_fmodSystem->SetVolume(cf.m_audio[i], GoopUtils::Lerp(cf.m_startVol[i], cf.m_endVol[i], 
+          GoopUtils::InverseLerp(cf.m_currFadeTime, cf.m_crossFadeStartTime[i], cf.m_crossFadeEndTime[i])));
+      }
+    }
+
+    cf.m_currFadeTime += dt;
+  }
+
   frc.EndSystemTimer("AudioSystem");
+}
+
+void GE::Systems::AudioSystem::CrossFadeAudio(CrossFade fade)
+{
+  m_crossFadeList.push_back(fade);
 }

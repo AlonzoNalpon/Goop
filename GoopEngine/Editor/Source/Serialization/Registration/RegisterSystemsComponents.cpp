@@ -36,6 +36,7 @@ RTTR_REGISTRATION
   rttr::registration::class_<Systems::GameSystem>("GameSystem");
   rttr::registration::class_<Systems::ObjectAnchorSystem>("ObjectAnchorSystem");
   rttr::registration::class_<Systems::ButtonScriptSystem>("ButtonScriptSystem");
+  rttr::registration::class_<Systems::CardHolderSystem>("CardHolderSystem");
 
 
   /* ------------------- COMPONENTS ------------------- */
@@ -147,6 +148,9 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::CardHolder>("CardHolder")
     .constructor<>()
     .property("elements", &Component::CardHolder::elements)
+    .property("dataEntity", &Component::CardHolder::targetScript)
+    .property("dataType", &Component::CardHolder::dataType)
+    .property("targetScript", &Component::CardHolder::targetScript)
     ;
 
   rttr::registration::class_<Component::CardHolderElem>("CardHolderElem")

@@ -149,4 +149,8 @@ namespace GE::Graphics::Fonts
   {
     return m_fontIDLT;
   }
+
+  void Graphics::Fonts::FontManager::UpdateTextInfo(TextObjGroup& group)
+  {
+  }
 }

@@ -117,7 +117,7 @@ namespace GE
 
 									 //MONO SECTION
 									{
-										GE::ECS::Entity player = elem.scriptEntity;
+										GE::ECS::Entity player = cardHolder->targetScript;
 										Component::Scripts* scripts = m_ecs->GetComponent<Component::Scripts>(player);
 
 										// Get player's stats script
@@ -174,6 +174,7 @@ namespace GE
 
 								// now enable the card to be unselected
 								auto cardEntity = cardHolder->elements[holderElem->elemIdx].cardEntity;
+								//auto elemEntity = cardHolder->elements[holderElem->elemIdx].elemEntity;
 								m_ecs->SetIsActiveEntity(cardEntity, true);
 
 								// play sound randomize
@@ -186,7 +187,7 @@ namespace GE
 								// MONO SECTION
 								{
 								 
-									GE::ECS::Entity player = cardHolder->elements[holderElem->elemIdx].scriptEntity;
+									GE::ECS::Entity player = cardHolder->targetScript;
 									Component::Scripts* scripts = m_ecs->GetComponent<Component::Scripts>(player);
 
 									// Get player's stats script

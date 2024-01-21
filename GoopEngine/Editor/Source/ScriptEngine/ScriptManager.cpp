@@ -31,6 +31,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/GraphicsEngine.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <ScriptEngine/CSharpStructs.h>
+#include <Systems/Audio/AudioSystem.h>
 using namespace GE::MONO;
 
 namespace GE 
@@ -335,6 +336,25 @@ bool GE::MONO::CheckMonoError(MonoError& error)
     mono_error_cleanup(&error);
   }
   return hasError;
+}
+
+void GE::MONO::CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1, float fadeStart1, float fadeEnd1, 
+                              MonoString* audio2, float startVol2, float endVol2, float fadeStart2, float fadeEnd2, 
+                              float fadeDuration)
+{
+  GE::Systems::AudioSystem::CrossFade cf;
+  cf.m_audio[0] = MonoStringToSTD(audio1);
+  cf.m_audio[1] = MonoStringToSTD(audio2);
+  cf.m_startVol[0] = startVol1;
+  cf.m_startVol[1] = startVol2;
+  cf.m_endVol[0] = endVol1;
+  cf.m_endVol[1] = endVol2;
+  cf.m_crossFadeStartTime[0] = fadeStart1;
+  cf.m_crossFadeStartTime[1] = fadeStart2;
+  cf.m_crossFadeTime = fadeDuration;
+
+  auto as = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::AudioSystem>();
+  as->CrossFadeAudio(cf);
 }
 
 MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
