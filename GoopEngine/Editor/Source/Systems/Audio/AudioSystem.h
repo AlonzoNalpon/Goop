@@ -31,6 +31,8 @@ namespace GE
 
 				float m_crossFadeTime;
 				float m_currFadeTime;
+
+				bool isOver;
 			};
 
 			/*!*********************************************************************

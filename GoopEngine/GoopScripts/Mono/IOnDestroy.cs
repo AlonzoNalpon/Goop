@@ -8,6 +8,6 @@ namespace GoopScripts.Mono
 {
   interface IOnDestroy
   {
-    void OnDestroy();
+    void OnDestroy(uint entityid);
   }
 }

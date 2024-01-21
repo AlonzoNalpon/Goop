@@ -48,38 +48,61 @@ void AudioSystem::Update()
     }
   }
 
+  if (!m_crossFadeList.empty())
+  {
+    m_crossFadeList.erase(std::remove_if(m_crossFadeList.begin(), m_crossFadeList.end(),
+      [](GE::Systems::AudioSystem::CrossFade& cf)
+      {
+        return cf.isOver;
+      }), m_crossFadeList.end());
+  }
+
   float dt = static_cast<float>(frc.GetDeltaTime());
   for (auto it{ m_crossFadeList.begin() }; it != m_crossFadeList.end(); ++it)
   {
     auto& cf{ *it };
 
-    // Remove from list if done cross fading
-    if (cf.m_currFadeTime >= cf.m_crossFadeTime)
-    {
-      m_crossFadeList.erase(it);
-      // Go back one so when loop iterates it will be at the correct item
-      --it;
-      continue;
-    }
-
     for (int i{ 0 }; i < 2; ++i)
     {
-      // Fade audio
-      if (cf.m_crossFadeStartTime[i] > cf.m_currFadeTime)
-      {
-        // Fade finished
-        if (cf.m_crossFadeEndTime[i] > cf.m_currFadeTime)
-        {
-          m_fmodSystem->StopSound(cf.m_audio[i]);
-        }
+      // Don't process audio that doesn't exist
+      if (cf.m_audio[i] == "")
+        continue;
 
+      // First iteration of the crossfade
+      if (cf.m_currFadeTime == 0.f)
+      {
+        // Play the track being faded into
+        m_fmodSystem->PlaySound(cf.m_audio[1], cf.m_startVol[1]);
+      }
+
+      // Fade audio
+      if (cf.m_currFadeTime > cf.m_crossFadeStartTime[i])
+      {
         // Set volume using the interpolated volume of the start, end and normalized time of current time
-        m_fmodSystem->SetVolume(cf.m_audio[i], GoopUtils::Lerp(cf.m_startVol[i], cf.m_endVol[i], 
-          GoopUtils::InverseLerp(cf.m_currFadeTime, cf.m_crossFadeStartTime[i], cf.m_crossFadeEndTime[i])));
+        m_fmodSystem->SetVolume(cf.m_audio[i], GoopUtils::Lerp(cf.m_startVol[i], cf.m_endVol[i], clampedInterval));
       }
     }
 
     cf.m_currFadeTime += dt;
+    // Fade finished
+    for (int i{ 0 }; i < 2; ++i)
+    {
+      if (cf.m_currFadeTime > cf.m_crossFadeTime)
+      {
+        // 0 is the fading out sound
+        if (i == 0)
+        {
+          m_fmodSystem->StopSound(cf.m_audio[i]);
+        }
+        // 1 is fading in sound
+        else if (i == 1)
+        {
+          // Set to target volume
+          m_fmodSystem->SetVolume(cf.m_audio[i], cf.m_endVol[i]);
+        }
+        cf.isOver = true;
+      }
+    }
   }
 
   frc.EndSystemTimer("AudioSystem");
