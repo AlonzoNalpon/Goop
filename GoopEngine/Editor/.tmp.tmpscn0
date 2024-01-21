@@ -63,7 +63,11 @@
                                     }
                                 },
                                 {
-                                    "data": {},
+                                    "data": {
+                                        "Cards In Discard": [],
+                                        "Cards In Hand": [],
+                                        "Cards In Queue": []
+                                    },
                                     "type": "GoopScripts.Gameplay.DeckManager",
                                     "scriptField": {
                                         "fieldName": "m_deckMngr"
@@ -350,7 +354,11 @@
                                     }
                                 },
                                 {
-                                    "data": {},
+                                    "data": {
+                                        "Cards In Discard": [],
+                                        "Cards In Hand": [],
+                                        "Cards In Queue": []
+                                    },
                                     "type": "GoopScripts.Gameplay.DeckManager",
                                     "scriptField": {
                                         "fieldName": "m_deckMngr"
@@ -731,6 +739,12 @@
                 }
             },
             {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 11
+                }
+            },
+            {
                 "CardHolderElem": {
                     "holder": 11,
                     "elemIdx": 0
@@ -832,6 +846,12 @@
                     "eventType": "UNSELECT_CARD",
                     "lastCollided": false,
                     "currCollided": false
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 11
                 }
             },
             {
@@ -938,6 +958,12 @@
                     "eventType": "UNSELECT_CARD",
                     "lastCollided": false,
                     "currCollided": false
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 11
                 }
             },
             {
@@ -1117,7 +1143,7 @@
             },
             {
                 "Card": {
-                    "cardID": "SPECIAL_FLASHBANG",
+                    "cardID": "NO_CARD",
                     "tgtEntity": 11
                 }
             },
@@ -1227,7 +1253,7 @@
             },
             {
                 "Card": {
-                    "cardID": "SPECIAL_SCREECH",
+                    "cardID": "NO_CARD",
                     "tgtEntity": 11
                 }
             },
@@ -1337,7 +1363,7 @@
             },
             {
                 "Card": {
-                    "cardID": "SPECIAL_SMOKESCREEN",
+                    "cardID": "NO_CARD",
                     "tgtEntity": 11
                 }
             },
@@ -1447,7 +1473,7 @@
             },
             {
                 "Card": {
-                    "cardID": "LEAH_SHIELD",
+                    "cardID": "NO_CARD",
                     "tgtEntity": 11
                 }
             },
@@ -1557,7 +1583,7 @@
             },
             {
                 "Card": {
-                    "cardID": "LEAH_SHIELD",
+                    "cardID": "NO_CARD",
                     "tgtEntity": 11
                 }
             },

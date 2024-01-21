@@ -3,6 +3,8 @@
 #include <Component/Sprite.h>
 #include <Component/Card.h>
 #include <GameDef.h>
+#include <ScriptEngine/CSharpStructs.h>
+
 namespace GE::Systems
 {
   void CardHolderSystem::Update()
@@ -28,19 +30,45 @@ namespace GE::Systems
         //rttr::variant& cardQueueInst{ statsScript->m_scriptFieldInstList[0]};
         //rttr::variant& deckInst     { statsScript->m_scriptFieldInstList[1]};
         //rttr::variant& handInst     { statsScript->m_scriptFieldInstList[2]};
-        rttr::variant& targetInst{ statsScript->m_scriptFieldInstList[holder->dataType] };
-
+       
         //std::vector<unsigned> const& queueData{ cardQueueInst.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>().m_data };
         //std::vector<unsigned> const& deckData { deckInst.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>().m_data };
         //std::vector<unsigned> const& handData { handInst.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>().m_data };
 
-        std::vector<unsigned> const& targetData{ targetInst.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>().m_data };
-        targetData;
+        // new & improved
+        std::vector<Component::Card::CardID> const* targetData{ nullptr };
+        for (rttr::variant const& var : statsScript->m_scriptFieldInstList)
+        {
+          if (var.get_type() == rttr::type::get<MONO::ScriptFieldInstance<MONO::DeckManager>>())
+          {
+            MONO::DeckManager const& deckMan{ var.get_value<MONO::ScriptFieldInstance<MONO::DeckManager>>().m_data };
+            
+            switch (holder->dataType)
+            {
+            case Component::CardHolder::DataType::QUEUE:
+              targetData = &deckMan.m_queue;
+              break;
+            case Component::CardHolder::DataType::HAND:
+              targetData = &deckMan.m_hand;
+              break;
+            case Component::CardHolder::DataType::DECK:
+              targetData = &deckMan.m_deck.m_drawOrderDisplay;
+              break;
+            }
+          }
+        }
+
+        if (!targetData)
+        {
+          Debug::ErrorLogger::GetInstance().LogError("Unable to find Deck Manager from Entity " + std::to_string(entity));
+          continue;
+        }
+
         // Now edit the cards in the elements for holder
-        auto dataIt{ targetData.begin() };
+        auto dataIt{ targetData->begin() };
         auto gameCardIt{ holder->elements.begin() };
         auto const& ge = Graphics::GraphicsEngine::GetInstance();
-        while (dataIt != targetData.end() && gameCardIt != holder->elements.end())
+        while (dataIt != targetData->end() && gameCardIt != holder->elements.end())
         {
           auto* card = m_ecs->GetComponent<Component::Card>(gameCardIt->elemEntity);
           auto* sprite = m_ecs->GetComponent<Component::Sprite>(gameCardIt->elemEntity);
