@@ -151,7 +151,7 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectHeight", GE::MONO::GetObjectHeight);
   mono_add_internal_call("GoopScripts.Mono.Utils::CreateObject", GE::MONO::CreateObject);
   mono_add_internal_call("GoopScripts.Mono.Utils::UpdateSprite", GE::MONO::UpdateSprite);
-
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetTextComponent", GE::MONO::SetTextComponent);
 
   //Load the CSharpAssembly (dll file)
   std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
@@ -661,6 +661,20 @@ void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int car
     spriteComp->m_spriteData.texture = texManager.GetTextureID(CardSpriteNames[cardComp->cardID]);
     ecs.SetIsActiveEntity(cardEntity, true);
   }
+}
+
+void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str)
+{
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  Component::Text* textComp{ ecs.GetComponent<Component::Text>(entity) };
+  if (!textComp)
+  {
+    std::ostringstream oss;
+    oss << "Unable to get text component of entity " << entity;
+    Debug::ErrorLogger::GetInstance().LogError(oss.str());
+  }
+
+  textComp->m_text = MONO::MonoStringToSTD(str);
 }
 
 void GE::MONO::SendString(MonoString* str)

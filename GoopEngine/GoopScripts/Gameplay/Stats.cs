@@ -18,6 +18,8 @@ namespace GoopScripts.Gameplay
     public CharacterType m_type;
     public int m_health = 10, m_attack = 0, m_block = 0;
 
+    public int m_attackDisplay, m_blockDisplay;
+
     public Queue m_nextTurn = new Queue();
     public DeckManager m_deckMngr;
     public BuffManager m_buffs { get; set; }
@@ -38,19 +40,16 @@ namespace GoopScripts.Gameplay
       m_deckMngr.Init(m_type);
     }
 
-    public int GetHealth()
+    public void AddAttack(int value)
     {
-      return m_health;
+      m_attack += value;
+      Utils.SetTextComponent(m_attackDisplay, m_attack.ToString());
     }
 
-    public int GetAttack()
+    public void AddBlock(int value)
     {
-      return m_attack;
-    }
-
-    public int GetBlock()
-    {
-      return m_block;
+      m_block += value;
+      Utils.SetTextComponent(m_blockDisplay, m_block.ToString());
     }
 
     public void TakeDamage(float damage)
@@ -102,6 +101,8 @@ namespace GoopScripts.Gameplay
     {
       m_deckMngr.DiscardQueue();
       m_attack = m_block = 0;
+      Utils.SetTextComponent(m_attackDisplay, "0");
+      Utils.SetTextComponent(m_blockDisplay, "0");
       m_buffs.StepTurn();
     }
 

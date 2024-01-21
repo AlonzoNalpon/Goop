@@ -28,7 +28,7 @@ void ScriptSystem::FixedUpdate()
 		Scripts* scriptHan = m_ecs->GetComponent<Scripts>(entity);
 		if (scriptHan != nullptr)
 		{
-			scriptHan->UpdateAllScripts(entity);
+			scriptHan->UpdateAllScripts();
 		}
 	}
 	

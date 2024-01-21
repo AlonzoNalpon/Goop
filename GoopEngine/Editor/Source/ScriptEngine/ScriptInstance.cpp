@@ -37,7 +37,6 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, std::vector<void*>
   m_classInst = sm->InstantiateClass(scriptName.c_str(), arg);
   m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClass,"OnUpdate", 1);
   m_gcHandle = mono_gchandle_new(m_classInst, true);
-  std::cout << "ScriptInstance()\n";
   m_entityID = GE::ECS::INVALID_ID;
   m_onCreateMethod = mono_class_get_method_from_name(m_scriptClass, "OnCreate", 0);
 }
@@ -48,21 +47,29 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, GE::ECS::Entity  e
   GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
   m_scriptClass = sm->GetScriptClass(scriptName);
   m_classInst = sm->InstantiateClass(scriptName.c_str());
-  m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClass, "OnUpdate", 2);
+  m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClass, "OnUpdate", 1);
   m_gcHandle = mono_gchandle_new(m_classInst, true);
-  std::cout << "ScriptInstance()\n";
   GetFields();
   m_onCreateMethod = mono_class_get_method_from_name(m_scriptClass, "OnCreate", 0);
 }
 
+
+void ScriptInstance::InvokeOnUpdate(double dt)
+{
+  if (m_onUpdateMethod)
+  {
+    std::vector<void*> params = { &dt };
+    mono_runtime_invoke(m_onUpdateMethod, mono_gchandle_get_target(m_gcHandle), params.data(), nullptr);
+  }
+}
 
 void ScriptInstance::InvokeOnUpdate(GE::ECS::Entity m_entityId, double dt)
 {
   if (m_onUpdateMethod)
   {
     std::vector<void*> params = { &m_entityId, &dt };
-    //mono_runtime_invoke(m_onUpdateMethod, mono_gchandle_get_target(m_gcHandle), params.data(), nullptr);
-    mono_runtime_invoke(m_onUpdateMethod, m_classInst, nullptr, nullptr);
+    mono_runtime_invoke(m_onUpdateMethod, mono_gchandle_get_target(m_gcHandle), params.data(), nullptr);
+    //mono_runtime_invoke(m_onUpdateMethod, m_classInst, nullptr, nullptr);
   }
 }
 

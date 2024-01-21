@@ -101,11 +101,12 @@ namespace GE
 			\brief
 				function to update all the scripts attached to the entity
 			************************************************************************/
-			void UpdateAllScripts(GE::ECS::Entity entityId)
+			void UpdateAllScripts()
 			{
 				double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
-				for (ScriptInstance cs : m_scriptList) {
-					cs.InvokeOnUpdate(entityId, dt);
+				for (ScriptInstance cs : m_scriptList)
+				{
+					cs.InvokeOnUpdate(dt);
 				}
 			}
 
