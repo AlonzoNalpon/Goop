@@ -22,6 +22,7 @@ namespace GoopScripts.Cards
       // Basic enemy cards
       BASIC_ATTACK,
       BASIC_SHIELD,
+
       SPECIAL_SCREECH,
 
       // Player cards

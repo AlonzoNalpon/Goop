@@ -28,7 +28,7 @@ namespace GoopScripts.Gameplay
     public void OnCreate()
     {
       Console.WriteLine("Create GameManager");
-      m_playerStats = (Stats) Utils.GetScript("Player", "Stats");
+      m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
     }
 
@@ -79,7 +79,7 @@ namespace GoopScripts.Gameplay
         //player.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
         //enemy.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
 
-    //    ++m_currResolves;
+        //++m_currResolves;
 
 				//if (m_currResolves >= m_numResolves)
 				//{
@@ -151,6 +151,7 @@ namespace GoopScripts.Gameplay
 
         CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
       }
+      //ComboManager.ComboPlayer(ref m_playerStats, ref m_enemyStats);
 
       // then do the same for enemy
       foreach (CardBase.CardID card in m_enemyStats.m_deckMngr.m_queue)
@@ -160,6 +161,7 @@ namespace GoopScripts.Gameplay
           CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
         }
       }
+      //ComboManager.ComboEnemy(ref m_playerStats, ref m_enemyStats);
 
 #if (DEBUG)
       Console.WriteLine("\nPLAYER:\n Attack: " + m_playerStats.m_attack + ", Block: " + m_playerStats.m_block);

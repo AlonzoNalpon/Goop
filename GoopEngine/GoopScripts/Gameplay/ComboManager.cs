@@ -10,137 +10,194 @@ namespace GoopScripts.Gameplay
 {
   public class ComboManager
   {
-    public void ResolveCombo(ref Stats source)
+    public static void ComboPlayer(ref Stats player, ref Stats enemy)
     {
-      
+      switch (player.m_deckMngr.m_queue[0])
+      {
+        case CardBase.CardID.LEAH_SHIELD:
+          switch (player.m_deckMngr.m_queue[1])
+          {
+            case CardBase.CardID.LEAH_SHIELD:
+              //+1 block
+              ++player.m_block;
+              break;
+
+            case CardBase.CardID.LEAH_BEAM:
+              //remove one effect from enemy
+              break;
+
+            case CardBase.CardID.LEAH_STRIKE:
+              //draw card
+              player.m_deckMngr.Draw();
+              break;
+
+            default:
+              break;
+          }
+          break;
+
+        case CardBase.CardID.LEAH_BEAM:
+          switch (player.m_deckMngr.m_queue[1])
+          {
+            case CardBase.CardID.LEAH_SHIELD:
+              //reflect 50% enemy damage
+              int reflect = enemy.m_attack / 2;
+              player.m_attack += reflect;
+              break;
+
+            case CardBase.CardID.LEAH_BEAM:
+              //+1 damage
+              ++player.m_attack;
+              break;
+
+            case CardBase.CardID.LEAH_STRIKE:
+              //skip enemy's turn
+              break;
+
+            default:
+              break;
+          }
+          break;
+
+        case CardBase.CardID.LEAH_STRIKE:
+          switch (player.m_deckMngr.m_queue[1])
+          {
+            case CardBase.CardID.LEAH_SHIELD:
+              //-2 enemy shield
+              enemy.m_block -= 2;
+              break;
+
+            case CardBase.CardID.LEAH_BEAM:
+              //+1 damage & 50% chance to stun enemy
+              ++player.m_attack;
+              break;
+
+            case CardBase.CardID.LEAH_STRIKE:
+              //penetrate shield
+              enemy.m_block = 0;
+              break;
+
+            default:
+              break;
+          }
+          break;
+
+        default:
+          break;
+      }
     }
 
-    public void ComboEffects(CardBase.CardID card1, CardBase.CardID card2, ref int attack, ref int block, ref Queue nextTurn)
+    public static void ComboEnemy(ref Stats player, ref Stats enemy)
     {
-      //shield
-      if (card1 == CardBase.CardID.SHIELD)
+      switch (enemy.m_deckMngr.m_queue[0])
       {
-        if (card2 == CardBase.CardID.SHIELD)
-        {
-          //+1 block
-          ++block;
-        }
-
         //basic enemy
-        else if (card2 == CardBase.CardID.BASIC_ATTACK)
-        {
-          //-2 player shield next turn
-          nextTurn.Enqueue(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 2.0f, 1));
-        }
+        case CardBase.CardID.BASIC_ATTACK:
+          switch (enemy.m_deckMngr.m_queue[1])
+          {
+            case CardBase.CardID.BASIC_ATTACK:
+              //+1 attack
+              ++enemy.m_attack;
+              break;
 
-        //dawson
-        else if (card2 == CardBase.CardID.DAWSON_BEAM)
-        {
-          //remove one random effect on player
-        }
-        else if (card2 == CardBase.CardID.DAWSON_SWING)
-        {
-          //+2 block, +1 attack
-          block += 2;
-          ++attack;
-        }
+            case CardBase.CardID.BASIC_SHIELD:
+              //-2 player damage next turn
+              break;
 
-        //player
-        else if (card2 == CardBase.CardID.LEAH_BEAM)
-        {
-          //remove one random effect on enemy
-        }
-        else if (card2 == CardBase.CardID.LEAH_STRIKE)
-        {
-          //draw an extra card
+            default:
+              break;
+          }
+          break;
 
-        }
-      }
+        case CardBase.CardID.BASIC_SHIELD:
+          switch (enemy.m_deckMngr.m_queue[1])
+          {
+            case CardBase.CardID.BASIC_ATTACK:
+              //-1 player shield next turn
+              break;
 
-      //basic enemy
-      if (card1 == CardBase.CardID.BASIC_ATTACK)
-      {
-        if (card2 == CardBase.CardID.BASIC_ATTACK)
-        {
-          //+1 damage
-          ++attack;
-        }
-        else if (card2 == CardBase.CardID.SHIELD)
-        {
-          //-2 player damage next turn
-          nextTurn.Enqueue(new Buff(Buff.BuffType.REDUCE_DMG_TAKEN, 2.0f, 1));
-        }
-      }
+            case CardBase.CardID.BASIC_SHIELD:
+              //+1 block
+              ++enemy.m_block;
+              break;
 
-      //dawson
-      if (card1 == CardBase.CardID.DAWSON_BEAM)
-      {
-        if (card2 == CardBase.CardID.DAWSON_BEAM)
-        {
-          //+1 damage
-          ++attack;
-        }
-        else if (card2 == CardBase.CardID.DAWSON_SWING)
-        {
-          //+2 damage
-          attack += 2;
-        }
-        else if (card2 == CardBase.CardID.SHIELD)
-        {
-          //reflect 50% player damage
-        }
-      }
-      else if (card1 == CardBase.CardID.DAWSON_SWING)
-      {
-        if (card2 == CardBase.CardID.DAWSON_BEAM)
-        {
-          //+2 damage
-          attack += 2;
-        }
-        else if (card2 == CardBase.CardID.DAWSON_SWING)
-        {
-          //x150% more damage next round
-        }
-        else if (card2 == CardBase.CardID.SHIELD)
-        {
-          //bleed -> -1 player health next round -> basically +1 attack next round
-          nextTurn.Enqueue(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 1));
-        }
-      }
+            default:
+              break;
+          }
+          break;
 
-      //leah
-      if (card1 == CardBase.CardID.LEAH_BEAM)
-      {
-        if (card2 == CardBase.CardID.LEAH_BEAM)
-        {
-          //+1 damage
-          ++atack;
-        }
-        else if (card2 == CardBase.CardID.LEAH_STRIKE)
-        {
-          //skip enemy's turn
-        }
-        else if (card2 == CardBase.CardID.SHIELD)
-        {
-          //reflect 50% enemy damage
-        }
-      }
-      else if (card1 == CardBase.CardID.LEAH_STRIKE)
-      {
-        if (card2 == CardBase.CardID.LEAH_BEAM)
-        {
-          //+1 damage & 50% chance of stunning enemy
-          ++attack;
-        }
-        else if (card2 == CardBase.CardID.LEAH_STRIKE)
-        {
-          //penetrate shield
-        }
-        else if (card2 == CardBase.CardID.SHIELD)
-        {
-          //-2 enemy shield
-          attack += 2;
-        }
+        //Dawson
+        case CardBase.CardID.DAWSON_BEAM:
+          switch (enemy.m_deckMngr.m_queue[1])
+          {
+            case CardBase.CardID.DAWSON_BEAM:
+              //+1 attack
+              ++enemy.m_attack;
+              break;
+
+            case CardBase.CardID.DAWSON_SWING:
+              //+2 attack
+              enemy.m_attack += 2;
+              break;
+
+            case CardBase.CardID.DAWSON_SHIELD:
+              //reflect 50% player damage
+              int reflect = player.m_attack / 2;
+              enemy.m_attack += reflect;
+              break;
+
+            default:
+              break;
+          }
+          break;
+
+        case CardBase.CardID.DAWSON_SWING:
+          switch (enemy.m_deckMngr.m_queue[1])
+          {
+            case CardBase.CardID.DAWSON_BEAM:
+              //+2 attack
+              enemy.m_attack += 2;
+              break;
+
+            case CardBase.CardID.DAWSON_SWING:
+              //x150% damage next turn
+              enemy.m_nextTurn.Enqueue(new Buff(Buff.BuffType.MULTIPLY_ATK_DEALT, 1.5f, 1));
+              break;
+
+            case CardBase.CardID.DAWSON_SHIELD:
+              //bleed -> -1 player health next turn -> basically +1 attack but yes.
+              break;
+
+            default:
+              break;
+          }
+          break;
+
+        case CardBase.CardID.DAWSON_SHIELD:
+          switch (enemy.m_deckMngr.m_queue[1])
+          {
+            case CardBase.CardID.DAWSON_BEAM:
+              //remove one player effect
+              break;
+
+            case CardBase.CardID.DAWSON_SWING:
+              //+2 block, +1 attack
+              enemy.m_block += 2;
+              ++enemy.m_attack;
+              break;
+
+            case CardBase.CardID.DAWSON_SHIELD:
+              //+1 block
+              ++enemy.m_block;
+              break;
+
+            default:
+              break;
+          }
+          break;
+
+        default:
+          break;
       }
     }
   }

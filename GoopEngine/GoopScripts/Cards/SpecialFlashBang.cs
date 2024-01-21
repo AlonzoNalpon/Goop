@@ -40,7 +40,7 @@ namespace GoopScripts.Cards
     ************************************************************************/
     public override void Play(ref Stats source, ref Stats target)
     {
-      source.m_buffs.AddBuff(new Buff(Buff.BuffType.REDUCE_DMG_TAKEN, 0.5f, 3));
+      source.m_nextTurn.Enqueue(new Buff(Buff.BuffType.REDUCE_DMG_TAKEN, 0.5f, 3));
     }
   }
 }

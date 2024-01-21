@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="Gameplay\BuffManager.cs" />
     <Compile Include="Gameplay\CharacterType.cs" />
+    <Compile Include="Gameplay\ComboManager.cs" />
     <Compile Include="Gameplay\Deck.cs" />
     <Compile Include="Gameplay\DeckManager.cs" />
     <Compile Include="Gameplay\GameManager.cs" />

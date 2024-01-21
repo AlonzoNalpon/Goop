@@ -137,5 +137,10 @@ namespace GoopScripts.Gameplay
     {
 
     }
+
+    public void QueueBuff(Buff buff)
+    {
+      m_nextTurn.Enqueue(buff);
+    }
   }
 }
