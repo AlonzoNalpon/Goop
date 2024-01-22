@@ -9,10 +9,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -591.924, 101.667, -9 }",
+                    "pos": "{ -532.315, 101.667, -9 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -591.924, 101.667, -9 }",
+                    "worldPos": "{ -532.315, 101.667, -9 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -56,6 +56,13 @@
                                     }
                                 },
                                 {
+                                    "data": 33,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_attackDisplay"
+                                    }
+                                },
+                                {
                                     "data": 0,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -63,10 +70,27 @@
                                     }
                                 },
                                 {
+                                    "data": 35,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_blockDisplay"
+                                    }
+                                },
+                                {
                                     "data": {
                                         "Cards In Discard": [],
-                                        "Cards In Hand": [],
-                                        "Cards In Queue": []
+                                        "Cards In Hand": [
+                                            "NO_CARD",
+                                            "NO_CARD",
+                                            "NO_CARD",
+                                            "NO_CARD",
+                                            "NO_CARD"
+                                        ],
+                                        "Cards In Queue": [
+                                            "NO_CARD",
+                                            "NO_CARD",
+                                            "NO_CARD"
+                                        ]
                                     },
                                     "type": "GoopScripts.Gameplay.DeckManager",
                                     "scriptField": {
@@ -74,10 +98,10 @@
                                     }
                                 },
                                 {
-                                    "data": 10,
+                                    "data": 28,
                                     "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "m_health"
+                                        "fieldName": "m_healthDisplayWillBeRemoved"
                                     }
                                 },
                                 {
@@ -290,21 +314,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 150, 50, 0 }",
+                    "pos": "{ 312.725, 50, 0 }",
                     "scale": "{ 0.9, 0.9, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 150, 50, 0 }",
+                    "worldPos": "{ 312.725, 50, 0 }",
                     "worldScale": "{ 0.9, 0.9, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 150, 50 }",
+                    "center": "{ 312.725, 50 }",
                     "width": 456.0,
                     "height": 154.0,
-                    "min": "{ -78, -27 }",
-                    "max": "{ 378, 127 }",
+                    "min": "{ 84.725, -27 }",
+                    "max": "{ 540.725, 127 }",
                     "render": false
                 }
             },
@@ -347,10 +371,24 @@
                                     }
                                 },
                                 {
+                                    "data": 39,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_attackDisplay"
+                                    }
+                                },
+                                {
                                     "data": 0,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_block"
+                                    }
+                                },
+                                {
+                                    "data": 41,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_blockDisplay"
                                     }
                                 },
                                 {
@@ -375,10 +413,10 @@
                                     }
                                 },
                                 {
-                                    "data": 10,
+                                    "data": 29,
                                     "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "m_health"
+                                        "fieldName": "m_healthDisplayWillBeRemoved"
                                     }
                                 },
                                 {
@@ -501,7 +539,9 @@
         "Parent": null,
         "Child Entities": [
             8,
-            9
+            9,
+            32,
+            38
         ],
         "Components": [
             {
@@ -1942,25 +1982,6 @@
                     },
                     "spriteName": "Black"
                 }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "HealthBar",
-                            "entityID": 28,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 28,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "ID"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
             }
         ]
     },
@@ -1975,10 +1996,10 @@
             {
                 "Transform": {
                     "pos": "{ 620, 430, 0 }",
-                    "scale": "{ 10, 1, 1 }",
+                    "scale": "{ 10, 2, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 620, 430, 0 }",
-                    "worldScale": "{ 10, 1, 1 }",
+                    "worldScale": "{ 10, 2, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1994,11 +2015,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 30,
-                            "height": 60
+                            "width": 32,
+                            "height": 32
                         }
                     },
-                    "spriteName": "Enemy"
+                    "spriteName": "Black"
                 }
             }
         ]
@@ -2087,6 +2108,424 @@
                         }
                     },
                     "spriteName": "Portrait"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Player Stats",
+        "ID": 32,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 7,
+        "Child Entities": [
+            33,
+            34,
+            35,
+            36,
+            37
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -297.073, -87.296, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -297.073, -87.296, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PlayerAttack",
+        "ID": 33,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 32,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 5.798, -9.707, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -291.275, -97.003, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "0",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Block Sprite",
+        "ID": 34,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 32,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -46.278, -67.167, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -343.351, -154.463, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    "spriteName": "TempShield"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PlayerBlock",
+        "ID": 35,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 32,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 5.798, -75.653, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -291.275, -162.949, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "0",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Attack Sprite",
+        "ID": 36,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 32,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -46.278, 2.481, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -343.351, -84.815, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    "spriteName": "TempAttack"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing",
+        "ID": 37,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 32,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -3.259, -32.635, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -300.332, -119.931, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 220,
+                            "height": 140
+                        }
+                    },
+                    "spriteName": "TempBacking"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Enemy Stats",
+        "ID": 38,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 7,
+        "Child Entities": [
+            39,
+            40,
+            41,
+            42,
+            43
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 284.817, -87.296, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 284.817, -87.296, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EnemyAttack",
+        "ID": 39,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 38,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 5.798, -9.707, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 290.615, -97.003, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "0",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Block Sprite",
+        "ID": 40,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 38,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -46.278, -67.167, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 238.539, -154.463, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    "spriteName": "TempShield"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EnemyBlock",
+        "ID": 41,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 38,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 5.798, -75.653, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 290.615, -162.949, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "0",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Attack Sprite",
+        "ID": 42,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 38,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -46.278, 2.481, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 238.539, -84.815, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    "spriteName": "TempAttack"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing",
+        "ID": 43,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 38,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -3.259, -32.635, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 281.558, -119.931, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 220,
+                            "height": 140
+                        }
+                    },
+                    "spriteName": "TempBacking"
                 }
             }
         ]

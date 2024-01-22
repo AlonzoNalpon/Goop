@@ -12,26 +12,46 @@ namespace GoopScripts.UI
   public class HealthBar : Entity
   {
     static private readonly int PADDING_SIZE = 5;
-    private int health;
-    private int m_maxHealth;
-    public int ID;
+    public int m_health, m_maxHealth;
+    public int healthBarUI;
     private int m_width, m_height;
     private Vec3<double> m_barPos;
     private int m_individualBarWidth;
     uint[] m_bars;
 
-
-    public HealthBar(uint entityID) : base(entityID)
+    public HealthBar(Gameplay.CharacterType type, int healthBarID) : base()
     {
+      healthBarUI = healthBarID;
+
+      switch (type)
+      {
+        case Gameplay.CharacterType.PLAYER:
+          m_health = m_maxHealth = 10;
+          break;
+        case Gameplay.CharacterType.BASIC_ENEMY:
+          m_health = m_maxHealth = 8;
+          break;
+        case Gameplay.CharacterType.BOSS_P1:
+          m_health = m_maxHealth = 12;
+          break;
+        case Gameplay.CharacterType.BOSS_P2:
+          m_health = m_maxHealth = 15;
+          break;
+        default:
+#if (DEBUG)
+          Console.WriteLine("Unable to create healthbar of type: " + type.ToString());
+#endif
+          break;
+      }
+
+      Init();
     }
 
-    public void OnCreate()
+    public void Init()
     {
-      m_barPos = Utils.GetPosition((uint)ID);
-      m_width = (int)Utils.GetObjectWidth((uint)ID) * (int)Utils.GetScale((uint)ID).X;
-      m_height = (int)Utils.GetObjectHeight((uint)ID) * (int)Utils.GetScale((uint)ID).Y - PADDING_SIZE;
-      m_maxHealth = health = ((Stats)Utils.GetScript("Player", "Stats")).m_health;
-
+      m_barPos = Utils.GetPosition((uint)healthBarUI);
+      m_width = (int)Utils.GetObjectWidth((uint)healthBarUI) * (int)Utils.GetScale((uint)healthBarUI).X;
+      m_height = (int)Utils.GetObjectHeight((uint)healthBarUI) * (int)Utils.GetScale((uint)healthBarUI).Y - PADDING_SIZE;
       m_bars = new uint[m_maxHealth];
 
       m_individualBarWidth = ((m_width - PADDING_SIZE) / m_maxHealth) - PADDING_SIZE;
@@ -41,21 +61,25 @@ namespace GoopScripts.UI
 
       for (int i = 0; i < m_maxHealth; i++)
       {
-        uint barID = Utils.CreateObject("TestHealthBar", currentBarPos, new Vec3<double>((double)m_individualBarWidth, (double)m_height, 1), new Vec3<double>(), (uint)ID);
+        uint barID = Utils.CreateObject("TestHealthBar", currentBarPos, new Vec3<double>((double)m_individualBarWidth, (double)m_height, 1), new Vec3<double>(), (uint)healthBarUI);
         Utils.UpdateSprite(barID, "Red");
         m_bars[i] = barID;
         currentBarPos.X += m_individualBarWidth + PADDING_SIZE;
       }
+    }
 
+    public int GetHealth()
+    {
+      return m_health;
     }
 
     public void DecreaseHealth(int amount)
     {
       for (int i = 0;i < amount;i++)
       {
-        if (health - 1 < 0)
+        if (m_health - 1 < 0)
           break;
-        Utils.SetIsActiveEntity(m_bars[--health], false);
+        Utils.SetIsActiveEntity(m_bars[--m_health], false);
         Console.WriteLine("Health Decreased");
 
       }
@@ -65,9 +89,9 @@ namespace GoopScripts.UI
     {
       for (int i = 0; i < amount; i++)
       {
-        if (health + 1 > m_maxHealth)
+        if (m_health + 1 > m_maxHealth)
           break;
-        Utils.SetIsActiveEntity(m_bars[health++], true);
+        Utils.SetIsActiveEntity(m_bars[m_health++], true);
         Console.WriteLine("Health Increased");
 
       }

@@ -75,18 +75,18 @@ namespace GoopScripts.AI.Enemy.MineWorm
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      const int minHealth = 5;
-      Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
-      if (EnemyStats.m_health < minHealth)
-      {
-        Console.WriteLine("Enemt Low on Health");
-        OnSuccess();
-      }
-      else
-      {
-        Console.WriteLine("Enemt Healthy AF");
-        OnFail();
-      }
+      //const int minHealth = 5;
+      //Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
+      //if (EnemyStats.m_health < minHealth)
+      //{
+      //  Console.WriteLine("Enemt Low on Health");
+      //  OnSuccess();
+      //}
+      //else
+      //{
+      //  Console.WriteLine("Enemt Healthy AF");
+      //  OnFail();
+      //}
 
 
     }
@@ -122,26 +122,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     public void OnExit()
     {
 
-    }
-
-
-    /*!*********************************************************************
-    \brief
-     Update function for the IsOutsideAttackRange script. This function is called every frame
-     if the script is attached to an entity
-    ************************************************************************/
-    public void Update()
-    {
-
-    }
-
-    /*!*********************************************************************
-    \brief
-     late Update function for the IsOutsideAttackRange script
-    ************************************************************************/
-    public void LateUpdate()
-    {
-      // Logic for lateUpdate
     }
 
 

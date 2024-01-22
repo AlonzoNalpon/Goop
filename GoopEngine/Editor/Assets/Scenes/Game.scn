@@ -98,10 +98,10 @@
                                     }
                                 },
                                 {
-                                    "data": 10,
+                                    "data": 28,
                                     "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "m_health"
+                                        "fieldName": "m_healthDisplayWillBeRemoved"
                                     }
                                 },
                                 {
@@ -413,10 +413,10 @@
                                     }
                                 },
                                 {
-                                    "data": 10,
+                                    "data": 29,
                                     "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "m_health"
+                                        "fieldName": "m_healthDisplayWillBeRemoved"
                                     }
                                 },
                                 {
@@ -1982,25 +1982,6 @@
                     },
                     "spriteName": "Black"
                 }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "HealthBar",
-                            "entityID": 28,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 28,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "ID"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
             }
         ]
     },
@@ -2015,10 +1996,10 @@
             {
                 "Transform": {
                     "pos": "{ 620, 430, 0 }",
-                    "scale": "{ 10, 1, 1 }",
+                    "scale": "{ 10, 2, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 620, 430, 0 }",
-                    "worldScale": "{ 10, 1, 1 }",
+                    "worldScale": "{ 10, 2, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -2034,11 +2015,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 30,
-                            "height": 60
+                            "width": 32,
+                            "height": 32
                         }
                     },
-                    "spriteName": "Enemy"
+                    "spriteName": "Black"
                 }
             }
         ]

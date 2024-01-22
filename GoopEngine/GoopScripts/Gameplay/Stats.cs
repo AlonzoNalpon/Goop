@@ -13,12 +13,11 @@ namespace GoopScripts.Gameplay
  
   public class Stats : Entity
   {
-    //static int[] oi = { 1, 2, 3, 4, 5, 6, 9 };
-
     public CharacterType m_type;
-    public int m_health = 10, m_attack = 0, m_block = 0;
+    public UI.HealthBar m_healthBar;
+    public int m_attack = 0, m_block = 0;
 
-    public int m_attackDisplay, m_blockDisplay;
+    public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved;
 
     public Queue m_nextTurn = new Queue();
     public DeckManager m_deckMngr;
@@ -38,6 +37,7 @@ namespace GoopScripts.Gameplay
     {
       Console.WriteLine("Create Stats for " + m_type.ToString());
       m_deckMngr.Init(m_type);
+      m_healthBar = new UI.HealthBar(m_type, m_healthDisplayWillBeRemoved);
     }
 
     public void AddAttack(int value)
@@ -61,14 +61,18 @@ namespace GoopScripts.Gameplay
           takenMultiplier *= (int)buff.value;
       }
 
-      int damageTaken = (int)(damage * takenMultiplier);
+      int damageTaken = (int)(damage * takenMultiplier) - m_block;
       Utils.SendString(damageTaken.ToString());
 
-      Utils.SendString($"Orignial health: {m_health}, Damage taken: {damageTaken}, Health: {m_health - damageTaken}");
-      m_health -= damageTaken;
+      Utils.SendString($"Orignial health: {m_healthBar.GetHealth()}, Damage taken: {damageTaken}, Health: {m_healthBar.GetHealth() - damageTaken}");
+      
+      if (damageTaken > 0)
+      {
+        m_healthBar.DecreaseHealth(damageTaken);
+      }
     }
 
-    public int DamageDealt(float damage)
+    public int DamageDealt()
     {
       float dealtMultiplier = 1;
       int dealtFlat = 0;
@@ -87,7 +91,7 @@ namespace GoopScripts.Gameplay
         }
       }
 
-      int dmgDealt = (int)((damage + dealtFlat) * dealtMultiplier);
+      int dmgDealt = (int)((m_attack + dealtFlat) * dealtMultiplier);
       //dmgDealt = dmgDealt < 0 ? 0 : dmgDealt;
 
       return dmgDealt;

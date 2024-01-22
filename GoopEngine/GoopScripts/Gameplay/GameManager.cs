@@ -22,7 +22,6 @@ namespace GoopScripts.Gameplay
 
     bool endTurn = false;  // flag for triggering a turn
     bool intervalBeforeReset;
-    bool testBool = false;
 
 
     GameManager(uint entityID):base(entityID)
@@ -138,18 +137,18 @@ namespace GoopScripts.Gameplay
         intervalBeforeReset = true;
         ResolutionPhase();
 
-        var test = (UI.HealthBar)Utils.GetScriptFromID((uint)28, "HealthBar");
-        if (!testBool)
-        {
-          testBool = true;
-          test.DecreaseHealth(5);
-        }
-        else
-        {
-          test.DecreaseHealth(1);
+        //var test = (UI.HealthBar)Utils.GetScriptFromID((uint)28, "HealthBar");
+        //if (!testBool)
+        //{
+        //  testBool = true;
+        //  test.DecreaseHealth(5);
+        //}
+        //else
+        //{
+        //  test.DecreaseHealth(1);
 
-          //test.IncreaseHealth(1);
-        }
+        //  //test.IncreaseHealth(1);
+        //}
       }
 
       if (intervalBeforeReset)
@@ -159,6 +158,8 @@ namespace GoopScripts.Gameplay
         if (m_currTime >= INTERVAL_TIME)
         {
           m_currTime = 0.0;
+          m_playerStats.TakeDamage(m_enemyStats.DamageDealt());
+          m_enemyStats.TakeDamage(m_playerStats.DamageDealt());
           StartOfTurn();
           intervalBeforeReset = false;
         }
