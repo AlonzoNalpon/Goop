@@ -79,6 +79,12 @@ namespace GE::Systems
           sprite->m_spriteName = CardSpriteNames[card->cardID];
           sprite->m_spriteData.texture = ge.textureManager.GetTextureID(sprite->m_spriteName);
 
+          bool oldState = gameCardIt->used;
+          gameCardIt->used = (card->cardID != Component::Card::CardID::NO_CARD);
+          if (oldState != gameCardIt->used)
+            m_ecs->SetIsActiveEntity(gameCardIt->elemEntity, gameCardIt->used);
+            
+
           ++dataIt;
           ++gameCardIt;
         }
