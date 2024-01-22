@@ -116,7 +116,7 @@ namespace GE::GoopUtils
 	template <typename T>
 	float InverseLerp(T value, T start, T end)
 	{
-		return static_cast<float>((end - start) / (value - start));
+		return static_cast<float>((value - start) / (end - start));
 	}
 }
 

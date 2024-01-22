@@ -10,7 +10,7 @@ namespace GoopScripts.Audio
 {
   internal class GameOverAudioEvent : IOnDestroy
   {
-    public void OnDestroy()
+    public void OnDestroy(uint entityid)
     {
       
     }

@@ -29,6 +29,7 @@ void GE::EditorGUI::SceneControls::CreateContent()
     {
       if (Button(stop))
       {
+        GE::fMOD::FmodSystem::GetInstance().StopAllSound();
         Events::EventManager::GetInstance().Dispatch(Events::StopSceneEvent());
         ImGuiHelper::Restart();
       }
