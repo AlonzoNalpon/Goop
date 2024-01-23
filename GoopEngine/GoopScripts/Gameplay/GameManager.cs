@@ -197,7 +197,7 @@ namespace GoopScripts.Gameplay
 
         CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
       }
-      //ComboManager.ComboPlayer(ref m_playerStats, ref m_enemyStats);
+      ComboManager.ComboPlayer(ref m_playerStats, ref m_enemyStats);
 
       // then do the same for enemy
       foreach (CardBase.CardID card in m_enemyStats.m_deckMngr.m_queue)
@@ -207,7 +207,7 @@ namespace GoopScripts.Gameplay
           CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
         }
       }
-      //ComboManager.ComboEnemy(ref m_playerStats, ref m_enemyStats);
+      ComboManager.ComboEnemy(ref m_playerStats, ref m_enemyStats);
 
 #if (DEBUG)
       Console.WriteLine("\nPLAYER:\n Attack: " + m_playerStats.m_attack + ", Block: " + m_playerStats.m_block);
