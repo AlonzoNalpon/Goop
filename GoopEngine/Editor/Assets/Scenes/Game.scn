@@ -92,7 +92,7 @@
                                             "NO_CARD"
                                         ]
                                     },
-                                    "type": "GoopScripts.Gameplay.DeckManager",
+                                    "type": "",
                                     "scriptField": {
                                         "fieldName": "m_deckMngr"
                                     }
@@ -407,7 +407,7 @@
                                             "NO_CARD"
                                         ]
                                     },
-                                    "type": "GoopScripts.Gameplay.DeckManager",
+                                    "type": "",
                                     "scriptField": {
                                         "fieldName": "m_deckMngr"
                                     }

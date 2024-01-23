@@ -16,6 +16,7 @@ GoopScripts.AI.Enemy.MineWorm,HasCardInHand
 GoopScripts.AI.Enemy.MineWorm,IsHealthLow
 GoopScripts.AI.Enemy.MineWorm,PerformCombo
 GoopScripts.AI.Enemy.MineWorm,PlayLastCard
+GoopScripts.AI.Enemy.MineWorm,PlaySpecialCard
 GoopScripts.Audio,GameOverAudioEvent
 GoopScripts.Audio,MainMenuToGame
 GoopScripts.Button,EndTurn
