@@ -19,7 +19,6 @@ namespace GoopScripts.Gameplay
       REDUCE_ATK_DEALT,
       REDUCE_SHIELD,
       SKIP_TURN,
-      REMOVE_BUFF,
       BLEED,
       IMMUNITY,
       TOTAL_BUFFS

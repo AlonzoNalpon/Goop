@@ -24,7 +24,7 @@ namespace GoopScripts.Gameplay
 
             case CardBase.CardID.LEAH_BEAM:
               //remove one effect from enemy
-              
+              enemy.m_buffs.RemoveBuff();
               break;
 
             case CardBase.CardID.LEAH_STRIKE:
@@ -198,7 +198,7 @@ namespace GoopScripts.Gameplay
             {
               case CardBase.CardID.DAWSON_BEAM:
                 //remove one player effect
-                
+                player.m_buffs.RemoveBuff();
                 break;
 
               case CardBase.CardID.DAWSON_SWING:
