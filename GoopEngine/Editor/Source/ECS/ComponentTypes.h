@@ -32,11 +32,11 @@ namespace GE
 			rttr::type::get<Component::Text>(),
 			rttr::type::get<Component::Game>(),
 			rttr::type::get<Component::Audio>(),
-			rttr::type::get<Component::Anchor>(),
 			rttr::type::get<Component::GE_Button>(),
 			rttr::type::get<Component::Card>(),
 			rttr::type::get<Component::CardHolder>(),
-			rttr::type::get<Component::CardHolderElem>()
+			rttr::type::get<Component::CardHolderElem>(),
+			rttr::type::get<Component::Emitter>()
 		};
 		
 		/*!*********************************************************************
