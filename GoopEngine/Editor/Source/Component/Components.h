@@ -14,7 +14,6 @@
 #include <Component/Audio.h>
 #include <Component/Button.h>
 #include <Component/Game.h>
-//#include <Component/Stats.h>
 #include <Component/Card.h>
 #include <Component/CardHolder.h>
 #include <Component/CardHolderElem.h>

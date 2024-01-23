@@ -173,7 +173,7 @@ RTTR_REGISTRATION
     .constructor<>()
     .property("playOnStart", &Component::Emitter::m_playOnStart)
     .property("playing", &Component::Emitter::m_playing)
-    .property("gravity", &Component::Emitter::m_hasGravity)
+    .property("gravity", &Component::Emitter::m_gravity)
     .property("minForce", &Component::Emitter::m_minForce)
     .property("maxForce", &Component::Emitter::m_maxForce)
     .property("minDrag", &Component::Emitter::m_minDrag)

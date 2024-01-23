@@ -260,60 +260,60 @@ namespace
 
 
 	/*!*********************************************************************
-\brief
-	Wrapper to create specialized inspector list of vector of integers.
-	This function is specifically for diaplying script fields/data members
+	\brief
+		Wrapper to create specialized inspector list of vector of integers.
+		This function is specifically for diaplying script fields/data members
 
-\param[in] propertyName
-	Label name
+	\param[in] propertyName
+		Label name
 
-\param[in] list
-	Vector of int values
+	\param[in] list
+		Vector of int values
 
-\param[in] fieldWidth
-	Width of input field
+	\param[in] fieldWidth
+		Width of input field
 
-\param[in] disabled
-	Draw disabled
-************************************************************************/
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	bool InputScriptList(std::string propertyName, std::vector<int>& list, float fieldWidth, bool disabled = false);
 
 	/*!*********************************************************************
-\brief
-		Wrapper to create specialized inspector list of vector of unsigned int.
-	This function is specifically for diaplying script fields/data members
+	\brief
+			Wrapper to create specialized inspector list of vector of unsigned int.
+		This function is specifically for diaplying script fields/data members
 
-\param[in] propertyName
-	Label name
+	\param[in] propertyName
+		Label name
 
-\param[in] list
-	Vector of unsigned int
+	\param[in] list
+		Vector of unsigned int
 
-\param[in] fieldWidth
-	Width of input field
+	\param[in] fieldWidth
+		Width of input field
 
-\param[in] disabled
-	Draw disabled
-************************************************************************/
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	bool  InputScriptList(std::string propertyName, std::vector<unsigned>& list, float fieldWidth, bool disabled = false);
 
 	/*!*********************************************************************
-\brief
-		Wrapper to create specialized inspector list of vector of unsigned int.
-	This function is specifically for diaplying script fields/data members
+	\brief
+			Wrapper to create specialized inspector list of vector of unsigned int.
+		This function is specifically for diaplying script fields/data members
 
-\param[in] propertyName
-	Label name
+	\param[in] propertyName
+		Label name
 
-\param[in] list
-	Vector of unsigned int
+	\param[in] list
+		Vector of unsigned int
 
-\param[in] fieldWidth
-	Width of input field
+	\param[in] fieldWidth
+		Width of input field
 
-\param[in] disabled
-	Draw disabled
-************************************************************************/
+	\param[in] disabled
+		Draw disabled
+	************************************************************************/
 	bool  InputCardID(std::string propertyName, std::vector<Card::CardID>& list, float fieldWidth, bool disabled = false);
 
 	/*!*********************************************************************
@@ -328,8 +328,6 @@ namespace
 	************************************************************************/
 	template <typename T>
 	bool RemoveComponentPopup(std::string name, GE::ECS::Entity entity);
-
-
 }
 
 void GE::EditorGUI::Inspector::CreateContent()
@@ -373,12 +371,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 		}
 	}
 
-	//ImGui::ImageButton(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { newW, newH }, { 0, 1 }, { 1, 0 });
-
-	/*if (ImageButton(reinterpret_cast<ImTextureID>(ecs.GetComponent<GE::Component::Sprite>(entity)->m_spriteData.texture), { 0, 0 }, { 0, 1 }, { 1, 0 }))
-	{
-
-	}*/
 	GizmoEditor::SetVisible(false);
 	for (unsigned i{}; i < ECS::componentTypes.size(); ++i)
 	{
@@ -1509,6 +1501,41 @@ void GE::EditorGUI::Inspector::CreateContent()
 				}
 				ImGui::Separator();
 			}
+			else if (compType == rttr::type::get<Component::Emitter>())
+			{
+				auto em = ecs.GetComponent<GE::Component::Emitter>(entity);
+
+				if (RemoveComponentPopup<Emitter>("Emitter", entity))
+				{
+					break;
+				}
+
+				// Honestly no idea why -30 makes all 3 input fields match in size but sure
+				float inputWidth = (contentSize - charSize - 30) / 3;
+
+				Separator();
+				PushID("Emitter");
+				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+				ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+				InputDouble3("Min Force", em->m_minForce, inputWidth);
+				TableNextRow();
+				InputDouble3("Max Force", em->m_maxForce, inputWidth);
+				TableNextRow();
+				InputDouble3("Gravity", em->m_gravity, inputWidth);
+				TableNextRow();
+				InputFloat("Min Drag", &em->m_minDrag);
+				TableNextRow();
+				InputFloat("Max Drag", &em->m_maxDrag);
+				TableNextRow();
+				InputInt("Emission Rate", &em->m_particlesPerMin);
+				TableNextRow();
+				InputCheckBox("Play On Start", em->m_playOnStart);
+				TableNextRow();
+				InputCheckBox("Playing", em->m_playing);
+				EndTable();
+				ImGui::Separator();
+				ImGui::PopID();
+			}
 			else
 			{
 				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled: "
@@ -1750,6 +1777,18 @@ void GE::EditorGUI::Inspector::CreateContent()
 						else
 						{
 							ss << "Unable to add component " << typeid(EnemyAI).name() << ". Component already exist";
+						}
+						break;
+					}
+					else if (compType == rttr::type::get<Component::Emitter>())
+					{
+						if (!ecs.HasComponent<Emitter>(entity))
+						{
+							ecs.AddComponent(entity, Emitter{});
+						}
+						else
+						{
+							ss << "Unable to add component " << typeid(Emitter).name() << ". Component already exist";
 						}
 						break;
 						}

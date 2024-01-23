@@ -9,14 +9,16 @@ namespace GE::Component
     bool m_playOnStart{false};
     bool m_hasPlayed{false};
     bool m_playing{false};
-    bool m_hasGravity{false};
-    GE::Math::dVec2 m_minForce;
-    GE::Math::dVec2 m_maxForce;
+    GE::Math::dVec3 m_gravity;
+    GE::Math::dVec3 m_minForce;
+    GE::Math::dVec3 m_maxForce;
     float m_minDrag;
     float m_maxDrag;
     float m_minLifeTime;
     float m_maxLifeTime;
-    int m_particlesPerSecond;
+    float m_currTime;
+    float m_particleTime;
+    int m_particlesPerMin;
 
     std::map<GE::ECS::Entity, float> m_lifeTimes;
   };
