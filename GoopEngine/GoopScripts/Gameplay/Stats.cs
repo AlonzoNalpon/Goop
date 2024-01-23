@@ -54,12 +54,27 @@ namespace GoopScripts.Gameplay
 
     public void TakeDamage(float damage)
 		{
-			float takenMultiplier = 1.0f;
-      //foreach (var buff in m_buffs.Buffs)
-      //{
-      //  if (buff.type == Buff.BuffType.REDUCE_DMG_TAKEN) //flash bang -> 1/2 damage; smokescreen -> no damage
-      //    takenMultiplier *= (int)buff.value;
-      //}
+			float takenMultiplier = 1;
+      foreach (var buff in m_buffs.Buffs)
+      {
+        switch (buff.type)
+        {
+          case Buff.BuffType.REDUCE_SHIELD: //combo
+            m_block -= (int)buff.value;
+            break;
+
+          case Buff.BuffType.BLEED: //combo
+            damage += buff.value;
+            break;
+
+          case Buff.BuffType.IMMUNITY: //smokescreen
+            takenMultiplier = 0;
+            break;
+
+          default:
+            break;
+        }
+      }
 
       int damageTaken = (int)(damage * takenMultiplier) - m_block;
       Utils.SendString(damageTaken.ToString());
@@ -83,9 +98,15 @@ namespace GoopScripts.Gameplay
           case Buff.BuffType.INCREASE_ATK_DEALT: //charge-up
             dealtFlat += (int)buff.value;
             break;
-          case Buff.BuffType.MULTIPLY_ATK_DEALT: //rage & screech
+
+          case Buff.BuffType.MULTIPLY_ATK_DEALT: //rage & screech & combo
             dealtMultiplier *= (int)buff.value;
             break;
+
+          case Buff.BuffType.REDUCE_ATK_DEALT: //combo
+            dealtFlat -= (int)buff.value;
+            break;
+
           default:
             break;
         }
