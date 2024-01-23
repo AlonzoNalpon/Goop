@@ -169,7 +169,7 @@ RTTR_REGISTRATION
     .property("gameSystemScript", &Component::Game::m_gameSystemScript)
     ;
 
-  rttr::registration::class_<Component::Emitter>("Game")
+  rttr::registration::class_<Component::Emitter>("Emitter")
     .constructor<>()
     .property("playOnStart", &Component::Emitter::m_playOnStart)
     .property("playing", &Component::Emitter::m_playing)
@@ -180,6 +180,7 @@ RTTR_REGISTRATION
     .property("maxDrag", &Component::Emitter::m_maxDrag)
     .property("maxLifeTime", &Component::Emitter::m_maxLifeTime)
     .property("minLifeTime", &Component::Emitter::m_minLifeTime)
+    .property("particlePerMin", &Component::Emitter::m_particlesPerMin)
     ;
 
 } // RTTR Registration
