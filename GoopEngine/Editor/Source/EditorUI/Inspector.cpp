@@ -1504,10 +1504,12 @@ void GE::EditorGUI::Inspector::CreateContent()
 			else if (compType == rttr::type::get<Component::Emitter>())
 			{
 				auto em = ecs.GetComponent<GE::Component::Emitter>(entity);
-
-				if (RemoveComponentPopup<Emitter>("Emitter", entity))
+				if (ImGui::CollapsingHeader("Emitter", ImGuiTreeNodeFlags_DefaultOpen))
 				{
-					break;
+					if (RemoveComponentPopup<Emitter>("Emitter", entity))
+					{
+						break;
+					}
 				}
 
 				// Honestly no idea why -30 makes all 3 input fields match in size but sure
@@ -1523,16 +1525,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 				TableNextRow();
 				InputDouble3("Gravity", em->m_gravity, inputWidth);
 				TableNextRow();
-				InputFloat("Min Drag", &em->m_minDrag);
-				TableNextRow();
-				InputFloat("Max Drag", &em->m_maxDrag);
-				TableNextRow();
-				InputInt("Emission Rate", &em->m_particlesPerMin);
-				TableNextRow();
 				InputCheckBox("Play On Start", em->m_playOnStart);
 				TableNextRow();
 				InputCheckBox("Playing", em->m_playing);
 				EndTable();
+				InputFloat("Min Drag", &em->m_minDrag);
+				InputFloat("Max Drag", &em->m_maxDrag);
+				InputFloat("Min Lifetime", &em->m_minLifeTime);
+				InputFloat("Max Lifetime", &em->m_maxLifeTime);
+				InputInt("Emission Rate", &em->m_particlesPerMin);
 				ImGui::Separator();
 				ImGui::PopID();
 			}

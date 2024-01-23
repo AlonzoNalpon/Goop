@@ -17,7 +17,7 @@ void GE::Systems::ParticleSystem::Update()
         em->m_hasPlayed = true;
         em->m_playing = true;
 
-        em->m_particleTime = em->m_particlesPerMin / 60.f;
+        em->m_particleTime = 60.f / em->m_particlesPerMin;;
       }
       
       // Destroy all particles that life out their lifetime
@@ -37,8 +37,8 @@ void GE::Systems::ParticleSystem::Update()
         });
 
       if (em->m_playing)
-      {
-        if (em->m_currTime > em->m_particleTime)
+      {        
+        while (em->m_currTime > em->m_particleTime)
         {
           em->m_currTime -= em->m_particleTime;
 
@@ -46,7 +46,8 @@ void GE::Systems::ParticleSystem::Update()
           GE::ECS::Entity particle = m_ecs->CreateEntity();
 
           // Parent to emitter
-          m_ecs->SetParentEntity(entity);
+          m_ecs->SetParentEntity(particle, entity);
+          m_ecs->AddChildEntity(entity, particle);
 
           // Add all components
           GE::Component::Transform trans{};
@@ -62,7 +63,9 @@ void GE::Systems::ParticleSystem::Update()
           GE::Math::dVec3 force;
           float forceRand = GE::GoopUtils::RandomValue(0.f, 1.f);
           force.x = GE::GoopUtils::Lerp(em->m_minForce.x, em->m_maxForce.x, forceRand);
+          forceRand = GE::GoopUtils::RandomValue(0.f, 1.f);
           force.y = GE::GoopUtils::Lerp(em->m_minForce.y, em->m_maxForce.y, forceRand);
+          forceRand = GE::GoopUtils::RandomValue(0.f, 1.f);
           force.z = GE::GoopUtils::Lerp(em->m_minForce.z, em->m_maxForce.z, forceRand);
           vel.AddForce(force, em->m_maxLifeTime, true);
           vel.m_gravity = em->m_gravity;
