@@ -1103,39 +1103,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					Separator();
 				}
 			}
-			else if (compType == rttr::type::get<Component::Anchor>())
-			{
-				auto anchor = ecs.GetComponent<Anchor>(entity);
-
-				if (ImGui::CollapsingHeader("Anchor", ImGuiTreeNodeFlags_DefaultOpen))
-				{
-					if (RemoveComponentPopup<Anchor>("Anchor", entity))
-					{
-						break;
-					}
-
-					Separator();
-
-					if (BeginCombo("Anchor Type", Anchor::toString(anchor->m_type).c_str()))
-					{
-						for (int j{}; j < Anchor::TOTAL_TYPES; ++j)
-						{
-							std::string propName = Anchor::toString(static_cast<Anchor::AnchorType>(j));
-
-							if (Selectable(propName.c_str()))
-							{
-								anchor->m_type = Anchor::toType(propName);
-							}
-						}
-						EndCombo();
-					}
-					if (anchor->m_type == Anchor::IS_ANCHOR)
-					{
-						InputList("Anchor", anchor->m_anchored, charSize);
-					}
-					Separator();
-        }
-      }
 			else if (compType == rttr::type::get<Component::GE_Button>())
 			{
 				auto button = ecs.GetComponent<GE::Component::GE_Button>(entity);
@@ -1707,19 +1674,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						else
 						{
 							ss << "Unable to add component " << typeid(Component::Audio).name() << ". Component already exist";
-						}
-						break;
-					}
-					else if (compType == rttr::type::get<Component::Anchor>())
-					{
-						if (!ecs.HasComponent<Component::Anchor>(entity))
-						{
-							Component::Anchor comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(Component::Anchor).name() << ". Component already exist";
 						}
 						break;
 					}
