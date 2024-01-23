@@ -92,7 +92,7 @@
                                             "NO_CARD"
                                         ]
                                     },
-                                    "type": "GoopScripts.Gameplay.DeckManager",
+                                    "type": "",
                                     "scriptField": {
                                         "fieldName": "m_deckMngr"
                                     }
@@ -407,7 +407,7 @@
                                             "NO_CARD"
                                         ]
                                     },
-                                    "type": "GoopScripts.Gameplay.DeckManager",
+                                    "type": "",
                                     "scriptField": {
                                         "fieldName": "m_deckMngr"
                                     }
@@ -923,9 +923,7 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 11,
-        "Child Entities": [
-            15
-        ],
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
@@ -1030,11 +1028,11 @@
         ]
     },
     {
-        "Name": "HandCards",
+        "Name": "PlayerHand",
         "ID": 15,
         "Prefab": null,
         "isActive": true,
-        "Parent": 14,
+        "Parent": null,
         "Child Entities": [
             3,
             16,
@@ -1046,7 +1044,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 800, -225, 0 }",
+                    "pos": "{ 0, -386.259, 3 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, -386.259, 3 }",
@@ -1060,8 +1058,8 @@
                         {
                             "elemEntity": 16,
                             "cardEntity": 16,
-                            "spriteID": 37,
-                            "defaultSpriteID": 37,
+                            "spriteID": 39,
+                            "defaultSpriteID": 39,
                             "used": false
                         },
                         {
@@ -1074,8 +1072,8 @@
                         {
                             "elemEntity": 18,
                             "cardEntity": 18,
-                            "spriteID": 39,
-                            "defaultSpriteID": 39,
+                            "spriteID": 41,
+                            "defaultSpriteID": 41,
                             "used": false
                         },
                         {

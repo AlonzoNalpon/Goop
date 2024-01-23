@@ -117,30 +117,71 @@ void ScriptInstance::GetFields()
 		}
     else if (field.m_fieldType == ScriptFieldType::DeckManagerFT)
     {
-      DeckManager value = GetFieldValue< DeckManager>(field.m_classField);
-      //std::cout << value.m_deck.m_cards.size() << "\n";
-      ScriptFieldInstance< DeckManager> test{ field,value };
-      m_scriptFieldInstList.emplace_back(test);
+
+       ScriptFieldInstance< DeckManager> sfi{field};
+
+       sfi.m_data.m_deckManagerInstance.m_classInst = mono_field_get_value_object(sm->m_appDomain, sfi.m_scriptField.m_classField, m_classInst); //Get the mono data of the deck manager
+       sfi.m_data.m_deckManagerInstance.m_scriptClass = mono_object_get_class(sfi.m_data.m_deckManagerInstance.m_classInst);
+       MonoClassField* deckfield = mono_class_get_field_from_name(sfi.m_data.m_deckManagerInstance.m_scriptClass, "m_deck"); //Get the mono data of the deck 
+       sfi.m_data.m_deckInstance.m_classInst = mono_field_get_value_object(sm->m_appDomain, deckfield, sfi.m_data.m_deckManagerInstance.m_classInst);
+       sfi.m_data.m_deckInstance.m_scriptClass = mono_object_get_class(sfi.m_data.m_deckInstance.m_classInst);
+
+
+       sfi.m_data.m_deckManagerInstance.m_scriptFieldInstList.push_back(ScriptFieldInstance<std::vector<Component::Card::CardID>>(ScriptField(UIntArr, "m_hand", mono_class_get_field_from_name(sfi.m_data.m_deckManagerInstance.m_scriptClass, "m_hand"))));
+       sfi.m_data.m_deckManagerInstance.m_scriptFieldInstList.push_back(ScriptFieldInstance<std::vector<Component::Card::CardID>>(ScriptField(UIntArr, "m_queue", mono_class_get_field_from_name(sfi.m_data.m_deckManagerInstance.m_scriptClass, "m_queue"))));
+       sfi.m_data.m_deckManagerInstance.m_scriptFieldInstList.push_back(ScriptFieldInstance<std::vector<Component::Card::CardID>>(ScriptField(UIntArr, "m_discardDisplay", mono_class_get_field_from_name(sfi.m_data.m_deckManagerInstance.m_scriptClass, "m_discardDisplay"))));
+       sfi.m_data.m_deckInstance.m_scriptFieldInstList.push_back(ScriptFieldInstance<std::vector<Component::Card::CardID>>(ScriptField(UIntArr, "m_cards", mono_class_get_field_from_name(sfi.m_data.m_deckInstance.m_scriptClass, "m_cards"))));
+       sfi.m_data.m_deckInstance.m_scriptFieldInstList.push_back(ScriptFieldInstance<std::vector<Component::Card::CardID>>(ScriptField(UIntArr, "m_drawOrderDisplay", mono_class_get_field_from_name(sfi.m_data.m_deckInstance.m_scriptClass, "m_drawOrderDisplay"))));
+
+      for (rttr::variant& dm : sfi.m_data.m_deckManagerInstance.m_scriptFieldInstList)
+      {
+        GE::MONO::ScriptFieldInstance<std::vector<Component::Card::CardID>>& dmSFI = dm.get_value<GE::MONO::ScriptFieldInstance<std::vector<Component::Card::CardID>>>();
+        dmSFI.m_data = sfi.m_data.m_deckManagerInstance.GetFieldValueArr<GE::Component::Card::CardID>(sm->m_appDomain, dmSFI.m_scriptField.m_classField);
+        if (dmSFI.m_scriptField.m_fieldName == "m_hand")
+          sfi.m_data.m_hand = dmSFI.m_data;
+        if (dmSFI.m_scriptField.m_fieldName == "m_queue")
+          sfi.m_data.m_queue = dmSFI.m_data;
+        if (dmSFI.m_scriptField.m_fieldName == "m_discardDisplay")
+          sfi.m_data.m_discardDisplay = dmSFI.m_data;
+      }
+
+      for (rttr::variant& di : sfi.m_data.m_deckInstance.m_scriptFieldInstList)
+      {
+        GE::MONO::ScriptFieldInstance<std::vector<Component::Card::CardID>>& dSFI = di.get_value<GE::MONO::ScriptFieldInstance<std::vector<Component::Card::CardID>>>();
+        dSFI.m_data = sfi.m_data.m_deckInstance.GetFieldValueArr<Component::Card::CardID>(sm->m_appDomain, dSFI.m_scriptField.m_classField);
+        if (dSFI.m_scriptField.m_fieldName == "m_cards")
+          sfi.m_data.m_deck.m_cards = dSFI.m_data;
+        if (dSFI.m_scriptField.m_fieldName == "m_drawOrderDisplay")
+          sfi.m_data.m_deck.m_drawOrderDisplay = dSFI.m_data;
+      }
+      m_scriptFieldInstList.emplace_back(sfi);
+
     }
     else if (field.m_fieldType == ScriptFieldType::CharacterTypeFT)
     {
+
       CharacterType value = GetFieldValue<CharacterType>(field.m_classField);
       //std::cout << value.m_deck.m_cards.size() << "\n";
       ScriptFieldInstance<CharacterType> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
+
     }
 		else if (field.m_fieldType == ScriptFieldType::IntArr)
 		{
+
       std::vector<int> value = GetFieldValueArr<int>(sm->m_appDomain, field.m_classField);
       ScriptFieldInstance<std::vector<int>> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
+
 		}
 
     else if (field.m_fieldType == ScriptFieldType::UIntArr)
     {
+
       std::vector<unsigned> value = GetFieldValueArr<unsigned>(sm->m_appDomain, field.m_classField);
       ScriptFieldInstance<std::vector<unsigned>> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
+
     }
 	}
 }

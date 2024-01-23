@@ -152,8 +152,8 @@
                 "nodeType": "LEAF_NODE",
                 "parentNode": 3,
                 "childrenNode": [],
-                "scriptName": "PlayLastCard",
-                "pos": "{ 835, 357 }"
+                "scriptName": "PlaySpecialCard",
+                "pos": "{ 834, 356 }"
             },
             {
                 "nodeType": "LEAF_NODE",
