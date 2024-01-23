@@ -16,10 +16,13 @@ namespace GoopScripts.Gameplay
     {
       INCREASE_ATK_DEALT,
       MULTIPLY_ATK_DEALT,
-      REDUCE_DMG_TAKEN,
+      REDUCE_ATK_DEALT,
+      REDUCE_SHIELD,
       SKIP_TURN,
-      PENETRATE_SHIELD,
-      DRAW_CARD,
+      REMOVE_BUFF,
+      BLEED,
+      IMMUNITY,
+      TOTAL_BUFFS
     }
 
     BuffType m_type;
@@ -62,6 +65,13 @@ namespace GoopScripts.Gameplay
         buff.turns -= 1;
       }
       m_buffs.RemoveAll(buff => buff.turns <= 0);
+    }
+
+    public void RemoveBuff()
+    {
+      Random rng = new Random();
+      int chance = rng.Next(0, m_buffs.Count - 1);
+      m_buffs.RemoveAt(chance);
     }
   }
 }

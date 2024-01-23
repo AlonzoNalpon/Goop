@@ -19,7 +19,7 @@ namespace GoopScripts.Gameplay
 
     public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved;
 
-    public Queue m_nextTurn = new Queue();
+    //public Queue m_nextTurn = new Queue();
     public DeckManager m_deckMngr;
     public BuffManager m_buffs { get; set; }
     
@@ -132,9 +132,9 @@ namespace GoopScripts.Gameplay
       m_deckMngr.Unqueue(index);
     }
 
-    public void QueueBuff(Buff buff)
-    {
-      m_nextTurn.Enqueue(buff);
-    }
+    //public void QueueBuff(Buff buff)
+    //{
+    //  m_nextTurn.Enqueue(buff);
+    //}
   }
 }
