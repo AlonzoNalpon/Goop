@@ -23,7 +23,9 @@ xcopy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)" /s /r /y /q
 xcopy "$(SolutionDir)GoopScripts\ScriptNames.txt" "$(TargetDir)" /s /r /y /q
 xcopy "$(SolutionDir)lib\rttr-0.9.6\lib\$(Configuration)\*.dll" "$(OutDir)" /s /r /y /q
 xcopy "$(ProjectDir)imgui.ini" "$(OutDir)" /s /r /y /q
-</Command>
+RD /S /Q $(TargetDir)bin
+RD /S /Q $(TargetDir)DMono
+RD /S /Q $(TargetDir)obj</Command>
     </PostBuildEvent>
     <ClCompile>
       <PreprocessorDefinitions>GLFW_DLL;DGLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -41,8 +43,7 @@ xcopy "$(ProjectDir)imgui.ini" "$(OutDir)" /s /r /y /q
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <PreBuildEvent>
-      <Command>xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(OutDir)" /s /r /y /q
-xcopy "$(SolutionDir)lib\mono\lib\MonoPosixHelper.dll" "$(OutDir)" /s /r /y /q</Command>
+      <Command>xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(OutDir)" /s /r /y /q</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />
