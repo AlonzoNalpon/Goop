@@ -17,7 +17,7 @@ namespace GoopScripts.Gameplay
     public UI.HealthBar m_healthBar;
     public int m_attack = 0, m_block = 0;
 
-    public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved;
+    public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved, m_buffsDisplay;
 
     //public Queue m_nextTurn = new Queue();
     public DeckManager m_deckMngr;
@@ -26,7 +26,6 @@ namespace GoopScripts.Gameplay
     public Stats(uint entityID) : base(entityID)
     {
       m_deckMngr = new DeckManager();
-      m_buffs = new BuffManager();
     }
 
     /*!*********************************************************************
@@ -37,6 +36,7 @@ namespace GoopScripts.Gameplay
     {
       Console.WriteLine("Create Stats for " + m_type.ToString());
       m_deckMngr.Init(m_type);
+      m_buffs = new BuffManager(m_buffsDisplay);
       m_healthBar = new UI.HealthBar(m_type, m_healthDisplayWillBeRemoved);
     }
 
@@ -54,12 +54,12 @@ namespace GoopScripts.Gameplay
 
     public void TakeDamage(float damage)
 		{
-			float takenMultiplier = 1;
-      foreach (var buff in m_buffs.Buffs)
-      {
-        if (buff.type == Buff.BuffType.REDUCE_DMG_TAKEN) //flash bang -> 1/2 damage; smokescreen -> no damage
-          takenMultiplier *= (int)buff.value;
-      }
+			float takenMultiplier = 1.0f;
+      //foreach (var buff in m_buffs.Buffs)
+      //{
+      //  if (buff.type == Buff.BuffType.REDUCE_DMG_TAKEN) //flash bang -> 1/2 damage; smokescreen -> no damage
+      //    takenMultiplier *= (int)buff.value;
+      //}
 
       int damageTaken = (int)(damage * takenMultiplier) - m_block;
       Utils.SendString(damageTaken.ToString());
@@ -108,6 +108,7 @@ namespace GoopScripts.Gameplay
       Utils.SetTextComponent(m_attackDisplay, "0");
       Utils.SetTextComponent(m_blockDisplay, "0");
       m_buffs.StepTurn();
+      m_buffs.UpdateBuffsUI();
     }
 
     /*!*********************************************************************
