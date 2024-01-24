@@ -22,7 +22,8 @@ namespace GE
 			\brief
 				Default contructor
 			************************************************************************/
-			Transform() : m_pos{}, m_scale{}, m_rot{}, m_worldPos{}, m_worldScale{}, m_worldRot{} {}
+			Transform() : m_pos{ 0.0, 0.0, 0.0 }, m_scale{ 1.0, 1.0, 1.0 }, m_rot{ 0.0, 0.0, 0.0 },
+				m_worldPos{ 0.0, 0.0, 0.0 }, m_worldScale{ 1.0, 1.0, 1.0 }, m_worldRot{ 0.0, 0.0, 0.0 } {}
 
 			/*!*********************************************************************
 			\brief

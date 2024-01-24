@@ -71,7 +71,7 @@ namespace GE
 
 			vec3 m_vel;
 			vec3 m_acc;
-			double m_mass;
+			double m_mass{1.0};
 			vec3 m_gravity;
 			DragForce m_dragForce;
 			std::vector<LinearForce> m_forces;

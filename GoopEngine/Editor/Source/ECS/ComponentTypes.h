@@ -20,23 +20,23 @@ namespace GE
 	{
 		std::vector<rttr::type> const componentTypes
 		{
-			rttr::type::get<Component::Transform>(),
-			rttr::type::get<Component::BoxCollider>(),
-			rttr::type::get<Component::Velocity>(),
-			rttr::type::get<Component::Sprite>(),
-			rttr::type::get<Component::SpriteAnim>(),
-			rttr::type::get<Component::Tween>(),
-			rttr::type::get<Component::Scripts>(),
-			rttr::type::get<Component::Draggable>(),
-			rttr::type::get<Component::EnemyAI>(),
-			rttr::type::get<Component::Text>(),
-			rttr::type::get<Component::Game>(),
-			rttr::type::get<Component::Audio>(),
-			rttr::type::get<Component::GE_Button>(),
-			rttr::type::get<Component::Card>(),
-			rttr::type::get<Component::CardHolder>(),
-			rttr::type::get<Component::CardHolderElem>(),
-			rttr::type::get<Component::Emitter>()
+			rttr::type::get<GE::Component::Transform>(),
+			rttr::type::get<GE::Component::BoxCollider>(),
+			rttr::type::get<GE::Component::Velocity>(),
+			rttr::type::get<GE::Component::Sprite>(),
+			rttr::type::get<GE::Component::SpriteAnim>(),
+			rttr::type::get<GE::Component::Tween>(),
+			rttr::type::get<GE::Component::Scripts>(),
+			rttr::type::get<GE::Component::Draggable>(),
+			rttr::type::get<GE::Component::EnemyAI>(),
+			rttr::type::get<GE::Component::Text>(),
+			rttr::type::get<GE::Component::Game>(),
+			rttr::type::get<GE::Component::Audio>(),
+			rttr::type::get<GE::Component::GE_Button>(),
+			rttr::type::get<GE::Component::Card>(),
+			rttr::type::get<GE::Component::CardHolder>(),
+			rttr::type::get<GE::Component::CardHolderElem>(),
+			rttr::type::get<GE::Component::Emitter>()
 		};
 		
 		/*!*********************************************************************
