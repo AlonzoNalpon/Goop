@@ -223,10 +223,6 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::GE_Button*>());
   }
-  else if (compType == rttr::type::get<Component::Anchor>())
-  {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Anchor*>());
-  }
   else if (compType == rttr::type::get<Component::Card>())
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Card*>());
@@ -242,6 +238,10 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   else if (compType == rttr::type::get<Component::CardHolderElem>())
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::CardHolderElem*>());
+  }
+  else if (compType == rttr::type::get<Component::Emitter>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Emitter*>());
   }
   else
   {
@@ -302,10 +302,6 @@ rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, rttr::type const
   {
     return ecs.HasComponent<Component::GE_Button>(id) ? std::make_shared<Component::GE_Button>(*ecs.GetComponent<Component::GE_Button>(id)) : rttr::variant();
   }
-  else if (compType == rttr::type::get<Component::Anchor>())
-  {
-    return ecs.HasComponent<Component::Anchor>(id) ? std::make_shared<Component::Anchor>(*ecs.GetComponent<Component::Anchor>(id)) : rttr::variant();
-  }
   else if (compType == rttr::type::get<Component::Card>())
   {
     return ecs.HasComponent<Component::Card>(id) ? std::make_shared<Component::Card>(*ecs.GetComponent<Component::Card>(id)) : rttr::variant();
@@ -321,6 +317,10 @@ rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, rttr::type const
   else if (compType == rttr::type::get<Component::Game>())
   {
     return ecs.HasComponent<Component::Game>(id) ? std::make_shared<Component::Game>(*ecs.GetComponent<Component::Game>(id)) : rttr::variant();
+  }
+  else if (compType == rttr::type::get<Component::Emitter>())
+  {
+    return ecs.HasComponent<Component::Emitter>(id) ? std::make_shared<Component::Emitter>(*ecs.GetComponent<Component::Emitter>(id)) : rttr::variant();
   }
   else
   {
@@ -389,10 +389,6 @@ void ObjectFactory::RemoveComponentFromEntity(ECS::Entity entity, rttr::type com
   {
     ecs.RemoveComponent<GE_Button>(entity);
   }
-  else if (compType == rttr::type::get<Component::Anchor>())
-  {
-    ecs.RemoveComponent<Anchor>(entity);
-  }
   else if (compType == rttr::type::get<Component::Card>())
   {
     ecs.RemoveComponent<Card>(entity);
@@ -408,6 +404,10 @@ void ObjectFactory::RemoveComponentFromEntity(ECS::Entity entity, rttr::type com
   else if (compType == rttr::type::get<Component::CardHolderElem>())
   {
     ecs.RemoveComponent<CardHolderElem>(entity);
+  }
+  else if (compType == rttr::type::get<Component::Emitter>())
+  {
+    ecs.RemoveComponent<Emitter>(entity);
   }
   else
   {
@@ -450,14 +450,14 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       ecs.RegisterComponent<GE::Component::Audio>();
     else if (compType == rttr::type::get<Component::GE_Button>())
       ecs.RegisterComponent<GE::Component::GE_Button>();
-    else if (compType == rttr::type::get<Component::Anchor>())
-      ecs.RegisterComponent<GE::Component::Anchor>();
     else if (compType == rttr::type::get<Component::Card>())
       ecs.RegisterComponent<GE::Component::Card>();
     else if (compType == rttr::type::get<Component::CardHolder>())
       ecs.RegisterComponent<GE::Component::CardHolder>();
     else if (compType == rttr::type::get<Component::CardHolderElem>())
       ecs.RegisterComponent<GE::Component::CardHolderElem>();
+    else if (compType == rttr::type::get<Component::Emitter>())
+      ecs.RegisterComponent<GE::Component::Emitter>();
     else
     {
       std::ostringstream oss{};
@@ -552,11 +552,6 @@ void ObjectFactory::RegisterSystemWithType(rttr::type const& systemType, std::ve
     ecs.RegisterSystem<Systems::GameSystem>();
     RegisterComponentsToSystem<Systems::GameSystem>(components);
   }
-  else if (systemType == rttr::type::get<Systems::ObjectAnchorSystem>())
-  {
-    ecs.RegisterSystem<Systems::ObjectAnchorSystem>();
-    RegisterComponentsToSystem<Systems::ObjectAnchorSystem>(components);
-  }
   else if (systemType == rttr::type::get<Systems::ButtonScriptSystem>())
   {
     ecs.RegisterSystem<Systems::ButtonScriptSystem>();
@@ -566,6 +561,11 @@ void ObjectFactory::RegisterSystemWithType(rttr::type const& systemType, std::ve
   {
     ecs.RegisterSystem<Systems::CardHolderSystem>();
     RegisterComponentsToSystem<Systems::CardHolderSystem>(components);
+  }
+  else if (systemType == rttr::type::get<Systems::ParticleSystem>())
+  {
+    ecs.RegisterSystem<Systems::ParticleSystem>();
+    RegisterComponentsToSystem<Systems::ParticleSystem>(components);
   }
   else
   {

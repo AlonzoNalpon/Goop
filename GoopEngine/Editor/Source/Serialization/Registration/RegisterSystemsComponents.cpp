@@ -34,9 +34,9 @@ RTTR_REGISTRATION
   rttr::registration::class_<Systems::AudioSystem>("AudioSystem");
   rttr::registration::class_<Systems::ButtonSystem>("ButtonSystem");
   rttr::registration::class_<Systems::GameSystem>("GameSystem");
-  rttr::registration::class_<Systems::ObjectAnchorSystem>("ObjectAnchorSystem");
   rttr::registration::class_<Systems::ButtonScriptSystem>("ButtonScriptSystem");
   rttr::registration::class_<Systems::CardHolderSystem>("CardHolderSystem");
+  rttr::registration::class_<Systems::ParticleSystem>("ParticleSystem");
 
 
   /* ------------------- COMPONENTS ------------------- */
@@ -133,12 +133,6 @@ RTTR_REGISTRATION
     .property("currCollided", &Component::GE_Button::m_currCollided)
     ;
 
-  rttr::registration::class_<Component::Anchor>("Anchor")
-    .constructor<>()
-    .property("type", &Component::Anchor::m_type)
-    .property("anchored", &Component::Anchor::m_anchored)
-    ;
-
   rttr::registration::class_<Component::Card>("Card")
     .constructor<>()
     .property("cardID", &Component::Card::cardID)
@@ -173,6 +167,19 @@ RTTR_REGISTRATION
     .property("playerQueue", &Component::Game::m_playerQueue)
     .property("enemyQueue", &Component::Game::m_enemyQueue)
     .property("gameSystemScript", &Component::Game::m_gameSystemScript)
+    ;
+
+  rttr::registration::class_<Component::Emitter>("Game")
+    .constructor<>()
+    .property("playOnStart", &Component::Emitter::m_playOnStart)
+    .property("playing", &Component::Emitter::m_playing)
+    .property("gravity", &Component::Emitter::m_hasGravity)
+    .property("minForce", &Component::Emitter::m_minForce)
+    .property("maxForce", &Component::Emitter::m_maxForce)
+    .property("minDrag", &Component::Emitter::m_minDrag)
+    .property("maxDrag", &Component::Emitter::m_maxDrag)
+    .property("maxLifeTime", &Component::Emitter::m_maxLifeTime)
+    .property("minLifeTime", &Component::Emitter::m_minLifeTime)
     ;
 
 } // RTTR Registration

@@ -31,11 +31,10 @@
     "Transform",
     "BoxCollider",
     "Draggable"
-  ],
-  "ObjectAnchorSystem": [
-    "BoxCollider",
-    "Transform",
-    "Anchor"
+  ],  
+  "ParticleSystem": [
+    "Sprite",
+    "Emitter"
   ],
   "PhysicsSystem": [
     "Transform",
