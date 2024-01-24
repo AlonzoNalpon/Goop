@@ -25,7 +25,7 @@ namespace GoopScripts.Cards
 		\param cardID
 			ID of the card 
 		************************************************************************/
-		public BlankCard(CardID cardID) : base(cardID)
+		public BlankCard(CardID cardID, CardType cardType) : base(cardID, cardType)
     {
     }
 

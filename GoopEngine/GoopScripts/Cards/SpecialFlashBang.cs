@@ -24,7 +24,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public SpecialFlashBang(CardID cardID) : base(cardID)
+    public SpecialFlashBang(CardID cardID, CardType cardType) : base(cardID, cardType)
     {
       Value = 0.5f;
       Duration = 3;

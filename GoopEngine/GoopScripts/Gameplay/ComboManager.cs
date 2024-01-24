@@ -14,6 +14,7 @@ namespace GoopScripts.Gameplay
     {
       if (player.m_deckMngr.m_queue.Length >= 2)
       {
+        //first pair
         switch (player.m_deckMngr.m_queue[0])
         {
           case CardBase.CardID.LEAH_SHIELD:
@@ -98,6 +99,7 @@ namespace GoopScripts.Gameplay
             break;
         }
 
+        //second pair
         if (player.m_deckMngr.m_queue.Length == 3)
         {
           switch (player.m_deckMngr.m_queue[1])
@@ -193,6 +195,7 @@ namespace GoopScripts.Gameplay
       {
         if (enemy.m_deckMngr.m_queue.Length >= 2)
         {
+          //first pair
           switch (enemy.m_deckMngr.m_queue[0])
           {
             case CardBase.CardID.BASIC_ATTACK:
@@ -235,6 +238,7 @@ namespace GoopScripts.Gameplay
               break;
           }
 
+          //second pair
           if (enemy.m_deckMngr.m_queue.Length == 3)
           {
             switch (enemy.m_deckMngr.m_queue[1])
@@ -286,6 +290,7 @@ namespace GoopScripts.Gameplay
       {
         if (enemy.m_deckMngr.m_queue.Length >= 2)
         {
+          //first pair
           switch (enemy.m_deckMngr.m_queue[0])
           {
             case CardBase.CardID.DAWSON_BEAM:
@@ -364,6 +369,7 @@ namespace GoopScripts.Gameplay
               break;
           }
 
+          //second pair
           if (enemy.m_deckMngr.m_queue.Length == 3)
           {
             switch (enemy.m_deckMngr.m_queue[1])

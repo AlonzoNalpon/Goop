@@ -24,7 +24,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public SpecialScreech(CardID cardID) : base(cardID)
+    public SpecialScreech(CardID cardID, CardType cardType) : base(cardID, cardType)
     {
       Value = 2.0f;
       Duration = 2;

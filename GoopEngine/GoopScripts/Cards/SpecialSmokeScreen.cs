@@ -24,7 +24,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public SpecialSmokeScreen(CardID cardID) : base(cardID)
+    public SpecialSmokeScreen(CardID cardID, CardType cardType) : base(cardID, cardType)
     {
       Value = 0.0f;
       Duration = 2;
