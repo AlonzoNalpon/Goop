@@ -318,6 +318,7 @@
     <ClInclude Include="Source\AI\Tree.h" />
     <ClInclude Include="Source\AI\TreeManager.h" />
     <ClInclude Include="Source\AssetManager\AssetTypes.h" />
+    <ClInclude Include="Source\Component\AnimEvents.h" />
     <ClInclude Include="Source\Component\Audio.h" />
     <ClInclude Include="Source\Component\Button.h" />
     <ClInclude Include="Source\Component\Card.h" />

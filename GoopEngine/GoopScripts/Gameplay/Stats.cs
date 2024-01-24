@@ -43,12 +43,14 @@ namespace GoopScripts.Gameplay
     public void AddAttack(int value)
     {
       m_attack += value;
+      if (m_attack < 0) { m_attack = 0; }
       Utils.SetTextComponent(m_attackDisplay, m_attack.ToString());
     }
 
     public void AddBlock(int value)
     {
       m_block += value;
+      if (m_block < 0) { m_block = 0; }
       Utils.SetTextComponent(m_blockDisplay, m_block.ToString());
     }
 

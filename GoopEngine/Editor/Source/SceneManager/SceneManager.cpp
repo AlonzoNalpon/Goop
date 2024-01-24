@@ -95,6 +95,7 @@ void SceneManager::SetNextScene(std::string nextScene)
     {
       LoadScene();
       InitScene();
+      InvokeOnCreate();
     }
   }
   catch (std::out_of_range&)
@@ -108,6 +109,7 @@ void SceneManager::SetNextScene(std::string nextScene)
     {
       LoadScene();
       InitScene();
+      InvokeOnCreate();
     }
     throw Debug::Exception<SceneManager>(Debug::LEVEL_CRITICAL, ErrMsg(nextScene + ".scn doesn't exist."));
   }
