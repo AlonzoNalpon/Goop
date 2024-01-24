@@ -6,12 +6,14 @@
 C# script containing all the internal function calls
 **************************************************************************/
 using GoopScripts.Input;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml.Linq;
 
 
@@ -340,8 +342,7 @@ namespace GoopScripts.Mono
     extern public static void UpdateSprite(uint ID, string name);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static void SetTextComponent(int entity, string text);
-
+    extern public static void SetTextComponent(int entity, string text, float alpha = 1.0f);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void CrossFadeAudio(string audio1, float startVol1, float endVol1, float normalizedFadeStart1, float fadeEnd1,

@@ -77,6 +77,13 @@
                                     }
                                 },
                                 {
+                                    "data": 45,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_buffsDisplay"
+                                    }
+                                },
+                                {
                                     "data": {
                                         "Cards In Discard": [],
                                         "Cards In Hand": [
@@ -92,7 +99,7 @@
                                             "NO_CARD"
                                         ]
                                     },
-                                    "type": "GoopScripts.Gameplay.DeckManager",
+                                    "type": "",
                                     "scriptField": {
                                         "fieldName": "m_deckMngr"
                                     }
@@ -392,6 +399,13 @@
                                     }
                                 },
                                 {
+                                    "data": 46,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_buffsDisplay"
+                                    }
+                                },
+                                {
                                     "data": {
                                         "Cards In Discard": [],
                                         "Cards In Hand": [
@@ -407,7 +421,7 @@
                                             "NO_CARD"
                                         ]
                                     },
-                                    "type": "GoopScripts.Gameplay.DeckManager",
+                                    "type": "",
                                     "scriptField": {
                                         "fieldName": "m_deckMngr"
                                     }
@@ -541,7 +555,8 @@
             8,
             9,
             32,
-            38
+            38,
+            44
         ],
         "Components": [
             {
@@ -2524,6 +2539,95 @@
                         }
                     },
                     "spriteName": "TempBacking"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Combo UI",
+        "ID": 44,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 7,
+        "Child Entities": [
+            45,
+            46
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 173.148, 5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 173.148, 5 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Player Combo Text",
+        "ID": 45,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 44,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -352.593, 0, 5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -352.593, 173.148, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "",
+                    "clr": {
+                        "r": 0.8666666746139526,
+                        "g": 0.8941176533699036,
+                        "b": 0.03529411926865578,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Enemy Combo Text",
+        "ID": 46,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 44,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 69.2592, 0, 5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 69.2592, 173.148, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "",
+                    "clr": {
+                        "r": 0.8669459223747253,
+                        "g": 0.8921568393707275,
+                        "b": 0.03498654067516327,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
                 }
             }
         ]

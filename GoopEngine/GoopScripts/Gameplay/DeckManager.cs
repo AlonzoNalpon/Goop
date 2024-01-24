@@ -127,6 +127,7 @@ namespace GoopScripts.Gameplay
         if (m_hand[i] == CardBase.CardID.NO_CARD)
         {
           m_hand[i] = m_queue[index];
+          break;
         }
       }
 

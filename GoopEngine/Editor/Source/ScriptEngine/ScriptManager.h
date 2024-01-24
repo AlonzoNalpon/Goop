@@ -224,7 +224,7 @@ namespace GE {
 		\param str
 			The string to set the text to
 		************************************************************************/
-		void SetTextComponent(GE::ECS::Entity entity, MonoString* str);
+		void SetTextComponent(GE::ECS::Entity entity, MonoString* str, float alpha = 1.f);
 
 		MonoObject* GetScriptInstance(GE::ECS::Entity entityID, MonoString* scriptName);
 

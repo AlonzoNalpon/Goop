@@ -675,7 +675,7 @@ void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int car
   }
 }
 
-void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str)
+void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str, float alpha)
 {
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
   Component::Text* textComp{ ecs.GetComponent<Component::Text>(entity) };
@@ -687,6 +687,7 @@ void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str)
   }
 
   textComp->m_text = MONO::MonoStringToSTD(str);
+  textComp->m_clr.a = alpha;
 }
 
 void GE::MONO::SendString(MonoString* str)

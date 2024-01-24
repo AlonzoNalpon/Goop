@@ -63,12 +63,6 @@ RTTR_REGISTRATION
       rttr::value("VOICE", fMOD::FmodSystem::ChannelType::VOICE)
       );
 
-  rttr::registration::enumeration<GE::Component::Anchor::AnchorType>("AnchorType")
-    (
-      rttr::value("IS_ANCHOR", GE::Component::Anchor::AnchorType::IS_ANCHOR),
-      rttr::value("IS_ANCHORABLE", GE::Component::Anchor::AnchorType::IS_ANCHORABLE)
-      );
-
   rttr::registration::enumeration<GE::Component::GE_Button::ButtonEventType>("ButtonEventType")
     (
       rttr::value("NO_EVENT", GE::Component::GE_Button::ButtonEventType::NO_EVENT),

@@ -17,16 +17,15 @@ namespace GoopScripts.Gameplay
     public UI.HealthBar m_healthBar;
     public int m_attack = 0, m_block = 0;
 
-    public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved;
+    public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved, m_buffsDisplay;
 
-    public Queue m_nextTurn = new Queue();
+    //public Queue m_nextTurn = new Queue();
     public DeckManager m_deckMngr;
     public BuffManager m_buffs { get; set; }
     
     public Stats(uint entityID) : base(entityID)
     {
       m_deckMngr = new DeckManager();
-      m_buffs = new BuffManager();
     }
 
     /*!*********************************************************************
@@ -37,6 +36,7 @@ namespace GoopScripts.Gameplay
     {
       Console.WriteLine("Create Stats for " + m_type.ToString());
       m_deckMngr.Init(m_type);
+      m_buffs = new BuffManager(m_buffsDisplay);
       m_healthBar = new UI.HealthBar(m_type, m_healthDisplayWillBeRemoved);
     }
 
@@ -57,8 +57,23 @@ namespace GoopScripts.Gameplay
 			float takenMultiplier = 1;
       foreach (var buff in m_buffs.Buffs)
       {
-        if (buff.type == Buff.BuffType.REDUCE_DMG_TAKEN) //flash bang -> 1/2 damage; smokescreen -> no damage
-          takenMultiplier *= (int)buff.value;
+        switch (buff.type)
+        {
+          case Buff.BuffType.REDUCE_SHIELD: //combo
+            m_block -= (int)buff.value;
+            break;
+
+          case Buff.BuffType.BLEED: //combo
+            damage += buff.value;
+            break;
+
+          case Buff.BuffType.IMMUNITY: //smokescreen
+            takenMultiplier = 0;
+            break;
+
+          default:
+            break;
+        }
       }
 
       int damageTaken = (int)(damage * takenMultiplier) - m_block;
@@ -83,9 +98,15 @@ namespace GoopScripts.Gameplay
           case Buff.BuffType.INCREASE_ATK_DEALT: //charge-up
             dealtFlat += (int)buff.value;
             break;
-          case Buff.BuffType.MULTIPLY_ATK_DEALT: //rage & screech
+
+          case Buff.BuffType.MULTIPLY_ATK_DEALT: //rage & screech & combo
             dealtMultiplier *= (int)buff.value;
             break;
+
+          case Buff.BuffType.REDUCE_ATK_DEALT: //combo
+            dealtFlat -= (int)buff.value;
+            break;
+
           default:
             break;
         }
@@ -108,6 +129,7 @@ namespace GoopScripts.Gameplay
       Utils.SetTextComponent(m_attackDisplay, "0");
       Utils.SetTextComponent(m_blockDisplay, "0");
       m_buffs.StepTurn();
+      m_buffs.UpdateBuffsUI();
     }
 
     /*!*********************************************************************
@@ -132,9 +154,9 @@ namespace GoopScripts.Gameplay
       m_deckMngr.Unqueue(index);
     }
 
-    public void QueueBuff(Buff buff)
-    {
-      m_nextTurn.Enqueue(buff);
-    }
+    //public void QueueBuff(Buff buff)
+    //{
+    //  m_nextTurn.Enqueue(buff);
+    //}
   }
 }

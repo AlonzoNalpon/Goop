@@ -31,14 +31,14 @@ void ObjectFactory::RegisterComponentsToSystem(std::vector<rttr::type> const& co
       ecs.RegisterComponentToSystem<GE::Component::GE_Button, T>();
     else if (compType == rttr::type::get<Component::Game>())
       ecs.RegisterComponentToSystem<GE::Component::Game, T>();
-    else if (compType == rttr::type::get<Component::Anchor>())
-      ecs.RegisterComponentToSystem<GE::Component::Anchor, T>();
     else if (compType == rttr::type::get<Component::Card>())
       ecs.RegisterComponentToSystem<GE::Component::Card, T>();
     else if (compType == rttr::type::get<Component::CardHolder>())
       ecs.RegisterComponentToSystem<GE::Component::CardHolder, T>();
     else if (compType == rttr::type::get<Component::CardHolderElem>())
       ecs.RegisterComponentToSystem<GE::Component::CardHolderElem, T>();
+    else if (compType == rttr::type::get<Component::Emitter>())
+      ecs.RegisterComponentToSystem<GE::Component::Emitter, T>();
     else
     {
       std::ostringstream oss{};

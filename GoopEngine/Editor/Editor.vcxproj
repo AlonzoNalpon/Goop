@@ -104,6 +104,8 @@
       <AdditionalDependencies>rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent />
+    <PreBuildEvent />
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">
     <ClCompile>
@@ -119,6 +121,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent />
+    <PreBuildEvent />
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,6 +147,8 @@
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent />
+    <PreBuildEvent />
+    <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">
     <ClCompile>
@@ -157,6 +163,8 @@
     <Link>
       <AdditionalDependencies>rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent />
+    <PreBuildEvent />
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -289,7 +297,7 @@
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
     <ClCompile Include="Source\Systems\GameSystem\GameSystem.cpp" />
-    <ClCompile Include="Source\Systems\ObjectAnchor\ObjectAnchorSystem.cpp" />
+    <ClCompile Include="Source\Systems\ParitcleSystem\ParticleSystem.cpp" />
     <ClCompile Include="Source\Systems\Text\TextRenderSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\PhysicsSystem.cpp" />
@@ -310,13 +318,13 @@
     <ClInclude Include="Source\AI\Tree.h" />
     <ClInclude Include="Source\AI\TreeManager.h" />
     <ClInclude Include="Source\AssetManager\AssetTypes.h" />
-    <ClInclude Include="Source\Component\Anchor.h" />
     <ClInclude Include="Source\Component\AnimEvents.h" />
     <ClInclude Include="Source\Component\Audio.h" />
     <ClInclude Include="Source\Component\Button.h" />
     <ClInclude Include="Source\Component\Card.h" />
     <ClInclude Include="Source\Component\CardHolder.h" />
     <ClInclude Include="Source\Component\CardHolderElem.h" />
+    <ClInclude Include="Source\Component\Emitter.h" />
     <ClInclude Include="Source\Component\Game.h" />
     <ClInclude Include="Source\EditorUI\AnimEventEditor.h" />
     <ClInclude Include="Source\EditorUI\EditorTheme.h" />
@@ -452,7 +460,7 @@
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
     <ClInclude Include="Source\Systems\GameSystem\GameSystem.h" />
-    <ClInclude Include="Source\Systems\ObjectAnchor\ObjectAnchorSystem.h" />
+    <ClInclude Include="Source\Systems\ParitcleSystem\ParticleSystem.h" />
     <ClInclude Include="Source\Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Source\Systems\ScriptSystem\ScriptSystem.h" />
