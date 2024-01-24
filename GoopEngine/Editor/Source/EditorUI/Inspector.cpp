@@ -989,12 +989,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 					ImVec4 originalHColor = style.Colors[ImGuiCol_ButtonHovered];
 					style.Colors[ImGuiCol_Button] = ImVec4(0.18f, 0.28f, 0.66f, 1.0f);
 					style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.28f, 0.48f, 0.86f, 1.0f);
+					GE::AI::NodeEditor* ne = &GE::AI::NodeEditor::GetInstance();
 					if (ImGui::Button("Add Script", ImVec2(GetWindowSize().x,0.0f))) {
 						for (const std::string& sn : sm->m_allScriptNames)
 						{
 							auto it = std::find_if(allScripts->m_scriptList.begin(), allScripts->m_scriptList.end(), [sn](const ScriptInstance pair) { return pair.m_scriptName == sn; });
-							if (it == allScripts->m_scriptList.end())
+							auto it2 = std::find_if(ne->m_allScriptNames.begin(), ne->m_allScriptNames.end(), [sn](const std::string pair) { return pair == sn; });
+							if (it == allScripts->m_scriptList.end() && it2 == ne->m_allScriptNames.end())
 							{
+								std::cout << sn << "\n";
 								allScripts->m_scriptList.emplace_back(sn,entity);
 								break;
 							}

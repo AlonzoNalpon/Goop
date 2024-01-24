@@ -190,33 +190,37 @@ void GE::MONO::ScriptManager::LoadAllMonoClass()
 
     std::string classNameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
     std::string className = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
-
-    MonoClass* newClass = GetClassInAssembly(m_coreAssembly, classNameSpace.c_str(), className.c_str());
-    if (newClass)
+    if (classNameSpace.find("GoopScripts") != std::string::npos && classNameSpace.find("Properties") == std::string::npos)
     {
-      ScriptClassInfo newScriptClassInfo{};
-      newScriptClassInfo.m_scriptClass = newClass;
-      void* iterator = nullptr;
-      while (MonoClassField* field = mono_class_get_fields(newClass, &iterator))
+      //std::cout << classNameSpace << "::" << className << "\n";
+      MonoClass* newClass = GetClassInAssembly(m_coreAssembly, classNameSpace.c_str(), className.c_str());
+      if (newClass)
       {
-        const char* fieldName = mono_field_get_name(field);
-        uint32_t flags = mono_field_get_flags(field);
-        if (flags & FIELD_ATTRIBUTE_PUBLIC)
+        ScriptClassInfo newScriptClassInfo{};
+        newScriptClassInfo.m_scriptClass = newClass;
+        void* iterator = nullptr;
+        while (MonoClassField* field = mono_class_get_fields(newClass, &iterator))
         {
-          MonoType* type = mono_field_get_type(field);
-          ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
-          std::string typeName = mono_type_get_name(type);
-          //std::cout << typeName << "\n";
-          newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
+          const char* fieldName = mono_field_get_name(field);
+          uint32_t flags = mono_field_get_flags(field);
+          if (flags & FIELD_ATTRIBUTE_PUBLIC)
+          {
+            MonoType* type = mono_field_get_type(field);
+            ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
+            std::string typeName = mono_type_get_name(type);
+            //std::cout << typeName << "\n";
+            newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
+          }
+        }
+        m_monoClassMap[className] = newScriptClassInfo;
+        MonoMethod* ctor = mono_class_get_method_from_name(newClass, ".ctor", 0);
+        if (ctor)
+        {
+          m_allScriptNames.push_back(className);
         }
       }
-      m_monoClassMap[className] = newScriptClassInfo;
-      MonoMethod* ctor = mono_class_get_method_from_name(newClass, ".ctor", 0);
-      if (ctor)
-      {
-        m_allScriptNames.push_back(className);
-      }
     }
+    
 
   }
 
@@ -406,6 +410,10 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, st
 
     //Init the class through non-default constructor
     MonoMethod* classCtor = mono_class_get_method_from_name(currClass, ".ctor", static_cast<int>(arg.size()));
+    if (!classCtor)
+    {
+      classCtor = mono_class_get_method_from_name(currClass, ".ctor", 0);
+    }
     mono_runtime_invoke(classCtor, classInstance, arg.data(), nullptr);
     
 

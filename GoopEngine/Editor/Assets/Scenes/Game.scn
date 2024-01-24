@@ -242,33 +242,6 @@
                     },
                     "spriteName": "DAA2402_InGame_Environment2_v05"
                 }
-            },
-            {
-                "Audio": {
-                    "sounds": [
-                        {
-                            "sound": "caveFighting",
-                            "loop": true,
-                            "playOnStart": true,
-                            "channel": "BGM",
-                            "volume": 0.800000011920929
-                        },
-                        {
-                            "sound": "CaveWithWaterDrops_Loop",
-                            "loop": true,
-                            "playOnStart": true,
-                            "channel": "BGM",
-                            "volume": 0.4860000014305115
-                        },
-                        {
-                            "sound": "Fog",
-                            "loop": true,
-                            "playOnStart": true,
-                            "channel": "BGM",
-                            "volume": 0.753000020980835
-                        }
-                    ]
-                }
             }
         ]
     },
