@@ -45,6 +45,8 @@ void PhysicsSystem::FixedUpdate()
 					itr = vel->m_forces.erase(itr);
 					continue;
 				}
+
+				vel->m_sumMagnitude -= vel->m_gravity;
 			}
 
 			++itr;
@@ -53,7 +55,11 @@ void PhysicsSystem::FixedUpdate()
 		if (vel->m_forces.empty())
 		{
 			vel->m_sumMagnitude = {};
-			vel->m_acc = {};
+			vel->m_acc *= (1 - vel->m_dragForce.m_magnitude);
+			if (vel->GetMagnitude(vel->m_acc) <= 0.01 && vel->GetMagnitude(vel->m_acc) >= -0.01)
+			{
+				vel->m_acc = {};
+			}
 		}
 
 		if (vel->m_mass == 0)

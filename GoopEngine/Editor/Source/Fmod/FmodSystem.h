@@ -65,7 +65,7 @@ namespace GE
       \param looped
         Boolean for looping the sound. Default: false.
       ************************************************************************/
-      void PlaySound(std::string audio, float volume, ChannelType channel = BGM, bool looped = false);
+      void PlaySound(std::string audio, float volume, ChannelType channel = SFX, bool looped = false);
 
       /*!*********************************************************************
       \brief

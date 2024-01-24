@@ -12,13 +12,14 @@ void GE::Systems::ParticleSystem::Update()
     GE::Component::Sprite* sp = m_ecs->GetComponent<GE::Component::Sprite>(entity);
     if (em && sp)
     {
+      // Turn on rendering to be copied to child entity
+      sp->m_shouldRender = true;
       if (!em->m_hasPlayed && em->m_playOnStart)
       {
         em->m_hasPlayed = true;
         em->m_playing = true;
-
-        em->m_particleTime = 60.f / em->m_particlesPerMin;;
       }
+      em->m_particleTime = 60.f / em->m_particlesPerMin;;
       
       // Destroy all particles that life out their lifetime
       for (const auto& [particle, lifetime] : em->m_lifeTimes)
@@ -82,6 +83,8 @@ void GE::Systems::ParticleSystem::Update()
             lifetime.second -= dt; 
           });
       }
+    
+      sp->m_shouldRender = false;
     }
   }
 }

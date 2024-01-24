@@ -72,7 +72,7 @@ void AudioSystem::Update()
       if (cf.m_currFadeTime == 0.f)
       {
         // Play the track being faded into
-        m_fmodSystem->PlaySound(cf.m_audio[1], cf.m_startVol[1]);
+        m_fmodSystem->PlaySound(cf.m_audio[1], cf.m_startVol[1], GE::fMOD::FmodSystem::BGM, true);
       }
 
       // Fade audio

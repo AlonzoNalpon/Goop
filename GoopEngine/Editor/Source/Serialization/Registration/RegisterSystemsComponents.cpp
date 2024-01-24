@@ -79,6 +79,7 @@ RTTR_REGISTRATION
     )
     .property("spriteData", &Component::Sprite::m_spriteData)
     .property("spriteName", &Component::Sprite::m_spriteName)
+    .property("shouldRender", &Component::Sprite::m_shouldRender)
     ;
 
   rttr::registration::class_<Component::SpriteAnim>("SpriteAnim")
