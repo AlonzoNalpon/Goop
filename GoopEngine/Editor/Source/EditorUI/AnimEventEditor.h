@@ -9,7 +9,7 @@ namespace GE::EditorGUI
   {
   private:
     static Graphics::gObjID currAnimationEvents; //!< currently selected in editor
-
+    static std::string      currAnimationName; //!< current animation name
   public:
     static void CreateContent();
   };

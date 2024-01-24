@@ -135,7 +135,7 @@
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -311,6 +311,7 @@
     <ClInclude Include="Source\AI\TreeManager.h" />
     <ClInclude Include="Source\AssetManager\AssetTypes.h" />
     <ClInclude Include="Source\Component\Anchor.h" />
+    <ClInclude Include="Source\Component\AnimEvents.h" />
     <ClInclude Include="Source\Component\Audio.h" />
     <ClInclude Include="Source\Component\Button.h" />
     <ClInclude Include="Source\Component\Card.h" />

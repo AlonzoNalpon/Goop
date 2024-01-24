@@ -4,10 +4,12 @@
 #include <ImGui/imgui.h>
 #include <Graphics/GraphicsEngine.h>
 #include <EditorUI/AnimEventEditor.h>
-
+#include <Math/GEM.h>
 namespace GE::EditorGUI
 {
   Graphics::gObjID AnimEventEditor::currAnimationEvents{Graphics::BAD_OBJ_ID};
+  std::string      AnimEventEditor::currAnimationName{};
+
   void AnimEventEditor::CreateContent()
   {
     using namespace ImGui;
@@ -34,6 +36,11 @@ namespace GE::EditorGUI
     Separator();
 
     // Timeline viewer
+    TextColored({ 1.f, 1.f, 1.f, 1.f }, "YOUR TIMELINE HERE");
+    SameLine();
+    Separator();
+
+    // The list of events IN ORDER
 
     EndChild();
   }
