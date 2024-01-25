@@ -37,11 +37,17 @@ namespace GE
       Vec<4, T>& operator=(Vec<4, T>&& rhs) = default;
       Vec<4, T>& operator=(Vec<4, T> const& rhs);
       Vec<4, T>& operator+=(Vec<4, T> const& rhs);
-      Vec<4, T>& operator+=(T rhs);
       Vec<4, T>& operator-=(Vec<4, T> const& rhs);
-      Vec<4, T>& operator-=(T rhs);
-      Vec<4, T>& operator*=(T rhs);
-      Vec<4, T>& operator/=(T rhs);
+
+      template <typename S>
+      Vec<4, T>& operator+=(S rhs);
+      template <typename S>
+      Vec<4, T>& operator-=(S rhs);
+      template <typename S>
+      Vec<4, T>& operator*=(S rhs);
+      template <typename S>
+      Vec<4, T>& operator/=(S rhs);
+
       Vec<4, T> operator-() const;
       T& operator[](size_type rhs);
       T const& operator[](size_type rhs) const;

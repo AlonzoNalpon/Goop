@@ -22,18 +22,12 @@ Vec<2, T>& Vec<2, T>::operator=(Vec<2, T> const& rhs)
   y = rhs.y;
   return *this;
 }
+
 template <typename T>
 Vec<2, T>& Vec<2, T>::operator+=(Vec<2, T> const& rhs)
 {
   x += rhs.x;
   y += rhs.y;
-  return *this;
-}
-template <typename T>
-Vec<2, T>& Vec<2, T>::operator+=(T rhs)
-{
-  x += rhs;
-  y += rhs;
   return *this;
 }
 template <typename T>
@@ -43,25 +37,40 @@ Vec<2, T>& Vec<2, T>::operator-=(Vec<2, T> const& rhs)
   y -= rhs.y;
   return *this;
 }
+
 template <typename T>
-Vec<2, T>& Vec<2, T>::operator-=(T rhs)
+template <typename S>
+Vec<2, T>& Vec<2, T>::operator+=(S rhs)
 {
-  x -= rhs;
-  y -= rhs;
+  x += static_cast<T>(rhs);
+  y += static_cast<T>(rhs);
   return *this;
 }
+
 template <typename T>
-Vec<2, T>& Vec<2, T>::operator*=(T rhs)
+template <typename S>
+Vec<2, T>& Vec<2, T>::operator-=(S rhs)
 {
-  x *= rhs;
-  y *= rhs;
+  x -= static_cast<T>(rhs);
+  y -= static_cast<T>(rhs);
   return *this;
 }
+
 template <typename T>
-Vec<2, T>& Vec<2, T>::operator/=(T rhs)
+template <typename S>
+Vec<2, T>& Vec<2, T>::operator*=(S rhs)
 {
-  x /= rhs;
-  y /= rhs;
+  x *= static_cast<T>(rhs);
+  y *= sstatic_cast<T>(rhs);
+  return *this;
+}
+
+template <typename T>
+template <typename S>
+Vec<2, T>& Vec<2, T>::operator/=(S rhs)
+{
+  x /= static_cast<T>(rhs);
+  y /= static_cast<T>(rhs);
   return *this;
 }
 

@@ -52,15 +52,10 @@ void GE::Systems::ButtonScriptSystem::Update()
           method = mono_class_get_method_from_name(script.m_scriptClass, "OnClick", 1);
           if (method)
           {
-            break;
+            // run click functon
+            void* args{ &entity };
+            mono_runtime_invoke(method, classInst, &args, nullptr);
           }
-        }
-
-        // run click functon
-        if (method)
-        {
-          void* args{ &entity };
-          mono_runtime_invoke(method, classInst, &args, nullptr);
         }
       }
     }
@@ -84,15 +79,10 @@ void GE::Systems::ButtonScriptSystem::Update()
         // If found function in script
         if (method)
         {
-          break; // Stop searching
+          // run hover function
+          void* args{ &entity };
+          mono_runtime_invoke(method, classInst, &args, nullptr);
         }
-      }
-
-      // run hover function
-      if (method)
-      {
-        void* args{ &entity };
-        mono_runtime_invoke(method, classInst, &args, nullptr);
       }
     }
 

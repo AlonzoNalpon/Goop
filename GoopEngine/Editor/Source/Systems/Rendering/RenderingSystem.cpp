@@ -22,12 +22,16 @@ namespace GE::Systems
     frc.StartSystemTimer();
     Graphics::GraphicsEngine& gEngine{ Graphics::GraphicsEngine::GetInstance() };
     for (GE::ECS::Entity entity : GetUpdatableEntities())
-    {
+    {    
       // GET ALL THE COMPONENTS
       Component::Sprite*      sprite{ m_ecs->GetComponent<Component::Sprite>(entity) };
       Component::Transform*   transform{ m_ecs->GetComponent<Component::Transform>(entity) };
       
-      
+      if (!sprite->m_shouldRender)
+      {
+        continue;
+      }
+
       // Rendering
       Graphics::Rendering::Renderer& renderer{ gEngine.GetRenderer() };
       // Render the object
