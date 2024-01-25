@@ -1544,9 +1544,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 				PushID("Emitter");
 				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 				ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-				InputDouble3("Min Force", em->m_minForce, inputWidth);
+				InputDouble3("Min Vel", em->m_minVel, inputWidth);
 				TableNextRow();
-				InputDouble3("Max Force", em->m_maxForce, inputWidth);
+				InputDouble3("Max Vel", em->m_maxVel, inputWidth);
 				TableNextRow();
 				InputDouble3("Gravity", em->m_gravity, inputWidth);
 				TableNextRow();

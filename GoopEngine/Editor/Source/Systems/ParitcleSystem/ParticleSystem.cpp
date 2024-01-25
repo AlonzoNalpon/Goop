@@ -63,12 +63,12 @@ void GE::Systems::ParticleSystem::Update()
           // Forced to each component manually cuz double Vec * float is not supported
           GE::Math::dVec3 force;
           float forceRand = GE::GoopUtils::RandomValue(0.f, 1.f);
-          force.x = GE::GoopUtils::Lerp(em->m_minForce.x, em->m_maxForce.x, forceRand);
+          force.x = GE::GoopUtils::Lerp(em->m_minVel.x, em->m_maxVel.x, forceRand);
           forceRand = GE::GoopUtils::RandomValue(0.f, 1.f);
-          force.y = GE::GoopUtils::Lerp(em->m_minForce.y, em->m_maxForce.y, forceRand);
+          force.y = GE::GoopUtils::Lerp(em->m_minVel.y, em->m_maxVel.y, forceRand);
           forceRand = GE::GoopUtils::RandomValue(0.f, 1.f);
-          force.z = GE::GoopUtils::Lerp(em->m_minForce.z, em->m_maxForce.z, forceRand);
-          vel.AddForce(force, em->m_maxLifeTime, true);
+          force.z = GE::GoopUtils::Lerp(em->m_minVel.z, em->m_maxVel.z, forceRand);
+          vel.m_vel += force;
           vel.m_gravity = em->m_gravity;
           m_ecs->AddComponent(particle, vel);
 
