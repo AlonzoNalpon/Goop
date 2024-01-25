@@ -69,7 +69,8 @@ RTTR_REGISTRATION
     .property("mass", &Component::Velocity::m_mass)
     .property("gravity", &Component::Velocity::m_gravity)
     .property("dragForce", &Component::Velocity::m_dragForce)
-    .property("forces", &Component::Velocity::m_forces)
+    .property("linear forces", &Component::Velocity::m_linearForces)
+    //.property("impulse forces", &Component::Velocity::m_impulseForces)
     ;
 
   rttr::registration::class_<Component::Sprite>("Sprite")
