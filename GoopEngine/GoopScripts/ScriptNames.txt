@@ -20,9 +20,11 @@ GoopScripts.AI.Enemy.MineWorm,PlaySpecialCard
 GoopScripts.Audio,GameOverAudioEvent
 GoopScripts.Audio,MainMenuToGame
 GoopScripts.Button,EndTurn
+GoopScripts.Button,HowToPlay
 GoopScripts.Button,IButtonClick
 GoopScripts.Button,IButtonHoverEnter
 GoopScripts.Button,IButtonHoverExit
+GoopScripts.Button,PlsFix
 GoopScripts.Button,TempEndTurn
 GoopScripts.Cards,BasicAttack
 GoopScripts.Cards,BlankCard
@@ -49,3 +51,4 @@ GoopScripts.Gameplay,Stats
 GoopScripts.Player,Player
 GoopScripts.Player,PlayerScriptTest
 GoopScripts.UI,HealthBar
+GoopScripts.UI,PauseManager
