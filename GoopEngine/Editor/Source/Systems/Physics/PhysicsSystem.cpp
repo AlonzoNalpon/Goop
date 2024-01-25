@@ -47,7 +47,7 @@ void PhysicsSystem::FixedUpdate()
 				}
 			}
 
-			vel->m_sumMagnitude += vel->m_mass * vel->m_gravity * dt;
+			vel->m_sumMagnitude -= vel->m_mass * vel->m_gravity * dt;
 
 			++itr;
 		}
@@ -55,7 +55,7 @@ void PhysicsSystem::FixedUpdate()
 		if (vel->m_linearForces.empty())
 		{
 			//gravity
-			vel->m_sumMagnitude += vel->m_mass * vel->m_gravity;
+			vel->m_sumMagnitude -= vel->m_mass * vel->m_gravity;
 		}
 
 		if (vel->m_mass == 0)
