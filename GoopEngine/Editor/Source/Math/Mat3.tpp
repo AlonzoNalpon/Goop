@@ -51,6 +51,17 @@ Mat<3, 3, T>::Mat(ValueType const& row0, ValueType const& row1,  ValueType const
   m_data[2] = row2;
 }
 
+template <typename T>
+template <typename S>
+Mat<3, 3, T>::Mat(Mat<3, 3, S> const& rhs)
+{
+  for (size_type i{}; i < 3; ++i)
+  {
+    m_data[i] = rhs.m_data[i];
+  }
+}
+
+
 // Operator overloads
 template <typename T>
 Mat<3, 3, T>& Mat<3, 3, T>::operator=(Mat<3, 3, T>&& rhs)
@@ -142,6 +153,7 @@ Mat<3, 3, T> Mat<3, 3, T>::operator-() const
   return { -m_data[0], -m_data[1], -m_data[2] };
 }
 
+
 // Accessors
 template <typename T>
 typename Mat<3, 3, T>::ValueType& Mat<3, 3, T>::operator[](size_type rhs)
@@ -177,6 +189,7 @@ T const& Mat<3, 3, T>::At(size_type col, size_type row) const
   return m_data[row][col];
 }
 
+
 // Member Functions
 template <typename T>
 typename Mat<3, 3, T>::ValueType Mat<3, 3, T>::GetCol(size_type col) const
@@ -207,6 +220,7 @@ void Mat<3, 3, T>::Transpose()
   std::swap(m_data[0].z, m_data[2].x);
   std::swap(m_data[1].z, m_data[2].y);
 }
+
 
 // Non-member operator overloads
 template <typename T>

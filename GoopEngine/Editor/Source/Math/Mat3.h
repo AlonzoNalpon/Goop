@@ -43,6 +43,9 @@ namespace GE
 			Mat(Mat<3, 3, T>&& rhs);
 			Mat(Mat<3, 3, T> const& rhs);
 
+			template <typename S>
+			Mat(Mat<3, 3, S> const& rhs);
+
 			// ACCESSORS
 			/*!***********************************************************************
 			\brief

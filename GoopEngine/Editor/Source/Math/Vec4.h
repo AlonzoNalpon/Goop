@@ -33,11 +33,26 @@ namespace GE
       Vec(Vec<3, T> const& rhs);
       Vec(Vec<3, T> const& rhs, T _w);
 
+      template <typename S>
+      Vec(Vec<4, S> const& rhs);
+      template <typename S>
+      Vec(Vec<2, S> const& rhs);
+      template <typename S>
+      Vec(Vec<2, S> const& rhs, T _z, T _w);
+      template <typename S>
+      Vec(Vec<3, S> const& rhs);
+      template <typename S>
+      Vec(Vec<3, S> const& rhs, T _w);
+
       // OPERATOR OVERLOADS
       Vec<4, T>& operator=(Vec<4, T>&& rhs) = default;
       Vec<4, T>& operator=(Vec<4, T> const& rhs);
       Vec<4, T>& operator+=(Vec<4, T> const& rhs);
       Vec<4, T>& operator-=(Vec<4, T> const& rhs);
+      Vec<4, T>& operator+=(T rhs);
+      Vec<4, T>& operator-=(T rhs);
+      Vec<4, T>& operator*=(T rhs);
+      Vec<4, T>& operator/=(T rhs);
 
       template <typename S>
       Vec<4, T>& operator+=(S rhs);
@@ -88,8 +103,6 @@ namespace GE
     template <typename T>
     Vec<4, T> operator-(Vec<4, T> const& lhs, T rhs);
     template <typename T>
-    Vec<4, T> operator-(Vec<4, T> const& rhs);
-    template <typename T>
     Vec<4, T> operator*(Vec<4, T> const& lhs, T rhs);
     template <typename T>
     Vec<4, T> operator*(T lhs, Vec<4, T> const& rhs);
@@ -99,6 +112,19 @@ namespace GE
     bool operator==(Vec<4, T> const& lhs, Vec<4, T> const& rhs);
     template <typename T>
     bool operator!=(Vec<4, T> const& lhs, Vec<4, T> const& rhs);
+
+    template <typename T, typename S>
+    Vec<4, T> operator+(S lhs, Vec<4, T> const& rhs);
+    template <typename T, typename S>
+    Vec<4, T> operator+(Vec<4, T> const& lhs, S rhs);
+    template <typename T, typename S>
+    Vec<4, T> operator-(Vec<4, T> const& lhs, S rhs);
+    template <typename T, typename S>
+    Vec<4, T> operator*(S lhs, Vec<4, T> const& rhs);
+    template <typename T, typename S>
+    Vec<4, T> operator*(Vec<4, T> const& lhs, S rhs);
+    template <typename T, typename S>
+    Vec<4, T> operator/(Vec<4, T> const& lhs, S rhs);
 
 #include "Vec4.tpp"
   }
