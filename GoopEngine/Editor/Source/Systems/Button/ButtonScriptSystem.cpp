@@ -87,8 +87,8 @@ void GE::Systems::ButtonScriptSystem::Update()
     }
 
     btn->m_lastCollided = btn->m_currCollided;
-    m_shouldHandle = false;
   }
+  m_shouldHandle = false;
 }
 
 void GE::Systems::ButtonScriptSystem::HandleEvent(GE::Events::Event* event)
