@@ -141,7 +141,6 @@ namespace GoopScripts.Gameplay
     {
       Random rng = new Random();
       int chance = rng.Next(0, m_buffs.Count - 1);
-			Console.WriteLine($"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!{chance} is being removed by random");
 			Utils.DestroyEntity(m_buffIcons.Find(iconid => iconid == m_buffs[chance].m_iconID));
       m_buffs.RemoveAt(chance);
     }
