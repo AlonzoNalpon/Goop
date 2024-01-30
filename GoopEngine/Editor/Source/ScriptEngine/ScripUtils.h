@@ -43,6 +43,7 @@ namespace GE {
 			DeckFT,
 			DeckManagerFT,
 			CharacterTypeFT,
+			HealthBarFT
 		};
 
 		template <typename T>
