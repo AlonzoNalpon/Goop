@@ -17,6 +17,19 @@ Vec<3, T>::Vec(Vec<2, T> const& rhs, T _z) : x{rhs.x}, y{rhs.y}, z{_z} {}
 template <typename T>
 Vec<3, T>::Vec(Vec<4, T> const& rhs) : x{rhs.x}, y{rhs.y}, z{rhs.z} {}
 
+template <typename T>
+template <typename S>
+Vec<3, T>::Vec(Vec<3, S> const& rhs) : x{ static_cast<T>(rhs.x) }, y{ static_cast<T>(rhs.y) }, z{ static_cast<T>(rhs.z) } {}
+
+template <typename T>
+template <typename S>
+Vec<3, T>::Vec(Vec<2, S> const& rhs) : x{ static_cast<T>(rhs.x) }, y{ static_cast<T>(rhs.y) }, z{} {}
+
+template <typename T>
+template <typename S>
+Vec<3, T>::Vec(Vec<4, S> const& rhs) : x{ static_cast<T>(rhs.x) }, y{ static_cast<T>(rhs.y) }, z{ static_cast<T>(rhs.z) } {}
+
+
 // Operator overloads
 template <typename T>
 Vec<3, T>& Vec<3, T>::operator=(Vec<3, T> const& rhs)
@@ -26,6 +39,7 @@ Vec<3, T>& Vec<3, T>::operator=(Vec<3, T> const& rhs)
   z = rhs.z;
   return *this;
 }
+
 template <typename T>
 Vec<3, T>& Vec<3, T>::operator+=(Vec<3, T> const& rhs)
 {
@@ -34,14 +48,7 @@ Vec<3, T>& Vec<3, T>::operator+=(Vec<3, T> const& rhs)
   z += rhs.z;
   return *this;
 }
-template <typename T>
-Vec<3, T>& Vec<3, T>::operator+=(T rhs)
-{
-  x += rhs;
-  y += rhs;
-  z += rhs;
-  return *this;
-}
+
 template <typename T>
 Vec<3, T>& Vec<3, T>::operator-=(Vec<3, T> const& rhs)
 {
@@ -50,6 +57,16 @@ Vec<3, T>& Vec<3, T>::operator-=(Vec<3, T> const& rhs)
   z -= rhs.z;
   return *this;
 }
+
+template <typename T>
+Vec<3, T>& Vec<3, T>::operator+=(T rhs)
+{
+  x += rhs;
+  y += rhs;
+  z += rhs;
+  return *this;
+}
+
 template <typename T>
 Vec<3, T>& Vec<3, T>::operator-=(T rhs)
 {
@@ -58,6 +75,7 @@ Vec<3, T>& Vec<3, T>::operator-=(T rhs)
   z -= rhs;
   return *this;
 }
+
 template <typename T>
 Vec<3, T>& Vec<3, T>::operator*=(T rhs)
 {
@@ -66,12 +84,53 @@ Vec<3, T>& Vec<3, T>::operator*=(T rhs)
   z *= rhs;
   return *this;
 }
+
 template <typename T>
 Vec<3, T>& Vec<3, T>::operator/=(T rhs)
 {
   x /= rhs;
   y /= rhs;
   z /= rhs;
+  return *this;
+}
+
+template <typename T>
+template <typename S>
+Vec<3, T>& Vec<3, T>::operator+=(S rhs)
+{
+  x += static_cast<T>(rhs);
+  y += static_cast<T>(rhs);
+  z += static_cast<T>(rhs);
+  return *this;
+}
+
+template <typename T>
+template <typename S>
+Vec<3, T>& Vec<3, T>::operator-=(S rhs)
+{
+  x -= static_cast<T>(rhs);
+  y -= static_cast<T>(rhs);
+  z -= static_cast<T>(rhs);
+  return *this;
+}
+
+template <typename T>
+template <typename S>
+Vec<3, T>& Vec<3, T>::operator*=(S rhs)
+{
+  x *= static_cast<T>(rhs);
+  y *= static_cast<T>(rhs);
+  z *= static_cast<T>(rhs);
+  return *this;
+}
+
+template <typename T>
+template <typename S>
+Vec<3, T>& Vec<3, T>::operator/=(S rhs)
+{
+  x /= static_cast<T>(rhs);
+  y /= static_cast<T>(rhs);
+  z /= static_cast<T>(rhs);
   return *this;
 }
 
@@ -131,6 +190,7 @@ std::string Vec<3, T>::ToString() const
 	oss << "{ " << x << ", " << y  << ", " << z << " }";
 	return oss.str();
 }
+
 
 // Non-member operator overloads
 template <typename T>
@@ -197,4 +257,40 @@ template <typename T>
 bool operator!=(Vec<3, T> const& lhs, Vec<3, T> const& rhs)
 {
   return !(lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z);
+}
+
+template <typename T, typename S>
+Vec<3, T> operator+(Vec<3, T> const& lhs, S rhs)
+{
+  return { lhs.x + static_cast<T>(rhs), lhs.y + static_cast<T>(rhs), lhs.z + static_cast<T>(rhs) };
+}
+
+template <typename T, typename S>
+Vec<3, T> operator+(S lhs, Vec<3, T> const& rhs)
+{
+  return { static_cast<T>(lhs) + rhs.x, static_cast<T>(lhs) + rhs.y, static_cast<T>(lhs) + rhs.z };
+}
+
+template <typename T, typename S>
+Vec<3, T> operator-(Vec<3, T> const& lhs, S rhs)
+{
+  return { lhs.x - static_cast<T>(rhs), lhs.y - static_cast<T>(rhs), lhs.z - static_cast<T>(rhs) };
+}
+
+template <typename T, typename S>
+Vec<3, T> operator*(Vec<3, T> const& lhs, S rhs)
+{
+  return { lhs.x * static_cast<T>(rhs), lhs.y * static_cast<T>(rhs), lhs.z * static_cast<T>(rhs) };
+}
+
+template <typename T, typename S>
+Vec<3, T> operator*(S lhs, Vec<3, T> const& rhs)
+{
+  return { static_cast<T>(lhs) * rhs.x, static_cast<T>(lhs) * rhs.y, static_cast<T>(lhs) * rhs.z };
+}
+
+template <typename T, typename S>
+Vec<3, T> operator/(Vec<3, T> const& lhs, S rhs)
+{
+  return { lhs.x / static_cast<T>(rhs), lhs.y / static_cast<T>(rhs), lhs.z / static_cast<T>(rhs) };
 }

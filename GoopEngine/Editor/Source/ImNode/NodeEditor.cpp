@@ -536,12 +536,12 @@ void GE::AI::NodeEditor::GetAllEnemyScript()
       m_allScriptNames.push_back(className);
     }
   }
-  std::cout << "Enemy\n------------------------------\n";
-  for (auto s : m_allScriptNames)
-  {
-    std::cout << s << "\n";
-  }
-  std::cout << "------------------------------\n";
+  //std::cout << "Enemy\n------------------------------\n";
+  //for (auto s : m_allScriptNames)
+  //{
+  //  std::cout << s << "\n";
+  //}
+  //std::cout << "------------------------------\n";
 
 }
 /*

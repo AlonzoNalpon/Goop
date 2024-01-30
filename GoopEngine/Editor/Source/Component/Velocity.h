@@ -54,6 +54,25 @@ namespace GE
 			bool m_isActive;
 		};
 
+		//struct ImpulseForce
+		//{
+		//	/*!*********************************************************************
+		//	\brief
+		//		Default contructor
+		//	************************************************************************/
+		//	ImpulseForce() = default;
+
+		//	/*!*********************************************************************
+		//	\brief
+		//		Overload contructor
+		//	************************************************************************/
+		//	ImpulseForce(double duration, vec3 magnitude, bool active) : m_duration{ duration }, m_magnitude{ magnitude }, m_isActive{ active } {}
+
+		//	double m_duration;
+		//	vec3 m_magnitude;
+		//	bool m_isActive;
+		//};
+
 		struct Velocity
 		{
 			/*!*********************************************************************
@@ -67,14 +86,15 @@ namespace GE
 				Overload contructor
 			************************************************************************/
 			Velocity(const vec3& vel, const vec3& acc, double mass, const vec3& grav, DragForce drag = DragForce(0.9f), std::vector<LinearForce> forces = {}) :
-				m_vel{ vel }, m_acc{ acc }, m_mass{ mass }, m_gravity{ grav }, m_dragForce{ std::move(drag) }, m_forces{ std::move(forces) } {}
+				m_vel{ vel }, m_acc{ acc }, m_mass{ mass }, m_gravity{ grav }, m_dragForce{ std::move(drag) }, m_linearForces{ std::move(forces) } {}
 
 			vec3 m_vel;
 			vec3 m_acc;
 			double m_mass{1.0};
 			vec3 m_gravity;
 			DragForce m_dragForce;
-			std::vector<LinearForce> m_forces;
+			std::vector<LinearForce> m_linearForces;
+			//std::vector<ImpulseForce> m_impulseForces;
 
 			vec3 m_sumMagnitude;
 
@@ -91,8 +111,14 @@ namespace GE
 			void AddForce(const vec3& mag, double lifetime, bool active)
 			{
 				LinearForce force(mag, lifetime, active);
-				m_forces.push_back(std::move(force));
+				m_linearForces.push_back(std::move(force));
 			}
+
+			/*void AddImpulse(double duration, const vec3& mag, bool active)
+			{
+				ImpulseForce force(duration, mag, active);
+
+			}*/
 
 			/*!*********************************************************************
 			\brief

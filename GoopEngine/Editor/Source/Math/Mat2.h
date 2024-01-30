@@ -43,6 +43,9 @@ namespace GE
 			Mat(Mat<2, 2, T>&& rhs);
 			Mat(Mat<2, 2, T> const& rhs);
 
+			template <typename S>
+			Mat(Mat<2, 2, S> const& rhs);
+
 			// ACCESSORS
 			/*!***********************************************************************
 			\brief

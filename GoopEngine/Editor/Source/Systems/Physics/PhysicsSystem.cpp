@@ -32,7 +32,7 @@ void PhysicsSystem::FixedUpdate()
 		vel->m_sumMagnitude = {};
 
 		//removing time from lifetime till <= 0 & removing it when lifetime reaches <= 0
-		for (auto itr{ vel->m_forces.begin() }; itr != vel->m_forces.end();)
+		for (auto itr{ vel->m_linearForces.begin() }; itr != vel->m_linearForces.end();)
 		{
 			if (itr->m_isActive)
 			{
@@ -42,18 +42,20 @@ void PhysicsSystem::FixedUpdate()
 				if (itr->m_age >= itr->m_lifetime)
 				{
 					itr->m_isActive = false;
-					itr = vel->m_forces.erase(itr);
+					itr = vel->m_linearForces.erase(itr);
 					continue;
 				}
 			}
 
+			vel->m_sumMagnitude -= vel->m_mass * vel->m_gravity * dt;
+
 			++itr;
 		}
 
-		if (vel->m_forces.empty())
+		if (vel->m_linearForces.empty())
 		{
-			vel->m_sumMagnitude = {};
-			vel->m_acc = {};
+			//gravity
+			vel->m_sumMagnitude -= vel->m_mass * vel->m_gravity;
 		}
 
 		if (vel->m_mass == 0)
@@ -62,10 +64,21 @@ void PhysicsSystem::FixedUpdate()
 			throw Debug::Exception<PhysicsSystem>(Debug::LEVEL_ERROR, ErrMsg(message));
 		}
 
-		vel->m_acc += vel->m_sumMagnitude * (1 / vel->m_mass);
+		vel->m_acc += vel->m_sumMagnitude * vel->m_mass;
 		vel->m_vel += dt * vel->m_acc;
 
-		vel->m_vel *= (1 - vel->m_dragForce.m_magnitude);
+		////impulse force
+		//vec3 impulse{};
+		//for (auto itr{ vel->m_impulseForces.begin() }; itr != vel->m_impulseForces.end();)
+		//{
+		//	impulse += itr->m_magnitude * itr->m_duration;
+		//	++itr;
+		//}
+		//vel->m_vel += impulse / vel->m_mass;
+		//vel->m_impulseForces.clear();
+
+		//drag force
+		vel->m_vel *= 1 - vel->m_dragForce.m_magnitude;
 		
 		if (vel->GetMagnitude(vel->m_vel) <= 0.01 && vel->GetMagnitude(vel->m_vel) >= -0.01)
 		{

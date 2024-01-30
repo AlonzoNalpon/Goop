@@ -69,7 +69,8 @@ RTTR_REGISTRATION
     .property("mass", &Component::Velocity::m_mass)
     .property("gravity", &Component::Velocity::m_gravity)
     .property("dragForce", &Component::Velocity::m_dragForce)
-    .property("forces", &Component::Velocity::m_forces)
+    .property("linear forces", &Component::Velocity::m_linearForces)
+    //.property("impulse forces", &Component::Velocity::m_impulseForces)
     ;
 
   rttr::registration::class_<Component::Sprite>("Sprite")
@@ -79,6 +80,7 @@ RTTR_REGISTRATION
     )
     .property("spriteData", &Component::Sprite::m_spriteData)
     .property("spriteName", &Component::Sprite::m_spriteName)
+    .property("shouldRender", &Component::Sprite::m_shouldRender)
     ;
 
   rttr::registration::class_<Component::SpriteAnim>("SpriteAnim")
@@ -174,8 +176,8 @@ RTTR_REGISTRATION
     .property("playOnStart", &Component::Emitter::m_playOnStart)
     .property("playing", &Component::Emitter::m_playing)
     .property("gravity", &Component::Emitter::m_gravity)
-    .property("minForce", &Component::Emitter::m_minForce)
-    .property("maxForce", &Component::Emitter::m_maxForce)
+    .property("minForce", &Component::Emitter::m_minVel)
+    .property("maxForce", &Component::Emitter::m_maxVel)
     .property("minDrag", &Component::Emitter::m_minDrag)
     .property("maxDrag", &Component::Emitter::m_maxDrag)
     .property("maxLifeTime", &Component::Emitter::m_maxLifeTime)

@@ -35,6 +35,7 @@ namespace GE::Component
 
     Graphics::SpriteData m_spriteData; //!< composed of sprite data
     std::string m_spriteName; //!< name of sprite
+    bool m_shouldRender{true};
   };
 }
 #endif

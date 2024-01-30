@@ -75,13 +75,15 @@ namespace GE {
 
 			std::vector<std::pair<DisplayTree, NodeLinkList>> m_treeList;
 
-			std::vector<std::string> m_allScriptNames;
+
 			GE::AI::DisplayTree* m_currentTree;
 			GE::AI::NodeLinkList* m_currentLinkList;
 			TreeID m_maxTreeID;  //Used to determine the ID of the next tree we r going to create
 			unsigned int m_currentTreeInd;
 			int m_selectedNodeInd;
 			bool m_displayPopup;
+		public:
+			std::vector<std::string> m_allScriptNames;
 
 
 

@@ -78,12 +78,15 @@ namespace GoopScripts.AI.Enemy.MineWorm
     public void OnUpdate(uint entityID, double dt)
     {
       Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
+      Console.WriteLine("Lets play special card\n");
       Random random = new Random();
       List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
-       int cardToPlay = 0;
-      foreach (int c in EnemyStats.m_deckMngr.m_hand)
+      int pos = 0;
+      int cardToPlay = 0;
+      foreach (CardID c in EnemyStats.m_deckMngr.m_hand)
       {
-        cardToPlay = (specialCards.Contains(EnemyStats.m_deckMngr.m_hand[c])) ? c : cardToPlay;
+        cardToPlay = (c == CardID.SPECIAL_SCREECH) ? pos : cardToPlay;
+        ++pos;
       }
 
       EnemyStats.QueueCard(cardToPlay);

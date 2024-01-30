@@ -75,18 +75,18 @@ namespace GoopScripts.AI.Enemy.MineWorm
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      //const int minHealth = 5;
-      //Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
-      //if (EnemyStats.m_health < minHealth)
-      //{
-      //  Console.WriteLine("Enemt Low on Health");
-      //  OnSuccess();
-      //}
-      //else
-      //{
-      //  Console.WriteLine("Enemt Healthy AF");
-      //  OnFail();
-      //}
+      const int minHealth = 5;
+      Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
+      if (EnemyStats.m_healthBar.m_health < minHealth)
+      {
+        Console.WriteLine("Enemt Low on Health");
+        OnSuccess();
+      }
+      else
+      {
+        Console.WriteLine("Enemt Healthy AF");
+        OnFail();
+      }
 
 
     }
