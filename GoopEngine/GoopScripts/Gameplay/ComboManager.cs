@@ -56,7 +56,7 @@ namespace GoopScripts.Gameplay
 
               case CardBase.CardID.LEAH_STRIKE:
                 //skip enemy's turn
-                enemy.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 1));
+                enemy.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 1, "Skipped"));
                 break;
 
               default:
@@ -80,7 +80,7 @@ namespace GoopScripts.Gameplay
                 int chance = rng.Next(1, 2);
                 if (chance == 1)
                 {
-                  enemy.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 1));
+                  enemy.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 1, "Skipped"));
                 }
                 break;
 
@@ -142,7 +142,7 @@ namespace GoopScripts.Gameplay
 
                 case CardBase.CardID.LEAH_STRIKE:
                   //skip enemy's turn
-                  enemy.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 1));
+                  enemy.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 1, "Skipped"));
                   break;
 
                 default:
@@ -166,7 +166,7 @@ namespace GoopScripts.Gameplay
                   int chance = rng.Next(1, 2);
                   if (chance == 1)
                   {
-                    enemy.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 1));
+                    enemy.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 1, "Skipped"));
                   }
                   break;
 
@@ -205,7 +205,7 @@ namespace GoopScripts.Gameplay
 
                 case CardBase.CardID.BASIC_SHIELD:
                   //-2 player damage next turn
-                  player.m_buffs.AddBuff(new Buff(Buff.BuffType.REDUCE_ATK_DEALT, 2.0f, 1));
+                  player.m_buffs.AddBuff(new Buff(Buff.BuffType.REDUCE_ATK_DEALT, 2.0f, 1, "Block Up"));
                   break;
 
                 default:
@@ -218,7 +218,7 @@ namespace GoopScripts.Gameplay
               {
                 case CardBase.CardID.BASIC_ATTACK:
                   //-1 player shield next turn
-                  player.m_buffs.AddBuff(new Buff(Buff.BuffType.REDUCE_SHIELD, 1.0f, 1));
+                  player.m_buffs.AddBuff(new Buff(Buff.BuffType.REDUCE_SHIELD, 1.0f, 1, "Dmg Down"));
                   break;
 
                 case CardBase.CardID.BASIC_SHIELD:
@@ -249,7 +249,7 @@ namespace GoopScripts.Gameplay
 
                   case CardBase.CardID.BASIC_SHIELD:
                     //-2 player damage next turn
-                    player.m_buffs.AddBuff(new Buff(Buff.BuffType.REDUCE_ATK_DEALT, 2.0f, 1));
+                    player.m_buffs.AddBuff(new Buff(Buff.BuffType.REDUCE_ATK_DEALT, 2.0f, 1, "Atk Down"));
                     break;
 
                   default:
@@ -262,7 +262,7 @@ namespace GoopScripts.Gameplay
                 {
                   case CardBase.CardID.BASIC_ATTACK:
                     //-1 player shield next turn
-                    player.m_buffs.AddBuff(new Buff(Buff.BuffType.REDUCE_SHIELD, 1.0f, 1));
+                    player.m_buffs.AddBuff(new Buff(Buff.BuffType.REDUCE_SHIELD, 1.0f, 1, "Block Up"));
                     break;
 
                   case CardBase.CardID.BASIC_SHIELD:
@@ -322,12 +322,12 @@ namespace GoopScripts.Gameplay
 
                 case CardBase.CardID.DAWSON_SWING:
                   //x150% damage next turn
-                  enemy.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLY_ATK_DEALT, 1.5f, 1));
+                  enemy.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLY_ATK_DEALT, 1.5f, 1, "Dmg Up"));
                   break;
 
                 case CardBase.CardID.DAWSON_SHIELD:
                   //bleed -> -1 player health next turn -> basically +1 attack but yes.
-                  player.m_buffs.AddBuff(new Buff(Buff.BuffType.BLEED, 1.0f, 1));
+                  player.m_buffs.AddBuff(new Buff(Buff.BuffType.BLEED, 1.0f, 1, "Atk Up"));
                   break;
 
                 default:
@@ -402,12 +402,12 @@ namespace GoopScripts.Gameplay
 
                   case CardBase.CardID.DAWSON_SWING:
                     //x150% damage next turn
-                    enemy.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLY_ATK_DEALT, 1.5f, 1));
+                    enemy.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLY_ATK_DEALT, 1.5f, 1, "Dmg Up"));
                     break;
 
                   case CardBase.CardID.DAWSON_SHIELD:
                     //bleed -> -1 player health next turn -> basically +1 attack but yes.
-                    player.m_buffs.AddBuff(new Buff(Buff.BuffType.BLEED, 1.0f, 1));
+                    player.m_buffs.AddBuff(new Buff(Buff.BuffType.BLEED, 1.0f, 1, "Atk Up"));
                     break;
 
                   default:

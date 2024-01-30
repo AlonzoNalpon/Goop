@@ -40,7 +40,7 @@ namespace GoopScripts.Cards
     ************************************************************************/
     public override void Play(ref Stats source, ref Stats target)
     {
-      source.m_buffs.AddBuff(new Buff(Buff.BuffType.IMMUNITY, 0.0f, 2));
+      source.m_buffs.AddBuff(new Buff(Buff.BuffType.IMMUNITY, 0.0f, 2, "Dmg Down"));
     }
   }
 }
