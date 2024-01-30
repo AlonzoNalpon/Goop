@@ -56,13 +56,14 @@ namespace GoopScripts.Cards
       TOTAL_TYPES,
     }
 
-    CardID cardID;
+    CardID m_cardID;
     float m_actionVal;
     int m_duration;
-    CardType cardType;
+    CardType m_cardType;
 
     public float Value { get { return m_actionVal; } set { m_actionVal = value; } }
     public int Duration { get { return m_duration; } set { m_duration = value; } }
+    public CardType Type { get { return m_cardType; } }
 
     /*!*********************************************************************
     \brief
@@ -70,7 +71,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public CardBase(CardID cardID, CardType cardType) { this.cardID = cardID; this.cardType = cardType; }
+    public CardBase(CardID cardID, CardType cardType) { this.m_cardID = cardID; this.m_cardType = cardType; }
 
     /*!*********************************************************************
     \brief
