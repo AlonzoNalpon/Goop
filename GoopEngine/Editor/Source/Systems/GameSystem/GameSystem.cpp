@@ -147,7 +147,7 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
           {
             break;
           }
-          m_shouldPause = !m_shouldPause;
+            m_shouldPause = !m_shouldPause;
           break;
 //        case GPK_1:
 //#ifndef IMGUI_DISABLE

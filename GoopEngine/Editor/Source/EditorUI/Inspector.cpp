@@ -158,6 +158,26 @@ namespace
 	template <>
 	void InputList(std::string propertyName, std::vector<GE::Component::LinearForce>& list, float fieldWidth, bool disabled);
 
+	///*!*********************************************************************
+	//\brief
+	//	Wrapper to create specialized inspector list of vector of
+	//	impulse forces
+
+	//\param[in] propertyName
+	//	Label name
+
+	//\param[in] list
+	//	Vector of impulse forces
+
+	//\param[in] fieldWidth
+	//	Width of input field
+
+	//\param[in] disabled
+	//	Draw disabled
+	//************************************************************************/
+	//template <>
+	//void InputList(std::string propertyName, std::vector<GE::Component::ImpulseForce>& list, float fieldWidth, bool disabled);
+
 	/*!*********************************************************************
 	\brief
 		Wrapper to create specialized inspector list of deque of
@@ -532,8 +552,10 @@ void GE::EditorGUI::Inspector::CreateContent()
 					ImGui::TableNextRow();
 					InputCheckBox("Drag Active", vel->m_dragForce.m_isActive);
 					EndTable();
-					InputList("Forces", vel->m_forces, inputWidth);
+					InputList("Linear Forces", vel->m_linearForces, inputWidth);
 					ImGui::Separator();
+					/*InputList("Impulse Forces", vel->m_impulseForces, inputWidth);
+					ImGui::Separator();*/
 					ImGui::PopID();
 				}
 			}
@@ -1552,9 +1574,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 				PushID("Emitter");
 				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 				ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-				InputDouble3("Min Force", em->m_minForce, inputWidth);
+				InputDouble3("Min Vel", em->m_minVel, inputWidth);
 				TableNextRow();
-				InputDouble3("Max Force", em->m_maxForce, inputWidth);
+				InputDouble3("Max Vel", em->m_maxVel, inputWidth);
 				TableNextRow();
 				InputDouble3("Gravity", em->m_gravity, inputWidth);
 				TableNextRow();
@@ -1943,6 +1965,43 @@ namespace
 		}
 		Indent();
 	}
+
+	//template <>
+	//void InputList(std::string propertyName, std::vector<GE::Component::ImpulseForce>& list, float fieldWidth, bool disabled)
+	//{
+	//	// 12 characters for property name
+	//	float charSize = CalcTextSize("012345678901").x;
+
+	//	if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+	//	{
+	//		ImGui::Separator();
+	//		ImGui::BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+	//		ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
+	//		ImGui::TableNextRow();
+	//		int i{};
+	//		for (auto& force : list)
+	//		{
+	//			PushID((std::to_string(i++)).c_str());
+	//			InputDouble1("Duration", force.m_duration);
+	//			InputDouble3("Force", force.m_magnitude, fieldWidth, disabled);
+	//			InputCheckBox("IsActive", force.m_isActive);
+	//			ImGui::PopID();
+	//			ImGui::Separator();
+	//		}
+	//		ImGui::EndTable();
+
+	//		ImGui::Separator();
+	//		ImGui::Unindent();
+	//		// 20 magic number cuz the button looks good
+	//		if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
+	//		{
+	//			list.push_back(ImpulseForce());
+	//		}
+
+	//		ImGui::TreePop();
+	//	}
+	//	Indent();
+	//}
 
 	template <>
 	void InputList(std::string propertyName, std::deque<GE::Math::dVec3>& list, float fieldWidth, bool disabled)

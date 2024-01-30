@@ -129,9 +129,54 @@ namespace GoopScripts.Gameplay
 		//	}
   //  }
 
+    void UndeeperPause()
+    {
+      Utils.SetIsActiveEntity((uint)56, false);
+      Utils.SetIsActiveEntity((uint)27, true);
+      UI.PauseManager.SetDeeperPause(false);
+    }
+
+    void UnpauseMenu()
+    {
+      Utils.SetIsActiveEntity((uint)27, false);
+      UI.PauseManager.SetPause(false);
+    }
+
+    void PauseMenu()
+    {
+      Utils.SetIsActiveEntity((uint)27, true);
+      UI.PauseManager.SetPause(true);
+    }
+
+    void DeeperPauseMenu()
+    {
+      Utils.SetIsActiveEntity((uint)56, true);
+      Utils.SetIsActiveEntity((uint)27, false);
+      UI.PauseManager.SetDeeperPause(true);
+    }
+
     public void OnUpdate(double deltaTime)
     {
-      if (endTurn)
+      if (Utils.IsKeyTriggered(Input.KeyCode.C))
+      {
+        if (UI.PauseManager.IsPaused())
+        {
+          if (UI.PauseManager.IsDeeperPaused())
+            UndeeperPause();
+          else
+            UnpauseMenu();
+        }
+        else
+          PauseMenu();
+      }
+
+      if (Utils.IsKeyTriggered(Input.KeyCode.X))
+      {
+        if (UI.PauseManager.IsPaused())
+          DeeperPauseMenu();
+      }
+
+        if (endTurn)
       {
         endTurn = false;
         intervalBeforeReset = true;

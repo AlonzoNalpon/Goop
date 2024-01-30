@@ -22,6 +22,7 @@ namespace GE::Systems
     bool m_shouldIterate;
     bool m_shouldPause;
     bool m_lastShouldPause;
+    bool m_inAnotherMenu;
 
     bool m_shouldWin;
     bool m_shouldLose;

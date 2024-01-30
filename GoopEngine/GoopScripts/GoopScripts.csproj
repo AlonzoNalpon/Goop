@@ -71,9 +71,11 @@
     <Compile Include="Audio\MainMenuToGame.cs" />
     <Compile Include="Button\EndTurn.cs" />
     <Compile Include="Audio\GameOverAudioEvent.cs" />
+    <Compile Include="Button\HowToPlay.cs" />
     <Compile Include="Button\IButtonClick.cs" />
     <Compile Include="Button\IButtonHoverEnter.cs" />
     <Compile Include="Button\IButtonHoverExit.cs" />
+    <Compile Include="Button\PlsFix.cs" />
     <Compile Include="Button\TempEndTurn.cs" />
     <Compile Include="Cards\BasicAttack.cs" />
     <Compile Include="Cards\BlankCard.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Player\PlayerScriptTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\HealthBar.cs" />
+    <Compile Include="UI\PauseManager.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

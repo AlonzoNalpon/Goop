@@ -33,6 +33,9 @@ namespace GE
 			Mat(Mat<4, 4, T>&& rhs);
 			Mat(Mat<4, 4, T> const& rhs);
 
+			template <typename S>
+			Mat(Mat<4, 4, S> const& rhs);
+
 			// ACCESSORS
 			/*!***********************************************************************
 			\brief

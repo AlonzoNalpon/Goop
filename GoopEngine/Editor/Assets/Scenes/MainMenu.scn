@@ -33,7 +33,8 @@
                             "height": 1080
                         }
                     },
-                    "spriteName": "MainMenu_BG"
+                    "spriteName": "MainMenu_BG",
+                    "shouldRender": true
                 }
             },
             {
@@ -98,7 +99,8 @@
                             "height": 80
                         }
                     },
-                    "spriteName": "Pause_BG"
+                    "spriteName": "Pause_BG",
+                    "shouldRender": true
                 }
             }
         ]
@@ -174,7 +176,8 @@
                             "height": 136
                         }
                     },
-                    "spriteName": "MainMenu_NewGame"
+                    "spriteName": "MainMenu_NewGame",
+                    "shouldRender": true
                 }
             },
             {
@@ -231,7 +234,8 @@
                             "height": 136
                         }
                     },
-                    "spriteName": "MainMenu_LoadGame"
+                    "spriteName": "MainMenu_LoadGame",
+                    "shouldRender": true
                 }
             },
             {
@@ -278,7 +282,8 @@
                             "height": 136
                         }
                     },
-                    "spriteName": "MainMenu_Options"
+                    "spriteName": "MainMenu_Options",
+                    "shouldRender": true
                 }
             }
         ]
@@ -317,7 +322,8 @@
                             "height": 136
                         }
                     },
-                    "spriteName": "MainMenu_HowToPlay"
+                    "spriteName": "MainMenu_HowToPlay",
+                    "shouldRender": true
                 }
             }
         ]
@@ -356,7 +362,8 @@
                             "height": 136
                         }
                     },
-                    "spriteName": "MainMenu_QuitGame"
+                    "spriteName": "MainMenu_QuitGame",
+                    "shouldRender": true
                 }
             }
         ]
@@ -405,7 +412,8 @@
                             "height": 136
                         }
                     },
-                    "spriteName": "MainMenu_Credits"
+                    "spriteName": "MainMenu_Credits",
+                    "shouldRender": true
                 }
             },
             {
@@ -462,7 +470,8 @@
                             "height": 80
                         }
                     },
-                    "spriteName": "Pause_BG"
+                    "spriteName": "Pause_BG",
+                    "shouldRender": true
                 }
             }
         ]
@@ -536,7 +545,42 @@
                             "height": 80
                         }
                     },
-                    "spriteName": "Pause_BG"
+                    "spriteName": "Pause_BG",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "HowToPlay",
+                            "entityID": 11,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -585,7 +629,42 @@
                             "height": 80
                         }
                     },
-                    "spriteName": "Pause_BG"
+                    "spriteName": "Pause_BG",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "HowToPlay",
+                            "entityID": 12,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
