@@ -30,23 +30,28 @@ namespace GoopScripts.Gameplay
     }
 
     BuffType m_type;
-    bool m_isDebuff;
+    //bool m_isDebuff;
     float m_value;
+    string m_label;
     int m_turns;
-    readonly string m_displayText;
+    public uint m_iconID;
+    //readonly string m_displayText;
 
     // Getters
     public BuffType type { get { return m_type; } }
     public float value { get { return m_value; } }
     public int turns { get { return m_turns; } set { m_turns = value; } }
 
-    public string GetDisplayText() {  return m_displayText; }
-    public bool IsDebuff() {  return m_isDebuff; }  
-    public Buff(BuffType type, float value, int turns)
+    public string Label { get { return m_label; } }
+
+    //public string GetDisplayText() {  return m_displayText; }
+    //public bool IsDebuff() {  return m_isDebuff; }  
+    public Buff(BuffType type, float value, int turns, string buffLabel)
     {
       m_type = type;
       m_value = value;
-      m_turns = turns + 1; 
+      m_turns = turns + 1;
+      m_label = buffLabel;
 
       switch (type)
       {
@@ -87,24 +92,48 @@ namespace GoopScripts.Gameplay
     private List<Buff> m_buffs;
     public List<Buff> Buffs { get { return m_buffs; } }
 
-    public int buffsUI; 
+    List<uint> m_buffIcons;
 
-    public BuffManager(int displayID)
+    public int buffsUI;
+    readonly float m_buffSize = 50.0f; // Scale of buff icons
+    readonly float m_buffPadding = 10.0f;
+    uint m_maxNumOfBuffs; // This tracks the highest number of buffs ever
+    CharacterType m_characterType;
+
+    public BuffManager(int displayID, CharacterType type)
     {
       m_buffs = new List<Buff>();
       buffsUI = displayID;
+      m_maxNumOfBuffs = 0;
+      m_buffIcons= new List<uint>();
+      m_characterType = type;
     }
 
     public void AddBuff(Buff buff)
     {
       m_buffs.Add(buff);
+			uint buffPrefab = Utils.SpawnPrefab(buff.Label);
+			buff.m_iconID = buffPrefab;
+			m_buffIcons.Add(buffPrefab);
+      if (m_characterType == CharacterType.PLAYER)
+			  Utils.SetParent(Utils.GetEntity("PlayerBuffAnchor"), buffPrefab);
+			else
+				Utils.SetParent(Utils.GetEntity("EnemyBuffAnchor"), buffPrefab);
+
+			m_maxNumOfBuffs = m_buffs.Count > m_maxNumOfBuffs ? (uint)m_buffs.Count : m_maxNumOfBuffs;
     }
 
     public void StepTurn()
-    {
-      foreach (var buff in m_buffs)
+		{
+			Console.WriteLine(m_buffs.Count);
+			foreach (var buff in m_buffs)
       {
         buff.turns -= 1;
+        if (buff.turns <= 0)
+        {
+          Utils.DestroyEntity(buff.m_iconID);
+          m_buffIcons.Remove(buff.m_iconID);
+        }
       }
       m_buffs.RemoveAll(buff => buff.turns <= 0);
     }
@@ -113,17 +142,24 @@ namespace GoopScripts.Gameplay
     {
       Random rng = new Random();
       int chance = rng.Next(0, m_buffs.Count - 1);
+			Console.WriteLine($"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!{chance} is being removed by random");
+			Utils.DestroyEntity(m_buffIcons.Find(iconid => iconid == m_buffs[chance].m_iconID));
       m_buffs.RemoveAt(chance);
     }
 
     public void UpdateBuffsUI()
     {
-      string txt = "";
-      foreach (Buff buff in m_buffs)
+      //string txt = "";
+      //foreach (Buff buff in m_buffs)
+      //{
+      //  txt += buff.GetDisplayText() + "\n";
+      //}
+      //Utils.SetTextComponent(buffsUI, txt);
+
+      for (int i = 0; i < m_buffIcons.Count; ++i)
       {
-        txt += buff.GetDisplayText() + "\n";
+        Utils.SetPosition(m_buffIcons[i], new Vec3<double>(i * (m_buffSize + m_buffPadding), 0.0, 0.0));
       }
-      Utils.SetTextComponent(buffsUI, txt);
     }
   }
 }

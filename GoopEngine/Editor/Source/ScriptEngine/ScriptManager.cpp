@@ -149,6 +149,9 @@ void GE::MONO::ScriptManager::InitMono()
 
   // Game UI Stuff
   mono_add_internal_call("GoopScripts.Mono.Utils::SetIsActiveEntity", GE::MONO::SetIsActiveEntity);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetParent", GE::MONO::SetParent);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetEntity", GE::MONO::GetEntity);
+  mono_add_internal_call("GoopScripts.Mono.Utils::DestroyEntity", GE::MONO::DestroyEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::SpawnPrefab", GE::MONO::SpawnPrefab);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectWidth", GE::MONO::GetObjectWidth);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectHeight", GE::MONO::GetObjectHeight);
@@ -376,6 +379,46 @@ void GE::MONO::CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1
   as->CrossFadeAudio(cf);
 }
 
+void GE::MONO::SetParent(GE::ECS::Entity parent, GE::ECS::Entity child)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  ecs.SetParentEntity(child, parent);
+  ecs.AddChildEntity(parent, child);
+}
+
+GE::ECS::Entity GE::MONO::GetEntity(MonoString* entityName)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();  
+  return ecs.GetEntityFromName(MonoStringToSTD(entityName));
+}
+
+void GE::MONO::DestroyEntity(GE::ECS::Entity entity)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+
+  // Call OnDestroy function on entity
+  // Ignore if entity is inactive
+  if (ecs.GetIsActiveEntity(entity))
+  {
+    if (ecs.HasComponent<GE::Component::Scripts>(entity))
+    {
+      GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(entity);
+      for (auto script : scripts->m_scriptList)
+      {
+        MonoMethod* onDestroy = mono_class_get_method_from_name(script.m_scriptClass, "OnDestroy", 1);
+        if (onDestroy)
+        {
+          std::vector<void*> params = { &entity };
+          mono_runtime_invoke(onDestroy, mono_gchandle_get_target(script.m_gcHandle), params.data(), nullptr);
+        }
+        mono_gchandle_free(script.m_gcHandle);
+      }
+    }
+  }
+
+  ecs.DestroyEntity(entity);
+}
+
 MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
 {
 
@@ -511,34 +554,20 @@ ScriptField GE::MONO::ScriptManager::GetScriptField(std::string className, std::
 
 void GE::MONO::SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment)
 {
-  GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-  oldTransform->m_pos.x += (PosAdjustment.x * fpsControl->GetDeltaTime());
-  oldTransform->m_pos.y += (PosAdjustment.y * fpsControl->GetDeltaTime());
+  oldTransform->m_pos.x = PosAdjustment.x;
+  oldTransform->m_pos.y = PosAdjustment.y;
 }
 
 void GE::MONO::SetScale(GE::ECS::Entity entity, GE::Math::dVec3 scaleAdjustment)
 {
-  GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-  if ((scaleAdjustment.x > 1.f) && (scaleAdjustment.y > 1.f))
-  {
-    oldTransform->m_scale.x += (oldTransform->m_scale.x * scaleAdjustment.x * fpsControl->GetDeltaTime());
-    oldTransform->m_scale.y += (oldTransform->m_scale.y * scaleAdjustment.y * fpsControl->GetDeltaTime());
-  }
-  else if ((scaleAdjustment.x < 1.f) && (scaleAdjustment.y < 1.f))
-  {
-    scaleAdjustment.x = 1.f / scaleAdjustment.x;
-    scaleAdjustment.y = 1.f / scaleAdjustment.y;
-    double gcd = (oldTransform->m_scale.x >= oldTransform->m_scale.y) ? static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->m_scale.x), static_cast<int>(oldTransform->m_scale.y))) : static_cast<double>(CalculateGCD(static_cast<int>(oldTransform->m_scale.y), static_cast<int>(oldTransform->m_scale.x)));
-    oldTransform->m_scale.x = ((oldTransform->m_scale.x - (oldTransform->m_scale.x * scaleAdjustment.x * fpsControl->GetDeltaTime())) <= scaleAdjustment.x / gcd) ? (scaleAdjustment.x / gcd) : oldTransform->m_scale.x - (oldTransform->m_scale.x * scaleAdjustment.x * fpsControl->GetDeltaTime());
-    oldTransform->m_scale.y = ((oldTransform->m_scale.y - (oldTransform->m_scale.y * scaleAdjustment.y * fpsControl->GetDeltaTime())) <= scaleAdjustment.y / gcd) ? (scaleAdjustment.y / gcd) : oldTransform->m_scale.y - (oldTransform->m_scale.y * scaleAdjustment.y * fpsControl->GetDeltaTime());
-  }
-
+  oldTransform->m_scale.x = scaleAdjustment.x;
+  oldTransform->m_scale.y = scaleAdjustment.y;
 }
 
 void GE::MONO::SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 rotAdjustment)
