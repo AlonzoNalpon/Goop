@@ -71,7 +71,6 @@
     <Compile Include="Audio\MainMenuToGame.cs" />
     <Compile Include="Button\EndTurn.cs" />
     <Compile Include="Audio\GameOverAudioEvent.cs" />
-    <Compile Include="Button\HowToPlay.cs" />
     <Compile Include="Button\IButtonClick.cs" />
     <Compile Include="Button\IButtonHoverEnter.cs" />
     <Compile Include="Button\IButtonHoverExit.cs" />

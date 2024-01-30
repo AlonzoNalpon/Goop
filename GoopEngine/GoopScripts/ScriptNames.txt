@@ -20,7 +20,6 @@ GoopScripts.AI.Enemy.MineWorm,PlaySpecialCard
 GoopScripts.Audio,GameOverAudioEvent
 GoopScripts.Audio,MainMenuToGame
 GoopScripts.Button,EndTurn
-GoopScripts.Button,HowToPlay
 GoopScripts.Button,IButtonClick
 GoopScripts.Button,IButtonHoverEnter
 GoopScripts.Button,IButtonHoverExit
