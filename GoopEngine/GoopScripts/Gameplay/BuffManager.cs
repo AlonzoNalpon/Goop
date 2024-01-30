@@ -18,13 +18,14 @@ namespace GoopScripts.Gameplay
       // BUFFS
       INCREASE_ATK_DEALT,
       MULTIPLY_ATK_DEALT,
-      IMMUNITY,
+      INCREASE_BLOCK,
+      DRAW_CARDS,
 
       // DEBUFFS
       REDUCE_ATK_DEALT,
-      REDUCE_SHIELD,
       SKIP_TURN,
-      BLEED,
+      BLIND,
+
       TOTAL_BUFFS
     }
 
@@ -50,31 +51,31 @@ namespace GoopScripts.Gameplay
       switch (type)
       {
         case BuffType.INCREASE_ATK_DEALT:
-          m_displayText = "+" + value + "Attack for " + turns + " turns";
+          m_displayText = "+" + value + " Attack for " + turns + " turns";
           m_isDebuff = false;
           break;
         case BuffType.MULTIPLY_ATK_DEALT:
-          m_displayText = "x" + value + "Attack for " + turns + " turns";
+          m_displayText = "x" + value + " Attack for " + turns + " turns";
           m_isDebuff = false;
           break;
-        case BuffType.IMMUNITY:
-          m_displayText = "No Damage Taken for " + turns + " turns";
+        case BuffType.INCREASE_BLOCK:
+          m_displayText = "+" + value + " Block for " + turns + " turns";
+          m_isDebuff = false;
+          break;
+        case BuffType.DRAW_CARDS:
+          m_displayText = "Draw cards";
           m_isDebuff = false;
           break;
         case BuffType.REDUCE_ATK_DEALT:
-          m_displayText = "-" + value + "Attack for " + turns + " turns";
-          m_isDebuff = true;
-          break;
-        case BuffType.REDUCE_SHIELD:
-          m_displayText = "-" + value + "Block for " + turns + " turns";
+          m_displayText = "-" + value + " Attack for " + turns + " turns";
           m_isDebuff = true;
           break;
         case BuffType.SKIP_TURN:
           m_displayText = "Turn skipped";
           m_isDebuff = true;
           break;
-        case BuffType.BLEED:
-          m_displayText = "Bleeding for " + turns + " turns";
+        case BuffType.BLIND:
+          m_displayText = "50% chance of missing attack";
           m_isDebuff = true;
           break;
       }
