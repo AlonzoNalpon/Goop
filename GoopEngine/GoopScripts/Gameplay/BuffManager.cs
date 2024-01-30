@@ -86,7 +86,7 @@ namespace GoopScripts.Gameplay
     private List<Buff> m_buffs;
     public List<Buff> Buffs { get { return m_buffs; } }
 
-    public int buffsUI;
+    public int buffsUI; 
 
     public BuffManager(int displayID)
     {
