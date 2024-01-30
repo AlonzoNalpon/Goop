@@ -39,7 +39,7 @@ namespace GoopScripts.Gameplay
     {
       Console.WriteLine("Create Stats for " + m_type.ToString());
       m_deckMngr.Init(m_type);
-      m_buffs = new BuffManager(m_buffsDisplay);
+      m_buffs = new BuffManager(m_buffsDisplay, m_type);
       m_healthBar = new HealthBar(m_type, m_healthDisplayWillBeRemoved);
     }
 
@@ -131,8 +131,8 @@ namespace GoopScripts.Gameplay
     {
       m_deckMngr.DiscardQueue();
       m_attack = m_block = 0;
-      Utils.SetTextComponent(m_attackDisplay, "0");
-      Utils.SetTextComponent(m_blockDisplay, "0");
+      //Utils.SetTextComponent(m_attackDisplay, "0");
+      //Utils.SetTextComponent(m_blockDisplay, "0");
       m_buffs.StepTurn();
       m_buffs.UpdateBuffsUI();
     }

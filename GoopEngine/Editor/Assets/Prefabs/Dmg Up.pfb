@@ -1,6 +1,6 @@
 {
     "Name": "Dmg Up",
-    "Version": 0,
+    "Version": 1,
     "Components": [
         {
             "Transform": {
@@ -24,8 +24,8 @@
                             "x": 1.0,
                             "y": 1.0
                         },
-                        "width": 100,
-                        "height": 100
+                        "width": 35,
+                        "height": 35
                     }
                 },
                 "spriteName": "Dmg Up",
