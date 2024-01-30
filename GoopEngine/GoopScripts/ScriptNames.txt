@@ -24,7 +24,10 @@ GoopScripts.Button,HowToPlay
 GoopScripts.Button,IButtonClick
 GoopScripts.Button,IButtonHoverEnter
 GoopScripts.Button,IButtonHoverExit
-GoopScripts.Button,PlsFix
+GoopScripts.Button,MenuClose
+GoopScripts.Button,MenuHowToPlay
+GoopScripts.Button,MenuQuitGame
+GoopScripts.Button,MenuResume
 GoopScripts.Button,TempEndTurn
 GoopScripts.Cards,BasicAttack
 GoopScripts.Cards,BlankCard

@@ -9,33 +9,24 @@ namespace GoopScripts.UI
 {
   static public class PauseManager
   {
-    static private bool m_lastPaused = false;
-    static private bool m_pause = false;
-    static private bool m_deeperPause = false; // Inside another menu that is not the basic pause screen
+    static int m_pauseState = 0; // 0 - Unpaused, 1 - Paused, 2 - DeeperPaused
+    static int m_lastPauseState = 0;
 
     static PauseManager() { }
 
-    static public bool PauseStateChanged() {
-      if (m_lastPaused != m_pause)
-      {
-        m_lastPaused = m_pause;
-      }
-      return m_lastPaused; 
-    }
-
-    static public bool IsPaused() { return m_pause; }
-
-    static public bool IsDeeperPaused() { return m_deeperPause; }
-
-    static public void SetDeeperPause(bool val) { m_deeperPause = val; }
-
-    static public void SetPause(bool val) { m_pause = val; }
-
-    static public void UnpauseMenu()
+    static public bool PauseStateChanged()
     {
-      Utils.SetIsActiveEntity(27, false);
-      UI.PauseManager.SetPause(false);
+      
+      if (m_lastPauseState != m_pauseState)
+      {
+        m_lastPauseState = m_pauseState;
+        return true;
+      }
+      return false;
     }
 
+    static public int GetPauseState() { return m_pauseState; }
+
+    static public void SetPauseState(int id) { m_pauseState = id; }
   }
 }

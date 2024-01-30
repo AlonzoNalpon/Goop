@@ -230,7 +230,7 @@ namespace GE
 							{
 								GE::ECS::Entity pauseMenu{ std::stoul(btn->m_param) };
 								m_ecs->SetIsActiveEntity(pauseMenu, false);
-								m_ecs->GetSystem<GE::Systems::GameSystem>()->FlipPauseBool();
+								// m_ecs->GetSystem<GE::Systems::GameSystem>()->FlipPauseBool(); // DEPRECATED
 								break;
 							}
 							case GE::Component::GE_Button::NEXT_TURN:
