@@ -13,14 +13,18 @@ namespace GoopScripts.Gameplay
 {
   public class GameManager : Entity
   {
-    static readonly double INTERVAL_TIME = 3.0;
+    //static readonly double INTERVAL_TIME = 3.0;
     static readonly uint PAUSE_MENU = 27;
     static readonly uint HOWTOPLAY_MENU= 56;
     static readonly uint QUIT_MENU = 60;
 
+    static readonly double CARD_WIDTH = 214.0;
+    static readonly double PLAYER_HAND_WIDTH = CARD_WIDTH * 5 + 300.0,
+      HAND_START_POS = -PLAYER_HAND_WIDTH / 2.0;
+
     Random m_rng;
     //double m_animTime = 1.0; // hard coded for now
-    double m_currTime = 0.0;
+    //double m_currTime = 0.0;
 
     Stats m_playerStats, m_enemyStats;
 
@@ -40,51 +44,51 @@ namespace GoopScripts.Gameplay
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
     }
 
-    public void OnUpdate(double deltaTime)
-    {
-      // handle input
-      if (Utils.IsKeyTriggered(Input.KeyCode.C))
-      {
-        if (UI.PauseManager.IsPaused())
-        {
-          if (UI.PauseManager.IsDeeperPaused())
-            UndeeperPause();
-          else
-            UnpauseMenu();
-        }
-        else
-          PauseMenu();
-      }
+    //public void OnUpdate(double deltaTime)
+    //{
+    //  // handle input
+    //  if (Utils.IsKeyTriggered(Input.KeyCode.C))
+    //  {
+    //    if (UI.PauseManager.IsPaused())
+    //    {
+    //      if (UI.PauseManager.IsDeeperPaused())
+    //        UndeeperPause();
+    //      else
+    //        UnpauseMenu();
+    //    }
+    //    else
+    //      PauseMenu();
+    //  }
 
-      if (Utils.IsKeyTriggered(Input.KeyCode.X))
-      {
-        if (UI.PauseManager.IsPaused())
-          DeeperPauseMenu();
-      }
+    //  if (Utils.IsKeyTriggered(Input.KeyCode.X))
+    //  {
+    //    if (UI.PauseManager.IsPaused())
+    //      DeeperPauseMenu();
+    //  }
 
 
-      // game logic
-      if (endTurn)
-      {
-        endTurn = false;
-        intervalBeforeReset = true;
-        ResolutionPhase();
-      }
+    //  // game logic
+    //  if (endTurn)
+    //  {
+    //    endTurn = false;
+    //    intervalBeforeReset = true;
+    //    ResolutionPhase();
+    //  }
 
-      if (intervalBeforeReset)
-      {
-        m_currTime += deltaTime;
+    //  if (intervalBeforeReset)
+    //  {
+    //    m_currTime += deltaTime;
 
-        if (m_currTime >= INTERVAL_TIME)
-        {
-          m_currTime = 0.0;
-          m_playerStats.TakeDamage(m_enemyStats.DamageDealt());
-          m_enemyStats.TakeDamage(m_playerStats.DamageDealt());
-          StartOfTurn();
-          intervalBeforeReset = false;
-        }
-      }
-    }
+    //    if (m_currTime >= INTERVAL_TIME)
+    //    {
+    //      m_currTime = 0.0;
+    //      m_playerStats.TakeDamage(m_enemyStats.DamageDealt());
+    //      m_enemyStats.TakeDamage(m_playerStats.DamageDealt());
+    //      StartOfTurn();
+    //      intervalBeforeReset = false;
+    //    }
+    //  }
+    //}
 
     void DisplayPlayerCards()
     {
@@ -201,20 +205,20 @@ namespace GoopScripts.Gameplay
       {
         switch (UI.PauseManager.GetPauseState())
         {
-        case 0:
+          case 0:
             Utils.PauseMenu(PAUSE_MENU);
-          break;
-        case 1:
+            break;
+          case 1:
             Utils.UnpauseMenu(PAUSE_MENU);
-          break;
-        case 2:
+            break;
+          case 2:
             if (Utils.GetIsActiveEntity(HOWTOPLAY_MENU))
               Utils.UndeeperPause(PAUSE_MENU, HOWTOPLAY_MENU);
             if (Utils.GetIsActiveEntity(QUIT_MENU))
               Utils.UndeeperPause(PAUSE_MENU, QUIT_MENU);
             break;
-        default:
-          break;
+          default:
+            break;
         }
       }
 
@@ -223,7 +227,7 @@ namespace GoopScripts.Gameplay
         // Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
       }
 
-        if (endTurn || m_playerStats.m_isSkipped)
+      if (endTurn || m_playerStats.m_isSkipped)
       {
         endTurn = false;
         intervalBeforeReset = true;
@@ -242,7 +246,7 @@ namespace GoopScripts.Gameplay
         //  //test.IncreaseHealth(1);
         //}
       }
-
+    }
 
     public void StartOfTurn()
     {

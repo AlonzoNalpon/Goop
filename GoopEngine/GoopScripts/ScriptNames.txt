@@ -27,6 +27,7 @@ GoopScripts.Button,MenuClose
 GoopScripts.Button,MenuHowToPlay
 GoopScripts.Button,MenuQuitGame
 GoopScripts.Button,MenuResume
+GoopScripts.Button,SelectCard
 GoopScripts.Button,TempEndTurn
 GoopScripts.Cards,BasicAttack
 GoopScripts.Cards,BlankCard
@@ -50,7 +51,6 @@ GoopScripts.Gameplay,Deck
 GoopScripts.Gameplay,DeckManager
 GoopScripts.Gameplay,GameManager
 GoopScripts.Gameplay,Stats
-GoopScripts.obj.Package,.NETFramework,Version=v4.7.2.AssemblyAttributes
 GoopScripts.Player,Player
 GoopScripts.Player,PlayerScriptTest
 GoopScripts.UI,HealthBar

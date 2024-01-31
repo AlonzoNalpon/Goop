@@ -22,7 +22,7 @@ namespace GoopScripts.Cards
 	public static class CardManager
 	{
 		static CardBase[] m_cards;
-    static string[] CardSpriteNames
+    static string[] CardSpriteNames = new string[]
     {
       "DAA2402_CardBaseBack_v01",									  // NO_CARD 
 																								

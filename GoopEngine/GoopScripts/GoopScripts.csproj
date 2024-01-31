@@ -78,7 +78,6 @@
     <Compile Include="Button\MenuHowToPlay.cs" />
     <Compile Include="Button\MenuQuitGame.cs" />
     <Compile Include="Button\MenuResume.cs" />
-    <Compile Include="Button\PlsFix.cs" />
     <Compile Include="Button\SelectCard.cs" />
     <Compile Include="Button\TempEndTurn.cs" />
     <Compile Include="Cards\BasicAttack.cs" />
