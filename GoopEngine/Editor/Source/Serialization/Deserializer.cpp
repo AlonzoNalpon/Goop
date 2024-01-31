@@ -10,7 +10,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "Deserializer.h"
-#include <Serialization/JsonKeys.h>
 #include <rapidjson/IStreamWrapper.h>
 #include <rapidjson/prettywriter.h>
 #include <Component/Components.h>
@@ -18,6 +17,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <stdarg.h>
 #include <AssetManager/AssetManager.h>
 #include <ScriptEngine/ScriptManager.h>
+#include <Events/AnimEventManager.h>
+#include <Serialization/JsonKeys.h>
 #ifndef IMGUI_DISABLE
 #include <Prefabs/PrefabManager.h>
 #endif
@@ -172,10 +173,6 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
   return prefab;
 }
 #endif
-Events::AnimEventManager::AnimEventsTable Deserializer::DeserializeAnimEventsTable(std::string const& filepath)
-{
-  return {};
-}
 
 ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene(std::string const& filepath)
 {
@@ -700,7 +697,6 @@ rttr::variant Deserializer::DeserializeBasicTypes(rapidjson::Value const& value)
   }
 }
 
-
 bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type const& type, rapidjson::Value const& value)
 {
   if (type == rttr::type::get<Component::Sprite>())
@@ -811,25 +807,63 @@ void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjs
   object = instance;
 }
 
-std::vector<AI::TreeTemplate> Deserializer::DeserializeTrees(std::string const& filename)
+std::vector<std::pair<std::string, std::vector<rttr::type>>> Deserializer::DeserializeSystems(std::string const& json)
 {
-  std::ifstream ifs{ filename };
-  if (!ifs)
-  {
-    throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to read " + filename));
-  }
   rapidjson::Document document{};
-  // parse into document object
-  rapidjson::IStreamWrapper isw{ ifs };
-  if (document.ParseStream(isw).HasParseError())
+  if (!ParseJsonIntoDocument(document, json))
   {
-    ifs.close();
-    throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to parse " + filename));
+    return {};
+  }
+
+  // check if root is object
+  if (!document.IsObject())
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogError(json + ": root is not an object");
+    #ifdef _DEBUG
+    std::cout << json << ": root is not an object" << "\n";
+    #endif
+    return {};
+  }
+
+  std::vector<std::pair<std::string, std::vector<rttr::type>>> ret;
+  // iterate through systems with key-array pairs
+  for (auto const& system : document.GetObj())
+  {
+    std::vector<rttr::type> components{};
+    for (auto const& component : system.value.GetArray())
+    {
+      // set component's corresponding bit
+      rttr::type compType{ rttr::type::get_by_name(component.GetString()) };
+      if (!compType.is_valid())
+      {
+        std::ostringstream oss{};
+        oss << "Invalid component read in " << json << ": " << component.GetString();
+        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+        #ifdef _DEBUG
+        std::cout << oss.str() << "\n";
+        #endif
+        continue;
+      }
+
+      components.emplace_back(std::move(compType));
+    }
+    ret.emplace_back(system.name.GetString(), std::move(components)); // add entry to container
+  }
+
+  return ret;
+}
+
+std::vector<AI::TreeTemplate> Deserializer::DeserializeTrees(std::string const& filepath)
+{
+  rapidjson::Document document{};
+  if (!ParseJsonIntoDocument(document, filepath))
+  {
+    return {};
   }
   if (!document.IsArray())
   {
-    ifs.close();
-    throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg(filename + " does not have a root array"));
+    Debug::ErrorLogger::GetInstance().LogError(filepath + " does not have a root array");
+    return {};
   }
 
   std::vector<AI::TreeTemplate> ret{};
@@ -837,13 +871,23 @@ std::vector<AI::TreeTemplate> Deserializer::DeserializeTrees(std::string const& 
   {
     if (!tree.IsObject())
     {
-      ifs.close();
-      throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg(filename + ": inner object is not an array"));
+      Debug::ErrorLogger::GetInstance().LogError(filepath + ": inner object is not an array");
+      continue;
+    }
+    if (!ScanJsonFileForMembers(tree, filepath, 2, "treeName", rapidjson::kStringType, "treeTempID", rapidjson::kNumberType))
+    {
+      continue;
     }
 
     std::vector<AI::NodeTemplate> nodeList{};
     for (rapidjson::Value const& node : tree["tree"].GetArray())
     {
+      if (!ScanJsonFileForMembers(node, filepath, 5, "nodeType", rapidjson::kStringType, "parentNode", rapidjson::kNumberType,
+        "scriptName", rapidjson::kStringType, "pos", rapidjson::kStringType, "childrenNode", rapidjson::kArrayType))
+      {
+        continue;
+      }
+
       AI::NodeTemplate nt;
       AI::NODE_TYPE nodeType{ rttr::type::get<AI::NODE_TYPE>().get_enumeration().name_to_value(
         node["nodeType"].GetString()).get_value<AI::NODE_TYPE>() };
@@ -864,70 +908,60 @@ std::vector<AI::TreeTemplate> Deserializer::DeserializeTrees(std::string const& 
   return ret;
 }
 
-std::vector<std::pair<std::string, std::vector<rttr::type>>> Deserializer::DeserializeSystems(std::string const& json)
+Events::AnimEventManager::AnimEventsTable Deserializer::DeserializeAnimEventsTable(std::string const& filepath)
 {
-  std::ifstream ifs{ json };
-  if (!ifs)
-  {
-    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + json);
-    #ifdef _DEBUG
-    std::cout << "Unable to read " << json << "\n";
-    #endif
-    return {};
-  }
-
   rapidjson::Document document{};
-  // parse into document object
-  rapidjson::IStreamWrapper isw{ ifs };
-  if (document.ParseStream(isw).HasParseError())
+  if (!ParseJsonIntoDocument(document, filepath))
   {
-    ifs.close();
-    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + json);
-    #ifdef _DEBUG
-    std::cout << "Unable to parse " << json << "\n";
-    #endif
+    return {};
+  }
+  if (!document.IsArray())
+  {
+    Debug::ErrorLogger::GetInstance().LogError(filepath + ": root is not an array");
     return {};
   }
 
-  // check if root is object
-  if (!document.IsObject())
+  Events::AnimEventManager::AnimEventsTable animEventsTable{};
+  for (rapidjson::Value const& element : document.GetArray())
   {
-    ifs.close();
-    GE::Debug::ErrorLogger::GetInstance().LogError(json + ": root is not an object");
-    #ifdef _DEBUG
-    std::cout << json << ": root is not an object" << "\n";
-    #endif
-    return {};
-  }
-
-  std::vector<std::pair<std::string, std::vector<rttr::type>>> ret;
-  // iterate through systems with key-array pairs
-  for (auto const& system : document.GetObj())
-  {
-    std::vector<rttr::type> components{};
-    for (auto const& component : system.value.GetArray())
+    rapidjson::Value const& subMapJson{ element[Serialization::JsonAssociativeValue] };
+    if (!element.IsObject())
     {
-      // set component's corresponding bit
-      rttr::type compType{ rttr::type::get_by_name(component.GetString()) };
-      if (!compType.is_valid())
+      Debug::ErrorLogger::GetInstance().LogError(filepath + ": Element is not an object");
+      continue;
+    }
+    else if (!subMapJson.IsArray())
+    {
+      Debug::ErrorLogger::GetInstance().LogError(filepath + ": Value of AnimEventsTable is not an object");
+      continue;
+    }
+
+    Component::AnimEvents::AnimEventsCont container{};
+    for (rapidjson::Value const& subElem : subMapJson.GetArray())
+    {
+      rapidjson::Value const& jsonVec{ subElem[Serialization::JsonAssociativeValue] };
+      if (!subElem.IsObject())
       {
-        ifs.close();
-        std::ostringstream oss{};
-        oss << "Invalid component read in " << json << ": " << component.GetString();
-        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        #ifdef _DEBUG
-        std::cout << oss.str() << "\n";
-        #endif
+        Debug::ErrorLogger::GetInstance().LogError(filepath + ": Element of AnimEventsCont is not an object");
+        continue;
+      }
+      else if (!jsonVec.IsArray())
+      {
+        Debug::ErrorLogger::GetInstance().LogError(filepath + ": Value of AnimEventsCont is not an Array");
         continue;
       }
 
-      components.emplace_back(std::move(compType));
+      Component::AnimEvents::AnimFrameEvents strVec{};
+      strVec.reserve(jsonVec.Size());
+      for (rapidjson::Value const& jsonStr : jsonVec.GetArray())
+      {
+        strVec.emplace_back(jsonStr.GetString());
+      }
+      container.emplace(subElem[Serialization::JsonAssociativeKey].GetUint(), std::move(strVec));
     }
-    ret.emplace_back(system.name.GetString(), std::move(components)); // add entry to container
+    animEventsTable.emplace(element[Serialization::JsonAssociativeKey].GetString(), std::move(container));
   }
-
-  ifs.close();
-  return ret;
+  return animEventsTable;
 }
 
 bool Deserializer::ScanJsonFileForMembers(rapidjson::Value const& value, std::string const& filename, unsigned keyCount, ...)
@@ -1036,6 +1070,36 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Value const& value, std::st
   return status;
 }
 
+bool Deserializer::ParseJsonIntoDocument(rapidjson::Document& document, std::string const& filepath)
+{
+  std::ifstream ifs{ filepath };
+  if (!ifs)
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + filepath);
+#ifdef _DEBUG
+    std::cout << "Unable to read " << filepath << "\n";
+#endif
+    return false;
+  }
+  // parse into document object
+  rapidjson::IStreamWrapper isw{ ifs };
+  if (ifs.peek() == std::ifstream::traits_type::eof())
+  {
+    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogMessage("Empty scene file read. Ignoring checks");
+    return false;
+  }
+
+  if (document.ParseStream(isw).HasParseError())
+  {
+    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + filepath);
+#ifdef _DEBUG
+    std::cout << "Unable to parse " + filepath << "\n";
+#endif
+    return false;
+  }
+
+  return true;
+}
 
 rttr::variant Deserializer::TryDeserializeIntoInt(rapidjson::Value const& value)
 {

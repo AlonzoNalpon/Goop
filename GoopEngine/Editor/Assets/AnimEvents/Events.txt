@@ -1,6 +1,33 @@
 [
     {
-        "key": "hello",
-        "value": []
+        "key": "Another animation events save",
+        "value": [
+            {
+                "key": 1,
+                "value": [
+                    "playsound?",
+                    "die?"
+                ]
+            },
+            {
+                "key": 3,
+                "value": [
+                    "hello",
+                    "world"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "FRAME 1 TEST",
+        "value": [
+            {
+                "key": 1,
+                "value": [
+                    "playsound?",
+                    "die?"
+                ]
+            }
+        ]
     }
 ]

@@ -37,20 +37,6 @@ namespace GE
 
       /*!*********************************************************************
       \brief
-        Deserializes a json file into an rttr::variant based on the given
-        type. You need to .get_value<T> the return value to retrieve the
-        object.
-      \param filepath
-        The file to deserialize
-      \return
-        The rttr::variant of the deserialized object
-      ************************************************************************/
-     /* template <typename T>
-      static T DeserializeAny(std::string const& filepath);*/
-      static Events::AnimEventManager::AnimEventsTable DeserializeAnimEventsTable(std::string const& filepath);
-
-      /*!*********************************************************************
-      \brief
         Main function called to deserialize a scene file. Returns a vector
         of std::pair of entity ID and VariantEntity objects encapsulating
         the deserialized data read from the file. When a missing field or
@@ -102,6 +88,16 @@ namespace GE
         std::vector of systems to their respective components
       ************************************************************************/
       static std::vector<std::pair<std::string, std::vector<rttr::type>>> DeserializeSystems(std::string const& json);
+
+      /*!*********************************************************************
+      \brief
+        Deserializes data from a json file into an AnimEventsTable object
+      \param filepath
+        The json file
+      \return
+        The deserialized AnimEventsTable object
+      ************************************************************************/
+      static Events::AnimEventManager::AnimEventsTable DeserializeAnimEventsTable(std::string const& filepath);
 
       /*!*********************************************************************
       \brief
@@ -270,40 +266,20 @@ namespace GE
         An rttr::variant containing the int object
       ************************************************************************/
       static rttr::variant TryDeserializeIntoInt(rapidjson::Value const& value);
-    };
-//    template <typename T>
-//    T Deserializer::DeserializeAny(std::string const& filepath)
-//    {
-//      std::ifstream ifs{ filepath };
-//
-//      if (!ifs)
-//      {
-//        GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + filepath);
-//#ifdef _DEBUG
-//        std::cout << "Unable to read " << filepath << "\n";
-//#endif
-//        return {};
-//      }
-//      // parse into document object
-//      rapidjson::IStreamWrapper isw{ ifs };
-//      if (ifs.peek() == std::ifstream::traits_type::eof())
-//      {
-//        ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogMessage("Empty scene file read. Ignoring checks");
-//        return {};
-//      }
-//      rapidjson::Document document{};
-//      if (document.ParseStream(isw).HasParseError())
-//      {
-//        ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + filepath);
-//#ifdef _DEBUG
-//        std::cout << "Unable to parse " + filepath << "\n";
-//#endif
-//        return {};
-//      }
 
-    //  rttr::variant object{ T() };
-    //  DeserializeBasedOnType(object, document);
-    //  return object.get_value<T>();
-    //}
+      /*!*********************************************************************
+      \brief
+        Parses a json file into a rapidjson::Value or Document object.
+        Uses IStreamWrapper to do so and reports any errors encountered.
+      \param value
+        The rapidjson object to read into
+      \param filepath
+       The json file to read from
+      \return
+        True if the operation was successful and false otherwise
+      ************************************************************************/
+      static bool ParseJsonIntoDocument(rapidjson::Document& document, std::string const& filepath);
+    };
+
   } // namespace Serialization
 } // namespace GE
