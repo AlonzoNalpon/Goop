@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Cards;
 using GoopScripts.Mono;
+using GoopScripts.UI;
+
 
 namespace GoopScripts.Gameplay
 {
@@ -14,7 +16,7 @@ namespace GoopScripts.Gameplay
   public class Stats : Entity
   {
     public CharacterType m_type;
-    public UI.HealthBar m_healthBar;
+    public HealthBar m_healthBar;
     public int m_attack = 0, m_block = 0;
 
     public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved, m_buffsDisplay;
@@ -26,6 +28,7 @@ namespace GoopScripts.Gameplay
     public Stats(uint entityID) : base(entityID)
     {
       m_deckMngr = new DeckManager();
+     
     }
 
     /*!*********************************************************************
@@ -36,8 +39,8 @@ namespace GoopScripts.Gameplay
     {
       Console.WriteLine("Create Stats for " + m_type.ToString());
       m_deckMngr.Init(m_type);
-      m_buffs = new BuffManager(m_buffsDisplay);
-      m_healthBar = new UI.HealthBar(m_type, m_healthDisplayWillBeRemoved);
+      m_buffs = new BuffManager(m_buffsDisplay, m_type);
+      m_healthBar = new HealthBar(m_type, m_healthDisplayWillBeRemoved);
     }
 
     public void AddAttack(int value)
@@ -128,8 +131,8 @@ namespace GoopScripts.Gameplay
     {
       m_deckMngr.DiscardQueue();
       m_attack = m_block = 0;
-      Utils.SetTextComponent(m_attackDisplay, "0");
-      Utils.SetTextComponent(m_blockDisplay, "0");
+      //Utils.SetTextComponent(m_attackDisplay, "0");
+      //Utils.SetTextComponent(m_blockDisplay, "0");
       m_buffs.StepTurn();
       m_buffs.UpdateBuffsUI();
     }

@@ -43,5 +43,11 @@ namespace GE::MONO
     ScriptInstance m_deckManagerInstance, m_deckInstance; //used to cache the mono data of deck and deckmanager
   };
 
+  struct HealthBar
+  {
+    int m_health, m_maxHealth, m_healthBarUI;
+    ScriptInstance m_HealthBarInst; //used to cache the mono data of deck and deckmanager
+  };
+
 
 }

@@ -71,11 +71,13 @@
     <Compile Include="Audio\MainMenuToGame.cs" />
     <Compile Include="Button\EndTurn.cs" />
     <Compile Include="Audio\GameOverAudioEvent.cs" />
-    <Compile Include="Button\HowToPlay.cs" />
     <Compile Include="Button\IButtonClick.cs" />
     <Compile Include="Button\IButtonHoverEnter.cs" />
     <Compile Include="Button\IButtonHoverExit.cs" />
-    <Compile Include="Button\PlsFix.cs" />
+    <Compile Include="Button\MenuClose.cs" />
+    <Compile Include="Button\MenuHowToPlay.cs" />
+    <Compile Include="Button\MenuQuitGame.cs" />
+    <Compile Include="Button\MenuResume.cs" />
     <Compile Include="Button\TempEndTurn.cs" />
     <Compile Include="Cards\BasicAttack.cs" />
     <Compile Include="Cards\BlankCard.cs" />

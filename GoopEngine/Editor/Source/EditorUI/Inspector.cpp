@@ -936,6 +936,36 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 								EndDisabled();
 							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<HealthBar>>())
+							{
+								TableNextRow();
+								BeginDisabled(false);
+								GE::MONO::ScriptFieldInstance<HealthBar>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<HealthBar>>();
+								GE::MONO::ScriptInstance& healthBar = sfi.m_data.m_HealthBarInst;
+
+								for (rttr::variant& dF : healthBar.m_scriptFieldInstList)
+								{
+
+									ScriptFieldInstance<int>& dSFI = dF.get_value<ScriptFieldInstance<int>>();
+									//std::cout << dSFI.m_scriptField.m_fieldName.c_str() << ":: " << dSFI.m_data.size() << "\n";
+									TableNextColumn();
+									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
+									ImGui::TableNextColumn();
+									if (ImGui::InputInt(("##" + dSFI.m_scriptField.m_fieldName).c_str(), &(dSFI.m_data), 0, 0, 0))
+									{
+										healthBar.SetFieldValue<int>(dSFI.m_data, dSFI.m_scriptField.m_classField);
+										if (dSFI.m_scriptField.m_fieldName == "m_health")
+											sfi.m_data.m_health = dSFI.m_data;
+										if (dSFI.m_scriptField.m_fieldName == "m_maxHealth")
+											sfi.m_data.m_maxHealth = dSFI.m_data;
+										if (dSFI.m_scriptField.m_fieldName == "healthBarUI")
+											sfi.m_data.m_healthBarUI = dSFI.m_data;
+									}
+
+								}
+								EndDisabled();
+							}
+
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterType>>())
 							{
 								GE::MONO::ScriptFieldInstance<CharacterType>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterType>>();
