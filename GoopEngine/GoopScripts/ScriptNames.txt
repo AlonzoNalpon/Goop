@@ -25,6 +25,7 @@ GoopScripts.Button,IButtonClick
 GoopScripts.Button,IButtonHoverEnter
 GoopScripts.Button,IButtonHoverExit
 GoopScripts.Button,PlsFix
+GoopScripts.Button,SelectCard
 GoopScripts.Button,TempEndTurn
 GoopScripts.Cards,BasicAttack
 GoopScripts.Cards,BlankCard

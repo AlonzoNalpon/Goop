@@ -76,6 +76,7 @@
     <Compile Include="Button\IButtonHoverEnter.cs" />
     <Compile Include="Button\IButtonHoverExit.cs" />
     <Compile Include="Button\PlsFix.cs" />
+    <Compile Include="Button\SelectCard.cs" />
     <Compile Include="Button\TempEndTurn.cs" />
     <Compile Include="Cards\BasicAttack.cs" />
     <Compile Include="Cards\BlankCard.cs" />
