@@ -13,11 +13,11 @@ namespace GoopScripts.Gameplay
     public static void Combo(ref Stats source, ref Stats target)
     {
       //Console.WriteLine($"Number of cards in queue: {source.m_deckMngr.m_queue.Length}");
-      //Console.WriteLine($"Card types in queue:");
-      //foreach (var CardID in source.m_deckMngr.m_queue)
-      //{
-      //  Console.WriteLine($"{CardManager.Get(CardID).Type.ToString()}");
-      //}
+      Console.WriteLine($"Card types in queue:");
+      foreach (var CardID in source.m_deckMngr.m_queue)
+      {
+        Console.WriteLine($"{CardManager.Get(CardID).Type.ToString()}");
+      }
       //first pair
       if (source.m_deckMngr.m_queue.Length >= 2)
       {
@@ -27,7 +27,7 @@ namespace GoopScripts.Gameplay
             switch (CardManager.Get(source.m_deckMngr.m_queue[1]).Type)
             {
               case CardBase.CardType.ATTACK:
-                source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 1, "Atk Up"));
+                source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 0, "Atk Up"));
                 //Console.WriteLine("Combo: Atk & Atk");
                 break;
 
@@ -37,13 +37,13 @@ namespace GoopScripts.Gameplay
                 break;
 
               case CardBase.CardType.SPECIAL:
-                source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 1, "Atk Up"));
+                source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 0, "Atk Up"));
                 
                 Random rng = new Random();
                 int chance = rng.Next(1, 2);
                 if (chance == 1)
                 {
-                  target.m_buffs.AddBuff(new Buff(Buff.BuffType.BLIND, 1.0f, 1, "Blinded"));
+                  target.m_buffs.AddBuff(new Buff(Buff.BuffType.BLIND, 1.0f, 0, "Blinded"));
                 }
                 //Console.WriteLine("Combo: Atk & Special");
                 break;
@@ -65,7 +65,7 @@ namespace GoopScripts.Gameplay
                 break;
 
               case CardBase.CardType.BLOCK:
-                source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_BLOCK, 1.0f, 1, "Block Up"));
+                source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_BLOCK, 1.0f, 0, "Block Up"));
                 //Console.WriteLine("Combo: Block & Block");
                 break;
 
@@ -74,7 +74,8 @@ namespace GoopScripts.Gameplay
                 int chance = rng.Next(1, 2);
                 if (chance == 1)
                 {
-                  target.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 1, "Skipped"));
+                  //Console.WriteLine("Combo enemy is skipped");
+                  target.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 0, "Skipped"));
                 }
                 //Console.WriteLine("Combo: Block & Special");
                 break;
@@ -91,13 +92,13 @@ namespace GoopScripts.Gameplay
             switch (CardManager.Get(source.m_deckMngr.m_queue[1]).Type)
             {
               case CardBase.CardType.ATTACK:
-                source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 1, "Atk Up"));
+                source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 0, "Atk Up"));
 
                 Random rng1 = new Random();
                 int chance1 = rng1.Next(1, 2);
                 if (chance1 == 1)
                 {
-                  target.m_buffs.AddBuff(new Buff(Buff.BuffType.BLIND, 1.0f, 1, "Blinded"));
+                  target.m_buffs.AddBuff(new Buff(Buff.BuffType.BLIND, 1.0f, 0, "Blinded"));
                 }
                 //Console.WriteLine("Combo: Special & Atk");
                 break;
@@ -107,7 +108,7 @@ namespace GoopScripts.Gameplay
                 int chance2 = rng2.Next(1, 2);
                 if (chance2 == 1)
                 {
-                  target.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 1, "Skipped"));
+                  target.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 0, "Skipped"));
                 }
                 //Console.WriteLine("Combo: Special & Block");
                 break;
@@ -136,7 +137,7 @@ namespace GoopScripts.Gameplay
               switch (CardManager.Get(source.m_deckMngr.m_queue[1]).Type)
               {
                 case CardBase.CardType.ATTACK:
-                  source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 1, "Atk Up"));
+                  source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 0, "Atk Up"));
                   //Console.WriteLine("Combo: Atk & Atk");
                   break;
 
@@ -146,13 +147,13 @@ namespace GoopScripts.Gameplay
                   break;
 
                 case CardBase.CardType.SPECIAL:
-                  source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 1, "Atk Up"));
+                  source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 0, "Atk Up"));
 
                   Random rng = new Random();
                   int chance = rng.Next(1, 2);
                   if (chance == 1)
                   {
-                    target.m_buffs.AddBuff(new Buff(Buff.BuffType.BLIND, 1.0f, 1, "Blinded"));
+                    target.m_buffs.AddBuff(new Buff(Buff.BuffType.BLIND, 1.0f, 0, "Blinded"));
                   }
                   //Console.WriteLine("Combo: Atk & Special");
                   break;
@@ -174,7 +175,7 @@ namespace GoopScripts.Gameplay
                   break;
 
                 case CardBase.CardType.BLOCK:
-                  source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_BLOCK, 1.0f, 1, "Block Up"));
+                  source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_BLOCK, 1.0f, 0, "Block Up"));
                   //Console.WriteLine("Combo: Block & Block");
                   break;
 
@@ -183,7 +184,7 @@ namespace GoopScripts.Gameplay
                   int chance = rng.Next(1, 2);
                   if (chance == 1)
                   {
-                    target.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 1, "Skipped"));
+                    target.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 0, "Skipped"));
                   }
                   //Console.WriteLine("Combo: Block & Special");
                   break;
@@ -200,13 +201,13 @@ namespace GoopScripts.Gameplay
               switch (CardManager.Get(source.m_deckMngr.m_queue[1]).Type)
               {
                 case CardBase.CardType.ATTACK:
-                  source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 1, "Atk Up"));
+                  source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 0, "Atk Up"));
 
                   Random rng1 = new Random();
                   int chance1 = rng1.Next(1, 2);
                   if (chance1 == 1)
                   {
-                    target.m_buffs.AddBuff(new Buff(Buff.BuffType.BLIND, 1.0f, 1, "Blinded"));
+                    target.m_buffs.AddBuff(new Buff(Buff.BuffType.BLIND, 1.0f, 0, "Blinded"));
                   }
                   //Console.WriteLine("Combo: Special & Atk");
                   break;
@@ -216,7 +217,7 @@ namespace GoopScripts.Gameplay
                   int chance2 = rng2.Next(1, 2);
                   if (chance2 == 1)
                   {
-                    target.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 1, "Skipped"));
+                    target.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 0, "Skipped"));
                   }
                   //Console.WriteLine("Combo: Special & Block");
                   break;
