@@ -1150,26 +1150,6 @@
                 }
             },
             {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300
-                        }
-                    },
-                    "spriteName": "DAA2402_Card_LeahSpecial_FlashBang_v02",
-                    "shouldRender": true
-                }
-            },
-            {
                 "Audio": {
                     "sounds": [
                         {
@@ -1258,26 +1238,6 @@
                     "min": "{ -397, -536.259 }",
                     "max": "{ -183, -236.259 }",
                     "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300
-                        }
-                    },
-                    "spriteName": "DAA2402_Card_BasicSpecial_Screech_v01",
-                    "shouldRender": true
                 }
             },
             {
@@ -1372,26 +1332,6 @@
                 }
             },
             {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300
-                        }
-                    },
-                    "spriteName": "DAA2402_Card_LeahSpecial_Smokescreen_v01",
-                    "shouldRender": true
-                }
-            },
-            {
                 "Audio": {
                     "sounds": [
                         {
@@ -1483,26 +1423,6 @@
                 }
             },
             {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300
-                        }
-                    },
-                    "spriteName": "DAA2402_Card_LeahDefense_Shield_v01",
-                    "shouldRender": true
-                }
-            },
-            {
                 "Audio": {
                     "sounds": [
                         {
@@ -1591,26 +1511,6 @@
                     "min": "{ 383, -536.259 }",
                     "max": "{ 597, -236.259 }",
                     "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300
-                        }
-                    },
-                    "spriteName": "DAA2402_Card_LeahDefense_Shield_v01",
-                    "shouldRender": true
                 }
             },
             {
