@@ -148,10 +148,13 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetHandCardID", GE::MONO::SetHandCardID);
 
   // Game UI Stuff
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetLoseFocus", GE::MONO::GetLoseFocus);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetLoseFocus", GE::MONO::SetLoseFocus);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetIsActiveEntity", GE::MONO::SetIsActiveEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetParent", GE::MONO::SetParent);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetEntity", GE::MONO::GetEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::DestroyEntity", GE::MONO::DestroyEntity);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetIsActiveEntity", GE::MONO::GetIsActiveEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::SpawnPrefab", GE::MONO::SpawnPrefab);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectWidth", GE::MONO::GetObjectWidth);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectHeight", GE::MONO::GetObjectHeight);
@@ -753,9 +756,24 @@ std::string GE::MONO::MonoStringToSTD(MonoString* str)
 
 }
 
+bool GE::MONO::GetLoseFocus()
+{
+  return GE::Systems::GameSystem::GetLoseFocus();
+}
+
+void GE::MONO::SetLoseFocus(bool active)
+{
+  GE::Systems::GameSystem::SetLoseFocus(active);
+}
+
 void GE::MONO::SetIsActiveEntity(GE::ECS::Entity entity, bool active)
 {
   GE::ECS::EntityComponentSystem::GetInstance().SetIsActiveEntity(entity, active);
+}
+
+bool GE::MONO::GetIsActiveEntity(GE::ECS::Entity entity)
+{
+  return GE::ECS::EntityComponentSystem::GetInstance().GetIsActiveEntity(entity);
 }
 
 GE::ECS::Entity GE::MONO::SpawnPrefab(MonoString* key, GE::Math::dVec3 pos, bool mapEntity)

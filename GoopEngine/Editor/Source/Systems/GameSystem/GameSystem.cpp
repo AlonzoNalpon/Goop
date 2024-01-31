@@ -26,6 +26,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace GE::Component;
 using namespace GE::ECS;
 using namespace GE::MONO;
+bool GE::Systems::GameSystem::m_loseFocus = false;
+
 
 void GE::Systems::GameSystem::Start()
 {
@@ -34,6 +36,7 @@ void GE::Systems::GameSystem::Start()
   GE::Events::EventManager::GetInstance().Subscribe<GE::Events::GameNextTurn>(this);
   GE::Events::EventManager::GetInstance().Subscribe<GE::Events::GameTurnResolved>(this);
   m_shouldIterate = false;
+
 }
 
 void GE::Systems::GameSystem::Update()
@@ -45,12 +48,6 @@ void GE::Systems::GameSystem::Update()
     if (game == nullptr)
     {
       return;
-    }
-
-    if (m_lastShouldPause != m_shouldPause)
-    {
-      m_ecs->SetIsActiveEntity(game->m_pauseMenu, m_shouldPause);
-      m_lastShouldPause = m_shouldPause;
     }
 
     /*if (m_shouldIterate)
@@ -133,7 +130,7 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
     {
       case GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS:
       {
-        m_shouldPause = true;
+        m_loseFocus = true;
         break;
       }
       case GE::Events::EVENT_TYPE::KEY_TRIGGERED:
@@ -147,7 +144,6 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
           {
             break;
           }
-            m_shouldPause = !m_shouldPause;
           break;
 //        case GPK_1:
 //#ifndef IMGUI_DISABLE
@@ -164,9 +160,9 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
 //            GE::GSM::GameStateManager::GetInstance().SetNextScene("Defeat");
 //          break;
         default:
+          // m_loseFocus = false;
           break;
         }
-        
         break;
       }
       case GE::Events::EVENT_TYPE::NEXT_TURN:
@@ -181,9 +177,4 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
       }
     }
   }
-}
-
-void GE::Systems::GameSystem::FlipPauseBool()
-{
-  m_shouldPause = !m_shouldPause;
 }

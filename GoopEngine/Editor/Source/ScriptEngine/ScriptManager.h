@@ -351,7 +351,13 @@ namespace GE {
 		************************************************************************/
 		bool CheckMonoError(MonoError& error);
 
+		static bool GetLoseFocus();
+
+		static void SetLoseFocus(bool active);
+
 		static void SetIsActiveEntity(GE::ECS::Entity entity, bool active);
+
+		static bool GetIsActiveEntity(GE::ECS::Entity entity);
 
 		static GE::ECS::Entity SpawnPrefab(MonoString* key, GE::Math::dVec3 pos = {}, bool mapEntity = true);
 

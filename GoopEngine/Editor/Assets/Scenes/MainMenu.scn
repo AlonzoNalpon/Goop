@@ -551,28 +551,7 @@
             },
             {
                 "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "HowToPlay",
-                            "entityID": 11,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 0,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "DeeperPauseMenuID"
-                                    }
-                                },
-                                {
-                                    "data": 0,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "PauseMenuID"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
+                    "scriptList": []
                 }
             },
             {
@@ -635,28 +614,7 @@
             },
             {
                 "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "HowToPlay",
-                            "entityID": 12,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 0,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "DeeperPauseMenuID"
-                                    }
-                                },
-                                {
-                                    "data": 0,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "PauseMenuID"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
+                    "scriptList": []
                 }
             },
             {

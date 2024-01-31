@@ -315,12 +315,36 @@ namespace GoopScripts.Mono
     extern public static void SendString(string s);
 
     // /*!*********************************************************************
+    // Pause Screens
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static bool GetPaused();
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static bool GetDeeperPaused();
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static bool SetPaused(bool active);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static bool SetDeeperPaused(bool active);
+
+
+    // /*!*********************************************************************
     //
     //    Functions For UI (HEALTHBAR)
     //
     //************************************************************************/
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static bool GetLoseFocus();
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetLoseFocus(bool active);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetIsActiveEntity(uint ID, bool active);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static bool GetIsActiveEntity(uint ID);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static uint SpawnPrefab(string key, Vec3<double> pos = new Vec3<double>(), bool mapEntity = true);
@@ -348,6 +372,31 @@ namespace GoopScripts.Mono
     extern public static void CrossFadeAudio(string audio1, float startVol1, float endVol1, float normalizedFadeStart1, float fadeEnd1,
                                              string audio2, float startVol2, float endVol2, float normalizedFadeStart2, float fadeEnd2,
                                              float fadeDuration);
+    public static void PauseMenu(uint pauseMenu)
+    {
+      UI.PauseManager.SetPauseState(1);
+      Utils.SetIsActiveEntity(pauseMenu, true);
+    }
+
+    public static void UndeeperPause(uint pauseMenu, uint deeperPauseMenu)
+    {
+      UI.PauseManager.SetPauseState(1);
+      Utils.SetIsActiveEntity(deeperPauseMenu, false);
+      Utils.SetIsActiveEntity(pauseMenu, true);
+    }
+
+    public static void UnpauseMenu(uint pauseMenu)
+    {
+      UI.PauseManager.SetPauseState(0);
+      Utils.SetIsActiveEntity(pauseMenu, false);
+    }
+
+    public static void DeeperPauseMenu(uint pauseMenu, uint deeperPauseMenu)
+    {
+      UI.PauseManager.SetPauseState(2);
+      Utils.SetIsActiveEntity(deeperPauseMenu, true);
+      Utils.SetIsActiveEntity(pauseMenu, false);
+    }
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetParent(uint parent, uint child);
