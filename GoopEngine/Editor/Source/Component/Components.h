@@ -18,3 +18,4 @@
 #include <Component/CardHolder.h>
 #include <Component/CardHolderElem.h>
 #include <Component/Emitter.h>
+#include <Component/AnimEvents.h>

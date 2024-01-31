@@ -1592,6 +1592,20 @@ void GE::EditorGUI::Inspector::CreateContent()
 				ImGui::Separator();
 				ImGui::PopID();
 			}
+			else if (compType == rttr::type::get<Component::AnimEvents>())
+			{
+				//auto em = ecs.GetComponent<GE::Component::AnimEvents>(entity);
+				if (ImGui::CollapsingHeader("AnimEvents", ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					if (RemoveComponentPopup<AnimEvents>("AnimEvents", entity))
+					{
+						break;
+					}
+				}
+
+				
+				ImGui::Separator();
+			}
 			else
 			{
 				GE::Debug::ErrorLogger::GetInstance().LogWarning("Trying to inspect a component that is not being handled: "
@@ -1847,7 +1861,19 @@ void GE::EditorGUI::Inspector::CreateContent()
 							ss << "Unable to add component " << typeid(Emitter).name() << ". Component already exist";
 						}
 						break;
+					}
+					else if (compType == rttr::type::get<Component::AnimEvents>())
+					{
+						if (!ecs.HasComponent<AnimEvents>(entity))
+						{
+							ecs.AddComponent(entity, AnimEvents{});
 						}
+						else
+						{
+							ss << "Unable to add component " << typeid(AnimEvents).name() << ". Component already exist";
+						}
+						break;
+					}
 					else
 					{
 						ss << "Try to add an unhandled component";

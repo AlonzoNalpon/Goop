@@ -185,4 +185,8 @@ RTTR_REGISTRATION
     .property("particlePerMin", &Component::Emitter::m_particlesPerMin)
     ;
 
+  rttr::registration::class_<Component::AnimEvents>("AnimEvents")
+    .constructor<>()
+    .property("eventList", &Component::AnimEvents::m_eventList)
+    ;
 } // RTTR Registration
