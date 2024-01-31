@@ -19,11 +19,15 @@ namespace GoopScripts.Gameplay
     public HealthBar m_healthBar;
     public int m_attack = 0, m_block = 0;
 
-    public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved, m_buffsDisplay;
+    public int m_buffsDisplay;
+    // SHOULD ONLY BE MODFIED FROM ENGINE
+    public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved;
 
     //public Queue m_nextTurn = new Queue();
     public DeckManager m_deckMngr;
     public BuffManager m_buffs { get; set; }
+
+    public bool m_isSkipped = false;
     
     public Stats(uint entityID) : base(entityID)
     {
@@ -50,6 +54,13 @@ namespace GoopScripts.Gameplay
       Utils.SetTextComponent(m_attackDisplay, m_attack.ToString());
     }
 
+    public void MultiplyAttack(int value)
+    {
+      m_attack += value;
+      if (m_attack < 0) { m_attack = 0; }
+      Utils.SetTextComponent(m_attackDisplay, m_attack.ToString());
+    }
+
     public void AddBlock(int value)
     {
       m_block += value;
@@ -60,6 +71,33 @@ namespace GoopScripts.Gameplay
     public void TakeDamage(float damage)
 		{
 			float takenMultiplier = 1;
+
+      foreach (var buff in m_buffs.Buffs)
+      {
+        switch (buff.type)
+        {
+          case Buff.BuffType.INCREASE_BLOCK:
+            AddBlock((int)buff.value);
+            break;
+
+          case Buff.BuffType.BLIND:
+            Random rng = new Random();
+            int chance = rng.Next(1, 2);
+            if (chance == 1)
+            {
+              takenMultiplier = 0;
+            }
+            break;
+
+          case Buff.BuffType.SKIP_TURN:
+            m_isSkipped = true;
+            m_attack = m_block = 0;
+            break;
+
+          default:
+            break;
+        }
+      }
 
       int damageTaken = (int)(damage * takenMultiplier) - m_block;
       Utils.SendString(damageTaken.ToString());
@@ -74,22 +112,16 @@ namespace GoopScripts.Gameplay
 
     public int DamageDealt()
     {
-      float dealtMultiplier = 1;
-      int dealtFlat = 0;
       foreach (var buff in m_buffs.Buffs)
       {
         switch (buff.type)
         {
-          case Buff.BuffType.INCREASE_ATK_DEALT: //charge-up
-            dealtFlat += (int)buff.value;
+          case Buff.BuffType.INCREASE_ATK_DEALT: //charge-up & combo
+            AddAttack((int)buff.value);
             break;
 
-          case Buff.BuffType.MULTIPLY_ATK_DEALT: //rage & screech & combo
-            dealtMultiplier *= (int)buff.value;
-            break;
-
-          case Buff.BuffType.REDUCE_ATK_DEALT: //combo
-            dealtFlat -= (int)buff.value;
+          case Buff.BuffType.MULTIPLY_ATK_DEALT: //smokescreen & rage & screech & flashbang & combo
+            MultiplyAttack((int)buff.value);
             break;
 
           default:
@@ -97,10 +129,7 @@ namespace GoopScripts.Gameplay
         }
       }
 
-      int dmgDealt = (int)((m_attack + dealtFlat) * dealtMultiplier);
-      //dmgDealt = dmgDealt < 0 ? 0 : dmgDealt;
-
-      return dmgDealt;
+      return (int)(m_attack);
     }
 
     /*!*********************************************************************
@@ -111,6 +140,8 @@ namespace GoopScripts.Gameplay
     {
       m_deckMngr.DiscardQueue();
       m_attack = m_block = 0;
+      Console.WriteLine($"Attack in system: {m_attack}, Attack on display: {m_attackDisplay}");
+      Console.WriteLine($"Block in system: {m_block}, Block on display: {m_blockDisplay}");
       //Utils.SetTextComponent(m_attackDisplay, "0");
       //Utils.SetTextComponent(m_blockDisplay, "0");
       m_buffs.StepTurn();

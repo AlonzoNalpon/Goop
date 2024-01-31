@@ -167,7 +167,7 @@ namespace GoopScripts.Gameplay
         // Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
       }
 
-        if (endTurn)
+        if (endTurn || m_playerStats.m_isSkipped)
       {
         endTurn = false;
         intervalBeforeReset = true;
@@ -208,7 +208,9 @@ namespace GoopScripts.Gameplay
       m_enemyStats.EndOfTurn();
       m_playerStats.m_deckMngr.Draw();
       m_enemyStats.m_deckMngr.Draw();
-      StartAI(m_enemyStats.entityID);
+
+      if (!m_enemyStats.m_isSkipped)
+        StartAI(m_enemyStats.entityID);
     }
 
     public void ResolutionPhase()
@@ -225,7 +227,10 @@ namespace GoopScripts.Gameplay
       // resolve player's queue first
       foreach (CardBase.CardID card in m_playerStats.m_deckMngr.m_queue)
       {
-        if (card == CardBase.CardID.NO_CARD) { continue; }
+        if (card == CardBase.CardID.NO_CARD)
+        {
+          continue;
+        }
 
 #if (DEBUG)
         Console.WriteLine("Resolving " + card.ToString());
@@ -233,17 +238,21 @@ namespace GoopScripts.Gameplay
 
         CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
       }
-      ComboManager.ComboPlayer(ref m_playerStats, ref m_enemyStats);
+      ComboManager.Combo(ref m_playerStats, ref m_enemyStats);
 
       // then do the same for enemy
       foreach (CardBase.CardID card in m_enemyStats.m_deckMngr.m_queue)
       {
         if (card != CardBase.CardID.NO_CARD)
         {
+#if (DEBUG)
+          Console.WriteLine("[Enemy] Resolving " + card.ToString());
+#endif
+
           CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
         }
       }
-      ComboManager.ComboEnemy(ref m_playerStats, ref m_enemyStats);
+      ComboManager.Combo(ref m_enemyStats, ref m_playerStats);
 
 #if (DEBUG)
       Console.WriteLine("\nPLAYER:\n Attack: " + m_playerStats.m_attack + ", Block: " + m_playerStats.m_block);
