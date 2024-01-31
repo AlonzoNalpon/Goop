@@ -186,6 +186,7 @@ namespace GoopScripts.Gameplay
         //  //test.IncreaseHealth(1);
         //}
       }
+      m_playerStats.m_isSkipped = false;
 
       if (intervalBeforeReset)
       {
@@ -209,8 +210,15 @@ namespace GoopScripts.Gameplay
       m_playerStats.m_deckMngr.Draw();
       m_enemyStats.m_deckMngr.Draw();
 
+      //Console.WriteLine($"{m_enemyStats.m_isSkipped}");
       if (!m_enemyStats.m_isSkipped)
+      {
+        //Console.WriteLine("Enemy is not skipped");
         StartAI(m_enemyStats.entityID);
+      }
+      m_enemyStats.m_isSkipped = false;
+      //Console.WriteLine("Enemy is unskipped");
+      //Console.WriteLine($"{m_enemyStats.m_isSkipped}");
     }
 
     public void ResolutionPhase()
