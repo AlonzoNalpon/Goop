@@ -12,8 +12,8 @@ namespace GoopScripts.UI
   public class HealthBar : Entity
   {
     static private readonly int PADDING_SIZE = 5;
-    public int m_health, m_maxHealth;
-    public int healthBarUI;
+    public int m_health, m_maxHealth; //
+    public int healthBarUI; //
     private int m_width, m_height;
     private Vec3<double> m_barPos;
     private int m_individualBarWidth;
@@ -46,6 +46,7 @@ namespace GoopScripts.UI
 
       Init();
     }
+
 
     public void Init()
     {

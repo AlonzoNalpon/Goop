@@ -14,10 +14,9 @@ namespace GoopScripts.Gameplay
   public class GameManager : Entity
   {
     static readonly double INTERVAL_TIME = 3.0;
-
-    static readonly double CARD_WIDTH = 214.0;
-    static readonly double PLAYER_HAND_WIDTH = CARD_WIDTH * 5 + 300.0,
-      HAND_START_POS = -PLAYER_HAND_WIDTH / 2.0;
+    static readonly uint PAUSE_MENU = 27;
+    static readonly uint HOWTOPLAY_MENU= 56;
+    static readonly uint QUIT_MENU = 60;
 
     Random m_rng;
     //double m_animTime = 1.0; // hard coded for now
@@ -190,31 +189,59 @@ namespace GoopScripts.Gameplay
     //	}
     //  }
 
-    void UndeeperPause()
+    public void OnUpdate(double deltaTime)
     {
-      Utils.SetIsActiveEntity((uint)56, false);
-      Utils.SetIsActiveEntity((uint)27, true);
-      UI.PauseManager.SetDeeperPause(false);
-    }
+      if (Utils.GetLoseFocus())
+      {
+        if (UI.PauseManager.GetPauseState() == 0)
+          Utils.PauseMenu(PAUSE_MENU);
+        Utils.SetLoseFocus(false);
+      }
+      if (Utils.IsKeyTriggered(Input.KeyCode.ESCAPE))
+      {
+        switch (UI.PauseManager.GetPauseState())
+        {
+        case 0:
+            Utils.PauseMenu(PAUSE_MENU);
+          break;
+        case 1:
+            Utils.UnpauseMenu(PAUSE_MENU);
+          break;
+        case 2:
+            if (Utils.GetIsActiveEntity(HOWTOPLAY_MENU))
+              Utils.UndeeperPause(PAUSE_MENU, HOWTOPLAY_MENU);
+            if (Utils.GetIsActiveEntity(QUIT_MENU))
+              Utils.UndeeperPause(PAUSE_MENU, QUIT_MENU);
+            break;
+        default:
+          break;
+        }
+      }
 
-    void UnpauseMenu()
-    {
-      Utils.SetIsActiveEntity((uint)27, false);
-      UI.PauseManager.SetPause(false);
-    }
+      if (UI.PauseManager.PauseStateChanged())
+      {
+        // Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
+      }
 
-    void PauseMenu()
-    {
-      Utils.SetIsActiveEntity((uint)27, true);
-      UI.PauseManager.SetPause(true);
-    }
+        if (endTurn || m_playerStats.m_isSkipped)
+      {
+        endTurn = false;
+        intervalBeforeReset = true;
+        ResolutionPhase();
 
-    void DeeperPauseMenu()
-    {
-      Utils.SetIsActiveEntity((uint)56, true);
-      Utils.SetIsActiveEntity((uint)27, false);
-      UI.PauseManager.SetDeeperPause(true);
-    }
+        //var test = (UI.HealthBar)Utils.GetScriptFromID((uint)28, "HealthBar");
+        //if (!testBool)
+        //{
+        //  testBool = true;
+        //  test.DecreaseHealth(5);
+        //}
+        //else
+        //{
+        //  test.DecreaseHealth(1);
+
+        //  //test.IncreaseHealth(1);
+        //}
+      }
 
 
     public void StartOfTurn()
@@ -223,7 +250,9 @@ namespace GoopScripts.Gameplay
       m_enemyStats.EndOfTurn();
       m_playerStats.m_deckMngr.Draw();
       m_enemyStats.m_deckMngr.Draw();
-      StartAI(m_enemyStats.entityID);
+
+      if (!m_enemyStats.m_isSkipped)
+        StartAI(m_enemyStats.entityID);
     }
 
     public void ResolutionPhase()
@@ -240,7 +269,10 @@ namespace GoopScripts.Gameplay
       // resolve player's queue first
       foreach (CardBase.CardID card in m_playerStats.m_deckMngr.m_queue)
       {
-        if (card == CardBase.CardID.NO_CARD) { continue; }
+        if (card == CardBase.CardID.NO_CARD)
+        {
+          continue;
+        }
 
 #if (DEBUG)
         Console.WriteLine("Resolving " + card.ToString());
@@ -248,17 +280,21 @@ namespace GoopScripts.Gameplay
 
         CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
       }
-      ComboManager.ComboPlayer(ref m_playerStats, ref m_enemyStats);
+      ComboManager.Combo(ref m_playerStats, ref m_enemyStats);
 
       // then do the same for enemy
       foreach (CardBase.CardID card in m_enemyStats.m_deckMngr.m_queue)
       {
         if (card != CardBase.CardID.NO_CARD)
         {
+#if (DEBUG)
+          Console.WriteLine("[Enemy] Resolving " + card.ToString());
+#endif
+
           CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
         }
       }
-      ComboManager.ComboEnemy(ref m_playerStats, ref m_enemyStats);
+      ComboManager.Combo(ref m_enemyStats, ref m_playerStats);
 
 #if (DEBUG)
       Console.WriteLine("\nPLAYER:\n Attack: " + m_playerStats.m_attack + ", Block: " + m_playerStats.m_block);

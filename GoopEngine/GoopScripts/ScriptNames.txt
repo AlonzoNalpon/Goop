@@ -20,12 +20,13 @@ GoopScripts.AI.Enemy.MineWorm,PlaySpecialCard
 GoopScripts.Audio,GameOverAudioEvent
 GoopScripts.Audio,MainMenuToGame
 GoopScripts.Button,EndTurn
-GoopScripts.Button,HowToPlay
 GoopScripts.Button,IButtonClick
 GoopScripts.Button,IButtonHoverEnter
 GoopScripts.Button,IButtonHoverExit
-GoopScripts.Button,PlsFix
-GoopScripts.Button,SelectCard
+GoopScripts.Button,MenuClose
+GoopScripts.Button,MenuHowToPlay
+GoopScripts.Button,MenuQuitGame
+GoopScripts.Button,MenuResume
 GoopScripts.Button,TempEndTurn
 GoopScripts.Cards,BasicAttack
 GoopScripts.Cards,BlankCard
@@ -49,6 +50,7 @@ GoopScripts.Gameplay,Deck
 GoopScripts.Gameplay,DeckManager
 GoopScripts.Gameplay,GameManager
 GoopScripts.Gameplay,Stats
+GoopScripts.obj.Package,.NETFramework,Version=v4.7.2.AssemblyAttributes
 GoopScripts.Player,Player
 GoopScripts.Player,PlayerScriptTest
 GoopScripts.UI,HealthBar

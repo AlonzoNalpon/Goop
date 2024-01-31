@@ -20,13 +20,11 @@ namespace GE::Systems
   {
   private:
     bool m_shouldIterate;
-    bool m_shouldPause;
-    bool m_lastShouldPause;
-    bool m_inAnotherMenu;
-
     bool m_shouldWin;
     bool m_shouldLose;
+    static bool m_loseFocus;
   public:
+
     /*!*********************************************************************
     \brief
       System Start
@@ -51,6 +49,12 @@ namespace GE::Systems
     \brief
       Flips the system should pause bool
     ************************************************************************/
-    void FlipPauseBool();
+    // static int GetPauseState() { return m_pauseState; }
+
+    // static void SetPauseState(int id) { m_pauseState = id; }
+
+    static bool GetLoseFocus() { return m_loseFocus; }
+    static void SetLoseFocus(bool active) { m_loseFocus = active; }
+
   };
 }

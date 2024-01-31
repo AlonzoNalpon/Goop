@@ -936,6 +936,36 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 								EndDisabled();
 							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<HealthBar>>())
+							{
+								TableNextRow();
+								BeginDisabled(false);
+								GE::MONO::ScriptFieldInstance<HealthBar>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<HealthBar>>();
+								GE::MONO::ScriptInstance& healthBar = sfi.m_data.m_HealthBarInst;
+
+								for (rttr::variant& dF : healthBar.m_scriptFieldInstList)
+								{
+
+									ScriptFieldInstance<int>& dSFI = dF.get_value<ScriptFieldInstance<int>>();
+									//std::cout << dSFI.m_scriptField.m_fieldName.c_str() << ":: " << dSFI.m_data.size() << "\n";
+									TableNextColumn();
+									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
+									ImGui::TableNextColumn();
+									if (ImGui::InputInt(("##" + dSFI.m_scriptField.m_fieldName).c_str(), &(dSFI.m_data), 0, 0, 0))
+									{
+										healthBar.SetFieldValue<int>(dSFI.m_data, dSFI.m_scriptField.m_classField);
+										if (dSFI.m_scriptField.m_fieldName == "m_health")
+											sfi.m_data.m_health = dSFI.m_data;
+										if (dSFI.m_scriptField.m_fieldName == "m_maxHealth")
+											sfi.m_data.m_maxHealth = dSFI.m_data;
+										if (dSFI.m_scriptField.m_fieldName == "healthBarUI")
+											sfi.m_data.m_healthBarUI = dSFI.m_data;
+									}
+
+								}
+								EndDisabled();
+							}
+
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterType>>())
 							{
 								GE::MONO::ScriptFieldInstance<CharacterType>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterType>>();
@@ -1207,28 +1237,29 @@ void GE::EditorGUI::Inspector::CreateContent()
 					
 					if (BeginCombo("Card", type.get_enumeration().value_to_name(card->cardID).to_string().c_str()))
 					{
-						for (Card::CardID currType{}; currType != Card::CardID::TOTAL_CARDS;)
-						{
-							// get the string ...
-							std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
+						ImGui::Text("This is being ported to C#");
+						//for (Card::CardID currType{}; currType != Card::CardID::TOTAL_CARDS;)
+						//{
+						//	// get the string ...
+						//	std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
 
-							if (Selectable(str.c_str(), currType == card->cardID))
-							{
-								card->cardID = currType; // set the current type if selected 
-								
-								if (ecs.HasComponent<Sprite>(entity))
-								{
-									auto* spriteComp = ecs.GetComponent<Sprite>(entity);
-									auto const& textureManager = Graphics::GraphicsEngine::GetInstance().textureManager;
-									GLuint texID{ textureManager.GetTextureID(CardSpriteNames[card->cardID]) };
-									//Graphics::Texture const& newSprite = textureManager.GetTexture(texID);
+						//	if (Selectable(str.c_str(), currType == card->cardID))
+						//	{
+						//		card->cardID = currType; // set the current type if selected 
+						//		
+						//		if (ecs.HasComponent<Sprite>(entity))
+						//		{
+						//			auto* spriteComp = ecs.GetComponent<Sprite>(entity);
+						//			auto const& textureManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+						//			GLuint texID{ textureManager.GetTextureID(CardSpriteNames[card->cardID]) };
+						//			//Graphics::Texture const& newSprite = textureManager.GetTexture(texID);
 
-									spriteComp->m_spriteData.texture = texID;
-								}
-							}
-							// and now iterate through
-							currType = static_cast<Card::CardID>(static_cast<int>(currType) + 1);
-						}
+						//			spriteComp->m_spriteData.texture = texID;
+						//		}
+						//	}
+						//	// and now iterate through
+						//	currType = static_cast<Card::CardID>(static_cast<int>(currType) + 1);
+						//}
 						EndCombo();
 					}
 

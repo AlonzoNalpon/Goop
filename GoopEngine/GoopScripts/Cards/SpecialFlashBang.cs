@@ -40,7 +40,7 @@ namespace GoopScripts.Cards
     ************************************************************************/
     public override void Play(ref Stats source, ref Stats target)
     {
-      source.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLY_ATK_DEALT, 0.5f, 3));
+      source.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLY_ATK_DEALT, 0.5f, 3, "Blinded"));
     }
   }
 }

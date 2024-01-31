@@ -351,7 +351,13 @@ namespace GE {
 		************************************************************************/
 		bool CheckMonoError(MonoError& error);
 
+		static bool GetLoseFocus();
+
+		static void SetLoseFocus(bool active);
+
 		static void SetIsActiveEntity(GE::ECS::Entity entity, bool active);
+
+		static bool GetIsActiveEntity(GE::ECS::Entity entity);
 
 		static GE::ECS::Entity SpawnPrefab(MonoString* key, GE::Math::dVec3 pos = {}, bool mapEntity = true);
 
@@ -367,40 +373,56 @@ namespace GE {
 		\brief
 			Adds a audio cross fade event to the AudioSystem
 
-		\param MonoString* audio1
+		\param audio1
 			Name of audio1
 
-		\param float startVol1
+		\param startVol1
 			Original volume of audio 1
 
-		\param float endVol1
+		\param endVol1
 			Final target volume of audio1
 
-		\param float fadeStart1
+		\param fadeStart1
 			Time to start fading
 
-		\param float fadeEnd1
+		\param fadeEnd1
 			Time to end fading
 
-		\param MonoString* audio2
+		\param audio2
 			Name of audio2
 
-		\param float startVol2
+		\param startVol2
 			Original volume of audio 2
 
-		\param float endVol2
+		\param endVol2
 			Final target volume of audio2
 
-		\param float fadeStart2
+		\param fadeStart2
 			Time to start fading
 
-		\param float fadeEnd2
+		\param fadeEnd2
 			Time to end fading
 
-		\param float fadeDuration		
+		\param fadeDuration		
 		************************************************************************/
 		void CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1, float fadeStart1, float fadeEnd1,
 												MonoString* audio2, float startVol2, float endVol2, float fadeStart2, float fadeEnd2,
 												float fadeDuration);
+
+		/*!*********************************************************************
+		\brief 
+		  Sets an entity as a child of another
+		
+		\param parent
+			Parent entity ID
+
+		\param child
+			Entity ID of entity being assigned
+		************************************************************************/
+		void SetParent(GE::ECS::Entity parent, GE::ECS::Entity child);
+
+		GE::ECS::Entity GetEntity(MonoString* entityName);
+
+		void DestroyEntity(GE::ECS::Entity entity);
 	}
 }

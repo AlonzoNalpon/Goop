@@ -33,7 +33,8 @@
                             "height": 750
                         }
                     },
-                    "spriteName": "SS_LeahIdle"
+                    "spriteName": "SS_LeahIdle",
+                    "shouldRender": true
                 }
             },
             {
@@ -77,7 +78,7 @@
                                     }
                                 },
                                 {
-                                    "data": 45,
+                                    "data": 85,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_buffsDisplay"
@@ -102,6 +103,17 @@
                                     "type": "",
                                     "scriptField": {
                                         "fieldName": "m_deckMngr"
+                                    }
+                                },
+                                {
+                                    "data": {
+                                        "m_health": 0,
+                                        "m_maxHealth": 0,
+                                        "m_healthBarUI": 0
+                                    },
+                                    "type": "",
+                                    "scriptField": {
+                                        "fieldName": "m_healthBar"
                                     }
                                 },
                                 {
@@ -182,7 +194,8 @@
                             "height": 77
                         }
                     },
-                    "spriteName": "Button_EndTurn"
+                    "spriteName": "Button_EndTurn",
+                    "shouldRender": true
                 }
             },
             {
@@ -240,7 +253,8 @@
                             "height": 1080
                         }
                     },
-                    "spriteName": "DAA2402_InGame_Environment2_v05"
+                    "spriteName": "DAA2402_InGame_Environment2_v05",
+                    "shouldRender": true
                 }
             }
         ]
@@ -279,7 +293,8 @@
                             "height": 314
                         }
                     },
-                    "spriteName": "Hand_Base"
+                    "spriteName": "Hand_Base",
+                    "shouldRender": true
                 }
             }
         ]
@@ -328,7 +343,8 @@
                             "height": 750
                         }
                     },
-                    "spriteName": "SS_MineWorm"
+                    "spriteName": "SS_MineWorm",
+                    "shouldRender": true
                 }
             },
             {
@@ -372,7 +388,7 @@
                                     }
                                 },
                                 {
-                                    "data": 46,
+                                    "data": 86,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_buffsDisplay"
@@ -397,6 +413,17 @@
                                     "type": "",
                                     "scriptField": {
                                         "fieldName": "m_deckMngr"
+                                    }
+                                },
+                                {
+                                    "data": {
+                                        "m_health": 0,
+                                        "m_maxHealth": 0,
+                                        "m_healthBarUI": 0
+                                    },
+                                    "type": "",
+                                    "scriptField": {
+                                        "fieldName": "m_healthBar"
                                     }
                                 },
                                 {
@@ -459,7 +486,8 @@
                             "height": 154
                         }
                     },
-                    "spriteName": "Button_Base"
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
                 }
             },
             {
@@ -513,7 +541,8 @@
                             "height": 209
                         }
                     },
-                    "spriteName": "Instructions"
+                    "spriteName": "Instructions",
+                    "shouldRender": true
                 }
             }
         ]
@@ -552,7 +581,8 @@
         "Parent": 7,
         "Child Entities": [
             10,
-            28
+            28,
+            85
         ],
         "Components": [
             {
@@ -575,7 +605,8 @@
         "Parent": 7,
         "Child Entities": [
             25,
-            29
+            29,
+            86
         ],
         "Components": [
             {
@@ -626,7 +657,8 @@
                             "height": 32
                         }
                     },
-                    "spriteName": "Grey"
+                    "spriteName": "Grey",
+                    "shouldRender": true
                 }
             }
         ]
@@ -659,22 +691,22 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 37,
-                            "defaultSpriteID": 111,
+                            "spriteID": 23,
+                            "defaultSpriteID": 154,
                             "used": false
                         },
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
-                            "spriteID": 39,
-                            "defaultSpriteID": 22,
+                            "spriteID": 57,
+                            "defaultSpriteID": 46,
                             "used": false
                         },
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
-                            "spriteID": 25,
-                            "defaultSpriteID": 112,
+                            "spriteID": 30,
+                            "defaultSpriteID": 155,
                             "used": false
                         }
                     ],
@@ -729,7 +761,8 @@
                             "height": 212
                         }
                     },
-                    "spriteName": "Queue_Sequence_1"
+                    "spriteName": "Queue_Sequence_1",
+                    "shouldRender": true
                 }
             },
             {
@@ -839,7 +872,8 @@
                             "height": 212
                         }
                     },
-                    "spriteName": "Queue_Sequence_2"
+                    "spriteName": "Queue_Sequence_2",
+                    "shouldRender": true
                 }
             },
             {
@@ -949,7 +983,8 @@
                             "height": 212
                         }
                     },
-                    "spriteName": "Queue_Sequence_3"
+                    "spriteName": "Queue_Sequence_3",
+                    "shouldRender": true
                 }
             },
             {
@@ -1046,36 +1081,36 @@
                         {
                             "elemEntity": 16,
                             "cardEntity": 16,
-                            "spriteID": 39,
-                            "defaultSpriteID": 39,
+                            "spriteID": 23,
+                            "defaultSpriteID": 23,
                             "used": false
                         },
                         {
                             "elemEntity": 17,
                             "cardEntity": 17,
-                            "spriteID": 25,
-                            "defaultSpriteID": 25,
+                            "spriteID": 30,
+                            "defaultSpriteID": 30,
                             "used": false
                         },
                         {
                             "elemEntity": 18,
                             "cardEntity": 18,
-                            "spriteID": 41,
-                            "defaultSpriteID": 41,
+                            "spriteID": 57,
+                            "defaultSpriteID": 57,
                             "used": false
                         },
                         {
                             "elemEntity": 19,
                             "cardEntity": 19,
-                            "spriteID": 10,
-                            "defaultSpriteID": 10,
+                            "spriteID": 6,
+                            "defaultSpriteID": 6,
                             "used": false
                         },
                         {
                             "elemEntity": 20,
                             "cardEntity": 20,
-                            "spriteID": 10,
-                            "defaultSpriteID": 10,
+                            "spriteID": 6,
+                            "defaultSpriteID": 6,
                             "used": false
                         }
                     ],
@@ -1130,7 +1165,8 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "DAA2402_Card_LeahSpecial_FlashBang_v02"
+                    "spriteName": "DAA2402_Card_LeahSpecial_FlashBang_v02",
+                    "shouldRender": true
                 }
             },
             {
@@ -1240,7 +1276,8 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "DAA2402_Card_BasicSpecial_Screech_v01"
+                    "spriteName": "DAA2402_Card_BasicSpecial_Screech_v01",
+                    "shouldRender": true
                 }
             },
             {
@@ -1350,7 +1387,8 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "DAA2402_Card_LeahSpecial_Smokescreen_v01"
+                    "spriteName": "DAA2402_Card_LeahSpecial_Smokescreen_v01",
+                    "shouldRender": true
                 }
             },
             {
@@ -1460,7 +1498,8 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "DAA2402_Card_LeahDefense_Shield_v01"
+                    "spriteName": "DAA2402_Card_LeahDefense_Shield_v01",
+                    "shouldRender": true
                 }
             },
             {
@@ -1570,7 +1609,8 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "DAA2402_Card_LeahDefense_Shield_v01"
+                    "spriteName": "DAA2402_Card_LeahDefense_Shield_v01",
+                    "shouldRender": true
                 }
             },
             {
@@ -1665,21 +1705,21 @@
                             "elemEntity": 22,
                             "cardEntity": 4294967295,
                             "spriteID": 20,
-                            "defaultSpriteID": 111,
+                            "defaultSpriteID": 154,
                             "used": false
                         },
                         {
                             "elemEntity": 23,
                             "cardEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 22,
+                            "defaultSpriteID": 46,
                             "used": false
                         },
                         {
                             "elemEntity": 24,
                             "cardEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 112,
+                            "defaultSpriteID": 155,
                             "used": false
                         }
                     ],
@@ -1724,7 +1764,8 @@
                             "height": 212
                         }
                     },
-                    "spriteName": "Queue_Sequence_1"
+                    "spriteName": "Queue_Sequence_1",
+                    "shouldRender": true
                 }
             },
             {
@@ -1775,7 +1816,8 @@
                             "height": 212
                         }
                     },
-                    "spriteName": "Queue_Sequence_2"
+                    "spriteName": "Queue_Sequence_2",
+                    "shouldRender": true
                 }
             },
             {
@@ -1826,7 +1868,8 @@
                             "height": 212
                         }
                     },
-                    "spriteName": "Queue_Sequence_3"
+                    "spriteName": "Queue_Sequence_3",
+                    "shouldRender": true
                 }
             },
             {
@@ -1877,7 +1920,8 @@
                             "height": 32
                         }
                     },
-                    "spriteName": "Grey"
+                    "spriteName": "Grey",
+                    "shouldRender": true
                 }
             }
         ]
@@ -1938,18 +1982,7 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 8,
-        "Child Entities": [
-            48,
-            68,
-            69,
-            70,
-            71,
-            72,
-            73,
-            74,
-            75,
-            76
-        ],
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
@@ -1977,7 +2010,8 @@
                             "height": 32
                         }
                     },
-                    "spriteName": "Black"
+                    "spriteName": "Black",
+                    "shouldRender": true
                 }
             }
         ]
@@ -1988,16 +2022,7 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 9,
-        "Child Entities": [
-            77,
-            78,
-            79,
-            80,
-            81,
-            82,
-            83,
-            84
-        ],
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
@@ -2025,7 +2050,8 @@
                             "height": 32
                         }
                     },
-                    "spriteName": "Black"
+                    "spriteName": "Black",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2064,56 +2090,8 @@
                             "height": 128
                         }
                     },
-                    "spriteName": "Portrait"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Portrait",
-        "ID": 31,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 551, -251, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 551, -251, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 551, -251 }",
-                    "width": 128.0,
-                    "height": 128.0,
-                    "min": "{ 487, -315 }",
-                    "max": "{ 615, -187 }",
-                    "render": true
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 128,
-                            "height": 128
-                        }
-                    },
-                    "spriteName": "Portrait"
+                    "spriteName": "Portrait",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2211,7 +2189,8 @@
                             "height": 50
                         }
                     },
-                    "spriteName": "TempShield"
+                    "spriteName": "TempShield",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2283,7 +2262,8 @@
                             "height": 50
                         }
                     },
-                    "spriteName": "TempAttack"
+                    "spriteName": "TempAttack",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2322,7 +2302,8 @@
                             "height": 140
                         }
                     },
-                    "spriteName": "TempBacking"
+                    "spriteName": "TempBacking",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2420,7 +2401,8 @@
                             "height": 50
                         }
                     },
-                    "spriteName": "TempShield"
+                    "spriteName": "TempShield",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2492,7 +2474,8 @@
                             "height": 50
                         }
                     },
-                    "spriteName": "TempAttack"
+                    "spriteName": "TempAttack",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2531,7 +2514,8 @@
                             "height": 140
                         }
                     },
-                    "spriteName": "TempBacking"
+                    "spriteName": "TempBacking",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2669,46 +2653,8 @@
                             "height": 1080
                         }
                     },
-                    "spriteName": "Pause_OverlayBG"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 48,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 28,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -14.2, 0, 0.1 }",
-                    "scale": "{ 2.6, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -762, 430, 0.1 }",
-                    "worldScale": "{ 26, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
+                    "spriteName": "Pause_OverlayBG",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2747,7 +2693,8 @@
                             "height": 511
                         }
                     },
-                    "spriteName": "Pause_Menu_Base"
+                    "spriteName": "Pause_Menu_Base",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2786,7 +2733,8 @@
                             "height": 71
                         }
                     },
-                    "spriteName": "Pause_Header_Options"
+                    "spriteName": "Pause_Header_Options",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2825,7 +2773,8 @@
                             "height": 251
                         }
                     },
-                    "spriteName": "Pause_Words_Sliders"
+                    "spriteName": "Pause_Words_Sliders",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2898,14 +2847,15 @@
                             "height": 86
                         }
                     },
-                    "spriteName": "Pause_HTP"
+                    "spriteName": "Pause_HTP",
+                    "shouldRender": true
                 }
             },
             {
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "HowToPlay",
+                            "scriptName": "MenuHowToPlay",
                             "entityID": 53,
                             "scriptFieldInstList": [
                                 {
@@ -2981,13 +2931,40 @@
                             "height": 86
                         }
                     },
-                    "spriteName": "Pause_Resume"
+                    "spriteName": "Pause_Resume",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuClose",
+                            "entityID": 54,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 56,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 27,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             },
             {
                 "GE_Button": {
                     "param": "27",
-                    "eventType": "UNPAUSE",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }
@@ -3038,13 +3015,47 @@
                             "height": 86
                         }
                     },
-                    "spriteName": "Pause_Quit"
+                    "spriteName": "Pause_Quit",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuQuitGame",
+                            "entityID": 55,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Command"
+                                    }
+                                },
+                                {
+                                    "data": 60,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 27,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             },
             {
                 "GE_Button": {
                     "param": "Popup|60|Hide|27",
-                    "eventType": "POPUP",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }
@@ -3121,7 +3132,8 @@
                             "height": 1080
                         }
                     },
-                    "spriteName": "Pause_OverlayBG"
+                    "spriteName": "Pause_OverlayBG",
+                    "shouldRender": true
                 }
             }
         ]
@@ -3160,7 +3172,8 @@
                             "height": 511
                         }
                     },
-                    "spriteName": "Pause_Menu_Base"
+                    "spriteName": "Pause_Menu_Base",
+                    "shouldRender": true
                 }
             }
         ]
@@ -3209,13 +3222,40 @@
                             "height": 60
                         }
                     },
-                    "spriteName": "UI_Close"
+                    "spriteName": "UI_Close",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuClose",
+                            "entityID": 59,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 56,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 27,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             },
             {
                 "GE_Button": {
                     "param": "Return|56|Show|27",
-                    "eventType": "POPUP",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }
@@ -3293,7 +3333,8 @@
                             "height": 1080
                         }
                     },
-                    "spriteName": "Pause_OverlayBG"
+                    "spriteName": "Pause_OverlayBG",
+                    "shouldRender": true
                 }
             }
         ]
@@ -3342,13 +3383,40 @@
                             "height": 86
                         }
                     },
-                    "spriteName": "Quit_No"
+                    "spriteName": "Quit_No",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuClose",
+                            "entityID": 62,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 60,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 27,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             },
             {
                 "GE_Button": {
                     "param": "Return|60|Show|27",
-                    "eventType": "POPUP",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }
@@ -3389,7 +3457,8 @@
                             "height": 300
                         }
                     },
-                    "spriteName": "Pause_Menu_Base"
+                    "spriteName": "Pause_Menu_Base",
+                    "shouldRender": true
                 }
             }
         ]
@@ -3438,13 +3507,47 @@
                             "height": 86
                         }
                     },
-                    "spriteName": "Quit_Yes"
+                    "spriteName": "Quit_Yes",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuQuitGame",
+                            "entityID": 64,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": -1,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Command"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             },
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "QUIT_GAME",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }
@@ -3485,7 +3588,8 @@
                             "height": 71
                         }
                     },
-                    "spriteName": "Pause_Header_HowToPlay"
+                    "spriteName": "Pause_Header_HowToPlay",
+                    "shouldRender": true
                 }
             }
         ]
@@ -3524,7 +3628,8 @@
                             "height": 71
                         }
                     },
-                    "spriteName": "Pause_Header_QuitGame"
+                    "spriteName": "Pause_Header_QuitGame",
+                    "shouldRender": true
                 }
             }
         ]
@@ -3539,10 +3644,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 63.2407, 0 }",
+                    "pos": "{ 0, 63.2407, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 63.2407, 101 }",
+                    "worldPos": "{ 0, 63.2407, 102 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3563,670 +3668,48 @@
                             "height": 37
                         }
                     },
-                    "spriteName": "Text_AreYouSure"
+                    "spriteName": "Text_AreYouSure",
+                    "shouldRender": true
                 }
             }
         ]
     },
     {
-        "Name": "TestHealthBar",
-        "ID": 68,
+        "Name": "PlayerBuffAnchor",
+        "ID": 85,
         "Prefab": null,
         "isActive": true,
-        "Parent": 28,
+        "Parent": 8,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -11.1, 0, 0.1 }",
-                    "scale": "{ 2.6, 29.5, 1 }",
+                    "pos": "{ -750, 370, 0 }",
+                    "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -731, 430, 0.1 }",
-                    "worldScale": "{ 26, 59, 1 }",
+                    "worldPos": "{ -750, 370, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
                 }
             }
         ]
     },
     {
-        "Name": "TestHealthBar",
-        "ID": 69,
+        "Name": "EnemyBuffAnchor",
+        "ID": 86,
         "Prefab": null,
         "isActive": true,
-        "Parent": 28,
+        "Parent": 9,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -8, 0, 0.1 }",
-                    "scale": "{ 2.6, 29.5, 1 }",
+                    "pos": "{ 750, 370, 0 }",
+                    "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -700, 430, 0.1 }",
-                    "worldScale": "{ 26, 59, 1 }",
+                    "worldPos": "{ 750, 370, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 70,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 28,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -4.9, 0, 0.1 }",
-                    "scale": "{ 2.6, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -669, 430, 0.1 }",
-                    "worldScale": "{ 26, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 71,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 28,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -1.8, 0, 0.1 }",
-                    "scale": "{ 2.6, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -638, 430, 0.1 }",
-                    "worldScale": "{ 26, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 72,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 28,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 1.3, 0, 0.1 }",
-                    "scale": "{ 2.6, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -607, 430, 0.1 }",
-                    "worldScale": "{ 26, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 73,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 28,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 4.4, 0, 0.1 }",
-                    "scale": "{ 2.6, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -576, 430, 0.1 }",
-                    "worldScale": "{ 26, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 74,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 28,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 7.5, 0, 0.1 }",
-                    "scale": "{ 2.6, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -545, 430, 0.1 }",
-                    "worldScale": "{ 26, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 75,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 28,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 10.6, 0, 0.1 }",
-                    "scale": "{ 2.6, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -514, 430, 0.1 }",
-                    "worldScale": "{ 26, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 76,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 28,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 13.7, 0, 0.1 }",
-                    "scale": "{ 2.6, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -483, 430, 0.1 }",
-                    "worldScale": "{ 26, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 77,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 29,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -13.8, 0, 0.1 }",
-                    "scale": "{ 3.4, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 482, 430, 0.1 }",
-                    "worldScale": "{ 34, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 78,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 29,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -9.9, 0, 0.1 }",
-                    "scale": "{ 3.4, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 521, 430, 0.1 }",
-                    "worldScale": "{ 34, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 79,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 29,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -6, 0, 0.1 }",
-                    "scale": "{ 3.4, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 560, 430, 0.1 }",
-                    "worldScale": "{ 34, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 80,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 29,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -2.1, 0, 0.1 }",
-                    "scale": "{ 3.4, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 599, 430, 0.1 }",
-                    "worldScale": "{ 34, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 81,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 29,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 1.8, 0, 0.1 }",
-                    "scale": "{ 3.4, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 638, 430, 0.1 }",
-                    "worldScale": "{ 34, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 82,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 29,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 5.7, 0, 0.1 }",
-                    "scale": "{ 3.4, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 677, 430, 0.1 }",
-                    "worldScale": "{ 34, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 83,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 29,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 9.6, 0, 0.1 }",
-                    "scale": "{ 3.4, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 716, 430, 0.1 }",
-                    "worldScale": "{ 34, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TestHealthBar",
-        "ID": 84,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 29,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 13.5, 0, 0.1 }",
-                    "scale": "{ 3.4, 29.5, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 755, 430, 0.1 }",
-                    "worldScale": "{ 34, 59, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1,
-                            "height": 1
-                        }
-                    },
-                    "spriteName": "Red"
                 }
             }
         ]
