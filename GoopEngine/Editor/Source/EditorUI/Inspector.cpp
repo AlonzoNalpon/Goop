@@ -1237,28 +1237,29 @@ void GE::EditorGUI::Inspector::CreateContent()
 					
 					if (BeginCombo("Card", type.get_enumeration().value_to_name(card->cardID).to_string().c_str()))
 					{
-						for (Card::CardID currType{}; currType != Card::CardID::TOTAL_CARDS;)
-						{
-							// get the string ...
-							std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
+						ImGui::Text("This is being ported to C#");
+						//for (Card::CardID currType{}; currType != Card::CardID::TOTAL_CARDS;)
+						//{
+						//	// get the string ...
+						//	std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
 
-							if (Selectable(str.c_str(), currType == card->cardID))
-							{
-								card->cardID = currType; // set the current type if selected 
-								
-								if (ecs.HasComponent<Sprite>(entity))
-								{
-									auto* spriteComp = ecs.GetComponent<Sprite>(entity);
-									auto const& textureManager = Graphics::GraphicsEngine::GetInstance().textureManager;
-									GLuint texID{ textureManager.GetTextureID(CardSpriteNames[card->cardID]) };
-									//Graphics::Texture const& newSprite = textureManager.GetTexture(texID);
+						//	if (Selectable(str.c_str(), currType == card->cardID))
+						//	{
+						//		card->cardID = currType; // set the current type if selected 
+						//		
+						//		if (ecs.HasComponent<Sprite>(entity))
+						//		{
+						//			auto* spriteComp = ecs.GetComponent<Sprite>(entity);
+						//			auto const& textureManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+						//			GLuint texID{ textureManager.GetTextureID(CardSpriteNames[card->cardID]) };
+						//			//Graphics::Texture const& newSprite = textureManager.GetTexture(texID);
 
-									spriteComp->m_spriteData.texture = texID;
-								}
-							}
-							// and now iterate through
-							currType = static_cast<Card::CardID>(static_cast<int>(currType) + 1);
-						}
+						//			spriteComp->m_spriteData.texture = texID;
+						//		}
+						//	}
+						//	// and now iterate through
+						//	currType = static_cast<Card::CardID>(static_cast<int>(currType) + 1);
+						//}
 						EndCombo();
 					}
 

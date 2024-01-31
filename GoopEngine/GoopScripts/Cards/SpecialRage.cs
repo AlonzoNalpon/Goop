@@ -24,7 +24,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public SpecialRage(CardID cardID) : base(cardID)
+    public SpecialRage(CardID cardID, CardType cardType) : base(cardID, cardType)
     {
       Value = 2.5f;
       Duration = 2;

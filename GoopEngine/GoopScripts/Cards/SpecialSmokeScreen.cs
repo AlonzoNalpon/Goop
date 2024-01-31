@@ -24,7 +24,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public SpecialSmokeScreen(CardID cardID) : base(cardID)
+    public SpecialSmokeScreen(CardID cardID, CardType cardType) : base(cardID, cardType)
     {
       Value = 0.0f;
       Duration = 2;
@@ -40,7 +40,7 @@ namespace GoopScripts.Cards
     ************************************************************************/
     public override void Play(ref Stats source, ref Stats target)
     {
-      source.m_buffs.AddBuff(new Buff(Buff.BuffType.IMMUNITY, 0.0f, 2, "Dmg Down"));
+      source.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLY_ATK_DEALT, 0.0f, 2, "Dmg Down"));
     }
   }
 }

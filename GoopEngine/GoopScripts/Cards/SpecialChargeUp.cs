@@ -24,7 +24,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public SpecialChargeUp(CardID cardID) : base(cardID)
+    public SpecialChargeUp(CardID cardID, CardType cardType) : base(cardID, cardType)
     {
       Value = 2.0f;
       Duration = 2;
@@ -40,6 +40,7 @@ namespace GoopScripts.Cards
     ************************************************************************/
     public override void Play(ref Stats source, ref Stats target)
     {
+      source.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 1, "Skipped"));
       source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 2.0f, 2, "Atk Up"));
     }
   }

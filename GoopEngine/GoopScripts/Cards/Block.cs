@@ -24,7 +24,7 @@ namespace GoopScripts.Cards
 		\param cardID
 			ID of the card 
 		************************************************************************/
-		public Block(CardID cardID) : base(cardID)
+		public Block(CardID cardID, CardType cardType) : base(cardID, cardType)
     {
       Value = 1.0f;
       Duration = 1;

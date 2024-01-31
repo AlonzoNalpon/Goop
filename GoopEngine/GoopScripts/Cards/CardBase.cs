@@ -45,12 +45,25 @@ namespace GoopScripts.Cards
       TOTAL_CARDS,
     }
 
-    CardID cardID;
+    public enum CardType
+    {
+      BLANK_CARD,
+
+      ATTACK,
+      BLOCK,
+      SPECIAL,
+
+      TOTAL_TYPES,
+    }
+
+    CardID m_cardID;
     float m_actionVal;
     int m_duration;
+    CardType m_cardType;
 
     public float Value { get { return m_actionVal; } set { m_actionVal = value; } }
     public int Duration { get { return m_duration; } set { m_duration = value; } }
+    public CardType Type { get { return m_cardType; } }
 
     /*!*********************************************************************
     \brief
@@ -58,7 +71,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public CardBase(CardID cardID) { this.cardID = cardID; }
+    public CardBase(CardID cardID, CardType cardType) { this.m_cardID = cardID; this.m_cardType = cardType; }
 
     /*!*********************************************************************
     \brief

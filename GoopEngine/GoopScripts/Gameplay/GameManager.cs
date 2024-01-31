@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,7 +17,6 @@ namespace GoopScripts.Gameplay
     static readonly uint PAUSE_MENU = 27;
     static readonly uint HOWTOPLAY_MENU= 56;
     static readonly uint QUIT_MENU = 60;
-
 
     Random m_rng;
     //double m_animTime = 1.0; // hard coded for now
@@ -38,6 +38,62 @@ namespace GoopScripts.Gameplay
       Console.WriteLine("Create GameManager");
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
+    }
+
+    public void OnUpdate(double deltaTime)
+    {
+      // handle input
+      if (Utils.IsKeyTriggered(Input.KeyCode.C))
+      {
+        if (UI.PauseManager.IsPaused())
+        {
+          if (UI.PauseManager.IsDeeperPaused())
+            UndeeperPause();
+          else
+            UnpauseMenu();
+        }
+        else
+          PauseMenu();
+      }
+
+      if (Utils.IsKeyTriggered(Input.KeyCode.X))
+      {
+        if (UI.PauseManager.IsPaused())
+          DeeperPauseMenu();
+      }
+
+
+      // game logic
+      if (endTurn)
+      {
+        endTurn = false;
+        intervalBeforeReset = true;
+        ResolutionPhase();
+      }
+
+      if (intervalBeforeReset)
+      {
+        m_currTime += deltaTime;
+
+        if (m_currTime >= INTERVAL_TIME)
+        {
+          m_currTime = 0.0;
+          m_playerStats.TakeDamage(m_enemyStats.DamageDealt());
+          m_enemyStats.TakeDamage(m_playerStats.DamageDealt());
+          StartOfTurn();
+          intervalBeforeReset = false;
+        }
+      }
+    }
+
+    void DisplayPlayerCards()
+    {
+      CardBase.CardID[] hand = m_playerStats.m_deckMngr.m_hand;
+      double padding = (PLAYER_HAND_WIDTH - (double)hand.Length * CARD_WIDTH) / (double)(hand.Length + 1);
+      foreach (CardBase.CardID c in hand)
+      {
+
+      }
     }
 
     // function to allow c++ to edit the list of cards in cardmanager
@@ -167,7 +223,7 @@ namespace GoopScripts.Gameplay
         // Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
       }
 
-        if (endTurn)
+        if (endTurn || m_playerStats.m_isSkipped)
       {
         endTurn = false;
         intervalBeforeReset = true;
@@ -187,20 +243,6 @@ namespace GoopScripts.Gameplay
         //}
       }
 
-      if (intervalBeforeReset)
-      {
-        m_currTime += deltaTime;
-
-        if (m_currTime >= INTERVAL_TIME)
-        {
-          m_currTime = 0.0;
-          m_playerStats.TakeDamage(m_enemyStats.DamageDealt());
-          m_enemyStats.TakeDamage(m_playerStats.DamageDealt());
-          StartOfTurn();
-          intervalBeforeReset = false;
-        }
-      }
-    }
 
     public void StartOfTurn()
     {
@@ -208,7 +250,9 @@ namespace GoopScripts.Gameplay
       m_enemyStats.EndOfTurn();
       m_playerStats.m_deckMngr.Draw();
       m_enemyStats.m_deckMngr.Draw();
-      StartAI(m_enemyStats.entityID);
+
+      if (!m_enemyStats.m_isSkipped)
+        StartAI(m_enemyStats.entityID);
     }
 
     public void ResolutionPhase()
@@ -225,7 +269,10 @@ namespace GoopScripts.Gameplay
       // resolve player's queue first
       foreach (CardBase.CardID card in m_playerStats.m_deckMngr.m_queue)
       {
-        if (card == CardBase.CardID.NO_CARD) { continue; }
+        if (card == CardBase.CardID.NO_CARD)
+        {
+          continue;
+        }
 
 #if (DEBUG)
         Console.WriteLine("Resolving " + card.ToString());
@@ -233,17 +280,21 @@ namespace GoopScripts.Gameplay
 
         CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
       }
-      ComboManager.ComboPlayer(ref m_playerStats, ref m_enemyStats);
+      ComboManager.Combo(ref m_playerStats, ref m_enemyStats);
 
       // then do the same for enemy
       foreach (CardBase.CardID card in m_enemyStats.m_deckMngr.m_queue)
       {
         if (card != CardBase.CardID.NO_CARD)
         {
+#if (DEBUG)
+          Console.WriteLine("[Enemy] Resolving " + card.ToString());
+#endif
+
           CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
         }
       }
-      ComboManager.ComboEnemy(ref m_playerStats, ref m_enemyStats);
+      ComboManager.Combo(ref m_enemyStats, ref m_playerStats);
 
 #if (DEBUG)
       Console.WriteLine("\nPLAYER:\n Attack: " + m_playerStats.m_attack + ", Block: " + m_playerStats.m_block);
