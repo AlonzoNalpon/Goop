@@ -1,53 +1,6 @@
 [
     {
-        "key": "FUCK",
-        "value": [
-            {
-                "key": 1,
-                "value": [
-                    "TESTSCRIPT",
-                    "TESTSCRIPT23",
-                    "TESTSCRIPT233",
-                    "TESTSCRIPT233",
-                    "TESTSCRIPT233"
-                ]
-            },
-            {
-                "key": 2,
-                "value": [
-                    "TESTSCRIPT2"
-                ]
-            },
-            {
-                "key": 3,
-                "value": [
-                    "TESTSCRIPT23"
-                ]
-            }
-        ]
-    },
-    {
-        "key": "MYEVENT",
-        "value": [
-            {
-                "key": 1,
-                "value": [
-                    "TESTSCRIPT",
-                    "TESTSCRIPT23"
-                ]
-            },
-            {
-                "key": 2,
-                "value": [
-                    "TESTSCRIPT2"
-                ]
-            },
-            {
-                "key": 3,
-                "value": [
-                    "TESTSCRIPT23"
-                ]
-            }
-        ]
+        "key": "hello",
+        "value": []
     }
 ]
