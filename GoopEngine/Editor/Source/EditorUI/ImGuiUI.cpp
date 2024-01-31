@@ -37,6 +37,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Commands/CommandManager.h>
 #include <ImGuizmo_1_83/ImGuizmo.h>
 #include <EditorUI/GizmoEditor.h>
+#include <EditorUI/SpriteAnimEditor.h>
+#include <EditorUI/AnimEventEditor.h>
 #include <EditorUI/EditorTheme.h>
 
 using namespace GE::EditorGUI;
@@ -138,9 +140,14 @@ void ImGuiUI::Update()
     EditorViewport::UpdateViewport(*frameBuffer.second);
     GizmoEditor::SetVisible(false); // reset state
   }
-
   End();
 
+  //Begin("Animation Editor");
+  //End();
+  Begin("Sprite Animation Events Editor");
+  EditorGUI::AnimEventEditor::CreateContent();
+  End();
+  
   Begin("Extras");
   ImGui::InputInt("Change Row", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetRow(), 1);
   ImGui::InputInt("Change Col", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetCol(), 1);

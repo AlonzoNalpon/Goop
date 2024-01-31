@@ -172,6 +172,10 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
   return prefab;
 }
 #endif
+Events::AnimEventManager::AnimEventsTable Deserializer::DeserializeAnimEventsTable(std::string const& filepath)
+{
+  return {};
+}
 
 ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene(std::string const& filepath)
 {
@@ -485,6 +489,7 @@ rttr::variant Deserializer::DeserializeElement(rttr::type const& valueType, rapi
   {
     if (value.IsObject())
     {
+      std::cout << valueType << "\n";
       rttr::constructor ctor{ valueType.get_constructor() };
       for (auto& elem : valueType.get_constructors())
       {

@@ -17,6 +17,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AI/TreeManager.h>
 #include <ObjectFactory/ObjectFactory.h>
 #include <Prefabs/VariantPrefab.h>
+#include <rapidjson/istreamwrapper.h>
+#include <Events/AnimEventManager.h>
 
 #ifdef _DEBUG
 std::ostream& operator<<(std::ostream& os, rttr::type const& type);
@@ -32,6 +34,20 @@ namespace GE
     public:
       // pure static class
       Deserializer() = delete;
+
+      /*!*********************************************************************
+      \brief
+        Deserializes a json file into an rttr::variant based on the given
+        type. You need to .get_value<T> the return value to retrieve the
+        object.
+      \param filepath
+        The file to deserialize
+      \return
+        The rttr::variant of the deserialized object
+      ************************************************************************/
+     /* template <typename T>
+      static T DeserializeAny(std::string const& filepath);*/
+      static Events::AnimEventManager::AnimEventsTable DeserializeAnimEventsTable(std::string const& filepath);
 
       /*!*********************************************************************
       \brief
@@ -255,6 +271,39 @@ namespace GE
       ************************************************************************/
       static rttr::variant TryDeserializeIntoInt(rapidjson::Value const& value);
     };
+//    template <typename T>
+//    T Deserializer::DeserializeAny(std::string const& filepath)
+//    {
+//      std::ifstream ifs{ filepath };
+//
+//      if (!ifs)
+//      {
+//        GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + filepath);
+//#ifdef _DEBUG
+//        std::cout << "Unable to read " << filepath << "\n";
+//#endif
+//        return {};
+//      }
+//      // parse into document object
+//      rapidjson::IStreamWrapper isw{ ifs };
+//      if (ifs.peek() == std::ifstream::traits_type::eof())
+//      {
+//        ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogMessage("Empty scene file read. Ignoring checks");
+//        return {};
+//      }
+//      rapidjson::Document document{};
+//      if (document.ParseStream(isw).HasParseError())
+//      {
+//        ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + filepath);
+//#ifdef _DEBUG
+//        std::cout << "Unable to parse " + filepath << "\n";
+//#endif
+//        return {};
+//      }
 
+    //  rttr::variant object{ T() };
+    //  DeserializeBasedOnType(object, document);
+    //  return object.get_value<T>();
+    //}
   } // namespace Serialization
 } // namespace GE
