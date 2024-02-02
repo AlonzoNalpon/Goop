@@ -216,7 +216,7 @@ namespace
 		Draw disabled
 	************************************************************************/
 	template <>
-	void InputList(std::string propertyName, std::deque<GE::Component::Tween::Action>& list, float fieldWidth, bool disabled);
+	void InputList(std::string propertyName, std::vector<GE::Component::Tween::Action>& list, float fieldWidth, bool disabled);
 
 	/*!*********************************************************************
 	\brief
@@ -728,7 +728,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					ImGui::TableNextRow();
 					InputCheckBox("Paused", tween->m_paused);
 					EndTable();
-					InputList("Tween", tween->m_tweens, inputWidth);
+					//InputList("Tween", tween->m_tweens, inputWidth);
 					ImGui::Separator();
 				}
 			}
@@ -2065,7 +2065,7 @@ namespace
 	}
 
 	template<>
-	void InputList(std::string propertyName, std::deque<GE::Component::Tween::Action>& list, float fieldWidth, bool disabled)
+	void InputList(std::string propertyName, std::vector<GE::Component::Tween::Action>& list, float fieldWidth, bool disabled)
 	{
 		// 12 characters for property name
 		float charSize = CalcTextSize("012345678901").x;
@@ -2076,10 +2076,12 @@ namespace
 			ImGui::BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
 			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
 			int i{};
-			for (auto& [target, duration] : list)
+			for (auto& [target, scale, rot, duration] : list)
 			{
 				PushID((std::to_string(i)).c_str());
-				InputDouble3(propertyName + " " + std::to_string(i++), target, fieldWidth, disabled);
+				InputDouble3("Translate " + std::to_string(i++), target, fieldWidth, disabled);
+				InputDouble3("Scale " + std::to_string(i++), scale, fieldWidth, disabled);
+				InputDouble3("Rotate " + std::to_string(i++), rot, fieldWidth, disabled);
 				ImGui::TableNextRow();
 				ImGui::TableNextColumn();
 				ImGui::TableNextColumn();
@@ -2094,7 +2096,7 @@ namespace
 			// 20 magic number cuz the button looks good
 			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
 			{
-				list.emplace_back(vec3{ 0, 0, 0 }, 0);
+				list.emplace_back(vec3{ 0, 0, 0 }, vec3{ 0, 0, 0 }, vec3{ 0, 0, 0 });
 			}
 
 			ImGui::TreePop();

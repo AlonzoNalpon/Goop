@@ -8,7 +8,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include <queue>
+#include <vector>
 
 namespace GE
 {
@@ -20,22 +20,28 @@ namespace GE
 
 			struct Action
 			{
-				vec3 m_target;
+				vec3 m_trans;
+				vec3 m_scale;
+				vec3 m_rot;
 				double m_duration;
 			};
 
-			std::deque<Action> m_tweens;
+			std::map<std::string, std::vector<Action>> m_tweens;
 			double m_timeTaken;
 			double m_timeElapsed;
 			vec3 m_originalPos;
+			vec3 m_originalScale;
+			vec3 m_originalRot;
 			bool m_started;
 			bool m_paused;
+			int m_step;
+			std::string m_playing;
 
 			/*!*********************************************************************
 			\brief
 				Default contructor
 			************************************************************************/
-			Tween() : m_timeTaken{ 0.0 }, m_timeElapsed{ 0.0 }, m_started{ false }, m_paused{ false } {}
+			Tween() : m_timeTaken{ 0.0 }, m_timeElapsed{ 0.0 }, m_started{ false }, m_paused{ false }, m_step{ 0 } {}
 
 			/*!*********************************************************************
 			\brief
@@ -43,9 +49,9 @@ namespace GE
 			\param target
 				New position to interpolate to.
 			************************************************************************/
-			void AddTween(vec3 target, double duration)
+			void AddTween(std::string name, Action keyframe)
 			{
-				m_tweens.emplace_back(target, duration);
+				m_tweens[name].emplace_back(keyframe);
 			}
 		};
 	}

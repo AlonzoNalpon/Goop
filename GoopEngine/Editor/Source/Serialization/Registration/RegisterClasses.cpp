@@ -76,7 +76,9 @@ RTTR_REGISTRATION
 
   rttr::registration::class_<Component::Tween::Action>("Action")
     .constructor<>()
-    .property("target", &Component::Tween::Action::m_target)
+    .property("target", &Component::Tween::Action::m_trans)
+    .property("target", &Component::Tween::Action::m_scale)
+    .property("target", &Component::Tween::Action::m_rot)
     .property("duration", &Component::Tween::Action::m_duration)
     ;
 
@@ -133,11 +135,6 @@ RTTR_REGISTRATION
     .property("playOnStart", &Component::Audio::Sound::m_playOnStart)
     .property("channel", &Component::Audio::Sound::m_channel)
     .property("volume", &Component::Audio::Sound::m_volume)
-    ;
-
-  rttr::registration::class_<Component::Tween::Action>("Action")
-    .property("target", &Component::Tween::Action::m_target)
-    .property("duration", &Component::Tween::Action::m_duration)
     ;
 
   rttr::registration::class_<Graphics::SpriteSubData>("SpriteSubData")
