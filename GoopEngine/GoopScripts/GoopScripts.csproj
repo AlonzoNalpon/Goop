@@ -105,8 +105,10 @@
     <Compile Include="Gameplay\Deck.cs" />
     <Compile Include="Gameplay\DeckManager.cs" />
     <Compile Include="Gameplay\GameManager.cs" />
+    <Compile Include="Gameplay\Moan.cs" />
     <Compile Include="Gameplay\Stats.cs" />
     <Compile Include="Input\KeyCode.cs" />
+    <Compile Include="Mono\IAnimationEvent.cs" />
     <Compile Include="Mono\Component.cs" />
     <Compile Include="Mono\Entity.cs" />
     <Compile Include="Mono\IOnDestroy.cs" />

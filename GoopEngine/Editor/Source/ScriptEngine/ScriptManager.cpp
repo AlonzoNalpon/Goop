@@ -649,7 +649,7 @@ void GE::MONO::PlayAnimation(MonoString* animName, GE::ECS::Entity entity)
   // Error check for invalid pls!!!!!
   Graphics::gObjID spriteID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(str) };
   // Doesnt set the sprite!!!
-  GE::Systems::SpriteAnimSystem::SetAnimation(0, spriteID); // play anim yes!
+  GE::Systems::SpriteAnimSystem::SetAnimation(entity, spriteID); // play anim yes!
 }
 
 void GE::MONO::PlaySound(int soundIterator, GE::ECS::Entity entity)

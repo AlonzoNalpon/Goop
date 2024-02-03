@@ -560,5 +560,61 @@
                 }
             }
         ]
+    },
+    {
+        "Name": "Anim",
+        "ID": 11,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 280.001, 242.223, 0 }",
+                    "scale": "{ 0.5, 0.5, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 280.001, 242.223, 0 }",
+                    "worldScale": "{ 0.5, 0.5, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 0.25,
+                                "y": 1.0
+                            },
+                            "width": 375,
+                            "height": 750
+                        }
+                    },
+                    "spriteName": "SS_Leah_Idle",
+                    "shouldRender": true
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_Leah_Idle"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "Moan",
+                            "entityID": 11,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            }
+        ]
     }
 ]

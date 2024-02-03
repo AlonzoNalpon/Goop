@@ -8,6 +8,6 @@ namespace GoopScripts.Mono
 {
 	interface IAnimationEvent
 	{
-		void PlayEvent();
+		void PlayEvent(uint entity);
 	}
 }

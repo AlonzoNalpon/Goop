@@ -44,10 +44,10 @@ namespace GE::Systems
             auto script = scripts->Get(evtScript);
             if (script)
             {
-              auto method = mono_class_get_method_from_name(script->m_scriptClass, "PlayEvent", 0);
+              auto method = mono_class_get_method_from_name(script->m_scriptClass, "PlayEvent", 1);
               if (method)
               {
-                void* args{};
+                void* args{ &entity };
                 mono_runtime_invoke(method, script->m_classInst, &args, nullptr);
               }
             }
