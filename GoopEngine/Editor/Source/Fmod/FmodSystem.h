@@ -123,6 +123,18 @@ namespace GE
 
       /*!*********************************************************************
       \brief
+        Gets the audio of a specific sound if its playing
+
+      \param audio
+        Name of audio
+
+      \return
+        Volume of the playing audio or 0.f otherwise
+      ************************************************************************/
+      float GetVolume(std::string audio);
+
+      /*!*********************************************************************
+      \brief
         Stops a single channel that has the sound being passed in.
       \param sound
         Sound filename.

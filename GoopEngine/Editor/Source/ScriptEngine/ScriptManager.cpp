@@ -138,6 +138,9 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", GE::MONO::PlayAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::GameSystemResolved", GE::MONO::GameSystemResolved);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlaySoundF", GE::MONO::PlaySoundF);
+  mono_add_internal_call("GoopScripts.Mono.Utils::StopSound", GE::MONO::StopSound);
+  mono_add_internal_call("GoopScripts.Mono.Utils::StopChannel", GE::MONO::StopChannel);
   mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScript", GE::MONO::GetScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptFromID", GE::MONO::GetScriptFromID);
@@ -359,8 +362,8 @@ bool GE::MONO::CheckMonoError(MonoError& error)
   return hasError;
 }
 
-void GE::MONO::CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1, float fadeStart1, float fadeEnd1, 
-                              MonoString* audio2, float startVol2, float endVol2, float fadeStart2, float fadeEnd2, 
+void GE::MONO::CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1, float fadeStart1, float fadeEnd1,
+                              MonoString* audio2, float startVol2, float endVol2, float fadeStart2, float fadeEnd2,
                               float fadeDuration)
 {
   GE::Systems::AudioSystem::CrossFade cf;
@@ -663,6 +666,26 @@ void GE::MONO::PlaySound(int soundIterator, GE::ECS::Entity entity)
     }
   }
   GE::Debug::ErrorLogger::GetInstance().LogError("Trying to play a sound that does not exist from a script");
+}
+
+void GE::MONO::PlaySoundF(MonoString* soundName, float volume, GE::fMOD::FmodSystem::ChannelType channel, bool looped)
+{
+  static GE::fMOD::FmodSystem& fMod = GE::fMOD::FmodSystem::GetInstance();
+  std::string sound = MonoStringToSTD(soundName);
+  fMod.PlaySound(sound, volume, channel, looped);
+}
+
+void GE::MONO::StopSound(MonoString* soundName)
+{
+  static GE::fMOD::FmodSystem& fMod = GE::fMOD::FmodSystem::GetInstance();
+  std::string sound = MonoStringToSTD(soundName);
+  fMod.StopSound(sound);
+}
+
+void GE::MONO::StopChannel(GE::fMOD::FmodSystem::ChannelType channel)
+{
+  static GE::fMOD::FmodSystem& fMod = GE::fMOD::FmodSystem::GetInstance();
+  fMod.StopChannel(channel);
 }
 
 int GE::MONO::CalculateGCD(int large, int small)

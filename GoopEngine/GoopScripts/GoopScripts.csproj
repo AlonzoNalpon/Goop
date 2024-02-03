@@ -95,6 +95,10 @@
     <Compile Include="Cards\SpecialScreech.cs" />
     <Compile Include="Cards\SpecialSmokeScreen.cs" />
     <Compile Include="Cards\SpecialTimeWrap.cs" />
+    <Compile Include="Demo\CrossFadeToBGM.cs" />
+    <Compile Include="Demo\CrossFadeToGameBGM.cs" />
+    <Compile Include="Demo\PlayBGM.cs" />
+    <Compile Include="Demo\StopBGM.cs" />
     <Compile Include="Gameplay\BuffManager.cs" />
     <Compile Include="Gameplay\CharacterType.cs" />
     <Compile Include="Gameplay\ComboManager.cs" />
