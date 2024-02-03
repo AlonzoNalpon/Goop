@@ -577,6 +577,11 @@ void ObjectFactory::RegisterSystemWithType(rttr::type const& systemType, std::ve
     ecs.RegisterSystem<Systems::ParticleSystem>();
     RegisterComponentsToSystem<Systems::ParticleSystem>(components);
   }
+  else if (systemType == rttr::type::get<Systems::AnimEventsSystem>())
+  {
+    ecs.RegisterSystem<Systems::AnimEventsSystem>();
+    RegisterComponentsToSystem<Systems::AnimEventsSystem>(components);
+  }
   else
   {
     std::ostringstream oss{};

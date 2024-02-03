@@ -30,6 +30,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "PrefabEditor.h"
 #include <Events/EventManager.h>
 #include <ScriptEngine/CSharpStructs.h>
+#include <Events/AnimEventManager.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
@@ -1679,8 +1680,60 @@ void GE::EditorGUI::Inspector::CreateContent()
 						break;
 					}
 				}
+				//BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+				//ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
 
+				ImVec4 scriptNameColor{ 0.2f, 0.2f, 0.8f, 1.f };
+				ImGui::TextColored(scriptNameColor, "Events Container");
+				AnimEvents* comp = ecs.GetComponent<GE::Component::AnimEvents>(entity);
 				
+				if (Button("+"))
+				{
+					comp->m_eventList.emplace_back();
+				}
+				ImGui::SameLine();
+				if (Button("-") && !comp->m_eventList.empty())
+				{
+					comp->m_eventList.pop_back();
+				}
+				size_t elemIdx{};
+				for (auto& elem : comp->m_eventList)
+				{
+					// obj, string
+
+					auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
+					auto const& textureLT{ animManager.GetAnimLT() };
+					ImGui::Text("Animation: ");
+					SameLine();
+					if (BeginCombo(("##spriteEvtAnim" + std::to_string(elemIdx)).c_str(), animManager.GetAnimName(elem.first).c_str()))
+					{
+						for (auto const& it : textureLT)
+						{
+							if (Selectable(it.first.c_str()))
+							{
+								elem.first = it.second;
+							}
+						}
+						EndCombo();
+					}
+
+					// Now settle for the current events preset in this element
+					auto const& eventManager{ Events::AnimEventManager::GetInstance() };
+					auto const& eventsTable{ eventManager.GetAnimEventsTable() };
+					if (BeginCombo(("##animEvtList" + std::to_string(elemIdx)).c_str(), elem.second.c_str()))
+					{
+						for (auto const& it : eventsTable)
+						{
+							if (Selectable(it.first.c_str()))
+							{
+								elem.second = it.first;
+							}
+						}
+						EndCombo();
+					}
+					++elemIdx;
+				}
+				//EndTable();
 				ImGui::Separator();
 			}
 			else
