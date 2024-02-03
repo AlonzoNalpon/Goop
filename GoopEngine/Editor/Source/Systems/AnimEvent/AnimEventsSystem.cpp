@@ -11,7 +11,7 @@ namespace GE::Systems
     {
       Component::AnimEvents* animEvents{ m_ecs->GetComponent<Component::AnimEvents>(entity) };
       Component::SpriteAnim* spriteAnim{ m_ecs->GetComponent<Component::SpriteAnim>(entity) };
-      auto const& animMan{ Graphics::GraphicsEngine::GetInstance().animManager };
+
       if (!animEvents || !spriteAnim) // skip if the event/anim components were missing
         continue;
 
