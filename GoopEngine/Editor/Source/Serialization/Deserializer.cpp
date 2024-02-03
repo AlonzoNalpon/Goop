@@ -607,6 +607,11 @@ void Deserializer::DeserializeAssociativeContainer(rttr::variant_associative_vie
       {
         val = DeserializeElement(valueType, valueIter->value);
       }
+
+      if (key && val)
+      {
+        view.insert(key, val);
+      }
     }
     else // if its key-only
     {
@@ -750,13 +755,21 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
       return true;
     }
     auto const& gEngine = Graphics::GraphicsEngine::GetInstance();
-    Component::SpriteAnim sprAnim{ gEngine.animManager.GetAnimID(animName->value.GetString()) };
-    sprAnim.flags = gEngine.animManager.GetAnim(sprAnim.animID).flags;
-    //sprAnim.currFrame = value["currFrame"].GetUint();
-    //sprAnim.currTime = value["currTime"].GetDouble();
-    //sprAnim.flags = value["currTime"].GetUint();
-
-    compVar = std::make_shared<Component::SpriteAnim>(sprAnim);
+    try
+    {
+      Component::SpriteAnim sprAnim{ gEngine.animManager.GetAnimID(animName->value.GetString()) };
+      sprAnim.flags = gEngine.animManager.GetAnim(sprAnim.animID).flags;
+      compVar = std::make_shared<Component::SpriteAnim>(sprAnim);
+    }
+    catch (Debug::IExceptionBase& e)
+    {
+      std::ostringstream oss{};
+      oss << "Unable to GetAnimID of " << animName->value.GetString() << " | " << e.what();
+      Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#ifdef _DEBUG
+      std::cout << oss.str() << "\n";
+#endif
+    }
 
     return true;
   }
