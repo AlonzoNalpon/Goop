@@ -3,6 +3,8 @@
 #include <Graphics/GraphicsEngine.h>
 #include <SpriteAnimation/SpriteAnimationManager.h>
 #include <Events/AnimEventManager.h>
+#include <Component/Scripts.h>
+
 namespace GE::Systems
 {
   void AnimEventsSystem::Update()
@@ -11,6 +13,7 @@ namespace GE::Systems
     {
       Component::AnimEvents* animEvents{ m_ecs->GetComponent<Component::AnimEvents>(entity) };
       Component::SpriteAnim* spriteAnim{ m_ecs->GetComponent<Component::SpriteAnim>(entity) };
+      Component::Scripts* scripts{ m_ecs->GetComponent<Component::Scripts>(entity) };
 
       if (!animEvents || !spriteAnim) // skip if the event/anim components were missing
         continue;
@@ -38,7 +41,16 @@ namespace GE::Systems
 
           for (std::string const& evtScript : currFrameEvents)
           {
-            evtScript; // THIS IS THE SCRIPT NAME
+            auto script = scripts->Get(evtScript);
+            if (script)
+            {
+              auto method = mono_class_get_method_from_name(script->m_scriptClass, "PlayEvent", 0);
+              if (method)
+              {
+                void* args{};
+                mono_runtime_invoke(method, script->m_classInst, &args, nullptr);
+              }
+            }
           }
         }
       }
