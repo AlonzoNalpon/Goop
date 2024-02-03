@@ -1,0 +1,134 @@
+[
+    {
+        "Name": "BG",
+        "ID": 0,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, -100 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, -100 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "White",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Transform Animation",
+        "ID": 1,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [],
+                    "timeTaken": 0.0,
+                    "timeElapsed": 0.0,
+                    "originalPos": "{ 0, 0, 0 }",
+                    "started": false,
+                    "paused": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Audio1",
+        "ID": 2,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            3
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 747.555, -456.267, 0 }",
+                    "scale": "{ 0.75, 0.75, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 747.555, -456.267, 0 }",
+                    "worldScale": "{ 0.75, 0.75, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 456,
+                            "height": 154
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 3,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -996.741, 608.356, 0 }",
+                    "scale": "{ 1.33333, 1.33333, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    }
+]

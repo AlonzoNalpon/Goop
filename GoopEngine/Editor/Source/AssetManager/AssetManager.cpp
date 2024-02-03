@@ -218,8 +218,15 @@ namespace GE::Assets
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 		for (auto const& curr : m_loadedSpriteData)
 		{
-			gEngine.CreateAnimation(curr.first, curr.second.m_slices, curr.second.m_stacks
-				, curr.second.m_frames, curr.second.m_speed, curr.second.m_flags, gEngine.textureManager.GetTextureID(curr.second.m_filePath));
+			try
+			{
+				gEngine.CreateAnimation(curr.first, curr.second.m_slices, curr.second.m_stacks
+					, curr.second.m_frames, curr.second.m_speed, curr.second.m_flags, gEngine.textureManager.GetTextureID(curr.second.m_filePath));
+			}
+			catch (GE::Debug::IExceptionBase& e)
+			{
+				e.LogSource();
+			}
 		}
 	}
 
