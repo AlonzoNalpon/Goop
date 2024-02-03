@@ -587,7 +587,21 @@ void Deserializer::DeserializeAssociativeContainer(rttr::variant_associative_vie
       }
 
       rttr::variant key{ DeserializeElement(view.get_key_type(), keyIter->value) };
-      rttr::variant val{ DeserializeElement(view.get_value_type(), valueIter->value) };
+      rttr::variant val{};
+      rttr::type const valueType{ view.get_value_type() };
+      if (valueType.is_sequential_container())
+      {
+        if (valueType == rttr::type::get<std::vector<Component::Tween::Action>>())
+        {
+          val = std::vector<Component::Tween::Action>();
+          DeserializeBasedOnType(val, valueIter->value);
+        }
+      }
+      else
+      {
+        val = DeserializeElement(valueType, valueIter->value);
+      }
+
       if (key && val)
       {
         view.insert(key, val);
@@ -701,28 +715,27 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
 {
   if (type == rttr::type::get<Component::Sprite>())
   {
-    rapidjson::Value::ConstMemberIterator sprData{ value.FindMember("spriteData") };
-    if (sprData == value.MemberEnd())
+    if (!ScanJsonFileForMembers(value, "Sprite Component", 2, "spriteData", rapidjson::kObjectType,
+      "spriteName", rapidjson::kStringType))
     {
-      Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteData in Sprite component");
-      return true;
-    }
-    rapidjson::Value::ConstMemberIterator sprName{ value.FindMember("spriteName") };
-    if (sprData == value.MemberEnd())
-    {
-      Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteName in Sprite component");
       return true;
     }
 
+    bool shouldRender{ (value.HasMember("shouldRender") ? value["shouldRender"].GetBool() : true) };
     rttr::variant sprDataVar{ Graphics::SpriteData() };
-    DeserializeBasedOnType(sprDataVar, sprData->value);
+    DeserializeBasedOnType(sprDataVar, value["spriteData"]);
     try
     {
-      compVar = type.create({ sprDataVar.get_value<Graphics::SpriteData>(), std::string(sprName->value.GetString()) });
+      compVar = type.create({ sprDataVar.get_value<Graphics::SpriteData>(), std::string(value["spriteName"].GetString(), shouldRender)});
     }
-    catch (Debug::IExceptionBase&)
+    catch (Debug::IExceptionBase& e)
     {
-      Debug::ErrorLogger::GetInstance().LogError("Unable to load texture: " + std::string(sprName->value.GetString()));
+      std::ostringstream oss{};
+      oss << "Unable to load texture: " << value["spriteName"].GetString() << " | " << e.what();
+      Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#ifdef _DEBUG
+      std::cout << oss.str() << "\n";
+#endif
     }
     return true;
   }
@@ -731,17 +744,25 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
     rapidjson::Value::ConstMemberIterator animName{ value.FindMember("name") };
     if (animName == value.MemberEnd())
     {
-      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find name in SpriteAnim component");
+      Debug::ErrorLogger::GetInstance().LogError("Unable to find name in SpriteAnim component");
       return true;
     }
     auto const& gEngine = Graphics::GraphicsEngine::GetInstance();
-    Component::SpriteAnim sprAnim{ gEngine.animManager.GetAnimID(animName->value.GetString()) };
-    sprAnim.flags = gEngine.animManager.GetAnim(sprAnim.animID).flags;
-    //sprAnim.currFrame = value["currFrame"].GetUint();
-    //sprAnim.currTime = value["currTime"].GetDouble();
-    //sprAnim.flags = value["currTime"].GetUint();
-
-    compVar = std::make_shared<Component::SpriteAnim>(sprAnim);
+    try
+    {
+      Component::SpriteAnim sprAnim{ gEngine.animManager.GetAnimID(animName->value.GetString()) };
+      sprAnim.flags = gEngine.animManager.GetAnim(sprAnim.animID).flags;
+      compVar = std::make_shared<Component::SpriteAnim>(sprAnim);
+    }
+    catch (Debug::IExceptionBase& e)
+    {
+      std::ostringstream oss{};
+      oss << "Unable to GetAnimID of " << animName->value.GetString() << " | " << e.what();
+      Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#ifdef _DEBUG
+      std::cout << oss.str() << "\n";
+#endif
+    }
 
     return true;
   }
@@ -798,10 +819,6 @@ void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjs
 
       // if types or fieldNames don't match, skip to next elem
       rttr::variant scriptFieldVar{ var.get_type().get_property("scriptField").get_value(var) };
-#ifdef DESERIALIZER_DEBUG
-      std::cout << "    Comparing " << elem["type"].GetString() << " with " << var.get_type().get_property("type").get_value(var).get_value<std::string>()
-        << "\nComparing " << jsonField["fieldName"].GetString() << " with " << scriptFieldVar.get_type().get_property("fieldName").get_value(scriptFieldVar).get_value<std::string>();
-#endif
       if (elem["type"].GetString() != var.get_type().get_property("type").get_value(var).get_value<std::string>()
         || jsonField["fieldName"].GetString() != scriptFieldVar.get_type().get_property("fieldName").get_value(scriptFieldVar).get_value<std::string>())
       {
