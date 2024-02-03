@@ -33,13 +33,13 @@
                             "height": 750
                         }
                     },
-                    "spriteName": "SS_LeahIdle",
+                    "spriteName": "SS_Leah_Idle",
                     "shouldRender": true
                 }
             },
             {
                 "SpriteAnim": {
-                    "name": "SS_LeahIdle"
+                    "name": "SS_Leah_Idle"
                 }
             },
             {
