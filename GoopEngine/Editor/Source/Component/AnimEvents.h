@@ -34,7 +34,7 @@ namespace GE::Component
     */
     // DATA MEMBERS
     //AnimEventsMap m_events; //!< DO NOT SERIALIZE
-    EventCont m_eventList;
+    EventCont m_eventList; // !< the events list SERIALIZE
   };
 }
 

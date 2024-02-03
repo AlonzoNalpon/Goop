@@ -37,6 +37,7 @@ RTTR_REGISTRATION
   rttr::registration::class_<Systems::ButtonScriptSystem>("ButtonScriptSystem");
   rttr::registration::class_<Systems::CardHolderSystem>("CardHolderSystem");
   rttr::registration::class_<Systems::ParticleSystem>("ParticleSystem");
+  rttr::registration::class_<Systems::AnimEventsSystem>("AnimEventsSystem");
 
 
   /* ------------------- COMPONENTS ------------------- */
