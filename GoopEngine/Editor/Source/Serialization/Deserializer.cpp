@@ -704,19 +704,26 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
     rapidjson::Value::ConstMemberIterator sprData{ value.FindMember("spriteData") };
     if (sprData == value.MemberEnd())
     {
-      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteData in Sprite component");
+      Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteData in Sprite component");
       return true;
     }
     rapidjson::Value::ConstMemberIterator sprName{ value.FindMember("spriteName") };
     if (sprData == value.MemberEnd())
     {
-      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteName in Sprite component");
+      Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteName in Sprite component");
       return true;
     }
 
     rttr::variant sprDataVar{ Graphics::SpriteData() };
     DeserializeBasedOnType(sprDataVar, sprData->value);
-    compVar = type.create({ sprDataVar.get_value<Graphics::SpriteData>(), std::string(sprName->value.GetString()) });
+    try
+    {
+      compVar = type.create({ sprDataVar.get_value<Graphics::SpriteData>(), std::string(sprName->value.GetString()) });
+    }
+    catch (Debug::IExceptionBase& e)
+    {
+      Debug::ErrorLogger::GetInstance().LogError("Unable to load texture: " + std::string(sprName->value.GetString()));
+    }
     return true;
   }
   else if (type == rttr::type::get<Component::SpriteAnim>())
