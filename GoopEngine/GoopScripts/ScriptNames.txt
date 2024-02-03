@@ -44,6 +44,10 @@ GoopScripts.Cards,SpecialRage
 GoopScripts.Cards,SpecialScreech
 GoopScripts.Cards,SpecialSmokeScreen
 GoopScripts.Cards,SpecialTimeWrap
+GoopScripts.Demo,CrossFadeToBGM
+GoopScripts.Demo,CrossFadeToGameBGM
+GoopScripts.Demo,PlayBGM
+GoopScripts.Demo,StopBGM
 GoopScripts.Gameplay,BuffManager
 GoopScripts.Gameplay,CharacterType
 GoopScripts.Gameplay,ComboManager

@@ -1,6 +1,6 @@
 [
     {
-        "Name": "BG",
+        "Name": "Particles",
         "ID": 0,
         "Prefab": null,
         "isActive": true,
@@ -9,12 +9,46 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, -100 }",
+                    "pos": "{ -274, 275, 0 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, -100 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -274, 275, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    "spriteName": "Atk Up",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Emitter": {
+                    "playOnStart": true,
+                    "playing": false,
+                    "gravity": "{ 0, 20, 0 }",
+                    "minForce": "{ 200, 50, 0 }",
+                    "maxForce": "{ -200, 100, 0 }",
+                    "minDrag": 0.029999999329447746,
+                    "maxDrag": 0.029999999329447746,
+                    "maxLifeTime": 5.0,
+                    "minLifeTime": 3.0,
+                    "particlePerMin": 800
                 }
             }
         ]
@@ -73,7 +107,7 @@
                                     "trans": "{ -200, 0, 0 }",
                                     "scale": "{ 1, 5, 1 }",
                                     "rot": "{ 0, 0, 360 }",
-                                    "duration": 2.0
+                                    "duration": 3.0
                                 }
                             ]
                         }
@@ -87,23 +121,33 @@
         ]
     },
     {
-        "Name": "Audio1",
+        "Name": "Play BGM",
         "ID": 2,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 10,
         "Child Entities": [
             3
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 747.555, -456.267, 0 }",
-                    "scale": "{ 0.75, 0.75, 1 }",
-                    "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 747.555, -456.267, 0 }",
-                    "worldScale": "{ 0.75, 0.75, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "pos": "{ 383, -185, 0 }",
+                    "scale": "{ 0.36, 0.36, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 383, -185, 0 }",
+                    "worldScale": "{ 0.36, 0.36, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 383, -185 }",
+                    "width": 164.16,
+                    "height": 55.44,
+                    "min": "{ 300.92, -212.72 }",
+                    "max": "{ 465.08, -157.28 }",
+                    "render": true
                 }
             },
             {
@@ -125,6 +169,25 @@
                     "spriteName": "Button_Base",
                     "shouldRender": true
                 }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "PlayBGM",
+                            "entityID": 2,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
             }
         ]
     },
@@ -138,10 +201,360 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -996.74, 608.356, 0 }",
+                    "pos": "{ -136.111, -25, 0 }",
                     "scale": "{ 1.33333, 1.33333, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, -1.53187e-09, 0 }",
+                    "worldPos": "{ 334, -194, 0 }",
+                    "worldScale": "{ 0.48, 0.48, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Play BGM",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Stop BGM",
+        "ID": 4,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 10,
+        "Child Entities": [
+            5
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 383, -127, 0 }",
+                    "scale": "{ 0.36, 0.36, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 383, -127, 0 }",
+                    "worldScale": "{ 0.36, 0.36, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 383, -127 }",
+                    "width": 164.16,
+                    "height": 55.44,
+                    "min": "{ 300.92, -154.72 }",
+                    "max": "{ 465.08, -99.28 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 456,
+                            "height": 154
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "StopBGM",
+                            "entityID": 4,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 5,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 4,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -136.111, -25, 0 }",
+                    "scale": "{ 1.33333, 1.33333, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 334, -136, 0 }",
+                    "worldScale": "{ 0.48, 0.48, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Stop BGM",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Cross Fade To Game",
+        "ID": 6,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 10,
+        "Child Entities": [
+            7
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 211, -186, 0 }",
+                    "scale": "{ 0.36, 0.36, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 211, -186, 0 }",
+                    "worldScale": "{ 0.36, 0.36, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 211, -186 }",
+                    "width": 164.16,
+                    "height": 55.44,
+                    "min": "{ 128.92, -213.72 }",
+                    "max": "{ 293.08, -158.28 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 456,
+                            "height": 154
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "CrossFadeToGameBGM",
+                            "entityID": 6,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 7,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 6,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -202.778, -25, 0 }",
+                    "scale": "{ 1.33333, 1.33333, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 138, -195, 0 }",
+                    "worldScale": "{ 0.48, 0.48, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Fade To Game",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Cross Fade To Menu",
+        "ID": 8,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 10,
+        "Child Entities": [
+            9
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 211, -127, 0 }",
+                    "scale": "{ 0.36, 0.36, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 211, -127, 0 }",
+                    "worldScale": "{ 0.36, 0.36, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 211, -127 }",
+                    "width": 164.16,
+                    "height": 55.44,
+                    "min": "{ 128.92, -154.72 }",
+                    "max": "{ 293.08, -99.28 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 456,
+                            "height": 154
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "CrossFadeToBGM",
+                            "entityID": 8,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 9,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 8,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -205.556, -25, 0 }",
+                    "scale": "{ 1.33333, 1.33333, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 137, -136, 0 }",
+                    "worldScale": "{ 0.48, 0.48, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Fade To Menu",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Audio Boys",
+        "ID": 10,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            2,
+            4,
+            6,
+            8
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
