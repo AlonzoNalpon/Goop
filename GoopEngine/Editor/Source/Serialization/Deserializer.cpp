@@ -733,10 +733,6 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
     try
     {
       compVar = type.create({ sprDataVar.get_value<Graphics::SpriteData>(), std::string(value["spriteName"].GetString()), shouldRender });
-      if (compVar.is_valid()) {
-        Component::Sprite& spr = compVar.get_value<Component::Sprite>();
-        std::cout << spr.m_shouldRender << " " << spr.m_spriteName << "\n";
-      }
     }
     catch (Debug::IExceptionBase& e)
     {
