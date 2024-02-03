@@ -49,6 +49,11 @@ void GE::Scenes::Scene::Unload()
 				GE::Component::Scripts* scripts = ecs->GetComponent<GE::Component::Scripts>(entity);
 				for (auto script : scripts->m_scriptList)
 				{
+					if (!script.m_scriptClass)
+					{
+						continue;
+					}
+
 					MonoMethod* onDestroy = mono_class_get_method_from_name(script.m_scriptClass, "OnDestroy", 1);
 					if (onDestroy)
 					{
