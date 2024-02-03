@@ -38,7 +38,13 @@ namespace GE::Graphics
 
   SpriteAnimation const& SpriteAnimationManager::GetAnim(size_t id) const
   {
-    return m_spriteAnimations[id]; // That's right. We're throwing if you give a bad ID
+    // That's right. We're throwing if you give a bad ID
+    if (id >= m_spriteAnimations.size())
+    {
+      throw Debug::Exception<SpriteAnimationManager>(Debug::LEVEL_ERROR, ErrMsg("Unable to get SpriteAnimation of id " + std::to_string(id)));
+    }
+
+    return m_spriteAnimations[id];
   }
 
   gObjID SpriteAnimationManager::CreateAnim(SpriteAnimation const& animation, std::string const& name)

@@ -13,9 +13,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Systems.h>
 #include <rttr/registration>
 #include <ScriptEngine/CSharpStructs.h>
+#include <Serialization/JsonKeys.h>
 #ifndef IMGUI_DISABLE
 #include <Prefabs/VariantPrefab.h>
-#
 #endif
 
 using namespace GE;

@@ -27,15 +27,15 @@ namespace GE::Component
       m_spriteData.info.width = textureObj.width;
     }
 
-    Sprite(Graphics::SpriteData const& spriteData, std::string spriteName) : 
-      m_spriteData{ spriteData }, m_spriteName{std::move(spriteName)}
+    Sprite(Graphics::SpriteData const& spriteData, std::string spriteName, bool shouldRender = true) : 
+      m_spriteData{ spriteData }, m_spriteName{std::move(spriteName)}, m_shouldRender{ shouldRender }
     {
       m_spriteData.texture = Graphics::GraphicsEngine::GetInstance().textureManager.GetTextureID(m_spriteName);
     }
 
     Graphics::SpriteData m_spriteData; //!< composed of sprite data
     std::string m_spriteName; //!< name of sprite
-    bool m_shouldRender{true};
+    bool m_shouldRender;
   };
 }
 #endif
