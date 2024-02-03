@@ -16,5 +16,5 @@ SS_MoleRat_Rage SS_MoleRat_Rage	5	2	10	0.1	1
 SS_Leah_Rage SS_Leah_Rage	4	2	7	0.1	1
 SS_Leah_EmpoweredPunch SS_Leah_EmpoweredPunch 4	2 8	0.1	1
 SS_Leah_Death	SS_Leah_Death	4	1	4	0.1	1
-
+SS_Leah_Block SS_Leah_Block 	4	1	4	0.1	1
 #You can add comments with '#' symbol
