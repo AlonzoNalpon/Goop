@@ -76,9 +76,9 @@ RTTR_REGISTRATION
 
   rttr::registration::class_<Component::Tween::Action>("Action")
     .constructor<>()
-    .property("target", &Component::Tween::Action::m_trans)
-    .property("target", &Component::Tween::Action::m_scale)
-    .property("target", &Component::Tween::Action::m_rot)
+    .property("trans", &Component::Tween::Action::m_trans)
+    .property("scale", &Component::Tween::Action::m_scale)
+    .property("rot", &Component::Tween::Action::m_rot)
     .property("duration", &Component::Tween::Action::m_duration)
     ;
 

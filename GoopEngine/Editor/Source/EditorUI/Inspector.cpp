@@ -400,6 +400,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 			// 15 characters for property name
 			float charSize = CalcTextSize("012345678901234").x;
 
+			static bool tweenPopUp = false;
+
 			rttr::type const& compType{ ECS::componentTypes[i] };
 			if (compType == rttr::type::get<Component::Transform>())
 			{
@@ -720,17 +722,91 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 
 					Separator();
-					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
+					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 					InputDouble1("Time Elapsed", tween->m_timeElapsed);
-					ImGui::TableNextRow();
+					TableNextRow();
 					InputDouble3("Last End Point", tween->m_originalPos, inputWidth);
-					ImGui::TableNextRow();
+					TableNextRow();
 					InputCheckBox("Paused", tween->m_paused);
+					TableNextRow();
+					InputCheckBox("Loop", tween->m_loop);
+					TableNextRow();
+					TableNextColumn();
+					ImGui::Text("Playing Anim");
+					TableNextColumn();
+					InputText("##", &tween->m_playing);					
 					EndTable();
-					//InputList("Tween", tween->m_tweens, inputWidth);
+
+					for (auto& [animationName, action] : tween->m_tweens)
+					{
+						std::string temp{animationName};
+						InputList(animationName, action, inputWidth);
+					}
+					if (Button("Add Tween Animation", { GetContentRegionMax().x, 20 }))
+					{
+						OpenPopup("Add Tween Animation");
+					}
+
+					static bool invalidName = false;
+					static bool blankName = false;
+					static std::string tweenName;
+					SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+					if (BeginPopupModal("Add Tween Animation", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+					{
+						if (invalidName)
+						{
+							TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Tween already exist!");
+						}
+						if (blankName)
+						{
+							TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Tween name cannot be blank!");
+						}
+
+						ImGui::Text("Animation Name");
+						SameLine();
+						if (ImGui::InputText("##", &tweenName))
+						{
+							invalidName = false;
+							blankName = false;
+						}
+
+						SetCursorPosX(0.5f * (ImGui::GetWindowContentRegionMax().x - ImGui::CalcTextSize("Cancel Create ").x));
+						if (Button("Cancel"))
+						{
+							invalidName = false;
+							blankName = false;
+							tweenName.clear();
+							CloseCurrentPopup();
+						}
+						SameLine();
+						if (Button("Create"))
+						{
+							if (tween->m_tweens.find(tweenName) != tween->m_tweens.end())
+							{
+								invalidName = true;
+							}
+							else if (tweenName == "")
+							{
+								blankName = true;
+							}
+							else
+							{
+								invalidName = false;
+								blankName = false;
+								tween->AddTween(tweenName, { {0, 0, 0}, {1, 1, 1}, {0, 0, 0}, 1 });
+								tweenName.clear();
+								CloseCurrentPopup();
+							}
+						}
+
+						EndPopup();
+					}
+
+					//NewTweenActionPopUp(*tween);
 					ImGui::Separator();
 				}
+
 			}
 			else if (compType == rttr::type::get<Component::EnemyAI>())
 			{
@@ -1633,20 +1709,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				{
 					std::stringstream ss;
 					rttr::type const& compType{ ECS::componentTypes[i] };
-					if (compType == rttr::type::get<Component::Transform>())
-					{
-						if (!ecs.HasComponent<Transform>(entity))
-						{
-							Transform comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(Transform).name() << ". Component already exist";
-						}
-						break;
-					}
-					else if (compType == rttr::type::get<Component::BoxCollider>())
+					if (compType == rttr::type::get<Component::BoxCollider>())
 					{
 						if (!ecs.HasComponent<BoxCollider>(entity))
 						{
@@ -1657,6 +1720,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(BoxCollider).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Tween>())
@@ -1670,6 +1734,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Tween).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Velocity>())
@@ -1684,6 +1749,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Velocity).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Sprite>())
@@ -1708,6 +1774,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Sprite).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::SpriteAnim>())
@@ -1721,6 +1788,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(SpriteAnim).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Scripts>())
@@ -1734,6 +1802,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Scripts).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Draggable>())
@@ -1747,6 +1816,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Draggable).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Text>())
@@ -1760,6 +1830,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Component::Text).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Audio>())
@@ -1773,6 +1844,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Component::Audio).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::GE_Button>())
@@ -1786,6 +1858,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(GE::Component::GE_Button).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Card>())
@@ -1799,6 +1872,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(GE::Component::Card).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::CardHolder>())
@@ -1812,6 +1886,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(GE::Component::CardHolder).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Game>())
@@ -1825,6 +1900,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(GE::Component::Game).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::CardHolderElem>())
@@ -1837,6 +1913,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(CardHolderElem).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::EnemyAI>())
@@ -1849,6 +1926,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(EnemyAI).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Emitter>())
@@ -1861,6 +1939,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Emitter).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::AnimEvents>())
@@ -1873,11 +1952,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(AnimEvents).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else
 					{
 						ss << "Try to add an unhandled component";
+						addingComponent = false;
 					}
 					addingComponent = false;
 
@@ -2070,38 +2151,53 @@ namespace
 		// 12 characters for property name
 		float charSize = CalcTextSize("012345678901").x;
 
-		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		if (TreeNodeEx(("Animation: " + propertyName).c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			ImGui::Separator();
-			ImGui::BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
+			Separator();
 			int i{};
+			int removeIndex{};
+			bool shouldRemove{ false };
 			for (auto& [target, scale, rot, duration] : list)
 			{
+				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
+				TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
 				PushID((std::to_string(i)).c_str());
-				InputDouble3("Translate " + std::to_string(i++), target, fieldWidth, disabled);
-				InputDouble3("Scale " + std::to_string(i++), scale, fieldWidth, disabled);
-				InputDouble3("Rotate " + std::to_string(i++), rot, fieldWidth, disabled);
-				ImGui::TableNextRow();
-				ImGui::TableNextColumn();
-				ImGui::TableNextColumn();
+				// Formatting
+				if (i != 0)
+				{
+					TableNextRow();
+					TableNextRow();
+				}
+				InputDouble3("Translate " + std::to_string(i), target, fieldWidth, disabled);
+				InputDouble3("Scale " + std::to_string(i), scale, fieldWidth, disabled);
+				InputDouble3("Rotate " + std::to_string(i), rot, fieldWidth, disabled);
 				InputDouble1("Duration", duration);
-				ImGui::TableNextRow();
-				ImGui::PopID();
+				PopID();
+				EndTable();
+				if (Button("Delete keyframe", { GetContentRegionMax().x, 20 }))
+				{
+					removeIndex = i;
+					shouldRemove = true;
+					break;
+				}
+				++i;
 			}
-			ImGui::EndTable();
-
-			ImGui::Separator();
-			ImGui::Unindent();
-			// 20 magic number cuz the button looks good
-			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
+			if (shouldRemove)
 			{
-				list.emplace_back(vec3{ 0, 0, 0 }, vec3{ 0, 0, 0 }, vec3{ 0, 0, 0 });
+				list.erase(list.begin() + removeIndex);
 			}
 
-			ImGui::TreePop();
+			Separator();
+			Unindent();
+			// 20 magic number cuz the button looks good
+			if (Button("Add keyframe", { GetContentRegionMax().x, 20 }))
+			{
+				list.emplace_back(vec3{ 0, 0, 0 }, vec3{ 1, 1, 1 }, vec3{ 0, 0, 0 }, 1);
+			}
+			Indent();
+
+			TreePop();
 		}
-		Indent();
 	}
 
 	template <>

@@ -16,26 +16,6 @@
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1920,
-                            "height": 1080
-                        }
-                    },
-                    "spriteName": "White",
-                    "shouldRender": true
-                }
             }
         ]
     },
@@ -51,20 +31,57 @@
                 "Transform": {
                     "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
+                    "rot": "{ 0, -0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 105,
+                            "height": 90
+                        }
+                    },
+                    "spriteName": "Buta PIG",
+                    "shouldRender": true
                 }
             },
             {
                 "Tween": {
-                    "tweens": [],
-                    "timeTaken": 0.0,
-                    "timeElapsed": 0.0,
-                    "originalPos": "{ 0, 0, 0 }",
+                    "tweens": [
+                        {
+                            "key": "1",
+                            "value": [
+                                {
+                                    "trans": "{ 100, 0, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 1.0
+                                },
+                                {
+                                    "trans": "{ -200, 0, 0 }",
+                                    "scale": "{ 1, 5, 1 }",
+                                    "rot": "{ 0, 0, 360 }",
+                                    "duration": 2.0
+                                }
+                            ]
+                        }
+                    ],
                     "started": false,
-                    "paused": false
+                    "paused": false,
+                    "loop": true,
+                    "playing": "1"
                 }
             }
         ]
@@ -121,10 +138,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -996.741, 608.356, 0 }",
+                    "pos": "{ -996.74, 608.356, 0 }",
                     "scale": "{ 1.33333, 1.33333, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, -1.53187e-09, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
