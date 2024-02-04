@@ -111,7 +111,7 @@ bool GE::ECS::EntityManager::IsActiveEntity(Entity const& entity) const
 	return m_mapOfActive[entity];
 }
 
-void GE::ECS::EntityManager::SetActiveEntity(Entity& entity, bool active)
+void GE::ECS::EntityManager::SetActiveEntity(Entity const& entity, bool active)
 {
 	if (entity == INVALID_ID)
 	{

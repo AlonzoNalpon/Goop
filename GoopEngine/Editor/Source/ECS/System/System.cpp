@@ -90,7 +90,7 @@ std::set<Entity>& System::GetAllEntities()
 	return m_allEntities;
 }
 
-void System::EntityActiveStateChanged(Entity& entity, bool newState)
+void System::EntityActiveStateChanged(Entity const& entity, bool newState)
 {
 	// Only update sets if entity exist in system
 	if (m_entities.find(entity) != m_entities.end() ||

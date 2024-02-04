@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,11 +21,14 @@ namespace GoopScripts.Gameplay
     public int m_attack = 0, m_block = 0;
 
     public int m_buffsDisplay;
-    // SHOULD ONLY BE MODFIED FROM ENGINE
-    public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved;
 
-    //public Queue m_nextTurn = new Queue();
+    // VARIABLES HERE SHOULD ONLY BE MODFIED THROUGH EDITOR
+    public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved;
+    public int[] queueElemIDs;
+
     public DeckManager m_deckMngr;
+    public Vec3<double>[] m_queueElemPos;
+
     public BuffManager m_buffs { get; set; }
 
     public bool m_isSkipped = false;
@@ -32,7 +36,8 @@ namespace GoopScripts.Gameplay
     public Stats(uint entityID) : base(entityID)
     {
       m_deckMngr = new DeckManager();
-     
+      queueElemIDs = new int[3];
+      m_queueElemPos = new Vec3<double>[3];
     }
 
     /*!*********************************************************************
@@ -44,6 +49,16 @@ namespace GoopScripts.Gameplay
       m_deckMngr.Init(m_type);
       m_buffs = new BuffManager(m_buffsDisplay, m_type);
       m_healthBar = new HealthBar(m_type, m_healthDisplayWillBeRemoved);
+
+      // save the pos of each queue element
+      for (int i = 0; i < 3; i++)
+      {
+        m_queueElemPos[i] = Utils.GetWorldPosition((uint)queueElemIDs[i]);
+      }
+    }
+
+    public void Init()
+    {
       for (int i = 0; i < DeckManager.STARTING_CARDS; ++i)
       {
         Draw();
@@ -181,33 +196,104 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
     \brief
-      Adds a card from hand to the queue
+      Adds a card from hand to the queue via the deck manager
     \param index
       The index of the card in hand
+    \return
+      The index of the queue it queued into and the size of the queue
+      otherwise.
     ************************************************************************/
-    public void QueueCard(int index)
+    public int QueueCard(int index)
     {
-      m_deckMngr.Queue(index);
+      int qIdx = m_deckMngr.Queue(index);
+
+      if (qIdx == m_deckMngr.m_queue.Length)
+      {
+#if (DEBUG)
+        Console.WriteLine("QueueCard: Index out of range!");
+#endif
+      }
+
+      if (m_type == CharacterType.PLAYER)
+      {
+        m_deckMngr.AlignHandCards();
+      }
+
+      return qIdx;
+    }
+
+    /*!*********************************************************************
+     \brief
+       Adds a card from hand to the queue given the Card's entity ID.
+       This should only be called when a card in player's  hand is clicked
+       on.
+     \param entity
+       The entity ID of the card
+   ************************************************************************/
+    public void QueueCardByID(uint entity)
+    {
+      for (int i = 0; i < m_deckMngr.m_hand.Count; ++i)
+      {
+        if (m_deckMngr.m_hand[i].Item2 != entity)
+        {
+          continue;
+        }
+
+        int qIdx = m_deckMngr.Queue(i);
+        if (qIdx == m_deckMngr.m_queue.Length)
+        {
+#if (DEBUG)
+          Console.WriteLine("QueueCard: Index out of range!");
+#endif
+          return;
+        }
+
+        Utils.SetCardToQueuedState(entity, m_queueElemPos[qIdx]);
+        m_deckMngr.AlignHandCards();
+      }
     }
 
     /*!*********************************************************************
     \brief
-      FOR PLAYER. Called when a card on hand is clicked.
+      Gets the index in queue of a card given the entity ID
     \param entityID
-      The entityID of the card in hand
+      The entityID of the card
+    \return
+      The index in the queue or -1 otherwise
     ************************************************************************/
-    public void CardSelected(uint entityID)
+    public int GetIndexInQueueByID(uint entityID)
+    {
+      for (int i = 0; i < m_deckMngr.m_queue.Length; ++i)
+      {
+        Console.WriteLine(m_deckMngr.m_queue[i].Item2);
+        if (m_deckMngr.m_queue[i].Item2 == entityID)
+        {
+          return i;
+        }
+      }
+
+      return -1;
+    }
+
+    /*!*********************************************************************
+    \brief
+      Gets the index in hand of a card given the entity ID
+    \param entityID
+      The entityID of the card
+    \return
+      The index in the hand or -1 otherwise
+    ************************************************************************/
+    public int GetIndexInHandByID(uint entityID)
     {
       for (int i = 0; i < m_deckMngr.m_hand.Count; ++i)
       {
         if (m_deckMngr.m_hand[i].Item2 == entityID)
         {
-          m_deckMngr.Queue(i);
-          // set pos to queue
-          m_deckMngr.AlignHandCards();
-          break;
+          return i;
         }
       }
+
+      return -1;
     }
 
     /*!*********************************************************************
@@ -219,6 +305,11 @@ namespace GoopScripts.Gameplay
     public void UnqueueCard(int index)
     {
       m_deckMngr.Unqueue(index);
+
+      if (m_type == CharacterType.PLAYER)
+      {
+        m_deckMngr.AlignHandCards();
+      }
     }
 
     //public void QueueBuff(Buff buff)

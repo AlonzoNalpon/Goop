@@ -24,9 +24,9 @@ namespace GoopScripts.Gameplay
 
     public Stats m_playerStats, m_enemyStats;
 
+    bool gameStarted = false; // called once at the start of game 
     bool endTurn = false;  // flag for triggering a turn
     bool intervalBeforeReset;
-
 
     GameManager(uint entityID):base(entityID)
     {
@@ -181,6 +181,13 @@ namespace GoopScripts.Gameplay
 
     public void OnUpdate(double deltaTime)
     {
+      if (!gameStarted)
+      {
+        m_playerStats.Init();
+        m_enemyStats.Init();
+        gameStarted = true;
+      }
+
       if (Utils.GetLoseFocus())
       {
         if (UI.PauseManager.GetPauseState() == 0)

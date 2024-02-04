@@ -113,6 +113,7 @@ void GE::MONO::ScriptManager::InitMono()
 
   // Get Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPosition", GE::MONO::GetPosition);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetWorldPosition", GE::MONO::GetWorldPosition);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);  
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScale", GE::MONO::GetScale);
 
@@ -144,8 +145,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::GetGameSysScript", GE::MONO::GetGameSysScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptInstanceGetScriptInstance", GE::MONO::GetScriptInstance);
 
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetQueueCardID", GE::MONO::SetQueueCardID);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetHandCardID", GE::MONO::SetHandCardID);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToHandState", GE::MONO::SetCardToHandState);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToQueuedState", GE::MONO::SetCardToQueuedState);
 
   // Game UI Stuff
   mono_add_internal_call("GoopScripts.Mono.Utils::GetLoseFocus", GE::MONO::GetLoseFocus);
@@ -221,10 +222,12 @@ void GE::MONO::ScriptManager::LoadAllMonoClass()
         }
         m_monoClassMap[className] = newScriptClassInfo;
         MonoMethod* ctor = mono_class_get_method_from_name(newClass, ".ctor", 0);
-        if (ctor)
+        MonoMethod* ctor2 = mono_class_get_method_from_name(newClass, ".ctor", 1);
+        if (ctor || ctor2)
         {
           m_allScriptNames.push_back(className);
         }
+
       }
     }
     
@@ -589,6 +592,13 @@ GE::Math::dVec3 GE::MONO::GetPosition(GE::ECS::Entity entity)
   return oldTransform->m_pos;
 }
 
+GE::Math::dVec3 GE::MONO::GetWorldPosition(GE::ECS::Entity entity)
+{
+  GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+  GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
+  return oldTransform->m_worldPos;
+}
+
 GE::Math::dVec3 GE::MONO::GetScale(GE::ECS::Entity entity)
 {
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
@@ -675,46 +685,40 @@ void GE::MONO::GameSystemResolved()
   GE::Events::EventManager::GetInstance().Dispatch(GE::Events::GameTurnResolved());
 }
 
-void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int cardID)
+void GE::MONO::SetCardToQueuedState(unsigned entity, Math::dVec3 target)
 {
-  //ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
-  //Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(queueEntity);
-  //ECS::Entity elemEntity = cardHolder->elements[queueIndex].elemEntity;
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  Component::Transform* trans{ nullptr };
+  // iterate through all children and set to inactive except Icon
+  for (ECS::Entity const& e : ecs.GetChildEntities(entity))
+  {
+    if (ecs.GetEntityName(e) != "Icon")
+    {
+      ecs.SetIsActiveEntity(e, false);
+    }
 
-  //if (cardHolder->elements[queueIndex].used)
-  //{
-  //  cardHolder->elements[queueIndex].used = false; // no longer using this slot if it's overriden
-  //  // But now we reenable the card that it disabled ...
-  //  //ecs.SetIsActiveEntity(cardHolder->elements[queueIndex].cardEntity, true);
-  //}
-  //
-  //// Now set the sprite ...
-  //auto* spriteComp = ecs.GetComponent<Component::Sprite>(elemEntity);
-  //if (spriteComp)
-  //{
-  //  auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
-  //  spriteComp->m_spriteData.texture = texManager.GetTextureID(CardSpriteNames[cardID]);
-  //}
+    trans = ecs.GetComponent<Component::Transform>(e);
+  }
+
+  if (!trans)
+  {
+    Debug::ErrorLogger::GetInstance().LogError("Entity " + std::to_string(entity) + " has no \"Icon\" child");
+    return;
+  }
+
+  auto* cardTrans{ ecs.GetComponent<Component::Transform>(entity) };
+  // offset the whole card by the vector needed
+  // to get the icon to the target
+  std::cout << "Target: " << target << "\n";
+  std::cout << "Icon world pos: " << trans->m_worldPos << " | local: " << trans->m_pos << '\n';
+  cardTrans->m_pos += target - trans->m_worldPos;
+  std::cout << "Final: " << cardTrans->m_pos;
 }
 
-void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID)
+void GE::MONO::SetCardToHandState(unsigned iconEntityID)
 {
-  //ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
-  //Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(handEntity);
-  //ECS::Entity cardEntity = cardHolder->elements[handIndex].cardEntity;
-  //auto* cardComp = ecs.GetComponent<Component::Card>(cardEntity);
-
-  //// Set the card ID ...
-  //cardComp->cardID = static_cast<Component::Card::CardID>(cardID);
-
-  //// Now set the sprite of card ...
-  //auto* spriteComp = ecs.GetComponent<Component::Sprite>(cardEntity);
-  //if (spriteComp)
-  //{
-  //  auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
-  //  spriteComp->m_spriteData.texture = texManager.GetTextureID(CardSpriteNames[cardComp->cardID]);
-  //  ecs.SetIsActiveEntity(cardEntity, true);
-  //}
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  ecs.SetIsActiveEntity(ecs.GetParentEntity(iconEntityID), true);
 }
 
 void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str, float alpha)

@@ -102,16 +102,16 @@ void GE::Systems::GameSystem::Update()
       }*/
     //}
 
-    if (m_shouldWin)
-    {
-      m_shouldWin = false;
-      //GE::GSM::GameStateManager::GetInstance().SetNextScene("Victory");
-    }
-    else if (m_shouldLose)
-    {
-      m_shouldLose = false;
-      //GE::GSM::GameStateManager::GetInstance().SetNextScene("Defeat");
-    }
+    //if (m_shouldWin)
+    //{
+    //  m_shouldWin = false;
+    //  //GE::GSM::GameStateManager::GetInstance().SetNextScene("Victory");
+    //}
+    //else if (m_shouldLose)
+    //{
+    //  m_shouldLose = false;
+    //  //GE::GSM::GameStateManager::GetInstance().SetNextScene("Defeat");
+    //}
   }
 }
 

@@ -98,17 +98,25 @@ namespace GoopScripts.Mono
 
     /*!*********************************************************************
     \brief
-      function to Set the value of an entity's trnsform component. This function will be added as internal call
-      to allow c# script to set entities' transform
-
+      Function to get the value of an entity's trnsform component. This
+      function will be added as internal call to allow c# script to set 
+      entities' transform
     \params ID
       ID of the entity
-
-    \params newValue
-      values to be added to the entity's transform
     ************************************************************************/
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static Vec3<double> GetPosition(uint ID);
+
+    /*!*********************************************************************
+    \brief
+      Function to get the value of an entity's transform component. This 
+      function will be added as internal call to allow c# script to set 
+      entities' transform
+    \params ID
+      ID of the entity
+    ************************************************************************/
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static Vec3<double> GetWorldPosition(uint ID);
 
     /*!*********************************************************************
 		\brief
@@ -306,13 +314,14 @@ namespace GoopScripts.Mono
 		extern public static void GameSystemResolved();
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static void SetQueueCardID(uint queueEntity, int queueIndex, int cardID);
-
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static void SetHandCardID(uint handEntity, int handIndex, int cardID);
-
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SendString(string s);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetCardToQueuedState(uint entity, Vec3<double> target);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetCardToHandState(uint entity);
+
 
     // /*!*********************************************************************
     // Pause Screens

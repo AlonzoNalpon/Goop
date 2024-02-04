@@ -108,14 +108,20 @@ namespace GoopScripts.Gameplay
       foreach (var c in m_hand)
       {
         Utils.SetPosition(c.Item2, cardPos);
-        Console.WriteLine("Setting Entity " + c.Item2 + " to " + cardPos.X + ", " + cardPos.Y);
         cardPos.X += padding + CARD_WIDTH;
       }
     }
 
-    public void Queue(int index)
+    /*!*********************************************************************
+		\brief
+		  Queues a card given the index of the card in the hand.
+    \return
+      The index of the queue it queued into and m_queue.Length otherwise.
+		************************************************************************/
+    public int Queue(int index)
     {
-      for (int i = 0; i < m_queue.Count(); ++i)
+      int i = 0;
+      for (; i < m_queue.Length; ++i)
       {
         if (m_queue[i].Item1 == CardBase.CardID.NO_CARD)
         {
@@ -128,6 +134,7 @@ namespace GoopScripts.Gameplay
 #endif
 
       m_hand.RemoveAt(index);
+      return i;
     }
 
     public void Unqueue(int index)

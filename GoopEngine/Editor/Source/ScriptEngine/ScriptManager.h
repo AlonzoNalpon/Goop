@@ -262,6 +262,7 @@ namespace GE {
 		static void SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
 
 		static GE::Math::dVec3 GetPosition(GE::ECS::Entity entity);
+		static GE::Math::dVec3 GetWorldPosition(GE::ECS::Entity entity);
 		static GE::Math::dVec3 GetScale(GE::ECS::Entity entity);
 		static GE::Math::dVec3 GetRotation(GE::ECS::Entity entity);
 
@@ -315,8 +316,23 @@ namespace GE {
 		************************************************************************/
 		void GameSystemResolved();
 
-		void SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int cardID);
-		void SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID);
+		/*!*********************************************************************
+		\brief
+			Sets the whole card to inactive, except for the icon. Called when 
+			queuing a card from the hand.
+		\param entity
+			The entity id of the card
+		************************************************************************/
+		void SetCardToQueuedState(unsigned entity, Math::dVec3 target);
+
+		/*!*********************************************************************
+		\brief
+			Sets the whole card to active. Called when returning from queue to
+			hand.
+		\param entity
+			The entity id of the card icon
+		************************************************************************/
+		void SetCardToHandState(unsigned iconEntityID);
 
 		/*!*********************************************************************
 		\brief

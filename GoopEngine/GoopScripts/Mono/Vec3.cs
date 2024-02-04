@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GoopScripts.Mono
 {
@@ -40,5 +41,12 @@ namespace GoopScripts.Mono
       Y = yVal;
       Z = zVal;
     }
+
+    //public Vec3(Vec3<T> rhs)
+    //{
+    //  X = rhs.X;
+    //  Y = rhs.Y;
+    //  Z = rhs.Z;
+    //}
   }
 }

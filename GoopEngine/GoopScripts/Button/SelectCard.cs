@@ -15,7 +15,7 @@ namespace GoopScripts.Button
     public void OnClick(uint entity)
     {
       Stats player = (Stats)Utils.GetScript("Player", "Stats");
-      player.
+      player.QueueCardByID(entity);
     }
   }
 }

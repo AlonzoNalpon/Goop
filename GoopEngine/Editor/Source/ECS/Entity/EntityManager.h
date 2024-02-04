@@ -108,7 +108,7 @@ namespace GE
 			\param active
 			  Flag to set.
 			************************************************************************/
-			void SetActiveEntity(Entity& entity, bool active);
+			void SetActiveEntity(Entity const& entity, bool active);
 
 			/*!******************************************************************
 			\brief 

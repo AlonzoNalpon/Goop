@@ -43,7 +43,7 @@ bool GE::ECS::EntityComponentSystem::GetIsActiveEntity(Entity const& entity) con
 	return m_entityManager->IsActiveEntity(entity);
 }
 
-void GE::ECS::EntityComponentSystem::SetIsActiveEntity(Entity& entity, bool active)
+void GE::ECS::EntityComponentSystem::SetIsActiveEntity(Entity const& entity, bool active)
 {
 	m_entityManager->SetActiveEntity(entity, active);
 	m_systemManager->EntityActiveStateChanged(entity, active);

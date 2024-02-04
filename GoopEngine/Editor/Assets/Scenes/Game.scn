@@ -87,13 +87,7 @@
                                 {
                                     "data": {
                                         "Cards In Discard": [],
-                                        "Cards In Hand": [
-                                            "NO_CARD",
-                                            "NO_CARD",
-                                            "NO_CARD",
-                                            "NO_CARD",
-                                            "NO_CARD"
-                                        ],
+                                        "Cards In Hand": [],
                                         "Cards In Queue": [
                                             "NO_CARD",
                                             "NO_CARD",
@@ -128,6 +122,17 @@
                                     "type": "GoopScripts.Gameplay.CharacterType",
                                     "scriptField": {
                                         "fieldName": "m_type"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        12,
+                                        13,
+                                        14
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "queueElemIDs"
                                     }
                                 }
                             ]
@@ -397,13 +402,7 @@
                                 {
                                     "data": {
                                         "Cards In Discard": [],
-                                        "Cards In Hand": [
-                                            "NO_CARD",
-                                            "NO_CARD",
-                                            "NO_CARD",
-                                            "NO_CARD",
-                                            "NO_CARD"
-                                        ],
+                                        "Cards In Hand": [],
                                         "Cards In Queue": [
                                             "NO_CARD",
                                             "NO_CARD",
@@ -438,6 +437,17 @@
                                     "type": "GoopScripts.Gameplay.CharacterType",
                                     "scriptField": {
                                         "fieldName": "m_type"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        22,
+                                        23,
+                                        24
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "queueElemIDs"
                                     }
                                 }
                             ]
@@ -491,18 +501,14 @@
                 }
             },
             {
-                "Game": {
-                    "player": 0,
-                    "enemy": 4,
-                    "pauseMenu": 27,
-                    "playerHand": 15,
-                    "playerQueue": 11,
-                    "enemyQueue": 21,
-                    "gameSystemScript": {
-                        "scriptName": "GameManager",
-                        "entityID": 5,
-                        "scriptFieldInstList": []
-                    }
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "GameManager",
+                            "entityID": 5,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             }
         ]
@@ -677,10 +683,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -800, 58.7408, 3 }",
+                    "pos": "{ -800, 58.7408, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -800, 58.7408, 3 }",
+                    "worldPos": "{ -800, 58.7408, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -691,22 +697,22 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 23,
-                            "defaultSpriteID": 154,
+                            "spriteID": 104,
+                            "defaultSpriteID": 137,
                             "used": false
                         },
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
-                            "spriteID": 57,
-                            "defaultSpriteID": 46,
+                            "spriteID": 104,
+                            "defaultSpriteID": 138,
                             "used": false
                         },
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
-                            "spriteID": 30,
-                            "defaultSpriteID": 155,
+                            "spriteID": 104,
+                            "defaultSpriteID": 139,
                             "used": false
                         }
                     ],
@@ -730,7 +736,7 @@
                     "pos": "{ 0, 160, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -800, 218.741, 3 }",
+                    "worldPos": "{ -800, 218.741, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -841,7 +847,7 @@
                     "pos": "{ 0, -30, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -800, 28.7408, 3 }",
+                    "worldPos": "{ -800, 28.7408, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -952,7 +958,7 @@
                     "pos": "{ 0, -220, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -800, -161.259, 3 }",
+                    "worldPos": "{ -800, -161.259, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
