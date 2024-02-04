@@ -159,14 +159,24 @@ namespace GE::EditorGUI
           ImGui::SameLine();
           ImGui::InputText(("##listedEvtElem" + std::to_string(uID)).c_str(), &currEvt);
           //Delete button
-          if (Button(("DELETE##" + std::to_string(currEventIdx)).c_str()))
+          if (Button(("DELETE##" + std::to_string(uID)).c_str()))
           {
             currFrame.second.erase(currFrame.second.begin() + currEventIdx);
+            break; // don't need with displaying for this frame as vector resized
           }
           ++currEventIdx;
           ++uID;
         }
-
+      }
+      for (auto removeIt{subject.begin()}; 
+        removeIt != subject.end();
+        ++removeIt)
+      {
+        if (removeIt->second.empty())
+        {
+          subject.erase(removeIt);
+          break; // only one can be removed per frame
+        }
       }
     }
 
