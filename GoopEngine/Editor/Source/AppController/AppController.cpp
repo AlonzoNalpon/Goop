@@ -83,11 +83,8 @@ namespace GE::Application
 
     gEngine.Init(Graphics::Colorf{ }, window.GetWinWidth(), window.GetWinHeight()); // Initialize the engine with this clear color
     am->LoadFiles();
-#ifndef IMGUI_DISABLE
+
     Prefabs::PrefabManager::GetInstance().LoadPrefabsFromFile();
-#endif
-
-
 
 #ifndef IMGUI_DISABLE
     imgui.Init(window);

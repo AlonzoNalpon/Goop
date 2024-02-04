@@ -41,7 +41,7 @@ namespace GoopScripts.Gameplay
 
       for (int i = 0; i < QUEUE_SIZE; i++)
       {
-        m_queue[i] = (CardBase.CardID.NO_CARD, 0u);
+        m_queue[i] = (CardBase.CardID.NO_CARD, uint.MaxValue);
       }
 
 #if IMGUI_ENABLED
@@ -144,7 +144,7 @@ namespace GoopScripts.Gameplay
 #if (DEBUG)
       Console.WriteLine("Returning " + m_queue[index].ToString() + " to hand\n");
 #endif
-      m_queue[index].Item1 = CardBase.CardID.NO_CARD;
+      m_queue[index] = (CardBase.CardID.NO_CARD, uint.MaxValue);
     }
 
     /*!*********************************************************************
@@ -204,7 +204,7 @@ namespace GoopScripts.Gameplay
         Console.WriteLine("Discarding " + m_queue[i].ToString());
 #endif
         m_discard.Add(m_queue[i].Item1);
-        m_queue[i].Item1 = CardBase.CardID.NO_CARD;
+        m_queue[i] = (CardBase.CardID.NO_CARD, uint.MaxValue);
       }
     }
 

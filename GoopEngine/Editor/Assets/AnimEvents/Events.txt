@@ -1,31 +1,15 @@
 [
     {
-        "key": "Another animation events save",
+        "key": "LeahDies",
         "value": [
             {
-                "key": 1,
-                "value": [
-                    "playsound?",
-                    "die?"
-                ]
+                "key": 2,
+                "value": []
             },
             {
-                "key": 3,
+                "key": 4,
                 "value": [
-                    "hello",
-                    "world"
-                ]
-            }
-        ]
-    },
-    {
-        "key": "FRAME 1 TEST",
-        "value": [
-            {
-                "key": 1,
-                "value": [
-                    "playsound?",
-                    "die?"
+                    "LeahDies"
                 ]
             }
         ]

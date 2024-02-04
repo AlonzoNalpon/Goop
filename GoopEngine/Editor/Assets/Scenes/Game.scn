@@ -33,13 +33,13 @@
                             "height": 750
                         }
                     },
-                    "spriteName": "SS_LeahIdle",
+                    "spriteName": "SS_Leah_Idle",
                     "shouldRender": true
                 }
             },
             {
                 "SpriteAnim": {
-                    "name": "SS_LeahIdle"
+                    "name": "SS_Leah_Idle"
                 }
             },
             {
@@ -258,7 +258,7 @@
                             "height": 1080
                         }
                     },
-                    "spriteName": "DAA2402_InGame_Environment2_v05",
+                    "spriteName": "Environment_Level1",
                     "shouldRender": true
                 }
             }
@@ -3330,42 +3330,9 @@
                 }
             },
             {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "MenuQuitGame",
-                            "entityID": 64,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": -1,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "Command"
-                                    }
-                                },
-                                {
-                                    "data": 0,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "DeeperPauseMenuID"
-                                    }
-                                },
-                                {
-                                    "data": 0,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "PauseMenuID"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
-            {
                 "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
+                    "param": "MainMenu",
+                    "eventType": "CHANGE_SCENE",
                     "lastCollided": false,
                     "currCollided": false
                 }

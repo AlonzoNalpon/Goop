@@ -41,7 +41,14 @@ void PrefabManager::LoadPrefabsFromFile()
   auto const& prefabs{ GE::Assets::AssetManager::GetInstance().GetPrefabs() };
   for (auto const& [name, path] : prefabs)
   {
-    m_prefabs.emplace(name, Serialization::Deserializer::DeserializePrefabToVariant(path));
+    try
+    {
+      m_prefabs.emplace(name, Serialization::Deserializer::DeserializePrefabToVariant(path));
+    }
+    catch (GE::Debug::IExceptionBase& e)
+    {
+      e.LogSource();
+    }
   }
 }
 
@@ -266,7 +273,15 @@ bool PrefabManager::UpdateAllEntitiesFromPrefab()
   bool instanceUpdated{ false };
   for (auto const& [prefab, path] : Assets::AssetManager::GetInstance().GetPrefabs())
   {
-    if (UpdateEntitiesFromPrefab(prefab)) { instanceUpdated = true; }
+    try
+    {
+
+      if (UpdateEntitiesFromPrefab(prefab)) { instanceUpdated = true; }
+    }
+    catch (GE::Debug::IExceptionBase& e)
+    {
+      e.LogSource();
+    }
   }
 
   return instanceUpdated;

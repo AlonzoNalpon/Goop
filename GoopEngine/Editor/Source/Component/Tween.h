@@ -34,6 +34,7 @@ namespace GE
 			vec3 m_originalRot;
 			bool m_started;
 			bool m_paused;
+			bool m_loop;
 			int m_step;
 			std::string m_playing;
 

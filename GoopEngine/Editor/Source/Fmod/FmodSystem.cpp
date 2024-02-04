@@ -155,11 +155,31 @@ void GE::fMOD::FmodSystem::Pause(std::string audio)
     }
     catch (GE::Debug::IExceptionBase&)
     {
-      // Catch the thrown, if there is a throw at pause it means the channel is not playing anymore
+      // Catch the throw, if there is a throw at pause it means the channel is not playing anymore
       // not an actual bad error
       // Do nothing
     }
   }
+}
+
+float GE::fMOD::FmodSystem::GetVolume(std::string audio)
+{
+  float vol{};
+  if (m_channels.find(audio) != m_channels.end())
+  {
+    try
+    {
+      ErrorCheck(m_channels[audio]->getVolume(&vol));
+    }
+    catch (GE::Debug::IExceptionBase&)
+    {
+      // Catch the throw, if there is a throw at pause it means the channel is not playing anymore
+      // not an actual bad error
+      // Do nothing      
+    }
+  }
+
+  return vol;
 }
 
 void FmodSystem::StopSound(std::string audio)

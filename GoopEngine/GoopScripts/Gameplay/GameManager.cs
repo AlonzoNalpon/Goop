@@ -225,19 +225,6 @@ namespace GoopScripts.Gameplay
         endTurn = false;
         intervalBeforeReset = true;
         ResolutionPhase();
-
-        //var test = (UI.HealthBar)Utils.GetScriptFromID((uint)28, "HealthBar");
-        //if (!testBool)
-        //{
-        //  testBool = true;
-        //  test.DecreaseHealth(5);
-        //}
-        //else
-        //{
-        //  test.DecreaseHealth(1);
-
-        //  //test.IncreaseHealth(1);
-        //}
       }
     }
 
@@ -301,6 +288,7 @@ namespace GoopScripts.Gameplay
 
     public void EndTurn()
     {
+      Console.WriteLine("wrkefwf");
       if (intervalBeforeReset) { return; }
       endTurn = true;
     }

@@ -30,6 +30,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "PrefabEditor.h"
 #include <Events/EventManager.h>
 #include <ScriptEngine/CSharpStructs.h>
+#include <Events/AnimEventManager.h>
 
 // Disable empty control statement warning
 #pragma warning(disable : 4390)
@@ -158,26 +159,6 @@ namespace
 	template <>
 	void InputList(std::string propertyName, std::vector<GE::Component::LinearForce>& list, float fieldWidth, bool disabled);
 
-	///*!*********************************************************************
-	//\brief
-	//	Wrapper to create specialized inspector list of vector of
-	//	impulse forces
-
-	//\param[in] propertyName
-	//	Label name
-
-	//\param[in] list
-	//	Vector of impulse forces
-
-	//\param[in] fieldWidth
-	//	Width of input field
-
-	//\param[in] disabled
-	//	Draw disabled
-	//************************************************************************/
-	//template <>
-	//void InputList(std::string propertyName, std::vector<GE::Component::ImpulseForce>& list, float fieldWidth, bool disabled);
-
 	/*!*********************************************************************
 	\brief
 		Wrapper to create specialized inspector list of deque of
@@ -216,7 +197,7 @@ namespace
 		Draw disabled
 	************************************************************************/
 	template <>
-	void InputList(std::string propertyName, std::vector<GE::Component::Tween::Action>& list, float fieldWidth, bool disabled);
+	void InputList(std::string propertyName, std::map<std::string, std::vector<GE::Component::Tween::Action>>& list, float fieldWidth, bool disabled);
 
 	/*!*********************************************************************
 	\brief
@@ -399,6 +380,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 			float contentSize = GetWindowSize().x;
 			// 15 characters for property name
 			float charSize = CalcTextSize("012345678901234").x;
+
+			static bool tweenPopUp = false;
 
 			rttr::type const& compType{ ECS::componentTypes[i] };
 			if (compType == rttr::type::get<Component::Transform>())
@@ -720,17 +703,86 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 
 					Separator();
-					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
+					TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
 					InputDouble1("Time Elapsed", tween->m_timeElapsed);
-					ImGui::TableNextRow();
+					TableNextRow();
 					InputDouble3("Last End Point", tween->m_originalPos, inputWidth);
-					ImGui::TableNextRow();
+					TableNextRow();
 					InputCheckBox("Paused", tween->m_paused);
+					TableNextRow();
+					InputCheckBox("Loop", tween->m_loop);
+					TableNextRow();
+					TableNextColumn();
+					ImGui::Text("Playing Anim");
+					TableNextColumn();
+					InputText("##", &tween->m_playing);					
 					EndTable();
-					//InputList("Tween", tween->m_tweens, inputWidth);
+					InputList("", tween->m_tweens, inputWidth);
+					if (Button("Add Tween Animation", { GetContentRegionMax().x, 20 }))
+					{
+						OpenPopup("Add Tween Animation");
+					}
+
+					static bool invalidName = false;
+					static bool blankName = false;
+					static std::string tweenName;
+					SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+					if (BeginPopupModal("Add Tween Animation", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+					{
+						if (invalidName)
+						{
+							TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Tween already exist!");
+						}
+						if (blankName)
+						{
+							TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Tween name cannot be blank!");
+						}
+
+						ImGui::Text("Animation Name");
+						SameLine();
+						if (ImGui::InputText("##", &tweenName))
+						{
+							invalidName = false;
+							blankName = false;
+						}
+
+						SetCursorPosX(0.5f * (ImGui::GetWindowContentRegionMax().x - ImGui::CalcTextSize("Cancel Create ").x));
+						if (Button("Cancel"))
+						{
+							invalidName = false;
+							blankName = false;
+							tweenName.clear();
+							CloseCurrentPopup();
+						}
+						SameLine();
+						if (Button("Create"))
+						{
+							if (tween->m_tweens.find(tweenName) != tween->m_tweens.end())
+							{
+								invalidName = true;
+							}
+							else if (tweenName == "")
+							{
+								blankName = true;
+							}
+							else
+							{
+								invalidName = false;
+								blankName = false;
+								tween->AddTween(tweenName, { {0, 0, 0}, {1, 1, 1}, {0, 0, 0}, 1 });
+								tweenName.clear();
+								CloseCurrentPopup();
+							}
+						}
+
+						EndPopup();
+					}
+
+					//NewTweenActionPopUp(*tween);
 					ImGui::Separator();
 				}
+
 			}
 			else if (compType == rttr::type::get<Component::EnemyAI>())
 			{
@@ -1603,8 +1655,60 @@ void GE::EditorGUI::Inspector::CreateContent()
 						break;
 					}
 				}
+				//BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
+				//ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
 
+				ImVec4 scriptNameColor{ 0.2f, 0.2f, 0.8f, 1.f };
+				ImGui::TextColored(scriptNameColor, "Events Container");
+				AnimEvents* comp = ecs.GetComponent<GE::Component::AnimEvents>(entity);
 				
+				if (Button("+"))
+				{
+					comp->m_eventList.emplace_back();
+				}
+				ImGui::SameLine();
+				if (Button("-") && !comp->m_eventList.empty())
+				{
+					comp->m_eventList.pop_back();
+				}
+				size_t elemIdx{};
+				for (auto& elem : comp->m_eventList)
+				{
+					// obj, string
+
+					auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
+					auto const& textureLT{ animManager.GetAnimLT() };
+					ImGui::Text("Animation: ");
+					SameLine();
+					if (BeginCombo(("##spriteEvtAnim" + std::to_string(elemIdx)).c_str(), animManager.GetAnimName(elem.first).c_str()))
+					{
+						for (auto const& it : textureLT)
+						{
+							if (Selectable(it.first.c_str()))
+							{
+								elem.first = it.second;
+							}
+						}
+						EndCombo();
+					}
+
+					// Now settle for the current events preset in this element
+					auto const& eventManager{ Events::AnimEventManager::GetInstance() };
+					auto const& eventsTable{ eventManager.GetAnimEventsTable() };
+					if (BeginCombo(("##animEvtList" + std::to_string(elemIdx)).c_str(), elem.second.c_str()))
+					{
+						for (auto const& it : eventsTable)
+						{
+							if (Selectable(it.first.c_str()))
+							{
+								elem.second = it.first;
+							}
+						}
+						EndCombo();
+					}
+					++elemIdx;
+				}
+				//EndTable();
 				ImGui::Separator();
 			}
 			else
@@ -1633,20 +1737,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 				{
 					std::stringstream ss;
 					rttr::type const& compType{ ECS::componentTypes[i] };
-					if (compType == rttr::type::get<Component::Transform>())
-					{
-						if (!ecs.HasComponent<Transform>(entity))
-						{
-							Transform comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(Transform).name() << ". Component already exist";
-						}
-						break;
-					}
-					else if (compType == rttr::type::get<Component::BoxCollider>())
+					if (compType == rttr::type::get<Component::BoxCollider>())
 					{
 						if (!ecs.HasComponent<BoxCollider>(entity))
 						{
@@ -1657,6 +1748,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(BoxCollider).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Tween>())
@@ -1670,6 +1762,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Tween).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Velocity>())
@@ -1684,6 +1777,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Velocity).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Sprite>())
@@ -1708,6 +1802,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Sprite).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::SpriteAnim>())
@@ -1721,6 +1816,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(SpriteAnim).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Scripts>())
@@ -1734,6 +1830,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Scripts).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Draggable>())
@@ -1747,6 +1844,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Draggable).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Text>())
@@ -1760,6 +1858,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Component::Text).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Audio>())
@@ -1773,6 +1872,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Component::Audio).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::GE_Button>())
@@ -1786,6 +1886,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(GE::Component::GE_Button).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Card>())
@@ -1799,6 +1900,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(GE::Component::Card).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::CardHolder>())
@@ -1812,6 +1914,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(GE::Component::CardHolder).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Game>())
@@ -1825,6 +1928,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(GE::Component::Game).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::CardHolderElem>())
@@ -1837,6 +1941,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(CardHolderElem).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::EnemyAI>())
@@ -1849,6 +1954,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(EnemyAI).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::Emitter>())
@@ -1861,6 +1967,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(Emitter).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else if (compType == rttr::type::get<Component::AnimEvents>())
@@ -1873,11 +1980,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 						{
 							ss << "Unable to add component " << typeid(AnimEvents).name() << ". Component already exist";
 						}
+						addingComponent = false;
 						break;
 					}
 					else
 					{
 						ss << "Try to add an unhandled component";
+						addingComponent = false;
 					}
 					addingComponent = false;
 
@@ -1993,43 +2102,6 @@ namespace
 		Indent();
 	}
 
-	//template <>
-	//void InputList(std::string propertyName, std::vector<GE::Component::ImpulseForce>& list, float fieldWidth, bool disabled)
-	//{
-	//	// 12 characters for property name
-	//	float charSize = CalcTextSize("012345678901").x;
-
-	//	if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
-	//	{
-	//		ImGui::Separator();
-	//		ImGui::BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-	//		ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
-	//		ImGui::TableNextRow();
-	//		int i{};
-	//		for (auto& force : list)
-	//		{
-	//			PushID((std::to_string(i++)).c_str());
-	//			InputDouble1("Duration", force.m_duration);
-	//			InputDouble3("Force", force.m_magnitude, fieldWidth, disabled);
-	//			InputCheckBox("IsActive", force.m_isActive);
-	//			ImGui::PopID();
-	//			ImGui::Separator();
-	//		}
-	//		ImGui::EndTable();
-
-	//		ImGui::Separator();
-	//		ImGui::Unindent();
-	//		// 20 magic number cuz the button looks good
-	//		if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
-	//		{
-	//			list.push_back(ImpulseForce());
-	//		}
-
-	//		ImGui::TreePop();
-	//	}
-	//	Indent();
-	//}
-
 	template <>
 	void InputList(std::string propertyName, std::deque<GE::Math::dVec3>& list, float fieldWidth, bool disabled)
 	{
@@ -2065,43 +2137,78 @@ namespace
 	}
 
 	template<>
-	void InputList(std::string propertyName, std::vector<GE::Component::Tween::Action>& list, float fieldWidth, bool disabled)
+	void InputList(std::string propertyName, std::map<std::string, std::vector<GE::Component::Tween::Action>>& list, float fieldWidth, bool disabled)
 	{
 		// 12 characters for property name
 		float charSize = CalcTextSize("012345678901").x;
-
-		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		auto removeTweenIt{ list.begin() };
+		for (auto& [animationName, action] : list)
 		{
-			ImGui::Separator();
-			ImGui::BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
-			int i{};
-			for (auto& [target, scale, rot, duration] : list)
+			std::string temp{animationName};
+			if (TreeNodeEx(("Animation: " + animationName).c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 			{
-				PushID((std::to_string(i)).c_str());
-				InputDouble3("Translate " + std::to_string(i++), target, fieldWidth, disabled);
-				InputDouble3("Scale " + std::to_string(i++), scale, fieldWidth, disabled);
-				InputDouble3("Rotate " + std::to_string(i++), rot, fieldWidth, disabled);
-				ImGui::TableNextRow();
-				ImGui::TableNextColumn();
-				ImGui::TableNextColumn();
-				InputDouble1("Duration", duration);
-				ImGui::TableNextRow();
-				ImGui::PopID();
-			}
-			ImGui::EndTable();
+				SameLine();
+				if (Button("Remove Animation"))
+				{
+					TreePop();
+					break;
+				}
+				else
+				{
+					++removeTweenIt;
+				}
 
-			ImGui::Separator();
-			ImGui::Unindent();
-			// 20 magic number cuz the button looks good
-			if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
-			{
-				list.emplace_back(vec3{ 0, 0, 0 }, vec3{ 0, 0, 0 }, vec3{ 0, 0, 0 });
-			}
+				Separator();
+				int i{};
+				int removeIndex{};
+				bool shouldRemove{ false };
+				for (auto& [target, scale, rot, duration] : action)
+				{
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
+					TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
+					PushID((std::to_string(i)).c_str());
+					// Formatting
+					if (i != 0)
+					{
+						TableNextRow();
+						TableNextRow();
+					}
+					InputDouble3("Translate " + std::to_string(i), target, fieldWidth, disabled);
+					InputDouble3("Scale " + std::to_string(i), scale, fieldWidth, disabled);
+					InputDouble3("Rotate " + std::to_string(i), rot, fieldWidth, disabled);
+					InputDouble1("Duration", duration);
+					PopID();
+					EndTable();
+					if (Button("Delete keyframe", { GetContentRegionMax().x, 20 }))
+					{
+						removeIndex = i;
+						shouldRemove = true;
+						break;
+					}
+					++i;
+				}
+				if (shouldRemove)
+				{
+					action.erase(action.begin() + removeIndex);
+				}
 
-			ImGui::TreePop();
+				Separator();
+				Unindent();
+				// 20 magic number cuz the button looks good
+				if (Button("Add keyframe", { GetContentRegionMax().x, 20 }))
+				{
+					action.emplace_back(vec3{ 0, 0, 0 }, vec3{ 1, 1, 1 }, vec3{ 0, 0, 0 }, 1);
+				}
+				Indent();
+
+				TreePop();
+			}
 		}
-		Indent();
+
+		if (removeTweenIt != list.end())
+		{
+			list.erase(removeTweenIt);
+		}
 	}
 
 	template <>

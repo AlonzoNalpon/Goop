@@ -16,7 +16,7 @@ namespace GoopScripts.Button
     }
     public void OnClick(uint entity)
     {
-      Gameplay.GameManager gm = (Gameplay.GameManager) Utils.GetGameSysScript("GameSystem");
+      Gameplay.GameManager gm = (Gameplay.GameManager) Utils.GetScript("GameSystem", "GameManager");
       gm.EndTurn();
     }
   }
