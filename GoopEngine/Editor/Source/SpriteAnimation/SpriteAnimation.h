@@ -27,6 +27,10 @@ namespace GE::Graphics
     std::vector<SpriteSubData>  frames; //!< every frame stored as sprite data
     u32                         flags;   //!< refer to the enumerated flags
     GLuint                      texture; //!< the texture ID
+    inline f64 GetTotalAnimTime()const
+    {
+      return speed * static_cast<double>(frames.size());
+    }
   };
 }
 #endif
