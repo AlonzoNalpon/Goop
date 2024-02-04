@@ -10,11 +10,11 @@ namespace GE::Component
   struct AnimEvents
   {
 
-    enum ANIM_EVENT_TYPE
-    {
-      PLAY_SOUND,
-      NUM_EVENTS
-    };
+    //enum ANIM_EVENT_TYPE
+    //{
+    //  PLAY_SOUND,
+    //  NUM_EVENTS
+    //};
     /*!
       Each animation event in the container of animation events stored HERE 
     */

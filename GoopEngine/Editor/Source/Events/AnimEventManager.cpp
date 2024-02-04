@@ -39,6 +39,17 @@ namespace GE::Events
     return animIt->second; // return the object
   }
 
+  bool AnimEventManager::DeleteAnimEvent(std::string const& name)
+  {
+    auto it = m_animTable.find(name);
+    if (it != m_animTable.end())
+    {
+      m_animTable.erase(name);
+      return true;
+    }
+    return false;
+  }
+
   void AnimEventManager::SaveDatabase() const
   {
     std::string const dataFilePath = GE::Assets::AssetManager::GetInstance().

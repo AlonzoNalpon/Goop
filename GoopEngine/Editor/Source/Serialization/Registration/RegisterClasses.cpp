@@ -223,6 +223,11 @@ RTTR_REGISTRATION
     .property("scriptFieldInstList", &MONO::ScriptInstance::m_scriptFieldInstList)
     ;
 
+  rttr::registration::class_<std::pair<Prefabs::PrefabSubData::SubDataId, Prefabs::PrefabVersion>>("SizeTString")
+    .property("first", &std::pair<size_t, std::string>::first)
+    .property("second", &std::pair<size_t, std::string>::second)
+    ;
+
 #ifndef NO_IMGUI
   rttr::registration::class_<std::pair<std::string, unsigned>>("StringUnsignedPair")
     .property("first", &std::pair<std::string, unsigned>::first)

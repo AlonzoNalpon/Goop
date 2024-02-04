@@ -64,6 +64,15 @@ namespace GE::Events
     ************************************************************************/
     AnimEvents::AnimEventsCont const& GetAnimEvent(std::string const& name)const;
 
+    /*!*********************************************************************
+    \brief
+      Deletes an animation event, if it could be found
+    \param name name of the animation
+    \return
+      flag indicating success of deletion (true if such an element was 
+      found successfully deleted)
+    ************************************************************************/
+    bool DeleteAnimEvent(std::string const& name);
   private:
     // TODO: HOW TO SERIALIZE?
     void SaveDatabase()const;

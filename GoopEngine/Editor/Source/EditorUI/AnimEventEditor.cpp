@@ -34,7 +34,7 @@ namespace GE::EditorGUI
     //Print currently editing anim name
     BeginChild("Animation Events");
     {
-      TextColored({ 1.f, 1.f, 1.f, 1.f }, "Animation name");
+      TextColored({ 1.f, 1.f, 1.f, 1.f }, "Events set name");
       SameLine();
 
       ImGui::InputText("##nameOfEvents", &currLoadAnimEventID);
@@ -56,6 +56,11 @@ namespace GE::EditorGUI
         if (Selectable(curr.first.c_str(), curr.first == currLoadAnimEventID))
         {
           currLoadAnimEventID = curr.first;
+          auto loadedIt = eventsLT.find(currLoadAnimEventID);
+          if (loadedIt != eventsLT.end())
+          {
+            currAnimationEventsCont = loadedIt->second;
+          }
         }
       }
       EndCombo();
@@ -65,7 +70,6 @@ namespace GE::EditorGUI
 
     if (Button("LOAD"))
     {
-      // TODO: LOAD
       auto loadedIt = eventsLT.find(currLoadAnimEventID);
       if (loadedIt != eventsLT.end())
       {
@@ -84,6 +88,16 @@ namespace GE::EditorGUI
     }
     ImGui::EndDisabled();
     
+    {
+      auto loadedIt = eventsLT.find(currLoadAnimEventID);
+      ImGui::BeginDisabled(loadedIt == eventsLT.end());
+      if (Button("DELETE"))
+      {
+        eventMgr.DeleteAnimEvent(currLoadAnimEventID);
+      }
+      ImGui::EndDisabled();
+    }
+
     // OVERWRITE NOTIFICATION
     if (!currLoadAnimEventID.empty())
     {
@@ -99,7 +113,7 @@ namespace GE::EditorGUI
       if (uniqueName)
         TextColored(GoodColor, "This name is available!");
       else
-        TextColored(WarningColor, "Existing events with matching name found! Saving will overwrite!");
+        TextColored(WarningColor, "Saving will overwrite!");
 
     }
     
@@ -138,13 +152,21 @@ namespace GE::EditorGUI
         ImGui::TextColored(ImVec4{ 1.f, 1.f, 0.f, 1.f },
           ("Frame: " + std::to_string(currFrame.first)).c_str());
 
-        for (auto& currEvt : currFrame.second)
+        size_t currEventIdx{};
+        for (std::string& currEvt : currFrame.second)
         {
           ImGui::TextColored(ScriptFieldClr, "Script: ");
           ImGui::SameLine();
           ImGui::InputText(("##listedEvtElem" + std::to_string(uID)).c_str(), &currEvt);
+          //Delete button
+          if (Button(("DELETE##" + std::to_string(currEventIdx)).c_str()))
+          {
+            currFrame.second.erase(currFrame.second.begin() + currEventIdx);
+          }
+          ++currEventIdx;
           ++uID;
         }
+
       }
     }
 
