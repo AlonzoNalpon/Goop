@@ -1,0 +1,16 @@
+SS_LeahIdle	 #No_Card
+SS_PlayerTest #Enemy Basic Attack
+SS_EnemyTest #Enemy Basic Shield
+SS_MineWorm #Enemy Special Screech
+SS_LeahShoot #Leah Beam
+SS_PlayerTest #Leah Strike
+SS_PlayerTest #Leah Shield
+SS_PlayerTest #Leah Special Flash bang
+SS_PlayerTest #Leah Special Smoke Screen
+SS_PlayerTest #Leah Special Rage
+SS_EnemyTest #Dawson Beam
+SS_EnemyTest #Dawson Swing
+SS_EnemyTest #Dawson Shield
+SS_EnemyTest #Dawson Special Charge up
+SS_EnemyTest #Dawson Special TimeWarp
+

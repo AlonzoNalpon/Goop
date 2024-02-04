@@ -59,19 +59,22 @@ namespace GoopScripts.Cards
     CardID m_cardID;
     float m_actionVal;
     int m_duration;
-    CardType m_cardType;
+    CardType cardType;
+    string m_animationSprite;  
 
     public float Value { get { return m_actionVal; } set { m_actionVal = value; } }
     public int Duration { get { return m_duration; } set { m_duration = value; } }
-    public CardType Type { get { return m_cardType; } }
+    public CardType Type { get { return cardType; } }
+
+    public string SpriteAnimation { get { return m_animationSprite; } set { m_animationSprite = value; } }
 
     /*!*********************************************************************
-    \brief
+    \brief  
       Overloaded constructor of a card
     \param cardID
       ID of the card 
     ************************************************************************/
-    public CardBase(CardID cardID, CardType cardType) { this.m_cardID = cardID; this.m_cardType = cardType; }
+    public CardBase(CardID cardID, CardType cardType, string animationSprite) { this.m_cardID = cardID; this.cardType = cardType; this.m_animationSprite = animationSprite; }
 
     /*!*********************************************************************
     \brief

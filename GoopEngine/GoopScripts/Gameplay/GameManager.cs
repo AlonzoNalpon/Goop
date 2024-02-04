@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using GoopScripts.Cards;
 using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
+using System.Threading;
 
 namespace GoopScripts.Gameplay
 {
@@ -24,11 +25,19 @@ namespace GoopScripts.Gameplay
 
     Stats m_playerStats, m_enemyStats;
 
-    bool endTurn = false;  // flag for triggering a turn
-    bool intervalBeforeReset;
+    bool isResolutionPhase = false;  // flag for triggering a turn
+    //bool intervalBeforeReset;
+
+    //tools for resolving cards
+    //List<CardBase.CardID> resolveQueue;
+    int playerCardPos = 0;
+    int enemyCardPos = 0;
+    bool resolvePlayer = true;
+    bool toTrigger = false;
+    bool isStartOfTurn = true;
 
 
-    GameManager(uint entityID):base(entityID)
+GameManager(uint entityID):base(entityID)
     {
       m_rng = new Random();
     }
@@ -167,11 +176,10 @@ namespace GoopScripts.Gameplay
         // Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
       }
 
-        if (endTurn || m_playerStats.m_isSkipped)
-      {
-        endTurn = false;
-        intervalBeforeReset = true;
-        ResolutionPhase();
+       if (isResolutionPhase)
+       {
+        //Console.WriteLine("IRPPPPPPPPPPPPP");
+        ResolutionPhase(deltaTime);
 
         //var test = (UI.HealthBar)Utils.GetScriptFromID((uint)28, "HealthBar");
         //if (!testBool)
@@ -185,93 +193,227 @@ namespace GoopScripts.Gameplay
 
         //  //test.IncreaseHealth(1);
         //}
+       // m_playerStats.TakeDamage(m_enemyStats.DamageDealt());
+        //m_enemyStats.TakeDamage(m_playerStats.DamageDealt());
       }
-      m_playerStats.m_isSkipped = false;
+     // m_playerStats.m_isSkipped = false;
 
-      if (intervalBeforeReset)
+      else
       {
-        m_currTime += deltaTime;
-
-        if (m_currTime >= INTERVAL_TIME)
+        Console.WriteLine("ELSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        if (isStartOfTurn)
         {
-          m_currTime = 0.0;
-          m_playerStats.TakeDamage(m_enemyStats.DamageDealt());
-          m_enemyStats.TakeDamage(m_playerStats.DamageDealt());
+          Console.WriteLine("START OF TURRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRn");
+          isStartOfTurn = false;
           StartOfTurn();
-          intervalBeforeReset = false;
+          //intervalBeforeReset = false;
         }
+         //m_currTime = 0.0;
+
+
       }
     }
 
     public void StartOfTurn()
     {
       m_playerStats.EndOfTurn();
+      Console.WriteLine("PLAYER END OF STAR F TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
       m_enemyStats.EndOfTurn();
+      Console.WriteLine("ENEMY END OF STAR F TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
       m_playerStats.m_deckMngr.Draw();
-      m_enemyStats.m_deckMngr.Draw();
-
-      //Console.WriteLine($"{m_enemyStats.m_isSkipped}");
-      if (!m_enemyStats.m_isSkipped)
-      {
-        //Console.WriteLine("Enemy is not skipped");
-        StartAI(m_enemyStats.entityID);
-      }
-      m_enemyStats.m_isSkipped = false;
-      //Console.WriteLine("Enemy is unskipped");
-      //Console.WriteLine($"{m_enemyStats.m_isSkipped}");
+      Console.WriteLine("ENEMY DRAW  TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
+      StartAI(m_enemyStats.entityID);
+      Console.WriteLine("END OF STAR F TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
     }
 
-    public void ResolutionPhase()
+
+
+      public void ResolutionPhase(double deltaTime)
     {
 #if (DEBUG)
-      Console.WriteLine("Player Queue:");
+      //Console.WriteLine("Player Queue:");
 
-      foreach (CardBase.CardID c in m_playerStats.m_deckMngr.m_queue)
-      {
-        Console.WriteLine(c.ToString());
-      }
+      //foreach (CardBase.CardID c in m_playerStats.m_deckMngr.m_queue)
+      //{
+      //  Console.WriteLine(c.ToString());
+      //}
 #endif
+      if(toTrigger)
+      {
+        Console.WriteLine("time to triggER");
+        toTrigger = false;
+        if(resolvePlayer)
+        {
+          
+          CardBase.CardID card = m_playerStats.m_deckMngr.m_queue[playerCardPos];
+          Console.WriteLine("RESO PLAYER"+ card);
+          if(card != CardBase.CardID.NO_CARD)
+          {
+            CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
+            Utils.PlayAnimation(CardManager.Get(card).SpriteAnimation, m_playerStats.entityID);
+          }
+          else
+            ResolveNextCard();
 
+        }
+        else
+        {
+         
+          CardBase.CardID card = m_enemyStats.m_deckMngr.m_queue[enemyCardPos];
+          Console.WriteLine("RESO ENEMY" + card);
+          if (card != CardBase.CardID.NO_CARD)
+          {
+            CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
+            Utils.PlayAnimation(CardManager.Get(card).SpriteAnimation, m_enemyStats.entityID);
+          }
+          else
+            ResolveNextCard();
+        }
+      }
+
+      m_currTime += deltaTime;
+      if(m_currTime>=INTERVAL_TIME)
+      {
+        ResolveNextCard();
+      }
       // resolve player's queue first
-      foreach (CardBase.CardID card in m_playerStats.m_deckMngr.m_queue)
+      //foreach (CardBase.CardID card in m_playerStats.m_deckMngr.m_queue)
+      //{
+      //  if (card == CardBase.CardID.NO_CARD) { continue; }
+
+#if (DEBUG)
+      //Console.WriteLine("Resolving " + card.ToString());
+#endif
+        //CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
+        //Utils.PlayAnimation(CardManager.Get(card).SpriteAnimation, m_playerStats.entityID);
+
+        //double AnimationInterval = 2.0 ;
+        //double currTime = 0.0;
+        //bool playAnimation = true;
+        //while (playAnimation)
+        //{
+        //  currTime += 0.001;
+        //  Console.WriteLine("TEST\n");
+        //  if (currTime >= AnimationInterval)
+        //  {
+        //    currTime = 0;
+        //    playAnimation = false;
+        //  }
+        
+        //}
+
+
+        // Create a Timer with a callback function
+
+        
+      //  Console.WriteLine("Sprite: " + CardManager.Get(card).SpriteAnimation + ":: " + m_playerStats.entityID);
+      //}
+      //ComboManager.ComboPlayer(ref m_playerStats, ref m_enemyStats);
+
+      //// then do the same for enemy
+      //foreach (CardBase.CardID card in m_enemyStats.m_deckMngr.m_queue)
+      //{
+      //  if (card != CardBase.CardID.NO_CARD)
+      //  {
+      //    Utils.PlayAnimation(CardManager.Get(card).SpriteAnimation, m_enemyStats.entityID);
+      //    CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
+      //    double AnimationInterval = 2.0;
+      //    double currTime = 0.0;
+      //    bool playAnimation = true;
+      //    while (playAnimation)
+      //    {
+      //      currTime += deltaTime;
+
+      //      if (currTime >= AnimationInterval)
+      //      {
+      //        currTime = 0.0;
+      //        playAnimation = false;
+      //      }
+          
+      //    }
+
+
+      //    Console.WriteLine("Sprite: " + CardManager.Get(card).SpriteAnimation + ":: " + m_enemyStats.entityID);
+      //  }
+      //}
+      //ComboManager.ComboEnemy(ref m_playerStats, ref m_enemyStats);
+
+#if (DEBUG)
+      //Console.WriteLine("\nPLAYER:\n Attack: " + m_playerStats.m_attack + ", Block: " + m_playerStats.m_block);
+      //Console.WriteLine("\nENEMY:\n Attack: " + m_enemyStats.m_attack + ", Block: " + m_enemyStats.m_block + "\n");
+#endif
+    }
+
+    private void StartResolution()
+    {
+      playerCardPos = 0;
+      enemyCardPos = 0;
+      Console.WriteLine("START RESO");
+      resolvePlayer = true;
+      toTrigger = true;
+    }
+
+    private void ResolveNextCard()
+    {
+      m_currTime = 0;
+      if(resolvePlayer)
       {
-        if (card == CardBase.CardID.NO_CARD)
+        Console.WriteLine("FINSIHED PLAYER ANIMATION");
+        playerCardPos += 1;
+        while(playerCardPos < m_enemyStats.m_deckMngr.m_queue.Length && m_playerStats.m_deckMngr.m_queue[playerCardPos] == CardBase.CardID.NO_CARD )
         {
-          continue;
+          playerCardPos++;
         }
 
-#if (DEBUG)
-        Console.WriteLine("Resolving " + card.ToString());
-#endif
-
-        CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
-      }
-      ComboManager.Combo(ref m_playerStats, ref m_enemyStats);
-
-      // then do the same for enemy
-      foreach (CardBase.CardID card in m_enemyStats.m_deckMngr.m_queue)
-      {
-        if (card != CardBase.CardID.NO_CARD)
+        if (enemyCardPos <= m_enemyStats.m_deckMngr.m_queue.Length)
         {
-#if (DEBUG)
-          Console.WriteLine("[Enemy] Resolving " + card.ToString());
-#endif
+          Console.WriteLine("RESO ENEMY NEXT");
+          toTrigger = true;
+          resolvePlayer = !resolvePlayer;
+        }
 
-          CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
+        else
+        {
+          if (playerCardPos >= m_playerStats.m_deckMngr.m_queue.Length)
+            isResolutionPhase = false; 
+           else
+             toTrigger = true;
+          
+
         }
       }
-      ComboManager.Combo(ref m_enemyStats, ref m_playerStats);
-
-#if (DEBUG)
-      Console.WriteLine("\nPLAYER:\n Attack: " + m_playerStats.m_attack + ", Block: " + m_playerStats.m_block);
-      Console.WriteLine("\nENEMY:\n Attack: " + m_enemyStats.m_attack + ", Block: " + m_enemyStats.m_block + "\n");
-#endif
+      else
+      {
+        Console.WriteLine("FINSIHED ENEMT ANIMATION");
+        enemyCardPos += 1;
+        while (enemyCardPos < m_enemyStats.m_deckMngr.m_queue.Length && m_enemyStats.m_deckMngr.m_queue[enemyCardPos] == CardBase.CardID.NO_CARD)
+        {
+          enemyCardPos ++;
+        }
+        if (playerCardPos < m_playerStats.m_deckMngr.m_queue.Length)
+        {
+          Console.WriteLine("RESO PLAYER NEXT");
+          toTrigger = true;
+          resolvePlayer = !resolvePlayer;
+        }
+        else
+        {
+          if (enemyCardPos >= m_enemyStats.m_deckMngr.m_queue.Length)
+             isResolutionPhase = false;
+           else
+              toTrigger = true;
+          
+           
+        }
+      }
     }
 
     public void EndTurn()
     {
-      if (intervalBeforeReset) { return; }
-      endTurn = true;
+      //if (intervalBeforeReset) { return; }
+      Console.WriteLine("END TURN");
+      isResolutionPhase = true;
+      StartResolution();
     }
   }
 }

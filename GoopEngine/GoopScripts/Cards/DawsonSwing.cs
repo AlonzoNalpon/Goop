@@ -24,7 +24,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public DawsonSwing(CardID cardID, CardType cardType) : base(cardID, cardType)
+    public DawsonSwing(CardID cardID, CardType cardType, string animSprite) : base(cardID, cardType, animSprite)
     {
       Value = 2.0f;
       Duration = 1;

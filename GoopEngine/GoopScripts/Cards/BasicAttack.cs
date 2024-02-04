@@ -24,7 +24,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public BasicAttack(CardID cardID, CardType cardType) : base(cardID, cardType)
+    public BasicAttack(CardID cardID, CardType cardType, string animSprite) : base(cardID, cardType, animSprite)
     {
       Value = 1.0f;
       Duration = 1;
