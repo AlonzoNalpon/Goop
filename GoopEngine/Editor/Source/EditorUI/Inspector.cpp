@@ -159,26 +159,6 @@ namespace
 	template <>
 	void InputList(std::string propertyName, std::vector<GE::Component::LinearForce>& list, float fieldWidth, bool disabled);
 
-	///*!*********************************************************************
-	//\brief
-	//	Wrapper to create specialized inspector list of vector of
-	//	impulse forces
-
-	//\param[in] propertyName
-	//	Label name
-
-	//\param[in] list
-	//	Vector of impulse forces
-
-	//\param[in] fieldWidth
-	//	Width of input field
-
-	//\param[in] disabled
-	//	Draw disabled
-	//************************************************************************/
-	//template <>
-	//void InputList(std::string propertyName, std::vector<GE::Component::ImpulseForce>& list, float fieldWidth, bool disabled);
-
 	/*!*********************************************************************
 	\brief
 		Wrapper to create specialized inspector list of deque of
@@ -217,7 +197,7 @@ namespace
 		Draw disabled
 	************************************************************************/
 	template <>
-	void InputList(std::string propertyName, std::vector<GE::Component::Tween::Action>& list, float fieldWidth, bool disabled);
+	void InputList(std::string propertyName, std::map<std::string, std::vector<GE::Component::Tween::Action>>& list, float fieldWidth, bool disabled);
 
 	/*!*********************************************************************
 	\brief
@@ -738,12 +718,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 					TableNextColumn();
 					InputText("##", &tween->m_playing);					
 					EndTable();
-
-					for (auto& [animationName, action] : tween->m_tweens)
-					{
-						std::string temp{animationName};
-						InputList(animationName, action, inputWidth);
-					}
+					InputList("", tween->m_tweens, inputWidth);
 					if (Button("Add Tween Animation", { GetContentRegionMax().x, 20 }))
 					{
 						OpenPopup("Add Tween Animation");
@@ -2127,43 +2102,6 @@ namespace
 		Indent();
 	}
 
-	//template <>
-	//void InputList(std::string propertyName, std::vector<GE::Component::ImpulseForce>& list, float fieldWidth, bool disabled)
-	//{
-	//	// 12 characters for property name
-	//	float charSize = CalcTextSize("012345678901").x;
-
-	//	if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
-	//	{
-	//		ImGui::Separator();
-	//		ImGui::BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-	//		ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
-	//		ImGui::TableNextRow();
-	//		int i{};
-	//		for (auto& force : list)
-	//		{
-	//			PushID((std::to_string(i++)).c_str());
-	//			InputDouble1("Duration", force.m_duration);
-	//			InputDouble3("Force", force.m_magnitude, fieldWidth, disabled);
-	//			InputCheckBox("IsActive", force.m_isActive);
-	//			ImGui::PopID();
-	//			ImGui::Separator();
-	//		}
-	//		ImGui::EndTable();
-
-	//		ImGui::Separator();
-	//		ImGui::Unindent();
-	//		// 20 magic number cuz the button looks good
-	//		if (Button(("Add " + propertyName).c_str(), { GetContentRegionMax().x, 20 }))
-	//		{
-	//			list.push_back(ImpulseForce());
-	//		}
-
-	//		ImGui::TreePop();
-	//	}
-	//	Indent();
-	//}
-
 	template <>
 	void InputList(std::string propertyName, std::deque<GE::Math::dVec3>& list, float fieldWidth, bool disabled)
 	{
@@ -2199,57 +2137,77 @@ namespace
 	}
 
 	template<>
-	void InputList(std::string propertyName, std::vector<GE::Component::Tween::Action>& list, float fieldWidth, bool disabled)
+	void InputList(std::string propertyName, std::map<std::string, std::vector<GE::Component::Tween::Action>>& list, float fieldWidth, bool disabled)
 	{
 		// 12 characters for property name
 		float charSize = CalcTextSize("012345678901").x;
-
-		if (TreeNodeEx(("Animation: " + propertyName).c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		auto removeTweenIt{ list.begin() };
+		for (auto& [animationName, action] : list)
 		{
-			Separator();
-			int i{};
-			int removeIndex{};
-			bool shouldRemove{ false };
-			for (auto& [target, scale, rot, duration] : list)
+			std::string temp{animationName};
+			if (TreeNodeEx(("Animation: " + animationName).c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 			{
-				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
-				TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
-				PushID((std::to_string(i)).c_str());
-				// Formatting
-				if (i != 0)
+				SameLine();
+				if (Button("Remove Animation"))
 				{
-					TableNextRow();
-					TableNextRow();
-				}
-				InputDouble3("Translate " + std::to_string(i), target, fieldWidth, disabled);
-				InputDouble3("Scale " + std::to_string(i), scale, fieldWidth, disabled);
-				InputDouble3("Rotate " + std::to_string(i), rot, fieldWidth, disabled);
-				InputDouble1("Duration", duration);
-				PopID();
-				EndTable();
-				if (Button("Delete keyframe", { GetContentRegionMax().x, 20 }))
-				{
-					removeIndex = i;
-					shouldRemove = true;
+					TreePop();
 					break;
 				}
-				++i;
-			}
-			if (shouldRemove)
-			{
-				list.erase(list.begin() + removeIndex);
-			}
+				else
+				{
+					++removeTweenIt;
+				}
 
-			Separator();
-			Unindent();
-			// 20 magic number cuz the button looks good
-			if (Button("Add keyframe", { GetContentRegionMax().x, 20 }))
-			{
-				list.emplace_back(vec3{ 0, 0, 0 }, vec3{ 1, 1, 1 }, vec3{ 0, 0, 0 }, 1);
-			}
-			Indent();
+				Separator();
+				int i{};
+				int removeIndex{};
+				bool shouldRemove{ false };
+				for (auto& [target, scale, rot, duration] : action)
+				{
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
+					TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
+					PushID((std::to_string(i)).c_str());
+					// Formatting
+					if (i != 0)
+					{
+						TableNextRow();
+						TableNextRow();
+					}
+					InputDouble3("Translate " + std::to_string(i), target, fieldWidth, disabled);
+					InputDouble3("Scale " + std::to_string(i), scale, fieldWidth, disabled);
+					InputDouble3("Rotate " + std::to_string(i), rot, fieldWidth, disabled);
+					InputDouble1("Duration", duration);
+					PopID();
+					EndTable();
+					if (Button("Delete keyframe", { GetContentRegionMax().x, 20 }))
+					{
+						removeIndex = i;
+						shouldRemove = true;
+						break;
+					}
+					++i;
+				}
+				if (shouldRemove)
+				{
+					action.erase(action.begin() + removeIndex);
+				}
 
-			TreePop();
+				Separator();
+				Unindent();
+				// 20 magic number cuz the button looks good
+				if (Button("Add keyframe", { GetContentRegionMax().x, 20 }))
+				{
+					action.emplace_back(vec3{ 0, 0, 0 }, vec3{ 1, 1, 1 }, vec3{ 0, 0, 0 }, 1);
+				}
+				Indent();
+
+				TreePop();
+			}
+		}
+
+		if (removeTweenIt != list.end())
+		{
+			list.erase(removeTweenIt);
 		}
 	}
 
