@@ -223,9 +223,9 @@ RTTR_REGISTRATION
     .property("scriptFieldInstList", &MONO::ScriptInstance::m_scriptFieldInstList)
     ;
 
-  rttr::registration::class_<std::pair<Prefabs::PrefabSubData::SubDataId, Prefabs::PrefabVersion>>("SizeTString")
-    .property("first", &std::pair<size_t, std::string>::first)
-    .property("second", &std::pair<size_t, std::string>::second)
+  rttr::registration::class_<std::pair<Graphics::gObjID, std::string>>("SizeTString")
+    .property("first", &std::pair<Graphics::gObjID, std::string>::first)
+    .property("second", &std::pair<Graphics::gObjID, std::string>::second)
     ;
 
 #ifndef NO_IMGUI
