@@ -1,59 +1,15 @@
 [
     {
-        "key": "Another animation events save",
-        "value": [
-            {
-                "key": 1,
-                "value": [
-                    "playsound?",
-                    "die?"
-                ]
-            },
-            {
-                "key": 3,
-                "value": [
-                    "hello",
-                    "world"
-                ]
-            }
-        ]
-    },
-    {
-        "key": "FRAME 1 TEST",
-        "value": [
-            {
-                "key": 1,
-                "value": [
-                    "playsound?",
-                    "die?"
-                ]
-            }
-        ]
-    },
-    {
-        "key": "New Anim",
+        "key": "LeahDies",
         "value": [
             {
                 "key": 2,
-                "value": [
-                    "Moan"
-                ]
+                "value": []
             },
             {
                 "key": 4,
                 "value": [
-                    "Moan"
-                ]
-            }
-        ]
-    },
-    {
-        "key": "Test Events",
-        "value": [
-            {
-                "key": 2,
-                "value": [
-                    "Moan"
+                    "LeahDies"
                 ]
             }
         ]

@@ -49,12 +49,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, -3 }",
-                    "scale": "{ 2, 2, 2 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, -3 }",
-                    "worldScale": "{ 2, 2, 2 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "pos": "{ 0, -113.467, -3 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 0, -113.467, -3 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
@@ -89,21 +89,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 550, -400, 0 }",
+                    "pos": "{ 0, -345, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 550, -400, 0 }",
+                    "worldPos": "{ 0, -345, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 550, -400 }",
+                    "center": "{ 0, -345 }",
                     "width": 374.0,
                     "height": 136.0,
-                    "min": "{ 363, -468 }",
-                    "max": "{ 737, -332 }",
+                    "min": "{ -187, -413 }",
+                    "max": "{ 187, -277 }",
                     "render": true
                 }
             },
@@ -133,6 +133,46 @@
                     "eventType": "CHANGE_SCENE",
                     "lastCollided": false,
                     "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Credits_Header",
+        "ID": 3,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 400, 0 }",
+                    "scale": "{ 2, 2, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 400, 0 }",
+                    "worldScale": "{ 2, 2, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 206,
+                            "height": 71
+                        }
+                    },
+                    "spriteName": "Credits_Header",
+                    "shouldRender": true
                 }
             }
         ]
