@@ -1,6 +1,6 @@
 {
     "Name": "Leah_Smokescreen",
-    "Version": 0,
+    "Version": 1,
     "Components": [
         {
             "Transform": {
@@ -10,6 +10,25 @@
                 "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "Scripts": {
+                "scriptList": [
+                    {
+                        "scriptName": "SelectCard",
+                        "entityID": 0,
+                        "scriptFieldInstList": []
+                    }
+                ]
+            }
+        },
+        {
+            "GE_Button": {
+                "param": "",
+                "eventType": "NO_EVENT",
+                "lastCollided": false,
+                "currCollided": false
             }
         }
     ],

@@ -21,10 +21,10 @@ namespace GoopScripts.Gameplay
       //first pair
       if (source.m_deckMngr.m_queue.Length >= 2)
       {
-        switch (CardManager.Get(source.m_deckMngr.m_queue[0]).Type)
+        switch (CardManager.Get(source.m_deckMngr.m_queue[0].Item1).Type)
         {
           case CardBase.CardType.ATTACK:
-            switch (CardManager.Get(source.m_deckMngr.m_queue[1]).Type)
+            switch (CardManager.Get(source.m_deckMngr.m_queue[1].Item1).Type)
             {
               case CardBase.CardType.ATTACK:
                 source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 1, "Atk Up"));
@@ -57,7 +57,7 @@ namespace GoopScripts.Gameplay
             break;
 
           case CardBase.CardType.BLOCK:
-            switch (CardManager.Get(source.m_deckMngr.m_queue[1]).Type)
+            switch (CardManager.Get(source.m_deckMngr.m_queue[1].Item1).Type)
             {
               case CardBase.CardType.ATTACK:
                 source.m_deckMngr.Draw();
@@ -88,7 +88,7 @@ namespace GoopScripts.Gameplay
             break;
 
           case CardBase.CardType.SPECIAL:
-            switch (CardManager.Get(source.m_deckMngr.m_queue[1]).Type)
+            switch (CardManager.Get(source.m_deckMngr.m_queue[1].Item1).Type)
             {
               case CardBase.CardType.ATTACK:
                 source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 1, "Atk Up"));
@@ -130,10 +130,10 @@ namespace GoopScripts.Gameplay
         //second pair
         if (source.m_deckMngr.m_queue.Length == 3)
         {
-          switch (CardManager.Get(source.m_deckMngr.m_queue[1]).Type)
+          switch (CardManager.Get(source.m_deckMngr.m_queue[1].Item1).Type)
           {
             case CardBase.CardType.ATTACK:
-              switch (CardManager.Get(source.m_deckMngr.m_queue[1]).Type)
+              switch (CardManager.Get(source.m_deckMngr.m_queue[1].Item1).Type)
               {
                 case CardBase.CardType.ATTACK:
                   source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 1, "Atk Up"));
@@ -166,7 +166,7 @@ namespace GoopScripts.Gameplay
               break;
 
             case CardBase.CardType.BLOCK:
-              switch (CardManager.Get(source.m_deckMngr.m_queue[1]).Type)
+              switch (CardManager.Get(source.m_deckMngr.m_queue[1].Item1).Type)
               {
                 case CardBase.CardType.ATTACK:
                   source.m_deckMngr.Draw();
@@ -197,7 +197,7 @@ namespace GoopScripts.Gameplay
               break;
 
             case CardBase.CardType.SPECIAL:
-              switch (CardManager.Get(source.m_deckMngr.m_queue[1]).Type)
+              switch (CardManager.Get(source.m_deckMngr.m_queue[1].Item1).Type)
               {
                 case CardBase.CardType.ATTACK:
                   source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 1, "Atk Up"));

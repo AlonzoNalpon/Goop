@@ -80,13 +80,16 @@ namespace GoopScripts.AI.Enemy.MineWorm
       Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
       Random random = new Random();
 
-      int cardToPlay = 0;
-      foreach (int c in EnemyStats.m_deckMngr.m_hand)
+      int idx = 0;
+      for (; idx < EnemyStats.m_deckMngr.m_hand.Count; ++idx)
       {
-        cardToPlay = (EnemyStats.m_deckMngr.m_hand[c] != CardID.NO_CARD) ? c : cardToPlay;
+        if (EnemyStats.m_deckMngr.m_hand[idx].Item1 != CardID.NO_CARD)
+        {
+          break;
+        }
       }
 
-      EnemyStats.QueueCard(cardToPlay);
+      EnemyStats.QueueCard(idx);
       EndAI(entityID);
 
 

@@ -41,10 +41,13 @@ namespace GoopScripts.Gameplay
     ************************************************************************/
     public void OnCreate()
     {
-      Console.WriteLine("Create Stats for " + m_type.ToString());
       m_deckMngr.Init(m_type);
       m_buffs = new BuffManager(m_buffsDisplay, m_type);
       m_healthBar = new HealthBar(m_type, m_healthDisplayWillBeRemoved);
+      for (int i = 0; i < DeckManager.STARTING_CARDS; ++i)
+      {
+        Draw();
+      }
     }
 
     public void AddAttack(int value)
@@ -150,6 +153,34 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
     \brief
+      Draws a card through the deck manager. If the CharacterType is
+      PLAYER, a prefab instance of the card will be created and the entity
+      ID of the instance is set to the corresponding card in hand.
+    ************************************************************************/
+    public void Draw()
+    {
+      int idx = m_deckMngr.Draw();
+      if (idx < 0)
+      {
+        return;
+      }
+
+      // ermmmmmmmmmm i dont like the way this is structured
+      // deck doesn't know CharacterType so check has to be done here
+      // this can be done in GameManager but then we'll have to
+      // spawn prefab, set the id, reposition cards from outside
+      // which we shouldn't have to since Draw will always have the
+      // same behaviour so for now itll be done this way
+      if (m_type == CharacterType.PLAYER)
+      {
+        CardBase.CardID cardType = m_deckMngr.m_hand[idx].Item1;
+        m_deckMngr.m_hand[idx] = (cardType, Utils.SpawnPrefab(CardManager.m_cardPrefabs[cardType]));
+        m_deckMngr.AlignHandCards();
+      }
+    }
+
+    /*!*********************************************************************
+    \brief
       Adds a card from hand to the queue
     \param index
       The index of the card in hand
@@ -157,6 +188,26 @@ namespace GoopScripts.Gameplay
     public void QueueCard(int index)
     {
       m_deckMngr.Queue(index);
+    }
+
+    /*!*********************************************************************
+    \brief
+      FOR PLAYER. Called when a card on hand is clicked.
+    \param entityID
+      The entityID of the card in hand
+    ************************************************************************/
+    public void CardSelected(uint entityID)
+    {
+      for (int i = 0; i < m_deckMngr.m_hand.Count; ++i)
+      {
+        if (m_deckMngr.m_hand[i].Item2 == entityID)
+        {
+          m_deckMngr.Queue(i);
+          // set pos to queue
+          m_deckMngr.AlignHandCards();
+          break;
+        }
+      }
     }
 
     /*!*********************************************************************

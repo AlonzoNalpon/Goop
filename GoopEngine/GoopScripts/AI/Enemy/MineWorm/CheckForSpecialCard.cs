@@ -78,7 +78,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
       List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
-      if (EnemyStats.m_deckMngr.m_hand.Any(item => specialCards.Contains(item)))
+      if (EnemyStats.m_deckMngr.m_hand.Any(item => specialCards.Contains(item.Item1)))
       {
         Console.WriteLine("We have special card");
         OnSuccess();

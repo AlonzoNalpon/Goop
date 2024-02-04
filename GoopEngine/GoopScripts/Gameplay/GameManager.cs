@@ -18,15 +18,11 @@ namespace GoopScripts.Gameplay
     static readonly uint HOWTOPLAY_MENU= 56;
     static readonly uint QUIT_MENU = 60;
 
-    static readonly double CARD_WIDTH = 214.0;
-    static readonly double PLAYER_HAND_WIDTH = CARD_WIDTH * 5 + 300.0,
-      HAND_START_POS = -PLAYER_HAND_WIDTH / 2.0;
-
     Random m_rng;
     //double m_animTime = 1.0; // hard coded for now
     //double m_currTime = 0.0;
 
-    Stats m_playerStats, m_enemyStats;
+    public Stats m_playerStats, m_enemyStats;
 
     bool endTurn = false;  // flag for triggering a turn
     bool intervalBeforeReset;
@@ -89,16 +85,6 @@ namespace GoopScripts.Gameplay
     //    }
     //  }
     //}
-
-    void DisplayPlayerCards()
-    {
-      CardBase.CardID[] hand = m_playerStats.m_deckMngr.m_hand;
-      double padding = (PLAYER_HAND_WIDTH - (double)hand.Length * CARD_WIDTH) / (double)(hand.Length + 1);
-      foreach (CardBase.CardID c in hand)
-      {
-
-      }
-    }
 
     // function to allow c++ to edit the list of cards in cardmanager
     // this should use cardmanager's c++ interface function
@@ -264,16 +250,16 @@ namespace GoopScripts.Gameplay
 #if (DEBUG)
       Console.WriteLine("Player Queue:");
 
-      foreach (CardBase.CardID c in m_playerStats.m_deckMngr.m_queue)
+      foreach (var c in m_playerStats.m_deckMngr.m_queue)
       {
-        Console.WriteLine(c.ToString());
+        Console.WriteLine(c.Item1.ToString());
       }
 #endif
 
       // resolve player's queue first
-      foreach (CardBase.CardID card in m_playerStats.m_deckMngr.m_queue)
+      foreach (var card in m_playerStats.m_deckMngr.m_queue)
       {
-        if (card == CardBase.CardID.NO_CARD)
+        if (card.Item1 == CardBase.CardID.NO_CARD)
         {
           continue;
         }
@@ -282,20 +268,20 @@ namespace GoopScripts.Gameplay
         Console.WriteLine("Resolving " + card.ToString());
 #endif
 
-        CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
+        CardManager.Get(card.Item1).Play(ref m_playerStats, ref m_enemyStats);
       }
       ComboManager.Combo(ref m_playerStats, ref m_enemyStats);
 
       // then do the same for enemy
-      foreach (CardBase.CardID card in m_enemyStats.m_deckMngr.m_queue)
+      foreach (var card in m_enemyStats.m_deckMngr.m_queue)
       {
-        if (card != CardBase.CardID.NO_CARD)
+        if (card.Item1 != CardBase.CardID.NO_CARD)
         {
 #if (DEBUG)
           Console.WriteLine("[Enemy] Resolving " + card.ToString());
 #endif
 
-          CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
+          CardManager.Get(card.Item1).Play(ref m_enemyStats, ref m_playerStats);
         }
       }
       ComboManager.Combo(ref m_enemyStats, ref m_playerStats);

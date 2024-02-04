@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GoopScripts.Gameplay;
+using GoopScripts.Mono;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +14,8 @@ namespace GoopScripts.Button
 
     public void OnClick(uint entity)
     {
-      
+      Stats player = (Stats)Utils.GetScript("Player", "Stats");
+      player.
     }
   }
 }

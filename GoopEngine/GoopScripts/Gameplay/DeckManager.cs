@@ -8,32 +8,40 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GoopScripts.Cards;
+using GoopScripts.Mono;
 
 namespace GoopScripts.Gameplay
 {
+
   public class DeckManager
   {
-    static readonly int STARTING_CARDS = 5, MAX_CARDS = 5;
+    static readonly double CARD_WIDTH = 214.0;
+    static readonly double PLAYER_HAND_WIDTH = CARD_WIDTH * 5 + 300.0;
+    static readonly Vec3<double> HAND_START_POS = new Vec3<double>(-PLAYER_HAND_WIDTH / 2.0 - 60.0, -350.0, 10.0);
+
+    static public readonly int STARTING_CARDS = 5, MAX_CARDS = 5;
     static readonly int QUEUE_SIZE = 3;
 
     public Deck m_deck;
     public List<CardBase.CardID> m_discard;
-    public CardBase.CardID[] m_hand, m_queue;
+    // <CardID, EntityID>
+    public ValueTuple<CardBase.CardID, uint>[] m_queue;
+    public List<ValueTuple<CardBase.CardID, uint>> m_hand;
 
 #if IMGUI_ENABLED
     public CardBase.CardID[] m_discardDisplay;
 #endif
 
-  public DeckManager()
+    public DeckManager()
     {
       m_deck = new Deck();
       m_discard = new List<CardBase.CardID>();
-      m_hand = new CardBase.CardID[MAX_CARDS];
-      m_queue = new CardBase.CardID[QUEUE_SIZE];
+      m_hand = new List<ValueTuple<CardBase.CardID, uint>>();
+      m_queue = new ValueTuple<CardBase.CardID, uint>[QUEUE_SIZE];
 
       for (int i = 0; i < QUEUE_SIZE; i++)
       {
-        m_queue[i] = CardBase.CardID.NO_CARD;
+        m_queue[i] = (CardBase.CardID.NO_CARD, 0u);
       }
 
 #if IMGUI_ENABLED
@@ -90,15 +98,18 @@ namespace GoopScripts.Gameplay
       }
 
       m_deck.Shuffle();
-      for(int i = 0; i < STARTING_CARDS; ++i)
-      {
-        m_hand[i] = m_deck.Draw();
-      }
+    }
 
-      Console.WriteLine("\nDraw Order");
-      foreach (CardBase.CardID card in m_deck.m_drawOrder)
+    public void AlignHandCards()
+    {
+      double padding = (PLAYER_HAND_WIDTH - (double)m_hand.Count * CARD_WIDTH) / (double)(m_hand.Count + 1);
+      Vec3<double> cardPos = HAND_START_POS;
+      cardPos.X += padding + CARD_WIDTH / 2.0;
+      foreach (var c in m_hand)
       {
-        Console.WriteLine(card.ToString());
+        Utils.SetPosition(c.Item2, cardPos);
+        Console.WriteLine("Setting Entity " + c.Item2 + " to " + cardPos.X + ", " + cardPos.Y);
+        cardPos.X += padding + CARD_WIDTH;
       }
     }
 
@@ -106,7 +117,7 @@ namespace GoopScripts.Gameplay
     {
       for (int i = 0; i < m_queue.Count(); ++i)
       {
-        if (m_queue[i] == CardBase.CardID.NO_CARD)
+        if (m_queue[i].Item1 == CardBase.CardID.NO_CARD)
         {
           m_queue[i] = m_hand[index];
           break;
@@ -116,28 +127,30 @@ namespace GoopScripts.Gameplay
       Console.WriteLine("Queuing " + m_hand[index].ToString() + " from hand\n");
 #endif
 
-      m_hand[index] = CardBase.CardID.NO_CARD;
+      m_hand.RemoveAt(index);
     }
 
     public void Unqueue(int index)
     {
-      // find empty slot and replace with card
-      for (int i = 0; i < MAX_CARDS; ++i)
-      {
-        if (m_hand[i] == CardBase.CardID.NO_CARD)
-        {
-          m_hand[i] = m_queue[index];
-          break;
-        }
-      }
+      m_hand.Add(m_queue[index]);
 
 #if (DEBUG)
       Console.WriteLine("Returning " + m_queue[index].ToString() + " to hand\n");
 #endif
-      m_queue[index] = CardBase.CardID.NO_CARD;
+      m_queue[index].Item1 = CardBase.CardID.NO_CARD;
     }
 
-    public void Draw()
+    /*!*********************************************************************
+		\brief
+		  Draws the top card of the deck. If the deck is empty, the discard
+      pile will be reshuffled into the deck. If the hand is full, the top
+      card of the deck will be destroyed or "burnt". Otherwise, the card is
+      added to the hand.
+    \return
+      -1 if the card was destroyed and the index in the hand that the card 
+      was added to otherwise
+		************************************************************************/
+    public int Draw()
     {
       // if empty, shuffle discard back
       if (m_deck.Empty())
@@ -150,30 +163,24 @@ namespace GoopScripts.Gameplay
 #endif
       }
 
-      // find empty slot and replace with drawn card
-      int i = 0;
-      for (; i < MAX_CARDS; ++i)
-      {
-        if (m_hand[i] == CardBase.CardID.NO_CARD)
-        {
-#if (DEBUG)
-          Console.WriteLine("Drew " + m_deck.m_drawOrder.First().ToString());
-          Console.WriteLine();
-#endif
-          m_hand[i] = m_deck.Draw();
-          break;
-        }
-      }
-
       // if hand full, destroy the top card
-      if (i == MAX_CARDS)
+      if (m_hand.Count == MAX_CARDS)
       {
 #if (DEBUG)
         Console.WriteLine("Hand Full! Burnt " + m_deck.m_drawOrder.First().ToString());
         Console.WriteLine();
 #endif
         m_deck.BurnTop();
+        return -1;
       }
+
+#if (DEBUG)
+      Console.WriteLine("Drew " + m_deck.m_drawOrder.First().ToString());
+      Console.WriteLine();
+#endif
+
+      m_hand.Add((m_deck.Draw(), 0u));
+      return m_hand.Count - 1;     
     }
     
     /*!*********************************************************************
@@ -184,13 +191,13 @@ namespace GoopScripts.Gameplay
     {
       for (int i = 0; i < m_queue.Length; ++i)
       {
-        if (m_queue[i] == CardBase.CardID.NO_CARD) { continue; }
+        if (m_queue[i].Item1 == CardBase.CardID.NO_CARD) { continue; }
 
 #if (DEBUG)
         Console.WriteLine("Discarding " + m_queue[i].ToString());
 #endif
-        m_discard.Add(m_queue[i]);
-        m_queue[i] = CardBase.CardID.NO_CARD;
+        m_discard.Add(m_queue[i].Item1);
+        m_queue[i].Item1 = CardBase.CardID.NO_CARD;
       }
     }
 
@@ -202,14 +209,11 @@ namespace GoopScripts.Gameplay
     {
       m_discard.Clear();
 
-      for (int i = 0; i < MAX_CARDS; i++)
-      {
-        m_hand[i] = CardBase.CardID.NO_CARD;
-      }
+      m_hand.Clear();
 
       for (int i = 0; i < m_queue.Length; i++)
       {
-        m_queue[i] = CardBase.CardID.NO_CARD;
+        m_queue[i] = (CardBase.CardID.NO_CARD, 0u);
       }
     }
   }

@@ -80,9 +80,9 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       Stats EnemyStats = (Stats) GetScriptFromID(entityID, "Stats");
       int handSize = 0;
-      foreach (CardBase.CardID c in EnemyStats.m_deckMngr.m_hand)
+      foreach (var c in EnemyStats.m_deckMngr.m_hand)
       {
-        handSize = (c!= CardBase.CardID.NO_CARD)? handSize+1 : handSize;
+        handSize = (c.Item1!= CardBase.CardID.NO_CARD)? handSize+1 : handSize;
       }
 
       if(handSize < 2)
@@ -93,7 +93,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
       else if(handSize == 2)
       {
         List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
-        if (EnemyStats.m_deckMngr.m_hand.Any(item => specialCards.Contains(item)))
+        if (EnemyStats.m_deckMngr.m_hand.Any(item => specialCards.Contains(item.Item1)))
         {
           Console.WriteLine("Only has 2 cards in hand, but contains a special card, so we will not play combo");
           OnFail();

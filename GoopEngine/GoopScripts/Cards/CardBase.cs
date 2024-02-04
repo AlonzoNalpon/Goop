@@ -71,7 +71,10 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public CardBase(CardID cardID, CardType cardType) { this.m_cardID = cardID; this.m_cardType = cardType; }
+    public CardBase(CardID cardID, CardType cardType)
+    {
+      this.m_cardID = cardID; this.m_cardType = cardType;
+    }
 
     /*!*********************************************************************
     \brief
