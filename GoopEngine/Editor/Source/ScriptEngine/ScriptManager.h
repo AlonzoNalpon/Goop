@@ -292,6 +292,20 @@ namespace GE {
 
 		/*!******************************************************************
 		\brief
+			Gets the animation time of an animation
+
+		\param animName
+			Name of animation to play
+
+		\return
+			Animation time
+		********************************************************************/
+		double GetAnimationTime(MonoString* animName);
+
+
+
+		/*!******************************************************************
+		\brief
 			Plays an animation given a name from the animation manager.
 
 		\param soundIterator

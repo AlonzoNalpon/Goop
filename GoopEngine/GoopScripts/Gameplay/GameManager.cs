@@ -13,7 +13,7 @@ namespace GoopScripts.Gameplay
 {
   public class GameManager : Entity
   {
-    static readonly double INTERVAL_TIME = 3.0;
+    
     static readonly uint PAUSE_MENU = 27;
     static readonly uint HOWTOPLAY_MENU= 56;
     static readonly uint QUIT_MENU = 60;
@@ -22,6 +22,7 @@ namespace GoopScripts.Gameplay
     Random m_rng;
     //double m_animTime = 1.0; // hard coded for now
     double m_currTime = 0.0;
+    double m_animTime = 0.0;
 
     Stats m_playerStats, m_enemyStats;
 
@@ -200,7 +201,7 @@ GameManager(uint entityID):base(entityID)
 
       else
       {
-        Console.WriteLine("ELSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+       // Console.WriteLine("ELSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
         if (isStartOfTurn)
         {
           Console.WriteLine("START OF TURRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRn");
@@ -217,13 +218,13 @@ GameManager(uint entityID):base(entityID)
     public void StartOfTurn()
     {
       m_playerStats.EndOfTurn();
-      Console.WriteLine("PLAYER END OF STAR F TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
+      //Console.WriteLine("PLAYER END OF STAR F TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
       m_enemyStats.EndOfTurn();
-      Console.WriteLine("ENEMY END OF STAR F TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
+      //Console.WriteLine("ENEMY END OF STAR F TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
       m_playerStats.m_deckMngr.Draw();
-      Console.WriteLine("ENEMY DRAW  TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
+     // Console.WriteLine("ENEMY DRAW  TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
       StartAI(m_enemyStats.entityID);
-      Console.WriteLine("END OF STAR F TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
+      //Console.WriteLine("END OF STAR F TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
     }
 
 
@@ -238,18 +239,21 @@ GameManager(uint entityID):base(entityID)
       //  Console.WriteLine(c.ToString());
       //}
 #endif
+      Console.WriteLine("currTime:: " + m_currTime);
       if(toTrigger)
       {
-        Console.WriteLine("time to triggER");
+        //Console.WriteLine("time to triggER");
         toTrigger = false;
         if(resolvePlayer)
         {
           
           CardBase.CardID card = m_playerStats.m_deckMngr.m_queue[playerCardPos];
-          Console.WriteLine("RESO PLAYER"+ card);
+          //Console.WriteLine("RESO PLAYER"+ card);
           if(card != CardBase.CardID.NO_CARD)
           {
             CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
+            m_animTime = Utils.GetAnimationTime(CardManager.Get(card).SpriteAnimation);
+            Console.WriteLine("ANIMATION TIME:: " + m_animTime);
             Utils.PlayAnimation(CardManager.Get(card).SpriteAnimation, m_playerStats.entityID);
           }
           else
@@ -258,12 +262,14 @@ GameManager(uint entityID):base(entityID)
         }
         else
         {
-         
+          ComboManager.ComboPlayer(ref m_playerStats, ref m_enemyStats);
           CardBase.CardID card = m_enemyStats.m_deckMngr.m_queue[enemyCardPos];
-          Console.WriteLine("RESO ENEMY" + card);
+          //Console.WriteLine("RESO ENEMY" + card);
           if (card != CardBase.CardID.NO_CARD)
           {
             CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
+            m_animTime = Utils.GetAnimationTime(CardManager.Get(card).SpriteAnimation);
+            Console.WriteLine("ANIMATION TIME:: " + m_animTime);
             Utils.PlayAnimation(CardManager.Get(card).SpriteAnimation, m_enemyStats.entityID);
           }
           else
@@ -272,7 +278,7 @@ GameManager(uint entityID):base(entityID)
       }
 
       m_currTime += deltaTime;
-      if(m_currTime>=INTERVAL_TIME)
+      if(m_currTime>= m_animTime)
       {
         ResolveNextCard();
       }

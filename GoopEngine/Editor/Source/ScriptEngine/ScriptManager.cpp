@@ -135,6 +135,7 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::EndAI", GE::Systems::EnemySystem::EndAI);
 
   // Game system stuff
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetAnimationTime", GE::MONO::GetAnimationTime);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", GE::MONO::PlayAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::GameSystemResolved", GE::MONO::GameSystemResolved);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
@@ -648,6 +649,16 @@ void GE::MONO::PlayAnimation(MonoString* animName, GE::ECS::Entity entity)
   // Doesnt set the sprite!!!
   GE::Systems::SpriteAnimSystem::SetAnimation(entity, spriteID); // play anim yes!
 }
+
+
+double  GE::MONO::GetAnimationTime(MonoString* animName)
+{
+  std::string str = GE::MONO::MonoStringToSTD(animName);
+  size_t animID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(str) };
+  GE::Graphics::SpriteAnimation test = Graphics::GraphicsEngine::GetInstance().animManager.GetAnim(animID);
+  return static_cast<double>(test.frames.size());
+}
+
 
 void GE::MONO::PlaySound(int soundIterator, GE::ECS::Entity entity)
 {

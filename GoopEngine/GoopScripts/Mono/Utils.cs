@@ -296,6 +296,11 @@ namespace GoopScripts.Mono
     //    Functions For Game System
     //
     //************************************************************************/
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static double GetAnimationTime(string animName);
+
+
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void PlayAnimation(string animName, uint entity);
 
