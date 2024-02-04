@@ -243,6 +243,10 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Emitter*>());
   }
+  else if (compType == rttr::type::get<Component::AnimEvents>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::AnimEvents*>());
+  }
   else
   {
     std::ostringstream oss{};
