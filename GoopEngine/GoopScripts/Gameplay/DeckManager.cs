@@ -208,6 +208,21 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    public bool IsEntityInQueue(uint entity)
+    {
+      return m_queue.Any(card => card.Item2 == entity);
+    }
+
+    public bool IsEntityInHand(uint entity)
+    {
+      return m_hand.Any(card => card.Item2 == entity);
+    }
+
+    public bool IsQueueFull()
+    {
+      return !m_queue.Any(card => card.Item1 == CardBase.CardID.NO_CARD);
+    }
+
     /*!*********************************************************************
 		\brief
 		  Empties the discard pile, card queue and hand.

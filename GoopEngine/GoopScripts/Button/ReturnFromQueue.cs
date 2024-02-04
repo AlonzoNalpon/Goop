@@ -3,26 +3,27 @@ using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class SelectCard : IButtonClick
+  internal class ReturnFromQueue : IButtonClick
   {
-    public SelectCard() { }
+    public ReturnFromQueue() { }
 
     public void OnClick(uint entity)
     {
       Stats player = (Stats)Utils.GetScript("Player", "Stats");
-
-      if (!player.m_deckMngr.IsEntityInHand(entity))
+      uint cardId = Utils.GetParentEntity(entity);
+      if (!player.m_deckMngr.IsEntityInQueue(cardId))
       {
-        Console.WriteLine("Card Not In Hand!");
+        Console.WriteLine("Card Not In Queue!");
         return;
       }
 
-      player.QueueCardByID(entity);
+      player.UnqueueCardByID(cardId);
     }
   }
 }

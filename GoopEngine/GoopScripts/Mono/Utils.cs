@@ -410,7 +410,10 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetParent(uint parent, uint child);
 
-		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static uint GetParentEntity(uint child);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static uint GetEntity(string entityName);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]

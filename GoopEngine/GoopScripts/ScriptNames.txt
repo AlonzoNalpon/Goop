@@ -27,6 +27,7 @@ GoopScripts.Button,MenuClose
 GoopScripts.Button,MenuHowToPlay
 GoopScripts.Button,MenuQuitGame
 GoopScripts.Button,MenuResume
+GoopScripts.Button,ReturnFromQueue
 GoopScripts.Button,SelectCard
 GoopScripts.Button,TempEndTurn
 GoopScripts.Cards,BasicAttack

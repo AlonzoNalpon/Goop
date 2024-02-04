@@ -203,8 +203,13 @@ namespace GoopScripts.Gameplay
       The index of the queue it queued into and the size of the queue
       otherwise.
     ************************************************************************/
-    public int QueueCard(int index)
+    public void QueueCard(int index)
     {
+      if (m_deckMngr.IsQueueFull())
+      {
+        return;
+      }
+
       int qIdx = m_deckMngr.Queue(index);
 
       if (qIdx == m_deckMngr.m_queue.Length)
@@ -218,8 +223,6 @@ namespace GoopScripts.Gameplay
       {
         m_deckMngr.AlignHandCards();
       }
-
-      return qIdx;
     }
 
     /*!*********************************************************************
@@ -232,6 +235,11 @@ namespace GoopScripts.Gameplay
    ************************************************************************/
     public void QueueCardByID(uint entity)
     {
+      if (m_deckMngr.IsQueueFull())
+      {
+        return;
+      }
+
       for (int i = 0; i < m_deckMngr.m_hand.Count; ++i)
       {
         if (m_deckMngr.m_hand[i].Item2 != entity)
@@ -254,47 +262,30 @@ namespace GoopScripts.Gameplay
     }
 
     /*!*********************************************************************
-    \brief
-      Gets the index in queue of a card given the entity ID
-    \param entityID
-      The entityID of the card
-    \return
-      The index in the queue or -1 otherwise
-    ************************************************************************/
-    public int GetIndexInQueueByID(uint entityID)
+     \brief
+       Returns a card from the queue to hand given the Card's entity ID.
+       This should only be called when a card in player's queue is clicked
+       on.
+     \param entity
+       The entity ID of the card
+   ************************************************************************/
+    public void UnqueueCardByID(uint entity)
     {
       for (int i = 0; i < m_deckMngr.m_queue.Length; ++i)
       {
-        Console.WriteLine(m_deckMngr.m_queue[i].Item2);
-        if (m_deckMngr.m_queue[i].Item2 == entityID)
+        if (m_deckMngr.m_queue[i].Item2 != entity)
         {
-          return i;
+          continue;
         }
-      }
 
-      return -1;
+        m_deckMngr.Unqueue(i);
+
+        Utils.SetCardToHandState(entity);
+        m_deckMngr.AlignHandCards();
+      }
     }
 
-    /*!*********************************************************************
-    \brief
-      Gets the index in hand of a card given the entity ID
-    \param entityID
-      The entityID of the card
-    \return
-      The index in the hand or -1 otherwise
-    ************************************************************************/
-    public int GetIndexInHandByID(uint entityID)
-    {
-      for (int i = 0; i < m_deckMngr.m_hand.Count; ++i)
-      {
-        if (m_deckMngr.m_hand[i].Item2 == entityID)
-        {
-          return i;
-        }
-      }
 
-      return -1;
-    }
 
     /*!*********************************************************************
     \brief

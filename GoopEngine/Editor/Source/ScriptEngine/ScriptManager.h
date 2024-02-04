@@ -332,7 +332,7 @@ namespace GE {
 		\param entity
 			The entity id of the card icon
 		************************************************************************/
-		void SetCardToHandState(unsigned iconEntityID);
+		void SetCardToHandState(unsigned cardEntity);
 
 		/*!*********************************************************************
 		\brief
@@ -437,6 +437,16 @@ namespace GE {
 		************************************************************************/
 		void SetParent(GE::ECS::Entity parent, GE::ECS::Entity child);
 
+		/*!*********************************************************************
+		\brief
+			Get the parent entity of a child
+		\param child
+			Child entity ID
+		\param child
+			Entity ID of the parent and ECS::INVALID_ID otherwise
+		************************************************************************/
+		GE::ECS::Entity GetParentEntity(GE::ECS::Entity child);
+		
 		GE::ECS::Entity GetEntity(MonoString* entityName);
 
 		void DestroyEntity(GE::ECS::Entity entity);

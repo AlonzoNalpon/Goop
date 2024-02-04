@@ -153,6 +153,7 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetLoseFocus", GE::MONO::SetLoseFocus);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetIsActiveEntity", GE::MONO::SetIsActiveEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetParent", GE::MONO::SetParent);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetParentEntity", GE::MONO::GetParentEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetEntity", GE::MONO::GetEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::DestroyEntity", GE::MONO::DestroyEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetIsActiveEntity", GE::MONO::GetIsActiveEntity);
@@ -392,6 +393,12 @@ void GE::MONO::SetParent(GE::ECS::Entity parent, GE::ECS::Entity child)
   ecs.AddChildEntity(parent, child);
 }
 
+GE::ECS::Entity GE::MONO::GetParentEntity(GE::ECS::Entity child)
+{
+  auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  return ecs.GetParentEntity(child);
+}
+
 GE::ECS::Entity GE::MONO::GetEntity(MonoString* entityName)
 {
   static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();  
@@ -563,8 +570,7 @@ void GE::MONO::SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-  oldTransform->m_pos.x = PosAdjustment.x;
-  oldTransform->m_pos.y = PosAdjustment.y;
+  oldTransform->m_pos = PosAdjustment;
 }
 
 void GE::MONO::SetScale(GE::ECS::Entity entity, GE::Math::dVec3 scaleAdjustment)
@@ -572,8 +578,7 @@ void GE::MONO::SetScale(GE::ECS::Entity entity, GE::Math::dVec3 scaleAdjustment)
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-  oldTransform->m_scale.x = scaleAdjustment.x;
-  oldTransform->m_scale.y = scaleAdjustment.y;
+  oldTransform->m_scale = scaleAdjustment;
 }
 
 void GE::MONO::SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 rotAdjustment)
@@ -688,19 +693,20 @@ void GE::MONO::GameSystemResolved()
 void GE::MONO::SetCardToQueuedState(unsigned entity, Math::dVec3 target)
 {
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-  Component::Transform* trans{ nullptr };
+  Component::Transform* iconTrans{ nullptr };
   // iterate through all children and set to inactive except Icon
   for (ECS::Entity const& e : ecs.GetChildEntities(entity))
   {
-    if (ecs.GetEntityName(e) != "Icon")
+    if (ecs.GetEntityName(e) == "Icon")
     {
-      ecs.SetIsActiveEntity(e, false);
+      iconTrans = ecs.GetComponent<Component::Transform>(e);
+      continue;
     }
 
-    trans = ecs.GetComponent<Component::Transform>(e);
+    ecs.SetIsActiveEntity(e, false);
   }
 
-  if (!trans)
+  if (!iconTrans)
   {
     Debug::ErrorLogger::GetInstance().LogError("Entity " + std::to_string(entity) + " has no \"Icon\" child");
     return;
@@ -709,16 +715,18 @@ void GE::MONO::SetCardToQueuedState(unsigned entity, Math::dVec3 target)
   auto* cardTrans{ ecs.GetComponent<Component::Transform>(entity) };
   // offset the whole card by the vector needed
   // to get the icon to the target
-  std::cout << "Target: " << target << "\n";
-  std::cout << "Icon world pos: " << trans->m_worldPos << " | local: " << trans->m_pos << '\n';
-  cardTrans->m_pos += target - trans->m_worldPos;
-  std::cout << "Final: " << cardTrans->m_pos;
+  cardTrans->m_pos.x += target.x - iconTrans->m_worldPos.x;
+  cardTrans->m_pos.y += target.y - iconTrans->m_worldPos.y;
 }
 
-void GE::MONO::SetCardToHandState(unsigned iconEntityID)
+void GE::MONO::SetCardToHandState(unsigned cardEntity)
 {
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-  ecs.SetIsActiveEntity(ecs.GetParentEntity(iconEntityID), true);
+  // set all children of card back to active
+  for (ECS::Entity const& e : ecs.GetChildEntities(cardEntity))
+  {
+    ecs.SetIsActiveEntity(e, true);
+  }
 }
 
 void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str, float alpha)
