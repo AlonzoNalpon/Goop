@@ -49,11 +49,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 24.7999, 0 }",
-                    "scale": "{ 1.66, 1.66, 1 }",
+                    "pos": "{ 0, -7, 0 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 0, 24.7999, 0 }",
-                    "worldScale": "{ 1.66, 1.66, 1 }",
+                    "worldPos": "{ 0, -7, 0 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
@@ -69,11 +69,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 689,
-                            "height": 209
+                            "width": 670,
+                            "height": 293
                         }
                     },
-                    "spriteName": "Instructions",
+                    "spriteName": "HowToPlay_Text",
                     "shouldRender": true
                 }
             }
@@ -89,11 +89,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, -3 }",
-                    "scale": "{ 2, 2, 2 }",
+                    "pos": "{ 0, -90, -3 }",
+                    "scale": "{ 1.425, 1.55, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 0, 0, -3 }",
-                    "worldScale": "{ 2, 2, 2 }",
+                    "worldPos": "{ 0, -90, -3 }",
+                    "worldScale": "{ 1.425, 1.55, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
@@ -129,22 +129,22 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -550, -400, 0 }",
+                    "pos": "{ -320, -345, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -550, -400, 0 }",
+                    "worldPos": "{ -320, -345, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -550, -400 }",
+                    "center": "{ -320, -345 }",
                     "width": 374.0,
                     "height": 136.0,
-                    "min": "{ -737, -468 }",
-                    "max": "{ -363, -332 }",
-                    "render": true
+                    "min": "{ -507, -413 }",
+                    "max": "{ -133, -277 }",
+                    "render": false
                 }
             },
             {
@@ -187,22 +187,22 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 550, -400, 0 }",
+                    "pos": "{ 320, -345, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 550, -400, 0 }",
+                    "worldPos": "{ 320, -345, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 550, -400 }",
+                    "center": "{ 320, -345 }",
                     "width": 374.0,
                     "height": 136.0,
-                    "min": "{ 363, -468 }",
-                    "max": "{ 737, -332 }",
-                    "render": true
+                    "min": "{ 133, -413 }",
+                    "max": "{ 507, -277 }",
+                    "render": false
                 }
             },
             {
@@ -231,6 +231,46 @@
                     "eventType": "CHANGE_SCENE",
                     "lastCollided": false,
                     "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Pause_Header_HowToPlay",
+        "ID": 5,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 412.978, 0 }",
+                    "scale": "{ 2, 2, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 0, 412.978, 0 }",
+                    "worldScale": "{ 2, 2, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 306,
+                            "height": 71
+                        }
+                    },
+                    "spriteName": "Pause_Header_HowToPlay",
+                    "shouldRender": true
                 }
             }
         ]
