@@ -8,12 +8,12 @@ using GoopScripts.Gameplay;
 
 namespace GoopScripts.Gameplay
 {
-	internal class Moan : IAnimationEvent
+	internal class LeahDies : IAnimationEvent
 	{
 		public void PlayEvent(uint entity)
 		{
 			Utils.PlaySoundF("damageTaken_Leah", 1.0f, Utils.ChannelType.SFX, false);
-			Utils.PlayAnimation("SS_Leah_FlashBang", entity);
+			Utils.PlayAnimation("SS_Leah_Death", entity);
 		}
 	}
 }

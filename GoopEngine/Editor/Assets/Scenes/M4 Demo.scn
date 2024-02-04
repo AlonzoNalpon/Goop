@@ -608,7 +608,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "Moan",
+                            "scriptName": "LeahDies",
                             "entityID": 11,
                             "scriptFieldInstList": []
                         }

@@ -54,7 +54,7 @@ GoopScripts.Gameplay,ComboManager
 GoopScripts.Gameplay,Deck
 GoopScripts.Gameplay,DeckManager
 GoopScripts.Gameplay,GameManager
-GoopScripts.Gameplay,Moan
+GoopScripts.Gameplay,LeahDies
 GoopScripts.Gameplay,Stats
 GoopScripts.Player,Player
 GoopScripts.Player,PlayerScriptTest

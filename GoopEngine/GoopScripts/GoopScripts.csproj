@@ -105,7 +105,7 @@
     <Compile Include="Gameplay\Deck.cs" />
     <Compile Include="Gameplay\DeckManager.cs" />
     <Compile Include="Gameplay\GameManager.cs" />
-    <Compile Include="Gameplay\Moan.cs" />
+    <Compile Include="Gameplay\LeahDies.cs" />
     <Compile Include="Gameplay\Stats.cs" />
     <Compile Include="Input\KeyCode.cs" />
     <Compile Include="Mono\IAnimationEvent.cs" />
