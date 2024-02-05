@@ -97,6 +97,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
       {
         comboSize = 2;
       }
+
       List<int> cardsToPlay = new List<int>();
 
       Console.WriteLine("HandSize:: " + handSize);
@@ -117,11 +118,13 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
       while (cardsToPlay.Count < comboSize)
       {
+        
         int c = random.Next(0, EnemyStats.m_deckMngr.m_hand.Count);
         //Console.WriteLine("Rand:: " + c + "->" + EnemyStats.m_deckMngr.m_hand[c]);
 
         if (!cardsToPlay.Contains(c) && !specialCards.Contains(EnemyStats.m_deckMngr.m_hand[c].Item1) && EnemyStats.m_deckMngr.m_hand[c].Item1 != CardBase.CardID.NO_CARD)
         {
+          Console.WriteLine("Added index" + c.ToString() + " Card:" + EnemyStats.m_deckMngr.m_hand[c].Item1);
           cardsToPlay.Add(c);
         }
       }
@@ -130,10 +133,15 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
       Console.WriteLine("Enemy Cards played");
       Console.WriteLine("-----------------------------------------");
-      foreach (int c in cardsToPlay)
+      int iterNum = 0;
+      List<int> orderedNumbers = cardsToPlay.OrderBy(x => x).ToList();
+      foreach (int c in orderedNumbers)
       {
-        Console.WriteLine(EnemyStats.m_deckMngr.m_hand[c].Item1.ToString());
-        EnemyStats.QueueCard(c);
+        Console.WriteLine("play card number: " + c);
+        Console.WriteLine(EnemyStats.m_deckMngr.m_hand[c - iterNum].Item1.ToString());
+        EnemyStats.QueueCard(c-iterNum);
+        Console.WriteLine("play card done");
+        ++iterNum;
       }
       Console.WriteLine("-----------------------------------------");
 
