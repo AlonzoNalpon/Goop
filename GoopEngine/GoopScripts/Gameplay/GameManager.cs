@@ -165,6 +165,7 @@ namespace GoopScripts.Gameplay
             CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
             m_animTime = Utils.GetAnimationTime(CardManager.Get(card).SpriteAnimation);
             m_cardsPlayedP.Add(card);
+            Console.WriteLine("PLAYER ANIM ERROR: " + m_playerStats.entityID);
             Utils.PlayAnimation(CardManager.Get(card).SpriteAnimation, m_playerStats.entityID);
           }
           else
@@ -180,6 +181,7 @@ namespace GoopScripts.Gameplay
             CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
             m_animTime = Utils.GetAnimationTime(CardManager.Get(card).SpriteAnimation);
             m_cardsPlayedE.Add(card);
+            Console.WriteLine("ENEMY ANIM ERROR: " + m_playerStats.entityID);
             Utils.PlayAnimation(CardManager.Get(card).SpriteAnimation, m_enemyStats.entityID);
           }
           else
@@ -191,8 +193,9 @@ namespace GoopScripts.Gameplay
         m_currTime += deltaTime;
         if (m_currTime >= m_animTime)
         {
-          Utils.PlayAnimation("SS_LeahIdle", m_playerStats.entityID);
-          Utils.PlayAnimation("SS_MineWorm", m_enemyStats.entityID);
+          Console.WriteLine("PLayer and ENEMY ANIM ERROR: " + m_playerStats.entityID +"," + m_enemyStats.entityID);
+          Utils.PlayAnimation("SS_Leah_Idle", m_playerStats.entityID);
+          Utils.PlayAnimation("SS_MoleRat_Idle", m_enemyStats.entityID);
           if (resolvePlayer)
           {
             if (m_cardsPlayedP.Count >= 2)

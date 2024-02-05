@@ -35,6 +35,7 @@ namespace GoopScripts.Gameplay
     
     public Stats(uint entityID) : base(entityID)
     {
+      Console.WriteLine("ENTITY ID: " + entityID);
       m_deckMngr = new DeckManager();
       queueElemIDs = new int[3];
       m_queueElemPos = new Vec3<double>[3];
@@ -54,6 +55,7 @@ namespace GoopScripts.Gameplay
       for (int i = 0; i < 3; i++)
       {
         m_queueElemPos[i] = Utils.GetWorldPosition((uint)queueElemIDs[i]);
+        m_queueElemPos[i].Z += 5;
       }
     }
 
