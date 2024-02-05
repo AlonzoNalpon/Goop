@@ -506,7 +506,29 @@
                         {
                             "scriptName": "GameManager",
                             "entityID": 5,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 56,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "HOWTOPLAY_MENU"
+                                    }
+                                },
+                                {
+                                    "data": 27,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PAUSE_MENU"
+                                    }
+                                },
+                                {
+                                    "data": 60,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "QUIT_MENU"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }

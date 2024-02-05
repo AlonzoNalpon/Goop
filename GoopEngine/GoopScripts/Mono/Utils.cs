@@ -398,30 +398,30 @@ namespace GoopScripts.Mono
 		extern public static void CrossFadeAudio(string audio1, float startVol1, float endVol1, float normalizedFadeStart1, float normalizedFadeEnd1,
 																						 string audio2, float startVol2, float endVol2, float normalizedFadeStart2, float normalizedFadeEnd2,
 																						 float fadeDuration);
-		public static void PauseMenu(uint pauseMenu)
+		public static void PauseMenu(int pauseMenu)
     {
       UI.PauseManager.SetPauseState(1);
-      Utils.SetIsActiveEntity(pauseMenu, true);
+      Utils.SetIsActiveEntity((uint)pauseMenu, true);
     }
 
-    public static void UndeeperPause(uint pauseMenu, uint deeperPauseMenu)
+    public static void UndeeperPause(int pauseMenu, int deeperPauseMenu)
     {
       UI.PauseManager.SetPauseState(1);
-      Utils.SetIsActiveEntity(deeperPauseMenu, false);
-      Utils.SetIsActiveEntity(pauseMenu, true);
+      Utils.SetIsActiveEntity((uint)deeperPauseMenu, false);
+      Utils.SetIsActiveEntity((uint)pauseMenu, true);
     }
 
-    public static void UnpauseMenu(uint pauseMenu)
+    public static void UnpauseMenu(int pauseMenu)
     {
       UI.PauseManager.SetPauseState(0);
-      Utils.SetIsActiveEntity(pauseMenu, false);
+      Utils.SetIsActiveEntity((uint)pauseMenu, false);
     }
 
-    public static void DeeperPauseMenu(uint pauseMenu, uint deeperPauseMenu)
+    public static void DeeperPauseMenu(int pauseMenu, int deeperPauseMenu)
     {
       UI.PauseManager.SetPauseState(2);
-      Utils.SetIsActiveEntity(deeperPauseMenu, true);
-      Utils.SetIsActiveEntity(pauseMenu, false);
+      Utils.SetIsActiveEntity((uint)deeperPauseMenu, true);
+      Utils.SetIsActiveEntity((uint)pauseMenu, false);
     }
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]

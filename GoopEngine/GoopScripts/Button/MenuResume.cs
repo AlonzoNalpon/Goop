@@ -13,7 +13,7 @@ namespace GoopScripts.Button
 
     public void OnClick(uint entity)
     {
-      Utils.UnpauseMenu((uint)PauseMenuID);
+      Utils.UnpauseMenu(PauseMenuID);
     }
   }
 }

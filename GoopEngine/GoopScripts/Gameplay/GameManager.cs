@@ -14,9 +14,9 @@ namespace GoopScripts.Gameplay
   public class GameManager : Entity
   {
     //static readonly double INTERVAL_TIME = 3.0;
-    static readonly uint PAUSE_MENU = 27;
-    static readonly uint HOWTOPLAY_MENU= 56;
-    static readonly uint QUIT_MENU = 60;
+    public int PAUSE_MENU;
+    public int HOWTOPLAY_MENU;
+    public int QUIT_MENU;
 
     Random m_rng;
     //double m_animTime = 1.0; // hard coded for now
@@ -205,9 +205,9 @@ namespace GoopScripts.Gameplay
             Utils.UnpauseMenu(PAUSE_MENU);
             break;
           case 2:
-            if (Utils.GetIsActiveEntity(HOWTOPLAY_MENU))
+            if (Utils.GetIsActiveEntity((uint)HOWTOPLAY_MENU))
               Utils.UndeeperPause(PAUSE_MENU, HOWTOPLAY_MENU);
-            if (Utils.GetIsActiveEntity(QUIT_MENU))
+            if (Utils.GetIsActiveEntity((uint)QUIT_MENU))
               Utils.UndeeperPause(PAUSE_MENU, QUIT_MENU);
             break;
           default:

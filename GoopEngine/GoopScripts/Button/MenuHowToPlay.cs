@@ -13,7 +13,7 @@ namespace GoopScripts.Button
 
     public void OnClick(uint entity)
     {
-      Utils.DeeperPauseMenu((uint)PauseMenuID, (uint)DeeperPauseMenuID);
+      Utils.DeeperPauseMenu(PauseMenuID, DeeperPauseMenuID);
     }
 
     public void OnHoverEnter(uint entity)

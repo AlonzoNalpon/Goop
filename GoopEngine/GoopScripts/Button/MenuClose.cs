@@ -19,13 +19,13 @@ namespace GoopScripts.Button
       switch (UI.PauseManager.GetPauseState())
       {
         case 0:
-          Utils.PauseMenu((uint)PauseMenuID);
+          Utils.PauseMenu(PauseMenuID);
           break;
         case 1:
-          Utils.UnpauseMenu((uint)PauseMenuID);
+          Utils.UnpauseMenu(PauseMenuID);
           break;
         case 2:
-          Utils.UndeeperPause((uint)PauseMenuID, (uint)DeeperPauseMenuID);
+          Utils.UndeeperPause(PauseMenuID, DeeperPauseMenuID);
           break;
         default:
           break;
