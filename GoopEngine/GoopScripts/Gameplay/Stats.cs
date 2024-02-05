@@ -67,6 +67,12 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    public void ClearAtKBlk()
+    {
+      m_attack = 0;
+      m_block = 0;
+    }
+
     public void AddAttack(int value)
     {
       m_attack += value;

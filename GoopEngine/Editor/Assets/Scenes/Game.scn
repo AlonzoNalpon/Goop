@@ -341,20 +341,20 @@
                                 "y": 0.0
                             },
                             "texDims": {
-                                "x": 0.1666666716337204,
+                                "x": 0.25,
                                 "y": 1.0
                             },
-                            "width": 1250,
-                            "height": 750
+                            "width": 500,
+                            "height": 625
                         }
                     },
-                    "spriteName": "SS_MineWorm",
+                    "spriteName": "SS_MoleRat_Idle",
                     "shouldRender": true
                 }
             },
             {
                 "SpriteAnim": {
-                    "name": "SS_MineWorm"
+                    "name": "SS_MoleRat_Idle"
                 }
             },
             {
@@ -405,7 +405,7 @@
                                         "Cards In Hand": [],
                                         "Cards In Queue": [
                                             "NO_CARD",
-                                            "NO_CARD",
+                                            "",
                                             "NO_CARD"
                                         ]
                                     },
