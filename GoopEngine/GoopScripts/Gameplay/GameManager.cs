@@ -90,6 +90,11 @@ namespace GoopScripts.Gameplay
             break;
         }
       }
+      // cheat code to deal damage
+      if (Utils.IsKeyTriggered(Input.KeyCode.U))
+      {
+        m_enemyStats.m_healthBar.DecreaseHealth(1);
+      }
 
       if (UI.PauseManager.PauseStateChanged())
       {
@@ -209,6 +214,16 @@ namespace GoopScripts.Gameplay
 
           m_playerStats.TakeDamage(eCalculatedDmg);
           m_enemyStats.TakeDamage(pCalculatedDmg);
+          // bad code but for demo ok
+          if (m_playerStats.IsDead())
+          {
+            Utils.PlayAnimation("SS_Leah_Death", m_playerStats.entityID);
+          }
+          else if (m_enemyStats.IsDead())
+          {
+            Utils.PlayAnimation("SS_MoleRat_Death", m_enemyStats.entityID);
+          }
+
           m_playerStats.ClearAtKBlk();
           m_enemyStats.ClearAtKBlk();
         }
@@ -219,6 +234,7 @@ namespace GoopScripts.Gameplay
       }
       else
       {
+
         if(m_currTime >=m_animTime)
         {
           m_currTime = 0.0;
@@ -228,6 +244,18 @@ namespace GoopScripts.Gameplay
             Utils.PlayAnimation("SS_MoleRat_Idle", m_enemyStats.entityID);
             isResolutionPhase = false;
             isStartOfTurn = true;
+
+            // bad code but for demo ok
+            if (m_playerStats.IsDead())
+            {
+              // defeat
+              TransitionToScene("Defeat");
+            }
+            else if (m_enemyStats.IsDead())
+            {
+              // victory
+              TransitionToScene("Victory");
+            }
           }
 
           else //we have not resolve all the animaiton for this round, lets continue

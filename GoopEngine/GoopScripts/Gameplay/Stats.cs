@@ -325,6 +325,11 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    public bool IsDead()
+    {
+      return m_healthBar.m_health <= 0;
+    }
+
     //public void QueueBuff(Buff buff)
     //{
     //  m_nextTurn.Enqueue(buff);

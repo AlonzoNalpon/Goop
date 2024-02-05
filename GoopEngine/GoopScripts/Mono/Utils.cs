@@ -347,6 +347,9 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetBuffIconTextActive(uint entity, bool state);
 
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void TransitionToScene(string scene);
+
 
     // /*!*********************************************************************
     // Pause Screens

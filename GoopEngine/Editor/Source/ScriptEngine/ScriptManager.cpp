@@ -32,6 +32,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <ScriptEngine/CSharpStructs.h>
 #include <Systems/Audio/AudioSystem.h>
+#include <GameStateManager/GameStateManager.h>
 using namespace GE::MONO;
 
 namespace GE 
@@ -152,6 +153,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToHandState", GE::MONO::SetCardToHandState);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToQueuedState", GE::MONO::SetCardToQueuedState);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetBuffIconTextActive", GE::MONO::SetBuffIconTextActive);
+  // magic
+  mono_add_internal_call("GoopScripts.Mono.Utils::TransitionToScene", +[](MonoString* scene) { GE::GSM::GameStateManager::GetInstance().SetNextScene(MonoStringToSTD(scene)); });
 
   // Game UI Stuff
   mono_add_internal_call("GoopScripts.Mono.Utils::GetLoseFocus", GE::MONO::GetLoseFocus);
