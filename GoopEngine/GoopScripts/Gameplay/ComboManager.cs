@@ -26,15 +26,15 @@ namespace GoopScripts.Gameplay
     static ComboManager()
     {
       m_comboList.Add(new ComboPair(CardBase.CardType.ATTACK, CardBase.CardType.ATTACK),
-        new BuffCombo("Attack & Attack", new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 0, "Atk Up")));
+        new BuffCombo("Attack & Attack", new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 2, "Atk Up")));
       m_comboList.Add(new ComboPair(CardBase.CardType.ATTACK, CardBase.CardType.BLOCK),
         new DrawCombo("Attack & Block"));
       m_comboList.Add(new ComboPair(CardBase.CardType.BLOCK, CardBase.CardType.BLOCK),
-        new BuffCombo("Block & Block", new Buff(Buff.BuffType.INCREASE_BLOCK, 1.0f, 0, "Block Up")));
+        new BuffCombo("Block & Block", new Buff(Buff.BuffType.INCREASE_BLOCK, 1.0f, 2, "Block Up")));
       m_comboList.Add(new ComboPair(CardBase.CardType.ATTACK, CardBase.CardType.SPECIAL),
-        new DebuffCombo("Special & Attack", new Buff(Buff.BuffType.BLIND, 1.0f, 0, "Blinded")));
+        new DebuffCombo("Special & Attack", new Buff(Buff.BuffType.BLIND, 1.0f, 2, "Blinded")));
       m_comboList.Add(new ComboPair(CardBase.CardType.BLOCK, CardBase.CardType.SPECIAL),
-        new DebuffCombo("Special & Block", new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 0, "Skipped")));
+        new DebuffCombo("Special & Block", new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 2, "Skipped")));
     }
 
     public static void Combo(ref Stats source, ref Stats target, int firstCardIndex)

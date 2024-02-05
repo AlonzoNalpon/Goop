@@ -71,6 +71,8 @@ namespace GoopScripts.Gameplay
     {
       m_attack = 0;
       m_block = 0;
+      //Utils.SetTextComponent(m_attackDisplay, "0");
+      //Utils.SetTextComponent(m_blockDisplay, "0");
     }
 
     public void AddAttack(int value)
@@ -80,9 +82,9 @@ namespace GoopScripts.Gameplay
       Utils.SetTextComponent(m_attackDisplay, m_attack.ToString());
     }
 
-    public void MultiplyAttack(int value)
+    public void MultiplyAttack(float value)
     {
-      m_attack += value;
+      m_attack = (int)((float)m_attack * value);
       if (m_attack < 0) { m_attack = 0; }
       Utils.SetTextComponent(m_attackDisplay, m_attack.ToString());
     }
@@ -96,62 +98,73 @@ namespace GoopScripts.Gameplay
 
     public void TakeDamage(float damage)
 		{
-			float takenMultiplier = 1;
-
-      foreach (var buff in m_buffs.Buffs)
+      if (damage != 0)
       {
-        switch (buff.type)
+        float takenMultiplier = 1.0f;
+
+        foreach (var buff in m_buffs.Buffs)
         {
-          case Buff.BuffType.INCREASE_BLOCK:
-            AddBlock((int)buff.value);
-            break;
+          switch (buff.type)
+          {
+            case Buff.BuffType.INCREASE_BLOCK:
+              AddBlock((int)buff.value);
+              break;
 
-          case Buff.BuffType.BLIND:
-            Random rng = new Random();
-            int chance = rng.Next(1, 2);
-            if (chance == 1)
-            {
-              takenMultiplier = 0;
-            }
-            break;
+            case Buff.BuffType.BLIND:
+              Random rng = new Random();
+              int chance = rng.Next(1, 2);
+              if (chance == 1)
+              {
+                takenMultiplier = 0;
+              }
+              break;
 
-          case Buff.BuffType.SKIP_TURN:
-            m_isSkipped = true;
-            m_attack = m_block = 0;
-            break;
+            case Buff.BuffType.SKIP_TURN:
+              m_isSkipped = true;
+              m_attack = m_block = 0;
+              break;
 
-          default:
-            break;
+            default:
+              break;
+          }
+        }
+        int damageTaken = (int)(damage * takenMultiplier) - m_block;
+        if (damageTaken > 0)
+        {
+          m_healthBar.DecreaseHealth(damageTaken);
         }
       }
+    }
 
-      int damageTaken = (int)(damage * takenMultiplier) - m_block;
-      Utils.SendString(damageTaken.ToString());
-
-      Utils.SendString($"Orignial health: {m_healthBar.GetHealth()}, Damage taken: {damageTaken}, Health: {m_healthBar.GetHealth() - damageTaken}");
-      
-      if (damageTaken > 0)
+    public void TakeFlatDamage(int damage)
+    {
+      Console.WriteLine("Taking " + damage + " Damage");
+      damage -= m_block;
+      if (damage > 0)
       {
-        m_healthBar.DecreaseHealth(damageTaken);
+        m_healthBar.DecreaseHealth((int)damage);
       }
     }
 
     public int DamageDealt()
     {
-      foreach (var buff in m_buffs.Buffs)
+      if (m_attack != 0)
       {
-        switch (buff.type)
+        foreach (var buff in m_buffs.Buffs)
         {
-          case Buff.BuffType.INCREASE_ATK_DEALT: //charge-up & combo
-            AddAttack((int)buff.value);
-            break;
+          switch (buff.type)
+          {
+            case Buff.BuffType.INCREASE_ATK_DEALT: //charge-up & combo
+              AddAttack((int)buff.value);
+              break;
 
-          case Buff.BuffType.MULTIPLY_ATK_DEALT: //smokescreen & rage & screech & flashbang & combo
-            MultiplyAttack((int)buff.value);
-            break;
+            case Buff.BuffType.MULTIPLY_ATK_DEALT: //smokescreen & rage & screech & flashbang & combo
+              MultiplyAttack(buff.value);
+              break;
 
-          default:
-            break;
+            default:
+              break;
+          }
         }
       }
 
@@ -166,10 +179,8 @@ namespace GoopScripts.Gameplay
     {
       m_deckMngr.DiscardQueue();
       m_attack = m_block = 0;
-      Console.WriteLine($"Attack in system: {m_attack}, Attack on display: {m_attackDisplay}");
-      Console.WriteLine($"Block in system: {m_block}, Block on display: {m_blockDisplay}");
-      //Utils.SetTextComponent(m_attackDisplay, "0");
-      //Utils.SetTextComponent(m_blockDisplay, "0");
+      Utils.SetTextComponent(m_attackDisplay, "0");
+      Utils.SetTextComponent(m_blockDisplay, "0");
       m_buffs.StepTurn();
       m_buffs.UpdateBuffsUI();
     }
@@ -267,7 +278,6 @@ namespace GoopScripts.Gameplay
 #endif
           return;
         }
-
         Utils.SetCardToQueuedState(entity, m_queueElemPos[qIdx]);
         m_deckMngr.AlignHandCards();
       }

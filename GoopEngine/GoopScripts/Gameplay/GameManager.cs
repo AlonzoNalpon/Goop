@@ -98,7 +98,7 @@ namespace GoopScripts.Gameplay
 
       if (isResolutionPhase)
       {
-      ResolutionPhase(deltaTime);
+        ResolutionPhase(deltaTime);
       }
 
 
@@ -114,11 +114,11 @@ namespace GoopScripts.Gameplay
 
     public void StartOfTurn()
     {
-      Console.WriteLine("START OF TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"); m_playerStats.m_deckMngr.Draw();
-      m_playerStats.m_deckMngr.DiscardQueue();
-      m_enemyStats.m_deckMngr.DiscardQueue();
-      m_playerStats.m_deckMngr.Draw();
-      m_enemyStats.m_deckMngr.Draw();
+      Console.WriteLine("START OF TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+      m_playerStats.EndOfTurn();
+      m_enemyStats.EndOfTurn();
+      m_playerStats.Draw();
+      m_enemyStats.Draw();
       StartAI(m_enemyStats.entityID);      
     }
 
@@ -141,6 +141,7 @@ namespace GoopScripts.Gameplay
         //Play and resolve player and enemy card if they r valid cards
         if (playerCard != CardBase.CardID.NO_CARD)
         {
+          Console.WriteLine("Play " + playerCard.ToString());
           CardManager.Get(playerCard).Play(ref m_playerStats, ref m_enemyStats);
           double m_pAnimTime = Utils.GetAnimationTime(CardManager.Get(playerCard).SpriteAnimation);
           m_animTime = (m_animTime < m_pAnimTime) ? m_pAnimTime : m_animTime;
@@ -150,6 +151,7 @@ namespace GoopScripts.Gameplay
 
         if (enemyCard != CardBase.CardID.NO_CARD)
         {
+          Console.WriteLine("Play " + enemyCard.ToString());
           CardManager.Get(enemyCard).Play(ref m_enemyStats, ref m_playerStats);
           double m_pAnimTime = Utils.GetAnimationTime(CardManager.Get(enemyCard).SpriteAnimation);
           m_animTime = (m_animTime < m_pAnimTime) ? m_pAnimTime : m_animTime;
@@ -184,10 +186,14 @@ namespace GoopScripts.Gameplay
               Utils.PlayAnimation("SS_MoleRat_Curl", m_enemyStats.entityID);
           }
 
+          // this should not be coded here
+          // move in future pls
+          int pCalculatedDmg = m_playerStats.DamageDealt(), eCalculatedDmg = m_enemyStats.DamageDealt();
+
           //We have resolved more than 1 slot, lets see if the player or the enemy can perform combo
-          if(m_slotNum >0)
+          if (m_slotNum > 0)
           {
-            if (m_cardsPlayedP[m_slotNum-1] != CardBase.CardID.NO_CARD && m_cardsPlayedP[m_slotNum] != CardBase.CardID.NO_CARD)
+            if (m_cardsPlayedP[m_slotNum - 1] != CardBase.CardID.NO_CARD && m_cardsPlayedP[m_slotNum] != CardBase.CardID.NO_CARD)
             {
               Console.WriteLine("Player COMBOED");
               ComboManager.Combo(ref m_playerStats, ref m_enemyStats, (m_slotNum - 1));
@@ -201,8 +207,8 @@ namespace GoopScripts.Gameplay
             }
           }
 
-          m_playerStats.TakeDamage(m_enemyStats.DamageDealt());
-          m_enemyStats.TakeDamage(m_playerStats.DamageDealt());
+          m_playerStats.TakeDamage(eCalculatedDmg);
+          m_enemyStats.TakeDamage(pCalculatedDmg);
           m_playerStats.ClearAtKBlk();
           m_enemyStats.ClearAtKBlk();
         }

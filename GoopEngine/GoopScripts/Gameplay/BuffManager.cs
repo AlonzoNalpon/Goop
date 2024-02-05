@@ -80,12 +80,17 @@ namespace GoopScripts.Gameplay
 				Utils.SetParent(Utils.GetEntity("EnemyBuffAnchor"), buffPrefab);
 
       m_maxNumOfBuffs = m_buffs.Count > m_maxNumOfBuffs ? (uint)m_buffs.Count : m_maxNumOfBuffs;
+      UpdateBuffsUI();
     }
 
     public void StepTurn()
 		{
-			Console.WriteLine(m_buffs.Count);
-			foreach (var buff in m_buffs)
+      foreach (var buff in m_buffs)
+      {
+        Console.WriteLine(buff.ToString());
+      }
+
+      foreach (var buff in m_buffs)
       {
         buff.turns -= 1;
         if (buff.turns <= 0)
@@ -105,10 +110,10 @@ namespace GoopScripts.Gameplay
       //  txt += buff.GetDisplayText() + "\n";
       //}
       //Utils.SetTextComponent(buffsUI, txt);
-
+      int modifier = (m_characterType == CharacterType.PLAYER) ? 1 : -1;
       for (int i = 0; i < m_buffIcons.Count; ++i)
       {
-        Utils.SetPosition(m_buffIcons[i], new Vec3<double>(i * (m_buffSize + m_buffPadding), 0.0, 0.0));
+        Utils.SetPosition(m_buffIcons[i], new Vec3<double>(i * modifier * (m_buffSize + m_buffPadding), 0.0, 0.0));
       }
     }
   }

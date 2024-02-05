@@ -134,6 +134,7 @@ namespace GoopScripts.Gameplay
 #endif
 
       m_hand.RemoveAt(index);
+      
       return i;
     }
 

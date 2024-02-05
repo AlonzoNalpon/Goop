@@ -107,24 +107,24 @@ namespace GoopScripts.Cards
           { CardBase.CardID.NO_CARD, new BlankCard(CardBase.CardID.NO_CARD, CardBase.CardType.BLANK_CARD,cardIDtoSpriteMap[(int)CardBase.CardID.NO_CARD]) },
 
           // normal enemy
-          { CardBase.CardID.BASIC_ATTACK, new BlankCard(CardBase.CardID.BASIC_ATTACK, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.BASIC_ATTACK]) },
-          { CardBase.CardID.BASIC_SHIELD, new BlankCard(CardBase.CardID.BASIC_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.BASIC_SHIELD]) },
-          { CardBase.CardID.SPECIAL_SCREECH, new BlankCard(CardBase.CardID.SPECIAL_SCREECH, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_SCREECH]) },
+          { CardBase.CardID.BASIC_ATTACK, new BasicAttack(CardBase.CardID.BASIC_ATTACK, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.BASIC_ATTACK]) },
+          { CardBase.CardID.BASIC_SHIELD, new Block(CardBase.CardID.BASIC_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.BASIC_SHIELD]) },
+          { CardBase.CardID.SPECIAL_SCREECH, new SpecialScreech(CardBase.CardID.SPECIAL_SCREECH, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_SCREECH]) },
 
           // player
-          { CardBase.CardID.LEAH_BEAM, new BlankCard(CardBase.CardID.LEAH_BEAM, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_BEAM]) },
-          { CardBase.CardID.LEAH_STRIKE, new BlankCard(CardBase.CardID.LEAH_STRIKE, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_STRIKE]) },
-          { CardBase.CardID.LEAH_SHIELD, new BlankCard(CardBase.CardID.LEAH_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_SHIELD]) },
-          { CardBase.CardID.SPECIAL_FLASHBANG, new BlankCard(CardBase.CardID.SPECIAL_FLASHBANG, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_FLASHBANG]) },
-          { CardBase.CardID.SPECIAL_SMOKESCREEN, new BlankCard(CardBase.CardID.SPECIAL_SMOKESCREEN, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_SMOKESCREEN]) },
-          { CardBase.CardID.SPECIAL_RAGE, new BlankCard(CardBase.CardID.SPECIAL_RAGE, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_RAGE]) },
+          { CardBase.CardID.LEAH_BEAM, new LeahBeam(CardBase.CardID.LEAH_BEAM, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_BEAM]) },
+          { CardBase.CardID.LEAH_STRIKE, new LeahStrike(CardBase.CardID.LEAH_STRIKE, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_STRIKE]) },
+          { CardBase.CardID.LEAH_SHIELD, new Block(CardBase.CardID.LEAH_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_SHIELD]) },
+          { CardBase.CardID.SPECIAL_FLASHBANG, new SpecialFlashBang(CardBase.CardID.SPECIAL_FLASHBANG, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_FLASHBANG]) },
+          { CardBase.CardID.SPECIAL_SMOKESCREEN, new SpecialFlashBang(CardBase.CardID.SPECIAL_SMOKESCREEN, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_SMOKESCREEN]) },
+          { CardBase.CardID.SPECIAL_RAGE, new SpecialRage(CardBase.CardID.SPECIAL_RAGE, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_RAGE]) },
 
           // dawson
-          { CardBase.CardID.DAWSON_BEAM, new BlankCard(CardBase.CardID.DAWSON_BEAM, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_BEAM]) },
-          { CardBase.CardID.DAWSON_SWING, new BlankCard(CardBase.CardID.DAWSON_SWING, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SWING]) },
-          { CardBase.CardID.DAWSON_SHIELD, new BlankCard(CardBase.CardID.DAWSON_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SHIELD]) },
-          { CardBase.CardID.SPECIAL_CHARGEUP, new BlankCard(CardBase.CardID.SPECIAL_CHARGEUP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_CHARGEUP]) },
-          { CardBase.CardID.SPECIAL_TIMEWRAP, new BlankCard(CardBase.CardID.SPECIAL_TIMEWRAP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_TIMEWRAP]) }
+          { CardBase.CardID.DAWSON_BEAM, new DawsonBeam(CardBase.CardID.DAWSON_BEAM, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_BEAM]) },
+          { CardBase.CardID.DAWSON_SWING, new DawsonSwing(CardBase.CardID.DAWSON_SWING, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SWING]) },
+          { CardBase.CardID.DAWSON_SHIELD, new Block(CardBase.CardID.DAWSON_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SHIELD]) },
+          { CardBase.CardID.SPECIAL_CHARGEUP, new SpecialChargeUp(CardBase.CardID.SPECIAL_CHARGEUP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_CHARGEUP]) },
+          { CardBase.CardID.SPECIAL_TIMEWRAP, new SpecialTimeWrap(CardBase.CardID.SPECIAL_TIMEWRAP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_TIMEWRAP]) }
         };
       }
       catch (Exception ex)
@@ -135,6 +135,7 @@ namespace GoopScripts.Cards
 
     static public CardBase Get(CardBase.CardID id)
     {
+      Console.WriteLine(m_cards[id].ToString());
       return m_cards[id];
     }
   }
