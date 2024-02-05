@@ -344,6 +344,9 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetCardToHandState(uint entity);
 
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetBuffIconTextActive(uint entity, bool state);
+
 
     // /*!*********************************************************************
     // Pause Screens

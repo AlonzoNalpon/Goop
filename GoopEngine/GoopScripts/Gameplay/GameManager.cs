@@ -59,6 +59,10 @@ namespace GoopScripts.Gameplay
         m_playerStats.Init();
         m_enemyStats.Init();
         gameStarted = true;
+        //m_playerStats.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 0, "Atk Up"));
+        //m_playerStats.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 0, "Skipped"));
+        //m_enemyStats.m_buffs.AddBuff(new Buff(Buff.BuffType.BLIND, 1.0f, 0, "Blinded"));
+        //m_enemyStats.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_BLOCK, 1.0f, 0, "Block Up"));
       }
 
       if (Utils.GetLoseFocus())

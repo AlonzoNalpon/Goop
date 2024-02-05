@@ -114,7 +114,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
       }
       Console.WriteLine("-----------------------------------------\n");
 
-
       while (cardsToPlay.Count < comboSize)
       {
         int c = random.Next(0, EnemyStats.m_deckMngr.m_hand.Count);
@@ -125,8 +124,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
           cardsToPlay.Add(c);
         }
       }
-
-
 
       Console.WriteLine("Enemy Cards played");
       Console.WriteLine("-----------------------------------------");

@@ -69,7 +69,7 @@
     <Compile Include="AI\SelectorNode.cs" />
     <Compile Include="AI\SequenceNode.cs" />
     <Compile Include="Audio\MainMenuToGame.cs" />
-    <Compile Include="Button\EndTurn.cs" />
+    <Compile Include="Button\BuffIconInteraction.cs" />
     <Compile Include="Audio\GameOverAudioEvent.cs" />
     <Compile Include="Button\IButtonClick.cs" />
     <Compile Include="Button\IButtonHoverEnter.cs" />

@@ -1,0 +1,31 @@
+{
+    "Name": "BuffIconText",
+    "isActive": true,
+    "Version": 0,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 0, 201.679, 0 }",
+                "scale": "{ 0.4, 0.3, 1 }",
+                "rot": "{ 0, -0, 0 }",
+                "worldPos": "{ 0, 201.679, 0 }",
+                "worldScale": "{ 0.4, 0.3, 1 }",
+                "worldRot": "{ 0, -0, 0 }"
+            }
+        },
+        {
+            "Text": {
+                "text": "YOUR TEXT HERE",
+                "clr": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "scale": 0.06499999761581421,
+                "fontID": 0
+            }
+        }
+    ],
+    "SubData": []
+}
