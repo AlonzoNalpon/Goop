@@ -22,7 +22,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Prefabs/PrefabManager.h>
 
 #ifdef _DEBUG
-//#define DESERIALIZER_DEBUG
+#define DESERIALIZER_DEBUG
 #endif
 
 using namespace GE;
@@ -39,33 +39,21 @@ std::ostream& operator<<(std::ostream& os, rttr::type const& type)
 
 Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string const& json)
 {
-  std::ifstream ifs{ json };
-  if (!ifs)
-  {
-    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + json);
-#ifdef _DEBUG
-    std::cout << "Unable to read " << json << "\n";
-#endif
-    return {};
-  }
   rapidjson::Document document{};
-  // parse into document object
-  rapidjson::IStreamWrapper isw{ ifs };
-  if (document.ParseStream(isw).HasParseError())
+  if (!ParseJsonIntoDocument(document, json))
   {
-    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + json);
-#ifdef _DEBUG
-    std::cout << "Unable to parse " + json << "\n";
-#endif
     return {};
   }
 
   if (!ScanJsonFileForMembers(document, json, 4, JsonNameKey, rapidjson::kStringType, JsonPfbDataKey, rapidjson::kArrayType,
-    JsonComponentsKey, rapidjson::kArrayType, JsonPfbVerKey, rapidjson::kNumberType)) {
-    ifs.close(); return {};
+    JsonComponentsKey, rapidjson::kArrayType, JsonPfbVerKey, rapidjson::kNumberType))
+  {
+    return {};
   }
 
   Prefabs::VariantPrefab prefab{ document[JsonNameKey].GetString(), document[JsonPfbVerKey].GetUint() };
+  prefab.m_isActive = (document.HasMember(JsonPfbActiveKey) ? document[JsonPfbActiveKey].GetBool() : true);
+
   // iterate through component objects in json array
   std::vector<rttr::variant>& compVector{ prefab.m_components };
   for (auto const& elem : document[JsonComponentsKey].GetArray())
@@ -98,11 +86,14 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
   for (auto const& elem : document[JsonPfbDataKey].GetArray())
   {
     if (!ScanJsonFileForMembers(elem, json, 4, JsonIdKey, rapidjson::kNumberType, JsonNameKey, rapidjson::kStringType,
-      JsonComponentsKey, rapidjson::kArrayType, JsonParentKey, rapidjson::kNumberType)) {
+      JsonComponentsKey, rapidjson::kArrayType, JsonParentKey, rapidjson::kNumberType))
+    {
       continue;
     }
 
     Prefabs::PrefabSubData subObj{ elem[JsonNameKey].GetString(), elem[JsonIdKey].GetUint(), elem[JsonParentKey].GetUint() };
+    subObj.m_isActive = (elem.HasMember(JsonPfbActiveKey) ? elem[JsonPfbActiveKey].GetBool() : true);
+
     for (auto const& component : elem[JsonComponentsKey].GetArray())
     {
       rapidjson::Value::ConstMemberIterator comp{ component.MemberBegin() };
@@ -133,6 +124,7 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
     prefab.m_objects.emplace_back(std::move(subObj));
   }
 
+#ifndef IMGUI_DISABLE
   if (document.HasMember(JsonRemovedChildrenKey))
   {
     rttr::variant removedChildrenVar{ std::vector<std::pair<Prefabs::PrefabSubData::SubDataId, Prefabs::PrefabVersion>>{} };
@@ -170,42 +162,23 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
 #endif
     }
   }
+#endif
 
   return prefab;
 }
 
 ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene(std::string const& filepath)
 {
-  std::ifstream ifs{ filepath };
+  rapidjson::Document document;
+  // some initial sanity checks
+  if (!ParseJsonIntoDocument(document, filepath))
+  {
+    return{};
+  }
 
-  // just some initial sanity checks...
-  if (!ifs)
-  {
-    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + filepath);
-#ifdef _DEBUG
-    std::cout << "Unable to read " << filepath << "\n";
-#endif
-    return {};
-  }
-  // parse into document object
-  rapidjson::IStreamWrapper isw{ ifs };
-  if (ifs.peek() == std::ifstream::traits_type::eof())
-  {
-    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogMessage("Empty scene file read. Ignoring checks");
-    return {};
-  }
-  rapidjson::Document document{};
-  if (document.ParseStream(isw).HasParseError())
-  {
-    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + filepath);
-#ifdef _DEBUG
-    std::cout << "Unable to parse " + filepath << "\n";
-#endif
-    return {};
-  }
   if (!document.IsArray())
   {
-    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError(filepath + ": root is not an array!");
+    GE::Debug::ErrorLogger::GetInstance().LogError(filepath + ": root is not an array!");
 #ifdef _DEBUG
     std::cout << filepath + ": root is not an array!" << "\n";
 #endif
@@ -218,8 +191,9 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
   if (!ScanJsonFileForMembers(document, filepath, 6,
     JsonNameKey, rapidjson::kStringType, JsonChildEntitiesKey, rapidjson::kArrayType,
     JsonIdKey, rapidjson::kNumberType, JsonParentKey, rapidjson::kNumberType,
-    JsonComponentsKey, rapidjson::kArrayType, JsonEntityStateKey, rapidjson::kFalseType)) {
-    ifs.close(); return {};
+    JsonComponentsKey, rapidjson::kArrayType, JsonEntityStateKey, rapidjson::kFalseType))
+  {
+    return {};
   }
 
   // okay code starts here
@@ -241,7 +215,7 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
     {
       rttr::variant mappedData{ Prefabs::VariantPrefab::EntityMappings{} };
       DeserializeBasedOnType(mappedData, entity[JsonPrefabKey]);
-      pm.AttachPrefab(entityId, std::move(mappedData.get_value<Prefabs::VariantPrefab::EntityMappings>()));;
+      pm.AttachPrefab(entityId, std::move(mappedData.get_value<Prefabs::VariantPrefab::EntityMappings>()));
     }
 #endif
 

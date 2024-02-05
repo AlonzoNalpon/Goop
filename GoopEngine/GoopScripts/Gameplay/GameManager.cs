@@ -220,6 +220,7 @@ namespace GoopScripts.Gameplay
         // Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
       }
 
+      //endTurn = true;
       if (endTurn || m_playerStats.m_isSkipped)
       {
         endTurn = false;
@@ -288,7 +289,6 @@ namespace GoopScripts.Gameplay
 
     public void EndTurn()
     {
-      Console.WriteLine("wrkefwf");
       if (intervalBeforeReset) { return; }
       endTurn = true;
     }

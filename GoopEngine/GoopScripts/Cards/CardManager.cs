@@ -48,6 +48,7 @@ namespace GoopScripts.Cards
 
     // HARDCODED FOR NOW - Reason below
     // Discrete Math Reference - If Prefab names won't change, then values here won't need to change
+    // This statement is True
     static public readonly Dictionary<CardBase.CardID, string> m_cardPrefabs = new Dictionary<CardBase.CardID, string>
     {
       // basic enemy
@@ -69,6 +70,29 @@ namespace GoopScripts.Cards
       { CardBase.CardID.DAWSON_SHIELD, "Dawson_Block" },
       { CardBase.CardID.SPECIAL_CHARGEUP, "Dawson_ChargeUp" },
       { CardBase.CardID.SPECIAL_TIMEWRAP, "Dawson_TimeWarp" }
+    };
+
+    static public readonly Dictionary<CardBase.CardID, string> m_cardIcons = new Dictionary<CardBase.CardID, string>
+    {
+      // basic enemy
+      { CardBase.CardID.BASIC_ATTACK, "CardIcon_BasicAttackClawswipe"  },
+      { CardBase.CardID.BASIC_SHIELD, "CardIcon_BasicDefenceShield" },
+      { CardBase.CardID.SPECIAL_SCREECH, "CardIcon_BasicSpecialScreech" },
+
+      // player
+      { CardBase.CardID.LEAH_BEAM, "CardIcon_LeahAttackBeam" },
+      { CardBase.CardID.LEAH_STRIKE, "CardIcon_LeahAttackSlash" },
+      { CardBase.CardID.LEAH_SHIELD, "CardIcon_LeahDefenceShield" },
+      { CardBase.CardID.SPECIAL_FLASHBANG, "CardIcon_LeahSpecialFlashbang" },
+      { CardBase.CardID.SPECIAL_SMOKESCREEN, "CardIcon_LeahSpecialSmokescreen" },
+      { CardBase.CardID.SPECIAL_RAGE, "CardIcon_LeahSpecialBerserk" },
+
+      // dawson
+      { CardBase.CardID.DAWSON_BEAM, "CardIcon_BossAttackBeamshot" },
+      { CardBase.CardID.DAWSON_SWING, "CardIcon_BossAttackStrike" },
+      { CardBase.CardID.DAWSON_SHIELD, "CardIcon_BossDefenceDeflect" },
+      { CardBase.CardID.SPECIAL_CHARGEUP, "CardIcon_BossSpecialChargeup" },
+      { CardBase.CardID.SPECIAL_TIMEWRAP, "CardIcon_BossSpecialTimewarp" }
     };
 
     static CardManager()

@@ -219,9 +219,10 @@ namespace GoopScripts.Gameplay
 #endif
       }
 
-      if (m_type == CharacterType.PLAYER)
+      // if enemy queues, spawn the relevant icon in game
+      if (m_type != CharacterType.PLAYER)
       {
-        m_deckMngr.AlignHandCards();
+        
       }
     }
 

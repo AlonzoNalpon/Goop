@@ -62,6 +62,7 @@ namespace GE::Prefabs
     std::string m_name;
     std::vector<rttr::variant> m_components;
     ECS::Entity m_id, m_parent;
+    bool m_isActive;
 
     // id of the first layer of the prefab
     static SubDataId const BasePrefabId = 0;
@@ -135,6 +136,7 @@ namespace GE::Prefabs
     std::vector<std::pair<PrefabSubData::SubDataId, PrefabVersion>> m_removedChildren;
     std::vector<RemovedComponent> m_removedComponents;
     PrefabVersion m_version;
+    bool m_isActive;
   };
 
   // stores information pertaining to each prefab instance

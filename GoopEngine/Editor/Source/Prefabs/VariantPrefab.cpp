@@ -31,6 +31,7 @@ ECS::Entity PrefabSubData::Construct() const
 
   ObjectFactory::ObjectFactory::GetInstance().AddComponentsToEntity(entity, m_components);
   ecs.SetEntityName(entity, m_name);
+  ecs.SetIsActiveEntity(entity, m_isActive);
 
   return entity;
 }
@@ -61,6 +62,7 @@ std::pair<ECS::Entity, VariantPrefab::EntityMappings> VariantPrefab::Construct()
   ECS::Entity const entity{ ecs.CreateEntity() };
   ObjectFactory::ObjectFactory::GetInstance().AddComponentsToEntity(entity, m_components);
   ecs.SetEntityName(entity, m_name);
+  ecs.SetIsActiveEntity(entity, m_isActive);
 
   // map base ID to this entity ID
   idsToEntities.emplace(PrefabSubData::BasePrefabId, entity);  

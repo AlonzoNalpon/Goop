@@ -40,12 +40,15 @@ namespace GE
       rapidjson::Document document{ rapidjson::kObjectType };
       auto& allocator{ document.GetAllocator() };
 
-      // serialize the base layer of the prefab
-      rapidjson::Value nameJson{ prefab.m_name.c_str(), allocator };
-      rapidjson::Value verJson{ prefab.m_version };
+      {
+        // serialize the base layer of the prefab
+        rapidjson::Value nameJson{ prefab.m_name.c_str(), allocator };
+        rapidjson::Value verJson{ prefab.m_version }, activeJson{ prefab.m_isActive };
 
-      document.AddMember(JsonNameKey, nameJson.Move(), allocator);
-      document.AddMember(JsonPfbVerKey, verJson.Move(), allocator);
+        document.AddMember(JsonNameKey, nameJson.Move(), allocator);
+        document.AddMember(JsonPfbActiveKey, activeJson.Move(), allocator);
+        document.AddMember(JsonPfbVerKey, verJson.Move(), allocator);
+      }
 
       SerializeVariantComponents(document,prefab.m_components, allocator);
 
@@ -54,13 +57,16 @@ namespace GE
       for (Prefabs::PrefabSubData const& obj : prefab.m_objects)
       {
         rapidjson::Value objJson{ rapidjson::kObjectType };
-        rapidjson::Value idJson{ obj.m_id };
-        rapidjson::Value subNameJson{ obj.m_name.c_str(), allocator };
-        rapidjson::Value parentJson{ obj.m_parent };
+        {
+          rapidjson::Value idJson{ obj.m_id }, activeJson{ obj.m_isActive };
+          rapidjson::Value subNameJson{ obj.m_name.c_str(), allocator };
+          rapidjson::Value parentJson{ obj.m_parent };
 
-        objJson.AddMember(JsonIdKey, idJson.Move(), allocator);
-        objJson.AddMember(JsonNameKey, subNameJson.Move(), allocator);
-        objJson.AddMember(JsonParentKey, parentJson.Move(), allocator);
+          objJson.AddMember(JsonIdKey, idJson.Move(), allocator);
+          objJson.AddMember(JsonPfbActiveKey, activeJson.Move(), allocator);
+          objJson.AddMember(JsonNameKey, subNameJson.Move(), allocator);
+          objJson.AddMember(JsonParentKey, parentJson.Move(), allocator);
+        }
         SerializeVariantComponents(objJson, obj.m_components, allocator);
 
         subDataJson.PushBack(objJson.Move(), allocator);

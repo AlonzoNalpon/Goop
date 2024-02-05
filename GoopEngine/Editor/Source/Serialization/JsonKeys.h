@@ -23,6 +23,7 @@ namespace GE::Serialization
   constexpr char JsonComponentsKey[]      = "Components";
   constexpr char JsonPrefabKey[]          = "Prefab"; 
   constexpr char JsonPfbVerKey[]          = "Version";
+  constexpr char JsonPfbActiveKey[]       = "isActive";
   constexpr char JsonPfbDataKey[]         = "SubData";
   constexpr char JsonRemovedChildrenKey[] = "Removed Children";
   constexpr char JsonRemovedCompKey[]     = "Removed Components";

@@ -1,6 +1,7 @@
 {
     "Name": "Leah_Block",
-    "Version": 5,
+    "isActive": true,
+    "Version": 6,
     "Components": [
         {
             "Transform": {
@@ -45,6 +46,7 @@
     "SubData": [
         {
             "ID": 1,
+            "isActive": true,
             "Name": "Base",
             "Parent": 0,
             "Components": [
@@ -82,6 +84,7 @@
         },
         {
             "ID": 2,
+            "isActive": true,
             "Name": "Collider Icon",
             "Parent": 0,
             "Components": [
@@ -148,6 +151,7 @@
         },
         {
             "ID": 3,
+            "isActive": true,
             "Name": "Title",
             "Parent": 0,
             "Components": [
@@ -178,6 +182,7 @@
         },
         {
             "ID": 4,
+            "isActive": true,
             "Name": "Description",
             "Parent": 0,
             "Components": [
@@ -208,6 +213,7 @@
         },
         {
             "ID": 5,
+            "isActive": true,
             "Name": "Icon",
             "Parent": 0,
             "Components": [
