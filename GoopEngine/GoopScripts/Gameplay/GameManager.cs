@@ -367,8 +367,6 @@ namespace GoopScripts.Gameplay
             
            else
               toTrigger = true;
-          
-           
         }
       }
     }

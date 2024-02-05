@@ -102,6 +102,7 @@
     <Compile Include="Demo\StopBGM.cs" />
     <Compile Include="Gameplay\BuffManager.cs" />
     <Compile Include="Gameplay\CharacterType.cs" />
+    <Compile Include="Gameplay\Combo.cs" />
     <Compile Include="Gameplay\ComboManager.cs" />
     <Compile Include="Gameplay\Deck.cs" />
     <Compile Include="Gameplay\DeckManager.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Mono\Component.cs" />
     <Compile Include="Mono\Entity.cs" />
     <Compile Include="Mono\IOnDestroy.cs" />
+    <Compile Include="Mono\UnorderedPair.cs" />
     <Compile Include="Mono\Vec2.cs" />
     <Compile Include="Mono\Vec3.cs" />
     <Compile Include="Mono\Utils.cs" />

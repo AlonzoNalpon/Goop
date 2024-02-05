@@ -51,6 +51,7 @@ GoopScripts.Demo,PlayBGM
 GoopScripts.Demo,StopBGM
 GoopScripts.Gameplay,BuffManager
 GoopScripts.Gameplay,CharacterType
+GoopScripts.Gameplay,Combo
 GoopScripts.Gameplay,ComboManager
 GoopScripts.Gameplay,Deck
 GoopScripts.Gameplay,DeckManager
