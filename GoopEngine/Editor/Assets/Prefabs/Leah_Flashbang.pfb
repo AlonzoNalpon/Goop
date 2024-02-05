@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Flashbang",
     "isActive": true,
-    "Version": 7,
+    "Version": 8,
     "Components": [
         {
             "Transform": {
@@ -84,7 +84,7 @@
         },
         {
             "ID": 2,
-            "isActive": true,
+            "isActive": false,
             "Name": "Collider Icon",
             "Parent": 0,
             "Components": [

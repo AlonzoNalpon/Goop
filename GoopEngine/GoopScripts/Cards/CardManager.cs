@@ -21,6 +21,8 @@ namespace GoopScripts.Cards
 {
 	public static class CardManager
 	{
+    static public readonly string CARD_ICON_PREFAB = "CardIcon";
+
     static Dictionary<CardBase.CardID, CardBase> m_cards = new Dictionary<CardBase.CardID, CardBase>
     {
       { CardBase.CardID.NO_CARD, new BlankCard(CardBase.CardID.NO_CARD, CardBase.CardType.BLANK_CARD) },

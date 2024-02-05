@@ -186,7 +186,7 @@ namespace GoopScripts.Gameplay
       Console.WriteLine();
 #endif
 
-      m_hand.Add((m_deck.Draw(), 0u));
+      m_hand.Add((m_deck.Draw(), uint.MaxValue));
       return m_hand.Count - 1;     
     }
     
@@ -243,7 +243,7 @@ namespace GoopScripts.Gameplay
         {
           Utils.DestroyEntity(m_hand[i].Item2);
         }
-        m_queue[i] = (CardBase.CardID.NO_CARD, 0u);
+        m_queue[i] = (CardBase.CardID.NO_CARD, uint.MaxValue);
       }
       m_hand.Clear();
 
@@ -253,7 +253,7 @@ namespace GoopScripts.Gameplay
         {
           Utils.DestroyEntity(m_queue[i].Item2);
         }
-        m_queue[i] = (CardBase.CardID.NO_CARD, 0u);
+        m_queue[i] = (CardBase.CardID.NO_CARD, uint.MaxValue);
       }
     }
   }

@@ -84,7 +84,7 @@
         },
         {
             "ID": 2,
-            "isActive": true,
+            "isActive": false,
             "Name": "Collider Icon",
             "Parent": 0,
             "Components": [

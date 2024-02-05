@@ -196,7 +196,8 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
     \brief
-      Adds a card from hand to the queue via the deck manager
+      Adds a card from hand to the queue via the deck manager.
+      This function does not handle UI updates if called for player.
     \param index
       The index of the card in hand
     \return
@@ -222,7 +223,9 @@ namespace GoopScripts.Gameplay
       // if enemy queues, spawn the relevant icon in game
       if (m_type != CharacterType.PLAYER)
       {
-        
+        ref var card = ref m_deckMngr.m_queue[qIdx];
+        card.Item2 = Utils.SpawnPrefab(CardManager.CARD_ICON_PREFAB, m_queueElemPos[qIdx]);
+        Utils.UpdateSprite(card.Item2, CardManager.m_cardIcons[card.Item1]);
       }
     }
 

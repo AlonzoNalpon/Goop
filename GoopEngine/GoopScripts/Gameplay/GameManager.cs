@@ -285,6 +285,7 @@ namespace GoopScripts.Gameplay
       Console.WriteLine("\nPLAYER:\n Attack: " + m_playerStats.m_attack + ", Block: " + m_playerStats.m_block);
       Console.WriteLine("\nENEMY:\n Attack: " + m_enemyStats.m_attack + ", Block: " + m_enemyStats.m_block + "\n");
 #endif
+      StartOfTurn();
     }
 
     public void EndTurn()
