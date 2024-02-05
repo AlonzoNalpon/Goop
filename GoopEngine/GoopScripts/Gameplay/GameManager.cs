@@ -159,7 +159,7 @@ namespace GoopScripts.Gameplay
         if (resolvePlayer)
         {
 
-          CardBase.CardID card = m_playerStats.m_deckMngr.m_queue[playerCardPos];
+          CardBase.CardID card = m_playerStats.m_deckMngr.m_queue[playerCardPos].Item1;
           if (card != CardBase.CardID.NO_CARD)
           {
             CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
@@ -174,7 +174,7 @@ namespace GoopScripts.Gameplay
         else
         {
 
-          CardBase.CardID card = m_enemyStats.m_deckMngr.m_queue[enemyCardPos];
+          CardBase.CardID card = m_enemyStats.m_deckMngr.m_queue[enemyCardPos].Item1;
           if (card != CardBase.CardID.NO_CARD)
           {
             CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
@@ -314,7 +314,7 @@ namespace GoopScripts.Gameplay
       {
         Console.WriteLine("FINSIHED PLAYER CARD");
         playerCardPos += 1;
-        while(playerCardPos < m_enemyStats.m_deckMngr.m_queue.Length && m_playerStats.m_deckMngr.m_queue[playerCardPos] == CardBase.CardID.NO_CARD )
+        while(playerCardPos < m_enemyStats.m_deckMngr.m_queue.Length && m_playerStats.m_deckMngr.m_queue[playerCardPos].Item1 == CardBase.CardID.NO_CARD )
         {
           playerCardPos++;
         }
@@ -344,7 +344,7 @@ namespace GoopScripts.Gameplay
       {
         Console.WriteLine("FINSIHED ENEMY CARD");
         enemyCardPos += 1;
-        while (enemyCardPos < m_enemyStats.m_deckMngr.m_queue.Length && m_enemyStats.m_deckMngr.m_queue[enemyCardPos] == CardBase.CardID.NO_CARD)
+        while (enemyCardPos < m_enemyStats.m_deckMngr.m_queue.Length && m_enemyStats.m_deckMngr.m_queue[enemyCardPos].Item1 == CardBase.CardID.NO_CARD)
         {
           enemyCardPos ++;
         }

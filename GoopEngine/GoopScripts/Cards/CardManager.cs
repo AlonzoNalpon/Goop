@@ -24,30 +24,7 @@ namespace GoopScripts.Cards
 	{
     static public readonly string CARD_ICON_PREFAB = "CardIcon";
 
-    static Dictionary<CardBase.CardID, CardBase> m_cards = new Dictionary<CardBase.CardID, CardBase>
-    {
-      { CardBase.CardID.NO_CARD, new BlankCard(CardBase.CardID.NO_CARD, CardBase.CardType.BLANK_CARD,cardIDtoSpriteMap[(int)CardBase.CardID.NO_CARD]) },
-
-      // normal enemy
-      { CardBase.CardID.BASIC_ATTACK, new BlankCard(CardBase.CardID.BASIC_ATTACK, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.BASIC_ATTACK]) },
-      { CardBase.CardID.BASIC_SHIELD, new BlankCard(CardBase.CardID.BASIC_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.BASIC_SHIELD]) },
-      { CardBase.CardID.SPECIAL_SCREECH, new BlankCard(CardBase.CardID.SPECIAL_SCREECH, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_SCREECH]) },
-
-      // player
-      { CardBase.CardID.LEAH_BEAM, new BlankCard(CardBase.CardID.LEAH_BEAM, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_BEAM]) },
-      { CardBase.CardID.LEAH_STRIKE, new BlankCard(CardBase.CardID.LEAH_STRIKE, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_STRIKE]) },
-      { CardBase.CardID.LEAH_SHIELD, new BlankCard(CardBase.CardID.LEAH_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_SHIELD]) },
-      { CardBase.CardID.SPECIAL_FLASHBANG, new BlankCard(CardBase.CardID.SPECIAL_FLASHBANG, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_FLASHBANG]) },
-      { CardBase.CardID.SPECIAL_SMOKESCREEN, new BlankCard(CardBase.CardID.SPECIAL_SMOKESCREEN, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_SMOKESCREEN]) },
-      { CardBase.CardID.SPECIAL_RAGE, new BlankCard(CardBase.CardID.SPECIAL_RAGE, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_RAGE]) },
-
-      // dawson
-      { CardBase.CardID.DAWSON_BEAM, new BlankCard(CardBase.CardID.DAWSON_BEAM, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_BEAM]) },
-      { CardBase.CardID.DAWSON_SWING, new BlankCard(CardBase.CardID.DAWSON_SWING, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SWING]) },
-      { CardBase.CardID.DAWSON_SHIELD, new BlankCard(CardBase.CardID.DAWSON_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SHIELD]) },
-      { CardBase.CardID.SPECIAL_CHARGEUP, new BlankCard(CardBase.CardID.SPECIAL_CHARGEUP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_CHARGEUP]) },
-      { CardBase.CardID.SPECIAL_TIMEWRAP, new BlankCard(CardBase.CardID.SPECIAL_TIMEWRAP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_TIMEWRAP]) }
-    };
+    static Dictionary<CardBase.CardID, CardBase> m_cards;
 
     // HARDCODED FOR NOW - Reason below
     // Discrete Math Reference - If Prefab names won't change, then values here won't need to change
@@ -98,8 +75,9 @@ namespace GoopScripts.Cards
       { CardBase.CardID.SPECIAL_TIMEWRAP, "CardIcon_BossSpecialTimewarp" }
     };
 
+
     static CardManager()
-		{
+    {
       string filePath = "./Assets/Animations.txt";
       // Process each line and extract the ID (stop at the space character)
       Dictionary<int, string> cardIDtoSpriteMap = new Dictionary<int, string>();
@@ -123,11 +101,36 @@ namespace GoopScripts.Cards
           }
           ++count;
         }
+
+        m_cards = new Dictionary<CardBase.CardID, CardBase>
+        {
+          { CardBase.CardID.NO_CARD, new BlankCard(CardBase.CardID.NO_CARD, CardBase.CardType.BLANK_CARD,cardIDtoSpriteMap[(int)CardBase.CardID.NO_CARD]) },
+
+          // normal enemy
+          { CardBase.CardID.BASIC_ATTACK, new BlankCard(CardBase.CardID.BASIC_ATTACK, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.BASIC_ATTACK]) },
+          { CardBase.CardID.BASIC_SHIELD, new BlankCard(CardBase.CardID.BASIC_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.BASIC_SHIELD]) },
+          { CardBase.CardID.SPECIAL_SCREECH, new BlankCard(CardBase.CardID.SPECIAL_SCREECH, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_SCREECH]) },
+
+          // player
+          { CardBase.CardID.LEAH_BEAM, new BlankCard(CardBase.CardID.LEAH_BEAM, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_BEAM]) },
+          { CardBase.CardID.LEAH_STRIKE, new BlankCard(CardBase.CardID.LEAH_STRIKE, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_STRIKE]) },
+          { CardBase.CardID.LEAH_SHIELD, new BlankCard(CardBase.CardID.LEAH_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_SHIELD]) },
+          { CardBase.CardID.SPECIAL_FLASHBANG, new BlankCard(CardBase.CardID.SPECIAL_FLASHBANG, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_FLASHBANG]) },
+          { CardBase.CardID.SPECIAL_SMOKESCREEN, new BlankCard(CardBase.CardID.SPECIAL_SMOKESCREEN, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_SMOKESCREEN]) },
+          { CardBase.CardID.SPECIAL_RAGE, new BlankCard(CardBase.CardID.SPECIAL_RAGE, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_RAGE]) },
+
+          // dawson
+          { CardBase.CardID.DAWSON_BEAM, new BlankCard(CardBase.CardID.DAWSON_BEAM, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_BEAM]) },
+          { CardBase.CardID.DAWSON_SWING, new BlankCard(CardBase.CardID.DAWSON_SWING, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SWING]) },
+          { CardBase.CardID.DAWSON_SHIELD, new BlankCard(CardBase.CardID.DAWSON_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SHIELD]) },
+          { CardBase.CardID.SPECIAL_CHARGEUP, new BlankCard(CardBase.CardID.SPECIAL_CHARGEUP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_CHARGEUP]) },
+          { CardBase.CardID.SPECIAL_TIMEWRAP, new BlankCard(CardBase.CardID.SPECIAL_TIMEWRAP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_TIMEWRAP]) }
+        };
       }
       catch (Exception ex)
       {
         Console.WriteLine($"Error reading file: {ex.Message}");
-      }      
+      }
     }
 
     static public CardBase Get(CardBase.CardID id)

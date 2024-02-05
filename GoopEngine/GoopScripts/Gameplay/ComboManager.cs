@@ -28,10 +28,10 @@ namespace GoopScripts.Gameplay
         else
           Console.WriteLine("Resolve second combo for entity: " + source.entityID);
 
-        switch (CardManager.Get(source.m_deckMngr.m_queue[firstCardIndex]).Type)
+        switch (CardManager.Get(source.m_deckMngr.m_queue[firstCardIndex].Item1).Type)
         {
           case CardBase.CardType.ATTACK:
-            switch (CardManager.Get(source.m_deckMngr.m_queue[secondCardIndex]).Type)
+            switch (CardManager.Get(source.m_deckMngr.m_queue[secondCardIndex].Item1).Type)
             {
               case CardBase.CardType.ATTACK:
                 source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 0, "Atk Up"));
@@ -64,7 +64,7 @@ namespace GoopScripts.Gameplay
             break;
 
           case CardBase.CardType.BLOCK:
-            switch (CardManager.Get(source.m_deckMngr.m_queue[secondCardIndex]).Type)
+            switch (CardManager.Get(source.m_deckMngr.m_queue[secondCardIndex].Item1).Type)
             {
               case CardBase.CardType.ATTACK:
                 source.m_deckMngr.Draw();
@@ -96,7 +96,7 @@ namespace GoopScripts.Gameplay
             break;
 
           case CardBase.CardType.SPECIAL:
-            switch (CardManager.Get(source.m_deckMngr.m_queue[secondCardIndex]).Type)
+            switch (CardManager.Get(source.m_deckMngr.m_queue[secondCardIndex].Item1).Type)
             {
               case CardBase.CardType.ATTACK:
                 source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 0, "Atk Up"));
