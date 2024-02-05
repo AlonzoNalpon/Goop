@@ -36,9 +36,11 @@ namespace GoopScripts.Gameplay
     bool resolvePlayer = true;
     bool toTrigger = false;
     bool isStartOfTurn = true;
+    List<CardBase.CardID> m_cardsPlayedP = new List<CardBase.CardID>();
+    List<CardBase.CardID> m_cardsPlayedE = new List<CardBase.CardID>();
 
 
-GameManager(uint entityID):base(entityID)
+    GameManager(uint entityID):base(entityID)
     {
       m_rng = new Random();
     }
@@ -204,7 +206,6 @@ GameManager(uint entityID):base(entityID)
        // Console.WriteLine("ELSEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
         if (isStartOfTurn)
         {
-          Console.WriteLine("START OF TURRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRn");
           isStartOfTurn = false;
           StartOfTurn();
           //intervalBeforeReset = false;
@@ -217,19 +218,16 @@ GameManager(uint entityID):base(entityID)
 
     public void StartOfTurn()
     {
-      m_playerStats.EndOfTurn();
-      //Console.WriteLine("PLAYER END OF STAR F TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
-      m_enemyStats.EndOfTurn();
-      //Console.WriteLine("ENEMY END OF STAR F TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
+      m_playerStats.m_deckMngr.DiscardQueue();
+      m_enemyStats.m_deckMngr.DiscardQueue();
       m_playerStats.m_deckMngr.Draw();
-     // Console.WriteLine("ENEMY DRAW  TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
       StartAI(m_enemyStats.entityID);
-      //Console.WriteLine("END OF STAR F TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnn");
+
     }
 
 
 
-      public void ResolutionPhase(double deltaTime)
+    public void ResolutionPhase(double deltaTime)
     {
 #if (DEBUG)
       //Console.WriteLine("Player Queue:");
@@ -239,21 +237,20 @@ GameManager(uint entityID):base(entityID)
       //  Console.WriteLine(c.ToString());
       //}
 #endif
-      Console.WriteLine("currTime:: " + m_currTime);
-      if(toTrigger)
+      // Console.WriteLine("currTime:: " + m_currTime);
+      if (toTrigger)
       {
         //Console.WriteLine("time to triggER");
         toTrigger = false;
-        if(resolvePlayer)
+        if (resolvePlayer)
         {
-          
+
           CardBase.CardID card = m_playerStats.m_deckMngr.m_queue[playerCardPos];
-          //Console.WriteLine("RESO PLAYER"+ card);
-          if(card != CardBase.CardID.NO_CARD)
+          if (card != CardBase.CardID.NO_CARD)
           {
             CardManager.Get(card).Play(ref m_playerStats, ref m_enemyStats);
             m_animTime = Utils.GetAnimationTime(CardManager.Get(card).SpriteAnimation);
-            Console.WriteLine("ANIMATION TIME:: " + m_animTime);
+            m_cardsPlayedP.Add(card);
             Utils.PlayAnimation(CardManager.Get(card).SpriteAnimation, m_playerStats.entityID);
           }
           else
@@ -262,26 +259,47 @@ GameManager(uint entityID):base(entityID)
         }
         else
         {
-          ComboManager.ComboPlayer(ref m_playerStats, ref m_enemyStats);
+
           CardBase.CardID card = m_enemyStats.m_deckMngr.m_queue[enemyCardPos];
-          //Console.WriteLine("RESO ENEMY" + card);
           if (card != CardBase.CardID.NO_CARD)
           {
             CardManager.Get(card).Play(ref m_enemyStats, ref m_playerStats);
             m_animTime = Utils.GetAnimationTime(CardManager.Get(card).SpriteAnimation);
-            Console.WriteLine("ANIMATION TIME:: " + m_animTime);
+            m_cardsPlayedE.Add(card);
             Utils.PlayAnimation(CardManager.Get(card).SpriteAnimation, m_enemyStats.entityID);
           }
           else
             ResolveNextCard();
         }
       }
-
-      m_currTime += deltaTime;
-      if(m_currTime>= m_animTime)
+      else
       {
-        ResolveNextCard();
+        m_currTime += deltaTime;
+        if (m_currTime >= m_animTime)
+        {
+          Utils.PlayAnimation("SS_LeahIdle", m_playerStats.entityID);
+          Utils.PlayAnimation("SS_MineWorm", m_enemyStats.entityID);
+          if (resolvePlayer)
+          {
+            if (m_cardsPlayedP.Count >= 2)
+            {
+              int firstCardPos = (m_cardsPlayedP.Count < 3) ? 0 : 1;
+              ComboManager.Combo(ref m_playerStats, ref m_enemyStats, firstCardPos);
+            }
+          }
+
+          else
+          {
+            if (m_cardsPlayedE.Count >= 2)
+            {
+              int firstCardPos = (m_cardsPlayedE.Count < 3) ? 0 : 1;
+              ComboManager.Combo(ref m_enemyStats, ref m_playerStats, firstCardPos);
+            }
+          }
+          ResolveNextCard();
+        }
       }
+     
       // resolve player's queue first
       //foreach (CardBase.CardID card in m_playerStats.m_deckMngr.m_queue)
       //{
@@ -354,9 +372,25 @@ GameManager(uint entityID):base(entityID)
     {
       playerCardPos = 0;
       enemyCardPos = 0;
-      Console.WriteLine("START RESO");
+      m_cardsPlayedP.Clear();
+      m_cardsPlayedE.Clear();
       resolvePlayer = true;
       toTrigger = true;
+
+      //Console.WriteLine($"Number of cards in queue: {source.m_deckMngr.m_queue.Length}");
+      //Console.WriteLine($"Card types in Player queue:");
+      //foreach (var CardID in m_playerStats.m_deckMngr.m_queue)
+      //{
+      //  Console.WriteLine($"{CardManager.Get(CardID).Type.ToString()}");
+      //}
+
+      //Console.WriteLine($"Card types in Enemy queue:");
+      //foreach (var CardID in m_enemyStats.m_deckMngr.m_queue)
+      //{
+      //  Console.WriteLine($"{CardManager.Get(CardID).Type.ToString()}");
+      //}
+
+      //Console.WriteLine("");
     }
 
     private void ResolveNextCard()
@@ -364,14 +398,14 @@ GameManager(uint entityID):base(entityID)
       m_currTime = 0;
       if(resolvePlayer)
       {
-        Console.WriteLine("FINSIHED PLAYER ANIMATION");
+        Console.WriteLine("FINSIHED PLAYER CARD");
         playerCardPos += 1;
         while(playerCardPos < m_enemyStats.m_deckMngr.m_queue.Length && m_playerStats.m_deckMngr.m_queue[playerCardPos] == CardBase.CardID.NO_CARD )
         {
           playerCardPos++;
         }
 
-        if (enemyCardPos <= m_enemyStats.m_deckMngr.m_queue.Length)
+        if (enemyCardPos < m_enemyStats.m_deckMngr.m_queue.Length)
         {
           Console.WriteLine("RESO ENEMY NEXT");
           toTrigger = true;
@@ -381,7 +415,11 @@ GameManager(uint entityID):base(entityID)
         else
         {
           if (playerCardPos >= m_playerStats.m_deckMngr.m_queue.Length)
-            isResolutionPhase = false; 
+          {
+            isResolutionPhase = false;
+            isStartOfTurn = true;
+          }
+           
            else
              toTrigger = true;
           
@@ -390,7 +428,7 @@ GameManager(uint entityID):base(entityID)
       }
       else
       {
-        Console.WriteLine("FINSIHED ENEMT ANIMATION");
+        Console.WriteLine("FINSIHED ENEMY CARD");
         enemyCardPos += 1;
         while (enemyCardPos < m_enemyStats.m_deckMngr.m_queue.Length && m_enemyStats.m_deckMngr.m_queue[enemyCardPos] == CardBase.CardID.NO_CARD)
         {
@@ -405,7 +443,11 @@ GameManager(uint entityID):base(entityID)
         else
         {
           if (enemyCardPos >= m_enemyStats.m_deckMngr.m_queue.Length)
-             isResolutionPhase = false;
+          {
+            isResolutionPhase = false;
+            isStartOfTurn = true;
+          }
+            
            else
               toTrigger = true;
           
