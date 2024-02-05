@@ -1,6 +1,7 @@
 {
     "Name": "Blinded",
-    "Version": 2,
+    "isActive": true,
+    "Version": 4,
     "Components": [
         {
             "Transform": {
@@ -10,6 +11,16 @@
                 "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 0, 0 }",
+                "width": 35.0,
+                "height": 35.0,
+                "min": "{ -17.5, -17.5 }",
+                "max": "{ 17.5, 17.5 }",
+                "render": false
             }
         },
         {
@@ -31,7 +42,114 @@
                 "spriteName": "Blinded",
                 "shouldRender": true
             }
+        },
+        {
+            "Scripts": {
+                "scriptList": [
+                    {
+                        "scriptName": "BuffIconInteraction",
+                        "entityID": 0,
+                        "scriptFieldInstList": []
+                    }
+                ]
+            }
+        },
+        {
+            "GE_Button": {
+                "param": "",
+                "eventType": "NO_EVENT",
+                "lastCollided": false,
+                "currCollided": false
+            }
         }
     ],
-    "SubData": []
+    "SubData": [
+        {
+            "ID": 1,
+            "isActive": false,
+            "Name": "BuffIconText",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 63.4408, 22.1395, 10 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 63.4408, 22.1395, 10 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 2,
+            "isActive": true,
+            "Name": "Backing",
+            "Parent": 1,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 0.59, 0.345365, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 0.59, 0.345365, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 220,
+                                "height": 140
+                            }
+                        },
+                        "spriteName": "TempBacking",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 3,
+            "isActive": true,
+            "Name": "Text",
+            "Parent": 1,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -42.9674, -9.27999, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -42.9674, -9.27999, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Blinded",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.10000000149011612,
+                        "fontID": 0
+                    }
+                }
+            ]
+        }
+    ]
 }

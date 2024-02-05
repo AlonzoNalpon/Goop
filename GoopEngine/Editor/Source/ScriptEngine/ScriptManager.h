@@ -376,6 +376,8 @@ namespace GE::MONO
 		************************************************************************/
 		void SetCardToHandState(unsigned cardEntity);
 
+		void SetBuffIconTextActive(unsigned iconID, bool state);
+
 	/*!*********************************************************************
 	\brief
 		function that will be called by a c# script to pass a string from c# to c++

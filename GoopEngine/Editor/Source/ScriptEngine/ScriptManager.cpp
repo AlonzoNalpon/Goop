@@ -151,6 +151,7 @@ void GE::MONO::ScriptManager::InitMono()
 
   mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToHandState", GE::MONO::SetCardToHandState);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToQueuedState", GE::MONO::SetCardToQueuedState);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetBuffIconTextActive", GE::MONO::SetBuffIconTextActive);
 
   // Game UI Stuff
   mono_add_internal_call("GoopScripts.Mono.Utils::GetLoseFocus", GE::MONO::GetLoseFocus);
@@ -768,6 +769,19 @@ void GE::MONO::SetCardToHandState(unsigned cardEntity)
     }
 
     ecs.SetIsActiveEntity(e, true);
+  }
+}
+
+void GE::MONO::SetBuffIconTextActive(unsigned iconID, bool state)
+{
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  for (ECS::Entity const& e : ecs.GetChildEntities(iconID))
+  {
+    if (ecs.GetEntityName(e) == "BuffIconText")
+    {
+      ecs.SetIsActiveEntity(e, state);
+      return;
+    }
   }
 }
 
