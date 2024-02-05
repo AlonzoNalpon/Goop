@@ -36,20 +36,6 @@
                     "spriteName": "Atk Up",
                     "shouldRender": true
                 }
-            },
-            {
-                "Emitter": {
-                    "playOnStart": true,
-                    "playing": false,
-                    "gravity": "{ 0, 20, 0 }",
-                    "minForce": "{ 200, 50, 0 }",
-                    "maxForce": "{ -200, 100, 0 }",
-                    "minDrag": 0.029999999329447746,
-                    "maxDrag": 0.029999999329447746,
-                    "maxLifeTime": 5.0,
-                    "minLifeTime": 3.0,
-                    "particlePerMin": 800
-                }
             }
         ]
     },
@@ -93,25 +79,7 @@
             },
             {
                 "Tween": {
-                    "tweens": [
-                        {
-                            "key": "1",
-                            "value": [
-                                {
-                                    "trans": "{ 100, 0, 0 }",
-                                    "scale": "{ 1, 1, 1 }",
-                                    "rot": "{ 0, 0, 0 }",
-                                    "duration": 1.0
-                                },
-                                {
-                                    "trans": "{ -200, 0, 0 }",
-                                    "scale": "{ 1, 5, 1 }",
-                                    "rot": "{ 0, 0, 360 }",
-                                    "duration": 3.0
-                                }
-                            ]
-                        }
-                    ],
+                    "tweens": [],
                     "started": false,
                     "paused": false,
                     "loop": true,
@@ -168,25 +136,6 @@
                     },
                     "spriteName": "Button_Base",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "PlayBGM",
-                            "entityID": 2,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -608,7 +557,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "LeahDies",
+                            "scriptName": "LeahDemo",
                             "entityID": 11,
                             "scriptFieldInstList": []
                         }

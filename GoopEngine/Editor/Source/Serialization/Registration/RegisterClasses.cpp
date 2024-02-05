@@ -228,7 +228,7 @@ RTTR_REGISTRATION
     .property("second", &std::pair<Graphics::gObjID, std::string>::second)
     ;
 
-#ifndef NO_IMGUI
+#ifndef IMGUI_DISABLE
   rttr::registration::class_<std::pair<std::string, unsigned>>("StringUnsignedPair")
     .property("first", &std::pair<std::string, unsigned>::first)
     .property("second", &std::pair<std::string, unsigned>::second)

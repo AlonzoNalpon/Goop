@@ -45,26 +45,26 @@ namespace GoopScripts.Gameplay
       Combo combo;
       if (!m_comboList.TryGetValue(pair, out combo))
       {
-        Console.WriteLine("Combo does not exist! " + card1.ToString() + " + " + card2.ToString());
+        //Console.WriteLine("Combo does not exist! " + card1.ToString() + " + " + card2.ToString());
         return;
       }
 
-      Console.WriteLine("Applied Combo: " + combo.GetName());
+      //Console.WriteLine("Applied Combo: " + combo.GetName());
       combo.ApplyEffect(ref source, ref target);
-      ////Console.WriteLine($"Number of cards in queue: {source.m_deckMngr.m_queue.Length}");
-      //Console.WriteLine($"Card types in queue:");
+      //////Console.WriteLine($"Number of cards in queue: {source.m_deckMngr.m_queue.Length}");
+      ////Console.WriteLine($"Card types in queue:");
       //foreach (var CardID in source.m_deckMngr.m_queue)
       //{
-      //  Console.WriteLine($"{CardManager.Get(CardID).Type.ToString()}");
+      //  //Console.WriteLine($"{CardManager.Get(CardID).Type.ToString()}");
       //}
       //first pair
       //if (source.m_deckMngr.m_queue.Length >= 2)
       //{
       //  int secondCardIndex = (firstCardIndex == 0) ? 1 : 2;
       //  if (firstCardIndex == 0)
-      //    Console.WriteLine("Resolve first combo for entity: " + source.entityID);
+      //    //Console.WriteLine("Resolve first combo for entity: " + source.entityID);
       //  else
-      //    Console.WriteLine("Resolve second combo for entity: " + source.entityID);
+      //    //Console.WriteLine("Resolve second combo for entity: " + source.entityID);
 
       //  switch (CardManager.Get(source.m_deckMngr.m_queue[firstCardIndex].Item1).Type)
       //  {
@@ -73,12 +73,12 @@ namespace GoopScripts.Gameplay
       //      {
       //        case CardBase.CardType.ATTACK:
       //          source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 0, "Atk Up"));
-      //          //Console.WriteLine("Combo: Atk & Atk");
+      //          ////Console.WriteLine("Combo: Atk & Atk");
       //          break;
 
       //        case CardBase.CardType.BLOCK:
       //          source.m_deckMngr.Draw();
-      //          //Console.WriteLine("Combo: Atk & Block");
+      //          ////Console.WriteLine("Combo: Atk & Block");
       //          break;
 
       //        case CardBase.CardType.SPECIAL:
@@ -90,7 +90,7 @@ namespace GoopScripts.Gameplay
       //          {
       //            target.m_buffs.AddBuff(new Buff(Buff.BuffType.BLIND, 1.0f, 0, "Blinded"));
       //          }
-      //          //Console.WriteLine("Combo: Atk & Special");
+      //          ////Console.WriteLine("Combo: Atk & Special");
       //          break;
 
       //        case CardBase.CardType.BLANK_CARD:
@@ -106,12 +106,12 @@ namespace GoopScripts.Gameplay
       //      {
       //        case CardBase.CardType.ATTACK:
       //          source.m_deckMngr.Draw();
-      //          //Console.WriteLine("Combo: Block & Atk");
+      //          ////Console.WriteLine("Combo: Block & Atk");
       //          break;
 
       //        case CardBase.CardType.BLOCK:
       //          source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_BLOCK, 1.0f, 0, "Block Up"));
-      //          //Console.WriteLine("Combo: Block & Block");
+      //          ////Console.WriteLine("Combo: Block & Block");
       //          break;
 
       //        case CardBase.CardType.SPECIAL:
@@ -119,10 +119,10 @@ namespace GoopScripts.Gameplay
       //          int chance = rng.Next(1, 2);
       //          if (chance == 1)
       //          {
-      //            //Console.WriteLine("Combo enemy is skipped");
+      //            ////Console.WriteLine("Combo enemy is skipped");
       //            target.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 0, "Skipped"));
       //          }
-      //          //Console.WriteLine("Combo: Block & Special");
+      //          ////Console.WriteLine("Combo: Block & Special");
       //          break;
 
       //        case CardBase.CardType.BLANK_CARD:
@@ -145,7 +145,7 @@ namespace GoopScripts.Gameplay
       //          {
       //            target.m_buffs.AddBuff(new Buff(Buff.BuffType.BLIND, 1.0f, 0, "Blinded"));
       //          }
-      //          //Console.WriteLine("Combo: Special & Atk");
+      //          ////Console.WriteLine("Combo: Special & Atk");
       //          break;
 
       //        case CardBase.CardType.BLOCK:
@@ -155,7 +155,7 @@ namespace GoopScripts.Gameplay
       //          {
       //            target.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 1.0f, 0, "Skipped"));
       //          }
-      //          //Console.WriteLine("Combo: Special & Block");
+      //          ////Console.WriteLine("Combo: Special & Block");
       //          break;
 
       //        case CardBase.CardType.BLANK_CARD:
@@ -177,7 +177,7 @@ namespace GoopScripts.Gameplay
       //}
 
       //else
-      //  Console.WriteLine("Dont need to resolve Combo for entity: " + source.entityID);
+      //  //Console.WriteLine("Dont need to resolve Combo for entity: " + source.entityID);
     }
   }
 }

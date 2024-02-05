@@ -357,7 +357,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 		ecs.SetEntityName(entity, name);
 	}
 	ImGui::EndDisabled();
-	ImGui::Text(("Entity ID: " + std::to_string(entity)).c_str());
+	ImGui::Text((" " + std::to_string(entity)).c_str());
 
 	if (!PrefabEditor::IsEditingPrefab())
 	{

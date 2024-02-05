@@ -42,7 +42,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      // Console.WriteLine("Is outside range ID: " + m_nodeID);
+      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
@@ -87,7 +87,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
       if(handSize < 2)
       {
-        Console.WriteLine("Not enough card to Combo");
+        //Console.WriteLine("Not enough card to Combo");
         OnFail();
       }
       else if(handSize == 2)
@@ -95,18 +95,18 @@ namespace GoopScripts.AI.Enemy.MineWorm
         List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
         if (EnemyStats.m_deckMngr.m_hand.Any(item => specialCards.Contains(item.Item1)))
         {
-          Console.WriteLine("Only has 2 cards in hand, but contains a special card, so we will not play combo");
+          //Console.WriteLine("Only has 2 cards in hand, but contains a special card, so we will not play combo");
           OnFail();
         }
         else
         {
-          Console.WriteLine("2 cards to combo, the enemy will combo");
+          //Console.WriteLine("2 cards to combo, the enemy will combo");
           OnSuccess();
         }
       }
       else
       {
-        Console.WriteLine("Enough cards to combo, the enemy will combo");
+        //Console.WriteLine("Enough cards to combo, the enemy will combo");
         OnSuccess();
       }
       

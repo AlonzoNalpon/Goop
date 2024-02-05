@@ -17,6 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/Serializer.h>
 #include <AssetManager/AssetManager.h>
 #include <Events/EventManager.h>
+#include <iostream>
 #ifndef IMGUI_DISABLE
 #include <Prefabs/PrefabManager.h>
 #include <filesystem>
@@ -94,8 +95,8 @@ void SceneManager::SetNextScene(std::string nextScene)
 #ifndef IMGUI_DISABLE
     // if running editor, we dont invoke OnCreate if the scene isnt running
     if (EditorGUI::ImGuiHelper::IsRunning())
+      InvokeOnCreate();
 #endif
-    InvokeOnCreate();
   }
   catch (std::out_of_range&)
   {
@@ -107,8 +108,8 @@ void SceneManager::SetNextScene(std::string nextScene)
 #ifndef IMGUI_DISABLE
     // if running editor, we dont invoke OnCreate if the scene isnt running
     if (EditorGUI::ImGuiHelper::IsRunning())
+      InvokeOnCreate();
 #endif
-    InvokeOnCreate();
     throw Debug::Exception<SceneManager>(Debug::LEVEL_CRITICAL, ErrMsg(nextScene + ".scn doesn't exist."));
   }
 }
@@ -166,6 +167,7 @@ void GE::Scenes::SceneManager::HandleEvent(Events::Event* event)
 #endif
 }
 
+#ifndef IMGUI_DISABLE
 void GE::Scenes::SceneManager::LoadSceneFromExplorer(std::string const& filepath)
 {
   std::string::size_type const startPos{ filepath.find_last_of("\\") + 1 };
@@ -174,6 +176,7 @@ void GE::Scenes::SceneManager::LoadSceneFromExplorer(std::string const& filepath
   Assets::AssetManager::GetInstance().ReloadFiles(Assets::SCENE);
   SetNextScene(filename);
 }
+#endif
 
 std::string GE::Scenes::SceneManager::GetCurrentScene() const noexcept
 {

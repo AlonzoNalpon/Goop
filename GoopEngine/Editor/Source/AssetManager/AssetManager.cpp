@@ -319,6 +319,7 @@ namespace GE::Assets
 		ags.Unload(m_configData);
 	}
 
+#ifndef IMGUI_DISABLE
 	void AssetManager::HandleEvent(Events::Event* event)
 	{
 		switch (event->GetCategory())
@@ -369,6 +370,7 @@ namespace GE::Assets
 		}
 		}
 	}
+#endif
 
 	void AssetManager::SpriteCheck()
 	{

@@ -12,7 +12,6 @@ namespace GoopScripts.Button
     BuffIconInteraction() { }
     public void OnHoverEnter(uint entity)
     {
-      Console.WriteLine("Hover");
       Utils.SetBuffIconTextActive(entity, true);
     }
 

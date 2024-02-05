@@ -47,6 +47,7 @@ GoopScripts.Cards,SpecialSmokeScreen
 GoopScripts.Cards,SpecialTimeWrap
 GoopScripts.Demo,CrossFadeToBGM
 GoopScripts.Demo,CrossFadeToGameBGM
+GoopScripts.Demo,EvadingDetection
 GoopScripts.Demo,PlayBGM
 GoopScripts.Demo,StopBGM
 GoopScripts.Gameplay,BuffManager
@@ -56,7 +57,13 @@ GoopScripts.Gameplay,ComboManager
 GoopScripts.Gameplay,Deck
 GoopScripts.Gameplay,DeckManager
 GoopScripts.Gameplay,GameManager
+GoopScripts.Gameplay,LeahAttacks
+GoopScripts.Gameplay,LeahBlocks
+GoopScripts.Gameplay,LeahDemo
 GoopScripts.Gameplay,LeahDies
+GoopScripts.Gameplay,LeahFlashBangs
+GoopScripts.Gameplay,LeahFlinches
+GoopScripts.Gameplay,MoleRatBites
 GoopScripts.Gameplay,Stats
 GoopScripts.Player,Player
 GoopScripts.Player,PlayerScriptTest

@@ -104,10 +104,17 @@
     <Compile Include="Gameplay\CharacterType.cs" />
     <Compile Include="Gameplay\Combo.cs" />
     <Compile Include="Gameplay\ComboManager.cs" />
+    <Compile Include="Demo\EvadingDetection.cs" />
     <Compile Include="Gameplay\Deck.cs" />
     <Compile Include="Gameplay\DeckManager.cs" />
     <Compile Include="Gameplay\GameManager.cs" />
+    <Compile Include="Gameplay\LeahAttacks.cs" />
+    <Compile Include="Gameplay\LeahBlocks.cs" />
+    <Compile Include="Gameplay\LeahDemo.cs" />
     <Compile Include="Gameplay\LeahDies.cs" />
+    <Compile Include="Gameplay\LeahFlashBangs.cs" />
+    <Compile Include="Gameplay\LeahFlinches.cs" />
+    <Compile Include="Gameplay\MoleRatBites.cs" />
     <Compile Include="Gameplay\Stats.cs" />
     <Compile Include="Input\KeyCode.cs" />
     <Compile Include="Mono\IAnimationEvent.cs" />

@@ -39,7 +39,7 @@ namespace GoopScripts.UI
           break;
         default:
 #if (DEBUG)
-          Console.WriteLine("Unable to create healthbar of type: " + type.ToString());
+          //Console.WriteLine("Unable to create healthbar of type: " + type.ToString());
 #endif
           break;
       }
@@ -56,9 +56,9 @@ namespace GoopScripts.UI
       m_bars = new uint[m_maxHealth];
 
       m_individualBarWidth = ((m_width - PADDING_SIZE) / m_maxHealth) - PADDING_SIZE;
-      Vec3<double> currentBarPos = new Vec3<double>(m_barPos.X - (m_width * 0.5) + PADDING_SIZE + (m_individualBarWidth * 0.5), m_barPos.Y, m_barPos.Z + 0.1);
-      Console.WriteLine("Bar Position: " + m_barPos.X + "|" + m_barPos.Y);
-      Console.WriteLine("Bar Size: " + m_width + "|" + m_height);
+      Vec3<double> currentBarPos = new Vec3<double>(m_barPos.X - (m_width * 0.5) + PADDING_SIZE + (m_individualBarWidth * 0.5), m_barPos.Y, m_barPos.Z + 5.0);
+      //Console.WriteLine("Bar Position: " + m_barPos.X + "|" + m_barPos.Y);
+      //Console.WriteLine("Bar Size: " + m_width + "|" + m_height);
 
       for (int i = 0; i < m_maxHealth; i++)
       {
@@ -81,7 +81,7 @@ namespace GoopScripts.UI
         if (m_health - 1 < 0)
           break;
         Utils.SetIsActiveEntity(m_bars[--m_health], false);
-        Console.WriteLine("Health Decreased");
+        //Console.WriteLine("Health Decreased");
 
       }
     }
@@ -93,7 +93,7 @@ namespace GoopScripts.UI
         if (m_health + 1 > m_maxHealth)
           break;
         Utils.SetIsActiveEntity(m_bars[m_health++], true);
-        Console.WriteLine("Health Increased");
+        //Console.WriteLine("Health Increased");
 
       }
     }

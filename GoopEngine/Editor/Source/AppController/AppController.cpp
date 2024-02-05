@@ -12,13 +12,13 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include <AppController/AppController.h>
 #include "../EditorUI/ImGuiUI.h"
+#include <Prefabs/PrefabManager.h>
 #ifndef IMGUI_DISABLE
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <EditorUI/EditorViewport.h>
-#include <Prefabs/PrefabManager.h>
 #endif
 
 using namespace GE::ECS;

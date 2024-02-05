@@ -41,7 +41,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      // Console.WriteLine("Is outside range ID: " + m_nodeID);
+      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
@@ -78,7 +78,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
     public void OnUpdate(uint entityID, double dt)
     {
       Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
-      Console.WriteLine("Lets play special card\n");
+      //Console.WriteLine("Lets play special card\n");
       Random random = new Random();
       List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
       int pos = 0;

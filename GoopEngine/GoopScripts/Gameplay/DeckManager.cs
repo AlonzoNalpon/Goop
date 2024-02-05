@@ -84,7 +84,7 @@ namespace GoopScripts.Gameplay
           break;
         default:
 #if (DEBUG)
-          Console.WriteLine("Unable to create deck of type: " + type.ToString());
+          //Console.WriteLine("Unable to create deck of type: " + type.ToString());
 #endif
           break;
       }
@@ -92,7 +92,7 @@ namespace GoopScripts.Gameplay
       if (m_deck.Size() < STARTING_CARDS)
       {
 #if (DEBUG)
-        Console.WriteLine("Deck size of " + m_deck.Size() + " lesser than STARTING_CARDS (" + STARTING_CARDS + ")");
+        //Console.WriteLine("Deck size of " + m_deck.Size() + " lesser than STARTING_CARDS (" + STARTING_CARDS + ")");
 #endif
         return;
       }
@@ -130,7 +130,7 @@ namespace GoopScripts.Gameplay
         }
       }
 #if (DEBUG)
-      Console.WriteLine("Queuing " + m_hand[index].ToString() + " from hand\n");
+      //Console.WriteLine("Queuing " + m_hand[index].ToString() + " from hand\n");
 #endif
 
       m_hand.RemoveAt(index);
@@ -143,7 +143,7 @@ namespace GoopScripts.Gameplay
       m_hand.Add(m_queue[index]);
 
 #if (DEBUG)
-      Console.WriteLine("Returning " + m_queue[index].ToString() + " to hand\n");
+      //Console.WriteLine("Returning " + m_queue[index].ToString() + " to hand\n");
 #endif
       m_queue[index] = (CardBase.CardID.NO_CARD, uint.MaxValue);
     }
@@ -166,8 +166,8 @@ namespace GoopScripts.Gameplay
         m_deck.Restore(ref m_discard);
         m_deck.Shuffle();
 #if (DEBUG)
-        Console.WriteLine("Deck Empty! Reshuffling");
-        Console.WriteLine();
+        //Console.WriteLine("Deck Empty! Reshuffling");
+        //Console.WriteLine();
 #endif
       }
 
@@ -175,16 +175,16 @@ namespace GoopScripts.Gameplay
       if (m_hand.Count == MAX_CARDS)
       {
 #if (DEBUG)
-        Console.WriteLine("Hand Full! Burnt " + m_deck.m_drawOrder.First().ToString());
-        Console.WriteLine();
+        //Console.WriteLine("Hand Full! Burnt " + m_deck.m_drawOrder.First().ToString());
+        //Console.WriteLine();
 #endif
         m_deck.BurnTop();
         return -1;
       }
 
 #if (DEBUG)
-      Console.WriteLine("Drew " + m_deck.m_drawOrder.First().ToString());
-      Console.WriteLine();
+      //Console.WriteLine("Drew " + m_deck.m_drawOrder.First().ToString());
+      //Console.WriteLine();
 #endif
 
       m_hand.Add((m_deck.Draw(), uint.MaxValue));
@@ -202,7 +202,7 @@ namespace GoopScripts.Gameplay
         if (m_queue[i].Item1 == CardBase.CardID.NO_CARD) { continue; }
 
 #if (DEBUG)
-        Console.WriteLine("Discarding " + m_queue[i].ToString());
+        //Console.WriteLine("Discarding " + m_queue[i].ToString());
 #endif
         m_discard.Add(m_queue[i].Item1);
 

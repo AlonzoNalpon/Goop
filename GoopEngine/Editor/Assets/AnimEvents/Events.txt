@@ -1,15 +1,77 @@
 [
     {
-        "key": "LeahDies",
+        "key": "DemoLeah",
         "value": [
             {
                 "key": 2,
-                "value": []
-            },
+                "value": [
+                    "LeahDemo"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "LeahAttacks",
+        "value": [
             {
-                "key": 4,
+                "key": 0,
+                "value": [
+                    "LeahAttacks"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "LeahBlocks",
+        "value": [
+            {
+                "key": 2,
+                "value": [
+                    "LeahBlocks"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "LeahDies",
+        "value": [
+            {
+                "key": 1,
                 "value": [
                     "LeahDies"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "LeahFlashBangs",
+        "value": [
+            {
+                "key": 2,
+                "value": [
+                    "LeahFlashBangs"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "LeahFlinches",
+        "value": [
+            {
+                "key": 2,
+                "value": [
+                    "LeahFlinches"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "MoleRatBites",
+        "value": [
+            {
+                "key": 2,
+                "value": [
+                    "MoleRatBites"
                 ]
             }
         ]

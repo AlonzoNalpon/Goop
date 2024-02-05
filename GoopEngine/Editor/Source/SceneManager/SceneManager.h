@@ -105,11 +105,13 @@ namespace GE::Scenes
     ************************************************************************/
     void HandleEvent(Events::Event* event) override;
 
+#ifndef IMGUI_DISABLE
     /*!*********************************************************************
     \brief
       Creates a new scene from a filepath then loads it.
     ************************************************************************/
     void LoadSceneFromExplorer(std::string const& filepath);
+#endif
 
     /*!*********************************************************************
     \brief

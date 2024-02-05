@@ -334,7 +334,6 @@ GE::MONO::ScriptManager::~ScriptManager()
 {
   if (m_rootDomain)
   {
-    std::cout << "before m_rootDomain\n";
     mono_domain_set(mono_get_root_domain(), false);
 
     mono_domain_unload(m_appDomain);
@@ -342,7 +341,6 @@ GE::MONO::ScriptManager::~ScriptManager()
 
     mono_jit_cleanup(m_rootDomain);
     m_rootDomain = nullptr;
-    std::cout << "m_rootDomain is now nullptr\n";
   }
 
 }

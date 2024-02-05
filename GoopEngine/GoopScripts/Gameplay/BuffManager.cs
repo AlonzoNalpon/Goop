@@ -83,11 +83,13 @@ namespace GoopScripts.Gameplay
       UpdateBuffsUI();
     }
 
+
+
     public void StepTurn()
 		{
       foreach (var buff in m_buffs)
       {
-        Console.WriteLine(buff.ToString());
+        //Console.WriteLine(buff.ToString());
       }
 
       foreach (var buff in m_buffs)

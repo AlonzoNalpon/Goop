@@ -18,10 +18,10 @@ namespace GoopScripts.Button
 
       if (!player.m_deckMngr.IsEntityInHand(entity))
       {
-        Console.WriteLine("Card Not In Hand!");
+        //Console.WriteLine("Card Not In Hand!");
         return;
       }
-
+      Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
       player.QueueCardByID(entity);
     }
   }

@@ -53,10 +53,12 @@ void GE::GSM::GameStateManager::Restart()
 	sm.RestartScene();
 }
 
+#ifndef IMGUI_DISABLE
 void GE::GSM::GameStateManager::LoadSceneFromExplorer(std::string const& filepath)
 {
 	sm.LoadSceneFromExplorer(filepath);
 }
+#endif
 
 void GameStateManager::Init()
 {

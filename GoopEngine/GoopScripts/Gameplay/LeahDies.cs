@@ -12,8 +12,7 @@ namespace GoopScripts.Gameplay
 	{
 		public void PlayEvent(uint entity)
 		{
-			Utils.PlaySoundF("damageTaken_Leah", 1.0f, Utils.ChannelType.SFX, false);
-			Utils.PlayAnimation("SS_Leah_Death", entity);
+			Utils.PlaySoundF("SFX_BodyFall3", 1.0f, Utils.ChannelType.SFX, false);
 		}
 	}
 }

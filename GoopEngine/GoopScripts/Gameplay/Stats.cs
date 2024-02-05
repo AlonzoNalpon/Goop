@@ -35,7 +35,6 @@ namespace GoopScripts.Gameplay
     
     public Stats(uint entityID) : base(entityID)
     {
-      Console.WriteLine("ENTITY ID: " + entityID);
       m_deckMngr = new DeckManager();
       queueElemIDs = new int[3];
       m_queueElemPos = new Vec3<double>[3];
@@ -136,16 +135,6 @@ namespace GoopScripts.Gameplay
       }
     }
 
-    public void TakeFlatDamage(int damage)
-    {
-      Console.WriteLine("Taking " + damage + " Damage");
-      damage -= m_block;
-      if (damage > 0)
-      {
-        m_healthBar.DecreaseHealth((int)damage);
-      }
-    }
-
     public int DamageDealt()
     {
       if (m_attack != 0)
@@ -211,6 +200,7 @@ namespace GoopScripts.Gameplay
         m_deckMngr.m_hand[idx] = (cardType, Utils.SpawnPrefab(CardManager.m_cardPrefabs[cardType]));
         m_deckMngr.AlignHandCards();
       }
+      Utils.PlaySoundF("SFX_CardDraw3", 1.0f, Utils.ChannelType.SFX, false);
     }
 
     /*!*********************************************************************
@@ -235,7 +225,7 @@ namespace GoopScripts.Gameplay
       if (qIdx == m_deckMngr.m_queue.Length)
       {
 #if (DEBUG)
-        Console.WriteLine("QueueCard: Index out of range!");
+        //Console.WriteLine("QueueCard: Index out of range!");
 #endif
       }
 
@@ -274,7 +264,7 @@ namespace GoopScripts.Gameplay
         if (qIdx == m_deckMngr.m_queue.Length)
         {
 #if (DEBUG)
-          Console.WriteLine("QueueCard: Index out of range!");
+          //Console.WriteLine("QueueCard: Index out of range!");
 #endif
           return;
         }

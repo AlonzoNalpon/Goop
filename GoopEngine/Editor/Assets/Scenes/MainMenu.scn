@@ -237,14 +237,6 @@
                     "spriteName": "MainMenu_LoadGame",
                     "shouldRender": true
                 }
-            },
-            {
-                "GE_Button": {
-                    "param": "M4 Demo",
-                    "eventType": "CHANGE_SCENE",
-                    "lastCollided": false,
-                    "currCollided": false
-                }
             }
         ]
     },

@@ -135,7 +135,6 @@ namespace GoopScripts.Cards
 
     static public CardBase Get(CardBase.CardID id)
     {
-      Console.WriteLine(m_cards[id].ToString());
       return m_cards[id];
     }
   }

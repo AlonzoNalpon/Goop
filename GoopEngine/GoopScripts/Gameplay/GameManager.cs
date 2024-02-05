@@ -50,7 +50,7 @@ namespace GoopScripts.Gameplay
 
     public void OnCreate()
     {
-      Console.WriteLine("Create GameManager");
+      //Console.WriteLine("Create GameManager");
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
     }
@@ -98,7 +98,7 @@ namespace GoopScripts.Gameplay
 
       if (UI.PauseManager.PauseStateChanged())
       {
-        // Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
+        // //Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
       }
 
       if (isResolutionPhase)
@@ -119,7 +119,7 @@ namespace GoopScripts.Gameplay
 
     public void StartOfTurn()
     {
-      Console.WriteLine("START OF TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+      //Console.WriteLine("START OF TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
       m_playerStats.EndOfTurn();
       m_enemyStats.EndOfTurn();
       m_playerStats.Draw();
@@ -146,7 +146,7 @@ namespace GoopScripts.Gameplay
         //Play and resolve player and enemy card if they r valid cards
         if (playerCard != CardBase.CardID.NO_CARD)
         {
-          Console.WriteLine("Play " + playerCard.ToString());
+          //Console.WriteLine("Play " + playerCard.ToString());
           CardManager.Get(playerCard).Play(ref m_playerStats, ref m_enemyStats);
           double m_pAnimTime = Utils.GetAnimationTime(CardManager.Get(playerCard).SpriteAnimation);
           m_animTime = (m_animTime < m_pAnimTime) ? m_pAnimTime : m_animTime;
@@ -156,7 +156,7 @@ namespace GoopScripts.Gameplay
 
         if (enemyCard != CardBase.CardID.NO_CARD)
         {
-          Console.WriteLine("Play " + enemyCard.ToString());
+          //Console.WriteLine("Play " + enemyCard.ToString());
           CardManager.Get(enemyCard).Play(ref m_enemyStats, ref m_playerStats);
           double m_pAnimTime = Utils.GetAnimationTime(CardManager.Get(enemyCard).SpriteAnimation);
           m_animTime = (m_animTime < m_pAnimTime) ? m_pAnimTime : m_animTime;
@@ -200,14 +200,14 @@ namespace GoopScripts.Gameplay
           {
             if (m_cardsPlayedP[m_slotNum - 1] != CardBase.CardID.NO_CARD && m_cardsPlayedP[m_slotNum] != CardBase.CardID.NO_CARD)
             {
-              Console.WriteLine("Player COMBOED");
+              //Console.WriteLine("Player COMBOED");
               ComboManager.Combo(ref m_playerStats, ref m_enemyStats, (m_slotNum - 1));
             }
 
 
             if (m_cardsPlayedE[m_slotNum - 1] != CardBase.CardID.NO_CARD && m_cardsPlayedE[m_slotNum] != CardBase.CardID.NO_CARD)
             {
-              Console.WriteLine("ENEMY COMBOED");
+              //Console.WriteLine("ENEMY COMBOED");
               ComboManager.Combo(ref m_enemyStats, ref m_playerStats, (m_slotNum - 1));
             }
           }
@@ -284,7 +284,7 @@ namespace GoopScripts.Gameplay
 
     public void EndTurn()
     {
-      Console.WriteLine("END TURN");
+      //Console.WriteLine("END TURN");
       isResolutionPhase = true;
       StartResolution();
     }

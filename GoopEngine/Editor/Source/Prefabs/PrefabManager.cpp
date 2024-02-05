@@ -367,11 +367,13 @@ void PrefabManager::HandleEvent(Events::Event* event)
     if (iter != m_entitiesToPrefabs.cend()) { m_entitiesToPrefabs.erase(iter); }
     break;
   }
+#ifndef IMGUI_DISABLE
   case Events::EVENT_TYPE::DELETE_PREFAB:
   {
     PrefabDataContainer::const_iterator iter{ m_prefabs.find(static_cast<Events::DeletePrefabEvent*>(event)->m_name) };
     if (iter != m_prefabs.cend()) { m_prefabs.erase(iter); }
     break;
   }
+#endif
   }
 }

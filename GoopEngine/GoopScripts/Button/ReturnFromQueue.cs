@@ -19,10 +19,11 @@ namespace GoopScripts.Button
       uint cardId = Utils.GetParentEntity(entity);
       if (!player.m_deckMngr.IsEntityInQueue(cardId))
       {
-        Console.WriteLine("Card Not In Queue!");
+        //Console.WriteLine("Card Not In Queue!");
         return;
       }
 
+      Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
       player.UnqueueCardByID(cardId);
     }
   }
