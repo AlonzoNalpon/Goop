@@ -717,12 +717,14 @@ void GE::MONO::SetCardToQueuedState(unsigned entity, Math::dVec3 target)
 {
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
   Component::Transform* iconTrans{ nullptr };
-  // iterate through all children and set to inactive except Icon
+  // iterate through all children and set to inactive
+  // and enable Collider Icon
   for (ECS::Entity const& e : ecs.GetChildEntities(entity))
   {
-    if (ecs.GetEntityName(e) == "Icon")
+    if (ecs.GetEntityName(e) == "Collider Icon")
     {
       iconTrans = ecs.GetComponent<Component::Transform>(e);
+      ecs.SetIsActiveEntity(e, true);
       continue;
     }
 
@@ -745,9 +747,15 @@ void GE::MONO::SetCardToQueuedState(unsigned entity, Math::dVec3 target)
 void GE::MONO::SetCardToHandState(unsigned cardEntity)
 {
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
-  // set all children of card back to active
+  // set all children of card to active and disable Collider Icon
   for (ECS::Entity const& e : ecs.GetChildEntities(cardEntity))
   {
+    if (ecs.GetEntityName(e) == "Collider Icon")
+    {
+      ecs.SetIsActiveEntity(e, false);
+      continue;
+    }
+
     ecs.SetIsActiveEntity(e, true);
   }
 }
@@ -811,11 +819,11 @@ bool GE::MONO::GetIsActiveEntity(GE::ECS::Entity entity)
   return GE::ECS::EntityComponentSystem::GetInstance().GetIsActiveEntity(entity);
 }
 
-GE::ECS::Entity GE::MONO::SpawnPrefab(MonoString* key, GE::Math::dVec3 pos, bool mapEntity)
+GE::ECS::Entity GE::MONO::SpawnPrefab(MonoString* key, GE::Math::dVec3 pos)
 {
   std::string str = GE::MONO::MonoStringToSTD(key);
 
-  return GE::Prefabs::PrefabManager::GetInstance().SpawnPrefab(str, pos, mapEntity);
+  return GE::Prefabs::PrefabManager::GetInstance().SpawnPrefab(str, pos, false);
 }
 
 int GE::MONO::GetObjectWidth(GE::ECS::Entity entity)

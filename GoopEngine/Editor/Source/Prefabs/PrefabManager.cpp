@@ -12,8 +12,6 @@
   Currently, the PrefabManager attaches a "version" to each prefab so
   that only outdated entities are updated with the prefab's components
   upon loading a scene.
-
-  ** THIS CLASS ONLY RUNS IN THE EDITOR **
   
   Further improvements can be made so that an entity's component 
   should no longer be updated if it was changed externally through
@@ -22,7 +20,6 @@
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#ifndef IMGUI_DISABLE
 #include <Prefabs/PrefabManager.h>
 #include <ECS/EntityComponentSystem.h>
 #include <ObjectFactory/ObjectFactory.h>
@@ -112,6 +109,8 @@ void PrefabManager::ReloadPrefabs()
 }
 
 
+/*---------------------------- EDITOR - ONLY FUNCTIONS ----------------------------*/
+#ifndef IMGUI_DISABLE
 void PrefabManager::AttachPrefab(ECS::Entity entity, EntityPrefabMap::mapped_type const& prefab)
 {
 #ifdef PREFAB_MANAGER_DEBUG
@@ -351,7 +350,7 @@ void PrefabManager::CreatePrefabFromEntity(ECS::Entity entity, std::string const
   ReloadPrefab(prefabName);
   GE::Debug::ErrorLogger::GetInstance().LogMessage(prefabName + " saved to Prefabs");
 }
-
+#endif
 
 void PrefabManager::HandleEvent(Events::Event* event)
 {
@@ -376,5 +375,3 @@ void PrefabManager::HandleEvent(Events::Event* event)
   }
   }
 }
-
-#endif

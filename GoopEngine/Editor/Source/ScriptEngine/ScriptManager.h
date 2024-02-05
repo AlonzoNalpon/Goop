@@ -404,7 +404,19 @@ namespace GE::MONO
 
 	static bool GetIsActiveEntity(GE::ECS::Entity entity);
 
-	static GE::ECS::Entity SpawnPrefab(MonoString* key, GE::Math::dVec3 pos = {}, bool mapEntity = true);
+	/*!*********************************************************************
+	\brief
+	  Creates an instance of a prefab given its name. The position can
+		be speicified as an optional argument. Note: This function does not
+		subscribe an entity to a prefab's updates.
+	\param key
+		The name of the prefab
+	\param pos
+		The position to create the prefab at
+	\return
+	  The entity id of the created instance
+	************************************************************************/
+	static GE::ECS::Entity SpawnPrefab(MonoString* key, GE::Math::dVec3 pos = {});
 
 	static int GetObjectWidth(GE::ECS::Entity entity);
 

@@ -1,6 +1,6 @@
 {
     "Name": "Leah_Block",
-    "Version": 4,
+    "Version": 5,
     "Components": [
         {
             "Transform": {
@@ -82,7 +82,7 @@
         },
         {
             "ID": 2,
-            "Name": "Icon",
+            "Name": "Collider Icon",
             "Parent": 0,
             "Components": [
                 {
@@ -202,6 +202,43 @@
                         },
                         "scale": 0.054999999701976776,
                         "fontID": 0
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 5,
+            "Name": "Icon",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 55.5, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 119,
+                                "height": 111
+                            }
+                        },
+                        "spriteName": "CardIcon_LeahDefenceShield",
+                        "shouldRender": true
                     }
                 }
             ]

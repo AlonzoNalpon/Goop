@@ -19,9 +19,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ScriptEngine/ScriptManager.h>
 #include <Events/AnimEventManager.h>
 #include <Serialization/JsonKeys.h>
-#ifndef IMGUI_DISABLE
 #include <Prefabs/PrefabManager.h>
-#endif
 
 #ifdef _DEBUG
 //#define DESERIALIZER_DEBUG
@@ -39,7 +37,6 @@ std::ostream& operator<<(std::ostream& os, rttr::type const& type)
 }
 #endif
 
-#ifndef IMGUI_DISABLE
 Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string const& json)
 {
   std::ifstream ifs{ json };
@@ -176,7 +173,6 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
 
   return prefab;
 }
-#endif
 
 ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene(std::string const& filepath)
 {

@@ -204,6 +204,12 @@ namespace GoopScripts.Gameplay
         Console.WriteLine("Discarding " + m_queue[i].ToString());
 #endif
         m_discard.Add(m_queue[i].Item1);
+
+        // destroy the entity if it exists
+        if (m_queue[i].Item2 != uint.MaxValue)
+        {
+          Utils.DestroyEntity(m_queue[i].Item2);
+        }
         m_queue[i] = (CardBase.CardID.NO_CARD, uint.MaxValue);
       }
     }
@@ -231,10 +237,22 @@ namespace GoopScripts.Gameplay
     {
       m_discard.Clear();
 
+      for (int i = 0; i < m_hand.Count; i++)
+      {
+        if (m_hand[i].Item2 != uint.MaxValue)
+        {
+          Utils.DestroyEntity(m_hand[i].Item2);
+        }
+        m_queue[i] = (CardBase.CardID.NO_CARD, 0u);
+      }
       m_hand.Clear();
 
       for (int i = 0; i < m_queue.Length; i++)
       {
+        if (m_queue[i].Item2 != uint.MaxValue)
+        {
+          Utils.DestroyEntity(m_queue[i].Item2);
+        }
         m_queue[i] = (CardBase.CardID.NO_CARD, 0u);
       }
     }
