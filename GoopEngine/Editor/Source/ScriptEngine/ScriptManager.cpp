@@ -113,6 +113,7 @@ void GE::MONO::ScriptManager::InitMono()
 
   // Get Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPosition", GE::MONO::GetPosition);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetWorldPosition", GE::MONO::GetWorldPosition);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);  
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScale", GE::MONO::GetScale);
 
@@ -139,20 +140,24 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", GE::MONO::PlayAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::GameSystemResolved", GE::MONO::GameSystemResolved);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlaySoundF", GE::MONO::PlaySoundF);
+  mono_add_internal_call("GoopScripts.Mono.Utils::StopSound", GE::MONO::StopSound);
+  mono_add_internal_call("GoopScripts.Mono.Utils::StopChannel", GE::MONO::StopChannel);
   mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScript", GE::MONO::GetScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptFromID", GE::MONO::GetScriptFromID);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetGameSysScript", GE::MONO::GetGameSysScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptInstanceGetScriptInstance", GE::MONO::GetScriptInstance);
 
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetQueueCardID", GE::MONO::SetQueueCardID);
-  mono_add_internal_call("GoopScripts.Mono.Utils::SetHandCardID", GE::MONO::SetHandCardID);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToHandState", GE::MONO::SetCardToHandState);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToQueuedState", GE::MONO::SetCardToQueuedState);
 
   // Game UI Stuff
   mono_add_internal_call("GoopScripts.Mono.Utils::GetLoseFocus", GE::MONO::GetLoseFocus);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetLoseFocus", GE::MONO::SetLoseFocus);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetIsActiveEntity", GE::MONO::SetIsActiveEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetParent", GE::MONO::SetParent);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetParentEntity", GE::MONO::GetParentEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetEntity", GE::MONO::GetEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::DestroyEntity", GE::MONO::DestroyEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetIsActiveEntity", GE::MONO::GetIsActiveEntity);
@@ -222,10 +227,12 @@ void GE::MONO::ScriptManager::LoadAllMonoClass()
         }
         m_monoClassMap[className] = newScriptClassInfo;
         MonoMethod* ctor = mono_class_get_method_from_name(newClass, ".ctor", 0);
-        if (ctor)
+        MonoMethod* ctor2 = mono_class_get_method_from_name(newClass, ".ctor", 1);
+        if (ctor || ctor2)
         {
           m_allScriptNames.push_back(className);
         }
+
       }
     }
     
@@ -360,8 +367,8 @@ bool GE::MONO::CheckMonoError(MonoError& error)
   return hasError;
 }
 
-void GE::MONO::CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1, float fadeStart1, float fadeEnd1, 
-                              MonoString* audio2, float startVol2, float endVol2, float fadeStart2, float fadeEnd2, 
+void GE::MONO::CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1, float fadeStart1, float fadeEnd1,
+                              MonoString* audio2, float startVol2, float endVol2, float fadeStart2, float fadeEnd2,
                               float fadeDuration)
 {
   GE::Systems::AudioSystem::CrossFade cf;
@@ -388,6 +395,12 @@ void GE::MONO::SetParent(GE::ECS::Entity parent, GE::ECS::Entity child)
   static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
   ecs.SetParentEntity(child, parent);
   ecs.AddChildEntity(parent, child);
+}
+
+GE::ECS::Entity GE::MONO::GetParentEntity(GE::ECS::Entity child)
+{
+  auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  return ecs.GetParentEntity(child);
 }
 
 GE::ECS::Entity GE::MONO::GetEntity(MonoString* entityName)
@@ -561,8 +574,7 @@ void GE::MONO::SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-  oldTransform->m_pos.x = PosAdjustment.x;
-  oldTransform->m_pos.y = PosAdjustment.y;
+  oldTransform->m_pos = PosAdjustment;
 }
 
 void GE::MONO::SetScale(GE::ECS::Entity entity, GE::Math::dVec3 scaleAdjustment)
@@ -570,8 +582,7 @@ void GE::MONO::SetScale(GE::ECS::Entity entity, GE::Math::dVec3 scaleAdjustment)
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-  oldTransform->m_scale.x = scaleAdjustment.x;
-  oldTransform->m_scale.y = scaleAdjustment.y;
+  oldTransform->m_scale = scaleAdjustment;
 }
 
 void GE::MONO::SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 rotAdjustment)
@@ -588,6 +599,13 @@ GE::Math::dVec3 GE::MONO::GetPosition(GE::ECS::Entity entity)
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
   return oldTransform->m_pos;
+}
+
+GE::Math::dVec3 GE::MONO::GetWorldPosition(GE::ECS::Entity entity)
+{
+  GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+  GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
+  return oldTransform->m_worldPos;
 }
 
 GE::Math::dVec3 GE::MONO::GetScale(GE::ECS::Entity entity)
@@ -676,6 +694,26 @@ void GE::MONO::PlaySound(int soundIterator, GE::ECS::Entity entity)
   GE::Debug::ErrorLogger::GetInstance().LogError("Trying to play a sound that does not exist from a script");
 }
 
+void GE::MONO::PlaySoundF(MonoString* soundName, float volume, GE::fMOD::FmodSystem::ChannelType channel, bool looped)
+{
+  static GE::fMOD::FmodSystem& fMod = GE::fMOD::FmodSystem::GetInstance();
+  std::string sound = MonoStringToSTD(soundName);
+  fMod.PlaySound(sound, volume, channel, looped);
+}
+
+void GE::MONO::StopSound(MonoString* soundName)
+{
+  static GE::fMOD::FmodSystem& fMod = GE::fMOD::FmodSystem::GetInstance();
+  std::string sound = MonoStringToSTD(soundName);
+  fMod.StopSound(sound);
+}
+
+void GE::MONO::StopChannel(GE::fMOD::FmodSystem::ChannelType channel)
+{
+  static GE::fMOD::FmodSystem& fMod = GE::fMOD::FmodSystem::GetInstance();
+  fMod.StopChannel(channel);
+}
+
 int GE::MONO::CalculateGCD(int large, int small)
 {
   return small == 0 ? large : CalculateGCD(small, large % small);
@@ -686,45 +724,50 @@ void GE::MONO::GameSystemResolved()
   GE::Events::EventManager::GetInstance().Dispatch(GE::Events::GameTurnResolved());
 }
 
-void  GE::MONO::SetQueueCardID(GE::ECS::Entity queueEntity, int queueIndex, int cardID)
+void GE::MONO::SetCardToQueuedState(unsigned entity, Math::dVec3 target)
 {
-  ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
-  Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(queueEntity);
-  ECS::Entity elemEntity = cardHolder->elements[queueIndex].elemEntity;
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  Component::Transform* iconTrans{ nullptr };
+  // iterate through all children and set to inactive
+  // and enable Collider Icon
+  for (ECS::Entity const& e : ecs.GetChildEntities(entity))
+  {
+    if (ecs.GetEntityName(e) == "Collider Icon")
+    {
+      iconTrans = ecs.GetComponent<Component::Transform>(e);
+      ecs.SetIsActiveEntity(e, true);
+      continue;
+    }
 
-  if (cardHolder->elements[queueIndex].used)
-  {
-    cardHolder->elements[queueIndex].used = false; // no longer using this slot if it's overriden
-    // But now we reenable the card that it disabled ...
-    //ecs.SetIsActiveEntity(cardHolder->elements[queueIndex].cardEntity, true);
+    ecs.SetIsActiveEntity(e, false);
   }
-  
-  // Now set the sprite ...
-  auto* spriteComp = ecs.GetComponent<Component::Sprite>(elemEntity);
-  if (spriteComp)
+
+  if (!iconTrans)
   {
-    auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
-    spriteComp->m_spriteData.texture = texManager.GetTextureID(CardSpriteNames[cardID]);
+    Debug::ErrorLogger::GetInstance().LogError("Entity " + std::to_string(entity) + " has no \"Icon\" child");
+    return;
   }
+
+  auto* cardTrans{ ecs.GetComponent<Component::Transform>(entity) };
+  // offset the whole card by the vector needed
+  // to get the icon to the target
+  cardTrans->m_pos.x += target.x - iconTrans->m_worldPos.x;
+  cardTrans->m_pos.y += target.y - iconTrans->m_worldPos.y;
 }
 
-void  GE::MONO::SetHandCardID(GE::ECS::Entity handEntity, int handIndex, int cardID)
+void GE::MONO::SetCardToHandState(unsigned cardEntity)
 {
-  ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
-  Component::CardHolder* cardHolder = ecs.GetComponent<Component::CardHolder>(handEntity);
-  ECS::Entity cardEntity = cardHolder->elements[handIndex].cardEntity;
-  auto* cardComp = ecs.GetComponent<Component::Card>(cardEntity);
-
-  // Set the card ID ...
-  cardComp->cardID = static_cast<Component::Card::CardID>(cardID);
-
-  // Now set the sprite of card ...
-  auto* spriteComp = ecs.GetComponent<Component::Sprite>(cardEntity);
-  if (spriteComp)
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  // set all children of card to active and disable Collider Icon
+  for (ECS::Entity const& e : ecs.GetChildEntities(cardEntity))
   {
-    auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
-    spriteComp->m_spriteData.texture = texManager.GetTextureID(CardSpriteNames[cardComp->cardID]);
-    ecs.SetIsActiveEntity(cardEntity, true);
+    if (ecs.GetEntityName(e) == "Collider Icon")
+    {
+      ecs.SetIsActiveEntity(e, false);
+      continue;
+    }
+
+    ecs.SetIsActiveEntity(e, true);
   }
 }
 
@@ -787,11 +830,11 @@ bool GE::MONO::GetIsActiveEntity(GE::ECS::Entity entity)
   return GE::ECS::EntityComponentSystem::GetInstance().GetIsActiveEntity(entity);
 }
 
-GE::ECS::Entity GE::MONO::SpawnPrefab(MonoString* key, GE::Math::dVec3 pos, bool mapEntity)
+GE::ECS::Entity GE::MONO::SpawnPrefab(MonoString* key, GE::Math::dVec3 pos)
 {
   std::string str = GE::MONO::MonoStringToSTD(key);
 
-  return GE::Prefabs::PrefabManager::GetInstance().SpawnPrefab(str, pos, mapEntity);
+  return GE::Prefabs::PrefabManager::GetInstance().SpawnPrefab(str, pos, false);
 }
 
 int GE::MONO::GetObjectWidth(GE::ECS::Entity entity)

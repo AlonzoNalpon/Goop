@@ -17,6 +17,8 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AI/TreeManager.h>
 #include <ObjectFactory/ObjectFactory.h>
 #include <Prefabs/VariantPrefab.h>
+#include <rapidjson/istreamwrapper.h>
+#include <Events/AnimEventManager.h>
 
 #ifdef _DEBUG
 std::ostream& operator<<(std::ostream& os, rttr::type const& type);
@@ -86,6 +88,16 @@ namespace GE
         std::vector of systems to their respective components
       ************************************************************************/
       static std::vector<std::pair<std::string, std::vector<rttr::type>>> DeserializeSystems(std::string const& json);
+
+      /*!*********************************************************************
+      \brief
+        Deserializes data from a json file into an AnimEventsTable object
+      \param filepath
+        The json file
+      \return
+        The deserialized AnimEventsTable object
+      ************************************************************************/
+      static Events::AnimEventManager::AnimEventsTable DeserializeAnimEventsTable(std::string const& filepath);
 
       /*!*********************************************************************
       \brief
@@ -254,6 +266,19 @@ namespace GE
         An rttr::variant containing the int object
       ************************************************************************/
       static rttr::variant TryDeserializeIntoInt(rapidjson::Value const& value);
+
+      /*!*********************************************************************
+      \brief
+        Parses a json file into a rapidjson::Value or Document object.
+        Uses IStreamWrapper to do so and reports any errors encountered.
+      \param value
+        The rapidjson object to read into
+      \param filepath
+       The json file to read from
+      \return
+        True if the operation was successful and false otherwise
+      ************************************************************************/
+      static bool ParseJsonIntoDocument(rapidjson::Document& document, std::string const& filepath);
     };
 
   } // namespace Serialization

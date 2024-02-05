@@ -68,7 +68,7 @@ void SystemManager::EntitySignatureChanged(Entity& entity, const ComponentSignat
 	}
 }
 
-void GE::ECS::SystemManager::EntityActiveStateChanged(Entity& entity, bool newState)
+void GE::ECS::SystemManager::EntityActiveStateChanged(Entity const& entity, bool newState)
 {
 	for (auto& system : m_systems)
 	{

@@ -99,7 +99,7 @@ namespace GE
 			\param bool
 				Active flag of an entity.
 			************************************************************************/
-			void SetIsActiveEntity(Entity& entity, bool active);
+			void SetIsActiveEntity(Entity const& entity, bool active);
 
 			/*!******************************************************************
 			\brief

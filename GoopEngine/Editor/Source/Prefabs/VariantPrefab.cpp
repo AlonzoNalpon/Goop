@@ -31,6 +31,7 @@ ECS::Entity PrefabSubData::Construct() const
 
   ObjectFactory::ObjectFactory::GetInstance().AddComponentsToEntity(entity, m_components);
   ecs.SetEntityName(entity, m_name);
+  ecs.SetIsActiveEntity(entity, m_isActive);
 
   return entity;
 }
@@ -61,6 +62,7 @@ std::pair<ECS::Entity, VariantPrefab::EntityMappings> VariantPrefab::Construct()
   ECS::Entity const entity{ ecs.CreateEntity() };
   ObjectFactory::ObjectFactory::GetInstance().AddComponentsToEntity(entity, m_components);
   ecs.SetEntityName(entity, m_name);
+  ecs.SetIsActiveEntity(entity, m_isActive);
 
   // map base ID to this entity ID
   idsToEntities.emplace(PrefabSubData::BasePrefabId, entity);  
@@ -80,6 +82,7 @@ std::pair<ECS::Entity, VariantPrefab::EntityMappings> VariantPrefab::Construct()
     ECS::Entity const& child{ idsToEntities[obj.m_id] }, parent{ idsToEntities[obj.m_parent] };
     ecs.SetParentEntity(child, parent);
     ecs.AddChildEntity(parent, child);
+    ecs.SetIsActiveEntity(child, obj.m_isActive);
   }
 
   return { entity, mappedData };
@@ -95,6 +98,7 @@ void VariantPrefab::CreateSubData(std::set<ECS::Entity> const& children, PrefabS
   {
     PrefabSubData::SubDataId const currId{ static_cast<PrefabSubData::SubDataId>(m_objects.size() + 1) };
     PrefabSubData obj{ ecs.GetEntityName(child), currId, parent };
+    obj.m_isActive = ecs.GetIsActiveEntity(child);
 
     obj.m_components = ObjectFactory::ObjectFactory::GetInstance().GetEntityComponents(child);
 

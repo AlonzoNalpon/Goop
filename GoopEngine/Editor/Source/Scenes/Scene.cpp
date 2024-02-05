@@ -49,6 +49,11 @@ void GE::Scenes::Scene::Unload()
 				GE::Component::Scripts* scripts = ecs->GetComponent<GE::Component::Scripts>(entity);
 				for (auto script : scripts->m_scriptList)
 				{
+					if (!script.m_scriptClass)
+					{
+						continue;
+					}
+
 					MonoMethod* onDestroy = mono_class_get_method_from_name(script.m_scriptClass, "OnDestroy", 1);
 					if (onDestroy)
 					{
@@ -66,42 +71,4 @@ void GE::Scenes::Scene::Unload()
 void GE::Scenes::Scene::Free()
 {
 	of->EmptyMap();
-}
-
-void GE::Scenes::Scene::TestScene()
-{
-	
-	//of->ClearSceneObjects();
-	//of->LoadSceneJson(GE::Assets::AssetManager::GetInstance().GetScene("SceneTest"));
-	//of->LoadSceneObjects();
-	//Entity gameSys = ecs->CreateEntity();
-	//std::vector<void*> arg{};
-
-
-	//Entity testPlayer = ecs->CreateEntity();
-	//Entity testEnemy = ecs->CreateEntity();
-
-	//GE::Component::Game GameComp{};
-	//ScriptInstance GameMan{ "GameManager",arg };
-	//GameComp.m_gameSystemScript = GameMan;
-	//GameComp.m_enemy = testEnemy;
-	//GameComp.m_player = testPlayer;
-	//GameComp.m_pauseMenu = (unsigned) - 1;
-
-	//GE::Component::Transform GSTrans{};
-	//std::vector<std::string> listOFScripts{ "Stats" };
-	//GE::Component::Scripts testPLayerScript = Scripts(listOFScripts);
-	//GE::Component::Scripts testEnemyScript = Scripts(listOFScripts);
-
-	//ecs->SetEntityName(gameSys, "GameSys");
-	//ecs->AddComponent(gameSys, GameComp);
-	//ecs->AddComponent(gameSys, GSTrans);
-
-	//ecs->SetEntityName(testPlayer, "Test Player");
-	//ecs->AddComponent(testPlayer, GSTrans);
-	//ecs->AddComponent(testPlayer, testPLayerScript);
-
-	//ecs->SetEntityName(testEnemy, "Test Enemy");
-	//ecs->AddComponent(testEnemy, GSTrans);
-	//ecs->AddComponent(testEnemy, testEnemyScript);
 }

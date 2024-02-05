@@ -77,71 +77,71 @@ namespace GoopScripts.AI.Enemy.MineWorm
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
+      //List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
 
-      Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-      Console.WriteLine("Start choosing card to perform combo");
-      Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
-      Random random = new Random();
-
-
-      int handSize = 0;
-      foreach (CardBase.CardID c in EnemyStats.m_deckMngr.m_hand)
-      {
-        handSize = (c != CardBase.CardID.NO_CARD) ? handSize + 1 : handSize;
-      }
-
-      int maxComboSize = (handSize >= 3) ? 4 : 2;
-      int comboSize = random.Next(2, maxComboSize);
-      if (EnemyStats.m_deckMngr.m_hand.Any(item => specialCards.Contains(item)))
-      {
-        comboSize = 2;
-      }
-      List<int> cardsToPlay = new List<int>();
-
-      Console.WriteLine("HandSize:: " + handSize);
-      Console.WriteLine("Numbers of Cards to Combo: "+ comboSize);
-
-      Console.WriteLine("Enemy Cards in Hand");
-      Console.WriteLine("-----------------------------------------");
-      foreach (CardBase.CardID c in EnemyStats.m_deckMngr.m_hand)
-      {
-        if (c != CardBase.CardID.NO_CARD)
-        {
-          Console.WriteLine(c.ToString());
-        }
-
-      }
-      Console.WriteLine("-----------------------------------------\n");
+      //Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+      //Console.WriteLine("Start choosing card to perform combo");
+      //Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
+      //Random random = new Random();
 
 
-      while (cardsToPlay.Count < comboSize)
-      {
-        int c = random.Next(0, EnemyStats.m_deckMngr.m_hand.Length);
-        //Console.WriteLine("Rand:: " + c + "->" + EnemyStats.m_deckMngr.m_hand[c]);
+      //int handSize = 0;
+      //foreach (var c in EnemyStats.m_deckMngr.m_hand)
+      //{
+      //  handSize = (c.Item1 != CardBase.CardID.NO_CARD) ? handSize + 1 : handSize;
+      //}
 
-        if(!cardsToPlay.Contains(c) && !specialCards.Contains(EnemyStats.m_deckMngr.m_hand[c]) && EnemyStats.m_deckMngr.m_hand[c] != CardBase.CardID.NO_CARD)
-        {
-          cardsToPlay.Add(c);
-        }
-      }
+      //int maxComboSize = (handSize >= 3) ? 4 : 2;
+      //int comboSize = random.Next(2, maxComboSize);
+      //if (EnemyStats.m_deckMngr.m_hand.Any(item => specialCards.Contains(item.Item1)))
+      //{
+      //  comboSize = 2;
+      //}
+      //List<int> cardsToPlay = new List<int>();
+
+      //Console.WriteLine("HandSize:: " + handSize);
+      //Console.WriteLine("Numbers of Cards to Combo: "+ comboSize);
+
+      //Console.WriteLine("Enemy Cards in Hand");
+      //Console.WriteLine("-----------------------------------------");
+      //foreach (var c in EnemyStats.m_deckMngr.m_hand)
+      //{
+      //  if (c.Item1 != CardBase.CardID.NO_CARD)
+      //  {
+      //    Console.WriteLine(c.ToString());
+      //  }
+
+      //}
+      //Console.WriteLine("-----------------------------------------\n");
+
+
+      //while (cardsToPlay.Count < comboSize)
+      //{
+      //  int c = random.Next(0, EnemyStats.m_deckMngr.m_hand.Count);
+      //  //Console.WriteLine("Rand:: " + c + "->" + EnemyStats.m_deckMngr.m_hand[c]);
+
+      //  if(!cardsToPlay.Contains(c) && !specialCards.Contains(EnemyStats.m_deckMngr.m_hand[c].Item1) && EnemyStats.m_deckMngr.m_hand[c].Item1 != CardBase.CardID.NO_CARD)
+      //  {
+      //    cardsToPlay.Add(c);
+      //  }
+      //}
 
 
 
-      Console.WriteLine("Enemy Cards played");
-      Console.WriteLine("-----------------------------------------");
-      foreach (int c in cardsToPlay)
-      {
-        Console.WriteLine(EnemyStats.m_deckMngr.m_hand[c].ToString());
-        EnemyStats.QueueCard(c);
-      }
-      Console.WriteLine("-----------------------------------------");
+      //Console.WriteLine("Enemy Cards played");
+      //Console.WriteLine("-----------------------------------------");
+      //foreach (int c in cardsToPlay)
+      //{
+      //  Console.WriteLine(EnemyStats.m_deckMngr.m_hand[c].Item1.ToString());
+      //  EnemyStats.QueueCard(c);
+      //}
+      //Console.WriteLine("-----------------------------------------");
 
      
-      Console.WriteLine("Perform Combo Finish");
-      Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
+      //Console.WriteLine("Perform Combo Finish");
+      //Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
 
-      EndAI(entityID);
+      //EndAI(entityID);
 
 
     }

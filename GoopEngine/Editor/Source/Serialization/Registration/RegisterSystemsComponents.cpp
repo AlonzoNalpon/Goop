@@ -37,6 +37,7 @@ RTTR_REGISTRATION
   rttr::registration::class_<Systems::ButtonScriptSystem>("ButtonScriptSystem");
   rttr::registration::class_<Systems::CardHolderSystem>("CardHolderSystem");
   rttr::registration::class_<Systems::ParticleSystem>("ParticleSystem");
+  rttr::registration::class_<Systems::AnimEventsSystem>("AnimEventsSystem");
 
 
   /* ------------------- COMPONENTS ------------------- */
@@ -74,9 +75,9 @@ RTTR_REGISTRATION
     ;
 
   rttr::registration::class_<Component::Sprite>("Sprite")
-    .constructor<Graphics::SpriteData const&, std::string>()
+    .constructor<Graphics::SpriteData const&, std::string, bool>()
     (
-      rttr::parameter_names("spriteData", "spriteName")
+      rttr::parameter_names("spriteData", "spriteName", "shouldRender")
     )
     .property("spriteData", &Component::Sprite::m_spriteData)
     .property("spriteName", &Component::Sprite::m_spriteName)
@@ -115,11 +116,10 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::Tween>("Tween")
     .constructor<>()
     .property("tweens", &Component::Tween::m_tweens)
-    .property("timeTaken", &Component::Tween::m_timeTaken)
-    .property("timeElapsed", &Component::Tween::m_timeElapsed)
-    .property("originalPos", &Component::Tween::m_originalPos)
     .property("started", &Component::Tween::m_started)
     .property("paused", &Component::Tween::m_paused)
+    .property("loop", &Component::Tween::m_loop)
+    .property("playing", &Component::Tween::m_playing)
     ;
 
   rttr::registration::class_<Component::Audio>("Audio")
@@ -185,4 +185,8 @@ RTTR_REGISTRATION
     .property("particlePerMin", &Component::Emitter::m_particlesPerMin)
     ;
 
+  rttr::registration::class_<Component::AnimEvents>("AnimEvents")
+    .constructor<>()
+    .property("eventList", &Component::AnimEvents::m_eventList)
+    ;
 } // RTTR Registration

@@ -98,17 +98,25 @@ namespace GoopScripts.Mono
 
     /*!*********************************************************************
     \brief
-      function to Set the value of an entity's trnsform component. This function will be added as internal call
-      to allow c# script to set entities' transform
-
+      Function to get the value of an entity's trnsform component. This
+      function will be added as internal call to allow c# script to set 
+      entities' transform
     \params ID
       ID of the entity
-
-    \params newValue
-      values to be added to the entity's transform
     ************************************************************************/
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static Vec3<double> GetPosition(uint ID);
+
+    /*!*********************************************************************
+    \brief
+      Function to get the value of an entity's transform component. This 
+      function will be added as internal call to allow c# script to set 
+      entities' transform
+    \params ID
+      ID of the entity
+    ************************************************************************/
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static Vec3<double> GetWorldPosition(uint ID);
 
     /*!*********************************************************************
 		\brief
@@ -307,17 +315,35 @@ namespace GoopScripts.Mono
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static void PlaySound(int soundIterator, uint entity);
 
+    public enum ChannelType
+    {
+			BGM,
+			SFX,
+			VOICE,
+			TOTAL_CHANNELS,
+		}
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void PlaySoundF(string soundName, float volume, ChannelType channel, bool looped);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		extern public static void StopSound(string soundName);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		extern public static void StopChannel(ChannelType channel);
+
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static void GameSystemResolved();
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static void SetQueueCardID(uint queueEntity, int queueIndex, int cardID);
-
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static void SetHandCardID(uint handEntity, int handIndex, int cardID);
-
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SendString(string s);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetCardToQueuedState(uint entity, Vec3<double> target);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetCardToHandState(uint entity);
+
 
     // /*!*********************************************************************
     // Pause Screens
@@ -352,7 +378,7 @@ namespace GoopScripts.Mono
     extern public static bool GetIsActiveEntity(uint ID);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static uint SpawnPrefab(string key, Vec3<double> pos = new Vec3<double>(), bool mapEntity = true);
+    extern public static uint SpawnPrefab(string key, Vec3<double> pos = new Vec3<double>());
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static uint GetObjectWidth(uint ID);
@@ -374,39 +400,42 @@ namespace GoopScripts.Mono
     extern public static void SetTextComponent(int entity, string text, float alpha = 1.0f);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static void CrossFadeAudio(string audio1, float startVol1, float endVol1, float normalizedFadeStart1, float fadeEnd1,
-                                             string audio2, float startVol2, float endVol2, float normalizedFadeStart2, float fadeEnd2,
-                                             float fadeDuration);
-    public static void PauseMenu(uint pauseMenu)
+		extern public static void CrossFadeAudio(string audio1, float startVol1, float endVol1, float normalizedFadeStart1, float normalizedFadeEnd1,
+																						 string audio2, float startVol2, float endVol2, float normalizedFadeStart2, float normalizedFadeEnd2,
+																						 float fadeDuration);
+		public static void PauseMenu(int pauseMenu)
     {
       UI.PauseManager.SetPauseState(1);
-      Utils.SetIsActiveEntity(pauseMenu, true);
+      Utils.SetIsActiveEntity((uint)pauseMenu, true);
     }
 
-    public static void UndeeperPause(uint pauseMenu, uint deeperPauseMenu)
+    public static void UndeeperPause(int pauseMenu, int deeperPauseMenu)
     {
       UI.PauseManager.SetPauseState(1);
-      Utils.SetIsActiveEntity(deeperPauseMenu, false);
-      Utils.SetIsActiveEntity(pauseMenu, true);
+      Utils.SetIsActiveEntity((uint)deeperPauseMenu, false);
+      Utils.SetIsActiveEntity((uint)pauseMenu, true);
     }
 
-    public static void UnpauseMenu(uint pauseMenu)
+    public static void UnpauseMenu(int pauseMenu)
     {
       UI.PauseManager.SetPauseState(0);
-      Utils.SetIsActiveEntity(pauseMenu, false);
+      Utils.SetIsActiveEntity((uint)pauseMenu, false);
     }
 
-    public static void DeeperPauseMenu(uint pauseMenu, uint deeperPauseMenu)
+    public static void DeeperPauseMenu(int pauseMenu, int deeperPauseMenu)
     {
       UI.PauseManager.SetPauseState(2);
-      Utils.SetIsActiveEntity(deeperPauseMenu, true);
-      Utils.SetIsActiveEntity(pauseMenu, false);
+      Utils.SetIsActiveEntity((uint)deeperPauseMenu, true);
+      Utils.SetIsActiveEntity((uint)pauseMenu, false);
     }
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetParent(uint parent, uint child);
 
-		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static uint GetParentEntity(uint child);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static uint GetEntity(string entityName);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]

@@ -20,6 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #ifndef IMGUI_DISABLE
 #include <Prefabs/PrefabManager.h>
 #include <filesystem>
+#include <EditorUI/ImGuiUI.h>
 #endif
 
 using namespace GE::Scenes;
@@ -87,42 +88,33 @@ void SceneManager::SetNextScene(std::string nextScene)
   
   try
   {
-    if (nextScene == "SceneTest")
-    {
-      scene.TestScene();
-    }
-    else
-    {
-      LoadScene();
-      InitScene();
-      InvokeOnCreate();
-    }
+    LoadScene();
+    InitScene();
+
+#ifndef IMGUI_DISABLE
+    // if running editor, we dont invoke OnCreate if the scene isnt running
+    if (EditorGUI::ImGuiHelper::IsRunning())
+#endif
+    InvokeOnCreate();
   }
   catch (std::out_of_range&)
   {
     m_nextScene = m_currentScene = tmpScene;
-    if (m_currentScene == "SceneTest")
-    {
-      scene.TestScene();
-    }
-    else
-    {
-      LoadScene();
-      InitScene();
-      InvokeOnCreate();
-    }
+
+    LoadScene();
+    InitScene();
+
+#ifndef IMGUI_DISABLE
+    // if running editor, we dont invoke OnCreate if the scene isnt running
+    if (EditorGUI::ImGuiHelper::IsRunning())
+#endif
+    InvokeOnCreate();
     throw Debug::Exception<SceneManager>(Debug::LEVEL_CRITICAL, ErrMsg(nextScene + ".scn doesn't exist."));
   }
 }
 
 void GE::Scenes::SceneManager::RestartScene()
 {
-  if (m_currentScene == "SceneTest")
-  {
-    UnloadScene();
-    scene.TestScene();
-    return;
-  }
   UnloadScene();
   InitScene();
 }

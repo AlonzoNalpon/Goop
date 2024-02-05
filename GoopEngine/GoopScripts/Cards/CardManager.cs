@@ -22,14 +22,83 @@ namespace GoopScripts.Cards
 {
 	public static class CardManager
 	{
-		static CardBase[] m_cards;
+    static public readonly string CARD_ICON_PREFAB = "CardIcon";
 
-		/*!*********************************************************************
-		\brief
-      Default constructor of all cards. Creates an array of all existing
-      cards to then later be used for as a lookup during game logic processing
-		************************************************************************/
-		static CardManager()
+    static Dictionary<CardBase.CardID, CardBase> m_cards = new Dictionary<CardBase.CardID, CardBase>
+    {
+      { CardBase.CardID.NO_CARD, new BlankCard(CardBase.CardID.NO_CARD, CardBase.CardType.BLANK_CARD,cardIDtoSpriteMap[(int)CardBase.CardID.NO_CARD]) },
+
+      // normal enemy
+      { CardBase.CardID.BASIC_ATTACK, new BlankCard(CardBase.CardID.BASIC_ATTACK, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.BASIC_ATTACK]) },
+      { CardBase.CardID.BASIC_SHIELD, new BlankCard(CardBase.CardID.BASIC_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.BASIC_SHIELD]) },
+      { CardBase.CardID.SPECIAL_SCREECH, new BlankCard(CardBase.CardID.SPECIAL_SCREECH, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_SCREECH]) },
+
+      // player
+      { CardBase.CardID.LEAH_BEAM, new BlankCard(CardBase.CardID.LEAH_BEAM, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_BEAM]) },
+      { CardBase.CardID.LEAH_STRIKE, new BlankCard(CardBase.CardID.LEAH_STRIKE, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_STRIKE]) },
+      { CardBase.CardID.LEAH_SHIELD, new BlankCard(CardBase.CardID.LEAH_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_SHIELD]) },
+      { CardBase.CardID.SPECIAL_FLASHBANG, new BlankCard(CardBase.CardID.SPECIAL_FLASHBANG, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_FLASHBANG]) },
+      { CardBase.CardID.SPECIAL_SMOKESCREEN, new BlankCard(CardBase.CardID.SPECIAL_SMOKESCREEN, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_SMOKESCREEN]) },
+      { CardBase.CardID.SPECIAL_RAGE, new BlankCard(CardBase.CardID.SPECIAL_RAGE, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_RAGE]) },
+
+      // dawson
+      { CardBase.CardID.DAWSON_BEAM, new BlankCard(CardBase.CardID.DAWSON_BEAM, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_BEAM]) },
+      { CardBase.CardID.DAWSON_SWING, new BlankCard(CardBase.CardID.DAWSON_SWING, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SWING]) },
+      { CardBase.CardID.DAWSON_SHIELD, new BlankCard(CardBase.CardID.DAWSON_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SHIELD]) },
+      { CardBase.CardID.SPECIAL_CHARGEUP, new BlankCard(CardBase.CardID.SPECIAL_CHARGEUP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_CHARGEUP]) },
+      { CardBase.CardID.SPECIAL_TIMEWRAP, new BlankCard(CardBase.CardID.SPECIAL_TIMEWRAP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_TIMEWRAP]) }
+    };
+
+    // HARDCODED FOR NOW - Reason below
+    // Discrete Math Reference - If Prefab names won't change, then values here won't need to change
+    // This statement is True
+    static public readonly Dictionary<CardBase.CardID, string> m_cardPrefabs = new Dictionary<CardBase.CardID, string>
+    {
+      // basic enemy
+      { CardBase.CardID.BASIC_ATTACK, "Normal_Attack"  },
+      { CardBase.CardID.BASIC_SHIELD, "Normal_Block" },
+      { CardBase.CardID.SPECIAL_SCREECH, "Normal_Screech" },
+
+      // player
+      { CardBase.CardID.LEAH_BEAM, "Leah_Attack" },
+      { CardBase.CardID.LEAH_STRIKE, "Leah_Attack2" },
+      { CardBase.CardID.LEAH_SHIELD, "Leah_Block" },
+      { CardBase.CardID.SPECIAL_FLASHBANG, "Leah_Flashbang" },
+      { CardBase.CardID.SPECIAL_SMOKESCREEN, "Leah_Smokescreen" },
+      { CardBase.CardID.SPECIAL_RAGE, "Leah_Berserk" },
+
+      // dawson
+      { CardBase.CardID.DAWSON_BEAM, "Dawson_Attack" },
+      { CardBase.CardID.DAWSON_SWING, "Dawson_Attack2" },
+      { CardBase.CardID.DAWSON_SHIELD, "Dawson_Block" },
+      { CardBase.CardID.SPECIAL_CHARGEUP, "Dawson_ChargeUp" },
+      { CardBase.CardID.SPECIAL_TIMEWRAP, "Dawson_TimeWarp" }
+    };
+
+    static public readonly Dictionary<CardBase.CardID, string> m_cardIcons = new Dictionary<CardBase.CardID, string>
+    {
+      // basic enemy
+      { CardBase.CardID.BASIC_ATTACK, "CardIcon_BasicAttackClawswipe"  },
+      { CardBase.CardID.BASIC_SHIELD, "CardIcon_BasicDefenceShield" },
+      { CardBase.CardID.SPECIAL_SCREECH, "CardIcon_BasicSpecialScreech" },
+
+      // player
+      { CardBase.CardID.LEAH_BEAM, "CardIcon_LeahAttackBeam" },
+      { CardBase.CardID.LEAH_STRIKE, "CardIcon_LeahAttackSlash" },
+      { CardBase.CardID.LEAH_SHIELD, "CardIcon_LeahDefenceShield" },
+      { CardBase.CardID.SPECIAL_FLASHBANG, "CardIcon_LeahSpecialFlashbang" },
+      { CardBase.CardID.SPECIAL_SMOKESCREEN, "CardIcon_LeahSpecialSmokescreen" },
+      { CardBase.CardID.SPECIAL_RAGE, "CardIcon_LeahSpecialBerserk" },
+
+      // dawson
+      { CardBase.CardID.DAWSON_BEAM, "CardIcon_BossAttackBeamshot" },
+      { CardBase.CardID.DAWSON_SWING, "CardIcon_BossAttackStrike" },
+      { CardBase.CardID.DAWSON_SHIELD, "CardIcon_BossDefenceDeflect" },
+      { CardBase.CardID.SPECIAL_CHARGEUP, "CardIcon_BossSpecialChargeup" },
+      { CardBase.CardID.SPECIAL_TIMEWRAP, "CardIcon_BossSpecialTimewarp" }
+    };
+
+    static CardManager()
 		{
       string filePath = "./Assets/Animations.txt";
       // Process each line and extract the ID (stop at the space character)
@@ -58,38 +127,37 @@ namespace GoopScripts.Cards
       catch (Exception ex)
       {
         Console.WriteLine($"Error reading file: {ex.Message}");
-      }
-
-      // All cards calling TakeDamage() function currently causes crashes.
-      // The function has not yet been properly implemented for gameplay
-      m_cards = new CardBase[(int)CardBase.CardID.TOTAL_CARDS];
-
-      m_cards[(int)CardBase.CardID.NO_CARD] = new BlankCard(CardBase.CardID.NO_CARD, CardBase.CardType.BLANK_CARD, cardIDtoSpriteMap[(int)CardBase.CardID.NO_CARD]);
-
-      //normal enemy
-      m_cards[(int)CardBase.CardID.BASIC_ATTACK] = new BasicAttack(CardBase.CardID.BASIC_ATTACK, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.BASIC_ATTACK]);
-      m_cards[(int)CardBase.CardID.BASIC_SHIELD] = new Block(CardBase.CardID.BASIC_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.BASIC_SHIELD]);
-      m_cards[(int)CardBase.CardID.SPECIAL_SCREECH] = new SpecialScreech(CardBase.CardID.SPECIAL_SCREECH, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_SCREECH]);
-
-      //player
-      m_cards[(int)CardBase.CardID.LEAH_BEAM] = new LeahBeam(CardBase.CardID.LEAH_BEAM, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_BEAM]);
-      m_cards[(int)CardBase.CardID.LEAH_STRIKE] = new LeahStrike(CardBase.CardID.LEAH_STRIKE, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_STRIKE]);
-      m_cards[(int)CardBase.CardID.LEAH_SHIELD] = new Block(CardBase.CardID.LEAH_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.LEAH_SHIELD]);
-      m_cards[(int)CardBase.CardID.SPECIAL_FLASHBANG] = new SpecialFlashBang(CardBase.CardID.SPECIAL_FLASHBANG, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_FLASHBANG]);
-      m_cards[(int)CardBase.CardID.SPECIAL_SMOKESCREEN] = new SpecialSmokeScreen(CardBase.CardID.SPECIAL_SMOKESCREEN, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_SMOKESCREEN]);
-      m_cards[(int)CardBase.CardID.SPECIAL_RAGE] = new SpecialRage(CardBase.CardID.SPECIAL_RAGE, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_RAGE]);
-
-      //dawson
-      m_cards[(int)CardBase.CardID.DAWSON_BEAM] = new DawsonBeam(CardBase.CardID.DAWSON_BEAM, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_BEAM]);
-      m_cards[(int)CardBase.CardID.DAWSON_SWING] = new DawsonSwing(CardBase.CardID.DAWSON_SWING, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SWING]);
-      m_cards[(int)CardBase.CardID.DAWSON_SHIELD] = new Block(CardBase.CardID.DAWSON_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SHIELD]);
-      m_cards[(int)CardBase.CardID.SPECIAL_CHARGEUP] = new SpecialChargeUp(CardBase.CardID.SPECIAL_CHARGEUP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_CHARGEUP]);
-      m_cards[(int)CardBase.CardID.SPECIAL_TIMEWRAP] = new SpecialTimeWrap(CardBase.CardID.SPECIAL_TIMEWRAP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_TIMEWRAP]);
+      }      
     }
 
-    public static CardBase Get(CardBase.CardID id)
+    static public CardBase Get(CardBase.CardID id)
     {
-      return m_cards[(int) id];
+      return m_cards[id];
     }
   }
+
 }
+
+
+//static string[] CardSpriteNames = new string[]
+//{
+//  "DAA2402_CardBaseBack_v01",									  // NO_CARD 
+////____________________________________________ BASIC ENEMY CARDS ______________________
+//  "DAA2402_Card_BasicAttack_ClawSwipe_v01",						// BASIC_NORMAL_ATTACK
+//  "DAA2402_Card_BasicDefense_Shield_v01",						// BASIC_NORMAL_SHIELD
+
+//  "DAA2402_Card_BasicSpecial_Screech_v01",				  // BASIC_NORMAL_BUFF
+////____________________________________________ PLAYER CARDS ___________________________
+//  "DAA2402_Card_LeahAttack_BeamShot_v02",						  // PLAYER_BEAM_ATTACK
+//  "DAA2402_Card_LeahAttack_Slash_v02",						    // PLAYER_STRIKE_ATTACK
+//  "DAA2402_Card_LeahDefense_Shield_v01",						// PLAYER_NORMAL_SHIELD
+//  "DAA2402_Card_LeahSpecial_FlashBang_v02",						  // PLAYER_DEBUFF_FLASH_BANG
+//  "DAA2402_Card_LeahSpecial_Smokescreen_v01",						// PLAYER_BUFF_SMOKESCREEN
+//  "DAA2402_Card_LeahSpecial_Berserk_v01",						// PLAYER_BUFF_RAGE
+////____________________________________________ DAWSON ENEMY CARDS _____________________
+//  "DAA2402_Card_BossAttack_BeamShot_v01",						// DAWSON_BEAM_ATTACK
+//  "DAA2402_Card_BossAttack_Strike_v01",						// DAWSON_STRIKE_ATTACK
+//  "DAA2402_Card_BossDefense_Deflect_v01",						// DAWSON_NORMAL_SHIELD
+//  "DAA2402_Card_BossSpecial_ChargeUp_v01",						// DAWSON_BUFF_CHARGE_UP
+//  "DAA2402_Card_BossSpecial_TimeWarp_v01",						// DAWSON_DEBUFF_TIME_WARP
+//};

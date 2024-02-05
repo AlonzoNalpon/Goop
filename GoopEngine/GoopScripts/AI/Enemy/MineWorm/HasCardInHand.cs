@@ -79,9 +79,9 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
       int handSize = 0;
-      foreach (CardBase.CardID c in EnemyStats.m_deckMngr.m_hand)
+      foreach (var c in EnemyStats.m_deckMngr.m_hand)
       {
-        handSize = (c != CardBase.CardID.NO_CARD) ? handSize + 1 : handSize;
+        handSize = (c.Item1 != CardBase.CardID.NO_CARD) ? handSize + 1 : handSize;
       }
 
       if (handSize > 0)

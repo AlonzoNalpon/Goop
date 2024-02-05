@@ -53,11 +53,6 @@ namespace GE::Scenes
     ************************************************************************/
     virtual void Free();
 
-    /*!*********************************************************************
-    \brief
-      Originally a hardcoded scene to test unserialized entities.
-    ************************************************************************/
-    void TestScene();
   private:
     GE::ECS::EntityComponentSystem* ecs;
     GE::ObjectFactory::ObjectFactory* of;

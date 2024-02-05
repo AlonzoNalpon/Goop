@@ -118,7 +118,7 @@ namespace GE
 			\param[in] newState
 				New active state
 			********************************************************************/
-			void EntityActiveStateChanged(Entity& entity, bool newState);
+			void EntityActiveStateChanged(Entity const& entity, bool newState);
 
 		protected:
 			std::set<Entity> m_entities;

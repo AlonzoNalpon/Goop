@@ -83,9 +83,9 @@ namespace GoopScripts.AI.Enemy.MineWorm
       List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
       int pos = 0;
       int cardToPlay = 0;
-      foreach (CardID c in EnemyStats.m_deckMngr.m_hand)
+      foreach (var c in EnemyStats.m_deckMngr.m_hand)
       {
-        cardToPlay = (c == CardID.SPECIAL_SCREECH) ? pos : cardToPlay;
+        cardToPlay = (c.Item1 == CardID.SPECIAL_SCREECH) ? pos : cardToPlay;
         ++pos;
       }
 

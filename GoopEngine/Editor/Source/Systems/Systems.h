@@ -17,3 +17,4 @@
 #include <Systems/Button/ButtonScriptSystem.h>
 #include <Systems/CardHolder/CardHolderSystem.h>
 #include <Systems/ParitcleSystem/ParticleSystem.h>
+#include <Systems/AnimEvent/AnimEventsSystem.h>

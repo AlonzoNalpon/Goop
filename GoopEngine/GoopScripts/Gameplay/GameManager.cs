@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,18 +14,17 @@ namespace GoopScripts.Gameplay
 {
   public class GameManager : Entity
   {
-    
-    static readonly uint PAUSE_MENU = 27;
-    static readonly uint HOWTOPLAY_MENU= 56;
-    static readonly uint QUIT_MENU = 60;
-
+    //static readonly double INTERVAL_TIME = 3.0;
+    public int PAUSE_MENU;
+    public int HOWTOPLAY_MENU;
+    public int QUIT_MENU;
 
     Random m_rng;
-    //double m_animTime = 1.0; // hard coded for now
     double m_currTime = 0.0;
     double m_animTime = 0.0;
 
-    Stats m_playerStats, m_enemyStats;
+
+    public Stats m_playerStats, m_enemyStats;
 
     bool isResolutionPhase = false;  // flag for triggering a turn
     //bool intervalBeforeReset;
@@ -38,7 +38,7 @@ namespace GoopScripts.Gameplay
     bool isStartOfTurn = true;
     List<CardBase.CardID> m_cardsPlayedP = new List<CardBase.CardID>();
     List<CardBase.CardID> m_cardsPlayedE = new List<CardBase.CardID>();
-
+    bool gameStarted = false; // called once at the start of game 
 
     GameManager(uint entityID):base(entityID)
     {
@@ -52,101 +52,15 @@ namespace GoopScripts.Gameplay
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
     }
 
-    // function to allow c++ to edit the list of cards in cardmanager
-    // this should use cardmanager's c++ interface function
-    //  public void OnUpdate(double dt, Stats player, uint playerEntity, Stats enemy, uint enemyEntity, uint playerHand, uint playerQueue, uint enemyQueue)
-    //{
-
-
-    //    if (endTurn)
-    //	{
-    //      endTurn = false;
-    //      //m_numResolves = 1;
-    //		//m_numResolves = player.m_cardQueue.Length >= enemy.m_cardQueue.Length ? player.m_cardQueue.Length : enemy.m_cardQueue.Length;
-
-    //		//// Do 1 turn of stuff
-    //		//m_cardManager.Cards[(int)player.m_cardQueue[m_currResolves]].Play(ref player, ref enemy);
-    //      //m_cardManager.Cards[(int)enemy.m_cardQueue[m_currResolves]].Play(ref enemy, ref player);
-
-    //      //Utils.PlaySound(m_rng.Next(1, 1), playerEntity);
-    //      //Utils.SetQueueCardID(playerQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
-    //      //Utils.PlaySound(m_rng.Next(0, 1), enemyEntity);
-    //      //Utils.SetQueueCardID(enemyQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
-    //      ////play anim?
-    //      //Utils.PlayAnimation("SS_LeahShoot", playerEntity);
-
-    //      //// remove card
-    //      //player.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
-    //      //enemy.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
-    //      //++m_currResolves;
-    //    }
-
-    //    bool shouldEnd = true;
-    //    if (m_currTime > m_animTime)
-    //    {
-    //      // Overflow the time
-    //      m_currTime = m_animTime - m_currTime;
-
-    //		// Do 1 turn of stuff
-    //		//m_cardManager.Cards[(int)player.m_cardQueue[m_currResolves]].Play(ref player, ref enemy);
-    //		//m_cardManager.Cards[(int)enemy.m_cardQueue[m_currResolves]].Play(ref enemy, ref player);
-
-    //      //play anim? play sound?
-    //      Utils.PlaySound(m_rng.Next(0, 1), playerEntity);
-    //      //Utils.SetQueueCardID(playerQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
-    //      Utils.PlaySound(m_rng.Next(0, 1), enemyEntity);
-    //      //Utils.SetQueueCardID(enemyQueue, m_currResolves, (int)CardBase.CardID.NO_CARD);
-
-    //      // remove card
-    //      //player.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
-    //      //enemy.m_cardQueue[m_currResolves] = CardBase.CardID.NO_CARD;
-
-    //      //++m_currResolves;
-
-    //		//if (m_currResolves >= m_numResolves)
-    //		//{
-    //		//	shouldEnd = true;
-    //		//}
-    //		Utils.PlayAnimation("SS_LeahShoot", playerEntity);
-    //	}
-    //    else
-    //    {
-    //		m_currTime += dt;
-    //	}
-
-    //    if (shouldEnd)
-    //	{
-    //		// Draw cards here.        
-    //		Utils.GameSystemResolved();
-    //      //int i = 0;
-    //      //for (; i < player.m_hand.Length; ++i)
-    //      //{
-    //      //  if (player.m_hand[i] == CardBase.CardID.NO_CARD)
-    //      //  {
-    //      //    break;
-    //      //  }
-    //      //}
-    //      //// Draw card if there is space, if no space burn card
-    //      //if (i < player.m_hand.Length && player.m_deck.Length > 0)
-    //      //{
-    //      //  int drawnCard = m_rng.Next(0, player.m_deck.Length - 1);
-
-    //      //  List<CardBase.CardID> temp = player.m_deck.ToList();
-    //      //  temp.Remove((CardBase.CardID)drawnCard);
-    //      //  player.m_deck = temp.ToArray();
-
-    //      //  Utils.SetHandCardID(playerHand, i, (int)player.m_deck[drawnCard]);
-    //      //  player.m_hand[i] = player.m_deck[drawnCard];
-    //      //}
-    //      //m_currResolves = 0;
-    //      m_currTime = 0;
-
-    //		Utils.PlayAnimation("SS_LeahIdle", playerEntity);
-    //	}
-    //  }
-
     public void OnUpdate(double deltaTime)
     {
+      if (!gameStarted)
+      {
+        m_playerStats.Init();
+        m_enemyStats.Init();
+        gameStarted = true;
+      }
+
       if (Utils.GetLoseFocus())
       {
         if (UI.PauseManager.GetPauseState() == 0)
@@ -157,20 +71,20 @@ namespace GoopScripts.Gameplay
       {
         switch (UI.PauseManager.GetPauseState())
         {
-        case 0:
+          case 0:
             Utils.PauseMenu(PAUSE_MENU);
-          break;
-        case 1:
+            break;
+          case 1:
             Utils.UnpauseMenu(PAUSE_MENU);
-          break;
-        case 2:
-            if (Utils.GetIsActiveEntity(HOWTOPLAY_MENU))
+            break;
+          case 2:
+            if (Utils.GetIsActiveEntity((uint)HOWTOPLAY_MENU))
               Utils.UndeeperPause(PAUSE_MENU, HOWTOPLAY_MENU);
-            if (Utils.GetIsActiveEntity(QUIT_MENU))
+            if (Utils.GetIsActiveEntity((uint)QUIT_MENU))
               Utils.UndeeperPause(PAUSE_MENU, QUIT_MENU);
             break;
-        default:
-          break;
+          default:
+            break;
         }
       }
 

@@ -41,25 +41,46 @@ void TweenSystem::FixedUpdate()
 		}
 
 		Transform* trans = m_ecs->GetComponent<Transform>(entity);
-		auto [target, duration] = m_ecs->GetComponent<Tween>(entity)->m_tweens.front();
+
+		if (tween->m_tweens.find(tween->m_playing) == tween->m_tweens.end())
+			continue;
+		// Find the tween being played in the map, then find the step being played of the tween
+		auto [target, scale, rot, duration] = tween->m_tweens[tween->m_playing][tween->m_step];
 
 		if (tween->m_timeElapsed > duration)
 		{
 			tween->m_timeElapsed -= duration;
 			tween->m_originalPos = target;
+			tween->m_originalScale = scale;
+			tween->m_originalRot = rot;
 			double normalisedTime = tween->m_timeElapsed / duration;
 			trans->m_pos = Tweening(tween->m_originalPos, target, normalisedTime);
-			tween->m_tweens.pop_front();
+			trans->m_scale = Tweening(tween->m_originalScale, scale, normalisedTime);
+			trans->m_rot = Tweening(tween->m_originalRot, rot, normalisedTime);
+
+			++tween->m_step;
+			if (tween->m_step >= tween->m_tweens[tween->m_playing].size())
+			{
+				tween->m_step = 0;
+				if (!tween->m_loop)
+				{
+					tween->m_playing = "";
+				}
+			}
 		}
 		else
 		{
 			if (!tween->m_started)
 			{
 				tween->m_originalPos = trans->m_pos;
+				tween->m_originalScale = trans->m_scale;
+				tween->m_originalRot = trans->m_rot;
 				tween->m_started = true;
 			}
 			double normalisedTime = tween->m_timeElapsed / duration;
 			trans->m_pos = Tweening(tween->m_originalPos, target, normalisedTime);
+			trans->m_scale = Tweening(tween->m_originalScale, scale, normalisedTime);
+			trans->m_rot = Tweening(tween->m_originalRot, rot, normalisedTime);
 		}
 		tween->m_timeElapsed += dt;
 	}

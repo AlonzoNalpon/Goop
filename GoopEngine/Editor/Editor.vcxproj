@@ -173,10 +173,12 @@
     <ClCompile Include="Source\EditorUI\AnimEventEditor.cpp" />
     <ClCompile Include="Source\EditorUI\EditorTheme.cpp" />
     <ClCompile Include="Source\EditorUI\SpriteAnimEditor.cpp" />
+    <ClCompile Include="Source\Events\AnimEventManager.cpp" />
     <ClCompile Include="Source\Prefabs\PrefabManager.cpp" />
     <ClCompile Include="Source\Prefabs\VariantPrefab.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptUtils.cpp" />
     <ClCompile Include="Source\Serialization\Registration\RegisterEnumsAndFuncs.cpp" />
+    <ClCompile Include="Source\Systems\AnimEvent\AnimEventsSystem.cpp" />
     <ClCompile Include="Source\Systems\Audio\AudioSystem.cpp" />
     <ClCompile Include="Source\Commands\CommandManager.cpp" />
     <ClCompile Include="Source\Commands\ImGuiCommands.cpp" />
@@ -329,6 +331,7 @@
     <ClInclude Include="Source\EditorUI\AnimEventEditor.h" />
     <ClInclude Include="Source\EditorUI\EditorTheme.h" />
     <ClInclude Include="Source\EditorUI\SpriteAnimEditor.h" />
+    <ClInclude Include="Source\Events\AnimEventManager.h" />
     <ClInclude Include="Source\Events\Events.h" />
     <ClInclude Include="Source\Fmod\FmodSystem.h" />
     <ClInclude Include="Source\Commands\CommandManager.h" />
@@ -453,6 +456,7 @@
     <ClInclude Include="Source\Graphics\Def\RenderingHelpers.h" />
     <ClInclude Include="Source\Graphics\ShaderProgram.h" />
     <ClInclude Include="Source\SpriteAnimation\SpriteAnimGenerator.h" />
+    <ClInclude Include="Source\Systems\AnimEvent\AnimEventsSystem.h" />
     <ClInclude Include="Source\Systems\Audio\AudioSystem.h" />
     <ClInclude Include="Source\Systems\Button\ButtonScriptSystem.h" />
     <ClInclude Include="Source\Systems\Button\ButtonSystem.h" />

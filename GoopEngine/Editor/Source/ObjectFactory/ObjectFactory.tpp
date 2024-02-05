@@ -39,6 +39,8 @@ void ObjectFactory::RegisterComponentsToSystem(std::vector<rttr::type> const& co
       ecs.RegisterComponentToSystem<GE::Component::CardHolderElem, T>();
     else if (compType == rttr::type::get<Component::Emitter>())
       ecs.RegisterComponentToSystem<GE::Component::Emitter, T>();
+    else if (compType == rttr::type::get<Component::AnimEvents>())
+      ecs.RegisterComponentToSystem<GE::Component::AnimEvents, T>();
     else
     {
       std::ostringstream oss{};

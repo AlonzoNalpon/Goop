@@ -10,7 +10,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "Deserializer.h"
-#include <Serialization/JsonKeys.h>
 #include <rapidjson/IStreamWrapper.h>
 #include <rapidjson/prettywriter.h>
 #include <Component/Components.h>
@@ -18,9 +17,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <stdarg.h>
 #include <AssetManager/AssetManager.h>
 #include <ScriptEngine/ScriptManager.h>
-#ifndef IMGUI_DISABLE
+#include <Events/AnimEventManager.h>
+#include <Serialization/JsonKeys.h>
 #include <Prefabs/PrefabManager.h>
-#endif
 
 #ifdef _DEBUG
 //#define DESERIALIZER_DEBUG
@@ -38,34 +37,23 @@ std::ostream& operator<<(std::ostream& os, rttr::type const& type)
 }
 #endif
 
-#ifndef IMGUI_DISABLE
 Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string const& json)
 {
-  std::ifstream ifs{ json };
-  if (!ifs)
-  {
-    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + json);
-    #ifdef _DEBUG
-    std::cout << "Unable to read " << json << "\n";
-    #endif
-    return {};
-  }
   rapidjson::Document document{};
-  // parse into document object
-  rapidjson::IStreamWrapper isw{ ifs };
-  if (document.ParseStream(isw).HasParseError())
+  if (!ParseJsonIntoDocument(document, json))
   {
-    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + json);
-    #ifdef _DEBUG
-    std::cout << "Unable to parse " + json << "\n";
-    #endif
     return {};
   }
 
   if (!ScanJsonFileForMembers(document, json, 4, JsonNameKey, rapidjson::kStringType, JsonPfbDataKey, rapidjson::kArrayType,
-    JsonComponentsKey, rapidjson::kArrayType, JsonPfbVerKey, rapidjson::kNumberType)) { ifs.close(); return {}; }
+    JsonComponentsKey, rapidjson::kArrayType, JsonPfbVerKey, rapidjson::kNumberType))
+  {
+    return {};
+  }
 
   Prefabs::VariantPrefab prefab{ document[JsonNameKey].GetString(), document[JsonPfbVerKey].GetUint() };
+  prefab.m_isActive = (document.HasMember(JsonPfbActiveKey) ? document[JsonPfbActiveKey].GetBool() : true);
+
   // iterate through component objects in json array
   std::vector<rttr::variant>& compVector{ prefab.m_components };
   for (auto const& elem : document[JsonComponentsKey].GetArray())
@@ -75,17 +63,17 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
     rapidjson::Value const& compJson{ comp->value };
 
     rttr::type compType = rttr::type::get_by_name(compName);
-    #ifdef DESERIALIZER_DEBUG
+#ifdef DESERIALIZER_DEBUG
     std::cout << "  [P] Deserializing " << compType << "\n";
-    #endif
+#endif
     if (!compType.is_valid())
     {
       std::ostringstream oss{};
       oss << "Trying to deserialize an invalid component: " << compName;
       Debug::ErrorLogger::GetInstance().LogError(oss.str());
-      #ifdef _DEBUG
+#ifdef _DEBUG
       std::cout << oss.str() << "\n";
-      #endif
+#endif
       continue;
     }
 
@@ -98,9 +86,14 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
   for (auto const& elem : document[JsonPfbDataKey].GetArray())
   {
     if (!ScanJsonFileForMembers(elem, json, 4, JsonIdKey, rapidjson::kNumberType, JsonNameKey, rapidjson::kStringType,
-      JsonComponentsKey, rapidjson::kArrayType, JsonParentKey, rapidjson::kNumberType)) { continue; }
+      JsonComponentsKey, rapidjson::kArrayType, JsonParentKey, rapidjson::kNumberType))
+    {
+      continue;
+    }
 
     Prefabs::PrefabSubData subObj{ elem[JsonNameKey].GetString(), elem[JsonIdKey].GetUint(), elem[JsonParentKey].GetUint() };
+    subObj.m_isActive = (elem.HasMember(JsonPfbActiveKey) ? elem[JsonPfbActiveKey].GetBool() : true);
+
     for (auto const& component : elem[JsonComponentsKey].GetArray())
     {
       rapidjson::Value::ConstMemberIterator comp{ component.MemberBegin() };
@@ -108,17 +101,17 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
       rapidjson::Value const& compJson{ comp->value };
 
       rttr::type compType = rttr::type::get_by_name(compName);
-      #ifdef DESERIALIZER_DEBUG
+#ifdef DESERIALIZER_DEBUG
       std::cout << "  [P] Deserializing " << compType << "\n";
-      #endif
+#endif
       if (!compType.is_valid())
       {
         std::ostringstream oss{};
         oss << "Trying to deserialize an invalid component: " << compName;
         Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        #ifdef _DEBUG
+#ifdef _DEBUG
         std::cout << oss.str() << "\n";
-        #endif
+#endif
         continue;
       }
 
@@ -131,6 +124,7 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
     prefab.m_objects.emplace_back(std::move(subObj));
   }
 
+#ifndef IMGUI_DISABLE
   if (document.HasMember(JsonRemovedChildrenKey))
   {
     rttr::variant removedChildrenVar{ std::vector<std::pair<Prefabs::PrefabSubData::SubDataId, Prefabs::PrefabVersion>>{} };
@@ -168,46 +162,26 @@ Prefabs::VariantPrefab Deserializer::DeserializePrefabToVariant(std::string cons
 #endif
     }
   }
+#endif
 
   return prefab;
 }
-#endif
 
 ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene(std::string const& filepath)
 {
-  std::ifstream ifs{ filepath };
+  rapidjson::Document document;
+  // some initial sanity checks
+  if (!ParseJsonIntoDocument(document, filepath))
+  {
+    return{};
+  }
 
-  // just some initial sanity checks...
-  if (!ifs)
-  {
-    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + filepath);
-    #ifdef _DEBUG
-    std::cout << "Unable to read " << filepath << "\n";
-    #endif
-    return {};
-  }
-  // parse into document object
-  rapidjson::IStreamWrapper isw{ ifs };
-  if (ifs.peek() == std::ifstream::traits_type::eof())
-  {
-    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogMessage("Empty scene file read. Ignoring checks");
-    return {};
-  }
-  rapidjson::Document document{};
-  if (document.ParseStream(isw).HasParseError())
-  {
-    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + filepath);
-    #ifdef _DEBUG
-    std::cout << "Unable to parse " + filepath << "\n";
-    #endif
-    return {};
-  }
   if (!document.IsArray())
-  { 
-    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError(filepath + ": root is not an array!");
-    #ifdef _DEBUG
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogError(filepath + ": root is not an array!");
+#ifdef _DEBUG
     std::cout << filepath + ": root is not an array!" << "\n";
-    #endif
+#endif
     return {};
   }
 
@@ -217,7 +191,10 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
   if (!ScanJsonFileForMembers(document, filepath, 6,
     JsonNameKey, rapidjson::kStringType, JsonChildEntitiesKey, rapidjson::kArrayType,
     JsonIdKey, rapidjson::kNumberType, JsonParentKey, rapidjson::kNumberType,
-    JsonComponentsKey, rapidjson::kArrayType, JsonEntityStateKey, rapidjson::kFalseType)) { ifs.close(); return {}; }
+    JsonComponentsKey, rapidjson::kArrayType, JsonEntityStateKey, rapidjson::kFalseType))
+  {
+    return {};
+  }
 
   // okay code starts here
   for (auto const& entity : document.GetArray())
@@ -238,7 +215,7 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
     {
       rttr::variant mappedData{ Prefabs::VariantPrefab::EntityMappings{} };
       DeserializeBasedOnType(mappedData, entity[JsonPrefabKey]);
-      pm.AttachPrefab(entityId, std::move(mappedData.get_value<Prefabs::VariantPrefab::EntityMappings>()));;
+      pm.AttachPrefab(entityId, std::move(mappedData.get_value<Prefabs::VariantPrefab::EntityMappings>()));
     }
 #endif
 
@@ -250,25 +227,25 @@ ObjectFactory::ObjectFactory::EntityDataContainer Deserializer::DeserializeScene
       {
         std::string const compName{ comp->name.GetString() };
         rapidjson::Value const& compJson{ comp->value };
-        
+
         rttr::type compType = rttr::type::get_by_name(compName);
-        #ifdef DESERIALIZER_DEBUG
+#ifdef DESERIALIZER_DEBUG
         std::cout << "  [S] Deserializing " << compType << "\n";
-        #endif
+#endif
         if (!compType.is_valid())
         {
           std::ostringstream oss{};
           oss << "Trying to deserialize an invalid component: " << compName;
           Debug::ErrorLogger::GetInstance().LogError(oss.str());
-          #ifdef _DEBUG
+#ifdef _DEBUG
           std::cout << oss.str() << "\n";
-          #endif
+#endif
           continue;
         }
 
         rttr::variant compVar{};
         DeserializeComponent(compVar, compType, compJson);
-        
+
         compVector.emplace_back(std::move(compVar));
       }
     }
@@ -393,17 +370,17 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
       rttr::variant ret{};
       if (prop.get_type().is_sequential_container())
       {
-          ret = prop.get_value(object);
-          rttr::variant_sequential_view view{ ret.create_sequential_view() };
-          DeserializeSequentialContainer(view, jsonVal);
+        ret = prop.get_value(object);
+        rttr::variant_sequential_view view{ ret.create_sequential_view() };
+        DeserializeSequentialContainer(view, jsonVal);
 #ifdef DESERIALIZER_DEBUG
-          if (prop.get_type() == rttr::type::get<std::vector<int>>()) {
-            std::vector<int> const& vec = prop.get_value(objInst).get_value<std::vector<int>>();
-            for (auto const& j : vec) {
-              std::cout << j << " ";
-            }
+        if (prop.get_type() == rttr::type::get<std::vector<int>>()) {
+          std::vector<int> const& vec = prop.get_value(objInst).get_value<std::vector<int>>();
+          for (auto const& j : vec) {
+            std::cout << j << " ";
           }
-          std::cout << "\n";
+        }
+        std::cout << "\n";
 #endif
       }
       else if (prop.get_type().is_associative_container())
@@ -438,7 +415,7 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
 }
 
 void Deserializer::DeserializeBasedOnType(rttr::variant& object, rapidjson::Value const& value)
-{  
+{
 #ifdef DESERIALIZER_DEBUG
   std::cout << "DeserializeBasedOnType: " << object.get_type() << "\n";
 #endif
@@ -451,7 +428,7 @@ void Deserializer::DeserializeBasedOnType(rttr::variant& object, rapidjson::Valu
       DeserializeScriptFieldInstList(object, value);
       return;
     }
-   // else if (!InvokeConstructor(object, object.get_type(), value))
+    // else if (!InvokeConstructor(object, object.get_type(), value))
     DeserializeClassTypes(object, value);
     break;
   }
@@ -485,6 +462,7 @@ rttr::variant Deserializer::DeserializeElement(rttr::type const& valueType, rapi
   {
     if (value.IsObject())
     {
+      std::cout << valueType << "\n";
       rttr::constructor ctor{ valueType.get_constructor() };
       for (auto& elem : valueType.get_constructors())
       {
@@ -532,16 +510,16 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
         {
           std::ostringstream oss{};
           oss << "Unable to set element " << i << " of type " << elem.get_type().get_name().to_string()
-              << " to container of " << view.get_type().get_name().to_string();
+            << " to container of " << view.get_type().get_name().to_string();
           GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
         }
       }
     }
     // else deserialize normally
     else
-    {  
+    {
       rttr::variant elem{ DeserializeBasicTypes(indexVal) };
-      
+
       if (view.get_value_type().is_enumeration())
       {
         rttr::variant enumValue = view.get_value_type().get_enumeration().name_to_value(indexVal.GetString());
@@ -562,7 +540,7 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
             << " to container of " << view.get_type().get_name().to_string();
           GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
         }
-    }
+      }
     }
   }
 }
@@ -578,14 +556,28 @@ void Deserializer::DeserializeAssociativeContainer(rttr::variant_associative_vie
       if (keyIter == elem.MemberEnd() || valueIter == elem.MemberEnd())
       {
         std::ostringstream oss;
-        oss << "Element " << i << " of " << view.get_type().get_name().to_string() << " missing " 
+        oss << "Element " << i << " of " << view.get_type().get_name().to_string() << " missing "
           << JsonAssociativeKey << " or " << JsonAssociativeValue << " fields";
-        
+
         continue;
       }
 
       rttr::variant key{ DeserializeElement(view.get_key_type(), keyIter->value) };
-      rttr::variant val{ DeserializeElement(view.get_value_type(), valueIter->value) };
+      rttr::variant val{};
+      rttr::type const valueType{ view.get_value_type() };
+      if (valueType.is_sequential_container())
+      {
+        if (valueType == rttr::type::get<std::vector<Component::Tween::Action>>())
+        {
+          val = std::vector<Component::Tween::Action>();
+          DeserializeBasedOnType(val, valueIter->value);
+        }
+      }
+      else
+      {
+        val = DeserializeElement(valueType, valueIter->value);
+      }
+
       if (key && val)
       {
         view.insert(key, val);
@@ -604,9 +596,9 @@ void Deserializer::DeserializeAssociativeContainer(rttr::variant_associative_vie
 
 void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const& compType, rapidjson::Value const& compJson)
 {
-  #ifdef DESERIALIZER_DEBUG
-  std::cout <<  "  Type of component variant is " << compType << "\n";
-  #endif
+#ifdef DESERIALIZER_DEBUG
+  std::cout << "  Type of component variant is " << compType << "\n";
+#endif
 
   // check for components that need to be handled differently
   if (!DeserializeOtherComponents(compVar, compType, compJson))
@@ -616,16 +608,16 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
     if (compCtr.get_parameter_infos().empty())
     {
       compVar = compCtr.invoke();
-      #ifdef DESERIALIZER_DEBUG
+#ifdef DESERIALIZER_DEBUG
       std::cout << "  Invoking default ctor...\n";
-      #endif
+#endif
       DeserializeBasedOnType(compVar, compJson);
     }
     else
     {
-      #ifdef DESERIALIZER_DEBUG
+#ifdef DESERIALIZER_DEBUG
       std::cout << "  Invoking non-default ctor...\n";
-      #endif
+#endif
 
       std::vector<rttr::argument> args{}; // vector of args for ctor
       // iterate through data members of component
@@ -654,18 +646,18 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
 
             rttr::type const propType{ prop.get_type() };
             args.emplace_back(DeserializeElement(propType, iter->value));
-            #ifdef DESERIALIZER_DEBUG
+#ifdef DESERIALIZER_DEBUG
             std::cout << "    Added " << param.get_name() << " of type " << args.back().get_type() << " to args list\n";
-            #endif
+#endif
             break;
           }
         }
       }
 
       compVar = compCtr.invoke_variadic(args);
-      #ifdef DESERIALIZER_DEBUG
+#ifdef DESERIALIZER_DEBUG
       std::cout << "    Invoked ctor, returning " << compVar.get_type() << "\n";
-      #endif
+#endif
     }
   }
 }
@@ -695,27 +687,29 @@ rttr::variant Deserializer::DeserializeBasicTypes(rapidjson::Value const& value)
   }
 }
 
-
 bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type const& type, rapidjson::Value const& value)
 {
   if (type == rttr::type::get<Component::Sprite>())
   {
-    rapidjson::Value::ConstMemberIterator sprData{ value.FindMember("spriteData") };
-    if (sprData == value.MemberEnd())
+    if (!ScanJsonFileForMembers(value, "Sprite Component", 2, "spriteData", rapidjson::kObjectType,
+      "spriteName", rapidjson::kStringType))
     {
-      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteData in Sprite component");
-      return true;
-    }
-    rapidjson::Value::ConstMemberIterator sprName{ value.FindMember("spriteName") };
-    if (sprData == value.MemberEnd())
-    {
-      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find spriteName in Sprite component");
       return true;
     }
 
+    bool shouldRender{ (value.HasMember("shouldRender") ? value["shouldRender"].GetBool() : true) };
     rttr::variant sprDataVar{ Graphics::SpriteData() };
-    DeserializeBasedOnType(sprDataVar, sprData->value);
-    compVar = type.create({ sprDataVar.get_value<Graphics::SpriteData>(), std::string(sprName->value.GetString()) });
+    DeserializeBasedOnType(sprDataVar, value["spriteData"]);
+    try
+    {
+      compVar = type.create({ sprDataVar.get_value<Graphics::SpriteData>(), std::string(value["spriteName"].GetString()), shouldRender });
+    }
+    catch (Debug::IExceptionBase& e)
+    {
+      std::ostringstream oss{};
+      oss << "Unable to load texture: " << value["spriteName"].GetString() << " | " << e.LogSource();
+      Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    }
     return true;
   }
   else if (type == rttr::type::get<Component::SpriteAnim>())
@@ -727,13 +721,21 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
       return true;
     }
     auto const& gEngine = Graphics::GraphicsEngine::GetInstance();
-    Component::SpriteAnim sprAnim{ gEngine.animManager.GetAnimID(animName->value.GetString()) };
-    sprAnim.flags = gEngine.animManager.GetAnim(sprAnim.animID).flags;
-    //sprAnim.currFrame = value["currFrame"].GetUint();
-    //sprAnim.currTime = value["currTime"].GetDouble();
-    //sprAnim.flags = value["currTime"].GetUint();
-
-    compVar = std::make_shared<Component::SpriteAnim>(sprAnim);
+    try
+    {
+      Component::SpriteAnim sprAnim{ gEngine.animManager.GetAnimID(animName->value.GetString()) };
+      sprAnim.flags = gEngine.animManager.GetAnim(sprAnim.animID).flags;
+      compVar = std::make_shared<Component::SpriteAnim>(sprAnim);
+    }
+    catch (Debug::IExceptionBase& e)
+    {
+      std::ostringstream oss{};
+      oss << "Unable to GetAnimID of " << animName->value.GetString() << " | " << e.LogSource();
+      Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#ifdef _DEBUG
+      std::cout << oss.str() << "\n";
+#endif
+    }
 
     return true;
   }
@@ -764,7 +766,9 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
 void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value)
 {
   if (!ScanJsonFileForMembers(value, "ScriptFieldInstList", 3, "scriptName", rapidjson::kStringType,
-      "scriptFieldInstList", rapidjson::kArrayType, "entityID", rapidjson::kNumberType)) { return; }
+    "scriptFieldInstList", rapidjson::kArrayType, "entityID", rapidjson::kNumberType)) {
+    return;
+  }
 
   Component::ScriptInstance instance{ value["scriptName"].GetString(), value["entityID"].GetUint() };
   auto const& instArr{ value["scriptFieldInstList"].GetArray() };
@@ -806,25 +810,63 @@ void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjs
   object = instance;
 }
 
-std::vector<AI::TreeTemplate> Deserializer::DeserializeTrees(std::string const& filename)
+std::vector<std::pair<std::string, std::vector<rttr::type>>> Deserializer::DeserializeSystems(std::string const& json)
 {
-  std::ifstream ifs{ filename };
-  if (!ifs)
-  {
-    throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to read " + filename));
-  }
   rapidjson::Document document{};
-  // parse into document object
-  rapidjson::IStreamWrapper isw{ ifs };
-  if (document.ParseStream(isw).HasParseError())
+  if (!ParseJsonIntoDocument(document, json))
   {
-    ifs.close();
-    throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to parse " + filename));
+    return {};
+  }
+
+  // check if root is object
+  if (!document.IsObject())
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogError(json + ": root is not an object");
+#ifdef _DEBUG
+    std::cout << json << ": root is not an object" << "\n";
+#endif
+    return {};
+  }
+
+  std::vector<std::pair<std::string, std::vector<rttr::type>>> ret;
+  // iterate through systems with key-array pairs
+  for (auto const& system : document.GetObj())
+  {
+    std::vector<rttr::type> components{};
+    for (auto const& component : system.value.GetArray())
+    {
+      // set component's corresponding bit
+      rttr::type compType{ rttr::type::get_by_name(component.GetString()) };
+      if (!compType.is_valid())
+      {
+        std::ostringstream oss{};
+        oss << "Invalid component read in " << json << ": " << component.GetString();
+        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#ifdef _DEBUG
+        std::cout << oss.str() << "\n";
+#endif
+        continue;
+      }
+
+      components.emplace_back(std::move(compType));
+    }
+    ret.emplace_back(system.name.GetString(), std::move(components)); // add entry to container
+  }
+
+  return ret;
+}
+
+std::vector<AI::TreeTemplate> Deserializer::DeserializeTrees(std::string const& filepath)
+{
+  rapidjson::Document document{};
+  if (!ParseJsonIntoDocument(document, filepath))
+  {
+    return {};
   }
   if (!document.IsArray())
   {
-    ifs.close();
-    throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg(filename + " does not have a root array"));
+    Debug::ErrorLogger::GetInstance().LogError(filepath + " does not have a root array");
+    return {};
   }
 
   std::vector<AI::TreeTemplate> ret{};
@@ -832,13 +874,23 @@ std::vector<AI::TreeTemplate> Deserializer::DeserializeTrees(std::string const& 
   {
     if (!tree.IsObject())
     {
-      ifs.close();
-      throw Debug::Exception<std::ifstream>(Debug::LEVEL_CRITICAL, ErrMsg(filename + ": inner object is not an array"));
+      Debug::ErrorLogger::GetInstance().LogError(filepath + ": inner object is not an array");
+      continue;
+    }
+    if (!ScanJsonFileForMembers(tree, filepath, 2, "treeName", rapidjson::kStringType, "treeTempID", rapidjson::kNumberType))
+    {
+      continue;
     }
 
     std::vector<AI::NodeTemplate> nodeList{};
     for (rapidjson::Value const& node : tree["tree"].GetArray())
     {
+      if (!ScanJsonFileForMembers(node, filepath, 5, "nodeType", rapidjson::kStringType, "parentNode", rapidjson::kNumberType,
+        "scriptName", rapidjson::kStringType, "pos", rapidjson::kStringType, "childrenNode", rapidjson::kArrayType))
+      {
+        continue;
+      }
+
       AI::NodeTemplate nt;
       AI::NODE_TYPE nodeType{ rttr::type::get<AI::NODE_TYPE>().get_enumeration().name_to_value(
         node["nodeType"].GetString()).get_value<AI::NODE_TYPE>() };
@@ -859,70 +911,60 @@ std::vector<AI::TreeTemplate> Deserializer::DeserializeTrees(std::string const& 
   return ret;
 }
 
-std::vector<std::pair<std::string, std::vector<rttr::type>>> Deserializer::DeserializeSystems(std::string const& json)
+Events::AnimEventManager::AnimEventsTable Deserializer::DeserializeAnimEventsTable(std::string const& filepath)
 {
-  std::ifstream ifs{ json };
-  if (!ifs)
-  {
-    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + json);
-    #ifdef _DEBUG
-    std::cout << "Unable to read " << json << "\n";
-    #endif
-    return {};
-  }
-
   rapidjson::Document document{};
-  // parse into document object
-  rapidjson::IStreamWrapper isw{ ifs };
-  if (document.ParseStream(isw).HasParseError())
+  if (!ParseJsonIntoDocument(document, filepath))
   {
-    ifs.close();
-    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + json);
-    #ifdef _DEBUG
-    std::cout << "Unable to parse " << json << "\n";
-    #endif
+    return {};
+  }
+  if (!document.IsArray())
+  {
+    Debug::ErrorLogger::GetInstance().LogError(filepath + ": root is not an array");
     return {};
   }
 
-  // check if root is object
-  if (!document.IsObject())
+  Events::AnimEventManager::AnimEventsTable animEventsTable{};
+  for (rapidjson::Value const& element : document.GetArray())
   {
-    ifs.close();
-    GE::Debug::ErrorLogger::GetInstance().LogError(json + ": root is not an object");
-    #ifdef _DEBUG
-    std::cout << json << ": root is not an object" << "\n";
-    #endif
-    return {};
-  }
-
-  std::vector<std::pair<std::string, std::vector<rttr::type>>> ret;
-  // iterate through systems with key-array pairs
-  for (auto const& system : document.GetObj())
-  {
-    std::vector<rttr::type> components{};
-    for (auto const& component : system.value.GetArray())
+    rapidjson::Value const& subMapJson{ element[Serialization::JsonAssociativeValue] };
+    if (!element.IsObject())
     {
-      // set component's corresponding bit
-      rttr::type compType{ rttr::type::get_by_name(component.GetString()) };
-      if (!compType.is_valid())
+      Debug::ErrorLogger::GetInstance().LogError(filepath + ": Element is not an object");
+      continue;
+    }
+    else if (!subMapJson.IsArray())
+    {
+      Debug::ErrorLogger::GetInstance().LogError(filepath + ": Value of AnimEventsTable is not an object");
+      continue;
+    }
+
+    Component::AnimEvents::AnimEventsCont container{};
+    for (rapidjson::Value const& subElem : subMapJson.GetArray())
+    {
+      rapidjson::Value const& jsonVec{ subElem[Serialization::JsonAssociativeValue] };
+      if (!subElem.IsObject())
       {
-        ifs.close();
-        std::ostringstream oss{};
-        oss << "Invalid component read in " << json << ": " << component.GetString();
-        GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        #ifdef _DEBUG
-        std::cout << oss.str() << "\n";
-        #endif
+        Debug::ErrorLogger::GetInstance().LogError(filepath + ": Element of AnimEventsCont is not an object");
+        continue;
+      }
+      else if (!jsonVec.IsArray())
+      {
+        Debug::ErrorLogger::GetInstance().LogError(filepath + ": Value of AnimEventsCont is not an Array");
         continue;
       }
 
-      components.emplace_back(std::move(compType));
+      Component::AnimEvents::AnimFrameEvents strVec{};
+      strVec.reserve(jsonVec.Size());
+      for (rapidjson::Value const& jsonStr : jsonVec.GetArray())
+      {
+        strVec.emplace_back(jsonStr.GetString());
+      }
+      container.emplace(subElem[Serialization::JsonAssociativeKey].GetUint(), std::move(strVec));
     }
-    ret.emplace_back(system.name.GetString(), std::move(components)); // add entry to container
+    animEventsTable.emplace(element[Serialization::JsonAssociativeKey].GetString(), std::move(container));
   }
-
-  ifs.close();
-  return ret;
+  return animEventsTable;
 }
 
 bool Deserializer::ScanJsonFileForMembers(rapidjson::Value const& value, std::string const& filename, unsigned keyCount, ...)
@@ -951,9 +993,9 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Value const& value, std::st
           std::ostringstream oss{};
           oss << filename << ": Unable to find key \"" + keyName + "\" of element: " << i << " in rapidjson value";
           GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-          #ifdef _DEBUG
+#ifdef _DEBUG
           std::cout << oss.str() << "\n";
-          #endif
+#endif
           status = false;
           continue;
         }
@@ -976,9 +1018,9 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Value const& value, std::st
           std::ostringstream oss{};
           oss << filename << ": Element \"" << keyName << "\" is not of rapidjson type:" << type;
           GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-          #ifdef _DEBUG
+#ifdef _DEBUG
           std::cout << oss.str() << "\n";
-          #endif
+#endif
           status = false;
         }
       }
@@ -994,9 +1036,9 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Value const& value, std::st
         std::ostringstream oss{};
         oss << filename << ": Unable to find key \"" << keyName << "\" in rapidjson value";
         GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        #ifdef _DEBUG
+#ifdef _DEBUG
         std::cout << oss.str() << "\n";
-        #endif
+#endif
         status = false;
         continue;
       }
@@ -1019,9 +1061,9 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Value const& value, std::st
         std::ostringstream oss{};
         oss << filename << ": Element \"" << keyName << "\" is not of rapidjson type:" << type;
         GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-        #ifdef _DEBUG
+#ifdef _DEBUG
         std::cout << oss.str() << "\n";
-        #endif
+#endif
         status = false;
       }
     }
@@ -1031,6 +1073,36 @@ bool Deserializer::ScanJsonFileForMembers(rapidjson::Value const& value, std::st
   return status;
 }
 
+bool Deserializer::ParseJsonIntoDocument(rapidjson::Document& document, std::string const& filepath)
+{
+  std::ifstream ifs{ filepath };
+  if (!ifs)
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to read " + filepath);
+#ifdef _DEBUG
+    std::cout << "Unable to read " << filepath << "\n";
+#endif
+    return false;
+  }
+  // parse into document object
+  rapidjson::IStreamWrapper isw{ ifs };
+  if (ifs.peek() == std::ifstream::traits_type::eof())
+  {
+    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogMessage("Empty scene file read. Ignoring checks");
+    return false;
+  }
+
+  if (document.ParseStream(isw).HasParseError())
+  {
+    ifs.close(); GE::Debug::ErrorLogger::GetInstance().LogError("Unable to parse " + filepath);
+#ifdef _DEBUG
+    std::cout << "Unable to parse " + filepath << "\n";
+#endif
+    return false;
+  }
+
+  return true;
+}
 
 rttr::variant Deserializer::TryDeserializeIntoInt(rapidjson::Value const& value)
 {

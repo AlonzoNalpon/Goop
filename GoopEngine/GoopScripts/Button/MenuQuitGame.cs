@@ -18,7 +18,7 @@ namespace GoopScripts.Button
         // Return to main menu
         return;
       }
-      Utils.DeeperPauseMenu((uint)PauseMenuID, (uint)DeeperPauseMenuID);
+      Utils.DeeperPauseMenu(PauseMenuID,DeeperPauseMenuID);
     }
   }
 }

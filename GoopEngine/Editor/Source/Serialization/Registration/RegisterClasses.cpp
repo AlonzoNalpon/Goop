@@ -13,9 +13,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Systems.h>
 #include <rttr/registration>
 #include <ScriptEngine/CSharpStructs.h>
+#include <Serialization/JsonKeys.h>
 #ifndef IMGUI_DISABLE
 #include <Prefabs/VariantPrefab.h>
-#
 #endif
 
 using namespace GE;
@@ -76,7 +76,9 @@ RTTR_REGISTRATION
 
   rttr::registration::class_<Component::Tween::Action>("Action")
     .constructor<>()
-    .property("target", &Component::Tween::Action::m_target)
+    .property("trans", &Component::Tween::Action::m_trans)
+    .property("scale", &Component::Tween::Action::m_scale)
+    .property("rot", &Component::Tween::Action::m_rot)
     .property("duration", &Component::Tween::Action::m_duration)
     ;
 
@@ -133,11 +135,6 @@ RTTR_REGISTRATION
     .property("playOnStart", &Component::Audio::Sound::m_playOnStart)
     .property("channel", &Component::Audio::Sound::m_channel)
     .property("volume", &Component::Audio::Sound::m_volume)
-    ;
-
-  rttr::registration::class_<Component::Tween::Action>("Action")
-    .property("target", &Component::Tween::Action::m_target)
-    .property("duration", &Component::Tween::Action::m_duration)
     ;
 
   rttr::registration::class_<Graphics::SpriteSubData>("SpriteSubData")
@@ -224,6 +221,11 @@ RTTR_REGISTRATION
     .property("scriptName", &MONO::ScriptInstance::m_scriptName)
     .property("entityID", &MONO::ScriptInstance::m_entityID)
     .property("scriptFieldInstList", &MONO::ScriptInstance::m_scriptFieldInstList)
+    ;
+
+  rttr::registration::class_<std::pair<Graphics::gObjID, std::string>>("SizeTString")
+    .property("first", &std::pair<Graphics::gObjID, std::string>::first)
+    .property("second", &std::pair<Graphics::gObjID, std::string>::second)
     ;
 
 #ifndef NO_IMGUI

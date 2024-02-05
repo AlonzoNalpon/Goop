@@ -243,6 +243,10 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Emitter*>());
   }
+  else if (compType == rttr::type::get<Component::AnimEvents>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::AnimEvents*>());
+  }
   else
   {
     std::ostringstream oss{};
@@ -321,6 +325,10 @@ rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, rttr::type const
   else if (compType == rttr::type::get<Component::Emitter>())
   {
     return ecs.HasComponent<Component::Emitter>(id) ? std::make_shared<Component::Emitter>(*ecs.GetComponent<Component::Emitter>(id)) : rttr::variant();
+  }
+  else if (compType == rttr::type::get<Component::AnimEvents>())
+  {
+    return ecs.HasComponent<Component::AnimEvents>(id) ? std::make_shared<Component::AnimEvents>(*ecs.GetComponent<Component::AnimEvents>(id)) : rttr::variant();
   }
   else
   {
@@ -409,6 +417,10 @@ void ObjectFactory::RemoveComponentFromEntity(ECS::Entity entity, rttr::type com
   {
     ecs.RemoveComponent<Emitter>(entity);
   }
+  else if (compType == rttr::type::get<Component::AnimEvents>())
+  {
+    ecs.RemoveComponent<AnimEvents>(entity);
+  }
   else
   {
     std::ostringstream oss{};
@@ -458,6 +470,8 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       ecs.RegisterComponent<GE::Component::CardHolderElem>();
     else if (compType == rttr::type::get<Component::Emitter>())
       ecs.RegisterComponent<GE::Component::Emitter>();
+    else if (compType == rttr::type::get<Component::AnimEvents>())
+      ecs.RegisterComponent<GE::Component::AnimEvents>();
     else
     {
       std::ostringstream oss{};
@@ -566,6 +580,11 @@ void ObjectFactory::RegisterSystemWithType(rttr::type const& systemType, std::ve
   {
     ecs.RegisterSystem<Systems::ParticleSystem>();
     RegisterComponentsToSystem<Systems::ParticleSystem>(components);
+  }
+  else if (systemType == rttr::type::get<Systems::AnimEventsSystem>())
+  {
+    ecs.RegisterSystem<Systems::AnimEventsSystem>();
+    RegisterComponentsToSystem<Systems::AnimEventsSystem>(components);
   }
   else
   {
