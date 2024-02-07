@@ -4,6 +4,7 @@
 #include <AssetManager/AssetManager.h>
 #include <filesystem>
 #include <EditorUI/AssetBrowser.h>
+#include <Systems/GameSystem/GameSystem.h>
 
 using namespace GE::fMOD;
 
@@ -272,6 +273,7 @@ void GE::fMOD::FmodSystem::HandleEvent(GE::Events::Event* event)
   switch (event->GetCategory())
   {
   case GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS:
+    GE::Systems::GameSystem::SetLoseFocus(true);
     GE::EditorGUI::AssetBrowser::GetInstance().ClearContent();
     //std::cout << "LOSE FOCUS" << "\n";
     m_masterGroup->setPaused(true);

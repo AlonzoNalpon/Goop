@@ -159,6 +159,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::GetFPS", +[](MonoString* scene) { return GE::FPS::FrameRateController::GetInstance().GetFPS(); });
 
   // Game UI Stuff
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetLoseFocus", GE::MONO::GetLoseFocus);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetLoseFocus", GE::MONO::SetLoseFocus);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetIsActiveEntity", GE::MONO::SetIsActiveEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetParent", GE::MONO::SetParent);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetParentEntity", GE::MONO::GetParentEntity);
@@ -834,6 +836,16 @@ std::string GE::MONO::MonoStringToSTD(MonoString* str)
 
   return result;
 
+}
+
+bool GE::MONO::GetLoseFocus()
+{
+  return GE::Systems::GameSystem::GetLoseFocus();
+}
+
+void GE::MONO::SetLoseFocus(bool active)
+{
+  GE::Systems::GameSystem::SetLoseFocus(active);
 }
 
 void GE::MONO::SetIsActiveEntity(GE::ECS::Entity entity, bool active)

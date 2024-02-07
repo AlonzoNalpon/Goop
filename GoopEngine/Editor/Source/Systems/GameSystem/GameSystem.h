@@ -22,7 +22,9 @@ namespace GE::Systems
     bool m_shouldIterate;
     bool m_shouldWin;
     bool m_shouldLose;
+    static bool m_loseFocus;
   public:
+
     /*!*********************************************************************
     \brief
       System Start
@@ -50,5 +52,9 @@ namespace GE::Systems
     // static int GetPauseState() { return m_pauseState; }
 
     // static void SetPauseState(int id) { m_pauseState = id; }
+
+    static bool GetLoseFocus() { return m_loseFocus; }
+    static void SetLoseFocus(bool active) { m_loseFocus = active; }
+
   };
 }
