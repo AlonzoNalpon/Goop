@@ -2473,10 +2473,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55, 0 }",
+                    "pos": "{ 0, 55, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 55, 101 }",
+                    "worldPos": "{ 0, 55, 102 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2706,20 +2706,20 @@
             {
                 "Transform": {
                     "pos": "{ 260, -180, 0 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "scale": "{ 0.64, 0.64, 0.63 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 260, -180, 102 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldScale": "{ 0.64, 0.64, 0.63 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
                     "center": "{ 260, -180 }",
-                    "width": 239.0,
-                    "height": 86.0,
-                    "min": "{ 140.5, -223 }",
-                    "max": "{ 379.5, -137 }",
+                    "width": 239.36,
+                    "height": 87.04,
+                    "min": "{ 140.32, -223.52 }",
+                    "max": "{ 379.68, -136.48 }",
                     "render": true
                 }
             },
@@ -2735,11 +2735,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 239,
-                            "height": 86
+                            "width": 374,
+                            "height": 136
                         }
                     },
-                    "spriteName": "Pause_Quit",
+                    "spriteName": "Game_Surrender",
                     "shouldRender": true
                 }
             },
@@ -3326,11 +3326,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 256,
+                            "width": 266,
                             "height": 71
                         }
                     },
-                    "spriteName": "Pause_Header_QuitGame",
+                    "spriteName": "Surrender_Header",
                     "shouldRender": true
                 }
             }
