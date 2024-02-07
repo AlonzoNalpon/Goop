@@ -357,7 +357,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 		ecs.SetEntityName(entity, name);
 	}
 	ImGui::EndDisabled();
-	ImGui::Text((" " + std::to_string(entity)).c_str());
+	ImGui::Text(("Entity: " + std::to_string(entity)).c_str());
 
 	if (!PrefabEditor::IsEditingPrefab())
 	{
@@ -2162,7 +2162,7 @@ namespace
 				int i{};
 				int removeIndex{};
 				bool shouldRemove{ false };
-				for (auto& [target, scale, rot, duration] : action)
+				for (auto& [target, scale, rot, duration, script] : action)
 				{
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
 					TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
@@ -2177,6 +2177,10 @@ namespace
 					InputDouble3("Scale " + std::to_string(i), scale, fieldWidth, disabled);
 					InputDouble3("Rotate " + std::to_string(i), rot, fieldWidth, disabled);
 					InputDouble1("Duration", duration);
+					TableNextColumn();
+					ImGui::Text("Anim Event");
+					TableNextColumn();
+					InputText("##", &script);
 					PopID();
 					EndTable();
 					if (Button("Delete keyframe", { GetContentRegionMax().x, 20 }))
