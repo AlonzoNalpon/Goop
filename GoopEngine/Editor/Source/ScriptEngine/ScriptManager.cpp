@@ -33,6 +33,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ScriptEngine/CSharpStructs.h>
 #include <Systems/Audio/AudioSystem.h>
 #include <GameStateManager/GameStateManager.h>
+
 using namespace GE::MONO;
 
 namespace GE 
@@ -173,6 +174,7 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextComponent", GE::MONO::SetTextComponent);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::CrossFadeAudio", GE::MONO::CrossFadeAudio);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
 
 
   //Load the CSharpAssembly (dll file)
@@ -436,6 +438,16 @@ void GE::MONO::DestroyEntity(GE::ECS::Entity entity)
   }
 
   ecs.DestroyEntity(entity);
+}
+
+void GE::MONO::PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animName)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  auto tween = ecs.GetComponent<GE::Component::Tween>(entity);
+  if (tween)
+  {
+    tween->m_playing = MonoStringToSTD(animName);
+  }
 }
 
 MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)

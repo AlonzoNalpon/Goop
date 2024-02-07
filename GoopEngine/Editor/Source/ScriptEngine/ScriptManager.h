@@ -28,7 +28,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Enemy/EnemySystem.h>
 #include <Fmod/FmodSystem.h>
 
-
 namespace GE::MONO
 {
 	class ScriptManager : public Singleton<ScriptManager> 
@@ -257,10 +256,10 @@ namespace GE::MONO
 	static void SetScale(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
 	static void SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
 
-		static GE::Math::dVec3 GetPosition(GE::ECS::Entity entity);
-		static GE::Math::dVec3 GetWorldPosition(GE::ECS::Entity entity);
-		static GE::Math::dVec3 GetScale(GE::ECS::Entity entity);
-		static GE::Math::dVec3 GetRotation(GE::ECS::Entity entity);
+	static GE::Math::dVec3 GetPosition(GE::ECS::Entity entity);
+	static GE::Math::dVec3 GetWorldPosition(GE::ECS::Entity entity);
+	static GE::Math::dVec3 GetScale(GE::ECS::Entity entity);
+	static GE::Math::dVec3 GetRotation(GE::ECS::Entity entity);
 
 	/*!*********************************************************************
 	\brief
@@ -358,25 +357,25 @@ namespace GE::MONO
 	************************************************************************/
 	void GameSystemResolved();
 
-		/*!*********************************************************************
-		\brief
-			Sets the whole card to inactive, except for the icon. Called when 
-			queuing a card from the hand.
-		\param entity
-			The entity id of the card
-		************************************************************************/
-		void SetCardToQueuedState(unsigned entity, Math::dVec3 target);
+	/*!*********************************************************************
+	\brief
+		Sets the whole card to inactive, except for the icon. Called when 
+		queuing a card from the hand.
+	\param entity
+		The entity id of the card
+	************************************************************************/
+	void SetCardToQueuedState(unsigned entity, Math::dVec3 target);
 
-		/*!*********************************************************************
-		\brief
-			Sets the whole card to active. Called when returning from queue to
-			hand.
-		\param entity
-			The entity id of the card icon
-		************************************************************************/
-		void SetCardToHandState(unsigned cardEntity);
+	/*!*********************************************************************
+	\brief
+		Sets the whole card to active. Called when returning from queue to
+		hand.
+	\param entity
+		The entity id of the card icon
+	************************************************************************/
+	void SetCardToHandState(unsigned cardEntity);
 
-		void SetBuffIconTextActive(unsigned iconID, bool state);
+	void SetBuffIconTextActive(unsigned iconID, bool state);
 
 	/*!*********************************************************************
 	\brief
@@ -493,17 +492,23 @@ namespace GE::MONO
 	************************************************************************/
 	void SetParent(GE::ECS::Entity parent, GE::ECS::Entity child);
 
-		/*!*********************************************************************
-		\brief
-			Get the parent entity of a child
-		\param child
-			Child entity ID
-		\param child
-			Entity ID of the parent and ECS::INVALID_ID otherwise
-		************************************************************************/
-		GE::ECS::Entity GetParentEntity(GE::ECS::Entity child);
+	/*!*********************************************************************
+	\brief
+		Get the parent entity of a child
+	\param child
+		Child entity ID
+	\param child
+		Entity ID of the parent and ECS::INVALID_ID otherwise
+	************************************************************************/
+	GE::ECS::Entity GetParentEntity(GE::ECS::Entity child);
 		
-		GE::ECS::Entity GetEntity(MonoString* entityName);
+	GE::ECS::Entity GetEntity(MonoString* entityName);
 
 	void DestroyEntity(GE::ECS::Entity entity);
+
+	/*!******************************************************************
+	\brief
+	  Plays an animation from the tween system of an entity.
+	********************************************************************/
+	void PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animName);
 }
