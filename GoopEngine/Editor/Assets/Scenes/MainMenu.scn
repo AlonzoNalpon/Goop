@@ -64,53 +64,11 @@
         ]
     },
     {
-        "Name": "[Temp] Blanko",
-        "ID": 1,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 10,
-        "Child Entities": [
-            13
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 61.926, -157.037, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 503.537, 238.963, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 123,
-                            "height": 80
-                        }
-                    },
-                    "spriteName": "Pause_BG",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
         "Name": "[Folder] Buttons",
         "ID": 2,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 15,
         "Child Entities": [
             3,
             4,
@@ -122,12 +80,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 443.216, 395, 0 }",
+                    "pos": "{ -6.784, 395, 1 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 443.216, 395, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             }
         ]
@@ -157,7 +115,7 @@
                     "height": 136.0,
                     "min": "{ 260.216, 327 }",
                     "max": "{ 634.216, 463 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -181,9 +139,20 @@
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MainMenuToGame",
+                            "entityID": 3,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
                 "GE_Button": {
-                    "param": "Game",
-                    "eventType": "CHANGE_SCENE",
+                    "param": "",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }
@@ -215,7 +184,7 @@
                     "height": 136.0,
                     "min": "{ 256.216, 167 }",
                     "max": "{ 630.216, 303 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -265,7 +234,7 @@
                     "height": 136.0,
                     "min": "{ 256.216, 7 }",
                     "max": "{ 630.216, 143 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -323,7 +292,7 @@
                     "height": 136.0,
                     "min": "{ 256.216, -153 }",
                     "max": "{ 630.216, -17 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -381,7 +350,7 @@
                     "height": 136.0,
                     "min": "{ 256.216, -313 }",
                     "max": "{ 630.216, -177 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -439,7 +408,7 @@
                     "height": 136.0,
                     "min": "{ 256.216, -473 }",
                     "max": "{ 630.216, -337 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -473,56 +442,74 @@
         ]
     },
     {
-        "Name": "[Folder] Temp",
-        "ID": 10,
+        "Name": "Transition",
+        "ID": 9,
         "Prefab": null,
         "isActive": true,
         "Parent": null,
-        "Child Entities": [
-            1
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 441.611, 396, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 441.611, 396, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Text] Test",
-        "ID": 13,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 1,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -50.519, -19.556, 0 }",
+                    "pos": "{ 1920, 0, 1000 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 453.018, 219.407, 1 }",
+                    "worldPos": "{ 1920, 0, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
-                "Text": {
-                    "text": "Test",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080
+                        }
                     },
-                    "scale": 0.18700000643730164,
-                    "fontID": 2
+                    "spriteName": "Black",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "Transition",
+                            "value": [
+                                {
+                                    "trans": "{ 0, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToGameScene"
+                                }
+                            ]
+                        }
+                    ],
+                    "started": false,
+                    "paused": false,
+                    "loop": false,
+                    "playing": ""
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "ChangeToGameScene",
+                            "entityID": 9,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             }
         ]
@@ -573,7 +560,9 @@
         "Prefab": null,
         "isActive": true,
         "Parent": null,
-        "Child Entities": [],
+        "Child Entities": [
+            2
+        ],
         "Components": [
             {
                 "Transform": {
