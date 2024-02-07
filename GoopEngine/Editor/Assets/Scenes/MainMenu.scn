@@ -38,17 +38,6 @@
                 }
             },
             {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "MainMenuToGame",
-                            "entityID": 0,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
                 "Audio": {
                     "sounds": [
                         {
