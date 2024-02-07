@@ -69,12 +69,13 @@
     <Compile Include="AI\SelectorNode.cs" />
     <Compile Include="AI\SequenceNode.cs" />
     <Compile Include="Button\MenuMainMenu.cs" />
+    <Compile Include="Cutscene\SwitchCutScenes.cs" />
     <Compile Include="Transition\ChangeToCredits.cs" />
+    <Compile Include="Transition\ChangeToCutScenes.cs" />
     <Compile Include="Transition\ChangeToGameScene.cs" />
     <Compile Include="Transition\ChangeToHTP.cs" />
     <Compile Include="Transition\ChangeToOptions.cs" />
     <Compile Include="Transition\MainMenuToCredits.cs" />
-    <Compile Include="Transition\MainMenuToGame.cs" />
     <Compile Include="Button\BuffIconInteraction.cs" />
     <Compile Include="Button\IButtonClick.cs" />
     <Compile Include="Button\IButtonHoverEnter.cs" />
