@@ -59,7 +59,7 @@ namespace GE::Graphics::Rendering
   {
     gVec2               position;
     GLfloat             scale;
-    std::string         str;
+    std::string const&  str;
     Graphics::Colorf    clr;
     gObjID              fontID;
   };
