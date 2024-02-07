@@ -80,6 +80,7 @@ RTTR_REGISTRATION
     .property("scale", &Component::Tween::Action::m_scale)
     .property("rot", &Component::Tween::Action::m_rot)
     .property("duration", &Component::Tween::Action::m_duration)
+    .property("animationEvent", &Component::Tween::Action::m_animationEvent)
     ;
 
   rttr::registration::class_<Component::Audio::Sound>("Sound")

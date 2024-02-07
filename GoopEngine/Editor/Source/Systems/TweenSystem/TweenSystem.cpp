@@ -45,7 +45,7 @@ void TweenSystem::FixedUpdate()
 		if (tween->m_tweens.find(tween->m_playing) == tween->m_tweens.end())
 			continue;
 		// Find the tween being played in the map, then find the step being played of the tween
-		auto [target, scale, rot, duration] = tween->m_tweens[tween->m_playing][tween->m_step];
+		auto [target, scale, rot, duration, scriptName] = tween->m_tweens[tween->m_playing][tween->m_step];
 
 		if (tween->m_timeElapsed > duration)
 		{
@@ -53,6 +53,25 @@ void TweenSystem::FixedUpdate()
 			tween->m_originalPos = target;
 			tween->m_originalScale = scale;
 			tween->m_originalRot = rot;
+
+			// Get Scripts
+			auto* scripts = m_ecs->GetComponent<GE::Component::Scripts>(entity);
+			if (scripts)
+			{
+				// Find if scripts exist
+				auto script = scripts->Get(scriptName);
+				if (script)
+				{
+					// Call method if exist
+					auto method = mono_class_get_method_from_name(script->m_scriptClass, "PlayEvent", 1);
+					if (method)
+					{
+						void* args{&entity};
+						mono_runtime_invoke(method, script->m_classInst, &args, nullptr);
+					}
+				}
+			}
+
 			double normalisedTime = tween->m_timeElapsed / duration;
 			trans->m_pos = Tweening(tween->m_originalPos, target, normalisedTime);
 			trans->m_scale = Tweening(tween->m_originalScale, scale, normalisedTime);
