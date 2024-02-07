@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Attack2",
     "isActive": true,
-    "Version": 10,
+    "Version": 11,
     "Components": [
         {
             "Transform": {
@@ -175,7 +175,7 @@
                             "a": 1.0
                         },
                         "scale": 0.10000000149011612,
-                        "fontID": 0
+                        "fontID": 2
                     }
                 }
             ]
