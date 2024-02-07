@@ -162,9 +162,6 @@ namespace GE::Application
 #else
           ecs->UpdateSystems();
 #endif  // IMGUI_DISABLE
-
-          fMod.Update();
-          gsm.Update();
         }
         catch (GE::Debug::IExceptionBase& e)
         {
@@ -206,6 +203,8 @@ namespace GE::Application
         }
 
         window.SwapBuffers();
+        fMod.Update();
+        gsm.Update();
         fRC.EndFrame();
 
 #ifndef IMGUI_DISABLE
