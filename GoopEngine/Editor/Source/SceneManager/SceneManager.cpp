@@ -69,6 +69,40 @@ void SceneManager::InitScene()
 #endif
 }
 
+void GE::Scenes::SceneManager::Update()
+{
+  if (m_currentScene != m_nextScene)
+  {
+    UnloadScene();
+    FreeScene();
+    m_currentScene = m_nextScene;
+
+    try
+    {
+      LoadScene();
+      InitScene();
+
+#ifndef IMGUI_DISABLE
+      // if running editor, we dont invoke OnCreate if the scene isnt running
+      if (EditorGUI::ImGuiHelper::IsRunning())
+        InvokeOnCreate();
+#endif
+    }
+    catch (std::out_of_range&)
+    {
+      LoadScene();
+      InitScene();
+
+#ifndef IMGUI_DISABLE
+      // if running editor, we dont invoke OnCreate if the scene isnt running
+      if (EditorGUI::ImGuiHelper::IsRunning())
+        InvokeOnCreate();
+#endif
+      throw Debug::Exception<SceneManager>(Debug::LEVEL_CRITICAL, ErrMsg(m_nextScene + ".scn doesn't exist."));
+    }
+  }
+}
+
 void SceneManager::UnloadScene()
 {
   scene.Unload();
@@ -82,36 +116,7 @@ void SceneManager::FreeScene()
 
 void SceneManager::SetNextScene(std::string nextScene)
 {
-  std::string tmpScene {m_currentScene};
-  UnloadScene();
-  FreeScene();
-  m_nextScene = m_currentScene = nextScene;
-  
-  try
-  {
-    LoadScene();
-    InitScene();
-
-#ifndef IMGUI_DISABLE
-    // if running editor, we dont invoke OnCreate if the scene isnt running
-    if (EditorGUI::ImGuiHelper::IsRunning())
-      InvokeOnCreate();
-#endif
-  }
-  catch (std::out_of_range&)
-  {
-    m_nextScene = m_currentScene = tmpScene;
-
-    LoadScene();
-    InitScene();
-
-#ifndef IMGUI_DISABLE
-    // if running editor, we dont invoke OnCreate if the scene isnt running
-    if (EditorGUI::ImGuiHelper::IsRunning())
-      InvokeOnCreate();
-#endif
-    throw Debug::Exception<SceneManager>(Debug::LEVEL_CRITICAL, ErrMsg(nextScene + ".scn doesn't exist."));
-  }
+  m_nextScene = nextScene;
 }
 
 void GE::Scenes::SceneManager::RestartScene()

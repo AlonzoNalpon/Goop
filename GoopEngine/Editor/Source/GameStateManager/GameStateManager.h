@@ -18,6 +18,7 @@ namespace GE::GSM
   {
   private:
     GE::Scenes::SceneManager sm;
+    bool m_updated{ false };
 
   public:
     /*!*********************************************************************

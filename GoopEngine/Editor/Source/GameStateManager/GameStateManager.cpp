@@ -21,21 +21,8 @@ void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
 		return;
 	}
 
-	try
-	{
-		if (sm.GetCurrentScene() == next_scene)
-		{
-			sm.RestartScene();
-		}
-		else
-		{
-			sm.SetNextScene(next_scene);
-		}
-	}
-	catch (GE::Debug::IExceptionBase& e)
-	{
-		e.LogSource();
-	}
+	sm.SetNextScene(next_scene);
+	m_updated = true;
 }
 
 std::string GE::GSM::GameStateManager::GetCurrentScene() const
@@ -69,6 +56,29 @@ void GameStateManager::Init()
 
 void GameStateManager::Update()
 {
+	try
+	{
+		if (m_updated)
+		{
+			if (sm.GetNextScene() == sm.GetCurrentScene())
+			{
+				sm.RestartScene();
+			}
+			else
+			{
+				sm.Update();
+			}
+			m_updated = false;
+		}
+		else
+		{
+			sm.Update();
+		}
+	}
+	catch (GE::Debug::IExceptionBase& e)
+	{
+		e.LogSource();
+	}
 }
 
 void GE::GSM::GameStateManager::Exit()
