@@ -156,6 +156,7 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetBuffIconTextActive", GE::MONO::SetBuffIconTextActive);
   // magic
   mono_add_internal_call("GoopScripts.Mono.Utils::TransitionToScene", +[](MonoString* scene) { GE::GSM::GameStateManager::GetInstance().SetNextScene(MonoStringToSTD(scene)); });
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetFPS", +[](MonoString* scene) { return GE::FPS::FrameRateController::GetInstance().GetFPS(); });
 
   // Game UI Stuff
   mono_add_internal_call("GoopScripts.Mono.Utils::GetLoseFocus", GE::MONO::GetLoseFocus);

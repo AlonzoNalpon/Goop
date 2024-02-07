@@ -613,6 +613,13 @@
                             "entityID": 5,
                             "scriptFieldInstList": [
                                 {
+                                    "data": 17,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "FPS_COUNTER"
+                                    }
+                                },
+                                {
                                     "data": 56,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -1307,6 +1314,49 @@
                     "paused": false,
                     "loop": false,
                     "playing": "Transition"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "FPSCounter",
+        "ID": 17,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 861.577, 512.984, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 861.577, 512.984, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 861.577, 512.984 }",
+                    "width": 8.152580206657e-312,
+                    "height": 8.14846383731e-312,
+                    "min": "{ 861.577, 512.984 }",
+                    "max": "{ 861.577, 512.984 }",
+                    "render": true
+                }
+            },
+            {
+                "Text": {
+                    "text": "FPS",
+                    "clr": {
+                        "r": 0.9411765336990356,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.12300000339746475,
+                    "fontID": 0
                 }
             }
         ]

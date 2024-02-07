@@ -350,6 +350,9 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void TransitionToScene(string scene);
 
+     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static double GetFPS();
+
 
     // /*!*********************************************************************
     // Pause Screens
