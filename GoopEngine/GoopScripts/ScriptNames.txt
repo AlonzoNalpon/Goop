@@ -17,8 +17,6 @@ GoopScripts.AI.Enemy.MineWorm,IsHealthLow
 GoopScripts.AI.Enemy.MineWorm,PerformCombo
 GoopScripts.AI.Enemy.MineWorm,PlayLastCard
 GoopScripts.AI.Enemy.MineWorm,PlaySpecialCard
-GoopScripts.Audio,GameOverAudioEvent
-GoopScripts.Audio,MainMenuToGame
 GoopScripts.Button,BuffIconInteraction
 GoopScripts.Button,IButtonClick
 GoopScripts.Button,IButtonHoverEnter
@@ -67,5 +65,7 @@ GoopScripts.Gameplay,MoleRatBites
 GoopScripts.Gameplay,Stats
 GoopScripts.Player,Player
 GoopScripts.Player,PlayerScriptTest
+GoopScripts.Transition,ChangeToGameScene
+GoopScripts.Transition,MainMenuToGame
 GoopScripts.UI,HealthBar
 GoopScripts.UI,PauseManager

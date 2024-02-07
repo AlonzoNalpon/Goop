@@ -15,9 +15,14 @@ namespace GoopScripts.Gameplay
   {
     public enum BuffType
     {
-      INCREASE_ATK_DEALT,
-      MULTIPLY_ATK_DEALT,
+      // BUFFS HERE
       INCREASE_BLOCK,
+      FLAT_ATK_UP, // e.g. +1
+      MULTIPLICATIVE_ATK_UP, // e.g. *2
+
+      // DEBUFFS MUST START HERE
+      FLAT_ATK_DOWN, // e.g. -1
+      MULTIPLICATIVE_ATK_DOWN, // e.g. *0.5
       BLIND,
       SKIP_TURN,
 
@@ -28,6 +33,7 @@ namespace GoopScripts.Gameplay
     float m_value;
     string m_label;
     int m_turns;
+    bool m_isDebuff;
     public uint m_iconID;
 
     // Getters
@@ -35,14 +41,52 @@ namespace GoopScripts.Gameplay
     public float value { get { return m_value; } }
     public int turns { get { return m_turns; } set { m_turns = value; } }
 
+    public bool IsDebuff() { return m_isDebuff; }
+
     public string Label { get { return m_label; } }
 
-    public Buff(BuffType type, float value, int turns, string buffLabel)
+    public Buff(BuffType type, float value, int turns)
     {
       m_type = type;
       m_value = value;
       m_turns = turns + 1;
-      m_label = buffLabel;
+      m_isDebuff = type >= BuffType.FLAT_ATK_DOWN;
+
+      switch (type)
+      {
+        case BuffType.INCREASE_BLOCK:
+          m_label = "Block Up";
+          break;
+        case BuffType.FLAT_ATK_UP:
+          m_label = "Dmg Up";
+          break;
+        case BuffType.MULTIPLICATIVE_ATK_UP:
+          m_label = "Atk Up";
+          break;
+        case BuffType.FLAT_ATK_DOWN:
+        case BuffType.MULTIPLICATIVE_ATK_DOWN:
+          m_label = "Dmg Down";
+          break;
+        case BuffType.BLIND:
+          m_label = "Blinded";
+          break;
+        case BuffType.SKIP_TURN:
+          m_label = "Skipped";
+          break;
+        default:
+          m_label = string.Empty;
+          break;
+      }
+    }
+
+    public Buff(Buff rhs)
+    {
+      m_type = rhs.m_type;
+      m_iconID = rhs.m_iconID;
+      m_value = rhs.m_value;
+      m_isDebuff = rhs.m_isDebuff;
+      m_label = rhs.m_label;
+      m_turns = rhs.m_turns;
     }
   }
 
@@ -70,10 +114,11 @@ namespace GoopScripts.Gameplay
 
     public void AddBuff(Buff buff)
     {
-      m_buffs.Add(buff);
+      Buff newBuff = new Buff(buff);
       uint buffPrefab = Utils.SpawnPrefab(buff.Label);
-      buff.m_iconID = buffPrefab;
+      newBuff.m_iconID = buffPrefab;
       m_buffIcons.Add(buffPrefab);
+      m_buffs.Add(newBuff);
       if (m_characterType == CharacterType.PLAYER)
 			  Utils.SetParent(Utils.GetEntity("PlayerBuffAnchor"), buffPrefab);
 			else
@@ -89,29 +134,23 @@ namespace GoopScripts.Gameplay
 		{
       foreach (var buff in m_buffs)
       {
-        //Console.WriteLine(buff.ToString());
-      }
-
-      foreach (var buff in m_buffs)
-      {
         buff.turns -= 1;
         if (buff.turns <= 0)
         {
-          Utils.DestroyEntity(buff.m_iconID);
-          m_buffIcons.Remove(buff.m_iconID);
+          DestroyBuffIcon(buff.m_iconID);
         }
       }
       m_buffs.RemoveAll(buff => buff.turns <= 0);
     }
 
+    public void DestroyBuffIcon(uint iconID)
+    {
+      Utils.DestroyEntity(iconID);
+      m_buffIcons.Remove(iconID);
+    }
+
     public void UpdateBuffsUI()
     {
-      //string txt = "";
-      //foreach (Buff buff in m_buffs)
-      //{
-      //  txt += buff.GetDisplayText() + "\n";
-      //}
-      //Utils.SetTextComponent(buffsUI, txt);
       int modifier = (m_characterType == CharacterType.PLAYER) ? 1 : -1;
       for (int i = 0; i < m_buffIcons.Count; ++i)
       {

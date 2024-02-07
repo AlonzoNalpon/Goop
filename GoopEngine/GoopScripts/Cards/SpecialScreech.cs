@@ -40,7 +40,7 @@ namespace GoopScripts.Cards
     ************************************************************************/
     public override void Play(ref Stats source, ref Stats target)
     {
-      source.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLY_ATK_DEALT, 2.0f, 1, "Dmg Up"));
+      source.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLICATIVE_ATK_UP, 2.0f, 1));
     }
   }
 }

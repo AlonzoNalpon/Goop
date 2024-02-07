@@ -48,7 +48,6 @@ namespace GoopScripts.Gameplay
     {
       m_deckMngr.Init(m_type);
       m_buffs = new BuffManager(m_buffsDisplay, m_type);
-      m_healthBar = new HealthBar(m_type, m_healthDisplayWillBeRemoved);
 
       // save the pos of each queue element
       for (int i = 0; i < 3; i++)
@@ -56,6 +55,8 @@ namespace GoopScripts.Gameplay
         m_queueElemPos[i] = Utils.GetWorldPosition((uint)queueElemIDs[i]);
         m_queueElemPos[i].Z += 5;
       }
+
+      m_healthBar = (HealthBar)Utils.GetScriptFromID(entityID, "HealthBar");
     }
 
     public void Init()
@@ -97,63 +98,67 @@ namespace GoopScripts.Gameplay
 
     public void TakeDamage(float damage)
 		{
-      if (damage != 0)
+      if (damage == 0.0f)
       {
-        float takenMultiplier = 1.0f;
+        return;
+      }
 
-        foreach (var buff in m_buffs.Buffs)
+      float takenMultiplier = 1.0f;
+
+      foreach (var buff in m_buffs.Buffs)
+      {
+        switch (buff.type)
         {
-          switch (buff.type)
-          {
-            case Buff.BuffType.INCREASE_BLOCK:
-              AddBlock((int)buff.value);
-              break;
+          case Buff.BuffType.INCREASE_BLOCK:
+            AddBlock((int)buff.value);
+            break;
 
-            case Buff.BuffType.BLIND:
-              Random rng = new Random();
-              int chance = rng.Next(1, 2);
-              if (chance == 1)
-              {
-                takenMultiplier = 0;
-              }
-              break;
-
-            case Buff.BuffType.SKIP_TURN:
-              m_isSkipped = true;
-              m_attack = m_block = 0;
-              break;
-
-            default:
-              break;
-          }
+          default:
+            break;
         }
-        int damageTaken = (int)(damage * takenMultiplier) - m_block;
-        if (damageTaken > 0)
-        {
-          m_healthBar.DecreaseHealth(damageTaken);
-        }
+      }
+      int damageTaken = (int)(damage * takenMultiplier) - m_block;
+      if (damageTaken > 0)
+      {
+        m_healthBar.DecreaseHealth(damageTaken);
       }
     }
 
     public int DamageDealt()
     {
-      if (m_attack != 0)
+      if (m_attack == 0)
       {
-        foreach (var buff in m_buffs.Buffs)
+        return 0;
+      }
+
+      foreach (Buff buff in m_buffs.Buffs)
+      {
+        switch (buff.type)
         {
-          switch (buff.type)
-          {
-            case Buff.BuffType.INCREASE_ATK_DEALT: //charge-up & combo
-              AddAttack((int)buff.value);
-              break;
+          case Buff.BuffType.FLAT_ATK_UP:
+            AddAttack((int)buff.value);
+            break;
 
-            case Buff.BuffType.MULTIPLY_ATK_DEALT: //smokescreen & rage & screech & flashbang & combo
-              MultiplyAttack(buff.value);
-              break;
+          case Buff.BuffType.MULTIPLICATIVE_ATK_UP:
+            MultiplyAttack(buff.value);
+            break;
 
-            default:
+          case Buff.BuffType.BLIND:
+            {
+              Random rng = new Random();
+              if (rng.Next(0, 2) == 0)
+              {
+                return m_attack = 0;
+              }
               break;
-          }
+            }
+
+          case Buff.BuffType.SKIP_TURN:
+            m_isSkipped = true;
+            return m_attack = 0;
+
+          default:
+            break;
         }
       }
 

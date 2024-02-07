@@ -9,6 +9,8 @@ using GoopScripts.Cards;
 
 namespace GoopScripts.Gameplay
 {
+  // a pair or tuple where both elements are of the same type
+  // and ordering doesn't matter when compared for equality
   using ComboPair = Mono.UnorderedPair<CardBase.CardType>;
 
   public static class ComboManager
@@ -23,18 +25,30 @@ namespace GoopScripts.Gameplay
 
     static Dictionary<ComboPair, Combo> m_comboList = new Dictionary<ComboPair, Combo>();
 
+    // To add an entry into the list of combos:
+    //  1. Define a ComboPair as ComboPair(TYPE_1, TYPE_2)
+    //  2. Define a Buff to add (List of buffs i.e. List<Buff> can also be passed in)
+    //  3. Create the Combo Object (currently exists BuffCombo, DebuffCombo or DrawCombo)
+    //  4. Do m_combolist.Add(ComboPair, Combo or ComboList)
     static ComboManager()
     {
       m_comboList.Add(new ComboPair(CardBase.CardType.ATTACK, CardBase.CardType.ATTACK),
-        new BuffCombo("Attack & Attack", new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 1.0f, 2, "Atk Up")));
+        new BuffCombo("Atk Up", new Buff(Buff.BuffType.FLAT_ATK_UP, 1.0f, 1)));
+
       m_comboList.Add(new ComboPair(CardBase.CardType.ATTACK, CardBase.CardType.BLOCK),
-        new DrawCombo("Attack & Block"));
+        new DrawCombo("Draw +1"));
+
       m_comboList.Add(new ComboPair(CardBase.CardType.BLOCK, CardBase.CardType.BLOCK),
-        new BuffCombo("Block & Block", new Buff(Buff.BuffType.INCREASE_BLOCK, 1.0f, 2, "Block Up")));
-      m_comboList.Add(new ComboPair(CardBase.CardType.ATTACK, CardBase.CardType.SPECIAL),
-        new DebuffCombo("Special & Attack", new Buff(Buff.BuffType.BLIND, 1.0f, 2, "Blinded")));
+        new BuffCombo("Block Up", new Buff(Buff.BuffType.INCREASE_BLOCK, 1.0f, 1)));
+
       m_comboList.Add(new ComboPair(CardBase.CardType.BLOCK, CardBase.CardType.SPECIAL),
-        new DebuffCombo("Special & Block", new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 2, "Skipped")));
+        new BuffCombo("Chance to Skip Enemy Turn", new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 1), 50));
+
+
+      Buff blind = new Buff(Buff.BuffType.BLIND, 1.0f, 1);
+      Buff atkUp = new Buff(Buff.BuffType.FLAT_ATK_UP, 1.0f, 1);
+      m_comboList.Add(new ComboPair(CardBase.CardType.ATTACK, CardBase.CardType.SPECIAL),
+        new BuffCombo("Blind + Atk Up", new List<Buff> { blind, atkUp }));
     }
 
     public static void Combo(ref Stats source, ref Stats target, int firstCardIndex)
@@ -45,11 +59,11 @@ namespace GoopScripts.Gameplay
       Combo combo;
       if (!m_comboList.TryGetValue(pair, out combo))
       {
-        //Console.WriteLine("Combo does not exist! " + card1.ToString() + " + " + card2.ToString());
+        Console.WriteLine("Combo does not exist! " + card1.ToString() + " + " + card2.ToString());
         return;
       }
 
-      //Console.WriteLine("Applied Combo: " + combo.GetName());
+      Console.WriteLine("Applied Combo to " + source.m_type.ToString() + ": " + combo.GetName());
       combo.ApplyEffect(ref source, ref target);
       //////Console.WriteLine($"Number of cards in queue: {source.m_deckMngr.m_queue.Length}");
       ////Console.WriteLine($"Card types in queue:");

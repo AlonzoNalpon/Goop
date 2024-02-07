@@ -25,30 +25,40 @@ namespace GoopScripts.Gameplay
   public class BuffCombo : Combo
   {
 
-    Buff m_effect;
-    public BuffCombo(string name, Buff effect) : base(name)
+    Random m_rand = new Random();
+    List<Buff> m_effects;
+    int m_chance; // chance out of 100
+
+    public BuffCombo(string name, Buff buff, int chance = 100) : base(name)
     {
-      m_effect = effect;
+      m_effects = new List<Buff> { buff };
+      m_chance = chance;
+    }
+
+    public BuffCombo(string name, List<Buff> effects, int chance = 100) : base(name)
+    {
+      m_effects = effects;
+      m_chance= chance;
     }
 
     override public void ApplyEffect(ref Stats source, ref Stats target)
     {
-      source.m_buffs.AddBuff(m_effect);
-    }
-  }
+      foreach (Buff b in m_effects)
+      {
+        if (m_chance <= 100 && !(m_rand.Next(0, 100) < m_chance))
+        {
+          continue;
+        }
 
-  public class DebuffCombo : Combo
-  {
-
-    Buff m_effect;
-    public DebuffCombo(string name, Buff effect) : base(name)
-    {
-      m_effect = effect;
-    }
-
-    override public void ApplyEffect(ref Stats source, ref Stats target)
-    {
-      target.m_buffs.AddBuff(m_effect);
+        if (b.IsDebuff())
+        {
+          target.m_buffs.AddBuff(b);
+        }
+        else
+        {
+          source.m_buffs.AddBuff(b);
+        }
+      }
     }
   }
 

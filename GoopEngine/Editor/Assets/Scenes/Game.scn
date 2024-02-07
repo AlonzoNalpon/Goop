@@ -138,9 +138,31 @@
                             ]
                         },
                         {
-                            "scriptName": "LeahFlinches",
+                            "scriptName": "HealthBar",
                             "entityID": 0,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 28,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "healthBarUI"
+                                    }
+                                },
+                                {
+                                    "data": 10,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                },
+                                {
+                                    "data": 10,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_maxHealth"
+                                    }
+                                }
+                            ]
                         },
                         {
                             "scriptName": "LeahDies",
@@ -159,6 +181,11 @@
                         },
                         {
                             "scriptName": "LeahAttacks",
+                            "entityID": 0,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "LeahFlinches",
                             "entityID": 0,
                             "scriptFieldInstList": []
                         }
@@ -499,6 +526,33 @@
                                     "type": "System.Int32[]",
                                     "scriptField": {
                                         "fieldName": "queueElemIDs"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "scriptName": "HealthBar",
+                            "entityID": 4,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 29,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "healthBarUI"
+                                    }
+                                },
+                                {
+                                    "data": 20,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                },
+                                {
+                                    "data": 20,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_maxHealth"
                                     }
                                 }
                             ]
@@ -1567,10 +1621,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -620, 430, -2 }",
+                    "pos": "{ -620, 430, 3 }",
                     "scale": "{ 10, 2, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -620, 430, -2 }",
+                    "worldPos": "{ -620, 430, 3 }",
                     "worldScale": "{ 10, 2, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1607,10 +1661,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 620, 430, -2 }",
+                    "pos": "{ 620, 430, 3 }",
                     "scale": "{ 10, 2, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 620, 430, -2 }",
+                    "worldPos": "{ 620, 430, 3 }",
                     "worldScale": "{ 10, 2, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }

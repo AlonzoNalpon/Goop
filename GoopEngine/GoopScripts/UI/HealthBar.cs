@@ -19,34 +19,15 @@ namespace GoopScripts.UI
     private int m_individualBarWidth;
     uint[] m_bars;
 
-    public HealthBar(Gameplay.CharacterType type, int healthBarID) : base()
+    public HealthBar(uint entity) : base(entity)
     {
-      healthBarUI = healthBarID;
-
-      switch (type)
-      {
-        case Gameplay.CharacterType.PLAYER:
-          m_health = m_maxHealth = 10;
-          break;
-        case Gameplay.CharacterType.BASIC_ENEMY:
-          m_health = m_maxHealth = 8;
-          break;
-        case Gameplay.CharacterType.BOSS_P1:
-          m_health = m_maxHealth = 12;
-          break;
-        case Gameplay.CharacterType.BOSS_P2:
-          m_health = m_maxHealth = 15;
-          break;
-        default:
-#if (DEBUG)
-          //Console.WriteLine("Unable to create healthbar of type: " + type.ToString());
-#endif
-          break;
-      }
-
-      Init();
+      
     }
 
+    public void OnCreate()
+    {
+      Init();
+    }
 
     public void Init()
     {

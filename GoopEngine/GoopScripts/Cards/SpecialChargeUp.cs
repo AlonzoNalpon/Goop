@@ -40,8 +40,8 @@ namespace GoopScripts.Cards
     ************************************************************************/
     public override void Play(ref Stats source, ref Stats target)
     {
-      source.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 0, "Skipped"));
-      source.m_buffs.AddBuff(new Buff(Buff.BuffType.INCREASE_ATK_DEALT, 2.0f, 1, "Atk Up"));
+      source.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 0));
+      source.m_buffs.AddBuff(new Buff(Buff.BuffType.FLAT_ATK_UP, 2.0f, 2));
     }
   }
 }
