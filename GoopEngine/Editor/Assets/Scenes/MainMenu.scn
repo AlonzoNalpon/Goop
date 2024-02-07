@@ -507,7 +507,7 @@
         ]
     },
     {
-        "Name": "Transition",
+        "Name": "TransitionOut",
         "ID": 9,
         "Prefab": null,
         "isActive": true,
@@ -560,6 +560,18 @@
                             ]
                         },
                         {
+                            "key": "Cutscene",
+                            "value": [
+                                {
+                                    "trans": "{ -480, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToCutScenes"
+                                }
+                            ]
+                        },
+                        {
                             "key": "HowToPlay",
                             "value": [
                                 {
@@ -582,18 +594,6 @@
                                     "animationEvent": "ChangeToOptions"
                                 }
                             ]
-                        },
-                        {
-                            "key": "Transition",
-                            "value": [
-                                {
-                                    "trans": "{ -480, 0, 1000 }",
-                                    "scale": "{ 1, 1, 1 }",
-                                    "rot": "{ 0, 0, 0 }",
-                                    "duration": 0.3,
-                                    "animationEvent": "ChangeToGameScene"
-                                }
-                            ]
                         }
                     ],
                     "started": false,
@@ -606,7 +606,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "ChangeToGameScene",
+                            "scriptName": "ChangeToCutScenes",
                             "entityID": 9,
                             "scriptFieldInstList": []
                         },
