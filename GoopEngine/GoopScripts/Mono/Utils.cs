@@ -438,6 +438,12 @@ namespace GoopScripts.Mono
       Utils.SetIsActiveEntity((uint)pauseMenu, false);
     }
 
+    public static void ToMainMenu()
+    {
+      UI.PauseManager.SetPauseState(0);
+      Utils.TransitionToScene("MainMenu");
+    }
+
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetParent(uint parent, uint child);
 

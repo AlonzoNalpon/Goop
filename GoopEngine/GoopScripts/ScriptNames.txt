@@ -23,6 +23,7 @@ GoopScripts.Button,IButtonHoverEnter
 GoopScripts.Button,IButtonHoverExit
 GoopScripts.Button,MenuClose
 GoopScripts.Button,MenuHowToPlay
+GoopScripts.Button,MenuMainMenu
 GoopScripts.Button,MenuQuitGame
 GoopScripts.Button,MenuResume
 GoopScripts.Button,ReturnFromQueue
@@ -65,7 +66,12 @@ GoopScripts.Gameplay,MoleRatBites
 GoopScripts.Gameplay,Stats
 GoopScripts.Player,Player
 GoopScripts.Player,PlayerScriptTest
+GoopScripts.Transition,ChangeToCredits
 GoopScripts.Transition,ChangeToGameScene
+GoopScripts.Transition,ChangeToHTP
+GoopScripts.Transition,ChangeToOptions
+GoopScripts.Transition,MainMenuToCredits
 GoopScripts.Transition,MainMenuToGame
+GoopScripts.Transition,MainMenuToScene
 GoopScripts.UI,HealthBar
 GoopScripts.UI,PauseManager

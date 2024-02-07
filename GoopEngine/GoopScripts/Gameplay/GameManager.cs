@@ -54,6 +54,7 @@ namespace GoopScripts.Gameplay
       //Console.WriteLine("Create GameManager");
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
+      UI.PauseManager.SetPauseState(0);
     }
 
     public void OnUpdate(double deltaTime)
