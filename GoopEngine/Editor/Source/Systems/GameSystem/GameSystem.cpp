@@ -26,7 +26,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using namespace GE::Component;
 using namespace GE::ECS;
 using namespace GE::MONO;
-bool GE::Systems::GameSystem::m_loseFocus = false;
 
 
 void GE::Systems::GameSystem::Start()
@@ -130,7 +129,6 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
     {
       case GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS:
       {
-        m_loseFocus = true;
         break;
       }
       case GE::Events::EVENT_TYPE::KEY_TRIGGERED:

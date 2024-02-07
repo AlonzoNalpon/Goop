@@ -410,10 +410,6 @@ namespace GE::MONO
 	************************************************************************/
 	bool CheckMonoError(MonoError& error);
 
-	static bool GetLoseFocus();
-
-	static void SetLoseFocus(bool active);
-
 	static void SetIsActiveEntity(GE::ECS::Entity entity, bool active);
 
 	static bool GetIsActiveEntity(GE::ECS::Entity entity);
