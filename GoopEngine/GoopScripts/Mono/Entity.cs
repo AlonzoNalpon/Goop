@@ -29,11 +29,11 @@ namespace GoopScripts.Mono
       return component;
     }
 
-    public T As<T>(string scriptName) where T : Entity, new()
-    {
-      object scriptInstance = Utils.GetScriptInstance(entityID, scriptName);
-      return scriptInstance as T;
-    }
+    //public T As<T>(string scriptName) where T : Entity, new()
+    //{
+    //  object scriptInstance = Utils.GetScriptInstance(entityID, scriptName);
+    //  return scriptInstance as T;
+    //}
 
     //public Entity FindEntityByName(string name)
     //{

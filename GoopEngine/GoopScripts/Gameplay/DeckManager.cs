@@ -247,9 +247,6 @@ namespace GoopScripts.Gameplay
     {
       if (index >= QUEUE_SIZE || m_queue[index].Item1 == CardBase.CardID.NO_CARD)
       {
-#if (DEBUG)
-        Console.WriteLine("DiscardFromQueue: out of range (" + index + ")");
-#endif
         return;
       }
 

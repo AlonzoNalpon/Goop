@@ -1,9 +1,9 @@
 ﻿/*!*********************************************************************
-\file   GameManager.cs
-\author chengen.lau\@digipen.edu
-\co-author c.phua\@digipen.edu
-\co-author Han Qin Ding
-\date   10-January-2024
+\file       GameManager.cs
+\author     chengen.lau\@digipen.edu
+\co-author  c.phua\@digipen.edu
+\co-author  Han Qin Ding
+\date       10-January-2024
 \brief  
 Calculates and keep tracks of character's stats like attack and block.
  
@@ -251,9 +251,6 @@ namespace GoopScripts.Gameplay
           m_playerStats.ClearAtKBlk();
           m_enemyStats.ClearAtKBlk();
         }
-
-        m_playerStats.m_deckMngr.DiscardFromQueue(m_slotNum);
-        m_enemyStats.m_deckMngr.DiscardFromQueue(m_slotNum);
         ++m_slotNum;
 
 

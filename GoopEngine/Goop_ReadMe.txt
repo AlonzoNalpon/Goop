@@ -26,9 +26,6 @@ Cheats:
 Pressing "U", in the game scene, will reduce the enemy's health by 1 bar.
 
 known bugs:
-Pressing the "End Turn" button continuously will cause the cards to be continuously resolved and affect the character's stats.
-The death animation will play multiple times if character gets hit even after it's death.
-During the resolution phase, players can still select and unselect cards, causing undefined behaviour.
 
 Team Roster:
 Wong Chin Kit Bryan - Tech Lead, Product Manager

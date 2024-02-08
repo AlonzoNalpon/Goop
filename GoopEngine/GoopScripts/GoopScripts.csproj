@@ -72,6 +72,7 @@
     <Compile Include="Button\MenuMainMenu.cs" />
     <Compile Include="Button\OptionSlider.cs" />
     <Compile Include="Cutscene\SwitchCutScenes.cs" />
+    <Compile Include="Gameplay\ComboTextUpdate.cs" />
     <Compile Include="Transition\ChangeToCredits.cs" />
     <Compile Include="Transition\ChangeToCutScenes.cs" />
     <Compile Include="Transition\ChangeToGameScene.cs" />
