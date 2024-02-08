@@ -40,6 +40,7 @@ namespace GoopScripts.Gameplay
     public Stats m_playerStats, m_enemyStats;
 
     static bool isResolutionPhase = false;
+    static bool isDead = false;
     //bool intervalBeforeReset;
 
     //tools for resolving cards
@@ -66,6 +67,7 @@ namespace GoopScripts.Gameplay
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
       UI.PauseManager.SetPauseState(0);
+      isDead = false;
     }
 
     public void OnUpdate(double deltaTime)
@@ -160,7 +162,7 @@ namespace GoopScripts.Gameplay
     public void ResolutionPhase(double deltaTime)
     {
       //Time to trigger the card effects and the animations.
-      if (toTrigger)
+      if (toTrigger && !isDead)
       {
         toTrigger = false;
         bool toTriggerPlayerTakeDmg = true;
@@ -242,16 +244,23 @@ namespace GoopScripts.Gameplay
 
           m_playerStats.TakeDamage(eCalculatedDmg);
           m_enemyStats.TakeDamage(pCalculatedDmg);
+          double deathTime = 0.0;
           // bad code but for demo ok
           if (m_playerStats.IsDead())
           {
             Utils.PlayAnimation("SS_Leah_Death", m_playerStats.entityID);
+            deathTime= (Utils.GetAnimationTime("SS_Leah_Death") > deathTime)? Utils.GetAnimationTime("SS_Leah_Death") : deathTime;
+            isDead = true;
+
           }
           else if (m_enemyStats.IsDead())
           {
             Utils.PlayAnimation("SS_MoleRat_Death", m_enemyStats.entityID);
+            deathTime = (Utils.GetAnimationTime("SS_MoleRat_Death") > deathTime) ? Utils.GetAnimationTime("SS_MoleRat_Death") : deathTime;
+            isDead = true;
           }
 
+          m_animTime = (deathTime>m_animTime)? deathTime:m_animTime;
           m_playerStats.ClearAtKBlk();
           m_enemyStats.ClearAtKBlk();
         }
@@ -266,13 +275,8 @@ namespace GoopScripts.Gameplay
         if(m_currTime >=m_animTime)
         {
           m_currTime = 0.0;
-          if (m_slotNum > 2) //we have resolved all the animation for this round
+          if (isDead)
           {
-            Utils.PlayAnimation("SS_Leah_Idle", m_playerStats.entityID);
-            Utils.PlayAnimation("SS_MoleRat_Idle", m_enemyStats.entityID);
-            isResolutionPhase = false;
-            isStartOfTurn = true;
-
             // bad code but for demo ok
             if (m_playerStats.IsDead())
             {
@@ -285,14 +289,22 @@ namespace GoopScripts.Gameplay
               TransitionToScene("Victory");
             }
           }
+          else
+          {
+            if (m_slotNum > 2) //we have resolved all the animation for this round
+            {
+              Utils.PlayAnimation("SS_Leah_Idle", m_playerStats.entityID);
+              Utils.PlayAnimation("SS_MoleRat_Idle", m_enemyStats.entityID);
+              isResolutionPhase = false;
+              isStartOfTurn = true;
 
-          else //we have not resolve all the animaiton for this round, lets continue
-             toTrigger = true;
 
+            }
+
+            else //we have not resolve all the animaiton for this round, lets continue
+              toTrigger = true;
+          }
         }
-        
-
-
       }
 
       ++m_currTime;
