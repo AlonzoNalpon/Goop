@@ -237,7 +237,16 @@ namespace GE {
 			************************************************************************/
 			void GetAllUpdatedFields();
 
+
+
+			/*!*********************************************************************
+			\brief
+				Function to update all the scriptfieldINstance in c# script with the value inside c++
+				THis function is called to ensure the value displayed in the inspector is updated into the c# script
+			************************************************************************/
 			void SetAllFields();
+
+
 			/*!*********************************************************************
 			\brief
 				Template Function to get a public field from the c# script class.

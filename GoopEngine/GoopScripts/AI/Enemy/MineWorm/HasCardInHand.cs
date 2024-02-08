@@ -1,11 +1,10 @@
 ﻿/*!************************************************************************
-\file IsOutsideAttackRange.cs
+\file HasCardinHand.cs
 \author Han Qin Ding
 
 \brief
-C# script attached to a leaf node.
-Used to check if the player is outside of the enemy's attack range.
-If the player is outside of the enemy's attack range it returns success, else return fails
+C# script for enemyAi Tree
+Checks if enemy has at leaast 1 car din its hand
 
 **************************************************************************/
 
@@ -32,7 +31,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
   \brief
-    Non default constructor of IsOutsideAttackRange class
+    Non default constructor of HasCardinHand class
 
   \params enityID
    ID of the owner of this scipt
@@ -47,7 +46,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
    \brief
-     Awake function for the IsOutsideAttackRange script. 
+     Awake function for the HasCardinHand script. 
    ************************************************************************/
     public void Awake()
     {
@@ -57,7 +56,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
    \brief
-     Start function for the IsOutsideAttackRange script. 
+     Start function for the HasCardinHand script. 
    ************************************************************************/
     public void Start()
     {
@@ -66,7 +65,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
     \brief
-     Update function for the IsOutsideAttackRange script. This function is called every frame
+     Update function for the HasCardinHand script. This function is called every frame
      if the script is attached to a leaf node
     
     \param[entityID] uint
@@ -98,7 +97,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
     \brief
-     onFail function for the IsOutsideAttackRange script. This function is called when the script fails.
+     onFail function for the HasCardinHand script. This function is called when the script fails.
     it informs the tree that this script failed and jump back to the parent node
     ************************************************************************/
     public void OnFail()
@@ -109,7 +108,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
     \brief
-     onSuccess function for the IsOutsideAttackRange script. This function is called when the script succeed.
+     onSuccess function for the HasCardinHand script. This function is called when the script succeed.
     it informs the tree that this script succeed and jump back to the parent node
     ************************************************************************/
     public void OnSuccess()
@@ -132,7 +131,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
     \brief
-     Update function for the IsOutsideAttackRange script. This function is called every frame
+     Update function for the HasCardinHand script. This function is called every frame
      if the script is attached to an entity
     ************************************************************************/
     public void Update()
@@ -142,7 +141,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
     \brief
-     late Update function for the IsOutsideAttackRange script
+     late Update function for the HasCardinHand script
     ************************************************************************/
     public void LateUpdate()
     {
