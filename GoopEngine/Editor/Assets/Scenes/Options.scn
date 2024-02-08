@@ -80,6 +80,30 @@
         ]
     },
     {
+        "Name": "[Group]",
+        "ID": 2,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            18,
+            19,
+            20
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
         "Name": "MainMenu_MainMenu",
         "ID": 3,
         "Prefab": null,
@@ -254,13 +278,13 @@
         "ID": 6,
         "Prefab": null,
         "isActive": true,
-        "Parent": 7,
+        "Parent": 19,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 1 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "pos": "{ 90, 162.5, 1 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 90, 162.5, 1 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
@@ -305,7 +329,7 @@
                             "entityID": 6,
                             "scriptFieldInstList": [
                                 {
-                                    "data": 200.0,
+                                    "data": 350.0,
                                     "type": "System.Double",
                                     "scriptField": {
                                         "fieldName": "Range"
@@ -331,10 +355,8 @@
         "ID": 7,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
-        "Child Entities": [
-            6
-        ],
+        "Parent": 20,
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
@@ -373,13 +395,13 @@
         "ID": 8,
         "Prefab": null,
         "isActive": true,
-        "Parent": 9,
+        "Parent": 19,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 1 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "pos": "{ 90, 62, 1 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 90, 62, 1 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
@@ -424,7 +446,7 @@
                             "entityID": 8,
                             "scriptFieldInstList": [
                                 {
-                                    "data": 230.0,
+                                    "data": 350.0,
                                     "type": "System.Double",
                                     "scriptField": {
                                         "fieldName": "Range"
@@ -450,10 +472,8 @@
         "ID": 9,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
-        "Child Entities": [
-            8
-        ],
+        "Parent": 20,
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
@@ -492,13 +512,13 @@
         "ID": 10,
         "Prefab": null,
         "isActive": true,
-        "Parent": 11,
+        "Parent": 19,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 1 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "pos": "{ 90, -38, 1 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 90, -38, 1 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
@@ -543,7 +563,7 @@
                             "entityID": 10,
                             "scriptFieldInstList": [
                                 {
-                                    "data": 230.0,
+                                    "data": 350.0,
                                     "type": "System.Double",
                                     "scriptField": {
                                         "fieldName": "Range"
@@ -569,10 +589,8 @@
         "ID": 11,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
-        "Child Entities": [
-            10
-        ],
+        "Parent": 20,
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
@@ -611,13 +629,13 @@
         "ID": 12,
         "Prefab": null,
         "isActive": true,
-        "Parent": 13,
+        "Parent": 19,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 1 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "pos": "{ 90, -140, 1 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 90, -140, 1 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
@@ -662,7 +680,7 @@
                             "entityID": 12,
                             "scriptFieldInstList": [
                                 {
-                                    "data": 230.0,
+                                    "data": 350.0,
                                     "type": "System.Double",
                                     "scriptField": {
                                         "fieldName": "Range"
@@ -688,10 +706,8 @@
         "ID": 13,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
-        "Child Entities": [
-            12
-        ],
+        "Parent": 20,
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
@@ -730,17 +746,17 @@
         "ID": 14,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 18,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
                     "pos": "{ -453, 42, 0 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -453, 42, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -763,17 +779,17 @@
         "ID": 15,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 18,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
                     "pos": "{ -457, 143, 0 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -457, 143, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -796,17 +812,17 @@
         "ID": 16,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 18,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
                     "pos": "{ -430, -60, 0 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -430, -60, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -829,17 +845,17 @@
         "ID": 17,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 18,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
                     "pos": "{ -450, -162, 0 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -450, -162, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -853,6 +869,81 @@
                     },
                     "scale": 0.2199999988079071,
                     "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Texts",
+        "ID": 18,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [
+            14,
+            15,
+            16,
+            17
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Bars",
+        "ID": 19,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [
+            6,
+            8,
+            10,
+            12
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Sliders",
+        "ID": 20,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [
+            7,
+            9,
+            11,
+            13
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             }
         ]
