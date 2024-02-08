@@ -1,6 +1,7 @@
 ﻿/*!*********************************************************************
 \file   Block.cs
 \author w.chinkitbryan\@digipen.edu
+\co-author c.phua\@digipen.edu
 \date   26-November-2023
 \brief  
   Block card, derived from card base.

@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   ComboManager.cs
+\author chengen.lau\@digipen.edu
+\co-author c.phua\@digipen.edu
+\co-author Han Qin Ding
+\date   10-January-2024
+\brief  
+Resolves card combos and applied the effect to the respective characters.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

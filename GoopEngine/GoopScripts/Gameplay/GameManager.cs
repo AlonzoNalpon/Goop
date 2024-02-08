@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   GameManager.cs
+\author chengen.lau\@digipen.edu
+\co-author c.phua\@digipen.edu
+\co-author Han Qin Ding
+\date   10-January-2024
+\brief  
+Calculates and keep tracks of character's stats like attack and block.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;

@@ -1,4 +1,14 @@
-﻿
+﻿/*!*********************************************************************
+\file   BuffManager.cs
+\author chengen.lau\@digipen.edu
+\co-author c.phua\@digipen.edu
+\co-author Han Qin Ding
+\date   10-January-2024
+\brief  
+Keeps track of buffs and allows modification to list of buffs for the character.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
@@ -45,6 +55,16 @@ namespace GoopScripts.Gameplay
 
     public string Label { get { return m_label; } }
 
+    /*!*********************************************************************
+    \brief  
+      Overloaded constructor of a buff
+    \param type
+      Type of buff
+    \param value
+      Value of the buff's effect
+    \param turns
+      Number of turns the buff lasts
+    ************************************************************************/
     public Buff(BuffType type, float value, int turns)
     {
       m_type = type;
@@ -79,6 +99,12 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+    \brief  
+      Copy constructor of a buff
+    \param rhs
+      Buff to copy
+    ************************************************************************/
     public Buff(Buff rhs)
     {
       m_type = rhs.m_type;

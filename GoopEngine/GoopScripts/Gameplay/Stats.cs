@@ -1,4 +1,16 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   Stats.cs
+\author chengen.lau\@digipen.edu
+\co-author c.phua\@digipen.edu
+\co-author Han Qin Ding
+\date   10-January-2024
+\brief  
+Calculates and keep tracks of character's stats like attack and block.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +71,10 @@ namespace GoopScripts.Gameplay
       m_healthBar = (HealthBar)Utils.GetScriptFromID(entityID, "HealthBar");
     }
 
+    /*!*********************************************************************
+    \brief  
+      Initialises character's hand with the correct number of cards
+    ************************************************************************/
     public void Init()
     {
       for (int i = 0; i < DeckManager.STARTING_CARDS; ++i)
@@ -67,6 +83,10 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+    \brief  
+      Resets attack and block stats.
+    ************************************************************************/
     public void ClearAtKBlk()
     {
       m_attack = 0;
@@ -75,6 +95,12 @@ namespace GoopScripts.Gameplay
       //Utils.SetTextComponent(m_blockDisplay, "0");
     }
 
+    /*!*********************************************************************
+    \brief  
+      Adds to the attack stats.
+    \param value
+      Attack value. 
+    ************************************************************************/
     public void AddAttack(int value)
     {
       m_attack += value;
@@ -82,6 +108,12 @@ namespace GoopScripts.Gameplay
       Utils.SetTextComponent(m_attackDisplay, m_attack.ToString());
     }
 
+    /*!*********************************************************************
+    \brief  
+      Multiplies the attack stats.
+    \param value
+      Attack value.
+    ************************************************************************/
     public void MultiplyAttack(float value)
     {
       m_attack = (int)((float)m_attack * value);
@@ -89,6 +121,12 @@ namespace GoopScripts.Gameplay
       Utils.SetTextComponent(m_attackDisplay, m_attack.ToString());
     }
 
+    /*!*********************************************************************
+    \brief  
+      Adds to the block stats.
+    \param value
+      Block value. 
+    ************************************************************************/
     public void AddBlock(int value)
     {
       m_block += value;
@@ -96,6 +134,13 @@ namespace GoopScripts.Gameplay
       Utils.SetTextComponent(m_blockDisplay, m_block.ToString());
     }
 
+    /*!*********************************************************************
+    \brief  
+      Calculates total damage taken and applies to character's stats.
+    Takes into account for buffs and debuffs.
+    \param damage
+      Total damage taken BEFORE buffs and debuffs.
+    ************************************************************************/
     public void TakeDamage(float damage)
 		{
       if (damage == 0.0f)
@@ -124,6 +169,13 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+    \brief  
+      Calculates total damage dealt and applies to character's stats.
+    Takes into account for buffs and debuffs.
+    \param damage
+      Total damage dealt BEFORE buffs and debuffs.
+    ************************************************************************/
     public int DamageDealt()
     {
       if (m_attack == 0)
@@ -320,6 +372,13 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      Checks if character is dead or not.
+    \return bool
+      True if character's heath is <= 0.
+      False if character's health is > 0.
+    ************************************************************************/
     public bool IsDead()
     {
       return m_healthBar.m_health <= 0;
