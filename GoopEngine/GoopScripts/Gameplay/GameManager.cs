@@ -126,7 +126,7 @@ namespace GoopScripts.Gameplay
         {
           Utils.SetTimeScale(1.0f);
         }
-        Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
+        // Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
       }
 
       if (isResolutionPhase)
