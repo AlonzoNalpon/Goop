@@ -142,6 +142,13 @@
                             "entityID": 0,
                             "scriptFieldInstList": [
                                 {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Player"
+                                    }
+                                },
+                                {
                                     "data": 28,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -534,6 +541,13 @@
                             "scriptName": "HealthBar",
                             "entityID": 4,
                             "scriptFieldInstList": [
+                                {
+                                    "data": 1,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Player"
+                                    }
+                                },
                                 {
                                     "data": 29,
                                     "type": "System.Int32",
@@ -1829,7 +1843,9 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 9,
-        "Child Entities": [],
+        "Child Entities": [
+            75
+        ],
         "Components": [
             {
                 "Transform": {
@@ -1935,11 +1951,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -620, 430, 3 }",
-                    "scale": "{ 10, 2, 1 }",
+                    "pos": "{ -630.889, 430, 3 }",
+                    "scale": "{ 1, 2, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -620, 430, 3 }",
-                    "worldScale": "{ 10, 2, 1 }",
+                    "worldPos": "{ -630.889, 430, 3 }",
+                    "worldScale": "{ 1, 2, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1955,11 +1971,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 32,
-                            "height": 32
+                            "width": 277,
+                            "height": 33
                         }
                     },
-                    "spriteName": "Black",
+                    "spriteName": "UI_HealthBar_Empty",
                     "shouldRender": true
                 }
             }
@@ -1975,12 +1991,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 620, 430, 3 }",
-                    "scale": "{ 10, 2, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 620, 430, 3 }",
-                    "worldScale": "{ 10, 2, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "pos": "{ 629.982, 430, 3 }",
+                    "scale": "{ 1, 2, 1 }",
+                    "rot": "{ 0, 0, 180 }",
+                    "worldPos": "{ 629.982, 430, 3 }",
+                    "worldScale": "{ 1, 2, 1 }",
+                    "worldRot": "{ 0, 0, 180 }"
                 }
             },
             {
@@ -1995,11 +2011,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 32,
-                            "height": 32
+                            "width": 277,
+                            "height": 33
                         }
                     },
-                    "spriteName": "Black",
+                    "spriteName": "UI_HealthBar_Empty",
                     "shouldRender": true
                 }
             }
@@ -2015,10 +2031,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, -0.1 }",
+                    "pos": "{ 0, -0.3, -0.1 }",
                     "scale": "{ 0.25, 0.25, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -850, 430, 0.9 }",
+                    "worldPos": "{ -850, 428.5, 0.9 }",
                     "worldScale": "{ 1.25, 1.25, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4052,6 +4068,46 @@
                     },
                     "scale": 0.1599999964237213,
                     "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Picture",
+        "ID": 75,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 25,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -0.1002, -0.3, -0.1 }",
+                    "scale": "{ 0.25, 0.25, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 849.499, 428.5, 0.9 }",
+                    "worldScale": "{ 1.25, 1.25, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 128,
+                            "height": 128
+                        }
+                    },
+                    "spriteName": "Portrait",
+                    "shouldRender": true
                 }
             }
         ]

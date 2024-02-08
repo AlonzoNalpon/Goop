@@ -81,6 +81,7 @@ namespace GoopScripts.Gameplay
       {
         Draw();
       }
+      m_healthBar.ResetBar();
     }
 
     /*!*********************************************************************

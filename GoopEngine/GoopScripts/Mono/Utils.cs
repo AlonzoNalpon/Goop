@@ -415,6 +415,12 @@ namespace GoopScripts.Mono
     extern public static uint GetObjectHeight(uint ID);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static uint SetObjectWidth(uint ID, int width);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static uint SetObjectHeight(uint ID, int height);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static uint CreateObject(string name,
       Vec3<double> pos,
       Vec3<double> scale,

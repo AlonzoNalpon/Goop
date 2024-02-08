@@ -445,6 +445,10 @@ namespace GE::MONO
 
 	static int GetObjectHeight(GE::ECS::Entity entity);
 
+	void SetObjectWidth(GE::ECS::Entity entity, int width);
+
+	void SetObjectHeight(GE::ECS::Entity entity, int height);
+
 	static GE::ECS::Entity CreateObject(MonoString* name, GE::Math::dVec3 pos = {}, GE::Math::dVec3 scale = {}, GE::Math::dVec3 rotation = {}, GE::ECS::Entity parent = ECS::INVALID_ID);
 
 	static void UpdateSprite(GE::ECS::Entity entity, MonoString* textureName);

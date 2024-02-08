@@ -33,7 +33,7 @@ namespace GoopScripts.Button
 
     public void OnCreate()
     {
-      Console.WriteLine("ENTITY: " + entityID);
+      // Console.WriteLine("ENTITY: " + entityID);
       Vec3<double> pos = Utils.GetPosition(entityID);
       m_posY = pos.Y;
       m_posZ = pos.Z;

@@ -176,6 +176,8 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SpawnPrefab", GE::MONO::SpawnPrefab);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectWidth", GE::MONO::GetObjectWidth);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectHeight", GE::MONO::GetObjectHeight);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetObjectWidth", GE::MONO::SetObjectWidth);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetObjectHeight", GE::MONO::SetObjectHeight);
   mono_add_internal_call("GoopScripts.Mono.Utils::CreateObject", GE::MONO::CreateObject);
   mono_add_internal_call("GoopScripts.Mono.Utils::UpdateSprite", GE::MONO::UpdateSprite);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextComponent", GE::MONO::SetTextComponent);
@@ -922,6 +924,16 @@ int GE::MONO::GetObjectWidth(GE::ECS::Entity entity)
 int GE::MONO::GetObjectHeight(GE::ECS::Entity entity)
 {
   return GE::ECS::EntityComponentSystem::GetInstance().GetComponent<GE::Component::Sprite>(entity)->m_spriteData.info.height;
+}
+
+void GE::MONO::SetObjectWidth(GE::ECS::Entity entity, int width)
+{
+  GE::ECS::EntityComponentSystem::GetInstance().GetComponent<GE::Component::Sprite>(entity)->m_spriteData.info.width = width;
+}
+
+void GE::MONO::SetObjectHeight(GE::ECS::Entity entity, int height)
+{
+  GE::ECS::EntityComponentSystem::GetInstance().GetComponent<GE::Component::Sprite>(entity)->m_spriteData.info.height = height;
 }
 
 GE::ECS::Entity GE::MONO::CreateObject(MonoString* name, GE::Math::dVec3 pos, GE::Math::dVec3 scale, GE::Math::dVec3 rotation, GE::ECS::Entity parent)
