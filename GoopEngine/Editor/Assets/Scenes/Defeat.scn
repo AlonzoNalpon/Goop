@@ -35,20 +35,8 @@
                             "height": 1080
                         }
                     },
-                    "spriteName": "Game_DefeatScreen"
-                }
-            },
-            {
-                "Audio": {
-                    "sounds": [
-                        {
-                            "sound": "caveFighting",
-                            "loop": false,
-                            "playOnStart": true,
-                            "channel": "BGM",
-                            "volume": 0.5479999780654907
-                        }
-                    ]
+                    "spriteName": "Game_DefeatScreen",
+                    "shouldRender": true
                 }
             }
         ]
@@ -82,9 +70,22 @@
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "StopGameAudio",
+                            "entityID": 1,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
                 "GE_Button": {
                     "param": "MainMenu",
-                    "eventType": "CHANGE_SCENE"
+                    "eventType": "CHANGE_SCENE",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
