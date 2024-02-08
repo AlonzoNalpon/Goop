@@ -1,6 +1,7 @@
 ﻿/*!*********************************************************************
 \file   CardBase.cs
 \author w.chinkitbryan\@digipen.edu
+\co-author c.phua\@digipen.edu
 \date   26-November-2023
 \brief  
 Blank card, derived from card base. This class serves the purpose

@@ -1,6 +1,7 @@
 ﻿/*!*********************************************************************
 \file   Attack.cs
 \author w.chinkitbryan\@digipen.edu
+\co-author c.phua\@digipen.edu
 \date   26-November-2023
 \brief  
 Attack card, derived from card base.
