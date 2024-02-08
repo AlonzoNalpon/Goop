@@ -1,11 +1,16 @@
 ﻿/*!*********************************************************************
-\file   Stats.cs
-\author chengen.lau\@digipen.edu
-\co-author c.phua\@digipen.edu
-\co-author Han Qin Ding
-\date   10-January-2024
-\brief  
-Calculates and keep tracks of character's stats like attack and block.
+\file         Stats.cs
+\author       chengen.lau\@digipen.edu
+\co-author    c.phua\@digipen.edu, han.q@digipen.edu
+\co-author    Han Qin Ding
+\date         10-January-2024
+\brief        Calculates and keep tracks of stats related to a
+              character. Mostly contains instances of elements
+              required to run the game such as the deck, combo, buff
+              manager, health, attack, block and ui elements to
+              update. These are managed by the GameManager to
+              update the relevant values based on the current game
+              phase.
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

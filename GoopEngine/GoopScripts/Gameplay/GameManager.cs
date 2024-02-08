@@ -1,11 +1,10 @@
 ﻿/*!*********************************************************************
-\file   GameManager.cs
-\author chengen.lau\@digipen.edu
-\co-author c.phua\@digipen.edu, han.q@digipen.edu
-\co-author Han Qin Ding
-\date   10-January-2024
-\brief  
-Calculates and keep tracks of character's stats like attack and block.
+\file       GameManager.cs
+\author     chengen.lau\@digipen.edu
+\co-author  c.phua\@digipen.edu, han.q@digipen.edu
+\date       10-January-2024
+\brief      The main update loop for the game scene. A single entity
+            "GameSystem" will run this script in the scene.
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
