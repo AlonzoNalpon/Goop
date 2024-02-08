@@ -1,0 +1,67 @@
+{
+    "Name": "Base",
+    "isActive": true,
+    "Version": 0,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 0, 0, 0 }",
+                "scale": "{ 1, 1, 1 }",
+                "rot": "{ 0, 0, 0 }",
+                "worldPos": "{ -115, 177, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ -115, 177 }",
+                "width": 214.0,
+                "height": 300.0,
+                "min": "{ -222, 27 }",
+                "max": "{ -8, 327 }",
+                "render": false
+            }
+        },
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "width": 214,
+                        "height": 300
+                    }
+                },
+                "spriteName": "CardBaseFront_Attack",
+                "shouldRender": true
+            }
+        },
+        {
+            "Scripts": {
+                "scriptList": [
+                    {
+                        "scriptName": "HandCardHover",
+                        "entityID": 1,
+                        "scriptFieldInstList": []
+                    }
+                ]
+            }
+        },
+        {
+            "GE_Button": {
+                "param": "",
+                "eventType": "NO_EVENT",
+                "lastCollided": false,
+                "currCollided": false
+            }
+        }
+    ],
+    "SubData": []
+}

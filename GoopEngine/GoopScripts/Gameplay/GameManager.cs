@@ -21,6 +21,7 @@ using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
 using System.Threading;
 using static GoopScripts.Cards.CardBase;
+using GoopScripts.Button;
 
 namespace GoopScripts.Gameplay
 {
@@ -66,6 +67,8 @@ namespace GoopScripts.Gameplay
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
       UI.PauseManager.SetPauseState(0);
+      HandCardHover.m_cardHover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
+      Utils.SetIsActiveEntity(HandCardHover.m_cardHover, false);
     }
 
     public void OnUpdate(double deltaTime)

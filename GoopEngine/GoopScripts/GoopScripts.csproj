@@ -68,6 +68,7 @@
     <Compile Include="AI\RootNode.cs" />
     <Compile Include="AI\SelectorNode.cs" />
     <Compile Include="AI\SequenceNode.cs" />
+    <Compile Include="Button\HandCardHover.cs" />
     <Compile Include="Button\MenuMainMenu.cs" />
     <Compile Include="Button\OptionSlider.cs" />
     <Compile Include="Cutscene\SwitchCutScenes.cs" />

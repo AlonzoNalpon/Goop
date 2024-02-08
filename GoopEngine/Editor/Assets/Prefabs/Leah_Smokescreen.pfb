@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Smokescreen",
     "isActive": true,
-    "Version": 5,
+    "Version": 6,
     "Components": [
         {
             "Transform": {
@@ -61,6 +61,16 @@
                     }
                 },
                 {
+                    "BoxCollider": {
+                        "center": "{ 0, 0 }",
+                        "width": 214.0,
+                        "height": 300.0,
+                        "min": "{ -107, -150 }",
+                        "max": "{ 107, 150 }",
+                        "render": true
+                    }
+                },
+                {
                     "Sprite": {
                         "spriteData": {
                             "spriteSubData": {
@@ -78,6 +88,25 @@
                         },
                         "spriteName": "CardBaseFront_Special",
                         "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "HandCardHover",
+                                "entityID": 1,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
                     }
                 }
             ]

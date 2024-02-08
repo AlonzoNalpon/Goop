@@ -22,7 +22,6 @@ namespace GoopScripts.Mono
   {
     public T X { get; set; }
     public T Y { get; set; }
-
     public T Z { get; set; }
 
     /*!*********************************************************************
@@ -39,6 +38,13 @@ namespace GoopScripts.Mono
     {
       X = xVal;
       Y = yVal;
+      Z = zVal;
+    }
+
+    public Vec3(Vec2<T> xy, T zVal)
+    {
+      X = xy.X;
+      Y = xy.Y;
       Z = zVal;
     }
 
