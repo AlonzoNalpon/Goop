@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Beserk",
     "isActive": true,
-    "Version": 9,
+    "Version": 10,
     "Components": [
         {
             "Transform": {
@@ -11,35 +11,6 @@
                 "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
-            }
-        },
-        {
-            "BoxCollider": {
-                "center": "{ 0, 0 }",
-                "width": 214.0,
-                "height": 300.0,
-                "min": "{ -107, -150 }",
-                "max": "{ 107, 150 }",
-                "render": false
-            }
-        },
-        {
-            "Scripts": {
-                "scriptList": [
-                    {
-                        "scriptName": "SelectCard",
-                        "entityID": 0,
-                        "scriptFieldInstList": []
-                    }
-                ]
-            }
-        },
-        {
-            "GE_Button": {
-                "param": "",
-                "eventType": "NO_EVENT",
-                "lastCollided": false,
-                "currCollided": false
             }
         }
     ],
@@ -292,8 +263,8 @@
                     "Scripts": {
                         "scriptList": [
                             {
-                                "scriptName": "HandCardHover",
-                                "entityID": 1,
+                                "scriptName": "SelectCard",
+                                "entityID": 6,
                                 "scriptFieldInstList": []
                             }
                         ]
@@ -308,12 +279,6 @@
                     }
                 }
             ]
-        }
-    ],
-    "Removed Children": [
-        {
-            "first": 1,
-            "second": 9
         }
     ]
 }

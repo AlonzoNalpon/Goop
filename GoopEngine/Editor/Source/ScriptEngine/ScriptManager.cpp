@@ -521,12 +521,17 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
   throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to locate class in map" + std::string(className), ERRLG_FUNC, ERRLG_LINE);
 }
 
-MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, std::vector<void*>& arg)  
+MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className, std::vector<void*>& arg)  
 {
 
   if (m_monoClassMap.find(className) != m_monoClassMap.end())
   {
     MonoClass* currClass = m_monoClassMap[className].m_scriptClass;
+    if (!currClass)
+    {
+      throw Debug::Exception<ScriptManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to fetch script: " + std::string(className)));
+    }
+
     MonoObject* classInstance = mono_object_new(m_appDomain, currClass);  //Get a reference to the class we want to instantiate
 
     if (classInstance == nullptr)

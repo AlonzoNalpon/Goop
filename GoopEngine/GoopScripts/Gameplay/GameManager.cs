@@ -63,12 +63,13 @@ namespace GoopScripts.Gameplay
 
     public void OnCreate()
     {
-      //Console.WriteLine("Create GameManager");
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
       UI.PauseManager.SetPauseState(0);
-      HandCardHover.m_cardHover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
-      Utils.SetIsActiveEntity(HandCardHover.m_cardHover, false);
+
+      // set the static variable to the entity holding the hover effect sprite
+      SelectCard.m_cardHover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
+      Utils.SetIsActiveEntity(SelectCard.m_cardHover, false);
     }
 
     public void OnUpdate(double deltaTime)
