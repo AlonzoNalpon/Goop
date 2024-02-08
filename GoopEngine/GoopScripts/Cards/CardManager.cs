@@ -130,7 +130,9 @@ namespace GoopScripts.Cards
       }
       catch (Exception ex)
       {
+#if (DEBUG)
         Console.WriteLine($"Error reading file: {ex.Message}");
+#endif
       }
     }
 

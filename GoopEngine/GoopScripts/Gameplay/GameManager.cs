@@ -385,7 +385,6 @@ namespace GoopScripts.Gameplay
     public void HighlightQueueSlot(int index)
     {
       Vec3<double> pPos = new Vec3<double>(m_playerStats.m_queueElemPos[index]);
-      Console.WriteLine("Set player highlight to " + m_playerStats.m_queueElemPos[index].X + " " + m_playerStats.m_queueElemPos[index].Y);
       Vec3<double> ePos = new Vec3<double>(m_enemyStats.m_queueElemPos[index]);
       pPos.Z -= 1.0;
       ePos.Z -= 1.0;
