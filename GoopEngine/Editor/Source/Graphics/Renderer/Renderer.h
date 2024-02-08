@@ -22,7 +22,6 @@ namespace GE::Graphics::Rendering
    * \class Renderer
    * \brief  
    * class to perform rendering for graphics engine.
-   * \note In the future, render order will be a problem, especially with transparency
    * This class is meant to solve it with future implementations.
    * 
    * reduced OGL call optimizations should be made in this implementation
@@ -120,7 +119,7 @@ namespace GE::Graphics::Rendering
     glm::mat4 CalculateTransform(gVec3 const& scale, GLfloat rotation, gVec3 const& pos) const;
 
   private:
-    std::vector<SpriteRenderData>             m_spriteRenderCalls;     //!< container for all sprite render calls
+    std::vector<SpriteRenderData>       m_spriteRenderCalls;     //!< container for all sprite render calls
     std::vector<FontRenderData>         m_fontRenderCalls; //!< font
     std::vector<LineRenderData>         m_lineRenderCalls; //!< DEBUG drawing lines with colors
     std::vector<RenderData>             m_renderData;     //!< list of all rendered objects with their depth and types

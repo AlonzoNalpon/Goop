@@ -1,3 +1,11 @@
+/*!*********************************************************************
+\file   AnimEventEditor.h
+\author a.nalpon\@digipen.edu
+\date   8-February-2024
+\brief  This file contains the definition for the anim event editor
+   
+ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved. 
+ ************************************************************************/
 #ifndef ANIM_EVENT_EDITOR_H
 #define ANIM_EVENT_EDITOR_H
 
@@ -17,6 +25,11 @@ namespace GE::EditorGUI
 
     static std::string                currLoadAnimEventID;      //!< the displayed string for loading anim
   public:
+    /*!*********************************************************************
+    \brief
+      Creates editor content in IMGUI context
+    \return
+    ************************************************************************/
     static void CreateContent();
   };
 }

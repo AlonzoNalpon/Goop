@@ -2,7 +2,8 @@
  \file   AnimEventManager.h
  \author a.nalpon\@digipen.edu
  \date   30 January 2024
- \brief  
+ \brief  This file contains the definition for the anim events manager
+
  
  Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved. 
  ************************************************************************/
@@ -27,6 +28,11 @@ namespace GE::Events
   public:
     using AnimEventsTable = std::map<std::string, AnimEvents::AnimEventsCont>;
     
+    /*!*********************************************************************
+    \brief
+      Constructor which automatically loads the database.
+    \return
+    ************************************************************************/
     AnimEventManager();
 
     /*!*********************************************************************
@@ -67,16 +73,25 @@ namespace GE::Events
     /*!*********************************************************************
     \brief
       Deletes an animation event, if it could be found
-    \param name name of the animation
+    \param[in] name name of the animation
     \return
       flag indicating success of deletion (true if such an element was 
       found successfully deleted)
     ************************************************************************/
     bool DeleteAnimEvent(std::string const& name);
   private:
-    // TODO: HOW TO SERIALIZE?
+    /*!*********************************************************************
+    \brief
+      Saves all recorded event sets
+    \return
+    ************************************************************************/
     void SaveDatabase()const;
 
+    /*!*********************************************************************
+    \brief
+      Restores all recorded event sets from data
+    \return
+    ************************************************************************/
     void LoadDatabase();
 
     AnimEventsTable m_animTable; //!< this table contains ALL unique events
