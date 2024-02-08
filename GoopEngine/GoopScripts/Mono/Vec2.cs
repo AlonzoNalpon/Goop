@@ -37,5 +37,11 @@ namespace GoopScripts.Mono
       X = xVal;
       Y = yVal;
     }
+
+    public Vec2(Vec3<T> rhs)
+    {
+      X = rhs.X;
+      Y = rhs.Y;
+    }
   }
 }

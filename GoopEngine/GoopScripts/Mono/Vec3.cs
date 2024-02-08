@@ -48,11 +48,11 @@ namespace GoopScripts.Mono
       Z = zVal;
     }
 
-    //public Vec3(Vec3<T> rhs)
-    //{
-    //  X = rhs.X;
-    //  Y = rhs.Y;
-    //  Z = rhs.Z;
-    //}
+    public Vec3(Vec3<T> rhs)
+    {
+      X = rhs.X;
+      Y = rhs.Y;
+      Z = rhs.Z;
+    }
   }
 }
