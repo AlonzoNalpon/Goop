@@ -1,4 +1,11 @@
-﻿using GoopScripts.Button;
+﻿/*!*********************************************************************
+\file   StopGameAudio.cs
+\date   04-February-2024
+\brief  Script to stop game audio
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Button;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;

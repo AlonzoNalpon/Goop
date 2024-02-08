@@ -1,3 +1,14 @@
+/*!*********************************************************************
+\file   FmodSystem.cpp
+\author c.phua\@digipen.edu
+\date   8 November 2023
+\brief
+    Fmod system.
+    Uses the fMOD library to create sounds and channels.
+    There are four channels: BGM, SFX, Voice, TotalChannels.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <Fmod/FmodSystem.h>
 #include <fmod_errors.h>

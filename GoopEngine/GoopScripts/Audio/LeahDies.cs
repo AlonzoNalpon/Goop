@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   LeahDies.cs
+\date   04-February-2024
+\brief  Script to play Leah death SFX
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
