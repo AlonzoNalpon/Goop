@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   AssetStructs.h
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   28 September 2023
 \brief
   Contains classes required for AssetManager.cpp.

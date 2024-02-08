@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   SceneManager.h
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   24-October-2023
 \brief
   In charge of:

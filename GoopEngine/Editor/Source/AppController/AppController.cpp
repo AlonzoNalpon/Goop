@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   AppController.cpp
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \co-author w.chinkitbryan\@digipen.edu
 \date   18-September-2023
 \brief

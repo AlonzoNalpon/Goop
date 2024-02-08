@@ -1,6 +1,6 @@
 ﻿/*!*********************************************************************
 \file   MenuQuitGame.cs
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   08 Febuary 2024
 \brief
   Button script to go deeper into the menu confirming if the player

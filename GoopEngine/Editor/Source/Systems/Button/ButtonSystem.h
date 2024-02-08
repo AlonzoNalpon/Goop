@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   ButtonSystem.h
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   26-November-2023
 \brief
 	System to allow entities to do something after being interacted

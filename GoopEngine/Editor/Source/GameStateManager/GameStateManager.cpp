@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   GameStateManager.cpp
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   24-October-2023
 \brief
 	Currently controls the scenes but will include gamestates in the 

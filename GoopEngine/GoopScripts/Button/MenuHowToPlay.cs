@@ -1,6 +1,6 @@
 ﻿/*!*********************************************************************
 \file   MenuHowToPlay.cs
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   08 Febuary 2024
 \brief
   Button script used to transition from pause menu to how to play screen.

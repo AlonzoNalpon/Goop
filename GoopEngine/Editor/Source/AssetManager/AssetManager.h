@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   AssetManager.h
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   13-September-2023
 \brief
   Asset Manager is capable of:
