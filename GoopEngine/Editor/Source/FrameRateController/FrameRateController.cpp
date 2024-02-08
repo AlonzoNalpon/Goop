@@ -54,6 +54,7 @@ void FrameRateController::InitFrameRateController(int targetFPS, int stepsPerSec
 	m_prevStartTime = 0.0;
 	m_currDeltaTime = 0.0;
 	m_accumulatedTime = 0.0;
+	m_timeScale = 1.f;
 }
 
 int GE::FPS::FrameRateController::GetSteps() const noexcept
@@ -69,6 +70,7 @@ void FrameRateController::ResetFrameRateController()
 	m_startTime = 0.0;
 	m_prevStartTime = 0.0;
 	m_accumulatedTime = 0.0;
+	m_timeScale = 1.f;
 }
 
 int FrameRateController::GetFrameCount() 
@@ -96,9 +98,14 @@ double FrameRateController::GetFixedDeltaTime()
 
 double FrameRateController::GetDeltaTime() const noexcept
 {
-	return m_currDeltaTime;
+	return m_currDeltaTime * m_timeScale;
 }
 
+
+double GE::FPS::FrameRateController::GetUnscaledDeltaTime() const noexcept
+{
+	return m_currDeltaTime;
+}
 
 double FrameRateController::GetFPS() const noexcept
 {
@@ -124,6 +131,11 @@ void FrameRateController::SetTargetFPS(int targetFPS)
 void GE::FPS::FrameRateController::SetStepsPerSecond(int stepsPerSecond)
 {
 	m_fixedDeltaTime = 1.0 / stepsPerSecond;
+}
+
+void GE::FPS::FrameRateController::SetTimeScale(float scale)
+{
+	m_timeScale = scale;
 }
 
 void FrameRateController::FPSCalInterval(int fpsCalInterval)
