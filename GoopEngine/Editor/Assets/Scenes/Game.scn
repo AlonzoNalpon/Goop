@@ -86,7 +86,7 @@
                                         "Cards In Hand": [],
                                         "Cards In Queue": [
                                             "NO_CARD",
-                                            "",
+                                            "NO_CARD",
                                             "NO_CARD"
                                         ]
                                     },
@@ -483,7 +483,7 @@
                                         "Cards In Hand": [],
                                         "Cards In Queue": [
                                             "NO_CARD",
-                                            "",
+                                            "NO_CARD",
                                             "NO_CARD"
                                         ]
                                     },
