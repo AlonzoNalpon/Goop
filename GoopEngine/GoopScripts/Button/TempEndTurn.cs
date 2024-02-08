@@ -20,6 +20,7 @@ namespace GoopScripts.Button
 {
   public class TempEndTurn : Entity, IButtonClick
   {
+    public int disabledEndTurn;
     /*!*********************************************************************
      \brief
        Triggers the end of a turn through a function call to the game
@@ -29,12 +30,8 @@ namespace GoopScripts.Button
     ************************************************************************/
     public void OnClick(uint entity)
     {
-      if (GameManager.IsResolutionPhase())
-      {
-        return;
-      }
-
       Gameplay.GameManager gm = (Gameplay.GameManager) Utils.GetScript("GameSystem", "GameManager");
+      Utils.SetIsActiveEntity((uint)disabledEndTurn, true);
       gm.EndTurn();
     }
   }

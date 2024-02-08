@@ -223,7 +223,6 @@ namespace GoopScripts.Gameplay
     ************************************************************************/
     public void EndOfTurn()
     {
-      m_deckMngr.DiscardQueue();
       m_attack = m_block = 0;
       Utils.SetTextComponent(m_attackDisplay, "0");
       Utils.SetTextComponent(m_blockDisplay, "0");

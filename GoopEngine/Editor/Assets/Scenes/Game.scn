@@ -238,17 +238,17 @@
         "ID": 1,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 7,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
                     "pos": "{ 780, -445, 10 }",
                     "scale": "{ 1.5, 1.5, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 780, -445, 10 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -287,7 +287,15 @@
                         {
                             "scriptName": "TempEndTurn",
                             "entityID": 1,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 75,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "disabledEndTurn"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }
@@ -694,11 +702,13 @@
         "isActive": true,
         "Parent": null,
         "Child Entities": [
+            1,
             8,
             9,
             32,
             38,
-            44
+            44,
+            75
         ],
         "Components": [
             {
@@ -1260,7 +1270,7 @@
         "Name": "Transition",
         "ID": 16,
         "Prefab": null,
-        "isActive": true,
+        "isActive": false,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -4052,6 +4062,77 @@
                     },
                     "scale": 0.1599999964237213,
                     "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "DisabledEndTurn",
+        "ID": 75,
+        "Prefab": {
+            "name": "DisabledEndTurn",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 75
+                }
+            ],
+            "registered": true
+        },
+        "isActive": false,
+        "Parent": 7,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 780, -445, 11 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 780, -445, 11 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 780, -445 }",
+                    "width": 322.5,
+                    "height": 115.5,
+                    "min": "{ 618.75, -502.75 }",
+                    "max": "{ 941.25, -387.25 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 215,
+                            "height": 77
+                        }
+                    },
+                    "spriteName": "Button_EndTurn_Disabled",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "DisableEndTurn",
+                            "entityID": 75,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             }
         ]

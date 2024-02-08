@@ -252,6 +252,8 @@ namespace GoopScripts.Gameplay
           m_enemyStats.ClearAtKBlk();
         }
 
+        m_playerStats.m_deckMngr.DiscardFromQueue(m_slotNum);
+        m_enemyStats.m_deckMngr.DiscardFromQueue(m_slotNum);
         ++m_slotNum;
 
 

@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Flashbang",
     "isActive": true,
-    "Version": 10,
+    "Version": 11,
     "Components": [
         {
             "Transform": {
@@ -38,7 +38,7 @@
                         "height": 300.0,
                         "min": "{ -107, -150 }",
                         "max": "{ 107, 150 }",
-                        "render": true
+                        "render": false
                     }
                 },
                 {
