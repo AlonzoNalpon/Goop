@@ -20,18 +20,22 @@ Components (except transform) can be removed by right clicking the component nam
 Able to view the following components:
 Transform (Every entity MUST have a transform)
 Box Collider
+Velocity
 Sprite
 Sprite Animation
-Velocity
 Tween
-Draggable
-Text
 Script
+Draggable
+Enemy AI
+Text
+Game
 Audio
 Button
 Card
 Card Holder
 Card Holder Element
+Emitter
+Animation Events
 
 [ Performance Graph ]
 All recorded times are shown in milliseconds
@@ -124,3 +128,7 @@ Users are able to perform these actions:
      the type of node you select. e.g. (If you select the root node, you will only see ("delete node, change to composite node, change to leaf node"))
    - If you choose to change the node type, it will remove any links the node had, but the script remains unchanged.
    - If you choose to delete the node, it will remove the node and any links it had
+
+[Sprite Animation Events Editor]
+Allows user to edit any animation event and attach it to an entity.
+
