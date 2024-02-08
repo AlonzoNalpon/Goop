@@ -188,7 +188,7 @@ namespace GE
 			\return
 				returns the mouse's pos as dvec2
 			************************************************************************/
-			vec2 GetMousePos();
+			static vec2 GetMousePos();
 
 			/*!*********************************************************************
 			\brief
@@ -207,7 +207,7 @@ namespace GE
 		\return
 			returns the mouse's pos as dvec2
 		************************************************************************/
-			vec2 GetMousePosWorld();
+			static vec2 GetMousePosWorld();
 
 			/*!*********************************************************************
 		\brief
