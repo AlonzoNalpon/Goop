@@ -15,9 +15,9 @@ template <typename T>
 void ComponentManager::RegisterComponent()
 {
 	const char* componentName = typeid(T).name();
-
 	m_componentTypes[componentName] = m_nextComponentType++;
 	m_componentArrays[componentName] = new ComponentArray<T>();
+	
 }
 
 template <typename T>

@@ -13,7 +13,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #ifndef IMGUI_DISABLE
 #include "Visualizer.h"
 #include <ImGui/imgui.h>
-#include <MemoryManager/MemoryManager.h>
 #include <numeric>
 
 using namespace GE::EditorGUI;

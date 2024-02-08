@@ -33,6 +33,12 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+				Non-default constructor.
+			************************************************************************/
+			ComponentManager(OAConfig config);
+
+			/*!*********************************************************************
+			\brief
 			  Default destructor.
 			************************************************************************/
 			~ComponentManager();
@@ -126,6 +132,7 @@ namespace GE
 
 			template <typename T>
 			ComponentArray<T>* GetComponentArray();
+			OAConfig m_objAllocConfig;
 		};
 
 #include "ComponentManager.tpp"

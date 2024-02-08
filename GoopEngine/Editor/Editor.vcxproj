@@ -174,6 +174,7 @@
     <ClCompile Include="Source\EditorUI\EditorTheme.cpp" />
     <ClCompile Include="Source\EditorUI\SpriteAnimEditor.cpp" />
     <ClCompile Include="Source\Events\AnimEventManager.cpp" />
+    <ClCompile Include="Source\MemoryManager\ObjectAllocator.cpp" />
     <ClCompile Include="Source\Prefabs\PrefabManager.cpp" />
     <ClCompile Include="Source\Prefabs\VariantPrefab.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptUtils.cpp" />
@@ -261,9 +262,6 @@
     <ClCompile Include="Source\InputManager\InputManager.cpp" />
     <ClCompile Include="Source\Math\Mat4Utils.cpp" />
     <ClCompile Include="Source\ObjectFactory\ObjectFactory.cpp" />
-    <ClCompile Include="Source\MemoryManager\BaseAllocator.cpp" />
-    <ClCompile Include="Source\MemoryManager\ListAllocator.cpp" />
-    <ClCompile Include="Source\MemoryManager\MemoryManager.cpp" />
     <ClCompile Include="Source\EditorUI\SceneHierachy.cpp" />
     <ClCompile Include="Source\pch.cpp">
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
@@ -391,6 +389,7 @@
     <ClInclude Include="Source\ImTerm\terminal_helpers.hpp" />
     <ClInclude Include="Source\ImTerm\utils.hpp" />
     <ClInclude Include="Source\Math\Mat4Utils.h" />
+    <ClInclude Include="Source\MemoryManager\ObjectAllocator.h" />
     <ClInclude Include="Source\pch.h" />
     <ClInclude Include="Source\ECS\EntityComponentSystem.h" />
     <ClInclude Include="Source\ECS\Entity\Entity.h" />
@@ -425,9 +424,6 @@
     <ClInclude Include="Source\Math\Mat3Utils.h" />
     <ClInclude Include="Source\ObjectFactory\ObjectFactory.h" />
     <ClInclude Include="Source\ObjectFactory\ObjectStructs.h" />
-    <ClInclude Include="Source\MemoryManager\BaseAllocator.h" />
-    <ClInclude Include="Source\MemoryManager\ListAllocator.h" />
-    <ClInclude Include="Source\MemoryManager\MemoryManager.h" />
     <ClInclude Include="Source\EditorUI\SceneHierachy.h" />
     <ClInclude Include="Source\Prefabs\PrefabManager.h" />
     <ClInclude Include="Source\Prefabs\VariantPrefab.h" />

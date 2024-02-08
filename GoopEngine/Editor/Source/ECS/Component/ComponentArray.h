@@ -13,6 +13,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved
 #include <unordered_map>
 #include <sstream>
 #include <DebugTools/ErrorLogger/ErrorLogger.h>
+#include <MemoryManager/ObjectAllocator.h>
 
 namespace GE
 {
@@ -47,7 +48,9 @@ namespace GE
 		class ComponentArray : public IComponentArray
 		{
 		private:
-			std::vector<T> m_components;
+			
+			ObjectAllocator m_objAlloc{sizeof(T)};
+			std::vector<T*> m_components;
 			std::unordered_map<Entity, size_t> m_entityToIndexMap;
 			std::unordered_map<size_t, Entity> m_indexToEntityMap;
 

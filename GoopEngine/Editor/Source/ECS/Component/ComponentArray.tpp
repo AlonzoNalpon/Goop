@@ -1,7 +1,13 @@
+
+
+
 template <typename T>
 void ComponentArray<T>::Insert(const Entity& entity, const T& component)
 {
-	m_components.emplace_back(component);
+  T* block = reinterpret_cast<T*>(m_objAlloc.Allocate());
+	std::cout << "COMP SIZE: " << sizeof(component) << "\n";
+	new (block) T(component);
+	m_components.emplace_back(block);
 	size_t pushedIndex = m_components.size() - 1;
 
 	m_entityToIndexMap[entity] = pushedIndex;
@@ -22,6 +28,11 @@ void ComponentArray<T>::Remove(const Entity& entity)
 	size_t removedIdx = m_entityToIndexMap[entity];
 	size_t indexOfLast = m_components.size() - 1;
 
+
+	T* lastElement = 	m_components[removedIdx];
+	std::cout << entity << ":: " << lastElement << "\n";
+	m_objAlloc.Free(lastElement);
+
 	m_components[removedIdx] = m_components[indexOfLast];
 
 	// Update maps
@@ -31,8 +42,9 @@ void ComponentArray<T>::Remove(const Entity& entity)
 
 	m_entityToIndexMap.erase(entity);
 	m_indexToEntityMap.erase(indexOfLast);
-	// Remove last element
+
 	m_components.pop_back();
+
 }
 
 template <typename T>
@@ -44,7 +56,7 @@ T* ComponentArray<T>::GetData(const Entity& entity)
 		size_t index = m_entityToIndexMap.at(entity);
 		if (index <= m_components.size())
 		{
-			return &m_components[index];
+			return &(*(m_components[index]));
 		}
 	}
 
