@@ -1,0 +1,3419 @@
+[
+    {
+        "Name": "Player",
+        "ID": 0,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -532.315, 101.667, -9 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -532.315, 101.667, -9 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 0.25,
+                                "y": 1.0
+                            },
+                            "width": 500,
+                            "height": 750
+                        }
+                    },
+                    "spriteName": "SS_Leah_Idle",
+                    "shouldRender": true
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_Leah_Idle"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "entityID": 0,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_attack"
+                                    }
+                                },
+                                {
+                                    "data": 33,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_attackDisplay"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_block"
+                                    }
+                                },
+                                {
+                                    "data": 35,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_blockDisplay"
+                                    }
+                                },
+                                {
+                                    "data": 85,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_buffsDisplay"
+                                    }
+                                },
+                                {
+                                    "data": {
+                                        "Cards In Discard": [],
+                                        "Cards In Hand": [],
+                                        "Cards In Queue": [
+                                            "NO_CARD",
+                                            "",
+                                            "NO_CARD"
+                                        ]
+                                    },
+                                    "type": "",
+                                    "scriptField": {
+                                        "fieldName": "m_deckMngr"
+                                    }
+                                },
+                                {
+                                    "data": {
+                                        "m_health": 10,
+                                        "m_maxHealth": 10,
+                                        "m_healthBarUI": 28
+                                    },
+                                    "type": "",
+                                    "scriptField": {
+                                        "fieldName": "m_healthBar"
+                                    }
+                                },
+                                {
+                                    "data": 28,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_healthDisplayWillBeRemoved"
+                                    }
+                                },
+                                {
+                                    "data": "PLAYER",
+                                    "type": "GoopScripts.Gameplay.CharacterType",
+                                    "scriptField": {
+                                        "fieldName": "m_type"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        12,
+                                        13,
+                                        14
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "queueElemIDs"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "scriptName": "HealthBar",
+                            "entityID": 0,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 28,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "healthBarUI"
+                                    }
+                                },
+                                {
+                                    "data": 10,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                },
+                                {
+                                    "data": 10,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_maxHealth"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "scriptName": "LeahDies",
+                            "entityID": 0,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "LeahBlocks",
+                            "entityID": 0,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "LeahFlashBangs",
+                            "entityID": 0,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "LeahAttacks",
+                            "entityID": 0,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "LeahFlinches",
+                            "entityID": 0,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "damageTaken_Leah",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        }
+                    ]
+                }
+            },
+            {
+                "AnimEvents": {
+                    "eventList": [
+                        {
+                            "first": 2,
+                            "second": "LeahFlinches"
+                        },
+                        {
+                            "first": 15,
+                            "second": "LeahDies"
+                        },
+                        {
+                            "first": 5,
+                            "second": "LeahAttacks"
+                        },
+                        {
+                            "first": 9,
+                            "second": "LeahFlashBangs"
+                        },
+                        {
+                            "first": 7,
+                            "second": "LeahBlocks"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Button_EndTurn",
+        "ID": 1,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 780, -445, 10 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 780, -445, 10 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 780, -445 }",
+                    "width": 322.5,
+                    "height": 115.5,
+                    "min": "{ 618.75, -502.75 }",
+                    "max": "{ 941.25, -387.25 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 215,
+                            "height": 77
+                        }
+                    },
+                    "spriteName": "Button_EndTurn",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "TempEndTurn",
+                            "entityID": 1,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Background",
+        "ID": 2,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, -997 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 0, 0, -997 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "Environment_Level1",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Card Base",
+        "ID": 3,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 15,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 5, -3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, -381.259, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1925,
+                            "height": 314
+                        }
+                    },
+                    "spriteName": "Hand_Base",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Enemy",
+        "ID": 4,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 594.651, 50, 0 }",
+                    "scale": "{ 0.9, 0.9, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 594.651, 50, 0 }",
+                    "worldScale": "{ 0.9, 0.9, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 594.651, 50 }",
+                    "width": 456.0,
+                    "height": 154.0,
+                    "min": "{ 366.651, -27 }",
+                    "max": "{ 822.651, 127 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 0.25,
+                                "y": 1.0
+                            },
+                            "width": 500,
+                            "height": 625
+                        }
+                    },
+                    "spriteName": "SS_MoleRat_Idle",
+                    "shouldRender": true
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_MoleRat_Idle"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "Stats",
+                            "entityID": 4,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_attack"
+                                    }
+                                },
+                                {
+                                    "data": 39,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_attackDisplay"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_block"
+                                    }
+                                },
+                                {
+                                    "data": 41,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_blockDisplay"
+                                    }
+                                },
+                                {
+                                    "data": 86,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_buffsDisplay"
+                                    }
+                                },
+                                {
+                                    "data": {
+                                        "Cards In Discard": [],
+                                        "Cards In Hand": [],
+                                        "Cards In Queue": [
+                                            "NO_CARD",
+                                            "",
+                                            "NO_CARD"
+                                        ]
+                                    },
+                                    "type": "",
+                                    "scriptField": {
+                                        "fieldName": "m_deckMngr"
+                                    }
+                                },
+                                {
+                                    "data": {
+                                        "m_health": 0,
+                                        "m_maxHealth": 0,
+                                        "m_healthBarUI": 0
+                                    },
+                                    "type": "",
+                                    "scriptField": {
+                                        "fieldName": "m_healthBar"
+                                    }
+                                },
+                                {
+                                    "data": 29,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_healthDisplayWillBeRemoved"
+                                    }
+                                },
+                                {
+                                    "data": "BASIC_ENEMY",
+                                    "type": "GoopScripts.Gameplay.CharacterType",
+                                    "scriptField": {
+                                        "fieldName": "m_type"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        22,
+                                        23,
+                                        24
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "queueElemIDs"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "scriptName": "HealthBar",
+                            "entityID": 4,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 29,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "healthBarUI"
+                                    }
+                                },
+                                {
+                                    "data": 20,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                },
+                                {
+                                    "data": 20,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_maxHealth"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "EnemyAI": {
+                    "treeID": 12
+                }
+            }
+        ]
+    },
+    {
+        "Name": "GameSystem",
+        "ID": 5,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0, 0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 0, 0, 0 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 456,
+                            "height": 154
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "GameManager",
+                            "entityID": 5,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 17,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "FPS_COUNTER"
+                                    }
+                                },
+                                {
+                                    "data": 56,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "HOWTOPLAY_MENU"
+                                    }
+                                },
+                                {
+                                    "data": 27,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PAUSE_MENU"
+                                    }
+                                },
+                                {
+                                    "data": 60,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "QUIT_MENU"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Instructions",
+        "ID": 6,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 56,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 689,
+                            "height": 209
+                        }
+                    },
+                    "spriteName": "Instructions",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] UI",
+        "ID": 7,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            8,
+            9,
+            32,
+            38,
+            44
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Player",
+        "ID": 8,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 7,
+        "Child Entities": [
+            10,
+            28,
+            85
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Enemy",
+        "ID": 9,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 7,
+        "Child Entities": [
+            25,
+            29,
+            86
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Portrait",
+        "ID": 10,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 8,
+        "Child Entities": [
+            30
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -850, 430, 1 }",
+                    "scale": "{ 5, 5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -850, 430, 1 }",
+                    "worldScale": "{ 5, 5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 32,
+                            "height": 32
+                        }
+                    },
+                    "spriteName": "Grey",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PlayerQueue",
+        "ID": 11,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            12,
+            13,
+            14
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -800, 58.7408, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -800, 58.7408, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "CardHolder": {
+                    "elements": [
+                        {
+                            "elemEntity": 12,
+                            "cardEntity": 16,
+                            "spriteID": 104,
+                            "defaultSpriteID": 137,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 13,
+                            "cardEntity": 18,
+                            "spriteID": 104,
+                            "defaultSpriteID": 138,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 14,
+                            "cardEntity": 17,
+                            "spriteID": 104,
+                            "defaultSpriteID": 139,
+                            "used": false
+                        }
+                    ],
+                    "dataEntity": 0,
+                    "dataType": "QUEUE",
+                    "targetScript": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PQElem1",
+        "ID": 12,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 11,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 159.642, 0 }",
+                    "scale": "{ 0.893564, 0.836059, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -800, 218.383, 1 }",
+                    "worldScale": "{ 0.893564, 0.836059, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -800, 218.383 }",
+                    "width": 165.0,
+                    "height": 165.0,
+                    "min": "{ -882.5, 135.883 }",
+                    "max": "{ -717.5, 300.883 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 211,
+                            "height": 212
+                        }
+                    },
+                    "spriteName": "Queue_Sequence_1",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "SFX_CardPlay1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "UNSELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 11
+                }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 11,
+                    "elemIdx": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PQElem2",
+        "ID": 13,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 11,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -9.6607, 0 }",
+                    "scale": "{ 0.89356, 0.83606, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -800, 49.0801, 1 }",
+                    "worldScale": "{ 0.89356, 0.83606, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -800, 49.0801 }",
+                    "width": 165.0,
+                    "height": 165.0,
+                    "min": "{ -882.5, -33.4199 }",
+                    "max": "{ -717.5, 131.58 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 211,
+                            "height": 212
+                        }
+                    },
+                    "spriteName": "Queue_Sequence_2",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "SFX_CardPlay1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "UNSELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 11
+                }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 11,
+                    "elemIdx": 1
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PQElem3",
+        "ID": 14,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 11,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -174.628, 0 }",
+                    "scale": "{ 0.89356, 0.83606, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -800, -115.887, 1 }",
+                    "worldScale": "{ 0.89356, 0.83606, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -800, -115.887 }",
+                    "width": 165.0,
+                    "height": 165.0,
+                    "min": "{ -882.5, -198.387 }",
+                    "max": "{ -717.5, -33.387 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 211,
+                            "height": 212
+                        }
+                    },
+                    "spriteName": "Queue_Sequence_3",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Audio": {
+                    "sounds": [
+                        {
+                            "sound": "SFX_CardPlay1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardPlay5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "BGM",
+                            "volume": 1.0
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "UNSELECT_CARD",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 11
+                }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 11,
+                    "elemIdx": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PlayerHand",
+        "ID": 15,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            3
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -386.259, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, -386.259, 3 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "CardHolder": {
+                    "elements": [
+                        {
+                            "elemEntity": 16,
+                            "cardEntity": 16,
+                            "spriteID": 0,
+                            "defaultSpriteID": 0,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 17,
+                            "cardEntity": 17,
+                            "spriteID": 0,
+                            "defaultSpriteID": 0,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 18,
+                            "cardEntity": 18,
+                            "spriteID": 0,
+                            "defaultSpriteID": 0,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 19,
+                            "cardEntity": 19,
+                            "spriteID": 0,
+                            "defaultSpriteID": 0,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 20,
+                            "cardEntity": 20,
+                            "spriteID": 0,
+                            "defaultSpriteID": 0,
+                            "used": false
+                        }
+                    ],
+                    "dataEntity": 0,
+                    "dataType": "HAND",
+                    "targetScript": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Transition",
+        "ID": 16,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 400, -5.89553e-14, 1000 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 400, -5.89553e-14, 1000 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 2880,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "Transition",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "Transition",
+                            "value": [
+                                {
+                                    "trans": "{ -2880, 0, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 0.3,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "started": false,
+                    "paused": false,
+                    "loop": false,
+                    "playing": "Transition"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "FPSCounter",
+        "ID": 17,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 861.577, 512.984, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 861.577, 512.984, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 861.577, 512.984 }",
+                    "width": 8.152580206657e-312,
+                    "height": 8.14846383731e-312,
+                    "min": "{ 861.577, 512.984 }",
+                    "max": "{ 861.577, 512.984 }",
+                    "render": true
+                }
+            },
+            {
+                "Text": {
+                    "text": "FPS",
+                    "clr": {
+                        "r": 0.9411765336990356,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.12300000339746475,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EnemyQueue",
+        "ID": 21,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            22,
+            23,
+            24
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 800, 58.7408, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 800, 58.7408, 3 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "CardHolder": {
+                    "elements": [
+                        {
+                            "elemEntity": 22,
+                            "cardEntity": 4294967295,
+                            "spriteID": 20,
+                            "defaultSpriteID": 112,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 23,
+                            "cardEntity": 4294967295,
+                            "spriteID": 0,
+                            "defaultSpriteID": 113,
+                            "used": false
+                        },
+                        {
+                            "elemEntity": 24,
+                            "cardEntity": 4294967295,
+                            "spriteID": 0,
+                            "defaultSpriteID": 114,
+                            "used": false
+                        }
+                    ],
+                    "dataEntity": 4,
+                    "dataType": "QUEUE",
+                    "targetScript": 4
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EQElem1",
+        "ID": 22,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 21,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 159.642, 0 }",
+                    "scale": "{ 0.89356, 0.83606, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 800, 218.383, 3 }",
+                    "worldScale": "{ 0.89356, 0.83606, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 211,
+                            "height": 212
+                        }
+                    },
+                    "spriteName": "Queue_Sequence_1",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 21
+                }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 21,
+                    "elemIdx": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EQElem2",
+        "ID": 23,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 21,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -9.6607, 0 }",
+                    "scale": "{ 0.89356, 0.83606, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 800, 49.0801, 3 }",
+                    "worldScale": "{ 0.89356, 0.83606, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 211,
+                            "height": 212
+                        }
+                    },
+                    "spriteName": "Queue_Sequence_2",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 21
+                }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 21,
+                    "elemIdx": 1
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EQElem3",
+        "ID": 24,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 21,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -174.628, 0 }",
+                    "scale": "{ 0.89356, 0.83606, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 800, -115.887, 3 }",
+                    "worldScale": "{ 0.89356, 0.83606, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 211,
+                            "height": 212
+                        }
+                    },
+                    "spriteName": "Queue_Sequence_3",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Card": {
+                    "cardID": "NO_CARD",
+                    "tgtEntity": 21
+                }
+            },
+            {
+                "CardHolderElem": {
+                    "holder": 21,
+                    "elemIdx": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Portrait",
+        "ID": 25,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 9,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 850, 430, 1 }",
+                    "scale": "{ 5, 5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 850, 430, 1 }",
+                    "worldScale": "{ 5, 5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 32,
+                            "height": 32
+                        }
+                    },
+                    "spriteName": "Grey",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Menus",
+        "ID": 26,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            27,
+            56,
+            60
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 101 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Menu] Pause Menu",
+        "ID": 27,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 26,
+        "Child Entities": [
+            47,
+            49,
+            50,
+            51,
+            52
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] HP",
+        "ID": 28,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 8,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -620, 430, 3 }",
+                    "scale": "{ 10, 2, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -620, 430, 3 }",
+                    "worldScale": "{ 10, 2, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 32,
+                            "height": 32
+                        }
+                    },
+                    "spriteName": "Black",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] HP",
+        "ID": 29,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 9,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 620, 430, 3 }",
+                    "scale": "{ 10, 2, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 620, 430, 3 }",
+                    "worldScale": "{ 10, 2, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 32,
+                            "height": 32
+                        }
+                    },
+                    "spriteName": "Black",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Picture",
+        "ID": 30,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 10,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, -0.1 }",
+                    "scale": "{ 0.25, 0.25, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -850, 430, 0.9 }",
+                    "worldScale": "{ 1.25, 1.25, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 128,
+                            "height": 128
+                        }
+                    },
+                    "spriteName": "Portrait",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Player Stats",
+        "ID": 32,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 7,
+        "Child Entities": [
+            33,
+            34,
+            35,
+            36,
+            37
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -288.925, -87.296, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -288.925, -87.296, 3 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PlayerAttack",
+        "ID": 33,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 32,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 5.798, -9.707, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -283.127, -97.003, 4 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "0",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Block Sprite",
+        "ID": 34,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 32,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -46.278, -67.167, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -335.203, -154.463, 4 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    "spriteName": "TempShield",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PlayerBlock",
+        "ID": 35,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 32,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 5.798, -75.653, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -283.127, -162.949, 4 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "0",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Attack Sprite",
+        "ID": 36,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 32,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -46.278, 2.481, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -335.203, -84.815, 4 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    "spriteName": "TempAttack",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing",
+        "ID": 37,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 32,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -3.259, -32.635, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -292.184, -119.931, 3 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 220,
+                            "height": 140
+                        }
+                    },
+                    "spriteName": "TempBacking",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Enemy Stats",
+        "ID": 38,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 7,
+        "Child Entities": [
+            39,
+            40,
+            41,
+            42,
+            43
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 275.039, -87.296, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 275.039, -87.296, 3 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EnemyAttack",
+        "ID": 39,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 38,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 5.798, -9.707, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 280.837, -97.003, 4 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "0",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Block Sprite",
+        "ID": 40,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 38,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -46.278, -67.167, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 228.761, -154.463, 4 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    "spriteName": "TempShield",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EnemyBlock",
+        "ID": 41,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 38,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 5.798, -75.653, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 280.837, -162.949, 4 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "0",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Attack Sprite",
+        "ID": 42,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 38,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -46.278, 2.481, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 228.761, -84.815, 4 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    "spriteName": "TempAttack",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing",
+        "ID": 43,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 38,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -3.259, -32.635, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 271.78, -119.931, 3 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 220,
+                            "height": 140
+                        }
+                    },
+                    "spriteName": "TempBacking",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MoleRatBites",
+                            "entityID": 43,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "LeahDies",
+                            "entityID": 43,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "LeahBlocks",
+                            "entityID": 43,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "AnimEvents": {
+                    "eventList": [
+                        {
+                            "first": 8,
+                            "second": "MoleRatBites"
+                        },
+                        {
+                            "first": 11,
+                            "second": "LeahDies"
+                        },
+                        {
+                            "first": 10,
+                            "second": "LeahBlocks"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Combo UI",
+        "ID": 44,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 7,
+        "Child Entities": [
+            45,
+            46
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 173.148, 5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 173.148, 5 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Player Combo Text",
+        "ID": 45,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 44,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -352.593, 0, 5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -352.593, 173.148, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "",
+                    "clr": {
+                        "r": 0.8666666746139526,
+                        "g": 0.8941176533699036,
+                        "b": 0.03529411926865578,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Enemy Combo Text",
+        "ID": 46,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 44,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 69.2592, 0, 5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 69.2592, 173.148, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "",
+                    "clr": {
+                        "r": 0.8669459223747253,
+                        "g": 0.8921568393707275,
+                        "b": 0.03498654067516327,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Overlay",
+        "ID": 47,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, -1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 100 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "Pause_OverlayBG",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Pause Base",
+        "ID": 49,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 818,
+                            "height": 511
+                        }
+                    },
+                    "spriteName": "Pause_Menu_Base",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Options Banner",
+        "ID": 50,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 320, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 320, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 227,
+                            "height": 71
+                        }
+                    },
+                    "spriteName": "Pause_Header_Options",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Words & Sliders",
+        "ID": 51,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 55, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 55, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 608,
+                            "height": 251
+                        }
+                    },
+                    "spriteName": "Pause_Words_Sliders",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Buttons",
+        "ID": 52,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [
+            53,
+            54,
+            55
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Buttons] How To Play",
+        "ID": 53,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 52,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -260, -180, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -260, -180, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -260, -180 }",
+                    "width": 239.0,
+                    "height": 86.0,
+                    "min": "{ -379.5, -223 }",
+                    "max": "{ -140.5, -137 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 239,
+                            "height": 86
+                        }
+                    },
+                    "spriteName": "Pause_HTP",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuHowToPlay",
+                            "entityID": 53,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 56,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 27,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Buttons] Resume",
+        "ID": 54,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 52,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -180, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, -180, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, -180 }",
+                    "width": 239.0,
+                    "height": 86.0,
+                    "min": "{ -119.5, -223 }",
+                    "max": "{ 119.5, -137 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 239,
+                            "height": 86
+                        }
+                    },
+                    "spriteName": "Pause_Resume",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuClose",
+                            "entityID": 54,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 56,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 27,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "27",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Buttons] Quit",
+        "ID": 55,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 52,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 260, -180, 0 }",
+                    "scale": "{ 0.64, 0.64, 0.63 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 260, -180, 102 }",
+                    "worldScale": "{ 0.64, 0.64, 0.63 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 260, -180 }",
+                    "width": 239.36,
+                    "height": 87.04,
+                    "min": "{ 140.32, -223.52 }",
+                    "max": "{ 379.68, -136.48 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 374,
+                            "height": 136
+                        }
+                    },
+                    "spriteName": "Game_Surrender",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuQuitGame",
+                            "entityID": 55,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Command"
+                                    }
+                                },
+                                {
+                                    "data": 60,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 27,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "Popup|60|Hide|27",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Menu] How To Play",
+        "ID": 56,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 26,
+        "Child Entities": [
+            6,
+            57,
+            58,
+            59,
+            65
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Overlay",
+        "ID": 57,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 56,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, -1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 100 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "Pause_OverlayBG",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] How To Play Base",
+        "ID": 58,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 56,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 818,
+                            "height": 511
+                        }
+                    },
+                    "spriteName": "Pause_Menu_Base",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] Exit",
+        "ID": 59,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 56,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 350, 195, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 350, 195, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 350, 195 }",
+                    "width": 60.0,
+                    "height": 60.0,
+                    "min": "{ 320, 165 }",
+                    "max": "{ 380, 225 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 60,
+                            "height": 60
+                        }
+                    },
+                    "spriteName": "UI_Close",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuClose",
+                            "entityID": 59,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 56,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 27,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "Return|56|Show|27",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Menu] Confirm Quit",
+        "ID": 60,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 26,
+        "Child Entities": [
+            61,
+            62,
+            63,
+            64,
+            66,
+            67
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Overlay",
+        "ID": 61,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 60,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, -1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 100 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "Pause_OverlayBG",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] No",
+        "ID": 62,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 60,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 150, -75, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 150, -75, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 150, -75 }",
+                    "width": 239.0,
+                    "height": 86.0,
+                    "min": "{ 30.5, -118 }",
+                    "max": "{ 269.5, -32 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 239,
+                            "height": 86
+                        }
+                    },
+                    "spriteName": "Quit_No",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuClose",
+                            "entityID": 62,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 60,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 27,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "Return|60|Show|27",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Confirm Quit Base",
+        "ID": 63,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 60,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 650,
+                            "height": 300
+                        }
+                    },
+                    "spriteName": "Pause_Menu_Base",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] Yes",
+        "ID": 64,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 60,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -150, -75, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -150, -75, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -150, -75 }",
+                    "width": 239.0,
+                    "height": 86.0,
+                    "min": "{ -269.5, -118 }",
+                    "max": "{ -30.5, -32 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 239,
+                            "height": 86
+                        }
+                    },
+                    "spriteName": "Quit_Yes",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuMainMenu",
+                            "entityID": 64,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "MainMenu",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] HTP Banner",
+        "ID": 65,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 56,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 320, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 320, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 306,
+                            "height": 71
+                        }
+                    },
+                    "spriteName": "Pause_Header_HowToPlay",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Quit Game Banner",
+        "ID": 66,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 60,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 210, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 210, 101 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 266,
+                            "height": 71
+                        }
+                    },
+                    "spriteName": "Surrender_Header",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Text_AreYouSure",
+        "ID": 67,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 60,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 63.2407, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 63.2407, 102 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 281,
+                            "height": 37
+                        }
+                    },
+                    "spriteName": "Text_AreYouSure",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PlayerBuffAnchor",
+        "ID": 85,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 8,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -744.076, 484.25, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -744.076, 484.25, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EnemyBuffAnchor",
+        "ID": 86,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 9,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 744.076, 484.25, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 744.076, 484.25, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    }
+]

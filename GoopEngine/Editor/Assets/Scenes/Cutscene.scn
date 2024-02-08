@@ -430,7 +430,7 @@
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "duration": 0.3,
-                                    "animationEvent": "ChangeToGameScene"
+                                    "animationEvent": "ChangeToTutorial"
                                 }
                             ]
                         }
@@ -445,7 +445,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "ChangeToGameScene",
+                            "scriptName": "ChangeToTutorial",
                             "entityID": 9,
                             "scriptFieldInstList": []
                         }
