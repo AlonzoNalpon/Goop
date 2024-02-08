@@ -14,6 +14,9 @@ Animations do not begin playing until simulation is started
 Upon saving the changes, all instances created from that prefab in the scene are updated with the prefab's components.
 If the entity does not currently exist in the scene, it will be updated when it is loaded to reflect the changes accordingly.
 
+[ Images ]
+Only exclusively supports 32 bit depth png images.
+
 To test:
   1. Head to PrefabTest.scn.
   2. Drag either "Mineworm" or "TestBtn" from "Prefabs" directory into the prefab editor window
