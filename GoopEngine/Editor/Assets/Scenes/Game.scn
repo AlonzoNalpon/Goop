@@ -637,6 +637,13 @@
                             "entityID": 5,
                             "scriptFieldInstList": [
                                 {
+                                    "data": 36,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "E_QUEUE_HIGHLIGHT"
+                                    }
+                                },
+                                {
                                     "data": 17,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -655,6 +662,13 @@
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "PAUSE_MENU"
+                                    }
+                                },
+                                {
+                                    "data": 37,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "P_QUEUE_HIGHLIGHT"
                                     }
                                 },
                                 {
@@ -836,8 +850,7 @@
         "Child Entities": [
             12,
             13,
-            14,
-            37
+            14
         ],
         "Components": [
             {
@@ -1285,7 +1298,7 @@
         "Name": "Transition",
         "ID": 16,
         "Prefab": null,
-        "isActive": true,
+        "isActive": false,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -1647,8 +1660,7 @@
         "Child Entities": [
             22,
             23,
-            24,
-            36
+            24
         ],
         "Components": [
             {
@@ -2292,7 +2304,7 @@
         ]
     },
     {
-        "Name": "Highlight",
+        "Name": "PHighlight",
         "ID": 36,
         "Prefab": {
             "name": "QueueHighlight",
@@ -2306,12 +2318,12 @@
             "registered": true
         },
         "isActive": false,
-        "Parent": 21,
+        "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -1603.48, 162.873, 1 }",
+                    "pos": "{ -803.481, 221.614, 4 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -803.481, 221.614, 4 }",
@@ -2342,7 +2354,7 @@
         ]
     },
     {
-        "Name": "Highlight",
+        "Name": "EHighlight",
         "ID": 37,
         "Prefab": {
             "name": "QueueHighlight",
@@ -2356,12 +2368,12 @@
             "registered": true
         },
         "isActive": false,
-        "Parent": 11,
+        "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1596.52, 161.726, 4 }",
+                    "pos": "{ 796.519, 220.467, 5 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 796.519, 220.467, 5 }",

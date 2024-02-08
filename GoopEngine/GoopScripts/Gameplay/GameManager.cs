@@ -28,10 +28,9 @@ namespace GoopScripts.Gameplay
   public class GameManager : Entity
   {
     //static readonly double INTERVAL_TIME = 3.0;
-    public int PAUSE_MENU;
-    public int HOWTOPLAY_MENU;
-    public int QUIT_MENU;
+    public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int FPS_COUNTER;
+    public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
 
     Random m_rng;
     double m_currTime = 0.0;
@@ -53,7 +52,7 @@ namespace GoopScripts.Gameplay
     List<CardBase.CardID> m_cardsPlayedE = new List<CardBase.CardID>();
     bool gameStarted = false; // called once at the start of game 
     List<CardBase.CardID> m_playerNonAtkCards = new List<CardBase.CardID>{ CardID.LEAH_SHIELD, CardID.SPECIAL_SMOKESCREEN, CardID.SPECIAL_RAGE };
-    List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD};
+    List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD };
 
 
 
@@ -153,7 +152,7 @@ namespace GoopScripts.Gameplay
 
     public void StartOfTurn()
     {
-      //Console.WriteLine("START OF TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+      SetHighlightActive(false);
       m_playerStats.EndOfTurn();
       m_enemyStats.EndOfTurn();
       m_playerStats.Draw();
@@ -268,9 +267,9 @@ namespace GoopScripts.Gameplay
           m_playerStats.ClearAtKBlk();
           m_enemyStats.ClearAtKBlk();
         }
+
+        HighlightQueueSlot(m_slotNum);
         ++m_slotNum;
-
-
       }
       else
       {
@@ -320,7 +319,7 @@ namespace GoopScripts.Gameplay
       m_cardsPlayedE.Clear();
       toTrigger = true;
       m_currTime = 0.0;
-
+      SetHighlightActive(true);
     }
 
     public void EndTurn()
@@ -329,7 +328,38 @@ namespace GoopScripts.Gameplay
       isResolutionPhase = true;
       StartResolution();
     }
-    
+
+    /*!*********************************************************************
+		\brief
+		  Sets both highlight prefab instances to the given state.
+    \param state
+      The state to set the entity to
+		************************************************************************/
+    public void SetHighlightActive(bool state)
+    {
+      Utils.SetIsActiveEntity((uint)P_QUEUE_HIGHLIGHT, state);
+      Utils.SetIsActiveEntity((uint)E_QUEUE_HIGHLIGHT, state);
+    }
+
+    /*!*********************************************************************
+		\brief
+		  Highlights an icon in both queues based on the given index.
+      Sets the position of the highlight prefab instance to the slot's
+      position.
+    \param index
+      The index of the queue to highlight
+		************************************************************************/
+    public void HighlightQueueSlot(int index)
+    {
+      Vec3<double> pPos = new Vec3<double>(m_playerStats.m_queueElemPos[index]);
+      Console.WriteLine("Set player highlight to " + m_playerStats.m_queueElemPos[index].X + " " + m_playerStats.m_queueElemPos[index].Y);
+      Vec3<double> ePos = new Vec3<double>(m_enemyStats.m_queueElemPos[index]);
+      pPos.Z -= 1.0;
+      ePos.Z -= 1.0;
+      Utils.SetPosition((uint)P_QUEUE_HIGHLIGHT, pPos);
+      Utils.SetPosition((uint)E_QUEUE_HIGHLIGHT, ePos);
+    }
+
     static public bool IsResolutionPhase() {  return isResolutionPhase; }
   }
 }
