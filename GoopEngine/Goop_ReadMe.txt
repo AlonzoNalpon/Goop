@@ -20,7 +20,7 @@ An icon for buffs and debuffs applied will appear above the character's respecti
 The turn ends once all cards and combos are resolved.
 
 During gameplay, unfocusing the window or pressing escape will bring up the pause menu. 
-In the pause menu, the "How to Play", "Resume", "Quit", "X", "Yes" and "No" button works.
+In the pause menu, only the "How to Play", "Resume", "Surrender", "X", "Yes" and "No" button works.
 
 Cheats:
 Pressing "U", in the game scene, will reduce the enemy's health by 1 bar.
