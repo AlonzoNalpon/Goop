@@ -130,5 +130,6 @@ Users are able to perform these actions:
    - If you choose to delete the node, it will remove the node and any links it had
 
 [Sprite Animation Events Editor]
-Allows user to edit any animation event and attach it to an entity.
+Allows user to create sets of animation events at different frames. Each event calls a script of a chosen name assigned to the frame event.
+User can then attach the events to an entity using the entity inspector.
 
