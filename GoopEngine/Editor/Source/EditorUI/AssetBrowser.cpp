@@ -20,6 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <commdlg.h>	// to open file explorer
 #include <Events/EventManager.h>
 #include "PrefabEditor.h"
+#include <Systems/GameSystem/GameSystem.h>
 
 using namespace ImGui;
 using namespace GE::Assets;
@@ -35,6 +36,11 @@ namespace
 	std::filesystem::path m_currDir;
 	std::filesystem::path assetsDirectory;
 	std::filesystem::path m_draggedPrefab;
+}
+
+void AssetBrowser::ClearContent()
+{
+	m_currDir.clear();
 }
 
 void AssetBrowser::CreateContentDir()

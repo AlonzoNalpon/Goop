@@ -68,8 +68,13 @@
     <Compile Include="AI\RootNode.cs" />
     <Compile Include="AI\SelectorNode.cs" />
     <Compile Include="AI\SequenceNode.cs" />
+    <Compile Include="Button\MenuMainMenu.cs" />
+    <Compile Include="Cutscene\SwitchCutScenes.cs" />
+    <Compile Include="Transition\ChangeToCredits.cs" />
+    <Compile Include="Transition\ChangeToCutScenes.cs" />
     <Compile Include="Transition\ChangeToGameScene.cs" />
-    <Compile Include="Transition\MainMenuToGame.cs" />
+    <Compile Include="Transition\ChangeToHTP.cs" />
+    <Compile Include="Transition\ChangeToOptions.cs" />
     <Compile Include="Button\BuffIconInteraction.cs" />
     <Compile Include="Button\IButtonClick.cs" />
     <Compile Include="Button\IButtonHoverEnter.cs" />
@@ -128,6 +133,7 @@
     <Compile Include="Player\Player.cs" />
     <Compile Include="Player\PlayerScriptTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transition\MainMenuToScene.cs" />
     <Compile Include="UI\HealthBar.cs" />
     <Compile Include="UI\PauseManager.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

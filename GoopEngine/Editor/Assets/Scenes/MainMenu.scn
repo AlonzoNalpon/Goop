@@ -38,17 +38,6 @@
                 }
             },
             {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "MainMenuToGame",
-                            "entityID": 0,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
                 "Audio": {
                     "sounds": [
                         {
@@ -142,9 +131,17 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "MainMenuToGame",
+                            "scriptName": "MainMenuToScene",
                             "entityID": 3,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Scene"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }
@@ -258,9 +255,28 @@
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MainMenuToScene",
+                            "entityID": 5,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 2,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Scene"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
                 "GE_Button": {
                     "param": "Options",
-                    "eventType": "CHANGE_SCENE",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }
@@ -316,9 +332,28 @@
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MainMenuToScene",
+                            "entityID": 6,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 3,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Scene"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
                 "GE_Button": {
                     "param": "HowToPlay",
-                    "eventType": "CHANGE_SCENE",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }
@@ -374,9 +409,28 @@
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MainMenuToScene",
+                            "entityID": 7,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 4,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Scene"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
                 "GE_Button": {
                     "param": "Credits",
-                    "eventType": "CHANGE_SCENE",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }
@@ -442,7 +496,7 @@
         ]
     },
     {
-        "Name": "Transition",
+        "Name": "TransitionOut",
         "ID": 9,
         "Prefab": null,
         "isActive": true,
@@ -451,12 +505,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1920, 0, 1000 }",
+                    "pos": "{ 2880, 0, 1000 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 1920, 0, 1000 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 2880, 0, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
@@ -471,11 +525,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 1920,
+                            "width": 2880,
                             "height": 1080
                         }
                     },
-                    "spriteName": "Black",
+                    "spriteName": "Transition",
                     "shouldRender": true
                 }
             },
@@ -483,14 +537,50 @@
                 "Tween": {
                     "tweens": [
                         {
-                            "key": "Transition",
+                            "key": "Credits",
                             "value": [
                                 {
-                                    "trans": "{ 0, 0, 1000 }",
+                                    "trans": "{ -480, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "duration": 0.3,
-                                    "animationEvent": "ChangeToGameScene"
+                                    "animationEvent": "ChangeToCredits"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "Cutscene",
+                            "value": [
+                                {
+                                    "trans": "{ -480, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToCutScenes"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "HowToPlay",
+                            "value": [
+                                {
+                                    "trans": "{ -480, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToHTP"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "Options",
+                            "value": [
+                                {
+                                    "trans": "{ -480, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToOptions"
                                 }
                             ]
                         }
@@ -505,7 +595,22 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "ChangeToGameScene",
+                            "scriptName": "ChangeToCutScenes",
+                            "entityID": 9,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "ChangeToCredits",
+                            "entityID": 9,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "ChangeToOptions",
+                            "entityID": 9,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "ChangeToHTP",
                             "entityID": 9,
                             "scriptFieldInstList": []
                         }

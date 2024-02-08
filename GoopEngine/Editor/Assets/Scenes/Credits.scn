@@ -49,10 +49,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -113.467, -3 }",
+                    "pos": "{ 0, -46.2448, -3 }",
                     "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 0, -113.467, -3 }",
+                    "worldPos": "{ 0, -46.2448, -3 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -89,22 +89,22 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -345, 0 }",
+                    "pos": "{ 0, -425, 2 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 0, -345, 0 }",
+                    "worldPos": "{ 0, -425, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, -345 }",
+                    "center": "{ 0, -425 }",
                     "width": 374.0,
                     "height": 136.0,
-                    "min": "{ -187, -413 }",
-                    "max": "{ 187, -277 }",
-                    "render": true
+                    "min": "{ -187, -493 }",
+                    "max": "{ 187, -357 }",
+                    "render": false
                 }
             },
             {
@@ -147,12 +147,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 400, 0 }",
+                    "pos": "{ 0, 430.556, 0 }",
                     "scale": "{ 2, 2, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 400, 0 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 0, 430.556, 0 }",
                     "worldScale": "{ 2, 2, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
@@ -172,6 +172,118 @@
                         }
                     },
                     "spriteName": "Credits_Header",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Transition",
+        "ID": 4,
+        "Prefab": {
+            "name": "Transition",
+            "version": 0,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 4
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 480, 0, 1000 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 180 }",
+                    "worldPos": "{ 480, 0, 1000 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 180 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 2880,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "Transition",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "Transition",
+                            "value": [
+                                {
+                                    "trans": "{ -2880, 0, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 180 }",
+                                    "duration": 0.3,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "started": false,
+                    "paused": false,
+                    "loop": false,
+                    "playing": "Transition"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CreditsInfo",
+        "ID": 5,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "CreditsInfo",
                     "shouldRender": true
                 }
             }

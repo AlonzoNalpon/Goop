@@ -350,6 +350,9 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void TransitionToScene(string scene);
 
+     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static double GetFPS();
+
 
     // /*!*********************************************************************
     // Pause Screens
@@ -433,6 +436,12 @@ namespace GoopScripts.Mono
       UI.PauseManager.SetPauseState(2);
       Utils.SetIsActiveEntity((uint)deeperPauseMenu, true);
       Utils.SetIsActiveEntity((uint)pauseMenu, false);
+    }
+
+    public static void ToMainMenu()
+    {
+      UI.PauseManager.SetPauseState(0);
+      Utils.TransitionToScene("MainMenu");
     }
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]

@@ -39,6 +39,9 @@
 *.vcxproj.filters
 *.vcxproj
 *.editorconfig
+*.tmp*
+.tmp/
+ScriptNames.txt
 update.bat
 
 # Build results

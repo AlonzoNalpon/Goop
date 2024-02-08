@@ -1,10 +1,9 @@
 ﻿/*!*********************************************************************
-\file   MenuQuitGame.cs
+\file   ChangeToHTP.cs
 \author loh.j@digipen.edu
 \date   08 Febuary 2024
 \brief
-  Button script to go deeper into the menu confirming if the player
-wants to "Surrender".
+  Script used to trigger the changing of scenes to HowToPlay.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -15,20 +14,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoopScripts.Button
+namespace GoopScripts.Transition
 {
-  public class MenuQuitGame : IButtonClick
+  internal class ChangeToHTP : IAnimationEvent
   {
-    public int Command;
-    public int PauseMenuID, DeeperPauseMenuID;
-    public void OnClick(uint entity)
+    public void PlayEvent(uint entity)
     {
-      if (Command == -1)
-      {
-        // Return to main menu
-        return;
-      }
-      Utils.DeeperPauseMenu(PauseMenuID,DeeperPauseMenuID);
+      Utils.TransitionToScene("HowToPlay");
     }
   }
 }

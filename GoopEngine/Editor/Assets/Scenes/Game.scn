@@ -613,6 +613,13 @@
                             "entityID": 5,
                             "scriptFieldInstList": [
                                 {
+                                    "data": 17,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "FPS_COUNTER"
+                                    }
+                                },
+                                {
                                     "data": 56,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -1259,12 +1266,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 1000 }",
+                    "pos": "{ 400, -5.89553e-14, 1000 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 1000 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 400, -5.89553e-14, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
@@ -1272,18 +1279,18 @@
                     "spriteData": {
                         "spriteSubData": {
                             "texCoords": {
-                                "x": 0.0,
+                                "x": 1.0,
                                 "y": 0.0
                             },
                             "texDims": {
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 1920,
+                            "width": 2880,
                             "height": 1080
                         }
                     },
-                    "spriteName": "Black",
+                    "spriteName": "Transition",
                     "shouldRender": true
                 }
             },
@@ -1294,7 +1301,7 @@
                             "key": "Transition",
                             "value": [
                                 {
-                                    "trans": "{ -1920, 0, 0 }",
+                                    "trans": "{ -2880, 0, 0 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "duration": 0.3,
@@ -1307,6 +1314,49 @@
                     "paused": false,
                     "loop": false,
                     "playing": "Transition"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "FPSCounter",
+        "ID": 17,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 861.577, 512.984, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 861.577, 512.984, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 861.577, 512.984 }",
+                    "width": 8.152580206657e-312,
+                    "height": 8.14846383731e-312,
+                    "min": "{ 861.577, 512.984 }",
+                    "max": "{ 861.577, 512.984 }",
+                    "render": true
+                }
+            },
+            {
+                "Text": {
+                    "text": "FPS",
+                    "clr": {
+                        "r": 0.9411765336990356,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.12300000339746475,
+                    "fontID": 0
                 }
             }
         ]
@@ -2423,10 +2473,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55, 0 }",
+                    "pos": "{ 0, 55, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 55, 101 }",
+                    "worldPos": "{ 0, 55, 102 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2656,20 +2706,20 @@
             {
                 "Transform": {
                     "pos": "{ 260, -180, 0 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "scale": "{ 0.64, 0.64, 0.63 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 260, -180, 102 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldScale": "{ 0.64, 0.64, 0.63 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
                     "center": "{ 260, -180 }",
-                    "width": 239.0,
-                    "height": 86.0,
-                    "min": "{ 140.5, -223 }",
-                    "max": "{ 379.5, -137 }",
+                    "width": 239.36,
+                    "height": 87.04,
+                    "min": "{ 140.32, -223.52 }",
+                    "max": "{ 379.68, -136.48 }",
                     "render": true
                 }
             },
@@ -2685,11 +2735,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 239,
-                            "height": 86
+                            "width": 374,
+                            "height": 136
                         }
                     },
-                    "spriteName": "Pause_Quit",
+                    "spriteName": "Game_Surrender",
                     "shouldRender": true
                 }
             },
@@ -3186,9 +3236,20 @@
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuMainMenu",
+                            "entityID": 64,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
                 "GE_Button": {
                     "param": "MainMenu",
-                    "eventType": "CHANGE_SCENE",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }
@@ -3265,11 +3326,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 256,
+                            "width": 266,
                             "height": 71
                         }
                     },
-                    "spriteName": "Pause_Header_QuitGame",
+                    "spriteName": "Surrender_Header",
                     "shouldRender": true
                 }
             }

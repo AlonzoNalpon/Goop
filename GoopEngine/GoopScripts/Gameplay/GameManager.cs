@@ -19,6 +19,7 @@ namespace GoopScripts.Gameplay
     public int PAUSE_MENU;
     public int HOWTOPLAY_MENU;
     public int QUIT_MENU;
+    public int FPS_COUNTER;
 
     Random m_rng;
     double m_currTime = 0.0;
@@ -53,10 +54,18 @@ namespace GoopScripts.Gameplay
       //Console.WriteLine("Create GameManager");
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
+      UI.PauseManager.SetPauseState(0);
     }
 
     public void OnUpdate(double deltaTime)
     {
+      {
+        // SET FPS TEXT TO FPS
+        double fps = Utils.GetFPS();
+        string text = string.Format("{0:N2}", fps);
+        Utils.SetTextComponent(FPS_COUNTER, text);
+      }
+
       if (!gameStarted)
       {
         m_playerStats.Init();

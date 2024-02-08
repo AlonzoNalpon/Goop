@@ -16,7 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 namespace GE::EditorGUI
 {
-	class AssetBrowser
+	class AssetBrowser : public Singleton<AssetBrowser>
 	{
 	private:
 		static std::set<ImTextureID> m_textID;
@@ -39,6 +39,9 @@ namespace GE::EditorGUI
 		static void RunConfirmDeletePopup();
 
 	public:
+
+		void ClearContent();
+
 		/*!*********************************************************************
 		\brief
 		  Opens the file explorer and allows the user to select a file. The

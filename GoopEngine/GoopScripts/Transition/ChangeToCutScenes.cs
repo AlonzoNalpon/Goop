@@ -1,9 +1,9 @@
 ﻿/*!*********************************************************************
-\file   ChangeToGameScene.cs
+\file   ChangeToCutScenes.cs
 \author 
 \date   08 Febuary 2024
 \brief
-  Script used to trigger the changing of scenes to Game.
+  Script used to trigger the changing of scenes to CutScene.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -16,11 +16,11 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Transition
 {
-  internal class ChangeToGameScene : IAnimationEvent
-  {
-    public void PlayEvent(uint entity)
-    {
-      Utils.TransitionToScene("Game");
-    }
-  }
+	internal class ChangeToCutScenes : IAnimationEvent
+	{
+		public void PlayEvent(uint entity)
+		{
+			Utils.TransitionToScene("Cutscene");
+		}
+	}
 }

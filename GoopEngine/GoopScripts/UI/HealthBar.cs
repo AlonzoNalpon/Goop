@@ -1,4 +1,13 @@
-﻿using GoopScripts.Gameplay;
+﻿/*!*********************************************************************
+\file   HealthBar.cs
+\author loh.j@digipen.edu
+\date   08 Febuary 2024
+\brief
+  Script used to generate healthbar UI for both player and enemy.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Gameplay;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
