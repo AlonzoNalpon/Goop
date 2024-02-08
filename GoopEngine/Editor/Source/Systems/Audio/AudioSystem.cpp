@@ -57,7 +57,7 @@ void AudioSystem::Update()
       }), m_crossFadeList.end());
   }
 
-  float dt = static_cast<float>(frc.GetDeltaTime());
+  float dt = static_cast<float>(frc.GetUnscaledDeltaTime());
   for (auto it{ m_crossFadeList.begin() }; it != m_crossFadeList.end(); ++it)
   {
     auto& cf{ *it };
