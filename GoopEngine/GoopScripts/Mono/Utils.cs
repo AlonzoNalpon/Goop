@@ -96,6 +96,13 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static double GetMouseScrollX();
 
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static Vec2<double> GetMousePos();
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static Vec2<double> GetMousePosWorld();
+    
+
     /*!*********************************************************************
     \brief
       Function to get the value of an entity's trnsform component. This

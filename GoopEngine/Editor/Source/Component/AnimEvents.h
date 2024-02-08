@@ -1,3 +1,14 @@
+/*!*********************************************************************
+\file   AnimEvents.h
+\author a.nalpon\@digipen.edu
+\date   8-February-2024
+\brief  This file contains the definition for Animation events
+Animation events will store identifies to unique animation event sets
+(in AnimEventManager). Each stored animation event set ID will
+be bound to a specific animation set in the inspector.
+   
+ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved. 
+ ************************************************************************/
 #ifndef ANIM_EVENTS_H
 #define ANIM_EVENTS_H
 #include <Graphics/Def/GraphicsTypes.h>

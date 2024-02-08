@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   AnimEventManager.cpp
+\author a.nalpon\@digipen.edu
+\date   8-February-2024
+\brief  This file contains the implementation of the anim event manager.
+This class stores and manages all unique animation event sets.
+Upon startup, automatically loads saved event set data.
+   
+ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved. 
+ ************************************************************************/
 #include <pch.h>
 #include <Events/AnimEventManager.h>
 #include <AssetManager/AssetManager.h>
@@ -45,9 +55,9 @@ namespace GE::Events
     if (it != m_animTable.end())
     {
       m_animTable.erase(name);
-      return true;
+      return true; // successfully deleted!
     }
-    return false;
+    return false; // failed to delete!
   }
 
   void AnimEventManager::SaveDatabase() const

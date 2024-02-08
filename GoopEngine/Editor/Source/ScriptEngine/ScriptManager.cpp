@@ -107,6 +107,8 @@ void GE::MONO::ScriptManager::InitMono()
   // Input Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetMouseScrollY", GE::Input::InputManager::GetInstance().GetMouseScrollVert);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetMouseScrollX", GE::Input::InputManager::GetInstance().GetMouseScrollHor);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetMousePos", GE::Input::InputManager::GetInstance().GetMousePos);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetMousePosWorld", GE::Input::InputManager::GetInstance().GetMousePosWorld);
   mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyTriggered", GE::Input::InputManager::GetInstance().IsKeyTriggered);
   mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyReleased", GE::Input::InputManager::GetInstance().IsKeyReleased);
   mono_add_internal_call("GoopScripts.Mono.Utils::IsKeyPressed", GE::Input::InputManager::GetInstance().IsKeyPressed);

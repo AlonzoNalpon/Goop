@@ -80,41 +80,25 @@
         ]
     },
     {
-        "Name": "Pause_Words_Sliders",
+        "Name": "[Group]",
         "ID": 2,
         "Prefab": null,
         "isActive": true,
         "Parent": null,
-        "Child Entities": [],
+        "Child Entities": [
+            18,
+            19,
+            20
+        ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 12.4445, 0 }",
-                    "scale": "{ 1.5, 1.5, 1 }",
-                    "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 0, 12.4445, 0 }",
-                    "worldScale": "{ 1.5, 1.5, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 608,
-                            "height": 251
-                        }
-                    },
-                    "spriteName": "Pause_Words_Sliders",
-                    "shouldRender": true
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             }
         ]
@@ -144,7 +128,7 @@
                     "height": 136.0,
                     "min": "{ -187, -384.133 }",
                     "max": "{ 187, -248.133 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -285,6 +269,681 @@
                     "paused": false,
                     "loop": false,
                     "playing": "Transition"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Bar [Sound]",
+        "ID": 6,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 19,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 90, 162.5, 1 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 90, 162.5, 1 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 90, 162.5 }",
+                    "width": 40.0,
+                    "height": 73.0,
+                    "min": "{ 70, 126 }",
+                    "max": "{ 110, 199 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 91,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Bar",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "OptionSlider",
+                            "entityID": 6,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 350.0,
+                                    "type": "System.Double",
+                                    "scriptField": {
+                                        "fieldName": "Range"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Slider [Sound]",
+        "ID": 7,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 20,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 90, 162.5, 0 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 90, 162.5, 0 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 539,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Slider",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Bar [Music]",
+        "ID": 8,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 19,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 90, 62, 1 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 90, 62, 1 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 90, 62 }",
+                    "width": 40.0,
+                    "height": 73.0,
+                    "min": "{ 70, 25.5 }",
+                    "max": "{ 110, 98.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 91,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Bar",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "OptionSlider",
+                            "entityID": 8,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 350.0,
+                                    "type": "System.Double",
+                                    "scriptField": {
+                                        "fieldName": "Range"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Slider [Music]",
+        "ID": 9,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 20,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 90, 62, 0 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 90, 62, 0 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 539,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Slider",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Bar [SFX]",
+        "ID": 10,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 19,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 90, -38, 1 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 90, -38, 1 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 90, -38 }",
+                    "width": 40.0,
+                    "height": 73.0,
+                    "min": "{ 70, -74.5 }",
+                    "max": "{ 110, -1.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 91,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Bar",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "OptionSlider",
+                            "entityID": 10,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 350.0,
+                                    "type": "System.Double",
+                                    "scriptField": {
+                                        "fieldName": "Range"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Slider [SFX]",
+        "ID": 11,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 20,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 90, -38, 0 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 90, -38, 0 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 539,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Slider",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Bar [Voice]",
+        "ID": 12,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 19,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 90, -140, 1 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 90, -140, 1 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 90, -140 }",
+                    "width": 40.0,
+                    "height": 73.0,
+                    "min": "{ 70, -176.5 }",
+                    "max": "{ 110, -103.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 91,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Bar",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "OptionSlider",
+                            "entityID": 12,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 350.0,
+                                    "type": "System.Double",
+                                    "scriptField": {
+                                        "fieldName": "Range"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Slider [Voice]",
+        "ID": 13,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 20,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 90, -140, 0 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 90, -140, 0 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 539,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Slider",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Music",
+        "ID": 14,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 18,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -453, 42, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -453, 42, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Music",
+                    "clr": {
+                        "r": 0.9098039269447327,
+                        "g": 0.843137264251709,
+                        "b": 0.7803921699523926,
+                        "a": 1.0
+                    },
+                    "scale": 0.2199999988079071,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Sound",
+        "ID": 15,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 18,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -457, 143, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -457, 143, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Sound",
+                    "clr": {
+                        "r": 0.9098039269447327,
+                        "g": 0.843137264251709,
+                        "b": 0.7803921699523926,
+                        "a": 1.0
+                    },
+                    "scale": 0.2199999988079071,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "SFX",
+        "ID": 16,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 18,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -430, -60, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -430, -60, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "SFX",
+                    "clr": {
+                        "r": 0.9098039269447327,
+                        "g": 0.843137264251709,
+                        "b": 0.7803921699523926,
+                        "a": 1.0
+                    },
+                    "scale": 0.2199999988079071,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Voice",
+        "ID": 17,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 18,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -450, -162, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -450, -162, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Voice",
+                    "clr": {
+                        "r": 0.9098039269447327,
+                        "g": 0.843137264251709,
+                        "b": 0.7803921699523926,
+                        "a": 1.0
+                    },
+                    "scale": 0.2199999988079071,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Texts",
+        "ID": 18,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [
+            14,
+            15,
+            16,
+            17
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Bars",
+        "ID": 19,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [
+            6,
+            8,
+            10,
+            12
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Sliders",
+        "ID": 20,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [
+            7,
+            9,
+            11,
+            13
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             }
         ]

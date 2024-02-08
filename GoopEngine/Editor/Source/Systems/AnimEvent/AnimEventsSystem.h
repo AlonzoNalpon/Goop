@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   AnimEventsSystem.h
+\author a.nalpon\@digipen.edu
+\date   8-February-2024
+\brief  This file contains the definition for the animation event system
+This system is responsible for invoking animation events at any associated
+frame.
+   
+ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved. 
+ ************************************************************************/
 #ifndef ANIM_EVENTS_SYSTEM
 #define ANIM_EVENTS_SYSTEM
 #include <ECS/System/System.h>

@@ -145,6 +145,11 @@ namespace GE::Prefabs
     EntityMappings() : m_prefab{}, m_objToEntity{}, m_version{}, m_registered{ true } {}
     EntityMappings(std::string prefab, PrefabVersion version) : m_prefab{ std::move(prefab) }, m_objToEntity{}, m_version{ version }, m_registered{ true } {}
 
+    /*!*********************************************************************
+    \brief
+      Checks through the mappings of the current prefab based on the scene
+      and removes any obsolete entries corresponding to destroyed entities.
+    ************************************************************************/
     void Validate();
 
     std::string m_prefab;

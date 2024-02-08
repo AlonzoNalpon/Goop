@@ -126,7 +126,8 @@ void VariantPrefab::EntityMappings::Validate()
   for (auto iter{ m_objToEntity.begin() }; iter != m_objToEntity.end();)
   {
     // if entity destroyed, remove entry from map
-    if (!ecs.GetIsActiveEntity(iter->second))
+    // checking if component signature is 0 to determine
+    if (ecs.GetComponentSignature(iter->second).none())
     {
       iter = m_objToEntity.erase(iter);
       continue;
