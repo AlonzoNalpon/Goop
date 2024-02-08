@@ -274,7 +274,9 @@ void GE::fMOD::FmodSystem::HandleEvent(GE::Events::Event* event)
   {
   case GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS:
     GE::Systems::GameSystem::SetLoseFocus(true);
+#ifndef IMGUI_DISABLE
     GE::EditorGUI::AssetBrowser::GetInstance().ClearContent();
+#endif
     //std::cout << "LOSE FOCUS" << "\n";
     m_masterGroup->setPaused(true);
     break;

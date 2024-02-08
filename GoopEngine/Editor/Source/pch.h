@@ -1,6 +1,6 @@
 #pragma once
 
-//#define IMGUI_DISABLE
+#define IMGUI_DISABLE
 //#define FULLSCREEN
 
 #if defined _DEBUG
