@@ -16,6 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #ifndef IMGUI_DISABLE
 #include "ErrorLogger.h"
 #include <spdlog/sinks/basic_file_sink.h>
+#include <spdlog/sinks/rotating_file_sink.h>
 #include <chrono>
 #include <sstream>
 #include <iomanip>
@@ -38,7 +39,8 @@ ErrorLogger::ErrorLogger()
 	ss << std::put_time(localTime, "Logs/Log_%Y.%m.%d-%H.%M.%S.txt");
 	m_fileName = ss.str();
 
-	auto filesink = std::make_shared<spdlog::sinks::basic_file_sink_st>(m_fileName, true);
+	// 5mb file sinks
+	auto filesink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(m_fileName, 1048576 * 5, 1);
 
 	// Default logger will log only to ostream
 	m_logger = std::make_unique<spdlog::logger>("");
