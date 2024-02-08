@@ -1,9 +1,9 @@
 ﻿/*!*********************************************************************
-\file       GameManager.cs
-\author     chengen.lau\@digipen.edu
-\co-author  c.phua\@digipen.edu
-\co-author  Han Qin Ding
-\date       10-January-2024
+\file   GameManager.cs
+\author chengen.lau\@digipen.edu
+\co-author c.phua\@digipen.edu, han.q@digipen.edu
+\co-author Han Qin Ding
+\date   10-January-2024
 \brief  
 Calculates and keep tracks of character's stats like attack and block.
  
@@ -62,6 +62,10 @@ namespace GoopScripts.Gameplay
       m_rng = new Random();
     }
 
+    /*!*********************************************************************
+      \brief
+        OnCreate function for GameManager
+      ************************************************************************/
     public void OnCreate()
     {
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
@@ -74,6 +78,13 @@ namespace GoopScripts.Gameplay
       isDead = false;
     }
 
+
+    /*!*********************************************************************
+      \brief
+        OnUpdate function for GameManager
+      \param deltaTime
+        delta time since last frame
+      ************************************************************************/
     public void OnUpdate(double deltaTime)
     {
       {
@@ -151,6 +162,10 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+      \brief
+        This function is triggered when the start of turn occurs. Player and enemy will draw cards. Also triggers the Enemy's AI
+      ************************************************************************/
     public void StartOfTurn()
     {
       //Console.WriteLine("START OF TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
@@ -163,6 +178,13 @@ namespace GoopScripts.Gameplay
 
 
 
+    /*!*********************************************************************
+      \brief
+        This function handles the resolution phase. It plays the animation based on the cards played.
+        It also trigger combos if player/enemy plays more than 1 card
+      \param deltaTime
+        delta time since last frame
+      ************************************************************************/
     public void ResolutionPhase(double deltaTime)
     {
       //Time to trigger the card effects and the animations.
@@ -313,6 +335,12 @@ namespace GoopScripts.Gameplay
       ++m_currTime;
     }
 
+
+    /*!*********************************************************************
+      \brief
+        This function is triggered t the satrt of resolution phase. This reset the variables
+        used when resolving the resolution phase
+      ************************************************************************/
     private void StartResolution()
     {
       m_slotNum = 0;
@@ -323,6 +351,12 @@ namespace GoopScripts.Gameplay
 
     }
 
+
+    /*!*********************************************************************
+      \brief
+        This funciton is triggered when the user clicks the end turn button. THis function
+        starts the resolution phase
+      ************************************************************************/
     public void EndTurn()
     {
       //Console.WriteLine("END TURN");
