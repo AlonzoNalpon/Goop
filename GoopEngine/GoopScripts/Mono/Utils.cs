@@ -331,6 +331,18 @@ namespace GoopScripts.Mono
 		}
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static float GetChannelVolume(ChannelType channel);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetChannelVolume(ChannelType channel, float volume);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static float GetMasterVolume();
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetMasterVolume(float volume);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void PlaySoundF(string soundName, float volume, ChannelType channel, bool looped);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]

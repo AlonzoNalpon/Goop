@@ -283,21 +283,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 90, 162.5, 1 }",
+                    "pos": "{ 120, 162.5, 1 }",
                     "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 90, 162.5, 1 }",
+                    "worldPos": "{ 120, 162.5, 1 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 90, 162.5 }",
+                    "center": "{ 120, 162.5 }",
                     "width": 40.0,
                     "height": 73.0,
-                    "min": "{ 70, 126 }",
-                    "max": "{ 110, 199 }",
+                    "min": "{ 100, 126 }",
+                    "max": "{ 140, 199 }",
                     "render": false
                 }
             },
@@ -328,6 +328,13 @@
                             "scriptName": "OptionSlider",
                             "entityID": 6,
                             "scriptFieldInstList": [
+                                {
+                                    "data": 3,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Index"
+                                    }
+                                },
                                 {
                                     "data": 350.0,
                                     "type": "System.Double",
@@ -363,7 +370,7 @@
                     "pos": "{ 90, 162.5, 0 }",
                     "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 90, 162.5, 0 }",
+                    "worldPos": "{ 120, 162.5, 0 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -400,21 +407,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 90, 62, 1 }",
+                    "pos": "{ 120, 62, 1 }",
                     "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 90, 62, 1 }",
+                    "worldPos": "{ 120, 62, 1 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 90, 62 }",
+                    "center": "{ 120, 62 }",
                     "width": 40.0,
                     "height": 73.0,
-                    "min": "{ 70, 25.5 }",
-                    "max": "{ 110, 98.5 }",
+                    "min": "{ 100, 25.5 }",
+                    "max": "{ 140, 98.5 }",
                     "render": false
                 }
             },
@@ -445,6 +452,13 @@
                             "scriptName": "OptionSlider",
                             "entityID": 8,
                             "scriptFieldInstList": [
+                                {
+                                    "data": 1,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Index"
+                                    }
+                                },
                                 {
                                     "data": 350.0,
                                     "type": "System.Double",
@@ -480,7 +494,7 @@
                     "pos": "{ 90, 62, 0 }",
                     "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 90, 62, 0 }",
+                    "worldPos": "{ 120, 62, 0 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -517,21 +531,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 90, -38, 1 }",
+                    "pos": "{ 120, -38, 1 }",
                     "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 90, -38, 1 }",
+                    "worldPos": "{ 120, -38, 1 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 90, -38 }",
+                    "center": "{ 120, -38 }",
                     "width": 40.0,
                     "height": 73.0,
-                    "min": "{ 70, -74.5 }",
-                    "max": "{ 110, -1.5 }",
+                    "min": "{ 100, -74.5 }",
+                    "max": "{ 140, -1.5 }",
                     "render": false
                 }
             },
@@ -562,6 +576,13 @@
                             "scriptName": "OptionSlider",
                             "entityID": 10,
                             "scriptFieldInstList": [
+                                {
+                                    "data": 2,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Index"
+                                    }
+                                },
                                 {
                                     "data": 350.0,
                                     "type": "System.Double",
@@ -597,7 +618,7 @@
                     "pos": "{ 90, -38, 0 }",
                     "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 90, -38, 0 }",
+                    "worldPos": "{ 120, -38, 0 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -634,21 +655,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 90, -140, 1 }",
+                    "pos": "{ 120, -140, 1 }",
                     "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 90, -140, 1 }",
+                    "worldPos": "{ 120, -140, 1 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 90, -140 }",
+                    "center": "{ 120, -140 }",
                     "width": 40.0,
                     "height": 73.0,
-                    "min": "{ 70, -176.5 }",
-                    "max": "{ 110, -103.5 }",
+                    "min": "{ 100, -176.5 }",
+                    "max": "{ 140, -103.5 }",
                     "render": false
                 }
             },
@@ -679,6 +700,13 @@
                             "scriptName": "OptionSlider",
                             "entityID": 12,
                             "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Index"
+                                    }
+                                },
                                 {
                                     "data": 350.0,
                                     "type": "System.Double",
@@ -714,7 +742,7 @@
                     "pos": "{ 90, -140, 0 }",
                     "scale": "{ 1.5, 1.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 90, -140, 0 }",
+                    "worldPos": "{ 120, -140, 0 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -742,7 +770,7 @@
         ]
     },
     {
-        "Name": "Music",
+        "Name": "SFX",
         "ID": 14,
         "Prefab": null,
         "isActive": true,
@@ -751,76 +779,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -453, 42, 0 }",
+                    "pos": "{ -401.556, 42, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -453, 42, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Music",
-                    "clr": {
-                        "r": 0.9098039269447327,
-                        "g": 0.843137264251709,
-                        "b": 0.7803921699523926,
-                        "a": 1.0
-                    },
-                    "scale": 0.2199999988079071,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Sound",
-        "ID": 15,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 18,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -457, 143, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -457, 143, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Sound",
-                    "clr": {
-                        "r": 0.9098039269447327,
-                        "g": 0.843137264251709,
-                        "b": 0.7803921699523926,
-                        "a": 1.0
-                    },
-                    "scale": 0.2199999988079071,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "SFX",
-        "ID": 16,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 18,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -430, -60, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -430, -60, 0 }",
+                    "worldPos": "{ -401.556, 42, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -841,7 +803,73 @@
         ]
     },
     {
+        "Name": "BGM",
+        "ID": 15,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 18,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -409, -162, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -409, -162, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "BGM",
+                    "clr": {
+                        "r": 0.9098039269447327,
+                        "g": 0.843137264251709,
+                        "b": 0.7803921699523926,
+                        "a": 1.0
+                    },
+                    "scale": 0.2199999988079071,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
         "Name": "Voice",
+        "ID": 16,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 18,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -442.482, -60, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -442.482, -60, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Voice",
+                    "clr": {
+                        "r": 0.9098039269447327,
+                        "g": 0.843137264251709,
+                        "b": 0.7803921699523926,
+                        "a": 1.0
+                    },
+                    "scale": 0.2199999988079071,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Master",
         "ID": 17,
         "Prefab": null,
         "isActive": true,
@@ -850,17 +878,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -450, -162, 0 }",
+                    "pos": "{ -495.111, 143, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -450, -162, 0 }",
+                    "worldPos": "{ -495.111, 143, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Voice",
+                    "text": "Master",
                     "clr": {
                         "r": 0.9098039269447327,
                         "g": 0.843137264251709,
@@ -938,10 +966,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ 30, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 0 }",
+                    "worldPos": "{ 30, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }

@@ -143,6 +143,10 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::GetAnimationTime", GE::MONO::GetAnimationTime);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", GE::MONO::PlayAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::GameSystemResolved", GE::MONO::GameSystemResolved);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetChannelVolume", GE::MONO::GetChannelVolume);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetChannelVolume", GE::MONO::SetChannelVolume);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetMasterVolume", GE::MONO::GetMasterVolume);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetMasterVolume", GE::MONO::SetMasterVolume);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySoundF", GE::MONO::PlaySoundF);
   mono_add_internal_call("GoopScripts.Mono.Utils::StopSound", GE::MONO::StopSound);
@@ -451,6 +455,49 @@ void GE::MONO::PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animNa
   {
     tween->m_playing = MonoStringToSTD(animName);
   }
+}
+
+float GE::MONO::GetChannelVolume(int channel)
+{
+  switch (channel)
+  {
+  case 0:
+    return GE::fMOD::FmodSystem::GetInstance().GetChannelVolume(GE::fMOD::FmodSystem::ChannelType::BGM);
+  case 1:
+    return GE::fMOD::FmodSystem::GetInstance().GetChannelVolume(GE::fMOD::FmodSystem::ChannelType::SFX);
+  case 2:
+    return GE::fMOD::FmodSystem::GetInstance().GetChannelVolume(GE::fMOD::FmodSystem::ChannelType::VOICE);
+  default:
+    return 0.0f;
+  }
+}
+
+void GE::MONO::SetChannelVolume(int channel, float volume)
+{
+  switch (channel)
+  {
+  case 0:
+    GE::fMOD::FmodSystem::GetInstance().SetChannelVolume(GE::fMOD::FmodSystem::ChannelType::BGM, volume);
+    break;
+  case 1:
+    GE::fMOD::FmodSystem::GetInstance().SetChannelVolume(GE::fMOD::FmodSystem::ChannelType::SFX, volume);
+    break;
+  case 2:
+    GE::fMOD::FmodSystem::GetInstance().SetChannelVolume(GE::fMOD::FmodSystem::ChannelType::VOICE, volume);
+    break;
+  default:
+    break;
+  }
+}
+
+float GE::MONO::GetMasterVolume()
+{
+  return GE::fMOD::FmodSystem::GetInstance().GetMasterVolume();
+}
+
+void GE::MONO::SetMasterVolume(float volume)
+{
+  GE::fMOD::FmodSystem::GetInstance().SetMasterVolume(volume);
 }
 
 MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
