@@ -15,8 +15,10 @@ You can queue and unqueue up to 3 cards by clicking the cards in the player's ha
 The cards will be resolved, affecting the player and enemy's health.
 Each card will have their own animations, i.e. Leah's Beam card will play Leah's Beam animation.
 Two adjacent selected cards will form a card combo.
-The combos will be applied after the turn ends.
+The combos will be applied after the resolution of the 2 cards.
+The combo effect will be displayed for a brief moment as text beside the queued cards.
 An icon for buffs and debuffs applied will appear above the character's respective health bar.
+Hovering over the icons will display text to show the type of buff.
 The turn ends once all cards and combos are resolved.
 
 During gameplay, unfocusing the window or pressing escape will bring up the pause menu. 
@@ -26,6 +28,7 @@ Cheats:
 Pressing "U", in the game scene, will reduce the enemy's health by 1 bar.
 
 known bugs:
+Options menu in-game does not work. (Only the one accessed from main menu does)
 
 Team Roster:
 Wong Chin Kit Bryan - Tech Lead, Product Manager
