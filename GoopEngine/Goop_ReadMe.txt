@@ -29,3 +29,13 @@ known bugs:
 Pressing the "End Turn" button continuously will cause the cards to be continuously resolved and affect the character's stats.
 The death animation will play multiple times if character gets hit even after it's death.
 During the resolution phase, players can still select and unselect cards, causing undefined behaviour.
+
+Team Roster:
+Wong Chin Kit Bryan - Tech Lead, Product Manager
+Alonzo Maurice Nalpon - Graphics
+Han Qin Ding - Input, Scripting
+Cheng En Lau - Serialization
+Joel Loh Kong Iann - Assets Manager, Object Factory
+Chrissylia Phua - Design Lead, Audio Lead
+Jonathan Lee Jun Wee - Art Lead
+Dana Lee Syu Ling - Artist
