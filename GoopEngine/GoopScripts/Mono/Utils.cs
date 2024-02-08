@@ -483,5 +483,8 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void PlayTransformAnimation(uint entity, string animName);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetTimeScale(float scale);
   }
 }

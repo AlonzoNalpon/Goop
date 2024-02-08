@@ -533,4 +533,5 @@ namespace GE::MONO
 
 	void SetMasterVolume(float volume);
 
+	void SetTimeScale(float scale);
 }

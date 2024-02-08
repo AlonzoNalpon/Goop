@@ -118,7 +118,15 @@ namespace GoopScripts.Gameplay
 
       if (UI.PauseManager.PauseStateChanged())
       {
-        // //Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
+        if (UI.PauseManager.GetPauseState() != 0)
+        {
+          Utils.SetTimeScale(0.0f);
+        }
+        else
+        {
+          Utils.SetTimeScale(1.0f);
+        }
+        Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
       }
 
       if (isResolutionPhase)

@@ -184,7 +184,9 @@ void GE::MONO::ScriptManager::InitMono()
 
   mono_add_internal_call("GoopScripts.Mono.Utils::CrossFadeAudio", GE::MONO::CrossFadeAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetTimeScale", GE::MONO::SetTimeScale);
 
+  
 
   //Load the CSharpAssembly (dll file)
   std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
@@ -948,5 +950,10 @@ void GE::MONO::UpdateSprite(GE::ECS::Entity entity, MonoString* textureName)
   std::string str = GE::MONO::MonoStringToSTD(textureName);
 
   GE::ObjectFactory::ObjectFactory::GetInstance().UpdateSprite(entity, str);
+}
+
+void GE::MONO::SetTimeScale(float scale)
+{
+  GE::FPS::FrameRateController::GetInstance().SetTimeScale(scale);
 }
 
