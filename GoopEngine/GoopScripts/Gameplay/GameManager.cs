@@ -39,7 +39,7 @@ namespace GoopScripts.Gameplay
 
     public Stats m_playerStats, m_enemyStats;
 
-    static bool isResolutionPhase = false;  // flag for triggering a turn
+    static bool isResolutionPhase = false;
     //bool intervalBeforeReset;
 
     //tools for resolving cards
@@ -300,13 +300,13 @@ namespace GoopScripts.Gameplay
 
     }
 
-  
-
     public void EndTurn()
     {
       //Console.WriteLine("END TURN");
       isResolutionPhase = true;
       StartResolution();
     }
+    
+    static public bool IsResolutionPhase() {  return isResolutionPhase; }
   }
 }
