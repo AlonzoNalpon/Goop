@@ -570,6 +570,11 @@
                                     }
                                 }
                             ]
+                        },
+                        {
+                            "scriptName": "MoleRatBites",
+                            "entityID": 4,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -577,6 +582,16 @@
             {
                 "EnemyAI": {
                     "treeID": 12
+                }
+            },
+            {
+                "AnimEvents": {
+                    "eventList": [
+                        {
+                            "first": 8,
+                            "second": "MoleRatBites"
+                        }
+                    ]
                 }
             }
         ]
