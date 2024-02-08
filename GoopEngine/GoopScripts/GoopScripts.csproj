@@ -70,6 +70,7 @@
     <Compile Include="AI\SequenceNode.cs" />
     <Compile Include="Button\MenuMainMenu.cs" />
     <Compile Include="Button\OptionSlider.cs" />
+    <Compile Include="Button\TutorialBtn.cs" />
     <Compile Include="Cutscene\SwitchCutScenes.cs" />
     <Compile Include="Gameplay\Tutorial.cs" />
     <Compile Include="Transition\ChangeToCredits.cs" />

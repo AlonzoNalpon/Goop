@@ -58,7 +58,6 @@ namespace GoopScripts.Gameplay
     ************************************************************************/
     public void OnCreate()
     {
-      m_deckMngr.Init(m_type);
       m_buffs = new BuffManager(m_buffsDisplay, m_type);
 
       // save the pos of each queue element

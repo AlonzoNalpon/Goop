@@ -285,7 +285,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "TempEndTurn",
+                            "scriptName": "TutorialBtn",
                             "entityID": 1,
                             "scriptFieldInstList": []
                         }
@@ -609,7 +609,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "GameManager",
+                            "scriptName": "Tutorial",
                             "entityID": 5,
                             "scriptFieldInstList": [
                                 {

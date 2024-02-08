@@ -65,6 +65,15 @@ namespace GoopScripts.Gameplay
       //Console.WriteLine("Create GameManager");
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
+      m_playerStats.m_deckMngr.m_deck.AddCard(CardBase.CardID.LEAH_BEAM, 4);
+      m_playerStats.m_deckMngr.m_deck.AddCard(CardBase.CardID.LEAH_STRIKE, 4);
+      m_playerStats.m_deckMngr.m_deck.AddCard(CardBase.CardID.LEAH_SHIELD, 4);
+      m_playerStats.m_deckMngr.m_deck.AddCard(CardBase.CardID.SPECIAL_FLASHBANG);
+
+      m_enemyStats.m_deckMngr.m_deck.AddCard(CardBase.CardID.BASIC_ATTACK, 4);
+      m_enemyStats.m_deckMngr.m_deck.AddCard(CardBase.CardID.BASIC_SHIELD, 3);
+      m_enemyStats.m_deckMngr.m_deck.AddCard(CardBase.CardID.SPECIAL_SCREECH);
+
       UI.PauseManager.SetPauseState(0);
     }
 

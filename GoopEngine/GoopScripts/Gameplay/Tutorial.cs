@@ -33,7 +33,7 @@ namespace GoopScripts.Gameplay
     
     int m_slotNum = 0;
     bool toTrigger = false;
-    bool isStartOfTurn = true;
+    bool isStartOfTurn = false;
     List<CardBase.CardID> m_cardsPlayedP = new List<CardBase.CardID>();
     List<CardBase.CardID> m_cardsPlayedE = new List<CardBase.CardID>();
     bool gameStarted = false; // called once at the start of game 
@@ -50,15 +50,6 @@ namespace GoopScripts.Gameplay
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
       UI.PauseManager.SetPauseState(0);
-
-      for (int i = 0; i < m_playerStats.m_deckMngr.m_deck.Size(); i++)
-      {
-        m_playerStats.m_deckMngr.m_deck.BurnTop();
-      }
-      for (int i = 0; i < m_enemyStats.m_deckMngr.m_deck.Size(); i++)
-      {
-        m_enemyStats.m_deckMngr.m_deck.BurnTop();
-      }
 
       //player deck
       m_playerStats.m_deckMngr.m_deck.AddCard(CardID.LEAH_SHIELD);
@@ -94,7 +85,9 @@ namespace GoopScripts.Gameplay
 
       if (!gameStarted)
       {
+        Console.WriteLine("Player init");
         m_playerStats.Init();
+        Console.WriteLine("Enemy draw");
         m_enemyStats.Draw();
         gameStarted = true;
       }
@@ -158,10 +151,10 @@ namespace GoopScripts.Gameplay
         m_enemyStats.Draw();
       }
       
-      for (int i = 0; i < m_enemyStats.m_deckMngr.m_deck.Size(); i++)
-      {
-        m_enemyStats.QueueCard(i);
-      }
+      //for (int i = 0; i < m_enemyStats.m_deckMngr.m_deck.Size(); i++)
+      //{
+      //  m_enemyStats.QueueCard(i);
+      //}
     }
 
 
