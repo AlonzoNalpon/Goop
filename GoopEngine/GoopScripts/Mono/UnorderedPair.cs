@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   UnorderedPair.cpp
+\author chengen.lau\@digipen.edu
+\date   04-February-2024
+\brief  Definition of UnorderedPair class, which is a 2-element tuple
+        or pair where the ordering of elements don't matter. Inherits
+        from IEquatable<T> to define the comparison function. Can be
+        used as a key for a Dictionary.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

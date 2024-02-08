@@ -375,6 +375,15 @@ namespace GE::MONO
 	************************************************************************/
 	void SetCardToHandState(unsigned cardEntity);
 
+	/*!*********************************************************************
+	\brief
+		Searches the children of the entity for one named "BuffIconText"
+		and sets it to active/inactive.
+	\param iconID
+		The entity id of the icon
+	\param state
+		The active state to set it to
+	************************************************************************/
 	void SetBuffIconTextActive(unsigned iconID, bool state);
 
 	/*!*********************************************************************
