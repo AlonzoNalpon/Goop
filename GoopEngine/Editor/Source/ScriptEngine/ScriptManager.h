@@ -520,4 +520,13 @@ namespace GE::MONO
 	  Plays an animation from the tween system of an entity.
 	********************************************************************/
 	void PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animName);
+
+	float GetChannelVolume(int channel);
+
+	void SetChannelVolume(int channel, float volume);
+
+	float GetMasterVolume();
+
+	void SetMasterVolume(float volume);
+
 }
