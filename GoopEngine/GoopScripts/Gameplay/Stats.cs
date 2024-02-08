@@ -32,11 +32,10 @@ namespace GoopScripts.Gameplay
     public HealthBar m_healthBar;
     public int m_attack = 0, m_block = 0;
 
-    public int m_buffsDisplay;
 
     // VARIABLES HERE SHOULD ONLY BE MODFIED THROUGH EDITOR
-    public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved;
-    public int[] queueElemIDs;
+    public int m_buffsDisplay;
+    public int[] m_comboUI, queueElemIDs;
 
     public DeckManager m_deckMngr;
     public Vec3<double>[] m_queueElemPos;
@@ -50,6 +49,7 @@ namespace GoopScripts.Gameplay
       m_deckMngr = new DeckManager();
       queueElemIDs = new int[3];
       m_queueElemPos = new Vec3<double>[3];
+      m_comboUI = new int[2];
     }
 
     /*!*********************************************************************
@@ -81,6 +81,8 @@ namespace GoopScripts.Gameplay
       {
         Draw();
       }
+      Utils.SetTextComponent(m_comboUI[0], "");
+      Utils.SetTextComponent(m_comboUI[1], "");
       m_healthBar.ResetBar();
     }
 
@@ -106,7 +108,6 @@ namespace GoopScripts.Gameplay
     {
       m_attack += value;
       if (m_attack < 0) { m_attack = 0; }
-      Utils.SetTextComponent(m_attackDisplay, m_attack.ToString());
     }
 
     /*!*********************************************************************
@@ -119,7 +120,6 @@ namespace GoopScripts.Gameplay
     {
       m_attack = (int)((float)m_attack * value);
       if (m_attack < 0) { m_attack = 0; }
-      Utils.SetTextComponent(m_attackDisplay, m_attack.ToString());
     }
 
     /*!*********************************************************************
@@ -132,7 +132,6 @@ namespace GoopScripts.Gameplay
     {
       m_block += value;
       if (m_block < 0) { m_block = 0; }
-      Utils.SetTextComponent(m_blockDisplay, m_block.ToString());
     }
 
     /*!*********************************************************************
@@ -226,8 +225,6 @@ namespace GoopScripts.Gameplay
     {
       m_deckMngr.DiscardQueue();
       m_attack = m_block = 0;
-      Utils.SetTextComponent(m_attackDisplay, "0");
-      Utils.SetTextComponent(m_blockDisplay, "0");
       m_buffs.StepTurn();
       m_buffs.UpdateBuffsUI();
     }

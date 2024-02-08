@@ -9,10 +9,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -532.315, 101.667, -9 }",
+                    "pos": "{ -401.426, 101.667, -9 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -532.315, 101.667, -9 }",
+                    "worldPos": "{ -401.426, 101.667, -9 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -57,13 +57,6 @@
                                     }
                                 },
                                 {
-                                    "data": 33,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_attackDisplay"
-                                    }
-                                },
-                                {
                                     "data": 0,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -71,17 +64,20 @@
                                     }
                                 },
                                 {
-                                    "data": 35,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_blockDisplay"
-                                    }
-                                },
-                                {
                                     "data": 85,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_buffsDisplay"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        45,
+                                        33
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "m_comboUI"
                                     }
                                 },
                                 {
@@ -108,13 +104,6 @@
                                     "type": "",
                                     "scriptField": {
                                         "fieldName": "m_healthBar"
-                                    }
-                                },
-                                {
-                                    "data": 28,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_healthDisplayWillBeRemoved"
                                     }
                                 },
                                 {
@@ -245,17 +234,17 @@
         "ID": 1,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 7,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
                     "pos": "{ 780, -445, 10 }",
                     "scale": "{ 1.5, 1.5, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 780, -445, 10 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -294,7 +283,15 @@
                         {
                             "scriptName": "TempEndTurn",
                             "entityID": 1,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 75,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "disabledEndTurn"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }
@@ -399,21 +396,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 594.651, 50, 0 }",
+                    "pos": "{ 336.318, 50, 0 }",
                     "scale": "{ 0.9, 0.9, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 594.651, 50, 0 }",
+                    "worldPos": "{ 336.318, 50, 0 }",
                     "worldScale": "{ 0.9, 0.9, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 594.651, 50 }",
+                    "center": "{ 336.318, 50 }",
                     "width": 456.0,
                     "height": 154.0,
-                    "min": "{ 366.651, -27 }",
-                    "max": "{ 822.651, 127 }",
+                    "min": "{ 108.318, -27 }",
+                    "max": "{ 564.318, 127 }",
                     "render": false
                 }
             },
@@ -457,13 +454,6 @@
                                     }
                                 },
                                 {
-                                    "data": 39,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_attackDisplay"
-                                    }
-                                },
-                                {
                                     "data": 0,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -471,17 +461,20 @@
                                     }
                                 },
                                 {
-                                    "data": 41,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_blockDisplay"
-                                    }
-                                },
-                                {
                                     "data": 86,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_buffsDisplay"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        46,
+                                        34
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "m_comboUI"
                                     }
                                 },
                                 {
@@ -508,13 +501,6 @@
                                     "type": "",
                                     "scriptField": {
                                         "fieldName": "m_healthBar"
-                                    }
-                                },
-                                {
-                                    "data": 29,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_healthDisplayWillBeRemoved"
                                     }
                                 },
                                 {
@@ -575,6 +561,11 @@
                             "scriptName": "MoleRatBites",
                             "entityID": 4,
                             "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "LeahDies",
+                            "entityID": 4,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -590,6 +581,10 @@
                         {
                             "first": 8,
                             "second": "MoleRatBites"
+                        },
+                        {
+                            "first": 11,
+                            "second": "LeahDies"
                         }
                     ]
                 }
@@ -723,11 +718,11 @@
         "isActive": true,
         "Parent": null,
         "Child Entities": [
+            1,
             8,
             9,
-            32,
-            38,
-            44
+            44,
+            75
         ],
         "Components": [
             {
@@ -841,7 +836,8 @@
         "Child Entities": [
             12,
             13,
-            14
+            14,
+            37
         ],
         "Components": [
             {
@@ -1651,7 +1647,8 @@
         "Child Entities": [
             22,
             23,
-            24
+            24,
+            36
         ],
         "Components": [
             {
@@ -2161,25 +2158,22 @@
         ]
     },
     {
-        "Name": "Player Stats",
+        "Name": "Group 1",
         "ID": 32,
         "Prefab": null,
         "isActive": true,
-        "Parent": 7,
+        "Parent": 44,
         "Child Entities": [
-            33,
-            34,
-            35,
-            36,
-            37
+            45,
+            46
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -288.925, -87.296, 3 }",
+                    "pos": "{ 0, -1.347, -5 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -288.925, -87.296, 3 }",
+                    "worldPos": "{ 0, 124.468, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2187,438 +2181,212 @@
         ]
     },
     {
-        "Name": "PlayerAttack",
+        "Name": "PComboText2",
         "ID": 33,
         "Prefab": null,
         "isActive": true,
-        "Parent": 32,
+        "Parent": 35,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 5.798, -9.707, 1 }",
+                    "pos": "{ -695.315, 0, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -283.127, -97.003, 4 }",
+                    "worldPos": "{ -695.315, -47.3327, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "0",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Block Sprite",
-        "ID": 34,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -46.278, -67.167, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -335.203, -154.463, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 50,
-                            "height": 50
-                        }
-                    },
-                    "spriteName": "TempShield",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "PlayerBlock",
-        "ID": 35,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 5.798, -75.653, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -283.127, -162.949, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "0",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Attack Sprite",
-        "ID": 36,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -46.278, 2.481, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -335.203, -84.815, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 50,
-                            "height": 50
-                        }
-                    },
-                    "spriteName": "TempAttack",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Backing",
-        "ID": 37,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -3.259, -32.635, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -292.184, -119.931, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 220,
-                            "height": 140
-                        }
-                    },
-                    "spriteName": "TempBacking",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Enemy Stats",
-        "ID": 38,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 7,
-        "Child Entities": [
-            39,
-            40,
-            41,
-            42,
-            43
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 275.039, -87.296, 3 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 275.039, -87.296, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "EnemyAttack",
-        "ID": 39,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 38,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 5.798, -9.707, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 280.837, -97.003, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "0",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Block Sprite",
-        "ID": 40,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 38,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -46.278, -67.167, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 228.761, -154.463, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 50,
-                            "height": 50
-                        }
-                    },
-                    "spriteName": "TempShield",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "EnemyBlock",
-        "ID": 41,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 38,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 5.798, -75.653, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 280.837, -162.949, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "0",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Attack Sprite",
-        "ID": 42,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 38,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -46.278, 2.481, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 228.761, -84.815, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 50,
-                            "height": 50
-                        }
-                    },
-                    "spriteName": "TempAttack",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Backing",
-        "ID": 43,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 38,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -3.259, -32.635, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 271.78, -119.931, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 220,
-                            "height": 140
-                        }
-                    },
-                    "spriteName": "TempBacking",
-                    "shouldRender": true
                 }
             },
             {
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "MoleRatBites",
-                            "entityID": 43,
-                            "scriptFieldInstList": []
-                        },
-                        {
-                            "scriptName": "LeahDies",
-                            "entityID": 43,
-                            "scriptFieldInstList": []
-                        },
-                        {
-                            "scriptName": "LeahBlocks",
-                            "entityID": 43,
+                            "scriptName": "ComboTextUpdate",
+                            "entityID": 33,
                             "scriptFieldInstList": []
                         }
                     ]
                 }
             },
             {
-                "AnimEvents": {
-                    "eventList": [
+                "Text": {
+                    "text": "COMBO TEXT",
+                    "clr": {
+                        "r": 0.8666666746139526,
+                        "g": 0.8941176533699036,
+                        "b": 0.03529411926865578,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 4
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EComboText2",
+        "ID": 34,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 35,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 564.092, 0, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 564.092, -47.3327, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
                         {
-                            "first": 8,
-                            "second": "MoleRatBites"
-                        },
-                        {
-                            "first": 11,
-                            "second": "LeahDies"
-                        },
-                        {
-                            "first": 10,
-                            "second": "LeahBlocks"
+                            "scriptName": "ComboTextUpdate",
+                            "entityID": 34,
+                            "scriptFieldInstList": []
                         }
                     ]
+                }
+            },
+            {
+                "Text": {
+                    "text": "COMBO TEXT",
+                    "clr": {
+                        "r": 0.8669459223747253,
+                        "g": 0.8921568393707275,
+                        "b": 0.03498654067516327,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 4
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Group 2",
+        "ID": 35,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 44,
+        "Child Entities": [
+            33,
+            34
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -173.148, -5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, -47.3327, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Highlight",
+        "ID": 36,
+        "Prefab": {
+            "name": "QueueHighlight",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 36
+                }
+            ],
+            "registered": true
+        },
+        "isActive": false,
+        "Parent": 21,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -1603.48, 162.873, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -803.481, 221.614, 4 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 201,
+                            "height": 201
+                        }
+                    },
+                    "spriteName": "UI_Glow_Gold",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Highlight",
+        "ID": 37,
+        "Prefab": {
+            "name": "QueueHighlight",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 37
+                }
+            ],
+            "registered": true
+        },
+        "isActive": false,
+        "Parent": 11,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 1596.52, 161.726, 4 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 796.519, 220.467, 5 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 201,
+                            "height": 201
+                        }
+                    },
+                    "spriteName": "UI_Glow_Gold",
+                    "shouldRender": true
                 }
             }
         ]
@@ -2630,16 +2398,16 @@
         "isActive": true,
         "Parent": 7,
         "Child Entities": [
-            45,
-            46
+            32,
+            35
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 173.148, 5 }",
+                    "pos": "{ 0, 125.815, 5 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 173.148, 5 }",
+                    "worldPos": "{ 0, 125.815, 5 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2647,26 +2415,37 @@
         ]
     },
     {
-        "Name": "Player Combo Text",
+        "Name": "PComboText",
         "ID": 45,
         "Prefab": null,
         "isActive": true,
-        "Parent": 44,
+        "Parent": 32,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -352.593, 0, 5 }",
+                    "pos": "{ -695.315, 0, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -352.593, 173.148, 10 }",
+                    "worldPos": "{ -695.315, 124.468, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "ComboTextUpdate",
+                            "entityID": 45,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
                 "Text": {
-                    "text": "",
+                    "text": "COMBO TEXT",
                     "clr": {
                         "r": 0.8666666746139526,
                         "g": 0.8941176533699036,
@@ -2674,32 +2453,43 @@
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,
-                    "fontID": 0
+                    "fontID": 4
                 }
             }
         ]
     },
     {
-        "Name": "Enemy Combo Text",
+        "Name": "EComboText",
         "ID": 46,
         "Prefab": null,
         "isActive": true,
-        "Parent": 44,
+        "Parent": 32,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 69.2592, 0, 5 }",
+                    "pos": "{ 564.092, 0, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 69.2592, 173.148, 10 }",
+                    "worldPos": "{ 564.092, 124.468, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "ComboTextUpdate",
+                            "entityID": 46,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
                 "Text": {
-                    "text": "",
+                    "text": "COMBO TEXT",
                     "clr": {
                         "r": 0.8669459223747253,
                         "g": 0.8921568393707275,
@@ -2707,7 +2497,7 @@
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,
-                    "fontID": 0
+                    "fontID": 4
                 }
             }
         ]
@@ -4088,8 +3878,79 @@
         ]
     },
     {
-        "Name": "[Image] Picture",
+        "Name": "DisabledEndTurn",
         "ID": 75,
+        "Prefab": {
+            "name": "DisabledEndTurn",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 75
+                }
+            ],
+            "registered": true
+        },
+        "isActive": false,
+        "Parent": 7,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 780, -445, 11 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 780, -445, 11 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 780, -445 }",
+                    "width": 322.5,
+                    "height": 115.5,
+                    "min": "{ 618.75, -502.75 }",
+                    "max": "{ 941.25, -387.25 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 215,
+                            "height": 77
+                        }
+                    },
+                    "spriteName": "Button_EndTurn_Disabled",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "DisableEndTurn",
+                            "entityID": 75,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Picture",
+        "ID": 76,
         "Prefab": null,
         "isActive": true,
         "Parent": 25,

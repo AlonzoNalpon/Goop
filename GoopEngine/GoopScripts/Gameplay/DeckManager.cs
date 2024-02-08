@@ -239,6 +239,27 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
 		\brief
+		  Discards a card from the queue given the index
+    \param index
+      The index of the card in the queue
+		************************************************************************/
+    public void DiscardFromQueue(int index)
+    {
+      if (index >= QUEUE_SIZE || m_queue[index].Item1 == CardBase.CardID.NO_CARD)
+      {
+        return;
+      }
+
+      m_discard.Add(m_queue[index].Item1);
+      if (m_queue[index].Item2 != uint.MaxValue)
+      {
+        Utils.DestroyEntity(m_queue[index].Item2);
+      }
+      m_queue[index] = (CardBase.CardID.NO_CARD, uint.MaxValue);
+    }
+
+    /*!*********************************************************************
+		\brief
 		  Checks if a card is in the queue given its entity ID
     \return
       True if it is in the queue and false otherwise

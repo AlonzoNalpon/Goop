@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Attack2",
     "isActive": true,
-    "Version": 11,
+    "Version": 13,
     "Components": [
         {
             "Transform": {
@@ -12,78 +12,11 @@
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
             }
-        },
-        {
-            "BoxCollider": {
-                "center": "{ 0, 0 }",
-                "width": 214.0,
-                "height": 300.0,
-                "min": "{ -107, -150 }",
-                "max": "{ 107, 150 }",
-                "render": false
-            }
-        },
-        {
-            "Scripts": {
-                "scriptList": [
-                    {
-                        "scriptName": "SelectCard",
-                        "entityID": 0,
-                        "scriptFieldInstList": []
-                    }
-                ]
-            }
-        },
-        {
-            "GE_Button": {
-                "param": "",
-                "eventType": "NO_EVENT",
-                "lastCollided": false,
-                "currCollided": false
-            }
         }
     ],
     "SubData": [
         {
             "ID": 1,
-            "isActive": true,
-            "Name": "Base",
-            "Parent": 0,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ 0, 0, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 0, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Sprite": {
-                        "spriteData": {
-                            "spriteSubData": {
-                                "texCoords": {
-                                    "x": 0.0,
-                                    "y": 0.0
-                                },
-                                "texDims": {
-                                    "x": 1.0,
-                                    "y": 1.0
-                                },
-                                "width": 214,
-                                "height": 300
-                            }
-                        },
-                        "spriteName": "CardBaseFront_Attack",
-                        "shouldRender": true
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 2,
             "isActive": false,
             "Name": "Collider Icon",
             "Parent": 0,
@@ -150,7 +83,7 @@
             ]
         },
         {
-            "ID": 3,
+            "ID": 2,
             "isActive": true,
             "Name": "Title",
             "Parent": 0,
@@ -181,7 +114,7 @@
             ]
         },
         {
-            "ID": 4,
+            "ID": 3,
             "isActive": true,
             "Name": "Description",
             "Parent": 0,
@@ -212,7 +145,7 @@
             ]
         },
         {
-            "ID": 5,
+            "ID": 4,
             "isActive": true,
             "Name": "Icon",
             "Parent": 0,
@@ -245,6 +178,73 @@
                         },
                         "spriteName": "CardIcon_LeahAttackSlash",
                         "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 5,
+            "isActive": true,
+            "Name": "Base",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 0, 0 }",
+                        "width": 214.0,
+                        "height": 300.0,
+                        "min": "{ -107, -150 }",
+                        "max": "{ 107, 150 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 214,
+                                "height": 300
+                            }
+                        },
+                        "spriteName": "CardBaseFront_Attack",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "SelectCard",
+                                "entityID": 5,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
                     }
                 }
             ]

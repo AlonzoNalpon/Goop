@@ -18,8 +18,10 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class SelectCard : IButtonClick
+  public class SelectCard : IButtonClick, IButtonHoverEnter, IButtonHoverExit
   {
+    static public uint m_cardHover; // holds entity for hover effect
+
     public SelectCard() { }
 
     /*!*********************************************************************
@@ -37,15 +39,43 @@ namespace GoopScripts.Button
       }
 
       Stats player = (Stats)Utils.GetScript("Player", "Stats");
+      uint cardId = Utils.GetParentEntity(entity);
 
-      if (player.m_deckMngr.IsQueueFull() || !player.m_deckMngr.IsEntityInHand(entity))
+      if (player.m_deckMngr.IsQueueFull() || !player.m_deckMngr.IsEntityInHand(cardId))
       {
-        //Console.WriteLine("Card Not In Hand!");
         return;
       }
 
+      Utils.SetIsActiveEntity(m_cardHover, false);
       Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
-      player.QueueCardByID(entity);
+      player.QueueCardByID(cardId);
+    }
+
+    /*!*********************************************************************
+		\brief
+		  Displays the card hover effect by setting the position and active 
+      state of entity m_cardHover
+    \param entity
+      The id of the entity being hovered on
+		************************************************************************/
+    public void OnHoverEnter(uint entity)
+    {
+      Vec3<double> pos = Utils.GetWorldPosition(entity);
+      pos.Z -= 5.0;
+      Utils.SetPosition(m_cardHover, pos);
+      Utils.SetIsActiveEntity(m_cardHover, true);
+    }
+
+    /*!*********************************************************************
+		\brief
+		  Removes the card hover effect by setting the active state of entity 
+      m_cardHover to false
+    \param entity
+      The id of the entity being hovered on
+		************************************************************************/
+    public void OnHoverExit(uint entity)
+    {
+      Utils.SetIsActiveEntity(m_cardHover, false);
     }
   }
 }

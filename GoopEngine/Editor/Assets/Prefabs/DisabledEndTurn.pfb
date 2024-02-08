@@ -1,0 +1,48 @@
+{
+    "Name": "DisabledEndTurn",
+    "isActive": true,
+    "Version": 1,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 0, 0, 0 }",
+                "scale": "{ 1.5, 1.5, 1 }",
+                "rot": "{ 0, 0, 0 }",
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 1.5, 1.5, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 0, 0 }",
+                "width": 322.5,
+                "height": 115.5,
+                "min": "{ -161.25, -57.75 }",
+                "max": "{ 161.25, 57.75 }",
+                "render": false
+            }
+        },
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "width": 215,
+                        "height": 77
+                    }
+                },
+                "spriteName": "Button_EndTurn_Disabled",
+                "shouldRender": true
+            }
+        }
+    ],
+    "SubData": []
+}

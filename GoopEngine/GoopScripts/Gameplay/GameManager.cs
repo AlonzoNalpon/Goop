@@ -1,9 +1,9 @@
 ﻿/*!*********************************************************************
-\file   GameManager.cs
-\author chengen.lau\@digipen.edu
-\co-author c.phua\@digipen.edu
-\co-author Han Qin Ding
-\date   10-January-2024
+\file       GameManager.cs
+\author     chengen.lau\@digipen.edu
+\co-author  c.phua\@digipen.edu
+\co-author  Han Qin Ding
+\date       10-January-2024
 \brief  
 Calculates and keep tracks of character's stats like attack and block.
  
@@ -21,6 +21,7 @@ using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
 using System.Threading;
 using static GoopScripts.Cards.CardBase;
+using GoopScripts.Button;
 
 namespace GoopScripts.Gameplay
 {
@@ -63,10 +64,13 @@ namespace GoopScripts.Gameplay
 
     public void OnCreate()
     {
-      //Console.WriteLine("Create GameManager");
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
       UI.PauseManager.SetPauseState(0);
+
+      // set the static variable to the entity holding the hover effect sprite
+      SelectCard.m_cardHover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
+      Utils.SetIsActiveEntity(SelectCard.m_cardHover, false);
       isDead = false;
     }
 
@@ -264,7 +268,6 @@ namespace GoopScripts.Gameplay
           m_playerStats.ClearAtKBlk();
           m_enemyStats.ClearAtKBlk();
         }
-
         ++m_slotNum;
 
 
