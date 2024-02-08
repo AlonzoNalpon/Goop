@@ -38,15 +38,12 @@ namespace GoopScripts.Button
 
       Stats player = (Stats)Utils.GetScript("Player", "Stats");
 
-      if (!player.m_deckMngr.IsEntityInHand(entity))
+      if (player.m_deckMngr.IsQueueFull() || !player.m_deckMngr.IsEntityInHand(entity))
       {
-        if (player.m_deckMngr.IsQueueFull())
-        {
-
-        }
         //Console.WriteLine("Card Not In Hand!");
         return;
       }
+
       Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
       player.QueueCardByID(entity);
     }

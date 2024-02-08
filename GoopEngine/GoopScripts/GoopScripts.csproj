@@ -110,17 +110,16 @@
     <Compile Include="Gameplay\CharacterType.cs" />
     <Compile Include="Gameplay\Combo.cs" />
     <Compile Include="Gameplay\ComboManager.cs" />
-    <Compile Include="Demo\EvadingDetection.cs" />
     <Compile Include="Gameplay\Deck.cs" />
     <Compile Include="Gameplay\DeckManager.cs" />
     <Compile Include="Gameplay\GameManager.cs" />
-    <Compile Include="Gameplay\LeahAttacks.cs" />
-    <Compile Include="Gameplay\LeahBlocks.cs" />
-    <Compile Include="Gameplay\LeahDemo.cs" />
-    <Compile Include="Gameplay\LeahDies.cs" />
-    <Compile Include="Gameplay\LeahFlashBangs.cs" />
-    <Compile Include="Gameplay\LeahFlinches.cs" />
-    <Compile Include="Gameplay\MoleRatBites.cs" />
+    <Compile Include="Audio\LeahAttacks.cs" />
+    <Compile Include="Audio\LeahBlocks.cs" />
+    <Compile Include="Demo\LeahDemo.cs" />
+    <Compile Include="Audio\LeahDies.cs" />
+    <Compile Include="Audio\LeahFlashBangs.cs" />
+    <Compile Include="Audio\LeahFlinches.cs" />
+    <Compile Include="Audio\MoleRatBites.cs" />
     <Compile Include="Gameplay\Stats.cs" />
     <Compile Include="Input\KeyCode.cs" />
     <Compile Include="Mono\IAnimationEvent.cs" />
@@ -131,8 +130,6 @@
     <Compile Include="Mono\Vec2.cs" />
     <Compile Include="Mono\Vec3.cs" />
     <Compile Include="Mono\Utils.cs" />
-    <Compile Include="Player\Player.cs" />
-    <Compile Include="Player\PlayerScriptTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transition\MainMenuToScene.cs" />
     <Compile Include="UI\HealthBar.cs" />
@@ -161,7 +158,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Audio\" />
+    <Folder Include="Player\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
