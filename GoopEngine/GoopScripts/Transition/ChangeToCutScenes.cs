@@ -1,4 +1,13 @@
-﻿using GoopScripts.Mono;
+﻿/*!*********************************************************************
+\file   ChangeToCutScenes.cs
+\author 
+\date   08 Febuary 2024
+\brief
+  Script used to trigger the changing of scenes to CutScene.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;
