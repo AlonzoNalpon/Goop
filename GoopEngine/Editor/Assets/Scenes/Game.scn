@@ -2080,7 +2080,7 @@
                             "height": 128
                         }
                     },
-                    "spriteName": "Portrait",
+                    "spriteName": "UI_Portrait_Leah",
                     "shouldRender": true
                 }
             }
@@ -2438,7 +2438,7 @@
                             "height": 128
                         }
                     },
-                    "spriteName": "Portrait",
+                    "spriteName": "UI_Portrait_MoleRat",
                     "shouldRender": true
                 }
             }
