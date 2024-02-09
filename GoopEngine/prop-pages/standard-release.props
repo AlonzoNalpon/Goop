@@ -19,8 +19,7 @@ xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmod.dll" "$(OutDir)" /s /r /y /q
 xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(OutDir)" /s /r /y /q
 xcopy "$(ProjectDir)Assets\" "$(TargetDir)Assets\" /E /I /Y
 xcopy "$(SolutionDir)lib\mono\4.5" "$(TargetDir)4.5" /e /y /i /r
-xcopy "$(SolutionDir)GoopScripts\GoopScripts.dll" "$(TargetDir)" /s /r /y /q
-xcopy "$(SolutionDir)GoopScripts\ScriptNames.txt" "$(TargetDir)" /s /r /y /q
+xcopy "$(SolutionDir)GoopScripts\bin\$(Configuration)\GoopScripts.dll" "$(TargetDir)" /s /r /y /q
 xcopy "$(SolutionDir)lib\rttr-0.9.6\lib\$(Configuration)\*.dll" "$(OutDir)" /s /r /y /q
 xcopy "$(ProjectDir)imgui.ini" "$(OutDir)" /s /r /y /q
 RD /S /Q $(TargetDir)bin
