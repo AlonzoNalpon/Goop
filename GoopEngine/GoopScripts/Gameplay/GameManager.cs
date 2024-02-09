@@ -301,7 +301,8 @@ namespace GoopScripts.Gameplay
               isResolutionPhase = false;
               isStartOfTurn = true;
               gameStarted = true;
-              TransitionToScene("Defeat");
+               Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Defeat");
+              //TransitionToScene("Defeat");
 
 
             }
@@ -311,7 +312,8 @@ namespace GoopScripts.Gameplay
               isResolutionPhase = false;
               isStartOfTurn = true;
               gameStarted = true;
-              TransitionToScene("Victory");
+              Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
+              //TransitionToScene("Victory");
 
 
             }
