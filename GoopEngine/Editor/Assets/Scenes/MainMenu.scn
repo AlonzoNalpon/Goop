@@ -51,6 +51,58 @@
         ]
     },
     {
+        "Name": "FPS Counter",
+        "ID": 1,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 861.577, 512.984, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 861.577, 512.984, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "FPS",
+                            "entityID": 1,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 1,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "FPS_COUNTER"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "Text": {
+                    "text": "FPS",
+                    "clr": {
+                        "r": 0.9411764740943909,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.12300000339746475,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
         "Name": "[Folder] Buttons",
         "ID": 2,
         "Prefab": null,
