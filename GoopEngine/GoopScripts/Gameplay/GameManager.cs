@@ -135,7 +135,7 @@ namespace GoopScripts.Gameplay
       {
         if (UI.PauseManager.GetPauseState() != 0)
         {
-          Utils.SetTimeScale(0.0f);
+          Utils.SetTimeScale(0.000000001f); // Quick Fix for pause, will fix in M5
         }
         else
         {

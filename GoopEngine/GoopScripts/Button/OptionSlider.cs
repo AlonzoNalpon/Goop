@@ -90,14 +90,7 @@ namespace GoopScripts.Button
       if (Utils.IsKeyPressed(Input.KeyCode.MOUSE_BUTTON_1))
       {
         m_mousePosX = Utils.GetMousePosWorld().X;
-        if (Index == 3)
-        {
-          Utils.SetMasterVolume(GetFloatPos());
-        }
-        else
-        {
-          Utils.SetChannelVolume(channel, GetFloatPos());
-        }
+        
         if (m_mousePosX < m_minX)
         {
           Utils.SetPosition(entityID, new Vec3<double>(m_minX, m_posY, m_posZ));
@@ -111,6 +104,16 @@ namespace GoopScripts.Button
           Vec3<double> newPos = new Vec3<double>(m_mousePosX, m_posY, m_posZ);
           Utils.SetPosition(entityID, newPos);
         }
+
+        if (Index == 3)
+        {
+          Utils.SetMasterVolume(GetFloatPos());
+        }
+        else
+        {
+          Utils.SetChannelVolume(channel, GetFloatPos());
+        }
+
       }
       else
       {
