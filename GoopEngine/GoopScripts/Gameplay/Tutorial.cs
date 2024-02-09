@@ -10,6 +10,7 @@ using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
 using System.Threading;
 using static GoopScripts.Cards.CardBase;
+using GoopScripts.Button;
 
 namespace GoopScripts.Gameplay
 {
@@ -49,6 +50,9 @@ namespace GoopScripts.Gameplay
     {
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
+      Console.WriteLine(m_enemyStats.m_healthBar.m_maxHealth);
+      Console.WriteLine(m_enemyStats.m_healthBar.m_health);
+
       UI.PauseManager.SetPauseState(0);
 
       //player deck
@@ -89,6 +93,17 @@ namespace GoopScripts.Gameplay
         m_playerStats.Init();
         Console.WriteLine("Enemy draw");
         m_enemyStats.Draw();
+        //Console.WriteLine("Enemy deck:");
+        //for (int i = 0; i < m_enemyStats.m_deckMngr.m_deck.Size(); i++)
+        //{
+        //  Console.WriteLine(m_enemyStats.m_deckMngr.m_deck.m_cards[i]);
+        //}
+        //Console.WriteLine("Enemy hand:");
+        //for (int i = 0; i < m_enemyStats.m_deckMngr.m_hand.Count; i++)
+        //{
+        //  Console.WriteLine(m_enemyStats.m_deckMngr.m_hand[i]);
+        //}
+        m_enemyStats.QueueCard(0);
         gameStarted = true;
       }
 
@@ -145,16 +160,14 @@ namespace GoopScripts.Gameplay
       {
         m_enemyStats.Draw();
         m_enemyStats.Draw();
+        m_enemyStats.QueueCard(0);
+        m_enemyStats.QueueCard(0);
       }
       else
       {
         m_enemyStats.Draw();
+        m_enemyStats.QueueCard(0);
       }
-      
-      //for (int i = 0; i < m_enemyStats.m_deckMngr.m_deck.Size(); i++)
-      //{
-      //  m_enemyStats.QueueCard(i);
-      //}
     }
 
 
