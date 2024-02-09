@@ -67,7 +67,7 @@ namespace GoopScripts.Button
       return (float)((currentPos - m_minX) / (Range * 2));
     }
 
-    public void OnUpdate()
+    public void OnUpdate(double deltaTime)
     {
       if (Index == 3 && Utils.GetMasterVolume() != volume)
       {
