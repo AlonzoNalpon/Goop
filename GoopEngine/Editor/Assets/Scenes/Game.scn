@@ -542,14 +542,14 @@
                                     }
                                 },
                                 {
-                                    "data": 16,
+                                    "data": 15,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_health"
                                     }
                                 },
                                 {
-                                    "data": 16,
+                                    "data": 15,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_maxHealth"
@@ -1976,10 +1976,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -630.889, 430, 3 }",
+                    "pos": "{ -620, 430, 3 }",
                     "scale": "{ 1, 2, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -630.889, 430, 3 }",
+                    "worldPos": "{ -620, 430, 3 }",
                     "worldScale": "{ 1, 2, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1996,7 +1996,7 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 277,
+                            "width": 300,
                             "height": 33
                         }
                     },
@@ -2016,10 +2016,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 629.982, 430, 3 }",
+                    "pos": "{ 620, 430, 3 }",
                     "scale": "{ 1, 2, 1 }",
                     "rot": "{ 0, 0, 180 }",
-                    "worldPos": "{ 629.982, 430, 3 }",
+                    "worldPos": "{ 620, 430, 3 }",
                     "worldScale": "{ 1, 2, 1 }",
                     "worldRot": "{ 0, 0, 180 }"
                 }
@@ -2036,7 +2036,7 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 277,
+                            "width": 300,
                             "height": 33
                         }
                     },
@@ -2414,7 +2414,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -0.111133, -0.3, -0.1 }",
+                    "pos": "{ -0.1112, -0.3, -0.1 }",
                     "scale": "{ 0.25, 0.25, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 849.444, 428.5, 0.9 }",
