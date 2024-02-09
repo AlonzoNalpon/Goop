@@ -298,13 +298,13 @@ namespace GoopScripts.Gameplay
             if (m_playerStats.IsDead())
             {
               // defeat
-              TransitionToScene("Defeat");
+              Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Defeat");
             }
             else if (m_enemyStats.IsDead())
             {
-              // victory
-              TransitionToScene("Victory");
-            }
+							// victory
+							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
+						}
           }
           else
           {

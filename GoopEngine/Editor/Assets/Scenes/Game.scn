@@ -644,6 +644,13 @@
                                     }
                                 },
                                 {
+                                    "data": 17,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "FPS_COUNTER"
+                                    }
+                                },
+                                {
                                     "data": 56,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -1288,21 +1295,21 @@
         ]
     },
     {
-        "Name": "Transition",
+        "Name": "TransitionIn",
         "ID": 16,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 40,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
                     "pos": "{ 400, -5.89553e-14, 1000 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 400, -5.89553e-14, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -1375,25 +1382,6 @@
                     "min": "{ 861.577, 512.984 }",
                     "max": "{ 861.577, 512.984 }",
                     "render": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "FPS",
-                            "entityID": 17,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 17,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "FPS_COUNTER"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
                 }
             },
             {
@@ -2319,17 +2307,7 @@
     {
         "Name": "PHighlight",
         "ID": 36,
-        "Prefab": {
-            "name": "QueueHighlight",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 36
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": false,
         "Parent": null,
         "Child Entities": [],
@@ -2369,17 +2347,7 @@
     {
         "Name": "EHighlight",
         "ID": 37,
-        "Prefab": {
-            "name": "QueueHighlight",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 37
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": false,
         "Parent": null,
         "Child Entities": [],
@@ -2452,6 +2420,136 @@
                     },
                     "spriteName": "UI_Portrait_MoleRat",
                     "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Transitions",
+        "ID": 40,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            16,
+            41
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "TransitionOut",
+        "ID": 41,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 40,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 2880, -5.89553e-14, 1000 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 2880, -5.89553e-14, 1000 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 2880,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "Transition",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "Defeat",
+                            "value": [
+                                {
+                                    "trans": "{ -400, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToDefeat"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "MainMenu",
+                            "value": [
+                                {
+                                    "trans": "{ -400, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToMainMenu"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "Victory",
+                            "value": [
+                                {
+                                    "trans": "{ -400, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToVictory"
+                                }
+                            ]
+                        }
+                    ],
+                    "started": false,
+                    "paused": false,
+                    "loop": false,
+                    "playing": ""
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "ChangeToMainMenu",
+                            "entityID": 41,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "ChangeToVictory",
+                            "entityID": 41,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "ChangeToDefeat",
+                            "entityID": 41,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             }
         ]
@@ -3523,7 +3621,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "MenuMainMenu",
+                            "scriptName": "GameOverToMainMenu",
                             "entityID": 64,
                             "scriptFieldInstList": []
                         }
@@ -3532,7 +3630,7 @@
             },
             {
                 "GE_Button": {
-                    "param": "MainMenu",
+                    "param": "",
                     "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
@@ -3945,17 +4043,7 @@
     {
         "Name": "DisabledEndTurn",
         "ID": 75,
-        "Prefab": {
-            "name": "DisabledEndTurn",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 75
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": false,
         "Parent": 7,
         "Child Entities": [],
