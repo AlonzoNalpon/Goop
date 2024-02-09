@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
-\file   MoleRatBites.cs
+\file   MoleRatBlocks.cs
 \date   04-February-2024
-\brief  Script to play mole rat attack sound
+\brief  Script to play mole rat block sound
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  internal class MoleRatBites : IAnimationEvent
+  internal class MoleRatBlocks : IAnimationEvent
   {
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("SFX_RatBite", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.PlaySoundF("SFX_Block", 1.0f, Utils.ChannelType.SFX, false);
     }
   }
 }

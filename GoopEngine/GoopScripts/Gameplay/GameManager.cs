@@ -298,12 +298,22 @@ namespace GoopScripts.Gameplay
             if (m_playerStats.IsDead())
             {
               // defeat
+              isResolutionPhase = false;
+              isStartOfTurn = true;
+              gameStarted = true;
               TransitionToScene("Defeat");
+
+
             }
             else if (m_enemyStats.IsDead())
             {
               // victory
+              isResolutionPhase = false;
+              isStartOfTurn = true;
+              gameStarted = true;
               TransitionToScene("Victory");
+
+
             }
           }
           else
