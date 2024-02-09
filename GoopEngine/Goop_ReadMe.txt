@@ -28,7 +28,6 @@ Cheats:
 Pressing "U", in the game scene, will reduce the enemy's health by 1 bar.
 
 known bugs:
-Options menu in-game does not work. (Only the one accessed from main menu does)
 
 Team Roster:
 Wong Chin Kit Bryan - Tech Lead, Product Manager
