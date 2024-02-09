@@ -298,13 +298,25 @@ namespace GoopScripts.Gameplay
             if (m_playerStats.IsDead())
             {
               // defeat
-              Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Defeat");
+              isResolutionPhase = false;
+              isStartOfTurn = true;
+              gameStarted = true;
+               Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Defeat");
+              //TransitionToScene("Defeat");
+
+
             }
             else if (m_enemyStats.IsDead())
             {
-							// victory
-							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
-						}
+              // victory
+              isResolutionPhase = false;
+              isStartOfTurn = true;
+              gameStarted = true;
+              Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
+              //TransitionToScene("Victory");
+
+
+            }
           }
           else
           {

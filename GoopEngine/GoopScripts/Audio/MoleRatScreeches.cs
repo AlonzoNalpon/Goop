@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  internal class MoleRatBites : IAnimationEvent
+  internal class MoleRatScreeches : IAnimationEvent
   {
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("SFX_RatBite", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.PlaySoundF("SFX_Screech", 1.0f, Utils.ChannelType.SFX, false);
     }
   }
 }
