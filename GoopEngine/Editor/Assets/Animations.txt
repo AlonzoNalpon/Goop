@@ -3,7 +3,7 @@ SS_MoleRat_Bite #Enemy Basic Attack
 SS_MoleRat_Curl #Enemy Basic Shield
 SS_MoleRat_Rage #Enemy Special Screech
 SS_LeahShoot #Leah Beam
-SS_Leah_Attack #Leah Strike
+SS_Leah_EmpoweredPunch #Leah Strike
 SS_Leah_Block #Leah Shield
 SS_Leah_FlashBang #Leah Special Flash bang
 SS_Leah_EmpoweredPunch #Leah Special Smoke Screen
