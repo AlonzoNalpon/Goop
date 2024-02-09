@@ -862,22 +862,22 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 104,
-                            "defaultSpriteID": 137,
+                            "spriteID": 144,
+                            "defaultSpriteID": 136,
                             "used": false
                         },
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
-                            "spriteID": 104,
-                            "defaultSpriteID": 138,
+                            "spriteID": 95,
+                            "defaultSpriteID": 137,
                             "used": false
                         },
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
-                            "spriteID": 104,
-                            "defaultSpriteID": 139,
+                            "spriteID": 0,
+                            "defaultSpriteID": 138,
                             "used": false
                         }
                     ],
@@ -2520,7 +2520,7 @@
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "duration": 0.3,
-                                    "animationEvent": "GameOverToMainMenu"
+                                    "animationEvent": "ChangeGameOverToMainMenu"
                                 }
                             ]
                         },

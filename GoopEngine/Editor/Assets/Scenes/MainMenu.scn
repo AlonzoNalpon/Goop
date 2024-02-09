@@ -748,7 +748,7 @@
                     ],
                     "started": false,
                     "paused": false,
-                    "loop": true,
+                    "loop": false,
                     "playing": "Transition"
                 }
             }
