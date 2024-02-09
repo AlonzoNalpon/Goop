@@ -84,7 +84,7 @@ void InputManager::UpdateInput()
 	m_keysTriggered.reset();
 	m_scrollX = m_scrollY = 0;
 	glfwPollEvents();
-	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
+	double dt = GE::FPS::FrameRateController::GetInstance().GetUnscaledDeltaTime();
 	for (int i{ 0 }; i < static_cast<int>(GPK_KEY_COUNT); ++i)
 	{
 

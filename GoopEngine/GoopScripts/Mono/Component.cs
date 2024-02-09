@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   Component.cs
+\date   04-February-2024
+\brief  Definition of Component abstract class, which is inherited
+        by various component types. Only transform component is
+        currently supported.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

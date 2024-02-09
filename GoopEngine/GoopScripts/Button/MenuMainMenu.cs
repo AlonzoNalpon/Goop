@@ -8,6 +8,7 @@ pause menu to default state.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+using GoopScripts.Audio;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,9 @@ namespace GoopScripts.Button
   {
     public void OnClick(uint entity)
     {
-      Utils.ToMainMenu();
+			StopGameAudio audio = new StopGameAudio();
+			audio.OnClick(0u);
+			Utils.ToMainMenu();
     }
   }
 }

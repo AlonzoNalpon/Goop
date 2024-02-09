@@ -198,7 +198,7 @@ namespace GE::MONO
 	MonoObject* GetScript(MonoString* entityName, MonoString* scriptName);
 
 	MonoObject* GetScriptFromID(GE::ECS::Entity entity, MonoString* scriptName);
-
+	MonoObject* GetScriptInstance(GE::ECS::Entity entityID, MonoString* scriptName);
 
 	/*!*********************************************************************
 	\brief
@@ -221,7 +221,7 @@ namespace GE::MONO
 	************************************************************************/
 	void SetTextComponent(GE::ECS::Entity entity, MonoString* str, float alpha = 1.f);
 
-	MonoObject* GetScriptInstance(GE::ECS::Entity entityID, MonoString* scriptName);
+
 
 	/*!*********************************************************************
 	\brief

@@ -79,7 +79,7 @@ void Visualizer::UpdateSystemTimers()
       m_fpsHistory.emplace_back(static_cast<float>(fRC.GetFPS()));
       timeElapsed = 0.f;
     }
-    timeElapsed += fRC.GetDeltaTime();
+    timeElapsed += fRC.GetUnscaledDeltaTime();
   }
 }
 

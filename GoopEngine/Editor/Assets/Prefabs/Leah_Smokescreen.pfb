@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Smokescreen",
     "isActive": true,
-    "Version": 5,
+    "Version": 7,
     "Components": [
         {
             "Transform": {
@@ -11,35 +11,6 @@
                 "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
-            }
-        },
-        {
-            "BoxCollider": {
-                "center": "{ 0, 0 }",
-                "width": 214.0,
-                "height": 300.0,
-                "min": "{ -107, -150 }",
-                "max": "{ 107, 150 }",
-                "render": false
-            }
-        },
-        {
-            "Scripts": {
-                "scriptList": [
-                    {
-                        "scriptName": "SelectCard",
-                        "entityID": 0,
-                        "scriptFieldInstList": []
-                    }
-                ]
-            }
-        },
-        {
-            "GE_Button": {
-                "param": "",
-                "eventType": "NO_EVENT",
-                "lastCollided": false,
-                "currCollided": false
             }
         }
     ],
@@ -61,6 +32,16 @@
                     }
                 },
                 {
+                    "BoxCollider": {
+                        "center": "{ 0, 0 }",
+                        "width": 214.0,
+                        "height": 300.0,
+                        "min": "{ -107, -150 }",
+                        "max": "{ 107, 150 }",
+                        "render": true
+                    }
+                },
+                {
                     "Sprite": {
                         "spriteData": {
                             "spriteSubData": {
@@ -78,6 +59,25 @@
                         },
                         "spriteName": "CardBaseFront_Special",
                         "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "SelectCard",
+                                "entityID": 1,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
                     }
                 }
             ]

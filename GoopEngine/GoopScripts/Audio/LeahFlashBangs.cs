@@ -1,4 +1,11 @@
-﻿using GoopScripts.Mono;
+﻿/*!*********************************************************************
+\file   LeahFlashBangs.cs
+\date   04-February-2024
+\brief  Script to play Leah flash bang SFX
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -26,6 +26,8 @@ GE::EditorGUI::Console::Console() : terminal{empty, "Console"}
 		ImTerm::theme::constexpr_color{0.901f, 0.117f, 0.117f, 1.f}, // log_level::error
 		ImTerm::theme::constexpr_color{0.901f, 0.117f, 0.117f, 1.f}, // log_level::critical
 	};
+
+	terminal.set_max_log_len(100);
 }
 
 void GE::EditorGUI::Console::CreateContent()

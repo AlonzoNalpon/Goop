@@ -1,25 +1,24 @@
 ﻿/*!*********************************************************************
-\file   LeahDies.cs
+\file   StartMainMenuBGM.cs
 \date   04-February-2024
-\brief  Script to play Leah death SFX
+\brief  Script to start main menu music
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GoopScripts.Mono;
-using GoopScripts.Gameplay;
 
-namespace GoopScripts.Gameplay
+namespace GoopScripts.Audio
 {
-	internal class LeahDies : IAnimationEvent
+	internal class StartMainMenuBGM
 	{
-		public void PlayEvent(uint entity)
+		public void OnCreate()
 		{
-			Utils.PlaySoundF("SFX_BodyFall3", 1.0f, Utils.ChannelType.SFX, false);
+			Utils.CrossFadeAudio("", 0, 0, 0, 0, "menu", 0, 0.9f, 0, 1, 1);
 		}
 	}
 }

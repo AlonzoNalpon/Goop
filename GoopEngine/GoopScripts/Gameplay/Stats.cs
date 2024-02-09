@@ -1,11 +1,16 @@
 ﻿/*!*********************************************************************
-\file   Stats.cs
-\author chengen.lau\@digipen.edu
-\co-author c.phua\@digipen.edu
-\co-author Han Qin Ding
-\date   10-January-2024
-\brief  
-Calculates and keep tracks of character's stats like attack and block.
+\file         Stats.cs
+\author       chengen.lau\@digipen.edu
+\co-author    c.phua\@digipen.edu, han.q@digipen.edu
+\co-author    Han Qin Ding
+\date         10-January-2024
+\brief        Calculates and keep tracks of stats related to a
+              character. Mostly contains instances of elements
+              required to run the game such as the deck, combo, buff
+              manager, health, attack, block and ui elements to
+              update. These are managed by the GameManager to
+              update the relevant values based on the current game
+              phase.
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -32,11 +37,10 @@ namespace GoopScripts.Gameplay
     public HealthBar m_healthBar;
     public int m_attack = 0, m_block = 0;
 
-    public int m_buffsDisplay;
 
     // VARIABLES HERE SHOULD ONLY BE MODFIED THROUGH EDITOR
-    public int m_attackDisplay, m_blockDisplay, m_healthDisplayWillBeRemoved;
-    public int[] queueElemIDs;
+    public int m_buffsDisplay;
+    public int[] m_comboUI, queueElemIDs;
 
     public DeckManager m_deckMngr;
     public Vec3<double>[] m_queueElemPos;
@@ -50,6 +54,7 @@ namespace GoopScripts.Gameplay
       m_deckMngr = new DeckManager();
       queueElemIDs = new int[3];
       m_queueElemPos = new Vec3<double>[3];
+      m_comboUI = new int[2];
     }
 
     /*!*********************************************************************
@@ -81,6 +86,8 @@ namespace GoopScripts.Gameplay
       {
         Draw();
       }
+      Utils.SetTextComponent(m_comboUI[0], "");
+      Utils.SetTextComponent(m_comboUI[1], "");
       m_healthBar.ResetBar();
     }
 
@@ -106,7 +113,6 @@ namespace GoopScripts.Gameplay
     {
       m_attack += value;
       if (m_attack < 0) { m_attack = 0; }
-      Utils.SetTextComponent(m_attackDisplay, m_attack.ToString());
     }
 
     /*!*********************************************************************
@@ -119,7 +125,6 @@ namespace GoopScripts.Gameplay
     {
       m_attack = (int)((float)m_attack * value);
       if (m_attack < 0) { m_attack = 0; }
-      Utils.SetTextComponent(m_attackDisplay, m_attack.ToString());
     }
 
     /*!*********************************************************************
@@ -132,7 +137,6 @@ namespace GoopScripts.Gameplay
     {
       m_block += value;
       if (m_block < 0) { m_block = 0; }
-      Utils.SetTextComponent(m_blockDisplay, m_block.ToString());
     }
 
     /*!*********************************************************************
@@ -226,8 +230,6 @@ namespace GoopScripts.Gameplay
     {
       m_deckMngr.DiscardQueue();
       m_attack = m_block = 0;
-      Utils.SetTextComponent(m_attackDisplay, "0");
-      Utils.SetTextComponent(m_blockDisplay, "0");
       m_buffs.StepTurn();
       m_buffs.UpdateBuffsUI();
     }
