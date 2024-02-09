@@ -542,14 +542,14 @@
                                     }
                                 },
                                 {
-                                    "data": 20,
+                                    "data": 5,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_health"
                                     }
                                 },
                                 {
-                                    "data": 20,
+                                    "data": 5,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_maxHealth"
