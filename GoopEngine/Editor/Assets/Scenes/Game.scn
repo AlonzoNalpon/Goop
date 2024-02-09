@@ -644,13 +644,6 @@
                                     }
                                 },
                                 {
-                                    "data": 17,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "FPS_COUNTER"
-                                    }
-                                },
-                                {
                                     "data": 56,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -1366,10 +1359,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 861.577, 512.984, 10 }",
+                    "pos": "{ 861.577, 512.984, 1001 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 861.577, 512.984, 10 }",
+                    "worldPos": "{ 861.577, 512.984, 1001 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -1382,6 +1375,25 @@
                     "min": "{ 861.577, 512.984 }",
                     "max": "{ 861.577, 512.984 }",
                     "render": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "FPS",
+                            "entityID": 17,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 17,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "FPS_COUNTER"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             },
             {
