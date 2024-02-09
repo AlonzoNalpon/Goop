@@ -45,10 +45,10 @@ namespace GoopScripts.Gameplay
     //List<CardBase.CardID> resolveQueue;
     int m_slotNum = 0;
     bool toTrigger = false;
-    bool isStartOfTurn = true;
+    static bool isStartOfTurn = true;
     List<CardBase.CardID> m_cardsPlayedP = new List<CardBase.CardID>();
     List<CardBase.CardID> m_cardsPlayedE = new List<CardBase.CardID>();
-    bool gameStarted = false; // called once at the start of game 
+    static bool gameStarted = false; // called once at the start of game 
     List<CardBase.CardID> m_playerNonAtkCards = new List<CardBase.CardID>{ CardID.LEAH_SHIELD, CardID.SPECIAL_SMOKESCREEN, CardID.SPECIAL_RAGE };
     List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD };
 
@@ -73,6 +73,7 @@ namespace GoopScripts.Gameplay
       SelectCard.m_cardHover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
       Utils.SetIsActiveEntity(SelectCard.m_cardHover, false);
       isDead = false;
+      ResetGameManager();
     }
 
 
@@ -84,8 +85,6 @@ namespace GoopScripts.Gameplay
       ************************************************************************/
     public void OnUpdate(double deltaTime)
     {
-      
-
       if (!gameStarted)
       {
         m_playerStats.Init();
@@ -142,15 +141,10 @@ namespace GoopScripts.Gameplay
       {
         ResolutionPhase(deltaTime);
       }
-
-
-      else
+      else if (isStartOfTurn)
       {
-        if (isStartOfTurn)
-        {
-          isStartOfTurn = false;
-          StartOfTurn();
-        }
+        isStartOfTurn = false;
+        StartOfTurn();
       }
     }
 
@@ -236,7 +230,7 @@ namespace GoopScripts.Gameplay
             if (m_playerNonAtkCards.Contains(playerCard))
               Utils.PlayAnimation("SS_MoleRat_Idle", m_enemyStats.entityID);
             else
-              Utils.PlayAnimation("SS_MoleRat_Curl", m_enemyStats.entityID);
+              Utils.PlayAnimation("SS_MoleRat_Flinch", m_enemyStats.entityID);
           }
 
           // this should not be coded here
@@ -298,10 +292,7 @@ namespace GoopScripts.Gameplay
             if (m_playerStats.IsDead())
             {
               // defeat
-              isResolutionPhase = false;
-              isStartOfTurn = true;
-              gameStarted = true;
-               Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Defeat");
+              Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Defeat");
               //TransitionToScene("Defeat");
 
 
@@ -309,9 +300,6 @@ namespace GoopScripts.Gameplay
             else if (m_enemyStats.IsDead())
             {
               // victory
-              isResolutionPhase = false;
-              isStartOfTurn = true;
-              gameStarted = true;
               Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
               //TransitionToScene("Victory");
 
@@ -396,6 +384,11 @@ namespace GoopScripts.Gameplay
       ePos.Z -= 1.0;
       Utils.SetPosition((uint)P_QUEUE_HIGHLIGHT, pPos);
       Utils.SetPosition((uint)E_QUEUE_HIGHLIGHT, ePos);
+    }
+
+    static public void ResetGameManager()
+    {
+      isResolutionPhase = isStartOfTurn = gameStarted = false;
     }
 
     static public bool IsResolutionPhase() {  return isResolutionPhase; }

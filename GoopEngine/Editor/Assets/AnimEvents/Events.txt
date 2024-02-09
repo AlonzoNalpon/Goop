@@ -66,12 +66,45 @@
         ]
     },
     {
+        "key": "LeahShoots",
+        "value": [
+            {
+                "key": 2,
+                "value": [
+                    "LeahShoots"
+                ]
+            }
+        ]
+    },
+    {
         "key": "MoleRatBites",
         "value": [
             {
                 "key": 2,
                 "value": [
                     "MoleRatBites"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "MoleRatBlocks",
+        "value": [
+            {
+                "key": 1,
+                "value": [
+                    "MoleRatBlocks"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "MoleRatScreeches",
+        "value": [
+            {
+                "key": 1,
+                "value": [
+                    "MoleRatScreeches"
                 ]
             }
         ]

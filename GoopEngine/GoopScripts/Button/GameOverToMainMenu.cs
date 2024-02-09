@@ -1,4 +1,5 @@
-﻿using GoopScripts.Mono;
+﻿using GoopScripts.Gameplay;
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace GoopScripts.Button
 	{
 		public void OnClick(uint entity)
 		{
-			Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "MainMenu");
+      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "MainMenu");
 		}
 	}
 }

@@ -68,6 +68,9 @@
     <Compile Include="AI\RootNode.cs" />
     <Compile Include="AI\SelectorNode.cs" />
     <Compile Include="AI\SequenceNode.cs" />
+    <Compile Include="Audio\LeahShoots.cs" />
+    <Compile Include="Audio\MoleRatBlocks.cs" />
+    <Compile Include="Audio\MoleRatScreeches.cs" />
     <Compile Include="Audio\StartMainMenuBGM.cs" />
     <Compile Include="Audio\StopGameAudio.cs" />
     <Compile Include="Button\DisableEndTurn.cs" />

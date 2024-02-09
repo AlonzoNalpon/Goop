@@ -24,6 +24,7 @@ namespace GoopScripts.Button
     {
 			StopGameAudio audio = new StopGameAudio();
 			audio.OnClick(0u);
+      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
 			Utils.ToMainMenu();
     }
   }

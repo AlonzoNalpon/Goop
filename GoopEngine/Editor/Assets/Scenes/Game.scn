@@ -184,6 +184,11 @@
                             "scriptName": "LeahFlinches",
                             "entityID": 0,
                             "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "LeahShoots",
+                            "entityID": 0,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -214,7 +219,7 @@
                         },
                         {
                             "first": 5,
-                            "second": "LeahAttacks"
+                            "second": "LeahShoots"
                         },
                         {
                             "first": 9,
@@ -483,7 +488,7 @@
                                         "Cards In Hand": [],
                                         "Cards In Queue": [
                                             "NO_CARD",
-                                            "NO_CARD",
+                                            "",
                                             "NO_CARD"
                                         ]
                                     },
@@ -566,6 +571,16 @@
                             "scriptName": "LeahDies",
                             "entityID": 4,
                             "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "MoleRatScreeches",
+                            "entityID": 4,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "MoleRatBlocks",
+                            "entityID": 4,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -585,6 +600,14 @@
                         {
                             "first": 11,
                             "second": "LeahDies"
+                        },
+                        {
+                            "first": 13,
+                            "second": "MoleRatScreeches"
+                        },
+                        {
+                            "first": 10,
+                            "second": "MoleRatBlocks"
                         }
                     ]
                 }
@@ -796,7 +819,7 @@
         "Name": "[Image] Portrait",
         "ID": 10,
         "Prefab": null,
-        "isActive": false,
+        "isActive": true,
         "Parent": 8,
         "Child Entities": [
             30
@@ -3231,7 +3254,7 @@
                     "height": 1080.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -3432,7 +3455,7 @@
                     "height": 1080.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
-                    "render": true
+                    "render": false
                 }
             },
             {

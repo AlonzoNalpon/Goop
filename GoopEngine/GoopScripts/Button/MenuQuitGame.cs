@@ -23,6 +23,7 @@ namespace GoopScripts.Button
     public int PauseMenuID, DeeperPauseMenuID;
     public void OnClick(uint entity)
     {
+      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
       if (Command == -1)
       {
         // Return to main menu

@@ -32,6 +32,7 @@ namespace GoopScripts.Button
     {
       Gameplay.GameManager gm = (Gameplay.GameManager) Utils.GetScript("GameSystem", "GameManager");
       Utils.SetIsActiveEntity((uint)disabledEndTurn, true);
+      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
       gm.EndTurn();
     }
   }

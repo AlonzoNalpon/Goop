@@ -24,7 +24,7 @@ namespace GoopScripts.Button
 
     public void OnClick(uint entity)
     {
-
+      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
       switch (UI.PauseManager.GetPauseState())
       {
         case 0:
