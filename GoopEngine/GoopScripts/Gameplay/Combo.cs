@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   CharacterTypes.cs
+\author c.phua\@digipen.edu
+\date   15-January-2024
+\brief  Definition of the Combo class and its 2 derived classes
+        DrawCombo and BuffCombo. These are used to apply the respective
+        combo effects when a combo is triggered. Handled by combo
+        manager.
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +25,20 @@ namespace GoopScripts.Gameplay
     {
       m_name = name;
     }
+    /*!*********************************************************************
+		\brief
+		  Function all combos should define. Based on the type of combo,
+      different effects will be applied to either source, target or
+      both.
+		************************************************************************/
     public abstract bool ApplyEffect(ref Stats source, ref Stats target);
 
+    /*!*********************************************************************
+		\brief
+		  Retrieves the name of the current combo
+    \return
+      The name of the combo
+		************************************************************************/
     public string GetName()
     {
       return m_name;

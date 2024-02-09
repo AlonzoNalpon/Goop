@@ -17,16 +17,6 @@ If the entity does not currently exist in the scene, it will be updated when it 
 [ Images ]
 Only exclusively supports 32 bit depth png images.
 
-To test:
-  1. Head to PrefabTest.scn.
-  2. Drag either "Mineworm" or "TestBtn" from "Prefabs" directory into the prefab editor window
-  3. Add any new components or modify existing components.
-  4. Save Changes
-  5. Changes should now be reflected on the existing entities in the scene. (except for the 2 entities that weren't created from the prefab)
-  Additionally, you can drag an existing prefab into the scene, then modify it after. The same behaviour should be seen.
-
-  E.g. you can add Button component to TestBtn prefab and save to give all buttons that component
-
 [ Disable ImGui ]
 ImGui can be disabled by including the code "#define IMGUI_DISABLE" in pch.h
 The program is may not be fully seperated from ImGui and may result in undefined behaviour, to prevent this. 
