@@ -1298,7 +1298,7 @@
         "Name": "Transition",
         "ID": 16,
         "Prefab": null,
-        "isActive": false,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
@@ -1868,6 +1868,7 @@
         "isActive": true,
         "Parent": 9,
         "Child Entities": [
+            38,
             75
         ],
         "Components": [
@@ -2398,6 +2399,46 @@
                         }
                     },
                     "spriteName": "UI_Glow_Gold",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Picture (Copy)",
+        "ID": 38,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 25,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -0.111133, -0.3, -0.1 }",
+                    "scale": "{ 0.25, 0.25, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 849.444, 428.5, 0.9 }",
+                    "worldScale": "{ 1.25, 1.25, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 128,
+                            "height": 128
+                        }
+                    },
+                    "spriteName": "Portrait",
                     "shouldRender": true
                 }
             }
