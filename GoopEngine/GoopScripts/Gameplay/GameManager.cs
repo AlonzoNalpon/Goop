@@ -30,7 +30,6 @@ namespace GoopScripts.Gameplay
     public int PAUSE_MENU;
     public int HOWTOPLAY_MENU;
     public int QUIT_MENU;
-    public int FPS_COUNTER;
 
     Random m_rng;
     double m_currTime = 0.0;
@@ -70,12 +69,7 @@ namespace GoopScripts.Gameplay
 
     public void OnUpdate(double deltaTime)
     {
-      {
-        // SET FPS TEXT TO FPS
-        double fps = Utils.GetFPS();
-        string text = string.Format("{0:N2}", fps);
-        Utils.SetTextComponent(FPS_COUNTER, text);
-      }
+      
 
       if (!gameStarted)
       {

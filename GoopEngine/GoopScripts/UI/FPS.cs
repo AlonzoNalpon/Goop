@@ -1,0 +1,32 @@
+﻿using GoopScripts.Gameplay;
+using GoopScripts.Mono;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GoopScripts.UI
+{
+    public class FPS : Entity
+    {
+
+        public int FPS_COUNTER;
+
+        public FPS() { }
+
+        public void OnCreate()
+        {
+        }
+
+        public void OnUpdate(double deltaTime)
+        {
+            {
+                // SET FPS TEXT TO FPS
+                double fps = Utils.GetFPS();
+                string text = string.Format("{0:N2}", fps);
+                Utils.SetTextComponent(FPS_COUNTER, text);
+            }
+        }
+    }
+}
