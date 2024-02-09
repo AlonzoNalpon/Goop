@@ -1,4 +1,14 @@
-﻿using GoopScripts.Gameplay;
+﻿/*!*********************************************************************
+\file   FPS.cs
+\author a.nalpon\@digipen.edu
+\date   09 Febuary 2024
+\brief
+  Script for updating an FPS counter text object
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+
+using GoopScripts.Gameplay;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
