@@ -89,6 +89,10 @@ void AudioSystem::Update()
     // Fade finished
     for (int i{ 0 }; i < 2; ++i)
     {
+      // Don't process audio that doesn't exist
+      if (cf.m_audio[i] == "")
+        continue;
+
       if (cf.m_currFadeTime > cf.m_crossFadeTime)
       {
         // 0 is the fading out sound
