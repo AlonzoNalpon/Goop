@@ -145,22 +145,7 @@ void GE::Systems::GameSystem::HandleEvent(GE::Events::Event* event)
             break;
           }
           break;
-//        case GPK_1:
-//#ifndef IMGUI_DISABLE
-//          if (GE::EditorGUI::ImGuiHelper::IsRunning())
-//#endif // !IMGUI_DISABLE
-//            GE::GSM::GameStateManager::GetInstance().SetNextScene("Victory");
-//          //m_shouldWin = true;
-//          break;
-//        case GPK_2:
-//#ifndef IMGUI_DISABLE
-//          if (GE::EditorGUI::ImGuiHelper::IsRunning())
-//#endif // !IMGUI_DISABLE
-//          //m_shouldLose = true;
-//            GE::GSM::GameStateManager::GetInstance().SetNextScene("Defeat");
-//          break;
         default:
-          // m_loseFocus = false;
           break;
         }
         break;

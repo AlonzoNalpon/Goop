@@ -151,56 +151,7 @@ void ImGuiUI::Update()
   Begin("Extras");
   ImGui::InputInt("Change Row", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetRow(), 1);
   ImGui::InputInt("Change Col", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetCol(), 1);
-  /*if (Button("Create MineWorm"))
-  {
-    GE::ObjectFactory::ObjectFactory::GetInstance().SpawnPrefab("MineWorm");
-  }
-  else if (Button("Duplicate 500"))
-  {
-    for (int i{}; i < 500; ++i)
-    {
-      GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
-      if (entity == GE::ECS::INVALID_ID)
-      {
-        break;
-      }
 
-      try
-      {
-        double randX = static_cast<double>((rand() % window->GetWinWidth()) - window->GetWinWidth() / 2);
-        double randY = static_cast<double>((rand() % window->GetWinHeight()) - window->GetWinHeight() / 2);
-
-        GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity);
-        Component::Transform* trans{ ecs->GetComponent<Component::Transform>(entity) };
-        if (trans)
-        {
-          trans->m_worldPos = { randX, randY, trans->m_worldPos.z };
-        }
-      }
-      catch (GE::Debug::IExceptionBase& ex)
-      {
-        ex.LogSource();
-      }
-    }
-  }
-  else if (Button("Clear Entities"))
-  {
-    std::set<ECS::Entity> entities = ecs->GetEntities();
-    for (auto entity : entities)
-    {
-      ecs->DestroyEntity(entity);
-    }
-  }*/
-  if (Button("To \"Main Menu\""))
-  {
-    GE::GSM::GameStateManager& gsm = { GE::GSM::GameStateManager::GetInstance() };
-    gsm.SetNextScene("MainMenu");
-  }
-  //else if (Button("CHECK ASSET MANAGER MAP"))
-  //{
-  //  GE::Assets::AssetManager& am = { GE::Assets::AssetManager::GetInstance() };
-  //  am.GetMapData();
-  //}
 
   static GE::fMOD::FmodSystem& fMod = GE::fMOD::FmodSystem::GetInstance();
   if (Button("Stop all sounds"))
@@ -218,6 +169,10 @@ void ImGuiUI::Update()
   if (Button("Stop Voices"))
   {
     fMod.StopChannel(GE::fMOD::FmodSystem::VOICE);
+  }
+  if (Button("Play sound"))
+  {
+    fMod.PlaySound("menu", 1.0, GE::fMOD::FmodSystem::BGM);
   }
 
   for (int i{}; i < GE::fMOD::FmodSystem::TOTAL_CHANNELS; ++i)

@@ -119,6 +119,8 @@ namespace GE::Application
         try
         {
           fRC.StartSystemTimer();
+          fMod.Update();
+          fRC.EndSystemTimer("Fmod");
           im.UpdateInput();
           fRC.EndSystemTimer("Input");
 
@@ -130,19 +132,12 @@ namespace GE::Application
             im.SetCurrFramebuffer(showEditor == true? 0:1);
           }
 
-          if (im.IsKeyTriggered(KEY_CODE::KEY_P))
-          {
-            // MonoObject* a = GE::MONO::GetScriptFromID((unsigned int)28, 0);
-          }
-
           fRC.StartSystemTimer();
           if (showEditor)
             imgui.Update();
 
           fRC.EndSystemTimer("ImGui Update");
-#endif
 
-#ifndef IMGUI_DISABLE
           if (GE::EditorGUI::ImGuiHelper::IsRunning())
           {
             ecs->UpdateSystems();
@@ -203,16 +198,8 @@ namespace GE::Application
         }
 
         window.SwapBuffers();
-        fMod.Update();
         gsm.Update();
         fRC.EndFrame();
-
-#ifndef IMGUI_DISABLE
-        if (GE::EditorGUI::ImGuiHelper::ShouldRestart())
-        {
-          //gsm.Restart();
-        }
-#endif // IMGUI_DISABLE
       }
       catch (GE::Debug::IExceptionBase& e)
       {
