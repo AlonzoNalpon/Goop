@@ -1,11 +1,10 @@
 ﻿/*!*********************************************************************
-\file   GameManager.cs
-\author chengen.lau\@digipen.edu
-\co-author c.phua\@digipen.edu
-\co-author Han Qin Ding
-\date   10-January-2024
-\brief  
-Calculates and keep tracks of character's stats like attack and block.
+\file       GameManager.cs
+\author     chengen.lau\@digipen.edu
+\co-author  c.phua\@digipen.edu, han.q@digipen.edu
+\date       10-January-2024
+\brief      The main update loop for the game scene. A single entity
+            "GameSystem" will run this script in the scene.
  
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -21,16 +20,15 @@ using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
 using System.Threading;
 using static GoopScripts.Cards.CardBase;
+using GoopScripts.Button;
 
 namespace GoopScripts.Gameplay
 {
   public class GameManager : Entity
   {
     //static readonly double INTERVAL_TIME = 3.0;
-    public int PAUSE_MENU;
-    public int HOWTOPLAY_MENU;
-    public int QUIT_MENU;
-    public int FPS_COUNTER;
+    public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
+    public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
 
     Random m_rng;
     double m_currTime = 0.0;
@@ -39,19 +37,20 @@ namespace GoopScripts.Gameplay
 
     public Stats m_playerStats, m_enemyStats;
 
-    static bool isResolutionPhase = false;  // flag for triggering a turn
+    static bool isResolutionPhase = false;
+    static bool isDead = false;
     //bool intervalBeforeReset;
 
     //tools for resolving cards
     //List<CardBase.CardID> resolveQueue;
     int m_slotNum = 0;
     bool toTrigger = false;
-    bool isStartOfTurn = true;
+    static bool isStartOfTurn = true;
     List<CardBase.CardID> m_cardsPlayedP = new List<CardBase.CardID>();
     List<CardBase.CardID> m_cardsPlayedE = new List<CardBase.CardID>();
-    bool gameStarted = false; // called once at the start of game 
+    static bool gameStarted = false; // called once at the start of game 
     List<CardBase.CardID> m_playerNonAtkCards = new List<CardBase.CardID>{ CardID.LEAH_SHIELD, CardID.SPECIAL_SMOKESCREEN, CardID.SPECIAL_RAGE };
-    List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD};
+    List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD };
 
 
 
@@ -60,9 +59,12 @@ namespace GoopScripts.Gameplay
       m_rng = new Random();
     }
 
+    /*!*********************************************************************
+      \brief
+        OnCreate function for GameManager
+      ************************************************************************/
     public void OnCreate()
     {
-      //Console.WriteLine("Create GameManager");
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
       m_playerStats.m_deckMngr.m_deck.AddCard(CardBase.CardID.LEAH_BEAM, 4);
@@ -75,17 +77,23 @@ namespace GoopScripts.Gameplay
       m_enemyStats.m_deckMngr.m_deck.AddCard(CardBase.CardID.SPECIAL_SCREECH);
 
       UI.PauseManager.SetPauseState(0);
+
+      // set the static variable to the entity holding the hover effect sprite
+      SelectCard.m_cardHover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
+      Utils.SetIsActiveEntity(SelectCard.m_cardHover, false);
+      isDead = false;
+      ResetGameManager();
     }
 
+
+    /*!*********************************************************************
+      \brief
+        OnUpdate function for GameManager
+      \param deltaTime
+        delta time since last frame
+      ************************************************************************/
     public void OnUpdate(double deltaTime)
     {
-      {
-        // SET FPS TEXT TO FPS
-        double fps = Utils.GetFPS();
-        string text = string.Format("{0:N2}", fps);
-        Utils.SetTextComponent(FPS_COUNTER, text);
-      }
-
       if (!gameStarted)
       {
         m_playerStats.Init();
@@ -127,28 +135,35 @@ namespace GoopScripts.Gameplay
 
       if (UI.PauseManager.PauseStateChanged())
       {
-        // //Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
+        if (UI.PauseManager.GetPauseState() != 0)
+        {
+          Utils.SetTimeScale(0.0f);
+        }
+        else
+        {
+          Utils.SetTimeScale(1.0f);
+        }
+        // Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
       }
 
       if (isResolutionPhase)
       {
         ResolutionPhase(deltaTime);
       }
-
-
-      else
+      else if (isStartOfTurn)
       {
-        if (isStartOfTurn)
-        {
-          isStartOfTurn = false;
-          StartOfTurn();
-        }
+        isStartOfTurn = false;
+        StartOfTurn();
       }
     }
 
+    /*!*********************************************************************
+      \brief
+        This function is triggered when the start of turn occurs. Player and enemy will draw cards. Also triggers the Enemy's AI
+      ************************************************************************/
     public void StartOfTurn()
     {
-      //Console.WriteLine("START OF TURNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+      SetHighlightActive(false);
       m_playerStats.EndOfTurn();
       m_enemyStats.EndOfTurn();
       m_playerStats.Draw();
@@ -158,10 +173,17 @@ namespace GoopScripts.Gameplay
 
 
 
+    /*!*********************************************************************
+      \brief
+        This function handles the resolution phase. It plays the animation based on the cards played.
+        It also trigger combos if player/enemy plays more than 1 card
+      \param deltaTime
+        delta time since last frame
+      ************************************************************************/
     public void ResolutionPhase(double deltaTime)
     {
       //Time to trigger the card effects and the animations.
-      if (toTrigger)
+      if (toTrigger && !isDead)
       {
         toTrigger = false;
         bool toTriggerPlayerTakeDmg = true;
@@ -217,7 +239,7 @@ namespace GoopScripts.Gameplay
             if (m_playerNonAtkCards.Contains(playerCard))
               Utils.PlayAnimation("SS_MoleRat_Idle", m_enemyStats.entityID);
             else
-              Utils.PlayAnimation("SS_MoleRat_Curl", m_enemyStats.entityID);
+              Utils.PlayAnimation("SS_MoleRat_Flinch", m_enemyStats.entityID);
           }
 
           // this should not be coded here
@@ -243,23 +265,29 @@ namespace GoopScripts.Gameplay
 
           m_playerStats.TakeDamage(eCalculatedDmg);
           m_enemyStats.TakeDamage(pCalculatedDmg);
+          double deathTime = 0.0;
           // bad code but for demo ok
           if (m_playerStats.IsDead())
           {
             Utils.PlayAnimation("SS_Leah_Death", m_playerStats.entityID);
+            deathTime= (Utils.GetAnimationTime("SS_Leah_Death") > deathTime)? Utils.GetAnimationTime("SS_Leah_Death") : deathTime;
+            isDead = true;
+
           }
           else if (m_enemyStats.IsDead())
           {
             Utils.PlayAnimation("SS_MoleRat_Death", m_enemyStats.entityID);
+            deathTime = (Utils.GetAnimationTime("SS_MoleRat_Death") > deathTime) ? Utils.GetAnimationTime("SS_MoleRat_Death") : deathTime;
+            isDead = true;
           }
 
+          m_animTime = (deathTime>m_animTime)? deathTime:m_animTime;
           m_playerStats.ClearAtKBlk();
           m_enemyStats.ClearAtKBlk();
         }
 
+        HighlightQueueSlot(m_slotNum);
         ++m_slotNum;
-
-
       }
       else
       {
@@ -267,38 +295,53 @@ namespace GoopScripts.Gameplay
         if(m_currTime >=m_animTime)
         {
           m_currTime = 0.0;
-          if (m_slotNum > 2) //we have resolved all the animation for this round
+          if (isDead)
           {
-            Utils.PlayAnimation("SS_Leah_Idle", m_playerStats.entityID);
-            Utils.PlayAnimation("SS_MoleRat_Idle", m_enemyStats.entityID);
-            isResolutionPhase = false;
-            isStartOfTurn = true;
-
             // bad code but for demo ok
             if (m_playerStats.IsDead())
             {
               // defeat
-              TransitionToScene("Defeat");
+              Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Defeat");
+              //TransitionToScene("Defeat");
+
+
             }
             else if (m_enemyStats.IsDead())
             {
               // victory
-              TransitionToScene("Victory");
+              Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
+              //TransitionToScene("Victory");
+
+
             }
           }
+          else
+          {
+            if (m_slotNum > 2) //we have resolved all the animation for this round
+            {
+              Utils.PlayAnimation("SS_Leah_Idle", m_playerStats.entityID);
+              Utils.PlayAnimation("SS_MoleRat_Idle", m_enemyStats.entityID);
+              isResolutionPhase = false;
+              isStartOfTurn = true;
 
-          else //we have not resolve all the animaiton for this round, lets continue
-             toTrigger = true;
 
+            }
+
+            else //we have not resolve all the animaiton for this round, lets continue
+              toTrigger = true;
+          }
         }
-        
-
-
       }
 
       ++m_currTime;
     }
 
+
+    /*!*********************************************************************
+      \brief
+        This function is triggered t the satrt of resolution phase. This reset the variables
+        used when resolving the resolution phase
+      ************************************************************************/
     private void StartResolution()
     {
       m_slotNum = 0;
@@ -306,16 +349,57 @@ namespace GoopScripts.Gameplay
       m_cardsPlayedE.Clear();
       toTrigger = true;
       m_currTime = 0.0;
-
+      SetHighlightActive(true);
     }
 
-  
 
+    /*!*********************************************************************
+      \brief
+        This funciton is triggered when the user clicks the end turn button. THis function
+        starts the resolution phase
+      ************************************************************************/
     public void EndTurn()
     {
       //Console.WriteLine("END TURN");
       isResolutionPhase = true;
       StartResolution();
     }
+
+    /*!*********************************************************************
+		\brief
+		  Sets both highlight prefab instances to the given state.
+    \param state
+      The state to set the entity to
+		************************************************************************/
+    public void SetHighlightActive(bool state)
+    {
+      Utils.SetIsActiveEntity((uint)P_QUEUE_HIGHLIGHT, state);
+      Utils.SetIsActiveEntity((uint)E_QUEUE_HIGHLIGHT, state);
+    }
+
+    /*!*********************************************************************
+		\brief
+		  Highlights an icon in both queues based on the given index.
+      Sets the position of the highlight prefab instance to the slot's
+      position.
+    \param index
+      The index of the queue to highlight
+		************************************************************************/
+    public void HighlightQueueSlot(int index)
+    {
+      Vec3<double> pPos = new Vec3<double>(m_playerStats.m_queueElemPos[index]);
+      Vec3<double> ePos = new Vec3<double>(m_enemyStats.m_queueElemPos[index]);
+      pPos.Z -= 1.0;
+      ePos.Z -= 1.0;
+      Utils.SetPosition((uint)P_QUEUE_HIGHLIGHT, pPos);
+      Utils.SetPosition((uint)E_QUEUE_HIGHLIGHT, ePos);
+    }
+
+    static public void ResetGameManager()
+    {
+      isResolutionPhase = isStartOfTurn = gameStarted = false;
+    }
+
+    static public bool IsResolutionPhase() {  return isResolutionPhase; }
   }
 }

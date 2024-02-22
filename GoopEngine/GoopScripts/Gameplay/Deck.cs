@@ -1,4 +1,17 @@
-﻿#define IMGUI_ENABLE
+﻿/*!*********************************************************************
+\file   Deck.cs
+\author chengen.lau\@digipen.edu
+\date   20-January-2024
+\brief  Definition of the Deck class, simulating a deck of card IDs.
+        Various functions related to using and modifying the deck
+        are defined. The deck maintains an array of the cards in the 
+        deck and a separate List that is regenerated upon shuffling
+        to determine the draw order of the deck.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+
+#define IMGUI_ENABLE
 
 using System;
 using System.Collections.Generic;
@@ -178,6 +191,12 @@ namespace GoopScripts.Gameplay
       return m_drawOrder.Count;
     }
 
+    /*!*********************************************************************
+		\brief
+		  Checks if the deck is empty
+		\return
+			True if the deck is empty and false otherwise
+		************************************************************************/
     public bool Empty()
     {
       return m_drawOrder.Count == 0;

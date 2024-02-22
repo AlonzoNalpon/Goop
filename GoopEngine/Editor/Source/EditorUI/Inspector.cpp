@@ -1647,7 +1647,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 			}
 			else if (compType == rttr::type::get<Component::AnimEvents>())
 			{
-				//auto em = ecs.GetComponent<GE::Component::AnimEvents>(entity);
 				if (ImGui::CollapsingHeader("AnimEvents", ImGuiTreeNodeFlags_DefaultOpen))
 				{
 					if (RemoveComponentPopup<AnimEvents>("AnimEvents", entity))
@@ -1655,8 +1654,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						break;
 					}
 				}
-				//BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
-				//ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
 
 				ImVec4 scriptNameColor{ 0.2f, 0.2f, 0.8f, 1.f };
 				ImGui::TextColored(scriptNameColor, "Events Container");

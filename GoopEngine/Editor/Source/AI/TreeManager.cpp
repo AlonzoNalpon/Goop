@@ -26,7 +26,6 @@ void TreeManager::ShutDown()
 {
   Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
   GE::Serialization::Serializer::SerializeAny(assetManager.GetConfigData<std::string>("BehaviourTree file").c_str(), m_treeTempList);
-  std::cout << "shutdown\n";
 }
 
 std::vector<TreeTemplate>& TreeManager::GetTreeList()
@@ -50,13 +49,13 @@ void TreeManager::UpdateTreeList(TreeTemplate& treeTemp)
 
   if (iter != m_treeTempList.end())   // If the tree Template already exist in the list, we just update with the new one
   {
-    std::cout << "replace\n";
+    //std::cout << "replace\n";
     std::swap(*(iter), treeTemp);
     //m_treeTempCond[(iter - m_treeTempList.begin())] = true;
   }
   else // If the tree Template does not exist, we will add it into list
   {
-    std::cout << "ADDNEW :: "  << treeTemp.m_treeTempID << "\n";
+    //std::cout << "ADDNEW :: "  << treeTemp.m_treeTempID << "\n";
     m_treeTempList.push_back(treeTemp);
     //m_treeTempCond.push_back(true);
   }

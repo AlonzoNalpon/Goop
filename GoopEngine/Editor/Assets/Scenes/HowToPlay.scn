@@ -129,21 +129,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -320, -345, 0 }",
+                    "pos": "{ 0, -345, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -320, -345, 0 }",
+                    "worldPos": "{ 0, -345, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -320, -345 }",
+                    "center": "{ 0, -345 }",
                     "width": 374.0,
                     "height": 136.0,
-                    "min": "{ -507, -413 }",
-                    "max": "{ -133, -277 }",
+                    "min": "{ -187, -413 }",
+                    "max": "{ 187, -277 }",
                     "render": false
                 }
             },
@@ -178,59 +178,73 @@
         ]
     },
     {
-        "Name": "MainMenu_NewGame",
+        "Name": "FPSCounter",
         "ID": 4,
-        "Prefab": null,
+        "Prefab": {
+            "name": "FPSCounter",
+            "version": 0,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 4
+                }
+            ],
+            "registered": true
+        },
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 320, -345, 0 }",
+                    "pos": "{ 861.577, 512.984, 1001 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 320, -345, 0 }",
+                    "worldPos": "{ 861.577, 512.984, 1001 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 320, -345 }",
-                    "width": 374.0,
-                    "height": 136.0,
-                    "min": "{ 133, -413 }",
-                    "max": "{ 507, -277 }",
-                    "render": false
+                    "center": "{ 861.577, 512.984 }",
+                    "width": 8.152580206657e-312,
+                    "height": 8.14846383731e-312,
+                    "min": "{ 861.577, 512.984 }",
+                    "max": "{ 861.577, 512.984 }",
+                    "render": true
                 }
             },
             {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "FPS",
+                            "entityID": 17,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 4,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "FPS_COUNTER"
+                                    }
+                                }
+                            ]
                         }
-                    },
-                    "spriteName": "MainMenu_NewGame",
-                    "shouldRender": true
+                    ]
                 }
             },
             {
-                "GE_Button": {
-                    "param": "Game",
-                    "eventType": "CHANGE_SCENE",
-                    "lastCollided": false,
-                    "currCollided": false
+                "Text": {
+                    "text": "FPS",
+                    "clr": {
+                        "r": 0.9411765336990356,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.12300000339746475,
+                    "fontID": 0
                 }
             }
         ]

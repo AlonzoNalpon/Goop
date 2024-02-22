@@ -1,4 +1,16 @@
-﻿#define IMGUI_ENABLED
+﻿/*!*********************************************************************
+\file   DeckManager.cs
+\author chengen.lau\@digipen.edu
+\date   20-January-2024
+\brief  Definition of the DeckManager class, which is in charge of
+        handling the cards of a character. This includes the deck,
+        hand, queue and discard pile. Contains functions as an
+        interface to modifying the various lists in the class.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+
+#define IMGUI_ENABLED
 
 using System;
 using System.Collections.Generic;
@@ -100,6 +112,12 @@ namespace GoopScripts.Gameplay
 //      m_deck.Shuffle();
 //    }
 
+    /*!*********************************************************************
+		\brief
+		  Aligns the cards in the hand based on the width specified by
+      PLAYER_HAND_WIDTH and CARD_WIDTH variables. The cards will start
+      at the position specified by HAND_START_POS.
+		************************************************************************/
     public void AlignHandCards()
     {
       double padding = (PLAYER_HAND_WIDTH - (double)m_hand.Count * CARD_WIDTH) / (double)(m_hand.Count + 1);
@@ -138,6 +156,10 @@ namespace GoopScripts.Gameplay
       return i;
     }
 
+    /*!*********************************************************************
+		\brief
+		  Unqueues a card given the index of the card in the queue.
+		************************************************************************/
     public void Unqueue(int index)
     {
       m_hand.Add(m_queue[index]);
@@ -215,16 +237,55 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+		\brief
+		  Discards a card from the queue given the index
+    \param index
+      The index of the card in the queue
+		************************************************************************/
+    public void DiscardFromQueue(int index)
+    {
+      if (index >= QUEUE_SIZE || m_queue[index].Item1 == CardBase.CardID.NO_CARD)
+      {
+        return;
+      }
+
+      m_discard.Add(m_queue[index].Item1);
+      if (m_queue[index].Item2 != uint.MaxValue)
+      {
+        Utils.DestroyEntity(m_queue[index].Item2);
+      }
+      m_queue[index] = (CardBase.CardID.NO_CARD, uint.MaxValue);
+    }
+
+    /*!*********************************************************************
+		\brief
+		  Checks if a card is in the queue given its entity ID
+    \return
+      True if it is in the queue and false otherwise
+		************************************************************************/
     public bool IsEntityInQueue(uint entity)
     {
       return m_queue.Any(card => card.Item2 == entity);
     }
 
+    /*!*********************************************************************
+		\brief
+		  Checks if a card is in the hand given its entity ID
+    \return
+      True if it is in the hand and false otherwise
+		************************************************************************/
     public bool IsEntityInHand(uint entity)
     {
       return m_hand.Any(card => card.Item2 == entity);
     }
 
+    /*!*********************************************************************
+		\brief
+		  Checks if the queue is full
+    \return
+      True if the queue is full and false otherwise
+		************************************************************************/
     public bool IsQueueFull()
     {
       return !m_queue.Any(card => card.Item1 == CardBase.CardID.NO_CARD);

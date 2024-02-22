@@ -128,11 +128,19 @@ namespace GoopScripts.Cards
           { CardBase.CardID.SPECIAL_TIMEWRAP, new SpecialTimeWrap(CardBase.CardID.SPECIAL_TIMEWRAP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_TIMEWRAP]) }
         };
       }
+#if (DEBUG)
       catch (Exception ex)
       {
+
         Console.WriteLine($"Error reading file: {ex.Message}");
       }
-    }
+#else
+      catch (Exception)
+      {
+
+      }
+#endif
+  }
 
     static public CardBase Get(CardBase.CardID id)
     {

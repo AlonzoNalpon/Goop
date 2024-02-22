@@ -174,7 +174,7 @@ namespace GE
       \param result
         Result of fMOD functions.
       ************************************************************************/
-      void ErrorCheck(FMOD_RESULT result);
+      void ErrorCheck(FMOD_RESULT result) const;
 
       /*!*********************************************************************
       \brief

@@ -1,6 +1,6 @@
 ﻿/*!*********************************************************************
 \file   MainMenuToScene.cs
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   08 Febuary 2024
 \brief
   Script used to trigger specific animation of the TransitionOut 
@@ -24,6 +24,7 @@ namespace GoopScripts.Transition
     public int Scene;
     public void OnClick(uint entity)
     {
+      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
       switch (Scene)
       {
         case 0:

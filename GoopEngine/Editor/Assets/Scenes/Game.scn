@@ -9,10 +9,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -532.315, 101.667, -9 }",
+                    "pos": "{ -401.426, 101.667, -9 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -532.315, 101.667, -9 }",
+                    "worldPos": "{ -401.426, 101.667, -9 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -57,13 +57,6 @@
                                     }
                                 },
                                 {
-                                    "data": 33,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_attackDisplay"
-                                    }
-                                },
-                                {
                                     "data": 0,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -71,17 +64,20 @@
                                     }
                                 },
                                 {
-                                    "data": 35,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_blockDisplay"
-                                    }
-                                },
-                                {
                                     "data": 85,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_buffsDisplay"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        45,
+                                        33
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "m_comboUI"
                                     }
                                 },
                                 {
@@ -111,13 +107,6 @@
                                     }
                                 },
                                 {
-                                    "data": 28,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_healthDisplayWillBeRemoved"
-                                    }
-                                },
-                                {
                                     "data": "PLAYER",
                                     "type": "GoopScripts.Gameplay.CharacterType",
                                     "scriptField": {
@@ -141,6 +130,13 @@
                             "scriptName": "HealthBar",
                             "entityID": 0,
                             "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Player"
+                                    }
+                                },
                                 {
                                     "data": 28,
                                     "type": "System.Int32",
@@ -188,6 +184,11 @@
                             "scriptName": "LeahFlinches",
                             "entityID": 0,
                             "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "LeahShoots",
+                            "entityID": 0,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -218,7 +219,7 @@
                         },
                         {
                             "first": 5,
-                            "second": "LeahAttacks"
+                            "second": "LeahShoots"
                         },
                         {
                             "first": 9,
@@ -238,17 +239,17 @@
         "ID": 1,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 7,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
                     "pos": "{ 780, -445, 10 }",
                     "scale": "{ 1.5, 1.5, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 780, -445, 10 }",
                     "worldScale": "{ 1.5, 1.5, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -287,7 +288,15 @@
                         {
                             "scriptName": "TempEndTurn",
                             "entityID": 1,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 75,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "disabledEndTurn"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }
@@ -392,21 +401,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 594.651, 50, 0 }",
+                    "pos": "{ 336.318, 50, 0 }",
                     "scale": "{ 0.9, 0.9, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 594.651, 50, 0 }",
+                    "worldPos": "{ 336.318, 50, 0 }",
                     "worldScale": "{ 0.9, 0.9, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 594.651, 50 }",
+                    "center": "{ 336.318, 50 }",
                     "width": 456.0,
                     "height": 154.0,
-                    "min": "{ 366.651, -27 }",
-                    "max": "{ 822.651, 127 }",
+                    "min": "{ 108.318, -27 }",
+                    "max": "{ 564.318, 127 }",
                     "render": false
                 }
             },
@@ -450,13 +459,6 @@
                                     }
                                 },
                                 {
-                                    "data": 39,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_attackDisplay"
-                                    }
-                                },
-                                {
                                     "data": 0,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -464,17 +466,20 @@
                                     }
                                 },
                                 {
-                                    "data": 41,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_blockDisplay"
-                                    }
-                                },
-                                {
                                     "data": 86,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_buffsDisplay"
+                                    }
+                                },
+                                {
+                                    "data": [
+                                        46,
+                                        34
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "m_comboUI"
                                     }
                                 },
                                 {
@@ -504,13 +509,6 @@
                                     }
                                 },
                                 {
-                                    "data": 29,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_healthDisplayWillBeRemoved"
-                                    }
-                                },
-                                {
                                     "data": "BASIC_ENEMY",
                                     "type": "GoopScripts.Gameplay.CharacterType",
                                     "scriptField": {
@@ -535,6 +533,13 @@
                             "entityID": 4,
                             "scriptFieldInstList": [
                                 {
+                                    "data": 1,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Player"
+                                    }
+                                },
+                                {
                                     "data": 29,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -542,20 +547,40 @@
                                     }
                                 },
                                 {
-                                    "data": 20,
+                                    "data": 15,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_health"
                                     }
                                 },
                                 {
-                                    "data": 20,
+                                    "data": 15,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_maxHealth"
                                     }
                                 }
                             ]
+                        },
+                        {
+                            "scriptName": "MoleRatBites",
+                            "entityID": 4,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "LeahDies",
+                            "entityID": 4,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "MoleRatScreeches",
+                            "entityID": 4,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "MoleRatBlocks",
+                            "entityID": 4,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -563,6 +588,28 @@
             {
                 "EnemyAI": {
                     "treeID": 12
+                }
+            },
+            {
+                "AnimEvents": {
+                    "eventList": [
+                        {
+                            "first": 8,
+                            "second": "MoleRatBites"
+                        },
+                        {
+                            "first": 11,
+                            "second": "LeahDies"
+                        },
+                        {
+                            "first": 13,
+                            "second": "MoleRatScreeches"
+                        },
+                        {
+                            "first": 10,
+                            "second": "MoleRatBlocks"
+                        }
+                    ]
                 }
             }
         ]
@@ -613,10 +660,10 @@
                             "entityID": 5,
                             "scriptFieldInstList": [
                                 {
-                                    "data": 17,
+                                    "data": 36,
                                     "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "FPS_COUNTER"
+                                        "fieldName": "E_QUEUE_HIGHLIGHT"
                                     }
                                 },
                                 {
@@ -631,6 +678,13 @@
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "PAUSE_MENU"
+                                    }
+                                },
+                                {
+                                    "data": 37,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "P_QUEUE_HIGHLIGHT"
                                     }
                                 },
                                 {
@@ -694,11 +748,11 @@
         "isActive": true,
         "Parent": null,
         "Child Entities": [
+            1,
             8,
             9,
-            32,
-            38,
-            44
+            44,
+            75
         ],
         "Components": [
             {
@@ -831,22 +885,22 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 104,
-                            "defaultSpriteID": 137,
+                            "spriteID": 144,
+                            "defaultSpriteID": 136,
                             "used": false
                         },
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
-                            "spriteID": 104,
-                            "defaultSpriteID": 138,
+                            "spriteID": 95,
+                            "defaultSpriteID": 137,
                             "used": false
                         },
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
-                            "spriteID": 104,
-                            "defaultSpriteID": 139,
+                            "spriteID": 0,
+                            "defaultSpriteID": 138,
                             "used": false
                         }
                     ],
@@ -1257,21 +1311,21 @@
         ]
     },
     {
-        "Name": "Transition",
+        "Name": "TransitionIn",
         "ID": 16,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 40,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
                     "pos": "{ 400, -5.89553e-14, 1000 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 400, -5.89553e-14, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -1328,10 +1382,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 861.577, 512.984, 10 }",
+                    "pos": "{ 861.577, 512.984, 1001 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 861.577, 512.984, 10 }",
+                    "worldPos": "{ 861.577, 512.984, 1001 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -1347,6 +1401,25 @@
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "FPS",
+                            "entityID": 17,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 17,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "FPS_COUNTER"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
                 "Text": {
                     "text": "FPS",
                     "clr": {
@@ -1357,6 +1430,258 @@
                     },
                     "scale": 0.12300000339746475,
                     "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Bar [Master]",
+        "ID": 18,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 60, 160, 5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 60, 160, 106 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 60, 160 }",
+                    "width": 30.0,
+                    "height": 50.0,
+                    "min": "{ 45, 135 }",
+                    "max": "{ 75, 185 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 91,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Bar",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "OptionSlider",
+                            "entityID": 18,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 3,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Index"
+                                    }
+                                },
+                                {
+                                    "data": 230.0,
+                                    "type": "System.Double",
+                                    "scriptField": {
+                                        "fieldName": "Range"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Bar [SFX]",
+        "ID": 19,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 60, 90, 5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 60, 90, 106 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 60, 90 }",
+                    "width": 30.0,
+                    "height": 50.0,
+                    "min": "{ 45, 65 }",
+                    "max": "{ 75, 115 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 91,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Bar",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "OptionSlider",
+                            "entityID": 19,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 1,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Index"
+                                    }
+                                },
+                                {
+                                    "data": 230.0,
+                                    "type": "System.Double",
+                                    "scriptField": {
+                                        "fieldName": "Range"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Bar [Voice]",
+        "ID": 20,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 60, 20, 5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 60, 20, 106 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 60, 20 }",
+                    "width": 30.0,
+                    "height": 50.0,
+                    "min": "{ 45, -5 }",
+                    "max": "{ 75, 45 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 91,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Bar",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "OptionSlider",
+                            "entityID": 20,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 2,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Index"
+                                    }
+                                },
+                                {
+                                    "data": 230.0,
+                                    "type": "System.Double",
+                                    "scriptField": {
+                                        "fieldName": "Range"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -1577,7 +1902,10 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 9,
-        "Child Entities": [],
+        "Child Entities": [
+            38,
+            75
+        ],
         "Components": [
             {
                 "Transform": {
@@ -1642,11 +1970,23 @@
         "isActive": false,
         "Parent": 26,
         "Child Entities": [
+            18,
+            19,
+            20,
+            31,
             47,
+            48,
             49,
             50,
             51,
-            52
+            52,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74
         ],
         "Components": [
             {
@@ -1672,10 +2012,10 @@
             {
                 "Transform": {
                     "pos": "{ -620, 430, 3 }",
-                    "scale": "{ 10, 2, 1 }",
+                    "scale": "{ 1, 2, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -620, 430, 3 }",
-                    "worldScale": "{ 10, 2, 1 }",
+                    "worldScale": "{ 1, 2, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1691,11 +2031,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 32,
-                            "height": 32
+                            "width": 300,
+                            "height": 33
                         }
                     },
-                    "spriteName": "Black",
+                    "spriteName": "UI_HealthBar_Empty",
                     "shouldRender": true
                 }
             }
@@ -1712,11 +2052,11 @@
             {
                 "Transform": {
                     "pos": "{ 620, 430, 3 }",
-                    "scale": "{ 10, 2, 1 }",
-                    "rot": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 2, 1 }",
+                    "rot": "{ 0, 0, 180 }",
                     "worldPos": "{ 620, 430, 3 }",
-                    "worldScale": "{ 10, 2, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldScale": "{ 1, 2, 1 }",
+                    "worldRot": "{ 0, 0, 180 }"
                 }
             },
             {
@@ -1731,11 +2071,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 32,
-                            "height": 32
+                            "width": 300,
+                            "height": 33
                         }
                     },
-                    "spriteName": "Black",
+                    "spriteName": "UI_HealthBar_Empty",
                     "shouldRender": true
                 }
             }
@@ -1751,10 +2091,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, -0.1 }",
+                    "pos": "{ 0, -0.3, 1 }",
                     "scale": "{ 0.25, 0.25, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -850, 430, 0.9 }",
+                    "worldPos": "{ -850, 428.5, 2 }",
                     "worldScale": "{ 1.25, 1.25, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1775,87 +2115,38 @@
                             "height": 128
                         }
                     },
-                    "spriteName": "Portrait",
+                    "spriteName": "UI_Portrait_Leah",
                     "shouldRender": true
                 }
             }
         ]
     },
     {
-        "Name": "Player Stats",
-        "ID": 32,
+        "Name": "Bar [BGM]",
+        "ID": 31,
         "Prefab": null,
         "isActive": true,
-        "Parent": 7,
-        "Child Entities": [
-            33,
-            34,
-            35,
-            36,
-            37
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -288.925, -87.296, 3 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -288.925, -87.296, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "PlayerAttack",
-        "ID": 33,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 32,
+        "Parent": 27,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 5.798, -9.707, 1 }",
+                    "pos": "{ 60, -50, 5 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -283.127, -97.003, 4 }",
+                    "worldPos": "{ 60, -50, 106 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
-                "Text": {
-                    "text": "0",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Block Sprite",
-        "ID": 34,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -46.278, -67.167, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -335.203, -154.463, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                "BoxCollider": {
+                    "center": "{ 60, -50 }",
+                    "width": 30.0,
+                    "height": 50.0,
+                    "min": "{ 45, -75 }",
+                    "max": "{ 75, -25 }",
+                    "render": false
                 }
             },
             {
@@ -1870,336 +2161,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 50,
-                            "height": 50
+                            "width": 91,
+                            "height": 73
                         }
                     },
-                    "spriteName": "TempShield",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "PlayerBlock",
-        "ID": 35,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 5.798, -75.653, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -283.127, -162.949, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "0",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Attack Sprite",
-        "ID": 36,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -46.278, 2.481, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -335.203, -84.815, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 50,
-                            "height": 50
-                        }
-                    },
-                    "spriteName": "TempAttack",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Backing",
-        "ID": 37,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 32,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -3.259, -32.635, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -292.184, -119.931, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 220,
-                            "height": 140
-                        }
-                    },
-                    "spriteName": "TempBacking",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Enemy Stats",
-        "ID": 38,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 7,
-        "Child Entities": [
-            39,
-            40,
-            41,
-            42,
-            43
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 275.039, -87.296, 3 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 275.039, -87.296, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "EnemyAttack",
-        "ID": 39,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 38,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 5.798, -9.707, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 280.837, -97.003, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "0",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Block Sprite",
-        "ID": 40,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 38,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -46.278, -67.167, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 228.761, -154.463, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 50,
-                            "height": 50
-                        }
-                    },
-                    "spriteName": "TempShield",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "EnemyBlock",
-        "ID": 41,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 38,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 5.798, -75.653, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 280.837, -162.949, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "0",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Attack Sprite",
-        "ID": 42,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 38,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -46.278, 2.481, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 228.761, -84.815, 4 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 50,
-                            "height": 50
-                        }
-                    },
-                    "spriteName": "TempAttack",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Backing",
-        "ID": 43,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 38,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -3.259, -32.635, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 271.78, -119.931, 3 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 220,
-                            "height": 140
-                        }
-                    },
-                    "spriteName": "TempBacking",
+                    "spriteName": "Bar",
                     "shouldRender": true
                 }
             },
@@ -2207,37 +2173,416 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "MoleRatBites",
-                            "entityID": 43,
-                            "scriptFieldInstList": []
-                        },
+                            "scriptName": "OptionSlider",
+                            "entityID": 31,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Index"
+                                    }
+                                },
+                                {
+                                    "data": 230.0,
+                                    "type": "System.Double",
+                                    "scriptField": {
+                                        "fieldName": "Range"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Group 1",
+        "ID": 32,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 44,
+        "Child Entities": [
+            45,
+            46
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -1.347, -5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 131.201, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PComboText2",
+        "ID": 33,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 35,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -695.315, 0, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -695.315, -40.5994, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
                         {
-                            "scriptName": "LeahDies",
-                            "entityID": 43,
-                            "scriptFieldInstList": []
-                        },
-                        {
-                            "scriptName": "LeahBlocks",
-                            "entityID": 43,
+                            "scriptName": "ComboTextUpdate",
+                            "entityID": 33,
                             "scriptFieldInstList": []
                         }
                     ]
                 }
             },
             {
-                "AnimEvents": {
-                    "eventList": [
+                "Text": {
+                    "text": "COMBO TEXT",
+                    "clr": {
+                        "r": 0.8666666746139526,
+                        "g": 0.8941176533699036,
+                        "b": 0.03529411926865578,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 4
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EComboText2",
+        "ID": 34,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 35,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 564.092, 0, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 564.092, -40.5994, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
                         {
-                            "first": 8,
-                            "second": "MoleRatBites"
+                            "scriptName": "ComboTextUpdate",
+                            "entityID": 34,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "Text": {
+                    "text": "COMBO TEXT",
+                    "clr": {
+                        "r": 0.8669459223747253,
+                        "g": 0.8921568393707275,
+                        "b": 0.03498654067516327,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 4
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Group 2",
+        "ID": 35,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 44,
+        "Child Entities": [
+            33,
+            34
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -173.147, -5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, -40.5994, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "PHighlight",
+        "ID": 36,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -803.481, 221.614, 4 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -803.481, 221.614, 4 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 201,
+                            "height": 201
+                        }
+                    },
+                    "spriteName": "UI_Glow_Gold",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EHighlight",
+        "ID": 37,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 796.519, 220.467, 5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 796.519, 220.467, 5 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 201,
+                            "height": 201
+                        }
+                    },
+                    "spriteName": "UI_Glow_Gold",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Picture (Copy)",
+        "ID": 38,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 25,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -0.1112, -0.3, 1 }",
+                    "scale": "{ 0.25, 0.25, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 849.444, 428.5, 2 }",
+                    "worldScale": "{ 1.25, 1.25, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 128,
+                            "height": 128
+                        }
+                    },
+                    "spriteName": "UI_Portrait_MoleRat",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Transitions",
+        "ID": 40,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            16,
+            41
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "TransitionOut",
+        "ID": 41,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 40,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 2880, -5.89553e-14, 1000 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 2880, -5.89553e-14, 1000 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 2880,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "Transition",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "Defeat",
+                            "value": [
+                                {
+                                    "trans": "{ -400, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToDefeat"
+                                }
+                            ]
                         },
                         {
-                            "first": 11,
-                            "second": "LeahDies"
+                            "key": "MainMenu",
+                            "value": [
+                                {
+                                    "trans": "{ -400, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeGameOverToMainMenu"
+                                }
+                            ]
                         },
                         {
-                            "first": 10,
-                            "second": "LeahBlocks"
+                            "key": "Victory",
+                            "value": [
+                                {
+                                    "trans": "{ -400, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToVictory"
+                                }
+                            ]
+                        }
+                    ],
+                    "started": false,
+                    "paused": false,
+                    "loop": false,
+                    "playing": ""
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "ChangeGameOverToMainMenu",
+                            "entityID": 41,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "ChangeToVictory",
+                            "entityID": 41,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "ChangeToDefeat",
+                            "entityID": 41,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -2251,16 +2596,16 @@
         "isActive": true,
         "Parent": 7,
         "Child Entities": [
-            45,
-            46
+            32,
+            35
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 173.148, 5 }",
+                    "pos": "{ 0, 132.548, 5 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 173.148, 5 }",
+                    "worldPos": "{ 0, 132.548, 5 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2268,26 +2613,37 @@
         ]
     },
     {
-        "Name": "Player Combo Text",
+        "Name": "PComboText",
         "ID": 45,
         "Prefab": null,
         "isActive": true,
-        "Parent": 44,
+        "Parent": 32,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -352.593, 0, 5 }",
+                    "pos": "{ -695.315, 0, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -352.593, 173.148, 10 }",
+                    "worldPos": "{ -695.315, 131.201, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "ComboTextUpdate",
+                            "entityID": 45,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
                 "Text": {
-                    "text": "",
+                    "text": "COMBO TEXT",
                     "clr": {
                         "r": 0.8666666746139526,
                         "g": 0.8941176533699036,
@@ -2295,32 +2651,43 @@
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,
-                    "fontID": 0
+                    "fontID": 4
                 }
             }
         ]
     },
     {
-        "Name": "Enemy Combo Text",
+        "Name": "EComboText",
         "ID": 46,
         "Prefab": null,
         "isActive": true,
-        "Parent": 44,
+        "Parent": 32,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 69.2592, 0, 5 }",
+                    "pos": "{ 564.092, 0, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 69.2592, 173.148, 10 }",
+                    "worldPos": "{ 564.092, 131.201, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "ComboTextUpdate",
+                            "entityID": 46,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
                 "Text": {
-                    "text": "",
+                    "text": "COMBO TEXT",
                     "clr": {
                         "r": 0.8669459223747253,
                         "g": 0.8921568393707275,
@@ -2328,7 +2695,7 @@
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,
-                    "fontID": 0
+                    "fontID": 4
                 }
             }
         ]
@@ -2358,7 +2725,7 @@
                     "height": 1080.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -2378,6 +2745,56 @@
                         }
                     },
                     "spriteName": "Pause_OverlayBG",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Slider",
+        "ID": 48,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 60, 20, 4 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 60, 20, 105 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 60, 20 }",
+                    "width": 539.0,
+                    "height": 73.0,
+                    "min": "{ -209.5, -16.5 }",
+                    "max": "{ 329.5, 56.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 539,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Slider",
                     "shouldRender": true
                 }
             }
@@ -2467,16 +2884,16 @@
         "Name": "[Image] Words & Sliders",
         "ID": 51,
         "Prefab": null,
-        "isActive": true,
+        "isActive": false,
         "Parent": 27,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55, 1 }",
+                    "pos": "{ 0, 55, 0.5 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 55, 102 }",
+                    "worldPos": "{ 0, 55, 101.5 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2552,7 +2969,7 @@
                     "height": 86.0,
                     "min": "{ -379.5, -223 }",
                     "max": "{ -140.5, -137 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -2636,7 +3053,7 @@
                     "height": 86.0,
                     "min": "{ -119.5, -223 }",
                     "max": "{ 119.5, -137 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -2720,7 +3137,7 @@
                     "height": 87.04,
                     "min": "{ 140.32, -223.52 }",
                     "max": "{ 379.68, -136.48 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -2837,7 +3254,7 @@
                     "height": 1080.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -2912,10 +3329,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 350, 195, 0 }",
+                    "pos": "{ 350, 195, 2 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 350, 195, 101 }",
+                    "worldPos": "{ 350, 195, 103 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2927,7 +3344,7 @@
                     "height": 60.0,
                     "min": "{ 320, 165 }",
                     "max": "{ 380, 225 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -3038,7 +3455,7 @@
                     "height": 1080.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -3088,7 +3505,7 @@
                     "height": 86.0,
                     "min": "{ 30.5, -118 }",
                     "max": "{ 269.5, -32 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -3212,7 +3629,7 @@
                     "height": 86.0,
                     "min": "{ -269.5, -118 }",
                     "max": "{ -30.5, -32 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -3239,7 +3656,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "MenuMainMenu",
+                            "scriptName": "GameOverToMainMenu",
                             "entityID": 64,
                             "scriptFieldInstList": []
                         }
@@ -3248,7 +3665,7 @@
             },
             {
                 "GE_Button": {
-                    "param": "MainMenu",
+                    "param": "",
                     "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
@@ -3371,6 +3788,389 @@
                         }
                     },
                     "spriteName": "Text_AreYouSure",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Slider",
+        "ID": 68,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 60, 160, 4 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 60, 160, 105 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 60, 160 }",
+                    "width": 539.0,
+                    "height": 73.0,
+                    "min": "{ -209.5, 123.5 }",
+                    "max": "{ 329.5, 196.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 539,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Slider",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Slider",
+        "ID": 69,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 60, 90, 4 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 60, 90, 105 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 60, 90 }",
+                    "width": 539.0,
+                    "height": 73.0,
+                    "min": "{ -209.5, 53.5 }",
+                    "max": "{ 329.5, 126.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 539,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Slider",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Slider (Copy)",
+        "ID": 70,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 60, -50, 4 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 60, -50, 105 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 60, -50 }",
+                    "width": 539.0,
+                    "height": 73.0,
+                    "min": "{ -209.5, -86.5 }",
+                    "max": "{ 329.5, -13.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 539,
+                            "height": 73
+                        }
+                    },
+                    "spriteName": "Slider",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Text] Master",
+        "ID": 71,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -340, 145, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -340, 145, 104 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Master",
+                    "clr": {
+                        "r": 0.9098039269447327,
+                        "g": 0.843137264251709,
+                        "b": 0.7803921699523926,
+                        "a": 1.0
+                    },
+                    "scale": 0.1599999964237213,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Text] SFX",
+        "ID": 72,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -272.63, 75, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -272.63, 75, 104 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "SFX",
+                    "clr": {
+                        "r": 0.9098039269447327,
+                        "g": 0.843137264251709,
+                        "b": 0.7803921699523926,
+                        "a": 1.0
+                    },
+                    "scale": 0.1599999964237213,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Text] Voice",
+        "ID": 73,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -302.852, 6, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -302.852, 6, 104 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Voice",
+                    "clr": {
+                        "r": 0.9098039269447327,
+                        "g": 0.843137264251709,
+                        "b": 0.7803921699523926,
+                        "a": 1.0
+                    },
+                    "scale": 0.1599999964237213,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Text] BGM",
+        "ID": 74,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 27,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -278.926, -66, 3 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -278.926, -66, 104 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "BGM",
+                    "clr": {
+                        "r": 0.9098039269447327,
+                        "g": 0.843137264251709,
+                        "b": 0.7803921699523926,
+                        "a": 1.0
+                    },
+                    "scale": 0.1599999964237213,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "DisabledEndTurn",
+        "ID": 75,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 7,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 780, -445, 11 }",
+                    "scale": "{ 1.5, 1.5, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 780, -445, 11 }",
+                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 780, -445 }",
+                    "width": 322.5,
+                    "height": 115.5,
+                    "min": "{ 618.75, -502.75 }",
+                    "max": "{ 941.25, -387.25 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 215,
+                            "height": 77
+                        }
+                    },
+                    "spriteName": "Button_EndTurn_Disabled",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "DisableEndTurn",
+                            "entityID": 75,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Picture",
+        "ID": 76,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 25,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -0.1002, -0.3, -0.1 }",
+                    "scale": "{ 0.25, 0.25, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 849.499, 428.5, 0.9 }",
+                    "worldScale": "{ 1.25, 1.25, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 128,
+                            "height": 128
+                        }
+                    },
+                    "spriteName": "Portrait",
                     "shouldRender": true
                 }
             }

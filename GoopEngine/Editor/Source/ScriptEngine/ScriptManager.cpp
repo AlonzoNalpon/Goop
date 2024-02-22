@@ -143,6 +143,10 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::GetAnimationTime", GE::MONO::GetAnimationTime);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", GE::MONO::PlayAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::GameSystemResolved", GE::MONO::GameSystemResolved);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetChannelVolume", GE::MONO::GetChannelVolume);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetChannelVolume", GE::MONO::SetChannelVolume);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetMasterVolume", GE::MONO::GetMasterVolume);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetMasterVolume", GE::MONO::SetMasterVolume);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySoundF", GE::MONO::PlaySoundF);
   mono_add_internal_call("GoopScripts.Mono.Utils::StopSound", GE::MONO::StopSound);
@@ -172,13 +176,17 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::SpawnPrefab", GE::MONO::SpawnPrefab);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectWidth", GE::MONO::GetObjectWidth);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectHeight", GE::MONO::GetObjectHeight);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetObjectWidth", GE::MONO::SetObjectWidth);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetObjectHeight", GE::MONO::SetObjectHeight);
   mono_add_internal_call("GoopScripts.Mono.Utils::CreateObject", GE::MONO::CreateObject);
   mono_add_internal_call("GoopScripts.Mono.Utils::UpdateSprite", GE::MONO::UpdateSprite);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextComponent", GE::MONO::SetTextComponent);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::CrossFadeAudio", GE::MONO::CrossFadeAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetTimeScale", GE::MONO::SetTimeScale);
 
+  
 
   //Load the CSharpAssembly (dll file)
   std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
@@ -453,6 +461,49 @@ void GE::MONO::PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animNa
   }
 }
 
+float GE::MONO::GetChannelVolume(int channel)
+{
+  switch (channel)
+  {
+  case 0:
+    return GE::fMOD::FmodSystem::GetInstance().GetChannelVolume(GE::fMOD::FmodSystem::ChannelType::BGM);
+  case 1:
+    return GE::fMOD::FmodSystem::GetInstance().GetChannelVolume(GE::fMOD::FmodSystem::ChannelType::SFX);
+  case 2:
+    return GE::fMOD::FmodSystem::GetInstance().GetChannelVolume(GE::fMOD::FmodSystem::ChannelType::VOICE);
+  default:
+    return 0.0f;
+  }
+}
+
+void GE::MONO::SetChannelVolume(int channel, float volume)
+{
+  switch (channel)
+  {
+  case 0:
+    GE::fMOD::FmodSystem::GetInstance().SetChannelVolume(GE::fMOD::FmodSystem::ChannelType::BGM, volume);
+    break;
+  case 1:
+    GE::fMOD::FmodSystem::GetInstance().SetChannelVolume(GE::fMOD::FmodSystem::ChannelType::SFX, volume);
+    break;
+  case 2:
+    GE::fMOD::FmodSystem::GetInstance().SetChannelVolume(GE::fMOD::FmodSystem::ChannelType::VOICE, volume);
+    break;
+  default:
+    break;
+  }
+}
+
+float GE::MONO::GetMasterVolume()
+{
+  return GE::fMOD::FmodSystem::GetInstance().GetMasterVolume();
+}
+
+void GE::MONO::SetMasterVolume(float volume)
+{
+  GE::fMOD::FmodSystem::GetInstance().SetMasterVolume(volume);
+}
+
 MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
 {
 
@@ -474,12 +525,17 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
   throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to locate class in map" + std::string(className), ERRLG_FUNC, ERRLG_LINE);
 }
 
-MonoObject* GE::MONO::ScriptManager::InstantiateClass( const char* className, std::vector<void*>& arg)  
+MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className, std::vector<void*>& arg)  
 {
 
   if (m_monoClassMap.find(className) != m_monoClassMap.end())
   {
     MonoClass* currClass = m_monoClassMap[className].m_scriptClass;
+    if (!currClass)
+    {
+      throw Debug::Exception<ScriptManager>(Debug::LEVEL_CRITICAL, ErrMsg("Unable to fetch script: " + std::string(className)));
+    }
+
     MonoObject* classInstance = mono_object_new(m_appDomain, currClass);  //Get a reference to the class we want to instantiate
 
     if (classInstance == nullptr)
@@ -877,6 +933,16 @@ int GE::MONO::GetObjectHeight(GE::ECS::Entity entity)
   return GE::ECS::EntityComponentSystem::GetInstance().GetComponent<GE::Component::Sprite>(entity)->m_spriteData.info.height;
 }
 
+void GE::MONO::SetObjectWidth(GE::ECS::Entity entity, int width)
+{
+  GE::ECS::EntityComponentSystem::GetInstance().GetComponent<GE::Component::Sprite>(entity)->m_spriteData.info.width = width;
+}
+
+void GE::MONO::SetObjectHeight(GE::ECS::Entity entity, int height)
+{
+  GE::ECS::EntityComponentSystem::GetInstance().GetComponent<GE::Component::Sprite>(entity)->m_spriteData.info.height = height;
+}
+
 GE::ECS::Entity GE::MONO::CreateObject(MonoString* name, GE::Math::dVec3 pos, GE::Math::dVec3 scale, GE::Math::dVec3 rotation, GE::ECS::Entity parent)
 {
   std::string str = GE::MONO::MonoStringToSTD(name);
@@ -889,5 +955,10 @@ void GE::MONO::UpdateSprite(GE::ECS::Entity entity, MonoString* textureName)
   std::string str = GE::MONO::MonoStringToSTD(textureName);
 
   GE::ObjectFactory::ObjectFactory::GetInstance().UpdateSprite(entity, str);
+}
+
+void GE::MONO::SetTimeScale(float scale)
+{
+  GE::FPS::FrameRateController::GetInstance().SetTimeScale(scale);
 }
 

@@ -86,6 +86,15 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+			  Returns unscaled delta time
+
+			\return
+			  Unscaled delta time
+			************************************************************************/
+			double GetUnscaledDeltaTime() const noexcept;
+
+			/*!*********************************************************************
+			\brief
 			  Function to get the current FPS of the Engine
 			\return 
 			  Current FPS of the Engine
@@ -184,6 +193,14 @@ namespace GE
 			************************************************************************/
 			void SetStepsPerSecond(int stepsPerSecond);
 
+			/*!*********************************************************************
+			\brief
+			  Sets the scale for delta time
+
+			\param scale
+			  Scale value
+			************************************************************************/
+			void SetTimeScale(float scale);
 
 			/*!*********************************************************************
 			\brief
@@ -231,6 +248,7 @@ namespace GE
 			double m_prevStartTime{};
 			double m_fpsCalInterval{};
 			double m_fpsCheckTime{};
+			float m_timeScale;
 			int m_currNumberOfSteps{};
 			int m_frameCount{};
 			int m_framePassed{};

@@ -1,6 +1,6 @@
 ﻿/*!*********************************************************************
 \file   PauseManager.cs
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   08 Febuary 2024
 \brief
   Script is used to detect if the game should display the pause

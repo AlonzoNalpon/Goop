@@ -1,4 +1,14 @@
-﻿using GoopScripts.Gameplay;
+﻿/*!*********************************************************************
+\file   ReturnFromQueue.cs
+\author chengen.lau\@digipen.edu
+\date   27-January-2024
+\brief  Script for button events related to cards in the queue. Moves
+        the selected card back to hand on click and triggers on hover
+        events.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Gameplay;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
@@ -13,8 +23,20 @@ namespace GoopScripts.Button
   {
     public ReturnFromQueue() { }
 
+    /*!*********************************************************************
+     \brief
+       Unqueues a card when clicked on. Does nothing if the game is in
+       resolution phase or if the selected card is not in the queue.
+     \param entity
+       The id of the current entity
+     ************************************************************************/
     public void OnClick(uint entity)
     {
+      if (GameManager.IsResolutionPhase())
+      {
+        return;
+      }
+
       Stats player = (Stats)Utils.GetScript("Player", "Stats");
       uint cardId = Utils.GetParentEntity(entity);
       if (!player.m_deckMngr.IsEntityInQueue(cardId))

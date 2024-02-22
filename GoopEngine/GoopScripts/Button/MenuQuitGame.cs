@@ -1,6 +1,6 @@
 ﻿/*!*********************************************************************
 \file   MenuQuitGame.cs
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   08 Febuary 2024
 \brief
   Button script to go deeper into the menu confirming if the player
@@ -23,6 +23,7 @@ namespace GoopScripts.Button
     public int PauseMenuID, DeeperPauseMenuID;
     public void OnClick(uint entity)
     {
+      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
       if (Command == -1)
       {
         // Return to main menu

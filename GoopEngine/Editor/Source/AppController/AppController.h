@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   AppController.h
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   18-September-2023
 \brief
   The AppController class is the main controller for running the 

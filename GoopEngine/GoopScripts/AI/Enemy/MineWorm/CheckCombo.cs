@@ -1,11 +1,10 @@
 ﻿/*!************************************************************************
-\file IsOutsideAttackRange.cs
+\file CheckCombo.cs
 \author Han Qin Ding
 
 \brief
-C# script attached to a leaf node.
-Used to check if the player is outside of the enemy's attack range.
-If the player is outside of the enemy's attack range it returns success, else return fails
+C# script for enemyAI Tree.
+Checks if the enemy has enough card to perform a combo
 
 **************************************************************************/
 
@@ -33,7 +32,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
   \brief
-    Non default constructor of IsOutsideAttackRange class
+    Non default constructor of CheckCombo class
 
   \params enityID
    ID of the owner of this scipt
@@ -48,7 +47,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
    \brief
-     Awake function for the IsOutsideAttackRange script. 
+     Awake function for the CheckCombo script. 
    ************************************************************************/
     public void Awake()
     {
@@ -58,7 +57,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
    \brief
-     Start function for the IsOutsideAttackRange script. 
+     Start function for the CheckCombo script. 
    ************************************************************************/
     public void Start()
     {
@@ -67,7 +66,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
     \brief
-     Update function for the IsOutsideAttackRange script. This function is called every frame
+     Update function for the CheckCombo script. This function is called every frame
      if the script is attached to a leaf node
     
     \param[entityID] uint
@@ -115,7 +114,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
     \brief
-     onFail function for the IsOutsideAttackRange script. This function is called when the script fails.
+     onFail function for the CheckCombo script. This function is called when the script fails.
     it informs the tree that this script failed and jump back to the parent node
     ************************************************************************/
     public void OnFail()
@@ -126,7 +125,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
     \brief
-     onSuccess function for the IsOutsideAttackRange script. This function is called when the script succeed.
+     onSuccess function for the CheckCombo script. This function is called when the script succeed.
     it informs the tree that this script succeed and jump back to the parent node
     ************************************************************************/
     public void OnSuccess()
@@ -149,7 +148,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
     \brief
-     Update function for the IsOutsideAttackRange script. This function is called every frame
+     Update function for the CheckCombo script. This function is called every frame
      if the script is attached to an entity
     ************************************************************************/
     public void Update()
@@ -159,7 +158,7 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
     /*!*********************************************************************
     \brief
-     late Update function for the IsOutsideAttackRange script
+     late Update function for the CheckCombo script
     ************************************************************************/
     public void LateUpdate()
     {

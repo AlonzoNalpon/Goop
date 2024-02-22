@@ -22,7 +22,6 @@ namespace GoopScripts.Mono
   {
     public T X { get; set; }
     public T Y { get; set; }
-
     public T Z { get; set; }
 
     /*!*********************************************************************
@@ -42,11 +41,18 @@ namespace GoopScripts.Mono
       Z = zVal;
     }
 
-    //public Vec3(Vec3<T> rhs)
-    //{
-    //  X = rhs.X;
-    //  Y = rhs.Y;
-    //  Z = rhs.Z;
-    //}
+    public Vec3(Vec2<T> xy, T zVal)
+    {
+      X = xy.X;
+      Y = xy.Y;
+      Z = zVal;
+    }
+
+    public Vec3(Vec3<T> rhs)
+    {
+      X = rhs.X;
+      Y = rhs.Y;
+      Z = rhs.Z;
+    }
   }
 }

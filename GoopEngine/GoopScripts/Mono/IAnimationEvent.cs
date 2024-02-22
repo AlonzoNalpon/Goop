@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   IAnimationEvent.cs
+\date   04-February-2024
+\brief  Definition of IAnimationEvent interface.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

@@ -21,10 +21,9 @@ void ScriptSystem::FixedUpdate()
 {
 	auto& frc = GE::FPS::FrameRateController::GetInstance();
 	frc.StartSystemTimer();
-	std::set<ECS::Entity> ents = GetUpdatableEntities();
 
-	for (Entity entity : GetUpdatableEntities()) {
-
+	for (Entity const& entity : GetUpdatableEntities())
+	{
 		Scripts* scriptHan = m_ecs->GetComponent<Scripts>(entity);
 		if (scriptHan != nullptr)
 		{

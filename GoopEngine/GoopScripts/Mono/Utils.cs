@@ -31,7 +31,7 @@ namespace GoopScripts.Mono
 
     /*!*********************************************************************
     \brief
-      .Function to check if a key is triggered
+      Function to check if a key is triggered
     \params
       KEY_CODE key
       Enum of the key you want to check
@@ -226,20 +226,6 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static object GetGameSysScript(string gameSysEntityName);
 
-
-
-    /*!*********************************************************************
-    \brief
-      .Function to get the scriptInstance/MonoObject of an entity
-    \params
-      KEY_CODE key
-      Enum of the key you want to check
-    \return
-      returns true is key is triggered
-    ************************************************************************/
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static object GetScriptInstance(uint entityID, string scriptName);
-
     // /*!*********************************************************************
     //
     //    Functions For Behaviour Tree
@@ -331,6 +317,18 @@ namespace GoopScripts.Mono
 		}
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static float GetChannelVolume(ChannelType channel);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetChannelVolume(ChannelType channel, float volume);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static float GetMasterVolume();
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetMasterVolume(float volume);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void PlaySoundF(string soundName, float volume, ChannelType channel, bool looped);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -403,6 +401,12 @@ namespace GoopScripts.Mono
     extern public static uint GetObjectHeight(uint ID);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static uint SetObjectWidth(uint ID, int width);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static uint SetObjectHeight(uint ID, int height);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static uint CreateObject(string name,
       Vec3<double> pos,
       Vec3<double> scale,
@@ -465,5 +469,8 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void PlayTransformAnimation(uint entity, string animName);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetTimeScale(float scale);
   }
 }

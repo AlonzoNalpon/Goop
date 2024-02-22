@@ -479,7 +479,7 @@
                     "height": 1080.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
@@ -499,6 +499,78 @@
                     "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "FPSCounter",
+        "ID": 11,
+        "Prefab": {
+            "name": "FPSCounter",
+            "version": 0,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 11
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 861.577, 512.98, 1001 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 861.577, 512.98, 1001 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 861.577, 512.98 }",
+                    "width": 8.152580206657e-312,
+                    "height": 8.14846383731e-312,
+                    "min": "{ 861.577, 512.98 }",
+                    "max": "{ 861.577, 512.98 }",
+                    "render": false
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "FPS",
+                            "entityID": 17,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 11,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "FPS_COUNTER"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "Text": {
+                    "text": "FPS",
+                    "clr": {
+                        "r": 0.9411765336990356,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.12300000339746475,
+                    "fontID": 0
                 }
             }
         ]

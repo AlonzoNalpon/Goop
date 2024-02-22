@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   Scene.h
-\author loh.j@digipen.edu
+\author loh.j\@digipen.edu
 \date   03-November-2023
 \brief
   Contains the functionality of the main Scene class.

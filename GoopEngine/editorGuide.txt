@@ -3,6 +3,7 @@
 [ ToolBar ]
 File
   - New scene
+  - New Prefab
   - Save current scene
   - Load scene (Opens File explorer)
 View
@@ -67,34 +68,27 @@ Drag and Drop:
 3. images into sprite box within the inspector.
 
 [ Scene Loading/Saving ]
-From Toolbar, click on "File" > "Open" > Select any ".scn" file, it will load it to the
-state it was last saved in.
-"File" > "Save" to save the current state of the scene to the file that it loaded from
-"File" > "New Scene" and enter filename + ".scn" to create a new scene and load it
+1. Drag and drop into viewport from assets browser (found under "Scenes" directory)
+2. From Toolbar, click on "File" > "Open" > Select any ".scn" file, it will load it to the
+   state it was last saved in.
+   "File" > "Save" to save the current state of the scene to the file that it loaded from
+   "File" > "New Scene" and enter filename + ".scn" to create a new scene and load it
 
-*Note: The file explorer may not open to the solution directory sometimes.
+   *Note: The file explorer may not open to the solution directory sometimes.
        In that case, navigate to GoopEngine/Editor/Assets/Scenes
 
 [ Prefab Editor ]
-Allows a new prefab to be created (through file explorer) on right-click
-Drag and drop is supported from Assets Browser window
-Allows adding and removing of components to the current prefab
-"Cancel" will stop the current editing session and "Save changes" will save the changes made back to the file
-"Add Component" and "Remove Component" dropdowns are available.
-"Cancel" will stop the current editing session and "Save changes" will save the changes made back to the file
-Alternatively, you can do Right click > New Prefab to create a new prefab from file explorer and start editing
-*Note: The file explorer may not open to the solution directory sometimes.
-       In that case, navigate to GoopEngine/Editor/Assets/Prefabs
+For new prefabs, do File > New Prefab. A pop out will appear.
+To edit existing prefabs, right click a prefab in the asset browser (found under "Prefabs" directory)
+and select "Edit Prefab"
+All supported features of the inspector, viewport and scene hierarchy work the same way here.
+Allows adding and removing of components to the current prefab, as well as child entities and its
+respective components.
+To leave the prefab editor, press "ESC" key. You will be prompted with options to save, return or discard
+changes.
+Note that any entities left unparented (other than the original prefab entity) will be ignored
+during saving.
 
-The following components are supported by the Prefab Editor:
-Box Collider
-Sprite
-Sprite Animation
-Velocity
-Tween
-Draggable
-Text
-Button
 
 [ Undo/Redo ]
 
