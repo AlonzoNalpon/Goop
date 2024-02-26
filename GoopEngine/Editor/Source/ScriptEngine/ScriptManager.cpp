@@ -100,10 +100,42 @@ void GE::MONO::ScriptManager::InitMono()
   m_rootDomain = rootDomain;
 
   //Create an App Domain
-  const char* str = assetManager.GetConfigData<std::string>("AppDomain").c_str();
-  m_appDomain = mono_domain_create_appdomain(const_cast<char*>(str), nullptr);
-  mono_domain_set(m_appDomain, true);
+  m_appDomFilePath = assetManager.GetConfigData<std::string>("AppDomain").c_str();
+  LoadAppDomain();
 
+
+  // Add the all the intercall calls
+  AddInternalCalls();
+
+  //Set the path for the core aseembly
+  std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
+  if (cAss.good())
+  {
+    m_coreAssFilePath = assetManager.GetConfigData<std::string>("CAssemblyExe");
+    cAss.close();
+  }
+  else
+    m_coreAssFilePath = assetManager.GetConfigData<std::string>("CAssembly");
+  
+
+  //Load the CSharpAssembly (dll file)
+  LoadAssembly();
+
+  //Load All the MonoClasses
+  LoadAllMonoClass();
+
+
+
+}
+
+void GE::MONO::ScriptManager::LoadAppDomain()
+{
+  m_appDomain = mono_domain_create_appdomain(const_cast<char*>(m_appDomFilePath.c_str()), nullptr);
+  mono_domain_set(m_appDomain, true);
+}
+
+void GE::MONO::ScriptManager::AddInternalCalls()
+{
   // Input Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetMouseScrollY", GE::Input::InputManager::GetInstance().GetMouseScrollVert);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetMouseScrollX", GE::Input::InputManager::GetInstance().GetMouseScrollHor);
@@ -118,14 +150,14 @@ void GE::MONO::ScriptManager::InitMono()
   // Get Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetPosition", GE::MONO::GetPosition);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetWorldPosition", GE::MONO::GetWorldPosition);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);  
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScale", GE::MONO::GetScale);
 
   // Set Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::SetPosition", GE::MONO::SetPosition);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetRotation", GE::MONO::SetRotation);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetScale", GE::MONO::SetScale);
-  
+
   // Node Editor Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::GetCurrentChildIndex", GE::Systems::EnemySystem::GetCurrentChildIndex);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetNewChildIndex", GE::Systems::EnemySystem::SetNewChildIndex);
@@ -185,30 +217,16 @@ void GE::MONO::ScriptManager::InitMono()
   mono_add_internal_call("GoopScripts.Mono.Utils::CrossFadeAudio", GE::MONO::CrossFadeAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTimeScale", GE::MONO::SetTimeScale);
+}
 
-  
-
-  //Load the CSharpAssembly (dll file)
-  std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
-  if (cAss.good())
-  {
-    m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssemblyExe"));
-    cAss.close();
-  }
-  else
-  {
-    m_coreAssembly = LoadCSharpAssembly(assetManager.GetConfigData<std::string>("CAssembly"));
-  }
-  //Load All the MonoClasses
-  LoadAllMonoClass();
-
-
-
+void GE::MONO::ScriptManager::LoadAssembly()
+{
+  m_coreAssembly = LoadCSharpAssembly(m_coreAssFilePath);
 }
 
 void GE::MONO::ScriptManager::LoadAllMonoClass()
 {
-
+  m_monoClassMap.clear();
   MonoImage* image = mono_assembly_get_image(m_coreAssembly);
   const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
   int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
@@ -256,8 +274,46 @@ void GE::MONO::ScriptManager::LoadAllMonoClass()
 
   }
 
-      
+}
 
+void GE::MONO::ScriptManager::ReloadScriptInstance()
+{
+  //static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+
+  //// Call OnDestroy function on entity
+  //// Ignore if entity is inactive
+  //for (GE::ECS::Entity const& entity : GE::ECS::System::GetUpdatableEntities())
+  //{
+  //  if (ecs.HasComponent<GE::Component::Scripts>(entity))
+  //  {
+  //    GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(entity);
+  //    for (auto script : scripts->m_scriptList)
+  //    {
+  //      MonoMethod* onDestroy = mono_class_get_method_from_name(script.m_scriptClass, "OnDestroy", 1);
+  //      if (onDestroy)
+  //      {
+  //        std::vector<void*> params = { &entity };
+  //        mono_runtime_invoke(onDestroy, mono_gchandle_get_target(script.m_gcHandle), params.data(), nullptr);
+  //      }
+  //      mono_gchandle_free(script.m_gcHandle);
+  //    }
+  //  }
+  //}
+
+  //ecs.DestroyEntity(entity);
+}
+
+void GE::MONO::ScriptManager::ReloadAssembly()
+{
+  std::cout << "reload\n";
+  mono_domain_set(mono_get_root_domain(), false);
+
+  mono_domain_unload(m_appDomain);
+
+  LoadAppDomain();
+  AddInternalCalls();
+  LoadAssembly();
+  LoadAllMonoClass();
 }
 
 MonoAssembly* GE::MONO::ScriptManager::GetMonoAssembly()
@@ -450,6 +506,8 @@ void GE::MONO::DestroyEntity(GE::ECS::Entity entity)
 
   ecs.DestroyEntity(entity);
 }
+
+
 
 void GE::MONO::PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animName)
 {

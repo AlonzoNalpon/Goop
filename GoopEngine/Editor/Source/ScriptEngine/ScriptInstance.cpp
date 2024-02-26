@@ -57,6 +57,9 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, GE::ECS::Entity  e
 
 void ScriptInstance::InvokeOnUpdate(double dt)
 {
+  //if (m_scriptName == "FPS")
+  //  std::cout << m_scriptName << "::null\n";
+
   if (m_onUpdateMethod)
   {
     std::vector<void*> params = { &dt };
@@ -66,6 +69,8 @@ void ScriptInstance::InvokeOnUpdate(double dt)
 
 void ScriptInstance::InvokeOnUpdate(GE::ECS::Entity m_entityId, double dt)
 {
+  if (m_classInst == nullptr)
+    std::cout << m_scriptName << "::null\n";
   if (m_onUpdateMethod)
   {
     std::vector<void*> params = { &m_entityId, &dt };

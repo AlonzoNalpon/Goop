@@ -40,6 +40,8 @@ namespace GE::MONO
 		std::vector<std::string> m_allScriptNames;
 		MonoDomain* m_rootDomain{ nullptr };
 		MonoDomain* m_appDomain{ nullptr };
+		std::string m_appDomFilePath;
+		std::string m_coreAssFilePath;
 
 		/*!*********************************************************************
 		\brief
@@ -84,6 +86,11 @@ namespace GE::MONO
 		************************************************************************/
 		MonoObject* InstantiateClass(const char* className);
 
+		void LoadAppDomain();
+		void AddInternalCalls();
+		void LoadAssembly();
+		void ReloadScriptInstance();
+
 		/*!*********************************************************************
 		\brief
 			This function is called during ScriptManager Init to create all the MonoClass*
@@ -94,6 +101,10 @@ namespace GE::MONO
 			Ifs stream to a text file containing all the script names and their namespaces
 		************************************************************************/
 		void LoadAllMonoClass();
+
+
+
+		void ReloadAssembly();
 
 		/*!*********************************************************************
 		\brief
