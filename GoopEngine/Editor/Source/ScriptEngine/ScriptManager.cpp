@@ -203,6 +203,8 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetParent", GE::MONO::SetParent);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetParentEntity", GE::MONO::GetParentEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetEntity", GE::MONO::GetEntity);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetEntityName", GE::MONO::SetEntityName);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetEntityName", GE::MONO::GetEntityName);
   mono_add_internal_call("GoopScripts.Mono.Utils::DestroyEntity", GE::MONO::DestroyEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetIsActiveEntity", GE::MONO::GetIsActiveEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::SpawnPrefab", GE::MONO::SpawnPrefab);
@@ -478,6 +480,18 @@ GE::ECS::Entity GE::MONO::GetEntity(MonoString* entityName)
 {
   static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();  
   return ecs.GetEntityFromName(MonoStringToSTD(entityName));
+}
+
+void GE::MONO::SetEntityName(ECS::Entity entity, MonoString* name)
+{
+  ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
+  ecs.SetEntityName(entity, MonoStringToSTD(name));
+}
+
+MonoString* GE::MONO::GetEntityName(ECS::Entity entity)
+{
+  ECS::EntityComponentSystem const& ecs = ECS::EntityComponentSystem::GetInstance();
+  return STDToMonoString(ecs.GetEntityName(entity));
 }
 
 void GE::MONO::DestroyEntity(GE::ECS::Entity entity)
@@ -863,27 +877,26 @@ void GE::MONO::SetCardToQueuedState(unsigned entity, Math::dVec3 target)
   // and enable Collider Icon
   for (ECS::Entity const& e : ecs.GetChildEntities(entity))
   {
-    if (ecs.GetEntityName(e) == "Collider Icon")
+    if (ecs.GetEntityName(e) != "Collider Icon")
     {
-      iconTrans = ecs.GetComponent<Component::Transform>(e);
-      ecs.SetIsActiveEntity(e, true);
+      ecs.SetIsActiveEntity(e, false);
       continue;
     }
 
-    ecs.SetIsActiveEntity(e, false);
-  }
+    iconTrans = ecs.GetComponent<Component::Transform>(e);
+    if (!iconTrans)
+    {
+      Debug::ErrorLogger::GetInstance().LogError("Entity " + std::to_string(entity) + " has no \"Icon\" child");
+      return;
+    }
 
-  if (!iconTrans)
-  {
-    Debug::ErrorLogger::GetInstance().LogError("Entity " + std::to_string(entity) + " has no \"Icon\" child");
-    return;
+    auto* cardTrans{ ecs.GetComponent<Component::Transform>(entity) };
+    // offset the whole card by the vector needed
+    // to get the icon to the target
+    cardTrans->m_pos.x += target.x - iconTrans->m_worldPos.x;
+    cardTrans->m_pos.y += target.y - iconTrans->m_worldPos.y;
+    ecs.SetIsActiveEntity(e, true);
   }
-
-  auto* cardTrans{ ecs.GetComponent<Component::Transform>(entity) };
-  // offset the whole card by the vector needed
-  // to get the icon to the target
-  cardTrans->m_pos.x += target.x - iconTrans->m_worldPos.x;
-  cardTrans->m_pos.y += target.y - iconTrans->m_worldPos.y;
 }
 
 void GE::MONO::SetCardToHandState(unsigned cardEntity)
@@ -951,6 +964,13 @@ std::string GE::MONO::MonoStringToSTD(MonoString* str)
   mono_free(utf8);
 
   return result;
+
+}
+
+MonoString* GE::MONO::STDToMonoString(const std::string& str)
+{
+  GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
+  return (mono_string_new(sm->m_appDomain, str.c_str()));
 
 }
 

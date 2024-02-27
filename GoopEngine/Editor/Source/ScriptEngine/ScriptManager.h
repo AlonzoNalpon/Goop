@@ -375,7 +375,7 @@ namespace GE::MONO
 	\param entity
 		The entity id of the card
 	************************************************************************/
-	void SetCardToQueuedState(unsigned entity, Math::dVec3 target);
+	void SetCardToQueuedState(GE::ECS::Entity entity, Math::dVec3 target);
 
 	/*!*********************************************************************
 	\brief
@@ -399,8 +399,8 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
-		function that will be called by a c# script to pass a string from c# to c++
-
+		function that will be called by a c# script to pass a string
+		from c# to c++
 	\param MonoString* str
 		The string we want to pass from c# to c++
 	************************************************************************/
@@ -408,23 +408,29 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
-		Function to convert a C# MonoString to C++ std::String
-
+		Function to convert a C# MonoString to C++ std::string
 	\param MonoString* str
 	C# Monostring we want to convert
-
 	\return
-	The covnerted std::string
+	The converted std::string
 	************************************************************************/
 	std::string MonoStringToSTD(MonoString* str);
 
 	/*!*********************************************************************
 	\brief
-		Function to check if a monostring is valid
+		Function to convert a std::string to C# MonoString
+	\param str
+		String to convert
+	\return
+		The converted MonoString
+	************************************************************************/
+	MonoString* STDToMonoString(const std::string& str);
 
+	/*!*********************************************************************
+	\brief
+		Function to check if a monostring is valid
 	\param MonoError& error
 	MonoError belonging to a MonoString
-
 	\return
 	bool alue to indicate if the Monostring is valid
 	************************************************************************/
@@ -525,9 +531,43 @@ namespace GE::MONO
 		Entity ID of the parent and ECS::INVALID_ID otherwise
 	************************************************************************/
 	GE::ECS::Entity GetParentEntity(GE::ECS::Entity child);
-		
+	
+	/*!*********************************************************************
+	\brief
+		Returns the entity id given its name
+	\param entityName
+		Name of the entity
+	\return
+		Entity ID of the entity
+	************************************************************************/
 	GE::ECS::Entity GetEntity(MonoString* entityName);
 
+	/*!*********************************************************************
+	\brief
+		Sets the name of an entity
+	\param entity
+		Entity ID
+	\param name
+		New name of the entity
+	************************************************************************/
+	void SetEntityName(ECS::Entity entity, MonoString* name);
+
+	/*!*********************************************************************
+	\brief
+		Returns the name of an entity
+	\param entity
+		Entity ID
+	\return
+		Name of the entity
+	************************************************************************/
+	MonoString* GetEntityName(ECS::Entity entity);
+
+	/*!*********************************************************************
+	\brief
+		Destroys and entity
+	\param entity
+		The entity to destroy
+	************************************************************************/
 	void DestroyEntity(GE::ECS::Entity entity);
 
 	/*!******************************************************************

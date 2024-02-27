@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class QueueHover : IButtonHoverEnter, IButtonHoverExit
+  internal class EnemyQueueHover : IButtonHoverEnter, IButtonHoverExit
   {
-    uint m_cardInstance;
     public void OnHoverEnter(uint entity)
     {
-      
+      QueueCardDisplay.ShowEnemyCard(entity);
     }
-    
+
     public void OnHoverExit(uint entity)
     {
-
+      QueueCardDisplay.DestroyCard();
     }
   }
 }

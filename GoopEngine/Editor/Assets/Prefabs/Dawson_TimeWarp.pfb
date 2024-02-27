@@ -1,6 +1,7 @@
 {
     "Name": "Dawson_TimeWarp",
-    "Version": 1,
+    "isActive": true,
+    "Version": 2,
     "Components": [
         {
             "Transform": {
@@ -16,6 +17,7 @@
     "SubData": [
         {
             "ID": 1,
+            "isActive": true,
             "Name": "Base",
             "Parent": 0,
             "Components": [
@@ -53,15 +55,16 @@
         },
         {
             "ID": 2,
+            "isActive": true,
             "Name": "Icon",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, 55.5, 0 }",
+                        "pos": "{ 0, 55.5, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 55.5, 0 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -90,15 +93,16 @@
         },
         {
             "ID": 3,
+            "isActive": true,
             "Name": "Title",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -56.2222, -27, 0 }",
+                        "pos": "{ -56.2222, -27, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -56.2222, -27, 0 }",
+                        "worldPos": "{ -56.2222, -27, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -120,15 +124,16 @@
         },
         {
             "ID": 4,
+            "isActive": true,
             "Name": "Description",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -71.5556, -65, 0 }",
+                        "pos": "{ -71.5556, -65, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -71.5556, -65, 0 }",
+                        "worldPos": "{ -71.5556, -65, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }

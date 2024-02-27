@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using GoopScripts.Button;
 using GoopScripts.Cards;
 using GoopScripts.Mono;
 using GoopScripts.UI;
@@ -294,6 +295,7 @@ namespace GoopScripts.Gameplay
       {
         ref var card = ref m_deckMngr.m_queue[qIdx];
         card.Item2 = Utils.SpawnPrefab(CardManager.CARD_ICON_PREFAB, m_queueElemPos[qIdx]);
+        Utils.SetEntityName(card.Item2, CardManager.m_cardPrefabs[card.Item1]);
         Utils.UpdateSprite(card.Item2, CardManager.m_cardIcons[card.Item1]);
       }
     }

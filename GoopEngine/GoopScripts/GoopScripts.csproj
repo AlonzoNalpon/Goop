@@ -74,10 +74,11 @@
     <Compile Include="Audio\StartMainMenuBGM.cs" />
     <Compile Include="Audio\StopGameAudio.cs" />
     <Compile Include="Button\DisableEndTurn.cs" />
+    <Compile Include="Button\EnemyQueueHover.cs" />
     <Compile Include="Button\GameOverToMainMenu.cs" />
     <Compile Include="Button\MenuMainMenu.cs" />
     <Compile Include="Button\OptionSlider.cs" />
-    <Compile Include="Button\QueueHover.cs" />
+    <Compile Include="Button\QueueCardDisplay.cs" />
     <Compile Include="Cutscene\SwitchCutScenes.cs" />
     <Compile Include="Gameplay\ComboTextUpdate.cs" />
     <Compile Include="Transition\ChangeGameOverToMainMenu.cs" />
