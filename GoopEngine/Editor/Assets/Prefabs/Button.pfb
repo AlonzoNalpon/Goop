@@ -1,0 +1,93 @@
+{
+    "Name": "Button",
+    "isActive": true,
+    "Version": 1,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 0, 0, 0 }",
+                "scale": "{ 1, 1, 1 }",
+                "rot": "{ 0, -0, 0 }",
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, -0, 0 }"
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 0, 0 }",
+                "width": 370.0,
+                "height": 135.0,
+                "min": "{ -185, -67.5 }",
+                "max": "{ 185, 67.5 }",
+                "render": false
+            }
+        },
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "width": 400,
+                        "height": 160
+                    }
+                },
+                "spriteName": "Button_Base",
+                "shouldRender": true
+            }
+        },
+        {
+            "Scripts": {
+                "scriptList": []
+            }
+        },
+        {
+            "GE_Button": {
+                "param": "",
+                "eventType": "NO_EVENT",
+                "lastCollided": false,
+                "currCollided": false
+            }
+        }
+    ],
+    "SubData": [
+        {
+            "ID": 1,
+            "isActive": true,
+            "Name": "Text",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -100.111, -15.7037, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -100.111, -15.7037, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "NEW GAME",
+                        "clr": {
+                            "r": 0.8941176533699036,
+                            "g": 0.8313725590705872,
+                            "b": 0.7764706015586853,
+                            "a": 1.0
+                        },
+                        "scale": 0.19200000166893005,
+                        "fontID": 2
+                    }
+                }
+            ]
+        }
+    ]
+}
