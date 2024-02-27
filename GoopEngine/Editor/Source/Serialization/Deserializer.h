@@ -35,6 +35,8 @@ namespace GE
       // pure static class
       Deserializer() = delete;
 
+      using EntityScriptsList = std::vector<ECS::Entity, std::vector<Component::ScriptInstance>>;
+
       /*!*********************************************************************
       \brief
         Main function called to deserialize a scene file. Returns a vector
@@ -98,6 +100,8 @@ namespace GE
         The deserialized AnimEventsTable object
       ************************************************************************/
       static Events::AnimEventManager::AnimEventsTable DeserializeAnimEventsTable(std::string const& filepath);
+
+      //static 
 
       /*!*********************************************************************
       \brief

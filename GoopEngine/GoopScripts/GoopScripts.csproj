@@ -77,6 +77,7 @@
     <Compile Include="Button\GameOverToMainMenu.cs" />
     <Compile Include="Button\MenuMainMenu.cs" />
     <Compile Include="Button\OptionSlider.cs" />
+    <Compile Include="Button\QueueHover.cs" />
     <Compile Include="Cutscene\SwitchCutScenes.cs" />
     <Compile Include="Gameplay\ComboTextUpdate.cs" />
     <Compile Include="Transition\ChangeGameOverToMainMenu.cs" />
