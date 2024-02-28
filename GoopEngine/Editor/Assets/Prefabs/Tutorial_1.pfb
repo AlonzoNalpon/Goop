@@ -1,5 +1,5 @@
 {
-    "Name": "Tutorial_001 (Copy)",
+    "Name": "Tutorial_001 (Copy) (Copy) (Copy) (Copy)",
     "isActive": true,
     "Version": 0,
     "Components": [
@@ -29,6 +29,16 @@
                         "worldPos": "{ 0, 0, 15 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 0, 0 }",
+                        "width": 1920.0,
+                        "height": 1080.0,
+                        "min": "{ -960, -540 }",
+                        "max": "{ 960, 540 }",
+                        "render": false
                     }
                 },
                 {
@@ -81,7 +91,13 @@
                 },
                 {
                     "Scripts": {
-                        "scriptList": []
+                        "scriptList": [
+                            {
+                                "scriptName": "ToggleTutorial",
+                                "entityID": 114,
+                                "scriptFieldInstList": []
+                            }
+                        ]
                     }
                 },
                 {
@@ -199,7 +215,7 @@
                 },
                 {
                     "Text": {
-                        "text": "Every battle, you start",
+                        "text": "every battle, you start",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
