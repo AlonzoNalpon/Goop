@@ -69,6 +69,7 @@ namespace GE::Graphics::Rendering {
     constexpr GLint uTexDimsLocation  = 1;  // Layout location for uTexDims
     constexpr GLint uViewMatLocation  = 2;  // Layout location for uViewProjMtx
     constexpr GLint uMdlTransLocation = 3;  // Layout location for uMdlMtx
+    constexpr GLint uAlphaLocation    = 4;  // Layout location for uMdlMtx
     // Draw
     glm::mat4 const& camViewProj{ camera.GetPersMtx() };
     glUseProgram(r_mdlContainer.front().shader); // USE SHADER PROGRAM
@@ -106,6 +107,8 @@ namespace GE::Graphics::Rendering {
         // Pass the model transform matrix
         glm::mat4 const& mdlXForm{ obj.transform };
         glUniformMatrix4fv(uMdlTransLocation, 1, GL_FALSE, glm::value_ptr(mdlXForm));
+        // Pass the alpha value
+        glUniform1f(uAlphaLocation, obj.sprite.info.alpha);
 
         glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt); // draw the object
 
@@ -180,7 +183,7 @@ namespace GE::Graphics::Rendering {
 
     // ASSUMING THAT WE USED THE SHADER BEFORE FUNCTION CALL
     // pass the color
-    glUniform3f(uColorLocation, clr.r, clr.g, clr.b);
+    glUniform4f(uColorLocation, clr.r, clr.g, clr.b, clr.a);
     // Pass the camera matrix
     glUniformMatrix4fv(uViewMatLocation, 1, GL_FALSE, glm::value_ptr(camViewProj));
     glActiveTexture(GL_TEXTURE0);
