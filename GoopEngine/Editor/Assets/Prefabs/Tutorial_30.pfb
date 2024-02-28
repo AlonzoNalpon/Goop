@@ -1,0 +1,260 @@
+{
+    "Name": "Tutorial_30",
+    "isActive": true,
+    "Version": 0,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 0, 0, 15 }",
+                "scale": "{ 1, 1, 1 }",
+                "rot": "{ 0, -0, 0 }",
+                "worldPos": "{ 0, 0, 15 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, -0, 0 }"
+            }
+        }
+    ],
+    "SubData": [
+        {
+            "ID": 1,
+            "isActive": true,
+            "Name": "Background",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 339.981, 15 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 339.981, 15 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 0, 339.981 }",
+                        "width": 1920.0,
+                        "height": 1080.0,
+                        "min": "{ -960, -200.019 }",
+                        "max": "{ 960, 879.981 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 1920,
+                                "height": 1080
+                            }
+                        },
+                        "spriteName": "Tutorial_Menu",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 2,
+            "isActive": true,
+            "Name": "[Folder] Text",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 45.8459, -124.194, 15 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 45.8459, -124.194, 15 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 3,
+            "isActive": true,
+            "Name": "Text1",
+            "Parent": 2,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 15 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 15 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "select the second \"block\" card.",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.2280000001192093,
+                        "fontID": 2
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 4,
+            "isActive": true,
+            "Name": "Background (Copy)",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -1038.52, 15 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -1038.52, 15 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 0, -1038.52 }",
+                        "width": 1920.0,
+                        "height": 1080.0,
+                        "min": "{ -960, -1578.52 }",
+                        "max": "{ 960, -498.521 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 1920,
+                                "height": 1080
+                            }
+                        },
+                        "spriteName": "Tutorial_Menu",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 5,
+            "isActive": true,
+            "Name": "Background (Copy)",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -651.517, -351.128, 15 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -651.517, -351.128, 15 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ -651.517, -351.128 }",
+                        "width": 1920.0,
+                        "height": 300.0,
+                        "min": "{ -1611.52, -501.128 }",
+                        "max": "{ 308.483, -201.128 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 1920,
+                                "height": 300
+                            }
+                        },
+                        "spriteName": "Tutorial_Menu",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 6,
+            "isActive": true,
+            "Name": "Background (Copy) (Copy)",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 1482.71, -351.128, 15 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 1482.71, -351.128, 15 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 1482.71, -351.128 }",
+                        "width": 1920.0,
+                        "height": 300.0,
+                        "min": "{ 522.705, -501.128 }",
+                        "max": "{ 2442.71, -201.128 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 1920,
+                                "height": 300
+                            }
+                        },
+                        "spriteName": "Tutorial_Menu",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        }
+    ]
+}
