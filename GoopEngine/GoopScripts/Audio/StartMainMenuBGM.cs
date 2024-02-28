@@ -18,7 +18,7 @@ namespace GoopScripts.Audio
 	{
 		public void OnCreate()
 		{
-			Utils.CrossFadeAudio("", 0, 0, 0, 0, "menu", 0, 0.9f, 0, 1, 1);
+			Utils.FadeInAudio("menu", 0.9f, 1.0f);
 		}
 	}
 }

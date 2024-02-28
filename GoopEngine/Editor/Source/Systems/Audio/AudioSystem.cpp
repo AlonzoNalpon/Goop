@@ -48,73 +48,94 @@ void AudioSystem::Update()
     }
   }
 
-  if (!m_crossFadeList.empty())
+  if (!m_fadeInList.empty())
   {
-    m_crossFadeList.erase(std::remove_if(m_crossFadeList.begin(), m_crossFadeList.end(),
+    m_fadeInList.erase(std::remove_if(m_fadeInList.begin(), m_fadeInList.end(),
       [](GE::Systems::AudioSystem::CrossFade& cf)
       {
         return cf.isOver;
-      }), m_crossFadeList.end());
+      }), m_fadeInList.end());
+  }
+  if (!m_fadeOutList.empty())
+  {
+    m_fadeOutList.erase(std::remove_if(m_fadeOutList.begin(), m_fadeOutList.end(),
+      [](GE::Systems::AudioSystem::CrossFade& cf)
+      {
+        return cf.isOver;
+      }), m_fadeOutList.end());
   }
 
   float dt = static_cast<float>(frc.GetUnscaledDeltaTime());
-  for (auto it{ m_crossFadeList.begin() }; it != m_crossFadeList.end(); ++it)
+  for (auto it{ m_fadeInList.begin() }; it != m_fadeInList.end(); ++it)
   {
     auto& cf{ *it };
 
-    for (int i{ 0 }; i < 2; ++i)
+    // First iteration of the crossfade
+    if (cf.m_currFadeTime == 0.f)
     {
-      // Don't process audio that doesn't exist
-      if (cf.m_audio[i] == "")
-        continue;
+      // Play the track being faded into
+      m_fmodSystem->PlaySound(cf.m_audio, cf.m_startVol, GE::fMOD::FmodSystem::BGM, true);
+    }
 
-      // First iteration of the crossfade
-      if (cf.m_currFadeTime == 0.f)
-      {
-        // Play the track being faded into
-        m_fmodSystem->PlaySound(cf.m_audio[1], cf.m_startVol[1], GE::fMOD::FmodSystem::BGM, true);
-      }
+    // Fade audio
+    if (cf.m_currFadeTime > cf.m_fadeStartTime)
+    {
+      float clampedInterval = std::clamp(GoopUtils::InverseLerp(cf.m_currFadeTime, cf.m_fadeStartTime, cf.m_fadeEndTime), 0.f, 1.f);
 
-      // Fade audio
-      if (cf.m_currFadeTime > cf.m_crossFadeStartTime[i])
-      {
-        float clampedInterval = std::clamp(GoopUtils::InverseLerp(cf.m_currFadeTime, cf.m_crossFadeStartTime[i], cf.m_crossFadeEndTime[i]), 0.f, 1.f);
-
-        // Set volume using the interpolated volume of the start, end and normalized time of current time
-        m_fmodSystem->SetVolume(cf.m_audio[i], GoopUtils::Lerp(cf.m_startVol[i], cf.m_endVol[i], clampedInterval));
-      }
+      // Set volume using the interpolated volume of the start, end and normalized time of current time
+      m_fmodSystem->SetVolume(cf.m_audio, GoopUtils::Lerp(cf.m_startVol, cf.m_endVol, clampedInterval));
     }
 
     cf.m_currFadeTime += dt;
     // Fade finished
-    for (int i{ 0 }; i < 2; ++i)
+    if (cf.m_currFadeTime > cf.m_crossFadeTime)
     {
-      // Don't process audio that doesn't exist
-      if (cf.m_audio[i] == "")
-        continue;
+      m_fmodSystem->SetVolume(cf.m_audio, cf.m_endVol);
+      cf.isOver = true;
+    }
+  }
 
-      if (cf.m_currFadeTime > cf.m_crossFadeTime)
-      {
-        // 0 is the fading out sound
-        if (i == 0)
-        {
-          m_fmodSystem->StopSound(cf.m_audio[i]);
-        }
-        // 1 is fading in sound
-        else if (i == 1)
-        {
-          // Set to target volume
-          m_fmodSystem->SetVolume(cf.m_audio[i], cf.m_endVol[i]);
-        }
-        cf.isOver = true;
-      }
+  for (auto it{ m_fadeOutList.begin() }; it != m_fadeOutList.end(); ++it)
+  {
+    auto& cf{ *it };
+
+    // Fade audio
+    if (cf.m_currFadeTime > cf.m_fadeStartTime)
+    {
+      float clampedInterval = std::clamp(GoopUtils::InverseLerp(cf.m_currFadeTime, cf.m_fadeStartTime, cf.m_fadeEndTime), 0.f, 1.f);
+
+      // Set volume using the interpolated volume of the start, end and normalized time of current time
+      m_fmodSystem->SetVolume(cf.m_audio, GoopUtils::Lerp(cf.m_startVol, cf.m_endVol, clampedInterval));
+    }
+
+    cf.m_currFadeTime += dt;
+    // Fade finished
+    if (cf.m_currFadeTime > cf.m_crossFadeTime)
+    {
+      m_fmodSystem->StopSound(cf.m_audio);
+      cf.isOver = true;
     }
   }
 
   frc.EndSystemTimer("AudioSystem");
 }
 
-void GE::Systems::AudioSystem::CrossFadeAudio(CrossFade fade)
+void GE::Systems::AudioSystem::FadeInAudio(CrossFade fade)
 {
-  m_crossFadeList.push_back(fade);
+  static auto& fmod = GE::fMOD::FmodSystem::GetInstance();
+  // Don't fade if already playing
+  if (fmod.isPlaying(fade.m_audio))
+    return;
+
+  m_fadeInList.push_back(fade);
+}
+void GE::Systems::AudioSystem::FadeOutAudio(CrossFade fade)
+{
+  static auto& fmod = GE::fMOD::FmodSystem::GetInstance();
+  // Don't fade if not playing
+  if (!fmod.isPlaying(fade.m_audio))
+    return;
+
+  fade.m_startVol = fmod.GetVolume(fade.m_audio);
+  m_fadeOutList.push_back(fade);
 }

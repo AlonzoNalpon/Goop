@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoopScripts.Audio;
 using GoopScripts.Button;
+using GoopScripts.Demo;
 using GoopScripts.Mono;
 using GoopScripts.Transition;
 
@@ -25,9 +27,11 @@ namespace GoopScripts.Cutscene
 			// 7 is the current number of cutscenes
 			if (frame >= 9)
 			{
-				Utils.CrossFadeAudio("menu", 0.9f, 0.0f, 0.0f, 0.9f, "caveFighting", 0.0f, 0.8f, 0.1f, 1.0f, 1.0f);
-				Utils.CrossFadeAudio("", 0.0f, 0.0f, 0.0f, 0.0f, "CaveWithWaterDrops_Loop", 0.0f, 0.486f, 0.2f, 1.0f, 1.0f);
-				Utils.CrossFadeAudio("", 0.0f, 0.0f, 0.0f, 0.0f, "Fog", 0.0f, 0.753f, 0.2f, 1.0f, 1.0f);
+				// Call existing function
+				CrossFadeToGameBGM temp = new CrossFadeToGameBGM();
+				temp.OnClick(entity);
+				Utils.FadeInAudio("CaveWithWaterDrops_Loop", 0.486f, 1.0f);
+				Utils.FadeInAudio("Fog", 0.753f, 1.0f);
 				Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "TransitionOut");
 			}
 			else

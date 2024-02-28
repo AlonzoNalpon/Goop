@@ -53,6 +53,8 @@ namespace GE
       ************************************************************************/
       void Update();
 
+      bool isPlaying(std::string audio);
+
       /*!*********************************************************************
       \brief
         Loads sound into a new channel and plays it. Loads sound if not in sound map already.
