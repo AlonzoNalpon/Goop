@@ -145,7 +145,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transition\ChangeToTutorial.cs" />
     <Compile Include="Transition\MainMenuToScene.cs" />
-    <Compile Include="Button\ContinueTutorial.cs" />
     <Compile Include="Button\SkipTutorial.cs" />
     <Compile Include="Button\ToggleTutorial.cs" />
     <Compile Include="UI\FPS.cs" />
