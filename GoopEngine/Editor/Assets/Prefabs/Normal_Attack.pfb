@@ -1,6 +1,7 @@
 {
     "Name": "Normal_Attack",
-    "Version": 6,
+    "isActive": true,
+    "Version": 7,
     "Components": [
         {
             "Transform": {
@@ -16,6 +17,7 @@
     "SubData": [
         {
             "ID": 1,
+            "isActive": true,
             "Name": "Card Base",
             "Parent": 0,
             "Components": [
@@ -53,15 +55,16 @@
         },
         {
             "ID": 2,
+            "isActive": true,
             "Name": "Title",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -40, -27, 0 }",
+                        "pos": "{ -40, -27, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -40, -27, 0 }",
+                        "worldPos": "{ -40, -27, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -83,15 +86,16 @@
         },
         {
             "ID": 3,
+            "isActive": true,
             "Name": "Icon",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, 55.5, 0 }",
+                        "pos": "{ 0, 55.5, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 55.5, 0 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -120,15 +124,16 @@
         },
         {
             "ID": 4,
+            "isActive": true,
             "Name": "Description",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -50, -65, 0 }",
+                        "pos": "{ -50, -65, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -50, -65, 0 }",
+                        "worldPos": "{ -50, -65, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -152,12 +157,12 @@
     "Removed Components": [
         {
             "id": 0,
-            "type": "Text",
+            "type": "void",
             "version": 4
         },
         {
             "id": 0,
-            "type": "Sprite",
+            "type": "void",
             "version": 5
         }
     ]

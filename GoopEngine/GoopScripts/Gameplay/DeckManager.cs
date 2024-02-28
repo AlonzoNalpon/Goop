@@ -29,7 +29,7 @@ namespace GoopScripts.Gameplay
   {
     static readonly double CARD_WIDTH = 214.0;
     static readonly double PLAYER_HAND_WIDTH = CARD_WIDTH * 5 + 300.0;
-    static readonly Vec3<double> HAND_START_POS = new Vec3<double>(-PLAYER_HAND_WIDTH / 2.0 - 60.0, -350.0, 10.0);
+    static public readonly Vec3<double> HAND_START_POS = new Vec3<double>(-PLAYER_HAND_WIDTH / 2.0 - 60.0, -350.0, 10.0);
 
     static public readonly int STARTING_CARDS = 5, MAX_CARDS = 5;
     static readonly int QUEUE_SIZE = 3;

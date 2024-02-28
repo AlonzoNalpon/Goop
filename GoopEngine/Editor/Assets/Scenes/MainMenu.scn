@@ -109,12 +109,12 @@
         "isActive": true,
         "Parent": 15,
         "Child Entities": [
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
+            12,
+            16,
+            18,
+            20,
+            22,
+            24
         ],
         "Components": [
             {
@@ -125,422 +125,6 @@
                     "worldPos": "{ 443.216, 395, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Button] New Game",
-        "ID": 3,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 4, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 447.216, 395, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 447.216, 395 }",
-                    "width": 374.0,
-                    "height": 136.0,
-                    "min": "{ 260.216, 327 }",
-                    "max": "{ 634.216, 463 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_NewGame",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "MainMenuToScene",
-                            "entityID": 3,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 0,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "Scene"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Button] Load Game",
-        "ID": 4,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, -160, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 443.216, 235, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 443.216, 235 }",
-                    "width": 374.0,
-                    "height": 136.0,
-                    "min": "{ 256.216, 167 }",
-                    "max": "{ 630.216, 303 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_LoadGame",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Button] Options",
-        "ID": 5,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, -320, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 443.216, 75, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 443.216, 75 }",
-                    "width": 374.0,
-                    "height": 136.0,
-                    "min": "{ 256.216, 7 }",
-                    "max": "{ 630.216, 143 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_Options",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "MainMenuToScene",
-                            "entityID": 5,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 2,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "Scene"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "Options",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Button] How To Play",
-        "ID": 6,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, -480, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 443.216, -85, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 443.216, -85 }",
-                    "width": 374.0,
-                    "height": 136.0,
-                    "min": "{ 256.216, -153 }",
-                    "max": "{ 630.216, -17 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_HowToPlay",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "MainMenuToScene",
-                            "entityID": 6,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 3,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "Scene"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "HowToPlay",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Button] Credits",
-        "ID": 7,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, -640, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 443.216, -245, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 443.216, -245 }",
-                    "width": 374.0,
-                    "height": 136.0,
-                    "min": "{ 256.216, -313 }",
-                    "max": "{ 630.216, -177 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_QuitGame",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "MainMenuToScene",
-                            "entityID": 7,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 4,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "Scene"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "Credits",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Button] Quit Game",
-        "ID": 8,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 2,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, -800, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 443.216, -405, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 443.216, -405 }",
-                    "width": 374.0,
-                    "height": 136.0,
-                    "min": "{ 256.216, -473 }",
-                    "max": "{ 630.216, -337 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_Credits",
-                    "shouldRender": true
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "QUIT_GAME",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -755,6 +339,99 @@
         ]
     },
     {
+        "Name": "[Button] New Game 2",
+        "ID": 12,
+        "Prefab": {
+            "name": "Button",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 12
+                },
+                {
+                    "key": 1,
+                    "value": 26
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [
+            26
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 443.216, 395, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 443.216, 395 }",
+                    "width": 370.0,
+                    "height": 135.0,
+                    "min": "{ 258.216, 327.5 }",
+                    "max": "{ 628.216, 462.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 400,
+                            "height": 160
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MainMenuToScene",
+                            "entityID": 12,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Scene"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
         "Name": "[Image] Title",
         "ID": 14,
         "Prefab": null,
@@ -832,6 +509,641 @@
                     },
                     "spriteName": "MainMenu_BG_Frame",
                     "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] Load Game 2",
+        "ID": 16,
+        "Prefab": {
+            "name": "Button",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 16
+                },
+                {
+                    "key": 1,
+                    "value": 17
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [
+            17
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -160, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 443.216, 235, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 443.216, 235 }",
+                    "width": 370.0,
+                    "height": 135.0,
+                    "min": "{ 258.216, 167.5 }",
+                    "max": "{ 628.216, 302.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 400,
+                            "height": 160
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": []
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 17,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 16,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -113, -15.704, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 330.216, 219.296, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "LOAD GAME",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.19200000166893005,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] Options 2",
+        "ID": 18,
+        "Prefab": {
+            "name": "Button",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 18
+                },
+                {
+                    "key": 1,
+                    "value": 19
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [
+            19
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -320, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 443.216, 75, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 443.216, 75 }",
+                    "width": 370.0,
+                    "height": 135.0,
+                    "min": "{ 258.216, 7.5 }",
+                    "max": "{ 628.216, 142.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 400,
+                            "height": 160
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MainMenuToScene",
+                            "entityID": 18,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 2,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Scene"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 19,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 18,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -71.111, -15.7037, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 372.105, 59.2963, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "OPTIONS",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.19200000166893005,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] How To Play 2",
+        "ID": 20,
+        "Prefab": {
+            "name": "Button",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 20
+                },
+                {
+                    "key": 1,
+                    "value": 21
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [
+            21
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -480, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 443.216, -85, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 443.216, -85 }",
+                    "width": 370.0,
+                    "height": 135.0,
+                    "min": "{ 258.216, -152.5 }",
+                    "max": "{ 628.216, -17.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 400,
+                            "height": 160
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MainMenuToScene",
+                            "entityID": 20,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 3,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Scene"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 21,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 20,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -130.185, -15.704, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 313.031, -100.704, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "HOW TO PLAY",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.19200000166893005,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] Credits 2",
+        "ID": 22,
+        "Prefab": {
+            "name": "Button",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 22
+                },
+                {
+                    "key": 1,
+                    "value": 23
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [
+            23
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -640, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 443.216, -245, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 443.216, -245 }",
+                    "width": 370.0,
+                    "height": 135.0,
+                    "min": "{ 258.216, -312.5 }",
+                    "max": "{ 628.216, -177.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 400,
+                            "height": 160
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MainMenuToScene",
+                            "entityID": 22,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 4,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Scene"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 23,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 22,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -76.481, -15.704, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 366.735, -260.704, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "CREDITS",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.19200000166893005,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] Quit Game 2",
+        "ID": 24,
+        "Prefab": {
+            "name": "Button",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 24
+                },
+                {
+                    "key": 1,
+                    "value": 25
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 2,
+        "Child Entities": [
+            25
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -800, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 443.216, -405, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 443.216, -405 }",
+                    "width": 370.0,
+                    "height": 135.0,
+                    "min": "{ 258.216, -472.5 }",
+                    "max": "{ 628.216, -337.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 400,
+                            "height": 160
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": []
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "QUIT_GAME",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 25,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 24,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -102.259, -15.704, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 340.957, -420.704, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "QUIT GAME",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.19200000166893005,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 26,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 12,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -103.333, -15.704, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 339.883, 379.296, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "NEW GAME",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.19200000166893005,
+                    "fontID": 2
                 }
             }
         ]

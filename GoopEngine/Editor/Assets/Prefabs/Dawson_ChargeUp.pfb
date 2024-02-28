@@ -1,6 +1,7 @@
 {
     "Name": "Dawson_ChargeUp",
-    "Version": 2,
+    "isActive": true,
+    "Version": 3,
     "Components": [
         {
             "Transform": {
@@ -16,6 +17,7 @@
     "SubData": [
         {
             "ID": 1,
+            "isActive": true,
             "Name": "Base",
             "Parent": 0,
             "Components": [
@@ -53,15 +55,16 @@
         },
         {
             "ID": 2,
+            "isActive": true,
             "Name": "Icon",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, 55.5, 0 }",
+                        "pos": "{ 0, 55.5, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 55.5, 0 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -90,15 +93,16 @@
         },
         {
             "ID": 3,
+            "isActive": true,
             "Name": "Title",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -54, -27, 0 }",
+                        "pos": "{ -54, -27, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -54, -27, 0 }",
+                        "worldPos": "{ -54, -27, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -120,15 +124,16 @@
         },
         {
             "ID": 4,
+            "isActive": true,
             "Name": "Description",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -66.6667, -65, 0 }",
+                        "pos": "{ -66.6667, -65, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -66.6667, -65, 0 }",
+                        "worldPos": "{ -66.6667, -65, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -150,15 +155,16 @@
         },
         {
             "ID": 5,
+            "isActive": true,
             "Name": "Description2",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -57.3333, -80, 0 }",
+                        "pos": "{ -57.3333, -80, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -57.3333, -80, 0 }",
+                        "worldPos": "{ -57.3333, -80, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -180,15 +186,16 @@
         },
         {
             "ID": 6,
+            "isActive": true,
             "Name": "Description3",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -57.3334, -95, 0 }",
+                        "pos": "{ -57.3334, -95, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -57.3334, -95, 0 }",
+                        "worldPos": "{ -57.3334, -95, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }

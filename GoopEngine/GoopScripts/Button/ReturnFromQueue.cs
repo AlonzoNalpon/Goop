@@ -16,12 +16,16 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static GoopScripts.Cards.CardBase;
 
 namespace GoopScripts.Button
 {
-  internal class ReturnFromQueue : IButtonClick
+  internal class ReturnFromQueue : IButtonClick, IButtonHoverEnter, IButtonHoverExit
   {
-    public ReturnFromQueue() { }
+    public void OnHoverEnter(uint entity)
+    {
+      QueueCardDisplay.ShowCard(entity);
+    }
 
     /*!*********************************************************************
      \brief
@@ -45,8 +49,14 @@ namespace GoopScripts.Button
         return;
       }
 
+      QueueCardDisplay.DestroyCard();
       Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
       player.UnqueueCardByID(cardId);
+    }
+
+    public void OnHoverExit(uint entity)
+    {
+      QueueCardDisplay.DestroyCard();
     }
   }
 }
