@@ -5,7 +5,7 @@ SS_EnemyTest	SS_EnemyTest	2	1	2	0.1	1
 SS_Leah_Idle    SS_Leah_Idle      5	  1	      5	      0.1	  1
 SS_LeahShoot   SS_LeahShoot       8   1       8       0.1   0
 SS_Leah_Attack	SS_Leah_Attack	  5	  3	      12	    0.1	0
-SS_Leah_FlashBang SS_Leah_FlashBang 3    4     9       0.1      0
+SS_Leah_FlashBang SS_Leah_FlashBang 3    3     9       0.1      0
 SS_Leah_Flinch SS_Leah_Flinch	4	1	4	0.1	0
 SS_Leah_Rage SS_Leah_Rage	3	3	7	0.1	0
 SS_Leah_EmpoweredPunch SS_Leah_EmpoweredPunch 4	3 10	0.1	0
