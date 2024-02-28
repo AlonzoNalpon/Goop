@@ -11,6 +11,7 @@ namespace GoopScripts.Button
   {
     static readonly double X_OFFSET = 200.0;
 
+    static public bool m_cardSelected;
     static bool m_isHovering = false;
     static uint m_cardInstance;
 
@@ -21,7 +22,7 @@ namespace GoopScripts.Button
         return;
       }
 
-      string prefabName = Utils.GetEntityName(Utils.GetParentEntity(entity));
+      string prefabName = Utils.GetEntityName(Utils.GetParentEntity(entity)) + "_Hover";
       Vec3<double> pos = Utils.GetWorldPosition(entity);
       pos.X += X_OFFSET;
       m_cardInstance = Utils.SpawnPrefab(prefabName, pos);

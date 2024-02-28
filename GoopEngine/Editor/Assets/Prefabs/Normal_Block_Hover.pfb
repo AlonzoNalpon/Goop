@@ -1,5 +1,5 @@
 {
-    "Name": "Normal_Screech",
+    "Name": "Normal_Block",
     "isActive": true,
     "Version": 2,
     "Components": [
@@ -18,7 +18,7 @@
         {
             "ID": 1,
             "isActive": true,
-            "Name": "CardBaseFront_Special",
+            "Name": "Base",
             "Parent": 0,
             "Components": [
                 {
@@ -47,7 +47,7 @@
                                 "height": 300
                             }
                         },
-                        "spriteName": "CardBaseFront_Special",
+                        "spriteName": "CardBaseFront_Defense",
                         "shouldRender": true
                     }
                 }
@@ -56,46 +56,15 @@
         {
             "ID": 2,
             "isActive": true,
-            "Name": "Title",
-            "Parent": 0,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -43.6667, -27, 1 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -43.6667, -27, 1 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "Screech",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.10000000149011612,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 3,
-            "isActive": true,
             "Name": "Icon",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, 55.55, 1 }",
+                        "pos": "{ 0, 55.5, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 55.55, 1 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -116,8 +85,39 @@
                                 "height": 111
                             }
                         },
-                        "spriteName": "CardIcon_BasicSpecialScreech",
+                        "spriteName": "CardIcon_BasicDefenceShield",
                         "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 3,
+            "isActive": true,
+            "Name": "Title",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -30, -27, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -30, -27, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Block",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.10000000149011612,
+                        "fontID": 2
                     }
                 }
             ]
@@ -130,17 +130,17 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -33.7334, -65, 1 }",
+                        "pos": "{ -50, -65, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -33.7334, -65, 1 }",
+                        "worldPos": "{ -50, -65, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "x2 Damage",
+                        "text": "Blocks 1 Damage",
                         "clr": {
                             "r": 0.0,
                             "g": 0.0,
@@ -152,44 +152,6 @@
                     }
                 }
             ]
-        },
-        {
-            "ID": 5,
-            "isActive": true,
-            "Name": "Description 2",
-            "Parent": 0,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -36.6667, -85, 1 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -36.6667, -85, 1 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "Last 2 turns",
-                        "clr": {
-                            "r": 0.0,
-                            "g": 0.0,
-                            "b": 0.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.054999999701976776,
-                        "fontID": 0
-                    }
-                }
-            ]
-        }
-    ],
-    "Removed Components": [
-        {
-            "id": 1,
-            "type": "BoxCollider",
-            "version": 2
         }
     ]
 }

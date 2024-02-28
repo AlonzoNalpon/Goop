@@ -33,9 +33,9 @@ namespace GoopScripts.Cards
     static public readonly Dictionary<CardBase.CardID, string> m_cardPrefabs = new Dictionary<CardBase.CardID, string>
     {
       // basic enemy
-      { CardBase.CardID.BASIC_ATTACK, "Normal_Attack"  },
-      { CardBase.CardID.BASIC_SHIELD, "Normal_Block" },
-      { CardBase.CardID.SPECIAL_SCREECH, "Normal_Screech" },
+      { CardBase.CardID.BASIC_ATTACK, "Normal_Attack_Hover"  },
+      { CardBase.CardID.BASIC_SHIELD, "Normal_Block_Hover" },
+      { CardBase.CardID.SPECIAL_SCREECH, "Normal_Screech_Hover" },
 
       // player
       { CardBase.CardID.LEAH_BEAM, "Leah_Attack" },
@@ -46,11 +46,11 @@ namespace GoopScripts.Cards
       { CardBase.CardID.SPECIAL_RAGE, "Leah_Berserk" },
 
       // dawson
-      { CardBase.CardID.DAWSON_BEAM, "Dawson_Attack" },
-      { CardBase.CardID.DAWSON_SWING, "Dawson_Attack2" },
-      { CardBase.CardID.DAWSON_SHIELD, "Dawson_Block" },
-      { CardBase.CardID.SPECIAL_CHARGEUP, "Dawson_ChargeUp" },
-      { CardBase.CardID.SPECIAL_TIMEWRAP, "Dawson_TimeWarp" }
+      { CardBase.CardID.DAWSON_BEAM, "Dawson_Attack_Hover" },
+      { CardBase.CardID.DAWSON_SWING, "Dawson_Attack2_Hover" },
+      { CardBase.CardID.DAWSON_SHIELD, "Dawson_Block_Hover" },
+      { CardBase.CardID.SPECIAL_CHARGEUP, "Dawson_ChargeUp_Hover" },
+      { CardBase.CardID.SPECIAL_TIMEWRAP, "Dawson_TimeWarp_Hover" }
     };
 
     static public readonly Dictionary<CardBase.CardID, string> m_cardIcons = new Dictionary<CardBase.CardID, string>

@@ -139,8 +139,8 @@ namespace GE
       \param ...
         The comma-separated argument list in pairs of key followed by 
         its corresponding type i.e. [const char*, rapidjson::Type]
-       
       \return
+        True if there were no missing fields and false otherwise
       ************************************************************************/
       static bool ScanJsonFileForMembers(rapidjson::Value const& value, std::string const& filename, unsigned keyCount, ...);
 

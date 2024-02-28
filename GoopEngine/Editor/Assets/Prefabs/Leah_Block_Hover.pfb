@@ -1,7 +1,7 @@
 {
-    "Name": "Normal_Attack",
+    "Name": "Leah_Block",
     "isActive": true,
-    "Version": 7,
+    "Version": 9,
     "Components": [
         {
             "Transform": {
@@ -18,60 +18,22 @@
         {
             "ID": 1,
             "isActive": true,
-            "Name": "Card Base",
-            "Parent": 0,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ 0, 0, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 0, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Sprite": {
-                        "spriteData": {
-                            "spriteSubData": {
-                                "texCoords": {
-                                    "x": 0.0,
-                                    "y": 0.0
-                                },
-                                "texDims": {
-                                    "x": 1.0,
-                                    "y": 1.0
-                                },
-                                "width": 214,
-                                "height": 300
-                            }
-                        },
-                        "spriteName": "CardBaseFront_Attack",
-                        "shouldRender": true
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 2,
-            "isActive": true,
             "Name": "Title",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -40, -27, 1 }",
+                        "pos": "{ -32.2, -27, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -40, -27, 1 }",
+                        "worldPos": "{ -32.2, -27, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "Attack",
+                        "text": "Block",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -80,6 +42,37 @@
                         },
                         "scale": 0.10000000149011612,
                         "fontID": 2
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 2,
+            "isActive": true,
+            "Name": "Description",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -50.0889, -65, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -50.0889, -65, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Blocks 1 Damage",
+                        "clr": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.054999999701976776,
+                        "fontID": 0
                     }
                 }
             ]
@@ -116,7 +109,7 @@
                                 "height": 111
                             }
                         },
-                        "spriteName": "CardIcon_BasicAttackClawswipe",
+                        "spriteName": "CardIcon_LeahDefenceShield",
                         "shouldRender": true
                     }
                 }
@@ -125,45 +118,40 @@
         {
             "ID": 4,
             "isActive": true,
-            "Name": "Description",
+            "Name": "Base",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -50, -65, 1 }",
+                        "pos": "{ 0, 0, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -50, -65, 1 }",
+                        "worldPos": "{ 0, 0, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
-                    "Text": {
-                        "text": "Deals 1 Damage",
-                        "clr": {
-                            "r": 0.0,
-                            "g": 0.0,
-                            "b": 0.0,
-                            "a": 1.0
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 214,
+                                "height": 300
+                            }
                         },
-                        "scale": 0.054999999701976776,
-                        "fontID": 0
+                        "spriteName": "CardBaseFront_Defense",
+                        "shouldRender": true
                     }
                 }
             ]
-        }
-    ],
-    "Removed Components": [
-        {
-            "id": 0,
-            "type": "void",
-            "version": 4
-        },
-        {
-            "id": 0,
-            "type": "void",
-            "version": 5
         }
     ]
 }
