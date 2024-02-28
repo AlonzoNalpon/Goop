@@ -114,6 +114,17 @@ void FmodSystem::UnLoadSounds()
   }  
 }
 
+bool FmodSystem::isPlaying(std::string audio)
+{
+  auto it = m_channels.find(audio);
+  if (it == m_channels.end())
+    return false;
+
+  bool playing;
+  (*it).second->isPlaying(&playing);
+  return playing;
+}
+
 void FmodSystem::PlaySound(std::string audio, float volume, ChannelType channel, bool looped)
 {
   SoundMap::iterator soundFound = m_sounds.find(audio);
