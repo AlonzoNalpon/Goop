@@ -74,6 +74,8 @@ namespace GoopScripts.Gameplay
       }
 
       m_healthBar = (HealthBar)Utils.GetScriptFromID(entityID, "HealthBar");
+      Utils.SetTextComponent(m_comboUI[0], "");
+      Utils.SetTextComponent(m_comboUI[1], "");
     }
 
     /*!*********************************************************************
@@ -86,8 +88,6 @@ namespace GoopScripts.Gameplay
       {
         Draw();
       }
-      Utils.SetTextComponent(m_comboUI[0], "");
-      Utils.SetTextComponent(m_comboUI[1], "");
       m_healthBar.ResetBar();
     }
 
