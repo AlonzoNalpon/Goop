@@ -76,6 +76,9 @@ namespace GoopScripts.Gameplay
       m_enemyStats.m_deckMngr.m_deck.AddCard(CardBase.CardID.BASIC_SHIELD, 3);
       m_enemyStats.m_deckMngr.m_deck.AddCard(CardBase.CardID.SPECIAL_SCREECH);
 
+      m_playerStats.m_deckMngr.m_deck.Shuffle();
+      m_enemyStats.m_deckMngr.m_deck.Shuffle();
+
       UI.PauseManager.SetPauseState(0);
 
       // set the static variable to the entity holding the hover effect sprite
