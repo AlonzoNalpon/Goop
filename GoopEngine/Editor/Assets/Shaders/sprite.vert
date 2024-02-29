@@ -18,6 +18,7 @@ layout (location=0) uniform vec2 uTexPos; // the bottom left position of tex usu
 layout (location=1) uniform vec2 uTexDims;// the dimensions of the texture usually ranging from [0, 1]
 layout (location=2) uniform mat4 uViewProjMtx; // transformation for the model
 layout (location=3) uniform mat4 uMdlMtx; // transformation for the model
+layout (location=4) uniform float uAlpha; // alpha for each model
 // UNIFORMS GO HERE
 void main() {
   mat4 MVP    = uViewProjMtx * uMdlMtx;

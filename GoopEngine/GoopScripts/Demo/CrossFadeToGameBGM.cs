@@ -12,7 +12,8 @@ namespace GoopScripts.Demo
 	{
 		public void OnClick(uint entity)
 		{
-			Utils.CrossFadeAudio("menu", 0.8f, 0.0f, 0.0f, 0.8f, "caveFighting", 0.0f, 0.8f, 0.0f, 1.0f, 1.0f);
-		}
+      Utils.FadeOutAudio("menu", 0.8f);
+      Utils.FadeInAudio("caveFighting", 0.8f, 1.0f);
+    }
 	}
 }

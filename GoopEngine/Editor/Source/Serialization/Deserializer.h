@@ -35,7 +35,7 @@ namespace GE
       // pure static class
       Deserializer() = delete;
 
-      using EntityScriptsList = std::vector<ECS::Entity, std::vector<Component::ScriptInstance>>;
+      using EntityScriptsList = std::vector<std::pair<ECS::Entity, std::vector<Component::ScriptInstance>>>;
 
       /*!*********************************************************************
       \brief
@@ -101,7 +101,16 @@ namespace GE
       ************************************************************************/
       static Events::AnimEventManager::AnimEventsTable DeserializeAnimEventsTable(std::string const& filepath);
 
-      //static 
+      /*!*********************************************************************
+      \brief
+        Deserializes all entities scripts form a scene for reloading scripts
+      \param file
+        The scene file
+      \return
+        The list of script instances for each entity as an EntityScriptsList
+        object
+      ************************************************************************/
+      static EntityScriptsList DeserializeSceneScripts(std::string const& file);
 
       /*!*********************************************************************
       \brief
@@ -130,8 +139,8 @@ namespace GE
       \param ...
         The comma-separated argument list in pairs of key followed by 
         its corresponding type i.e. [const char*, rapidjson::Type]
-       
       \return
+        True if there were no missing fields and false otherwise
       ************************************************************************/
       static bool ScanJsonFileForMembers(rapidjson::Value const& value, std::string const& filename, unsigned keyCount, ...);
 

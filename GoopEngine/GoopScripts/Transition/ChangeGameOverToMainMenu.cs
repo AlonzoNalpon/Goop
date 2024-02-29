@@ -1,4 +1,5 @@
-﻿using GoopScripts.Mono;
+﻿using GoopScripts.Audio;
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace GoopScripts.Transition
 	{
 		public void PlayEvent(uint entity)
 		{
-			Utils.CrossFadeAudio("caveFighting", 0.8f, 0.0f, 0.0f, 0.9f, "", 0.0f, 0.8f, 0.0f, 0.0f, 1.0f);
-			Utils.CrossFadeAudio("CaveWithWaterDrops_Loop", 0.486f, 0.0f, 0.0f, 0.9f, "", 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
-			Utils.CrossFadeAudio("Fog", 0.753f, 0.0f, 0.0f, 0.9f, "", 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+			// Hack here and just invoke the stop game audio onclick event
+			StopGameAudio temp = new StopGameAudio();
+			temp.OnClick(entity);
 			Utils.TransitionToScene("MainMenu");
 		}
 	}

@@ -23,11 +23,11 @@ namespace GE
     public:
 			struct CrossFade
 			{				
-				std::string m_audio[2];
-				float m_startVol[2];
-				float m_endVol[2];
-				float m_crossFadeStartTime[2];
-				float m_crossFadeEndTime[2];
+				std::string m_audio;
+				float m_startVol;
+				float m_endVol;
+				float m_fadeStartTime;
+				float m_fadeEndTime;
 
 				float m_crossFadeTime;
 				float m_currFadeTime;
@@ -47,13 +47,15 @@ namespace GE
 			************************************************************************/
 			void Update();
 
-			void CrossFadeAudio(CrossFade fade);
+			void FadeInAudio(CrossFade fade);
+			void FadeOutAudio(CrossFade fade);
 
     private:
 			GE::fMOD::FmodSystem* m_fmodSystem;
 
 
-			std::vector<CrossFade> m_crossFadeList;
+			std::vector<CrossFade> m_fadeInList;
+			std::vector<CrossFade> m_fadeOutList;
     };
 	}
 }

@@ -216,7 +216,8 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::UpdateSprite", GE::MONO::UpdateSprite);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextComponent", GE::MONO::SetTextComponent);
 
-  mono_add_internal_call("GoopScripts.Mono.Utils::CrossFadeAudio", GE::MONO::CrossFadeAudio);
+  mono_add_internal_call("GoopScripts.Mono.Utils::FadeInAudio", GE::MONO::FadeInAudio);
+  mono_add_internal_call("GoopScripts.Mono.Utils::FadeOutAudio", GE::MONO::FadeOutAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTimeScale", GE::MONO::SetTimeScale);
 }
@@ -440,27 +441,37 @@ bool GE::MONO::CheckMonoError(MonoError& error)
   return hasError;
 }
 
-void GE::MONO::CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1, float fadeStart1, float fadeEnd1,
-                              MonoString* audio2, float startVol2, float endVol2, float fadeStart2, float fadeEnd2,
-                              float fadeDuration)
+void GE::MONO::FadeInAudio(MonoString* audio, float targetVol, float fadeDuration)
 {
   GE::Systems::AudioSystem::CrossFade cf;
-  cf.m_audio[0] = MonoStringToSTD(audio1);
-  cf.m_audio[1] = MonoStringToSTD(audio2);
-  cf.m_startVol[0] = startVol1;
-  cf.m_startVol[1] = startVol2;
-  cf.m_endVol[0] = endVol1;
-  cf.m_endVol[1] = endVol2;
-  cf.m_crossFadeStartTime[0] = GE::GoopUtils::Lerp(0.f, fadeDuration, fadeStart1);
-  cf.m_crossFadeStartTime[1] = GE::GoopUtils::Lerp(0.f, fadeDuration, fadeStart2);
-  cf.m_crossFadeEndTime[0] = GE::GoopUtils::Lerp(0.f, fadeDuration, fadeEnd1);
-  cf.m_crossFadeEndTime[1] = GE::GoopUtils::Lerp(0.f, fadeDuration, fadeEnd2);
+  cf.m_audio = MonoStringToSTD(audio);
+  cf.m_startVol = 0.f;
+  cf.m_endVol = targetVol;
+  cf.m_fadeStartTime = 0.f;
+  cf.m_fadeEndTime = fadeDuration;
   cf.m_crossFadeTime = fadeDuration;
   cf.m_currFadeTime = 0.f;
   cf.isOver = false;
 
-  auto as = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::AudioSystem>();
-  as->CrossFadeAudio(cf);
+  static auto as = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::AudioSystem>();
+  as->FadeInAudio(cf);
+}
+
+void GE::MONO::FadeOutAudio(MonoString* audio, float fadeDuration)
+{
+  GE::Systems::AudioSystem::CrossFade cf;
+  cf.m_audio = MonoStringToSTD(audio);
+  // Start vol will be assigned later based on current audio volume
+  cf.m_startVol = 0.f;
+  cf.m_endVol = 0.f;
+  cf.m_fadeStartTime = 0.f;
+  cf.m_fadeEndTime = fadeDuration;
+  cf.m_crossFadeTime = fadeDuration;
+  cf.m_currFadeTime = 0.f;
+  cf.isOver = false;
+
+  static auto as = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::AudioSystem>();
+  as->FadeOutAudio(cf);
 }
 
 void GE::MONO::SetParent(GE::ECS::Entity parent, GE::ECS::Entity child)

@@ -635,6 +635,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 						spriteObj->m_spriteData.info.width = static_cast<GLint>(spriteObj->m_spriteData.info.height * ar);
 					}
 
+					// Transparency setting (1 float)
+					ImGui::Text("Alpha");
+					SameLine();
+					ImGui::InputFloat("##SprtAlpha", &spriteObj->m_spriteData.info.alpha);
+
 					if (hasSpriteAnim)
 						EndDisabled();
 					EndTable();

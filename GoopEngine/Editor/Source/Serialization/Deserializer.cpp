@@ -740,7 +740,6 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
   }
   else if (type == rttr::type::get<Component::Scripts>())
   {
-    //GE::Debug::ErrorLogger::GetInstance().LogMessage("Deserializing of Script component is skipped for now");
     // get vector of script instances
     rttr::variant scriptMap{ Component::Scripts::ScriptInstances{} };
     rapidjson::Value::ConstMemberIterator listIter{ value.FindMember("scriptList") };
@@ -750,7 +749,7 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
       return true;
     }
     DeserializeBasedOnType(scriptMap, listIter->value);
-    for (auto s : scriptMap.get_value<Component::Scripts::ScriptInstances>())
+    for (auto& s : scriptMap.get_value<Component::Scripts::ScriptInstances>())
     {
       s.SetAllFields();
     }
@@ -977,6 +976,66 @@ Events::AnimEventManager::AnimEventsTable Deserializer::DeserializeAnimEventsTab
     animEventsTable.emplace(element[Serialization::JsonAssociativeKey].GetString(), std::move(container));
   }
   return animEventsTable;
+}
+
+Deserializer::EntityScriptsList Deserializer::DeserializeSceneScripts(std::string const& file)
+{
+  rapidjson::Document document{};
+  if (!ParseJsonIntoDocument(document, file))
+  {
+    throw Debug::Exception<Deserializer>(Debug::LEVEL_ERROR, ErrMsg("Unable to parse scene file"));
+  }
+  if (!document.IsArray())
+  {
+    throw Debug::Exception<Deserializer>(Debug::LEVEL_ERROR, ErrMsg("Root is not an array"));
+  }
+
+  EntityScriptsList ret{};
+  // check if scene contains all basic keys
+  if (!ScanJsonFileForMembers(document, file, 2,JsonIdKey, rapidjson::kNumberType,
+    JsonComponentsKey, rapidjson::kArrayType))
+  {
+    throw Debug::Exception<Deserializer>(Debug::LEVEL_ERROR, ErrMsg("Scene file missing fields!"));
+  }
+
+  for (auto const& entity : document.GetArray())
+  {
+    ECS::Entity const entityId{ entity[JsonIdKey].GetUint() };
+
+    rttr::variant scriptInstances{ Component::Scripts::ScriptInstances{} };
+    rttr::type const scriptCompType{ rttr::type::get<Component::Scripts>() };
+    std::string const scriptCompName{ scriptCompType.get_name().to_string() };
+    for (auto const& elem : entity[JsonComponentsKey].GetArray())
+    {
+      for (rapidjson::Value::ConstMemberIterator comp{ elem.MemberBegin() }; comp != elem.MemberEnd(); ++comp)
+      {
+        std::string const compName{ comp->name.GetString() };
+        // we only care about the script component
+        if (compName != scriptCompName)
+        {
+          continue;
+        }
+
+        rapidjson::Value const& compJson{ comp->value };
+        rapidjson::Value::ConstMemberIterator listIter{ compJson.FindMember("scriptList") };
+        if (listIter == compJson.MemberEnd())
+        {
+          throw Debug::Exception<Deserializer>(Debug::LEVEL_ERROR, ErrMsg("Unable to find \"scriptList\" property in Script component"));
+        }
+
+        DeserializeBasedOnType(scriptInstances, listIter->value);
+        for (auto& s : scriptInstances.get_value<Component::Scripts::ScriptInstances>())
+        {
+          s.SetAllFields();
+        }
+      }
+    }
+
+    ret.emplace_back(entityId, std::move(scriptInstances.get_value<Component::Scripts::ScriptInstances>()));
+  }
+
+  return ret;
+
 }
 
 bool Deserializer::ScanJsonFileForMembers(rapidjson::Value const& value, std::string const& filename, unsigned keyCount, ...)

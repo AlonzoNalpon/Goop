@@ -472,43 +472,28 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
-		Adds a audio cross fade event to the AudioSystem
+		Adds a audio fade in event to the AudioSystem
 
-	\param audio1
-		Name of audio1
+	\param audio
+		Name of audio
 
-	\param startVol1
-		Original volume of audio 1
-
-	\param endVol1
-		Final target volume of audio1
-
-	\param fadeStart1
-		Time to start fading
-
-	\param fadeEnd1
-		Time to end fading
-
-	\param audio2
-		Name of audio2
-
-	\param startVol2
-		Original volume of audio 2
-
-	\param endVol2
-		Final target volume of audio2
-
-	\param fadeStart2
-		Time to start fading
-
-	\param fadeEnd2
-		Time to end fading
-
+	\param endVol
+		Target volume of audio 
+				
 	\param fadeDuration		
 	************************************************************************/
-	void CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1, float fadeStart1, float fadeEnd1,
-											MonoString* audio2, float startVol2, float endVol2, float fadeStart2, float fadeEnd2,
-											float fadeDuration);
+	void FadeInAudio(MonoString* audio, float targetVol, float fadeDuration);
+
+	/*!*********************************************************************
+	\brief
+		Adds a audio fade out event to the AudioSystem
+
+	\param audio
+		Name of audio
+
+	\param fadeDuration
+	************************************************************************/
+	void FadeOutAudio(MonoString* audio, float fadeDuration);
 
 	/*!*********************************************************************
 	\brief 
