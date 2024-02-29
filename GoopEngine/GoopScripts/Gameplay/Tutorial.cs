@@ -20,8 +20,8 @@ namespace GoopScripts.Gameplay
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
     public int FPS_COUNTER;
 
-    int m_turn = 1;
-    //ToggleTutorial tutorial;
+    int m_turn;
+    static public int m_tut;
 
     Random m_rng;
     double m_currTime = 0.0;
@@ -42,6 +42,8 @@ namespace GoopScripts.Gameplay
     List<CardBase.CardID> m_playerNonAtkCards = new List<CardBase.CardID> { CardID.LEAH_SHIELD, CardID.SPECIAL_SMOKESCREEN, CardID.SPECIAL_RAGE };
     List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD };
 
+    //flags to toggle tutorial pop-ups
+    static public bool m_tutorialToggled;
     Tutorial(uint entityID):base(entityID)
     {
       m_rng = new Random();
@@ -83,6 +85,9 @@ namespace GoopScripts.Gameplay
       m_enemyStats.m_deckMngr.m_deck.AddCard(CardID.BASIC_ATTACK);
       m_enemyStats.m_deckMngr.m_deck.AddCard(CardID.BASIC_ATTACK);
       m_enemyStats.m_deckMngr.m_deck.AddCard(CardID.BASIC_SHIELD);
+
+      m_turn = 1;
+      m_tut = 1;
 
       isDead = false;
       ResetGameManager();
@@ -144,23 +149,21 @@ namespace GoopScripts.Gameplay
         }
       }
       
-      //if (m_playerStats.m_deckMngr.m_queue.Length == 1)
-      //{
-      //  //int m_prev = tutorial.GetTutorial();
-      //  //Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_prev}"), false);
-      //  //Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{tutorial.IncTutorial()}"), true);
-      //}
+      if (m_tutorialToggled)
+      {
+        int m_prev = m_tut++;
 
-      //if (m_playerStats.m_deckMngr.m_queue.Length == 2)
-      //{
-      //  //int m_prev = tutorial.GetTutorial();
-      //  //Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_prev}"), false);
-      //  //Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{tutorial.IncTutorial()}"), true);
-      //}
+        Console.WriteLine($"Tutorial Number {m_tut}");
+        Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_prev}"), false);
+        Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), true);
+
+        m_tutorialToggled = false;
+      }
 
       if (isResolutionPhase)
       {
-        //Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{tutorial.GetTutorial()}"), false);
+        Console.WriteLine($"Tutorial Number {m_tut}");
+        Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), false);
         ResolutionPhase(deltaTime);
       }
 
@@ -195,7 +198,8 @@ namespace GoopScripts.Gameplay
         m_enemyStats.Draw();
         m_enemyStats.QueueCard(0);
       }
-      //Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{tutorial.GetTutorial()}"), true);
+      Console.WriteLine($"Tutorial Number {m_tut}");
+      Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{++m_tut}"), true);
     }
 
 

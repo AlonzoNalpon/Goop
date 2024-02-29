@@ -1,0 +1,127 @@
+{
+    "Name": "Tutorial_Button_Next (Copy)",
+    "isActive": true,
+    "Version": 0,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 596.334, -75.135, 15 }",
+                "scale": "{ 1, 1, 1 }",
+                "rot": "{ 0, 0, 0 }",
+                "worldPos": "{ 596.334, -75.135, 30 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 596.334, -75.135 }",
+                "width": 375.0,
+                "height": 140.0,
+                "min": "{ 408.834, -145.135 }",
+                "max": "{ 783.834, -5.135 }",
+                "render": false
+            }
+        }
+    ],
+    "SubData": [
+        {
+            "ID": 1,
+            "isActive": true,
+            "Name": "Button Backing",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 15 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 15 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 596.334, -75.135 }",
+                        "width": 375.0,
+                        "height": 140.0,
+                        "min": "{ 408.834, -145.135 }",
+                        "max": "{ 783.834, -5.135 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 400,
+                                "height": 160
+                            }
+                        },
+                        "spriteName": "Button_Base",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "ToggleTutorial",
+                                "entityID": 91,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 2,
+            "isActive": true,
+            "Name": "NEXT",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -67.408, -25.782, 20 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -67.408, -25.782, 20 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "NEXT",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.26600000262260437,
+                        "fontID": 2
+                    }
+                }
+            ]
+        }
+    ]
+}

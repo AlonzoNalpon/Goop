@@ -50,6 +50,7 @@ namespace GoopScripts.Button
       Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
       player.QueueCardByID(cardId);
       QueueCardDisplay.m_cardSelected = true;
+      Tutorial.m_tutorialToggled = true;
     }
 
     /*!*********************************************************************
