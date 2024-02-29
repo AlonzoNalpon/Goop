@@ -13,7 +13,13 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <Singleton/Singleton.h>
 #include <mono/jit/jit.h>
-#include <mono/metadata/assembly.h>
+#include "mono/metadata/assembly.h"
+#include "mono/metadata/object.h"
+#include "mono/metadata/tabledefs.h"
+#include "mono/metadata/mono-debug.h"
+#include "mono/metadata/threads.h"
+#include "FileWatch.h"
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -28,20 +34,24 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Enemy/EnemySystem.h>
 #include <Fmod/FmodSystem.h>
 
+
 namespace GE::MONO
 {
 	class ScriptManager : public Singleton<ScriptManager> 
 	{
-		MonoAssembly* m_coreAssembly{ nullptr };
-		std::map<std::string, ScriptClassInfo> m_monoClassMap;
+		static MonoAssembly* m_coreAssembly;
+		static std::map<std::string, ScriptClassInfo> m_monoClassMap;
 
 	public:
 		static std::unordered_map<std::string, ScriptFieldType> m_ScriptFieldTypeMap;
-		std::vector<std::string> m_allScriptNames;
-		MonoDomain* m_rootDomain{ nullptr };
-		MonoDomain* m_appDomain{ nullptr };
-		std::string m_appDomFilePath;
-		std::string m_coreAssFilePath;
+		static std::vector<std::string> m_allScriptNames;
+		static MonoDomain* m_rootDomain;
+		static MonoDomain* m_appDomain;
+		static std::string m_appDomFilePath;
+		static std::string m_coreAssFilePath;
+		static std::unique_ptr<filewatch::FileWatch<std::string>> m_fileWatcher;
+		static bool m_assemblyReloadPending;
+		static std::string m_scnfilePath;
 
 		/*!*********************************************************************
 		\brief
@@ -50,6 +60,7 @@ namespace GE::MONO
 		************************************************************************/
 		void InitMono();
 
+		void TestReload();
 		/*!*********************************************************************
 		\brief
 			destructor of Script Class. Calls mono's cleanup function to free the memorys and shutdown mono
@@ -86,10 +97,12 @@ namespace GE::MONO
 		************************************************************************/
 		MonoObject* InstantiateClass(const char* className);
 
-		void LoadAppDomain();
-		void AddInternalCalls();
-		void LoadAssembly();
-		void ReloadScriptInstance();
+		static void LoadAppDomain();
+		static void AddInternalCalls();
+		static void LoadAssembly();
+		static void ReloadAllScripts();
+		static void AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type);
+
 
 		/*!*********************************************************************
 		\brief
@@ -100,11 +113,9 @@ namespace GE::MONO
 		\params std::ifstream& ifs
 			Ifs stream to a text file containing all the script names and their namespaces
 		************************************************************************/
-		void LoadAllMonoClass();
+		static void LoadAllMonoClass();
 
-
-
-		void ReloadAssembly();
+		static void ReloadAssembly();
 
 		/*!*********************************************************************
 		\brief
@@ -149,7 +160,7 @@ namespace GE::MONO
 		\return
 		A ScriptFieldTYpe enum representing the monotype
 		************************************************************************/
-		ScriptFieldType MonoTypeToScriptFieldType(MonoType* monoType);
+		static ScriptFieldType MonoTypeToScriptFieldType(MonoType* monoType);
 
 		/*!*********************************************************************
 		\brief
@@ -283,7 +294,7 @@ namespace GE::MONO
 	\params small
 		the smaller value
 	************************************************************************/
-	int CalculateGCD(int large, int small);
+	int CalculateGCD(int large, int smaller);
 
 	/*!******************************************************************
 	\brief

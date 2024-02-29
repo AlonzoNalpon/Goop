@@ -33,6 +33,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ScriptEngine/CSharpStructs.h>
 #include <Systems/Audio/AudioSystem.h>
 #include <GameStateManager/GameStateManager.h>
+#include <Serialization/Deserializer.h>
 
 using namespace GE::MONO;
 
@@ -40,6 +41,18 @@ namespace GE
 {
   namespace MONO 
   {
+
+    MonoAssembly* GE::MONO::ScriptManager::m_coreAssembly{ nullptr };
+    std::map<std::string, ScriptClassInfo> GE::MONO::ScriptManager::m_monoClassMap{};
+    std::vector<std::string> GE::MONO::ScriptManager::m_allScriptNames;
+    MonoDomain* GE::MONO::ScriptManager::m_rootDomain{ nullptr };
+    MonoDomain* GE::MONO::ScriptManager::m_appDomain{ nullptr };
+    std::string GE::MONO::ScriptManager::m_appDomFilePath{};
+    std::string GE::MONO::ScriptManager::m_coreAssFilePath{};
+    std::unique_ptr<filewatch::FileWatch<std::string>> GE::MONO::ScriptManager::m_fileWatcher{};
+    bool GE::MONO::ScriptManager::m_assemblyReloadPending{};
+    std::string  GE::MONO::ScriptManager::m_scnfilePath{};
+
     std::unordered_map<std::string, ScriptFieldType> GE::MONO::ScriptManager::m_ScriptFieldTypeMap
     {
       { "System.Boolean", ScriptFieldType::Bool },
@@ -108,14 +121,7 @@ void GE::MONO::ScriptManager::InitMono()
   AddInternalCalls();
 
   //Set the path for the core aseembly
-  std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
-  if (cAss.good())
-  {
-    m_coreAssFilePath = assetManager.GetConfigData<std::string>("CAssemblyExe");
-    cAss.close();
-  }
-  else
-    m_coreAssFilePath = assetManager.GetConfigData<std::string>("CAssembly");
+  m_coreAssFilePath = assetManager.GetConfigData<std::string>("CAssembly");
   
 
   //Load the CSharpAssembly (dll file)
@@ -124,8 +130,12 @@ void GE::MONO::ScriptManager::InitMono()
   //Load All the MonoClasses
   LoadAllMonoClass();
 
+  m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssembly"), AssemblyFileSystemEvent);
+  m_assemblyReloadPending = false;
 
 
+
+ // m_scnfilePath = 
 }
 
 void GE::MONO::ScriptManager::LoadAppDomain()
@@ -279,44 +289,111 @@ void GE::MONO::ScriptManager::LoadAllMonoClass()
 
 }
 
-void GE::MONO::ScriptManager::ReloadScriptInstance()
+// this function i nscenemanaegere
+void GE::MONO::ScriptManager::ReloadAllScripts()
 {
-  //static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  auto gsm = &GE::GSM::GameStateManager::GetInstance();
+  Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  std::string scnName = gsm->GetCurrentScene();
+  m_scnfilePath = assetManager.GetConfigData<std::string>("Assets Dir") + "Scenes/" + scnName + ".scn";
+  //std::cout << "SCENE FILE PATH: " << m_scnfilePath << "\n";
+  //std::cout << "Reload All Scripts\n";
 
-  //// Call OnDestroy function on entity
-  //// Ignore if entity is inactive
-  //for (GE::ECS::Entity const& entity : GE::ECS::System::GetUpdatableEntities())
-  //{
-  //  if (ecs.HasComponent<GE::Component::Scripts>(entity))
-  //  {
-  //    GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(entity);
-  //    for (auto script : scripts->m_scriptList)
-  //    {
-  //      MonoMethod* onDestroy = mono_class_get_method_from_name(script.m_scriptClass, "OnDestroy", 1);
-  //      if (onDestroy)
-  //      {
-  //        std::vector<void*> params = { &entity };
-  //        mono_runtime_invoke(onDestroy, mono_gchandle_get_target(script.m_gcHandle), params.data(), nullptr);
-  //      }
-  //      mono_gchandle_free(script.m_gcHandle);
-  //    }
-  //  }
-  //}
 
-  //ecs.DestroyEntity(entity);
+  for (GE::ECS::Entity const& entity : ecs.GetEntities())
+  {
+
+    if (ecs.HasComponent<GE::Component::Scripts>(entity))
+    {
+      GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(entity);
+      //for (auto& script : scripts->m_scriptList)
+      //{
+      //  //script.ReloadScript();
+      //}
+      //for (auto sp : scripts->m_scriptList)
+      //{
+      //  std::cout << entity << ": " << sp.m_scriptName << " deleted\n";
+      //}
+      scripts->m_scriptList.clear();
+
+    }
+  }
+
+  GE::Prefabs::PrefabManager::GetInstance().ReloadPrefabs();
+  auto newScriptMap{ GE::Serialization::Deserializer::DeserializeSceneScripts(m_scnfilePath) };
+  for (auto& s : newScriptMap)
+  {
+    if (ecs.HasComponent<GE::Component::Scripts>(s.first))
+    {
+      GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(s.first);
+      std::cout << s.first << ": " << s.second.size() << " adding\n";
+      for (auto& si : s.second)
+      {
+        scripts->m_scriptList.push_back(si);
+      }
+    }
+  }
+  
+
 }
+
+void GE::MONO::ScriptManager::TestReload()
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  for (GE::ECS::Entity const& entity : ecs.GetEntities())
+  {
+    if (ecs.HasComponent<GE::Component::Scripts>(entity))
+    {
+      GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(entity);
+      for (auto& script : scripts->m_scriptList)
+      {
+        if (script.m_scriptName == "Stats")
+        {
+          script.PrintAllField();
+        }
+        
+      }
+    }
+  }
+}
+
+void GE::MONO::ScriptManager::AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type)
+{
+  std::cout << "ASSReload\n";
+  if (!m_assemblyReloadPending && change_type == filewatch::Event::modified)
+  {
+    m_assemblyReloadPending = true;
+    auto gsm = &GE::GSM::GameStateManager::GetInstance();
+    std::cout << "AddCmd to main thread\n";
+    gsm->SubmitToMainThread([]()
+      {
+        m_fileWatcher.reset();
+        ReloadAssembly();
+      });
+  }
+}
+
 
 void GE::MONO::ScriptManager::ReloadAssembly()
 {
-  std::cout << "reload\n";
   mono_domain_set(mono_get_root_domain(), false);
-
   mono_domain_unload(m_appDomain);
+  m_monoClassMap.clear();
+  m_allScriptNames.clear();
 
   LoadAppDomain();
+  Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
+  GE::Systems::EnemySystem* es = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::EnemySystem>();
+  m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssembly"), AssemblyFileSystemEvent);
+  m_assemblyReloadPending = false;
+
   AddInternalCalls();
   LoadAssembly();
   LoadAllMonoClass();
+  ReloadAllScripts();
+  es->ReloadTrees();
+  
 }
 
 MonoAssembly* GE::MONO::ScriptManager::GetMonoAssembly()
@@ -610,7 +687,6 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
 
 MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className, std::vector<void*>& arg)  
 {
-
   if (m_monoClassMap.find(className) != m_monoClassMap.end())
   {
     MonoClass* currClass = m_monoClassMap[className].m_scriptClass;
@@ -870,9 +946,9 @@ void GE::MONO::StopChannel(GE::fMOD::FmodSystem::ChannelType channel)
   fMod.StopChannel(channel);
 }
 
-int GE::MONO::CalculateGCD(int large, int small)
+int GE::MONO::CalculateGCD(int large, int smaller)
 {
-  return small == 0 ? large : CalculateGCD(small, large % small);
+  return smaller == 0 ? large : CalculateGCD(smaller, large % smaller);
 }
 
 void GE::MONO::GameSystemResolved()

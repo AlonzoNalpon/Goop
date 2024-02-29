@@ -72,22 +72,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <LibraryPath>$(SolutionDir)lib\rttr-0.9.6\lib\Release;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\filewatch;$(IncludePath)</IncludePath>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(SolutionDir)lib\rttr-0.9.6\lib\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\filewatch;$(IncludePath)</IncludePath>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Warnings_Allowed|x64'">
     <LibraryPath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(SolutionDir)lib\rttr-0.9.6\lib\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(SolutionDir)lib\filewatch;$(IncludePath)</IncludePath>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Warnings_Allowed|x64'">
     <LibraryPath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(SolutionDir)lib\rttr-0.9.6\lib\Release;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\joel_\source\Github\Goop\GoopEngine\lib\stb-master;$(SolutionDir)lib\filewatch;$(IncludePath)</IncludePath>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

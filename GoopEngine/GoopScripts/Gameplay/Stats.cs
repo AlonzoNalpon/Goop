@@ -36,7 +36,7 @@ namespace GoopScripts.Gameplay
   {
     public CharacterType m_type;
     public HealthBar m_healthBar;
-    public int m_attack = 0, m_block = 0;
+    public int m_attack = 89, m_block = 69;
 
 
     // VARIABLES HERE SHOULD ONLY BE MODFIED THROUGH EDITOR
@@ -64,6 +64,7 @@ namespace GoopScripts.Gameplay
     ************************************************************************/
     public void OnCreate()
     {
+
       m_deckMngr.Init(m_type);
       m_buffs = new BuffManager(m_buffsDisplay, m_type);
 
@@ -75,6 +76,7 @@ namespace GoopScripts.Gameplay
       }
 
       m_healthBar = (HealthBar)Utils.GetScriptFromID(entityID, "HealthBar");
+
     }
 
     /*!*********************************************************************

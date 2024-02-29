@@ -333,6 +333,7 @@ namespace
 
 void GE::EditorGUI::Inspector::CreateContent()
 {
+	
 
 	GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
 	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();

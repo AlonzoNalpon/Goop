@@ -199,6 +199,18 @@ namespace GE::Application
 
         window.SwapBuffers();
         gsm.Update();
+
+       
+
+        GE::Input::InputManager* boo = &(GE::Input::InputManager::GetInstance());
+        if (boo->IsKeyTriggered(KEY_CODE::KEY_SPACE))
+        {
+          GE::MONO::ScriptManager* sm = &(GE::MONO::ScriptManager::GetInstance());
+          sm->ReloadAssembly();
+        }
+
+       
+
         fRC.EndFrame();
       }
       catch (GE::Debug::IExceptionBase& e)
