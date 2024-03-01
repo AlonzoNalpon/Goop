@@ -2168,9 +2168,9 @@ namespace
 				bool shouldRemove{ false };
 				for (auto& [target, scale, rot, duration, script] : action)
 				{
+					PushID((std::to_string(i)).c_str());
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
 					TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
-					PushID((std::to_string(i)).c_str());
 					// Formatting
 					if (i != 0)
 					{
@@ -2185,14 +2185,15 @@ namespace
 					ImGui::Text("Anim Event");
 					TableNextColumn();
 					InputText("##", &script);
-					PopID();
 					EndTable();
 					if (Button("Delete keyframe", { GetContentRegionMax().x, 20 }))
 					{
 						removeIndex = i;
 						shouldRemove = true;
+						PopID();
 						break;
 					}
+					PopID();
 					++i;
 				}
 				if (shouldRemove)
