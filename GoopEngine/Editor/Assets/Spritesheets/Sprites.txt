@@ -17,12 +17,12 @@ SS_MoleRat_Death SS_MoleRat_Death 3	1	3	0.1	0
 SS_MoleRat_Idle	SS_MoleRat_Idle 4	1	4	0.1	1
 SS_MoleRat_Rage SS_MoleRat_Rage	5	2	10	0.1	0
 SS_MoleRat_Flinch SS_MoleRat_Flinch 3 1 3 0.1 0
-SS_Dawson_Attack SS_Dawson_Attack 10	1	10	0.1	0
-SS_Dawson_Charge_Up SS_Dawson_Charge_Up 6 1	6	0.1	0
-SS_Dawson_Death	SS_Dawson_Death	5	1	5	0.1	0
+SS_Dawson_Attack SS_Dawson_Attack 3	4	12	0.1	0
+SS_Dawson_Charge_Up SS_Dawson_Charge_Up 4 2	7	0.1	0
+SS_Dawson_Death	SS_Dawson_Death	2	3	5	0.1	0
 SS_Dawson_Flinch SS_Dawson_Flinch 4	1	4	0.1	0
-SS_Dawson_Block	SS_Dawson_Block	5	1	5	0.1	0
-SS_Dawson_Idle	SS_Dawson_Idle	4	1	4	0.1	1
-SS_Dawson_Slash SS_Dawson_Slash	8	1	8	0.1	0
+SS_Dawson_Block	SS_Dawson_Block	4	2	8	0.1	0
+SS_Dawson_Idle	SS_Dawson_Idle	5	1	5	0.1	1
+SS_Dawson_Slash SS_Dawson_Slash	3	4	10	0.1	0
 
 #You can add comments with '#' symbol
