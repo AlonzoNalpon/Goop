@@ -22,7 +22,11 @@ SS_Dawson_Charge_Up SS_Dawson_Charge_Up 6 1	6	0.1	0
 SS_Dawson_Death	SS_Dawson_Death	5	1	5	0.1	0
 SS_Dawson_Flinch SS_Dawson_Flinch 4	1	4	0.1	0
 SS_Dawson_Block	SS_Dawson_Block	5	1	5	0.1	0
-SS_Dawson_Idle	SS_Dawson_Idle	4	1	4	0.1	1
-SS_Dawson_Slash SS_Dawson_Slash	8	1	8	0.1	0
+SS_Dawson_BlockShield SS_Dawson_BlockShield 4 2 8	0.1	0
+SS_Dawson_Idle	SS_Dawson_Idle	5	1	5	0.1	1
+SS_Dawson_Slash SS_Dawson_Slash	3	4	10	0.1	0
+SS_Dawson_DeathNoShield SS_Dawson_DeathNoShield 2 3 5	0.1	0
+SS_Dawson_DeathShield SS_Dawson_DeathShield 2 3 5	0.1	0
+
 
 #You can add comments with '#' symbol
