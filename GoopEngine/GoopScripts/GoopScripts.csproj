@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>.\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -29,7 +29,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>.\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -83,7 +83,7 @@
     <Compile Include="Button\RewardCard.cs" />
     <Compile Include="Button\RewardManager.cs" />
     <Compile Include="Button\QueueCardDisplay.cs" />
-    <Compile Include="Cutscene\SwitchCutScenes.cs" />
+    <Compile Include="Button\SwitchCutScenes.cs" />
     <Compile Include="Gameplay\ComboTextUpdate.cs" />
     <Compile Include="Transition\ChangeGameOverToMainMenu.cs" />
     <Compile Include="Transition\ChangeToCredits.cs" />
@@ -148,7 +148,7 @@
     <Compile Include="Mono\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transition\ChangeToVictory.cs" />
-    <Compile Include="Transition\MainMenuToScene.cs" />
+    <Compile Include="Button\MainMenuToScene.cs" />
     <Compile Include="UI\FPS.cs" />
     <Compile Include="UI\HealthBar.cs" />
     <Compile Include="UI\PauseManager.cs" />
