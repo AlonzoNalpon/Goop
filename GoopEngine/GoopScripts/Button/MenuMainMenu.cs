@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class MenuMainMenu : IButtonClick
+  public class MenuMainMenu : IButtonClick, IButtonRelease
   {
     public void OnClick(uint entity)
     {
@@ -26,6 +26,12 @@ namespace GoopScripts.Button
 			audio.OnClick(0u);
       Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
 			Utils.ToMainMenu();
+      Utils.UpdateSprite(entity, "Button_Base_Disabled");
     }
+    public void OnRelease(uint entity)
+    {
+      Utils.UpdateSprite(entity, "Button_Base");
+    }
+
   }
 }

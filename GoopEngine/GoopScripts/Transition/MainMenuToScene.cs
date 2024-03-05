@@ -19,12 +19,13 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Transition
 {
-  public class MainMenuToScene : IButtonClick
+  public class MainMenuToScene : IButtonClick, IButtonRelease
   {
     public int Scene;
     public void OnClick(uint entity)
     {
       Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.UpdateSprite(entity, "Button_Base_Disabled");
       switch (Scene)
       {
         case 0:
@@ -44,6 +45,11 @@ namespace GoopScripts.Transition
           break;
         default: break;
       }
+    }
+
+    public void OnRelease(uint entity)
+    {
+      Utils.UpdateSprite(entity, "Button_Base");
     }
   }
 }

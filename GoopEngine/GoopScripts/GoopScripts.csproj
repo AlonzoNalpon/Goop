@@ -76,8 +76,10 @@
     <Compile Include="Button\DisableEndTurn.cs" />
     <Compile Include="Button\EnemyQueueHover.cs" />
     <Compile Include="Button\GameOverToMainMenu.cs" />
+    <Compile Include="Button\IButtonRelease.cs" />
     <Compile Include="Button\MenuMainMenu.cs" />
     <Compile Include="Button\OptionSlider.cs" />
+    <Compile Include="Button\QuitGame.cs" />
     <Compile Include="Button\RewardCard.cs" />
     <Compile Include="Button\RewardManager.cs" />
     <Compile Include="Button\QueueCardDisplay.cs" />

@@ -8,12 +8,18 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-	internal class GameOverToMainMenu : IButtonClick
+	internal class GameOverToMainMenu : IButtonClick, IButtonRelease
 	{
 		public void OnClick(uint entity)
 		{
       Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
       Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "MainMenu");
+      Utils.UpdateSprite(entity, "Button_Base_Disabled");
 		}
-	}
+
+    public void OnRelease(uint entity)
+    {
+      Utils.UpdateSprite(entity, "Button_Base");
+    }
+  }
 }

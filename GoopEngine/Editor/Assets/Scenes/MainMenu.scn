@@ -89,7 +89,7 @@
             },
             {
                 "Text": {
-                    "text": "FPS",
+                    "text": "60.00",
                     "clr": {
                         "r": 0.9411764740943909,
                         "g": 1.0,
@@ -1069,13 +1069,19 @@
             },
             {
                 "Scripts": {
-                    "scriptList": []
+                    "scriptList": [
+                        {
+                            "scriptName": "QuitGame",
+                            "entityID": 24,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             },
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "QUIT_GAME",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }

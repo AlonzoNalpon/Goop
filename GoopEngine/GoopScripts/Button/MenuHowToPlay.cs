@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class MenuHowToPlay : IButtonClick, IButtonHoverEnter, IButtonHoverExit
+  public class MenuHowToPlay : IButtonClick, IButtonHoverEnter, IButtonHoverExit, IButtonRelease
   {
     public int PauseMenuID, DeeperPauseMenuID;
 
@@ -24,6 +24,12 @@ namespace GoopScripts.Button
     {
       Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
       Utils.DeeperPauseMenu(PauseMenuID, DeeperPauseMenuID);
+      Utils.UpdateSprite(entity, "Button_Base_Disabled");
+    }
+
+    public void OnRelease(uint entity)
+    {
+      Utils.UpdateSprite(entity, "Button_Base");
     }
 
     public void OnHoverEnter(uint entity)

@@ -17,19 +17,25 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class MenuQuitGame : IButtonClick
+  public class MenuQuitGame : IButtonClick, IButtonRelease
   {
     public int Command;
     public int PauseMenuID, DeeperPauseMenuID;
     public void OnClick(uint entity)
     {
       Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.UpdateSprite(entity, "Button_Base_Disabled");
       if (Command == -1)
       {
         // Return to main menu
         return;
       }
       Utils.DeeperPauseMenu(PauseMenuID,DeeperPauseMenuID);
+    }
+
+    public void OnRelease(uint entity)
+    {
+      Utils.UpdateSprite(entity, "Button_Base");
     }
   }
 }
