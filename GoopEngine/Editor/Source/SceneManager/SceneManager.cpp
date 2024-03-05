@@ -145,6 +145,7 @@ void GE::Scenes::SceneManager::HandleEvent(Events::Event* event)
   case Events::EVENT_TYPE::STOP_SCENE:
     LoadTemporarySave();  // revert to previous state before play
     GE::EditorGUI::ImGuiHelper::Restart();
+    GE::fMOD::FmodSystem::GetInstance().StopAllSound();
     break;
 
   case Events::EVENT_TYPE::PREFAB_INSTANCES_UPDATED:
