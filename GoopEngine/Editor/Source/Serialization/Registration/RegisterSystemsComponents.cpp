@@ -116,7 +116,6 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::Tween>("Tween")
     .constructor<>()
     .property("tweens", &Component::Tween::m_tweens)
-    .property("started", &Component::Tween::m_started)
     .property("paused", &Component::Tween::m_paused)
     .property("loop", &Component::Tween::m_loop)
     .property("playing", &Component::Tween::m_playing)

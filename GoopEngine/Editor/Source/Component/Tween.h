@@ -34,7 +34,6 @@ namespace GE
 			vec3 m_originalScale;
 			vec3 m_originalRot;
 			bool m_started;
-			bool m_playOnStart;
 			bool m_paused;
 			bool m_loop;
 			int m_step;

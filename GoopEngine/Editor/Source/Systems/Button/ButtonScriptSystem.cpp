@@ -37,6 +37,7 @@ void GE::Systems::ButtonScriptSystem::Update()
 
     if (btn->m_lastCollided && m_shouldHandleRelease)
     {
+      btn->m_lastCollided = false;
       MonoObject* classInst = nullptr;
       for (auto script : scripts->m_scriptList)
       {
@@ -53,7 +54,6 @@ void GE::Systems::ButtonScriptSystem::Update()
 
     if (!col->m_mouseCollided)
     {
-      btn->m_lastCollided = btn->m_currCollided;
       btn->m_currCollided = false;
     }
     else

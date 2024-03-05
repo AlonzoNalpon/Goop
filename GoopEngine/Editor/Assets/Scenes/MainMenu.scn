@@ -219,7 +219,6 @@
                             ]
                         }
                     ],
-                    "started": false,
                     "paused": false,
                     "loop": false,
                     "playing": ""
@@ -286,10 +285,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 1000 }",
+                    "pos": "{ 400, 0, 1000 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 1000 }",
+                    "worldPos": "{ 400, 0, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -321,7 +320,7 @@
                             "key": "Transition",
                             "value": [
                                 {
-                                    "trans": "{ -2880, 0, 0 }",
+                                    "trans": "{ -2880, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "duration": 0.3,
@@ -330,7 +329,6 @@
                             ]
                         }
                     ],
-                    "started": false,
                     "paused": false,
                     "loop": false,
                     "playing": "Transition"
