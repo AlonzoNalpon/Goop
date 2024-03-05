@@ -56,14 +56,14 @@ namespace GE::Graphics::Fonts
     using FontMapFontMap  = std::map<Graphics::gObjID ,FontMap>;
     using FontID_LT       = std::map<std::string, Graphics::gObjID>;
     using FontName_LT     = std::map<Graphics::gObjID, std::string>;
-
+    using FontScales      = std::map<Graphics::gObjID, GLfloat>;
     FT_Library        m_library;
     FontMapFontMap    m_fonts;      // !< all loaded fonts' glyphs stored here
     FontID_LT         m_fontIDLT;     // !< lookup table to get font ID from string
     FontName_LT       m_fontNameLT; // !< lookup table to get name from ID
     GLuint            m_fontQuad;
     GLuint            m_fontShader;
-
+    FontScales        m_fontScales;
   public:
     /*!*********************************************************************
     \brief
@@ -94,9 +94,20 @@ namespace GE::Graphics::Fonts
       the id of the font
     ************************************************************************/
     Graphics::gObjID  GetFontID(std::string const& name)const;
+
+    /*!*********************************************************************
+    \brief
+      Gets the font scale to keep size uniform regardless of resolution
+    \param fontID
+      The ID of the font
+    \return
+      The scale of the font
+    ************************************************************************/
+    GLfloat GetFontScale(Graphics::gObjID fontID)const;
+
     GLuint const&     fontModel{ m_fontQuad };      // getter to font model
     GLuint const&     fontShader{ m_fontShader };   // getter to font shader
-
+    
     /*!*********************************************************************
     \brief
       Gets the font lookup table from string to ID.

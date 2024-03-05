@@ -48,7 +48,7 @@ namespace GE::Graphics::Rendering {
   void Renderer::RenderFontObject(gVec3 pos, GLfloat scale, std::string const& str, Colorf color, gObjID fontID)
   {
     m_renderData.emplace_back(RenderDataTypes::FONT, m_fontRenderCalls.size(), pos.z);
-    m_fontRenderCalls.emplace_back(pos, scale, str, color, fontID);
+    m_fontRenderCalls.emplace_back(pos, scale / r_fontManager.GetFontScale(fontID), str, color, fontID);
   }
 
   void Renderer::RenderLineDebug(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf const& clr)

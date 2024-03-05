@@ -581,4 +581,10 @@ namespace GE::MONO
 	void SetMasterVolume(float volume);
 
 	void SetTimeScale(float scale);
+
+	/*!******************************************************************
+	\brief
+		Dispatches a quit game event
+	********************************************************************/
+	void DispatchQuitEvent();
 }

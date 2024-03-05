@@ -27,7 +27,7 @@ namespace GE::Graphics::Fonts
   void FontManager::LoadFont(std::string const& name, std::string const& path, GLint fontSize)
   {
     FT_Face face;
-    
+    GLfloat constexpr inverseDefSize{ 1.f/256.f }; // to multiply with size to get inverse scale
     if (FT_New_Face(m_library, path.c_str(), 0, &face))
     {
       throw GE::Debug::Exception<FontManager>(GE::Debug::LEVEL_ERROR, ErrMsg("Failed to load font: " + path));
@@ -57,6 +57,7 @@ namespace GE::Graphics::Fonts
     }
     FontMap& fontMap{ m_fonts[newID] }; // get reference to newly created map
 
+    m_fontScales[newID] = fontSize * inverseDefSize;
     // disable byte-alignment restriction (using only one byte instead of 4)
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1); 
     constexpr uChar MAX_CHARS{ 128 };
@@ -144,6 +145,10 @@ namespace GE::Graphics::Fonts
   Graphics::gObjID FontManager::GetFontID(std::string const& name) const
   {
     return m_fontIDLT.at(name);
+  }
+  GLfloat FontManager::GetFontScale(Graphics::gObjID fontID) const
+  {
+    return m_fontScales.at(fontID);
   }
   FontManager::FontID_LT const& FontManager::GetFontLT() const
   {
