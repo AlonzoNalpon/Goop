@@ -33,7 +33,7 @@ namespace GoopScripts.Button
 		************************************************************************/
     public void OnClick(uint entity)
     {
-      if (GameManager.IsResolutionPhase())
+      if (GameManager.IsResolutionPhase() || Tutorial.IsResolutionPhase())
       {
         return;
       }
@@ -50,7 +50,13 @@ namespace GoopScripts.Button
       Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
       player.QueueCardByID(cardId);
       QueueCardDisplay.m_cardSelected = true;
-      Tutorial.m_tutorialToggled = true;
+
+      Console.WriteLine($"Tut toggle from select card: {Gameplay.Tutorial.m_tutorialOn}");
+      if (Tutorial.m_tutorialOn)
+      {
+        Console.WriteLine("Card selected");
+        Tutorial.m_tutorialToggled = true;
+      }
     }
 
     /*!*********************************************************************

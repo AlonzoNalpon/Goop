@@ -1,26 +1,16 @@
 {
-    "Name": "Tutorial_Button_Next (Copy)",
+    "Name": "Tutorial_Button_Back",
     "isActive": true,
     "Version": 0,
     "Components": [
         {
             "Transform": {
-                "pos": "{ 596.334, -75.135, 15 }",
+                "pos": "{ 164.241, -308.093, 15 }",
                 "scale": "{ 1, 1, 1 }",
                 "rot": "{ 0, 0, 0 }",
-                "worldPos": "{ 596.334, -75.135, 30 }",
+                "worldPos": "{ 164.241, -308.093, 30 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
-            }
-        },
-        {
-            "BoxCollider": {
-                "center": "{ 596.334, -75.135 }",
-                "width": 375.0,
-                "height": 140.0,
-                "min": "{ 408.834, -145.135 }",
-                "max": "{ 783.834, -5.135 }",
-                "render": false
             }
         }
     ],
@@ -28,26 +18,26 @@
         {
             "ID": 1,
             "isActive": true,
-            "Name": "Button Backing",
+            "Name": "Button Backing (Copy)",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, 0, 15 }",
+                        "pos": "{ 0, 0, 20 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 0, 15 }",
+                        "worldPos": "{ 0, 0, 20 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "BoxCollider": {
-                        "center": "{ 596.334, -75.135 }",
-                        "width": 375.0,
+                        "center": "{ 164.241, -308.093 }",
+                        "width": 260.0,
                         "height": 140.0,
-                        "min": "{ 408.834, -145.135 }",
-                        "max": "{ 783.834, -5.135 }",
+                        "min": "{ 34.2407, -378.093 }",
+                        "max": "{ 294.241, -238.093 }",
                         "render": false
                     }
                 },
@@ -63,8 +53,8 @@
                                     "x": 1.0,
                                     "y": 1.0
                                 },
-                                "width": 400,
-                                "height": 160
+                                "width": 260,
+                                "height": 140
                             }
                         },
                         "spriteName": "Button_Base",
@@ -75,8 +65,8 @@
                     "Scripts": {
                         "scriptList": [
                             {
-                                "scriptName": "ToggleTutorial",
-                                "entityID": 91,
+                                "scriptName": "BackTutorial",
+                                "entityID": 594,
                                 "scriptFieldInstList": []
                             }
                         ]
@@ -95,29 +85,29 @@
         {
             "ID": 2,
             "isActive": true,
-            "Name": "NEXT",
+            "Name": "BACK",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -67.408, -25.782, 20 }",
+                        "pos": "{ -59.6857, -25.782, 21 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -67.408, -25.782, 20 }",
+                        "worldPos": "{ -59.6857, -25.782, 21 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "NEXT",
+                        "text": "BACK",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
                             "b": 1.0,
                             "a": 1.0
                         },
-                        "scale": 0.26600000262260437,
+                        "scale": 0.23800000548362732,
                         "fontID": 2
                     }
                 }

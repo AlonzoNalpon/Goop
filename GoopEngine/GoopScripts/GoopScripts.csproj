@@ -79,6 +79,7 @@
     <Compile Include="Button\GameOverToMainMenu.cs" />
     <Compile Include="Button\MenuMainMenu.cs" />
     <Compile Include="Button\OptionSlider.cs" />
+    <Compile Include="Button\BackTutorial.cs" />
     <Compile Include="Button\TutorialBtn.cs" />
     <Compile Include="Button\RewardCard.cs" />
     <Compile Include="Button\RewardManager.cs" />

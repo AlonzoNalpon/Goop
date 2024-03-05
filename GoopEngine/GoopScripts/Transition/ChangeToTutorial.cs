@@ -21,7 +21,7 @@ namespace GoopScripts.Transition
     public void PlayEvent(uint entity)
     {
       Utils.TransitionToScene("Tutorial");
-      Gameplay.GameManager.ResetGameManager();
+      Gameplay.Tutorial.ResetTutorial();
     }
   }
 }

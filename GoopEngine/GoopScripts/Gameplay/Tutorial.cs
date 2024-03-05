@@ -20,7 +20,7 @@ namespace GoopScripts.Gameplay
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
     public int FPS_COUNTER;
 
-    int m_turn;
+    static int m_turn;
     static public int m_tut;
 
     Random m_rng;
@@ -43,7 +43,7 @@ namespace GoopScripts.Gameplay
     List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD };
 
     //flags to toggle tutorial pop-ups
-    static public bool m_tutorialToggled;
+    static public bool m_tutorialToggled, m_tutorialOn;
     Tutorial(uint entityID):base(entityID)
     {
       m_rng = new Random();
@@ -90,11 +90,16 @@ namespace GoopScripts.Gameplay
       m_tut = 1;
 
       isDead = false;
-      ResetGameManager();
+      ResetTutorial();
     }
 
     public void OnUpdate(double deltaTime)
     {
+      //if (!m_tutorialOn)
+      //{
+      //  m_tutorialOn = true;
+      //}
+
       {
         // SET FPS TEXT TO FPS
         double fps = Utils.GetFPS();
@@ -151,6 +156,7 @@ namespace GoopScripts.Gameplay
       
       if (m_tutorialToggled)
       {
+        Console.WriteLine("tutorial toggled");
         int m_prev = m_tut++;
 
         Console.WriteLine($"Tutorial Number {m_tut}");
@@ -162,7 +168,7 @@ namespace GoopScripts.Gameplay
 
       if (isResolutionPhase)
       {
-        Console.WriteLine($"Tutorial Number {m_tut}");
+        //Console.WriteLine($"Tutorial Number {m_tut}");
         Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), false);
         ResolutionPhase(deltaTime);
       }
@@ -198,7 +204,7 @@ namespace GoopScripts.Gameplay
         m_enemyStats.Draw();
         m_enemyStats.QueueCard(0);
       }
-      Console.WriteLine($"Tutorial Number {m_tut}");
+      Console.WriteLine("StartOfTurn");
       Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{++m_tut}"), true);
     }
 
@@ -416,9 +422,12 @@ namespace GoopScripts.Gameplay
       Utils.SetPosition((uint)E_QUEUE_HIGHLIGHT, ePos);
     }
 
-    static public void ResetGameManager()
+    static public void ResetTutorial()
     {
       isResolutionPhase = isStartOfTurn = gameStarted = false;
+      m_turn = m_tut = 1;
     }
+
+    static public bool IsResolutionPhase() { return isResolutionPhase; }
   }
 }

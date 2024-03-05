@@ -8,14 +8,14 @@ using GoopScripts.Gameplay;
 
 namespace GoopScripts.Button
 {
-  public class ToggleTutorial : IButtonClick
+  public class BackTutorial : IButtonClick
   {
-    public ToggleTutorial() { }
+    public BackTutorial() { }
     public void OnClick(uint entity)
     {
-      int m_prev = (Tutorial.m_tut)++;
+      int m_curr = (Tutorial.m_tut)--;
 
-      Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_prev}"), false);
+      Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_curr}"), false);
       Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{Tutorial.m_tut}"), true);
     }
   }

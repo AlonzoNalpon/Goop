@@ -1,39 +1,16 @@
 {
-    "Name": "Tutorial_Button_Next (Copy)",
+    "Name": "Tutorial_Button_Next",
     "isActive": true,
     "Version": 0,
     "Components": [
         {
             "Transform": {
-                "pos": "{ 596.334, -75.135, 0 }",
+                "pos": "{ 833.908, -255.791, 15 }",
                 "scale": "{ 1, 1, 1 }",
                 "rot": "{ 0, 0, 0 }",
-                "worldPos": "{ 596.334, -75.135, 15 }",
+                "worldPos": "{ 833.908, -255.791, 30 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
-            }
-        },
-        {
-            "BoxCollider": {
-                "center": "{ 596.334, -75.135 }",
-                "width": 375.0,
-                "height": 140.0,
-                "min": "{ 408.834, -145.135 }",
-                "max": "{ 783.834, -5.135 }",
-                "render": true
-            }
-        },
-        {
-            "Scripts": {
-                "scriptList": []
-            }
-        },
-        {
-            "GE_Button": {
-                "param": "",
-                "eventType": "NO_EVENT",
-                "lastCollided": false,
-                "currCollided": false
             }
         }
     ],
@@ -46,12 +23,22 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, 0, 0 }",
+                        "pos": "{ 0, 0, 20 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 20 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 833.908, -255.791 }",
+                        "width": 260.0,
+                        "height": 140.0,
+                        "min": "{ 703.908, -325.791 }",
+                        "max": "{ 963.908, -185.791 }",
+                        "render": false
                     }
                 },
                 {
@@ -66,12 +53,31 @@
                                     "x": 1.0,
                                     "y": 1.0
                                 },
-                                "width": 400,
-                                "height": 160
+                                "width": 260,
+                                "height": 140
                             }
                         },
                         "spriteName": "Button_Base",
                         "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "ToggleTutorial",
+                                "entityID": 91,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
                     }
                 }
             ]
@@ -84,10 +90,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -67.4077, -25.7821, 15 }",
+                        "pos": "{ -57.7784, -25.782, 21 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -67.4077, -25.7821, 15 }",
+                        "worldPos": "{ -57.7784, -25.782, 21 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -101,7 +107,7 @@
                             "b": 1.0,
                             "a": 1.0
                         },
-                        "scale": 0.26600000262260437,
+                        "scale": 0.23800000548362732,
                         "fontID": 2
                     }
                 }
