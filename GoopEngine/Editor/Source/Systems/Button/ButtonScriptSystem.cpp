@@ -35,9 +35,9 @@ void GE::Systems::ButtonScriptSystem::Update()
 
     MonoMethod* method = nullptr;
 
-    if (btn->m_lastCollided && m_shouldHandleRelease)
+    if (btn->m_hadEvent && m_shouldHandleRelease)
     {
-      btn->m_lastCollided = false;
+      btn->m_hadEvent = false;
       MonoObject* classInst = nullptr;
       for (auto script : scripts->m_scriptList)
       {
@@ -64,6 +64,7 @@ void GE::Systems::ButtonScriptSystem::Update()
       // Process if click event
       if (m_shouldHandleClick)
       {
+        btn->m_hadEvent = true;
         MonoObject* classInst = nullptr;
         for (auto script : scripts->m_scriptList)
         {
