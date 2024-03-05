@@ -22,16 +22,16 @@ namespace GoopScripts.Button
   {
     public void OnClick(uint entity)
     {
-			StopGameAudio audio = new StopGameAudio();
-			audio.OnClick(0u);
-      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
-			Utils.ToMainMenu();
       Utils.UpdateSprite(entity, "Button_Base_Disabled");
     }
     public void OnRelease(uint entity)
     {
       Utils.UpdateSprite(entity, "Button_Base");
-    }
+			StopGameAudio audio = new StopGameAudio();
+			audio.OnClick(0u);
+			Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
+			Utils.ToMainMenu();
+		}
 
   }
 }

@@ -22,15 +22,15 @@ namespace GoopScripts.Button
 
     public void OnClick(uint entity)
     {
-      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
-      Utils.DeeperPauseMenu(PauseMenuID, DeeperPauseMenuID);
       Utils.UpdateSprite(entity, "Button_Base_Disabled");
     }
 
     public void OnRelease(uint entity)
     {
       Utils.UpdateSprite(entity, "Button_Base");
-    }
+			Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
+			Utils.DeeperPauseMenu(PauseMenuID, DeeperPauseMenuID);
+		}
 
     public void OnHoverEnter(uint entity)
     {

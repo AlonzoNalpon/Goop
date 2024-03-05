@@ -24,32 +24,32 @@ namespace GoopScripts.Transition
     public int Scene;
     public void OnClick(uint entity)
     {
-      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
       Utils.UpdateSprite(entity, "Button_Base_Disabled");
-      switch (Scene)
-      {
-        case 0:
-					Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Cutscene");
-					break;
-        case 1: // LOAD GAME
-
-          break;
-        case 2:
-          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Options");
-          break;
-        case 3:
-          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "HowToPlay");
-          break;
-        case 4:
-          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Credits");
-          break;
-        default: break;
-      }
     }
 
     public void OnRelease(uint entity)
     {
       Utils.UpdateSprite(entity, "Button_Base");
-    }
+			Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
+			switch (Scene)
+			{
+				case 0:
+					Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Cutscene");
+					break;
+				case 1: // LOAD GAME
+
+					break;
+				case 2:
+					Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Options");
+					break;
+				case 3:
+					Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "HowToPlay");
+					break;
+				case 4:
+					Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Credits");
+					break;
+				default: break;
+			}
+		}
   }
 }

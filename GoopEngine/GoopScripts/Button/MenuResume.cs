@@ -16,14 +16,20 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class MenuResume : IButtonClick
+  public class MenuResume : IButtonClick, IButtonRelease
   {
     public int PauseMenuID;
 
     public void OnClick(uint entity)
     {
-      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
-      Utils.UnpauseMenu(PauseMenuID);
-    }
-  }
+			Utils.UpdateSprite(entity, "Button_Base_Disabled");
+		}
+
+		public void OnRelease(uint entity)
+		{
+			Utils.UpdateSprite(entity, "Button_Base");
+			Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
+			Utils.UnpauseMenu(PauseMenuID);
+		}
+	}
 }

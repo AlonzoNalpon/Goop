@@ -16,29 +16,15 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class MenuClose : IButtonClick, IButtonHoverEnter, IButtonHoverExit
-  {
+  public class MenuClose : IButtonClick, IButtonHoverEnter, IButtonHoverExit, IButtonRelease
+	{
     public int PauseMenuID;
     public int DeeperPauseMenuID;
     public MenuClose() { }
 
     public void OnClick(uint entity)
-    {
-      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
-      switch (UI.PauseManager.GetPauseState())
-      {
-        case 0:
-          Utils.PauseMenu(PauseMenuID);
-          break;
-        case 1:
-          Utils.UnpauseMenu(PauseMenuID);
-          break;
-        case 2:
-          Utils.UndeeperPause(PauseMenuID, DeeperPauseMenuID);
-          break;
-        default:
-          break;
-      }
+		{
+			Utils.UpdateSprite(entity, "Button_Base_Disabled");
     }
     public void OnHoverEnter(uint entity)
     {
@@ -50,5 +36,24 @@ namespace GoopScripts.Button
       // Console.WriteLine(entity.ToString() + "Exit");
     }
 
-  }
+		public void OnRelease(uint entity)
+		{
+			Utils.UpdateSprite(entity, "Button_Base");
+			Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
+			switch (UI.PauseManager.GetPauseState())
+			{
+				case 0:
+					Utils.PauseMenu(PauseMenuID);
+					break;
+				case 1:
+					Utils.UnpauseMenu(PauseMenuID);
+					break;
+				case 2:
+					Utils.UndeeperPause(PauseMenuID, DeeperPauseMenuID);
+					break;
+				default:
+					break;
+			}
+		}
+	}
 }
