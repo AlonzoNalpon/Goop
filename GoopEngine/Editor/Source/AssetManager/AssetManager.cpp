@@ -148,7 +148,7 @@ namespace GE::Assets
 
 	void AssetManager::LoadFonts()
 	{
-		constexpr GLint FONT_SIZE{ 256 };
+		constexpr GLint FONT_SIZE{ 48 };
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 
 		for (auto entry : m_fonts)
