@@ -11,6 +11,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Mono;
 using GoopScripts.Gameplay;
+using System;
 
 namespace GoopScripts.Cards
 {
@@ -75,7 +76,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public CardBase(CardID cardID, CardType cardType, string animationSprite) { this.m_cardID = cardID; this.cardType = cardType; this.m_animationSprite = animationSprite; }
+    public CardBase(CardID cardID, CardType cardType, string animationSprite) { this.m_cardID = cardID; this.cardType = cardType; this.m_animationSprite = animationSprite; Console.WriteLine(this.m_animationSprite); }
 
     /*!*********************************************************************
     \brief
