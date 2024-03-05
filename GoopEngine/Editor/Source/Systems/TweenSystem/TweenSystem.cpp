@@ -27,7 +27,7 @@ void TweenSystem::FixedUpdate()
 
 	double dt = GE::FPS::FrameRateController::GetInstance().GetFixedDeltaTime();
 
-	for (Entity entity : m_entities) 
+	for (Entity entity : GetUpdatableEntities()) 
 	{
 		Tween* tween = m_ecs->GetComponent<Tween>(entity);
 
