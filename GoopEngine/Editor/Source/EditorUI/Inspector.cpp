@@ -333,6 +333,7 @@ namespace
 
 void GE::EditorGUI::Inspector::CreateContent()
 {
+	
 
 	GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
 	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
@@ -634,6 +635,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 						double ar = static_cast<double>(texture.width) / texture.height;
 						spriteObj->m_spriteData.info.width = static_cast<GLint>(spriteObj->m_spriteData.info.height * ar);
 					}
+
+					// Transparency setting (1 float)
+					ImGui::Text("Alpha");
+					SameLine();
+					ImGui::InputFloat("##SprtAlpha", &spriteObj->m_spriteData.info.alpha);
 
 					if (hasSpriteAnim)
 						EndDisabled();
@@ -2162,9 +2168,9 @@ namespace
 				bool shouldRemove{ false };
 				for (auto& [target, scale, rot, duration, script] : action)
 				{
+					PushID((std::to_string(i)).c_str());
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
 					TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
-					PushID((std::to_string(i)).c_str());
 					// Formatting
 					if (i != 0)
 					{
@@ -2179,14 +2185,15 @@ namespace
 					ImGui::Text("Anim Event");
 					TableNextColumn();
 					InputText("##", &script);
-					PopID();
 					EndTable();
 					if (Button("Delete keyframe", { GetContentRegionMax().x, 20 }))
 					{
 						removeIndex = i;
 						shouldRemove = true;
+						PopID();
 						break;
 					}
+					PopID();
 					++i;
 				}
 				if (shouldRemove)

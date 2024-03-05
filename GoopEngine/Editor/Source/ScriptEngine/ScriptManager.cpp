@@ -33,6 +33,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ScriptEngine/CSharpStructs.h>
 #include <Systems/Audio/AudioSystem.h>
 #include <GameStateManager/GameStateManager.h>
+#include <Serialization/Deserializer.h>
 
 using namespace GE::MONO;
 
@@ -40,6 +41,18 @@ namespace GE
 {
   namespace MONO 
   {
+
+    MonoAssembly* GE::MONO::ScriptManager::m_coreAssembly{ nullptr };
+    std::map<std::string, ScriptClassInfo> GE::MONO::ScriptManager::m_monoClassMap{};
+    std::vector<std::string> GE::MONO::ScriptManager::m_allScriptNames;
+    MonoDomain* GE::MONO::ScriptManager::m_rootDomain{ nullptr };
+    MonoDomain* GE::MONO::ScriptManager::m_appDomain{ nullptr };
+    std::string GE::MONO::ScriptManager::m_appDomFilePath{};
+    std::string GE::MONO::ScriptManager::m_coreAssFilePath{};
+    std::unique_ptr<filewatch::FileWatch<std::string>> GE::MONO::ScriptManager::m_fileWatcher{};
+    bool GE::MONO::ScriptManager::m_assemblyReloadPending{};
+    std::string  GE::MONO::ScriptManager::m_scnfilePath{};
+
     std::unordered_map<std::string, ScriptFieldType> GE::MONO::ScriptManager::m_ScriptFieldTypeMap
     {
       { "System.Boolean", ScriptFieldType::Bool },
@@ -108,14 +121,7 @@ void GE::MONO::ScriptManager::InitMono()
   AddInternalCalls();
 
   //Set the path for the core aseembly
-  std::ifstream cAss(assetManager.GetConfigData<std::string>("CAssemblyExe"));
-  if (cAss.good())
-  {
-    m_coreAssFilePath = assetManager.GetConfigData<std::string>("CAssemblyExe");
-    cAss.close();
-  }
-  else
-    m_coreAssFilePath = assetManager.GetConfigData<std::string>("CAssembly");
+  m_coreAssFilePath = assetManager.GetConfigData<std::string>("CAssembly");
   
 
   //Load the CSharpAssembly (dll file)
@@ -124,8 +130,12 @@ void GE::MONO::ScriptManager::InitMono()
   //Load All the MonoClasses
   LoadAllMonoClass();
 
+  m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssembly"), AssemblyFileSystemEvent);
+  m_assemblyReloadPending = false;
 
 
+
+ // m_scnfilePath = 
 }
 
 void GE::MONO::ScriptManager::LoadAppDomain()
@@ -203,6 +213,8 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetParent", GE::MONO::SetParent);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetParentEntity", GE::MONO::GetParentEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetEntity", GE::MONO::GetEntity);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetEntityName", GE::MONO::SetEntityName);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetEntityName", GE::MONO::GetEntityName);
   mono_add_internal_call("GoopScripts.Mono.Utils::DestroyEntity", GE::MONO::DestroyEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetIsActiveEntity", GE::MONO::GetIsActiveEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::SpawnPrefab", GE::MONO::SpawnPrefab);
@@ -214,7 +226,8 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::UpdateSprite", GE::MONO::UpdateSprite);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextComponent", GE::MONO::SetTextComponent);
 
-  mono_add_internal_call("GoopScripts.Mono.Utils::CrossFadeAudio", GE::MONO::CrossFadeAudio);
+  mono_add_internal_call("GoopScripts.Mono.Utils::FadeInAudio", GE::MONO::FadeInAudio);
+  mono_add_internal_call("GoopScripts.Mono.Utils::FadeOutAudio", GE::MONO::FadeOutAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTimeScale", GE::MONO::SetTimeScale);
 }
@@ -276,44 +289,111 @@ void GE::MONO::ScriptManager::LoadAllMonoClass()
 
 }
 
-void GE::MONO::ScriptManager::ReloadScriptInstance()
+// this function i nscenemanaegere
+void GE::MONO::ScriptManager::ReloadAllScripts()
 {
-  //static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  auto gsm = &GE::GSM::GameStateManager::GetInstance();
+  Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  std::string scnName = gsm->GetCurrentScene();
+  m_scnfilePath = assetManager.GetConfigData<std::string>("Assets Dir") + "Scenes/" + scnName + ".scn";
+  //std::cout << "SCENE FILE PATH: " << m_scnfilePath << "\n";
+  //std::cout << "Reload All Scripts\n";
 
-  //// Call OnDestroy function on entity
-  //// Ignore if entity is inactive
-  //for (GE::ECS::Entity const& entity : GE::ECS::System::GetUpdatableEntities())
-  //{
-  //  if (ecs.HasComponent<GE::Component::Scripts>(entity))
-  //  {
-  //    GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(entity);
-  //    for (auto script : scripts->m_scriptList)
-  //    {
-  //      MonoMethod* onDestroy = mono_class_get_method_from_name(script.m_scriptClass, "OnDestroy", 1);
-  //      if (onDestroy)
-  //      {
-  //        std::vector<void*> params = { &entity };
-  //        mono_runtime_invoke(onDestroy, mono_gchandle_get_target(script.m_gcHandle), params.data(), nullptr);
-  //      }
-  //      mono_gchandle_free(script.m_gcHandle);
-  //    }
-  //  }
-  //}
 
-  //ecs.DestroyEntity(entity);
+  for (GE::ECS::Entity const& entity : ecs.GetEntities())
+  {
+
+    if (ecs.HasComponent<GE::Component::Scripts>(entity))
+    {
+      GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(entity);
+      //for (auto& script : scripts->m_scriptList)
+      //{
+      //  //script.ReloadScript();
+      //}
+      //for (auto sp : scripts->m_scriptList)
+      //{
+      //  std::cout << entity << ": " << sp.m_scriptName << " deleted\n";
+      //}
+      scripts->m_scriptList.clear();
+
+    }
+  }
+
+  GE::Prefabs::PrefabManager::GetInstance().ReloadPrefabs();
+  auto newScriptMap{ GE::Serialization::Deserializer::DeserializeSceneScripts(m_scnfilePath) };
+  for (auto& s : newScriptMap)
+  {
+    if (ecs.HasComponent<GE::Component::Scripts>(s.first))
+    {
+      GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(s.first);
+      std::cout << s.first << ": " << s.second.size() << " adding\n";
+      for (auto& si : s.second)
+      {
+        scripts->m_scriptList.push_back(si);
+      }
+    }
+  }
+  
+
 }
+
+void GE::MONO::ScriptManager::TestReload()
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  for (GE::ECS::Entity const& entity : ecs.GetEntities())
+  {
+    if (ecs.HasComponent<GE::Component::Scripts>(entity))
+    {
+      GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(entity);
+      for (auto& script : scripts->m_scriptList)
+      {
+        if (script.m_scriptName == "Stats")
+        {
+          script.PrintAllField();
+        }
+        
+      }
+    }
+  }
+}
+
+void GE::MONO::ScriptManager::AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type)
+{
+  std::cout << "ASSReload\n";
+  if (!m_assemblyReloadPending && change_type == filewatch::Event::modified)
+  {
+    m_assemblyReloadPending = true;
+    auto gsm = &GE::GSM::GameStateManager::GetInstance();
+    std::cout << "AddCmd to main thread\n";
+    gsm->SubmitToMainThread([]()
+      {
+        m_fileWatcher.reset();
+        ReloadAssembly();
+      });
+  }
+}
+
 
 void GE::MONO::ScriptManager::ReloadAssembly()
 {
-  std::cout << "reload\n";
   mono_domain_set(mono_get_root_domain(), false);
-
   mono_domain_unload(m_appDomain);
+  m_monoClassMap.clear();
+  m_allScriptNames.clear();
 
   LoadAppDomain();
+  Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
+  GE::Systems::EnemySystem* es = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::EnemySystem>();
+  m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssembly"), AssemblyFileSystemEvent);
+  m_assemblyReloadPending = false;
+
   AddInternalCalls();
   LoadAssembly();
   LoadAllMonoClass();
+  ReloadAllScripts();
+  es->ReloadTrees();
+  
 }
 
 MonoAssembly* GE::MONO::ScriptManager::GetMonoAssembly()
@@ -438,27 +518,37 @@ bool GE::MONO::CheckMonoError(MonoError& error)
   return hasError;
 }
 
-void GE::MONO::CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1, float fadeStart1, float fadeEnd1,
-                              MonoString* audio2, float startVol2, float endVol2, float fadeStart2, float fadeEnd2,
-                              float fadeDuration)
+void GE::MONO::FadeInAudio(MonoString* audio, float targetVol, float fadeDuration)
 {
   GE::Systems::AudioSystem::CrossFade cf;
-  cf.m_audio[0] = MonoStringToSTD(audio1);
-  cf.m_audio[1] = MonoStringToSTD(audio2);
-  cf.m_startVol[0] = startVol1;
-  cf.m_startVol[1] = startVol2;
-  cf.m_endVol[0] = endVol1;
-  cf.m_endVol[1] = endVol2;
-  cf.m_crossFadeStartTime[0] = GE::GoopUtils::Lerp(0.f, fadeDuration, fadeStart1);
-  cf.m_crossFadeStartTime[1] = GE::GoopUtils::Lerp(0.f, fadeDuration, fadeStart2);
-  cf.m_crossFadeEndTime[0] = GE::GoopUtils::Lerp(0.f, fadeDuration, fadeEnd1);
-  cf.m_crossFadeEndTime[1] = GE::GoopUtils::Lerp(0.f, fadeDuration, fadeEnd2);
+  cf.m_audio = MonoStringToSTD(audio);
+  cf.m_startVol = 0.f;
+  cf.m_endVol = targetVol;
+  cf.m_fadeStartTime = 0.f;
+  cf.m_fadeEndTime = fadeDuration;
   cf.m_crossFadeTime = fadeDuration;
   cf.m_currFadeTime = 0.f;
   cf.isOver = false;
 
-  auto as = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::AudioSystem>();
-  as->CrossFadeAudio(cf);
+  static auto as = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::AudioSystem>();
+  as->FadeInAudio(cf);
+}
+
+void GE::MONO::FadeOutAudio(MonoString* audio, float fadeDuration)
+{
+  GE::Systems::AudioSystem::CrossFade cf;
+  cf.m_audio = MonoStringToSTD(audio);
+  // Start vol will be assigned later based on current audio volume
+  cf.m_startVol = 0.f;
+  cf.m_endVol = 0.f;
+  cf.m_fadeStartTime = 0.f;
+  cf.m_fadeEndTime = fadeDuration;
+  cf.m_crossFadeTime = fadeDuration;
+  cf.m_currFadeTime = 0.f;
+  cf.isOver = false;
+
+  static auto as = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::AudioSystem>();
+  as->FadeOutAudio(cf);
 }
 
 void GE::MONO::SetParent(GE::ECS::Entity parent, GE::ECS::Entity child)
@@ -478,6 +568,18 @@ GE::ECS::Entity GE::MONO::GetEntity(MonoString* entityName)
 {
   static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();  
   return ecs.GetEntityFromName(MonoStringToSTD(entityName));
+}
+
+void GE::MONO::SetEntityName(ECS::Entity entity, MonoString* name)
+{
+  ECS::EntityComponentSystem& ecs = ECS::EntityComponentSystem::GetInstance();
+  ecs.SetEntityName(entity, MonoStringToSTD(name));
+}
+
+MonoString* GE::MONO::GetEntityName(ECS::Entity entity)
+{
+  ECS::EntityComponentSystem const& ecs = ECS::EntityComponentSystem::GetInstance();
+  return STDToMonoString(ecs.GetEntityName(entity));
 }
 
 void GE::MONO::DestroyEntity(GE::ECS::Entity entity)
@@ -585,7 +687,6 @@ MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className)
 
 MonoObject* GE::MONO::ScriptManager::InstantiateClass(const char* className, std::vector<void*>& arg)  
 {
-
   if (m_monoClassMap.find(className) != m_monoClassMap.end())
   {
     MonoClass* currClass = m_monoClassMap[className].m_scriptClass;
@@ -845,9 +946,9 @@ void GE::MONO::StopChannel(GE::fMOD::FmodSystem::ChannelType channel)
   fMod.StopChannel(channel);
 }
 
-int GE::MONO::CalculateGCD(int large, int small)
+int GE::MONO::CalculateGCD(int large, int smaller)
 {
-  return small == 0 ? large : CalculateGCD(small, large % small);
+  return smaller == 0 ? large : CalculateGCD(smaller, large % smaller);
 }
 
 void GE::MONO::GameSystemResolved()
@@ -863,27 +964,26 @@ void GE::MONO::SetCardToQueuedState(unsigned entity, Math::dVec3 target)
   // and enable Collider Icon
   for (ECS::Entity const& e : ecs.GetChildEntities(entity))
   {
-    if (ecs.GetEntityName(e) == "Collider Icon")
+    if (ecs.GetEntityName(e) != "Collider Icon")
     {
-      iconTrans = ecs.GetComponent<Component::Transform>(e);
-      ecs.SetIsActiveEntity(e, true);
+      ecs.SetIsActiveEntity(e, false);
       continue;
     }
 
-    ecs.SetIsActiveEntity(e, false);
-  }
+    iconTrans = ecs.GetComponent<Component::Transform>(e);
+    if (!iconTrans)
+    {
+      Debug::ErrorLogger::GetInstance().LogError("Entity " + std::to_string(entity) + " has no \"Icon\" child");
+      return;
+    }
 
-  if (!iconTrans)
-  {
-    Debug::ErrorLogger::GetInstance().LogError("Entity " + std::to_string(entity) + " has no \"Icon\" child");
-    return;
+    auto* cardTrans{ ecs.GetComponent<Component::Transform>(entity) };
+    // offset the whole card by the vector needed
+    // to get the icon to the target
+    cardTrans->m_pos.x += target.x - iconTrans->m_worldPos.x;
+    cardTrans->m_pos.y += target.y - iconTrans->m_worldPos.y;
+    ecs.SetIsActiveEntity(e, true);
   }
-
-  auto* cardTrans{ ecs.GetComponent<Component::Transform>(entity) };
-  // offset the whole card by the vector needed
-  // to get the icon to the target
-  cardTrans->m_pos.x += target.x - iconTrans->m_worldPos.x;
-  cardTrans->m_pos.y += target.y - iconTrans->m_worldPos.y;
 }
 
 void GE::MONO::SetCardToHandState(unsigned cardEntity)
@@ -951,6 +1051,13 @@ std::string GE::MONO::MonoStringToSTD(MonoString* str)
   mono_free(utf8);
 
   return result;
+
+}
+
+MonoString* GE::MONO::STDToMonoString(const std::string& str)
+{
+  GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
+  return (mono_string_new(sm->m_appDomain, str.c_str()));
 
 }
 

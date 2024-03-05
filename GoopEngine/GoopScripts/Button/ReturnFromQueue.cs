@@ -16,12 +16,29 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static GoopScripts.Cards.CardBase;
 
 namespace GoopScripts.Button
 {
-  internal class ReturnFromQueue : IButtonClick
+  internal class ReturnFromQueue : IButtonClick, IButtonHoverEnter, IButtonHoverExit
   {
-    public ReturnFromQueue() { }
+    public void OnHoverEnter(uint entity)
+    {
+      // to whoever sees this code and is confused:
+      // for some reason when i select a card and it moves
+      // to the queue, on hover gets activated even though
+      // the cursor isnt on the queue for like 1 frame
+      // so the only fix i can think of is to use a bool
+      // flag to ignore the first occurence of the hover
+      if (!QueueCardDisplay.m_cardSelected)
+      {
+        QueueCardDisplay.ShowCard(entity);
+      }
+      else
+      {
+        QueueCardDisplay.m_cardSelected = false;
+      }
+    }
 
     /*!*********************************************************************
      \brief
@@ -45,8 +62,14 @@ namespace GoopScripts.Button
         return;
       }
 
+      QueueCardDisplay.DestroyCard();
       Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
       player.UnqueueCardByID(cardId);
+    }
+
+    public void OnHoverExit(uint entity)
+    {
+      QueueCardDisplay.DestroyCard();
     }
   }
 }

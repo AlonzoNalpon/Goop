@@ -1,6 +1,7 @@
 {
-    "Name": "Dawson_Attack",
-    "Version": 1,
+    "Name": "Dawson_Attack2",
+    "isActive": true,
+    "Version": 2,
     "Components": [
         {
             "Transform": {
@@ -16,6 +17,7 @@
     "SubData": [
         {
             "ID": 1,
+            "isActive": true,
             "Name": "Base",
             "Parent": 0,
             "Components": [
@@ -53,15 +55,16 @@
         },
         {
             "ID": 2,
+            "isActive": true,
             "Name": "Icon",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, 55.5, 0 }",
+                        "pos": "{ 0, 55.5, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 55.5, 0 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -82,7 +85,7 @@
                                 "height": 111
                             }
                         },
-                        "spriteName": "CardIcon_BossAttackBeamshot",
+                        "spriteName": "CardIcon_BossAttackStrike",
                         "shouldRender": true
                     }
                 }
@@ -90,22 +93,23 @@
         },
         {
             "ID": 3,
+            "isActive": true,
             "Name": "Title",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -26.3334, -27, 0 }",
+                        "pos": "{ -35, -27, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -26.3334, -27, 0 }",
+                        "worldPos": "{ -35, -27, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "Beam",
+                        "text": "Strike",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -120,22 +124,23 @@
         },
         {
             "ID": 4,
+            "isActive": true,
             "Name": "Description",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -46.0001, -65, 0 }",
+                        "pos": "{ -50, -65, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -46.0001, -65, 0 }",
+                        "worldPos": "{ -50, -65, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "Deals 1 Damage",
+                        "text": "Deals 2 Damage",
                         "clr": {
                             "r": 0.0,
                             "g": 0.0,

@@ -17,6 +17,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Serialization/Serializer.h>
 #include <AssetManager/AssetManager.h>
 #include <Events/EventManager.h>
+
 #include <iostream>
 #ifndef IMGUI_DISABLE
 #include <Prefabs/PrefabManager.h>

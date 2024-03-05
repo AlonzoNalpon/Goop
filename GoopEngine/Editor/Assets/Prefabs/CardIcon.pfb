@@ -1,35 +1,65 @@
 {
     "Name": "CardIcon",
-    "Version": 0,
+    "isActive": true,
+    "Version": 3,
     "Components": [
         {
             "Transform": {
                 "pos": "{ 0, 0, 0 }",
                 "scale": "{ 1, 1, 1 }",
-                "rot": "{ 0, 0, 0 }",
+                "rot": "{ 0, -0, 0 }",
                 "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
-                "worldRot": "{ 0, 0, 0 }"
+                "worldRot": "{ 0, -0, 0 }"
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 0, 0 }",
+                "width": 119.0,
+                "height": 111.0,
+                "min": "{ -59.5, -55.5 }",
+                "max": "{ 59.5, 55.5 }",
+                "render": false
             }
         },
         {
             "Sprite": {
                 "spriteData": {
-                  "spriteSubData": {
-                    "texCoords": {
-                      "x": 0.0,
-                      "y": 0.0
-                    },
-                    "texDims": {
-                      "x": 1.0,
-                      "y": 1.0
-                    },
-                    "width": 119,
-                    "height": 111
-                  }
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "width": 119,
+                        "height": 111
+                    }
                 },
                 "spriteName": "CardIcon_BasicAttackClawswipe",
                 "shouldRender": true
+            }
+        },
+        {
+            "Scripts": {
+                "scriptList": [
+                    {
+                        "scriptName": "EnemyQueueHover",
+                        "entityID": 0,
+                        "scriptFieldInstList": []
+                    }
+                ]
+            }
+        },
+        {
+            "GE_Button": {
+                "param": "",
+                "eventType": "NO_EVENT",
+                "lastCollided": false,
+                "currCollided": false
             }
         }
     ],

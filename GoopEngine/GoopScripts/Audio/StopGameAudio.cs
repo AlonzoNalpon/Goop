@@ -19,9 +19,9 @@ namespace GoopScripts.Audio
 	{
 		public void OnClick(uint entity)
 		{
-			Utils.CrossFadeAudio("caveFighting", 0.8f, 0.0f, 0.0f, 0.9f, "", 0.0f, 0.8f, 0.0f, 0.0f, 1.0f);
-			Utils.CrossFadeAudio("CaveWithWaterDrops_Loop", 0.486f, 0.0f, 0.0f, 0.9f, "", 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
-			Utils.CrossFadeAudio("Fog", 0.753f, 0.0f, 0.0f, 0.9f, "", 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+			Utils.FadeOutAudio("caveFighting", 1.0f);
+			Utils.FadeOutAudio("CaveWithWaterDrops_Loop", 1.0f);
+			Utils.FadeOutAudio("Fog", 1.0f);
 		}
 	}
 }

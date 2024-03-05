@@ -420,10 +420,12 @@ namespace GoopScripts.Mono
     extern public static void SetTextComponent(int entity, string text, float alpha = 1.0f);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-		extern public static void CrossFadeAudio(string audio1, float startVol1, float endVol1, float normalizedFadeStart1, float normalizedFadeEnd1,
-																						 string audio2, float startVol2, float endVol2, float normalizedFadeStart2, float normalizedFadeEnd2,
-																						 float fadeDuration);
-		public static void PauseMenu(int pauseMenu)
+		extern public static void FadeInAudio(string audio, float targetVol, float fadeDuration);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void FadeOutAudio(string audio, float fadeDuration);
+
+    public static void PauseMenu(int pauseMenu)
     {
       UI.PauseManager.SetPauseState(1);
       Utils.SetIsActiveEntity((uint)pauseMenu, true);
@@ -462,9 +464,15 @@ namespace GoopScripts.Mono
     extern public static uint GetParentEntity(uint child);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-		extern public static uint GetEntity(string entityName);
+    extern public static uint GetEntity(string entityName);
 
-		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static string SetEntityName(uint entity, string name);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static string GetEntityName(uint entity);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static void DestroyEntity(uint entity);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]

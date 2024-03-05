@@ -17,7 +17,6 @@ to in the current frame.
 #include <ECS/System/System.h>
 #include <Component/EnemyAI.h>
 #include <ScriptEngine/ScriptInstance.h>
-#include <ScriptEngine/ScriptManager.h>
 #include <AI/TreeManager.h>
 
 namespace GE
@@ -107,6 +106,7 @@ namespace GE
 			void DelGameTree();
 
 
+
 			/************************************************************************/
 			/*!
 			\brief
@@ -117,6 +117,9 @@ namespace GE
 			*/
 			/************************************************************************/
 			void UpdateTreeList();
+
+
+			void ReloadTrees();
 
 			/************************************************************************/ 
 			/*!

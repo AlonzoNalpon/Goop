@@ -35,6 +35,8 @@ namespace GE
       // pure static class
       Deserializer() = delete;
 
+      using EntityScriptsList = std::vector<std::pair<ECS::Entity, std::vector<Component::ScriptInstance>>>;
+
       /*!*********************************************************************
       \brief
         Main function called to deserialize a scene file. Returns a vector
@@ -101,6 +103,17 @@ namespace GE
 
       /*!*********************************************************************
       \brief
+        Deserializes all entities scripts form a scene for reloading scripts
+      \param file
+        The scene file
+      \return
+        The list of script instances for each entity as an EntityScriptsList
+        object
+      ************************************************************************/
+      static EntityScriptsList DeserializeSceneScripts(std::string const& file);
+
+      /*!*********************************************************************
+      \brief
         Variadic function to validate the format of a json file.
         It iterates through the document and validates that each
         key specified is of type equal to the rapidjson::Type passed in after
@@ -126,8 +139,8 @@ namespace GE
       \param ...
         The comma-separated argument list in pairs of key followed by 
         its corresponding type i.e. [const char*, rapidjson::Type]
-       
       \return
+        True if there were no missing fields and false otherwise
       ************************************************************************/
       static bool ScanJsonFileForMembers(rapidjson::Value const& value, std::string const& filename, unsigned keyCount, ...);
 

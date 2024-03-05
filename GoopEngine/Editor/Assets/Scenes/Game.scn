@@ -11,10 +11,10 @@
                 "Transform": {
                     "pos": "{ -401.426, 101.667, -9 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -401.426, 101.667, -9 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -214,19 +214,19 @@
                             "second": "LeahFlinches"
                         },
                         {
-                            "first": 15,
+                            "first": 11,
                             "second": "LeahDies"
                         },
                         {
-                            "first": 5,
+                            "first": 8,
                             "second": "LeahShoots"
                         },
                         {
-                            "first": 9,
+                            "first": 6,
                             "second": "LeahFlashBangs"
                         },
                         {
-                            "first": 7,
+                            "first": 4,
                             "second": "LeahBlocks"
                         }
                     ]
@@ -403,10 +403,10 @@
                 "Transform": {
                     "pos": "{ 336.318, 50, 0 }",
                     "scale": "{ 0.9, 0.9, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 336.318, 50, 0 }",
                     "worldScale": "{ 0.9, 0.9, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -594,19 +594,19 @@
                 "AnimEvents": {
                     "eventList": [
                         {
-                            "first": 8,
+                            "first": 5,
                             "second": "MoleRatBites"
                         },
                         {
-                            "first": 11,
+                            "first": 13,
                             "second": "LeahDies"
                         },
                         {
-                            "first": 13,
+                            "first": 15,
                             "second": "MoleRatScreeches"
                         },
                         {
-                            "first": 10,
+                            "first": 12,
                             "second": "MoleRatBlocks"
                         }
                     ]

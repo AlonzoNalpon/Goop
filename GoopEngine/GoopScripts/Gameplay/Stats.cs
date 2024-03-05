@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using GoopScripts.Button;
 using GoopScripts.Cards;
 using GoopScripts.Mono;
 using GoopScripts.UI;
@@ -35,7 +36,7 @@ namespace GoopScripts.Gameplay
   {
     public CharacterType m_type;
     public HealthBar m_healthBar;
-    public int m_attack = 0, m_block = 0;
+    public int m_attack = 89, m_block = 69;
 
 
     // VARIABLES HERE SHOULD ONLY BE MODFIED THROUGH EDITOR
@@ -63,6 +64,7 @@ namespace GoopScripts.Gameplay
     ************************************************************************/
     public void OnCreate()
     {
+
       m_deckMngr.Init(m_type);
       m_buffs = new BuffManager(m_buffsDisplay, m_type);
 
@@ -74,6 +76,7 @@ namespace GoopScripts.Gameplay
       }
 
       m_healthBar = (HealthBar)Utils.GetScriptFromID(entityID, "HealthBar");
+
     }
 
     /*!*********************************************************************
@@ -294,6 +297,7 @@ namespace GoopScripts.Gameplay
       {
         ref var card = ref m_deckMngr.m_queue[qIdx];
         card.Item2 = Utils.SpawnPrefab(CardManager.CARD_ICON_PREFAB, m_queueElemPos[qIdx]);
+        Utils.SetEntityName(card.Item2, CardManager.m_cardPrefabs[card.Item1]);
         Utils.UpdateSprite(card.Item2, CardManager.m_cardIcons[card.Item1]);
       }
     }

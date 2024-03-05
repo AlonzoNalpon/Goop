@@ -13,7 +13,13 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <Singleton/Singleton.h>
 #include <mono/jit/jit.h>
-#include <mono/metadata/assembly.h>
+#include "mono/metadata/assembly.h"
+#include "mono/metadata/object.h"
+#include "mono/metadata/tabledefs.h"
+#include "mono/metadata/mono-debug.h"
+#include "mono/metadata/threads.h"
+#include "FileWatch.h"
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -28,20 +34,24 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Enemy/EnemySystem.h>
 #include <Fmod/FmodSystem.h>
 
+
 namespace GE::MONO
 {
 	class ScriptManager : public Singleton<ScriptManager> 
 	{
-		MonoAssembly* m_coreAssembly{ nullptr };
-		std::map<std::string, ScriptClassInfo> m_monoClassMap;
+		static MonoAssembly* m_coreAssembly;
+		static std::map<std::string, ScriptClassInfo> m_monoClassMap;
 
 	public:
 		static std::unordered_map<std::string, ScriptFieldType> m_ScriptFieldTypeMap;
-		std::vector<std::string> m_allScriptNames;
-		MonoDomain* m_rootDomain{ nullptr };
-		MonoDomain* m_appDomain{ nullptr };
-		std::string m_appDomFilePath;
-		std::string m_coreAssFilePath;
+		static std::vector<std::string> m_allScriptNames;
+		static MonoDomain* m_rootDomain;
+		static MonoDomain* m_appDomain;
+		static std::string m_appDomFilePath;
+		static std::string m_coreAssFilePath;
+		static std::unique_ptr<filewatch::FileWatch<std::string>> m_fileWatcher;
+		static bool m_assemblyReloadPending;
+		static std::string m_scnfilePath;
 
 		/*!*********************************************************************
 		\brief
@@ -50,6 +60,7 @@ namespace GE::MONO
 		************************************************************************/
 		void InitMono();
 
+		void TestReload();
 		/*!*********************************************************************
 		\brief
 			destructor of Script Class. Calls mono's cleanup function to free the memorys and shutdown mono
@@ -86,10 +97,12 @@ namespace GE::MONO
 		************************************************************************/
 		MonoObject* InstantiateClass(const char* className);
 
-		void LoadAppDomain();
-		void AddInternalCalls();
-		void LoadAssembly();
-		void ReloadScriptInstance();
+		static void LoadAppDomain();
+		static void AddInternalCalls();
+		static void LoadAssembly();
+		static void ReloadAllScripts();
+		static void AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type);
+
 
 		/*!*********************************************************************
 		\brief
@@ -100,11 +113,9 @@ namespace GE::MONO
 		\params std::ifstream& ifs
 			Ifs stream to a text file containing all the script names and their namespaces
 		************************************************************************/
-		void LoadAllMonoClass();
+		static void LoadAllMonoClass();
 
-
-
-		void ReloadAssembly();
+		static void ReloadAssembly();
 
 		/*!*********************************************************************
 		\brief
@@ -149,7 +160,7 @@ namespace GE::MONO
 		\return
 		A ScriptFieldTYpe enum representing the monotype
 		************************************************************************/
-		ScriptFieldType MonoTypeToScriptFieldType(MonoType* monoType);
+		static ScriptFieldType MonoTypeToScriptFieldType(MonoType* monoType);
 
 		/*!*********************************************************************
 		\brief
@@ -283,7 +294,7 @@ namespace GE::MONO
 	\params small
 		the smaller value
 	************************************************************************/
-	int CalculateGCD(int large, int small);
+	int CalculateGCD(int large, int smaller);
 
 	/*!******************************************************************
 	\brief
@@ -375,7 +386,7 @@ namespace GE::MONO
 	\param entity
 		The entity id of the card
 	************************************************************************/
-	void SetCardToQueuedState(unsigned entity, Math::dVec3 target);
+	void SetCardToQueuedState(GE::ECS::Entity entity, Math::dVec3 target);
 
 	/*!*********************************************************************
 	\brief
@@ -399,8 +410,8 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
-		function that will be called by a c# script to pass a string from c# to c++
-
+		function that will be called by a c# script to pass a string
+		from c# to c++
 	\param MonoString* str
 		The string we want to pass from c# to c++
 	************************************************************************/
@@ -408,23 +419,29 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
-		Function to convert a C# MonoString to C++ std::String
-
+		Function to convert a C# MonoString to C++ std::string
 	\param MonoString* str
 	C# Monostring we want to convert
-
 	\return
-	The covnerted std::string
+	The converted std::string
 	************************************************************************/
 	std::string MonoStringToSTD(MonoString* str);
 
 	/*!*********************************************************************
 	\brief
-		Function to check if a monostring is valid
+		Function to convert a std::string to C# MonoString
+	\param str
+		String to convert
+	\return
+		The converted MonoString
+	************************************************************************/
+	MonoString* STDToMonoString(const std::string& str);
 
+	/*!*********************************************************************
+	\brief
+		Function to check if a monostring is valid
 	\param MonoError& error
 	MonoError belonging to a MonoString
-
 	\return
 	bool alue to indicate if the Monostring is valid
 	************************************************************************/
@@ -466,43 +483,28 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
-		Adds a audio cross fade event to the AudioSystem
+		Adds a audio fade in event to the AudioSystem
 
-	\param audio1
-		Name of audio1
+	\param audio
+		Name of audio
 
-	\param startVol1
-		Original volume of audio 1
-
-	\param endVol1
-		Final target volume of audio1
-
-	\param fadeStart1
-		Time to start fading
-
-	\param fadeEnd1
-		Time to end fading
-
-	\param audio2
-		Name of audio2
-
-	\param startVol2
-		Original volume of audio 2
-
-	\param endVol2
-		Final target volume of audio2
-
-	\param fadeStart2
-		Time to start fading
-
-	\param fadeEnd2
-		Time to end fading
-
+	\param endVol
+		Target volume of audio 
+				
 	\param fadeDuration		
 	************************************************************************/
-	void CrossFadeAudio(MonoString* audio1, float startVol1, float endVol1, float fadeStart1, float fadeEnd1,
-											MonoString* audio2, float startVol2, float endVol2, float fadeStart2, float fadeEnd2,
-											float fadeDuration);
+	void FadeInAudio(MonoString* audio, float targetVol, float fadeDuration);
+
+	/*!*********************************************************************
+	\brief
+		Adds a audio fade out event to the AudioSystem
+
+	\param audio
+		Name of audio
+
+	\param fadeDuration
+	************************************************************************/
+	void FadeOutAudio(MonoString* audio, float fadeDuration);
 
 	/*!*********************************************************************
 	\brief 
@@ -525,9 +527,43 @@ namespace GE::MONO
 		Entity ID of the parent and ECS::INVALID_ID otherwise
 	************************************************************************/
 	GE::ECS::Entity GetParentEntity(GE::ECS::Entity child);
-		
+	
+	/*!*********************************************************************
+	\brief
+		Returns the entity id given its name
+	\param entityName
+		Name of the entity
+	\return
+		Entity ID of the entity
+	************************************************************************/
 	GE::ECS::Entity GetEntity(MonoString* entityName);
 
+	/*!*********************************************************************
+	\brief
+		Sets the name of an entity
+	\param entity
+		Entity ID
+	\param name
+		New name of the entity
+	************************************************************************/
+	void SetEntityName(ECS::Entity entity, MonoString* name);
+
+	/*!*********************************************************************
+	\brief
+		Returns the name of an entity
+	\param entity
+		Entity ID
+	\return
+		Name of the entity
+	************************************************************************/
+	MonoString* GetEntityName(ECS::Entity entity);
+
+	/*!*********************************************************************
+	\brief
+		Destroys and entity
+	\param entity
+		The entity to destroy
+	************************************************************************/
 	void DestroyEntity(GE::ECS::Entity entity);
 
 	/*!******************************************************************

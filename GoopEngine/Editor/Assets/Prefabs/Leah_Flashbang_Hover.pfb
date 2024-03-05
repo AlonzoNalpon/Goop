@@ -1,6 +1,7 @@
 {
-    "Name": "Normal_Screech",
-    "Version": 1,
+    "Name": "Leah_Flashbang",
+    "isActive": true,
+    "Version": 12,
     "Components": [
         {
             "Transform": {
@@ -16,7 +17,8 @@
     "SubData": [
         {
             "ID": 1,
-            "Name": "CardBaseFront_Special",
+            "isActive": true,
+            "Name": "Base",
             "Parent": 0,
             "Components": [
                 {
@@ -27,16 +29,6 @@
                         "worldPos": "{ 0, 0, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "BoxCollider": {
-                        "center": "{ 0, 0 }",
-                        "width": 750.0,
-                        "height": 1050.0,
-                        "min": "{ -375, -525 }",
-                        "max": "{ 375, 525 }",
-                        "render": true
                     }
                 },
                 {
@@ -63,22 +55,23 @@
         },
         {
             "ID": 2,
+            "isActive": true,
             "Name": "Title",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -43.6667, -27, 0 }",
+                        "pos": "{ -58.2666, -27, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -43.6667, -27, 0 }",
+                        "worldPos": "{ -58.2666, -27, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "Screech",
+                        "text": "Flashbang",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -93,15 +86,78 @@
         },
         {
             "ID": 3,
+            "isActive": true,
+            "Name": "Description",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -48.0445, -65, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -48.0445, -65, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "1/2 Opponent's",
+                        "clr": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.054999999701976776,
+                        "fontID": 0
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 4,
+            "isActive": true,
+            "Name": "Description2",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -58.7777, -80, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -58.7777, -80, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "damage for 3 turns",
+                        "clr": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.054999999701976776,
+                        "fontID": 0
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 5,
+            "isActive": true,
             "Name": "Icon",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, 55.55, 0 }",
+                        "pos": "{ 0, 55.5, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 55.55, 0 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -122,68 +178,8 @@
                                 "height": 111
                             }
                         },
-                        "spriteName": "CardIcon_BasicSpecialScreech",
+                        "spriteName": "CardIcon_LeahSpecialFlashbang",
                         "shouldRender": true
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 4,
-            "Name": "Description",
-            "Parent": 0,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -33.7334, -65, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -33.7334, -65, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "x2 Damage",
-                        "clr": {
-                            "r": 0.0,
-                            "g": 0.0,
-                            "b": 0.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.054999999701976776,
-                        "fontID": 0
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 5,
-            "Name": "Description 2",
-            "Parent": 0,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -36.6667, -85, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -36.6667, -85, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "Last 2 turns",
-                        "clr": {
-                            "r": 0.0,
-                            "g": 0.0,
-                            "b": 0.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.054999999701976776,
-                        "fontID": 0
                     }
                 }
             ]

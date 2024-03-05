@@ -1,6 +1,7 @@
 {
-    "Name": "Dawson_Attack2",
-    "Version": 1,
+    "Name": "Leah_Smokescreen",
+    "isActive": true,
+    "Version": 8,
     "Components": [
         {
             "Transform": {
@@ -16,6 +17,7 @@
     "SubData": [
         {
             "ID": 1,
+            "isActive": true,
             "Name": "Base",
             "Parent": 0,
             "Components": [
@@ -45,7 +47,7 @@
                                 "height": 300
                             }
                         },
-                        "spriteName": "CardBaseFront_Attack",
+                        "spriteName": "CardBaseFront_Special",
                         "shouldRender": true
                     }
                 }
@@ -53,6 +55,100 @@
         },
         {
             "ID": 2,
+            "isActive": true,
+            "Name": "Title",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -74.1111, -27, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -74.1111, -27, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Smokescreen",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.10000000149011612,
+                        "fontID": 2
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 3,
+            "isActive": true,
+            "Name": "Description",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -51.1111, -65, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -51.1111, -65, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Take no damage",
+                        "clr": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.054999999701976776,
+                        "fontID": 0
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 4,
+            "isActive": true,
+            "Name": "Description2",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -32.7111, -80, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -32.7111, -80, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "for 2 turns",
+                        "clr": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.054999999701976776,
+                        "fontID": 0
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 5,
+            "isActive": true,
             "Name": "Icon",
             "Parent": 0,
             "Components": [
@@ -82,68 +178,8 @@
                                 "height": 111
                             }
                         },
-                        "spriteName": "CardIcon_BossAttackStrike",
+                        "spriteName": "CardIcon_LeahSpecialSmokescreen",
                         "shouldRender": true
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 3,
-            "Name": "Title",
-            "Parent": 0,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -35, -27, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -35, -27, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "Strike",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.10000000149011612,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 4,
-            "Name": "Description",
-            "Parent": 0,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -50, -65, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -50, -65, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "Deals 2 Damage",
-                        "clr": {
-                            "r": 0.0,
-                            "g": 0.0,
-                            "b": 0.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.054999999701976776,
-                        "fontID": 0
                     }
                 }
             ]

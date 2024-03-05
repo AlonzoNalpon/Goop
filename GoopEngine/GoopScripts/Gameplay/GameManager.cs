@@ -154,6 +154,7 @@ namespace GoopScripts.Gameplay
       ************************************************************************/
     public void StartOfTurn()
     {
+      QueueCardDisplay.DestroyCard();
       SetHighlightActive(false);
       m_playerStats.EndOfTurn();
       m_enemyStats.EndOfTurn();
