@@ -905,6 +905,7 @@ double  GE::MONO::GetAnimationTime(MonoString* animName)
 {
   std::string str = GE::MONO::MonoStringToSTD(animName);
   size_t animID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(str) };
+  
   GE::Graphics::SpriteAnimation test = Graphics::GraphicsEngine::GetInstance().animManager.GetAnim(animID);
   return (static_cast<double>(test.frames.size()) / static_cast<double>(test.speed));
 }

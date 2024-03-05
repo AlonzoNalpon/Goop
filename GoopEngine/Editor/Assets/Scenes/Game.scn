@@ -435,13 +435,13 @@
                             "height": 625
                         }
                     },
-                    "spriteName": "SS_MoleRat_Idle",
+                    "spriteName": "SS_MineWorm_Idle",
                     "shouldRender": true
                 }
             },
             {
                 "SpriteAnim": {
-                    "name": "SS_MoleRat_Idle"
+                    "name": "SS_MineWorm_Idle"
                 }
             },
             {
@@ -594,7 +594,7 @@
                 "AnimEvents": {
                     "eventList": [
                         {
-                            "first": 5,
+                            "first": 10,
                             "second": "MoleRatBites"
                         },
                         {
@@ -606,7 +606,7 @@
                             "second": "MoleRatScreeches"
                         },
                         {
-                            "first": 12,
+                            "first": 14,
                             "second": "MoleRatBlocks"
                         }
                     ]
