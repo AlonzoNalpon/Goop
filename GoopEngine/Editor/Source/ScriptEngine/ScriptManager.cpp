@@ -7,7 +7,6 @@
   Provides function to retrieve C# class data
   Adds internal call into mono to allow C# to call functions defined in cpp
 
-
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
@@ -230,6 +229,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeOutAudio", GE::MONO::FadeOutAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTimeScale", GE::MONO::SetTimeScale);
+  mono_add_internal_call("GoopScripts.Mono.Utils::DispatchQuitEvent", GE::MONO::DispatchQuitEvent);
 }
 
 void GE::MONO::ScriptManager::LoadAssembly()
@@ -1127,3 +1127,11 @@ void GE::MONO::SetTimeScale(float scale)
   GE::FPS::FrameRateController::GetInstance().SetTimeScale(scale);
 }
 
+void GE::MONO::DispatchQuitEvent()
+{
+#ifdef IMGUI_DISABLE
+  GE::Events::EventManager::GetInstance().Dispatch(GE::Events::QuitGame());
+#else
+  GE::Events::EventManager::GetInstance().Dispatch(GE::Events::StopSceneEvent());
+#endif // IMGUI_DISABLE
+}

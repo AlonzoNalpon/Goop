@@ -480,5 +480,8 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetTimeScale(float scale);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void DispatchQuitEvent();
   }
 }
