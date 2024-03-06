@@ -17219,15 +17219,16 @@
         "Child Entities": [
             375,
             376,
-            377
+            377,
+            756
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -592.966, 203.24, 15 }",
+                    "pos": "{ -635.559, 256.321, 15 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -592.966, 203.24, 30 }",
+                    "worldPos": "{ -635.559, 256.321, 30 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -17244,10 +17245,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 23.778, -87.223, 15 }",
+                    "pos": "{ 0, -87.223, 15 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -569.188, 116.017, 45 }",
+                    "worldPos": "{ -635.559, 169.098, 45 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -17280,7 +17281,7 @@
                     "pos": "{ 0, 0, 15 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -592.966, 203.24, 45 }",
+                    "worldPos": "{ -635.559, 256.321, 45 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -17310,17 +17311,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -33.685, -174.445, 15 }",
+                    "pos": "{ 0, -174.445, 15 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -626.651, 28.795, 45 }",
+                    "worldPos": "{ -635.559, 81.8756, 45 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "to draw an ectra card",
+                    "text": "to draw an extra card.",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -33852,6 +33853,39 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy) (Copy) (Copy)",
+        "ID": 756,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 374,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -259.753, 15 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -635.559, -3.43256, 45 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "hold \"tab\" to see all the card combos!",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
                     "fontID": 2
                 }
             }
