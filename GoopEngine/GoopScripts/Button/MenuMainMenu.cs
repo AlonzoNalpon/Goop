@@ -18,14 +18,15 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class MenuMainMenu : IButtonClick
+  public class MenuMainMenu : TextButtonBase
   {
-    public void OnClick(uint entity)
+    public override void OnRelease(uint entity)
     {
+      base.OnRelease(entity);
 			StopGameAudio audio = new StopGameAudio();
 			audio.OnClick(0u);
-      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
 			Utils.ToMainMenu();
-    }
+		}
+
   }
 }

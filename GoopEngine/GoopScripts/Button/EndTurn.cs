@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class TempEndTurn : Entity, IButtonClick
+  public class EndTurn : Entity, IButtonClick
   {
     public int disabledEndTurn;
     /*!*********************************************************************

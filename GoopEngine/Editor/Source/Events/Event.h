@@ -49,6 +49,7 @@ namespace GE
       DELETE_ASSET,
       DELETE_PREFAB,
       DELETE_PREFAB_CHILD,
+      RELOAD_SCRIPT,
 #endif
       MAX_EVENTS
     };

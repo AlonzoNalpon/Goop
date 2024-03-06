@@ -10,6 +10,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <GameStateManager/GameStateManager.h>
+#include <EditorUI/ImGuiUI.h>
 using namespace GE::GSM;
 
 void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)
@@ -56,6 +57,9 @@ void GameStateManager::Init()
 
 void GameStateManager::Update()
 {
+	// We will only reload if the scene is not running
+	if (!EditorGUI::ImGuiHelper::IsRunning())
+		ExecuteMainThreadQueue();
 	try
 	{
 		if (m_updated)
@@ -66,6 +70,7 @@ void GameStateManager::Update()
 			}
 			else
 			{
+
 				sm.Update();
 			}
 			m_updated = false;
@@ -84,4 +89,22 @@ void GameStateManager::Update()
 void GE::GSM::GameStateManager::Exit()
 {
 	// Example of removing systems
+}
+
+
+void GE::GSM::GameStateManager::SubmitToMainThread(const std::function<void()>& function)
+{
+	std::scoped_lock<std::mutex> lock(m_MainThreadQueueMutex);
+	m_MainThreadQueue.emplace_back(function);
+}
+
+void GE::GSM::GameStateManager::ExecuteMainThreadQueue()
+{
+	std::scoped_lock<std::mutex> lock(m_MainThreadQueueMutex);
+
+	for (auto& func : m_MainThreadQueue)
+		func();
+
+	m_MainThreadQueue.clear();
+
 }

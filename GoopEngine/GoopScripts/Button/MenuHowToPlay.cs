@@ -16,24 +16,14 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class MenuHowToPlay : IButtonClick, IButtonHoverEnter, IButtonHoverExit
+  public class MenuHowToPlay : TextButtonBase
   {
     public int PauseMenuID, DeeperPauseMenuID;
 
-    public void OnClick(uint entity)
+    public override void OnRelease(uint entity)
     {
-      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
-      Utils.DeeperPauseMenu(PauseMenuID, DeeperPauseMenuID);
-    }
-
-    public void OnHoverEnter(uint entity)
-    {
-      // Console.WriteLine(entity.ToString() + "Enter");
-    }
-
-    public void OnHoverExit(uint entity)
-    {
-      // Console.WriteLine(entity.ToString() + "Exit");
-    }
+      base.OnRelease(entity);
+			Utils.DeeperPauseMenu(PauseMenuID, DeeperPauseMenuID);
+		}
   }
 }

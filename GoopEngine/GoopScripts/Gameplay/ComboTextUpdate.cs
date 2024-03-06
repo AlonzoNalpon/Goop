@@ -17,7 +17,7 @@ namespace GoopScripts.Gameplay
 {
   public class ComboTextUpdate : Entity
   {
-    static readonly double TIME_ON_SCREEN = 1.5;
+    static readonly double TIME_ON_SCREEN = 2.5;
     double m_timer = 0.0;
     bool m_active;
 

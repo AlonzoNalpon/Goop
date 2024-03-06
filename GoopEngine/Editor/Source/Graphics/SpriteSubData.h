@@ -22,10 +22,14 @@ namespace GE::Graphics {
     gVec2     texCoords;      //!< texture coordinates of sprite (important for tex atlas support)
     gVec2     texDims;        //!< texture dimensions of a sprite in float ranging from [0,1] (for shader uniforms)
     GLuint    width, height;  //!< integral sprite pixel dimensions in width and height (x and y) (can be useful in the future)
-    GLfloat   alpha;          //!< alpha of sprite (transparency)
-    SpriteSubData(gVec2 _texCoords, gVec2 _texDims, GLuint _width, GLuint _height, GLfloat _alpha = 1.f) : 
-      texCoords{ _texCoords }, texDims{ _texDims }, width{ _width }, height{ _height }, alpha{_alpha} {}
-    SpriteSubData() : texCoords{}, texDims{ 1, 1 }, width{}, height{}, alpha{ 1.f } {}
+    Colorf    tint;           //!< tint of sprite (transparency)
+
+    SpriteSubData(gVec2 _texCoords, gVec2 _texDims, GLuint _width, GLuint _height, Colorf _tint = Colorf(1.f, 1.f, 1.f, 1.f)) : 
+      texCoords{ _texCoords }, texDims{ _texDims }, width{ _width }, height{ _height }, tint{_tint} {}
+    SpriteSubData() : texCoords{}, texDims{ 1, 1 }, width{}, height{}, tint{ 1.f, 1.f, 1.f, 1.f } {}
+    void SetTint(Colorf clr) { tint = clr; }
+
+    void SetTint(GLfloat r, GLfloat g, GLfloat b, GLfloat a) { SetTint({r,g,b,a}); }
     // It is possible that sprite data can have varying sizes which requires offsets. 
     // This is the place to put offset if it's to be implemented (in pixels based on dimensions).
     // pivot offset should be done in model space first before game object transform

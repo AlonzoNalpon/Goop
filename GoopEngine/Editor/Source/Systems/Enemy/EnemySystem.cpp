@@ -15,6 +15,7 @@ to in the current frame.
 **************************************************************************/
 #include <pch.h>
 #include <Systems/Enemy/EnemySystem.h>
+#include <ScriptEngine/ScriptManager.h>
 #include <AssetManager/AssetManager.h>
 #include <ImNode/NodeEditor.h>
 
@@ -43,6 +44,38 @@ void EnemySystem::InitTree()
 	}
 	// Set the first tree as the current tree
 	m_currentTree = (m_treeList.size() != 0) ? &(m_treeList[0]) : nullptr;
+}
+
+void EnemySystem::ReloadTrees()
+{
+	std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
+	for (TreeTemplate& tt : tempTreeList)
+	{
+		std::vector<GameTree>::iterator iter = std::find_if(m_treeList.begin(), m_treeList.end(), [tt](GameTree& tree) -> bool
+			{
+				return tree.m_treeID == tt.m_treeTempID;
+			});
+
+		if (iter != m_treeList.end()) //If we already have that tree in our list, we will just swap
+		{
+			GameTree newGamTree = GenerateGameTree(tt);
+			std::swap(iter->m_nodeList, newGamTree.m_nodeList);
+
+		}
+		else // We got a completely new tree, we will just add it into the system
+		{
+			AddGameTree(tt);
+		}
+
+		for (Entity entity : GetUpdatableEntities()) {
+			GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
+			GE::Component::EnemyAI* enemyAIComp = ecs->GetComponent<GE::Component::EnemyAI>(entity);
+			if (enemyAIComp->m_treeID == tt.m_treeTempID)
+			{
+				enemyAIComp->m_enemyTreeCache.m_nodeCacheStack.clear(); // Clear the cache since the tree is updated
+			}
+		}
+	}
 }
 
 void EnemySystem::FixedUpdate()
@@ -147,9 +180,6 @@ void EnemySystem::UseTree(TreeID treeID, unsigned int entityID)
 	{
 		m_currentTree = (gt.m_treeID == treeID) ? &gt : m_currentTree;
 	}
-
-
-
 }
 
 int EnemySystem::GetChildResult()

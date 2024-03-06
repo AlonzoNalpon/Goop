@@ -24,6 +24,7 @@ namespace GE::Graphics {
     GLuint        texture;        //!< texture object handle (contains the texture to refer to)
     SpriteData(SpriteSubData spriteInfo, GLuint texID) : info{ spriteInfo }, texture{ texID } {}
     SpriteData() : info{}, texture{} {}
+    void SetTint(Colorf clr) { info.SetTint(clr); }
   };
 }
 

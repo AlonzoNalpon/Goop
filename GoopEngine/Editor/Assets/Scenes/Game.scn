@@ -293,7 +293,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "TempEndTurn",
+                            "scriptName": "EndTurn",
                             "entityID": 1,
                             "scriptFieldInstList": [
                                 {
@@ -442,13 +442,13 @@
                             "height": 625
                         }
                     },
-                    "spriteName": "SS_MoleRat_Idle",
+                    "spriteName": "SS_MineWorm_Idle",
                     "shouldRender": true
                 }
             },
             {
                 "SpriteAnim": {
-                    "name": "SS_MoleRat_Idle"
+                    "name": "SS_MineWorm_Idle"
                 }
             },
             {
@@ -608,7 +608,7 @@
                 "AnimEvents": {
                     "eventList": [
                         {
-                            "first": 5,
+                            "first": 10,
                             "second": "MoleRatBites"
                         },
                         {
@@ -620,7 +620,7 @@
                             "second": "MoleRatScreeches"
                         },
                         {
-                            "first": 12,
+                            "first": 14,
                             "second": "MoleRatBlocks"
                         }
                     ]
@@ -1374,13 +1374,24 @@
                                     "trans": "{ -2880, 0, 0 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": ""
                                 }
                             ]
                         }
                     ],
-                    "started": false,
                     "paused": false,
                     "loop": false,
                     "playing": "Transition"
@@ -1919,8 +1930,7 @@
         "isActive": true,
         "Parent": 9,
         "Child Entities": [
-            38,
-            75
+            38
         ],
         "Components": [
             {
@@ -2579,6 +2589,18 @@
                                     "trans": "{ -400, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": "ChangeToDefeat"
                                 }
@@ -2591,6 +2613,18 @@
                                     "trans": "{ -400, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": "ChangeGameOverToMainMenu"
                                 }
@@ -2603,13 +2637,24 @@
                                     "trans": "{ -400, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": "ChangeToVictory"
                                 }
                             ]
                         }
                     ],
-                    "started": false,
                     "paused": false,
                     "loop": false,
                     "playing": ""

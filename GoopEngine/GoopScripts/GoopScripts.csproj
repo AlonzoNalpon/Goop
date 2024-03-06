@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>.\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -29,7 +29,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>.\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -74,22 +74,26 @@
     <Compile Include="Audio\StartMainMenuBGM.cs" />
     <Compile Include="Audio\StopGameAudio.cs" />
     <Compile Include="Button\ContinueTutorial.cs" />
+    <Compile Include="Button\TextButtonBase.cs" />
     <Compile Include="Button\DisableEndTurn.cs" />
     <Compile Include="Button\EnemyQueueHover.cs" />
     <Compile Include="Button\GameOverToMainMenu.cs" />
+    <Compile Include="Button\IButtonRelease.cs" />
     <Compile Include="Button\MenuMainMenu.cs" />
     <Compile Include="Button\OptionSlider.cs" />
     <Compile Include="Button\BackTutorial.cs" />
     <Compile Include="Button\TutorialBtn.cs" />
-    <Compile Include="Button\RewardCard.cs" />
-    <Compile Include="Button\RewardManager.cs" />
-    <Compile Include="Button\QueueCardDisplay.cs" />
-    <Compile Include="Cutscene\SwitchCutScenes.cs" />
     <Compile Include="Gameplay\Tutorial.cs" />
-    <Compile Include="Gameplay\ComboTextUpdate.cs" />
     <Compile Include="Serialization\ISerializedObject.cs" />
     <Compile Include="Serialization\SerialReader.cs" />
     <Compile Include="Serialization\StatsInfo.cs" />
+    <Compile Include="Button\QuitGame.cs" />
+    <Compile Include="Button\RewardCard.cs" />
+    <Compile Include="Button\RewardManager.cs" />
+    <Compile Include="Button\QueueCardDisplay.cs" />
+    <Compile Include="Button\SwitchCutScenes.cs" />
+    <Compile Include="Gameplay\ComboTextUpdate.cs" />
+    <Compile Include="Mono\Vec4.cs" />
     <Compile Include="Transition\ChangeGameOverToMainMenu.cs" />
     <Compile Include="Transition\ChangeToCredits.cs" />
     <Compile Include="Transition\ChangeToCutScenes.cs" />
@@ -108,7 +112,7 @@
     <Compile Include="Button\MenuResume.cs" />
     <Compile Include="Button\ReturnFromQueue.cs" />
     <Compile Include="Button\SelectCard.cs" />
-    <Compile Include="Button\TempEndTurn.cs" />
+    <Compile Include="Button\EndTurn.cs" />
     <Compile Include="Cards\BasicAttack.cs" />
     <Compile Include="Cards\BlankCard.cs" />
     <Compile Include="Cards\CardManager.cs" />
@@ -154,8 +158,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transition\ChangeToTutorial.cs" />
     <Compile Include="Transition\ChangeToVictory.cs" />
-    <Compile Include="Transition\MainMenuToScene.cs" />
     <Compile Include="Button\ToggleTutorial.cs" />
+    <Compile Include="Button\MainMenuToScene.cs" />
     <Compile Include="UI\FPS.cs" />
     <Compile Include="UI\HealthBar.cs" />
     <Compile Include="UI\PauseManager.cs" />
@@ -187,7 +191,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)Editor\Assets\Scripts\" /s /q /r /y</PostBuildEvent>
   </PropertyGroup>
 </Project>

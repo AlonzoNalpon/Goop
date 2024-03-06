@@ -417,12 +417,18 @@ namespace GoopScripts.Mono
     extern public static void UpdateSprite(uint ID, string name);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static void SetTextComponent(int entity, string text, float alpha = 1.0f);
+    extern public static void SetTextComponent(int entity, string text);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-		extern public static void FadeInAudio(string audio, float targetVol, float fadeDuration);
+    extern public static void SetTextColor(uint entity, int r, int g, int b, int a = 255);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+	extern public static void FadeInAudio(string audio, float targetVol, float fadeDuration);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetSpriteTint(uint entity, int r, int g, int b, int a);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void FadeOutAudio(string audio, float fadeDuration);
 
     public static void PauseMenu(int pauseMenu)
@@ -467,6 +473,9 @@ namespace GoopScripts.Mono
     extern public static uint GetEntity(string entityName);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static uint GetChildEntity(uint parent, string entityName);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static string SetEntityName(uint entity, string name);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -480,5 +489,9 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetTimeScale(float scale);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void DispatchQuitEvent();
+
   }
 }

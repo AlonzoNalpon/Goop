@@ -16,14 +16,14 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class MenuResume : IButtonClick
+  public class MenuResume : TextButtonBase
   {
     public int PauseMenuID;
 
-    public void OnClick(uint entity)
-    {
-      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
-      Utils.UnpauseMenu(PauseMenuID);
-    }
-  }
+		public override void OnRelease(uint entity)
+		{
+			base.OnRelease(entity);
+			Utils.UnpauseMenu(PauseMenuID);
+		}
+	}
 }

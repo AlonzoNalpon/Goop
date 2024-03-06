@@ -16,7 +16,8 @@ namespace GE::Systems
   class ButtonScriptSystem : public GE::ECS::System, public GE::Events::IEventListener
   {
   private:
-    bool m_shouldHandle;
+    bool m_shouldHandleClick;
+    bool m_shouldHandleRelease;
 
   public:
     void Start();

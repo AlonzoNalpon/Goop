@@ -19,15 +19,16 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Transition
 {
-  public class MainMenuToScene : IButtonClick
+  public class MainMenuToScene : TextButtonBase
   {
     public int Scene;
-    public void OnClick(uint entity)
+
+    public override void OnRelease(uint entity)
     {
-      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
-      switch (Scene)
-      {
-        case 0:
+			base.OnRelease(entity);
+			switch (Scene)
+			{
+				case 0:
 					Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Cutscene");
 					break;
         case 1: // LOAD GAME

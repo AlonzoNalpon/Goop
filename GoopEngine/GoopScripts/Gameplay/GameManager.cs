@@ -243,9 +243,9 @@ namespace GoopScripts.Gameplay
           if (toTriggerEnemyTakeDmg)
           {
             if (m_playerNonAtkCards.Contains(playerCard))
-              Utils.PlayAnimation("SS_MoleRat_Idle", m_enemyStats.entityID);
+              Utils.PlayAnimation("SS_MineWorm_Idle", m_enemyStats.entityID);
             else
-              Utils.PlayAnimation("SS_MoleRat_Flinch", m_enemyStats.entityID);
+              Utils.PlayAnimation("SS_MineWorm_Flinch", m_enemyStats.entityID);
           }
 
           // this should not be coded here
@@ -283,8 +283,8 @@ namespace GoopScripts.Gameplay
           }
           else if (m_enemyStats.IsDead())
           {
-            Utils.PlayAnimation("SS_MoleRat_Death", m_enemyStats.entityID);
-            deathTime = (Utils.GetAnimationTime("SS_MoleRat_Death") > deathTime) ? Utils.GetAnimationTime("SS_MoleRat_Death") : deathTime;
+            Utils.PlayAnimation("SS_MineWorm_Death", m_enemyStats.entityID);
+            deathTime = (Utils.GetAnimationTime("SS_MineWorm_Death") > deathTime) ? Utils.GetAnimationTime("SS_MineWorm_Death") : deathTime;
             isDead = true;
           }
 
@@ -327,7 +327,7 @@ namespace GoopScripts.Gameplay
             if (m_slotNum > 2) //we have resolved all the animation for this round
             {
               Utils.PlayAnimation("SS_Leah_Idle", m_playerStats.entityID);
-              Utils.PlayAnimation("SS_MoleRat_Idle", m_enemyStats.entityID);
+              Utils.PlayAnimation("SS_MineWorm_Idle", m_enemyStats.entityID);
               isResolutionPhase = false;
               isStartOfTurn = true;
 

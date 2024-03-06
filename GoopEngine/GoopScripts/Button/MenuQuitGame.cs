@@ -17,19 +17,19 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class MenuQuitGame : IButtonClick
+  public class MenuQuitGame : TextButtonBase
   {
     public int Command;
     public int PauseMenuID, DeeperPauseMenuID;
-    public void OnClick(uint entity)
+    public override void OnRelease(uint entity)
     {
-      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
-      if (Command == -1)
-      {
-        // Return to main menu
-        return;
-      }
-      Utils.DeeperPauseMenu(PauseMenuID,DeeperPauseMenuID);
-    }
+      base.OnRelease(entity);
+			if (Command == -1)
+			{
+				// Return to main menu
+				return;
+			}
+			Utils.DeeperPauseMenu(PauseMenuID, DeeperPauseMenuID);
+		}
   }
 }

@@ -19,6 +19,8 @@ namespace GE::GSM
   private:
     GE::Scenes::SceneManager sm;
     bool m_updated{ false };
+    std::vector<std::function<void()>> m_MainThreadQueue;
+    std::mutex m_MainThreadQueueMutex;
 
   public:
     /*!*********************************************************************
@@ -74,5 +76,9 @@ namespace GE::GSM
       Clears all the memory cleanly.
     ************************************************************************/
     void Exit();
+
+
+    void SubmitToMainThread(const std::function<void()>& function);
+    void ExecuteMainThreadQueue();
   };
 }

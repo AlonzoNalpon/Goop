@@ -13,7 +13,13 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <Singleton/Singleton.h>
 #include <mono/jit/jit.h>
-#include <mono/metadata/assembly.h>
+#include "mono/metadata/assembly.h"
+#include "mono/metadata/object.h"
+#include "mono/metadata/tabledefs.h"
+#include "mono/metadata/mono-debug.h"
+#include "mono/metadata/threads.h"
+#include "FileWatch.h"
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -28,20 +34,24 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Enemy/EnemySystem.h>
 #include <Fmod/FmodSystem.h>
 
+
 namespace GE::MONO
 {
 	class ScriptManager : public Singleton<ScriptManager> 
 	{
-		MonoAssembly* m_coreAssembly{ nullptr };
-		std::map<std::string, ScriptClassInfo> m_monoClassMap;
+		static MonoAssembly* m_coreAssembly;
+		static std::map<std::string, ScriptClassInfo> m_monoClassMap;
 
 	public:
 		static std::unordered_map<std::string, ScriptFieldType> m_ScriptFieldTypeMap;
-		std::vector<std::string> m_allScriptNames;
-		MonoDomain* m_rootDomain{ nullptr };
-		MonoDomain* m_appDomain{ nullptr };
-		std::string m_appDomFilePath;
-		std::string m_coreAssFilePath;
+		static std::vector<std::string> m_allScriptNames;
+		static MonoDomain* m_rootDomain;
+		static MonoDomain* m_appDomain;
+		static std::string m_appDomFilePath;
+		static std::string m_coreAssFilePath;
+		static std::unique_ptr<filewatch::FileWatch<std::string>> m_fileWatcher;
+		static bool m_assemblyReloadPending;
+		static std::string m_scnfilePath;
 
 		/*!*********************************************************************
 		\brief
@@ -50,6 +60,7 @@ namespace GE::MONO
 		************************************************************************/
 		void InitMono();
 
+		void TestReload();
 		/*!*********************************************************************
 		\brief
 			destructor of Script Class. Calls mono's cleanup function to free the memorys and shutdown mono
@@ -86,10 +97,12 @@ namespace GE::MONO
 		************************************************************************/
 		MonoObject* InstantiateClass(const char* className);
 
-		void LoadAppDomain();
-		void AddInternalCalls();
-		void LoadAssembly();
-		void ReloadScriptInstance();
+		static void LoadAppDomain();
+		static void AddInternalCalls();
+		static void LoadAssembly();
+		static void ReloadAllScripts();
+		static void AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type);
+
 
 		/*!*********************************************************************
 		\brief
@@ -100,11 +113,9 @@ namespace GE::MONO
 		\params std::ifstream& ifs
 			Ifs stream to a text file containing all the script names and their namespaces
 		************************************************************************/
-		void LoadAllMonoClass();
+		static void LoadAllMonoClass();
 
-
-
-		void ReloadAssembly();
+		static void ReloadAssembly();
 
 		/*!*********************************************************************
 		\brief
@@ -149,7 +160,7 @@ namespace GE::MONO
 		\return
 		A ScriptFieldTYpe enum representing the monotype
 		************************************************************************/
-		ScriptFieldType MonoTypeToScriptFieldType(MonoType* monoType);
+		static ScriptFieldType MonoTypeToScriptFieldType(MonoType* monoType);
 
 		/*!*********************************************************************
 		\brief
@@ -230,9 +241,23 @@ namespace GE::MONO
 	\param str
 		The string to set the text to
 	************************************************************************/
-	void SetTextComponent(GE::ECS::Entity entity, MonoString* str, float alpha = 1.f);
+	void SetTextComponent(GE::ECS::Entity entity, MonoString* str);
 
-
+	/*!*********************************************************************
+	 \brief
+	   Set the text component's color of an entity.
+	 \param entity
+	 The entity to set the text component of
+	 \param r
+		red
+	 \param g
+		green
+	 \param b
+		blue
+	 \param a
+		alpha
+	************************************************************************/
+	void SetTextColor(GE::ECS::Entity entity, int r, int g, int b, int a);
 
 	/*!*********************************************************************
 	\brief
@@ -248,8 +273,6 @@ namespace GE::MONO
 		char buffer containing the data of the file
 	************************************************************************/
 	char* ReadBytes(const std::string& filepath, uint32_t* outSize);
-
-
 
 	/*!*********************************************************************
 	\brief
@@ -283,7 +306,7 @@ namespace GE::MONO
 	\params small
 		the smaller value
 	************************************************************************/
-	int CalculateGCD(int large, int small);
+	int CalculateGCD(int large, int smaller);
 
 	/*!******************************************************************
 	\brief
@@ -308,7 +331,6 @@ namespace GE::MONO
 		Animation time
 	********************************************************************/
 	double GetAnimationTime(MonoString* animName);
-
 
 	/*!******************************************************************
 	\brief
@@ -470,6 +492,7 @@ namespace GE::MONO
 
 	static void UpdateSprite(GE::ECS::Entity entity, MonoString* textureName);
 
+	void SetSpriteTint(GE::ECS::Entity entity, int r, int g, int b, int a = 255);
 	/*!*********************************************************************
 	\brief
 		Adds a audio fade in event to the AudioSystem
@@ -529,6 +552,20 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
+		Returns the entity id given its name
+
+	\param parent
+		Parent entity id
+	\param entityName
+		Name of the entity
+
+	\return
+		Entity ID of the entity
+	************************************************************************/
+	GE::ECS::Entity GetChildEntity(GE::ECS::Entity parent, MonoString* entityName);
+
+	/*!*********************************************************************
+	\brief
 		Sets the name of an entity
 	\param entity
 		Entity ID
@@ -570,4 +607,11 @@ namespace GE::MONO
 	void SetMasterVolume(float volume);
 
 	void SetTimeScale(float scale);
+
+	/*!******************************************************************
+	\brief
+		Dispatches a quit game event
+	********************************************************************/
+	void DispatchQuitEvent();
+
 }
