@@ -417,12 +417,19 @@ namespace GoopScripts.Mono
     extern public static void UpdateSprite(uint ID, string name);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static void SetTextComponent(int entity, string text, float alpha = 1.0f);
+    extern public static void SetTextComponent(int entity, string text);
+
+        //void GE::MONO::SetTextColor(GE::ECS::Entity entity, GLfloat r, GLfloat g, GLfloat b, GLfloat a)
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetTextColor(int entity, float r, float g, float b, float a = 1.0f);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-		extern public static void FadeInAudio(string audio, float targetVol, float fadeDuration);
+	extern public static void FadeInAudio(string audio, float targetVol, float fadeDuration);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetSpriteTint(uint ID, float r, float g, float b, float a);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void FadeOutAudio(string audio, float fadeDuration);
 
     public static void PauseMenu(int pauseMenu)

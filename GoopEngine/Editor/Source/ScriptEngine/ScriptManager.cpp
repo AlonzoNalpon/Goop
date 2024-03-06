@@ -224,8 +224,10 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::CreateObject", GE::MONO::CreateObject);
   mono_add_internal_call("GoopScripts.Mono.Utils::UpdateSprite", GE::MONO::UpdateSprite);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextComponent", GE::MONO::SetTextComponent);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetTextColor", GE::MONO::SetTextColor);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeInAudio", GE::MONO::FadeInAudio);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetSpriteTint", GE::MONO::SetSpriteTint);
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeOutAudio", GE::MONO::FadeOutAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTimeScale", GE::MONO::SetTimeScale);
@@ -327,6 +329,7 @@ void GE::MONO::ScriptManager::ReloadAllScripts()
     if (ecs.HasComponent<GE::Component::Scripts>(s.first))
     {
       GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(s.first);
+      
       std::cout << s.first << ": " << s.second.size() << " adding\n";
       for (auto& si : s.second)
       {
@@ -532,6 +535,15 @@ void GE::MONO::FadeInAudio(MonoString* audio, float targetVol, float fadeDuratio
 
   static auto as = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::AudioSystem>();
   as->FadeInAudio(cf);
+}
+
+void GE::MONO::SetSpriteTint(GE::ECS::Entity entity, f32 r, f32 g, f32 b, f32 a)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  Component::Sprite* spriteComp{ ecs.GetComponent<Component::Sprite>(entity) };
+  if (!spriteComp)
+    return; // no component: don't do anything
+  spriteComp->m_spriteData.SetTint({r,g,b,a});
 }
 
 void GE::MONO::FadeOutAudio(MonoString* audio, float fadeDuration)
@@ -1016,7 +1028,7 @@ void GE::MONO::SetBuffIconTextActive(unsigned iconID, bool state)
   }
 }
 
-void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str, float alpha)
+void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str)
 {
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
   Component::Text* textComp{ ecs.GetComponent<Component::Text>(entity) };
@@ -1028,7 +1040,19 @@ void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str, float a
   }
 
   textComp->m_text = MONO::MonoStringToSTD(str);
-  textComp->m_clr.a = alpha;
+}
+
+void GE::MONO::SetTextColor(GE::ECS::Entity entity, GLfloat r, GLfloat g, GLfloat b, GLfloat a)
+{
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  Component::Text* textComp{ ecs.GetComponent<Component::Text>(entity) };
+  if (!textComp)
+  {
+    std::ostringstream oss;
+    oss << "Unable to get text component of entity " << entity;
+    Debug::ErrorLogger::GetInstance().LogError(oss.str());
+  }
+  textComp->m_clr = { r,g,b,a };
 }
 
 void GE::MONO::SendString(MonoString* str)

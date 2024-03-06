@@ -637,9 +637,10 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 
 					// Transparency setting (1 float)
-					ImGui::Text("Alpha");
+					ImGui::Text("Tint Color");
 					SameLine();
-					ImGui::InputFloat("##SprtAlpha", &spriteObj->m_spriteData.info.alpha);
+					ImGui::ColorEdit4("##ClrSpriteTintEdit", spriteObj->m_spriteData.info.tint.rgba);
+
 
 					if (hasSpriteAnim)
 						EndDisabled();

@@ -241,8 +241,23 @@ namespace GE::MONO
 	\param str
 		The string to set the text to
 	************************************************************************/
-	void SetTextComponent(GE::ECS::Entity entity, MonoString* str, float alpha = 1.f);
+	void SetTextComponent(GE::ECS::Entity entity, MonoString* str);
 
+	/*!*********************************************************************
+	 \brief
+	   Set the text component's color of an entity.
+	 \param entity
+	 The entity to set the text component of
+	 \param r
+		red
+	 \param g
+		green
+	 \param b
+		blue
+	 \param a
+		alpha
+	************************************************************************/
+	void SetTextColor(GE::ECS::Entity entity, GLfloat r, GLfloat g, GLfloat b, GLfloat a);
 
 
 	/*!*********************************************************************
@@ -481,6 +496,8 @@ namespace GE::MONO
 
 	static void UpdateSprite(GE::ECS::Entity entity, MonoString* textureName);
 
+
+	void SetSpriteTint(GE::ECS::Entity entity, f32 r, f32 g, f32 b, f32 a);
 	/*!*********************************************************************
 	\brief
 		Adds a audio fade in event to the AudioSystem
@@ -587,4 +604,5 @@ namespace GE::MONO
 		Dispatches a quit game event
 	********************************************************************/
 	void DispatchQuitEvent();
+
 }
