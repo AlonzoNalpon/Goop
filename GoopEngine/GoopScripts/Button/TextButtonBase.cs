@@ -25,7 +25,7 @@ namespace GoopScripts.Button
       m_buttonClrs = new Dictionary<BUTTON_COLORS, Vec4<int>>();
       m_buttonClrs[BUTTON_COLORS.DEFAULT_TEXT] = new Vec4<int>(228, 212, 198, 255);
       m_buttonClrs[BUTTON_COLORS.HIGHLIGHT_TEXT] = new Vec4<int>();
-      m_buttonClrs[BUTTON_COLORS.DEPRESSED_TEXT] = new Vec4<int>();
+      m_buttonClrs[BUTTON_COLORS.DEPRESSED_TEXT] = new Vec4<int>(114, 106, 99, 255);
     }
 
     public virtual void OnClick(uint entity)

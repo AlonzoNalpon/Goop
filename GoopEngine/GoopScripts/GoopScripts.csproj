@@ -73,7 +73,7 @@
     <Compile Include="Audio\MoleRatScreeches.cs" />
     <Compile Include="Audio\StartMainMenuBGM.cs" />
     <Compile Include="Audio\StopGameAudio.cs" />
-    <Compile Include="Button\ButtonBase.cs" />
+    <Compile Include="Button\TextButtonBase.cs" />
     <Compile Include="Button\DisableEndTurn.cs" />
     <Compile Include="Button\EnemyQueueHover.cs" />
     <Compile Include="Button\GameOverToMainMenu.cs" />
