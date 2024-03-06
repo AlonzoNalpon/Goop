@@ -43,7 +43,8 @@ namespace GoopScripts.Gameplay
     List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD };
 
     //flags to toggle tutorial pop-ups
-    static public bool m_tutorialToggled, m_tutorialOn;
+    static public bool m_tutorialToggled;
+    //static public bool m_tutorialOn;
     Tutorial(uint entityID):base(entityID)
     {
       m_rng = new Random();
@@ -105,6 +106,19 @@ namespace GoopScripts.Gameplay
         double fps = Utils.GetFPS();
         string text = string.Format("{0:N2}", fps);
         Utils.SetTextComponent(FPS_COUNTER, text);
+      }
+
+      if (!Utils.GetIsActiveEntity(Utils.GetEntity("Skip_Tutorial_Prompt")) && UI.PauseManager.GetPauseState() == 0)
+      {
+        if (Utils.IsKeyHeld(Input.KeyCode.TAB))
+        {
+          Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), true);
+        }
+        
+        if (Utils.IsKeyReleased(Input.KeyCode.TAB))
+        {
+          Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), false);
+        }
       }
 
       if (!gameStarted)

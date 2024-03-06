@@ -104,6 +104,19 @@ namespace GoopScripts.Gameplay
         gameStarted = true;
       }
 
+      if (UI.PauseManager.GetPauseState() == 0)
+      {
+        if (Utils.IsKeyHeld(Input.KeyCode.TAB))
+        {
+          Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), true);
+        }
+
+        if (Utils.IsKeyReleased(Input.KeyCode.TAB))
+        {
+          Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), false);
+        }
+      }
+
       if (Utils.GetLoseFocus())
       {
         if (UI.PauseManager.GetPauseState() == 0)

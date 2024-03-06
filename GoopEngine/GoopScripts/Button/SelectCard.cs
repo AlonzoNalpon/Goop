@@ -51,12 +51,12 @@ namespace GoopScripts.Button
       player.QueueCardByID(cardId);
       QueueCardDisplay.m_cardSelected = true;
 
-      Console.WriteLine($"Tut toggle from select card: {Gameplay.Tutorial.m_tutorialOn}");
-      if (Tutorial.m_tutorialOn)
-      {
-        Console.WriteLine("Card selected");
+      //Console.WriteLine($"Tut toggle from select card: {Gameplay.Tutorial.m_tutorialOn}");
+      //if (Tutorial.m_tutorialOn)
+      //{
+        //Console.WriteLine("Card selected");
         Tutorial.m_tutorialToggled = true;
-      }
+      //}
     }
 
     /*!*********************************************************************
