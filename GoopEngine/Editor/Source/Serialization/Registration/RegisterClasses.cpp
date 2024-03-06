@@ -79,6 +79,8 @@ RTTR_REGISTRATION
     .property("trans", &Component::Tween::Action::m_trans)
     .property("scale", &Component::Tween::Action::m_scale)
     .property("rot", &Component::Tween::Action::m_rot)
+    .property("spriteColor", &Component::Tween::Action::m_spriteColor)
+    .property("textColor", &Component::Tween::Action::m_textColor)
     .property("duration", &Component::Tween::Action::m_duration)
     .property("animationEvent", &Component::Tween::Action::m_animationEvent)
     ;

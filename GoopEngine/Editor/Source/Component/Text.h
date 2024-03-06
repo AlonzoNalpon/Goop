@@ -33,6 +33,8 @@ namespace GE
 			f32								m_width{};										//!< width of text object (wrapping)
 			// NON-SERIALIZED VARIABLES:
 			Graphics::Fonts::TextObjGroup m_textInfo;					//!< rendering information only for runtime
+			inline void SetColor(Graphics::Colorf clr) { m_clr = clr; }
+			inline void SetColor(GLfloat r, GLfloat g, GLfloat b, GLfloat a) { SetColor({ r,g,b,a }); }
 		};
 	}
 }
