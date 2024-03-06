@@ -2098,7 +2098,7 @@
         ]
     },
     {
-        "Name": "[Image] Picture",
+        "Name": "Player Portrait",
         "ID": 30,
         "Prefab": null,
         "isActive": true,
@@ -2436,7 +2436,7 @@
         ]
     },
     {
-        "Name": "[Image] Picture (Copy)",
+        "Name": "Enemy Portrait",
         "ID": 38,
         "Prefab": null,
         "isActive": true,
@@ -2512,7 +2512,7 @@
         "Name": "Transitions",
         "ID": 40,
         "Prefab": null,
-        "isActive": false,
+        "isActive": true,
         "Parent": null,
         "Child Entities": [
             16,

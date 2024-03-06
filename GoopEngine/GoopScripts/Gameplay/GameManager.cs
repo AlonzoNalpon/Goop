@@ -40,6 +40,7 @@ namespace GoopScripts.Gameplay
 
     public Stats m_playerStats, m_enemyStats;
 
+    static int m_currentLevel;
     static bool isResolutionPhase = false;
     static bool isDead = false;
     //bool intervalBeforeReset;
@@ -68,6 +69,10 @@ namespace GoopScripts.Gameplay
     {
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
+
+      m_playerStats.m_deckMngr.m_deck.Shuffle();
+      m_enemyStats.m_deckMngr.m_deck.Shuffle();
+
       UI.PauseManager.SetPauseState(0);
 
       // set the static variable to the entity holding the hover effect sprite
@@ -90,7 +95,7 @@ namespace GoopScripts.Gameplay
       {
         if (!gameStarted)
         {
-          LoadPlayer(ref m_playerStats, "./Assets/GameData/PlayerStats.sav");
+          LoadGame("./Assets/GameData/PlayerStats.sav");
           m_playerStats.Init();
           m_enemyStats.Init();
           gameStarted = true;
@@ -264,7 +269,8 @@ namespace GoopScripts.Gameplay
             }
           }
 
-          m_playerStats.TakeDamage(eCalculatedDmg);
+          if (!m_enemyStats.IsDead())
+            m_playerStats.TakeDamage(eCalculatedDmg);
           m_enemyStats.TakeDamage(pCalculatedDmg);
           double deathTime = 0.0;
           // bad code but for demo ok
@@ -308,7 +314,8 @@ namespace GoopScripts.Gameplay
             else if (m_enemyStats.IsDead())
             {
               // victory
-              SerialReader.SavePlayerState(ref m_playerStats, "./Assets/GameData/PlayerStats.sav");
+              ++m_currentLevel;
+              SerialReader.SavePlayerState(ref m_playerStats, m_currentLevel, "./Assets/GameData/PlayerStats.sav");
               Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
               //TransitionToScene("Victory");
             }
@@ -402,16 +409,38 @@ namespace GoopScripts.Gameplay
 
     static public bool IsResolutionPhase() {  return isResolutionPhase; }
 
-    static void LoadPlayer(ref Stats playerStats, string filePath)
+    void LoadGame(string filePath)
     {
-      Serialization.StatsInfo statsInfo = Serialization.SerialReader.LoadPlayerState(filePath);
+      PlayerStatsInfo playerStats = Serialization.SerialReader.LoadPlayerState(filePath);
+      LoadPlayer(playerStats);
 
+      m_currentLevel = playerStats.levelToLoad;
+      string levelFile = "./Assets/GameData/Level" + playerStats.levelToLoad + ".dat";
+      LoadEnemy(Serialization.SerialReader.LoadEnemy(levelFile));
+    }
+
+    void LoadPlayer(PlayerStatsInfo statsInfo)
+    {
+      m_playerStats.m_type = CharacterType.PLAYER; 
       foreach (var elem in statsInfo.deckList)
       {
-        playerStats.m_deckMngr.m_deck.AddCard(elem.Item1, elem.Item2);
+        m_playerStats.m_deckMngr.m_deck.AddCard(elem.Item1, elem.Item2);
       }
-      playerStats.m_deckMngr.Init();
-      playerStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth);
+      m_playerStats.m_deckMngr.Init();
+      m_playerStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth);
+    }
+    
+    void LoadEnemy(EnemyStatsInfo statsInfo)
+    {
+      m_enemyStats.m_type = statsInfo.characterType;
+      foreach (var elem in statsInfo.deckList)
+      {
+        m_enemyStats.m_deckMngr.m_deck.AddCard(elem.Item1, elem.Item2);
+      }
+      m_enemyStats.m_deckMngr.Init();
+      m_enemyStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth);
+      Utils.UpdateSprite(GetEntity("Background"), statsInfo.background);
+      Utils.UpdateSprite(GetEntity("Enemy Portrait"), statsInfo.portrait);
     }
   }
 }

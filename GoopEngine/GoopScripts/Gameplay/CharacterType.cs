@@ -18,8 +18,9 @@ namespace GoopScripts.Gameplay
   public enum CharacterType
   {
     PLAYER,
-    BASIC_ENEMY,
+    MINE_WORM,
+    MOLE_RAT,
     BOSS_P1,  // phase 1
-    BOSS_P2   // phase 2
+    BOSS_P2,  // phase 2
   }
 }

@@ -7,10 +7,18 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Serialization
 {
-  public struct StatsInfo
+  public struct PlayerStatsInfo
   {
     public List<Tuple<CardBase.CardID, uint>> deckList;
     public int health, maxHealth;
     public int levelToLoad;
+  }
+
+  public struct EnemyStatsInfo
+  {
+    public string portrait, background;
+    public List<Tuple<CardBase.CardID, uint>> deckList;
+    public int health, maxHealth;
+    public Gameplay.CharacterType characterType;
   }
 }

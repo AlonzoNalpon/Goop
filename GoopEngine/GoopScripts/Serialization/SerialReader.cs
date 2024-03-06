@@ -7,6 +7,7 @@ using System.IO;
 using System.Drawing.Drawing2D;
 using GoopScripts.Cards;
 using System.Diagnostics;
+using GoopScripts.Gameplay;
 
 namespace GoopScripts.Serialization
 {
@@ -14,16 +15,16 @@ namespace GoopScripts.Serialization
   {
     static readonly string COMMENT_SYMBOL = "#";
 
-    static public StatsInfo LoadPlayerState(string fileName)
+    static public PlayerStatsInfo LoadPlayerState(string fileName)
     {
-      StatsInfo ret = new StatsInfo();
+      PlayerStatsInfo ret = new PlayerStatsInfo();
       using (StreamReader sr = new StreamReader(fileName))
       {
         string line = GetNextNonCommentLine(sr);
         if (!int.TryParse(line, out ret.levelToLoad))
         {
 #if (DEBUG)
-          Console.WriteLine("Invalid level read\n" + line);
+          Console.WriteLine("Invalid level read:\n" + line);
 #endif
         }
 
@@ -32,7 +33,7 @@ namespace GoopScripts.Serialization
         if (!int.TryParse(healthData[0], out ret.health) || !int.TryParse(healthData[1], out ret.maxHealth))
         {
 #if (DEBUG)
-          Console.WriteLine("Invalid data read for health\n" + line);
+          Console.WriteLine("Invalid data read for health:\n" + line);
 #endif
         }
 
@@ -40,7 +41,52 @@ namespace GoopScripts.Serialization
         ret.deckList = new List<Tuple<CardBase.CardID, uint>>();
         do
         {
-          Console.WriteLine("Reading:\n" + line);
+          string[] cardData = line.Split(',');
+          CardBase.CardID card;
+          uint amount;
+          if (!Enum.TryParse(cardData[0], out card) || !uint.TryParse(cardData[1], out amount))
+          {
+#if (DEBUG)
+            Console.WriteLine("Invalid card entry read for deck:\n" + line);
+#endif      
+            continue;
+          }
+          ret.deckList.Add(new Tuple<CardBase.CardID, uint>(card, amount));
+        } while ((line = sr.ReadLine()) != null) ;          
+      }
+
+      return ret;
+    }
+
+    static public EnemyStatsInfo LoadEnemy(string fileName)
+    {
+      EnemyStatsInfo ret = new EnemyStatsInfo();
+      using (StreamReader sr = new StreamReader(fileName))
+      {
+        string line = GetNextNonCommentLine(sr);
+        if (!Enum.TryParse(line, out ret.characterType))
+        {
+#if (DEBUG)
+          Console.WriteLine("Invalid character type read:\n" + line);
+#endif
+        }
+
+        ret.portrait = GetNextNonCommentLine(sr);
+        ret.background = GetNextNonCommentLine(sr);
+
+        line = GetNextNonCommentLine(sr);
+        string[] healthData = line.Split(',');
+        if (!int.TryParse(healthData[0], out ret.health) || !int.TryParse(healthData[1], out ret.maxHealth))
+        {
+#if (DEBUG)
+          Console.WriteLine("Invalid data read for health:\n" + line);
+#endif
+        }
+
+        line = GetNextNonCommentLine(sr);
+        ret.deckList = new List<Tuple<CardBase.CardID, uint>>();
+        do
+        {
           string[] cardData = line.Split(',');
           CardBase.CardID card;
           uint amount;
@@ -52,20 +98,19 @@ namespace GoopScripts.Serialization
             continue;
           }
           ret.deckList.Add(new Tuple<CardBase.CardID, uint>(card, amount));
-        } while ((line = sr.ReadLine()) != null) ;          
+        } while ((line = sr.ReadLine()) != null);
       }
 
       return ret;
     }
 
-    static public void SavePlayerState(ref Gameplay.Stats stats, string fileName)
+    static public void SavePlayerState(ref Gameplay.Stats stats, int currentLevel, string fileName)
     {
       using (StreamWriter sw = new StreamWriter(fileName))
       {
         // serialize level
-        // FUNC CALL TO GAMEMANAGER.CS HERE
         sw.WriteLine(COMMENT_SYMBOL + " Level to load");
-        sw.WriteLine(1);
+        sw.WriteLine(currentLevel);
 
         // serialize health
         sw.WriteLine();

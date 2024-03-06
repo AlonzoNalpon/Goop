@@ -948,6 +948,7 @@ void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str, float a
     std::ostringstream oss;
     oss << "Unable to get text component of entity " << entity;
     Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    return;
   }
 
   textComp->m_text = MONO::MonoStringToSTD(str);

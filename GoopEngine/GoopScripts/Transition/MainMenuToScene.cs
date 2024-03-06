@@ -31,7 +31,7 @@ namespace GoopScripts.Transition
 					Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Cutscene");
 					break;
         case 1: // LOAD GAME
-
+          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Game");
           break;
         case 2:
           Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Options");
