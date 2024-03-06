@@ -124,7 +124,6 @@ void ImGuiUI::Update()
     ImGuizmo::SetDrawlist(); // internally set draw list for imguizmo
     auto& io = ImGui::GetIO();
     ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
-   
 
     ImGuizmo::Enable(true);
 
