@@ -7,17 +7,11 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  internal class QuitGame : IButtonClick, IButtonRelease
+  public class QuitGame : TextButtonBase
   {
-    public void OnClick(uint entity)
-    {
-      Utils.UpdateSprite(entity, "Button_Base_Disabled");
-    }
-
-    public void OnRelease(uint entity)
+    public override void OnRelease(uint entity)
 		{
-			Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
-			Utils.UpdateSprite(entity, "Button_Base");
+      base.OnRelease(entity);
       Utils.DispatchQuitEvent();
     }
   }

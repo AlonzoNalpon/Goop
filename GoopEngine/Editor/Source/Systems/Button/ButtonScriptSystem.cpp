@@ -43,6 +43,11 @@ void GE::Systems::ButtonScriptSystem::Update()
       {
         classInst = script.m_classInst;
         method = mono_class_get_method_from_name(script.m_scriptClass, "OnRelease", 1);
+        if (!method)
+        {
+          MonoClass* parent = mono_class_get_parent(script.m_scriptClass);
+          method = mono_class_get_method_from_name(parent, "OnRelease", 1);
+        }
         if (method)
         {
           // run click functon
@@ -70,7 +75,12 @@ void GE::Systems::ButtonScriptSystem::Update()
         {
           classInst = script.m_classInst;
           method = mono_class_get_method_from_name(script.m_scriptClass, "OnClick", 1);
-          if (method)
+          if (!method)
+          {
+            MonoClass* parent = mono_class_get_parent(script.m_scriptClass);
+            method = mono_class_get_method_from_name(parent, "OnClick", 1);
+          }
+          if(method)
           {
             // run click functon
             void* args{ &entity };
@@ -90,10 +100,20 @@ void GE::Systems::ButtonScriptSystem::Update()
         if (btn->m_currCollided)
         {
           method = mono_class_get_method_from_name(script.m_scriptClass, "OnHoverEnter", 1);
+          if (!method)
+          {
+            MonoClass* parent = mono_class_get_parent(script.m_scriptClass);
+            method = mono_class_get_method_from_name(parent, "OnHoverEnter", 1);
+          }
         }
         else
         {
           method = mono_class_get_method_from_name(script.m_scriptClass, "OnHoverExit", 1);
+          if (!method)
+          {
+            MonoClass* parent = mono_class_get_parent(script.m_scriptClass);
+            method = mono_class_get_method_from_name(parent, "OnHoverExit", 1);
+          }
         }
 
         // If found function in script
