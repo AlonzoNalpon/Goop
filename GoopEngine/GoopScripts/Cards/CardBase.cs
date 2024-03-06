@@ -41,7 +41,7 @@ namespace GoopScripts.Cards
       DAWSON_SHIELD,
 
       SPECIAL_CHARGEUP,
-      SPECIAL_TIMEWRAP,
+      SPECIAL_TIMEWARP,
 
       TOTAL_CARDS,
     }

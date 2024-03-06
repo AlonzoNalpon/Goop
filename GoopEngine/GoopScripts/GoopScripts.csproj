@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>GoopScripts</RootNamespace>
     <AssemblyName>GoopScripts</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -83,6 +83,9 @@
     <Compile Include="Button\QueueCardDisplay.cs" />
     <Compile Include="Cutscene\SwitchCutScenes.cs" />
     <Compile Include="Gameplay\ComboTextUpdate.cs" />
+    <Compile Include="Serialization\ISerializedObject.cs" />
+    <Compile Include="Serialization\SerialReader.cs" />
+    <Compile Include="Serialization\StatsInfo.cs" />
     <Compile Include="Transition\ChangeGameOverToMainMenu.cs" />
     <Compile Include="Transition\ChangeToCredits.cs" />
     <Compile Include="Transition\ChangeToCutScenes.cs" />

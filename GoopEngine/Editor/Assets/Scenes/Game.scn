@@ -157,6 +157,13 @@
                                     "scriptField": {
                                         "fieldName": "m_maxHealth"
                                     }
+                                },
+                                {
+                                    "data": 39,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "textUI"
+                                    }
                                 }
                             ]
                         },
@@ -559,6 +566,13 @@
                                     "scriptField": {
                                         "fieldName": "m_maxHealth"
                                     }
+                                },
+                                {
+                                    "data": 42,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "textUI"
+                                    }
                                 }
                             ]
                         },
@@ -776,6 +790,7 @@
         "Child Entities": [
             10,
             28,
+            39,
             85
         ],
         "Components": [
@@ -800,6 +815,7 @@
         "Child Entities": [
             25,
             29,
+            42,
             86
         ],
         "Components": [
@@ -2460,10 +2476,43 @@
         ]
     },
     {
+        "Name": "PHealthText",
+        "ID": 39,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 8,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -452.569, 422.398, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -452.569, 422.398, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "1",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
         "Name": "Transitions",
         "ID": 40,
         "Prefab": null,
-        "isActive": true,
+        "isActive": false,
         "Parent": null,
         "Child Entities": [
             16,
@@ -2585,6 +2634,39 @@
                             "scriptFieldInstList": []
                         }
                     ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "EHealthText",
+        "ID": 42,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 9,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 396.991, 422.398, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 396.991, 422.398, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "0/10",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
                 }
             }
         ]

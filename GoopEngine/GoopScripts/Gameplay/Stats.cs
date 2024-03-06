@@ -64,7 +64,6 @@ namespace GoopScripts.Gameplay
     ************************************************************************/
     public void OnCreate()
     {
-      m_deckMngr.Init(m_type);
       m_buffs = new BuffManager(m_buffsDisplay, m_type);
 
       // save the pos of each queue element
@@ -89,7 +88,6 @@ namespace GoopScripts.Gameplay
       }
       Utils.SetTextComponent(m_comboUI[0], "");
       Utils.SetTextComponent(m_comboUI[1], "");
-      m_healthBar.ResetBar();
     }
 
     /*!*********************************************************************

@@ -74,6 +74,7 @@ void ScriptInstance::InvokeOnUpdate(GE::ECS::Entity m_entityId, double dt)
   if (m_onUpdateMethod)
   {
     std::vector<void*> params = { &m_entityId, &dt };
+
     mono_runtime_invoke(m_onUpdateMethod, mono_gchandle_get_target(m_gcHandle), params.data(), nullptr);
     //mono_runtime_invoke(m_onUpdateMethod, m_classInst, nullptr, nullptr);
   }

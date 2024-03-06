@@ -9,6 +9,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Gameplay;
 using GoopScripts.Mono;
+using GoopScripts.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,8 @@ namespace GoopScripts.UI
   public class HealthBar : Entity
   {
     private int padding_size = 0;
-    public int m_health, m_maxHealth; //
-    public int healthBarUI; //
+    public int m_health, m_maxHealth;
+    public int healthBarUI, textUI;
     public int Player;
     private int m_width, m_height;
     private Vec3<double> m_barPos;
@@ -31,17 +32,15 @@ namespace GoopScripts.UI
 
     public HealthBar(uint entity) : base(entity)
     {
-      
+
     }
 
-    public void OnCreate()
+    public void Init(int health, int maxHealth)
     {
-      Init();
-    }
+      m_health = health;
+      m_maxHealth = maxHealth;
 
-    public void Init()
-    {
-      m_barPos = Utils.GetPosition((uint)healthBarUI);
+      m_barPos = Utils.GetWorldPosition((uint)healthBarUI);
       m_width = (int)Utils.GetObjectWidth((uint)healthBarUI) * (int)Utils.GetScale((uint)healthBarUI).X;
       m_height = (int)Utils.GetObjectHeight((uint)healthBarUI) * (int)Utils.GetScale((uint)healthBarUI).Y - padding_size;
       m_bars = new uint[m_maxHealth];
@@ -66,15 +65,14 @@ namespace GoopScripts.UI
         m_bars[i] = barID;
         currentBarPos.X += m_individualBarWidth + padding_size;
       }
+      UpdateHealthText();
     }
 
     public void ResetBar()
     {
-      if (Player != 0)
-      {
-        Vec3<double> currentScale = Utils.GetScale((uint)healthBarUI);
-        Utils.SetScale((uint)healthBarUI, new Vec3<double>(-currentScale.X, currentScale.Y, currentScale.Z));
-      }
+      Vec3<double> currentScale = Utils.GetScale((uint)healthBarUI);
+      Utils.SetScale((uint)healthBarUI, new Vec3<double>(-currentScale.X, currentScale.Y, currentScale.Z));
+      UpdateHealthText();
     }
 
     public int GetHealth()
@@ -89,9 +87,8 @@ namespace GoopScripts.UI
         if (m_health - 1 < 0)
           break;
         Utils.SetIsActiveEntity(m_bars[--m_health], false);
-        //Console.WriteLine("Health Decreased");
-
       }
+      UpdateHealthText();
     }
 
     public void IncreaseHealth(int amount)
@@ -101,9 +98,13 @@ namespace GoopScripts.UI
         if (m_health + 1 > m_maxHealth)
           break;
         Utils.SetIsActiveEntity(m_bars[m_health++], true);
-        //Console.WriteLine("Health Increased");
-
       }
+      UpdateHealthText();
+    }
+
+    void UpdateHealthText()
+    {
+      Utils.SetTextComponent(textUI, m_health + " / " + m_maxHealth);
     }
   }
 }
