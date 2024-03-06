@@ -1,0 +1,109 @@
+{
+    "Name": "PQElem1",
+    "isActive": true,
+    "Version": 0,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 0, 159.642, 0 }",
+                "scale": "{ 0.893564, 0.836059, 1 }",
+                "rot": "{ 0, 0, 0 }",
+                "worldPos": "{ -800, 218.383, 1 }",
+                "worldScale": "{ 0.893564, 0.836059, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ -800, 218.383 }",
+                "width": 165.0,
+                "height": 165.0,
+                "min": "{ -882.5, 135.883 }",
+                "max": "{ -717.5, 300.883 }",
+                "render": false
+            }
+        },
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "width": 211,
+                        "height": 212
+                    }
+                },
+                "spriteName": "Queue_Sequence_1",
+                "shouldRender": true
+            }
+        },
+        {
+            "Audio": {
+                "sounds": [
+                    {
+                        "sound": "SFX_CardPlay1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_CardPlay2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_CardPlay3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_CardPlay4",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_CardPlay5",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    }
+                ]
+            }
+        },
+        {
+            "GE_Button": {
+                "param": "",
+                "eventType": "UNSELECT_CARD",
+                "lastCollided": false,
+                "currCollided": false
+            }
+        },
+        {
+            "Card": {
+                "cardID": "NO_CARD",
+                "tgtEntity": 11
+            }
+        },
+        {
+            "CardHolderElem": {
+                "holder": 11,
+                "elemIdx": 0
+            }
+        }
+    ],
+    "SubData": []
+}

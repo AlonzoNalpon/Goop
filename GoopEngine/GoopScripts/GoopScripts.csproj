@@ -77,6 +77,8 @@
     <Compile Include="Button\DisableEndTurn.cs" />
     <Compile Include="Button\EnemyQueueHover.cs" />
     <Compile Include="Button\GameOverToMainMenu.cs" />
+    <Compile Include="Button\HTP_Back.cs" />
+    <Compile Include="Button\HTP_Next.cs" />
     <Compile Include="Button\MenuMainMenu.cs" />
     <Compile Include="Button\OptionSlider.cs" />
     <Compile Include="Button\BackTutorial.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Button\RewardManager.cs" />
     <Compile Include="Button\QueueCardDisplay.cs" />
     <Compile Include="Cutscene\SwitchCutScenes.cs" />
+    <Compile Include="Gameplay\HTP.cs" />
     <Compile Include="Gameplay\Tutorial.cs" />
     <Compile Include="Gameplay\ComboTextUpdate.cs" />
     <Compile Include="Transition\ChangeGameOverToMainMenu.cs" />
