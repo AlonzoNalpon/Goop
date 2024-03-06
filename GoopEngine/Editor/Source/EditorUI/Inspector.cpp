@@ -778,7 +778,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 							{
 								invalidName = false;
 								blankName = false;
-								tween->AddTween(tweenName, { {0, 0, 0}, {1, 1, 1}, {0, 0, 0}, {}, {}, 1 });
+								tween->AddTween(tweenName, { {0, 0, 0}, {1, 1, 1}, {0, 0, 0}, 
+									{1.f, 1.f, 1.f, 1.f}, {1.f, 1.f, 1.f, 1.f}, 1 });
 								tweenName.clear();
 								CloseCurrentPopup();
 							}
