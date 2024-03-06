@@ -2182,11 +2182,18 @@ namespace
 					InputDouble3("Translate " + std::to_string(i), target, fieldWidth, disabled);
 					InputDouble3("Scale " + std::to_string(i), scale, fieldWidth, disabled);
 					InputDouble3("Rotate " + std::to_string(i), rot, fieldWidth, disabled);
+					ImGui::TableNextColumn();
 					ImGui::Text("Sprite Color");
-					SameLine();
+					// SameLine();
+					
+
+					ImGui::TableNextColumn();
 					ImGui::ColorEdit4(("##spriteColor" + std::to_string(i)).c_str(), spriteColor.rgba);
+					ImGui::TableNextColumn();
 					ImGui::Text("Text Color");
-					SameLine();
+					//SameLine();
+
+					ImGui::TableNextColumn();
 					ImGui::ColorEdit4(("##textColor" + std::to_string(i)).c_str(), textColor.rgba);
 					InputDouble1("Duration", duration);
 					TableNextColumn();

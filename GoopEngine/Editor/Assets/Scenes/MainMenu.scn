@@ -177,6 +177,18 @@
                                     "trans": "{ -480, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": "ChangeToCredits"
                                 }
@@ -189,6 +201,18 @@
                                     "trans": "{ -480, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": "ChangeToCutScenes"
                                 }
@@ -201,6 +225,18 @@
                                     "trans": "{ -480, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": "ChangeToHTP"
                                 }
@@ -213,6 +249,18 @@
                                     "trans": "{ -480, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": "ChangeToOptions"
                                 }
@@ -323,6 +371,18 @@
                                     "trans": "{ -2880, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": ""
                                 }
