@@ -50,7 +50,7 @@ namespace GoopScripts.Cards
       { CardBase.CardID.DAWSON_SWING, "Dawson_Attack2_Hover" },
       { CardBase.CardID.DAWSON_SHIELD, "Dawson_Block_Hover" },
       { CardBase.CardID.SPECIAL_CHARGEUP, "Dawson_ChargeUp_Hover" },
-      { CardBase.CardID.SPECIAL_TIMEWRAP, "Dawson_TimeWarp_Hover" }
+      { CardBase.CardID.SPECIAL_TIMEWARP, "Dawson_TimeWarp_Hover" }
     };
 
     static public readonly Dictionary<CardBase.CardID, string> m_cardIcons = new Dictionary<CardBase.CardID, string>
@@ -73,7 +73,7 @@ namespace GoopScripts.Cards
       { CardBase.CardID.DAWSON_SWING, "CardIcon_BossAttackStrike" },
       { CardBase.CardID.DAWSON_SHIELD, "CardIcon_BossDefenceDeflect" },
       { CardBase.CardID.SPECIAL_CHARGEUP, "CardIcon_BossSpecialChargeup" },
-      { CardBase.CardID.SPECIAL_TIMEWRAP, "CardIcon_BossSpecialTimewarp" }
+      { CardBase.CardID.SPECIAL_TIMEWARP, "CardIcon_BossSpecialTimewarp" }
     };
 
 
@@ -125,7 +125,7 @@ namespace GoopScripts.Cards
           { CardBase.CardID.DAWSON_SWING, new DawsonSwing(CardBase.CardID.DAWSON_SWING, CardBase.CardType.ATTACK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SWING]) },
           { CardBase.CardID.DAWSON_SHIELD, new Block(CardBase.CardID.DAWSON_SHIELD, CardBase.CardType.BLOCK, cardIDtoSpriteMap[(int)CardBase.CardID.DAWSON_SHIELD]) },
           { CardBase.CardID.SPECIAL_CHARGEUP, new SpecialChargeUp(CardBase.CardID.SPECIAL_CHARGEUP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_CHARGEUP]) },
-          { CardBase.CardID.SPECIAL_TIMEWRAP, new SpecialTimeWrap(CardBase.CardID.SPECIAL_TIMEWRAP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_TIMEWRAP]) }
+          { CardBase.CardID.SPECIAL_TIMEWARP, new SpecialTimeWrap(CardBase.CardID.SPECIAL_TIMEWARP, CardBase.CardType.SPECIAL, cardIDtoSpriteMap[(int)CardBase.CardID.SPECIAL_TIMEWARP]) }
         };
       }
 #if (DEBUG)

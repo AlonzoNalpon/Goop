@@ -333,6 +333,7 @@ namespace
 
 void GE::EditorGUI::Inspector::CreateContent()
 {
+	
 
 	GE::ECS::Entity entity = ImGuiHelper::GetSelectedEntity();
 	GE::ECS::EntityComponentSystem& ecs = GE::ECS::EntityComponentSystem::GetInstance();
@@ -636,9 +637,10 @@ void GE::EditorGUI::Inspector::CreateContent()
 					}
 
 					// Transparency setting (1 float)
-					ImGui::Text("Alpha");
+					ImGui::Text("Tint Color");
 					SameLine();
-					ImGui::InputFloat("##SprtAlpha", &spriteObj->m_spriteData.info.alpha);
+					ImGui::ColorEdit4("##ClrSpriteTintEdit", spriteObj->m_spriteData.info.tint.rgba);
+
 
 					if (hasSpriteAnim)
 						EndDisabled();
@@ -776,7 +778,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 							{
 								invalidName = false;
 								blankName = false;
-								tween->AddTween(tweenName, { {0, 0, 0}, {1, 1, 1}, {0, 0, 0}, 1 });
+								tween->AddTween(tweenName, { {0, 0, 0}, {1, 1, 1}, {0, 0, 0}, 
+									{1.f, 1.f, 1.f, 1.f}, {1.f, 1.f, 1.f, 1.f}, 1 });
 								tweenName.clear();
 								CloseCurrentPopup();
 							}
@@ -2165,11 +2168,11 @@ namespace
 				int i{};
 				int removeIndex{};
 				bool shouldRemove{ false };
-				for (auto& [target, scale, rot, duration, script] : action)
+				for (auto& [target, scale, rot, spriteColor, textColor, duration, script] : action)
 				{
+					PushID((std::to_string(i)).c_str());
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
 					TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
-					PushID((std::to_string(i)).c_str());
 					// Formatting
 					if (i != 0)
 					{
@@ -2179,19 +2182,33 @@ namespace
 					InputDouble3("Translate " + std::to_string(i), target, fieldWidth, disabled);
 					InputDouble3("Scale " + std::to_string(i), scale, fieldWidth, disabled);
 					InputDouble3("Rotate " + std::to_string(i), rot, fieldWidth, disabled);
+					ImGui::TableNextColumn();
+					ImGui::Text("Sprite Color");
+					// SameLine();
+					
+
+					ImGui::TableNextColumn();
+					ImGui::ColorEdit4(("##spriteColor" + std::to_string(i)).c_str(), spriteColor.rgba);
+					ImGui::TableNextColumn();
+					ImGui::Text("Text Color");
+					//SameLine();
+
+					ImGui::TableNextColumn();
+					ImGui::ColorEdit4(("##textColor" + std::to_string(i)).c_str(), textColor.rgba);
 					InputDouble1("Duration", duration);
 					TableNextColumn();
 					ImGui::Text("Anim Event");
 					TableNextColumn();
 					InputText("##", &script);
-					PopID();
 					EndTable();
 					if (Button("Delete keyframe", { GetContentRegionMax().x, 20 }))
 					{
 						removeIndex = i;
 						shouldRemove = true;
+						PopID();
 						break;
 					}
+					PopID();
 					++i;
 				}
 				if (shouldRemove)
@@ -2204,7 +2221,7 @@ namespace
 				// 20 magic number cuz the button looks good
 				if (Button("Add keyframe", { GetContentRegionMax().x, 20 }))
 				{
-					action.emplace_back(vec3{ 0, 0, 0 }, vec3{ 1, 1, 1 }, vec3{ 0, 0, 0 }, 1);
+					action.emplace_back(vec3{ 0, 0, 0 }, vec3{ 1, 1, 1 }, vec3{ 0, 0, 0 }, Colorf{}, Colorf{}, 1);
 				}
 				Indent();
 

@@ -26,6 +26,14 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 namespace GE {
 	namespace MONO {
 
+		enum CtorType
+		{
+			DEFAULT_CTOR,
+			ENTITY_CTOR,
+			SPECIAL_CTOR
+
+		};
+
 		const size_t maxBufferSize{ 1000 };
 
 		struct ScriptField
@@ -70,12 +78,14 @@ namespace GE {
 		struct ScriptInstance
 		{
 			std::string m_scriptName;
+			CtorType m_ctorType;
 			GE::ECS::Entity m_entityID;
 			uint32_t m_gcHandle;
 			MonoClass* m_scriptClass{ nullptr };
 			MonoObject* m_classInst{ nullptr };
 			MonoMethod* m_onUpdateMethod{ nullptr };
 			MonoMethod* m_onCreateMethod = { nullptr };
+
 
 			std::vector<rttr::variant> m_scriptFieldInstList;
 			inline static char m_fieldValBuffer[maxBufferSize];
@@ -108,12 +118,16 @@ namespace GE {
 
 			ScriptInstance(const std::string& scriptName, GE::ECS::Entity entityID);
 
+
+			void ReloadScript();
+
 			/*!*********************************************************************
 			\brief
 				Function to get all the c# script class public field data from ScriptManager
 			************************************************************************/
 			void GetFields();
 
+			void PrintAllField();
 
 
 			/*!*********************************************************************
@@ -150,6 +164,7 @@ namespace GE {
 			template<typename T>
 			T GetFieldValue(MonoClassField* field)
 			{
+
 				mono_field_get_value(m_classInst, field, m_fieldValBuffer);
 				return *(T*)m_fieldValBuffer;
 			}

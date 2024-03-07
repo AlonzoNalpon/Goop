@@ -66,51 +66,10 @@ namespace GoopScripts.Gameplay
 		  Initializes the deck for the start of a battle. Shuffles the deck and
       adds cards to the hand equal to STARTING_CARDS.
 		************************************************************************/
-//    public void Init(CharacterType type)
-//    {
-//      switch (type)
-//      {
-//        case CharacterType.PLAYER:
-//          m_deck.AddCard(CardBase.CardID.LEAH_BEAM, 4);
-//          m_deck.AddCard(CardBase.CardID.LEAH_STRIKE, 4);
-//          m_deck.AddCard(CardBase.CardID.LEAH_SHIELD, 4);
-//          m_deck.AddCard(CardBase.CardID.SPECIAL_FLASHBANG);
-//          break;
-//        case CharacterType.BASIC_ENEMY:
-//          m_deck.AddCard(CardBase.CardID.BASIC_ATTACK, 4);
-//          m_deck.AddCard(CardBase.CardID.BASIC_SHIELD, 3);
-//          m_deck.AddCard(CardBase.CardID.SPECIAL_SCREECH);
-//          break;
-//        case CharacterType.BOSS_P1:
-//          m_deck.AddCard(CardBase.CardID.DAWSON_BEAM, 2);
-//          m_deck.AddCard(CardBase.CardID.DAWSON_SWING, 2);
-//          m_deck.AddCard(CardBase.CardID.DAWSON_SHIELD, 5);
-//          m_deck.AddCard(CardBase.CardID.SPECIAL_CHARGEUP);
-//          break;
-//        case CharacterType.BOSS_P2:
-//          m_deck.AddCard(CardBase.CardID.DAWSON_BEAM, 3);
-//          m_deck.AddCard(CardBase.CardID.DAWSON_SWING, 3);
-//          m_deck.AddCard(CardBase.CardID.DAWSON_SHIELD, 6);
-//          m_deck.AddCard(CardBase.CardID.SPECIAL_CHARGEUP, 2);
-//          m_deck.AddCard(CardBase.CardID.SPECIAL_TIMEWRAP);
-//          break;
-//        default:
-//#if (DEBUG)
-//          //Console.WriteLine("Unable to create deck of type: " + type.ToString());
-//#endif
-//          break;
-//      }
-
-//      if (m_deck.Size() < STARTING_CARDS)
-//      {
-//#if (DEBUG)
-//        Console.WriteLine("Deck size of " + m_deck.Size() + " lesser than STARTING_CARDS (" + STARTING_CARDS + ")");
-//#endif
-//        return;
-//      }
-
-//      m_deck.Shuffle();
-//    }
+    public void Init()
+    {
+      m_deck.Shuffle();
+    }
 
     /*!*********************************************************************
 		\brief

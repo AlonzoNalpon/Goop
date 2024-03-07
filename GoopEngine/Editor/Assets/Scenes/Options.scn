@@ -204,17 +204,7 @@
     {
         "Name": "Transition",
         "ID": 5,
-        "Prefab": {
-            "name": "Transition",
-            "version": 0,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 5
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -259,13 +249,24 @@
                                     "trans": "{ -2880, 0, 0 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 180 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": ""
                                 }
                             ]
                         }
                     ],
-                    "started": false,
                     "paused": false,
                     "loop": false,
                     "playing": "Transition"
@@ -979,17 +980,7 @@
     {
         "Name": "FPSCounter",
         "ID": 21,
-        "Prefab": {
-            "name": "FPSCounter",
-            "version": 0,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 21
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],

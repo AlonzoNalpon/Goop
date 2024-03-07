@@ -1,0 +1,16 @@
+# Enemy Type
+MINE_WORM
+
+# Portrait
+UI_Portrait_MineWorm.png
+
+# Background
+Environment_Level1.png
+
+# Enemy Health, MaxHealth
+8, 8
+
+# Deck List
+BASIC_ATTACK, 4
+BASIC_SHIELD, 3
+SPECIAL_SCREECH, 1

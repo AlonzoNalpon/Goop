@@ -89,7 +89,7 @@
             },
             {
                 "Text": {
-                    "text": "FPS",
+                    "text": "60.00",
                     "clr": {
                         "r": 0.9411764740943909,
                         "g": 1.0,
@@ -177,6 +177,18 @@
                                     "trans": "{ -480, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": "ChangeToCredits"
                                 }
@@ -189,8 +201,44 @@
                                     "trans": "{ -480, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": "ChangeToCutScenes"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "Game",
+                            "value": [
+                                {
+                                    "trans": "{ -480, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToGameScene"
                                 }
                             ]
                         },
@@ -201,6 +249,18 @@
                                     "trans": "{ -480, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": "ChangeToHTP"
                                 }
@@ -213,13 +273,24 @@
                                     "trans": "{ -480, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": "ChangeToOptions"
                                 }
                             ]
                         }
                     ],
-                    "started": false,
                     "paused": false,
                     "loop": false,
                     "playing": ""
@@ -245,6 +316,11 @@
                         },
                         {
                             "scriptName": "ChangeToHTP",
+                            "entityID": 9,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "ChangeToGameScene",
                             "entityID": 9,
                             "scriptFieldInstList": []
                         }
@@ -286,10 +362,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 1000 }",
+                    "pos": "{ 400, 0, 1000 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 1000 }",
+                    "worldPos": "{ 400, 0, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -321,16 +397,27 @@
                             "key": "Transition",
                             "value": [
                                 {
-                                    "trans": "{ -2880, 0, 0 }",
+                                    "trans": "{ -2880, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": ""
                                 }
                             ]
                         }
                     ],
-                    "started": false,
                     "paused": false,
                     "loop": false,
                     "playing": "Transition"
@@ -579,7 +666,21 @@
             },
             {
                 "Scripts": {
-                    "scriptList": []
+                    "scriptList": [
+                        {
+                            "scriptName": "MainMenuToScene",
+                            "entityID": 16,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 1,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Scene"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             },
             {
@@ -1069,13 +1170,19 @@
             },
             {
                 "Scripts": {
-                    "scriptList": []
+                    "scriptList": [
+                        {
+                            "scriptName": "QuitGame",
+                            "entityID": 24,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             },
             {
                 "GE_Button": {
                     "param": "",
-                    "eventType": "QUIT_GAME",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }

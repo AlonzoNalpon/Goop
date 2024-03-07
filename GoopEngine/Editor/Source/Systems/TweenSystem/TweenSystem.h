@@ -13,9 +13,9 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <ECS/System/System.h>
 
 using vec3 = GE::Math::dVec3;
-
 namespace GE::Systems
 {
+	using namespace Graphics;
 	class TweenSystem : public GE::ECS::System
 	{
 	public:
@@ -36,5 +36,7 @@ namespace GE::Systems
 			Normalised time.
 		************************************************************************/
 		vec3 Tweening(vec3 start, vec3 end, double normalisedTime);
+
+		Colorf Tweening(Colorf start, Colorf end, double normalisedTime);
 	};
 }

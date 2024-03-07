@@ -31,5 +31,6 @@ namespace GE::Component
 		std::string m_param = "";
 		bool m_lastCollided{ false };
 		bool m_currCollided{ false };
+		bool m_hadEvent{ false };
 	};
 }

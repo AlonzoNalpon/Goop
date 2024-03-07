@@ -53,6 +53,12 @@ namespace GE::Graphics {
       r{ r }, g{ g }, b{ b }, a{ a } {}
 
     T rgba[4];
+
+    T_Colorf operator-(T_Colorf rhs)
+    {return { r - rhs.r, g - rhs.g, b - rhs.b, a - rhs.a };}
+
+    T_Colorf operator+(T_Colorf rhs)
+    {return { r + rhs.r, g + rhs.g, b + rhs.b, a + rhs.a };}
   };
 
   /*!
@@ -186,6 +192,7 @@ namespace GE::Graphics {
   };
 
   using gVec3  = glm::vec3;   //!< glm vector3
+  using gVec4  = glm::vec4;   //!< glm vector4
   using gDvec3 = glm::dvec3;  //!< glm dvector3
   using gVec2  = glm::vec2;   //!< glm vector2
   using gDvec2 = glm::dvec2;  //!< glm dvector2
@@ -203,6 +210,11 @@ namespace GE::Graphics {
   using GL_Data   = T_GL_Data_Layout<gVec3, Colorf, gVec2, std::vector>; //!< our most common GL data type for shader attributes
 
   constexpr gObjID BAD_OBJ_ID{ static_cast<gObjID>(-1) }; // Our bad obj id will be the biggest number possible
+
+  inline Colorf operator*(GLfloat mult, Colorf clr)
+  {
+    return { mult*clr.r, mult*clr.g, mult*clr.b, mult*clr.a};
+  }
 }
 
 #endif

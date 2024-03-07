@@ -21,6 +21,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Events/EventManager.h>
 #include "PrefabEditor.h"
 #include <Systems/GameSystem/GameSystem.h>
+#include <shellapi.h>
 
 using namespace ImGui;
 using namespace GE::Assets;
@@ -107,12 +108,12 @@ void AssetBrowser::CreateContentView()
 	BeginGroup();
 	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
 	{
-		std::string const extension{ file.path().extension().string() };
-
 		if (!file.is_regular_file())
 		{
 			continue;
 		}
+
+		std::string const extension{ file.path().extension().string() };
 
 		std::string const path = file.path().filename().string();
 		const char* pathCStr = path.c_str();
@@ -205,6 +206,10 @@ void AssetBrowser::CreateContentView()
 		{
 			ImGuiHelper::SetSelectedAsset(file);
 			OpenPopup("AssetsMenu");
+		}
+		else if (ImGui::IsItemClicked(ImGuiMouseButton_Left) && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+		{
+			OpenFileWithDefaultProgram(file.path().string());
 		}
 	}
 
@@ -426,6 +431,14 @@ void AssetBrowser::RunConfirmDeletePopup()
 
 		ImGui::EndPopup();
 	}
+}
+
+void AssetBrowser::OpenFileWithDefaultProgram(std::string const& filePath)
+{
+	std::filesystem::path path{ filePath };
+	std::string const absolutePath{ std::filesystem::absolute(filePath).string() };
+	std::wstring wsStr{ absolutePath.begin(), absolutePath.end() };
+	ShellExecute(0, 0, wsStr.c_str(), 0, 0, SW_SHOW);
 }
 
 std::string AssetBrowser::GetRelativeFilePath(std::string const& filepath, std::string const& rootDir)

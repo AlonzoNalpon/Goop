@@ -1,5 +1,16 @@
 [
     {
+        "key": "ChangeToGame",
+        "value": [
+            {
+                "key": 0,
+                "value": [
+                    "ChangeToGameScene"
+                ]
+            }
+        ]
+    },
+    {
         "key": "DemoLeah",
         "value": [
             {
