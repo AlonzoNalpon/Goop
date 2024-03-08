@@ -8,6 +8,7 @@
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+using GoopScripts.Button;
 using GoopScripts.Gameplay;
 using GoopScripts.Mono;
 using System;
@@ -15,24 +16,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static GoopScripts.Button.TextButtonBase;
 
 namespace GoopScripts.Button
 {
-  public class EndTurn : Entity, IButtonClick
+  public class EndTurn : TextButtonBase
   {
     public int disabledEndTurn;
     /*!*********************************************************************
      \brief
-       Triggers the end of a turn through a function call to the game
-       manager
+       Triggers when release event is detected
      \param entity
        The id of the current entity
     ************************************************************************/
-    public void OnClick(uint entity)
+    public override void OnRelease(uint entity)
     {
-      Gameplay.GameManager gm = (Gameplay.GameManager) Utils.GetScript("GameSystem", "GameManager");
-      Utils.SetIsActiveEntity((uint)disabledEndTurn, true);
-      Utils.PlaySoundF("SFX_ButtonClick", 1.0f, Utils.ChannelType.SFX, false);
+      base.OnRelease(entity);
+      Gameplay.GameManager gm = (Gameplay.GameManager)Utils.GetScript("GameSystem", "GameManager");
       gm.EndTurn();
     }
   }
