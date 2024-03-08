@@ -73,6 +73,7 @@
     <Compile Include="Audio\MoleRat\MoleRatScreeches.cs" />
     <Compile Include="Audio\StartMainMenuBGM.cs" />
     <Compile Include="Audio\StopGameAudio.cs" />
+    <Compile Include="Button\Pause\HowToPlayClose.cs" />
     <Compile Include="Button\Tutorial\ContinueTutorial.cs" />
     <Compile Include="Button\TextButtonBase.cs" />
     <Compile Include="Button\GameLevel\DisableEndTurn.cs" />

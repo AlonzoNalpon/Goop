@@ -3540,7 +3540,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "MenuClose",
+                            "scriptName": "HowToPlayClose",
                             "entityID": 59,
                             "scriptFieldInstList": [
                                 {
