@@ -201,7 +201,9 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   }
   else if (compType == rttr::type::get<Component::Scripts>())
   {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Scripts*>());
+    Component::Scripts* scripts{ compVar.get_value<Component::Scripts*>() };
+    scripts->SetAllEntityID(entity);
+    ecs.AddComponent(entity, *scripts);
   }
   else if (compType == rttr::type::get<Component::Draggable>())
   {

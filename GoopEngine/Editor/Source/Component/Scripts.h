@@ -130,6 +130,20 @@ namespace GE
 				}
 				return &m_scriptList[scriptID];
 			}
+
+			/*!*********************************************************************
+			\brief
+			  Sets all entity ids of script instances to the given id
+			\param id
+				The entity ID to set
+			************************************************************************/
+			void SetAllEntityID(ECS::Entity id)
+			{
+				for (auto& script : m_scriptList)
+				{
+					script.SetEntityID(id);
+				}
+			}
 		};
 	}
 }
