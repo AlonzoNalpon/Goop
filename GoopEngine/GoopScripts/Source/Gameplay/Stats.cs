@@ -38,7 +38,6 @@ namespace GoopScripts.Gameplay
     public HealthBar m_healthBar;
     public int m_attack = 89, m_block = 69;
 
-
     // VARIABLES HERE SHOULD ONLY BE MODFIED THROUGH EDITOR
     public int m_buffsDisplay;
     public int[] m_comboUI, queueElemIDs;

@@ -51,6 +51,9 @@ namespace GE::MONO
 		static std::string m_coreAssFilePath;
 		static std::unique_ptr<filewatch::FileWatch<std::string>> m_fileWatcher;
 		static bool m_assemblyReloadPending;
+		static std::unique_ptr<filewatch::FileWatch<std::string>> m_csProjWatcher;
+		static bool m_CSReloadPending;
+		static bool m_rebuildCS;
 		static std::string m_scnfilePath;
 
 		/*!*********************************************************************
@@ -102,6 +105,7 @@ namespace GE::MONO
 		static void LoadAssembly();
 		static void ReloadAllScripts();
 		static void AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type);
+		static void CSReloadEvent(const std::string& path, const filewatch::Event change_type);
 
 
 		/*!*********************************************************************
@@ -116,6 +120,7 @@ namespace GE::MONO
 		static void LoadAllMonoClass();
 
 		static void ReloadAssembly();
+		static void RebuildCS();
 
 		/*!*********************************************************************
 		\brief

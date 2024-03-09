@@ -23,7 +23,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Prefabs/PrefabManager.h>
 #include <ObjectFactory/ObjectFactory.h>
 
-
+#include <filesystem>
 #include <Component/Card.h>
 #include <Component/CardHolder.h>
 #include <GameDef.h>
@@ -50,6 +50,9 @@ namespace GE
     std::string GE::MONO::ScriptManager::m_coreAssFilePath{};
     std::unique_ptr<filewatch::FileWatch<std::string>> GE::MONO::ScriptManager::m_fileWatcher{};
     bool GE::MONO::ScriptManager::m_assemblyReloadPending{};
+    std::unique_ptr<filewatch::FileWatch<std::string>> GE::MONO::ScriptManager::m_csProjWatcher{};
+    bool GE::MONO::ScriptManager::m_CSReloadPending{};
+    bool GE::MONO::ScriptManager::m_rebuildCS{};
     std::string  GE::MONO::ScriptManager::m_scnfilePath{};
 
     std::unordered_map<std::string, ScriptFieldType> GE::MONO::ScriptManager::m_ScriptFieldTypeMap
@@ -129,9 +132,11 @@ void GE::MONO::ScriptManager::InitMono()
   //Load All the MonoClasses
   LoadAllMonoClass();
 
-  m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssembly"), AssemblyFileSystemEvent);
+  m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssemblyR"), AssemblyFileSystemEvent);
   m_assemblyReloadPending = false;
 
+  m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
+  m_CSReloadPending = false;
 
 
  // m_scnfilePath = 
@@ -376,6 +381,92 @@ void GE::MONO::ScriptManager::AssemblyFileSystemEvent(const std::string& path, c
   }
 }
 
+void GE::MONO::ScriptManager::CSReloadEvent(const std::string& path, const filewatch::Event change_type)
+{
+  if (!m_CSReloadPending && change_type == filewatch::Event::modified && !m_rebuildCS)
+  {
+    std::cout << "RELOAD CS\n";
+    m_CSReloadPending = true;
+    auto gsm = &GE::GSM::GameStateManager::GetInstance();
+    std::cout << "Lets rebuild\n";
+    m_rebuildCS = true;
+    gsm->SubmitToMainThread([]()
+      {
+        m_csProjWatcher.reset();
+        RebuildCS();
+      });
+  }
+}
+// Function to get Visual Studio version
+std::string GetVisualStudioVersion() {
+  std::string VSver{};
+#ifdef _MSC_VER
+  switch (_MSC_VER) {
+  case 1700:
+    VSver = "2012";
+    break;
+  case 1800:
+    VSver = "2013";
+    break;
+  case 1900:
+    VSver = "2015";
+    break;
+  case 1910:
+    VSver = "2017";
+    break;
+  case 1920:
+    VSver = "2019";
+    break;
+  case 1935:
+    VSver = "2022";
+    break;
+    // Add cases for newer versions as needed
+  default:
+    std::cout << "Unknown Visual Studio Version" << std::endl;
+
+
+  }
+#else
+  std::cout << "Not using Visual Studio" << std::endl;
+#endif
+  return VSver;
+}
+
+void GE::MONO::ScriptManager::RebuildCS()
+{
+  std::cout << "REBUILDCS\n";
+  m_CSReloadPending = false;
+  if (m_rebuildCS)
+  {
+    m_rebuildCS = false;
+    Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
+    std::string const csbat = std::filesystem::absolute(assetManager.GetConfigData<std::string>("CSBatFilePath")).string();
+    std::string vsVer = GetVisualStudioVersion();
+
+    std::string arguments = vsVer;
+#ifdef _DEBUG
+    arguments += " Debug";
+#else
+    arguments += " Release";
+#endif
+
+    std::string cdCMD = "\"" + csbat + "\" ";
+    std::string command = cdCMD + arguments;
+    std::cout << command.c_str() << "\n";
+    int result = system(command.c_str());
+    m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
+    m_CSReloadPending = false;
+
+    if (result == 0) {
+      std::cout << "RUN Successfuly\n";
+    }
+    else {
+      std::cout << "DIDNT RUN Successfuly\n";
+    }
+  }
+}
+
+
 
 void GE::MONO::ScriptManager::ReloadAssembly()
 {
@@ -387,7 +478,7 @@ void GE::MONO::ScriptManager::ReloadAssembly()
   LoadAppDomain();
   Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
   GE::Systems::EnemySystem* es = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::EnemySystem>();
-  m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssembly"), AssemblyFileSystemEvent);
+  m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssemblyR"), AssemblyFileSystemEvent);
   m_assemblyReloadPending = false;
 
   AddInternalCalls();
