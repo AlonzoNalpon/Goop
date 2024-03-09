@@ -71,6 +71,7 @@ namespace GoopScripts.Serialization
 #endif
         }
 
+        ret.prefab = GetNextNonCommentLine(sr);
         ret.portrait = GetNextNonCommentLine(sr);
         ret.background = GetNextNonCommentLine(sr);
 

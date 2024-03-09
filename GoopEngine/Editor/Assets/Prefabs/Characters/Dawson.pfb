@@ -1,7 +1,7 @@
 {
-    "Name": "MineWorm",
+    "Name": "Dawson",
     "isActive": true,
-    "Version": 1,
+    "Version": 2,
     "Components": [
         {
             "Transform": {
@@ -32,20 +32,20 @@
                             "y": 0.0
                         },
                         "texDims": {
-                            "x": 0.25,
+                            "x": 0.20000000298023224,
                             "y": 1.0
                         },
                         "width": 500,
-                        "height": 625
+                        "height": 1000
                     }
                 },
-                "spriteName": "SS_MineWorm_Idle",
+                "spriteName": "SS_Dawson_Idle",
                 "shouldRender": true
             }
         },
         {
             "SpriteAnim": {
-                "name": "SS_MineWorm_Idle"
+                "name": "SS_Dawson_Idle"
             }
         },
         {
@@ -53,7 +53,7 @@
                 "scriptList": [
                     {
                         "scriptName": "Stats",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": [
                             {
                                 "data": 0,
@@ -91,9 +91,9 @@
                                     "Cards In Discard": [],
                                     "Cards In Hand": [],
                                     "Cards In Queue": [
-                                        "BASIC_ATTACK",
+                                        "DAWSON_SHIELD",
                                         "",
-                                        "BASIC_ATTACK"
+                                        "DAWSON_SHIELD"
                                     ]
                                 },
                                 "type": "",
@@ -103,8 +103,8 @@
                             },
                             {
                                 "data": {
-                                    "m_health": 8,
-                                    "m_maxHealth": 8,
+                                    "m_health": 12,
+                                    "m_maxHealth": 12,
                                     "m_healthBarUI": 29
                                 },
                                 "type": "",
@@ -113,7 +113,7 @@
                                 }
                             },
                             {
-                                "data": "BASIC_ENEMY",
+                                "data": "BOSS_P1",
                                 "type": "GoopScripts.Gameplay.CharacterType",
                                 "scriptField": {
                                     "fieldName": "m_type"
@@ -134,7 +134,7 @@
                     },
                     {
                         "scriptName": "HealthBar",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": [
                             {
                                 "data": 1,
@@ -151,14 +151,14 @@
                                 }
                             },
                             {
-                                "data": 8,
+                                "data": 12,
                                 "type": "System.Int32",
                                 "scriptField": {
                                     "fieldName": "m_health"
                                 }
                             },
                             {
-                                "data": 8,
+                                "data": 12,
                                 "type": "System.Int32",
                                 "scriptField": {
                                     "fieldName": "m_maxHealth"
@@ -175,22 +175,22 @@
                     },
                     {
                         "scriptName": "MoleRatBites",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     },
                     {
                         "scriptName": "LeahDies",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     },
                     {
                         "scriptName": "MoleRatScreeches",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     },
                     {
                         "scriptName": "MoleRatBlocks",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     }
                 ]
@@ -205,20 +205,8 @@
             "AnimEvents": {
                 "eventList": [
                     {
-                        "first": 10,
-                        "second": "MoleRatBites"
-                    },
-                    {
-                        "first": 13,
+                        "first": 24,
                         "second": "LeahDies"
-                    },
-                    {
-                        "first": 15,
-                        "second": "MoleRatScreeches"
-                    },
-                    {
-                        "first": 14,
-                        "second": "MoleRatBlocks"
                     }
                 ]
             }

@@ -1,25 +1,25 @@
 {
     "Name": "MoleRat",
     "isActive": true,
-    "Version": 0,
+    "Version": 1,
     "Components": [
         {
             "Transform": {
-                "pos": "{ 336.318, 50, 0 }",
+                "pos": "{ 0, 0, 0 }",
                 "scale": "{ 0.9, 0.9, 1 }",
                 "rot": "{ 0, 0, 0 }",
-                "worldPos": "{ 336.318, 50, 0 }",
+                "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 0.9, 0.9, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
             }
         },
         {
             "BoxCollider": {
-                "center": "{ 336.318, 50 }",
+                "center": "{ 0, 0 }",
                 "width": 456.0,
                 "height": 154.0,
-                "min": "{ 108.318, -27 }",
-                "max": "{ 564.318, 127 }",
+                "min": "{ -228, -77 }",
+                "max": "{ 228, 77 }",
                 "render": false
             }
         },
@@ -39,13 +39,13 @@
                         "height": 625
                     }
                 },
-                "spriteName": "SS_MineWorm_Idle",
+                "spriteName": "SS_MoleRat_Idle",
                 "shouldRender": true
             }
         },
         {
             "SpriteAnim": {
-                "name": "SS_MineWorm_Idle"
+                "name": "SS_MoleRat_Idle"
             }
         },
         {
@@ -92,7 +92,7 @@
                                     "Cards In Hand": [],
                                     "Cards In Queue": [
                                         "NO_CARD",
-                                        "",
+                                        "NO_CARD",
                                         "NO_CARD"
                                     ]
                                 },
@@ -205,19 +205,19 @@
             "AnimEvents": {
                 "eventList": [
                     {
-                        "first": 10,
+                        "first": 6,
                         "second": "MoleRatBites"
                     },
                     {
-                        "first": 13,
+                        "first": 19,
                         "second": "LeahDies"
                     },
                     {
-                        "first": 15,
+                        "first": 20,
                         "second": "MoleRatScreeches"
                     },
                     {
-                        "first": 14,
+                        "first": 18,
                         "second": "MoleRatBlocks"
                     }
                 ]

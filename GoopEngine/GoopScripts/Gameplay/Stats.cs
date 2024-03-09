@@ -52,6 +52,7 @@ namespace GoopScripts.Gameplay
     
     public Stats(uint entityID) : base(entityID)
     {
+      Console.WriteLine(entityID + " ccreated");
       m_deckMngr = new DeckManager();
       queueElemIDs = new int[3];
       m_queueElemPos = new Vec3<double>[3];
@@ -64,6 +65,7 @@ namespace GoopScripts.Gameplay
     ************************************************************************/
     public void OnCreate()
     {
+      Console.WriteLine("OnCreate " + entityID);
       m_buffs = new BuffManager(m_buffsDisplay, m_type);
 
       // save the pos of each queue element

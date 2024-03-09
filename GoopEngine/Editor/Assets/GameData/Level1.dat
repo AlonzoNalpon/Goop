@@ -1,6 +1,9 @@
 # Enemy Type
 MINE_WORM
 
+# Enemy Prefab
+MineWorm
+
 # Portrait
 UI_Portrait_MineWorm.png
 

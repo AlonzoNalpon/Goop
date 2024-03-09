@@ -30,6 +30,7 @@ namespace GoopScripts.Gameplay
   public class GameManager : Entity
   {
     //static readonly double INTERVAL_TIME = 3.0;
+    static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 112.0, 0.0);
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
 
@@ -68,11 +69,8 @@ namespace GoopScripts.Gameplay
     public void OnCreate()
     {
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
-      m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
 
       m_playerStats.m_deckMngr.m_deck.Shuffle();
-      m_enemyStats.m_deckMngr.m_deck.Shuffle();
-
       UI.PauseManager.SetPauseState(0);
 
       // set the static variable to the entity holding the hover effect sprite
@@ -314,7 +312,14 @@ namespace GoopScripts.Gameplay
             else if (m_enemyStats.IsDead())
             {
               // victory
-              ++m_currentLevel;
+              if (m_currentLevel == 2)
+              {
+                File.Copy("./Assets/GameData/DefaultStats.sav", "./Assets/GameData/PlayerStats.sav", true);
+              }
+              else
+              {
+                ++m_currentLevel;
+              }
               SerialReader.SavePlayerState(ref m_playerStats, m_currentLevel, "./Assets/GameData/PlayerStats.sav");
               Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
               //TransitionToScene("Victory");
@@ -432,7 +437,16 @@ namespace GoopScripts.Gameplay
     
     void LoadEnemy(EnemyStatsInfo statsInfo)
     {
-      m_enemyStats.m_type = statsInfo.characterType;
+      //uint enemyID = Utils.GetEntity("Enemy");
+      //Utils.DestroyEntity(enemyID);
+      uint enemyID = Utils.SpawnPrefab(statsInfo.prefab, ENEMY_POS);
+      Console.WriteLine("Prefab id: " + enemyID);
+      Utils.SetEntityName(enemyID, "Enemy");
+      m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
+      m_enemyStats.OnCreate();
+      m_enemyStats.m_deckMngr.m_deck.Shuffle();
+
+      //m_enemyStats.m_type = statsInfo.characterType;
       foreach (var elem in statsInfo.deckList)
       {
         m_enemyStats.m_deckMngr.m_deck.AddCard(elem.Item1, elem.Item2);

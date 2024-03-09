@@ -328,10 +328,13 @@ void ScriptInstance::SetEntityID(GE::ECS::Entity entityId)
 {
   m_entityID = entityId;
   MonoClass* parent = mono_class_get_parent(m_scriptClass);
+  if (std::string(mono_class_get_name(parent)) != "Entity") { return; }
+
+  std::cout << "Class name: " << m_scriptName << "| ";
+  std::cout << "Parent: " <<  mono_class_get_name(parent) << "\n";
   MonoMethod*  setEntityIDMethod = mono_class_get_method_from_name(parent, "SetEntityID", 1);
   std::vector<void*> params = { &entityId };
   mono_runtime_invoke(setEntityIDMethod, mono_gchandle_get_target(m_gcHandle), params.data(), nullptr);
-
 }
 
 void ScriptInstance::PrintAllField()

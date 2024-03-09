@@ -1,6 +1,9 @@
 # Enemy Type
 MOLE_RAT
 
+# Enemy Prefab
+MoleRat
+
 # Portrait
 UI_Portrait_MoleRat.png
 

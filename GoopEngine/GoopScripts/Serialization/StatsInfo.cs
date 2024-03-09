@@ -16,7 +16,7 @@ namespace GoopScripts.Serialization
 
   public struct EnemyStatsInfo
   {
-    public string portrait, background;
+    public string portrait, background, prefab;
     public List<Tuple<CardBase.CardID, uint>> deckList;
     public int health, maxHealth;
     public Gameplay.CharacterType characterType;
