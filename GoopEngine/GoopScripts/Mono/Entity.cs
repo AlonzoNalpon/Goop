@@ -23,7 +23,13 @@ namespace GoopScripts.Mono
       entityID = id;
     }
 
-    public readonly uint entityID;
+    public uint entityID;
+
+    public void SetEntityID(uint id)
+    {
+      entityID = id;
+    }
+
 
     //public bool HasComponent<T>() where T : Component, new()
     //{
@@ -36,6 +42,9 @@ namespace GoopScripts.Mono
       T component = new T() { Entity = this };
       return component;
     }
+
+
+
 
     //public T As<T>(string scriptName) where T : Entity, new()
     //{

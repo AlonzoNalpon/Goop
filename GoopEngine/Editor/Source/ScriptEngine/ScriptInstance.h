@@ -151,6 +151,8 @@ namespace GE {
 			void InvokeOnUpdate(GE::ECS::Entity m_entityId, double dt);
 
 
+			void SetEntityID(GE::ECS::Entity m_entityId);
+
 			/*!*********************************************************************
 			\brief
 				Template Function to get a public field from the c# script class
