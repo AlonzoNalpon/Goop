@@ -31,6 +31,7 @@ namespace GE {
 			UShort,
 			UInt,
 			ULong,
+			String,
 			Vec2,
 			Vec3,
 			DVec2,

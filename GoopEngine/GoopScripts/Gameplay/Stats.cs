@@ -43,7 +43,8 @@ namespace GoopScripts.Gameplay
     public int[] m_comboUI, queueElemIDs;
 
     public DeckManager m_deckMngr;
-    public CharacterAnims m_animations;
+    public CharacterAnims m_animations = new CharacterAnims();
+    public string test = "oof";
     public Vec3<double>[] m_queueElemPos;
 
     public BuffManager m_buffs { get; set; }

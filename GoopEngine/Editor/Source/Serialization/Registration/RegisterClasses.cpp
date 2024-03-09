@@ -192,6 +192,11 @@ RTTR_REGISTRATION
     .property("type", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
     ;
+  rttr::registration::class_<MONO::ScriptFieldInstance<std::string>>("System.String")
+    .property("data", &MONO::ScriptFieldInstance<std::string>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<std::string>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<std::string>::m_scriptField)
+    ;
   rttr::registration::class_<MONO::ScriptFieldInstance<Math::dVec3>>("GoopScripts.Mono.Vec3<System.Double>")
     .property("data", &MONO::ScriptFieldInstance<Math::dVec3>::m_data)
     .property("type", &MONO::ScriptFieldInstance<Math::dVec3>::m_type)
@@ -212,11 +217,15 @@ RTTR_REGISTRATION
     .property("type", &MONO::ScriptFieldInstance<CharacterType>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<CharacterType>::m_scriptField)
     ;
-
   rttr::registration::class_<MONO::ScriptFieldInstance<HealthBar>>("GoopScripts.Gameplay.HealthBar")
     .property("data", &MONO::ScriptFieldInstance<HealthBar>::m_data)
     .property("type", &MONO::ScriptFieldInstance<HealthBar>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<HealthBar>::m_scriptField)
+    ;
+  rttr::registration::class_<MONO::ScriptFieldInstance<CharacterAnims>>("GoopScripts.Gameplay.CharacterAnims")
+    .property("data", &MONO::ScriptFieldInstance<CharacterAnims>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<CharacterAnims>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<CharacterAnims>::m_scriptField)
     ;
 
 
@@ -239,6 +248,13 @@ RTTR_REGISTRATION
     .property("frames", &Serialization::SpriteData::m_frames)
     .property("speed", &Serialization::SpriteData::m_speed)
     .property("flags", &Serialization::SpriteData::m_flags)
+    ;
+
+  rttr::registration::class_<MONO::CharacterAnims>("CharacterAnims")
+    .property("m_idle", &MONO::CharacterAnims::m_idle)
+    .property("m_flinch", &MONO::CharacterAnims::m_flinch)
+    .property("m_death", &MONO::CharacterAnims::m_death)
+    .property("m_deathShield", &MONO::CharacterAnims::m_deathShield)
     ;
 
 #ifndef IMGUI_DISABLE

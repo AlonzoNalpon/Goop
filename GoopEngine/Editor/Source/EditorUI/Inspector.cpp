@@ -907,39 +907,32 @@ void GE::EditorGUI::Inspector::CreateContent()
 							if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<int>>())
 							{
 								TableNextRow();
-								BeginDisabled(false);
 								GE::MONO::ScriptFieldInstance<int>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<int>>();
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								ImGui::TableNextColumn();
 								SetNextItemWidth(GetWindowSize().x);
 								if (ImGui::InputInt(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<int>(sfi.m_data,sfi.m_scriptField.m_classField ); }
-								EndDisabled();
-
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<float>>())
 							{
 								TableNextRow();
-								BeginDisabled(false);
 								GE::MONO::ScriptFieldInstance<float>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<float>>();
 								ImGui::TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								ImGui::TableNextColumn();
 								SetNextItemWidth(GetWindowSize().x);
 								if (ImGui::InputFloat(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<float>(sfi.m_data, sfi.m_scriptField.m_classField); }
-								EndDisabled();
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<double>>())
 							{
 								TableNextRow();
-								BeginDisabled(false);
 								GE::MONO::ScriptFieldInstance<double>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<double>>();
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								ImGui::TableNextColumn();
 								SetNextItemWidth(GetWindowSize().x);
 								if (ImGui::InputDouble(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<double>(sfi.m_data, sfi.m_scriptField.m_classField); }
-								EndDisabled();
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>())
 							{
@@ -951,7 +944,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<DeckManager>>())
 							{
 								TableNextRow();
-								BeginDisabled(false);
 								GE::MONO::ScriptFieldInstance<DeckManager>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<DeckManager>>();
 								GE::MONO::ScriptInstance& deck = sfi.m_data.m_deckInstance;
 								GE::MONO::ScriptInstance& deckMan = sfi.m_data.m_deckManagerInstance;
@@ -993,16 +985,12 @@ void GE::EditorGUI::Inspector::CreateContent()
 									}
 								
 								}
-
-
-								EndDisabled();
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<HealthBar>>())
 							{
 								TableNextRow();
-								BeginDisabled(false);
 								GE::MONO::ScriptFieldInstance<HealthBar>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<HealthBar>>();
-								GE::MONO::ScriptInstance& healthBar = sfi.m_data.m_HealthBarInst;
+								GE::MONO::ScriptInstance& healthBar = sfi.m_data.m_healthBarInst;
 
 								for (rttr::variant& dF : healthBar.m_scriptFieldInstList)
 								{
@@ -1017,16 +1005,42 @@ void GE::EditorGUI::Inspector::CreateContent()
 										healthBar.SetFieldValue<int>(dSFI.m_data, dSFI.m_scriptField.m_classField);
 										if (dSFI.m_scriptField.m_fieldName == "m_health")
 											sfi.m_data.m_health = dSFI.m_data;
-										if (dSFI.m_scriptField.m_fieldName == "m_maxHealth")
+										else if (dSFI.m_scriptField.m_fieldName == "m_maxHealth")
 											sfi.m_data.m_maxHealth = dSFI.m_data;
-										if (dSFI.m_scriptField.m_fieldName == "healthBarUI")
+										else if (dSFI.m_scriptField.m_fieldName == "healthBarUI")
 											sfi.m_data.m_healthBarUI = dSFI.m_data;
 									}
 
 								}
-								EndDisabled();
 							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterAnims>>())
+							{
+								ImGui::TableNextRow();
+								GE::MONO::ScriptFieldInstance<CharacterAnims>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterAnims>>();
+								GE::MONO::ScriptInstance& charAnims = sfi.m_data.m_characterAnimsInst;
+								
+								ImGui::TableNextColumn(); ImGui::Text("CharacterAnims");
+								ImGui::TableNextRow(); ImGui::TableNextColumn(); ImGui::Separator();
+								ImGui::TableNextColumn(); ImGui::Separator(); ImGui::TableNextRow();
+								for (rttr::variant& dF : charAnims.m_scriptFieldInstList)
+								{
 
+									ScriptFieldInstance<std::string>& dSFI = dF.get_value<ScriptFieldInstance<std::string>>();
+									ImGui::TableNextColumn();
+									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
+									ImGui::TableNextColumn();
+									std::string fieldVal{ dSFI.m_data };
+									if (ImGui::InputText(("##" + dSFI.m_scriptField.m_fieldName).c_str(), &fieldVal, 0, 0, 0))
+									{
+										charAnims.SetFieldValue<MonoString*>(MONO::STDToMonoString(fieldVal), dSFI.m_scriptField.m_classField);
+									}
+								}
+								ImGui::TableNextRow();
+								ImGui::TableNextColumn();
+								ImGui::Separator();
+								ImGui::TableNextColumn();
+								ImGui::Separator();
+							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterType>>())
 							{
 								GE::MONO::ScriptFieldInstance<CharacterType>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterType>>();
@@ -1034,7 +1048,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 								//std::cout << entity << "CT:: " << sfi.m_data << "\n";
 								ImGui::TableNextRow();
-								BeginDisabled(false);
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								TableNextColumn();
@@ -1062,32 +1075,24 @@ void GE::EditorGUI::Inspector::CreateContent()
 									// End the dropdown
 									ImGui::EndCombo();
 								}
-									
-									EndDisabled();
-
-
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>())
 							{
 								GE::MONO::ScriptFieldInstance<std::vector<int>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<int>>>();
 								ImGui::TableNextRow();
-								BeginDisabled(false);
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								TableNextColumn(); 
 								if (InputScriptList("##" + sfi.m_scriptField.m_fieldName, sfi.m_data, inputWidth)){ s.SetFieldValueArr<int>(sfi.m_data,sm->m_appDomain ,sfi.m_scriptField.m_classField);};
-								EndDisabled();
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>())
 							{
 								GE::MONO::ScriptFieldInstance<std::vector<unsigned>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>();
 								ImGui::TableNextRow();
-								BeginDisabled(false);
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								TableNextColumn();
 								if (InputScriptList("##" + sfi.m_scriptField.m_fieldName, sfi.m_data, inputWidth)) { s.SetFieldValueArr<unsigned>(sfi.m_data, sm->m_appDomain, sfi.m_scriptField.m_classField); };
-								ImGui::EndDisabled();
 							}
 
 						}

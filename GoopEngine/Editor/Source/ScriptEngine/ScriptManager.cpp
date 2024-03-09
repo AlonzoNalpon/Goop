@@ -64,6 +64,7 @@ namespace GE
       { "System.UInt16", ScriptFieldType::UShort },
       { "System.UInt32", ScriptFieldType::UInt },
       { "System.UInt64", ScriptFieldType::ULong },
+      { "System.String", ScriptFieldType::String },
       { "GoopScripts.Mono.Vec2<System.Single>", ScriptFieldType::Vec2 },
       { "GoopScripts.Mono.Vec3<System.Single>", ScriptFieldType::Vec3 },
       { "GoopScripts.Mono.Vec2<System.Double>", ScriptFieldType::DVec2 },
@@ -272,7 +273,7 @@ void GE::MONO::ScriptManager::LoadAllMonoClass()
             MonoType* type = mono_field_get_type(field);
             ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
             std::string typeName = mono_type_get_name(type);
-            //std::cout << fieldName << "\n";
+            std::cout << fieldName << "\n";
             newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
           }
         }
@@ -557,8 +558,8 @@ void GE::MONO::FadeOutAudio(MonoString* audio, float fadeDuration)
   cf.m_fadeStartTime = 0.f;
   cf.m_fadeEndTime = fadeDuration;
   cf.m_crossFadeTime = fadeDuration;
-  cf.m_currFadeTime = 0.f;
   cf.isOver = false;
+  cf.m_currFadeTime = 0.f;
 
   static auto as = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::AudioSystem>();
   as->FadeOutAudio(cf);
