@@ -84,6 +84,9 @@
     <Compile Include="Button\Pause\MenuMainMenu.cs" />
     <Compile Include="Button\Pause\OptionSlider.cs" />
     <Compile Include="Button\Tutorial\BackTutorial.cs" />
+    <Compile Include="Button\Tutorial\TutorialReturnQueue.cs" />
+    <Compile Include="Button\Tutorial\TutorialSelectCard.cs" />
+    <Compile Include="Button\Tutorial\TutTransitions.cs" />
     <Compile Include="Button\Tutorial\TutorialBtn.cs" />
     <Compile Include="Gameplay\Tutorial.cs" />
     <Compile Include="Serialization\ISerializedObject.cs" />

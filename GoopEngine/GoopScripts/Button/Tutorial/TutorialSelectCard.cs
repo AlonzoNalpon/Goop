@@ -18,11 +18,11 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  public class SelectCard : IButtonClick, IButtonHoverEnter, IButtonHoverExit
+  public class TutorialSelectCard : IButtonClick, IButtonHoverEnter, IButtonHoverExit
   {
     static public uint m_cardHover; // holds entity for hover effect
 
-    public SelectCard() { }
+    public TutorialSelectCard() { }
 
     /*!*********************************************************************
 		\brief
@@ -50,6 +50,7 @@ namespace GoopScripts.Button
       Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
       player.QueueCardByID(cardId);
       QueueCardDisplay.m_cardSelected = true;
+      Tutorial.m_tutorialToggled = true;
     }
 
     /*!*********************************************************************

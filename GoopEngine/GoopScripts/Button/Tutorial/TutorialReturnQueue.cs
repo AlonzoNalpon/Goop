@@ -20,7 +20,7 @@ using static GoopScripts.Cards.CardBase;
 
 namespace GoopScripts.Button
 {
-  internal class ReturnFromQueue : IButtonClick, IButtonHoverEnter, IButtonHoverExit
+  internal class TutorialReturnQueue : IButtonClick, IButtonHoverEnter, IButtonHoverExit
   {
     public void OnHoverEnter(uint entity)
     {
@@ -65,6 +65,7 @@ namespace GoopScripts.Button
       QueueCardDisplay.DestroyCard();
       Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
       player.UnqueueCardByID(cardId);
+      Tutorial.m_tutorialToggled = true;
     }
 
     public void OnHoverExit(uint entity)
