@@ -58,7 +58,7 @@ void TweenSystem::FixedUpdate()
 			tween->m_originalSpriteTint = spriteTint;
 			tween->m_originalTextColor = textColor;
 			// Get Scripts
-			auto* scripts = m_ecs->GetComponent<GE::Component::Scripts>(entity);
+			auto* scripts = m_ecs->HasComponent<GE::Component::Scripts>(entity) ? m_ecs->GetComponent<GE::Component::Scripts>(entity) : nullptr;
 			if (scripts)
 			{
 				// Find if scripts exist
