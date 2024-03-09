@@ -23,6 +23,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AssetManager/AssetManager.h>
 #include <filesystem>
 #include <Graphics/GraphicsEngine.h>
+#include <Serialization/Deserializer.h>
 #include <Serialization/GooStream/AssetGooStream.h>
 #include <filesystem>
 
@@ -570,30 +571,14 @@ namespace GE::Assets
 
 	void AssetManager::LoadSpritesheets()
 	{
-		GE::Serialization::SpriteGooStream::container_type assets;
 		std::string const fileName{ GetConfigData<std::string>("Sprite Config") };
-		// Create a SpriteGooStream object with the given file name
-		GE::Serialization::SpriteGooStream sgs{ fileName };
-		// If the SpriteGooStream object is not valid, print an error message
-		if (!sgs)
-		{
-			Debug::ErrorLogger::GetInstance().LogMessage("Error deserializing " + fileName);
-
-			//  << "Error deserializing " << fileName << "\n";
-		}
-		// If unloading assets into the container was not successful, print an error message
-		if (!sgs.Unload(assets))
-		{
-			Debug::ErrorLogger::GetInstance().LogMessage("Error unloading assets into container ");
-
-			//  << "Error unloading assets into container" << "\n";
-		}
+		auto assets{ Deserializer::DeserializeSpriteSheetData(fileName) };
 
 		// For each entry in assets, print out its details
-		for (auto const& entry : assets)
+		for (auto& entry : assets)
 		{
-			SpriteData loadedData{ entry.m_id, entry.m_filePath, entry.m_slices, entry.m_stacks, entry.m_frames, entry.m_speed, entry.m_flags };
-			m_loadedSpriteData.insert({ entry.m_id, loadedData });
+			std::string id{ entry.m_id };
+			m_loadedSpriteData.emplace(std::make_pair(std::move(id), std::move(entry)));
 		}
 	}
 }		

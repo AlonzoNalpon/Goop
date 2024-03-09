@@ -84,6 +84,7 @@
     <Compile Include="Button\Pause\OptionSlider.cs" />
     <Compile Include="Button\Tutorial\BackTutorial.cs" />
     <Compile Include="Button\Tutorial\TutorialBtn.cs" />
+    <Compile Include="Gameplay\CharacterAnims.cs" />
     <Compile Include="Gameplay\Tutorial.cs" />
     <Compile Include="Serialization\ISerializedObject.cs" />
     <Compile Include="Serialization\SerialReader.cs" />

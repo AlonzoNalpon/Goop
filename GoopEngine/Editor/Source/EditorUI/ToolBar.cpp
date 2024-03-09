@@ -20,6 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "PrefabEditor.h"
 #include <Events/EventManager.h>
 #include <Prefabs/PrefabManager.h>
+#include <EditorUI/SpriteSheetEditor.h>
 
 using namespace ImGui;
 using namespace GE::EditorGUI::DataViz;
@@ -82,6 +83,10 @@ void GE::EditorGUI::ToolBar::CreateContent()
 
     if (BeginMenu("Options"))
     {
+      if (ImGui::MenuItem("Configure Sprite Sheets", nullptr, SpriteSheetEditor::IsToggled()))
+      {
+        SpriteSheetEditor::ToggleSpriteSheetEditor();
+      }
       ImGui::EndMenu();
     }
 

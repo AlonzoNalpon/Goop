@@ -36,14 +36,14 @@ namespace GoopScripts.Gameplay
   {
     public CharacterType m_type;
     public HealthBar m_healthBar;
-    public int m_attack = 89, m_block = 69;
-
+    public int m_attack, m_block;
 
     // VARIABLES HERE SHOULD ONLY BE MODFIED THROUGH EDITOR
     public int m_buffsDisplay;
     public int[] m_comboUI, queueElemIDs;
 
     public DeckManager m_deckMngr;
+    public CharacterAnims m_animations;
     public Vec3<double>[] m_queueElemPos;
 
     public BuffManager m_buffs { get; set; }
@@ -52,7 +52,6 @@ namespace GoopScripts.Gameplay
     
     public Stats(uint entityID) : base(entityID)
     {
-      Console.WriteLine(entityID + " ccreated");
       m_deckMngr = new DeckManager();
       queueElemIDs = new int[3];
       m_queueElemPos = new Vec3<double>[3];

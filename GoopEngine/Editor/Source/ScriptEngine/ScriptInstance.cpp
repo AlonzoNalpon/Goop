@@ -160,7 +160,7 @@ void ScriptInstance::GetFields()
     else if (field.m_fieldType == ScriptFieldType::DeckManagerFT)
     {
 
-       ScriptFieldInstance< DeckManager> sfi{field};
+       ScriptFieldInstance<DeckManager> sfi{field};
 
        sfi.m_data.m_deckManagerInstance.m_classInst = mono_field_get_value_object(sm->m_appDomain, sfi.m_scriptField.m_classField, m_classInst); //Get the mono data of the deck manager
        if (sfi.m_data.m_deckManagerInstance.m_classInst)
@@ -246,13 +246,16 @@ void ScriptInstance::GetFields()
       m_scriptFieldInstList.emplace_back(test);
 
 		}
-
     else if (field.m_fieldType == ScriptFieldType::UIntArr)
     {
 
       std::vector<unsigned> value = GetFieldValueArr<unsigned>(sm->m_appDomain, field.m_classField);
       ScriptFieldInstance<std::vector<unsigned>> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
+
+    }
+    else if (field.m_fieldType == ScriptFieldType::CharacterAnimsFT)
+    {
 
     }
 	}
@@ -330,8 +333,6 @@ void ScriptInstance::SetEntityID(GE::ECS::Entity entityId)
   MonoClass* parent = mono_class_get_parent(m_scriptClass);
   if (std::string(mono_class_get_name(parent)) != "Entity") { return; }
 
-  std::cout << "Class name: " << m_scriptName << "| ";
-  std::cout << "Parent: " <<  mono_class_get_name(parent) << "\n";
   MonoMethod*  setEntityIDMethod = mono_class_get_method_from_name(parent, "SetEntityID", 1);
   std::vector<void*> params = { &entityId };
   mono_runtime_invoke(setEntityIDMethod, mono_gchandle_get_target(m_gcHandle), params.data(), nullptr);

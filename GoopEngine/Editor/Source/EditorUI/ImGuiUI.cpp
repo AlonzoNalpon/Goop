@@ -40,6 +40,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <EditorUI/SpriteAnimEditor.h>
 #include <EditorUI/AnimEventEditor.h>
 #include <EditorUI/EditorTheme.h>
+#include <EditorUI/SpriteSheetEditor.h>
 
 using namespace GE::EditorGUI;
 using namespace DataViz;
@@ -147,6 +148,11 @@ void ImGuiUI::Update()
   EditorGUI::AnimEventEditor::CreateContent();
   End();
   
+  if (SpriteSheetEditor::IsToggled())
+  {
+    EditorGUI::SpriteSheetEditor::CreateContent("Sprite Sheet Editor");
+  }
+
   Begin("Extras");
   ImGui::InputInt("Change Row", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetRow(), 1);
   ImGui::InputInt("Change Col", &ecs->GetSystem<GE::Systems::CollisionSystem>()->GetCol(), 1);

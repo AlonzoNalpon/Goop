@@ -231,6 +231,16 @@ RTTR_REGISTRATION
     .property("second", &std::pair<Graphics::gObjID, std::string>::second)
     ;
 
+  rttr::registration::class_<Serialization::SpriteData>("SerializedSpriteData")
+    .property("id", &Serialization::SpriteData::m_id)
+    .property("filePath", &Serialization::SpriteData::m_filePath)
+    .property("slices", &Serialization::SpriteData::m_slices)
+    .property("stacks", &Serialization::SpriteData::m_stacks)
+    .property("frames", &Serialization::SpriteData::m_frames)
+    .property("speed", &Serialization::SpriteData::m_speed)
+    .property("flags", &Serialization::SpriteData::m_flags)
+    ;
+
 #ifndef IMGUI_DISABLE
   rttr::registration::class_<std::pair<std::string, unsigned>>("StringUnsignedPair")
     .property("first", &std::pair<std::string, unsigned>::first)

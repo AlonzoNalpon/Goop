@@ -49,5 +49,8 @@ namespace GE::MONO
     ScriptInstance m_HealthBarInst; //used to cache the mono data of deck and deckmanager
   };
 
-
+  struct CharacterAnims
+  {
+    std::string m_idle;
+  };
 }

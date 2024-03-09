@@ -74,8 +74,8 @@ namespace GE
       { "GoopScripts.Gameplay.Deck", ScriptFieldType::DeckFT },
       { "GoopScripts.Gameplay.DeckManager", ScriptFieldType::DeckManagerFT },
       { "GoopScripts.Gameplay.CharacterType", ScriptFieldType::CharacterTypeFT },
-      { "GoopScripts.UI.HealthBar", ScriptFieldType::HealthBarFT }
-      
+      { "GoopScripts.UI.HealthBar", ScriptFieldType::HealthBarFT },
+      { "GoopScripts.Gameplay.CharacterAnims", ScriptFieldType::CharacterAnimsFT }
 	
     };
   }

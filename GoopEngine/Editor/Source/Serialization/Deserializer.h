@@ -19,6 +19,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Prefabs/VariantPrefab.h>
 #include <rapidjson/istreamwrapper.h>
 #include <Events/AnimEventManager.h>
+#include "SpriteData.h"
 
 #ifdef _DEBUG
 std::ostream& operator<<(std::ostream& os, rttr::type const& type);
@@ -111,6 +112,8 @@ namespace GE
         object
       ************************************************************************/
       static EntityScriptsList DeserializeSceneScripts(std::string const& file);
+
+      static std::vector<SpriteData> DeserializeSpriteSheetData(std::string const& file);
 
       /*!*********************************************************************
       \brief
