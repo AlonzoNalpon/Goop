@@ -30,7 +30,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "MainMenu_BG",
@@ -98,11 +104,55 @@
                                 "y": 1.0
                             },
                             "width": 818,
-                            "height": 511
+                            "height": 511,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Pause_Menu_Base",
                     "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "MainMenu_MainMenu",
+        "ID": 3,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -345, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 0, -345, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, -345 }",
+                    "width": 374.0,
+                    "height": 136.0,
+                    "min": "{ -187, -413 }",
+                    "max": "{ 187, -277 }",
+                    "render": false
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "MainMenu",
+                    "eventType": "CHANGE_SCENE",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -210,7 +260,13 @@
                                 "y": 1.0
                             },
                             "width": 306,
-                            "height": 71
+                            "height": 71,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Pause_Header_HowToPlay",
@@ -232,11 +288,11 @@
                 },
                 {
                     "key": 1,
-                    "value": 7
+                    "value": 125
                 },
                 {
                     "key": 2,
-                    "value": 8
+                    "value": 126
                 }
             ],
             "registered": true
@@ -244,293 +300,18 @@
         "isActive": true,
         "Parent": null,
         "Child Entities": [
-            7,
-            8
+            125,
+            126
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 1000 }",
+                    "pos": "{ 480, 0, 1000 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 1000 }",
+                    "worldPos": "{ 480, 0, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TransitionIn",
-        "ID": 7,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 6,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 400, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 400, 0, 1000 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 1.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 2880,
-                            "height": 1080
-                        }
-                    },
-                    "spriteName": "Transition",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Tween": {
-                    "tweens": [
-                        {
-                            "key": "TransitionIn",
-                            "value": [
-                                {
-                                    "trans": "{ -2880, 0, 0 }",
-                                    "scale": "{ 1, 1, 1 }",
-                                    "rot": "{ 0, 0, 0 }",
-                                    "spriteTint": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 0.0
-                                    },
-                                    "textColor": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 0.0
-                                    },
-                                    "duration": 0.3,
-                                    "animationEvent": ""
-                                }
-                            ]
-                        }
-                    ],
-                    "paused": false,
-                    "loop": false,
-                    "playing": "TransitionIn"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "TransitionOut",
-        "ID": 8,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 6,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 2880, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 2880, 0, 1000 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 2880,
-                            "height": 1080
-                        }
-                    },
-                    "spriteName": "Transition",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Tween": {
-                    "tweens": [
-                        {
-                            "key": "TransitionOut",
-                            "value": [
-                                {
-                                    "trans": "{ -400, 0, 0 }",
-                                    "scale": "{ 1, 1, 1 }",
-                                    "rot": "{ 0, 0, 0 }",
-                                    "spriteTint": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 0.0
-                                    },
-                                    "textColor": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 0.0
-                                    },
-                                    "duration": 0.3,
-                                    "animationEvent": "ChangeToMainMenu"
-                                }
-                            ]
-                        }
-                    ],
-                    "paused": false,
-                    "loop": false,
-                    "playing": ""
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "ChangeToMainMenu",
-                            "entityID": 8,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Button",
-        "ID": 9,
-        "Prefab": {
-            "name": "Button",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 9
-                },
-                {
-                    "key": 1,
-                    "value": 10
-                }
-            ],
-            "registered": true
-        },
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [
-            10
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, -345, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 0, -345, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, -345 }",
-                    "width": 370.0,
-                    "height": 135.0,
-                    "min": "{ -185, -412.5 }",
-                    "max": "{ 185, -277.5 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 400,
-                            "height": 160
-                        }
-                    },
-                    "spriteName": "Button_Base",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "TransitionOut",
-                            "entityID": 9,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text",
-        "ID": 10,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 9,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -100.111, -15.704, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -100.111, -360.704, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Main Menu",
-                    "clr": {
-                        "r": 0.8941176533699036,
-                        "g": 0.8313725590705872,
-                        "b": 0.7764706015586853,
-                        "a": 1.0
-                    },
-                    "scale": 0.19200000166893005,
-                    "fontID": 2
                 }
             }
         ]
@@ -745,7 +526,13 @@
                                 "y": 1.0
                             },
                             "width": 70,
-                            "height": 70
+                            "height": 70,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "HTP_Arrow_Left",
@@ -814,7 +601,13 @@
                                 "y": 1.0
                             },
                             "width": 70,
-                            "height": 70
+                            "height": 70,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "HTP_Arrow_Right",
@@ -993,7 +786,13 @@
                                 "y": 1.0
                             },
                             "width": 214,
-                            "height": 300
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardBaseFront_Attack",
@@ -1132,7 +931,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -1326,7 +1131,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahDefenceShield",
@@ -1366,7 +1177,13 @@
                                 "y": 1.0
                             },
                             "width": 214,
-                            "height": 300
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardBaseFront_Defense",
@@ -1466,7 +1283,13 @@
                                 "y": 1.0
                             },
                             "width": 214,
-                            "height": 300
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardBaseFront_Special",
@@ -1638,7 +1461,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahSpecialFlashbang",
@@ -1958,7 +1787,13 @@
                                 "y": 1.0
                             },
                             "width": 211,
-                            "height": 212
+                            "height": 212,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Queue_Sequence_1",
@@ -2081,7 +1916,13 @@
                                 "y": 1.0
                             },
                             "width": 211,
-                            "height": 212
+                            "height": 212,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Queue_Sequence_1",
@@ -2202,7 +2043,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_BasicAttackClawswipe",
@@ -2406,7 +2253,13 @@
                                 "y": 1.0
                             },
                             "width": 211,
-                            "height": 212
+                            "height": 212,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Queue_Sequence_1",
@@ -2527,7 +2380,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_BasicAttackClawswipe",
@@ -2606,7 +2465,13 @@
                                 "y": 1.0
                             },
                             "width": 211,
-                            "height": 212
+                            "height": 212,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Queue_Sequence_1",
@@ -3270,26 +3135,6 @@
                     "worldScale": "{ 1.5, 1.5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 215,
-                            "height": 77
-                        }
-                    },
-                    "spriteName": "Button_EndTurn",
-                    "shouldRender": true
-                }
             }
         ]
     },
@@ -3876,7 +3721,13 @@
                                 "y": 1.0
                             },
                             "width": 60,
-                            "height": 60
+                            "height": 60,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Dmg Up",
@@ -3943,26 +3794,6 @@
                     "worldPos": "{ -54.7446, -192.86, 10 }",
                     "worldScale": "{ 0.59, 0.345365, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 220,
-                            "height": 140
-                        }
-                    },
-                    "spriteName": "TempBacking",
-                    "shouldRender": true
                 }
             }
         ]
@@ -4065,7 +3896,13 @@
                                 "y": 1.0
                             },
                             "width": 60,
-                            "height": 60
+                            "height": 60,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Dmg Down",
@@ -4132,26 +3969,6 @@
                     "worldPos": "{ 183.181, -192.86, 10 }",
                     "worldScale": "{ 0.59, 0.345365, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 220,
-                            "height": 140
-                        }
-                    },
-                    "spriteName": "TempBacking",
-                    "shouldRender": true
                 }
             }
         ]
@@ -4254,7 +4071,13 @@
                                 "y": 1.0
                             },
                             "width": 60,
-                            "height": 60
+                            "height": 60,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Blinded",
@@ -4321,26 +4144,6 @@
                     "worldPos": "{ 63.4408, -192.861, 10 }",
                     "worldScale": "{ 0.59, 0.345365, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 220,
-                            "height": 140
-                        }
-                    },
-                    "spriteName": "TempBacking",
-                    "shouldRender": true
                 }
             }
         ]
@@ -4856,7 +4659,7 @@
                             "entityID": 114,
                             "scriptFieldInstList": [
                                 {
-                                    "data": 0,
+                                    "data": 4,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_page"
@@ -5195,6 +4998,169 @@
                     },
                     "scale": 0.25,
                     "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "TransitionIn",
+        "ID": 125,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 6,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 400, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 880, 0, 1000 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 2880,
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
+                        }
+                    },
+                    "spriteName": "Transition",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "TransitionIn",
+                            "value": [
+                                {
+                                    "trans": "{ -2880, 0, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.3,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": false,
+                    "playing": "TransitionIn"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "TransitionOut",
+        "ID": 126,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 6,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 2880, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 3360, 0, 1000 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 2880,
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
+                        }
+                    },
+                    "spriteName": "Transition",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "TransitionOut",
+                            "value": [
+                                {
+                                    "trans": "{ -400, 0, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.3,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": false,
+                    "playing": ""
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": []
                 }
             }
         ]

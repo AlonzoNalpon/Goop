@@ -91,6 +91,8 @@
     <Compile Include="Source\Button\GameLevel\ReturnFromQueue.cs" />
     <Compile Include="Source\Button\GameLevel\SelectCard.cs" />
     <Compile Include="Source\Button\GameOverToMainMenu.cs" />
+    <Compile Include="Source\Button\HTP\HTP_Back.cs" />
+    <Compile Include="Source\Button\HTP\HTP_Next.cs" />
     <Compile Include="Source\Button\MainMenuToScene.cs" />
     <Compile Include="Source\Button\Pause\HowToPlayClose.cs" />
     <Compile Include="Source\Button\Pause\MenuClose.cs" />
@@ -139,6 +141,7 @@
     <Compile Include="Source\Gameplay\DeckManager.cs" />
     <Compile Include="Source\Gameplay\GameManager.cs" />
     <Compile Include="Source\Gameplay\HomeBase.cs" />
+    <Compile Include="Source\Gameplay\HTP.cs" />
     <Compile Include="Source\Gameplay\RewardManager.cs" />
     <Compile Include="Source\Gameplay\Stats.cs" />
     <Compile Include="Source\Gameplay\Tutorial.cs" />
