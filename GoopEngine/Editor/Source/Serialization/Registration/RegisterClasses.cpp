@@ -149,6 +149,7 @@ RTTR_REGISTRATION
     .property("texDims", &Graphics::SpriteSubData::texDims)
     .property("width", &Graphics::SpriteSubData::width)
     .property("height", &Graphics::SpriteSubData::height)
+    .property("tint", &Graphics::SpriteSubData::tint)
     ;
   rttr::registration::class_<Graphics::SpriteData>("SpriteData")
     .property("spriteSubData", &Graphics::SpriteData::info)
