@@ -35,7 +35,6 @@ RTTR_REGISTRATION
   rttr::registration::class_<Systems::ButtonSystem>("ButtonSystem");
   rttr::registration::class_<Systems::GameSystem>("GameSystem");
   rttr::registration::class_<Systems::ButtonScriptSystem>("ButtonScriptSystem");
-  rttr::registration::class_<Systems::CardHolderSystem>("CardHolderSystem");
   rttr::registration::class_<Systems::ParticleSystem>("ParticleSystem");
   rttr::registration::class_<Systems::AnimEventsSystem>("AnimEventsSystem");
 
@@ -92,10 +91,6 @@ RTTR_REGISTRATION
     //.property("flags", &Component::SpriteAnim::flags)
     ;
 
-  rttr::registration::class_<Component::Draggable>("Draggable")
-    .constructor<>()
-    ;
-
   rttr::registration::class_<Component::EnemyAI>("EnemyAI")
     .constructor<unsigned>()
     (
@@ -132,26 +127,6 @@ RTTR_REGISTRATION
     .property("eventType", &Component::GE_Button::m_eventType)
     .property("lastCollided", &Component::GE_Button::m_lastCollided)
     .property("currCollided", &Component::GE_Button::m_currCollided)
-    ;
-
-  rttr::registration::class_<Component::Card>("Card")
-    .constructor<>()
-    .property("cardID", &Component::Card::cardID)
-    .property("tgtEntity", &Component::Card::tgtEntity)
-    ;
-
-  rttr::registration::class_<Component::CardHolder>("CardHolder")
-    .constructor<>()
-    .property("elements", &Component::CardHolder::elements)
-    .property("dataEntity", &Component::CardHolder::targetScript)
-    .property("dataType", &Component::CardHolder::dataType)
-    .property("targetScript", &Component::CardHolder::targetScript)
-    ;
-
-  rttr::registration::class_<Component::CardHolderElem>("CardHolderElem")
-    .constructor<>()
-    .property("holder", &Component::CardHolderElem::holder)
-    .property("elemIdx", &Component::CardHolderElem::elemIdx)
     ;
 
   rttr::registration::class_<Component::Scripts>("Scripts")

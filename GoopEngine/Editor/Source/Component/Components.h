@@ -15,7 +15,5 @@
 #include <Component/Button.h>
 #include <Component/Game.h>
 #include <Component/Card.h>
-#include <Component/CardHolder.h>
-#include <Component/CardHolderElem.h>
 #include <Component/Emitter.h>
 #include <Component/AnimEvents.h>

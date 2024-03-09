@@ -286,11 +286,11 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "TempEndTurn",
+                            "scriptName": "EndTurn",
                             "entityID": 1,
                             "scriptFieldInstList": [
                                 {
-                                    "data": 75,
+                                    "data": 0,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "disabledEndTurn"
@@ -878,36 +878,6 @@
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
-            },
-            {
-                "CardHolder": {
-                    "elements": [
-                        {
-                            "elemEntity": 12,
-                            "cardEntity": 16,
-                            "spriteID": 144,
-                            "defaultSpriteID": 136,
-                            "used": false
-                        },
-                        {
-                            "elemEntity": 13,
-                            "cardEntity": 18,
-                            "spriteID": 95,
-                            "defaultSpriteID": 137,
-                            "used": false
-                        },
-                        {
-                            "elemEntity": 14,
-                            "cardEntity": 17,
-                            "spriteID": 0,
-                            "defaultSpriteID": 138,
-                            "used": false
-                        }
-                    ],
-                    "dataEntity": 0,
-                    "dataType": "QUEUE",
-                    "targetScript": 0
-                }
             }
         ]
     },
@@ -1006,18 +976,6 @@
                     "eventType": "UNSELECT_CARD",
                     "lastCollided": false,
                     "currCollided": false
-                }
-            },
-            {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 11
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 11,
-                    "elemIdx": 0
                 }
             }
         ]
@@ -1118,18 +1076,6 @@
                     "lastCollided": false,
                     "currCollided": false
                 }
-            },
-            {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 11
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 11,
-                    "elemIdx": 1
-                }
             }
         ]
     },
@@ -1229,18 +1175,6 @@
                     "lastCollided": false,
                     "currCollided": false
                 }
-            },
-            {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 11
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 11,
-                    "elemIdx": 2
-                }
             }
         ]
     },
@@ -1262,50 +1196,6 @@
                     "worldPos": "{ 0, -386.259, 3 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "CardHolder": {
-                    "elements": [
-                        {
-                            "elemEntity": 16,
-                            "cardEntity": 16,
-                            "spriteID": 0,
-                            "defaultSpriteID": 0,
-                            "used": false
-                        },
-                        {
-                            "elemEntity": 17,
-                            "cardEntity": 17,
-                            "spriteID": 0,
-                            "defaultSpriteID": 0,
-                            "used": false
-                        },
-                        {
-                            "elemEntity": 18,
-                            "cardEntity": 18,
-                            "spriteID": 0,
-                            "defaultSpriteID": 0,
-                            "used": false
-                        },
-                        {
-                            "elemEntity": 19,
-                            "cardEntity": 19,
-                            "spriteID": 0,
-                            "defaultSpriteID": 0,
-                            "used": false
-                        },
-                        {
-                            "elemEntity": 20,
-                            "cardEntity": 20,
-                            "spriteID": 0,
-                            "defaultSpriteID": 0,
-                            "used": false
-                        }
-                    ],
-                    "dataEntity": 0,
-                    "dataType": "HAND",
-                    "targetScript": 0
                 }
             }
         ]
@@ -1718,36 +1608,6 @@
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
-            },
-            {
-                "CardHolder": {
-                    "elements": [
-                        {
-                            "elemEntity": 22,
-                            "cardEntity": 4294967295,
-                            "spriteID": 20,
-                            "defaultSpriteID": 112,
-                            "used": false
-                        },
-                        {
-                            "elemEntity": 23,
-                            "cardEntity": 4294967295,
-                            "spriteID": 0,
-                            "defaultSpriteID": 113,
-                            "used": false
-                        },
-                        {
-                            "elemEntity": 24,
-                            "cardEntity": 4294967295,
-                            "spriteID": 0,
-                            "defaultSpriteID": 114,
-                            "used": false
-                        }
-                    ],
-                    "dataEntity": 4,
-                    "dataType": "QUEUE",
-                    "targetScript": 4
-                }
             }
         ]
     },
@@ -1787,18 +1647,6 @@
                     },
                     "spriteName": "Queue_Sequence_1",
                     "shouldRender": true
-                }
-            },
-            {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 21
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 21,
-                    "elemIdx": 0
                 }
             }
         ]
@@ -1840,18 +1688,6 @@
                     "spriteName": "Queue_Sequence_2",
                     "shouldRender": true
                 }
-            },
-            {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 21
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 21,
-                    "elemIdx": 1
-                }
             }
         ]
     },
@@ -1891,18 +1727,6 @@
                     },
                     "spriteName": "Queue_Sequence_3",
                     "shouldRender": true
-                }
-            },
-            {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 21
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 21,
-                    "elemIdx": 2
                 }
             }
         ]
@@ -2474,7 +2298,7 @@
         "Name": "Transitions",
         "ID": 40,
         "Prefab": null,
-        "isActive": true,
+        "isActive": false,
         "Parent": null,
         "Child Entities": [
             16,

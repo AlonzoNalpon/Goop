@@ -15,6 +15,5 @@
 #include <Systems/Audio/AudioSystem.h>
 #include <Systems/Button/ButtonSystem.h>
 #include <Systems/Button/ButtonScriptSystem.h>
-#include <Systems/CardHolder/CardHolderSystem.h>
 #include <Systems/ParitcleSystem/ParticleSystem.h>
 #include <Systems/AnimEvent/AnimEventsSystem.h>

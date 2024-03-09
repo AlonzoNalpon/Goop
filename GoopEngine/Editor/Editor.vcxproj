@@ -206,7 +206,6 @@
     <ClCompile Include="Source\Fmod\FmodSystem.cpp" />
     <ClCompile Include="Source\Systems\Button\ButtonScriptSystem.cpp" />
     <ClCompile Include="Source\Systems\Button\ButtonSystem.cpp" />
-    <ClCompile Include="Source\Systems\CardHolder\CardHolderSystem.cpp" />
     <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
     <ClCompile Include="Source\Systems\GameSystem\GameSystem.cpp" />
@@ -235,8 +234,6 @@
     <ClInclude Include="Source\Component\Audio.h" />
     <ClInclude Include="Source\Component\Button.h" />
     <ClInclude Include="Source\Component\Card.h" />
-    <ClInclude Include="Source\Component\CardHolder.h" />
-    <ClInclude Include="Source\Component\CardHolderElem.h" />
     <ClInclude Include="Source\Component\Emitter.h" />
     <ClInclude Include="Source\Component\Game.h" />
     <ClInclude Include="Source\EditorUI\AnimEventEditor.h" />
@@ -371,7 +368,6 @@
     <ClInclude Include="Source\Systems\Audio\AudioSystem.h" />
     <ClInclude Include="Source\Systems\Button\ButtonScriptSystem.h" />
     <ClInclude Include="Source\Systems\Button\ButtonSystem.h" />
-    <ClInclude Include="Source\Systems\CardHolder\CardHolderSystem.h" />
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
     <ClInclude Include="Source\Systems\GameSystem\GameSystem.h" />
