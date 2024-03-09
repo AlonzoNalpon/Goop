@@ -58,7 +58,6 @@ namespace GoopScripts.Gameplay
 
     GameManager(uint entityID):base(entityID)
     {
-      
       m_rng = new Random();
     }
 
@@ -92,7 +91,6 @@ namespace GoopScripts.Gameplay
       ************************************************************************/
     public void OnUpdate(double deltaTime)
     {
-      Console.WriteLine("Testdtg");
       try
       {
         if (!gameStarted)
