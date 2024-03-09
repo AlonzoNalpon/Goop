@@ -104,59 +104,42 @@
         ]
     },
     {
-        "Name": "MainMenu_MainMenu",
+        "Name": "Transition",
         "ID": 3,
-        "Prefab": null,
+        "Prefab": {
+            "name": "Transition",
+            "version": 3,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 3
+                },
+                {
+                    "key": 1,
+                    "value": 23
+                },
+                {
+                    "key": 2,
+                    "value": 24
+                }
+            ],
+            "registered": true
+        },
         "isActive": true,
         "Parent": null,
-        "Child Entities": [],
+        "Child Entities": [
+            23,
+            24
+        ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -316.133, 0 }",
+                    "pos": "{ 0, 0, 1000 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 0, -316.133, 0 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, -316.133 }",
-                    "width": 374.0,
-                    "height": 136.0,
-                    "min": "{ -187, -384.133 }",
-                    "max": "{ 187, -248.133 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 374,
-                            "height": 136
-                        }
-                    },
-                    "spriteName": "MainMenu_MainMenu",
-                    "shouldRender": true
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "MainMenu",
-                    "eventType": "CHANGE_SCENE",
-                    "lastCollided": false,
-                    "currCollided": false
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             }
         ]
@@ -202,21 +185,47 @@
         ]
     },
     {
-        "Name": "Transition",
+        "Name": "Button",
         "ID": 5,
-        "Prefab": null,
+        "Prefab": {
+            "name": "Button",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 5
+                },
+                {
+                    "key": 1,
+                    "value": 22
+                }
+            ],
+            "registered": true
+        },
         "isActive": true,
         "Parent": null,
-        "Child Entities": [],
+        "Child Entities": [
+            22
+        ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 480, 0, 1000 }",
+                    "pos": "{ 0, -316, 0 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 180 }",
-                    "worldPos": "{ 480, 0, 1000 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 0, -316, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 180 }"
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, -316 }",
+                    "width": 370.0,
+                    "height": 135.0,
+                    "min": "{ -185, -383.5 }",
+                    "max": "{ 185, -248.5 }",
+                    "render": false
                 }
             },
             {
@@ -231,45 +240,31 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 2880,
-                            "height": 1080
+                            "width": 400,
+                            "height": 160
                         }
                     },
-                    "spriteName": "Transition",
+                    "spriteName": "Button_Base",
                     "shouldRender": true
                 }
             },
             {
-                "Tween": {
-                    "tweens": [
+                "Scripts": {
+                    "scriptList": [
                         {
-                            "key": "Transition",
-                            "value": [
-                                {
-                                    "trans": "{ -2880, 0, 0 }",
-                                    "scale": "{ 1, 1, 1 }",
-                                    "rot": "{ 0, 0, 180 }",
-                                    "spriteTint": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 0.0
-                                    },
-                                    "textColor": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 1.0
-                                    },
-                                    "duration": 0.3,
-                                    "animationEvent": ""
-                                }
-                            ]
+                            "scriptName": "TransitionOut",
+                            "entityID": 5,
+                            "scriptFieldInstList": []
                         }
-                    ],
-                    "paused": false,
-                    "loop": false,
-                    "playing": "Transition"
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -1035,6 +1030,196 @@
                     },
                     "scale": 0.12300000339746475,
                     "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 22,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 5,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -100.111, -15.7037, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -100.111, -331.704, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Main Menu",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.19200000166893005,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "TransitionIn",
+        "ID": 23,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 3,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 400, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 400, 0, 1000 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 2880,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "Transition",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "TransitionIn",
+                            "value": [
+                                {
+                                    "trans": "{ -2880, 0, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.3,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": false,
+                    "playing": "TransitionIn"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "TransitionOut",
+        "ID": 24,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 3,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 2880, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 2880, 0, 1000 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 2880,
+                            "height": 1080
+                        }
+                    },
+                    "spriteName": "Transition",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "TransitionOut",
+                            "value": [
+                                {
+                                    "trans": "{ -400, 0, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToMainMenu"
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": false,
+                    "playing": ""
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "ChangeToMainMenu",
+                            "entityID": 24,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             }
         ]
