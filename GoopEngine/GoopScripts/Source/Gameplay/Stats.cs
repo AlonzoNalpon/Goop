@@ -37,6 +37,7 @@ namespace GoopScripts.Gameplay
     public CharacterType m_type;
     public HealthBar m_healthBar;
     public int m_attack = 89, m_block = 69;
+    public int m_test = 6779;
 
 
     // VARIABLES HERE SHOULD ONLY BE MODFIED THROUGH EDITOR
