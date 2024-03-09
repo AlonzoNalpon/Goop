@@ -30,7 +30,13 @@
                                 "y": 1.0
                             },
                             "width": 500,
-                            "height": 750
+                            "height": 750,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "SS_Leah_Idle",
@@ -196,6 +202,40 @@
                             "scriptName": "LeahShoots",
                             "entityID": 0,
                             "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "NewHealthBar",
+                            "entityID": 0,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 10,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                },
+                                {
+                                    "data": 28,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_healthBarUI"
+                                    }
+                                },
+                                {
+                                    "data": 1,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_isPlayer"
+                                    }
+                                },
+                                {
+                                    "data": 10,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_maxHealth"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }
@@ -305,7 +345,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Environment_Level1",
@@ -345,7 +391,13 @@
                                 "y": 1.0
                             },
                             "width": 1925,
-                            "height": 314
+                            "height": 314,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Hand_Base",
@@ -395,7 +447,13 @@
                                 "y": 1.0
                             },
                             "width": 500,
-                            "height": 625
+                            "height": 625,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "SS_MineWorm_Idle",
@@ -551,6 +609,40 @@
                             "scriptName": "MoleRatBlocks",
                             "entityID": 4,
                             "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "NewHealthBar",
+                            "entityID": 4,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 15,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_health"
+                                    }
+                                },
+                                {
+                                    "data": 29,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_healthBarUI"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_isPlayer"
+                                    }
+                                },
+                                {
+                                    "data": 15,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_maxHealth"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }
@@ -615,7 +707,13 @@
                                 "y": 1.0
                             },
                             "width": 456,
-                            "height": 154
+                            "height": 154,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -702,7 +800,13 @@
                                 "y": 1.0
                             },
                             "width": 689,
-                            "height": 209
+                            "height": 209,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Instructions",
@@ -805,26 +909,6 @@
                     "worldScale": "{ 5, 5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 32,
-                            "height": 32
-                        }
-                    },
-                    "spriteName": "Grey",
-                    "shouldRender": true
-                }
             }
         ]
     },
@@ -923,7 +1007,13 @@
                                 "y": 1.0
                             },
                             "width": 211,
-                            "height": 212
+                            "height": 212,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Queue_Sequence_1",
@@ -1034,7 +1124,13 @@
                                 "y": 1.0
                             },
                             "width": 211,
-                            "height": 212
+                            "height": 212,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Queue_Sequence_2",
@@ -1145,7 +1241,13 @@
                                 "y": 1.0
                             },
                             "width": 211,
-                            "height": 212
+                            "height": 212,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Queue_Sequence_3",
@@ -1312,7 +1414,13 @@
                                 "y": 1.0
                             },
                             "width": 2880,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Transition",
@@ -1457,7 +1565,13 @@
                                 "y": 1.0
                             },
                             "width": 91,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Bar",
@@ -1541,7 +1655,13 @@
                                 "y": 1.0
                             },
                             "width": 91,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Bar",
@@ -1625,7 +1745,13 @@
                                 "y": 1.0
                             },
                             "width": 91,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Bar",
@@ -1753,7 +1879,13 @@
                                 "y": 1.0
                             },
                             "width": 211,
-                            "height": 212
+                            "height": 212,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Queue_Sequence_1",
@@ -1805,7 +1937,13 @@
                                 "y": 1.0
                             },
                             "width": 211,
-                            "height": 212
+                            "height": 212,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Queue_Sequence_2",
@@ -1857,7 +1995,13 @@
                                 "y": 1.0
                             },
                             "width": 211,
-                            "height": 212
+                            "height": 212,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Queue_Sequence_3",
@@ -1896,26 +2040,6 @@
                     "worldPos": "{ 850, 430, 1 }",
                     "worldScale": "{ 5, 5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 32,
-                            "height": 32
-                        }
-                    },
-                    "spriteName": "Grey",
-                    "shouldRender": true
                 }
             }
         ]
@@ -2013,7 +2137,13 @@
                                 "y": 1.0
                             },
                             "width": 300,
-                            "height": 33
+                            "height": 33,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "UI_HealthBar_Empty",
@@ -2053,7 +2183,13 @@
                                 "y": 1.0
                             },
                             "width": 300,
-                            "height": 33
+                            "height": 33,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "UI_HealthBar_Empty",
@@ -2093,7 +2229,13 @@
                                 "y": 1.0
                             },
                             "width": 128,
-                            "height": 128
+                            "height": 128,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "UI_Portrait_Leah",
@@ -2143,7 +2285,13 @@
                                 "y": 1.0
                             },
                             "width": 91,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Bar",
@@ -2351,7 +2499,13 @@
                                 "y": 1.0
                             },
                             "width": 201,
-                            "height": 201
+                            "height": 201,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "UI_Glow_Gold",
@@ -2391,7 +2545,13 @@
                                 "y": 1.0
                             },
                             "width": 201,
-                            "height": 201
+                            "height": 201,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "UI_Glow_Gold",
@@ -2431,7 +2591,13 @@
                                 "y": 1.0
                             },
                             "width": 128,
-                            "height": 128
+                            "height": 128,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "UI_Portrait_MoleRat",
@@ -2527,7 +2693,13 @@
                                 "y": 1.0
                             },
                             "width": 2880,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Transition",
@@ -2714,7 +2886,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -2727,15 +2905,7 @@
                         {
                             "scriptName": "EndTurn",
                             "entityID": 43,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 75,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "disabledEndTurn"
-                                    }
-                                }
-                            ]
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -2902,7 +3072,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Pause_OverlayBG",
@@ -2952,7 +3128,13 @@
                                 "y": 1.0
                             },
                             "width": 539,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Slider",
@@ -2992,7 +3174,13 @@
                                 "y": 1.0
                             },
                             "width": 818,
-                            "height": 511
+                            "height": 511,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Pause_Menu_Base",
@@ -3032,7 +3220,13 @@
                                 "y": 1.0
                             },
                             "width": 227,
-                            "height": 71
+                            "height": 71,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Pause_Header_Options",
@@ -3057,26 +3251,6 @@
                     "worldPos": "{ 0, 55, 101.5 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 608,
-                            "height": 251
-                        }
-                    },
-                    "spriteName": "Pause_Words_Sliders",
-                    "shouldRender": true
                 }
             }
         ]
@@ -3148,7 +3322,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -3234,7 +3414,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -3320,7 +3506,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -3437,7 +3629,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Pause_OverlayBG",
@@ -3477,7 +3675,13 @@
                                 "y": 1.0
                             },
                             "width": 818,
-                            "height": 511
+                            "height": 511,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Pause_Menu_Base",
@@ -3529,7 +3733,13 @@
                                 "y": 1.0
                             },
                             "width": 60,
-                            "height": 60
+                            "height": 60,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "UI_Close",
@@ -3640,7 +3850,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Pause_OverlayBG",
@@ -3692,7 +3908,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -3751,7 +3973,13 @@
                                 "y": 1.0
                             },
                             "width": 650,
-                            "height": 300
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Pause_Menu_Base",
@@ -3791,7 +4019,13 @@
                                 "y": 1.0
                             },
                             "width": 306,
-                            "height": 71
+                            "height": 71,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Pause_Header_HowToPlay",
@@ -3831,7 +4065,13 @@
                                 "y": 1.0
                             },
                             "width": 266,
-                            "height": 71
+                            "height": 71,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Surrender_Header",
@@ -3871,7 +4111,13 @@
                                 "y": 1.0
                             },
                             "width": 281,
-                            "height": 37
+                            "height": 37,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Text_AreYouSure",
@@ -3921,7 +4167,13 @@
                                 "y": 1.0
                             },
                             "width": 539,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Slider",
@@ -3971,7 +4223,13 @@
                                 "y": 1.0
                             },
                             "width": 539,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Slider",
@@ -4021,7 +4279,13 @@
                                 "y": 1.0
                             },
                             "width": 539,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Slider",
@@ -4212,26 +4476,6 @@
                     "worldScale": "{ 1.25, 1.25, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 128,
-                            "height": 128
-                        }
-                    },
-                    "spriteName": "Portrait",
-                    "shouldRender": true
-                }
             }
         ]
     },
@@ -4377,7 +4621,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
