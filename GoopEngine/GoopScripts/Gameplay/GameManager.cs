@@ -174,7 +174,9 @@ namespace GoopScripts.Gameplay
       m_enemyStats.EndOfTurn();
       m_playerStats.Draw();
       m_enemyStats.Draw();
-      StartAI(m_enemyStats.entityID);      
+      StartAI(m_enemyStats.entityID);
+			Button.EndTurn btn = (Button.EndTurn)Utils.GetScript("Button_EndTurn", "EndTurn");
+      btn.Enable();
     }
 
 
