@@ -46,7 +46,7 @@ void TweenSystem::FixedUpdate()
 		if (tween->m_tweens.find(tween->m_playing) == tween->m_tweens.end())
 			continue;
 		// Find the tween being played in the map, then find the step being played of the tween
-		auto [target, scale, rot, spriteColor, textColor, duration, scriptName] 
+		auto [target, scale, rot, spriteTint, textColor, duration, scriptName] 
 			= tween->m_tweens[tween->m_playing][tween->m_step];
 
 		if (tween->m_timeElapsed > duration)
@@ -55,7 +55,7 @@ void TweenSystem::FixedUpdate()
 			tween->m_originalPos = target;
 			tween->m_originalScale = scale;
 			tween->m_originalRot = rot;
-			tween->m_originalSpriteColor = spriteColor;
+			tween->m_originalSpriteTint = spriteTint;
 			tween->m_originalTextColor = textColor;
 			// Get Scripts
 			auto* scripts = m_ecs->GetComponent<GE::Component::Scripts>(entity);
@@ -82,7 +82,7 @@ void TweenSystem::FixedUpdate()
 			if (sprite)
 			{
 				sprite->m_spriteData.SetTint(
-					Tweening(tween->m_originalSpriteColor, spriteColor, normalisedTime));
+					Tweening(tween->m_originalSpriteTint, spriteTint, normalisedTime));
 			}
 			if (text)
 			{
@@ -107,7 +107,7 @@ void TweenSystem::FixedUpdate()
 				tween->m_originalScale = trans->m_scale;
 				tween->m_originalRot = trans->m_rot;
 				if (sprite)
-					tween->m_originalSpriteColor = sprite->m_spriteData.info.tint;
+					tween->m_originalSpriteTint = sprite->m_spriteData.info.tint;
 				if (text)
 					tween->m_originalTextColor = text->m_clr;
 				tween->m_started = true;
@@ -119,7 +119,7 @@ void TweenSystem::FixedUpdate()
 			if (sprite) // set the sprite color if sprite component exists
 			{
 				sprite->m_spriteData.SetTint(
-					Tweening(tween->m_originalSpriteColor, spriteColor, normalisedTime));
+					Tweening(tween->m_originalSpriteTint, spriteTint, normalisedTime));
 			}
 			if (text) // set the text color if text component exists
 			{
