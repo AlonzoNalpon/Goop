@@ -387,6 +387,27 @@ namespace GoopScripts.Gameplay
       return m_healthBar.m_health <= 0;
     }
 
+    /*!*********************************************************************
+    \brief
+      [FOR TUTORIAL ONLY]
+      Draws a card through the deck manager. This function spawns the
+      tutorial version of the card prefab
+    ************************************************************************/
+    public void TutorialPlayerDraw()
+    {
+      int idx = m_deckMngr.Draw();
+      if (idx < 0)
+      {
+        return;
+      }
+
+     
+      CardBase.CardID cardType = m_deckMngr.m_hand[idx].Item1;
+      m_deckMngr.m_hand[idx] = (cardType, Utils.SpawnPrefab(CardManager.m_cardPrefabs[cardType] + "_Tut"));
+      m_deckMngr.AlignHandCards();
+      Utils.PlaySoundF("SFX_CardDraw3", 1.0f, Utils.ChannelType.SFX, false);
+    }
+
     //public void QueueBuff(Buff buff)
     //{
     //  m_nextTurn.Enqueue(buff);
