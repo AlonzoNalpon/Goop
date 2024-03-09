@@ -111,6 +111,7 @@
     <Compile Include="Source\Button\Tutorial\BackTutorial.cs" />
     <Compile Include="Source\Button\Tutorial\ContinueTutorial.cs" />
     <Compile Include="Source\Button\Tutorial\ToggleTutorial.cs" />
+    <Compile Include="Source\Button\Tutorial\TutorialTransition.cs" />
     <Compile Include="Source\Button\Tutorial\TutorialBtn.cs" />
     <Compile Include="Source\Button\Tutorial\TutorialReturnQueue.cs" />
     <Compile Include="Source\Button\Tutorial\TutorialSelectCard.cs" />
