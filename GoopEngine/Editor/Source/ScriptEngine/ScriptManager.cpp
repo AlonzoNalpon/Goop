@@ -285,11 +285,9 @@ void GE::MONO::ScriptManager::LoadAllMonoClass()
         }
 
       }
-    }
-    
-
+    } 
   }
-
+  std::sort(m_allScriptNames.begin(), m_allScriptNames.end());
 }
 
 // this function i nscenemanaegere
