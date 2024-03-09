@@ -41,10 +41,10 @@ namespace GE::EditorGUI
     }
     ImGui::TableNextRow();
 
+    int index{};
     for (auto& data : m_spriteSheetData)
     {
       // for each property in the SpriteData, display input based on its type
-      int index{};
       ImGui::TableNextColumn();
       for (auto& prop : rttr::type::get<Serialization::SpriteData>().get_properties())
       {
@@ -55,7 +55,7 @@ namespace GE::EditorGUI
         {
           unsigned const step{ 1 };
           unsigned propVal{ propVar.get_value<unsigned>() };
-          if (ImGui::InputScalar(("##" + propName).c_str(), ImGuiDataType_U32, &propVal, &step))
+          if (ImGui::InputScalar(("##" + propName + std::to_string(index)).c_str(), ImGuiDataType_U32, &propVal, &step))
           {
             prop.set_value(data, propVal);
           }
@@ -63,7 +63,7 @@ namespace GE::EditorGUI
         else if (propVar.is_type<double>())
         {
           double propVal{ propVar.get_value<double>() };
-          if (ImGui::InputDouble(("##" + propName).c_str(), &propVal, 0.1, 0.0, "%.2f"))
+          if (ImGui::InputDouble(("##" + propName + std::to_string(index)).c_str(), &propVal, 0.1, 0.0, "%.2f"))
           {
             prop.set_value(data, propVal);
           }
@@ -72,28 +72,36 @@ namespace GE::EditorGUI
         {
           auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
           auto const& textureLT{ animManager.GetAnimLT() };
-          if (ImGui::BeginCombo("##AnimDropdown", propVar.get_value<std::string>().c_str()))
+          ImGui::SetNextItemWidth(ImGui::CalcTextSize("SS_MineWorm_Shield").x);
+          if (ImGui::BeginCombo(("##AnimDropdown" + std::to_string(index)).c_str(), propVar.get_value<std::string>().c_str()))
           {
             for (auto const& it : textureLT)
             {
               if (ImGui::Selectable(it.first.c_str()))
               {
                 prop.set_value(data, it.first);
+                data.m_filePath = it.first;
               }
             }
             ImGui::EndCombo();
           }
+          /*std::string propVal{ propVar.get_value<std::string>() };
+          if (ImGui::InputText(("##id" + std::to_string(index)).c_str(), &propVal))
+          {
+            prop.set_value(data, propVal);
+            data.m_filePath = propVal;
+          }*/
         }
         else if (propName == "filePath")
         {
           ImGui::BeginDisabled();
-          ImGui::InputText("##filePath", &propVar.get_value<std::string>());
+          ImGui::InputText(("##filePath" + std::to_string(index)).c_str(), &propVar.get_value<std::string>());
           ImGui::EndDisabled();
         }
         else if (propVar.is_type<std::string>() || propVar.is_type<const char*>())
         {
           std::string propVal{ propVar.get_value<std::string>() };
-          if (ImGui::InputText(("##" + propName).c_str(), &propVal))
+          if (ImGui::InputText(("##" + propName + std::to_string(index)).c_str(), &propVal))
           {
             prop.set_value(data, propVal);
           }
@@ -102,12 +110,9 @@ namespace GE::EditorGUI
         {
           Debug::ErrorLogger::GetInstance().LogError("Unknown type in sprite sheet data: " + propVar.get_type().get_name().to_string());
         }
-
-        if (++index <= propCount)
-        {
-          ImGui::TableNextColumn();
-        }
+        ImGui::TableNextColumn();
       }
+      ++index;
       ImGui::TableNextRow();
     }
     ImGui::EndTable();
