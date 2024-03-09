@@ -1,6 +1,7 @@
 {
-    "Name": "Dawson_Block",
-    "Version": 1,
+    "Name": "Dawson_Block_Hover",
+    "isActive": true,
+    "Version": 2,
     "Components": [
         {
             "Transform": {
@@ -16,6 +17,7 @@
     "SubData": [
         {
             "ID": 1,
+            "isActive": true,
             "Name": "Base",
             "Parent": 0,
             "Components": [
@@ -42,7 +44,13 @@
                                     "y": 1.0
                                 },
                                 "width": 214,
-                                "height": 300
+                                "height": 300,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "CardBaseFront_Defense",
@@ -53,6 +61,7 @@
         },
         {
             "ID": 2,
+            "isActive": true,
             "Name": "Icon",
             "Parent": 0,
             "Components": [
@@ -79,7 +88,13 @@
                                     "y": 1.0
                                 },
                                 "width": 119,
-                                "height": 111
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "CardIcon_BossDefenceDeflect",
@@ -90,29 +105,30 @@
         },
         {
             "ID": 3,
+            "isActive": true,
             "Name": "Title",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -28.1111, -27, 0 }",
+                        "pos": "{ -25, -25, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -28.1111, -27, 0 }",
+                        "worldPos": "{ -25, -25, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "Block",
+                        "text": "BLOCK",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
                             "b": 1.0,
                             "a": 1.0
                         },
-                        "scale": 0.10000000149011612,
+                        "scale": 0.07500000298023224,
                         "fontID": 2
                     }
                 }
@@ -120,6 +136,7 @@
         },
         {
             "ID": 4,
+            "isActive": true,
             "Name": "Description",
             "Parent": 0,
             "Components": [

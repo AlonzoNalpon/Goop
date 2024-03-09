@@ -1,14 +1,14 @@
 {
     "Name": "Leah_Attack_Tut",
     "isActive": true,
-    "Version": 0,
+    "Version": 1,
     "Components": [
         {
             "Transform": {
-                "pos": "{ -286, 64, 0 }",
+                "pos": "{ 0, 0, 0 }",
                 "scale": "{ 1, 1, 1 }",
                 "rot": "{ 0, 0, 0 }",
-                "worldPos": "{ -286, 64, 0 }",
+                "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
             }
@@ -33,11 +33,11 @@
                 },
                 {
                     "BoxCollider": {
-                        "center": "{ -286, 64 }",
+                        "center": "{ 0, 0 }",
                         "width": 214.0,
                         "height": 300.0,
-                        "min": "{ -393, -86 }",
-                        "max": "{ -179, 214 }",
+                        "min": "{ -107, -150 }",
+                        "max": "{ 107, 150 }",
                         "render": false
                     }
                 },
@@ -54,7 +54,13 @@
                                     "y": 1.0
                                 },
                                 "width": 214,
-                                "height": 300
+                                "height": 300,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "CardBaseFront_Attack",
@@ -121,7 +127,13 @@
                                     "y": 1.0
                                 },
                                 "width": 119,
-                                "height": 111
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "CardIcon_LeahAttackBeam",
@@ -157,24 +169,24 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -28.1111, -27, 1 }",
+                        "pos": "{ -25, -25, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -28.1111, -27, 1 }",
+                        "worldPos": "{ -25, -25, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "Beam",
+                        "text": "BEAM",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
                             "b": 1.0,
                             "a": 1.0
                         },
-                        "scale": 0.10000000149011612,
+                        "scale": 0.07500000298023224,
                         "fontID": 2
                     }
                 }
@@ -240,7 +252,13 @@
                                     "y": 1.0
                                 },
                                 "width": 119,
-                                "height": 111
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "CardIcon_LeahAttackBeam",
