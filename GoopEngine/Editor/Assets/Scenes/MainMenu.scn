@@ -30,7 +30,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "MainMenu_BG",
@@ -160,7 +166,13 @@
                                 "y": 1.0
                             },
                             "width": 2880,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Transition",
@@ -383,7 +395,13 @@
                                 "y": 1.0
                             },
                             "width": 2880,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Transition",
@@ -428,21 +446,7 @@
     {
         "Name": "[Button] New Game 2",
         "ID": 12,
-        "Prefab": {
-            "name": "Button",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 12
-                },
-                {
-                    "key": 1,
-                    "value": 26
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [
@@ -482,7 +486,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -549,7 +559,13 @@
                                 "y": 1.0
                             },
                             "width": 1058,
-                            "height": 511
+                            "height": 511,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "MainMenu_BG_Logo",
@@ -591,7 +607,13 @@
                                 "y": 1.0
                             },
                             "width": 559,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "MainMenu_BG_Frame",
@@ -603,21 +625,7 @@
     {
         "Name": "[Button] Load Game 2",
         "ID": 16,
-        "Prefab": {
-            "name": "Button",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 16
-                },
-                {
-                    "key": 1,
-                    "value": 17
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [
@@ -657,7 +665,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -729,21 +743,7 @@
     {
         "Name": "[Button] Options 2",
         "ID": 18,
-        "Prefab": {
-            "name": "Button",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 18
-                },
-                {
-                    "key": 1,
-                    "value": 19
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [
@@ -783,7 +783,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -855,21 +861,7 @@
     {
         "Name": "[Button] How To Play 2",
         "ID": 20,
-        "Prefab": {
-            "name": "Button",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 20
-                },
-                {
-                    "key": 1,
-                    "value": 21
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [
@@ -909,7 +901,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -981,21 +979,7 @@
     {
         "Name": "[Button] Credits 2",
         "ID": 22,
-        "Prefab": {
-            "name": "Button",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 22
-                },
-                {
-                    "key": 1,
-                    "value": 23
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [
@@ -1035,7 +1019,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -1107,21 +1097,7 @@
     {
         "Name": "[Button] Quit Game 2",
         "ID": 24,
-        "Prefab": {
-            "name": "Button",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 24
-                },
-                {
-                    "key": 1,
-                    "value": 25
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 2,
         "Child Entities": [
@@ -1161,7 +1137,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
