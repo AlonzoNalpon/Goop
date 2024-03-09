@@ -41,8 +41,8 @@ void TweenSystem::FixedUpdate()
 		}
 
 		Transform* trans = m_ecs->GetComponent<Transform>(entity);
-		Sprite* sprite = m_ecs->GetComponent<Sprite>(entity);
-		Text* text = m_ecs->GetComponent<Text>(entity);
+		Sprite* sprite = m_ecs->HasComponent<Sprite>(entity) ? m_ecs->GetComponent<Sprite>(entity) : nullptr;
+		Text* text = m_ecs->HasComponent<Text>(entity) ? m_ecs->GetComponent<Text>(entity) : nullptr;
 		if (tween->m_tweens.find(tween->m_playing) == tween->m_tweens.end())
 			continue;
 		// Find the tween being played in the map, then find the step being played of the tween

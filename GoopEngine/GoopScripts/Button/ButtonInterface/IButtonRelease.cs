@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   IButtonRelease.cs 
+\author w.chinkitbryam\@digipen.edu
+\date   06 March 2024
+\brief  
+  Entity mouse release callback interface
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +17,13 @@ namespace GoopScripts.Button
 {
   interface IButtonRelease
   {
-    void OnRelease(uint entity);
+		/*!******************************************************************
+		\brief
+			Callback for mouse release when clicked on the entity
+		
+		\param entity
+			Entity ID of the entity triggering the callback
+		********************************************************************/
+		void OnRelease(uint entity);
   }
 }

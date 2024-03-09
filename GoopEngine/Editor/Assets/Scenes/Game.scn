@@ -242,78 +242,34 @@
         ]
     },
     {
-        "Name": "Button_EndTurn",
+        "Name": "Text",
         "ID": 1,
         "Prefab": null,
         "isActive": true,
-        "Parent": 7,
+        "Parent": 53,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 780, -445, 10 }",
-                    "scale": "{ 1.5, 1.5, 1 }",
+                    "pos": "{ -135, -20, 1 }",
+                    "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 780, -445, 10 }",
-                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldPos": "{ -347.75, -192.5, 103 }",
+                    "worldScale": "{ 0.65, 0.625, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 780, -445 }",
-                    "width": 322.5,
-                    "height": 115.5,
-                    "min": "{ 618.75, -502.75 }",
-                    "max": "{ 941.25, -387.25 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 215,
-                            "height": 77
-                        }
+                "Text": {
+                    "text": "How To Play",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
                     },
-                    "spriteName": "Button_EndTurn",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "EndTurn",
-                            "entityID": 1,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 75,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "disabledEndTurn"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
+                    "scale": 0.13500000536441803,
+                    "fontID": 2
                 }
             }
         ]
@@ -762,11 +718,10 @@
         "isActive": true,
         "Parent": null,
         "Child Entities": [
-            1,
             8,
             9,
-            44,
-            75
+            43,
+            44
         ],
         "Components": [
             {
@@ -1742,21 +1697,21 @@
                             "elemEntity": 22,
                             "cardEntity": 4294967295,
                             "spriteID": 20,
-                            "defaultSpriteID": 112,
+                            "defaultSpriteID": 125,
                             "used": false
                         },
                         {
                             "elemEntity": 23,
                             "cardEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 113,
+                            "defaultSpriteID": 126,
                             "used": false
                         },
                         {
                             "elemEntity": 24,
                             "cardEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 114,
+                            "defaultSpriteID": 129,
                             "used": false
                         }
                     ],
@@ -2717,6 +2672,85 @@
         ]
     },
     {
+        "Name": "Button_EndTurn",
+        "ID": 43,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 7,
+        "Child Entities": [
+            77
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 780, -445, 10 }",
+                    "scale": "{ 0.85, 0.85, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 780, -445, 10 }",
+                    "worldScale": "{ 0.85, 0.85, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 780, -445 }",
+                    "width": 322.5,
+                    "height": 115.5,
+                    "min": "{ 618.75, -502.75 }",
+                    "max": "{ 941.25, -387.25 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 400,
+                            "height": 160
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "EndTurn",
+                            "entityID": 43,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 75,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "disabledEndTurn"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
         "Name": "Combo UI",
         "ID": 44,
         "Prefab": null,
@@ -3077,15 +3111,17 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 52,
-        "Child Entities": [],
+        "Child Entities": [
+            1
+        ],
         "Components": [
             {
                 "Transform": {
                     "pos": "{ -260, -180, 0 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "scale": "{ 0.65, 0.625, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -260, -180, 102 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldScale": "{ 0.65, 0.625, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3111,11 +3147,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 239,
-                            "height": 86
+                            "width": 400,
+                            "height": 160
                         }
                     },
-                    "spriteName": "Pause_HTP",
+                    "spriteName": "Button_Base",
                     "shouldRender": true
                 }
             },
@@ -3161,15 +3197,17 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 52,
-        "Child Entities": [],
+        "Child Entities": [
+            75
+        ],
         "Components": [
             {
                 "Transform": {
                     "pos": "{ 0, -180, 0 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "scale": "{ 0.65, 0.65, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, -180, 102 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldScale": "{ 0.65, 0.65, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3195,11 +3233,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 239,
-                            "height": 86
+                            "width": 400,
+                            "height": 160
                         }
                     },
-                    "spriteName": "Pause_Resume",
+                    "spriteName": "Button_Base",
                     "shouldRender": true
                 }
             },
@@ -3245,15 +3283,17 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 52,
-        "Child Entities": [],
+        "Child Entities": [
+            78
+        ],
         "Components": [
             {
                 "Transform": {
                     "pos": "{ 260, -180, 0 }",
-                    "scale": "{ 0.64, 0.64, 0.63 }",
+                    "scale": "{ 0.65, 0.65, 0.63 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 260, -180, 102 }",
-                    "worldScale": "{ 0.64, 0.64, 0.63 }",
+                    "worldScale": "{ 0.65, 0.65, 0.63 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3279,11 +3319,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 374,
-                            "height": 136
+                            "width": 400,
+                            "height": 160
                         }
                     },
-                    "spriteName": "Game_Surrender",
+                    "spriteName": "Button_Base",
                     "shouldRender": true
                 }
             },
@@ -3452,7 +3492,9 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 56,
-        "Child Entities": [],
+        "Child Entities": [
+            79
+        ],
         "Components": [
             {
                 "Transform": {
@@ -3498,7 +3540,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "MenuClose",
+                            "scriptName": "HowToPlayClose",
                             "entityID": 59,
                             "scriptFieldInstList": [
                                 {
@@ -3540,9 +3582,9 @@
             61,
             62,
             63,
-            64,
             66,
-            67
+            67,
+            80
         ],
         "Components": [
             {
@@ -3608,30 +3650,32 @@
         ]
     },
     {
-        "Name": "[Button] No",
+        "Name": "[Button] Yes",
         "ID": 62,
         "Prefab": null,
         "isActive": true,
         "Parent": 60,
-        "Child Entities": [],
+        "Child Entities": [
+            82
+        ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 150, -75, 1 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "pos": "{ -150, -75, 2 }",
+                    "scale": "{ 0.65, 0.6, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 150, -75, 102 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -150, -75, 103 }",
+                    "worldScale": "{ 0.65, 0.6, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 150, -75 }",
+                    "center": "{ -150, -75 }",
                     "width": 239.0,
                     "height": 86.0,
-                    "min": "{ 30.5, -118 }",
-                    "max": "{ 269.5, -32 }",
+                    "min": "{ -269.5, -118 }",
+                    "max": "{ -30.5, -32 }",
                     "render": false
                 }
             },
@@ -3647,11 +3691,11 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 239,
-                            "height": 86
+                            "width": 400,
+                            "height": 160
                         }
                     },
-                    "spriteName": "Quit_No",
+                    "spriteName": "Button_Base",
                     "shouldRender": true
                 }
             },
@@ -3659,24 +3703,9 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "MenuClose",
+                            "scriptName": "GameOverToMainMenu",
                             "entityID": 62,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 60,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "DeeperPauseMenuID"
-                                    }
-                                },
-                                {
-                                    "data": 27,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "PauseMenuID"
-                                    }
-                                }
-                            ]
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -3727,75 +3756,6 @@
                     },
                     "spriteName": "Pause_Menu_Base",
                     "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Button] Yes",
-        "ID": 64,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 60,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -150, -75, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -150, -75, 102 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -150, -75 }",
-                    "width": 239.0,
-                    "height": 86.0,
-                    "min": "{ -269.5, -118 }",
-                    "max": "{ -30.5, -32 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 239,
-                            "height": 86
-                        }
-                    },
-                    "spriteName": "Quit_Yes",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "GameOverToMainMenu",
-                            "entityID": 64,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -4203,62 +4163,34 @@
         ]
     },
     {
-        "Name": "DisabledEndTurn",
+        "Name": "Text",
         "ID": 75,
         "Prefab": null,
-        "isActive": false,
-        "Parent": 7,
+        "isActive": true,
+        "Parent": 54,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 780, -445, 11 }",
-                    "scale": "{ 1.5, 1.5, 1 }",
+                    "pos": "{ -90, -15, 1 }",
+                    "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 780, -445, 11 }",
-                    "worldScale": "{ 1.5, 1.5, 1 }",
+                    "worldPos": "{ -58.5, -189.75, 103 }",
+                    "worldScale": "{ 0.65, 0.65, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 780, -445 }",
-                    "width": 322.5,
-                    "height": 115.5,
-                    "min": "{ 618.75, -502.75 }",
-                    "max": "{ 941.25, -387.25 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 215,
-                            "height": 77
-                        }
+                "Text": {
+                    "text": "Resume",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
                     },
-                    "spriteName": "Button_EndTurn_Disabled",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "DisableEndTurn",
-                            "entityID": 75,
-                            "scriptFieldInstList": []
-                        }
-                    ]
+                    "scale": 0.13500000536441803,
+                    "fontID": 2
                 }
             }
         ]
@@ -4299,6 +4231,257 @@
                     },
                     "spriteName": "Portrait",
                     "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 77,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 43,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -110, -20, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 686.5, -462, 20 }",
+                    "worldScale": "{ 0.85, 0.85, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "End Turn",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 78,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 55,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -115, -15, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 185.25, -189.75, 103 }",
+                    "worldScale": "{ 0.65, 0.65, 0.63 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Surrender",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.13500000536441803,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 79,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 59,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 350, 195, 104 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "X",
+                    "clr": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.5,
+                    "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] No",
+        "ID": 80,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 60,
+        "Child Entities": [
+            81
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 150, -75, 2 }",
+                    "scale": "{ 0.65, 0.6, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 150, -75, 103 }",
+                    "worldScale": "{ 0.65, 0.6, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 150, -75 }",
+                    "width": 239.0,
+                    "height": 86.0,
+                    "min": "{ 30.5, -118 }",
+                    "max": "{ 269.5, -32 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 400,
+                            "height": 160
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MenuClose",
+                            "entityID": 62,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 60,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "DeeperPauseMenuID"
+                                    }
+                                },
+                                {
+                                    "data": 27,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "PauseMenuID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "Return|60|Show|27",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 81,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 80,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -40, -30, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 124, -93, 104 }",
+                    "worldScale": "{ 0.65, 0.6, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "No",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.17499999701976776,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 82,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 62,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -60, -30, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -189, -93, 104 }",
+                    "worldScale": "{ 0.65, 0.6, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Yes",
+                    "clr": {
+                        "r": 0.8941176533699036,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.17499999701976776,
+                    "fontID": 2
                 }
             }
         ]
