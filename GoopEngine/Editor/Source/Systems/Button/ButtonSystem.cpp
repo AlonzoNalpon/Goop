@@ -69,29 +69,14 @@ namespace GE
 							case GE::Component::GE_Button::NO_EVENT:
 								break;
 							case GE::Component::GE_Button::SELECT_CARD:
-							{
-								// A card has called select card button event:
-								//	This requires caller to have a card component
-
-										
-									// play sound randomize
-									/*if (m_ecs->HasComponent<GE::Component::Audio>(entity))
-									{
-										GE::Component::Audio* entitySound = m_ecs->GetComponent<GE::Component::Audio>(entity);
-										entitySound->PlayRandom();
-									}*/
-
-									break; // we're done here: a card has been assigned
-							}
+#ifdef _DEBUG
+								std::cout << "SELECT_CARD BUTTON EVENT SHOULD NO LONGER BE USED\n";
+#endif
+								break;
 							case GE::Component::GE_Button::UNSELECT_CARD:
-
-								//// play sound randomize
-								//if (m_ecs->HasComponent<GE::Component::Audio>(entity))
-								//{
-								//	GE::Component::Audio* entitySound = m_ecs->GetComponent<GE::Component::Audio>(entity);
-								//	entitySound->PlayRandom();
-								//}
-
+#ifdef _DEBUG
+								std::cout << "UNSELECT_CARD BUTTON EVENT SHOULD NO LONGER BE USED\n";
+#endif
 								break;
 							case GE::Component::GE_Button::CHANGE_SCENE:
 								GE::GSM::GameStateManager::GetInstance().SetNextScene(entityButton->m_param);

@@ -21,6 +21,9 @@ using static GoopScripts.Mono.Utils;
 using System.Threading;
 using static GoopScripts.Cards.CardBase;
 using GoopScripts.Button;
+using System.IO;
+using GoopScripts.Serialization;
+using GoopScripts.UI;
 
 namespace GoopScripts.Gameplay
 {
@@ -37,6 +40,7 @@ namespace GoopScripts.Gameplay
 
     public Stats m_playerStats, m_enemyStats;
 
+    static int m_currentLevel;
     static bool isResolutionPhase = false;
     static bool isDead = false;
     //bool intervalBeforeReset;
@@ -52,8 +56,6 @@ namespace GoopScripts.Gameplay
     List<CardBase.CardID> m_playerNonAtkCards = new List<CardBase.CardID>{ CardID.LEAH_SHIELD, CardID.SPECIAL_SMOKESCREEN, CardID.SPECIAL_RAGE };
     List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD };
 
-
-
     GameManager(uint entityID):base(entityID)
     {
       m_rng = new Random();
@@ -67,6 +69,10 @@ namespace GoopScripts.Gameplay
     {
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
+
+      m_playerStats.m_deckMngr.m_deck.Shuffle();
+      m_enemyStats.m_deckMngr.m_deck.Shuffle();
+
       UI.PauseManager.SetPauseState(0);
 
       // set the static variable to the entity holding the hover effect sprite
@@ -85,66 +91,74 @@ namespace GoopScripts.Gameplay
       ************************************************************************/
     public void OnUpdate(double deltaTime)
     {
-      if (!gameStarted)
+      try
       {
-        m_playerStats.Init();
-        m_enemyStats.Init();
-        gameStarted = true;
-      }
-
-      if (Utils.GetLoseFocus())
-      {
-        if (UI.PauseManager.GetPauseState() == 0)
-          Utils.PauseMenu(PAUSE_MENU);
-        Utils.SetLoseFocus(false);
-      }
-      if (Utils.IsKeyTriggered(Input.KeyCode.ESCAPE))
-      {
-        switch (UI.PauseManager.GetPauseState())
+        if (!gameStarted)
         {
-          case 0:
+          LoadGame("./Assets/GameData/PlayerStats.sav");
+          m_playerStats.Init();
+          m_enemyStats.Init();
+          gameStarted = true;
+        }
+
+        if (Utils.GetLoseFocus())
+        {
+          if (UI.PauseManager.GetPauseState() == 0)
             Utils.PauseMenu(PAUSE_MENU);
-            break;
-          case 1:
-            Utils.UnpauseMenu(PAUSE_MENU);
-            break;
-          case 2:
-            if (Utils.GetIsActiveEntity((uint)HOWTOPLAY_MENU))
-              Utils.UndeeperPause(PAUSE_MENU, HOWTOPLAY_MENU);
-            if (Utils.GetIsActiveEntity((uint)QUIT_MENU))
-              Utils.UndeeperPause(PAUSE_MENU, QUIT_MENU);
-            break;
-          default:
-            break;
+          Utils.SetLoseFocus(false);
         }
-      }
-      // cheat code to deal damage
-      if (Utils.IsKeyTriggered(Input.KeyCode.U))
-      {
-        m_enemyStats.m_healthBar.DecreaseHealth(1);
-      }
-
-      if (UI.PauseManager.PauseStateChanged())
-      {
-        if (UI.PauseManager.GetPauseState() != 0)
+        if (Utils.IsKeyTriggered(Input.KeyCode.ESCAPE))
         {
-          Utils.SetTimeScale(0.0f);
+          switch (UI.PauseManager.GetPauseState())
+          {
+            case 0:
+              Utils.PauseMenu(PAUSE_MENU);
+              break;
+            case 1:
+              Utils.UnpauseMenu(PAUSE_MENU);
+              break;
+            case 2:
+              if (Utils.GetIsActiveEntity((uint)HOWTOPLAY_MENU))
+                Utils.UndeeperPause(PAUSE_MENU, HOWTOPLAY_MENU);
+              if (Utils.GetIsActiveEntity((uint)QUIT_MENU))
+                Utils.UndeeperPause(PAUSE_MENU, QUIT_MENU);
+              break;
+            default:
+              break;
+          }
         }
-        else
+        // cheat code to deal damage
+        if (Utils.IsKeyTriggered(Input.KeyCode.U))
         {
-          Utils.SetTimeScale(1.0f);
+          m_enemyStats.m_healthBar.DecreaseHealth(1);
         }
-        // Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
-      }
 
-      if (isResolutionPhase)
-      {
-        ResolutionPhase(deltaTime);
+        if (UI.PauseManager.PauseStateChanged())
+        {
+          if (UI.PauseManager.GetPauseState() != 0)
+          {
+            Utils.SetTimeScale(0.0f);
+          }
+          else
+          {
+            Utils.SetTimeScale(1.0f);
+          }
+          // Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
+        }
+
+        if (isResolutionPhase)
+        {
+          ResolutionPhase(deltaTime);
+        }
+        else if (isStartOfTurn)
+        {
+          isStartOfTurn = false;
+          StartOfTurn();
+        }
       }
-      else if (isStartOfTurn)
+      catch (Exception ex)
       {
-        isStartOfTurn = false;
-        StartOfTurn();
+        Console.WriteLine($"Exception in game loop: {ex.Message}");
       }
     }
 
@@ -255,7 +269,8 @@ namespace GoopScripts.Gameplay
             }
           }
 
-          m_playerStats.TakeDamage(eCalculatedDmg);
+          if (!m_enemyStats.IsDead())
+            m_playerStats.TakeDamage(eCalculatedDmg);
           m_enemyStats.TakeDamage(pCalculatedDmg);
           double deathTime = 0.0;
           // bad code but for demo ok
@@ -295,17 +310,17 @@ namespace GoopScripts.Gameplay
               // defeat
               Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Defeat");
               //TransitionToScene("Defeat");
-
-
             }
             else if (m_enemyStats.IsDead())
             {
               // victory
+              ++m_currentLevel;
+              SerialReader.SavePlayerState(ref m_playerStats, m_currentLevel, "./Assets/GameData/PlayerStats.sav");
               Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
               //TransitionToScene("Victory");
-
-
             }
+
+
           }
           else
           {
@@ -393,5 +408,39 @@ namespace GoopScripts.Gameplay
     }
 
     static public bool IsResolutionPhase() {  return isResolutionPhase; }
+
+    void LoadGame(string filePath)
+    {
+      PlayerStatsInfo playerStats = Serialization.SerialReader.LoadPlayerState(filePath);
+      LoadPlayer(playerStats);
+
+      m_currentLevel = playerStats.levelToLoad;
+      string levelFile = "./Assets/GameData/Level" + playerStats.levelToLoad + ".dat";
+      LoadEnemy(Serialization.SerialReader.LoadEnemy(levelFile));
+    }
+
+    void LoadPlayer(PlayerStatsInfo statsInfo)
+    {
+      m_playerStats.m_type = CharacterType.PLAYER; 
+      foreach (var elem in statsInfo.deckList)
+      {
+        m_playerStats.m_deckMngr.m_deck.AddCard(elem.Item1, elem.Item2);
+      }
+      m_playerStats.m_deckMngr.Init();
+      m_playerStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth);
+    }
+    
+    void LoadEnemy(EnemyStatsInfo statsInfo)
+    {
+      m_enemyStats.m_type = statsInfo.characterType;
+      foreach (var elem in statsInfo.deckList)
+      {
+        m_enemyStats.m_deckMngr.m_deck.AddCard(elem.Item1, elem.Item2);
+      }
+      m_enemyStats.m_deckMngr.Init();
+      m_enemyStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth);
+      Utils.UpdateSprite(GetEntity("Background"), statsInfo.background);
+      Utils.UpdateSprite(GetEntity("Enemy Portrait"), statsInfo.portrait);
+    }
   }
 }

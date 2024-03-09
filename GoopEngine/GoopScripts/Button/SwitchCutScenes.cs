@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   SwitchCutScenes.cs 
+\author w.chinkitbryam\@digipen.edu
+\date   09 February 2024
+\brief  
+  OnClick button to move to the next cut scene image
+ 
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +29,13 @@ namespace GoopScripts.Cutscene
 			frame = 1;
 		}
 
+		/*!******************************************************************
+		\brief
+			Callback for when mouse release on the entity after click
+		
+		\param entity
+			Entity ID of the entity triggering the callback
+		********************************************************************/
 		public void OnClick(uint entity)
 		{
 			int lastFrame = frame++;

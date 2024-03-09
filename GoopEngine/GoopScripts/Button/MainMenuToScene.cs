@@ -31,20 +31,20 @@ namespace GoopScripts.Transition
 				case 0:
 					Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Cutscene");
 					break;
-				case 1: // LOAD GAME
-
-					break;
-				case 2:
-					Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Options");
-					break;
-				case 3:
-					Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "HowToPlay");
-					break;
-				case 4:
-					Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Credits");
-					break;
-				default: break;
-			}
-		}
+        case 1: // LOAD GAME
+          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Game");
+          break;
+        case 2:
+          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Options");
+          break;
+        case 3:
+          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "HowToPlay");
+          break;
+        case 4:
+          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Credits");
+          break;
+        default: break;
+      }
+    }
   }
 }

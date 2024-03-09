@@ -219,6 +219,30 @@
                             ]
                         },
                         {
+                            "key": "Game",
+                            "value": [
+                                {
+                                    "trans": "{ -480, 0, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToGameScene"
+                                }
+                            ]
+                        },
+                        {
                             "key": "HowToPlay",
                             "value": [
                                 {
@@ -292,6 +316,11 @@
                         },
                         {
                             "scriptName": "ChangeToHTP",
+                            "entityID": 9,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "ChangeToGameScene",
                             "entityID": 9,
                             "scriptFieldInstList": []
                         }
@@ -637,7 +666,21 @@
             },
             {
                 "Scripts": {
-                    "scriptList": []
+                    "scriptList": [
+                        {
+                            "scriptName": "MainMenuToScene",
+                            "entityID": 16,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 1,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "Scene"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             },
             {

@@ -257,8 +257,7 @@ namespace GE::MONO
 	 \param a
 		alpha
 	************************************************************************/
-	void SetTextColor(GE::ECS::Entity entity, GLfloat r, GLfloat g, GLfloat b, GLfloat a);
-
+	void SetTextColor(GE::ECS::Entity entity, int r, int g, int b, int a);
 
 	/*!*********************************************************************
 	\brief
@@ -274,8 +273,6 @@ namespace GE::MONO
 		char buffer containing the data of the file
 	************************************************************************/
 	char* ReadBytes(const std::string& filepath, uint32_t* outSize);
-
-
 
 	/*!*********************************************************************
 	\brief
@@ -334,7 +331,6 @@ namespace GE::MONO
 		Animation time
 	********************************************************************/
 	double GetAnimationTime(MonoString* animName);
-
 
 	/*!******************************************************************
 	\brief
@@ -496,8 +492,7 @@ namespace GE::MONO
 
 	static void UpdateSprite(GE::ECS::Entity entity, MonoString* textureName);
 
-
-	void SetSpriteTint(GE::ECS::Entity entity, f32 r, f32 g, f32 b, f32 a);
+	void SetSpriteTint(GE::ECS::Entity entity, int r, int g, int b, int a = 255);
 	/*!*********************************************************************
 	\brief
 		Adds a audio fade in event to the AudioSystem
@@ -554,6 +549,20 @@ namespace GE::MONO
 		Entity ID of the entity
 	************************************************************************/
 	GE::ECS::Entity GetEntity(MonoString* entityName);
+
+	/*!*********************************************************************
+	\brief
+		Returns the entity id given its name
+
+	\param parent
+		Parent entity id
+	\param entityName
+		Name of the entity
+
+	\return
+		Entity ID of the entity
+	************************************************************************/
+	GE::ECS::Entity GetChildEntity(GE::ECS::Entity parent, MonoString* entityName);
 
 	/*!*********************************************************************
 	\brief

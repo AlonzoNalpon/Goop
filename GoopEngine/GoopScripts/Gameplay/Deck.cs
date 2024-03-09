@@ -16,15 +16,17 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GoopScripts.Cards;
+using GoopScripts.Serialization;
 
 namespace GoopScripts.Gameplay
 {
-  public class Deck
+  public class Deck// : ISerializedObject
   {
     public CardBase.CardID[] m_cards; // the actual deck
     public List<CardBase.CardID> m_drawOrder; // the order of cards to draw
@@ -180,6 +182,24 @@ namespace GoopScripts.Gameplay
 #endif
     }
 
+    public Dictionary<CardBase.CardID, uint> GetDeckListWithCount()
+    {
+      Dictionary<CardBase.CardID, uint> ret = new Dictionary<CardBase.CardID, uint>();
+      foreach (CardBase.CardID card in m_cards)
+      {
+        if (ret.TryGetValue(card, out uint count))
+        {
+          ret[card] = count + 1;
+        }
+        else
+        {
+          ret[card] = 1;
+        }
+      }
+
+      return ret;
+    }
+
     /*!*********************************************************************
 		\brief
 		  Gets the number of cards in the deck
@@ -201,5 +221,16 @@ namespace GoopScripts.Gameplay
     {
       return m_drawOrder.Count == 0;
     }
+
+    //public string Serialize()
+    //{
+    //  StringBuilder sb = new StringBuilder();
+    //  foreach (var elem in GetDeckListWithCount())
+    //  {
+    //    sb.AppendLine(elem.Key.ToString() + ", " + elem.Value.ToString());
+    //  }
+
+    //  return sb.ToString();
+    //}
   }
 }

@@ -96,6 +96,20 @@ namespace GE::EditorGUI
 
 		/*!*********************************************************************
 		\brief
+			Opens the file explorer and allows the user to create a file. The
+			filepath relative to initialDir is returned.
+		\param filePath
+			The path of the file
+		\param numFilters
+			The number of filters (should correspond to extensionsFilter)
+		\param initialDir
+			The filepath of the initial directory the file explorer opens up at.
+			Defaults to Assets.
+		************************************************************************/
+		static void OpenFileWithDefaultProgram(std::string const& filePath);
+
+		/*!*********************************************************************
+		\brief
 			Takes an absolute filepath and returns the relative file path 
 			based on the root directory passed in
 		\param filepath
