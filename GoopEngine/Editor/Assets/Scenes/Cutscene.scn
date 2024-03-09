@@ -367,13 +367,24 @@
                                     "trans": "{ -2880, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
                                     "animationEvent": ""
                                 }
                             ]
                         }
                     ],
-                    "started": false,
                     "paused": false,
                     "loop": false,
                     "playing": "TransitionIn"
@@ -429,13 +440,24 @@
                                     "trans": "{ -400, 0, 0 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "duration": 0.3,
-                                    "animationEvent": "ChangeToGameScene"
+                                    "animationEvent": "ChangeToTutorial"
                                 }
                             ]
                         }
                     ],
-                    "started": false,
                     "paused": false,
                     "loop": false,
                     "playing": ""
@@ -445,7 +467,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "ChangeToGameScene",
+                            "scriptName": "ChangeToTutorial",
                             "entityID": 9,
                             "scriptFieldInstList": []
                         }
@@ -571,6 +593,152 @@
                     },
                     "scale": 0.12300000339746475,
                     "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Skip button",
+        "ID": 15,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            16,
+            17,
+            18
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -673.833, -394.232, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -673.833, -394.232, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing",
+        "ID": 16,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 15,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -172, -84.967, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -845.833, -479.199, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 100
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "YES",
+        "ID": 17,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 15,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -206.37, -101.858, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -880.203, -496.09, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "SKIP",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.1679999977350235,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Button",
+        "ID": 18,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 15,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -172, -84.967, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -845.833, -479.199, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -845.833, -479.199 }",
+                    "width": 190.0,
+                    "height": 90.0,
+                    "min": "{ -940.833, -524.199 }",
+                    "max": "{ -750.833, -434.199 }",
+                    "render": false
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "ChangeToTutorial",
+                            "entityID": 18,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "Tutorial",
+                    "eventType": "CHANGE_SCENE",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]

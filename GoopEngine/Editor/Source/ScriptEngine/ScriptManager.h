@@ -241,9 +241,23 @@ namespace GE::MONO
 	\param str
 		The string to set the text to
 	************************************************************************/
-	void SetTextComponent(GE::ECS::Entity entity, MonoString* str, float alpha = 1.f);
+	void SetTextComponent(GE::ECS::Entity entity, MonoString* str);
 
-
+	/*!*********************************************************************
+	 \brief
+	   Set the text component's color of an entity.
+	 \param entity
+	 The entity to set the text component of
+	 \param r
+		red
+	 \param g
+		green
+	 \param b
+		blue
+	 \param a
+		alpha
+	************************************************************************/
+	void SetTextColor(GE::ECS::Entity entity, int r, int g, int b, int a);
 
 	/*!*********************************************************************
 	\brief
@@ -259,8 +273,6 @@ namespace GE::MONO
 		char buffer containing the data of the file
 	************************************************************************/
 	char* ReadBytes(const std::string& filepath, uint32_t* outSize);
-
-
 
 	/*!*********************************************************************
 	\brief
@@ -319,7 +331,6 @@ namespace GE::MONO
 		Animation time
 	********************************************************************/
 	double GetAnimationTime(MonoString* animName);
-
 
 	/*!******************************************************************
 	\brief
@@ -481,6 +492,7 @@ namespace GE::MONO
 
 	static void UpdateSprite(GE::ECS::Entity entity, MonoString* textureName);
 
+	void SetSpriteTint(GE::ECS::Entity entity, int r, int g, int b, int a = 255);
 	/*!*********************************************************************
 	\brief
 		Adds a audio fade in event to the AudioSystem
@@ -540,6 +552,20 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
+		Returns the entity id given its name
+
+	\param parent
+		Parent entity id
+	\param entityName
+		Name of the entity
+
+	\return
+		Entity ID of the entity
+	************************************************************************/
+	GE::ECS::Entity GetChildEntity(GE::ECS::Entity parent, MonoString* entityName);
+
+	/*!*********************************************************************
+	\brief
 		Sets the name of an entity
 	\param entity
 		Entity ID
@@ -581,4 +607,11 @@ namespace GE::MONO
 	void SetMasterVolume(float volume);
 
 	void SetTimeScale(float scale);
+
+	/*!******************************************************************
+	\brief
+		Dispatches a quit game event
+	********************************************************************/
+	void DispatchQuitEvent();
+
 }

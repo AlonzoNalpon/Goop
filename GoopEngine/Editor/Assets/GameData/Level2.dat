@@ -1,0 +1,17 @@
+# Enemy Type
+BOSS_P1
+
+# Portrait
+UI_Portrait_Dawson.png
+
+# Background
+Environment_Level3.png
+
+# Enemy Health, MaxHealth
+12, 12
+
+# Deck List
+DAWSON_BEAM, 2
+DAWSON_SWING, 2
+DAWSON_SHIELD, 5
+DAWSON_CHARGE_UP, 1

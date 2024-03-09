@@ -63,9 +63,11 @@ bld/
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 GoopEngine/Editor/.tmpscn
+GoopEngine/Editor/.tmp
 GoopEngine/GoopScripts/GoopScripts.dll
 *.pdb
 /GoopEngine/Editor/imgui.ini
 /GoopEngine/Editor/Assets/config.cfg
 /GoopEngine/Editor/.tmp.tmpscn0
 /GoopEngine/Editor/imgui.ini
+/GoopEngine/Editor/Assets/Scripts/GoopScripts.dll

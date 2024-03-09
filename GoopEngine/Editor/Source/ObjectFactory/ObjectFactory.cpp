@@ -365,10 +365,10 @@ void ObjectFactory::RemoveComponentFromEntity(ECS::Entity entity, rttr::type com
   {
     ecs.RemoveComponent<SpriteAnim>(entity);
   }
-  else if (compType == rttr::type::get<Component::Model>())
+  /*else if (compType == rttr::type::get<Component::Model>())
   {
     ecs.RemoveComponent<Model>(entity);
-  }
+  }*/
   else if (compType == rttr::type::get<Component::Tween>())
   {
     ecs.RemoveComponent<Tween>(entity);

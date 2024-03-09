@@ -106,7 +106,7 @@ namespace {
 
     // THESE ARE IMPORTANT TO HAVE
     glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
   }
 
@@ -164,6 +164,7 @@ namespace {
     Rendering::Transform xform{ {SCALE,SCALE,SCALE}, 0.f, {400.f, 0.f, 0.f} };
     m_renderer.RenderObject(0, spriteData, xform);
 #endif
+    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
 
     m_renderer.PreRenderSetup();
     for (auto& fbInfo : m_frameBuffers)

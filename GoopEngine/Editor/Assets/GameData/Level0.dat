@@ -1,0 +1,15 @@
+# Enemy Type
+MOLE_RAT
+
+# Portrait
+UI_Portrait_MoleRat.png
+
+# Background
+Environment_Level1.png
+
+# Enemy Health, MaxHealth
+5, 5
+
+# Deck List
+BASIC_ATTACK, 5
+BASIC_SHIELD, 2

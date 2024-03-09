@@ -7,7 +7,6 @@
   Provides function to retrieve C# class data
   Adds internal call into mono to allow C# to call functions defined in cpp
 
-
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
@@ -213,6 +212,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetParent", GE::MONO::SetParent);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetParentEntity", GE::MONO::GetParentEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetEntity", GE::MONO::GetEntity);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetChildEntity", GE::MONO::GetChildEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetEntityName", GE::MONO::SetEntityName);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetEntityName", GE::MONO::GetEntityName);
   mono_add_internal_call("GoopScripts.Mono.Utils::DestroyEntity", GE::MONO::DestroyEntity);
@@ -225,11 +225,14 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::CreateObject", GE::MONO::CreateObject);
   mono_add_internal_call("GoopScripts.Mono.Utils::UpdateSprite", GE::MONO::UpdateSprite);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextComponent", GE::MONO::SetTextComponent);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetTextColor", GE::MONO::SetTextColor);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeInAudio", GE::MONO::FadeInAudio);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetSpriteTint", GE::MONO::SetSpriteTint);
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeOutAudio", GE::MONO::FadeOutAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTimeScale", GE::MONO::SetTimeScale);
+  mono_add_internal_call("GoopScripts.Mono.Utils::DispatchQuitEvent", GE::MONO::DispatchQuitEvent);
 }
 
 void GE::MONO::ScriptManager::LoadAssembly()
@@ -282,11 +285,9 @@ void GE::MONO::ScriptManager::LoadAllMonoClass()
         }
 
       }
-    }
-    
-
+    } 
   }
-
+  std::sort(m_allScriptNames.begin(), m_allScriptNames.end());
 }
 
 // this function i nscenemanaegere
@@ -327,6 +328,7 @@ void GE::MONO::ScriptManager::ReloadAllScripts()
     if (ecs.HasComponent<GE::Component::Scripts>(s.first))
     {
       GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(s.first);
+      
       std::cout << s.first << ": " << s.second.size() << " adding\n";
       for (auto& si : s.second)
       {
@@ -534,6 +536,15 @@ void GE::MONO::FadeInAudio(MonoString* audio, float targetVol, float fadeDuratio
   as->FadeInAudio(cf);
 }
 
+void GE::MONO::SetSpriteTint(GE::ECS::Entity entity, int r, int g, int b, int a)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  Component::Sprite* spriteComp{ ecs.GetComponent<Component::Sprite>(entity) };
+  if (!spriteComp)
+    return; // no component: don't do anything
+  spriteComp->m_spriteData.SetTint({r / 255.f, g / 255.f, b / 255.f, a / 255.f });
+}
+
 void GE::MONO::FadeOutAudio(MonoString* audio, float fadeDuration)
 {
   GE::Systems::AudioSystem::CrossFade cf;
@@ -568,6 +579,22 @@ GE::ECS::Entity GE::MONO::GetEntity(MonoString* entityName)
 {
   static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();  
   return ecs.GetEntityFromName(MonoStringToSTD(entityName));
+}
+
+GE::ECS::Entity GE::MONO::GetChildEntity(GE::ECS::Entity parent, MonoString* entityName)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  std::string entityNameStr{ MonoStringToSTD(entityName) };
+
+  for (auto& child : ecs.GetChildEntities(parent))
+  {
+    if (ecs.GetEntityName(child) == entityNameStr)
+    {
+      return child;
+    }
+  }
+
+  return GE::ECS::INVALID_ID;
 }
 
 void GE::MONO::SetEntityName(ECS::Entity entity, MonoString* name)
@@ -905,6 +932,7 @@ double  GE::MONO::GetAnimationTime(MonoString* animName)
 {
   std::string str = GE::MONO::MonoStringToSTD(animName);
   size_t animID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(str) };
+  
   GE::Graphics::SpriteAnimation test = Graphics::GraphicsEngine::GetInstance().animManager.GetAnim(animID);
   return (static_cast<double>(test.frames.size()) / static_cast<double>(test.speed));
 }
@@ -1015,19 +1043,25 @@ void GE::MONO::SetBuffIconTextActive(unsigned iconID, bool state)
   }
 }
 
-void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str, float alpha)
+void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str)
 {
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
   Component::Text* textComp{ ecs.GetComponent<Component::Text>(entity) };
-  if (!textComp)
+  if (textComp)
   {
-    std::ostringstream oss;
-    oss << "Unable to get text component of entity " << entity;
-    Debug::ErrorLogger::GetInstance().LogError(oss.str());
+    textComp->m_text = MONO::MonoStringToSTD(str);
   }
 
-  textComp->m_text = MONO::MonoStringToSTD(str);
-  textComp->m_clr.a = alpha;
+}
+
+void GE::MONO::SetTextColor(GE::ECS::Entity entity, int r, int g, int b, int a)
+{
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  Component::Text* textComp{ ecs.GetComponent<Component::Text>(entity) };
+  if (textComp)
+  {
+    textComp->m_clr = { r / 255.f, g / 255.f, b / 255.f, a / 255.f };
+  }
 }
 
 void GE::MONO::SendString(MonoString* str)
@@ -1127,3 +1161,11 @@ void GE::MONO::SetTimeScale(float scale)
   GE::FPS::FrameRateController::GetInstance().SetTimeScale(scale);
 }
 
+void GE::MONO::DispatchQuitEvent()
+{
+#ifdef IMGUI_DISABLE
+  GE::Events::EventManager::GetInstance().Dispatch(GE::Events::QuitGame());
+#else
+  GE::Events::EventManager::GetInstance().Dispatch(GE::Events::StopSceneEvent());
+#endif // IMGUI_DISABLE
+}

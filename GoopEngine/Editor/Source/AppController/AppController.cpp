@@ -19,6 +19,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <EditorUI/EditorViewport.h>
+#include <ImGui/imgui.h>
 #endif
 
 using namespace GE::ECS;
@@ -129,12 +130,19 @@ namespace GE::Application
           if (im.IsKeyTriggered(KEY_CODE::KEY_G) && EditorGUI::EditorViewport::isFocused)
           {
             showEditor = !showEditor;
+
+            auto& io = ImGui::GetIO();
+            io.WantCaptureMouse = showEditor;
+            io.WantCaptureKeyboard = showEditor;
+
             im.SetCurrFramebuffer(showEditor == true? 0:1);
           }
 
           fRC.StartSystemTimer();
           if (showEditor)
+          {
             imgui.Update();
+          }
 
           fRC.EndSystemTimer("ImGui Update");
 
@@ -199,18 +207,7 @@ namespace GE::Application
 
         window.SwapBuffers();
         gsm.Update();
-
        
-
-        GE::Input::InputManager* boo = &(GE::Input::InputManager::GetInstance());
-        if (boo->IsKeyTriggered(KEY_CODE::KEY_SPACE))
-        {
-          GE::MONO::ScriptManager* sm = &(GE::MONO::ScriptManager::GetInstance());
-          sm->ReloadAssembly();
-        }
-
-       
-
         fRC.EndFrame();
       }
       catch (GE::Debug::IExceptionBase& e)
