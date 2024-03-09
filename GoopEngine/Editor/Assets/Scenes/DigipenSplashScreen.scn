@@ -30,13 +30,7 @@
                                 "y": 1.0
                             },
                             "width": 1525,
-                            "height": 445,
-                            "tint": {
-                                "r": 0.0,
-                                "g": 0.0,
-                                "b": 0.0,
-                                "a": 1.0
-                            }
+                            "height": 445
                         }
                     },
                     "spriteName": "Digipen_Logo",
