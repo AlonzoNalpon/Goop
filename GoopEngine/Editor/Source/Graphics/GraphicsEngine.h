@@ -250,6 +250,13 @@ namespace GE::Graphics {
     \return
     ************************************************************************/
     void DestroyTexture(GLuint texture);
+
+    /*!*********************************************************************
+    \brief
+      Free textures and fonts in the gpu
+    \return
+    ************************************************************************/
+    void FreeTexturesAndFonts();
   protected:
     GLint m_vpWidth, m_vpHeight; //!< dimensions of viewport
     GLfloat m_ar; //!< aspect ratio

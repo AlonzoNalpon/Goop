@@ -353,6 +353,12 @@ namespace {
     m_textureManager.DestroyTexture(texture);
   }
 
+  void GraphicsEngine::FreeTexturesAndFonts()
+  {
+    m_fontManager.FreeFonts();
+    m_textureManager.FreeTextures();
+  }
+
   gObjID GraphicsEngine::GetShaderPgm(std::string const& pgmName)
   {
     // Find the shader
