@@ -179,7 +179,7 @@
                 "Tween": {
                     "tweens": [
                         {
-                            "key": "MainMenu",
+                            "key": "TransitionOut",
                             "value": [
                                 {
                                     "trans": "{ -400, 0, 0 }",
@@ -361,7 +361,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "GameOverToMainMenu",
+                            "scriptName": "TransitionOut",
                             "entityID": 6,
                             "scriptFieldInstList": []
                         }
