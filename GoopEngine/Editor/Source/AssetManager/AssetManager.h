@@ -272,8 +272,20 @@ namespace GE::Assets
     ************************************************************************/
     inline std::unordered_map<std::string, std::string> const& GetPrefabs() const noexcept { return m_prefabs; }
 
+    /*!*********************************************************************
+    \brief
+      Returns the map of image filepaths as a const reference
+    \return
+      The map of prefab filepaths
+    ************************************************************************/
     inline std::unordered_map<std::string, std::string> const& GetImages() const noexcept { return m_images; }
 
+    /*!*********************************************************************
+    \brief
+      Returns the map of scene filepaths as a const reference
+    \return
+      The map of prefab filepaths
+    ************************************************************************/
     inline std::unordered_map<std::string, std::string> const& GetScenes() const noexcept { return m_scenes; }
 
 #ifndef IMGUI_DISABLE
