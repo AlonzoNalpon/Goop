@@ -18,7 +18,6 @@ namespace GoopScripts.Gameplay
   {
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
-    public int FPS_COUNTER;
 
     static int m_turn;
     static public int m_tut;
@@ -43,7 +42,7 @@ namespace GoopScripts.Gameplay
     List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD };
 
     //flags to toggle tutorial pop-ups
-    static public bool m_tutorialToggled, m_tutorialOn;
+    static public bool m_tutorialToggled;
     Tutorial(uint entityID):base(entityID)
     {
       m_rng = new Random();
@@ -95,18 +94,6 @@ namespace GoopScripts.Gameplay
 
     public void OnUpdate(double deltaTime)
     {
-      //if (!m_tutorialOn)
-      //{
-      //  m_tutorialOn = true;
-      //}
-
-      {
-        // SET FPS TEXT TO FPS
-        double fps = Utils.GetFPS();
-        string text = string.Format("{0:N2}", fps);
-        Utils.SetTextComponent(FPS_COUNTER, text);
-      }
-
       if (!gameStarted)
       {
         Console.WriteLine("Player init");
@@ -424,7 +411,7 @@ namespace GoopScripts.Gameplay
 
     static public void ResetTutorial()
     {
-      isResolutionPhase = isStartOfTurn = gameStarted = false;
+      isResolutionPhase = isStartOfTurn = gameStarted = m_tutorialToggled = false;
       m_turn = m_tut = 1;
     }
 
