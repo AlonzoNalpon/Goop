@@ -138,6 +138,7 @@
     <Compile Include="Source\Gameplay\Deck.cs" />
     <Compile Include="Source\Gameplay\DeckManager.cs" />
     <Compile Include="Source\Gameplay\GameManager.cs" />
+    <Compile Include="Source\Gameplay\HomeBase.cs" />
     <Compile Include="Source\Gameplay\RewardManager.cs" />
     <Compile Include="Source\Gameplay\Stats.cs" />
     <Compile Include="Source\Gameplay\Tutorial.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Source\Transition\ChangeToVictory.cs" />
     <Compile Include="Source\UI\FPS.cs" />
     <Compile Include="Source\UI\HealthBar.cs" />
+    <Compile Include="Source\UI\NewHealthBar.cs" />
     <Compile Include="Source\UI\PauseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
