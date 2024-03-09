@@ -26,17 +26,17 @@ namespace GoopScripts.Button
     }
 
     public Dictionary<BUTTON_COLORS, Vec4<int>> m_buttonClrs;
-    Random rng;
-    bool hovering;
-    bool clicked;
+    protected Random m_rng;
+    protected bool m_hovering;
+    protected bool m_clicked;
 
-		/*!******************************************************************
+    /*!******************************************************************
 		\brief
 			Default constructor setting fixed text colour values
 		********************************************************************/
-		public TextButtonBase() 
-    {
-      rng = new Random();
+    public TextButtonBase()
+    {      
+      m_rng = new Random();
       m_buttonClrs = new Dictionary<BUTTON_COLORS, Vec4<int>>();
       m_buttonClrs[BUTTON_COLORS.DEFAULT_TEXT] = new Vec4<int>(228, 212, 198, 255);
       m_buttonClrs[BUTTON_COLORS.HIGHLIGHT_TEXT] = new Vec4<int>(255, 255, 255, 255);
@@ -52,7 +52,7 @@ namespace GoopScripts.Button
 		********************************************************************/
 		public virtual void OnClick(uint entity)
     {
-      clicked = true;
+      m_clicked = true;
       Utils.UpdateSprite(entity, "Button_Base_Disabled");
       Vec4<int> clr = m_buttonClrs[BUTTON_COLORS.DEPRESSED_TEXT];
       Utils.SetTextColor(Utils.GetChildEntity(entity, "Text"), clr.X, clr.Y, clr.Z, clr.W);
@@ -67,9 +67,9 @@ namespace GoopScripts.Button
 		********************************************************************/
 		public virtual void OnRelease(uint entity)
     {
-      clicked = false;
-      Utils.PlaySoundF("SFX_ButtonClick", (float)rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
-      if (!hovering)
+			m_clicked = false;
+      Utils.PlaySoundF("SFX_ButtonClick", (float)m_rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
+      if (!m_hovering)
       {
         Utils.UpdateSprite(entity, "Button_Base");
         Vec4<int> clr = m_buttonClrs[BUTTON_COLORS.DEFAULT_TEXT];
@@ -90,7 +90,7 @@ namespace GoopScripts.Button
 		********************************************************************/
 		public virtual void OnHoverEnter(uint entity)
     {
-      hovering = true;
+			m_hovering = true;
       Utils.UpdateSprite(entity, "Button_Base_Hover");
       Vec4<int> clr = m_buttonClrs[BUTTON_COLORS.HIGHLIGHT_TEXT];
       Utils.SetTextColor(Utils.GetChildEntity(entity, "Text"), clr.X, clr.Y, clr.Z, clr.W);
@@ -105,8 +105,8 @@ namespace GoopScripts.Button
 		********************************************************************/
 		public virtual void OnHoverExit(uint entity)
     {
-      hovering = false;
-      if (!clicked)
+			m_hovering = false;
+      if (!m_clicked)
       {
         Utils.UpdateSprite(entity, "Button_Base");
         Vec4<int> clr = m_buttonClrs[BUTTON_COLORS.DEFAULT_TEXT];
