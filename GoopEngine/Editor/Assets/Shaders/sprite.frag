@@ -21,6 +21,5 @@ void main(void){
 
     fFragClr = texture(uTex2d, vTexCoord); // assign color from lookup value
     fFragClr.rgb = mix(fFragClr.rgb, uTint.rgb, uTint.a);
-    //fFragClr.rgb *= fFragClr.a;  // Premultiply alpha. Leave this here in case we switch over to this method
     //fFragClr = vec4(vInterpColor, 1.0); // by default: use object's interpolated color
 }
