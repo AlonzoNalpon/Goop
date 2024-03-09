@@ -83,6 +83,7 @@
     <Compile Include="Source\Button\ButtonInterface\IButtonHoverEnter.cs" />
     <Compile Include="Source\Button\ButtonInterface\IButtonHoverExit.cs" />
     <Compile Include="Source\Button\ButtonInterface\IButtonRelease.cs" />
+    <Compile Include="Source\Button\DigipenSplashScreen.cs" />
     <Compile Include="Source\Button\GameLevel\BuffIconInteraction.cs" />
     <Compile Include="Source\Button\GameLevel\DisableEndTurn.cs" />
     <Compile Include="Source\Button\GameLevel\EndTurn.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Source\Button\GameOverToMainMenu.cs" />
     <Compile Include="Source\Button\HTP\HTP_Back.cs" />
     <Compile Include="Source\Button\HTP\HTP_Next.cs" />
+    <Compile Include="Source\Button\LogoSplashScreen.cs" />
     <Compile Include="Source\Button\MainMenuToScene.cs" />
     <Compile Include="Source\Button\Pause\HowToPlayClose.cs" />
     <Compile Include="Source\Button\Pause\MenuClose.cs" />
