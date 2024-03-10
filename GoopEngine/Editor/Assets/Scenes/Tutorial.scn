@@ -165,7 +165,7 @@
                                     }
                                 },
                                 {
-                                    "data": 0,
+                                    "data": 39,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "textUI"
@@ -239,7 +239,7 @@
                             "second": "LeahFlashBangs"
                         },
                         {
-                            "first": 4,
+                            "first": 16,
                             "second": "LeahBlocks"
                         }
                     ]
@@ -253,7 +253,9 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 7,
-        "Child Entities": [],
+        "Child Entities": [
+            224
+        ],
         "Components": [
             {
                 "Transform": {
@@ -273,6 +275,32 @@
                     "min": "{ 618.75, -502.75 }",
                     "max": "{ 941.25, -387.25 }",
                     "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 240,
+                            "height": 90,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
                 }
             },
             {
@@ -711,7 +739,7 @@
                                     }
                                 },
                                 {
-                                    "data": 0,
+                                    "data": 60,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_tut"
@@ -4583,7 +4611,6 @@
         "isActive": true,
         "Parent": 39,
         "Child Entities": [
-            272,
             273
         ],
         "Components": [
@@ -11618,6 +11645,39 @@
         ]
     },
     {
+        "Name": "text",
+        "ID": 224,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 1,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -79.296, -17.668, 1 }",
+                    "scale": "{ 0.666667, 0.666667, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 661.056, -471.502, 11 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "END TURN",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.25,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
         "Name": "[Folder] Text",
         "ID": 225,
         "Prefab": null,
@@ -12186,9 +12246,6 @@
             238,
             239,
             243,
-            244,
-            245,
-            246,
             627
         ],
         "Components": [
@@ -12210,7 +12267,11 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 237,
-        "Child Entities": [],
+        "Child Entities": [
+            244,
+            245,
+            246
+        ],
         "Components": [
             {
                 "Transform": {
@@ -12434,15 +12495,15 @@
         "ID": 244,
         "Prefab": null,
         "isActive": true,
-        "Parent": 237,
+        "Parent": 238,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 478.017, -733.007, 15 }",
+                    "pos": "{ 478.017, -1076.97, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 478.017, -733.007, 30 }",
+                    "worldPos": "{ 478.017, -733.007, 25 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -12490,15 +12551,15 @@
         "ID": 245,
         "Prefab": null,
         "isActive": true,
-        "Parent": 237,
+        "Parent": 238,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -1655.04, -733.007, 15 }",
+                    "pos": "{ -1655.04, -1076.97, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -1655.04, -733.007, 30 }",
+                    "worldPos": "{ -1655.04, -733.007, 25 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -12546,15 +12607,15 @@
         "ID": 246,
         "Prefab": null,
         "isActive": true,
-        "Parent": 237,
+        "Parent": 238,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -588.34, -1041.63, 15 }",
+                    "pos": "{ -588.34, -1385.59, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -588.34, -1041.63, 30 }",
+                    "worldPos": "{ -588.34, -1041.63, 25 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -13813,52 +13874,6 @@
                         }
                     },
                     "spriteName": "Tutorial_Menu",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Backing",
-        "ID": 272,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 80,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 15 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 176, 34.0332, 45 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 200,
-                            "height": 100,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            }
-                        }
-                    },
-                    "spriteName": "Button_Base",
                     "shouldRender": true
                 }
             }

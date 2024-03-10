@@ -88,6 +88,9 @@ namespace GoopScripts.Gameplay
       m_turn = 1;
       m_tut = 1;
 
+      // set the static variable to the entity holding the hover effect sprite
+      TutorialSelectCard.m_cardHover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
+      Utils.SetIsActiveEntity(TutorialSelectCard.m_cardHover, false);
       isDead = false;
       ResetTutorial();
     }
@@ -110,7 +113,10 @@ namespace GoopScripts.Gameplay
       if (!gameStarted)
       {
         Console.WriteLine("Player init");
-        m_playerStats.Init();
+        for (int i = 0; i < 5; ++i)
+        {
+          m_playerStats.TutorialPlayerDraw();
+        }
         Console.WriteLine("Enemy draw");
         m_enemyStats.Draw();
         //Console.WriteLine("Enemy deck:");
@@ -191,7 +197,7 @@ namespace GoopScripts.Gameplay
       m_playerStats.EndOfTurn();
       m_enemyStats.EndOfTurn();
       ++m_turn;
-      m_playerStats.Draw();
+      m_playerStats.TutorialPlayerDraw();
       if (m_turn == 4)
       {
         m_enemyStats.Draw();
