@@ -145,19 +145,6 @@ namespace GoopScripts.Gameplay
           m_enemyStats.m_healthBar.DecreaseHealth(1);
         }
 
-        if (UI.PauseManager.PauseStateChanged())
-        {
-          if (UI.PauseManager.GetPauseState() != 0)
-          {
-            Utils.SetTimeScale(0.0f);
-          }
-          else
-          {
-            Utils.SetTimeScale(1.0f);
-          }
-          // Console.WriteLine("Pause State has changed to: " + UI.PauseManager.GetPauseState());
-        }
-
         if (isResolutionPhase)
         {
           ResolutionPhase(deltaTime);
