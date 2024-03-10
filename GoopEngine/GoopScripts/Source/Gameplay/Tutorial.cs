@@ -11,13 +11,17 @@ using static GoopScripts.Mono.Utils;
 using System.Threading;
 using static GoopScripts.Cards.CardBase;
 using GoopScripts.Button;
+using GoopScripts.Serialization;
 
 namespace GoopScripts.Gameplay
 {
   public class Tutorial : Entity
   {
+    static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 112.0, 0.0);
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
+    public int P_HEALTH_TEXT_UI, P_HEALTH_UI;
+    public int E_HEALTH_TEXT_UI, E_HEALTH_UI;
 
     static int m_turn;
     static public int m_tut;
@@ -63,28 +67,6 @@ namespace GoopScripts.Gameplay
 
       UI.PauseManager.SetPauseState(0);
 
-      //player deck
-      m_playerStats.m_deckMngr.m_deck.AddCard(CardID.LEAH_SHIELD);
-      m_playerStats.m_deckMngr.m_deck.AddCard(CardID.LEAH_BEAM);
-      m_playerStats.m_deckMngr.m_deck.AddCard(CardID.LEAH_STRIKE);
-      m_playerStats.m_deckMngr.m_deck.AddCard(CardID.SPECIAL_FLASHBANG);
-      m_playerStats.m_deckMngr.m_deck.AddCard(CardID.LEAH_SHIELD);
-      m_playerStats.m_deckMngr.m_deck.AddCard(CardID.LEAH_STRIKE);
-      m_playerStats.m_deckMngr.m_deck.AddCard(CardID.LEAH_SHIELD);
-      m_playerStats.m_deckMngr.m_deck.AddCard(CardID.LEAH_BEAM);
-      m_playerStats.m_deckMngr.m_deck.AddCard(CardID.LEAH_SHIELD);
-      m_playerStats.m_deckMngr.m_deck.AddCard(CardID.LEAH_SHIELD);
-      m_playerStats.m_deckMngr.m_deck.AddCard(CardID.LEAH_STRIKE);
-
-      //enemy deck
-      m_enemyStats.m_deckMngr.m_deck.AddCard(CardID.BASIC_ATTACK);
-      m_enemyStats.m_deckMngr.m_deck.AddCard(CardID.BASIC_SHIELD);
-      m_enemyStats.m_deckMngr.m_deck.AddCard(CardID.BASIC_ATTACK);
-      m_enemyStats.m_deckMngr.m_deck.AddCard(CardID.BASIC_ATTACK);
-      m_enemyStats.m_deckMngr.m_deck.AddCard(CardID.BASIC_ATTACK);
-      m_enemyStats.m_deckMngr.m_deck.AddCard(CardID.BASIC_ATTACK);
-      m_enemyStats.m_deckMngr.m_deck.AddCard(CardID.BASIC_SHIELD);
-
       m_turn = 1;
       m_tut = 1;
 
@@ -97,96 +79,104 @@ namespace GoopScripts.Gameplay
 
     public void OnUpdate(double deltaTime)
     {
-      if (!Utils.GetIsActiveEntity(Utils.GetEntity("Skip_Tutorial_Prompt")) && UI.PauseManager.GetPauseState() == 0)
+      try
       {
-        if (Utils.IsKeyHeld(Input.KeyCode.TAB))
+        if (!Utils.GetIsActiveEntity(Utils.GetEntity("Skip_Tutorial_Prompt")) && UI.PauseManager.GetPauseState() == 0)
         {
-          Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), true);
-        }
-        
-        if (Utils.IsKeyReleased(Input.KeyCode.TAB))
-        {
-          Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), false);
-        }
-      }
+          if (Utils.IsKeyHeld(Input.KeyCode.TAB))
+          {
+            Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), true);
+          }
 
-      if (!gameStarted)
-      {
-        Console.WriteLine("Player init");
-        for (int i = 0; i < 5; ++i)
-        {
-          m_playerStats.TutorialPlayerDraw();
+          if (Utils.IsKeyReleased(Input.KeyCode.TAB))
+          {
+            Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), false);
+          }
         }
-        Console.WriteLine("Enemy draw");
-        m_enemyStats.Draw();
-        //Console.WriteLine("Enemy deck:");
-        //for (int i = 0; i < m_enemyStats.m_deckMngr.m_deck.Size(); i++)
-        //{
-        //  Console.WriteLine(m_enemyStats.m_deckMngr.m_deck.m_cards[i]);
-        //}
-        //Console.WriteLine("Enemy hand:");
-        //for (int i = 0; i < m_enemyStats.m_deckMngr.m_hand.Count; i++)
-        //{
-        //  Console.WriteLine(m_enemyStats.m_deckMngr.m_hand[i]);
-        //}
-        m_enemyStats.QueueCard(0);
-        gameStarted = true;
-      }
 
-      if (Utils.GetLoseFocus())
-      {
-        if (UI.PauseManager.GetPauseState() == 0)
-          Utils.PauseMenu(PAUSE_MENU);
-        Utils.SetLoseFocus(false);
-      }
-      if (Utils.IsKeyTriggered(Input.KeyCode.ESCAPE))
-      {
-        switch (UI.PauseManager.GetPauseState())
+        if (!gameStarted)
         {
-          case 0:
+          LoadGame("./Assets/GameData/TutorialStats.sav");
+          Console.WriteLine("Player draw");
+          for (int i = 0; i < 5; ++i)
+          {
+            m_playerStats.TutorialPlayerDraw();
+          }
+          Console.WriteLine("Enemy draw");
+          m_enemyStats.Draw();
+          //Console.WriteLine("Enemy deck:");
+          //for (int i = 0; i < m_enemyStats.m_deckMngr.m_deck.Size(); i++)
+          //{
+          //  Console.WriteLine(m_enemyStats.m_deckMngr.m_deck.m_cards[i]);
+          //}
+          //Console.WriteLine("Enemy hand:");
+          //for (int i = 0; i < m_enemyStats.m_deckMngr.m_hand.Count; i++)
+          //{
+          //  Console.WriteLine(m_enemyStats.m_deckMngr.m_hand[i]);
+          //}
+          m_enemyStats.QueueCard(0);
+          gameStarted = true;
+        }
+
+        if (Utils.GetLoseFocus())
+        {
+          if (UI.PauseManager.GetPauseState() == 0)
             Utils.PauseMenu(PAUSE_MENU);
-            break;
-          case 1:
-            Utils.UnpauseMenu(PAUSE_MENU);
-            break;
-          case 2:
-            if (Utils.GetIsActiveEntity((uint)HOWTOPLAY_MENU))
-              Utils.UndeeperPause(PAUSE_MENU, HOWTOPLAY_MENU);
-            if (Utils.GetIsActiveEntity((uint)QUIT_MENU))
-              Utils.UndeeperPause(PAUSE_MENU, QUIT_MENU);
-            break;
-          default:
-            break;
+          Utils.SetLoseFocus(false);
         }
-      }
-      
-      if (m_tutorialToggled)
-      {
-        Console.WriteLine("tutorial toggled");
-        int m_prev = m_tut++;
-
-        Console.WriteLine($"Tutorial Number {m_tut}");
-        Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_prev}"), false);
-        Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), true);
-
-        m_tutorialToggled = false;
-      }
-
-      if (isResolutionPhase)
-      {
-        //Console.WriteLine($"Tutorial Number {m_tut}");
-        Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), false);
-        ResolutionPhase(deltaTime);
-      }
-
-
-      else
-      {
-        if (isStartOfTurn)
+        if (Utils.IsKeyTriggered(Input.KeyCode.ESCAPE))
         {
-          isStartOfTurn = false;
-          StartOfTurn();
+          switch (UI.PauseManager.GetPauseState())
+          {
+            case 0:
+              Utils.PauseMenu(PAUSE_MENU);
+              break;
+            case 1:
+              Utils.UnpauseMenu(PAUSE_MENU);
+              break;
+            case 2:
+              if (Utils.GetIsActiveEntity((uint)HOWTOPLAY_MENU))
+                Utils.UndeeperPause(PAUSE_MENU, HOWTOPLAY_MENU);
+              if (Utils.GetIsActiveEntity((uint)QUIT_MENU))
+                Utils.UndeeperPause(PAUSE_MENU, QUIT_MENU);
+              break;
+            default:
+              break;
+          }
         }
+
+        if (m_tutorialToggled)
+        {
+          Console.WriteLine("tutorial toggled");
+          int m_prev = m_tut++;
+
+          Console.WriteLine($"Tutorial Number {m_tut}");
+          Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_prev}"), false);
+          Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), true);
+
+          m_tutorialToggled = false;
+        }
+
+        if (isResolutionPhase)
+        {
+          //Console.WriteLine($"Tutorial Number {m_tut}");
+          Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), false);
+          ResolutionPhase(deltaTime);
+        }
+
+
+        else
+        {
+          if (isStartOfTurn)
+          {
+            isStartOfTurn = false;
+            StartOfTurn();
+          }
+        }
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine($"Exception in game loop: {ex.Message}");
       }
     }
 
@@ -213,8 +203,6 @@ namespace GoopScripts.Gameplay
       Console.WriteLine("StartOfTurn");
       Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{++m_tut}"), true);
     }
-
-
 
     public void ResolutionPhase(double deltaTime)
     {
@@ -291,7 +279,6 @@ namespace GoopScripts.Gameplay
               ComboManager.Combo(ref m_playerStats, ref m_enemyStats, (m_slotNum - 1));
             }
 
-
             if (m_cardsPlayedE[m_slotNum - 1] != CardBase.CardID.NO_CARD && m_cardsPlayedE[m_slotNum] != CardBase.CardID.NO_CARD)
             {
               //Console.WriteLine("ENEMY COMBOED");
@@ -327,7 +314,6 @@ namespace GoopScripts.Gameplay
       }
       else
       {
-
         if (m_currTime >= m_animTime)
         {
           m_currTime = 0.0;
@@ -338,17 +324,11 @@ namespace GoopScripts.Gameplay
             {
               // defeat
               Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Defeat");
-              //TransitionToScene("Defeat");
-
-
             }
             else if (m_enemyStats.IsDead())
             {
               // victory
               Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
-              //TransitionToScene("Victory");
-
-
             }
           }
           else
@@ -359,8 +339,6 @@ namespace GoopScripts.Gameplay
               Utils.PlayAnimation("SS_MoleRat_Idle", m_enemyStats.entityID);
               isResolutionPhase = false;
               isStartOfTurn = true;
-
-
             }
 
             else //we have not resolve all the animaiton for this round, lets continue
@@ -435,5 +413,42 @@ namespace GoopScripts.Gameplay
     }
 
     static public bool IsResolutionPhase() { return isResolutionPhase; }
+
+    void LoadGame(string filePath)
+    {
+      PlayerStatsInfo playerStats = Serialization.SerialReader.LoadPlayerState(filePath);
+      LoadPlayer(playerStats);
+
+      string levelFile = "./Assets/GameData/Tutorial.dat";
+      LoadEnemy(Serialization.SerialReader.LoadEnemy(levelFile));
+    }
+    void LoadPlayer(PlayerStatsInfo statsInfo)
+    {
+      m_playerStats.m_type = CharacterType.PLAYER;
+      foreach (var elem in statsInfo.deckList)
+      {
+        m_playerStats.m_deckMngr.m_deck.AddCard(elem.Item1, elem.Item2);
+      }
+
+      m_playerStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth, true, P_HEALTH_TEXT_UI, P_HEALTH_UI);
+    }
+
+    void LoadEnemy(EnemyStatsInfo statsInfo)
+    {
+      uint enemyID = Utils.SpawnPrefab(statsInfo.prefab, ENEMY_POS);
+      Utils.SetEntityName(enemyID, "Enemy");
+      m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
+      m_enemyStats.OnCreate();
+
+      //m_enemyStats.m_type = statsInfo.characterType;
+      foreach (var elem in statsInfo.deckList)
+      {
+        m_enemyStats.m_deckMngr.m_deck.AddCard(elem.Item1, elem.Item2);
+      }
+
+      m_enemyStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth, false, E_HEALTH_TEXT_UI, E_HEALTH_UI);
+      Utils.UpdateSprite(GetEntity("Background"), statsInfo.background);
+      Utils.UpdateSprite(GetEntity("Enemy Portrait"), statsInfo.portrait);
+    }
   }
 }

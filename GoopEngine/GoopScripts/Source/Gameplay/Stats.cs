@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using GoopScripts.Button;
 using GoopScripts.Cards;
 using GoopScripts.Mono;
@@ -53,6 +54,7 @@ namespace GoopScripts.Gameplay
     public Stats(uint entityID) : base(entityID)
     {
       m_deckMngr = new DeckManager();
+      m_healthBar = new HealthBar();
       queueElemIDs = new int[3];
       m_queueElemPos = new Vec3<double>[3];
       m_comboUI = new int[2];
@@ -64,7 +66,6 @@ namespace GoopScripts.Gameplay
     ************************************************************************/
     public void OnCreate()
     {
-      Console.WriteLine("OnCreate " + entityID);
       m_buffs = new BuffManager(m_buffsDisplay, m_type);
 
       // save the pos of each queue element
@@ -74,7 +75,6 @@ namespace GoopScripts.Gameplay
         m_queueElemPos[i].Z += 5;
       }
 
-      m_healthBar = (HealthBar)Utils.GetScriptFromID(entityID, "HealthBar");
       Utils.SetTextComponent(m_comboUI[0], "");
       Utils.SetTextComponent(m_comboUI[1], "");
     }

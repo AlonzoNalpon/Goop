@@ -443,7 +443,6 @@ namespace GoopScripts.Gameplay
       //uint enemyID = Utils.GetEntity("Enemy");
       //Utils.DestroyEntity(enemyID);
       uint enemyID = Utils.SpawnPrefab(statsInfo.prefab, ENEMY_POS);
-      Console.WriteLine("Prefab id: " + enemyID);
       Utils.SetEntityName(enemyID, "Enemy");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
       m_enemyStats.OnCreate();
