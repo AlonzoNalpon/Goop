@@ -407,31 +407,30 @@ void GE::MONO::ScriptManager::CSReloadEvent(const std::string& path, const filew
 std::string GetVisualStudioVersion() {
   std::string VSver{};
 #ifdef _MSC_VER
-  switch (_MSC_VER) {
-  case 1700:
-    VSver = "2012";
-    break;
-  case 1800:
-    VSver = "2013";
-    break;
-  case 1900:
-    VSver = "2015";
-    break;
-  case 1910:
-    VSver = "2017";
-    break;
-  case 1920:
-    VSver = "2019";
-    break;
-  case 1935:
-    VSver = "2022";
-    break;
-    // Add cases for newer versions as needed
-  default:
-    std::cout << "Unknown Visual Studio Version" << std::endl;
-
-
-  }
+  //switch (_MSC_VER) {
+  //case 1700:
+  //  VSver = "2012";
+  //  break;
+  //case 1800:
+  //  VSver = "2013";
+  //  break;
+  //case 1900:
+  //  VSver = "2015";
+  //  break;
+  //case 1910-1926:
+  //  VSver = "2017";
+  //  break;
+  //case 1920:
+  //  VSver = "2019";
+  //  break;
+  //case 1935:
+  //  VSver = "2022";
+  //  break;
+  //  // Add cases for newer versions as needed
+  //default:
+  //  std::cout << "Unknown Visual Studio Version" << std::endl;
+  //}
+  VSver = (_MSC_VER >= 1930) ? "2022" : (_MSC_VER >= 1920) ? "2019" : (_MSC_VER >= 1910) ? "2017" : (_MSC_VER >= 1900) ? "2015" : (_MSC_VER >= 1900) ? "2013" : "2012";
 #else
   std::cout << "Not using Visual Studio" << std::endl;
 #endif
