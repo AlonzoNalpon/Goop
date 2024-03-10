@@ -937,11 +937,10 @@ void GE::MONO::SetScale(GE::ECS::Entity entity, GE::Math::dVec3 scaleAdjustment)
 
 void GE::MONO::SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 rotAdjustment)
 {
-  GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-  oldTransform->m_rot.z += (rotAdjustment.z * fpsControl->GetDeltaTime());
+  oldTransform->m_rot = rotAdjustment;
 }
 
 GE::Math::dVec3 GE::MONO::GetPosition(GE::ECS::Entity entity)
@@ -994,9 +993,13 @@ MonoObject* GE::MONO::GetScriptFromID(GE::ECS::Entity entity, MonoString* script
 {
   GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
   auto ss = ecs.GetComponent<GE::Component::Scripts>(ecs.GetEntity(ecs.GetEntityName(entity)));
-  GE::MONO::ScriptInstance* scriptinst = ss->Get(MonoStringToSTD(scriptName));
+  GE::MONO::ScriptInstance* scriptInst = ss->Get(MonoStringToSTD(scriptName));
+  if (!scriptInst)
+  {
+    throw Debug::Exception<MonoObject*>(Debug::LEVEL_CRITICAL, ErrMsg("No such script: " + MonoStringToSTD(scriptName)));
+  }
 
-  return scriptinst->m_classInst;
+  return scriptInst->m_classInst;
 }
 
 MonoObject* GE::MONO::GetGameSysScript(MonoString* gameSysEntityName)

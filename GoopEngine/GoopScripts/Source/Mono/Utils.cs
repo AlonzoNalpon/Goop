@@ -410,7 +410,7 @@ namespace GoopScripts.Mono
     extern public static uint CreateObject(string name,
       Vec3<double> pos,
       Vec3<double> scale,
-      Vec3<double> rotation,
+      Vec3<double> rot = new Vec3<double>(),
       uint ParentID = uint.MaxValue);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]

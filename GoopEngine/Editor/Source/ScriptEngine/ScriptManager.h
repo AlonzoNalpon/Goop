@@ -281,12 +281,11 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
-		function to Set the value of an entity's trnsform component. This function will be added as internal call
-		to allow c# script to set entities' transform
-
+		function to Set the value of an entity's transform component. This 
+		function will be added as internal call to allow c# script to set 
+		entities' transform.
 	\params entity
 		ID of the entity
-
 
 	\params transformAdjustment
 		values to be added to the entity's transform

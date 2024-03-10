@@ -137,24 +137,24 @@
                             "entityID": 0,
                             "scriptFieldInstList": [
                                 {
-                                    "data": 0,
+                                    "data": 10,
                                     "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "Player"
+                                        "fieldName": "m_health"
                                     }
                                 },
                                 {
                                     "data": 28,
                                     "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "healthBarUI"
+                                        "fieldName": "m_healthBarUI"
                                     }
                                 },
                                 {
-                                    "data": 10,
+                                    "data": 1,
                                     "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "m_health"
+                                        "fieldName": "m_isPlayer"
                                     }
                                 },
                                 {
@@ -202,40 +202,6 @@
                             "scriptName": "LeahShoots",
                             "entityID": 0,
                             "scriptFieldInstList": []
-                        },
-                        {
-                            "scriptName": "NewHealthBar",
-                            "entityID": 0,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 10,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_health"
-                                    }
-                                },
-                                {
-                                    "data": 28,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_healthBarUI"
-                                    }
-                                },
-                                {
-                                    "data": 1,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_isPlayer"
-                                    }
-                                },
-                                {
-                                    "data": 10,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_maxHealth"
-                                    }
-                                }
-                            ]
                         }
                     ]
                 }
@@ -554,24 +520,24 @@
                             "entityID": 4,
                             "scriptFieldInstList": [
                                 {
-                                    "data": 1,
+                                    "data": 15,
                                     "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "Player"
+                                        "fieldName": "m_health"
                                     }
                                 },
                                 {
                                     "data": 29,
                                     "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "healthBarUI"
+                                        "fieldName": "m_healthBarUI"
                                     }
                                 },
                                 {
-                                    "data": 15,
+                                    "data": 0,
                                     "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "m_health"
+                                        "fieldName": "m_isPlayer"
                                     }
                                 },
                                 {
@@ -609,40 +575,6 @@
                             "scriptName": "MoleRatBlocks",
                             "entityID": 4,
                             "scriptFieldInstList": []
-                        },
-                        {
-                            "scriptName": "NewHealthBar",
-                            "entityID": 4,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 15,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_health"
-                                    }
-                                },
-                                {
-                                    "data": 29,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_healthBarUI"
-                                    }
-                                },
-                                {
-                                    "data": 0,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_isPlayer"
-                                    }
-                                },
-                                {
-                                    "data": 15,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_maxHealth"
-                                    }
-                                }
-                            ]
                         }
                     ]
                 }

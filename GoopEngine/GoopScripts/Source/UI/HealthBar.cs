@@ -1,36 +1,36 @@
 ﻿/*!*********************************************************************
 \file   HealthBar.cs
 \author loh.j\@digipen.edu
-\date   08 Febuary 2024
+\date   09 March 2024
 \brief
-  Script used to generate healthbar UI for both player and enemy.
+        Script used to generate healthbar UI for both player and enemy.
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
-using GoopScripts.Gameplay;
 using GoopScripts.Mono;
-using GoopScripts.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Permissions;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GoopScripts.UI
 {
   public class HealthBar : Entity
   {
-    private int padding_size = 0;
-    public int m_health, m_maxHealth;
-    public int healthBarUI, textUI;
-    public int Player;
-    private int m_width, m_height;
-    private Vec3<double> m_barPos;
-    private int m_individualBarWidth;
-    uint[] m_bars;
+    public int m_isPlayer;
+    public int m_healthBarUI;
+    public int textUI;
+    public int m_health;
+    public int m_maxHealth;
+    uint m_playerBarID;
+    private Vec3<double> m_alignPos = new Vec3<double>(0, 0, 0); // starting position
+    int m_maxWidth; // taken from the sprite of playerbarID
+    int m_oneUnit;
 
-    public HealthBar(uint entity) : base(entity)
+    public HealthBar()
     {
 
     }
@@ -40,66 +40,95 @@ namespace GoopScripts.UI
       m_health = health;
       m_maxHealth = maxHealth;
 
-      m_barPos = Utils.GetWorldPosition((uint)healthBarUI);
-      m_width = (int)Utils.GetObjectWidth((uint)healthBarUI) * (int)Utils.GetScale((uint)healthBarUI).X;
-      m_height = (int)Utils.GetObjectHeight((uint)healthBarUI) * (int)Utils.GetScale((uint)healthBarUI).Y - padding_size;
-      m_bars = new uint[m_maxHealth];
-
-      m_individualBarWidth = ((m_width - padding_size) / m_maxHealth) - padding_size;
-      Vec3<double> currentBarPos = new Vec3<double>(m_barPos.X - (m_width * 0.5) + padding_size + (m_individualBarWidth * 0.5), m_barPos.Y, m_barPos.Z + 5.0);
-
-      for (int i = 0; i < m_maxHealth; i++)
+      m_maxWidth = (int)Utils.GetObjectWidth((uint)m_healthBarUI);
+      m_alignPos = Utils.GetPosition((uint)m_healthBarUI);
+      m_oneUnit = m_maxWidth / m_maxHealth;
+      if (m_health < m_maxHealth)
       {
-        
-        uint barID = Utils.CreateObject("TestHealthBar", currentBarPos, new Vec3<double>(1, 1, 1), new Vec3<double>(), (uint)healthBarUI);
-        if (Player == 0)
+        if (m_isPlayer == 1)
         {
-          Utils.UpdateSprite(barID, "UI_HealthBar_Single_Green");
+          m_alignPos.X = m_alignPos.X - m_oneUnit * 0.5f * (m_maxHealth - m_health);
         }
         else
         {
-          Utils.UpdateSprite(barID, "UI_HealthBar_Single_Red");
+          m_alignPos.X = m_alignPos.X + m_oneUnit * 0.5f * (m_maxHealth - m_health);
         }
-        Utils.SetObjectWidth(barID, m_individualBarWidth);
-        Utils.SetObjectHeight(barID, m_height);
-        m_bars[i] = barID;
-        currentBarPos.X += m_individualBarWidth + padding_size;
       }
-      UpdateHealthText();
-    }
+      m_playerBarID = Utils.CreateObject("TestHealthBar", new Vec3<double>(m_alignPos), new Vec3<double>(1, 1, 1), new Vec3<double>());
+      Utils.SetPosition(m_playerBarID, m_alignPos);
 
-    public void ResetBar()
-    {
-      Vec3<double> currentScale = Utils.GetScale((uint)healthBarUI);
-      Utils.SetScale((uint)healthBarUI, new Vec3<double>(-currentScale.X, currentScale.Y, currentScale.Z));
-      UpdateHealthText();
-    }
-
-    public int GetHealth()
-    {
-      return m_health;
-    }
-
-    public void DecreaseHealth(int amount)
-    {
-      for (int i = 0;i < amount;i++)
+      Utils.SetScale(m_playerBarID, new Vec3<double>(1.0, 1.0, 1.0));
+      if (m_isPlayer == 1)
       {
-        if (m_health - 1 < 0)
-          break;
-        Utils.SetIsActiveEntity(m_bars[--m_health], false);
+        Utils.UpdateSprite(m_playerBarID, "UI_Health_Green");
       }
+      else
+      {
+        Utils.UpdateSprite(m_playerBarID, "UI_Health_Red");
+      }
+      Utils.SetObjectHeight(m_playerBarID, (int)Utils.GetObjectHeight((uint)m_healthBarUI) * (int)Utils.GetScale((uint)m_healthBarUI).Y);
+      UpdateBar();
+    }
+
+    public void UpdateBar()
+    {
+      int newWidth = m_oneUnit * m_health;
+      Utils.SetObjectWidth(m_playerBarID, newWidth);
       UpdateHealthText();
     }
 
-    public void IncreaseHealth(int amount)
+    public void DecreaseHealth(int amount = 1)
     {
-      for (int i = 0; i < amount; i++)
+      m_health -= amount;
+      UpdateBar();
+      Vec3<double> a = Utils.GetPosition(m_playerBarID);
+      if (m_isPlayer == 1)
       {
-        if (m_health + 1 > m_maxHealth)
-          break;
-        Utils.SetIsActiveEntity(m_bars[m_health++], true);
+        a.X = a.X - m_oneUnit * 0.5f;
       }
-      UpdateHealthText();
+      else
+      {
+        a.X = a.X + m_oneUnit * 0.5f;
+      }
+      Utils.SetPosition(m_playerBarID, a);
+    }
+
+    public void IncreaseHealth(int amount = 1)
+    {
+      m_health += amount;
+      UpdateBar();
+      Vec3<double> a = Utils.GetPosition(m_playerBarID);
+      if (m_isPlayer == 1)
+      {
+        a.X = a.X + m_oneUnit * 0.5f;
+      }
+      else
+      {
+        a.X = a.X - m_oneUnit * 0.5f;
+      }
+      Utils.SetPosition(m_playerBarID, a);
+    }
+
+    public void SetHealth(int amount)
+    {
+      m_health = amount;
+    }
+
+    public void SetMaxHealth(int amount)
+    {
+      m_maxHealth = amount;
+    }
+
+    public void OnUpdate(double deltaTime)
+    {
+      if (Utils.IsKeyTriggered(Input.KeyCode.UP_ARROW))
+      {
+        IncreaseHealth();
+      }
+      if (Utils.IsKeyTriggered(Input.KeyCode.DOWN_ARROW))
+      {
+        DecreaseHealth();
+      }
     }
 
     void UpdateHealthText()
