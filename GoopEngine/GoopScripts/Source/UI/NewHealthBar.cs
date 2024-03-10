@@ -14,13 +14,15 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GoopScripts.UI
 {
   public class NewHealthBar : Entity
   {
-    public int m_healthBarUI;
     public int m_isPlayer;
+    public int m_healthBarUI;
+    public int textUI;
     public int m_health;
     public int m_maxHealth;
     uint m_playerBarID;
@@ -32,12 +34,10 @@ namespace GoopScripts.UI
     {
     }
 
-    public void OnCreate()
+    public void Init(int health, int maxHealth)
     {
-      // starting position, move 1/2 width x wise
-      // get max width and make it equivalent to max hp
-      // set width of the health bar a ratio of current hp vs max hp
-      // align it to the left/right depending on character
+      m_health = health;
+      m_maxHealth = maxHealth;
 
       m_maxWidth = (int)Utils.GetObjectWidth((uint)m_healthBarUI);
       m_alignPos = Utils.GetPosition((uint)m_healthBarUI);
@@ -62,7 +62,7 @@ namespace GoopScripts.UI
       {
         Utils.UpdateSprite(m_playerBarID, "UI_Health_Red");
       }
-      Utils.SetObjectHeight(m_playerBarID, (int)Utils.GetObjectHeight((uint)m_healthBarUI)* (int)Utils.GetScale((uint)m_healthBarUI).Y);
+      Utils.SetObjectHeight(m_playerBarID, (int)Utils.GetObjectHeight((uint)m_healthBarUI) * (int)Utils.GetScale((uint)m_healthBarUI).Y);
       UpdateBar();
     }
 
@@ -70,6 +70,7 @@ namespace GoopScripts.UI
     {
       int newWidth = m_oneUnit * m_health;
       Utils.SetObjectWidth(m_playerBarID, newWidth);
+      UpdateHealthText();
     }
 
     public void DecreaseHealth(int amount = 1)
@@ -104,6 +105,16 @@ namespace GoopScripts.UI
       Utils.SetPosition(m_playerBarID, a);
     }
 
+    public void SetHealth(int amount)
+    {
+      m_health = amount;
+    }
+
+    public void SetMaxHealth(int amount)
+    {
+      m_maxHealth = amount;
+    }
+
     public void OnUpdate(double deltaTime)
     {
       if (Utils.IsKeyTriggered(Input.KeyCode.UP_ARROW))
@@ -114,6 +125,11 @@ namespace GoopScripts.UI
       {
         DecreaseHealth();
       }
+    }
+
+    void UpdateHealthText()
+    {
+      Utils.SetTextComponent(textUI, m_health + " / " + m_maxHealth);
     }
   }
 }

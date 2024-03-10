@@ -2,21 +2,7 @@
     {
         "Name": "Button",
         "ID": 0,
-        "Prefab": {
-            "name": "Button",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 0
-                },
-                {
-                    "key": 1,
-                    "value": 1
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -25,21 +11,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -697.899, 396.574, 0 }",
+                    "pos": "{ -740.029, 452.185, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -697.899, 396.574, 0 }",
+                    "worldPos": "{ -740.029, 452.185, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -697.899, 396.574 }",
+                    "center": "{ -740.029, 452.185 }",
                     "width": 370.0,
                     "height": 135.0,
-                    "min": "{ -882.899, 329.074 }",
-                    "max": "{ -512.899, 464.074 }",
+                    "min": "{ -925.029, 384.685 }",
+                    "max": "{ -555.029, 519.685 }",
                     "render": false
                 }
             },
@@ -56,7 +42,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -88,17 +80,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -100.111, -15.7037, 0 }",
+                    "pos": "{ -106.851, -15.704, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -798.01, 380.87, 0 }",
+                    "worldPos": "{ -846.88, 436.481, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "NEW GAME",
+                    "text": "MAIN MENU",
                     "clr": {
                         "r": 0.8941176533699036,
                         "g": 0.8313725590705872,
@@ -114,21 +106,7 @@
     {
         "Name": "Button",
         "ID": 2,
-        "Prefab": {
-            "name": "Button",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 2
-                },
-                {
-                    "key": 1,
-                    "value": 3
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -137,21 +115,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 695.148, 380.018, 0 }",
+                    "pos": "{ 742.333, 450.796, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 695.148, 380.018, 0 }",
+                    "worldPos": "{ 742.333, 450.796, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 695.148, 380.018 }",
+                    "center": "{ 742.333, 450.796 }",
                     "width": 370.0,
                     "height": 135.0,
-                    "min": "{ 510.148, 312.518 }",
-                    "max": "{ 880.148, 447.518 }",
+                    "min": "{ 557.333, 383.296 }",
+                    "max": "{ 927.333, 518.296 }",
                     "render": false
                 }
             },
@@ -168,7 +146,13 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -200,17 +184,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -100.111, -15.7037, 0 }",
+                    "pos": "{ -42.815, -15.703, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 595.037, 364.315, 0 }",
+                    "worldPos": "{ 699.518, 435.093, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "NEW GAME",
+                    "text": "PLAY",
                     "clr": {
                         "r": 0.8941176533699036,
                         "g": 0.8313725590705872,
@@ -250,26 +234,6 @@
                     "max": "{ -700.16, -42.1233 }",
                     "render": false
                 }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 50,
-                            "height": 50
-                        }
-                    },
-                    "spriteName": "TempAttack",
-                    "shouldRender": true
-                }
             }
         ]
     },
@@ -300,63 +264,13 @@
                     "max": "{ 500.5, -50.4077 }",
                     "render": false
                 }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 50,
-                            "height": 50
-                        }
-                    },
-                    "spriteName": "TempAttack",
-                    "shouldRender": true
-                }
             }
         ]
     },
     {
         "Name": "Leah_Attack",
         "ID": 6,
-        "Prefab": {
-            "name": "Leah_Attack",
-            "version": 15,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 6
-                },
-                {
-                    "key": 1,
-                    "value": 7
-                },
-                {
-                    "key": 2,
-                    "value": 8
-                },
-                {
-                    "key": 3,
-                    "value": 9
-                },
-                {
-                    "key": 4,
-                    "value": 10
-                },
-                {
-                    "key": 5,
-                    "value": 11
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -369,12 +283,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -513.997, 99.9106, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -513.997, 99.9106, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "pos": "{ -651.115, 167.371, 0 }",
+                    "scale": "{ 1.1, 1.1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -651.115, 167.371, 0 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             }
         ]
@@ -392,18 +306,18 @@
                     "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -513.997, 99.9106, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -651.115, 167.371, 0 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, 0 }",
+                    "center": "{ -651.115, 167.371 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -107, -150 }",
-                    "max": "{ 107, 150 }",
+                    "min": "{ -758.115, 17.371 }",
+                    "max": "{ -544.115, 317.371 }",
                     "render": false
                 }
             },
@@ -420,7 +334,13 @@
                                 "y": 1.0
                             },
                             "width": 214,
-                            "height": 300
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardBaseFront_Attack",
@@ -461,8 +381,8 @@
                     "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -513.997, 155.411, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -651.115, 228.421, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -489,7 +409,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -527,24 +453,24 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -28.1111, -27, 1 }",
+                    "pos": "{ -25, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -542.108, 72.9106, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -678.615, 139.871, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Beam",
+                    "text": "BEAM",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.10000000149011612,
+                    "scale": 0.07500000298023224,
                     "fontID": 2
                 }
             }
@@ -560,11 +486,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -49.5778, -65, 1 }",
+                    "pos": "{ -49.578, -65, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -563.575, 34.9106, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -705.65, 95.871, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -596,8 +522,8 @@
                     "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -513.997, 155.411, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -651.115, 228.421, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -614,7 +540,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -626,37 +558,7 @@
     {
         "Name": "Leah_Attack",
         "ID": 12,
-        "Prefab": {
-            "name": "Leah_Attack",
-            "version": 15,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 12
-                },
-                {
-                    "key": 1,
-                    "value": 13
-                },
-                {
-                    "key": 2,
-                    "value": 14
-                },
-                {
-                    "key": 3,
-                    "value": 15
-                },
-                {
-                    "key": 4,
-                    "value": 16
-                },
-                {
-                    "key": 5,
-                    "value": 17
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -669,12 +571,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -235.317, 102.665, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -235.317, 102.665, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "pos": "{ -230.333, 164.998, 0 }",
+                    "scale": "{ 1.1, 1.1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -230.333, 164.998, 0 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             }
         ]
@@ -689,21 +591,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ 5.68434e-14, -5.68434e-14, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -235.317, 102.665, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -230.333, 164.998, 0 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, 0 }",
+                    "center": "{ -230.333, 164.998 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -107, -150 }",
-                    "max": "{ 107, 150 }",
+                    "min": "{ -337.333, 14.9981 }",
+                    "max": "{ -123.333, 314.998 }",
                     "render": false
                 }
             },
@@ -720,7 +622,13 @@
                                 "y": 1.0
                             },
                             "width": 214,
-                            "height": 300
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardBaseFront_Attack",
@@ -758,11 +666,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ 5.68434e-14, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -235.317, 158.165, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -230.333, 226.048, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -789,7 +697,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -827,24 +741,24 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -28.1111, -27, 1 }",
+                    "pos": "{ -25, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -263.428, 75.665, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -257.833, 137.498, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Beam",
+                    "text": "BEAM",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.10000000149011612,
+                    "scale": 0.07500000298023224,
                     "fontID": 2
                 }
             }
@@ -860,11 +774,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -49.5778, -65, 1 }",
+                    "pos": "{ -49.578, -65, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -284.895, 37.665, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -284.869, 93.4981, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -893,11 +807,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ 5.68434e-14, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -235.317, 158.165, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -230.333, 226.048, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -914,7 +828,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -926,37 +846,7 @@
     {
         "Name": "Leah_Attack",
         "ID": 18,
-        "Prefab": {
-            "name": "Leah_Attack",
-            "version": 15,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 18
-                },
-                {
-                    "key": 1,
-                    "value": 19
-                },
-                {
-                    "key": 2,
-                    "value": 20
-                },
-                {
-                    "key": 3,
-                    "value": 21
-                },
-                {
-                    "key": 4,
-                    "value": 22
-                },
-                {
-                    "key": 5,
-                    "value": 23
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -969,12 +859,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 21.2963, 102.667, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 21.2963, 102.667, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "pos": "{ 192.333, 166.111, 0 }",
+                    "scale": "{ 1.1, 1.1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 192.333, 166.111, 0 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             }
         ]
@@ -989,21 +879,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ -5.68434e-14, -5.96856e-13, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 21.2963, 102.667, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ 192.333, 166.111, 0 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, 0 }",
+                    "center": "{ 192.333, 166.111 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -107, -150 }",
-                    "max": "{ 107, 150 }",
+                    "min": "{ 85.3335, 16.1112 }",
+                    "max": "{ 299.333, 316.111 }",
                     "render": false
                 }
             },
@@ -1020,7 +910,13 @@
                                 "y": 1.0
                             },
                             "width": 214,
-                            "height": 300
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardBaseFront_Attack",
@@ -1058,11 +954,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ -5.68434e-14, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 21.2963, 158.167, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ 192.333, 227.161, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1089,7 +985,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -1127,24 +1029,24 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -28.1111, -27, 1 }",
+                    "pos": "{ -25, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -6.8148, 75.667, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ 164.833, 138.611, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Beam",
+                    "text": "BEAM",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.10000000149011612,
+                    "scale": 0.07500000298023224,
                     "fontID": 2
                 }
             }
@@ -1160,11 +1062,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -49.5778, -65, 1 }",
+                    "pos": "{ -49.578, -65, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -28.2815, 37.667, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ 137.798, 94.6112, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1193,11 +1095,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ -5.68434e-14, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 21.2963, 158.167, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ 192.333, 227.161, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1214,7 +1116,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -1224,87 +1132,31 @@
         ]
     },
     {
-        "Name": "Leah_Attack",
-        "ID": 24,
-        "Prefab": {
-            "name": "Leah_Attack",
-            "version": 15,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 24
-                },
-                {
-                    "key": 1,
-                    "value": 25
-                },
-                {
-                    "key": 2,
-                    "value": 26
-                },
-                {
-                    "key": 3,
-                    "value": 27
-                },
-                {
-                    "key": 4,
-                    "value": 28
-                },
-                {
-                    "key": 5,
-                    "value": 29
-                }
-            ],
-            "registered": true
-        },
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [
-            25,
-            26,
-            27,
-            28,
-            29
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 288.944, 102.667, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 288.944, 102.667, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Base",
+        "Name": "Menu_CardButton",
         "ID": 25,
         "Prefab": null,
         "isActive": true,
-        "Parent": 24,
+        "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ -653.558, -49.114, 0 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 288.944, 102.667, 0 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -653.558, -49.114, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ -107, -150 }",
-                    "max": "{ 107, 150 }",
-                    "render": false
+                    "center": "{ -653.558, -49.114 }",
+                    "width": 189.0,
+                    "height": 53.0,
+                    "min": "{ -748.058, -75.614 }",
+                    "max": "{ -559.058, -22.614 }",
+                    "render": true
                 }
             },
             {
@@ -1319,61 +1171,48 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 214,
-                            "height": 300
+                            "width": 189,
+                            "height": 53,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
-                    "spriteName": "CardBaseFront_Attack",
+                    "spriteName": "Menu_CardButton",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "SelectCard",
-                            "entityID": 1,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
     },
     {
-        "Name": "Collider Icon",
+        "Name": "Menu_CardButton",
         "ID": 26,
         "Prefab": null,
-        "isActive": false,
-        "Parent": 24,
+        "isActive": true,
+        "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ -232.333, -43.4444, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 288.944, 158.167, 1 }",
+                    "worldPos": "{ -232.333, -43.4444, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, 55.5 }",
-                    "width": 119.0,
-                    "height": 111.0,
-                    "min": "{ -59.5, 0 }",
-                    "max": "{ 59.5, 111 }",
-                    "render": false
+                    "center": "{ -232.333, -43.4444 }",
+                    "width": 189.0,
+                    "height": 53.0,
+                    "min": "{ -326.833, -69.9444 }",
+                    "max": "{ -137.833, -16.9444 }",
+                    "render": true
                 }
             },
             {
@@ -1388,117 +1227,48 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 119,
-                            "height": 111
+                            "width": 189,
+                            "height": 53,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
-                    "spriteName": "CardIcon_LeahAttackBeam",
+                    "spriteName": "Menu_CardButton",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "ReturnFromQueue",
-                            "entityID": 2,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
     },
     {
-        "Name": "Title",
+        "Name": "Menu_CardButton",
         "ID": 27,
         "Prefab": null,
         "isActive": true,
-        "Parent": 24,
+        "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -28.1111, -27, 1 }",
+                    "pos": "{ 188.889, -43.4444, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 260.833, 75.667, 1 }",
+                    "worldPos": "{ 188.889, -43.4444, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
-                "Text": {
-                    "text": "Beam",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Description",
-        "ID": 28,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 24,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -49.5778, -65, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 239.366, 37.667, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Deals 1 Damage",
-                    "clr": {
-                        "r": 0.0,
-                        "g": 0.0,
-                        "b": 0.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.054999999701976776,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Icon",
-        "ID": 29,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 24,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 288.944, 158.167, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                "BoxCollider": {
+                    "center": "{ 188.889, -43.4444 }",
+                    "width": 189.0,
+                    "height": 53.0,
+                    "min": "{ 94.3889, -69.9444 }",
+                    "max": "{ 283.389, -16.9444 }",
+                    "render": true
                 }
             },
             {
@@ -1513,11 +1283,129 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 119,
-                            "height": 111
+                            "width": 189,
+                            "height": 53,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
-                    "spriteName": "CardIcon_LeahAttackBeam",
+                    "spriteName": "Menu_CardButton",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Menu_CardButton",
+        "ID": 28,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -655.445, -479.778, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -655.445, -479.778, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -655.445, -479.778 }",
+                    "width": 189.0,
+                    "height": 53.0,
+                    "min": "{ -749.945, -506.278 }",
+                    "max": "{ -560.945, -453.278 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 189,
+                            "height": 53,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
+                        }
+                    },
+                    "spriteName": "Menu_CardButton",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Menu_CardButton",
+        "ID": 29,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -235, -480.333, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -235, -480.333, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -235, -480.333 }",
+                    "width": 189.0,
+                    "height": 53.0,
+                    "min": "{ -329.5, -506.833 }",
+                    "max": "{ -140.5, -453.833 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 189,
+                            "height": 53,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
+                        }
+                    },
+                    "spriteName": "Menu_CardButton",
                     "shouldRender": true
                 }
             }
@@ -1526,37 +1414,7 @@
     {
         "Name": "Leah_Attack",
         "ID": 30,
-        "Prefab": {
-            "name": "Leah_Attack",
-            "version": 15,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 30
-                },
-                {
-                    "key": 1,
-                    "value": 31
-                },
-                {
-                    "key": 2,
-                    "value": 32
-                },
-                {
-                    "key": 3,
-                    "value": 33
-                },
-                {
-                    "key": 4,
-                    "value": 34
-                },
-                {
-                    "key": 5,
-                    "value": 35
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -1569,12 +1427,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -516.759, -239.481, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -516.759, -239.481, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "pos": "{ -649.225, -268.892, 0 }",
+                    "scale": "{ 1.1, 1.1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -649.225, -268.892, 0 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             }
         ]
@@ -1589,21 +1447,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ 1.13687e-13, 1.13687e-13, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -516.759, -239.481, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -649.225, -268.892, 0 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, 0 }",
+                    "center": "{ -649.225, -268.892 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -107, -150 }",
-                    "max": "{ 107, 150 }",
+                    "min": "{ -756.225, -418.892 }",
+                    "max": "{ -542.225, -118.892 }",
                     "render": false
                 }
             },
@@ -1620,7 +1478,13 @@
                                 "y": 1.0
                             },
                             "width": 214,
-                            "height": 300
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardBaseFront_Attack",
@@ -1658,11 +1522,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ 1.13687e-13, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -516.759, -183.981, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -649.225, -207.842, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1689,7 +1553,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -1727,24 +1597,24 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -28.1111, -27, 1 }",
+                    "pos": "{ -25, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -544.87, -266.481, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -676.725, -296.392, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Beam",
+                    "text": "BEAM",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.10000000149011612,
+                    "scale": 0.07500000298023224,
                     "fontID": 2
                 }
             }
@@ -1760,11 +1630,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -49.5778, -65, 1 }",
+                    "pos": "{ -49.578, -65, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -566.337, -304.481, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -703.761, -340.392, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1793,11 +1663,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ 1.13687e-13, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -516.759, -183.981, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -649.225, -207.842, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1814,7 +1684,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -1826,37 +1702,7 @@
     {
         "Name": "Leah_Attack",
         "ID": 36,
-        "Prefab": {
-            "name": "Leah_Attack",
-            "version": 15,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 36
-                },
-                {
-                    "key": 1,
-                    "value": 37
-                },
-                {
-                    "key": 2,
-                    "value": 38
-                },
-                {
-                    "key": 3,
-                    "value": 39
-                },
-                {
-                    "key": 4,
-                    "value": 40
-                },
-                {
-                    "key": 5,
-                    "value": 41
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -1869,12 +1715,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -232.554, -247.757, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -232.554, -247.757, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "pos": "{ -230.665, -276.09, 0 }",
+                    "scale": "{ 1.1, 1.1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -230.665, -276.09, 0 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             }
         ]
@@ -1889,21 +1735,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ 2.84217e-14, 1.25056e-12, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -232.554, -247.757, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -230.665, -276.09, 0 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, 0 }",
+                    "center": "{ -230.665, -276.09 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -107, -150 }",
-                    "max": "{ 107, 150 }",
+                    "min": "{ -337.665, -426.09 }",
+                    "max": "{ -123.665, -126.09 }",
                     "render": false
                 }
             },
@@ -1920,7 +1766,13 @@
                                 "y": 1.0
                             },
                             "width": 214,
-                            "height": 300
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardBaseFront_Attack",
@@ -1958,11 +1810,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ 2.84217e-14, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -232.554, -192.257, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -230.665, -215.04, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1989,7 +1841,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -2027,24 +1885,24 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -28.1111, -27, 1 }",
+                    "pos": "{ -25, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -260.665, -274.757, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -258.165, -303.59, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Beam",
+                    "text": "BEAM",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.10000000149011612,
+                    "scale": 0.07500000298023224,
                     "fontID": 2
                 }
             }
@@ -2060,11 +1918,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -49.5778, -65, 1 }",
+                    "pos": "{ -49.578, -65, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -282.132, -312.757, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -285.201, -347.59, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -2093,11 +1951,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ 2.84217e-14, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -232.554, -192.257, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -230.665, -215.04, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -2114,7 +1972,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -2126,37 +1990,7 @@
     {
         "Name": "Leah_Attack",
         "ID": 42,
-        "Prefab": {
-            "name": "Leah_Attack",
-            "version": 15,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 42
-                },
-                {
-                    "key": 1,
-                    "value": 43
-                },
-                {
-                    "key": 2,
-                    "value": 44
-                },
-                {
-                    "key": 3,
-                    "value": 45
-                },
-                {
-                    "key": 4,
-                    "value": 46
-                },
-                {
-                    "key": 5,
-                    "value": 47
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -2169,12 +2003,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 26.8148, -245, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 26.8148, -245, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "pos": "{ 193.039, -271.443, 0 }",
+                    "scale": "{ 1.1, 1.1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 193.039, -271.443, 0 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             }
         ]
@@ -2189,21 +2023,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ -5.68434e-14, -2.16005e-12, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 26.8148, -245, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ 193.039, -271.443, 0 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, 0 }",
+                    "center": "{ 193.039, -271.443 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -107, -150 }",
-                    "max": "{ 107, 150 }",
+                    "min": "{ 86.0385, -421.443 }",
+                    "max": "{ 300.039, -121.443 }",
                     "render": false
                 }
             },
@@ -2220,7 +2054,13 @@
                                 "y": 1.0
                             },
                             "width": 214,
-                            "height": 300
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardBaseFront_Attack",
@@ -2258,11 +2098,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ -5.68434e-14, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 26.8148, -189.5, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ 193.039, -210.393, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -2289,7 +2129,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -2327,24 +2173,24 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -28.1111, -27, 1 }",
+                    "pos": "{ -25, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -1.2963, -272, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ 165.539, -298.943, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Beam",
+                    "text": "BEAM",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.10000000149011612,
+                    "scale": 0.07500000298023224,
                     "fontID": 2
                 }
             }
@@ -2363,8 +2209,8 @@
                     "pos": "{ -49.5778, -65, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -22.763, -310, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ 138.503, -342.943, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -2393,11 +2239,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ -5.68434e-14, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 26.8148, -189.5, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ 193.039, -210.393, 1 }",
+                    "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -2414,7 +2260,13 @@
                                 "y": 1.0
                             },
                             "width": 119,
-                            "height": 111
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "CardIcon_LeahAttackBeam",
@@ -2424,308 +2276,8 @@
         ]
     },
     {
-        "Name": "Leah_Attack",
+        "Name": "Menu_CardButton",
         "ID": 48,
-        "Prefab": {
-            "name": "Leah_Attack",
-            "version": 15,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 48
-                },
-                {
-                    "key": 1,
-                    "value": 49
-                },
-                {
-                    "key": 2,
-                    "value": 50
-                },
-                {
-                    "key": 3,
-                    "value": 51
-                },
-                {
-                    "key": 4,
-                    "value": 52
-                },
-                {
-                    "key": 5,
-                    "value": 53
-                }
-            ],
-            "registered": true
-        },
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [
-            49,
-            50,
-            51,
-            52,
-            53
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 294.463, -261.555, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 294.463, -261.555, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Base",
-        "ID": 49,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 48,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 294.463, -261.555, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ -107, -150 }",
-                    "max": "{ 107, 150 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300
-                        }
-                    },
-                    "spriteName": "CardBaseFront_Attack",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "SelectCard",
-                            "entityID": 1,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Collider Icon",
-        "ID": 50,
-        "Prefab": null,
-        "isActive": false,
-        "Parent": 48,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 294.463, -206.055, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 55.5 }",
-                    "width": 119.0,
-                    "height": 111.0,
-                    "min": "{ -59.5, 0 }",
-                    "max": "{ 59.5, 111 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 119,
-                            "height": 111
-                        }
-                    },
-                    "spriteName": "CardIcon_LeahAttackBeam",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "ReturnFromQueue",
-                            "entityID": 2,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Title",
-        "ID": 51,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 48,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -28.1111, -27, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 266.352, -288.555, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Beam",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Description",
-        "ID": 52,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 48,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -49.5778, -65, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 244.885, -326.555, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Deals 1 Damage",
-                    "clr": {
-                        "r": 0.0,
-                        "g": 0.0,
-                        "b": 0.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.054999999701976776,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Icon",
-        "ID": 53,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 48,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 294.463, -206.055, 1 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 119,
-                            "height": 111
-                        }
-                    },
-                    "spriteName": "CardIcon_LeahAttackBeam",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Bar",
-        "ID": 54,
         "Prefab": null,
         "isActive": true,
         "Parent": null,
@@ -2733,21 +2285,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 733.186, -68.4074, 0 }",
+                    "pos": "{ 195.667, -484.111, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 733.186, -68.4074, 0 }",
+                    "worldPos": "{ 195.667, -484.111, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 733.186, -68.4074 }",
-                    "width": 160.0,
-                    "height": 600.0,
-                    "min": "{ 653.186, -368.407 }",
-                    "max": "{ 813.186, 231.593 }",
+                    "center": "{ 195.667, -484.111 }",
+                    "width": 189.0,
+                    "height": 53.0,
+                    "min": "{ 101.167, -510.611 }",
+                    "max": "{ 290.167, -457.611 }",
                     "render": true
                 }
             },
@@ -2763,11 +2315,73 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 160,
-                            "height": 600
+                            "width": 189,
+                            "height": 53,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
-                    "spriteName": "Bar",
+                    "spriteName": "Menu_CardButton",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Bar",
+        "ID": 54,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 727.519, -89.1853, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 727.519, -89.1853, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 727.519, -89.1853 }",
+                    "width": 160.0,
+                    "height": 600.0,
+                    "min": "{ 647.519, -389.185 }",
+                    "max": "{ 807.519, 210.815 }",
+                    "render": true
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 422,
+                            "height": 855,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
+                        }
+                    },
+                    "spriteName": "Menu_Map",
                     "shouldRender": true
                 }
             }
@@ -2814,11 +2428,61 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
-                    "spriteName": "MainMenu_BG",
+                    "spriteName": "Menu_Home",
                     "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "DeckViewer Manager",
+        "ID": 56,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "HomeBase",
+                            "entityID": 56,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "CardCounter",
+                            "entityID": 56,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 4,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_cardID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             }
         ]
