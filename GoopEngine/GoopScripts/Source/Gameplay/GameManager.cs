@@ -30,7 +30,7 @@ namespace GoopScripts.Gameplay
   public class GameManager : Entity
   {
     //static readonly double INTERVAL_TIME = 3.0;
-    static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 112.0, 0.0);
+    static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 100.0, 0.0);
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
     public int P_HEALTH_TEXT_UI, P_HEALTH_UI;

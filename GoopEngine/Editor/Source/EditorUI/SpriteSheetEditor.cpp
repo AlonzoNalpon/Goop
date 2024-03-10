@@ -151,7 +151,10 @@ namespace GE::EditorGUI
       {
         auto iterToErase{ m_loadedData.begin() + selectedIndex };
         // remove the name and data from both containers
-        m_spriteSheetNames.emplace_back(iterToErase->m_id);
+        if (!iterToErase->m_id.empty())
+        {
+          m_spriteSheetNames.emplace_back(iterToErase->m_id);
+        }
         m_loadedData.erase(iterToErase);
         removeSelected = false;
       }
@@ -175,7 +178,7 @@ namespace GE::EditorGUI
       Assets::AssetManager& am{ Assets::AssetManager::GetInstance() };
       std::string const filePath{ am.GetConfigData<std::string>("Sprite Config") };
       Serialization::Serializer::SerializeAny(filePath, m_loadedData);
-      Debug::ErrorLogger::GetInstance().LogMessage("Successfully saved sprite sheet data");
+      Debug::ErrorLogger::GetInstance().LogMessage("Successfully saved sprite sheet data. Reloading...");
       m_loadedData.clear();
       m_spriteSheetNames.clear();
       m_loadedThisSession = m_isToggled = false;

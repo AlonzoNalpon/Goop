@@ -216,6 +216,9 @@ RTTR_REGISTRATION
     .property("type", &MONO::ScriptFieldInstance<HealthBar>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<HealthBar>::m_scriptField)
     ;
+  rttr::registration::class_<MONO::CharacterAnims>("CharacterAnims")
+    .property("characterAnimsInst", &MONO::CharacterAnims::m_characterAnimsInst)
+    ;
   rttr::registration::class_<MONO::ScriptFieldInstance<CharacterAnims>>("GoopScripts.Gameplay.CharacterAnims")
     .property("data", &MONO::ScriptFieldInstance<CharacterAnims>::m_data)
     .property("type", &MONO::ScriptFieldInstance<CharacterAnims>::m_type)

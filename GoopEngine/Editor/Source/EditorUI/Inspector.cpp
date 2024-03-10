@@ -1029,7 +1029,7 @@ void GE::EditorGUI::Inspector::CreateContent()
 									ImGui::TableNextColumn();
 									auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
 									auto const& textureLT{ animManager.GetAnimLT() };
-									if (BeginCombo(("##" + dSFI.m_scriptField.m_fieldName).c_str(), dSFI.m_data.c_str()))
+									if (BeginCombo(("##" + dSFI.m_scriptField.m_fieldName + std::to_string(ImGui::GetColumnIndex())).c_str(), dSFI.m_data.c_str()))
 									{
 										for (auto const& it : textureLT)
 										{

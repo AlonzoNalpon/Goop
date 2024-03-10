@@ -56,7 +56,63 @@
                             "entityID": 0,
                             "scriptFieldInstList": [
                                 {
-                                    "data": {},
+                                    "data": {
+                                        "characterAnimsInst": {
+                                            "scriptName": "CharacterAnims",
+                                            "entityID": 32759,
+                                            "scriptFieldInstList": [
+                                                {
+                                                    "data": "SS_Leah_Attack",
+                                                    "type": "System.String",
+                                                    "scriptField": {
+                                                        "fieldName": "m_attack"
+                                                    }
+                                                },
+                                                {
+                                                    "data": "SS_Leah_EmpoweredPunch",
+                                                    "type": "System.String",
+                                                    "scriptField": {
+                                                        "fieldName": "m_attack2"
+                                                    }
+                                                },
+                                                {
+                                                    "data": "SS_Leah_BlockShield",
+                                                    "type": "System.String",
+                                                    "scriptField": {
+                                                        "fieldName": "m_block"
+                                                    }
+                                                },
+                                                {
+                                                    "data": "SS_Leah_DeathNoShield",
+                                                    "type": "System.String",
+                                                    "scriptField": {
+                                                        "fieldName": "m_death"
+                                                    }
+                                                },
+                                                {
+                                                    "data": "SS_Leah_DeathShield",
+                                                    "type": "System.String",
+                                                    "scriptField": {
+                                                        "fieldName": "m_deathShield"
+                                                    }
+                                                },
+                                                {
+                                                    "data": "SS_Leah_Flinch",
+                                                    "type": "System.String",
+                                                    "scriptField": {
+                                                        "fieldName": "m_flinch"
+                                                    }
+                                                },
+                                                {
+                                                    "data": "SS_Leah_Idle",
+                                                    "type": "System.String",
+                                                    "scriptField": {
+                                                        "fieldName": "m_idle"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
                                     "type": "",
                                     "scriptField": {
                                         "fieldName": "m_animations"
@@ -137,6 +193,13 @@
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_health"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_healthBarUI"
                                     }
                                 },
                                 {

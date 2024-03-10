@@ -1,15 +1,15 @@
 {
     "Name": "MineWorm",
     "isActive": true,
-    "Version": 2,
+    "Version": 3,
     "Components": [
         {
             "Transform": {
                 "pos": "{ 0, 0, 0 }",
-                "scale": "{ 0.9, 0.9, 1 }",
+                "scale": "{ 1, 1, 1 }",
                 "rot": "{ 0, 0, 0 }",
                 "worldPos": "{ 0, 0, 0 }",
-                "worldScale": "{ 0.9, 0.9, 1 }",
+                "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
             }
         },
@@ -36,7 +36,13 @@
                             "y": 1.0
                         },
                         "width": 500,
-                        "height": 625
+                        "height": 625,
+                        "tint": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 0.0
+                        }
                     }
                 },
                 "spriteName": "SS_MineWorm_Idle",
@@ -56,7 +62,63 @@
                         "entityID": 0,
                         "scriptFieldInstList": [
                             {
-                                "data": {},
+                                "data": {
+                                    "characterAnimsInst": {
+                                        "scriptName": "CharacterAnims",
+                                        "entityID": 32758,
+                                        "scriptFieldInstList": [
+                                            {
+                                                "data": "SS_MineWorm_Slash",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_attack"
+                                                }
+                                            },
+                                            {
+                                                "data": "SS_MineWorm_Spit",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_attack2"
+                                                }
+                                            },
+                                            {
+                                                "data": "SS_MineWorm_Shield",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_block"
+                                                }
+                                            },
+                                            {
+                                                "data": "SS_MoleRat_Death",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_death"
+                                                }
+                                            },
+                                            {
+                                                "data": "SS_MoleRat_Death",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_deathShield"
+                                                }
+                                            },
+                                            {
+                                                "data": "SS_MineWorm_Flinch",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_flinch"
+                                                }
+                                            },
+                                            {
+                                                "data": "SS_MineWorm_Idle",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_idle"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
                                 "type": "",
                                 "scriptField": {
                                     "fieldName": "m_animations"
@@ -109,17 +171,6 @@
                                 }
                             },
                             {
-                                "data": {
-                                    "m_health": 8,
-                                    "m_maxHealth": 8,
-                                    "m_healthBarUI": 29
-                                },
-                                "type": "",
-                                "scriptField": {
-                                    "fieldName": "m_healthBar"
-                                }
-                            },
-                            {
                                 "data": "BASIC_ENEMY",
                                 "type": "GoopScripts.Gameplay.CharacterType",
                                 "scriptField": {
@@ -136,13 +187,6 @@
                                 "scriptField": {
                                     "fieldName": "queueElemIDs"
                                 }
-                            },
-                            {
-                                "data": "oof",
-                                "type": "System.String",
-                                "scriptField": {
-                                    "fieldName": "test"
-                                }
                             }
                         ]
                     },
@@ -151,20 +195,6 @@
                         "entityID": 0,
                         "scriptFieldInstList": [
                             {
-                                "data": 1,
-                                "type": "System.Int32",
-                                "scriptField": {
-                                    "fieldName": "Player"
-                                }
-                            },
-                            {
-                                "data": 29,
-                                "type": "System.Int32",
-                                "scriptField": {
-                                    "fieldName": "healthBarUI"
-                                }
-                            },
-                            {
                                 "data": 8,
                                 "type": "System.Int32",
                                 "scriptField": {
@@ -172,17 +202,17 @@
                                 }
                             },
                             {
+                                "data": 0,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "m_healthBarUI"
+                                }
+                            },
+                            {
                                 "data": 8,
                                 "type": "System.Int32",
                                 "scriptField": {
                                     "fieldName": "m_maxHealth"
-                                }
-                            },
-                            {
-                                "data": 42,
-                                "type": "System.Int32",
-                                "scriptField": {
-                                    "fieldName": "textUI"
                                 }
                             }
                         ]
