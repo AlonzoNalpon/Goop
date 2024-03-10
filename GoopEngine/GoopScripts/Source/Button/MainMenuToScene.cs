@@ -22,29 +22,47 @@ namespace GoopScripts.Transition
   public class MainMenuToScene : TextButtonBase
   {
     public int Scene;
+    private bool m_shouldTransition;
+    public double m_delay;
+    private double m_currentTime;
 
     public override void OnRelease(uint entity)
-    {
+    {      
 			base.OnRelease(entity);
-			switch (Scene)
-			{
-				case 0:
-					Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Cutscene");
-					break;
-        case 1: // LOAD GAME
-          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Game");
-          break;
-        case 2:
-          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Options");
-          break;
-        case 3:
-          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "HowToPlay");
-          break;
-        case 4:
-          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Credits");
-          break;
-        default: break;
-      }
+			Utils.PlayTransformAnimation(Utils.GetEntity("[Image] Button Panel"), "GoUp");
+      m_shouldTransition = true;
+			m_currentTime = 0.0f;
+    }
+
+		public void OnUpdate(double dt)
+		{
+      if (m_shouldTransition)
+      {
+				if (m_currentTime > m_delay)
+				{
+					switch (Scene)
+					{
+						case 0:
+							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Cutscene");
+							break;
+						case 1: // LOAD GAME
+							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Game");
+							break;
+						case 2:
+							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Options");
+							break;
+						case 3:
+							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "HowToPlay");
+							break;
+						case 4:
+							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Credits");
+							break;
+						default: break;
+					}
+					m_shouldTransition = false;
+				}
+				m_currentTime += dt;
+			}
     }
   }
 }
