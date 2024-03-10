@@ -19,6 +19,11 @@ namespace GoopScripts.Source.UI
     public void OnCreate()
     {
       Console.WriteLine(m_cardID + ": " + HomeBase.GetCount((CardBase.CardID)m_cardID));
+      Console.WriteLine((int)Utils.GetChildEntity(entityID, "Text"));
+      Console.WriteLine("x" + HomeBase.GetCount((CardBase.CardID)m_cardID));
+
+      Utils.SetTextComponent((int)Utils.GetChildEntity(entityID, "Text"), "x" + HomeBase.GetCount((CardBase.CardID)m_cardID));
+      
     }
 
   }
