@@ -1,7 +1,7 @@
 {
     "Name": "Dawson",
     "isActive": true,
-    "Version": 2,
+    "Version": 3,
     "Components": [
         {
             "Transform": {
@@ -56,6 +56,13 @@
                         "entityID": 0,
                         "scriptFieldInstList": [
                             {
+                                "data": {},
+                                "type": "",
+                                "scriptField": {
+                                    "fieldName": "m_animations"
+                                }
+                            },
+                            {
                                 "data": 0,
                                 "type": "System.Int32",
                                 "scriptField": {
@@ -91,9 +98,9 @@
                                     "Cards In Discard": [],
                                     "Cards In Hand": [],
                                     "Cards In Queue": [
-                                        "DAWSON_SHIELD",
+                                        "NO_CARD",
                                         "",
-                                        "DAWSON_SHIELD"
+                                        "NO_CARD"
                                     ]
                                 },
                                 "type": "",
@@ -128,6 +135,13 @@
                                 "type": "System.Int32[]",
                                 "scriptField": {
                                     "fieldName": "queueElemIDs"
+                                }
+                            },
+                            {
+                                "data": "oof",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "test"
                                 }
                             }
                         ]

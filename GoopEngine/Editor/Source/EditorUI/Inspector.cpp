@@ -940,7 +940,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 								GE::MONO::ScriptFieldInstance<GE::Math::dVec3>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>();
 								if (InputDouble3(("##" + sfi.m_scriptField.m_fieldName).c_str(), sfi.m_data, inputWidth)) { s.SetFieldValue<GE::Math::dVec3>(sfi.m_data, sfi.m_scriptField.m_classField); };
 							}
-
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<DeckManager>>())
 							{
 								TableNextRow();
@@ -1024,22 +1023,27 @@ void GE::EditorGUI::Inspector::CreateContent()
 								ImGui::TableNextColumn(); ImGui::Separator(); ImGui::TableNextRow();
 								for (rttr::variant& dF : charAnims.m_scriptFieldInstList)
 								{
-
 									ScriptFieldInstance<std::string>& dSFI = dF.get_value<ScriptFieldInstance<std::string>>();
 									ImGui::TableNextColumn();
 									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
 									ImGui::TableNextColumn();
-									std::string fieldVal{ dSFI.m_data };
-									if (ImGui::InputText(("##" + dSFI.m_scriptField.m_fieldName).c_str(), &fieldVal, 0, 0, 0))
+									auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
+									auto const& textureLT{ animManager.GetAnimLT() };
+									if (BeginCombo(("##" + dSFI.m_scriptField.m_fieldName).c_str(), dSFI.m_data.c_str()))
 									{
-										charAnims.SetFieldValue<MonoString*>(MONO::STDToMonoString(fieldVal), dSFI.m_scriptField.m_classField);
+										for (auto const& it : textureLT)
+										{
+											if (Selectable(it.first.c_str()))
+											{
+												mono_field_set_value(charAnims.m_classInst, dSFI.m_scriptField.m_classField, MONO::STDToMonoString(it.first));
+												//charAnims.SetFieldValue<MonoString*>(MONO::STDToMonoString(it.first), dSFI.m_scriptField.m_classField);
+											}
+										}
+										EndCombo();
 									}
 								}
-								ImGui::TableNextRow();
-								ImGui::TableNextColumn();
-								ImGui::Separator();
-								ImGui::TableNextColumn();
-								ImGui::Separator();
+								ImGui::TableNextRow(); ImGui::TableNextColumn(); ImGui::Separator();
+								ImGui::TableNextColumn(); ImGui::Separator();
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterType>>())
 							{

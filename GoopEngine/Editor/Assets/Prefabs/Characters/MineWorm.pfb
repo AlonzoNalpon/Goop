@@ -1,7 +1,7 @@
 {
     "Name": "MineWorm",
     "isActive": true,
-    "Version": 1,
+    "Version": 2,
     "Components": [
         {
             "Transform": {
@@ -53,8 +53,15 @@
                 "scriptList": [
                     {
                         "scriptName": "Stats",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": [
+                            {
+                                "data": {},
+                                "type": "",
+                                "scriptField": {
+                                    "fieldName": "m_animations"
+                                }
+                            },
                             {
                                 "data": 0,
                                 "type": "System.Int32",
@@ -91,9 +98,9 @@
                                     "Cards In Discard": [],
                                     "Cards In Hand": [],
                                     "Cards In Queue": [
-                                        "BASIC_ATTACK",
+                                        "NO_CARD",
                                         "",
-                                        "BASIC_ATTACK"
+                                        "NO_CARD"
                                     ]
                                 },
                                 "type": "",
@@ -129,12 +136,19 @@
                                 "scriptField": {
                                     "fieldName": "queueElemIDs"
                                 }
+                            },
+                            {
+                                "data": "oof",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "test"
+                                }
                             }
                         ]
                     },
                     {
                         "scriptName": "HealthBar",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": [
                             {
                                 "data": 1,
@@ -175,22 +189,22 @@
                     },
                     {
                         "scriptName": "MoleRatBites",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     },
                     {
                         "scriptName": "LeahDies",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     },
                     {
                         "scriptName": "MoleRatScreeches",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     },
                     {
                         "scriptName": "MoleRatBlocks",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     }
                 ]

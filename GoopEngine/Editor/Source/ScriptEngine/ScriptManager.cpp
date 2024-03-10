@@ -273,7 +273,7 @@ void GE::MONO::ScriptManager::LoadAllMonoClass()
             MonoType* type = mono_field_get_type(field);
             ScriptFieldType fieldType = MonoTypeToScriptFieldType(type);
             std::string typeName = mono_type_get_name(type);
-            std::cout << fieldName << "\n";
+            //std::cout << fieldName << "\n";
             newScriptClassInfo.m_ScriptFieldMap[fieldName] = { fieldType, fieldName, field };
           }
         }
@@ -331,8 +331,9 @@ void GE::MONO::ScriptManager::ReloadAllScripts()
     if (ecs.HasComponent<GE::Component::Scripts>(s.first))
     {
       GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(s.first);
-      
+#ifdef _DEBUG
       std::cout << s.first << ": " << s.second.size() << " adding\n";
+#endif
       for (auto& si : s.second)
       {
         scripts->m_scriptList.push_back(si);
@@ -365,12 +366,16 @@ void GE::MONO::ScriptManager::TestReload()
 
 void GE::MONO::ScriptManager::AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type)
 {
+#ifdef _DEBUG
   std::cout << "ASSReload\n";
+#endif
   if (!m_assemblyReloadPending && change_type == filewatch::Event::modified)
   {
     m_assemblyReloadPending = true;
     auto gsm = &GE::GSM::GameStateManager::GetInstance();
+#ifdef _DEBUG
     std::cout << "AddCmd to main thread\n";
+#endif
     gsm->SubmitToMainThread([]()
       {
         m_fileWatcher.reset();

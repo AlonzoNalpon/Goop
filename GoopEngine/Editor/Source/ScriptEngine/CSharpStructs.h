@@ -51,7 +51,7 @@ namespace GE::MONO
 
   struct CharacterAnims
   {
-    std::string m_idle, m_flinch, m_death, m_deathShield;
+    //std::string m_idle, m_flinch, m_death, m_deathShield;
     ScriptInstance m_characterAnimsInst;
   };
 }

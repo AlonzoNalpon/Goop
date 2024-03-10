@@ -25,7 +25,7 @@ namespace GE
       double m_speed;
       u32    m_flags; //!< looping, etc.
 
-      SpriteData() : m_id{}, m_filePath{}, m_slices{}, m_stacks{}, m_frames{}, m_speed() {}
+      SpriteData() : m_id{}, m_filePath{}, m_slices{}, m_stacks{}, m_frames{}, m_speed(), m_flags{} {}
       // Non-default ctor
       SpriteData(std::string const& id, std::string const& filePath,
         unsigned slices, unsigned stacks, unsigned frames, double speed, u32 flags) :

@@ -43,6 +43,19 @@ namespace GE::EditorGUI
     static void ToggleSpriteSheetEditor();
 
   private:
+    /*!*********************************************************************
+    \brief
+      Loads the sprite sheet data from asset manager
+    ************************************************************************/
+    static void LoadData();
+
+    /*!*********************************************************************
+    \brief
+      Clears all empty entries from the container before saving to file
+      (new rows added but not yet set by user).
+    ************************************************************************/
+    static void ClearEmptyEntries();
+
     static bool m_isToggled, m_loadedThisSession;
     static std::vector<Serialization::SpriteData> m_spriteSheetData;
   };

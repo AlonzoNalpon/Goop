@@ -258,8 +258,8 @@ void ScriptInstance::GetFields()
     {
       MonoString* value = GetFieldValue<MonoString*>(field.m_classField);
       std::string const str{ MonoStringToSTD(value) };
-      //ScriptFieldInstance<std::vector<char>> test{ field,value };
-      //m_scriptFieldInstList.emplace_back(test);
+      ScriptFieldInstance<std::string> sfi{ field, str };
+      m_scriptFieldInstList.emplace_back(sfi);
     }
     else if (field.m_fieldType == ScriptFieldType::CharacterAnimsFT)
     {
@@ -271,13 +271,8 @@ void ScriptInstance::GetFields()
         if (sfi.m_data.m_characterAnimsInst.m_classInst)
         {
           sfi.m_data.m_characterAnimsInst.m_scriptClass = mono_object_get_class(sfi.m_data.m_characterAnimsInst.m_classInst);
-
-          rttr::type const characterAnimType{ rttr::type::get< CharacterAnims>() };
-          for (auto& prop : characterAnimType.get_properties())
-          {
-            sfi.m_data.m_characterAnimsInst.m_scriptFieldInstList.emplace_back(ScriptFieldInstance<std::string>(ScriptField(String, prop.get_name().to_string().c_str(), 
-              mono_class_get_field_from_name(sfi.m_data.m_characterAnimsInst.m_scriptClass, prop.get_name().to_string().c_str()))));
-          }
+          sfi.m_data.m_characterAnimsInst.m_scriptName = mono_class_get_name(sfi.m_data.m_characterAnimsInst.m_scriptClass);
+          sfi.m_data.m_characterAnimsInst.GetFields();
         }
       }
 
@@ -285,14 +280,9 @@ void ScriptInstance::GetFields()
       {
         MONO::ScriptFieldInstance<std::string>& dmSFI = dm.get_value<MONO::ScriptFieldInstance<std::string>>();
         dmSFI.m_data = MonoStringToSTD(sfi.m_data.m_characterAnimsInst.GetFieldValue<MonoString*>(dmSFI.m_scriptField.m_classField));
-
-        auto prop{ rttr::type::get< CharacterAnims>().get_property(dmSFI.m_scriptField.m_fieldName) };
-        if (prop.is_valid())
-        {
-          prop.set_value(sfi.m_data, dmSFI.m_data);
-        }
       }
       m_scriptFieldInstList.emplace_back(sfi);
+      //std::cout << "getfields size:" << sfi.m_data.m_characterAnimsInst.m_scriptFieldInstList.size() << "\n";
     }
 	}
 }
@@ -323,8 +313,7 @@ void ScriptInstance::SetAllFields()
     else if (f.is_type<GE::MONO::ScriptFieldInstance<std::string>>())
     {
       GE::MONO::ScriptFieldInstance<std::string>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::string>>();
-      std::cout << sfi.m_scriptField.m_fieldName << " | " << sfi.m_data << "\n";
-      SetFieldValue<MonoString*>(STDToMonoString(sfi.m_data), sfi.m_scriptField.m_classField);
+      mono_field_set_value(m_classInst, sfi.m_scriptField.m_classField, STDToMonoString(sfi.m_data));
     }
     else if (f.is_type<GE::MONO::ScriptFieldInstance<DeckManager>>())
     {
@@ -348,6 +337,7 @@ void ScriptInstance::SetAllFields()
       GE::MONO::ScriptInstance& charAnimsI = sfi.m_data.m_characterAnimsInst;
 
       charAnimsI.SetAllFields();
+      //std::cout << "setfields size:" << sfi.m_data.m_characterAnimsInst.m_scriptFieldInstList.size() << "\n";
     }
     else if (f.is_type<GE::MONO::ScriptFieldInstance<CharacterType>>())
     {
@@ -359,7 +349,6 @@ void ScriptInstance::SetAllFields()
       GE::MONO::ScriptFieldInstance<GE::Math::dVec3>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>();
       SetFieldValue<GE::Math::dVec3>(sfi.m_data, sfi.m_scriptField.m_classField);
     }
-
     else if (f.is_type<GE::MONO::ScriptFieldInstance<std::vector<int>>>())
     {
       GE::MONO::ScriptFieldInstance<std::vector<int>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<int>>>();
@@ -613,7 +602,6 @@ void ScriptInstance::GetAllUpdatedFields()
           sfi.m_data.m_healthBarUI = dmSFI.m_data;
       }
     }
-
     else if (f.is_type<GE::MONO::ScriptFieldInstance<CharacterType>>())
     {
       GE::MONO::ScriptFieldInstance<CharacterType>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterType>>();
@@ -659,17 +647,7 @@ void ScriptInstance::GetAllUpdatedFields()
         }
       }
 
-      for (rttr::variant& dm : sfi.m_data.m_characterAnimsInst.m_scriptFieldInstList)
-      {
-        MONO::ScriptFieldInstance<std::string>& dmSFI = dm.get_value<MONO::ScriptFieldInstance<std::string>>();
-        dmSFI.m_data = MonoStringToSTD(sfi.m_data.m_characterAnimsInst.GetFieldValue<MonoString*>(dmSFI.m_scriptField.m_classField));
-
-        auto prop{ rttr::type::get<CharacterAnims>().get_property(dmSFI.m_scriptField.m_fieldName) };
-        if (prop.is_valid())
-        {
-          prop.set_value(sfi.m_data, dmSFI.m_data);
-        }
-      }
+      sfi.m_data.m_characterAnimsInst.GetAllUpdatedFields();
     }
 
   }

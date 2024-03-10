@@ -50,6 +50,13 @@
                             "entityID": 0,
                             "scriptFieldInstList": [
                                 {
+                                    "data": {},
+                                    "type": "",
+                                    "scriptField": {
+                                        "fieldName": "m_animations"
+                                    }
+                                },
+                                {
                                     "data": 0,
                                     "type": "System.Int32",
                                     "scriptField": {
@@ -122,6 +129,13 @@
                                     "type": "System.Int32[]",
                                     "scriptField": {
                                         "fieldName": "queueElemIDs"
+                                    }
+                                },
+                                {
+                                    "data": "oof",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "test"
                                     }
                                 }
                             ]

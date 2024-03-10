@@ -250,13 +250,6 @@ RTTR_REGISTRATION
     .property("flags", &Serialization::SpriteData::m_flags)
     ;
 
-  rttr::registration::class_<MONO::CharacterAnims>("CharacterAnims")
-    .property("m_idle", &MONO::CharacterAnims::m_idle)
-    .property("m_flinch", &MONO::CharacterAnims::m_flinch)
-    .property("m_death", &MONO::CharacterAnims::m_death)
-    .property("m_deathShield", &MONO::CharacterAnims::m_deathShield)
-    ;
-
 #ifndef IMGUI_DISABLE
   rttr::registration::class_<std::pair<std::string, unsigned>>("StringUnsignedPair")
     .property("first", &std::pair<std::string, unsigned>::first)
