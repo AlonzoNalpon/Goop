@@ -359,6 +359,11 @@ namespace {
     m_textureManager.FreeTextures();
   }
 
+  void GraphicsEngine::FreeSpriteAnimations()
+  {
+    m_animManager.ClearAnimations();
+  }
+
   gObjID GraphicsEngine::GetShaderPgm(std::string const& pgmName)
   {
     // Find the shader

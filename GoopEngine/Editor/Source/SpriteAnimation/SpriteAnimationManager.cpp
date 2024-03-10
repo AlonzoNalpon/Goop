@@ -9,7 +9,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <SpriteAnimation/SpriteAnimationManager.h>
-
+#include <map>
 namespace GE::Graphics
 {
 
@@ -78,6 +78,13 @@ namespace GE::Graphics
   std::map<std::string, size_t> const& SpriteAnimationManager::GetAnimLT() const noexcept
   {
     return m_animLookupTable;
+  }
+
+  void SpriteAnimationManager::ClearAnimations()
+  {
+    m_spriteAnimations.clear();
+    m_animID_NameLT.clear();
+    m_animLookupTable.clear();
   }
 
 
