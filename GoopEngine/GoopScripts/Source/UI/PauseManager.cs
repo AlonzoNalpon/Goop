@@ -25,8 +25,7 @@ namespace GoopScripts.UI
     static PauseManager() { }
 
     static public bool PauseStateChanged()
-    {
-      
+    {      
       if (m_lastPauseState != m_pauseState)
       {
         m_lastPauseState = m_pauseState;
@@ -37,6 +36,17 @@ namespace GoopScripts.UI
 
     static public int GetPauseState() { return m_pauseState; }
 
-    static public void SetPauseState(int id) { m_pauseState = id; }
+    static public void SetPauseState(int id) 
+    {
+      m_pauseState = id; 
+      if (m_pauseState != 0)
+			{
+				Utils.SetTimeScale(0.0f);
+      }
+      else
+			{
+				Utils.SetTimeScale(1.0f);
+      }
+    }
   }
 }

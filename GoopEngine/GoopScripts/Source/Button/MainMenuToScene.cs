@@ -21,10 +21,17 @@ namespace GoopScripts.Transition
 {
   public class MainMenuToScene : TextButtonBase
   {
+		public string test;
     public int Scene;
     private bool m_shouldTransition;
     public double m_delay;
     private double m_currentTime;
+
+		public MainMenuToScene()
+		{
+			m_currentTime = 0.0f;
+			m_shouldTransition = false;
+		}
 
     public override void OnRelease(uint entity)
     {      
@@ -37,7 +44,8 @@ namespace GoopScripts.Transition
 		public void OnUpdate(double dt)
 		{
       if (m_shouldTransition)
-      {
+			{
+				Console.WriteLine(dt);
 				if (m_currentTime > m_delay)
 				{
 					switch (Scene)
@@ -60,8 +68,12 @@ namespace GoopScripts.Transition
 						default: break;
 					}
 					m_shouldTransition = false;
+					m_currentTime = 0.0f;
 				}
-				m_currentTime += dt;
+				else
+				{
+					m_currentTime += dt;
+				}
 			}
     }
   }
