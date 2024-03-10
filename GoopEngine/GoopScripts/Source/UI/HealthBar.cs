@@ -26,7 +26,7 @@ namespace GoopScripts.UI
     public int m_health;
     public int m_maxHealth;
     uint m_playerBarID;
-    private Vec3<double> m_alignPos = new Vec3<double>(0, 0, 0); // starting position
+    private Vec3<double> m_alignPos = new Vec3<double>(); // starting position
     int m_maxWidth; // taken from the sprite of playerbarID
     int m_oneUnit;
 
@@ -45,6 +45,7 @@ namespace GoopScripts.UI
 
       m_maxWidth = (int)Utils.GetObjectWidth((uint)m_healthBarUI);
       m_alignPos = Utils.GetPosition((uint)m_healthBarUI);
+      m_alignPos.Z = 8.0;
       m_oneUnit = m_maxWidth / m_maxHealth;
       if (m_health < m_maxHealth)
       {
