@@ -1,60 +1,166 @@
 {
     "Name": "Transition",
     "isActive": true,
-    "Version": 0,
+    "Version": 3,
     "Components": [
         {
             "Transform": {
-                "pos": "{ 478, -5.89553e-14, 1000 }",
+                "pos": "{ 0, 0, 1000 }",
                 "scale": "{ 1, 1, 1 }",
-                "rot": "{ 0, -0, 180 }",
-                "worldPos": "{ 478, -5.89553e-14, 1000 }",
+                "rot": "{ 0, 0, 0 }",
+                "worldPos": "{ 0, 0, 1000 }",
                 "worldScale": "{ 1, 1, 1 }",
-                "worldRot": "{ 0, -0, 180 }"
-            }
-        },
-        {
-            "Sprite": {
-                "spriteData": {
-                    "spriteSubData": {
-                        "texCoords": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "texDims": {
-                            "x": 1.0,
-                            "y": 1.0
-                        },
-                        "width": 2880,
-                        "height": 1080
-                    }
-                },
-                "spriteName": "Transition",
-                "shouldRender": true
-            }
-        },
-        {
-            "Tween": {
-                "tweens": [
-                    {
-                        "key": "Transition",
-                        "value": [
-                            {
-                                "trans": "{ -2880, 0, 0 }",
-                                "scale": "{ 1, 1, 1 }",
-                                "rot": "{ 0, 0, 180 }",
-                                "duration": 0.3,
-                                "animationEvent": ""
-                            }
-                        ]
-                    }
-                ],
-                "started": false,
-                "paused": false,
-                "loop": false,
-                "playing": "Transition"
+                "worldRot": "{ 0, 0, 0 }"
             }
         }
     ],
-    "SubData": []
+    "SubData": [
+        {
+            "ID": 1,
+            "isActive": true,
+            "Name": "TransitionIn",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 400, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 400, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 1.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 2880,
+                                "height": 1080
+                            }
+                        },
+                        "spriteName": "Transition",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Tween": {
+                        "tweens": [
+                            {
+                                "key": "TransitionIn",
+                                "value": [
+                                    {
+                                        "trans": "{ -2880, 0, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "duration": 0.3,
+                                        "animationEvent": ""
+                                    }
+                                ]
+                            }
+                        ],
+                        "paused": false,
+                        "loop": false,
+                        "playing": "TransitionIn"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 2,
+            "isActive": true,
+            "Name": "TransitionOut",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 2880, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 2880, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 2880,
+                                "height": 1080
+                            }
+                        },
+                        "spriteName": "Transition",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Tween": {
+                        "tweens": [
+                            {
+                                "key": "TransitionOut",
+                                "value": [
+                                    {
+                                        "trans": "{ -400, 0, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "duration": 0.3,
+                                        "animationEvent": ""
+                                    }
+                                ]
+                            }
+                        ],
+                        "paused": false,
+                        "loop": false,
+                        "playing": ""
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": []
+                    }
+                }
+            ]
+        }
+    ]
 }

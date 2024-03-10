@@ -1,0 +1,271 @@
+{
+    "Name": "Leah_Attack2_Tut",
+    "isActive": true,
+    "Version": 1,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 0, 0, 0 }",
+                "scale": "{ 1, 1, 1 }",
+                "rot": "{ 0, 0, 0 }",
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        }
+    ],
+    "SubData": [
+        {
+            "ID": 1,
+            "isActive": false,
+            "Name": "Collider Icon",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 55.5, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 0, 55.5 }",
+                        "width": 119.0,
+                        "height": 111.0,
+                        "min": "{ -59.5, 0 }",
+                        "max": "{ 59.5, 111 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 119,
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
+                            }
+                        },
+                        "spriteName": "CardIcon_LeahAttackSlash",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "TutorialReturnQueue",
+                                "entityID": 27,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 2,
+            "isActive": true,
+            "Name": "Title",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -28, -25, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -28, -25, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "SLASH",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.07500000298023224,
+                        "fontID": 2
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 3,
+            "isActive": true,
+            "Name": "Description",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -51.1111, -67, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -51.1111, -67, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Deals 2 Damage",
+                        "clr": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.054999999701976776,
+                        "fontID": 0
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 4,
+            "isActive": true,
+            "Name": "Icon",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 55.5, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 119,
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
+                            }
+                        },
+                        "spriteName": "CardIcon_LeahAttackSlash",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 5,
+            "isActive": true,
+            "Name": "Base",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 0, 0 }",
+                        "width": 214.0,
+                        "height": 300.0,
+                        "min": "{ -107, -150 }",
+                        "max": "{ 107, 150 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 214,
+                                "height": 300,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
+                            }
+                        },
+                        "spriteName": "CardBaseFront_Attack",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "TutorialSelectCard",
+                                "entityID": 31,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        }
+    ]
+}

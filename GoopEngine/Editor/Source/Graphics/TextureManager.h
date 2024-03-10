@@ -73,8 +73,16 @@ namespace GE::Graphics {
       
     ************************************************************************/
     std::map<std::string, GLuint> const& GetTextureLT()const;
+
+    /*!*********************************************************************
+    \brief
+      Frees textures in the gpu. Textures need to be added again with
+      AddTexture.
+    \return
+    ************************************************************************/
+    void FreeTextures();
   private:
-    void DestroyTextureByName(std::string name);
+    //void DestroyTextureByName(std::string name);
     std::map<GLuint, Texture>     m_textures;     //!< container for textures
     std::map<std::string, GLuint> m_texturesLT;   //!< map for texture lookup table
     std::map<GLuint, std::string> m_texNameLT;    //!< map for ID to name lookup table

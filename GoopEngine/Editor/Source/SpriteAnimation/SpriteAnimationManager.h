@@ -60,8 +60,16 @@ namespace GE::Graphics
     ************************************************************************/
     gObjID                        CreateAnim(SpriteAnimation const& animation, std::string const& name);
   
+    /*!*********************************************************************
+    \brief
+      Get animation lookup table from string to ID
+    \return
+      read-only reference to lookup table
+    ************************************************************************/
     std::map<std::string, size_t> const&
                                   GetAnimLT() const noexcept;
+
+    void ClearAnimations();
   private: // PRIVATE MEMBERS
     std::map<std::string, size_t> m_animLookupTable;  //!< a lookup to see name to ID
     std::map<size_t, std::string> m_animID_NameLT;    //!< a lookup to see ID to name

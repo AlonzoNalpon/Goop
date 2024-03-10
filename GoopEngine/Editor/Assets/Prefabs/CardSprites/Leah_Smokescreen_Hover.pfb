@@ -1,7 +1,7 @@
 {
-    "Name": "Leah_Smokescreen",
+    "Name": "Leah_Smokescreen_Hover",
     "isActive": true,
-    "Version": 8,
+    "Version": 9,
     "Components": [
         {
             "Transform": {
@@ -44,7 +44,13 @@
                                     "y": 1.0
                                 },
                                 "width": 214,
-                                "height": 300
+                                "height": 300,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "CardBaseFront_Special",
@@ -61,24 +67,24 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -74.1111, -27, 0 }",
+                        "pos": "{ -56, -25, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -74.1111, -27, 0 }",
+                        "worldPos": "{ -56, -25, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "Smokescreen",
+                        "text": "SMOKESCREEN",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
                             "b": 1.0,
                             "a": 1.0
                         },
-                        "scale": 0.10000000149011612,
+                        "scale": 0.07500000298023224,
                         "fontID": 2
                     }
                 }
@@ -175,7 +181,13 @@
                                     "y": 1.0
                                 },
                                 "width": 119,
-                                "height": 111
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "CardIcon_LeahSpecialSmokescreen",

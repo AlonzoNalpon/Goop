@@ -174,8 +174,8 @@ namespace GE::Assets
 		SceneFileExt = GetConfigData<std::string>("Scene File Extension");
 		AudioFileExt = GetConfigData<std::string>("Audio File Extension");
 		ImageFileExt = GetConfigData<std::string>("Image File Extension");
+		FontFileExt = GetConfigData<std::string>("Font File Extension"); 
 		ShaderFileExt = GetConfigData<std::string>("Shader File Extension");
-		FontFileExt = GetConfigData<std::string>("Font File Extension");
 		for (const auto& file : std::filesystem::recursive_directory_iterator(assetsDir))
 		{
 			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
@@ -250,6 +250,7 @@ namespace GE::Assets
 			break;
 		case AssetType::ANIMATION:
 		case AssetType::IMAGES:
+			FreeImages();
 			m_images.clear();
 			fileExt = AssetManager::ImageFileExt;
 			ptrToMap = &m_images;
@@ -291,12 +292,13 @@ namespace GE::Assets
 
 	void AssetManager::ReloadAllFiles()
 	{
+		FreeImages();
 		m_images.clear();
+		Graphics::GraphicsEngine::GetInstance().FreeTexturesAndFonts();
 		m_audio.clear();
-		m_prefabs.clear();
 		m_scenes.clear();
-		m_shaders.clear();
 		m_fonts.clear();
+		m_shaders.clear();
 		LoadFiles();
 	}
 
@@ -362,7 +364,7 @@ namespace GE::Assets
 				break;
 			case AssetType::FONTS:
 				m_fonts.erase(assetEvent->m_name);
-				break;
+				break;			
 			case AssetType::SHADERS:
 				m_shaders.erase(assetEvent->m_name);
 				break;
@@ -453,21 +455,12 @@ namespace GE::Assets
 		}
 
 		ImageData imageData{ 0 , path, width, height, channels, img };
-		
 		unsigned TMID = gEngine.InitTexture(GE::GoopUtils::ExtractFilename(imageData.GetName()), imageData);
-		if (m_loadedImages.find(TMID) != m_loadedImages.end())
-		{
-			// Unload memory if memory already loaded
-			stbi_image_free(img);
-		}
-		else
-		{
-			imageData.SetID(TMID);
+		stbi_image_free(img);
+		m_loadedImages.insert(std::pair<int, ImageData>(TMID, imageData));
+		m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(GoopUtils::ExtractPrevFolderAndFileName(path), TMID));
+		m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(TMID, GoopUtils::ExtractPrevFolderAndFileName(path)));
 
-			m_loadedImages.insert(std::pair<int, ImageData>(TMID, imageData));
-			m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(GoopUtils::ExtractPrevFolderAndFileName(path), TMID));
-			m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(TMID, GoopUtils::ExtractPrevFolderAndFileName(path)));
-		}
 		return TMID;
 	}
 
@@ -486,21 +479,11 @@ namespace GE::Assets
 	{
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 
-		for (const auto& pair : m_loadedImages)
+		for (const auto& [imgid, imgdata] : m_loadedImages)
 		{
-			int id = pair.first;
-			ImageData imageData = pair.second;
-			if (!imageData.GetData())
-			{
-				// Image Data already deleted.
-				continue;
-			}
-			// Free the loaded image data
-			stbi_image_free(imageData.GetData());
-
-			m_loadedImagesStringLookUp.erase(imageData.GetName());
-			m_loadedImagesIDLookUp.erase(id);
-			gEngine.DestroyTexture(gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(pair.second.GetName())));
+			m_loadedImagesStringLookUp.erase(imgdata.GetName());
+			m_loadedImagesIDLookUp.erase(imgid);
+			gEngine.DestroyTexture(imgid);
 		}
 
 		// Clear the map of loaded images
@@ -515,7 +498,6 @@ namespace GE::Assets
 
 		try
 		{
-			stbi_image_free(GetData(name).GetData());
 			m_loadedImages.erase(GetData(name).GetID());
 			m_loadedImagesStringLookUp.erase(GetData(name).GetName());
 			m_loadedImagesIDLookUp.erase(GetData(name).GetID());
@@ -529,10 +511,19 @@ namespace GE::Assets
 
 	void AssetManager::FreeImage(int id)
 	{
-		stbi_image_free(GetData(id).GetData());
-		m_loadedImages.erase(id);
-		m_loadedImagesStringLookUp.erase(GetData(id).GetName());
-		m_loadedImagesIDLookUp.erase(id);
+		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+
+		try
+		{
+			m_loadedImages.erase(id);
+			m_loadedImagesStringLookUp.erase(GetData(id).GetName());
+			m_loadedImagesIDLookUp.erase(id);
+			gEngine.DestroyTexture(id);
+		}
+		catch (GE::Debug::IExceptionBase& e)
+		{
+			e.LogSource();
+		}
 	}
 
 	void AssetManager::GetMapData()

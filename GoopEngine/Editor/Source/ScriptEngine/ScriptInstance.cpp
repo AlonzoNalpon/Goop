@@ -204,29 +204,29 @@ void ScriptInstance::GetFields()
     }
     else if (field.m_fieldType == ScriptFieldType::HealthBarFT)
     {
-      ScriptFieldInstance<HealthBar> sfi{ field };
-      sfi.m_data.m_healthBarInst.m_classInst = mono_field_get_value_object(sm->m_appDomain, sfi.m_scriptField.m_classField, m_classInst); //Get the mono data of the deck manager
-      if (sfi.m_data.m_healthBarInst.m_classInst)
-      {
-        sfi.m_data.m_healthBarInst.m_scriptClass = mono_object_get_class(sfi.m_data.m_healthBarInst.m_classInst);
-        sfi.m_data.m_healthBarInst.m_scriptFieldInstList.push_back(ScriptFieldInstance<int>(ScriptField(Int, "m_health", mono_class_get_field_from_name(sfi.m_data.m_healthBarInst.m_scriptClass, "m_health"))));
-        sfi.m_data.m_healthBarInst.m_scriptFieldInstList.push_back(ScriptFieldInstance<int>(ScriptField(Int, "m_maxHealth", mono_class_get_field_from_name(sfi.m_data.m_healthBarInst.m_scriptClass, "m_maxHealth"))));
-        sfi.m_data.m_healthBarInst.m_scriptFieldInstList.push_back(ScriptFieldInstance<int>(ScriptField(Int, "healthBarUI", mono_class_get_field_from_name(sfi.m_data.m_healthBarInst.m_scriptClass, "healthBarUI"))));
+      //ScriptFieldInstance<HealthBar> sfi{ field };
+      //sfi.m_data.m_HealthBarInst.m_classInst = mono_field_get_value_object(sm->m_appDomain, sfi.m_scriptField.m_classField, m_classInst); //Get the mono data of the deck manager
+      //if (sfi.m_data.m_HealthBarInst.m_classInst)
+      //{
+      //  sfi.m_data.m_HealthBarInst.m_scriptClass = mono_object_get_class(sfi.m_data.m_HealthBarInst.m_classInst);
+      //  sfi.m_data.m_HealthBarInst.m_scriptFieldInstList.push_back(ScriptFieldInstance<int>(ScriptField(Int, "m_health", mono_class_get_field_from_name(sfi.m_data.m_HealthBarInst.m_scriptClass, "m_health"))));
+      //  sfi.m_data.m_HealthBarInst.m_scriptFieldInstList.push_back(ScriptFieldInstance<int>(ScriptField(Int, "m_maxHealth", mono_class_get_field_from_name(sfi.m_data.m_HealthBarInst.m_scriptClass, "m_maxHealth"))));
+      //  sfi.m_data.m_HealthBarInst.m_scriptFieldInstList.push_back(ScriptFieldInstance<int>(ScriptField(Int, "healthBarUI", mono_class_get_field_from_name(sfi.m_data.m_HealthBarInst.m_scriptClass, "healthBarUI"))));
 
-        for (rttr::variant& dm : sfi.m_data.m_healthBarInst.m_scriptFieldInstList)
-        {
-          GE::MONO::ScriptFieldInstance<int>& dmSFI = dm.get_value<GE::MONO::ScriptFieldInstance<int>>();
-          dmSFI.m_data = sfi.m_data.m_healthBarInst.GetFieldValue<int>(dmSFI.m_scriptField.m_classField);
-          if (dmSFI.m_scriptField.m_fieldName == "m_health")
-            sfi.m_data.m_health = dmSFI.m_data;
-          if (dmSFI.m_scriptField.m_fieldName == "m_maxHealth")
-            sfi.m_data.m_maxHealth = dmSFI.m_data;
-          if (dmSFI.m_scriptField.m_fieldName == "healthBarUI")
-            sfi.m_data.m_healthBarUI = dmSFI.m_data;
-        }
+      //  for (rttr::variant& dm : sfi.m_data.m_HealthBarInst.m_scriptFieldInstList)
+      //  {
+      //    GE::MONO::ScriptFieldInstance<int>& dmSFI = dm.get_value<GE::MONO::ScriptFieldInstance<int>>();
+      //    dmSFI.m_data = sfi.m_data.m_HealthBarInst.GetFieldValue<int>(dmSFI.m_scriptField.m_classField);
+      //    if (dmSFI.m_scriptField.m_fieldName == "m_health")
+      //      sfi.m_data.m_health = dmSFI.m_data;
+      //    if (dmSFI.m_scriptField.m_fieldName == "m_maxHealth")
+      //      sfi.m_data.m_maxHealth = dmSFI.m_data;
+      //    if (dmSFI.m_scriptField.m_fieldName == "healthBarUI")
+      //      sfi.m_data.m_healthBarUI = dmSFI.m_data;
+      //  }
 
-      }
-      m_scriptFieldInstList.emplace_back(sfi);
+      //}
+      //m_scriptFieldInstList.emplace_back(sfi);
 
     }
     else if (field.m_fieldType == ScriptFieldType::CharacterTypeFT)

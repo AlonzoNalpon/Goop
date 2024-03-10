@@ -68,7 +68,7 @@ namespace GE::Graphics::Fonts
         throw GE::Debug::Exception<FontManager>(GE::Debug::LEVEL_ERROR, ErrMsg("Failed to load glyph: " + c));
         continue;
       }
-
+      
       // LOOK AT THIS ACTIVE PROCESSOR BLOCK INSTEAD OF THE INACTIVE ONE
 #if 1
       // generate texture
@@ -153,6 +153,20 @@ namespace GE::Graphics::Fonts
   FontManager::FontID_LT const& FontManager::GetFontLT() const
   {
     return m_fontIDLT;
+  }
+
+  void FontManager::FreeFonts()
+  {
+    for (auto const& fontIt : m_fonts)
+    {
+      for (auto const& fontChar : fontIt.second)
+      {
+        glDeleteTextures(1, &fontChar.second.textureID);
+      }
+    }
+    m_fontIDLT.clear();
+    m_fonts.clear();
+    m_fontScales.clear();
   }
 
   void Graphics::Fonts::FontManager::UpdateTextInfo(TextObjGroup& group)

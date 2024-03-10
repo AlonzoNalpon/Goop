@@ -1,0 +1,75 @@
+{
+    "Name": "Button_EndTurn",
+    "isActive": true,
+    "Version": 0,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 780, -445, 10 }",
+                "scale": "{ 1.5, 1.5, 1 }",
+                "rot": "{ 0, 0, 0 }",
+                "worldPos": "{ 780, -445, 10 }",
+                "worldScale": "{ 1.5, 1.5, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "BoxCollider": {
+                "center": "{ 780, -445 }",
+                "width": 322.5,
+                "height": 115.5,
+                "min": "{ 618.75, -502.75 }",
+                "max": "{ 941.25, -387.25 }",
+                "render": false
+            }
+        },
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "width": 215,
+                        "height": 77
+                    }
+                },
+                "spriteName": "Button_EndTurn",
+                "shouldRender": true
+            }
+        },
+        {
+            "Scripts": {
+                "scriptList": [
+                    {
+                        "scriptName": "TempEndTurn",
+                        "entityID": 1,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 75,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "disabledEndTurn"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "GE_Button": {
+                "param": "",
+                "eventType": "NO_EVENT",
+                "lastCollided": false,
+                "currCollided": false
+            }
+        }
+    ],
+    "SubData": []
+}

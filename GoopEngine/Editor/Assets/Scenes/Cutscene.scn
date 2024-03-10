@@ -367,11 +367,11 @@
                                     "trans": "{ -2880, 0, 1000 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
-                                    "spriteColor": {
+                                    "spriteTint": {
                                         "r": 1.0,
                                         "g": 1.0,
                                         "b": 1.0,
-                                        "a": 1.0
+                                        "a": 0.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -440,11 +440,11 @@
                                     "trans": "{ -400, 0, 0 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
-                                    "spriteColor": {
+                                    "spriteTint": {
                                         "r": 1.0,
                                         "g": 1.0,
                                         "b": 1.0,
-                                        "a": 1.0
+                                        "a": 0.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -598,45 +598,33 @@
         ]
     },
     {
-        "Name": "[Folder] Skip button",
+        "Name": "Skip button",
         "ID": 15,
         "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
-            16,
-            17,
-            18
+            17
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -673.833, -394.232, 10 }",
+                    "pos": "{ -856.555, -487.445, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -673.833, -394.232, 10 }",
+                    "worldPos": "{ -856.555, -487.445, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
-            }
-        ]
-    },
-    {
-        "Name": "Backing",
-        "ID": 16,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 15,
-        "Child Entities": [],
-        "Components": [
+            },
             {
-                "Transform": {
-                    "pos": "{ -172, -84.967, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -845.833, -479.199, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                "BoxCollider": {
+                    "center": "{ -856.555, -487.445 }",
+                    "width": 200.0,
+                    "height": 100.0,
+                    "min": "{ -956.555, -537.445 }",
+                    "max": "{ -756.555, -437.445 }",
+                    "render": false
                 }
             },
             {
@@ -658,11 +646,40 @@
                     "spriteName": "Button_Base",
                     "shouldRender": true
                 }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "ChangeToTutorial",
+                            "entityID": 15,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "CrossFadeToGameBGM",
+                            "entityID": 15,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "TransitionOut",
+                            "entityID": 15,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "Tutorial",
+                    "eventType": "CHANGE_SCENE",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
             }
         ]
     },
     {
-        "Name": "YES",
+        "Name": "SKIP",
         "ID": 17,
         "Prefab": null,
         "isActive": true,
@@ -671,10 +688,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -206.37, -101.858, 0 }",
+                    "pos": "{ -34.482, -15.659, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -880.203, -496.09, 10 }",
+                    "worldPos": "{ -891.037, -503.104, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -690,55 +707,6 @@
                     },
                     "scale": 0.1679999977350235,
                     "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Button",
-        "ID": 18,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 15,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -172, -84.967, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -845.833, -479.199, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -845.833, -479.199 }",
-                    "width": 190.0,
-                    "height": 90.0,
-                    "min": "{ -940.833, -524.199 }",
-                    "max": "{ -750.833, -434.199 }",
-                    "render": false
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "ChangeToTutorial",
-                            "entityID": 18,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "Tutorial",
-                    "eventType": "CHANGE_SCENE",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]

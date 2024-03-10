@@ -24,9 +24,9 @@ namespace GE::Graphics {
     GLuint    width, height;  //!< integral sprite pixel dimensions in width and height (x and y) (can be useful in the future)
     Colorf    tint;           //!< tint of sprite (transparency)
 
-    SpriteSubData(gVec2 _texCoords, gVec2 _texDims, GLuint _width, GLuint _height, Colorf _tint = Colorf(1.f, 1.f, 1.f, 1.f)) : 
+    SpriteSubData(gVec2 _texCoords, gVec2 _texDims, GLuint _width, GLuint _height, Colorf _tint = Colorf(1.f, 1.f, 1.f, 0.f)) : 
       texCoords{ _texCoords }, texDims{ _texDims }, width{ _width }, height{ _height }, tint{_tint} {}
-    SpriteSubData() : texCoords{}, texDims{ 1, 1 }, width{}, height{}, tint{ 1.f, 1.f, 1.f, 1.f } {}
+    SpriteSubData() : texCoords{}, texDims{ 1, 1 }, width{}, height{}, tint{ 1.f, 1.f, 1.f, 0.f } {}
     void SetTint(Colorf clr) { tint = clr; }
 
     void SetTint(GLfloat r, GLfloat g, GLfloat b, GLfloat a) { SetTint({r,g,b,a}); }

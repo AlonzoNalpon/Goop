@@ -250,6 +250,19 @@ namespace GE::Graphics {
     \return
     ************************************************************************/
     void DestroyTexture(GLuint texture);
+
+    /*!*********************************************************************
+    \brief
+      Frees textures and fonts in the gpu
+    \return
+    ************************************************************************/
+    void FreeTexturesAndFonts();
+
+    /*!*********************************************************************
+    \brief
+      Frees all sprite animation data
+    ************************************************************************/
+    void FreeSpriteAnimations();
   protected:
     GLint m_vpWidth, m_vpHeight; //!< dimensions of viewport
     GLfloat m_ar; //!< aspect ratio

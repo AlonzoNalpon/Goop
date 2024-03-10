@@ -112,11 +112,11 @@
                                     "trans": "{ -2880, 0, 0 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
-                                    "spriteColor": {
+                                    "spriteTint": {
                                         "r": 1.0,
                                         "g": 1.0,
                                         "b": 1.0,
-                                        "a": 1.0
+                                        "a": 0.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -179,17 +179,17 @@
                 "Tween": {
                     "tweens": [
                         {
-                            "key": "MainMenu",
+                            "key": "TransitionOut",
                             "value": [
                                 {
-                                    "trans": "{ -400, 0, 1000 }",
+                                    "trans": "{ -400, 0, 0 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
-                                    "spriteColor": {
+                                    "spriteTint": {
                                         "r": 1.0,
                                         "g": 1.0,
                                         "b": 1.0,
-                                        "a": 1.0
+                                        "a": 0.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -351,7 +351,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "GameOverToMainMenu",
+                            "scriptName": "TransitionOut",
                             "entityID": 6,
                             "scriptFieldInstList": []
                         }
