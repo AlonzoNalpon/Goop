@@ -151,13 +151,14 @@ namespace GE::EditorGUI
       {
         auto iterToErase{ m_loadedData.begin() + selectedIndex };
         // remove the name and data from both containers
-        m_spriteSheetNames.erase(std::find(m_spriteSheetNames.begin(), m_spriteSheetNames.end(), iterToErase->m_id));
+        m_spriteSheetNames.emplace_back(iterToErase->m_id);
         m_loadedData.erase(iterToErase);
         removeSelected = false;
       }
       else if (added)
       {
         m_spriteSheetNames.erase(selectedIter);
+        added = false;
       }
 
       ImGui::EndTable();
@@ -185,6 +186,7 @@ namespace GE::EditorGUI
     if (ImGui::Button("Reset"))
     {
       m_loadedData.clear();
+      m_spriteSheetNames.clear();
       LoadData();
     }
     ImGui::End();
@@ -246,6 +248,10 @@ namespace GE::EditorGUI
     std::sort(allNames.begin(), allNames.end());
     std::sort(loadedNames.begin(), loadedNames.end());
     std::set_difference(allNames.begin(), allNames.end(), loadedNames.begin(), loadedNames.end(), std::back_inserter(m_spriteSheetNames));
+    
+    // sort both containers
+    std::sort(m_loadedData.begin(), m_loadedData.end(), [](Serialization::SpriteData const& lhs, Serialization::SpriteData  const& rhs) { return lhs.m_id < rhs.m_id; });
+    std::sort(m_spriteSheetNames.begin(), m_spriteSheetNames.end());
   }
 
   void SpriteSheetEditor::ClearEmptyEntries()

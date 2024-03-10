@@ -27,15 +27,6 @@
         "flags": 0
     },
     {
-        "id": "SS_Leah_Shoot",
-        "filePath": "SS_Leah_Shoot",
-        "slices": 8,
-        "stacks": 1,
-        "frames": 8,
-        "speed": 0.1,
-        "flags": 0
-    },
-    {
         "id": "SS_Leah_Attack",
         "filePath": "SS_Leah_Attack",
         "slices": 5,
@@ -207,15 +198,6 @@
         "flags": 0
     },
     {
-        "id": "SS_Dawson_Charge_Up",
-        "filePath": "SS_Dawson_Charge_Up",
-        "slices": 6,
-        "stacks": 1,
-        "frames": 6,
-        "speed": 0.1,
-        "flags": 0
-    },
-    {
         "id": "SS_Dawson_Death",
         "filePath": "SS_Dawson_Death",
         "slices": 5,
@@ -230,15 +212,6 @@
         "slices": 4,
         "stacks": 1,
         "frames": 4,
-        "speed": 0.1,
-        "flags": 0
-    },
-    {
-        "id": "SS_Dawson_Block",
-        "filePath": "SS_Dawson_Block",
-        "slices": 5,
-        "stacks": 1,
-        "frames": 5,
         "speed": 0.1,
         "flags": 0
     },
