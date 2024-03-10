@@ -21,7 +21,7 @@ namespace GoopScripts.UI
   public class HealthBar : Entity
   {
     bool m_isPlayer;
-    int m_healthBarUI;
+    public int m_healthBarUI;
     int m_textUI;
     public int m_health;
     public int m_maxHealth;

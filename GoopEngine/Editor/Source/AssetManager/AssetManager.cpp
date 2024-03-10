@@ -90,18 +90,9 @@ namespace GE::Assets
 	std::string AssetManager::GetScene(std::string const& sceneName)
 	{
 		auto iter{ m_scenes.find(sceneName) };
-		if (iter != m_scenes.end())
-		{
-			return iter->second;
-		}
-
-		// File missing, try to load
-		ReloadFiles(GE::Assets::SCENE);
-		iter = m_scenes.find(sceneName);
 		if (iter == m_scenes.end())
 		{
-			GE::Debug::ErrorLogger::GetInstance().LogError("Unable to load scene " + sceneName);
-			return "";
+			throw Debug::Exception<AssetManager>(Debug::LEVEL_ERROR, ErrMsg("Unables to get scene: " + sceneName));
 		}
 
 		return iter->second;
@@ -110,20 +101,10 @@ namespace GE::Assets
 	std::string AssetManager::GetSound(std::string const& soundName)
 	{
 		auto iter{ m_audio.find(soundName) };
-		if (iter != m_audio.end())
-		{
-			return iter->second;
-		}
-
-		// File missing, try to load
-		ReloadFiles(GE::Assets::AUDIO);
-		iter = m_audio.find(soundName);
 		if (iter == m_audio.end())
 		{
-			GE::Debug::ErrorLogger::GetInstance().LogError("Unable to load audio " + soundName);
-			return "";
+			throw Debug::Exception<AssetManager>(Debug::LEVEL_ERROR, ErrMsg("Unables to get audio: " + soundName));
 		}
-
 		return iter->second;
 	}
 
@@ -288,6 +269,15 @@ namespace GE::Assets
 				ptrToMap->emplace(file.path().stem().string(), file.path().string());
 			}
 		}
+
+		if (type == AssetType::IMAGES || type == AssetType::ANIMATION)
+		{
+			ReloadAllFiles();
+		}
+		else if (type == AssetType::FONTS)
+		{
+			LoadFonts();
+		}
 	}
 
 	void AssetManager::ReloadAllFiles()
@@ -357,7 +347,9 @@ namespace GE::Assets
 				break;
 			case AssetType::ANIMATION:
 			case AssetType::IMAGES:
+				FreeImage(assetEvent->m_name);
 				m_images.erase(assetEvent->m_name);
+				
 				break;
 			case AssetType::AUDIO:
 				m_audio.erase(assetEvent->m_name);
@@ -485,6 +477,7 @@ namespace GE::Assets
 			m_loadedImagesIDLookUp.erase(imgid);
 			gEngine.DestroyTexture(imgid);
 		}
+		gEngine.FreeSpriteAnimations();
 
 		// Clear the map of loaded images
 		m_loadedImages.clear();

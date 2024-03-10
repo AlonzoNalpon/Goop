@@ -117,13 +117,6 @@ RTTR_REGISTRATION
     .property("Cards In Queue", &DeckManager::m_queue)
     ;
 
-  rttr::registration::class_<HealthBar>("HealthBar")
-    .property("m_health", &HealthBar::m_health)
-    .property("m_maxHealth", &HealthBar::m_maxHealth)
-    .property("m_healthBarUI", &HealthBar::m_healthBarUI)
-    ;
-
-
   rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
     .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
     .property("cardEntity", &Component::CardHolder::CardHolderEntry::cardEntity)

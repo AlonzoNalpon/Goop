@@ -57,7 +57,8 @@ namespace GE::EditorGUI
     static void ClearEmptyEntries();
 
     static bool m_isToggled, m_loadedThisSession;
-    static std::vector<Serialization::SpriteData> m_spriteSheetData;
+    static std::vector<std::string> m_spriteSheetNames;
+    static std::vector<Serialization::SpriteData> m_loadedData;
   };
 
 } // namespace GE::EditorGUI

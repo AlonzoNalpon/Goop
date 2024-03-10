@@ -18,11 +18,13 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <Graphics/GraphicsEngine.h>
 #include <Serialization/Serializer.h>
 #include <Serialization/Deserializer.h>
+#include <filesystem>
 
 namespace GE::EditorGUI
 {
   bool SpriteSheetEditor::m_isToggled{ false }, SpriteSheetEditor::m_loadedThisSession{ false };
-  std::vector<Serialization::SpriteData> SpriteSheetEditor::m_spriteSheetData;
+  std::vector <std::string> SpriteSheetEditor::m_spriteSheetNames;
+  std::vector<Serialization::SpriteData> SpriteSheetEditor::m_loadedData;
 
   void SpriteSheetEditor::CreateContent(const char* tabName)
   {
@@ -43,10 +45,11 @@ namespace GE::EditorGUI
       ImGui::TableNextRow();
 
       int index{};
-      bool removeSelected{ false };
-      unsigned toRemove{};
-      float const dropdownWidth{ ImGui::CalcTextSize("SS_MineWorm_Shield").x + 5.f };
-      for (auto& data : m_spriteSheetData)
+      bool removeSelected{ false }, added{ false };
+      std::vector<std::string>::iterator selectedIter{ m_spriteSheetNames.begin() };
+      unsigned selectedIndex{};
+      float const dropdownWidth{ ImGui::CalcTextSize("SS_MineWorm_Shield").x + 10.f };
+      for (auto& data : m_loadedData)
       {
         // for each property in the SpriteData, display input based on its type
         ImGui::TableNextColumn();
@@ -74,17 +77,27 @@ namespace GE::EditorGUI
           }
           else if (propName == "id")
           {
-            auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
-            auto const& textureLT{ animManager.GetAnimLT() };
             ImGui::SetNextItemWidth(dropdownWidth);
-            if (ImGui::BeginCombo(("##AnimDropdown" + std::to_string(index)).c_str(), propVar.get_value<std::string>().c_str()))
+            std::string const& originalVal{ propVar.get_value<std::string>() };
+            if (ImGui::BeginCombo(("##AnimDropdown" + std::to_string(index)).c_str(), originalVal.c_str()))
             {
-              for (auto const& it : textureLT)
+              for (auto iter{ m_spriteSheetNames.begin() }; iter != m_spriteSheetNames.end(); ++iter)
               {
-                if (ImGui::Selectable(it.first.c_str()))
+                if (ImGui::Selectable(iter->c_str()))
                 {
-                  prop.set_value(data, it.first);
-                  data.m_filePath = it.first;
+                  // if first time selecting, remove the selected file from the list of names
+                  // else replace the filename
+                  prop.set_value(data, *iter);
+                  data.m_filePath = *iter;
+                  if (originalVal.empty())
+                  {
+                    added = true;
+                    selectedIter = iter;
+                  }
+                  else
+                  {
+                    *iter = originalVal;
+                  }
                 }
               }
               ImGui::EndCombo();
@@ -116,7 +129,7 @@ namespace GE::EditorGUI
         if (ImGui::Button("Remove"))
         {
           removeSelected = true;
-          toRemove = index;
+          selectedIndex = index;
         }
         ImGui::PopStyleColor();
         if (ImGui::IsItemHovered())
@@ -132,10 +145,19 @@ namespace GE::EditorGUI
         ImGui::TableNextRow();
       }
 
+      // if an entry was newly added or deleted,
+      // update the corresponding container
       if (removeSelected)
       {
-        m_spriteSheetData.erase(m_spriteSheetData.begin() + toRemove);
+        auto iterToErase{ m_loadedData.begin() + selectedIndex };
+        // remove the name and data from both containers
+        m_spriteSheetNames.erase(std::find(m_spriteSheetNames.begin(), m_spriteSheetNames.end(), iterToErase->m_id));
+        m_loadedData.erase(iterToErase);
         removeSelected = false;
+      }
+      else if (added)
+      {
+        m_spriteSheetNames.erase(selectedIter);
       }
 
       ImGui::EndTable();
@@ -143,23 +165,26 @@ namespace GE::EditorGUI
     
     if (ImGui::Button("Add"))
     {
-      m_spriteSheetData.emplace_back();
+      m_loadedData.emplace_back();
     }
     ImGui::SameLine();
     if (ImGui::Button("Save"))
     {
       ClearEmptyEntries();
-      std::string const filePath{ Assets::AssetManager::GetInstance().GetConfigData<std::string>("Sprite Config") };
-      Serialization::Serializer::SerializeAny(filePath, m_spriteSheetData);
+      Assets::AssetManager& am{ Assets::AssetManager::GetInstance() };
+      std::string const filePath{ am.GetConfigData<std::string>("Sprite Config") };
+      Serialization::Serializer::SerializeAny(filePath, m_loadedData);
       Debug::ErrorLogger::GetInstance().LogMessage("Successfully saved sprite sheet data");
-      m_spriteSheetData.clear();
+      m_loadedData.clear();
+      m_spriteSheetNames.clear();
       m_loadedThisSession = m_isToggled = false;
-      // RELOAD HERE
+
+      am.ReloadAllFiles();
     }
     ImGui::SameLine();
     if (ImGui::Button("Reset"))
     {
-      m_spriteSheetData.clear();
+      m_loadedData.clear();
       LoadData();
     }
     ImGui::End();
@@ -188,20 +213,48 @@ namespace GE::EditorGUI
 
   void SpriteSheetEditor::LoadData()
   {
-    auto const& spriteSheetData{ Assets::AssetManager::GetInstance().GetSpriteSheetData() };
+    Assets::AssetManager const& am{ Assets::AssetManager::GetInstance() };
+    auto const& spriteSheetData{ am.GetSpriteSheetData() };
+
+    std::vector<std::string> loadedNames{}, allNames{};
+    loadedNames.reserve(spriteSheetData.size());
+    allNames.reserve(spriteSheetData.size());
+    m_loadedData.reserve(spriteSheetData.size());
+
+    // get the loaded sprite data from asset manager
     for (auto const& [name, data] : spriteSheetData)
     {
-      m_spriteSheetData.emplace_back(data);
+      m_loadedData.emplace_back(data);
+      loadedNames.emplace_back(name);
     }
+
+    // iterate through sprite sheet directory and get all available file names
+    std::filesystem::path const sprSheetDir{ am.GetConfigData<std::string>("Spritesheet Dir") };
+    std::string const ssPrefix{ am.GetConfigData<std::string>("Spritesheet Prefix") };
+    for (const auto& file : std::filesystem::recursive_directory_iterator(sprSheetDir))
+    {
+      std::string fileName{ file.path().stem().string() };
+      if (!file.is_regular_file() || !fileName.starts_with(ssPrefix))
+      {
+        continue;
+      }
+      allNames.emplace_back(std::move(fileName));
+    }
+
+    // we only want to display the filenames that aren't already in the
+    // config file, so we sort both vectors and extract the difference
+    std::sort(allNames.begin(), allNames.end());
+    std::sort(loadedNames.begin(), loadedNames.end());
+    std::set_difference(allNames.begin(), allNames.end(), loadedNames.begin(), loadedNames.end(), std::back_inserter(m_spriteSheetNames));
   }
 
   void SpriteSheetEditor::ClearEmptyEntries()
   {
-    for (auto iter{ m_spriteSheetData.begin() }; iter != m_spriteSheetData.end();)
+    for (auto iter{ m_loadedData.begin() }; iter != m_loadedData.end();)
     {
       if (iter->m_id.empty())
       {
-        iter = m_spriteSheetData.erase(iter);
+        iter = m_loadedData.erase(iter);
       }
       else
       {

@@ -111,7 +111,7 @@ void AssetBrowser::CreateContentView()
 
 	AssetManager& assetManager = AssetManager::GetInstance();
 	BeginGroup();
-	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
+	for (const auto& file : std::filesystem::recursive_directory_iterator(m_currDir))
 	{
 		if (!file.is_regular_file())
 		{

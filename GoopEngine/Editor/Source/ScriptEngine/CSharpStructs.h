@@ -45,7 +45,6 @@ namespace GE::MONO
 
   struct HealthBar
   {
-    int m_health, m_maxHealth, m_healthBarUI;
     ScriptInstance m_healthBarInst; //used to cache the mono data of deck and deckmanager
   };
 
