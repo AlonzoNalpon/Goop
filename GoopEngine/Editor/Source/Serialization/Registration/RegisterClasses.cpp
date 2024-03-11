@@ -80,6 +80,7 @@ RTTR_REGISTRATION
     .property("scale", &Component::Tween::Action::m_scale)
     .property("rot", &Component::Tween::Action::m_rot)
     .property("spriteTint", &Component::Tween::Action::m_spriteTint)
+    .property("spriteMult", &Component::Tween::Action::m_spriteMult)
     .property("textColor", &Component::Tween::Action::m_textColor)
     .property("duration", &Component::Tween::Action::m_duration)
     .property("animationEvent", &Component::Tween::Action::m_animationEvent)
@@ -143,6 +144,7 @@ RTTR_REGISTRATION
     .property("width", &Graphics::SpriteSubData::width)
     .property("height", &Graphics::SpriteSubData::height)
     .property("tint", &Graphics::SpriteSubData::tint)
+    .property("multiply", &Graphics::SpriteSubData::multiply)
     ;
   rttr::registration::class_<Graphics::SpriteData>("SpriteData")
     .property("spriteSubData", &Graphics::SpriteData::info)

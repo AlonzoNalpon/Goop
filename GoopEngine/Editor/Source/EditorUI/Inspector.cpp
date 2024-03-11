@@ -636,11 +636,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 						spriteObj->m_spriteData.info.width = static_cast<GLint>(spriteObj->m_spriteData.info.height * ar);
 					}
 
-					// Transparency setting (1 float)
+					// Tint setting (Colorf)
 					ImGui::Text("Tint Color");
 					SameLine();
 					ImGui::ColorEdit4("##ClrSpriteTintEdit", spriteObj->m_spriteData.info.tint.rgba);
 
+					// Multiply setting (Colorf)
+					ImGui::Text("Multiply Color");
+					SameLine();
+					ImGui::ColorEdit4("##ClrSpriteMultEdit", spriteObj->m_spriteData.info.multiply.rgba);
 
 					if (hasSpriteAnim)
 						EndDisabled();
@@ -2177,7 +2181,7 @@ namespace
 				int i{};
 				int removeIndex{};
 				bool shouldRemove{ false };
-				for (auto& [target, scale, rot, spriteColor, textColor, duration, script] : action)
+				for (auto& [target, scale, rot, spriteTint, spriteMult, textColor, duration, script] : action)
 				{
 					PushID((std::to_string(i)).c_str());
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
@@ -2192,12 +2196,17 @@ namespace
 					InputDouble3("Scale " + std::to_string(i), scale, fieldWidth, disabled);
 					InputDouble3("Rotate " + std::to_string(i), rot, fieldWidth, disabled);
 					ImGui::TableNextColumn();
-					ImGui::Text("Sprite Color");
+					ImGui::Text("Sprite Tint");
 					// SameLine();
 					
 
 					ImGui::TableNextColumn();
-					ImGui::ColorEdit4(("##spriteColor" + std::to_string(i)).c_str(), spriteColor.rgba);
+					ImGui::ColorEdit4(("##spriteColor" + std::to_string(i)).c_str(), spriteTint.rgba);
+					ImGui::TableNextColumn();
+					ImGui::Text("Sprite Multiply");
+
+					ImGui::TableNextColumn();
+					ImGui::ColorEdit4(("##spriteMult" + std::to_string(i)).c_str(), spriteMult.rgba);
 					ImGui::TableNextColumn();
 					ImGui::Text("Text Color");
 					//SameLine();
@@ -2230,7 +2239,8 @@ namespace
 				// 20 magic number cuz the button looks good
 				if (Button("Add keyframe", { GetContentRegionMax().x, 20 }))
 				{
-					action.emplace_back(vec3{ 0, 0, 0 }, vec3{ 1, 1, 1 }, vec3{ 0, 0, 0 }, Colorf{}, Colorf{}, 1);
+					action.emplace_back(vec3{ 0, 0, 0 }, vec3{ 1, 1, 1 }, vec3{ 0, 0, 0 }, Colorf{}, 
+						Colorf{1.f, 1.f, 1.f, 1.f}, Colorf{ 1.f, 1.f, 1.f, 1.f }, 1);
 				}
 				Indent();
 
