@@ -76,7 +76,15 @@ namespace GoopScripts.UI
 
     public void UpdateBar()
     {
-      int newWidth = m_oneUnit * m_health;
+      int newWidth;
+      if (m_health <= 0)
+      {
+        newWidth = 0;
+      }
+      else
+      {
+        newWidth = m_oneUnit * m_health;
+      }
       Utils.SetObjectWidth(m_playerBarID, newWidth);
       UpdateHealthText();
     }
