@@ -109,6 +109,7 @@
     <Compile Include="Source\Button\SwitchCutScenes.cs" />
     <Compile Include="Source\Button\TextButtonBase.cs" />
     <Compile Include="Source\Button\TransitionOut.cs" />
+    <Compile Include="Source\Button\Tutorial\ArrowButton.cs" />
     <Compile Include="Source\Button\Tutorial\BackTutorial.cs" />
     <Compile Include="Source\Button\Tutorial\ContinueTutorial.cs" />
     <Compile Include="Source\Button\Tutorial\ToggleTutorial.cs" />

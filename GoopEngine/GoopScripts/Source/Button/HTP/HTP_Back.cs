@@ -1,5 +1,6 @@
 ﻿using GoopScripts.Gameplay;
 using GoopScripts.Mono;
+using GoopScripts.Source.Button.Tutorial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  internal class HTP_Back : IButtonClick
+  internal class HTP_Back : ArrowButton
   {
-    public HTP_Back() { }
-    public void OnClick(uint entity)
-    {
-      if (HTP.m_page == 1)
+    public override void OnRelease(uint entity)
+		{
+			base.OnRelease(entity);
+			if (HTP.m_page == 1)
       {
         return;
       }

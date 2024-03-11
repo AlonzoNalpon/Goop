@@ -199,17 +199,7 @@
     {
         "Name": "FPSCounter",
         "ID": 4,
-        "Prefab": {
-            "name": "FPSCounter",
-            "version": 0,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 4
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -239,7 +229,7 @@
                     "scriptList": [
                         {
                             "scriptName": "FPS",
-                            "entityID": 17,
+                            "entityID": 4,
                             "scriptFieldInstList": [
                                 {
                                     "data": 4,
@@ -317,25 +307,7 @@
     {
         "Name": "Transition",
         "ID": 6,
-        "Prefab": {
-            "name": "Transition",
-            "version": 3,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 6
-                },
-                {
-                    "key": 1,
-                    "value": 125
-                },
-                {
-                    "key": 2,
-                    "value": 126
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -632,15 +604,15 @@
                     "spriteData": {
                         "spriteSubData": {
                             "texCoords": {
-                                "x": 0.0,
+                                "x": 1.0,
                                 "y": 0.0
                             },
                             "texDims": {
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 70,
-                            "height": 70,
+                            "width": 75,
+                            "height": 75,
                             "tint": {
                                 "r": 1.0,
                                 "g": 1.0,
@@ -649,7 +621,7 @@
                             }
                         }
                     },
-                    "spriteName": "HTP_Arrow_Right",
+                    "spriteName": "HTP_Arrow_Left",
                     "shouldRender": true
                 }
             },
@@ -742,37 +714,7 @@
     {
         "Name": "Leah_Attack",
         "ID": 16,
-        "Prefab": {
-            "name": "Leah_Attack",
-            "version": 16,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 16
-                },
-                {
-                    "key": 1,
-                    "value": 17
-                },
-                {
-                    "key": 2,
-                    "value": 18
-                },
-                {
-                    "key": 3,
-                    "value": 19
-                },
-                {
-                    "key": 4,
-                    "value": 20
-                },
-                {
-                    "key": 5,
-                    "value": 21
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 14,
         "Child Entities": [
@@ -853,7 +795,7 @@
                     "scriptList": [
                         {
                             "scriptName": "SelectCard",
-                            "entityID": 1,
+                            "entityID": 17,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -928,7 +870,7 @@
                     "scriptList": [
                         {
                             "scriptName": "ReturnFromQueue",
-                            "entityID": 2,
+                            "entityID": 18,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -1072,37 +1014,7 @@
     {
         "Name": "Leah_Block",
         "ID": 22,
-        "Prefab": {
-            "name": "Leah_Block",
-            "version": 9,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 22
-                },
-                {
-                    "key": 1,
-                    "value": 23
-                },
-                {
-                    "key": 2,
-                    "value": 24
-                },
-                {
-                    "key": 3,
-                    "value": 25
-                },
-                {
-                    "key": 4,
-                    "value": 26
-                },
-                {
-                    "key": 5,
-                    "value": 27
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 14,
         "Child Entities": [
@@ -1183,7 +1095,7 @@
                     "scriptList": [
                         {
                             "scriptName": "ReturnFromQueue",
-                            "entityID": 2,
+                            "entityID": 23,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -1383,7 +1295,7 @@
                     "scriptList": [
                         {
                             "scriptName": "SelectCard",
-                            "entityID": 5,
+                            "entityID": 27,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -1402,41 +1314,7 @@
     {
         "Name": "Leah_Flashbang",
         "ID": 28,
-        "Prefab": {
-            "name": "Leah_Flashbang",
-            "version": 12,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 28
-                },
-                {
-                    "key": 1,
-                    "value": 29
-                },
-                {
-                    "key": 2,
-                    "value": 30
-                },
-                {
-                    "key": 3,
-                    "value": 31
-                },
-                {
-                    "key": 4,
-                    "value": 32
-                },
-                {
-                    "key": 5,
-                    "value": 33
-                },
-                {
-                    "key": 6,
-                    "value": 34
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 14,
         "Child Entities": [
@@ -1518,7 +1396,7 @@
                     "scriptList": [
                         {
                             "scriptName": "SelectCard",
-                            "entityID": 1,
+                            "entityID": 29,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -1593,7 +1471,7 @@
                     "scriptList": [
                         {
                             "scriptName": "ReturnFromQueue",
-                            "entityID": 2,
+                            "entityID": 30,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -2030,17 +1908,7 @@
     {
         "Name": "PQElem1",
         "ID": 43,
-        "Prefab": {
-            "name": "PQElem1",
-            "version": 0,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 43
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 38,
         "Child Entities": [],
@@ -2157,17 +2025,7 @@
     {
         "Name": "PQElem1 (Copy)",
         "ID": 44,
-        "Prefab": {
-            "name": "PQElem1",
-            "version": 0,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 43
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 38,
         "Child Entities": [
@@ -2286,17 +2144,7 @@
     {
         "Name": "CardIcon",
         "ID": 45,
-        "Prefab": {
-            "name": "CardIcon",
-            "version": 3,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 45
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 44,
         "Child Entities": [],
@@ -2352,7 +2200,7 @@
                     "scriptList": [
                         {
                             "scriptName": "EnemyQueueHover",
-                            "entityID": 0,
+                            "entityID": 45,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -2496,17 +2344,7 @@
     {
         "Name": "PQElem1 (Copy) (Copy)",
         "ID": 50,
-        "Prefab": {
-            "name": "PQElem1",
-            "version": 0,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 43
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 54,
         "Child Entities": [],
@@ -2623,17 +2461,7 @@
     {
         "Name": "CardIcon (Copy)",
         "ID": 51,
-        "Prefab": {
-            "name": "CardIcon",
-            "version": 3,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 45
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 54,
         "Child Entities": [],
@@ -2689,7 +2517,7 @@
                     "scriptList": [
                         {
                             "scriptName": "EnemyQueueHover",
-                            "entityID": 0,
+                            "entityID": 51,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -2708,17 +2536,7 @@
     {
         "Name": "PQElem1 (Copy)",
         "ID": 52,
-        "Prefab": {
-            "name": "PQElem1",
-            "version": 0,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 43
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 54,
         "Child Entities": [],
@@ -3402,17 +3220,7 @@
     {
         "Name": "Button_EndTurn",
         "ID": 71,
-        "Prefab": {
-            "name": "Button_EndTurn",
-            "version": 0,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 71
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 61,
         "Child Entities": [],
@@ -3950,29 +3758,7 @@
     {
         "Name": "Dmg Up",
         "ID": 88,
-        "Prefab": {
-            "name": "Dmg Up",
-            "version": 3,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 88
-                },
-                {
-                    "key": 1,
-                    "value": 89
-                },
-                {
-                    "key": 2,
-                    "value": 90
-                },
-                {
-                    "key": 3,
-                    "value": 91
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 72,
         "Child Entities": [
@@ -4030,7 +3816,7 @@
                     "scriptList": [
                         {
                             "scriptName": "BuffIconInteraction",
-                            "entityID": 0,
+                            "entityID": 88,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -4125,29 +3911,7 @@
     {
         "Name": "Dmg Down",
         "ID": 92,
-        "Prefab": {
-            "name": "Dmg Down",
-            "version": 4,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 92
-                },
-                {
-                    "key": 1,
-                    "value": 93
-                },
-                {
-                    "key": 2,
-                    "value": 94
-                },
-                {
-                    "key": 3,
-                    "value": 95
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 72,
         "Child Entities": [
@@ -4205,7 +3969,7 @@
                     "scriptList": [
                         {
                             "scriptName": "BuffIconInteraction",
-                            "entityID": 0,
+                            "entityID": 92,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -4300,29 +4064,7 @@
     {
         "Name": "Blinded",
         "ID": 96,
-        "Prefab": {
-            "name": "Blinded",
-            "version": 4,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 96
-                },
-                {
-                    "key": 1,
-                    "value": 97
-                },
-                {
-                    "key": 2,
-                    "value": 98
-                },
-                {
-                    "key": 3,
-                    "value": 99
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": 72,
         "Child Entities": [
@@ -4380,7 +4122,7 @@
                     "scriptList": [
                         {
                             "scriptName": "BuffIconInteraction",
-                            "entityID": 0,
+                            "entityID": 96,
                             "scriptFieldInstList": []
                         }
                     ]
