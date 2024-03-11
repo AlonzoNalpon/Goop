@@ -65,6 +65,7 @@ namespace GoopScripts.Button
 			{
 				m_clicked = false;
 				Disable();
+				Utils.PlaySoundF("SFX_ButtonClick", (float)m_rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
 				Gameplay.Tutorial gm = (Gameplay.Tutorial)Utils.GetScript("GameSystem", "Tutorial");
 				gm.EndTurn();
 			}
