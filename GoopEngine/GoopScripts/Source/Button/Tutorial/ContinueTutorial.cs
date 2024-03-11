@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 { 
-  internal class ContinueTutorial : TextButtonBase
+  public class ContinueTutorial : TextButtonBase
   {
     public override void OnRelease(uint entity)
     { 
