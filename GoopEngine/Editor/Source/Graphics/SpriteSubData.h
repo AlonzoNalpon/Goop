@@ -30,6 +30,16 @@ namespace GE::Graphics {
     void SetTint(Colorf clr) { tint = clr; }
 
     void SetTint(GLfloat r, GLfloat g, GLfloat b, GLfloat a) { SetTint({r,g,b,a}); }
+
+    inline SpriteSubData& operator=(SpriteSubData const& rhs)
+    {
+      texCoords = rhs.texCoords;
+      texDims = rhs.texDims;
+      width = rhs.width;
+      height = rhs.height;
+      return *this;
+    }
+
     // It is possible that sprite data can have varying sizes which requires offsets. 
     // This is the place to put offset if it's to be implemented (in pixels based on dimensions).
     // pivot offset should be done in model space first before game object transform
