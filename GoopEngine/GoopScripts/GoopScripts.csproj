@@ -109,6 +109,7 @@
     <Compile Include="Source\Button\SwitchCutScenes.cs" />
     <Compile Include="Source\Button\TextButtonBase.cs" />
     <Compile Include="Source\Button\TransitionOut.cs" />
+    <Compile Include="Source\Button\Tutorial\ArrowButton.cs" />
     <Compile Include="Source\Button\Tutorial\BackTutorial.cs" />
     <Compile Include="Source\Button\Tutorial\ContinueTutorial.cs" />
     <Compile Include="Source\Button\Tutorial\ToggleTutorial.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Source\Cards\SpecialTimeWrap.cs" />
     <Compile Include="Source\Demo\CrossFadeToBGM.cs" />
     <Compile Include="Source\Demo\CrossFadeToGameBGM.cs" />
+    <Compile Include="Source\Demo\DemoHR.cs" />
     <Compile Include="Source\Demo\LeahDemo.cs" />
     <Compile Include="Source\Demo\PlayBGM.cs" />
     <Compile Include="Source\Demo\StopBGM.cs" />
