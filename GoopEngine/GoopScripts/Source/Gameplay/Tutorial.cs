@@ -184,6 +184,8 @@ namespace GoopScripts.Gameplay
         {
           //Console.WriteLine($"Tutorial Number {m_tut}");
           Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), false);
+          Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Back"), false);
+          Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Next"), false);
           ResolutionPhase(deltaTime);
         }
         else

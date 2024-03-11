@@ -8,7 +8,7 @@ using GoopScripts.Mono;
 
 namespace GoopScripts.Button
 {
-  public class RewardCard : IButtonClick, IButtonHoverEnter, IButtonHoverExit
+  public class RewardCard : TextButtonBase
   {
 
     static public uint m_cardHover;
@@ -17,7 +17,7 @@ namespace GoopScripts.Button
 
     public RewardCard() { }
 
-    public void OnClick(uint entity)
+    public override void OnClick(uint entity)
     {
       if (selected)
       {
@@ -30,7 +30,6 @@ namespace GoopScripts.Button
 
       if (RewardManager.m_selectedCards.Count() >= 3)
       { 
-        
         return;
       }
 
@@ -46,7 +45,7 @@ namespace GoopScripts.Button
       selected = !selected;
     }
 
-    public void OnHoverEnter(uint entity)
+    public override void OnHoverEnter(uint entity)
     {
       if (!selected)
       {
@@ -57,7 +56,7 @@ namespace GoopScripts.Button
       }
     }
 
-    public void OnHoverExit(uint entity)
+    public override void OnHoverExit(uint entity)
     {
       if (!selected)
       {

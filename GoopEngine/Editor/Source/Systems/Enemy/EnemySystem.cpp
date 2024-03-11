@@ -35,10 +35,10 @@ bool EnemySystem::m_playerExist;
 
 void EnemySystem::InitTree()
 {
-	for (GE::Systems::GameTree& gt : m_treeList)
+	/*for (GE::Systems::GameTree& gt : m_treeList)
 	{
 		gt.ClearAllNodes();
-	}
+	}*/
 	EnemySystem::m_treeList.clear();
 	//Get all the trees
 	const std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
@@ -341,7 +341,7 @@ void EnemySystem::DelGameTree()
 		if (iter != m_treeList.end()) 
 		{
 			m_treeList.erase(iter);
-			iter->ClearAllNodes();
+			//iter->ClearAllNodes();
 		}
 		else   // The tree should be inside the list. if its not inside, we will log a message
 		{

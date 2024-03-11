@@ -67,13 +67,13 @@ void GE::Scenes::Scene::Unload()
 		if (ecs->HasComponent<GE::Component::Scripts>(entity))
 		{
 			GE::Component::Scripts* scripts = ecs->GetComponent<GE::Component::Scripts>(entity);
-			for (auto script : scripts->m_scriptList)
+			for (auto& script : scripts->m_scriptList)
 			{
 				if (!script.m_scriptClass)
 				{
 					continue;
 				}
-				mono_gchandle_free(script.m_gcHandle);
+				script.FreeScript();
 			}
 		}
 		ecs->DestroyEntity(entity);

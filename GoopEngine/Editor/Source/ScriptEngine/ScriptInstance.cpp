@@ -57,14 +57,14 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, GE::ECS::Entity  e
 
 void ScriptInstance::FreeScript()
 {
-  if (m_onCreateMethod)
+  /*if (m_onCreateMethod)
   {
     mono_free_method(m_onCreateMethod);
   }
   if (m_onUpdateMethod)
   {
     mono_free_method(m_onUpdateMethod);
-  }
+  }*/
   mono_gchandle_free(m_gcHandle);
 }
 
