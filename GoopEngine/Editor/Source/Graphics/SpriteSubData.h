@@ -22,12 +22,18 @@ namespace GE::Graphics {
     gVec2     texCoords;      //!< texture coordinates of sprite (important for tex atlas support)
     gVec2     texDims;        //!< texture dimensions of a sprite in float ranging from [0,1] (for shader uniforms)
     GLuint    width, height;  //!< integral sprite pixel dimensions in width and height (x and y) (can be useful in the future)
-    Colorf    tint;           //!< tint of sprite (transparency)
+    Colorf    tint;           //!< tint of sprite
+    Colorf    multiply;       //!< multiplied color (after tint)
 
-    SpriteSubData(gVec2 _texCoords, gVec2 _texDims, GLuint _width, GLuint _height, Colorf _tint = Colorf(1.f, 1.f, 1.f, 0.f)) : 
-      texCoords{ _texCoords }, texDims{ _texDims }, width{ _width }, height{ _height }, tint{_tint} {}
-    SpriteSubData() : texCoords{}, texDims{ 1, 1 }, width{}, height{}, tint{ 1.f, 1.f, 1.f, 0.f } {}
+    SpriteSubData(gVec2 _texCoords, gVec2 _texDims, GLuint _width, GLuint _height, 
+      Colorf _tint = Colorf(1.f, 1.f, 1.f, 0.f), Colorf _multiply = Colorf(1.f,1.f,1.f,1.f)) : 
+      texCoords{ _texCoords }, texDims{ _texDims }, width{ _width }, height{ _height }, tint{ _tint }, multiply{_multiply} {}
+
+    SpriteSubData() : texCoords{}, texDims{ 1, 1 }, width{}, height{}, 
+      tint{ 1.f, 1.f, 1.f, 0.f }, multiply{1.f,1.f,1.f,1.f} {}
     void SetTint(Colorf clr) { tint = clr; }
+
+    void SetMult(Colorf clr) { multiply = clr; }
 
     void SetTint(GLfloat r, GLfloat g, GLfloat b, GLfloat a) { SetTint({r,g,b,a}); }
 

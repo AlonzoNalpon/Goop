@@ -70,6 +70,7 @@ namespace GE::Graphics::Rendering {
     constexpr GLint uViewMatLocation  = 2;  // Layout location for uViewProjMtx
     constexpr GLint uMdlTransLocation = 3;  // Layout location for uMdlMtx
     constexpr GLint uTintLocation     = 5;  // Layout location for uTint
+    constexpr GLint uMultiplyLocation = 6;  // layout location for uClrMult
     // Draw
     glm::mat4 const& camViewProj{ camera.GetPersMtx() };
     glUseProgram(r_mdlContainer.front().shader); // USE SHADER PROGRAM
@@ -109,7 +110,9 @@ namespace GE::Graphics::Rendering {
         glUniformMatrix4fv(uMdlTransLocation, 1, GL_FALSE, glm::value_ptr(mdlXForm));
         // Pass the alpha value
         Colorf const& clrTint{ obj.sprite.info.tint };
+        Colorf const& clrMult{ obj.sprite.info.multiply };
         glUniform4f(uTintLocation, clrTint.r, clrTint.g, clrTint.b, clrTint.a);
+        glUniform4f(uMultiplyLocation, clrMult.r, clrMult.g, clrMult.b, clrMult.a);
 
         glDrawArrays(mdl.primitive_type, 0, mdl.draw_cnt); // draw the object
 
