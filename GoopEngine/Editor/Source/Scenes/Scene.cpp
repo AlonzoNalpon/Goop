@@ -60,8 +60,20 @@ void GE::Scenes::Scene::Unload()
 						std::vector<void*> params = { &entity };
 						mono_runtime_invoke(onDestroy, mono_gchandle_get_target(script.m_gcHandle), params.data(), nullptr);
 					}
-					mono_gchandle_free(script.m_gcHandle);
 				}
+			}
+		}
+
+		if (ecs->HasComponent<GE::Component::Scripts>(entity))
+		{
+			GE::Component::Scripts* scripts = ecs->GetComponent<GE::Component::Scripts>(entity);
+			for (auto script : scripts->m_scriptList)
+			{
+				if (!script.m_scriptClass)
+				{
+					continue;
+				}
+				mono_gchandle_free(script.m_gcHandle);
 			}
 		}
 		ecs->DestroyEntity(entity);

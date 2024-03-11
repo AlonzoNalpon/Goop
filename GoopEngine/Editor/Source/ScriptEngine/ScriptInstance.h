@@ -153,6 +153,8 @@ namespace GE {
 
 			void SetEntityID(GE::ECS::Entity m_entityId);
 
+
+			void FreeScript();
 			/*!*********************************************************************
 			\brief
 				Template Function to get a public field from the c# script class
