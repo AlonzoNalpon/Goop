@@ -10,6 +10,7 @@ namespace GoopScripts.Button
 {
 	internal class TutorialBtn : TextButtonBase
 	{
+		TutorialBtn() : base() { }
 
 		private bool m_disabledEndTurn;
 

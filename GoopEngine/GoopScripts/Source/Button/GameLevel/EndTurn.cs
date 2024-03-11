@@ -20,9 +20,11 @@ using static GoopScripts.Button.TextButtonBase;
 
 namespace GoopScripts.Button
 {
-  public class EndTurn : TextButtonBase
-  {
-    private bool m_disabledEndTurn;
+	public class EndTurn : TextButtonBase
+	{
+		EndTurn() : base() { }
+
+		private bool m_disabledEndTurn;
 
 		public void Enable()
 		{
