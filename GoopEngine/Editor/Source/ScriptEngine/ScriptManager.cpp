@@ -1019,9 +1019,11 @@ MonoObject* GE::MONO::GetGameSysScript(MonoString* gameSysEntityName)
 void GE::MONO::PlayAnimation(MonoString* animName, GE::ECS::Entity entity)
 {
   std::string str = GE::MONO::MonoStringToSTD(animName);
+  std::cout << "PlayAnimation called on " << entity << " with animation: " << str << "\n";
   // call play animation here
   // Error check for invalid pls!!!!!
   Graphics::gObjID spriteID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(str) };
+  std::cout << "No throw\n";
   // Doesnt set the sprite!!!
   GE::Systems::SpriteAnimSystem::SetAnimation(entity, spriteID); // play anim yes!
 }
@@ -1033,7 +1035,7 @@ double  GE::MONO::GetAnimationTime(MonoString* animName)
   size_t animID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(str) };
   
   GE::Graphics::SpriteAnimation test = Graphics::GraphicsEngine::GetInstance().animManager.GetAnim(animID);
-  return (static_cast<double>(test.frames.size()) / static_cast<double>(test.speed));
+  return (static_cast<double>(test.frames.size()) * static_cast<double>(test.speed));
 }
 
 

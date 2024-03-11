@@ -66,7 +66,9 @@ namespace GoopScripts.Cards
 
     public float Value { get { return m_actionVal; } set { m_actionVal = value; } }
     public int Duration { get { return m_duration; } set { m_duration = value; } }
+    public CardID ID {  get {  return m_cardID; } }
     public CardType Type { get { return cardType; } }
+
 
     public string SpriteAnimation { get { return m_animationSprite; } set { m_animationSprite = value; } }
 

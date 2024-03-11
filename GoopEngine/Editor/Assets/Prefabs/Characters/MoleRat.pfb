@@ -1,7 +1,7 @@
 {
     "Name": "MoleRat",
     "isActive": true,
-    "Version": 3,
+    "Version": 6,
     "Components": [
         {
             "Transform": {
@@ -62,69 +62,6 @@
                         "entityID": 0,
                         "scriptFieldInstList": [
                             {
-                                "data": {
-                                    "characterAnimsInst": {
-                                        "scriptName": "CharacterAnims",
-                                        "entityID": 32758,
-                                        "scriptFieldInstList": [
-                                            {
-                                                "data": "SS_MoleRat_Bite",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_attack"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Bite",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_attack2"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Curl",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_block"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Death",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_death"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Death",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_deathShield"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Flinch",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_flinch"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Idle",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_idle"
-                                                }
-                                            }
-                                        ]
-                                    }
-                                },
-                                "type": "",
-                                "scriptField": {
-                                    "fieldName": "m_animations"
-                                }
-                            },
-                            {
                                 "data": 0,
                                 "type": "System.Int32",
                                 "scriptField": {
@@ -161,7 +98,7 @@
                                     "Cards In Hand": [],
                                     "Cards In Queue": [
                                         "NO_CARD",
-                                        "",
+                                        "NO_CARD",
                                         "NO_CARD"
                                     ]
                                 },
@@ -236,6 +173,47 @@
                         "scriptName": "MoleRatBlocks",
                         "entityID": 0,
                         "scriptFieldInstList": []
+                    },
+                    {
+                        "scriptName": "AnimationManager",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": "SS_MoleRat_Curl",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_block"
+                                }
+                            },
+                            {
+                                "data": "SS_MoleRat_Death",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_death"
+                                }
+                            },
+                            {
+                                "data": "SS_MoleRat_Death",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_deathShield"
+                                }
+                            },
+                            {
+                                "data": "SS_MoleRat_Flinch",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_flinch"
+                                }
+                            },
+                            {
+                                "data": "SS_MoleRat_Idle",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_idle"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
