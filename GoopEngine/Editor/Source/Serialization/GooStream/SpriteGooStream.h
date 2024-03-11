@@ -16,7 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include "IGooStream.h"
 #include <vector>
-#include "SpriteData.h"
+#include "../SpriteData.h"
 
 namespace GE
 {

@@ -23,6 +23,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <AssetManager/AssetManager.h>
 #include <filesystem>
 #include <Graphics/GraphicsEngine.h>
+#include <Serialization/Deserializer.h>
 #include <Serialization/GooStream/AssetGooStream.h>
 #include <filesystem>
 
@@ -89,18 +90,9 @@ namespace GE::Assets
 	std::string AssetManager::GetScene(std::string const& sceneName)
 	{
 		auto iter{ m_scenes.find(sceneName) };
-		if (iter != m_scenes.end())
-		{
-			return iter->second;
-		}
-
-		// File missing, try to load
-		ReloadFiles(GE::Assets::SCENE);
-		iter = m_scenes.find(sceneName);
 		if (iter == m_scenes.end())
 		{
-			GE::Debug::ErrorLogger::GetInstance().LogError("Unable to load scene " + sceneName);
-			return "";
+			throw Debug::Exception<AssetManager>(Debug::LEVEL_ERROR, ErrMsg("Unables to get scene: " + sceneName));
 		}
 
 		return iter->second;
@@ -109,20 +101,10 @@ namespace GE::Assets
 	std::string AssetManager::GetSound(std::string const& soundName)
 	{
 		auto iter{ m_audio.find(soundName) };
-		if (iter != m_audio.end())
-		{
-			return iter->second;
-		}
-
-		// File missing, try to load
-		ReloadFiles(GE::Assets::AUDIO);
-		iter = m_audio.find(soundName);
 		if (iter == m_audio.end())
 		{
-			GE::Debug::ErrorLogger::GetInstance().LogError("Unable to load audio " + soundName);
-			return "";
+			throw Debug::Exception<AssetManager>(Debug::LEVEL_ERROR, ErrMsg("Unables to get audio: " + soundName));
 		}
-
 		return iter->second;
 	}
 
@@ -173,8 +155,8 @@ namespace GE::Assets
 		SceneFileExt = GetConfigData<std::string>("Scene File Extension");
 		AudioFileExt = GetConfigData<std::string>("Audio File Extension");
 		ImageFileExt = GetConfigData<std::string>("Image File Extension");
+		FontFileExt = GetConfigData<std::string>("Font File Extension"); 
 		ShaderFileExt = GetConfigData<std::string>("Shader File Extension");
-		FontFileExt = GetConfigData<std::string>("Font File Extension");
 		for (const auto& file : std::filesystem::recursive_directory_iterator(assetsDir))
 		{
 			if (!file.is_regular_file()) { continue; }	// skip if file is a directory
@@ -249,6 +231,7 @@ namespace GE::Assets
 			break;
 		case AssetType::ANIMATION:
 		case AssetType::IMAGES:
+			FreeImages();
 			m_images.clear();
 			fileExt = AssetManager::ImageFileExt;
 			ptrToMap = &m_images;
@@ -286,16 +269,26 @@ namespace GE::Assets
 				ptrToMap->emplace(file.path().stem().string(), file.path().string());
 			}
 		}
+
+		if (type == AssetType::IMAGES || type == AssetType::ANIMATION)
+		{
+			ReloadAllFiles();
+		}
+		else if (type == AssetType::FONTS)
+		{
+			LoadFonts();
+		}
 	}
 
 	void AssetManager::ReloadAllFiles()
 	{
+		FreeImages();
 		m_images.clear();
+		Graphics::GraphicsEngine::GetInstance().FreeTexturesAndFonts();
 		m_audio.clear();
-		m_prefabs.clear();
 		m_scenes.clear();
-		m_shaders.clear();
 		m_fonts.clear();
+		m_shaders.clear();
 		LoadFiles();
 	}
 
@@ -354,14 +347,16 @@ namespace GE::Assets
 				break;
 			case AssetType::ANIMATION:
 			case AssetType::IMAGES:
+				FreeImage(assetEvent->m_name);
 				m_images.erase(assetEvent->m_name);
+				
 				break;
 			case AssetType::AUDIO:
 				m_audio.erase(assetEvent->m_name);
 				break;
 			case AssetType::FONTS:
 				m_fonts.erase(assetEvent->m_name);
-				break;
+				break;			
 			case AssetType::SHADERS:
 				m_shaders.erase(assetEvent->m_name);
 				break;
@@ -452,21 +447,12 @@ namespace GE::Assets
 		}
 
 		ImageData imageData{ 0 , path, width, height, channels, img };
-		
 		unsigned TMID = gEngine.InitTexture(GE::GoopUtils::ExtractFilename(imageData.GetName()), imageData);
-		if (m_loadedImages.find(TMID) != m_loadedImages.end())
-		{
-			// Unload memory if memory already loaded
-			stbi_image_free(img);
-		}
-		else
-		{
-			imageData.SetID(TMID);
+		stbi_image_free(img);
+		m_loadedImages.insert(std::pair<int, ImageData>(TMID, imageData));
+		m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(GoopUtils::ExtractPrevFolderAndFileName(path), TMID));
+		m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(TMID, GoopUtils::ExtractPrevFolderAndFileName(path)));
 
-			m_loadedImages.insert(std::pair<int, ImageData>(TMID, imageData));
-			m_loadedImagesStringLookUp.insert(std::pair<std::string, int>(GoopUtils::ExtractPrevFolderAndFileName(path), TMID));
-			m_loadedImagesIDLookUp.insert(std::pair<int, std::string>(TMID, GoopUtils::ExtractPrevFolderAndFileName(path)));
-		}
 		return TMID;
 	}
 
@@ -485,22 +471,13 @@ namespace GE::Assets
 	{
 		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
 
-		for (const auto& pair : m_loadedImages)
+		for (const auto& [imgid, imgdata] : m_loadedImages)
 		{
-			int id = pair.first;
-			ImageData imageData = pair.second;
-			if (!imageData.GetData())
-			{
-				// Image Data already deleted.
-				continue;
-			}
-			// Free the loaded image data
-			stbi_image_free(imageData.GetData());
-
-			m_loadedImagesStringLookUp.erase(imageData.GetName());
-			m_loadedImagesIDLookUp.erase(id);
-			gEngine.DestroyTexture(gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(pair.second.GetName())));
+			m_loadedImagesStringLookUp.erase(imgdata.GetName());
+			m_loadedImagesIDLookUp.erase(imgid);
+			gEngine.DestroyTexture(imgid);
 		}
+		gEngine.FreeSpriteAnimations();
 
 		// Clear the map of loaded images
 		m_loadedImages.clear();
@@ -514,7 +491,6 @@ namespace GE::Assets
 
 		try
 		{
-			stbi_image_free(GetData(name).GetData());
 			m_loadedImages.erase(GetData(name).GetID());
 			m_loadedImagesStringLookUp.erase(GetData(name).GetName());
 			m_loadedImagesIDLookUp.erase(GetData(name).GetID());
@@ -528,10 +504,19 @@ namespace GE::Assets
 
 	void AssetManager::FreeImage(int id)
 	{
-		stbi_image_free(GetData(id).GetData());
-		m_loadedImages.erase(id);
-		m_loadedImagesStringLookUp.erase(GetData(id).GetName());
-		m_loadedImagesIDLookUp.erase(id);
+		auto& gEngine = Graphics::GraphicsEngine::GetInstance();
+
+		try
+		{
+			m_loadedImages.erase(id);
+			m_loadedImagesStringLookUp.erase(GetData(id).GetName());
+			m_loadedImagesIDLookUp.erase(id);
+			gEngine.DestroyTexture(id);
+		}
+		catch (GE::Debug::IExceptionBase& e)
+		{
+			e.LogSource();
+		}
 	}
 
 	void AssetManager::GetMapData()
@@ -570,30 +555,14 @@ namespace GE::Assets
 
 	void AssetManager::LoadSpritesheets()
 	{
-		GE::Serialization::SpriteGooStream::container_type assets;
 		std::string const fileName{ GetConfigData<std::string>("Sprite Config") };
-		// Create a SpriteGooStream object with the given file name
-		GE::Serialization::SpriteGooStream sgs{ fileName };
-		// If the SpriteGooStream object is not valid, print an error message
-		if (!sgs)
-		{
-			Debug::ErrorLogger::GetInstance().LogMessage("Error deserializing " + fileName);
-
-			//  << "Error deserializing " << fileName << "\n";
-		}
-		// If unloading assets into the container was not successful, print an error message
-		if (!sgs.Unload(assets))
-		{
-			Debug::ErrorLogger::GetInstance().LogMessage("Error unloading assets into container ");
-
-			//  << "Error unloading assets into container" << "\n";
-		}
+		auto assets{ Deserializer::DeserializeSpriteSheetData(fileName) };
 
 		// For each entry in assets, print out its details
-		for (auto const& entry : assets)
+		for (auto& entry : assets)
 		{
-			SpriteData loadedData{ entry.m_id, entry.m_filePath, entry.m_slices, entry.m_stacks, entry.m_frames, entry.m_speed, entry.m_flags };
-			m_loadedSpriteData.insert({ entry.m_id, loadedData });
+			std::string id{ entry.m_id };
+			m_loadedSpriteData.emplace(std::make_pair(std::move(id), std::move(entry)));
 		}
 	}
 }		

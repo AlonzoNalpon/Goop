@@ -22,6 +22,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include "PrefabEditor.h"
 #include <Systems/GameSystem/GameSystem.h>
 #include <shellapi.h>
+#include <GameStateManager/GameStateManager.h>
 
 using namespace ImGui;
 using namespace GE::Assets;
@@ -54,7 +55,11 @@ void AssetBrowser::CreateContentDir()
 		//  << "Reload Asset Browser" << std::endl;
 		GE::Debug::ErrorLogger::GetInstance().LogError("=== [ Reloading Asset Browser ] ===");
 
+
+		Events::EventManager::GetInstance().Dispatch(Events::StartSceneEvent());
 		GoopUtils::ReloadFileData();
+		Events::EventManager::GetInstance().Dispatch(Events::StopSceneEvent());
+		GE::GSM::GameStateManager::GetInstance().Restart();
 	}
 
 	assetsDirectory = assetManager.GetConfigData<std::string>("Assets Dir");
@@ -106,7 +111,7 @@ void AssetBrowser::CreateContentView()
 
 	AssetManager& assetManager = AssetManager::GetInstance();
 	BeginGroup();
-	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
+	for (const auto& file : std::filesystem::recursive_directory_iterator(m_currDir))
 	{
 		if (!file.is_regular_file())
 		{

@@ -117,6 +117,14 @@ namespace GE::Graphics::Fonts
     ************************************************************************/
     FontID_LT const&  GetFontLT()const;
 
+    /*!*********************************************************************
+    \brief
+      Frees font information from both the cpu and gpu.
+      Do not call Init in this class when done
+    \return
+    ************************************************************************/
+    void FreeFonts();
+
     void              UpdateTextInfo(TextObjGroup& group);
   };
 }

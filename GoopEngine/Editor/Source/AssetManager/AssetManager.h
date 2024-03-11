@@ -40,6 +40,7 @@ namespace GE::Assets
 #endif
   {
   public:
+    using SpriteSheetData = std::unordered_map<std::string, GE::Serialization::SpriteData>;
 
     /*!*********************************************************************
     \brief
@@ -272,9 +273,23 @@ namespace GE::Assets
     ************************************************************************/
     inline std::unordered_map<std::string, std::string> const& GetPrefabs() const noexcept { return m_prefabs; }
 
+    /*!*********************************************************************
+    \brief
+      Returns the map of image filepaths as a const reference
+    \return
+      The map of prefab filepaths
+    ************************************************************************/
     inline std::unordered_map<std::string, std::string> const& GetImages() const noexcept { return m_images; }
 
+    /*!*********************************************************************
+    \brief
+      Returns the map of scene filepaths as a const reference
+    \return
+      The map of prefab filepaths
+    ************************************************************************/
     inline std::unordered_map<std::string, std::string> const& GetScenes() const noexcept { return m_scenes; }
+
+    inline SpriteSheetData const& GetSpriteSheetData() const noexcept { return m_loadedSpriteData; }
 
 #ifndef IMGUI_DISABLE
     /*!*********************************************************************
@@ -322,7 +337,7 @@ namespace GE::Assets
     std::unordered_map<int, ImageData> m_loadedImages; // Map that contains all the loaded images data with an ID as a key.
     std::unordered_map<std::string, int> m_loadedImagesStringLookUp; // Lookup table for getting ID with filepath.
     std::unordered_map<int, std::string> m_loadedImagesIDLookUp; // Lookup table for getting filepath with id.
-    std::unordered_map<std::string, GE::Serialization::SpriteData> m_loadedSpriteData; // Map that contains loaded sprite with their data with their m_id as key.
+    SpriteSheetData m_loadedSpriteData; // Map that contains loaded sprite with their data with their m_id as key.
   };
 }
 #endif

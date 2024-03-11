@@ -79,7 +79,8 @@ RTTR_REGISTRATION
     .property("trans", &Component::Tween::Action::m_trans)
     .property("scale", &Component::Tween::Action::m_scale)
     .property("rot", &Component::Tween::Action::m_rot)
-    .property("spriteColor", &Component::Tween::Action::m_spriteColor)
+    .property("spriteTint", &Component::Tween::Action::m_spriteTint)
+    .property("spriteMult", &Component::Tween::Action::m_spriteMult)
     .property("textColor", &Component::Tween::Action::m_textColor)
     .property("duration", &Component::Tween::Action::m_duration)
     .property("animationEvent", &Component::Tween::Action::m_animationEvent)
@@ -117,10 +118,12 @@ RTTR_REGISTRATION
     .property("Cards In Queue", &DeckManager::m_queue)
     ;
 
-  rttr::registration::class_<HealthBar>("HealthBar")
-    .property("m_health", &HealthBar::m_health)
-    .property("m_maxHealth", &HealthBar::m_maxHealth)
-    .property("m_healthBarUI", &HealthBar::m_healthBarUI)
+  rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
+    .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
+    .property("cardEntity", &Component::CardHolder::CardHolderEntry::cardEntity)
+    .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)
+    .property("defaultSpriteID", &Component::CardHolder::CardHolderEntry::defaultSpriteID)
+    .property("used", &Component::CardHolder::CardHolderEntry::used)
     ;
 
   rttr::registration::class_<Component::Audio::Sound>("Sound")
@@ -140,6 +143,8 @@ RTTR_REGISTRATION
     .property("texDims", &Graphics::SpriteSubData::texDims)
     .property("width", &Graphics::SpriteSubData::width)
     .property("height", &Graphics::SpriteSubData::height)
+    .property("tint", &Graphics::SpriteSubData::tint)
+    .property("multiply", &Graphics::SpriteSubData::multiply)
     ;
   rttr::registration::class_<Graphics::SpriteData>("SpriteData")
     .property("spriteSubData", &Graphics::SpriteData::info)
@@ -183,6 +188,11 @@ RTTR_REGISTRATION
     .property("type", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
     ;
+  rttr::registration::class_<MONO::ScriptFieldInstance<std::string>>("System.String")
+    .property("data", &MONO::ScriptFieldInstance<std::string>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<std::string>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<std::string>::m_scriptField)
+    ;
   rttr::registration::class_<MONO::ScriptFieldInstance<Math::dVec3>>("GoopScripts.Mono.Vec3<System.Double>")
     .property("data", &MONO::ScriptFieldInstance<Math::dVec3>::m_data)
     .property("type", &MONO::ScriptFieldInstance<Math::dVec3>::m_type)
@@ -203,11 +213,18 @@ RTTR_REGISTRATION
     .property("type", &MONO::ScriptFieldInstance<CharacterType>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<CharacterType>::m_scriptField)
     ;
-
   rttr::registration::class_<MONO::ScriptFieldInstance<HealthBar>>("GoopScripts.Gameplay.HealthBar")
     .property("data", &MONO::ScriptFieldInstance<HealthBar>::m_data)
     .property("type", &MONO::ScriptFieldInstance<HealthBar>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<HealthBar>::m_scriptField)
+    ;
+  rttr::registration::class_<MONO::CharacterAnims>("CharacterAnims")
+    .property("characterAnimsInst", &MONO::CharacterAnims::m_characterAnimsInst)
+    ;
+  rttr::registration::class_<MONO::ScriptFieldInstance<CharacterAnims>>("GoopScripts.Gameplay.CharacterAnims")
+    .property("data", &MONO::ScriptFieldInstance<CharacterAnims>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<CharacterAnims>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<CharacterAnims>::m_scriptField)
     ;
 
 
@@ -220,6 +237,16 @@ RTTR_REGISTRATION
   rttr::registration::class_<std::pair<Graphics::gObjID, std::string>>("SizeTString")
     .property("first", &std::pair<Graphics::gObjID, std::string>::first)
     .property("second", &std::pair<Graphics::gObjID, std::string>::second)
+    ;
+
+  rttr::registration::class_<Serialization::SpriteData>("SerializedSpriteData")
+    .property("id", &Serialization::SpriteData::m_id)
+    .property("filePath", &Serialization::SpriteData::m_filePath)
+    .property("slices", &Serialization::SpriteData::m_slices)
+    .property("stacks", &Serialization::SpriteData::m_stacks)
+    .property("frames", &Serialization::SpriteData::m_frames)
+    .property("speed", &Serialization::SpriteData::m_speed)
+    .property("flags", &Serialization::SpriteData::m_flags)
     ;
 
 #ifndef IMGUI_DISABLE

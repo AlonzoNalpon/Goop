@@ -201,7 +201,9 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   }
   else if (compType == rttr::type::get<Component::Scripts>())
   {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Scripts*>());
+    Component::Scripts* scripts{ compVar.get_value<Component::Scripts*>() };
+    scripts->SetAllEntityID(entity);
+    ecs.AddComponent(entity, *scripts);
   }
   else if (compType == rttr::type::get<Component::Draggable>())
   {
@@ -341,10 +343,6 @@ void ObjectFactory::RemoveComponentFromEntity(ECS::Entity entity, rttr::type com
   {
     ecs.RemoveComponent<SpriteAnim>(entity);
   }
-  /*else if (compType == rttr::type::get<Component::Model>())
-  {
-    ecs.RemoveComponent<Model>(entity);
-  }*/
   else if (compType == rttr::type::get<Component::Tween>())
   {
     ecs.RemoveComponent<Tween>(entity);

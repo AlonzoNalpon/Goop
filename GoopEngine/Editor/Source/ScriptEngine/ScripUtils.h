@@ -31,6 +31,7 @@ namespace GE {
 			UShort,
 			UInt,
 			ULong,
+			String,
 			Vec2,
 			Vec3,
 			DVec2,
@@ -43,7 +44,8 @@ namespace GE {
 			DeckFT,
 			DeckManagerFT,
 			CharacterTypeFT,
-			HealthBarFT
+			HealthBarFT,
+			CharacterAnimsFT
 		};
 
 		template <typename T>

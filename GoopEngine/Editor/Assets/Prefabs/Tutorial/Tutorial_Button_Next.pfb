@@ -1,14 +1,14 @@
 {
     "Name": "Tutorial_Button_Next",
     "isActive": true,
-    "Version": 0,
+    "Version": 6,
     "Components": [
         {
             "Transform": {
-                "pos": "{ 833.908, -255.791, 15 }",
+                "pos": "{ 0, 0, 0 }",
                 "scale": "{ 1, 1, 1 }",
                 "rot": "{ 0, 0, 0 }",
-                "worldPos": "{ 833.908, -255.791, 30 }",
+                "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
             }
@@ -18,26 +18,26 @@
         {
             "ID": 1,
             "isActive": true,
-            "Name": "Button Backing",
+            "Name": "Button",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, 0, 20 }",
-                        "scale": "{ 1, 1, 1 }",
+                        "pos": "{ 30, 0, 0 }",
+                        "scale": "{ 0.25, 0.25, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 0, 20 }",
-                        "worldScale": "{ 1, 1, 1 }",
+                        "worldPos": "{ 30, 0, 0 }",
+                        "worldScale": "{ 0.25, 0.25, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "BoxCollider": {
-                        "center": "{ 833.908, -255.791 }",
-                        "width": 260.0,
-                        "height": 140.0,
-                        "min": "{ 703.908, -325.791 }",
-                        "max": "{ 963.908, -185.791 }",
+                        "center": "{ 30, 0 }",
+                        "width": 125.0,
+                        "height": 125.0,
+                        "min": "{ -32.5, -62.5 }",
+                        "max": "{ 92.5, 62.5 }",
                         "render": false
                     }
                 },
@@ -46,18 +46,24 @@
                         "spriteData": {
                             "spriteSubData": {
                                 "texCoords": {
-                                    "x": 0.0,
+                                    "x": 1.0,
                                     "y": 0.0
                                 },
                                 "texDims": {
                                     "x": 1.0,
                                     "y": 1.0
                                 },
-                                "width": 260,
-                                "height": 140
+                                "width": 500,
+                                "height": 500,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
-                        "spriteName": "Button_Base",
+                        "spriteName": "HTP_Arrow_Left",
                         "shouldRender": true
                     }
                 },
@@ -66,7 +72,7 @@
                         "scriptList": [
                             {
                                 "scriptName": "ToggleTutorial",
-                                "entityID": 91,
+                                "entityID": 1,
                                 "scriptFieldInstList": []
                             }
                         ]
@@ -81,37 +87,38 @@
                     }
                 }
             ]
+        }
+    ],
+    "Removed Components": [
+        {
+            "id": 0,
+            "type": "BoxCollider",
+            "version": 4
         },
         {
-            "ID": 2,
-            "isActive": true,
-            "Name": "NEXT",
-            "Parent": 0,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -57.7784, -25.782, 21 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -57.7784, -25.782, 21 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "NEXT",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.23800000548362732,
-                        "fontID": 2
-                    }
-                }
-            ]
+            "id": 0,
+            "type": "Sprite",
+            "version": 4
+        },
+        {
+            "id": 1,
+            "type": "Transform",
+            "version": 4
+        },
+        {
+            "id": 1,
+            "type": "Text",
+            "version": 4
+        },
+        {
+            "id": 0,
+            "type": "Scripts",
+            "version": 6
+        },
+        {
+            "id": 0,
+            "type": "GE_Button",
+            "version": 6
         }
     ]
 }

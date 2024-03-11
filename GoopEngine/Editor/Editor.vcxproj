@@ -104,6 +104,7 @@
     <ClCompile Include="Source\EditorUI\AnimEventEditor.cpp" />
     <ClCompile Include="Source\EditorUI\EditorTheme.cpp" />
     <ClCompile Include="Source\EditorUI\SpriteAnimEditor.cpp" />
+    <ClCompile Include="Source\EditorUI\SpriteSheetEditor.cpp" />
     <ClCompile Include="Source\Events\AnimEventManager.cpp" />
     <ClCompile Include="Source\Prefabs\PrefabManager.cpp" />
     <ClCompile Include="Source\Prefabs\VariantPrefab.cpp" />
@@ -196,7 +197,6 @@
     <ClCompile Include="Source\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="Source\Serialization\Deserializer.cpp" />
     <ClCompile Include="Source\Serialization\GooStream\AssetGooStream.cpp" />
-    <ClCompile Include="Source\Serialization\GooStream\SpriteGooStream.cpp" />
     <ClCompile Include="Source\Serialization\Registration\RegisterClasses.cpp" />
     <ClCompile Include="Source\Serialization\Registration\RegisterSystemsComponents.cpp" />
     <ClCompile Include="Source\Serialization\Serializer.cpp" />
@@ -239,6 +239,7 @@
     <ClInclude Include="Source\EditorUI\AnimEventEditor.h" />
     <ClInclude Include="Source\EditorUI\EditorTheme.h" />
     <ClInclude Include="Source\EditorUI\SpriteAnimEditor.h" />
+    <ClInclude Include="Source\EditorUI\SpriteSheetEditor.h" />
     <ClInclude Include="Source\Events\AnimEventManager.h" />
     <ClInclude Include="Source\Events\Events.h" />
     <ClInclude Include="Source\Fmod\FmodSystem.h" />
@@ -349,10 +350,9 @@
     <ClInclude Include="Source\Serialization\GooStream\AssetGooStream.h" />
     <ClInclude Include="Source\Serialization\GooStream\GooStream.h" />
     <ClInclude Include="Source\Serialization\GooStream\IGooStream.h" />
-    <ClInclude Include="Source\Serialization\GooStream\SpriteGooStream.h" />
     <ClInclude Include="Source\Serialization\JsonKeys.h" />
     <ClInclude Include="Source\Serialization\Serializer.h" />
-    <ClInclude Include="Source\Serialization\GooStream\SpriteData.h" />
+    <ClInclude Include="Source\Serialization\SpriteData.h" />
     <ClInclude Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.h" />
     <ClInclude Include="Source\FrameRateController\FrameRateController.h" />
     <ClInclude Include="Source\Graphics\Def\GraphicsTypes.h" />

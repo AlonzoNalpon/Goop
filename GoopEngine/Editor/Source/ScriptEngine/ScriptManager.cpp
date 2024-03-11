@@ -1,6 +1,10 @@
 /*!*********************************************************************
 \file   ScriptManager.cpp
 \author han.q\@digipen.edu
+\co-author w.chinkitbryan\@digipen.edu
+\co-author loh.j\@digipen.edu
+\co-author a.nalpon\@digipen.edu
+\co-author chengen.lau\@digipen.edu
 \date   28 September 2023
 \brief
   Script Manager Singleton in charge of initializing and cleaning the Mono.
@@ -23,7 +27,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Prefabs/PrefabManager.h>
 #include <ObjectFactory/ObjectFactory.h>
 
-
+#include <filesystem>
 #include <Component/Card.h>
 #include <GameDef.h>
 #include <Graphics/GraphicsEngine.h>
@@ -49,6 +53,9 @@ namespace GE
     std::string GE::MONO::ScriptManager::m_coreAssFilePath{};
     std::unique_ptr<filewatch::FileWatch<std::string>> GE::MONO::ScriptManager::m_fileWatcher{};
     bool GE::MONO::ScriptManager::m_assemblyReloadPending{};
+    std::unique_ptr<filewatch::FileWatch<std::string>> GE::MONO::ScriptManager::m_csProjWatcher{};
+    bool GE::MONO::ScriptManager::m_CSReloadPending{};
+    bool GE::MONO::ScriptManager::m_rebuildCS{};
     std::string  GE::MONO::ScriptManager::m_scnfilePath{};
 
     std::unordered_map<std::string, ScriptFieldType> GE::MONO::ScriptManager::m_ScriptFieldTypeMap
@@ -63,6 +70,7 @@ namespace GE
       { "System.UInt16", ScriptFieldType::UShort },
       { "System.UInt32", ScriptFieldType::UInt },
       { "System.UInt64", ScriptFieldType::ULong },
+      { "System.String", ScriptFieldType::String },
       { "GoopScripts.Mono.Vec2<System.Single>", ScriptFieldType::Vec2 },
       { "GoopScripts.Mono.Vec3<System.Single>", ScriptFieldType::Vec3 },
       { "GoopScripts.Mono.Vec2<System.Double>", ScriptFieldType::DVec2 },
@@ -73,8 +81,8 @@ namespace GE
       { "GoopScripts.Gameplay.Deck", ScriptFieldType::DeckFT },
       { "GoopScripts.Gameplay.DeckManager", ScriptFieldType::DeckManagerFT },
       { "GoopScripts.Gameplay.CharacterType", ScriptFieldType::CharacterTypeFT },
-      { "GoopScripts.UI.HealthBar", ScriptFieldType::HealthBarFT }
-      
+      { "GoopScripts.UI.HealthBar", ScriptFieldType::HealthBarFT },
+      { "GoopScripts.Gameplay.CharacterAnims", ScriptFieldType::CharacterAnimsFT }
 	
     };
   }
@@ -128,10 +136,18 @@ void GE::MONO::ScriptManager::InitMono()
   //Load All the MonoClasses
   LoadAllMonoClass();
 
-  m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssembly"), AssemblyFileSystemEvent);
-  m_assemblyReloadPending = false;
+  try
+  {
+    m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssembly"), AssemblyFileSystemEvent);
+    m_assemblyReloadPending = false;
 
-
+    m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
+    m_CSReloadPending = false;
+  }
+  catch (...)
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogMessage("Not using Visual Studio, hotreload disabled");
+  }
 
  // m_scnfilePath = 
 }
@@ -284,11 +300,9 @@ void GE::MONO::ScriptManager::LoadAllMonoClass()
         }
 
       }
-    }
-    
-
+    } 
   }
-
+  std::sort(m_allScriptNames.begin(), m_allScriptNames.end());
 }
 
 // this function i nscenemanaegere
@@ -329,8 +343,9 @@ void GE::MONO::ScriptManager::ReloadAllScripts()
     if (ecs.HasComponent<GE::Component::Scripts>(s.first))
     {
       GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(s.first);
-      
+#ifdef _DEBUG
       std::cout << s.first << ": " << s.second.size() << " adding\n";
+#endif
       for (auto& si : s.second)
       {
         scripts->m_scriptList.push_back(si);
@@ -363,12 +378,16 @@ void GE::MONO::ScriptManager::TestReload()
 
 void GE::MONO::ScriptManager::AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type)
 {
+#ifdef _DEBUG
   std::cout << "ASSReload\n";
+#endif
   if (!m_assemblyReloadPending && change_type == filewatch::Event::modified)
   {
     m_assemblyReloadPending = true;
     auto gsm = &GE::GSM::GameStateManager::GetInstance();
+#ifdef _DEBUG
     std::cout << "AddCmd to main thread\n";
+#endif
     gsm->SubmitToMainThread([]()
       {
         m_fileWatcher.reset();
@@ -376,6 +395,91 @@ void GE::MONO::ScriptManager::AssemblyFileSystemEvent(const std::string& path, c
       });
   }
 }
+
+void GE::MONO::ScriptManager::CSReloadEvent(const std::string& path, const filewatch::Event change_type)
+{
+  if (!m_CSReloadPending && change_type == filewatch::Event::modified && !m_rebuildCS)
+  {
+    std::cout << "RELOAD CS\n";
+    m_CSReloadPending = true;
+    auto gsm = &GE::GSM::GameStateManager::GetInstance();
+    std::cout << "Lets rebuild\n";
+    m_rebuildCS = true;
+    gsm->SubmitToMainThread([]()
+      {
+        m_csProjWatcher.reset();
+        RebuildCS();
+      });
+  }
+}
+// Function to get Visual Studio version
+std::string GetVisualStudioVersion() {
+  std::string VSver{};
+#ifdef _MSC_VER
+  //switch (_MSC_VER) {
+  //case 1700:
+  //  VSver = "2012";
+  //  break;
+  //case 1800:
+  //  VSver = "2013";
+  //  break;
+  //case 1900:
+  //  VSver = "2015";
+  //  break;
+  //case 1910-1926:
+  //  VSver = "2017";
+  //  break;
+  //case 1920:
+  //  VSver = "2019";
+  //  break;
+  //case 1935:
+  //  VSver = "2022";
+  //  break;
+  //  // Add cases for newer versions as needed
+  //default:
+  //  std::cout << "Unknown Visual Studio Version" << std::endl;
+  //}
+  VSver = (_MSC_VER >= 1930) ? "2022" : (_MSC_VER >= 1920) ? "2019" : (_MSC_VER >= 1910) ? "2017" : (_MSC_VER >= 1900) ? "2015" : (_MSC_VER >= 1900) ? "2013" : "2012";
+#else
+  GE::Debug::ErrorLogger::GetInstance().LogMessage("Not using Visual Studio, hotreload disabled");
+#endif
+  return VSver;
+}
+
+void GE::MONO::ScriptManager::RebuildCS()
+{
+  std::cout << "REBUILDCS\n";
+  m_CSReloadPending = false;
+  if (m_rebuildCS)
+  {
+    m_rebuildCS = false;
+    Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
+    std::string const csbat = std::filesystem::absolute(assetManager.GetConfigData<std::string>("CSBatFilePath")).string();
+    std::string vsVer = GetVisualStudioVersion();
+
+    std::string arguments = vsVer;
+#ifdef _DEBUG
+    arguments += " Debug";
+#else
+    arguments += " Release";
+#endif
+
+    std::string cdCMD = "\"" + csbat + "\" ";
+    std::string command = cdCMD + arguments;
+    std::cout << command.c_str() << "\n";
+    int result = system(command.c_str());
+    m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
+    m_CSReloadPending = false;
+
+    if (result == 0) {
+      std::cout << "RUN Successfuly\n";
+    }
+    else {
+      std::cout << "DIDNT RUN Successfuly\n";
+    }
+  }
+}
+
 
 
 void GE::MONO::ScriptManager::ReloadAssembly()
@@ -556,8 +660,8 @@ void GE::MONO::FadeOutAudio(MonoString* audio, float fadeDuration)
   cf.m_fadeStartTime = 0.f;
   cf.m_fadeEndTime = fadeDuration;
   cf.m_crossFadeTime = fadeDuration;
-  cf.m_currFadeTime = 0.f;
   cf.isOver = false;
+  cf.m_currFadeTime = 0.f;
 
   static auto as = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::AudioSystem>();
   as->FadeOutAudio(cf);
@@ -847,11 +951,10 @@ void GE::MONO::SetScale(GE::ECS::Entity entity, GE::Math::dVec3 scaleAdjustment)
 
 void GE::MONO::SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 rotAdjustment)
 {
-  GE::FPS::FrameRateController* fpsControl = &(GE::FPS::FrameRateController::GetInstance());
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   GE::Component::Transform* oldTransform = ecs->GetComponent<GE::Component::Transform>(entity);
 
-  oldTransform->m_rot.z += (rotAdjustment.z * fpsControl->GetDeltaTime());
+  oldTransform->m_rot = rotAdjustment;
 }
 
 GE::Math::dVec3 GE::MONO::GetPosition(GE::ECS::Entity entity)
@@ -904,9 +1007,13 @@ MonoObject* GE::MONO::GetScriptFromID(GE::ECS::Entity entity, MonoString* script
 {
   GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
   auto ss = ecs.GetComponent<GE::Component::Scripts>(ecs.GetEntity(ecs.GetEntityName(entity)));
-  GE::MONO::ScriptInstance* scriptinst = ss->Get(MonoStringToSTD(scriptName));
+  GE::MONO::ScriptInstance* scriptInst = ss->Get(MonoStringToSTD(scriptName));
+  if (!scriptInst)
+  {
+    throw Debug::Exception<MonoObject*>(Debug::LEVEL_CRITICAL, ErrMsg("No such script: " + MonoStringToSTD(scriptName)));
+  }
 
-  return scriptinst->m_classInst;
+  return scriptInst->m_classInst;
 }
 
 MonoObject* GE::MONO::GetGameSysScript(MonoString* gameSysEntityName)

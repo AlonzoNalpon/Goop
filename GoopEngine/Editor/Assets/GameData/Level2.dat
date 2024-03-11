@@ -1,6 +1,9 @@
 # Enemy Type
 BOSS_P1
 
+# Enemy Prefab
+Dawson
+
 # Portrait
 UI_Portrait_Dawson.png
 

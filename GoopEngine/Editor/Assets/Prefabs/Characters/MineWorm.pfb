@@ -1,25 +1,25 @@
 {
     "Name": "MineWorm",
-    "isActive": false,
-    "Version": 0,
+    "isActive": true,
+    "Version": 3,
     "Components": [
         {
             "Transform": {
-                "pos": "{ 336.318, 50, 0 }",
-                "scale": "{ 0.9, 0.9, 1 }",
+                "pos": "{ 0, 0, 0 }",
+                "scale": "{ 1, 1, 1 }",
                 "rot": "{ 0, 0, 0 }",
-                "worldPos": "{ 336.318, 50, 0 }",
-                "worldScale": "{ 0.9, 0.9, 1 }",
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
             }
         },
         {
             "BoxCollider": {
-                "center": "{ 336.318, 50 }",
+                "center": "{ 0, 0 }",
                 "width": 456.0,
                 "height": 154.0,
-                "min": "{ 108.318, -27 }",
-                "max": "{ 564.318, 127 }",
+                "min": "{ -228, -77 }",
+                "max": "{ 228, 77 }",
                 "render": false
             }
         },
@@ -36,7 +36,13 @@
                             "y": 1.0
                         },
                         "width": 500,
-                        "height": 625
+                        "height": 625,
+                        "tint": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 0.0
+                        }
                     }
                 },
                 "spriteName": "SS_MineWorm_Idle",
@@ -53,8 +59,71 @@
                 "scriptList": [
                     {
                         "scriptName": "Stats",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": [
+                            {
+                                "data": {
+                                    "characterAnimsInst": {
+                                        "scriptName": "CharacterAnims",
+                                        "entityID": 32758,
+                                        "scriptFieldInstList": [
+                                            {
+                                                "data": "SS_MineWorm_Slash",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_attack"
+                                                }
+                                            },
+                                            {
+                                                "data": "SS_MineWorm_Spit",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_attack2"
+                                                }
+                                            },
+                                            {
+                                                "data": "SS_MineWorm_Shield",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_block"
+                                                }
+                                            },
+                                            {
+                                                "data": "SS_MoleRat_Death",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_death"
+                                                }
+                                            },
+                                            {
+                                                "data": "SS_MoleRat_Death",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_deathShield"
+                                                }
+                                            },
+                                            {
+                                                "data": "SS_MineWorm_Flinch",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_flinch"
+                                                }
+                                            },
+                                            {
+                                                "data": "SS_MineWorm_Idle",
+                                                "type": "System.String",
+                                                "scriptField": {
+                                                    "fieldName": "m_idle"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                "type": "",
+                                "scriptField": {
+                                    "fieldName": "m_animations"
+                                }
+                            },
                             {
                                 "data": 0,
                                 "type": "System.Int32",
@@ -102,17 +171,6 @@
                                 }
                             },
                             {
-                                "data": {
-                                    "m_health": 0,
-                                    "m_maxHealth": 0,
-                                    "m_healthBarUI": 0
-                                },
-                                "type": "",
-                                "scriptField": {
-                                    "fieldName": "m_healthBar"
-                                }
-                            },
-                            {
                                 "data": "BASIC_ENEMY",
                                 "type": "GoopScripts.Gameplay.CharacterType",
                                 "scriptField": {
@@ -134,63 +192,49 @@
                     },
                     {
                         "scriptName": "HealthBar",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": [
                             {
-                                "data": 1,
-                                "type": "System.Int32",
-                                "scriptField": {
-                                    "fieldName": "Player"
-                                }
-                            },
-                            {
-                                "data": 29,
-                                "type": "System.Int32",
-                                "scriptField": {
-                                    "fieldName": "healthBarUI"
-                                }
-                            },
-                            {
-                                "data": 15,
+                                "data": 8,
                                 "type": "System.Int32",
                                 "scriptField": {
                                     "fieldName": "m_health"
                                 }
                             },
                             {
-                                "data": 15,
+                                "data": 0,
                                 "type": "System.Int32",
                                 "scriptField": {
-                                    "fieldName": "m_maxHealth"
+                                    "fieldName": "m_healthBarUI"
                                 }
                             },
                             {
-                                "data": 42,
+                                "data": 8,
                                 "type": "System.Int32",
                                 "scriptField": {
-                                    "fieldName": "textUI"
+                                    "fieldName": "m_maxHealth"
                                 }
                             }
                         ]
                     },
                     {
                         "scriptName": "MoleRatBites",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     },
                     {
                         "scriptName": "LeahDies",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     },
                     {
                         "scriptName": "MoleRatScreeches",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     },
                     {
                         "scriptName": "MoleRatBlocks",
-                        "entityID": 4,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     }
                 ]

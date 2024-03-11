@@ -25,6 +25,7 @@ namespace GE::Graphics {
     SpriteData(SpriteSubData spriteInfo, GLuint texID) : info{ spriteInfo }, texture{ texID } {}
     SpriteData() : info{}, texture{} {}
     void SetTint(Colorf clr) { info.SetTint(clr); }
+    void SetMult(Colorf clr) { info.SetMult(clr); }
   };
 }
 

@@ -100,4 +100,15 @@ namespace GE::Graphics
     return m_texturesLT;
   }
 
+  void TextureManager::FreeTextures()
+  {
+    for (auto const& texIt : m_textures)
+    {
+      glDeleteTextures(1, &texIt.first);
+    }
+    m_textures.clear();
+    m_texturesLT.clear();
+    m_texNameLT.clear();
+  }
+
 }

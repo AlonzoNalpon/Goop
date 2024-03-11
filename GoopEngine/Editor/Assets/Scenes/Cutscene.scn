@@ -30,7 +30,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_001",
@@ -70,7 +76,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_002",
@@ -110,7 +122,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_003",
@@ -150,7 +168,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_004",
@@ -190,7 +214,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_005",
@@ -230,7 +260,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_006",
@@ -270,7 +306,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_007",
@@ -310,7 +352,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_008",
@@ -324,17 +372,17 @@
         "ID": 8,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 12,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 400, 0, 1000 }",
+                    "pos": "{ 400, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 400, 0, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -350,7 +398,13 @@
                                 "y": 1.0
                             },
                             "width": 2880,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Transition",
@@ -364,14 +418,14 @@
                             "key": "TransitionIn",
                             "value": [
                                 {
-                                    "trans": "{ -2880, 0, 1000 }",
+                                    "trans": "{ -2880, 0, 0 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
-                                    "spriteColor": {
+                                    "spriteTint": {
                                         "r": 1.0,
                                         "g": 1.0,
                                         "b": 1.0,
-                                        "a": 1.0
+                                        "a": 0.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -397,7 +451,7 @@
         "ID": 9,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 12,
         "Child Entities": [],
         "Components": [
             {
@@ -405,7 +459,7 @@
                     "pos": "{ 2880, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 2880, 0, 0 }",
+                    "worldPos": "{ 2880, 0, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -423,7 +477,13 @@
                                 "y": 1.0
                             },
                             "width": 2880,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Transition",
@@ -440,11 +500,11 @@
                                     "trans": "{ -400, 0, 0 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
-                                    "spriteColor": {
+                                    "spriteTint": {
                                         "r": 1.0,
                                         "g": 1.0,
                                         "b": 1.0,
-                                        "a": 1.0
+                                        "a": 0.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -568,7 +628,7 @@
                     "scriptList": [
                         {
                             "scriptName": "FPS",
-                            "entityID": 17,
+                            "entityID": 11,
                             "scriptFieldInstList": [
                                 {
                                     "data": 11,
@@ -598,45 +658,56 @@
         ]
     },
     {
-        "Name": "[Folder] Skip button",
-        "ID": 15,
+        "Name": "Transition",
+        "ID": 12,
         "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
-            16,
-            17,
-            18
+            8,
+            9
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -673.833, -394.232, 10 }",
+                    "pos": "{ 0, 0, 1000 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -673.833, -394.232, 10 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             }
         ]
     },
     {
-        "Name": "Backing",
-        "ID": 16,
+        "Name": "Skip button",
+        "ID": 15,
         "Prefab": null,
         "isActive": true,
-        "Parent": 15,
-        "Child Entities": [],
+        "Parent": null,
+        "Child Entities": [
+            17
+        ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -172, -84.967, 0 }",
+                    "pos": "{ -856.555, -487.445, 10 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -845.833, -479.199, 10 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -856.555, -487.445, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -856.555, -487.445 }",
+                    "width": 200.0,
+                    "height": 100.0,
+                    "min": "{ -956.555, -537.445 }",
+                    "max": "{ -756.555, -437.445 }",
+                    "render": false
                 }
             },
             {
@@ -652,17 +723,52 @@
                                 "y": 1.0
                             },
                             "width": 200,
-                            "height": 100
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
                     "shouldRender": true
                 }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "ChangeToTutorial",
+                            "entityID": 15,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "CrossFadeToGameBGM",
+                            "entityID": 15,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "TransitionOut",
+                            "entityID": 15,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
             }
         ]
     },
     {
-        "Name": "YES",
+        "Name": "SKIP",
         "ID": 17,
         "Prefab": null,
         "isActive": true,
@@ -671,10 +777,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -206.37, -101.858, 0 }",
+                    "pos": "{ -34.482, -15.659, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -880.203, -496.09, 10 }",
+                    "worldPos": "{ -891.037, -503.104, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -690,55 +796,6 @@
                     },
                     "scale": 0.1679999977350235,
                     "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Button",
-        "ID": 18,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 15,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -172, -84.967, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -845.833, -479.199, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -845.833, -479.199 }",
-                    "width": 190.0,
-                    "height": 90.0,
-                    "min": "{ -940.833, -524.199 }",
-                    "max": "{ -750.833, -434.199 }",
-                    "render": false
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "ChangeToTutorial",
-                            "entityID": 18,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "Tutorial",
-                    "eventType": "CHANGE_SCENE",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]

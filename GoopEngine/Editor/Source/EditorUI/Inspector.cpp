@@ -636,11 +636,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 						spriteObj->m_spriteData.info.width = static_cast<GLint>(spriteObj->m_spriteData.info.height * ar);
 					}
 
-					// Transparency setting (1 float)
+					// Tint setting (Colorf)
 					ImGui::Text("Tint Color");
 					SameLine();
 					ImGui::ColorEdit4("##ClrSpriteTintEdit", spriteObj->m_spriteData.info.tint.rgba);
 
+					// Multiply setting (Colorf)
+					ImGui::Text("Multiply Color");
+					SameLine();
+					ImGui::ColorEdit4("##ClrSpriteMultEdit", spriteObj->m_spriteData.info.multiply.rgba);
 
 					if (hasSpriteAnim)
 						EndDisabled();
@@ -907,39 +911,32 @@ void GE::EditorGUI::Inspector::CreateContent()
 							if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<int>>())
 							{
 								TableNextRow();
-								BeginDisabled(false);
 								GE::MONO::ScriptFieldInstance<int>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<int>>();
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								ImGui::TableNextColumn();
 								SetNextItemWidth(GetWindowSize().x);
 								if (ImGui::InputInt(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<int>(sfi.m_data,sfi.m_scriptField.m_classField ); }
-								EndDisabled();
-
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<float>>())
 							{
 								TableNextRow();
-								BeginDisabled(false);
 								GE::MONO::ScriptFieldInstance<float>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<float>>();
 								ImGui::TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								ImGui::TableNextColumn();
 								SetNextItemWidth(GetWindowSize().x);
 								if (ImGui::InputFloat(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<float>(sfi.m_data, sfi.m_scriptField.m_classField); }
-								EndDisabled();
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<double>>())
 							{
 								TableNextRow();
-								BeginDisabled(false);
 								GE::MONO::ScriptFieldInstance<double>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<double>>();
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								ImGui::TableNextColumn();
 								SetNextItemWidth(GetWindowSize().x);
 								if (ImGui::InputDouble(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<double>(sfi.m_data, sfi.m_scriptField.m_classField); }
-								EndDisabled();
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>())
 							{
@@ -947,11 +944,9 @@ void GE::EditorGUI::Inspector::CreateContent()
 								GE::MONO::ScriptFieldInstance<GE::Math::dVec3>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>();
 								if (InputDouble3(("##" + sfi.m_scriptField.m_fieldName).c_str(), sfi.m_data, inputWidth)) { s.SetFieldValue<GE::Math::dVec3>(sfi.m_data, sfi.m_scriptField.m_classField); };
 							}
-
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<DeckManager>>())
 							{
 								TableNextRow();
-								BeginDisabled(false);
 								GE::MONO::ScriptFieldInstance<DeckManager>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<DeckManager>>();
 								GE::MONO::ScriptInstance& deck = sfi.m_data.m_deckInstance;
 								GE::MONO::ScriptInstance& deckMan = sfi.m_data.m_deckManagerInstance;
@@ -993,40 +988,67 @@ void GE::EditorGUI::Inspector::CreateContent()
 									}
 								
 								}
-
-
-								EndDisabled();
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<HealthBar>>())
 							{
-								TableNextRow();
-								BeginDisabled(false);
-								GE::MONO::ScriptFieldInstance<HealthBar>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<HealthBar>>();
-								GE::MONO::ScriptInstance& healthBar = sfi.m_data.m_HealthBarInst;
+								//TableNextRow();
+								//GE::MONO::ScriptFieldInstance<HealthBar>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<HealthBar>>();
+								//GE::MONO::ScriptInstance& healthBar = sfi.m_data.m_healthBarInst;
 
-								for (rttr::variant& dF : healthBar.m_scriptFieldInstList)
+								//for (rttr::variant& dF : healthBar.m_scriptFieldInstList)
+								//{
+
+								//	ScriptFieldInstance<int>& dSFI = dF.get_value<ScriptFieldInstance<int>>();
+								//	//std::cout << dSFI.m_scriptField.m_fieldName.c_str() << ":: " << dSFI.m_data.size() << "\n";
+								//	TableNextColumn();
+								//	ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
+								//	ImGui::TableNextColumn();
+								//	if (ImGui::InputInt(("##" + dSFI.m_scriptField.m_fieldName).c_str(), &(dSFI.m_data), 0, 0, 0))
+								//	{
+								//		healthBar.SetFieldValue<int>(dSFI.m_data, dSFI.m_scriptField.m_classField);
+								//		if (dSFI.m_scriptField.m_fieldName == "m_health")
+								//			sfi.m_data.m_health = dSFI.m_data;
+								//		else if (dSFI.m_scriptField.m_fieldName == "m_maxHealth")
+								//			sfi.m_data.m_maxHealth = dSFI.m_data;
+								//		else if (dSFI.m_scriptField.m_fieldName == "healthBarUI")
+								//			sfi.m_data.m_healthBarUI = dSFI.m_data;
+								//	}
+
+								//}
+							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterAnims>>())
+							{
+								ImGui::TableNextRow();
+								GE::MONO::ScriptFieldInstance<CharacterAnims>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterAnims>>();
+								GE::MONO::ScriptInstance& charAnims = sfi.m_data.m_characterAnimsInst;
+								
+								ImGui::TableNextColumn(); ImGui::Text("CharacterAnims");
+								ImGui::TableNextRow(); ImGui::TableNextColumn(); ImGui::Separator();
+								ImGui::TableNextColumn(); ImGui::Separator(); ImGui::TableNextRow();
+								for (rttr::variant& dF : charAnims.m_scriptFieldInstList)
 								{
-
-									ScriptFieldInstance<int>& dSFI = dF.get_value<ScriptFieldInstance<int>>();
-									//std::cout << dSFI.m_scriptField.m_fieldName.c_str() << ":: " << dSFI.m_data.size() << "\n";
-									TableNextColumn();
+									ScriptFieldInstance<std::string>& dSFI = dF.get_value<ScriptFieldInstance<std::string>>();
+									ImGui::TableNextColumn();
 									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
 									ImGui::TableNextColumn();
-									if (ImGui::InputInt(("##" + dSFI.m_scriptField.m_fieldName).c_str(), &(dSFI.m_data), 0, 0, 0))
+									auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
+									auto const& textureLT{ animManager.GetAnimLT() };
+									if (BeginCombo(("##" + dSFI.m_scriptField.m_fieldName + std::to_string(ImGui::GetColumnIndex())).c_str(), dSFI.m_data.c_str()))
 									{
-										healthBar.SetFieldValue<int>(dSFI.m_data, dSFI.m_scriptField.m_classField);
-										if (dSFI.m_scriptField.m_fieldName == "m_health")
-											sfi.m_data.m_health = dSFI.m_data;
-										if (dSFI.m_scriptField.m_fieldName == "m_maxHealth")
-											sfi.m_data.m_maxHealth = dSFI.m_data;
-										if (dSFI.m_scriptField.m_fieldName == "healthBarUI")
-											sfi.m_data.m_healthBarUI = dSFI.m_data;
+										for (auto const& it : textureLT)
+										{
+											if (Selectable(it.first.c_str()))
+											{
+												mono_field_set_value(charAnims.m_classInst, dSFI.m_scriptField.m_classField, MONO::STDToMonoString(it.first));
+												//charAnims.SetFieldValue<MonoString*>(MONO::STDToMonoString(it.first), dSFI.m_scriptField.m_classField);
+											}
+										}
+										EndCombo();
 									}
-
 								}
-								EndDisabled();
+								ImGui::TableNextRow(); ImGui::TableNextColumn(); ImGui::Separator();
+								ImGui::TableNextColumn(); ImGui::Separator();
 							}
-
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterType>>())
 							{
 								GE::MONO::ScriptFieldInstance<CharacterType>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterType>>();
@@ -1034,7 +1056,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 
 								//std::cout << entity << "CT:: " << sfi.m_data << "\n";
 								ImGui::TableNextRow();
-								BeginDisabled(false);
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								TableNextColumn();
@@ -1062,32 +1083,24 @@ void GE::EditorGUI::Inspector::CreateContent()
 									// End the dropdown
 									ImGui::EndCombo();
 								}
-									
-									EndDisabled();
-
-
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>())
 							{
 								GE::MONO::ScriptFieldInstance<std::vector<int>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<int>>>();
 								ImGui::TableNextRow();
-								BeginDisabled(false);
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								TableNextColumn(); 
 								if (InputScriptList("##" + sfi.m_scriptField.m_fieldName, sfi.m_data, inputWidth)){ s.SetFieldValueArr<int>(sfi.m_data,sm->m_appDomain ,sfi.m_scriptField.m_classField);};
-								EndDisabled();
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>())
 							{
 								GE::MONO::ScriptFieldInstance<std::vector<unsigned>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>();
 								ImGui::TableNextRow();
-								BeginDisabled(false);
 								TableNextColumn();
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								TableNextColumn();
 								if (InputScriptList("##" + sfi.m_scriptField.m_fieldName, sfi.m_data, inputWidth)) { s.SetFieldValueArr<unsigned>(sfi.m_data, sm->m_appDomain, sfi.m_scriptField.m_classField); };
-								ImGui::EndDisabled();
 							}
 
 						}
@@ -1789,7 +1802,6 @@ namespace
 	{
 		// 12 characters for property name
 		float charSize = CalcTextSize("012345678901").x;
-		auto removeTweenIt{ list.begin() };
 		for (auto& [animationName, action] : list)
 		{
 			std::string temp{animationName};
@@ -1799,18 +1811,15 @@ namespace
 				if (Button("Remove Animation"))
 				{
 					TreePop();
+					list.erase(animationName);
 					break;
-				}
-				else
-				{
-					++removeTweenIt;
 				}
 
 				Separator();
 				int i{};
 				int removeIndex{};
 				bool shouldRemove{ false };
-				for (auto& [target, scale, rot, spriteColor, textColor, duration, script] : action)
+				for (auto& [target, scale, rot, spriteTint, spriteMult, textColor, duration, script] : action)
 				{
 					PushID((std::to_string(i)).c_str());
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
@@ -1825,12 +1834,17 @@ namespace
 					InputDouble3("Scale " + std::to_string(i), scale, fieldWidth, disabled);
 					InputDouble3("Rotate " + std::to_string(i), rot, fieldWidth, disabled);
 					ImGui::TableNextColumn();
-					ImGui::Text("Sprite Color");
+					ImGui::Text("Sprite Tint");
 					// SameLine();
 					
 
 					ImGui::TableNextColumn();
-					ImGui::ColorEdit4(("##spriteColor" + std::to_string(i)).c_str(), spriteColor.rgba);
+					ImGui::ColorEdit4(("##spriteColor" + std::to_string(i)).c_str(), spriteTint.rgba);
+					ImGui::TableNextColumn();
+					ImGui::Text("Sprite Multiply");
+
+					ImGui::TableNextColumn();
+					ImGui::ColorEdit4(("##spriteMult" + std::to_string(i)).c_str(), spriteMult.rgba);
 					ImGui::TableNextColumn();
 					ImGui::Text("Text Color");
 					//SameLine();
@@ -1863,17 +1877,13 @@ namespace
 				// 20 magic number cuz the button looks good
 				if (Button("Add keyframe", { GetContentRegionMax().x, 20 }))
 				{
-					action.emplace_back(vec3{ 0, 0, 0 }, vec3{ 1, 1, 1 }, vec3{ 0, 0, 0 }, Colorf{}, Colorf{}, 1);
+					action.emplace_back(vec3{ 0, 0, 0 }, vec3{ 1, 1, 1 }, vec3{ 0, 0, 0 }, Colorf{}, 
+						Colorf{1.f, 1.f, 1.f, 1.f}, Colorf{ 1.f, 1.f, 1.f, 1.f }, 1);
 				}
 				Indent();
 
 				TreePop();
 			}
-		}
-
-		if (removeTweenIt != list.end())
-		{
-			list.erase(removeTweenIt);
 		}
 	}
 

@@ -761,10 +761,25 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
   return false;
 }
 
+std::vector<SpriteData> Deserializer::DeserializeSpriteSheetData(std::string const& file)
+{
+  rapidjson::Document document{};
+  if (!ParseJsonIntoDocument(document, file))
+  {
+    return {};
+  }
+
+  rttr::variant ret{ std::vector<SpriteData>{} };
+  DeserializeBasedOnType(ret, document);
+
+  return ret.get_value<std::vector<SpriteData>>();
+}
+
 void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value)
 {
   if (!ScanJsonFileForMembers(value, "ScriptFieldInstList", 3, "scriptName", rapidjson::kStringType,
-    "scriptFieldInstList", rapidjson::kArrayType, "entityID", rapidjson::kNumberType)) {
+    "scriptFieldInstList", rapidjson::kArrayType, "entityID", rapidjson::kNumberType))
+  {
     return;
   }
 

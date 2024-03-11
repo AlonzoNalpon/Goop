@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Block",
     "isActive": true,
-    "Version": 8,
+    "Version": 9,
     "Components": [
         {
             "Transform": {
@@ -54,7 +54,13 @@
                                     "y": 1.0
                                 },
                                 "width": 119,
-                                "height": 111
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "CardIcon_LeahDefenceShield",
@@ -90,24 +96,24 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -32.2, -27, 1 }",
+                        "pos": "{ -28, -25, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -32.2, -27, 1 }",
+                        "worldPos": "{ -28, -25, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "Block",
+                        "text": "BLOCK",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
                             "b": 1.0,
                             "a": 1.0
                         },
-                        "scale": 0.10000000149011612,
+                        "scale": 0.07500000298023224,
                         "fontID": 2
                     }
                 }
@@ -173,7 +179,13 @@
                                     "y": 1.0
                                 },
                                 "width": 119,
-                                "height": 111
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "CardIcon_LeahDefenceShield",
@@ -221,7 +233,13 @@
                                     "y": 1.0
                                 },
                                 "width": 214,
-                                "height": 300
+                                "height": 300,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "CardBaseFront_Defense",
