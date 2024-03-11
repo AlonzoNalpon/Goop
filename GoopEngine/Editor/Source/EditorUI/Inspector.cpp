@@ -938,6 +938,20 @@ void GE::EditorGUI::Inspector::CreateContent()
 								SetNextItemWidth(GetWindowSize().x);
 								if (ImGui::InputDouble(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<double>(sfi.m_data, sfi.m_scriptField.m_classField); }
 							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::string>>())
+							{
+								TableNextRow();
+								GE::MONO::ScriptFieldInstance<std::string>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::string>>();
+								TableNextColumn();
+								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
+								ImGui::TableNextColumn();
+								SetNextItemWidth(GetWindowSize().x);
+								std::string originalVal{ sfi.m_data };
+								if (ImGui::InputText(("##" + sfi.m_scriptField.m_fieldName).c_str(), &originalVal, 0, 0, 0))
+								{
+									mono_field_set_value(s.m_classInst, sfi.m_scriptField.m_classField, MONO::STDToMonoString(originalVal));
+								}
+							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>())
 							{
 								TableNextRow();
@@ -1031,6 +1045,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 									ImGui::TableNextColumn();
 									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
 									ImGui::TableNextColumn();
+									/*std::string originalVal{ dSFI.m_data };
+									if (ImGui::InputText(("##" + dSFI.m_scriptField.m_fieldName + std::to_string(ImGui::GetColumnIndex())).c_str(), &originalVal))
+									{
+										mono_field_set_value(charAnims.m_classInst, dSFI.m_scriptField.m_classField, MONO::STDToMonoString(originalVal));
+									}*/
 									auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
 									auto const& textureLT{ animManager.GetAnimLT() };
 									if (BeginCombo(("##" + dSFI.m_scriptField.m_fieldName + std::to_string(ImGui::GetColumnIndex())).c_str(), dSFI.m_data.c_str()))

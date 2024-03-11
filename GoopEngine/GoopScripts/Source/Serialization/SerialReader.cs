@@ -8,6 +8,7 @@ using System.Drawing.Drawing2D;
 using GoopScripts.Cards;
 using System.Diagnostics;
 using GoopScripts.Gameplay;
+using System.Security.Cryptography.X509Certificates;
 
 namespace GoopScripts.Serialization
 {
@@ -126,6 +127,47 @@ namespace GoopScripts.Serialization
           sw.WriteLine(elem.Key.ToString() + ", " + elem.Value.ToString());
         }
       }
+    }
+
+    static public Dictionary<Gameplay.CharacterType, Dictionary<CardBase.CardID, string>> LoadAnimationMappings(string file)
+    {
+      var ret = new Dictionary<Gameplay.CharacterType, Dictionary<CardBase.CardID, string>>();
+      using (StreamReader sr = new StreamReader(file))
+      {
+        string line = GetNextNonCommentLine(sr);
+        while (line != null)
+        {
+          Gameplay.CharacterType charType;
+          if (!Enum.TryParse(line, out charType))
+          {
+#if (DEBUG)
+            Console.WriteLine("Invalid character type read:\n" + line);
+#endif  
+          }
+
+          var mappings = new Dictionary<CardBase.CardID, string>();
+          while ((line = GetNextNonCommentLine(sr)) != null)
+          {
+            string[] cardToAnim = line.Split(',');
+            CardBase.CardID card;
+            string anim;
+
+            // read until unable to parse,
+            // which means a new enemy's animations
+            if (!Enum.TryParse(cardToAnim[0], out card))
+            {
+              break;
+            }
+            Console.WriteLine("Parsed " + card);
+            anim = cardToAnim[1].Trim();
+
+            mappings.Add(card, anim);
+          }
+          ret.Add(charType, mappings);
+        }
+      }
+
+      return ret;
     }
 
     static string GetNextNonCommentLine(StreamReader sr)

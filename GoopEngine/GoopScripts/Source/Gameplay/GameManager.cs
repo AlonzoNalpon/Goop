@@ -31,33 +31,26 @@ namespace GoopScripts.Gameplay
   {
     //static readonly double INTERVAL_TIME = 3.0;
     static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 100.0, 0.0);
+    static readonly string GAME_DATA_DIR = "./Assets/GameData/";
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
     public int P_HEALTH_TEXT_UI, P_HEALTH_UI;
     public int E_HEALTH_TEXT_UI, E_HEALTH_UI;
 
     Random m_rng;
-    double m_currTime = 0.0;
-    double m_animTime = 0.0;
-
 
     public Stats m_playerStats, m_enemyStats;
 
     static int m_currentLevel;
     static bool isResolutionPhase = false;
-    static bool isDead = false;
-    //bool intervalBeforeReset;
+    static bool gameEnded = false;
 
     //tools for resolving cards
-    //List<CardBase.CardID> resolveQueue;
-    int m_slotNum = 0;
-    bool toTrigger = false;
+    int m_slotToResolve = 0;
     static bool isStartOfTurn = true;
-    List<CardBase.CardID> m_cardsPlayedP = new List<CardBase.CardID>();
-    List<CardBase.CardID> m_cardsPlayedE = new List<CardBase.CardID>();
     static bool gameStarted = false; // called once at the start of game 
-    List<CardBase.CardID> m_playerNonAtkCards = new List<CardBase.CardID>{ CardID.LEAH_SHIELD, CardID.SPECIAL_SMOKESCREEN, CardID.SPECIAL_RAGE };
-    List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD };
+    readonly List<CardBase.CardID> m_playerNonAtkCards = new List<CardBase.CardID>{ CardID.LEAH_SHIELD, CardID.SPECIAL_SMOKESCREEN, CardID.SPECIAL_RAGE };
+    readonly List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD };
 
     GameManager(uint entityID):base(entityID)
     {
@@ -78,7 +71,6 @@ namespace GoopScripts.Gameplay
       // set the static variable to the entity holding the hover effect sprite
       SelectCard.m_cardHover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
       Utils.SetIsActiveEntity(SelectCard.m_cardHover, false);
-      isDead = false;
       ResetGameManager();
     }
 
@@ -107,7 +99,7 @@ namespace GoopScripts.Gameplay
         }
         if (!gameStarted)
         {
-          LoadGame("./Assets/GameData/PlayerStats.sav");
+          LoadGame(GAME_DATA_DIR + "/PlayerStats.sav");
           m_playerStats.Init();
           m_enemyStats.Init();
           gameStarted = true;
@@ -147,7 +139,11 @@ namespace GoopScripts.Gameplay
 
         if (isResolutionPhase)
         {
+          Console.WriteLine("Before resolution");
+          m_playerStats.Update(deltaTime);
+          m_enemyStats.Update(deltaTime);
           ResolutionPhase(deltaTime);
+          Console.WriteLine("After resolution");
         }
         else if (isStartOfTurn)
         {
@@ -189,166 +185,136 @@ namespace GoopScripts.Gameplay
       ************************************************************************/
     public void ResolutionPhase(double deltaTime)
     {
-      //Time to trigger the card effects and the animations.
-      if (toTrigger && !isDead)
+      // there are 3 actions to resolve and it should only run after
+      // animation time. So our condition here would be the timer
+
+      // only proceed if no animation is playing
+      if (m_playerStats.IsPlayingAnimation() || m_enemyStats.IsPlayingAnimation())
       {
-        toTrigger = false;
-        bool toTriggerPlayerTakeDmg = true;
-        bool toTriggerEnemyTakeDmg = true;
-        m_animTime = 0.0f;
-        CardBase.CardID playerCard = m_playerStats.m_deckMngr.m_queue[m_slotNum].Item1;
-        CardBase.CardID enemyCard = m_enemyStats.m_deckMngr.m_queue[m_slotNum].Item1;
-        m_cardsPlayedP.Add(playerCard);
-        m_cardsPlayedE.Add(enemyCard);
-
-        //Play and resolve player and enemy card if they r valid cards
-        if (playerCard != CardBase.CardID.NO_CARD)
-        {
-          //Console.WriteLine("Play " + playerCard.ToString());
-          CardManager.Get(playerCard).Play(ref m_playerStats, ref m_enemyStats);
-          double m_pAnimTime = Utils.GetAnimationTime(CardManager.Get(playerCard).SpriteAnimation);
-          m_animTime = (m_animTime < m_pAnimTime) ? m_pAnimTime : m_animTime;
-          Utils.PlayAnimation(CardManager.Get(playerCard).SpriteAnimation, m_playerStats.entityID);
-          toTriggerPlayerTakeDmg = false;
-        }
-
-        if (enemyCard != CardBase.CardID.NO_CARD)
-        {
-          //Console.WriteLine("Play " + enemyCard.ToString());
-          CardManager.Get(enemyCard).Play(ref m_enemyStats, ref m_playerStats);
-          double m_pAnimTime = Utils.GetAnimationTime(CardManager.Get(enemyCard).SpriteAnimation);
-          m_animTime = (m_animTime < m_pAnimTime) ? m_pAnimTime : m_animTime;
-          Utils.PlayAnimation(CardManager.Get(enemyCard).SpriteAnimation, m_enemyStats.entityID);
-          toTriggerEnemyTakeDmg = false;
-        }
-
-        //Both player and enemy did nothing, we just skip this slot
-        if (playerCard == CardBase.CardID.NO_CARD && enemyCard == CardBase.CardID.NO_CARD)
-        {
-          m_animTime = 0.0;
-        }
-
-        //Either side or Both played a valid card
-        else
-        {
-          //Check if player shld play idle animation or play take damage
-          if(toTriggerPlayerTakeDmg)
-          {
-            if (m_enemyNonAtkCards.Contains(enemyCard))
-              Utils.PlayAnimation("SS_Leah_Idle", m_playerStats.entityID);
-            else
-              Utils.PlayAnimation("SS_Leah_Flinch", m_playerStats.entityID);
-          }
-
-          //Check if enemy shld play idle animation or play take damage
-          if (toTriggerEnemyTakeDmg)
-          {
-            if (m_playerNonAtkCards.Contains(playerCard))
-              Utils.PlayAnimation("SS_MineWorm_Idle", m_enemyStats.entityID);
-            else
-              Utils.PlayAnimation("SS_MineWorm_Flinch", m_enemyStats.entityID);
-          }
-
-          // this should not be coded here
-          // move in future pls
-          int pCalculatedDmg = m_playerStats.DamageDealt(), eCalculatedDmg = m_enemyStats.DamageDealt();
-
-          //We have resolved more than 1 slot, lets see if the player or the enemy can perform combo
-          if (m_slotNum > 0)
-          {
-            if (m_cardsPlayedP[m_slotNum - 1] != CardBase.CardID.NO_CARD && m_cardsPlayedP[m_slotNum] != CardBase.CardID.NO_CARD)
-            {
-              //Console.WriteLine("Player COMBOED");
-              ComboManager.Combo(ref m_playerStats, ref m_enemyStats, (m_slotNum - 1));
-            }
-
-
-            if (m_cardsPlayedE[m_slotNum - 1] != CardBase.CardID.NO_CARD && m_cardsPlayedE[m_slotNum] != CardBase.CardID.NO_CARD)
-            {
-              //Console.WriteLine("ENEMY COMBOED");
-              ComboManager.Combo(ref m_enemyStats, ref m_playerStats, (m_slotNum - 1));
-            }
-          }
-
-          if (!m_enemyStats.IsDead())
-            m_playerStats.TakeDamage(eCalculatedDmg);
-          m_enemyStats.TakeDamage(pCalculatedDmg);
-          double deathTime = 0.0;
-          // bad code but for demo ok
-          if (m_playerStats.IsDead())
-          {
-            Utils.PlayAnimation("SS_Leah_Death", m_playerStats.entityID);
-            deathTime= (Utils.GetAnimationTime("SS_Leah_Death") > deathTime)? Utils.GetAnimationTime("SS_Leah_Death") : deathTime;
-            isDead = true;
-
-          }
-          else if (m_enemyStats.IsDead())
-          {
-            Utils.PlayAnimation("SS_MineWorm_Death", m_enemyStats.entityID);
-            deathTime = (Utils.GetAnimationTime("SS_MineWorm_Death") > deathTime) ? Utils.GetAnimationTime("SS_MineWorm_Death") : deathTime;
-            isDead = true;
-          }
-
-          m_animTime = (deathTime>m_animTime)? deathTime:m_animTime;
-          m_playerStats.ClearAtKBlk();
-          m_enemyStats.ClearAtKBlk();
-        }
-
-        HighlightQueueSlot(m_slotNum);
-        ++m_slotNum;
+        return;
       }
-      else
+
+      bool playerPlayedCard = false, enemyPlayedCard = false;
+      CardBase playerCard = CardManager.Get(m_playerStats.m_deckMngr.m_queue[m_slotToResolve].Item1);
+      CardBase enemyCard = CardManager.Get(m_enemyStats.m_deckMngr.m_queue[m_slotToResolve].Item1);
+
+      if (!gameEnded)
       {
-
-        if(m_currTime >=m_animTime)
+        Console.WriteLine("RESOLVING SLOT " + m_slotToResolve);
+        // play player's and enemy's card
+        if (playerCard.ID != CardBase.CardID.NO_CARD)
         {
-          m_currTime = 0.0;
-          if (isDead)
+          Console.WriteLine("Player play card");
+          playerCard.Play(ref m_playerStats, ref m_enemyStats);
+          m_playerStats.PlayAnimation(playerCard.ID);
+          playerPlayedCard = true;
+        }
+
+        if (enemyCard.ID != CardBase.CardID.NO_CARD)
+        {
+          Console.WriteLine("Enemy play card");
+          enemyCard.Play(ref m_enemyStats, ref m_playerStats);
+          m_enemyStats.PlayAnimation(enemyCard.ID);
+          enemyPlayedCard = true;
+        }
+
+        int pCalculatedDmg = m_playerStats.DamageDealt(), eCalculatedDmg = m_enemyStats.DamageDealt();
+        int pDamageTaken = m_playerStats.TakeDamage(eCalculatedDmg), eDamageTaken = m_enemyStats.TakeDamage(pCalculatedDmg);
+
+        // if any side is dead, end the game loop
+        if (m_playerStats.IsDead())
+        {
+          Console.WriteLine("Player down");
+          if (playerCard.Type == CardType.BLOCK)
           {
-            // bad code but for demo ok
-            if (m_playerStats.IsDead())
-            {
-              // defeat
-              Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Defeat");
-              //TransitionToScene("Defeat");
-            }
-            else if (m_enemyStats.IsDead())
-            {
-              // victory
-              if (m_currentLevel == 2)
-              {
-                File.Copy("./Assets/GameData/DefaultStats.sav", "./Assets/GameData/PlayerStats.sav", true);
-              }
-              else
-              {
-                ++m_currentLevel;
-              }
-              SerialReader.SavePlayerState(ref m_playerStats, m_currentLevel, "./Assets/GameData/PlayerStats.sav");
-              Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
-              //TransitionToScene("Victory");
-            }
-
-
+            m_playerStats.m_animManager.PlayShieldDeath();
           }
           else
           {
-            if (m_slotNum > 2) //we have resolved all the animation for this round
-            {
-              Utils.PlayAnimation("SS_Leah_Idle", m_playerStats.entityID);
-              Utils.PlayAnimation("SS_MineWorm_Idle", m_enemyStats.entityID);
-              isResolutionPhase = false;
-              isStartOfTurn = true;
-
-
-            }
-
-            else //we have not resolve all the animaiton for this round, lets continue
-              toTrigger = true;
+            m_playerStats.m_animManager.PlayDeath();
           }
+          gameEnded = true;
+          return;
+        }
+        else if (m_enemyStats.IsDead())
+        {
+          Console.WriteLine("Enemy down");
+          if (enemyCard.Type == CardType.BLOCK)
+          {
+            m_enemyStats.m_animManager.PlayShieldDeath();
+          }
+          else
+          {
+            m_enemyStats.m_animManager.PlayDeath();
+          }
+          gameEnded = true;
+          return;
+        }
+
+        // if enemy attacked, play relevant animation for taking damage
+        if (!playerPlayedCard && enemyCard.Type == CardType.ATTACK)
+        {
+          Console.WriteLine("Player take damage");
+          m_playerStats.PlayDamagedAnimation(pDamageTaken);
+        }
+
+        // if player attacked, play relevant animation for taking damage
+        if (!enemyPlayedCard && playerCard.Type == CardType.ATTACK)
+        {
+          Console.WriteLine("Enemy take damage");
+          m_enemyStats.PlayDamagedAnimation(eDamageTaken);
+        }
+
+        // check whether a combo needs to be resolved
+        if (m_slotToResolve > 0)
+        {
+          //if (m_playerStats.m_deckMngr.m_queue[m_slotToResolve - 1].Item1 != CardBase.CardID.NO_CARD && m_cardsPlayedP[m_slotNum] != CardBase.CardID.NO_CARD)
+          //{
+          //  //Console.WriteLine("Player COMBOED");
+          //  ComboManager.Combo(ref m_playerStats, ref m_enemyStats, (m_slotNum - 1));
+          //}
+
+
+          //if (m_cardsPlayedE[m_slotNum - 1] != CardBase.CardID.NO_CARD && m_cardsPlayedE[m_slotNum] != CardBase.CardID.NO_CARD)
+          //{
+          //  //Console.WriteLine("ENEMY COMBOED");
+          //  ComboManager.Combo(ref m_enemyStats, ref m_playerStats, (m_slotNum - 1));
+          //}
+        }
+
+        HighlightQueueSlot(m_slotToResolve);
+        ++m_slotToResolve;
+
+        if (m_slotToResolve > 2)
+        {
+          Console.WriteLine("End resolution");
+          isResolutionPhase = false;
+          isStartOfTurn = true;
+          m_slotToResolve = 0;
         }
       }
+      // if game has ended
+      else
+      {
+        if (m_currentLevel == 2)
+        {
+          File.Copy(GAME_DATA_DIR + "DefaultStats.sav", GAME_DATA_DIR + "PlayerStats.sav", true);
+        }
+        else
+        {
+          ++m_currentLevel;
+        }
 
-      ++m_currTime;
+        if (m_playerStats.IsDead())
+        {
+          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Defeat");
+        }
+        else
+        {
+          SerialReader.SavePlayerState(ref m_playerStats, m_currentLevel, GAME_DATA_DIR + "PlayerStats.sav");
+          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
+        }
+      }
     }
 
 
@@ -359,11 +325,6 @@ namespace GoopScripts.Gameplay
       ************************************************************************/
     private void StartResolution()
     {
-      m_slotNum = 0;
-      m_cardsPlayedP.Clear();
-      m_cardsPlayedE.Clear();
-      toTrigger = true;
-      m_currTime = 0.0;
       SetHighlightActive(true);
     }
 
@@ -412,19 +373,25 @@ namespace GoopScripts.Gameplay
 
     static public void ResetGameManager()
     {
-      isResolutionPhase = isStartOfTurn = gameStarted = false;
+      isResolutionPhase = isStartOfTurn = gameStarted = gameEnded = false;
     }
 
     static public bool IsResolutionPhase() {  return isResolutionPhase; }
 
     void LoadGame(string filePath)
     {
+      // Load player and enemy stats
       PlayerStatsInfo playerStats = Serialization.SerialReader.LoadPlayerState(filePath);
       LoadPlayer(playerStats);
 
       m_currentLevel = playerStats.levelToLoad;
-      string levelFile = "./Assets/GameData/Level" + playerStats.levelToLoad + ".dat";
+      string levelFile = GAME_DATA_DIR + "Level" + playerStats.levelToLoad + ".dat";
       LoadEnemy(Serialization.SerialReader.LoadEnemy(levelFile));
+
+      // Load their animations
+      var charToAnims = Serialization.SerialReader.LoadAnimationMappings(GAME_DATA_DIR + "CharacterAnimations.dat");
+      m_playerStats.m_animManager.LoadAnimations(charToAnims[CharacterType.PLAYER]);
+      m_enemyStats.m_animManager.LoadAnimations(charToAnims[m_enemyStats.m_type]);
     }
 
     void LoadPlayer(PlayerStatsInfo statsInfo)

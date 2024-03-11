@@ -27,6 +27,7 @@ using System.Xml;
 using GoopScripts.Button;
 using GoopScripts.Cards;
 using GoopScripts.Mono;
+using GoopScripts.Source.Gameplay;
 using GoopScripts.UI;
 
 
@@ -42,10 +43,13 @@ namespace GoopScripts.Gameplay
     // VARIABLES HERE SHOULD ONLY BE MODFIED THROUGH EDITOR
     public int m_buffsDisplay;
     public int[] m_comboUI, queueElemIDs;
-
+    
     public DeckManager m_deckMngr;
-    public CharacterAnims m_animations = new CharacterAnims();
     public Vec3<double>[] m_queueElemPos;
+    public AnimationManager m_animManager;
+
+    //public string[] test = new string[5];
+    //public CardBase.CardID[] test2 = new CardBase.CardID[5];
 
     public BuffManager m_buffs { get; set; }
 
@@ -66,8 +70,9 @@ namespace GoopScripts.Gameplay
     ************************************************************************/
     public void OnCreate()
     {
+      m_animManager = (AnimationManager)Utils.GetScriptFromID(entityID, "AnimationManager");
+      m_animManager.m_statsEntity = entityID;
       m_buffs = new BuffManager(m_buffsDisplay, m_type);
-
       // save the pos of each queue element
       for (int i = 0; i < 3; i++)
       {
@@ -89,6 +94,11 @@ namespace GoopScripts.Gameplay
       {
         Draw();
       }
+    }
+
+    public void Update(double dt)
+    {
+      m_animManager.Update(dt);
     }
 
     /*!*********************************************************************
@@ -146,11 +156,11 @@ namespace GoopScripts.Gameplay
     \param damage
       Total damage taken BEFORE buffs and debuffs.
     ************************************************************************/
-    public void TakeDamage(float damage)
+    public int TakeDamage(float damage)
 		{
       if (damage == 0.0f)
       {
-        return;
+        return 0;
       }
 
       float takenMultiplier = 1.0f;
@@ -172,6 +182,8 @@ namespace GoopScripts.Gameplay
       {
         m_healthBar.DecreaseHealth(damageTaken);
       }
+
+      return damageTaken;
     }
 
     /*!*********************************************************************
@@ -389,6 +401,33 @@ namespace GoopScripts.Gameplay
     }
 
     /*!*********************************************************************
+    \brief
+      Calls the animation manager to play the animation corresponding to
+      the card
+    ************************************************************************/
+    public void PlayAnimation(CardBase.CardID card)
+    {
+      m_animManager.PlayAnimation(card);
+    }
+
+    public void PlayDamagedAnimation(int damageReceived)
+    {
+      if (damageReceived == 0)
+      {
+        //m_animManager.PlayBlock();
+      }
+      else
+      {
+        m_animManager.PlayFlinch();
+      }
+    }
+
+    public bool IsPlayingAnimation()
+    {
+      return m_animManager.IsPlayingAnimation();
+    }
+
+    /*!***********************************if **********************************
     \brief
       [FOR TUTORIAL ONLY]
       Draws a card through the deck manager. This function spawns the

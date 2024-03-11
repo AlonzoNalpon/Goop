@@ -20,7 +20,6 @@ namespace GoopScripts.Gameplay
     PLAYER,
     MINE_WORM,
     MOLE_RAT,
-    BOSS_P1,  // phase 1
-    BOSS_P2,  // phase 2
+    DAWSON
   }
 }

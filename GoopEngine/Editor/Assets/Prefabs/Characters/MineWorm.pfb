@@ -1,7 +1,7 @@
 {
     "Name": "MineWorm",
     "isActive": true,
-    "Version": 3,
+    "Version": 7,
     "Components": [
         {
             "Transform": {
@@ -61,69 +61,6 @@
                         "scriptName": "Stats",
                         "entityID": 0,
                         "scriptFieldInstList": [
-                            {
-                                "data": {
-                                    "characterAnimsInst": {
-                                        "scriptName": "CharacterAnims",
-                                        "entityID": 32758,
-                                        "scriptFieldInstList": [
-                                            {
-                                                "data": "SS_MineWorm_Slash",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_attack"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MineWorm_Spit",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_attack2"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MineWorm_Shield",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_block"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Death",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_death"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Death",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_deathShield"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MineWorm_Flinch",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_flinch"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MineWorm_Idle",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_idle"
-                                                }
-                                            }
-                                        ]
-                                    }
-                                },
-                                "type": "",
-                                "scriptField": {
-                                    "fieldName": "m_animations"
-                                }
-                            },
                             {
                                 "data": 0,
                                 "type": "System.Int32",
@@ -236,6 +173,47 @@
                         "scriptName": "MoleRatBlocks",
                         "entityID": 0,
                         "scriptFieldInstList": []
+                    },
+                    {
+                        "scriptName": "AnimationManager",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": "SS_MineWorm_Shield",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_block"
+                                }
+                            },
+                            {
+                                "data": "SS_MineWorm_Death",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_death"
+                                }
+                            },
+                            {
+                                "data": "SS_MineWorm_Death",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_deathShield"
+                                }
+                            },
+                            {
+                                "data": "SS_MineWorm_Flinch",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_flinch"
+                                }
+                            },
+                            {
+                                "data": "SS_MineWorm_Idle",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_idle"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -249,19 +227,19 @@
             "AnimEvents": {
                 "eventList": [
                     {
-                        "first": 10,
+                        "first": 19,
                         "second": "MoleRatBites"
                     },
                     {
-                        "first": 13,
+                        "first": 22,
                         "second": "LeahDies"
                     },
                     {
-                        "first": 15,
+                        "first": 24,
                         "second": "MoleRatScreeches"
                     },
                     {
-                        "first": 14,
+                        "first": 29,
                         "second": "MoleRatBlocks"
                     }
                 ]

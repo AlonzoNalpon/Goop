@@ -138,6 +138,7 @@
     <Compile Include="Source\Demo\LeahDemo.cs" />
     <Compile Include="Source\Demo\PlayBGM.cs" />
     <Compile Include="Source\Demo\StopBGM.cs" />
+    <Compile Include="Source\Gameplay\AnimationManager.cs" />
     <Compile Include="Source\Gameplay\BuffManager.cs" />
     <Compile Include="Source\Gameplay\CharacterAnims.cs" />
     <Compile Include="Source\Gameplay\CharacterType.cs" />
@@ -162,7 +163,6 @@
     <Compile Include="Source\Mono\Vec2.cs" />
     <Compile Include="Source\Mono\Vec3.cs" />
     <Compile Include="Source\Mono\Vec4.cs" />
-    <Compile Include="Source\Serialization\ISerializedObject.cs" />
     <Compile Include="Source\Serialization\SerialReader.cs" />
     <Compile Include="Source\Serialization\StatsInfo.cs" />
     <Compile Include="Source\Transition\ChangeGameOverToMainMenu.cs" />

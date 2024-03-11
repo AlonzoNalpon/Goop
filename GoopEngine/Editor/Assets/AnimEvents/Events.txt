@@ -99,6 +99,50 @@
         ]
     },
     {
+        "key": "MineWormDeath",
+        "value": [
+            {
+                "key": 1,
+                "value": [
+                    "LeahDies"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "MineWormShield",
+        "value": [
+            {
+                "key": 1,
+                "value": [
+                    "MoleRatBlocks"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "MineWormSlash",
+        "value": [
+            {
+                "key": 1,
+                "value": [
+                    "MoleRatBites"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "MineWormSpit",
+        "value": [
+            {
+                "key": 1,
+                "value": [
+                    "MoleRatScreeches"
+                ]
+            }
+        ]
+    },
+    {
         "key": "MoleRatBites",
         "value": [
             {
