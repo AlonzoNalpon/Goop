@@ -94,13 +94,16 @@ namespace GoopScripts.UI
       m_health -= amount;
       UpdateBar();
       Vec3<double> a = Utils.GetPosition(m_playerBarID);
-      if (m_isPlayer)
+      for (int i = 0; i < amount; ++i)
       {
-        a.X = a.X - m_oneUnit * 0.5f;
-      }
-      else
-      {
-        a.X = a.X + m_oneUnit * 0.5f;
+        if (m_isPlayer)
+        {
+          a.X = a.X - m_oneUnit * 0.5f;
+        }
+        else
+        {
+          a.X = a.X + m_oneUnit * 0.5f;
+        }
       }
       Utils.SetPosition(m_playerBarID, a);
     }
@@ -110,13 +113,16 @@ namespace GoopScripts.UI
       m_health += amount;
       UpdateBar();
       Vec3<double> a = Utils.GetPosition(m_playerBarID);
-      if (m_isPlayer)
+      for (int i = 0; i < amount; ++i)
       {
-        a.X = a.X + m_oneUnit * 0.5f;
-      }
-      else
-      {
-        a.X = a.X - m_oneUnit * 0.5f;
+        if (m_isPlayer)
+        {
+          a.X = a.X + m_oneUnit * 0.5f;
+        }
+        else
+        {
+          a.X = a.X - m_oneUnit * 0.5f;
+        }
       }
       Utils.SetPosition(m_playerBarID, a);
     }
