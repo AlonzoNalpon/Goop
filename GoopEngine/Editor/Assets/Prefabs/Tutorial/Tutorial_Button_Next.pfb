@@ -1,25 +1,25 @@
 {
     "Name": "Tutorial_Button_Next",
     "isActive": true,
-    "Version": 0,
+    "Version": 2,
     "Components": [
         {
             "Transform": {
-                "pos": "{ 164.37, -323.963, 0 }",
-                "scale": "{ 1, 1, 1 }",
+                "pos": "{ 0, 0, 0 }",
+                "scale": "{ 0.5, 0.5, 1 }",
                 "rot": "{ 0, 0, 0 }",
-                "worldPos": "{ 164.37, -323.963, 0 }",
-                "worldScale": "{ 1, 1, 1 }",
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 0.5, 0.5, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
             }
         },
         {
             "BoxCollider": {
-                "center": "{ 164.37, -323.963 }",
+                "center": "{ 0, 0 }",
                 "width": 250.0,
                 "height": 130.0,
-                "min": "{ 39.3704, -388.963 }",
-                "max": "{ 289.37, -258.963 }",
+                "min": "{ -125, -65 }",
+                "max": "{ 125, 65 }",
                 "render": false
             }
         },
@@ -35,8 +35,8 @@
                             "x": 1.0,
                             "y": 1.0
                         },
-                        "width": 260,
-                        "height": 140,
+                        "width": 400,
+                        "height": 160,
                         "tint": {
                             "r": 1.0,
                             "g": 1.0,
@@ -54,7 +54,7 @@
                 "scriptList": [
                     {
                         "scriptName": "ToggleTutorial",
-                        "entityID": 758,
+                        "entityID": 0,
                         "scriptFieldInstList": []
                     }
                 ]
@@ -73,29 +73,29 @@
         {
             "ID": 1,
             "isActive": true,
-            "Name": "NEXT",
+            "Name": "Text",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -57.7784, -23.1659, 21 }",
+                        "pos": "{ -75, -30, 21 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -57.7784, -23.1659, 21 }",
+                        "worldPos": "{ -75, -30, 21 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "NEXT",
+                        "text": "Next",
                         "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
+                            "r": 0.8941176533699036,
+                            "g": 0.8313725590705872,
+                            "b": 0.7764706015586853,
                             "a": 1.0
                         },
-                        "scale": 0.23800000548362732,
+                        "scale": 0.15000000596046448,
                         "fontID": 2
                     }
                 }
