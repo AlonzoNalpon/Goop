@@ -30,7 +30,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_001",
@@ -70,7 +76,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_002",
@@ -110,7 +122,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_003",
@@ -150,7 +168,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_004",
@@ -190,7 +214,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_005",
@@ -230,7 +260,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_006",
@@ -270,7 +306,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_007",
@@ -310,7 +352,13 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Cutscenes_008",
@@ -324,17 +372,17 @@
         "ID": 8,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 12,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 400, 0, 1000 }",
+                    "pos": "{ 400, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 400, 0, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -350,7 +398,13 @@
                                 "y": 1.0
                             },
                             "width": 2880,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Transition",
@@ -364,7 +418,7 @@
                             "key": "TransitionIn",
                             "value": [
                                 {
-                                    "trans": "{ -2880, 0, 1000 }",
+                                    "trans": "{ -2880, 0, 0 }",
                                     "scale": "{ 1, 1, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "spriteTint": {
@@ -397,7 +451,7 @@
         "ID": 9,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 12,
         "Child Entities": [],
         "Components": [
             {
@@ -405,7 +459,7 @@
                     "pos": "{ 2880, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 2880, 0, 0 }",
+                    "worldPos": "{ 2880, 0, 1000 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -423,7 +477,13 @@
                                 "y": 1.0
                             },
                             "width": 2880,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Transition",
@@ -568,7 +628,7 @@
                     "scriptList": [
                         {
                             "scriptName": "FPS",
-                            "entityID": 17,
+                            "entityID": 11,
                             "scriptFieldInstList": [
                                 {
                                     "data": 11,
@@ -593,6 +653,29 @@
                     },
                     "scale": 0.12300000339746475,
                     "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Transition",
+        "ID": 12,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            8,
+            9
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 1000 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 1000 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             }
         ]
@@ -640,7 +723,13 @@
                                 "y": 1.0
                             },
                             "width": 200,
-                            "height": 100
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -670,8 +759,8 @@
             },
             {
                 "GE_Button": {
-                    "param": "Tutorial",
-                    "eventType": "CHANGE_SCENE",
+                    "param": "",
+                    "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
                 }

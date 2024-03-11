@@ -273,10 +273,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -135, -20, 1 }",
+                    "pos": "{ -140, -20, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -347.75, -192.5, 103 }",
+                    "worldPos": "{ -351, -192.5, 103 }",
                     "worldScale": "{ 0.65, 0.625, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -680,22 +680,22 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 161,
-                            "defaultSpriteID": 125,
+                            "spriteID": 187,
+                            "defaultSpriteID": 166,
                             "used": false
                         },
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
-                            "spriteID": 141,
-                            "defaultSpriteID": 126,
+                            "spriteID": 144,
+                            "defaultSpriteID": 135,
                             "used": false
                         },
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
                             "spriteID": 0,
-                            "defaultSpriteID": 129,
+                            "defaultSpriteID": 168,
                             "used": false
                         }
                     ],
@@ -1083,8 +1083,8 @@
                         {
                             "elemEntity": 16,
                             "cardEntity": 16,
-                            "spriteID": 0,
-                            "defaultSpriteID": 0,
+                            "spriteID": 187,
+                            "defaultSpriteID": 187,
                             "used": false
                         },
                         {
@@ -1097,22 +1097,22 @@
                         {
                             "elemEntity": 18,
                             "cardEntity": 18,
-                            "spriteID": 0,
-                            "defaultSpriteID": 0,
+                            "spriteID": 144,
+                            "defaultSpriteID": 144,
                             "used": false
                         },
                         {
                             "elemEntity": 19,
                             "cardEntity": 19,
-                            "spriteID": 0,
-                            "defaultSpriteID": 0,
+                            "spriteID": 144,
+                            "defaultSpriteID": 144,
                             "used": false
                         },
                         {
                             "elemEntity": 20,
                             "cardEntity": 20,
-                            "spriteID": 0,
-                            "defaultSpriteID": 0,
+                            "spriteID": 144,
+                            "defaultSpriteID": 144,
                             "used": false
                         }
                     ],
@@ -1563,21 +1563,21 @@
                             "elemEntity": 22,
                             "cardEntity": 4294967295,
                             "spriteID": 20,
-                            "defaultSpriteID": 125,
+                            "defaultSpriteID": 166,
                             "used": false
                         },
                         {
                             "elemEntity": 23,
                             "cardEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 126,
+                            "defaultSpriteID": 135,
                             "used": false
                         },
                         {
                             "elemEntity": 24,
                             "cardEntity": 4294967295,
                             "spriteID": 0,
-                            "defaultSpriteID": 129,
+                            "defaultSpriteID": 168,
                             "used": false
                         }
                     ],
@@ -4176,10 +4176,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -90, -15, 1 }",
+                    "pos": "{ -80, -20, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -58.5, -189.75, 103 }",
+                    "worldPos": "{ -52, -193, 103 }",
                     "worldScale": "{ 0.65, 0.65, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4262,10 +4262,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -115, -15, 1 }",
+                    "pos": "{ -115, -20, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 185.25, -189.75, 103 }",
+                    "worldPos": "{ 185.25, -193, 103 }",
                     "worldScale": "{ 0.65, 0.65, 0.63 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }

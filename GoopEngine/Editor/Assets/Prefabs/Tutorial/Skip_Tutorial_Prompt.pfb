@@ -5,10 +5,10 @@
     "Components": [
         {
             "Transform": {
-                "pos": "{ 0, 0, 0 }",
+                "pos": "{ 0, 119, 15 }",
                 "scale": "{ 1, 1, 1 }",
                 "rot": "{ 0, 0, 0 }",
-                "worldPos": "{ 0, 0, 0 }",
+                "worldPos": "{ 0, 119, 15 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
             }
@@ -23,10 +23,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, 0, 0 }",
+                        "pos": "{ 0, 0, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -44,7 +44,13 @@
                                     "y": 1.0
                                 },
                                 "width": 818,
-                                "height": 400
+                                "height": 400,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "Pause_Menu_Base",
@@ -61,10 +67,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -286.592, 28.8152, 0 }",
+                        "pos": "{ -286.592, 28.815, 15 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -286.592, 28.8152, 0 }",
+                        "worldPos": "{ -286.592, 28.815, 15 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -92,30 +98,22 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 5.77791, 0, 0 }",
-                        "scale": "{ 1, 1, 1 }",
+                        "pos": "{ -172, -84.9668, 15 }",
+                        "scale": "{ 0.75, 0.75, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 5.77791, 0, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
+                        "worldPos": "{ -172, -84.9668, 15 }",
+                        "worldScale": "{ 0.75, 0.75, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
-                }
-            ]
-        },
-        {
-            "ID": 4,
-            "isActive": true,
-            "Name": "Backing",
-            "Parent": 3,
-            "Components": [
+                },
                 {
-                    "Transform": {
-                        "pos": "{ -172, -84.9668, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -172, -84.9668, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
+                    "BoxCollider": {
+                        "center": "{ -172, 34.0332 }",
+                        "width": 200.0,
+                        "height": 100.0,
+                        "min": "{ -272, -15.9668 }",
+                        "max": "{ -72, 84.0332 }",
+                        "render": false
                     }
                 },
                 {
@@ -130,28 +128,53 @@
                                     "x": 1.0,
                                     "y": 1.0
                                 },
-                                "width": 200,
-                                "height": 100
+                                "width": 400,
+                                "height": 160,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "Button_Base",
                         "shouldRender": true
                     }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "TutorialTransition",
+                                "entityID": 77,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "Game",
+                        "eventType": "CHANGE_SCENE",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
                 }
             ]
         },
         {
-            "ID": 5,
+            "ID": 4,
             "isActive": true,
             "Name": "YES",
             "Parent": 3,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -203.37, -101.858, 0 }",
+                        "pos": "{ -50, -25, 16 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -203.37, -101.858, 0 }",
+                        "worldPos": "{ -50, -25, 16 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -165,72 +188,36 @@
                             "b": 1.0,
                             "a": 1.0
                         },
-                        "scale": 0.1679999977350235,
+                        "scale": 0.17499999701976776,
                         "fontID": 2
                     }
                 }
             ]
         },
         {
-            "ID": 6,
-            "isActive": true,
-            "Name": "Button",
-            "Parent": 3,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -172, -84.9668, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -172, -84.9668, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "BoxCollider": {
-                        "center": "{ -166.222, -84.9668 }",
-                        "width": 190.0,
-                        "height": 90.0,
-                        "min": "{ -261.222, -129.967 }",
-                        "max": "{ -71.2221, -39.9668 }",
-                        "render": true
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 7,
+            "ID": 5,
             "isActive": true,
             "Name": "[Folder] No Button",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 346.296, 0, 0 }",
-                        "scale": "{ 1, 1, 1 }",
+                        "pos": "{ 176, -84.9668, 15 }",
+                        "scale": "{ 0.75, 0.75, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 346.296, 0, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
+                        "worldPos": "{ 176, -84.9668, 15 }",
+                        "worldScale": "{ 0.75, 0.75, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
-                }
-            ]
-        },
-        {
-            "ID": 8,
-            "isActive": true,
-            "Name": "Backing",
-            "Parent": 7,
-            "Components": [
+                },
                 {
-                    "Transform": {
-                        "pos": "{ -172, -84.9668, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -172, -84.9668, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
+                    "BoxCollider": {
+                        "center": "{ 176, 34.0332 }",
+                        "width": 200.0,
+                        "height": 100.0,
+                        "min": "{ 76, -15.9668 }",
+                        "max": "{ 276, 84.0332 }",
+                        "render": false
                     }
                 },
                 {
@@ -245,28 +232,53 @@
                                     "x": 1.0,
                                     "y": 1.0
                                 },
-                                "width": 200,
-                                "height": 100
+                                "width": 400,
+                                "height": 160,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
                             }
                         },
                         "spriteName": "Button_Base",
                         "shouldRender": true
                     }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "ContinueTutorial",
+                                "entityID": 80,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
                 }
             ]
         },
         {
-            "ID": 9,
+            "ID": 6,
             "isActive": true,
             "Name": "NO",
-            "Parent": 7,
+            "Parent": 5,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -191.278, -101.858, 0 }",
+                        "pos": "{ -30, -25, 16 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -191.278, -101.858, 0 }",
+                        "worldPos": "{ -30, -25, 16 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -280,36 +292,62 @@
                             "b": 1.0,
                             "a": 1.0
                         },
-                        "scale": 0.1679999977350235,
+                        "scale": 0.17499999701976776,
                         "fontID": 2
                     }
                 }
             ]
         },
         {
-            "ID": 10,
+            "ID": 7,
             "isActive": true,
-            "Name": "Button",
-            "Parent": 7,
+            "Name": "Tutorial_Menu",
+            "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -172, -84.9668, 0 }",
+                        "pos": "{ 0, -119, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -172, -84.9668, 0 }",
+                        "worldPos": "{ 0, -119, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "BoxCollider": {
-                        "center": "{ 174.296, -84.9668 }",
-                        "width": 190.0,
-                        "height": 90.0,
-                        "min": "{ 79.2961, -129.967 }",
-                        "max": "{ 269.296, -39.9668 }",
-                        "render": true
+                        "center": "{ 0, 0 }",
+                        "width": 1920.0,
+                        "height": 1080.0,
+                        "min": "{ -960, -540 }",
+                        "max": "{ 960, 540 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 1920,
+                                "height": 1080,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
+                            }
+                        },
+                        "spriteName": "Tutorial_Menu",
+                        "shouldRender": true
                     }
                 }
             ]

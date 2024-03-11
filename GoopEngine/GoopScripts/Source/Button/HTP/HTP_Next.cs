@@ -1,19 +1,19 @@
 ﻿using GoopScripts.Gameplay;
 using GoopScripts.Mono;
+using GoopScripts.Source.Button.Tutorial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GoopScripts.Button
 {
-  internal class HTP_Next : IButtonClick
-  {
-    public HTP_Next() { }
-    public void OnClick(uint entity)
+  internal class HTP_Next : ArrowButton
+	{
+    public override void OnRelease(uint entity)
     {
+      base.OnRelease(entity);
       if (HTP.m_page == 10)
       {
         return;

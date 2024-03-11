@@ -96,30 +96,30 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 	ImGuiStyle& style = GetStyle();
 	originalTextClr = style.Colors[ImGuiCol_Text];
 	
-		ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
-		if (TreeNodeEx(gsm.GetCurrentScene().c_str(), treeFlags))
+	ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_SpanFullWidth | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+	if (TreeNodeEx(gsm.GetCurrentScene().c_str(), treeFlags | ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		// Allow user to turn an entity into a root level
+		if (BeginDragDropTarget())
 		{
-			// Allow user to turn an entity into a root level
-			if (BeginDragDropTarget())
+			const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
+			if (pl)
 			{
-				const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
-				if (pl)
-				{
-					GE::ECS::Entity& droppedEntity{*reinterpret_cast<GE::ECS::Entity*>(pl->Data)};
-					ParentEntity(ecs, droppedEntity);
-				}
-				EndDragDropTarget();
+				GE::ECS::Entity& droppedEntity{*reinterpret_cast<GE::ECS::Entity*>(pl->Data)};
+				ParentEntity(ecs, droppedEntity);
 			}
-
-			for (Entity entity : ecs.GetEntities())
-			{
-				if (ecs.GetParentEntity(entity) == INVALID_ID)
-				{
-					Propergate(entity, ecs, treeFlags, ecs.GetIsActiveEntity(entity) ? originalTextClr : inactiveTextClr);
-				}
-			}
-			TreePop();
+			EndDragDropTarget();
 		}
+
+		for (Entity entity : ecs.GetEntities())
+		{
+			if (ecs.GetParentEntity(entity) == INVALID_ID)
+			{
+				Propergate(entity, ecs, treeFlags, ecs.GetIsActiveEntity(entity) ? originalTextClr : inactiveTextClr);
+			}
+		}
+		TreePop();
+	}
 	// Reset colour
 	style.Colors[ImGuiCol_Text] = originalTextClr;
 

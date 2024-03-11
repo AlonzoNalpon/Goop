@@ -18,26 +18,6 @@
                 }
             },
             {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 50,
-                            "height": 50
-                        }
-                    },
-                    "spriteName": "Buta PIG",
-                    "shouldRender": true
-                }
-            },
-            {
                 "Emitter": {
                     "playOnStart": true,
                     "playing": true,
@@ -77,18 +57,29 @@
                         "spriteSubData": {
                             "texCoords": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": 0.75
                             },
                             "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
+                                "x": 0.3333333432674408,
+                                "y": 0.25
                             },
-                            "width": 300,
-                            "height": 300
+                            "width": 933,
+                            "height": 1000,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
                         }
                     },
-                    "spriteName": "Atk Up",
+                    "spriteName": "SS_Dawson_Attack",
                     "shouldRender": true
+                }
+            },
+            {
+                "SpriteAnim": {
+                    "name": "SS_Dawson_Attack"
                 }
             },
             {
@@ -163,6 +154,17 @@
                 }
             },
             {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "Demo",
+                            "entityID": 1,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
                 "Text": {
                     "text": "YOUR TEXT HERE",
                     "clr": {
@@ -171,8 +173,18 @@
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.10000000149011612,
+                    "scale": 0.2540000081062317,
                     "fontID": 0
+                }
+            },
+            {
+                "AnimEvents": {
+                    "eventList": [
+                        {
+                            "first": 0,
+                            "second": "Demo"
+                        }
+                    ]
                 }
             }
         ]

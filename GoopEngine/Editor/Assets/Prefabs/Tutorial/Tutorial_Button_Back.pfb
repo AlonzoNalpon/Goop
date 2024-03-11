@@ -1,71 +1,16 @@
 {
     "Name": "Tutorial_Button_Back",
     "isActive": true,
-    "Version": 0,
+    "Version": 8,
     "Components": [
         {
             "Transform": {
-                "pos": "{ -62.2222, -204.704, 0 }",
+                "pos": "{ 0, 0, 0 }",
                 "scale": "{ 1, 1, 1 }",
                 "rot": "{ 0, -0, 0 }",
-                "worldPos": "{ -62.2222, -204.704, 0 }",
+                "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, -0, 0 }"
-            }
-        },
-        {
-            "BoxCollider": {
-                "center": "{ -62.2222, -204.704 }",
-                "width": 250.0,
-                "height": 130.0,
-                "min": "{ -187.222, -269.704 }",
-                "max": "{ 62.7778, -139.704 }",
-                "render": false
-            }
-        },
-        {
-            "Sprite": {
-                "spriteData": {
-                    "spriteSubData": {
-                        "texCoords": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "texDims": {
-                            "x": 1.0,
-                            "y": 1.0
-                        },
-                        "width": 260,
-                        "height": 140,
-                        "tint": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 0.0
-                        }
-                    }
-                },
-                "spriteName": "Button_Base",
-                "shouldRender": true
-            }
-        },
-        {
-            "Scripts": {
-                "scriptList": [
-                    {
-                        "scriptName": "BackTutorial",
-                        "entityID": 78,
-                        "scriptFieldInstList": []
-                    }
-                ]
-            }
-        },
-        {
-            "GE_Button": {
-                "param": "",
-                "eventType": "NO_EVENT",
-                "lastCollided": false,
-                "currCollided": false
             }
         }
     ],
@@ -73,33 +18,103 @@
         {
             "ID": 1,
             "isActive": true,
-            "Name": "BACK",
+            "Name": "Button",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -59.6857, -22.2939, 21 }",
-                        "scale": "{ 1, 1, 1 }",
+                        "pos": "{ -30, 0, 0 }",
+                        "scale": "{ 0.25, 0.25, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -59.6857, -22.2939, 21 }",
-                        "worldScale": "{ 1, 1, 1 }",
+                        "worldPos": "{ -30, 0, 0 }",
+                        "worldScale": "{ 0.25, 0.25, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
-                    "Text": {
-                        "text": "BACK",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
+                    "BoxCollider": {
+                        "center": "{ -30, 0 }",
+                        "width": 125.0,
+                        "height": 125.0,
+                        "min": "{ -92.5, -62.5 }",
+                        "max": "{ 32.5, 62.5 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 500,
+                                "height": 500,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
+                            }
                         },
-                        "scale": 0.23800000548362732,
-                        "fontID": 2
+                        "spriteName": "HTP_Arrow_Left",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "BackTutorial",
+                                "entityID": 1,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
                     }
                 }
             ]
+        }
+    ],
+    "Removed Children": [
+        {
+            "first": 1,
+            "second": 5
+        }
+    ],
+    "Removed Components": [
+        {
+            "id": 0,
+            "type": "BoxCollider",
+            "version": 5
+        },
+        {
+            "id": 0,
+            "type": "Sprite",
+            "version": 5
+        },
+        {
+            "id": 0,
+            "type": "Scripts",
+            "version": 5
+        },
+        {
+            "id": 0,
+            "type": "GE_Button",
+            "version": 5
         }
     ]
 }
