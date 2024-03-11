@@ -493,7 +493,7 @@ void GE::MONO::ScriptManager::ReloadAssembly()
   LoadAppDomain();
   Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
   GE::Systems::EnemySystem* es = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::EnemySystem>();
-  m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssemblyR"), AssemblyFileSystemEvent);
+  m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssembly"), AssemblyFileSystemEvent);
   m_assemblyReloadPending = false;
 
   AddInternalCalls();
