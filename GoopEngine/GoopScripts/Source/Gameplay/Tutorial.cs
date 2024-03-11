@@ -201,10 +201,12 @@ namespace GoopScripts.Gameplay
         m_enemyStats.QueueCard(0);
       }
       Console.WriteLine("StartOfTurn");
-      Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{++m_tut}"), true);
-    }
+      Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{++m_tut}"), true); 
+      Button.TutorialBtn btn = (Button.TutorialBtn)Utils.GetScript("Button_EndTurn", "TutorialBtn");
+			btn.Enable();
+		}
 
-    public void ResolutionPhase(double deltaTime)
+		public void ResolutionPhase(double deltaTime)
     {
       //Time to trigger the card effects and the animations.
       if (toTrigger && !isDead)
