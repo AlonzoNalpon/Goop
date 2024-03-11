@@ -24,6 +24,11 @@ void GE::Systems::PreRootTransformSystem::Update()
 		// This is a root entity
 		if (m_ecs->GetParentEntity(entity) == GE::ECS::INVALID_ID)
 		{
+			if (!m_ecs->GetIsActiveEntity(entity))
+			{
+				continue;
+			}
+
 			// Assign own world transformation matrix
 			Math::dMat4 identity
 			{
