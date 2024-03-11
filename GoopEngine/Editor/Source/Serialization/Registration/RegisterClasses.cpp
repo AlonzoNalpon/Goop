@@ -118,13 +118,13 @@ RTTR_REGISTRATION
     .property("Cards In Queue", &DeckManager::m_queue)
     ;
 
-  rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
-    .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
-    .property("cardEntity", &Component::CardHolder::CardHolderEntry::cardEntity)
-    .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)
-    .property("defaultSpriteID", &Component::CardHolder::CardHolderEntry::defaultSpriteID)
-    .property("used", &Component::CardHolder::CardHolderEntry::used)
-    ;
+  //rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
+  //  .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
+  //  .property("cardEntity", &Component::CardHolder::CardHolderEntry::cardEntity)
+  //  .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)
+  //  .property("defaultSpriteID", &Component::CardHolder::CardHolderEntry::defaultSpriteID)
+  //  .property("used", &Component::CardHolder::CardHolderEntry::used)
+  //  ;
 
   rttr::registration::class_<Component::Audio::Sound>("Sound")
     .property("sound", &Component::Audio::Sound::m_sound)
