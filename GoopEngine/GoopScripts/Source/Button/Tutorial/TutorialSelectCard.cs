@@ -20,8 +20,6 @@ namespace GoopScripts.Button
 {
   public class TutorialSelectCard : IButtonClick, IButtonHoverEnter, IButtonHoverExit
   {
-    static public uint m_cardHover; // holds entity for hover effect
-
     public TutorialSelectCard() { }
 
     /*!*********************************************************************
@@ -46,7 +44,7 @@ namespace GoopScripts.Button
         return;
       }
 
-      Utils.SetIsActiveEntity(m_cardHover, false);
+      Utils.SetIsActiveEntity(SelectCard.m_cardHover, false);
       Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
       player.QueueCardByID(cardId);
       QueueCardDisplay.m_cardSelected = true;
@@ -64,8 +62,8 @@ namespace GoopScripts.Button
     {
       Vec3<double> pos = Utils.GetWorldPosition(entity);
       pos.Z -= 5.0;
-      Utils.SetPosition(m_cardHover, pos);
-      Utils.SetIsActiveEntity(m_cardHover, true);
+      Utils.SetPosition(SelectCard.m_cardHover, pos);
+      Utils.SetIsActiveEntity(SelectCard.m_cardHover, true);
     }
 
     /*!*********************************************************************
@@ -77,7 +75,7 @@ namespace GoopScripts.Button
 		************************************************************************/
     public void OnHoverExit(uint entity)
     {
-      Utils.SetIsActiveEntity(m_cardHover, false);
+      Utils.SetIsActiveEntity(SelectCard.m_cardHover, false);
     }
   }
 }

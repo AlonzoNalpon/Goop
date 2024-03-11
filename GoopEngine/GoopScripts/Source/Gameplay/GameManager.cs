@@ -31,13 +31,11 @@ namespace GoopScripts.Gameplay
   {
     //static readonly double INTERVAL_TIME = 3.0;
     static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 100.0, 0.0);
-    static readonly string GAME_DATA_DIR = "./Assets/GameData/";
+    static public readonly string GAME_DATA_DIR = "./Assets/GameData/";
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
     public int P_HEALTH_TEXT_UI, P_HEALTH_UI;
     public int E_HEALTH_TEXT_UI, E_HEALTH_UI;
-
-    Random m_rng;
 
     public Stats m_playerStats, m_enemyStats;
 
@@ -48,13 +46,11 @@ namespace GoopScripts.Gameplay
     //tools for resolving cards
     int m_slotToResolve = 0;
     static bool isStartOfTurn = true;
-    static bool gameStarted = false; // called once at the start of game 
-    readonly List<CardBase.CardID> m_playerNonAtkCards = new List<CardBase.CardID>{ CardID.LEAH_SHIELD, CardID.SPECIAL_SMOKESCREEN, CardID.SPECIAL_RAGE };
-    readonly List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD };
+    static bool gameStarted = false; // called once at the start of game
 
     GameManager(uint entityID):base(entityID)
     {
-      m_rng = new Random();
+      
     }
 
     /*!*********************************************************************
@@ -161,7 +157,6 @@ namespace GoopScripts.Gameplay
       ************************************************************************/
     public void StartOfTurn()
     {
-      Console.WriteLine("StartOfTurn");
       QueueCardDisplay.DestroyCard();
       SetHighlightActive(false);
       m_playerStats.EndOfTurn();
@@ -223,7 +218,6 @@ namespace GoopScripts.Gameplay
         }
 
         int pCalculatedDmg = m_playerStats.DamageDealt(), eCalculatedDmg = m_enemyStats.DamageDealt();
-        Console.WriteLine("Player dmg: " + pCalculatedDmg + " | Enemy dmg: " + eCalculatedDmg);
         int pDamageTaken = m_playerStats.TakeDamage(eCalculatedDmg), eDamageTaken = m_enemyStats.TakeDamage(pCalculatedDmg);
 
         // if any side is dead, end the game loop
