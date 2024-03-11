@@ -1,6 +1,10 @@
 /*!*********************************************************************
 \file   ScriptManager.cpp
 \author han.q\@digipen.edu
+\co-author w.chinkitbryan\@digipen.edu
+\co-author loh.j\@digipen.edu
+\co-author a.nalpon\@digipen.edu
+\co-author chengen.lau\@digipen.edu
 \date   28 September 2023
 \brief
   Script Manager Singleton in charge of initializing and cleaning the Mono.
@@ -133,12 +137,18 @@ void GE::MONO::ScriptManager::InitMono()
   //Load All the MonoClasses
   LoadAllMonoClass();
 
-  m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssemblyR"), AssemblyFileSystemEvent);
-  m_assemblyReloadPending = false;
+  try
+  {
+    m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssembly"), AssemblyFileSystemEvent);
+    m_assemblyReloadPending = false;
 
-  m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
-  m_CSReloadPending = false;
-
+    m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
+    m_CSReloadPending = false;
+  }
+  catch (...)
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogMessage("Not using Visual Studio, hotreload disabled");
+  }
 
  // m_scnfilePath = 
 }
@@ -432,7 +442,7 @@ std::string GetVisualStudioVersion() {
   //}
   VSver = (_MSC_VER >= 1930) ? "2022" : (_MSC_VER >= 1920) ? "2019" : (_MSC_VER >= 1910) ? "2017" : (_MSC_VER >= 1900) ? "2015" : (_MSC_VER >= 1900) ? "2013" : "2012";
 #else
-  std::cout << "Not using Visual Studio" << std::endl;
+  GE::Debug::ErrorLogger::GetInstance().LogMessage("Not using Visual Studio, hotreload disabled");
 #endif
   return VSver;
 }
