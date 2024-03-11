@@ -290,6 +290,7 @@ namespace GoopScripts.Gameplay
           Console.WriteLine("End resolution");
           isResolutionPhase = false;
           isStartOfTurn = true;
+          m_slotToResolve = 0;
         }
       }
       // if game has ended
@@ -324,7 +325,6 @@ namespace GoopScripts.Gameplay
       ************************************************************************/
     private void StartResolution()
     {
-      m_slotToResolve = 0;
       SetHighlightActive(true);
     }
 
