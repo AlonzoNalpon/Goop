@@ -30,11 +30,6 @@ namespace GoopScripts.Source.Gameplay
     public void LoadAnimations(Dictionary<CardBase.CardID, string> data)
     {
       m_animations = data;
-      foreach (var entry in data)
-      {
-        Console.WriteLine($"Key: {entry.Key}, Value: {entry.Value}");
-      }
-
     }
 
     public void AddAnimation(CardBase.CardID card, string anim)
@@ -45,46 +40,45 @@ namespace GoopScripts.Source.Gameplay
     public void PlayAnimation(CardBase.CardID card, bool backToIdle = true)
     {
       string animToPlay = m_animations[card];
-      Console.WriteLine("Playing " + animToPlay + " on " + m_statsEntity);
       Utils.PlayAnimation(animToPlay, m_statsEntity);
-      Console.WriteLine("Anim time: " + Utils.GetAnimationTime(animToPlay));
       m_timeToHit = Utils.GetAnimationTime(animToPlay);
       m_backToIdle = backToIdle;
       m_isPlaying = true;
+      m_timer = 0.0;
     }
 
     public void PlayFlinch()
     {
-      Console.WriteLine("Playing " + m_flinch);
       Utils.PlayAnimation(m_flinch, m_statsEntity);
       m_timeToHit = Utils.GetAnimationTime(m_flinch);
       m_isPlaying = m_backToIdle = true;
+      m_timer = 0.0;
     }
 
     public void PlayBlock()
     {
-      Console.WriteLine("Playing " + m_block);
       Utils.PlayAnimation(m_block, m_statsEntity);
       m_timeToHit = Utils.GetAnimationTime(m_block);
       m_isPlaying = m_backToIdle = true;
+      m_timer = 0.0;
     }
 
     public void PlayDeath()
     {
-      Console.WriteLine("Playing " + m_death);
       Utils.PlayAnimation(m_death, (uint)m_statsEntity);
       m_timeToHit = Utils.GetAnimationTime(m_death);
       m_isPlaying = true;
       m_backToIdle = false;
+      m_timer = 0.0;
     }
 
     public void PlayShieldDeath()
     {
-      Console.WriteLine("Playing " + m_deathShield);
       Utils.PlayAnimation(m_deathShield, (uint)m_statsEntity);
       m_timeToHit = Utils.GetAnimationTime(m_deathShield);
       m_isPlaying = true;
       m_backToIdle = false;
+      m_timer = 0.0;
     }
 
     public void Update(double dt)
