@@ -163,8 +163,6 @@ namespace GoopScripts.Gameplay
           Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), false);
           ResolutionPhase(deltaTime);
         }
-
-
         else
         {
           if (isStartOfTurn)
@@ -201,10 +199,12 @@ namespace GoopScripts.Gameplay
         m_enemyStats.QueueCard(0);
       }
       Console.WriteLine("StartOfTurn");
-      Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{++m_tut}"), true);
-    }
+      Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{++m_tut}"), true); 
+      Button.TutorialBtn btn = (Button.TutorialBtn)Utils.GetScript("Button_EndTurn", "TutorialBtn");
+			btn.Enable();
+		}
 
-    public void ResolutionPhase(double deltaTime)
+		public void ResolutionPhase(double deltaTime)
     {
       //Time to trigger the card effects and the animations.
       if (toTrigger && !isDead)
@@ -441,7 +441,9 @@ namespace GoopScripts.Gameplay
       m_enemyStats.OnCreate();
 
       //m_enemyStats.m_type = statsInfo.characterType;
-      foreach (var elem in statsInfo.deckList)
+      m_enemyStats.m_deckMngr.Clear();
+      m_enemyStats.m_deckMngr.m_deck.m_cards = new CardID[0];
+			foreach (var elem in statsInfo.deckList)
       {
         m_enemyStats.m_deckMngr.m_deck.AddCard(elem.Item1, elem.Item2);
       }

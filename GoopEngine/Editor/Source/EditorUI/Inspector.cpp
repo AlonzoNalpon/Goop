@@ -2160,7 +2160,6 @@ namespace
 	{
 		// 12 characters for property name
 		float charSize = CalcTextSize("012345678901").x;
-		auto removeTweenIt{ list.begin() };
 		for (auto& [animationName, action] : list)
 		{
 			std::string temp{animationName};
@@ -2170,11 +2169,8 @@ namespace
 				if (Button("Remove Animation"))
 				{
 					TreePop();
+					list.erase(animationName);
 					break;
-				}
-				else
-				{
-					++removeTweenIt;
 				}
 
 				Separator();
@@ -2246,11 +2242,6 @@ namespace
 
 				TreePop();
 			}
-		}
-
-		if (removeTweenIt != list.end())
-		{
-			list.erase(removeTweenIt);
 		}
 	}
 
