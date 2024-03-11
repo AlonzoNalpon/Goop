@@ -8,14 +8,14 @@ using GoopScripts.Gameplay;
 
 namespace GoopScripts.Button
 {
-  internal class TutorialBtn : IButtonClick
+  internal class TutorialBtn : TextButtonBase
   {
 
     public TutorialBtn()
     {
 
     }
-    public void OnClick(uint entity)
+    public override void OnClick(uint entity)
     {
       Gameplay.Tutorial gm = (Gameplay.Tutorial)Utils.GetScript("GameSystem", "Tutorial");
       gm.EndTurn();

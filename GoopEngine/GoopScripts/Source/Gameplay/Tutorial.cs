@@ -68,7 +68,7 @@ namespace GoopScripts.Gameplay
       UI.PauseManager.SetPauseState(0);
 
       m_turn = 1;
-      m_tut = 1;
+      m_tut = 0;
 
       // set the static variable to the entity holding the hover effect sprite
       TutorialSelectCard.m_cardHover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
@@ -81,6 +81,29 @@ namespace GoopScripts.Gameplay
     {
       try
       {
+        //button scripts
+        if (m_tut == 1 || m_tut == 11 || m_tut == 16 || m_tut == 20 || m_tut == 26 || m_tut == 31 || m_tut == 33 || m_tut == 39 || m_tut == 44)
+        {
+          Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Back"), false);
+          Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Next"), true);
+        }
+        else if (m_tut == 9 || m_tut == 13 || m_tut == 17 || m_tut == 25 || m_tut == 29 || m_tut == 32 || m_tut == 35 || m_tut == 43 || m_tut == 46)
+        {
+          Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Back"), true);
+          Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Next"), false);
+        }
+        else if (m_tut == 10 || m_tut == 14 || m_tut == 15 || m_tut == 18 || m_tut == 19 || m_tut == 30 || m_tut == 36 || m_tut == 37 || m_tut == 38 || m_tut == 47 || m_tut == 48)
+        {
+          Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Back"), false);
+          Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Next"), false);
+        }
+        else if (m_tut == 2 || m_tut == 3 || m_tut == 4 || m_tut == 5 || m_tut == 6 || m_tut == 7 || m_tut == 8 || m_tut == 12 || m_tut == 21 || m_tut == 22 || m_tut == 23 || m_tut == 24 || m_tut == 27 || m_tut == 28 || m_tut == 34 || m_tut == 40 || m_tut == 41 || m_tut == 42 || m_tut == 45)
+        {
+          Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Back"), true);
+          Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Next"), true);
+        }
+
+        //combo list
         if (!Utils.GetIsActiveEntity(Utils.GetEntity("Skip_Tutorial_Prompt")) && UI.PauseManager.GetPauseState() == 0)
         {
           if (Utils.IsKeyHeld(Input.KeyCode.TAB))
@@ -104,11 +127,11 @@ namespace GoopScripts.Gameplay
           }
           Console.WriteLine("Enemy draw");
           m_enemyStats.Draw();
-          //Console.WriteLine("Enemy deck:");
-          //for (int i = 0; i < m_enemyStats.m_deckMngr.m_deck.Size(); i++)
-          //{
-          //  Console.WriteLine(m_enemyStats.m_deckMngr.m_deck.m_cards[i]);
-          //}
+          Console.WriteLine("Enemy deck:");
+          for (int i = 0; i < m_enemyStats.m_deckMngr.m_deck.Size(); i++)
+          {
+            Console.WriteLine(m_enemyStats.m_deckMngr.m_deck.m_cards[i]);
+          }
           //Console.WriteLine("Enemy hand:");
           //for (int i = 0; i < m_enemyStats.m_deckMngr.m_hand.Count; i++)
           //{
@@ -147,10 +170,8 @@ namespace GoopScripts.Gameplay
 
         if (m_tutorialToggled)
         {
-          Console.WriteLine("tutorial toggled");
           int m_prev = m_tut++;
 
-          Console.WriteLine($"Tutorial Number {m_tut}");
           Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_prev}"), false);
           Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), true);
 
@@ -159,7 +180,6 @@ namespace GoopScripts.Gameplay
 
         if (isResolutionPhase)
         {
-          //Console.WriteLine($"Tutorial Number {m_tut}");
           Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), false);
           ResolutionPhase(deltaTime);
         }
@@ -200,7 +220,6 @@ namespace GoopScripts.Gameplay
         m_enemyStats.Draw();
         m_enemyStats.QueueCard(0);
       }
-      Console.WriteLine("StartOfTurn");
       Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{++m_tut}"), true);
     }
 
@@ -409,7 +428,8 @@ namespace GoopScripts.Gameplay
     static public void ResetTutorial()
     {
       isResolutionPhase = isStartOfTurn = gameStarted = m_tutorialToggled = false;
-      m_turn = m_tut = 1;
+      m_turn = 1;
+      m_tut = 0;
     }
 
     static public bool IsResolutionPhase() { return isResolutionPhase; }
