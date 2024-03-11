@@ -227,19 +227,19 @@
             "AnimEvents": {
                 "eventList": [
                     {
-                        "first": 10,
+                        "first": 19,
                         "second": "MoleRatBites"
                     },
                     {
-                        "first": 13,
+                        "first": 22,
                         "second": "LeahDies"
                     },
                     {
-                        "first": 15,
+                        "first": 24,
                         "second": "MoleRatScreeches"
                     },
                     {
-                        "first": 14,
+                        "first": 29,
                         "second": "MoleRatBlocks"
                     }
                 ]
