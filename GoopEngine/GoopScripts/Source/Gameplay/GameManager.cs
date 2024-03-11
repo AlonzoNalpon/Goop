@@ -448,8 +448,10 @@ namespace GoopScripts.Gameplay
       m_enemyStats.OnCreate();
       m_enemyStats.m_deckMngr.m_deck.Shuffle();
 
-      //m_enemyStats.m_type = statsInfo.characterType;
-      foreach (var elem in statsInfo.deckList)
+			//m_enemyStats.m_type = statsInfo.characterType;
+			m_enemyStats.m_deckMngr.Clear();
+			m_enemyStats.m_deckMngr.m_deck.m_cards = new CardID[0];
+			foreach (var elem in statsInfo.deckList)
       {
         m_enemyStats.m_deckMngr.m_deck.AddCard(elem.Item1, elem.Item2);
       }
