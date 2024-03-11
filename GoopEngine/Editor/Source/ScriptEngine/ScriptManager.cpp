@@ -1029,11 +1029,9 @@ MonoObject* GE::MONO::GetGameSysScript(MonoString* gameSysEntityName)
 void GE::MONO::PlayAnimation(MonoString* animName, GE::ECS::Entity entity)
 {
   std::string str = GE::MONO::MonoStringToSTD(animName);
-  std::cout << "PlayAnimation called on " << entity << " with animation: " << str << "\n";
   // call play animation here
   // Error check for invalid pls!!!!!
   Graphics::gObjID spriteID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(str) };
-  std::cout << "No throw\n";
   // Doesnt set the sprite!!!
   GE::Systems::SpriteAnimSystem::SetAnimation(entity, spriteID); // play anim yes!
 }
