@@ -163,6 +163,9 @@ namespace GoopScripts.Gameplay
           Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), false);
           Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Back"), false);
           Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Next"), false);
+
+          m_playerStats.Update(deltaTime);
+          m_enemyStats.Update(deltaTime);
           ResolutionPhase(deltaTime);
         }
         else
@@ -214,6 +217,7 @@ namespace GoopScripts.Gameplay
         return;
       }
 
+      Console.WriteLine("Resolution");
       if (m_slotToResolve > 2)
       {
         isResolutionPhase = false;
@@ -386,6 +390,11 @@ namespace GoopScripts.Gameplay
 
       string levelFile = GameManager.GAME_DATA_DIR + "/Tutorial.dat";
       LoadEnemy(Serialization.SerialReader.LoadEnemy(levelFile));
+
+      // Load their animations
+      var charToAnims = Serialization.SerialReader.LoadAnimationMappings(GameManager.GAME_DATA_DIR + "CharacterAnimations.dat");
+      m_playerStats.m_animManager.LoadAnimations(charToAnims[CharacterType.PLAYER]);
+      m_enemyStats.m_animManager.LoadAnimations(charToAnims[m_enemyStats.m_type]);
     }
     void LoadPlayer(PlayerStatsInfo statsInfo)
     {

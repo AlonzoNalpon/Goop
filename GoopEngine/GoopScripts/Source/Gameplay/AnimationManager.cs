@@ -89,7 +89,7 @@ namespace GoopScripts.Source.Gameplay
       }
        
       m_timer += dt;
-
+      Console.WriteLine("Entity " + m_statsEntity + " | Timer: " + m_timer);
       if (m_timer >= m_timeToHit)
       {
         m_timer = 0.0;

@@ -249,20 +249,32 @@
                             "second": "LeahFlashBangs"
                         },
                         {
-                            "first": 11,
+                            "first": 14,
                             "second": "LeahDies"
                         },
                         {
-                            "first": 10,
+                            "first": 11,
                             "second": "LeahShoots"
                         },
                         {
                             "first": 17,
-                            "second": "LeahFlashBangs"
+                            "second": "LeahAttacks"
                         },
                         {
-                            "first": 11,
+                            "first": 12,
                             "second": "LeahBlocks"
+                        },
+                        {
+                            "first": 15,
+                            "second": "LeahBlocks"
+                        },
+                        {
+                            "first": 16,
+                            "second": "LeahDies2"
+                        },
+                        {
+                            "first": 21,
+                            "second": "LeahFlinches"
                         }
                     ]
                 }
@@ -482,6 +494,13 @@
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "E_QUEUE_HIGHLIGHT"
+                                    }
+                                },
+                                {
+                                    "data": "",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "GAME_DATA_DIR"
                                     }
                                 },
                                 {
