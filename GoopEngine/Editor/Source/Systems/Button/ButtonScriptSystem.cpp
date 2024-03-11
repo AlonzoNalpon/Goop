@@ -38,10 +38,10 @@ void GE::Systems::ButtonScriptSystem::Update()
     if (btn->m_hadEvent && m_shouldHandleRelease)
     {
       btn->m_hadEvent = false;
-      MonoObject* classInst = nullptr;
+      uint32_t gchandle{};
       for (auto script : scripts->m_scriptList)
       {
-        classInst = script.m_classInst;
+        gchandle = script.m_gcHandle;
         method = mono_class_get_method_from_name(script.m_scriptClass, "OnRelease", 1);
         if (!method)
         {
@@ -52,7 +52,7 @@ void GE::Systems::ButtonScriptSystem::Update()
         {
           // run click functon
           void* args{ &entity };
-          mono_runtime_invoke(method, classInst, &args, nullptr);
+          mono_runtime_invoke(method, mono_gchandle_get_target(gchandle), &args, nullptr);
         }
       }
     }
@@ -70,10 +70,10 @@ void GE::Systems::ButtonScriptSystem::Update()
       if (m_shouldHandleClick)
       {
         btn->m_hadEvent = true;
-        MonoObject* classInst = nullptr;
+        uint32_t gchandle{};
         for (auto script : scripts->m_scriptList)
         {
-          classInst = script.m_classInst;
+          gchandle = script.m_gcHandle;
           method = mono_class_get_method_from_name(script.m_scriptClass, "OnClick", 1);
           if (!method)
           {
@@ -84,7 +84,7 @@ void GE::Systems::ButtonScriptSystem::Update()
           {
             // run click functon
             void* args{ &entity };
-            mono_runtime_invoke(method, classInst, &args, nullptr);
+            mono_runtime_invoke(method, mono_gchandle_get_target(gchandle), &args, nullptr);
           }
         }
       }
@@ -93,10 +93,10 @@ void GE::Systems::ButtonScriptSystem::Update()
     // Check if theres a change in state
     if (btn->m_currCollided != btn->m_lastCollided)
     {
-      MonoObject* classInst = nullptr;
+      uint32_t gchandle{};
       for (auto script : scripts->m_scriptList)
       {
-        classInst = script.m_classInst;
+        gchandle = script.m_gcHandle;
         if (btn->m_currCollided)
         {
           method = mono_class_get_method_from_name(script.m_scriptClass, "OnHoverEnter", 1);
@@ -121,7 +121,7 @@ void GE::Systems::ButtonScriptSystem::Update()
         {
           // run hover function
           void* args{ &entity };
-          mono_runtime_invoke(method, classInst, &args, nullptr);
+          mono_runtime_invoke(method, mono_gchandle_get_target(gchandle), &args, nullptr);
         }
       }
     }
