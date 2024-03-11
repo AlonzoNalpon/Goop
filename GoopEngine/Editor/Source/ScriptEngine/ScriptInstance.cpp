@@ -55,6 +55,19 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, GE::ECS::Entity  e
   m_onCreateMethod = mono_class_get_method_from_name(m_scriptClass, "OnCreate", 0);
 }
 
+void ScriptInstance::FreeScript()
+{
+  if (m_onCreateMethod)
+  {
+    mono_free_method(m_onCreateMethod);
+  }
+  if (m_onUpdateMethod)
+  {
+    mono_free_method(m_onUpdateMethod);
+  }
+  mono_gchandle_free(m_gcHandle);
+}
+
 void ScriptInstance::ReloadScript()
 {
   //Clear all the old values

@@ -33,6 +33,8 @@ namespace GE
 		{
 			std::vector<GameNode> m_nodeList;
 			GE::AI::TreeID m_treeID;
+
+			void ClearAllNodes();
 		};
 
 
