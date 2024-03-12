@@ -43,6 +43,8 @@ namespace GE::Graphics {
       texDims = rhs.texDims;
       width = rhs.width;
       height = rhs.height;
+      tint = rhs.tint;
+      multiply = rhs.multiply; 
       return *this;
     }
 
