@@ -10,6 +10,7 @@ ends.
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Button;
+using GoopScripts.Demo;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,10 @@ namespace GoopScripts.Transition
 							break;
 						case 1: // LOAD GAME
 							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Game");
+							CrossFadeToGameBGM temp = new CrossFadeToGameBGM();
+							temp.OnClick(0);
+							Utils.FadeInAudio("CaveWithWaterDrops_Loop", 0.486f, 1.0f);
+							Utils.FadeInAudio("Fog", 0.753f, 1.0f);
 							break;
 						case 2:
 							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Options");
