@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Attack_Hover",
     "isActive": true,
-    "Version": 17,
+    "Version": 20,
     "Components": [
         {
             "Transform": {
@@ -60,22 +60,17 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
                         "spriteName": "CardBaseFront_Attack",
                         "shouldRender": true
-                    }
-                },
-                {
-                    "Scripts": {
-                        "scriptList": [
-                            {
-                                "scriptName": "SelectCard",
-                                "entityID": 1,
-                                "scriptFieldInstList": []
-                            }
-                        ]
                     }
                 },
                 {
@@ -185,6 +180,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -193,6 +194,13 @@
                     }
                 }
             ]
+        }
+    ],
+    "Removed Components": [
+        {
+            "id": 1,
+            "type": "void",
+            "version": 18
         }
     ]
 }

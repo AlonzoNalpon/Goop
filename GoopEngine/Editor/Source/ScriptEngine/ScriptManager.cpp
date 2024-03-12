@@ -215,6 +215,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptFromID", GE::MONO::GetScriptFromID);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetGameSysScript", GE::MONO::GetGameSysScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptInstanceGetScriptInstance", GE::MONO::GetScriptInstance);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetScript", GE::MONO::SetScript);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToHandState", GE::MONO::SetCardToHandState);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToQueuedState", GE::MONO::SetCardToQueuedState);
@@ -893,6 +894,8 @@ ScriptField GE::MONO::ScriptManager::GetScriptField(std::string className, std::
   return m_monoClassMap[className].m_ScriptFieldMap[fieldName];
 }
 
+
+
 //rttr::variant  GE::MONO::ScriptManager::GetScriptFieldInst(std::string const& listType) {
 //  if (listType == "System.Int32")
 //  {
@@ -1027,6 +1030,15 @@ MonoObject* GE::MONO::GetScriptFromID(GE::ECS::Entity entity, MonoString* script
   }
 
   return scriptInst->m_classInst;
+}
+
+void GE::MONO::SetScript(GE::ECS::Entity entity, MonoString* scriptName)
+{
+  GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
+  Component::Scripts comp;
+  ecs.AddComponent<GE::Component::Scripts>(entity, comp);
+  GE::Component::Scripts* allScripts = ecs.GetComponent<Component::Scripts>(entity);
+  allScripts->m_scriptList.emplace_back(MonoStringToSTD(scriptName), entity);
 }
 
 MonoObject* GE::MONO::GetGameSysScript(MonoString* gameSysEntityName)
