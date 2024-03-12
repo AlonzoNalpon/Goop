@@ -121,7 +121,6 @@ void PrefabEditor::RenderBackToScenePopup()
     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 1.f));
     if (ImGui::Button("Discard Changes"))
     {
-      m_isEditing = false;
       Events::EventManager::GetInstance().Dispatch(Events::StopSceneEvent());
       
       ResetPrefabEditor();
