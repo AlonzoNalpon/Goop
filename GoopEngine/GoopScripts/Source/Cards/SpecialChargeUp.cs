@@ -25,7 +25,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public SpecialChargeUp(CardID cardID, CardType cardType, string animSprite) : base(cardID, cardType, animSprite)
+    public SpecialChargeUp(CardID cardID, CardType cardType) : base(cardID, cardType)
     {
       Value = 2.0f;
       Duration = 2;
