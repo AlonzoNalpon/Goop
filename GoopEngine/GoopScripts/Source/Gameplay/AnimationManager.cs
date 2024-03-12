@@ -36,7 +36,6 @@ namespace GoopScripts.Source.Gameplay
       // get the animation time and store in container
       foreach (var elem in data)
       {
-        Console.WriteLine(elem.ToString());
         AddAnimation(elem.Key, elem.Value);
       }
 

@@ -18,6 +18,7 @@ namespace GoopScripts.Gameplay
   public class Tutorial : Entity
   {
     static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 112.0, 0.0);
+    static readonly string GAME_DATA_DIR = "./Assets/GameData/";
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
     public int P_HEALTH_TEXT_UI, P_HEALTH_UI;
@@ -96,7 +97,7 @@ namespace GoopScripts.Gameplay
 
         if (!gameStarted)
         {
-          LoadGame(GameManager.GAME_DATA_DIR + "TutorialStats.sav");
+          LoadGame(GAME_DATA_DIR + "TutorialStats.sav");
           Console.WriteLine("Player draw");
           for (int i = 0; i < 5; ++i)
           {
@@ -388,11 +389,11 @@ namespace GoopScripts.Gameplay
       PlayerStatsInfo playerStats = Serialization.SerialReader.LoadPlayerState(filePath);
       LoadPlayer(playerStats);
 
-      string levelFile = GameManager.GAME_DATA_DIR + "/Tutorial.dat";
+      string levelFile = GAME_DATA_DIR + "/Tutorial.dat";
       LoadEnemy(Serialization.SerialReader.LoadEnemy(levelFile));
 
       // Load their animations
-      var charToAnims = Serialization.SerialReader.LoadAnimationMappings(GameManager.GAME_DATA_DIR + "CharacterAnimations.dat");
+      var charToAnims = Serialization.SerialReader.LoadAnimationMappings(GAME_DATA_DIR + "CharacterAnimations.dat");
       m_playerStats.m_animManager.LoadAnimations(charToAnims[CharacterType.PLAYER]);
       m_enemyStats.m_animManager.LoadAnimations(charToAnims[m_enemyStats.m_type]);
     }

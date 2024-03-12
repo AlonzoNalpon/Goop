@@ -31,7 +31,7 @@ namespace GoopScripts.Gameplay
   {
     //static readonly double INTERVAL_TIME = 3.0;
     static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 100.0, 0.0);
-    static public readonly string GAME_DATA_DIR = "./Assets/GameData/";
+    static readonly string GAME_DATA_DIR = "./Assets/GameData/";
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
     public int P_HEALTH_TEXT_UI, P_HEALTH_UI;
@@ -197,9 +197,9 @@ namespace GoopScripts.Gameplay
 
       if (m_slotToResolve > 2)
       {
-        isResolutionPhase = false;
-        isStartOfTurn = true;
-        m_slotToResolve = 0;
+          isResolutionPhase = false;
+          isStartOfTurn = true;
+          m_slotToResolve = 0;
         return;
       }
 

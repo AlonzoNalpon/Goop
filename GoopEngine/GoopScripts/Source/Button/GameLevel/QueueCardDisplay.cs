@@ -26,6 +26,7 @@ namespace GoopScripts.Button
       pos.X += X_OFFSET;
       m_cardInstance = Utils.SpawnPrefab(prefabName, pos);
       m_isHovering = true;
+      Console.WriteLine("Spawned " + m_cardInstance);
     }
 
     public static void ShowEnemyCard(uint entity)
@@ -36,6 +37,7 @@ namespace GoopScripts.Button
       Vec3<double> pos = Utils.GetWorldPosition(entity);
       pos.X -=  X_OFFSET;
       m_cardInstance = Utils.SpawnPrefab(prefabName, pos);
+      Console.WriteLine("Spawned " + m_cardInstance);
       m_isHovering = true;
     }
 
@@ -46,6 +48,7 @@ namespace GoopScripts.Button
         return;
       }
 
+      Console.WriteLine("Destroyed " + m_cardInstance);
       Utils.DestroyEntity(m_cardInstance);
       m_isHovering = false;
     }
