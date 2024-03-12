@@ -157,6 +157,16 @@ namespace GE
       ************************************************************************/
       void StopChannel(ChannelType channel);
 
+      /*!*********************************************************************
+      \brief
+        Sets whether channel should be paused
+      \param channel
+        The channel to set paused state
+      \param paused
+        The flag to indicate whether channel should be paused
+      \return
+      ************************************************************************/
+      void SetChannelPause(ChannelType channel, bool paused);
     private:
       FMOD::System* m_fModSystem{ nullptr };
 

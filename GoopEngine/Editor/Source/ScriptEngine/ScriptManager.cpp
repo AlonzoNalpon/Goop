@@ -208,6 +208,8 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySoundF", GE::MONO::PlaySoundF);
   mono_add_internal_call("GoopScripts.Mono.Utils::StopSound", GE::MONO::StopSound);
   mono_add_internal_call("GoopScripts.Mono.Utils::StopChannel", GE::MONO::StopChannel);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PauseChannel", +[](GE::fMOD::FmodSystem::ChannelType type, bool paused) 
+    {GE::fMOD::FmodSystem::GetInstance().SetChannelPause(type, paused); });
   mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScript", GE::MONO::GetScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptFromID", GE::MONO::GetScriptFromID);
