@@ -97,12 +97,12 @@ namespace GoopScripts.Gameplay
         if (!gameStarted)
         {
           LoadGame(GameManager.GAME_DATA_DIR + "TutorialStats.sav");
-          Console.WriteLine("Player draw");
+          //Console.WriteLine("Player draw");
           for (int i = 0; i < 5; ++i)
           {
             m_playerStats.TutorialPlayerDraw();
           }
-          Console.WriteLine("Enemy draw");
+          //Console.WriteLine("Enemy draw");
           m_enemyStats.Draw();
           //Console.WriteLine("Enemy deck:");
           //for (int i = 0; i < m_enemyStats.m_deckMngr.m_deck.Size(); i++)
@@ -147,10 +147,10 @@ namespace GoopScripts.Gameplay
 
         if (m_tutorialToggled)
         {
-          Console.WriteLine("tutorial toggled");
+          //Console.WriteLine("tutorial toggled");
           int m_prev = m_tut++;
 
-          Console.WriteLine($"Tutorial Number {m_tut}");
+          //Console.WriteLine($"Tutorial Number {m_tut}");
           Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_prev}"), false);
           Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_tut}"), true);
 
@@ -203,7 +203,7 @@ namespace GoopScripts.Gameplay
         m_enemyStats.Draw();
         m_enemyStats.QueueCard(0);
       }
-      Console.WriteLine("StartOfTurn");
+      //Console.WriteLine("StartOfTurn");
       Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{++m_tut}"), true); 
       Button.TutorialBtn btn = (Button.TutorialBtn)Utils.GetScript("Button_EndTurn", "TutorialBtn");
 			btn.Enable();
@@ -217,7 +217,7 @@ namespace GoopScripts.Gameplay
         return;
       }
 
-      Console.WriteLine("Resolution");
+      //Console.WriteLine("Resolution");
       if (m_slotToResolve > 2)
       {
         isResolutionPhase = false;
