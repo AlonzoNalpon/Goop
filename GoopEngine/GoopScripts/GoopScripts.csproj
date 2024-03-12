@@ -104,6 +104,7 @@
     <Compile Include="Source\Button\Pause\MenuResume.cs" />
     <Compile Include="Source\Button\Pause\OptionSlider.cs" />
     <Compile Include="Source\Button\QuitGame.cs" />
+    <Compile Include="Source\Button\RewardButton.cs" />
     <Compile Include="Source\Button\RewardCard.cs" />
     <Compile Include="Source\Button\SurrenderToMainMenu.cs" />
     <Compile Include="Source\Button\SwitchCutScenes.cs" />
