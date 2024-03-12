@@ -4044,7 +4044,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "GameOverToMainMenu",
+                            "scriptName": "SurrenderToMainMenu",
                             "entityID": 64,
                             "scriptFieldInstList": []
                         }
