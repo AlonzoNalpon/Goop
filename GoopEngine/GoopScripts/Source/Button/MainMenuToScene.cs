@@ -45,7 +45,6 @@ namespace GoopScripts.Transition
 		{
       if (m_shouldTransition)
 			{
-				Console.WriteLine(dt);
 				if (m_currentTime > m_delay)
 				{
 					switch (Scene)

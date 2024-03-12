@@ -78,7 +78,6 @@ namespace GoopScripts.Gameplay
         return;
       }
 
-      //Console.WriteLine("Applied Combo to " + source.m_type.ToString() + ": " + combo.GetName());
       
       if (combo.ApplyEffect(ref source, ref target))
       {

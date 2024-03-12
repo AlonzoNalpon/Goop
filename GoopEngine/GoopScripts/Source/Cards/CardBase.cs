@@ -78,7 +78,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public CardBase(CardID cardID, CardType cardType, string animationSprite) { this.m_cardID = cardID; this.cardType = cardType; this.m_animationSprite = animationSprite; Console.WriteLine(this.m_animationSprite); }
+    public CardBase(CardID cardID, CardType cardType, string animationSprite) { this.m_cardID = cardID; this.cardType = cardType; this.m_animationSprite = animationSprite;}
 
     /*!*********************************************************************
     \brief
