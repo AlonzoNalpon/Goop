@@ -261,6 +261,7 @@ void GE::MONO::ScriptManager::LoadAssembly()
 void GE::MONO::ScriptManager::LoadAllMonoClass()
 {
   m_monoClassMap.clear();
+  m_allScriptNames.clear();
   MonoImage* image = mono_assembly_get_image(m_coreAssembly);
   const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
   int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
