@@ -145,10 +145,17 @@ namespace GoopScripts.Gameplay
           StartOfTurn();
         }
       }
+#if (DEBUG)
       catch (Exception ex)
       {
         Console.WriteLine($"Exception in game loop: {ex.Message}");
       }
+#else
+      catch (Exception)
+      {
+
+      }
+#endif
     }
 
     /*!*********************************************************************
@@ -365,6 +372,7 @@ namespace GoopScripts.Gameplay
 
     void LoadGame(string filePath)
     {
+      Console.WriteLine("LoadGame");
       // Load player and enemy stats
       PlayerStatsInfo playerStats = Serialization.SerialReader.LoadPlayerState(filePath);
       LoadPlayer(playerStats);
@@ -375,8 +383,11 @@ namespace GoopScripts.Gameplay
 
       // Load their animations
       var charToAnims = Serialization.SerialReader.LoadAnimationMappings(GAME_DATA_DIR + "CharacterAnimations.dat");
+      Console.WriteLine("Load P Anim");
       m_playerStats.m_animManager.LoadAnimations(charToAnims[CharacterType.PLAYER]);
+      Console.WriteLine("Load E Anim");
       m_enemyStats.m_animManager.LoadAnimations(charToAnims[m_enemyStats.m_type]);
+      Console.WriteLine("After koad anim");
     }
 
     void LoadPlayer(PlayerStatsInfo statsInfo)
@@ -396,7 +407,6 @@ namespace GoopScripts.Gameplay
       Utils.SetEntityName(enemyID, "Enemy");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
       m_enemyStats.OnCreate();
-      m_enemyStats.m_deckMngr.m_deck.Shuffle();
 
 			m_enemyStats.m_type = statsInfo.characterType;
 			m_enemyStats.m_deckMngr.Clear();

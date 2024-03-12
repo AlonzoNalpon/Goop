@@ -729,22 +729,22 @@
                         {
                             "elemEntity": 12,
                             "cardEntity": 16,
-                            "spriteID": 161,
-                            "defaultSpriteID": 125,
+                            "spriteID": 142,
+                            "defaultSpriteID": 115,
                             "used": false
                         },
                         {
                             "elemEntity": 13,
                             "cardEntity": 18,
-                            "spriteID": 141,
-                            "defaultSpriteID": 126,
+                            "spriteID": 130,
+                            "defaultSpriteID": 116,
                             "used": false
                         },
                         {
                             "elemEntity": 14,
                             "cardEntity": 17,
                             "spriteID": 0,
-                            "defaultSpriteID": 129,
+                            "defaultSpriteID": 118,
                             "used": false
                         }
                     ],
