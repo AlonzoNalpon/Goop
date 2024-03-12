@@ -504,6 +504,16 @@ void GE::MONO::ScriptManager::ReloadAssembly()
   
 }
 
+void GE::MONO::ScriptManager::ReloadScripts()
+{
+  AddInternalCalls();
+  LoadAllMonoClass();
+  LoadAssembly();
+  ReloadAllScripts();
+  GE::Systems::EnemySystem* es = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::EnemySystem>();
+  es->ReloadTrees();
+}
+
 MonoAssembly* GE::MONO::ScriptManager::GetMonoAssembly()
 {
   return m_coreAssembly;

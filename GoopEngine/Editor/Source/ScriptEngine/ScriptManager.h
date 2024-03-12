@@ -119,7 +119,8 @@ namespace GE::MONO
 		************************************************************************/
 		static void LoadAllMonoClass();
 
-		static void ReloadAssembly();
+		static void ReloadAssembly(); 
+		static void ReloadScripts();
 		static void RebuildCS();
 
 		/*!*********************************************************************
