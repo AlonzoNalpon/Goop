@@ -16,6 +16,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Physics/CollisionSystem.h>
 #include <Systems/Enemy/EnemySystem.h>
 #include <Fmod/FmodSystem.h>
+#include <ScriptEngine/ScriptManager.h>
 
 using namespace GE;
 using namespace ECS;
@@ -78,6 +79,7 @@ void GE::Scenes::Scene::Unload()
 		}
 		ecs->DestroyEntity(entity);
 	}
+	GE::MONO::ScriptManager::GetInstance().ReloadAssembly();
 }
 
 void GE::Scenes::Scene::Free()
