@@ -213,6 +213,8 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static object GetScriptFromID(uint entity, string scriptName);
 
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetScript(uint entity, string scriptName);
 
     /*!*********************************************************************
 		\brief

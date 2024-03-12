@@ -175,7 +175,6 @@
     <Compile Include="Source\Transition\ChangeToOptions.cs" />
     <Compile Include="Source\Transition\ChangeToTutorial.cs" />
     <Compile Include="Source\Transition\ChangeToVictory.cs" />
-    <Compile Include="Source\UI\CardCounter.cs" />
     <Compile Include="Source\UI\FPS.cs" />
     <Compile Include="Source\UI\HealthBar.cs" />
     <Compile Include="Source\UI\PauseManager.cs" />

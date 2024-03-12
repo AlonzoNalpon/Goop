@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Smokescreen_Hover",
     "isActive": true,
-    "Version": 9,
+    "Version": 11,
     "Components": [
         {
             "Transform": {
@@ -32,6 +32,16 @@
                     }
                 },
                 {
+                    "BoxCollider": {
+                        "center": "{ 0, 0 }",
+                        "width": 214.0,
+                        "height": 300.0,
+                        "min": "{ -107, -150 }",
+                        "max": "{ 107, 150 }",
+                        "render": false
+                    }
+                },
+                {
                     "Sprite": {
                         "spriteData": {
                             "spriteSubData": {
@@ -50,11 +60,25 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
                         "spriteName": "CardBaseFront_Special",
                         "shouldRender": true
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
                     }
                 }
             ]
@@ -187,6 +211,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },

@@ -228,6 +228,8 @@ namespace GE::MONO
 	MonoObject* GetScriptFromID(GE::ECS::Entity entity, MonoString* scriptName);
 	MonoObject* GetScriptInstance(GE::ECS::Entity entityID, MonoString* scriptName);
 
+	void SetScript(GE::ECS::Entity entity, MonoString* scriptName);
+
 	/*!*********************************************************************
 	\brief
 		Gets the object instance of the game system script given the

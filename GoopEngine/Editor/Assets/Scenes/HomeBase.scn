@@ -48,6 +48,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -152,6 +158,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -340,6 +352,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -352,7 +370,7 @@
                     "scriptList": [
                         {
                             "scriptName": "SelectCard",
-                            "entityID": 1,
+                            "entityID": 7,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -415,6 +433,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -427,7 +451,7 @@
                     "scriptList": [
                         {
                             "scriptName": "ReturnFromQueue",
-                            "entityID": 2,
+                            "entityID": 8,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -546,6 +570,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -658,6 +688,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -670,7 +706,7 @@
                     "scriptList": [
                         {
                             "scriptName": "ReturnFromQueue",
-                            "entityID": 2,
+                            "entityID": 13,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -729,7 +765,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -50.0889, -65, 1 }",
+                    "pos": "{ -50.0891, -65, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 144.902, 98.5, 1 }",
@@ -789,6 +825,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -808,7 +850,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -1.50635e-12, 0 }",
+                    "pos": "{ 0, -8.52651e-14, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 200, 170, 0 }",
@@ -845,6 +887,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -857,7 +905,7 @@
                     "scriptList": [
                         {
                             "scriptName": "SelectCard",
-                            "entityID": 5,
+                            "entityID": 17,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -981,6 +1029,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -993,7 +1047,7 @@
                     "scriptList": [
                         {
                             "scriptName": "SelectCard",
-                            "entityID": 1,
+                            "entityID": 19,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -1056,6 +1110,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -1068,7 +1128,7 @@
                     "scriptList": [
                         {
                             "scriptName": "ReturnFromQueue",
-                            "entityID": 2,
+                            "entityID": 20,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -1160,7 +1220,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -58.7777, -80, 1 }",
+                    "pos": "{ -58.7773, -80, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -714.655, -358, 1 }",
@@ -1255,30 +1315,17 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "Menu_CardButton",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "CardCounter",
-                            "entityID": 25,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 4,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_cardID"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
                 }
             }
         ]
@@ -1322,30 +1369,17 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "Menu_CardButton",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "CardCounter",
-                            "entityID": 26,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 5,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_cardID"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
                 }
             }
         ]
@@ -1389,30 +1423,17 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "Menu_CardButton",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "CardCounter",
-                            "entityID": 27,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 6,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_cardID"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
                 }
             }
         ]
@@ -1456,30 +1477,17 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "Menu_CardButton",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "CardCounter",
-                            "entityID": 28,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 7,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_cardID"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
                 }
             }
         ]
@@ -1523,30 +1531,17 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "Menu_CardButton",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "CardCounter",
-                            "entityID": 29,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 8,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_cardID"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
                 }
             }
         ]
@@ -1659,6 +1654,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -1671,7 +1672,7 @@
                     "scriptList": [
                         {
                             "scriptName": "SelectCard",
-                            "entityID": 1,
+                            "entityID": 31,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -1734,6 +1735,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -1746,7 +1753,7 @@
                     "scriptList": [
                         {
                             "scriptName": "ReturnFromQueue",
-                            "entityID": 2,
+                            "entityID": 32,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -1805,7 +1812,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -51.1111, -65, 0 }",
+                    "pos": "{ -51.1109, -65, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -286.222, -341.5, 0 }",
@@ -1838,7 +1845,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -32.7111, -80, 0 }",
+                    "pos": "{ -32.7109, -80, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -265.982, -358, 0 }",
@@ -1969,6 +1976,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -1981,7 +1994,7 @@
                     "scriptList": [
                         {
                             "scriptName": "ReturnFromQueue",
-                            "entityID": 2,
+                            "entityID": 37,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -2040,7 +2053,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -40.8889, -65, 1 }",
+                    "pos": "{ -40.8891, -65, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 155.022, -341.5, 1 }",
@@ -2133,11 +2146,245 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "CardIcon_LeahSpecialBerserk",
                     "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Transition",
+        "ID": 42,
+        "Prefab": {
+            "name": "Transition",
+            "version": 3,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 42
+                },
+                {
+                    "key": 1,
+                    "value": 43
+                },
+                {
+                    "key": 2,
+                    "value": 44
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            43,
+            44
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 100 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 100 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "TransitionIn",
+        "ID": 43,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 42,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 400, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 400, 0, 100 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 1.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 2880,
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Transition",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "TransitionIn",
+                            "value": [
+                                {
+                                    "trans": "{ -2880, 0, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.3,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": false,
+                    "playing": "TransitionIn"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "TransitionOut",
+        "ID": 44,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 42,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 2880, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 2880, 0, 100 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 2880,
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Transition",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "TransitionOut",
+                            "value": [
+                                {
+                                    "trans": "{ -400, 0, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.3,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": false,
+                    "playing": ""
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": []
                 }
             }
         ]
@@ -2181,30 +2428,17 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "Menu_CardButton",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "CardCounter",
-                            "entityID": 48,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 9,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_cardID"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
                 }
             }
         ]
@@ -2421,6 +2655,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2477,6 +2717,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2510,7 +2756,29 @@
                         {
                             "scriptName": "HomeBase",
                             "entityID": 56,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        25,
+                                        26,
+                                        27,
+                                        28,
+                                        29,
+                                        48
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "CardIDs"
+                                    }
+                                },
+                                {
+                                    "data": "./Assets/GameData/PlayerStats.sav",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "playerSavePath"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }
@@ -2620,6 +2888,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2632,7 +2906,7 @@
                     "scriptList": [
                         {
                             "scriptName": "ReturnFromQueue",
-                            "entityID": 2,
+                            "entityID": 58,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -2691,7 +2965,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -51.1111, -67, 1 }",
+                    "pos": "{ -51.1109, -67, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -286.222, 96.3, 1 }",
@@ -2751,6 +3025,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2807,6 +3087,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2819,7 +3105,7 @@
                     "scriptList": [
                         {
                             "scriptName": "SelectCard",
-                            "entityID": 5,
+                            "entityID": 62,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -2872,6 +3158,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2918,6 +3210,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2974,6 +3272,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2986,7 +3290,7 @@
                     "scriptList": [
                         {
                             "scriptName": "SelectCard",
-                            "entityID": 6,
+                            "entityID": 65,
                             "scriptFieldInstList": []
                         }
                     ]

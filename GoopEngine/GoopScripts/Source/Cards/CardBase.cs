@@ -19,7 +19,7 @@ namespace GoopScripts.Cards
   {
     public enum CardID
     {
-      NO_CARD,
+      NO_CARD = 0,
 
       // Basic enemy cards
       BASIC_ATTACK,
