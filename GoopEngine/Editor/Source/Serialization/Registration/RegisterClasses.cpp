@@ -147,7 +147,7 @@ RTTR_REGISTRATION
     .property("multiply", &Graphics::SpriteSubData::multiply)
     ;
   rttr::registration::class_<Graphics::SpriteData>("SpriteData")
-    .property("spriteSubData", &Graphics::SpriteData::info)
+    .property("SpriteSubData", &Graphics::SpriteData::info)
     ;
 
   rttr::registration::class_<MONO::ScriptField>("ScriptField")
