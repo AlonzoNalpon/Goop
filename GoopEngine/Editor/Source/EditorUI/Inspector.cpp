@@ -2181,7 +2181,6 @@ namespace
 		float charSize = CalcTextSize("012345678901").x;
 		for (auto& [animationName, action] : list)
 		{
-			std::string temp{animationName};
 			if (TreeNodeEx(("Animation: " + animationName).c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 			{
 				SameLine();
@@ -2194,8 +2193,6 @@ namespace
 
 				Separator();
 				int i{};
-				int removeIndex{};
-				bool shouldRemove{ false };
 				for (auto& [target, scale, rot, spriteTint, spriteMult, textColor, duration, script] : action)
 				{
 					PushID((std::to_string(i)).c_str());
@@ -2236,17 +2233,12 @@ namespace
 					EndTable();
 					if (Button("Delete keyframe", { GetContentRegionMax().x, 20 }))
 					{
-						removeIndex = i;
-						shouldRemove = true;
+						action.erase(action.begin() + i);
 						PopID();
 						break;
 					}
 					PopID();
 					++i;
-				}
-				if (shouldRemove)
-				{
-					action.erase(action.begin() + removeIndex);
 				}
 
 				Separator();
