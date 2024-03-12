@@ -15,8 +15,8 @@ namespace GoopScripts.Source.Gameplay
   public class AnimationManager
   {
     public string m_idle, m_flinch, m_block, m_death, m_deathShield;
-    readonly Dictionary<CardBase.CardID, Tuple<string, double>> m_cardAnims;
-    readonly Dictionary<string, double> m_characterAnimTime;
+    Dictionary<CardBase.CardID, Tuple<string, double>> m_cardAnims;
+    Dictionary<string, double> m_characterAnimTime;
     
     double m_timer, m_timeToHit;
     public uint m_statsEntity;
@@ -54,7 +54,6 @@ namespace GoopScripts.Source.Gameplay
     public void AddAnimation(CardBase.CardID card, string anim)
     {
       m_cardAnims.Add(card, new Tuple<string, double>(anim, Utils.GetAnimationTime(anim)));
-
     }
 
     public void PlayAnimation(CardBase.CardID card, bool backToIdle = true)

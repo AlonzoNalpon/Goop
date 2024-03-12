@@ -189,7 +189,7 @@
                             "entityID": 0,
                             "scriptFieldInstList": [
                                 {
-                                    "data": "SS_Leah_Block_Shield",
+                                    "data": "SS_Leah_BlockShield",
                                     "type": "System.String",
                                     "scriptField": {
                                         "fieldName": "m_block"
