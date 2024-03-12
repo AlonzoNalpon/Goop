@@ -57,14 +57,19 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, GE::ECS::Entity  e
 
 void ScriptInstance::FreeScript()
 {
-  /*if (m_onCreateMethod)
+  if (m_onCreateMethod)
   {
     mono_free_method(m_onCreateMethod);
   }
   if (m_onUpdateMethod)
   {
     mono_free_method(m_onUpdateMethod);
-  }*/
+  }
+  m_onCreateMethod = nullptr;
+  m_onUpdateMethod = nullptr;
+  m_classInst = nullptr;
+  m_scriptClass = nullptr;
+  m_scriptFieldInstList.clear();
   mono_gchandle_free(m_gcHandle);
 }
 
@@ -300,7 +305,6 @@ void ScriptInstance::GetFields()
 	}
 }
 
-
 void ScriptInstance::SetAllFields()
 {
   GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
@@ -382,9 +386,8 @@ void ScriptInstance::SetEntityID(GE::ECS::Entity entityId)
 {
   m_entityID = entityId;
   MonoClass* parent = mono_class_get_parent(m_scriptClass);
-  if (std::string(mono_class_get_name(parent)) != "Entity") { return; }
-
-  MonoMethod*  setEntityIDMethod = mono_class_get_method_from_name(parent, "SetEntityID", 1);
+  if (!parent || std::string(mono_class_get_name(parent)) != "Entity") return;
+  MonoMethod* setEntityIDMethod = mono_class_get_method_from_name(parent, "SetEntityID", 1);
   std::vector<void*> params = { &entityId };
   mono_runtime_invoke(setEntityIDMethod, mono_gchandle_get_target(m_gcHandle), params.data(), nullptr);
 }

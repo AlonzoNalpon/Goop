@@ -86,7 +86,7 @@ void GE::Scenes::Scene::Unload()
 #ifndef IMGUI_DISABLE
 	if (!EditorGUI::PrefabEditor::IsEditingPrefab())
 #endif
-	GE::MONO::ScriptManager::GetInstance().ReloadAssembly();
+	GE::MONO::ScriptManager::GetInstance().ReloadScripts();
 }
 
 void GE::Scenes::Scene::Free()
