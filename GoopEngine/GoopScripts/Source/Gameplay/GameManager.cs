@@ -372,7 +372,6 @@ namespace GoopScripts.Gameplay
 
     void LoadGame(string filePath)
     {
-      Console.WriteLine("LoadGame");
       // Load player and enemy stats
       PlayerStatsInfo playerStats = Serialization.SerialReader.LoadPlayerState(filePath);
       LoadPlayer(playerStats);
@@ -383,11 +382,8 @@ namespace GoopScripts.Gameplay
 
       // Load their animations
       var charToAnims = Serialization.SerialReader.LoadAnimationMappings(GAME_DATA_DIR + "CharacterAnimations.dat");
-      Console.WriteLine("Load P Anim");
       m_playerStats.m_animManager.LoadAnimations(charToAnims[CharacterType.PLAYER]);
-      Console.WriteLine("Load E Anim");
       m_enemyStats.m_animManager.LoadAnimations(charToAnims[m_enemyStats.m_type]);
-      Console.WriteLine("After koad anim");
     }
 
     void LoadPlayer(PlayerStatsInfo statsInfo)

@@ -11,7 +11,6 @@ namespace GoopScripts.Button
   {
     static readonly double X_OFFSET = 200.0;
 
-    static public bool m_cardSelected;
     static bool m_isHovering = false;
     static uint m_cardInstance;
 
