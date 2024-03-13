@@ -125,9 +125,6 @@ namespace GE {
 
 			ScriptInstance(const std::string& scriptName, GE::ECS::Entity entityID);
 
-
-			ScriptInstance(const ScriptInstance& s);
-
 			void ReloadScript();
 
 			/*!*********************************************************************
