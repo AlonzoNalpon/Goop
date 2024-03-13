@@ -189,7 +189,7 @@ namespace GE::Assets
 			}
 			else
 			{
-				Debug::ErrorLogger::GetInstance().LogMessage("AssetManager: " + file.path().string() + " ignored on load");
+				//Debug::ErrorLogger::GetInstance().LogMessage("AssetManager: " + file.path().string() + " ignored on load");
 				//throw Debug::Exception<AssetManager>(Debug::LEVEL_INFO, ErrMsg(file.path().string() + " ignored on load"));
 			}
 		}
@@ -234,6 +234,7 @@ namespace GE::Assets
 		case AssetType::IMAGES:
 			FreeImages();
 			m_images.clear();
+			m_loadedSpriteData.clear();
 			fileExt = AssetManager::ImageFileExt;
 			ptrToMap = &m_images;
 			break;
@@ -285,6 +286,7 @@ namespace GE::Assets
 	{
 		FreeImages();
 		m_images.clear();
+		m_loadedSpriteData.clear();
 		Graphics::GraphicsEngine::GetInstance().FreeTexturesAndFonts();
 		m_audio.clear();
 		m_scenes.clear();
@@ -573,4 +575,79 @@ namespace GE::Assets
 			m_loadedSpriteData.emplace(std::make_pair(std::move(id), std::move(entry)));
 		}
 	}
+
+#ifndef IMGUI_DISABLE
+	void AssetManager::AddAssets(int pathCount, const char* paths[])
+	{
+		for (int i{}; i < pathCount; ++i)
+		{
+			std::filesystem::path path{ paths[i] };
+			std::string const currExt{ path.extension().string() }, fileName{ path.filename().string() };
+			if (path.string().starts_with(m_configData["Spritesheet Prefix"]))
+			{
+				std::string dir{ m_configData["Spritesheet Dir"] };
+				std::filesystem::copy(paths[i], dir);
+				dir += fileName;
+				m_images.emplace(GoopUtils::ExtractPrevFolderAndFileName(path.string()), dir);
+				LoadImageW(dir);
+			}
+			else if (ImageFileExt.find(currExt) != std::string::npos)	// image
+			{
+				std::string dir{ m_configData["Assets Dir"] };
+				std::filesystem::copy(paths[i], dir);
+				dir += fileName;
+				m_images.emplace(GoopUtils::ExtractPrevFolderAndFileName(path.string()), dir);
+				LoadImageW(dir);
+			}
+			else if (AudioFileExt.find(currExt) != std::string::npos)	// sound
+			{
+				std::string const& dir{ m_configData["Audio Dir"] };
+				std::filesystem::copy(paths[i], dir);
+				m_audio.emplace(path.stem().string(), dir + fileName);
+			}
+			else if (PrefabFileExt.find(currExt) != std::string::npos)	// prefab
+			{
+				std::string const& dir{ m_configData["Prefabs Dir"] };
+				std::filesystem::copy(paths[i], dir);
+				m_prefabs.emplace(path.stem().string(), dir + fileName);
+			}
+			else if (SceneFileExt.find(currExt) != std::string::npos)	// scene
+			{
+				std::string const& dir{ m_configData["Scenes Dir"] };
+				std::filesystem::copy(paths[i], dir);
+				m_scenes.emplace(path.stem().string(), dir + fileName);
+			}
+			else if (ShaderFileExt.find(currExt) != std::string::npos)
+			{
+				std::string const& dir{ m_configData["ShaderPath"] };
+				std::filesystem::copy(paths[i], dir);
+				m_shaders.emplace(path.filename().string(), dir + fileName);
+			}
+			else if (FontFileExt.find(currExt) != std::string::npos)
+			{
+				std::string const& dir{ m_configData["Fonts Dir"] };
+				std::filesystem::copy(paths[i], dir);
+				m_fonts.emplace(path.filename().string(), dir + fileName);
+			}
+			else  // we default to assets dir
+			{
+				std::string const& dir{ m_configData["Assets Dir"] };
+				std::filesystem::copy(paths[i], dir);
+			}
+		}
+	}
+
+	void AssetManager::AddAssets(std::vector<std::string> files)
+	{
+		std::vector<const char*> filesCStr{};
+		filesCStr.reserve(files.size());
+
+		for (std::string const& file : files)
+		{
+			filesCStr.push_back(file.c_str());
+		}
+
+		AddAssets(static_cast<int>(filesCStr.size()), filesCStr.data());
+	}
+#endif
 }		
