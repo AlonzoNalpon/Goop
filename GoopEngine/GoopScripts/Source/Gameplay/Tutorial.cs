@@ -97,7 +97,7 @@ namespace GoopScripts.Gameplay
 
         if (!gameStarted)
         {
-          LoadGame(GameManager.GAME_DATA_DIR + "TutorialStats.sav");
+          LoadGame(GAME_DATA_DIR + "TutorialStats.sav");
           for (int i = 0; i < 5; ++i)
           {
             m_playerStats.TutorialPlayerDraw();
