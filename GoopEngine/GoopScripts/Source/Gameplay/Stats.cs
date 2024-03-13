@@ -448,9 +448,9 @@ namespace GoopScripts.Gameplay
       Utils.PlaySoundF("SFX_CardDraw3", 1.0f, Utils.ChannelType.SFX, false);
     }
 
-    //public void QueueBuff(Buff buff)
-    //{
-    //  m_nextTurn.Enqueue(buff);
-    //}
+    public bool IsTurnSkipped()
+    {
+      return m_buffs.Buffs.Any(buff => buff.type == Buff.BuffType.SKIP_TURN);
+    }
   }
 }
