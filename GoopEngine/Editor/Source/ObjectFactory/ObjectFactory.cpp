@@ -199,11 +199,18 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Tween*>());
   }
-  else if (compType == rttr::type::get<Component::Scripts>())
+  else if (compType == rttr::type::get<Serialization::ProxyScripts>())
   {
-    Component::Scripts* scripts{ compVar.get_value<Component::Scripts*>() };
-    scripts->SetAllEntityID(entity);
-    ecs.AddComponent(entity, *scripts);
+    rttr::variant scriptsVar{ Component::Scripts{} };
+    Serialization::Deserializer::DeserializeScriptsComponent(scriptsVar, compVar.get_value<Serialization::ProxyScripts*>()->m_scriptData);
+    if (!scriptsVar.is_valid())
+    {
+      Debug::ErrorLogger::GetInstance().LogError("Trying to construct invalid script component for entity " + std::to_string(entity));
+      return;
+    }
+    Component::Scripts& scripts{ *scriptsVar.get_value<Component::Scripts*>() };
+    scripts.SetAllEntityID(entity);
+    ecs.AddComponent(entity, scripts);
   }
   else if (compType == rttr::type::get<Component::Draggable>())
   {
@@ -272,9 +279,9 @@ rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, rttr::type const
   {
     return ecs.HasComponent<Component::Velocity>(id) ? std::make_shared<Component::Velocity>(*ecs.GetComponent<Component::Velocity>(id)) : rttr::variant();
   }
-  else if (compType == rttr::type::get<Component::Scripts>())
+  else if (compType == rttr::type::get<Serialization::ProxyScripts>())
   {
-    return ecs.HasComponent<Component::Scripts>(id) ? std::make_shared<Component::Scripts>(*ecs.GetComponent<Component::Scripts>(id)) : rttr::variant();
+    return ecs.HasComponent<Serialization::ProxyScripts>(id) ? std::make_shared<Serialization::ProxyScripts>(*ecs.GetComponent<Serialization::ProxyScripts>(id)) : rttr::variant();
   }
   else if (compType == rttr::type::get<Component::Sprite>())
   {
@@ -371,7 +378,7 @@ void ObjectFactory::RemoveComponentFromEntity(ECS::Entity entity, rttr::type com
   {
     ecs.RemoveComponent<Tween>(entity);
   }
-  else if (compType == rttr::type::get<Component::Scripts>())
+  else if (compType == rttr::type::get<Serialization::ProxyScripts>())
   {
     ecs.RemoveComponent<Scripts>(entity);
   }

@@ -14,6 +14,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rttr/registration>
 #include <Serialization/Serializer.h>
 #include <Systems/Enemy/EnemySystem.h>
+#include <Serialization/ProxyScripts.h>
 
 using namespace GE;
 
@@ -157,6 +158,11 @@ RTTR_REGISTRATION
   rttr::registration::class_<Component::Scripts>("Scripts")
     .constructor<Component::Scripts::ScriptInstances const&>()
     .property("scriptList", &Component::Scripts::m_scriptList)
+    ;
+
+  rttr::registration::class_<Serialization::ProxyScripts>("ProxyScripts")
+    .constructor<rapidjson::Value const&>()
+    .property("scriptData", &Serialization::ProxyScripts::m_scriptData)
     ;
 
   rttr::registration::class_<Component::Game>("Game")

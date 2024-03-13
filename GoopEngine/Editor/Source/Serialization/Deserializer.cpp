@@ -739,21 +739,7 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
   }
   else if (type == rttr::type::get<Component::Scripts>())
   {
-    // get vector of script instances
-    rttr::variant scriptMap{ Component::Scripts::ScriptInstances{} };
-    rapidjson::Value::ConstMemberIterator listIter{ value.FindMember("scriptList") };
-    if (listIter == value.MemberEnd())
-    {
-      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"scriptList\" property in Script component");
-      return true;
-    }
-    DeserializeBasedOnType(scriptMap, listIter->value);
-    for (auto& s : scriptMap.get_value<Component::Scripts::ScriptInstances>())
-    {
-      s.SetAllFields();
-    }
-    compVar = type.create({ scriptMap.get_value<Component::Scripts::ScriptInstances>() });
-
+    compVar = rttr::type::get<ProxyScripts>().create({ value });
     return true;
   }
 
@@ -772,6 +758,34 @@ std::vector<SpriteData> Deserializer::DeserializeSpriteSheetData(std::string con
   DeserializeBasedOnType(ret, document);
 
   return ret.get_value<std::vector<SpriteData>>();
+}
+
+void Deserializer::DeserializeScriptsComponent(rttr::variant& object, std::string const& data)
+{
+  rapidjson::Document value;
+  value.Parse(data.c_str());
+  if (value.HasParseError())
+  {
+    Debug::ErrorLogger::GetInstance().LogError("Unable to deserialize scripts component");
+    object = rttr::variant{};
+    return;
+  }
+
+  // get vector of script instances
+  rttr::variant scriptMap{ Component::Scripts::ScriptInstances{} };
+  rapidjson::Value::ConstMemberIterator listIter{ value.FindMember("scriptList") };
+  if (listIter == value.MemberEnd())
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"scriptList\" property in Script component");
+    object = rttr::variant{};
+    return;
+  }
+  DeserializeBasedOnType(scriptMap, listIter->value);
+  for (auto& s : scriptMap.get_value<Component::Scripts::ScriptInstances>())
+  {
+    s.SetAllFields();
+  }
+  object = rttr::type::get<Component::Scripts>().create({scriptMap.get_value<Component::Scripts::ScriptInstances>()});
 }
 
 void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value)

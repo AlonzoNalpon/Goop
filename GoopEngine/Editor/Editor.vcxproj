@@ -109,6 +109,7 @@
     <ClCompile Include="Source\Prefabs\PrefabManager.cpp" />
     <ClCompile Include="Source\Prefabs\VariantPrefab.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptUtils.cpp" />
+    <ClCompile Include="Source\Serialization\ProxyScripts.cpp" />
     <ClCompile Include="Source\Serialization\Registration\RegisterEnumsAndFuncs.cpp" />
     <ClCompile Include="Source\Systems\AnimEvent\AnimEventsSystem.cpp" />
     <ClCompile Include="Source\Systems\Audio\AudioSystem.cpp" />
@@ -354,6 +355,7 @@
     <ClInclude Include="Source\Serialization\GooStream\GooStream.h" />
     <ClInclude Include="Source\Serialization\GooStream\IGooStream.h" />
     <ClInclude Include="Source\Serialization\JsonKeys.h" />
+    <ClInclude Include="Source\Serialization\ProxyScripts.h" />
     <ClInclude Include="Source\Serialization\Serializer.h" />
     <ClInclude Include="Source\Serialization\SpriteData.h" />
     <ClInclude Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.h" />
