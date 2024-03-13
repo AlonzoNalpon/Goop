@@ -14,6 +14,10 @@
     "EnemyAI",
     "Transform"
   ],
+  "PhysicsSystem": [
+    "Transform",
+    "Velocity"
+  ],
   "CollisionSystem": [
     "Transform",
     "BoxCollider"
@@ -36,10 +40,6 @@
     "Sprite",
     "Emitter"
   ],
-  "PhysicsSystem": [
-    "Transform",
-    "Velocity"
-  ],
   "PostRootTransformSystem": [],
   "SpriteAnimSystem": [
     "Sprite",
@@ -54,8 +54,7 @@
     "Transform"
   ],
   "AudioSystem": [
-    "Audio",
-    "Transform"
+    "Audio"
   ],
   "CardHolderSystem": [
     "CardHolder"
