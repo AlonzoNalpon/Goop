@@ -323,6 +323,15 @@ namespace GE::Assets
       The paths of the files
     ************************************************************************/
     void AddAssets(int pathCount, const char* paths[]);
+
+    /*!*********************************************************************
+    \brief
+      Copies the filepaths in the container into their respective 
+      directories in the assets folder via file extension filtering.
+    \param files
+      The container of filepahts
+    ************************************************************************/
+    void AddAssets(std::vector<std::string> files);
 #endif
 
 #include "AssetManager.tpp"

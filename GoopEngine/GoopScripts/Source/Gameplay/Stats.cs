@@ -33,7 +33,6 @@ using GoopScripts.UI;
 
 namespace GoopScripts.Gameplay
 {
- 
   public class Stats : Entity
   {
     public CharacterType m_type;
@@ -189,7 +188,7 @@ namespace GoopScripts.Gameplay
     /*!*********************************************************************
     \brief  
       Calculates total damage dealt and applies to character's stats.
-    Takes into account for buffs and debuffs.
+      Takes into account for buffs and debuffs.
     \param damage
       Total damage dealt BEFORE buffs and debuffs.
     ************************************************************************/

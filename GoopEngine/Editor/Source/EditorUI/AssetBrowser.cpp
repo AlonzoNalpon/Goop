@@ -52,14 +52,19 @@ void AssetBrowser::CreateContentDir()
 
 	if (Button("Reload Library"))
 	{
-		//  << "Reload Asset Browser" << std::endl;
-		GE::Debug::ErrorLogger::GetInstance().LogError("=== [ Reloading Asset Browser ] ===");
-
+		GE::Debug::ErrorLogger::GetInstance().LogMessage("=== [ Reloading Asset Browser ] ===");
 
 		Events::EventManager::GetInstance().Dispatch(Events::StartSceneEvent());
 		GoopUtils::ReloadFileData();
 		Events::EventManager::GetInstance().Dispatch(Events::StopSceneEvent());
 		GE::GSM::GameStateManager::GetInstance().Restart();
+	}
+	ImGui::SameLine();
+	if (Button("Add"))
+	{
+		const char* const initialDir{ "./Assets/Scenes" };
+		auto files{ SelectFilesFromExplorer("All Files (*.*), *.*", 1, initialDir)};
+		Assets::AssetManager::GetInstance().AddAssets(files);
 	}
 
 	assetsDirectory = assetManager.GetConfigData<std::string>("Assets Dir");
@@ -449,6 +454,42 @@ void AssetBrowser::OpenFileWithDefaultProgram(std::string const& filePath)
 std::string AssetBrowser::GetRelativeFilePath(std::string const& filepath, std::string const& rootDir)
 {
 	return "." + filepath.substr(filepath.find(rootDir) + rootDir.size());
+}
+
+std::vector<std::string> AssetBrowser::SelectFilesFromExplorer(const char* extensionsFilter, unsigned numFilters, const char* initialDir)
+{
+	OPENFILENAMEA fileName{};
+	CHAR size[MAX_PATH * 10]{};
+
+	ZeroMemory(&fileName, sizeof(fileName));
+	fileName.lStructSize = sizeof(fileName);
+	fileName.hwndOwner = NULL;
+	fileName.lpstrFile = size;
+	fileName.nMaxFile = sizeof(size);
+	fileName.lpstrFilter = extensionsFilter;
+	fileName.nFilterIndex = numFilters;			// number of filters
+	fileName.lpstrFileTitle = NULL;
+	fileName.nMaxFileTitle = 0;
+	fileName.lpstrInitialDir = initialDir;	// initial directory
+	fileName.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR | OFN_ALLOWMULTISELECT | OFN_EXPLORER;
+
+	if (GetOpenFileNameA(&fileName))
+	{
+		std::vector<std::string> files{};
+		char const* ptr{ fileName.lpstrFile };
+		
+		std::string const dir{ ptr + std::string("\\") };
+		ptr += strlen(ptr) + 1;
+		while (*ptr)
+		{
+			files.emplace_back(dir + ptr);
+			ptr += strlen(ptr) + 1;
+		}
+
+		return files;
+	}
+
+	throw GE::Debug::Exception<AssetBrowser>::Exception(GE::Debug::LEVEL_ERROR, ErrMsg("Unable to open file"));
 }
 
 std::string AssetBrowser::LoadFileFromExplorer(const char* extensionsFilter, unsigned numFilters, const char* initialDir)

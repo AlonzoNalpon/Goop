@@ -628,5 +628,18 @@ namespace GE::Assets
 			}
 		}
 	}
+
+	void AssetManager::AddAssets(std::vector<std::string> files)
+	{
+		std::vector<const char*> filesCStr{};
+		filesCStr.reserve(files.size());
+
+		for (std::string const& file : files)
+		{
+			filesCStr.push_back(file.c_str());
+		}
+
+		AddAssets(static_cast<int>(filesCStr.size()), filesCStr.data());
+	}
 #endif
 }		
