@@ -58,6 +58,7 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, GE::ECS::Entity  e
 
 ScriptInstance::ScriptInstance(const ScriptInstance& s) : m_scriptName{ s.m_scriptName }, m_ctorType{ s.m_ctorType }, m_entityID{ s.m_entityID }
 {
+  std::cout << "CopyCtor" << "\n";
   std::vector<void*> params = { &m_entityID };
   GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
   m_scriptClass = sm->GetScriptClass(m_scriptName);
