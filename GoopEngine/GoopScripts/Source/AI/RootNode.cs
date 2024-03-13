@@ -81,19 +81,14 @@ namespace GoopScripts.AI
 
         if (childResult == NODE_STATES.STATE_SUCCEED)
         {
-          // Console.WriteLine("CLEARED THE TREE!\n");
-          //Console.WriteLine("CHILD SUCCEED!\n");
           ResetNode();
         }
         else if (childResult == NODE_STATES.STATE_FAILED)
         {
-          //Console.WriteLine("CLEARED THE TREE!\n");
-          //Console.WriteLine("CHILD FAILED!\n");
           ResetNode();
         }
         else
         {
-          //Console.WriteLine("RootNode Waiting\n");
           SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
         }
       }
@@ -118,7 +113,6 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void ReturnFromChild(uint entityID)
     {
-      // Console.WriteLine("CLEARED THE TREE!\n");
       OnExit();
     }
 

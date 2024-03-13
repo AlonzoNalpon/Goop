@@ -328,7 +328,6 @@ namespace GoopScripts.Gameplay
       ************************************************************************/
     public void EndTurn()
     {
-      //Console.WriteLine("END TURN");
       isResolutionPhase = true;
       StartResolution();
     }

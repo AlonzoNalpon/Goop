@@ -39,7 +39,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
@@ -79,13 +78,10 @@ namespace GoopScripts.AI.Enemy.MineWorm
       List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
       if (EnemyStats.m_deckMngr.m_hand.Any(item => specialCards.Contains(item.Item1)))
       {
-        //Console.WriteLine("We have special card");
         OnSuccess();
       }
       else
       {
-         //Console.WriteLine("We have no special card");
-         
         OnFail();
       }
 

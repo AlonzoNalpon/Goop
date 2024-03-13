@@ -93,9 +93,6 @@ namespace GoopScripts.Gameplay
       {
         newCards[i] = card;
         m_drawOrder.Add(card);
-#if (DEBUG)
-        //Console.WriteLine("Added " + card.ToString() + " to deck");
-#endif
       }
 
       m_cards = newCards;
@@ -116,10 +113,6 @@ namespace GoopScripts.Gameplay
       if (Empty()) { return CardBase.CardID.NO_CARD; }
 
       CardBase.CardID cardDrawn = m_drawOrder.First();
-
-#if (DEBUG)
-      //Console.WriteLine("Draw Card: " + cardDrawn.ToString());
-#endif
 
       m_drawOrder.RemoveAt(0);
 

@@ -92,7 +92,6 @@ namespace GoopScripts.Button
     {
 			m_hovering = true;
       Utils.UpdateSprite(entity, "Button_Base_Hover");
-      Console.Error.WriteLine($"fuck u bryan: {m_buttonClrs.Count}");
       Vec4<int> clr = m_buttonClrs[BUTTON_COLORS.HIGHLIGHT_TEXT];
       Utils.SetTextColor(Utils.GetChildEntity(entity, "Text"), clr.X, clr.Y, clr.Z, clr.W);
     }
@@ -109,11 +108,8 @@ namespace GoopScripts.Button
 			m_hovering = false;
       if (!m_clicked)
       {
-        Console.Error.WriteLine("fuck1");
         Utils.UpdateSprite(entity, "Button_Base");
-        Console.Error.WriteLine("fuck2");
         Vec4<int> clr = m_buttonClrs[BUTTON_COLORS.DEFAULT_TEXT];
-        Console.Error.WriteLine("fuck3");
         Utils.SetTextColor(Utils.GetChildEntity(entity, "Text"), clr.X, clr.Y, clr.Z, clr.W);
       }
     }

@@ -57,19 +57,25 @@
                         "spriteSubData": {
                             "texCoords": {
                                 "x": 0.0,
-                                "y": 0.75
+                                "y": 0.0
                             },
                             "texDims": {
-                                "x": 0.3333333432674408,
-                                "y": 0.25
+                                "x": 1.0,
+                                "y": 1.0
                             },
-                            "width": 933,
-                            "height": 1000,
+                            "width": 0,
+                            "height": 0,
                             "tint": {
                                 "r": 1.0,
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -98,11 +104,17 @@
                                         "b": 0.0,
                                         "a": 0.5
                                     },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "textColor": {
                                         "r": 0.0,
-                                        "g": 0.3823530673980713,
+                                        "g": 0.3843137323856354,
                                         "b": 1.0,
-                                        "a": 0.0
+                                        "a": 1.0
                                     },
                                     "duration": 1.0,
                                     "animationEvent": ""
@@ -116,6 +128,12 @@
                                         "g": 0.7647058963775635,
                                         "b": 1.0,
                                         "a": 0.5
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -135,6 +153,12 @@
                                         "g": 1.0,
                                         "b": 0.0,
                                         "a": 0.5
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -185,6 +209,122 @@
                             "second": "Demo"
                         }
                     ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 2",
+        "ID": 2,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 360, 300, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 360, 300, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 386,
+                            "height": 500,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "TeamLogo_Icon",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "MyLogoTest",
+                            "value": [
+                                {
+                                    "trans": "{ 360, 300, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.0,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ 400, 300, 0 }",
+                                    "scale": "{ 0.5, 0.5, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "duration": 1.0,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": true,
+                    "playing": "MyLogoTest"
                 }
             }
         ]

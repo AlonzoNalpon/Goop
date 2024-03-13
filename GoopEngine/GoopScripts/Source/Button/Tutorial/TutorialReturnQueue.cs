@@ -45,7 +45,6 @@ namespace GoopScripts.Button
       uint cardId = Utils.GetParentEntity(entity);
       if (!player.m_deckMngr.IsEntityInQueue(cardId))
       {
-        //Console.WriteLine("Card Not In Queue!");
         return;
       }
 

@@ -346,12 +346,11 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
     if (iter == value.MemberEnd())
     {
       std::ostringstream oss{};
-      oss << "Unable to find " << prop.get_name().to_string()
-        << " property in " << object.get_type().get_name().to_string();
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-#ifdef _DEBUG
-      std::cout << oss.str() << "\n";
-#endif
+//      oss << "Unable to find " << prop.get_name().to_string()
+//        << " property in " << object.get_type().get_name().to_string();
+//#ifdef _DEBUG
+//      std::cout << oss.str() << "\n";
+//#endif
       continue;
     }
 
@@ -636,10 +635,10 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
             rapidjson::Value::ConstMemberIterator iter{ compJson.FindMember(prop.get_name().to_string().c_str()) };
             if (iter == compJson.MemberEnd())
             {
-              std::ostringstream oss{};
-              oss << "Unable to find " << prop.get_name().to_string()
-                << " property in " << compType.get_name().to_string();
-              GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+              //std::ostringstream oss{};
+              //oss << "Unable to find " << prop.get_name().to_string()
+              //  << " property in " << compType.get_name().to_string();
+              //GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
               continue;
             }
 

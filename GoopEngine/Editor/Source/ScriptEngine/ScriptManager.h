@@ -119,7 +119,8 @@ namespace GE::MONO
 		************************************************************************/
 		static void LoadAllMonoClass();
 
-		static void ReloadAssembly();
+		static void ReloadAssembly(); 
+		static void ReloadScripts();
 		static void RebuildCS();
 
 		/*!*********************************************************************
@@ -226,6 +227,8 @@ namespace GE::MONO
 
 	MonoObject* GetScriptFromID(GE::ECS::Entity entity, MonoString* scriptName);
 	MonoObject* GetScriptInstance(GE::ECS::Entity entityID, MonoString* scriptName);
+
+	void SetScript(GE::ECS::Entity entity, MonoString* scriptName);
 
 	/*!*********************************************************************
 	\brief

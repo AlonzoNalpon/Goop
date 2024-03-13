@@ -104,6 +104,7 @@
     <Compile Include="Source\Button\Pause\MenuResume.cs" />
     <Compile Include="Source\Button\Pause\OptionSlider.cs" />
     <Compile Include="Source\Button\QuitGame.cs" />
+    <Compile Include="Source\Button\RewardButton.cs" />
     <Compile Include="Source\Button\RewardCard.cs" />
     <Compile Include="Source\Button\SurrenderToMainMenu.cs" />
     <Compile Include="Source\Button\SwitchCutScenes.cs" />
@@ -175,7 +176,6 @@
     <Compile Include="Source\Transition\ChangeToOptions.cs" />
     <Compile Include="Source\Transition\ChangeToTutorial.cs" />
     <Compile Include="Source\Transition\ChangeToVictory.cs" />
-    <Compile Include="Source\UI\CardCounter.cs" />
     <Compile Include="Source\UI\FPS.cs" />
     <Compile Include="Source\UI\HealthBar.cs" />
     <Compile Include="Source\UI\PauseManager.cs" />

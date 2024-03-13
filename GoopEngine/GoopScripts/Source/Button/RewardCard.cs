@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoopScripts.Cards;
 using GoopScripts.Gameplay;
 using GoopScripts.Mono;
 
 namespace GoopScripts.Button
 {
-  public class RewardCard : TextButtonBase
+  public class RewardCard : IButtonClick, IButtonHoverEnter, IButtonHoverExit
   {
-
     static public uint m_cardHover;
+    // public CardBase.CardID m_type = CardBase.CardID.NO_CARD;
     uint box;
     bool selected = false;
 
     public RewardCard() { }
 
-    public override void OnClick(uint entity)
+    public virtual void OnClick(uint entity)
     {
       if (selected)
       {
@@ -29,13 +30,13 @@ namespace GoopScripts.Button
       }
 
       if (RewardManager.m_selectedCards.Count() >= 3)
-      { 
+      {
         return;
       }
 
       if (!selected)
       {
-        box = Utils.CreateObject("Box", new Vec3<double>(), new Vec3<double>(), new Vec3<double>(), entity);
+        box = Utils.CreateObject("Box", new Vec3<double>(0, 0, 1), new Vec3<double>(), new Vec3<double>(), entity);
         Utils.UpdateSprite(box, "CardSelected");
         Utils.SetScale(box, new Vec3<double>(1, 1, 1));
         Utils.SetIsActiveEntity(m_cardHover, false);
@@ -45,19 +46,29 @@ namespace GoopScripts.Button
       selected = !selected;
     }
 
-    public override void OnHoverEnter(uint entity)
+    public virtual void OnHoverEnter(uint entity)
     {
+      if (RewardManager.m_selectedCards.Count() >= 3)
+      {
+        return;
+      }
+
       if (!selected)
       {
         Vec3<double> pos = Utils.GetWorldPosition(entity);
-        pos.Z -= 5.0;
+        // pos.Z -= 5.0;
         Utils.SetPosition(m_cardHover, pos);
         Utils.SetIsActiveEntity(m_cardHover, true);
       }
     }
 
-    public override void OnHoverExit(uint entity)
+    public virtual void OnHoverExit(uint entity)
     {
+      if (RewardManager.m_selectedCards.Count() >= 3)
+      {
+        return;
+      }
+
       if (!selected)
       {
         Utils.SetIsActiveEntity(m_cardHover, false);

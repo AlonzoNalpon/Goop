@@ -208,11 +208,14 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySoundF", GE::MONO::PlaySoundF);
   mono_add_internal_call("GoopScripts.Mono.Utils::StopSound", GE::MONO::StopSound);
   mono_add_internal_call("GoopScripts.Mono.Utils::StopChannel", GE::MONO::StopChannel);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PauseChannel", +[](GE::fMOD::FmodSystem::ChannelType type, bool paused) 
+    {GE::fMOD::FmodSystem::GetInstance().SetChannelPause(type, paused); });
   mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScript", GE::MONO::GetScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptFromID", GE::MONO::GetScriptFromID);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetGameSysScript", GE::MONO::GetGameSysScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptInstanceGetScriptInstance", GE::MONO::GetScriptInstance);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetScript", GE::MONO::SetScript);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToHandState", GE::MONO::SetCardToHandState);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToQueuedState", GE::MONO::SetCardToQueuedState);
@@ -259,6 +262,7 @@ void GE::MONO::ScriptManager::LoadAssembly()
 void GE::MONO::ScriptManager::LoadAllMonoClass()
 {
   m_monoClassMap.clear();
+  m_allScriptNames.clear();
   MonoImage* image = mono_assembly_get_image(m_coreAssembly);
   const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
   int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
@@ -502,6 +506,16 @@ void GE::MONO::ScriptManager::ReloadAssembly()
   ReloadAllScripts();
   es->ReloadTrees();
   
+}
+
+void GE::MONO::ScriptManager::ReloadScripts()
+{
+  AddInternalCalls();
+  LoadAllMonoClass();
+  LoadAssembly();
+  ReloadAllScripts();
+  GE::Systems::EnemySystem* es = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::EnemySystem>();
+  es->ReloadTrees();
 }
 
 MonoAssembly* GE::MONO::ScriptManager::GetMonoAssembly()
@@ -881,6 +895,8 @@ ScriptField GE::MONO::ScriptManager::GetScriptField(std::string className, std::
   return m_monoClassMap[className].m_ScriptFieldMap[fieldName];
 }
 
+
+
 //rttr::variant  GE::MONO::ScriptManager::GetScriptFieldInst(std::string const& listType) {
 //  if (listType == "System.Int32")
 //  {
@@ -1015,6 +1031,15 @@ MonoObject* GE::MONO::GetScriptFromID(GE::ECS::Entity entity, MonoString* script
   }
 
   return scriptInst->m_classInst;
+}
+
+void GE::MONO::SetScript(GE::ECS::Entity entity, MonoString* scriptName)
+{
+  GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
+  Component::Scripts comp;
+  ecs.AddComponent<GE::Component::Scripts>(entity, comp);
+  GE::Component::Scripts* allScripts = ecs.GetComponent<Component::Scripts>(entity);
+  allScripts->m_scriptList.emplace_back(MonoStringToSTD(scriptName), entity);
 }
 
 MonoObject* GE::MONO::GetGameSysScript(MonoString* gameSysEntityName)
