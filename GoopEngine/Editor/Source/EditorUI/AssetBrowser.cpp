@@ -116,7 +116,7 @@ void AssetBrowser::CreateContentView()
 
 	AssetManager& assetManager = AssetManager::GetInstance();
 	BeginGroup();
-	for (const auto& file : std::filesystem::recursive_directory_iterator(m_currDir))
+	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
 	{
 		if (!file.is_regular_file())
 		{
@@ -126,6 +126,7 @@ void AssetBrowser::CreateContentView()
 		std::string const extension{ file.path().extension().string() };
 
 		std::string const path = file.path().filename().string();
+		std::string const truncatedPath = path.size() > 16 ? path.substr(0, 13) + "..." : path;
 		const char* pathCStr = path.c_str();
 
 		if (assetManager.ImageFileExt.find(extension) != std::string::npos)
@@ -149,10 +150,10 @@ void AssetBrowser::CreateContentView()
 				{
 					ImGui::SetDragDropPayload("ASSET_BROWSER_IMAGE", pathCStr, strlen(pathCStr) + 1);
 					Image(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { 50, 50 }, { 0, 1 }, { 1, 0 });
-					Text(pathCStr);
+					Text(truncatedPath.c_str());
 					ImGui::EndDragDropSource();
 				}
-				Text(pathCStr);
+				Text(truncatedPath.c_str());
 				ImGui::PopStyleColor();
 				float remainingsize = GetContentRegionMax().x - (GetCursorPosX() + imgsize.x);
 				EndGroup();
