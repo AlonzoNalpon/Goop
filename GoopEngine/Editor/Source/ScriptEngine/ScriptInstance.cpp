@@ -55,19 +55,6 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, GE::ECS::Entity  e
   m_onCreateMethod = mono_class_get_method_from_name(m_scriptClass, "OnCreate", 0);
 }
 
-
-ScriptInstance::ScriptInstance(const ScriptInstance& s) : m_scriptName{ s.m_scriptName }, m_ctorType{ s.m_ctorType }, m_entityID{ s.m_entityID }
-{
-  std::vector<void*> params = { &m_entityID };
-  GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
-  m_scriptClass = sm->GetScriptClass(m_scriptName);
-  m_classInst = sm->InstantiateClass(m_scriptName.c_str(), params);
-  m_onUpdateMethod = mono_class_get_method_from_name(m_scriptClass, "OnUpdate", 1);
-  m_gcHandle = mono_gchandle_new(m_classInst, true);
-  GetFields();
-  m_onCreateMethod = mono_class_get_method_from_name(m_scriptClass, "OnCreate", 0);
-}
-
 void ScriptInstance::FreeScript()
 {
   if (m_onCreateMethod)
