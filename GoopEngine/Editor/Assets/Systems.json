@@ -14,6 +14,10 @@
     "EnemyAI",
     "Transform"
   ],
+  "CollisionSystem": [
+    "Transform",
+    "BoxCollider"
+  ],
   "ButtonSystem": [
     "GE_Button",
     "BoxCollider"
@@ -22,10 +26,6 @@
     "GE_Button",
     "BoxCollider",
     "Scripts"
-  ],
-  "CollisionSystem": [
-    "Transform",
-    "BoxCollider"
   ],
   "DraggableObjectSystem": [
     "Transform",
