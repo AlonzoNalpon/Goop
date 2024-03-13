@@ -125,35 +125,41 @@ void AssetBrowser::CreateContentView()
 
 		if (assetManager.ImageFileExt.find(extension) != std::string::npos)
 		{
-			ImTextureID img = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
-			BeginGroup();
-			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-			ImVec2 imgsize{ 100, 100 };
-			ImGui::ImageButton(img, imgsize, { 0, 1 }, { 1, 0 });
-			if (IsItemClicked())
+			try
 			{
-				ImGuiHelper::SetSelectedAsset(GoopUtils::ExtractPrevFolderAndFileName(file.path().string()));
-			}
-			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
-			{
-				ImGui::SetWindowFocus("Asset Preview");
-			}
-			if (ImGui::BeginDragDropSource())
-			{
-				ImGui::SetDragDropPayload("ASSET_BROWSER_IMAGE", pathCStr, strlen(pathCStr) + 1);
-				Image(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { 50, 50 }, { 0, 1 }, { 1, 0 });
+				ImTextureID img = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
+				BeginGroup();
+				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+				ImVec2 imgsize{ 100, 100 };
+				ImGui::ImageButton(img, imgsize, { 0, 1 }, { 1, 0 });
+				if (IsItemClicked())
+				{
+					ImGuiHelper::SetSelectedAsset(GoopUtils::ExtractPrevFolderAndFileName(file.path().string()));
+				}
+				if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
+				{
+					ImGui::SetWindowFocus("Asset Preview");
+				}
+				if (ImGui::BeginDragDropSource())
+				{
+					ImGui::SetDragDropPayload("ASSET_BROWSER_IMAGE", pathCStr, strlen(pathCStr) + 1);
+					Image(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { 50, 50 }, { 0, 1 }, { 1, 0 });
+					Text(pathCStr);
+					ImGui::EndDragDropSource();
+				}
 				Text(pathCStr);
-
-				ImGui::EndDragDropSource();
-			}
-			Text(pathCStr);
-			ImGui::PopStyleColor();
-			float remainingsize = GetContentRegionMax().x - (GetCursorPosX() + imgsize.x);
-			EndGroup();
+				ImGui::PopStyleColor();
+				float remainingsize = GetContentRegionMax().x - (GetCursorPosX() + imgsize.x);
+				EndGroup();
 			
-			if (remainingsize > imgsize.x)
+				if (remainingsize > imgsize.x)
+				{
+					SameLine();
+				}
+			}
+			catch (GE::Debug::IExceptionBase&)
 			{
-				SameLine();
+				continue;
 			}
 		}
 		else if (assetManager.PrefabFileExt.find(extension) != std::string::npos)

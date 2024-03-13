@@ -68,8 +68,9 @@ namespace GE::Assets
 	{
 		if (m_loadedImagesIDLookUp.find(id) == m_loadedImagesIDLookUp.end())
 		{
-			GE::Debug::ErrorLogger::GetInstance().LogError("Didn't find image data with this ID: " + id);
-			return m_loadedImagesIDLookUp[id];
+			throw GE::Debug::Exception<AssetManager>(GE::Debug::EXCEPTION_LEVEL::LEVEL_ERROR, ErrMsg("Didn't find image data with this ID: " + id));
+			//GE::Debug::ErrorLogger::GetInstance().LogError("Didn't find image data with this ID: " + id);
+			//return m_loadedImagesIDLookUp[id];
 		}
 
 		return m_loadedImagesIDLookUp[id];
@@ -79,12 +80,12 @@ namespace GE::Assets
 	{
 		if (m_loadedImagesStringLookUp.find(GoopUtils::ExtractPrevFolderAndFileName(name)) == m_loadedImagesStringLookUp.end())
 		{
-			GE::Debug::ErrorLogger::GetInstance().LogError("Didn't find ID with this key: " + name);
-			return m_loadedImagesStringLookUp[GoopUtils::ExtractPrevFolderAndFileName(name)];
+			throw GE::Debug::Exception<AssetManager>(GE::Debug::EXCEPTION_LEVEL::LEVEL_ERROR, ErrMsg("Didn't find ID with this key: " + name));
+			//GE::Debug::ErrorLogger::GetInstance().LogError("Didn't find ID with this key: " + name);
+			//return m_loadedImagesStringLookUp[GoopUtils::ExtractPrevFolderAndFileName(name)];
 		}
 
 		return m_loadedImagesStringLookUp[GoopUtils::ExtractPrevFolderAndFileName(name)];
-
 	}
 
 	std::string AssetManager::GetScene(std::string const& sceneName)
@@ -463,7 +464,14 @@ namespace GE::Assets
 		// Load all images in m_images
 		for (std::pair<std::string, std::string> const& image : m_images)
 		{
-			LoadImageW(image.second);
+			try
+			{
+				LoadImageW(image.second);
+			}
+			catch (GE::Debug::IExceptionBase& e)
+			{
+				e.LogSource();
+			}
 		}
 	}
 
