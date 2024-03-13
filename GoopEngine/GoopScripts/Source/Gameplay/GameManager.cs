@@ -170,9 +170,18 @@ namespace GoopScripts.Gameplay
       m_enemyStats.EndOfTurn();
       m_playerStats.Draw();
       m_enemyStats.Draw();
-      StartAI(m_enemyStats.entityID);
+      if (!m_enemyStats.IsTurnSkipped())
+      {
+        Console.WriteLine("Enemy queue");
+        StartAI(m_enemyStats.entityID);
+      }
 			Button.EndTurn btn = (Button.EndTurn)Utils.GetScript("Button_EndTurn", "EndTurn");
       btn.Enable();
+      if (m_playerStats.IsTurnSkipped())
+      {
+        Console.WriteLine("Player skipped");
+        EndTurn();
+      }
     }
 
 
@@ -312,8 +321,8 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
       \brief
-        This function is triggered t the satrt of resolution phase. This reset the variables
-        used when resolving the resolution phase
+        This function is triggered t the satrt of resolution phase. 
+        This reset the variables used when resolving the resolution phase
       ************************************************************************/
     private void StartResolution()
     {
@@ -322,10 +331,10 @@ namespace GoopScripts.Gameplay
 
 
     /*!*********************************************************************
-      \brief
-        This funciton is triggered when the user clicks the end turn button. THis function
-        starts the resolution phase
-      ************************************************************************/
+    \brief
+      This funciton is triggered when the user clicks the end turn button. 
+      This function starts the resolution phase
+    ************************************************************************/
     public void EndTurn()
     {
       isResolutionPhase = true;
