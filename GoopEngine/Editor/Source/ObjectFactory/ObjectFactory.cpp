@@ -281,7 +281,7 @@ rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, rttr::type const
   }
   else if (compType == rttr::type::get<Serialization::ProxyScripts>())
   {
-    return ecs.HasComponent<Serialization::ProxyScripts>(id) ? std::make_shared<Serialization::ProxyScripts>(*ecs.GetComponent<Serialization::ProxyScripts>(id)) : rttr::variant();
+    return ecs.HasComponent<Component::Scripts>(id) ? std::make_shared<Component::Scripts>(*ecs.GetComponent<Component::Scripts>(id)) : rttr::variant();
   }
   else if (compType == rttr::type::get<Component::Sprite>())
   {

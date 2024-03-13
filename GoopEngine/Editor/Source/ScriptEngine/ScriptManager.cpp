@@ -405,10 +405,14 @@ void GE::MONO::ScriptManager::CSReloadEvent(const std::string& path, const filew
 {
   if (!m_CSReloadPending && change_type == filewatch::Event::modified && !m_rebuildCS)
   {
+#ifdef _DEBUG
     std::cout << "RELOAD CS\n";
+#endif
     m_CSReloadPending = true;
     auto gsm = &GE::GSM::GameStateManager::GetInstance();
+#ifdef _DEBUG
     std::cout << "Lets rebuild\n";
+#endif
     m_rebuildCS = true;
     gsm->SubmitToMainThread([]()
       {
@@ -453,7 +457,10 @@ std::string GetVisualStudioVersion() {
 
 void GE::MONO::ScriptManager::RebuildCS()
 {
+
+#ifdef _DEBUG
   std::cout << "REBUILDCS\n";
+#endif
   m_CSReloadPending = false;
   if (m_rebuildCS)
   {
@@ -471,16 +478,22 @@ void GE::MONO::ScriptManager::RebuildCS()
 
     std::string cdCMD = "\"" + csbat + "\" ";
     std::string command = cdCMD + arguments;
+#ifdef _DEBUG
     std::cout << command.c_str() << "\n";
+#endif
     int result = system(command.c_str());
     m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
     m_CSReloadPending = false;
 
     if (result == 0) {
+#ifdef _DEBUG
       std::cout << "RUN Successfuly\n";
+#endif
     }
     else {
+#ifdef _DEBUG
       std::cout << "DIDNT RUN Successfuly\n";
+#endif
     }
   }
 }
