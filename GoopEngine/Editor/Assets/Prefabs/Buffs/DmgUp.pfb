@@ -1,7 +1,7 @@
 {
     "Name": "DmgUp",
     "isActive": true,
-    "Version": 6,
+    "Version": 7,
     "Components": [
         {
             "Transform": {
@@ -124,56 +124,6 @@
                     }
                 }
             ]
-        },
-        {
-            "ID": 3,
-            "isActive": true,
-            "Name": "Backing",
-            "Parent": 1,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -10.2133, 1.59698, -10 }",
-                        "scale": "{ 49.2028, 22.3514, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -10.2133, 1.59698, -10 }",
-                        "worldScale": "{ 49.2028, 22.3514, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Sprite": {
-                        "spriteData": {
-                            "spriteSubData": {
-                                "texCoords": {
-                                    "x": 0.0,
-                                    "y": 0.0
-                                },
-                                "texDims": {
-                                    "x": 1.0,
-                                    "y": 1.0
-                                },
-                                "width": 2,
-                                "height": 2,
-                                "tint": {
-                                    "r": 0.16176468133926392,
-                                    "g": 0.16176468133926392,
-                                    "b": 0.16176468133926392,
-                                    "a": 1.0
-                                },
-                                "multiply": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 0.5607843399047852
-                                }
-                            }
-                        },
-                        "spriteName": "UI_Health_Red",
-                        "shouldRender": true
-                    }
-                }
-            ]
         }
     ],
     "Removed Components": [
@@ -181,6 +131,16 @@
             "id": 2,
             "type": "void",
             "version": 4
+        },
+        {
+            "id": 3,
+            "type": "Transform",
+            "version": 7
+        },
+        {
+            "id": 3,
+            "type": "Sprite",
+            "version": 7
         }
     ]
 }

@@ -1,7 +1,7 @@
 {
     "Name": "Skipped",
     "isActive": true,
-    "Version": 7,
+    "Version": 9,
     "Components": [
         {
             "Transform": {
@@ -97,56 +97,6 @@
         {
             "ID": 2,
             "isActive": true,
-            "Name": "Backing",
-            "Parent": 1,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -2.86865e-07, -3.35693e-07, 0 }",
-                        "scale": "{ 58.6856, 22.3514, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -2.86865e-07, -3.35693e-07, 0 }",
-                        "worldScale": "{ 58.6856, 22.3514, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Sprite": {
-                        "spriteData": {
-                            "spriteSubData": {
-                                "texCoords": {
-                                    "x": 0.0,
-                                    "y": 0.0
-                                },
-                                "texDims": {
-                                    "x": 1.0,
-                                    "y": 1.0
-                                },
-                                "width": 2,
-                                "height": 2,
-                                "tint": {
-                                    "r": 0.16176468133926392,
-                                    "g": 0.16176468133926392,
-                                    "b": 0.16176468133926392,
-                                    "a": 1.0
-                                },
-                                "multiply": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 0.5607843399047852
-                                }
-                            }
-                        },
-                        "spriteName": "UI_Health_Red",
-                        "shouldRender": true
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 3,
-            "isActive": true,
             "Name": "Text",
             "Parent": 1,
             "Components": [
@@ -174,6 +124,18 @@
                     }
                 }
             ]
+        }
+    ],
+    "Removed Components": [
+        {
+            "id": 2,
+            "type": "void",
+            "version": 8
+        },
+        {
+            "id": 2,
+            "type": "void",
+            "version": 8
         }
     ]
 }
