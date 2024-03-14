@@ -24,6 +24,7 @@ using GoopScripts.Button;
 using System.IO;
 using GoopScripts.Serialization;
 using GoopScripts.UI;
+using GoopScripts.Demo;
 
 namespace GoopScripts.Gameplay
 {

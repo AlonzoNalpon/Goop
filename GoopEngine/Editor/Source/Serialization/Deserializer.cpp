@@ -702,7 +702,7 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
     {
       compVar = type.create({ sprDataVar.get_value<Graphics::SpriteData>(), std::string(value["spriteName"].GetString()), shouldRender });
     }
-    catch (Debug::IExceptionBase& e)
+    catch (Debug::IExceptionBase&)
     {
       std::ostringstream oss{};
       //oss << "Unable to load texture: " << value["spriteName"].GetString() << " | " << e.LogSource();
