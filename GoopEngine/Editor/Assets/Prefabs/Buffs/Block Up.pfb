@@ -1,7 +1,7 @@
 {
     "Name": "Block Up",
-    "isActive": true,
-    "Version": 3,
+    "isActive": false,
+    "Version": 4,
     "Components": [
         {
             "Transform": {
@@ -36,7 +36,19 @@
                             "y": 1.0
                         },
                         "width": 35,
-                        "height": 35
+                        "height": 35,
+                        "tint": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 0.0
+                        },
+                        "multiply": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        }
                     }
                 },
                 "spriteName": "Block Up",
@@ -85,44 +97,6 @@
         {
             "ID": 2,
             "isActive": true,
-            "Name": "Backing",
-            "Parent": 1,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ 0, 0, 0 }",
-                        "scale": "{ 0.59, 0.345365, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 0, 0 }",
-                        "worldScale": "{ 0.59, 0.345365, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Sprite": {
-                        "spriteData": {
-                            "spriteSubData": {
-                                "texCoords": {
-                                    "x": 0.0,
-                                    "y": 0.0
-                                },
-                                "texDims": {
-                                    "x": 1.0,
-                                    "y": 1.0
-                                },
-                                "width": 220,
-                                "height": 140
-                            }
-                        },
-                        "spriteName": "TempBacking",
-                        "shouldRender": true
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 3,
-            "isActive": true,
             "Name": "Text",
             "Parent": 1,
             "Components": [
@@ -150,6 +124,13 @@
                     }
                 }
             ]
+        }
+    ],
+    "Removed Components": [
+        {
+            "id": 2,
+            "type": "Transform",
+            "version": 4
         }
     ]
 }

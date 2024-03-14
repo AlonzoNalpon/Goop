@@ -1,7 +1,7 @@
 {
     "Name": "Skipped",
-    "isActive": true,
-    "Version": 4,
+    "isActive": false,
+    "Version": 6,
     "Components": [
         {
             "Transform": {
@@ -36,7 +36,19 @@
                             "y": 1.0
                         },
                         "width": 35,
-                        "height": 35
+                        "height": 35,
+                        "tint": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 0.0
+                        },
+                        "multiply": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        }
                     }
                 },
                 "spriteName": "Skipped",
@@ -90,11 +102,11 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, 0, 0 }",
-                        "scale": "{ 0.59, 0.345365, 1 }",
+                        "pos": "{ -2.86865e-07, -3.35693e-07, 0 }",
+                        "scale": "{ 58.6856, 22.3514, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 0, 0 }",
-                        "worldScale": "{ 0.59, 0.345365, 1 }",
+                        "worldPos": "{ -2.86865e-07, -3.35693e-07, 0 }",
+                        "worldScale": "{ 58.6856, 22.3514, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
@@ -110,11 +122,23 @@
                                     "x": 1.0,
                                     "y": 1.0
                                 },
-                                "width": 220,
-                                "height": 140
+                                "width": 2,
+                                "height": 2,
+                                "tint": {
+                                    "r": 0.16176468133926392,
+                                    "g": 0.16176468133926392,
+                                    "b": 0.16176468133926392,
+                                    "a": 1.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.5607843399047852
+                                }
                             }
                         },
-                        "spriteName": "TempBacking",
+                        "spriteName": "UI_Health_Red",
                         "shouldRender": true
                     }
                 }

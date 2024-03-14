@@ -236,6 +236,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetEntityName", GE::MONO::SetEntityName);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetEntityName", GE::MONO::GetEntityName);
   mono_add_internal_call("GoopScripts.Mono.Utils::DestroyEntity", GE::MONO::DestroyEntity);
+  mono_add_internal_call("GoopScripts.Mono.Utils::DestroyEntityByName", GE::MONO::DestroyEntityByName);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetIsActiveEntity", GE::MONO::GetIsActiveEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::SpawnPrefab", GE::MONO::SpawnPrefab);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectWidth", GE::MONO::GetObjectWidth);
@@ -771,6 +772,33 @@ void GE::MONO::DestroyEntity(GE::ECS::Entity entity)
   ecs.DestroyEntity(entity);
 }
 
+void GE::MONO::DestroyEntityByName(MonoString* name)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  ECS::Entity entity{ ecs.GetEntity(MonoStringToSTD(name)) };
+
+  // Call OnDestroy function on entity
+  // Ignore if entity is inactive
+  if (ecs.GetIsActiveEntity(entity))
+  {
+    if (ecs.HasComponent<GE::Component::Scripts>(entity))
+    {
+      GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(entity);
+      for (auto script : scripts->m_scriptList)
+      {
+        MonoMethod* onDestroy = mono_class_get_method_from_name(script.m_scriptClass, "OnDestroy", 1);
+        if (onDestroy)
+        {
+          std::vector<void*> params = { &entity };
+          mono_runtime_invoke(onDestroy, mono_gchandle_get_target(script.m_gcHandle), params.data(), nullptr);
+        }
+        mono_gchandle_free(script.m_gcHandle);
+      }
+    }
+  }
+
+  ecs.DestroyEntity(entity);
+}
 
 
 void GE::MONO::PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animName)

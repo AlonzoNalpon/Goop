@@ -485,6 +485,9 @@ namespace GoopScripts.Mono
 		extern public static void DestroyEntity(uint entity);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void DestroyEntityByName(string name);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void PlayTransformAnimation(uint entity, string animName);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
