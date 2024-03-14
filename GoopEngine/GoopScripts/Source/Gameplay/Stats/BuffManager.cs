@@ -76,17 +76,17 @@ namespace GoopScripts.Gameplay
       switch (type)
       {
         case BuffType.INCREASE_BLOCK:
-          m_label = "Block Up";
+          m_label = "+" + value + " Block";
           break;
         case BuffType.FLAT_ATK_UP:
-          m_label = "Dmg Up";
+          m_label = "+" + value + " Atk";
           break;
         case BuffType.MULTIPLICATIVE_ATK_UP:
-          m_label = "Atk Up";
+        case BuffType.MULTIPLICATIVE_ATK_DOWN:
+          m_label = "x" + value + " Atk";
           break;
         case BuffType.FLAT_ATK_DOWN:
-        case BuffType.MULTIPLICATIVE_ATK_DOWN:
-          m_label = "Dmg Down";
+          m_label = "-" + value + " Atk";
           break;
         case BuffType.BLIND:
           m_label = "Blinded";
@@ -121,7 +121,19 @@ namespace GoopScripts.Gameplay
   }
 
   public class BuffManager
-  {    
+  {
+    static readonly Dictionary<Buff.BuffType, string> m_buffPrefabs = new Dictionary<Buff.BuffType, string>()
+    {
+      { Buff.BuffType.INCREASE_BLOCK, "BlockUp" },
+      { Buff.BuffType.FLAT_ATK_UP, "DmgUp" },
+      { Buff.BuffType.MULTIPLICATIVE_ATK_UP, "AtkUp" },
+      { Buff.BuffType.FLAT_ATK_DOWN, "DmgDown" },
+      { Buff.BuffType.MULTIPLICATIVE_ATK_DOWN, "DmgDown" },
+      { Buff.BuffType.BLIND, "Blinded" },
+      { Buff.BuffType.SKIP_TURN, "Skipped" },
+      { Buff.BuffType.IMMUNE_TO_DAMAGE, "DamageImmunity" }
+    };
+
     private List<Buff> m_buffs;
     public List<Buff> Buffs { get { return m_buffs; } }
 
@@ -146,10 +158,13 @@ namespace GoopScripts.Gameplay
     public void AddBuff(Buff buff)
     {
       Buff newBuff = new Buff(buff);
-      uint buffPrefab = Utils.SpawnPrefab(buff.Label);
+      uint buffPrefab = Utils.SpawnPrefab(m_buffPrefabs[buff.type]);
+      Console.WriteLine("Spawned " + m_buffPrefabs[buff.type] + " with id " + buffPrefab);
+      Utils.SetTextComponent((int)Utils.GetChildEntity(buffPrefab, "BuffIconText"), buff.Label);
       newBuff.m_iconID = buffPrefab;
       m_buffIcons.Add(buffPrefab);
       m_buffs.Add(newBuff);
+
       if (m_characterType == CharacterType.PLAYER)
 			  Utils.SetParent(Utils.GetEntity("PlayerBuffAnchor"), buffPrefab);
 			else

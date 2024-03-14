@@ -317,9 +317,11 @@ void PrefabManager::UpdatePrefabFromEditor(ECS::Entity prefabInstance, std::vect
 
 VariantPrefab PrefabManager::CreateVariantPrefab(ECS::Entity entity, std::string const& name)
 {
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
   VariantPrefab prefab{ name };
+  prefab.m_isActive = ecs.GetIsActiveEntity(entity);
   prefab.m_components = ObjectFactory::ObjectFactory::GetInstance().GetEntityComponents(entity);
-  prefab.CreateSubData(ECS::EntityComponentSystem::GetInstance().GetChildEntities(entity));
+  prefab.CreateSubData(ecs.GetChildEntities(entity));
 
   return prefab;
 }

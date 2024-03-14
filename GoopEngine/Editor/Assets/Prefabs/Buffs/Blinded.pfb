@@ -1,7 +1,7 @@
 {
     "Name": "Blinded",
-    "isActive": false,
-    "Version": 5,
+    "isActive": true,
+    "Version": 6,
     "Components": [
         {
             "Transform": {
@@ -129,7 +129,7 @@
     "Removed Components": [
         {
             "id": 2,
-            "type": "Transform",
+            "type": "void",
             "version": 5
         }
     ]

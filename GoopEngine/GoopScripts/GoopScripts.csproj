@@ -164,7 +164,7 @@
     <Compile Include="Source\Gameplay\HomeBase.cs" />
     <Compile Include="Source\Gameplay\HTP.cs" />
     <Compile Include="Source\Gameplay\RewardManager.cs" />
-    <Compile Include="Source\Gameplay\Stats.cs" />
+    <Compile Include="Source\Gameplay\Stats\Stats.cs" />
     <Compile Include="Source\Gameplay\Tutorial.cs" />
     <Compile Include="Source\Input\KeyCode.cs" />
     <Compile Include="Source\Mono\Component.cs" />

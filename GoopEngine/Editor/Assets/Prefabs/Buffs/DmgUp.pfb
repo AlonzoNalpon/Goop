@@ -1,7 +1,7 @@
 {
-    "Name": "Dmg Up",
-    "isActive": false,
-    "Version": 5,
+    "Name": "DmgUp",
+    "isActive": true,
+    "Version": 6,
     "Components": [
         {
             "Transform": {

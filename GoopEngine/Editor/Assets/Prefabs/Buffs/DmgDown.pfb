@@ -1,7 +1,7 @@
 {
-    "Name": "Block Up",
-    "isActive": false,
-    "Version": 4,
+    "Name": "DmgDown",
+    "isActive": true,
+    "Version": 6,
     "Components": [
         {
             "Transform": {
@@ -51,7 +51,7 @@
                         }
                     }
                 },
-                "spriteName": "Block Up",
+                "spriteName": "Dmg Down",
                 "shouldRender": true
             }
         },
@@ -102,24 +102,24 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -51.9677, -9.27999, 0 }",
+                        "pos": "{ -53.9676, -7.22289, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -51.9677, -9.27999, 0 }",
+                        "worldPos": "{ -53.9676, -7.22289, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "Block Up",
+                        "text": "Dmg Down",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
                             "b": 1.0,
                             "a": 1.0
                         },
-                        "scale": 0.10000000149011612,
+                        "scale": 0.08299999684095383,
                         "fontID": 0
                     }
                 }
@@ -129,8 +129,8 @@
     "Removed Components": [
         {
             "id": 2,
-            "type": "Transform",
-            "version": 4
+            "type": "void",
+            "version": 5
         }
     ]
 }

@@ -32,7 +32,7 @@ namespace GoopScripts.Button
     {
       if (m_isHovering) return;
 
-      m_cardInstance = Utils.GetEntityName(entity);
+      m_cardInstance = Utils.GetEntityName(entity) + "_Hover";
       Vec3<double> pos = Utils.GetWorldPosition(entity);
       pos.X -=  X_OFFSET;
       Utils.SpawnPrefab(m_cardInstance, pos);
