@@ -174,6 +174,15 @@ namespace GoopScripts.Gameplay
       m_buffs.RemoveAll(buff => buff.turns <= 0);
     }
 
+    public void FakeStepTurn()
+    {
+      foreach (var buff in m_buffs)
+      {
+        buff.turns -= 1;
+      }
+      m_buffs.RemoveAll(buff => buff.turns <= 0);
+    }
+
     public void DestroyBuffIcon(uint iconID)
     {
       Utils.DestroyEntity(iconID);

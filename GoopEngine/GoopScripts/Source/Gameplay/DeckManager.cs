@@ -172,6 +172,16 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    public void FakeDiscardQueue()
+    {
+      for (int i = 0; i < m_queue.Length; ++i)
+      {
+        if (m_queue[i].Item1 == CardBase.CardID.NO_CARD) { continue; }
+        m_discard.Add(m_queue[i].Item1);
+        m_queue[i] = (CardBase.CardID.NO_CARD, uint.MaxValue);
+      }
+    }
+
     /*!*********************************************************************
 		\brief
 		  Discards a card from the queue given the index
