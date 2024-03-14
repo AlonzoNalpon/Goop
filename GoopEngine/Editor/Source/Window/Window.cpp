@@ -81,7 +81,9 @@ namespace WindowSystem
     glfwSetWindowFocusCallback(m_window, WindowFocusedCallback);
     glfwSetErrorCallback(ErrorCallback);       // Error callback
     glfwSetKeyCallback(m_window, KeyCallback); // key callback
-
+#ifndef IMGUI_DISABLE
+    glfwSetDropCallback(m_window, WindowDropCallback);           // file drag n drop callback
+#endif
     if (shouldFullScreen)
     {
       ToggleFullscreen(); // Switch to fullscreen
@@ -197,4 +199,11 @@ namespace WindowSystem
     throw GE::Debug::Exception<Window>(GE::Debug::LEVEL_INFO,
       ErrMsg(std::string{ "Info: " } + desc));
   }
+
+#ifndef IMGUI_DISABLE
+  void Window::WindowDropCallback(GLFWwindow*, int pathCount, const char* paths[])
+  {
+    GE::Assets::AssetManager::GetInstance().AddAssets(pathCount, paths);
+  }
+#endif
 }

@@ -40,7 +40,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
@@ -77,9 +76,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     public void OnUpdate(uint entityID, double dt)
     {
       List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
-
-      //Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-      //Console.WriteLine("Start choosing card to perform combo");
       Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
       Random random = new Random();
 
@@ -99,55 +95,26 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
       List<int> cardsToPlay = new List<int>();
 
-      //Console.WriteLine("HandSize:: " + handSize);
-      //Console.WriteLine("Numbers of Cards to Combo: " + comboSize);
-
-      //Console.WriteLine("Enemy Cards in Hand");
-      //Console.WriteLine("-----------------------------------------");
-      foreach (var c in EnemyStats.m_deckMngr.m_hand)
-      {
-        if (c.Item1 != CardBase.CardID.NO_CARD)
-        {
-          //Console.WriteLine(c.ToString());
-        }
-
-      }
-      //Console.WriteLine("-----------------------------------------\n");
-
       while (cardsToPlay.Count < comboSize)
       {
         
         int c = random.Next(0, EnemyStats.m_deckMngr.m_hand.Count);
-        ////Console.WriteLine("Rand:: " + c + "->" + EnemyStats.m_deckMngr.m_hand[c]);
 
         if (!cardsToPlay.Contains(c) && !specialCards.Contains(EnemyStats.m_deckMngr.m_hand[c].Item1) && EnemyStats.m_deckMngr.m_hand[c].Item1 != CardBase.CardID.NO_CARD)
         {
-          //Console.WriteLine("Added index" + c.ToString() + " Card:" + EnemyStats.m_deckMngr.m_hand[c].Item1);
           cardsToPlay.Add(c);
         }
       }
 
-      //Console.WriteLine("Enemy Cards played");
-      //Console.WriteLine("-----------------------------------------");
       int iterNum = 0;
       List<int> orderedNumbers = cardsToPlay.OrderBy(x => x).ToList();
       foreach (int c in orderedNumbers)
       {
-        //Console.WriteLine("play card number: " + c);
-        //Console.WriteLine(EnemyStats.m_deckMngr.m_hand[c - iterNum].Item1.ToString());
         EnemyStats.QueueCard(c-iterNum);
-        //Console.WriteLine("play card done");
         ++iterNum;
       }
-      //Console.WriteLine("-----------------------------------------");
-
-
-      //Console.WriteLine("Perform Combo Finish");
-      //Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
 
       EndAI(entityID);
-
-
     }
 
     /*!*********************************************************************

@@ -33,6 +33,8 @@ namespace GoopScripts.Gameplay
 		************************************************************************/
     public abstract bool ApplyEffect(ref Stats source, ref Stats target);
 
+    public abstract bool FakeApplyEffect(ref Stats source, ref Stats target);
+
     /*!*********************************************************************
 		\brief
 		  Retrieves the name of the current combo
@@ -85,12 +87,36 @@ namespace GoopScripts.Gameplay
 
       return true;
     }
+
+
+    override public bool FakeApplyEffect(ref Stats source, ref Stats target)
+    {
+      foreach (Buff b in m_effects)
+      {
+        Buff newBuff = new Buff(b);
+        if (b.IsDebuff())
+        {
+          target.m_buffs.Buffs.Add(newBuff); ;
+        }
+        else
+        {
+          source.m_buffs.Buffs.Add(newBuff); ;
+        }
+      }
+      return true;
+    }
   }
 
   public class DrawCombo : Combo
   {
     public DrawCombo(string name) : base(name) { }
     override public bool ApplyEffect(ref Stats source, ref Stats target)
+    {
+      source.Draw();
+      return true;
+    }
+
+    override public bool FakeApplyEffect(ref Stats source, ref Stats target)
     {
       source.Draw();
       return true;

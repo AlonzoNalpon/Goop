@@ -76,24 +76,20 @@ namespace GoopScripts.AI
       if (m_childID.Count > 0)
       {
         SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
+        Console.WriteLine("RUN NODE: " + m_childID[0]);
         RunChildNode(m_childID[0]);
         NODE_STATES childResult = (NODE_STATES)GetChildResult();
 
         if (childResult == NODE_STATES.STATE_SUCCEED)
         {
-          // Console.WriteLine("CLEARED THE TREE!\n");
-          //Console.WriteLine("CHILD SUCCEED!\n");
           ResetNode();
         }
         else if (childResult == NODE_STATES.STATE_FAILED)
         {
-          //Console.WriteLine("CLEARED THE TREE!\n");
-          //Console.WriteLine("CHILD FAILED!\n");
           ResetNode();
         }
         else
         {
-          //Console.WriteLine("RootNode Waiting\n");
           SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
         }
       }
@@ -118,7 +114,6 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void ReturnFromChild(uint entityID)
     {
-      // Console.WriteLine("CLEARED THE TREE!\n");
       OnExit();
     }
 

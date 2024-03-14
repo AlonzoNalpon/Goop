@@ -85,7 +85,7 @@ namespace GE {
 			MonoObject* m_classInst{ nullptr };
 			MonoMethod* m_onUpdateMethod{ nullptr };
 			MonoMethod* m_onCreateMethod = { nullptr };
-
+			bool m_gchandled{false};
 
 			std::vector<rttr::variant> m_scriptFieldInstList;
 			inline static char m_fieldValBuffer[maxBufferSize];
@@ -96,6 +96,13 @@ namespace GE {
 			************************************************************************/
 			ScriptInstance() {  }
 	
+
+			~ScriptInstance() 
+			{ 
+				if (m_gchandled)
+					mono_gchandle_free(m_gcHandle);
+
+			}
 			/*!*********************************************************************
 			\brief
 				Non default constructor of Script Class. 
@@ -117,7 +124,6 @@ namespace GE {
 			************************************************************************/
 
 			ScriptInstance(const std::string& scriptName, GE::ECS::Entity entityID);
-
 
 			void ReloadScript();
 
@@ -153,6 +159,8 @@ namespace GE {
 
 			void SetEntityID(GE::ECS::Entity m_entityId);
 
+
+			void FreeScript();
 			/*!*********************************************************************
 			\brief
 				Template Function to get a public field from the c# script class
@@ -241,7 +249,7 @@ namespace GE {
 			{
 				MonoArray* newArray = GetMonoArray<T>(md, value.size());
 				for (int i = 0; i < mono_array_length(newArray); ++i) {
-					mono_array_set(newArray, int, i, value[i]);
+					mono_array_set(newArray, T, i, value[i]);
 				}
 				mono_field_set_value(m_classInst, field , newArray);
 			}
@@ -322,7 +330,7 @@ namespace GE {
 			{
 				MonoArray* newArray = GetMonoArray<T>(md, value.size());
 				for (int i = 0; i < mono_array_length(newArray); ++i) {
-					mono_array_set(newArray, int, i, value[i]);
+					mono_array_set(newArray, T, i, value[i]);
 				}
 				mono_field_set_value(obj, field, newArray);
 			}

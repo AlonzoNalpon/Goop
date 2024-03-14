@@ -24,20 +24,7 @@ namespace GoopScripts.Button
   {
     public void OnHoverEnter(uint entity)
     {
-      // to whoever sees this code and is confused:
-      // for some reason when i select a card and it moves
-      // to the queue, on hover gets activated even though
-      // the cursor isnt on the queue for like 1 frame
-      // so the only fix i can think of is to use a bool
-      // flag to ignore the first occurence of the hover
-      if (!QueueCardDisplay.m_cardSelected)
-      {
-        QueueCardDisplay.ShowCard(entity);
-      }
-      else
-      {
-        QueueCardDisplay.m_cardSelected = false;
-      }
+      QueueCardDisplay.ShowCard(entity);
     }
 
     /*!*********************************************************************
@@ -58,7 +45,6 @@ namespace GoopScripts.Button
       uint cardId = Utils.GetParentEntity(entity);
       if (!player.m_deckMngr.IsEntityInQueue(cardId))
       {
-        //Console.WriteLine("Card Not In Queue!");
         return;
       }
 

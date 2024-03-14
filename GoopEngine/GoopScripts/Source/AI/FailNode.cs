@@ -72,11 +72,7 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      //Console.WriteLine("RUN FAILNODE");
-
-
       OnFail(entityID);
-
     }
 
     /*!*********************************************************************

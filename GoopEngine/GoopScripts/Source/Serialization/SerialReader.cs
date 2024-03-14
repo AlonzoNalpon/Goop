@@ -158,7 +158,6 @@ namespace GoopScripts.Serialization
             {
               break;
             }
-            Console.WriteLine("Parsed " + card);
             anim = cardToAnim[1].Trim();
 
             mappings.Add(card, anim);

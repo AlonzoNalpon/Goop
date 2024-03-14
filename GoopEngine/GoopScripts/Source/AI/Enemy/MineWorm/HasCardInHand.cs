@@ -40,7 +40,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
@@ -85,12 +84,10 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
       if (handSize > 0)
       {
-        //Console.WriteLine("has at least 1 card in hand");
         OnSuccess();
       }
       else
       {
-        //Console.WriteLine("no cards in hand");
         OnFail();
       }
     }

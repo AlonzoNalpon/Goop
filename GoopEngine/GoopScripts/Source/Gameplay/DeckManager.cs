@@ -106,9 +106,6 @@ namespace GoopScripts.Gameplay
           break;
         }
       }
-#if (DEBUG)
-      //Console.WriteLine("Queuing " + m_hand[index].ToString() + " from hand\n");
-#endif
 
       m_hand.RemoveAt(index);
       
@@ -122,10 +119,6 @@ namespace GoopScripts.Gameplay
     public void Unqueue(int index)
     {
       m_hand.Add(m_queue[index]);
-
-#if (DEBUG)
-      //Console.WriteLine("Returning " + m_queue[index].ToString() + " to hand\n");
-#endif
       m_queue[index] = (CardBase.CardID.NO_CARD, uint.MaxValue);
     }
 
@@ -146,27 +139,14 @@ namespace GoopScripts.Gameplay
       {
         m_deck.Restore(ref m_discard);
         m_deck.Shuffle();
-#if (DEBUG)
-        //Console.WriteLine("Deck Empty! Reshuffling");
-        //Console.WriteLine();
-#endif
       }
 
       // if hand full, destroy the top card
       if (m_hand.Count == MAX_CARDS)
       {
-#if (DEBUG)
-        //Console.WriteLine("Hand Full! Burnt " + m_deck.m_drawOrder.First().ToString());
-        //Console.WriteLine();
-#endif
         m_deck.BurnTop();
         return -1;
       }
-
-#if (DEBUG)
-      //Console.WriteLine("Drew " + m_deck.m_drawOrder.First().ToString());
-      //Console.WriteLine();
-#endif
 
       m_hand.Add((m_deck.Draw(), uint.MaxValue));
       return m_hand.Count - 1;     
@@ -181,10 +161,6 @@ namespace GoopScripts.Gameplay
       for (int i = 0; i < m_queue.Length; ++i)
       {
         if (m_queue[i].Item1 == CardBase.CardID.NO_CARD) { continue; }
-
-#if (DEBUG)
-        //Console.WriteLine("Discarding " + m_queue[i].ToString());
-#endif
         m_discard.Add(m_queue[i].Item1);
 
         // destroy the entity if it exists

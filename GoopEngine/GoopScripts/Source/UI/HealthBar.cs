@@ -92,6 +92,10 @@ namespace GoopScripts.UI
     public void DecreaseHealth(int amount = 1)
     {
       m_health -= amount;
+      if (m_health < 0)
+      {
+        m_health = 0;
+      }
       UpdateBar();
       Vec3<double> a = Utils.GetPosition(m_playerBarID);
       for (int i = 0; i < amount; ++i)

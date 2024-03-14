@@ -39,7 +39,7 @@ void FmodSystem::Init()
 
   ErrorCheck(FMOD::System_Create(&m_fModSystem)); // Create the FMOD Core system
   int maxSounds = GE::Assets::AssetManager::GetInstance().GetConfigData<int>("MaxPlayingSounds");
-  ErrorCheck(m_fModSystem->init(maxSounds, FMOD_INIT_STREAM_FROM_UPDATE, NULL)); // Initialize the FMOD Core system
+  ErrorCheck(m_fModSystem->init(maxSounds, FMOD_INIT_THREAD_UNSAFE | FMOD_INIT_STREAM_FROM_UPDATE, NULL)); // Initialize the FMOD Core system
   m_fModSystem->getMasterChannelGroup(&m_masterGroup);
 
   for (int i{}; i < TOTAL_CHANNELS; ++i)
@@ -199,6 +199,11 @@ void FmodSystem::StopAllSound()
 void FmodSystem::StopChannel(ChannelType channel)
 {
   ErrorCheck(m_channelGroups[channel]->stop());
+}
+
+void GE::fMOD::FmodSystem::SetChannelPause(ChannelType channel, bool paused)
+{
+  ErrorCheck(m_channelGroups[channel]->setPaused(paused));
 }
 
 void FmodSystem::SetChannelVolume(ChannelType channel, float volume)

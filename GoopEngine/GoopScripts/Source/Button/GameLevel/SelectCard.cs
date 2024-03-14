@@ -33,7 +33,7 @@ namespace GoopScripts.Button
 		************************************************************************/
     public void OnClick(uint entity)
     {
-      if (GameManager.IsResolutionPhase() || Tutorial.IsResolutionPhase())
+      if (GameManager.IsResolutionPhase())
       {
         return;
       }
@@ -49,7 +49,6 @@ namespace GoopScripts.Button
       Utils.SetIsActiveEntity(m_cardHover, false);
       Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
       player.QueueCardByID(cardId);
-      QueueCardDisplay.m_cardSelected = true;
     }
 
     /*!*********************************************************************

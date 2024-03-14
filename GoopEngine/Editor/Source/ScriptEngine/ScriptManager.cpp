@@ -36,6 +36,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Audio/AudioSystem.h>
 #include <GameStateManager/GameStateManager.h>
 #include <Serialization/Deserializer.h>
+#include <AI/AISimulator.h>
 
 using namespace GE::MONO;
 
@@ -77,13 +78,14 @@ namespace GE
       { "GoopScripts.Mono.Vec3<System.Double>", ScriptFieldType::DVec3 },
       { "System.Int32[]", ScriptFieldType::IntArr },
       { "GoopScripts.Cards.CardBase.CardID[]", ScriptFieldType::UIntArr },
+      {"System.String[]",ScriptFieldType::StringArr},
       { "System.Collections.Queue", ScriptFieldType::QueueFT },
       { "GoopScripts.Gameplay.Deck", ScriptFieldType::DeckFT },
       { "GoopScripts.Gameplay.DeckManager", ScriptFieldType::DeckManagerFT },
       { "GoopScripts.Gameplay.CharacterType", ScriptFieldType::CharacterTypeFT },
       { "GoopScripts.UI.HealthBar", ScriptFieldType::HealthBarFT },
       { "GoopScripts.Gameplay.CharacterAnims", ScriptFieldType::CharacterAnimsFT }
-	
+
     };
   }
 }
@@ -195,6 +197,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::StartAI", GE::Systems::EnemySystem::StartAI);
   mono_add_internal_call("GoopScripts.Mono.Utils::EndAI", GE::Systems::EnemySystem::EndAI);
 
+
   // Game system stuff
   mono_add_internal_call("GoopScripts.Mono.Utils::GetAnimationTime", GE::MONO::GetAnimationTime);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", GE::MONO::PlayAnimation);
@@ -207,11 +210,14 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySoundF", GE::MONO::PlaySoundF);
   mono_add_internal_call("GoopScripts.Mono.Utils::StopSound", GE::MONO::StopSound);
   mono_add_internal_call("GoopScripts.Mono.Utils::StopChannel", GE::MONO::StopChannel);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PauseChannel", +[](GE::fMOD::FmodSystem::ChannelType type, bool paused) 
+    {GE::fMOD::FmodSystem::GetInstance().SetChannelPause(type, paused); });
   mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScript", GE::MONO::GetScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptFromID", GE::MONO::GetScriptFromID);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetGameSysScript", GE::MONO::GetGameSysScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptInstanceGetScriptInstance", GE::MONO::GetScriptInstance);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetScript", GE::MONO::SetScript);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToHandState", GE::MONO::SetCardToHandState);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToQueuedState", GE::MONO::SetCardToQueuedState);
@@ -246,6 +252,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetSpriteTint", GE::MONO::SetSpriteTint);
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeOutAudio", GE::MONO::FadeOutAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlayAllTweenAnimation", GE::MONO::PlayAllTweenAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTimeScale", GE::MONO::SetTimeScale);
   mono_add_internal_call("GoopScripts.Mono.Utils::DispatchQuitEvent", GE::MONO::DispatchQuitEvent);
 }
@@ -258,6 +265,7 @@ void GE::MONO::ScriptManager::LoadAssembly()
 void GE::MONO::ScriptManager::LoadAllMonoClass()
 {
   m_monoClassMap.clear();
+  m_allScriptNames.clear();
   MonoImage* image = mono_assembly_get_image(m_coreAssembly);
   const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
   int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
@@ -400,10 +408,14 @@ void GE::MONO::ScriptManager::CSReloadEvent(const std::string& path, const filew
 {
   if (!m_CSReloadPending && change_type == filewatch::Event::modified && !m_rebuildCS)
   {
+#ifdef _DEBUG
     std::cout << "RELOAD CS\n";
+#endif
     m_CSReloadPending = true;
     auto gsm = &GE::GSM::GameStateManager::GetInstance();
+#ifdef _DEBUG
     std::cout << "Lets rebuild\n";
+#endif
     m_rebuildCS = true;
     gsm->SubmitToMainThread([]()
       {
@@ -448,7 +460,10 @@ std::string GetVisualStudioVersion() {
 
 void GE::MONO::ScriptManager::RebuildCS()
 {
+
+#ifdef _DEBUG
   std::cout << "REBUILDCS\n";
+#endif
   m_CSReloadPending = false;
   if (m_rebuildCS)
   {
@@ -466,16 +481,22 @@ void GE::MONO::ScriptManager::RebuildCS()
 
     std::string cdCMD = "\"" + csbat + "\" ";
     std::string command = cdCMD + arguments;
+#ifdef _DEBUG
     std::cout << command.c_str() << "\n";
+#endif
     int result = system(command.c_str());
     m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
     m_CSReloadPending = false;
 
     if (result == 0) {
+#ifdef _DEBUG
       std::cout << "RUN Successfuly\n";
+#endif
     }
     else {
+#ifdef _DEBUG
       std::cout << "DIDNT RUN Successfuly\n";
+#endif
     }
   }
 }
@@ -501,6 +522,16 @@ void GE::MONO::ScriptManager::ReloadAssembly()
   ReloadAllScripts();
   es->ReloadTrees();
   
+}
+
+void GE::MONO::ScriptManager::ReloadScripts()
+{
+  AddInternalCalls();
+  LoadAllMonoClass();
+  LoadAssembly();
+  ReloadAllScripts();
+  GE::Systems::EnemySystem* es = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::EnemySystem>();
+  es->ReloadTrees();
 }
 
 MonoAssembly* GE::MONO::ScriptManager::GetMonoAssembly()
@@ -753,6 +784,25 @@ void GE::MONO::PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animNa
   }
 }
 
+void GE::MONO::PlayAllTweenAnimation(GE::ECS::Entity parent, MonoString* animName)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  std::string const anim{ MonoStringToSTD(animName) };
+  auto pTween = ecs.GetComponent<GE::Component::Tween>(parent);
+  if (pTween)
+  {
+    pTween->m_playing = anim;
+  }
+  for (GE::ECS::Entity const& child : ecs.GetChildEntities(parent))
+  {
+    auto cTween = ecs.GetComponent<GE::Component::Tween>(child);
+    if (cTween)
+    {
+      cTween->m_playing = anim;
+    }
+  }
+}
+
 float GE::MONO::GetChannelVolume(int channel)
 {
   switch (channel)
@@ -879,6 +929,8 @@ ScriptField GE::MONO::ScriptManager::GetScriptField(std::string className, std::
 {
   return m_monoClassMap[className].m_ScriptFieldMap[fieldName];
 }
+
+
 
 //rttr::variant  GE::MONO::ScriptManager::GetScriptFieldInst(std::string const& listType) {
 //  if (listType == "System.Int32")
@@ -1016,6 +1068,15 @@ MonoObject* GE::MONO::GetScriptFromID(GE::ECS::Entity entity, MonoString* script
   return scriptInst->m_classInst;
 }
 
+void GE::MONO::SetScript(GE::ECS::Entity entity, MonoString* scriptName)
+{
+  GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
+  Component::Scripts comp;
+  ecs.AddComponent<GE::Component::Scripts>(entity, comp);
+  GE::Component::Scripts* allScripts = ecs.GetComponent<Component::Scripts>(entity);
+  allScripts->m_scriptList.emplace_back(MonoStringToSTD(scriptName), entity);
+}
+
 MonoObject* GE::MONO::GetGameSysScript(MonoString* gameSysEntityName)
 {
   GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
@@ -1028,11 +1089,9 @@ MonoObject* GE::MONO::GetGameSysScript(MonoString* gameSysEntityName)
 void GE::MONO::PlayAnimation(MonoString* animName, GE::ECS::Entity entity)
 {
   std::string str = GE::MONO::MonoStringToSTD(animName);
-  std::cout << "PlayAnimation called on " << entity << " with animation: " << str << "\n";
   // call play animation here
   // Error check for invalid pls!!!!!
   Graphics::gObjID spriteID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(str) };
-  std::cout << "No throw\n";
   // Doesnt set the sprite!!!
   GE::Systems::SpriteAnimSystem::SetAnimation(entity, spriteID); // play anim yes!
 }

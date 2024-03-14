@@ -1,7 +1,7 @@
 {
     "Name": "Dawson_Block_Hover",
     "isActive": true,
-    "Version": 2,
+    "Version": 3,
     "Components": [
         {
             "Transform": {
@@ -50,6 +50,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -67,10 +73,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, 55.5, 0 }",
+                        "pos": "{ 0, 55.5, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 55.5, 0 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -94,6 +100,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -111,10 +123,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -25, -25, 0 }",
+                        "pos": "{ -25, -25, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -25, -25, 0 }",
+                        "worldPos": "{ -25, -25, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -142,10 +154,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -48.5555, -65, 0 }",
+                        "pos": "{ -48.5555, -65, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -48.5555, -65, 0 }",
+                        "worldPos": "{ -48.5555, -65, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }

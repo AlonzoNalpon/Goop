@@ -38,7 +38,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
@@ -78,12 +77,10 @@ namespace GoopScripts.AI.Enemy.MineWorm
       Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
       if (EnemyStats.m_healthBar.m_health < minHealth)
       {
-        //Console.WriteLine("Enemt Low on Health");
         OnSuccess();
       }
       else
       {
-        //Console.WriteLine("Enemt Healthy AF");
         OnFail();
       }
 

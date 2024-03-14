@@ -119,7 +119,8 @@ namespace GE::MONO
 		************************************************************************/
 		static void LoadAllMonoClass();
 
-		static void ReloadAssembly();
+		static void ReloadAssembly(); 
+		static void ReloadScripts();
 		static void RebuildCS();
 
 		/*!*********************************************************************
@@ -226,6 +227,8 @@ namespace GE::MONO
 
 	MonoObject* GetScriptFromID(GE::ECS::Entity entity, MonoString* scriptName);
 	MonoObject* GetScriptInstance(GE::ECS::Entity entityID, MonoString* scriptName);
+
+	void SetScript(GE::ECS::Entity entity, MonoString* scriptName);
 
 	/*!*********************************************************************
 	\brief
@@ -452,6 +455,10 @@ namespace GE::MONO
 	************************************************************************/
 	MonoString* STDToMonoString(const std::string& str);
 
+
+	template<typename T>
+	std::vector<T> MonoArrayToSTD(MonoArray* arr);
+
 	/*!*********************************************************************
 	\brief
 		Function to check if a monostring is valid
@@ -602,6 +609,17 @@ namespace GE::MONO
 	********************************************************************/
 	void PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animName);
 
+	/*!*********************************************************************
+	\brief
+	  Triggers a tween animation of a parent entity and all its children.
+		The animation name should be the same.
+	\param parent
+		The parent entity
+	\param animName
+		The name of the animation
+	************************************************************************/
+	void PlayAllTweenAnimation(GE::ECS::Entity parent, MonoString* animName);
+
 	float GetChannelVolume(int channel);
 
 	void SetChannelVolume(int channel, float volume);
@@ -618,4 +636,6 @@ namespace GE::MONO
 	********************************************************************/
 	void DispatchQuitEvent();
 
+
+#include "ScriptManager.tpp"
 }

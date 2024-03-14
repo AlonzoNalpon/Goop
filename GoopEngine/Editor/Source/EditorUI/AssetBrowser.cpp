@@ -52,14 +52,19 @@ void AssetBrowser::CreateContentDir()
 
 	if (Button("Reload Library"))
 	{
-		//  << "Reload Asset Browser" << std::endl;
-		GE::Debug::ErrorLogger::GetInstance().LogError("=== [ Reloading Asset Browser ] ===");
-
+		GE::Debug::ErrorLogger::GetInstance().LogMessage("=== [ Reloading Asset Browser ] ===");
 
 		Events::EventManager::GetInstance().Dispatch(Events::StartSceneEvent());
 		GoopUtils::ReloadFileData();
 		Events::EventManager::GetInstance().Dispatch(Events::StopSceneEvent());
 		GE::GSM::GameStateManager::GetInstance().Restart();
+	}
+	ImGui::SameLine();
+	if (Button("Add"))
+	{
+		const char* const initialDir{ "./Assets/Scenes" };
+		auto files{ SelectFilesFromExplorer("All Files (*.*), *.*", 1, initialDir)};
+		Assets::AssetManager::GetInstance().AddAssets(files);
 	}
 
 	assetsDirectory = assetManager.GetConfigData<std::string>("Assets Dir");
@@ -111,7 +116,7 @@ void AssetBrowser::CreateContentView()
 
 	AssetManager& assetManager = AssetManager::GetInstance();
 	BeginGroup();
-	for (const auto& file : std::filesystem::recursive_directory_iterator(m_currDir))
+	for (const auto& file : std::filesystem::directory_iterator(m_currDir))
 	{
 		if (!file.is_regular_file())
 		{
@@ -121,39 +126,46 @@ void AssetBrowser::CreateContentView()
 		std::string const extension{ file.path().extension().string() };
 
 		std::string const path = file.path().filename().string();
+		std::string const truncatedPath = path.size() > 16 ? path.substr(0, 13) + "..." : path;
 		const char* pathCStr = path.c_str();
 
 		if (assetManager.ImageFileExt.find(extension) != std::string::npos)
 		{
-			ImTextureID img = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
-			BeginGroup();
-			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-			ImVec2 imgsize{ 100, 100 };
-			ImGui::ImageButton(img, imgsize, { 0, 1 }, { 1, 0 });
-			if (IsItemClicked())
+			try
 			{
-				ImGuiHelper::SetSelectedAsset(GoopUtils::ExtractPrevFolderAndFileName(file.path().string()));
-			}
-			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
-			{
-				ImGui::SetWindowFocus("Asset Preview");
-			}
-			if (ImGui::BeginDragDropSource())
-			{
-				ImGui::SetDragDropPayload("ASSET_BROWSER_IMAGE", pathCStr, strlen(pathCStr) + 1);
-				Image(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { 50, 50 }, { 0, 1 }, { 1, 0 });
-				Text(pathCStr);
-
-				ImGui::EndDragDropSource();
-			}
-			Text(pathCStr);
-			ImGui::PopStyleColor();
-			float remainingsize = GetContentRegionMax().x - (GetCursorPosX() + imgsize.x);
-			EndGroup();
+				ImTextureID img = reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string()));
+				BeginGroup();
+				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+				ImVec2 imgsize{ 100, 100 };
+				ImGui::ImageButton(img, imgsize, { 0, 1 }, { 1, 0 });
+				if (IsItemClicked())
+				{
+					ImGuiHelper::SetSelectedAsset(GoopUtils::ExtractPrevFolderAndFileName(file.path().string()));
+				}
+				if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
+				{
+					ImGui::SetWindowFocus("Asset Preview");
+				}
+				if (ImGui::BeginDragDropSource())
+				{
+					ImGui::SetDragDropPayload("ASSET_BROWSER_IMAGE", pathCStr, strlen(pathCStr) + 1);
+					Image(reinterpret_cast<ImTextureID>(assetManager.GetID(file.path().string())), { 50, 50 }, { 0, 1 }, { 1, 0 });
+					Text(truncatedPath.c_str());
+					ImGui::EndDragDropSource();
+				}
+				Text(truncatedPath.c_str());
+				ImGui::PopStyleColor();
+				float remainingsize = GetContentRegionMax().x - (GetCursorPosX() + imgsize.x);
+				EndGroup();
 			
-			if (remainingsize > imgsize.x)
+				if (remainingsize > imgsize.x)
+				{
+					SameLine();
+				}
+			}
+			catch (GE::Debug::IExceptionBase&)
 			{
-				SameLine();
+				continue;
 			}
 		}
 		else if (assetManager.PrefabFileExt.find(extension) != std::string::npos)
@@ -449,6 +461,42 @@ void AssetBrowser::OpenFileWithDefaultProgram(std::string const& filePath)
 std::string AssetBrowser::GetRelativeFilePath(std::string const& filepath, std::string const& rootDir)
 {
 	return "." + filepath.substr(filepath.find(rootDir) + rootDir.size());
+}
+
+std::vector<std::string> AssetBrowser::SelectFilesFromExplorer(const char* extensionsFilter, unsigned numFilters, const char* initialDir)
+{
+	OPENFILENAMEA fileName{};
+	CHAR size[MAX_PATH * 10]{};
+
+	ZeroMemory(&fileName, sizeof(fileName));
+	fileName.lStructSize = sizeof(fileName);
+	fileName.hwndOwner = NULL;
+	fileName.lpstrFile = size;
+	fileName.nMaxFile = sizeof(size);
+	fileName.lpstrFilter = extensionsFilter;
+	fileName.nFilterIndex = numFilters;			// number of filters
+	fileName.lpstrFileTitle = NULL;
+	fileName.nMaxFileTitle = 0;
+	fileName.lpstrInitialDir = initialDir;	// initial directory
+	fileName.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR | OFN_ALLOWMULTISELECT | OFN_EXPLORER;
+
+	if (GetOpenFileNameA(&fileName))
+	{
+		std::vector<std::string> files{};
+		char const* ptr{ fileName.lpstrFile };
+		
+		std::string const dir{ ptr + std::string("\\") };
+		ptr += strlen(ptr) + 1;
+		while (*ptr)
+		{
+			files.emplace_back(dir + ptr);
+			ptr += strlen(ptr) + 1;
+		}
+
+		return files;
+	}
+
+	throw GE::Debug::Exception<AssetBrowser>::Exception(GE::Debug::LEVEL_ERROR, ErrMsg("Unable to open file"));
 }
 
 std::string AssetBrowser::LoadFileFromExplorer(const char* extensionsFilter, unsigned numFilters, const char* initialDir)

@@ -20,6 +20,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <rapidjson/istreamwrapper.h>
 #include <Events/AnimEventManager.h>
 #include "SpriteData.h"
+#include "ProxyScripts.h"
 
 #ifdef _DEBUG
 std::ostream& operator<<(std::ostream& os, rttr::type const& type);
@@ -113,6 +114,15 @@ namespace GE
       ************************************************************************/
       static EntityScriptsList DeserializeSceneScripts(std::string const& file);
 
+      /*!*********************************************************************
+      \brief
+        Deserializes sprite sheet config data from json file into a container
+        of SpriteData objects. Used to pass data to the asset manager.
+      \param file
+        The file to deserialize
+      \return
+        The container of SpriteData
+      ************************************************************************/
       static std::vector<SpriteData> DeserializeSpriteSheetData(std::string const& file);
 
       /*!*********************************************************************
@@ -146,6 +156,16 @@ namespace GE
         True if there were no missing fields and false otherwise
       ************************************************************************/
       static bool ScanJsonFileForMembers(rapidjson::Value const& value, std::string const& filename, unsigned keyCount, ...);
+
+      /*!*********************************************************************
+     \brief
+       This function handles the deserialization of a Scripts component.
+     \param object
+       The rttr::variant of the Scripts component
+     \param value
+       The json data of the Scripts component
+     ************************************************************************/
+      static void DeserializeScriptsComponent(rttr::variant& object, std::string const& data);
 
     private:
 
@@ -257,7 +277,7 @@ namespace GE
         The json data of the container
       ************************************************************************/
       static void DeserializeAssociativeContainer(rttr::variant_associative_view& view, rapidjson::Value const& value);
-      
+
       /*!*********************************************************************
       \brief
         This function handles the deserialization of a ScriptFieldInstList

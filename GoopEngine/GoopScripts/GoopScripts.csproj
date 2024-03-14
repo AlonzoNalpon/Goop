@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\AI\Enemy\Dawson\MiniMaxDoNth.cs" />
+    <Compile Include="Source\AI\Enemy\Dawson\MinMaxPlayCard.cs" />
     <Compile Include="Source\AI\Enemy\IsOutsideAttackRange.cs" />
     <Compile Include="Source\AI\Enemy\IsWithinPlayerRange.cs" />
     <Compile Include="Source\AI\Enemy\MineWorm\CheckCombo.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Source\Button\Pause\MenuResume.cs" />
     <Compile Include="Source\Button\Pause\OptionSlider.cs" />
     <Compile Include="Source\Button\QuitGame.cs" />
+    <Compile Include="Source\Button\RewardButton.cs" />
     <Compile Include="Source\Button\RewardCard.cs" />
     <Compile Include="Source\Button\SurrenderToMainMenu.cs" />
     <Compile Include="Source\Button\SwitchCutScenes.cs" />
@@ -144,6 +147,7 @@
     <Compile Include="Source\Gameplay\CharacterType.cs" />
     <Compile Include="Source\Gameplay\Combo.cs" />
     <Compile Include="Source\Gameplay\ComboManager.cs" />
+    <Compile Include="Source\Gameplay\ComboPage.cs" />
     <Compile Include="Source\Gameplay\ComboTextUpdate.cs" />
     <Compile Include="Source\Gameplay\Deck.cs" />
     <Compile Include="Source\Gameplay\DeckManager.cs" />
@@ -155,6 +159,7 @@
     <Compile Include="Source\Gameplay\Tutorial.cs" />
     <Compile Include="Source\Input\KeyCode.cs" />
     <Compile Include="Source\Mono\Component.cs" />
+    <Compile Include="Source\Mono\EnemyAIStruct.cs" />
     <Compile Include="Source\Mono\Entity.cs" />
     <Compile Include="Source\Mono\IAnimationEvent.cs" />
     <Compile Include="Source\Mono\IOnDestroy.cs" />
@@ -175,7 +180,6 @@
     <Compile Include="Source\Transition\ChangeToOptions.cs" />
     <Compile Include="Source\Transition\ChangeToTutorial.cs" />
     <Compile Include="Source\Transition\ChangeToVictory.cs" />
-    <Compile Include="Source\UI\CardCounter.cs" />
     <Compile Include="Source\UI\FPS.cs" />
     <Compile Include="Source\UI\HealthBar.cs" />
     <Compile Include="Source\UI\PauseManager.cs" />

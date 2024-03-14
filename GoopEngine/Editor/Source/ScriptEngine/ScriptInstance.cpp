@@ -55,6 +55,24 @@ ScriptInstance::ScriptInstance(const std::string& scriptName, GE::ECS::Entity  e
   m_onCreateMethod = mono_class_get_method_from_name(m_scriptClass, "OnCreate", 0);
 }
 
+void ScriptInstance::FreeScript()
+{
+  if (m_onCreateMethod)
+  {
+    mono_free_method(m_onCreateMethod);
+  }
+  if (m_onUpdateMethod)
+  {
+    mono_free_method(m_onUpdateMethod);
+  }
+  m_onCreateMethod = nullptr;
+  m_onUpdateMethod = nullptr;
+  m_classInst = nullptr;
+  m_scriptClass = nullptr;
+  m_scriptFieldInstList.clear();
+  mono_gchandle_free(m_gcHandle);
+}
+
 void ScriptInstance::ReloadScript()
 {
   //Clear all the old values
@@ -244,7 +262,6 @@ void ScriptInstance::GetFields()
       std::vector<int> value = GetFieldValueArr<int>(sm->m_appDomain, field.m_classField);
       ScriptFieldInstance<std::vector<int>> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
-
 		}
     else if (field.m_fieldType == ScriptFieldType::UIntArr)
     {
@@ -254,6 +271,19 @@ void ScriptInstance::GetFields()
       m_scriptFieldInstList.emplace_back(test);
 
     }
+    else if (field.m_fieldType == ScriptFieldType::StringArr)
+    {
+
+      std::vector<MonoString*> value = GetFieldValueArr<MonoString*>(sm->m_appDomain, field.m_classField);
+      std::vector<std::string> proxy{};
+      for (MonoString* s : value)
+      {
+        proxy.push_back(MonoStringToSTD(s));
+      }
+      ScriptFieldInstance<std::vector<std::string>> test{ field, proxy };
+      m_scriptFieldInstList.emplace_back(test);
+
+     }
     else if (field.m_fieldType == ScriptFieldType::String)
     {
       MonoString* value = GetFieldValue<MonoString*>(field.m_classField);
@@ -286,7 +316,6 @@ void ScriptInstance::GetFields()
     }
 	}
 }
-
 
 void ScriptInstance::SetAllFields()
 {
@@ -360,6 +389,16 @@ void ScriptInstance::SetAllFields()
       GE::MONO::ScriptFieldInstance<std::vector<unsigned>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>();
       SetFieldValueArr<unsigned>(sfi.m_data, sm->m_appDomain, sfi.m_scriptField.m_classField);
     }
+    else if (f.is_type<GE::MONO::ScriptFieldInstance<std::vector<std::string>>>())
+    {
+      GE::MONO::ScriptFieldInstance<std::vector<std::string>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<std::string>>>();
+      std::vector<MonoString*> proxy{};
+      for (std::string s : sfi.m_data)
+      {
+        proxy.push_back(STDToMonoString(s));
+      }
+      SetFieldValueArr<MonoString*>(proxy, sm->m_appDomain, sfi.m_scriptField.m_classField);
+    }
 
   }
 
@@ -369,9 +408,8 @@ void ScriptInstance::SetEntityID(GE::ECS::Entity entityId)
 {
   m_entityID = entityId;
   MonoClass* parent = mono_class_get_parent(m_scriptClass);
-  if (std::string(mono_class_get_name(parent)) != "Entity") { return; }
-
-  MonoMethod*  setEntityIDMethod = mono_class_get_method_from_name(parent, "SetEntityID", 1);
+  if (!parent || std::string(mono_class_get_name(parent)) != "Entity") return;
+  MonoMethod* setEntityIDMethod = mono_class_get_method_from_name(parent, "SetEntityID", 1);
   std::vector<void*> params = { &entityId };
   mono_runtime_invoke(setEntityIDMethod, mono_gchandle_get_target(m_gcHandle), params.data(), nullptr);
 }
@@ -627,6 +665,17 @@ void ScriptInstance::GetAllUpdatedFields()
     {
       GE::MONO::ScriptFieldInstance<std::vector<unsigned>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>();
       sfi.m_data = GetFieldValueArr<unsigned>(sm->m_appDomain, sfi.m_scriptField.m_classField);
+    }
+    else if (f.is_type<GE::MONO::ScriptFieldInstance<std::vector<std::string>>>())
+    {
+      GE::MONO::ScriptFieldInstance<std::vector<std::string>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<std::string>>>();
+      std::vector<MonoString*> proxy = GetFieldValueArr<MonoString*>(sm->m_appDomain, sfi.m_scriptField.m_classField);
+      sfi.m_data.clear();
+      for (MonoString* s : proxy)
+      {
+        sfi.m_data.push_back(MonoStringToSTD(s));
+      }
+
     }
     else if (f.is_type<MONO::ScriptFieldInstance<CharacterAnims>>())
     {

@@ -38,7 +38,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
@@ -74,7 +73,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      //Console.WriteLine("Do nothing\n");
       EndAI(entityID);
     }
 

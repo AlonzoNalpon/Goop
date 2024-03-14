@@ -5,7 +5,9 @@
 \brief
 C# script containing all the internal function calls
 **************************************************************************/
+using GoopScripts.Cards;
 using GoopScripts.Input;
+using GoopScripts.Source.Mono;
 using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
@@ -213,6 +215,8 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static object GetScriptFromID(uint entity, string scriptName);
 
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void SetScript(uint entity, string scriptName);
 
     /*!*********************************************************************
 		\brief
@@ -288,6 +292,10 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void EndAI(uint entityID);
 
+
+   
+
+
     //[MethodImplAttribute(MethodImplOptions.InternalCall)]
     //extern public static void SetCurrentRunningNode(uint currID);
 
@@ -337,7 +345,10 @@ namespace GoopScripts.Mono
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static void StopChannel(ChannelType channel);
 
-		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        extern public static void PauseChannel(ChannelType type, bool paused);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static void GameSystemResolved();
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -486,6 +497,9 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void PlayTransformAnimation(uint entity, string animName);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void PlayAllTweenAnimation(uint parent, string animName);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetTimeScale(float scale);

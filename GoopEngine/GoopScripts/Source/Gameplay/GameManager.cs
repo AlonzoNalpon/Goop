@@ -34,10 +34,9 @@ namespace GoopScripts.Gameplay
     static readonly string GAME_DATA_DIR = "./Assets/GameData/";
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
-    public int P_HEALTH_TEXT_UI, P_HEALTH_UI;
-    public int E_HEALTH_TEXT_UI, E_HEALTH_UI;
-
-    Random m_rng;
+    public int P_HEALTH_TEXT_UI, P_HEALTH_UI, E_HEALTH_TEXT_UI, E_HEALTH_UI;
+    public int P_SKIPPED_UI, E_SKIPPED_UI;
+    public double SKIP_TURN_DELAY;
 
     public Stats m_playerStats, m_enemyStats;
 
@@ -47,14 +46,14 @@ namespace GoopScripts.Gameplay
 
     //tools for resolving cards
     int m_slotToResolve = 0;
+    double m_timer;
+    bool m_playerSkipped;
     static bool isStartOfTurn = true;
-    static bool gameStarted = false; // called once at the start of game 
-    readonly List<CardBase.CardID> m_playerNonAtkCards = new List<CardBase.CardID>{ CardID.LEAH_SHIELD, CardID.SPECIAL_SMOKESCREEN, CardID.SPECIAL_RAGE };
-    readonly List<CardBase.CardID> m_enemyNonAtkCards = new List<CardBase.CardID> { CardID.DAWSON_SHIELD, CardID.BASIC_SHIELD };
+    static bool gameStarted = false; // called once at the start of game
 
     GameManager(uint entityID):base(entityID)
     {
-      m_rng = new Random();
+      
     }
 
     /*!*********************************************************************
@@ -103,6 +102,8 @@ namespace GoopScripts.Gameplay
           m_playerStats.Init();
           m_enemyStats.Init();
           gameStarted = true;
+          m_playerSkipped = false;
+          m_timer = 0.0;
         }
 
         if (Utils.GetLoseFocus())
@@ -139,11 +140,9 @@ namespace GoopScripts.Gameplay
 
         if (isResolutionPhase)
         {
-          Console.WriteLine("Before resolution");
           m_playerStats.Update(deltaTime);
           m_enemyStats.Update(deltaTime);
           ResolutionPhase(deltaTime);
-          Console.WriteLine("After resolution");
         }
         else if (isStartOfTurn)
         {
@@ -151,10 +150,17 @@ namespace GoopScripts.Gameplay
           StartOfTurn();
         }
       }
+#if (DEBUG)
       catch (Exception ex)
       {
         Console.WriteLine($"Exception in game loop: {ex.Message}");
       }
+#else
+      catch (Exception)
+      {
+
+      }
+#endif
     }
 
     /*!*********************************************************************
@@ -169,9 +175,22 @@ namespace GoopScripts.Gameplay
       m_enemyStats.EndOfTurn();
       m_playerStats.Draw();
       m_enemyStats.Draw();
-      StartAI(m_enemyStats.entityID);
+      if (!m_enemyStats.IsTurnSkipped())
+      {
+        StartAI(m_enemyStats.entityID);
+      }
+      else
+      {
+        Utils.PlayAllTweenAnimation((uint)E_SKIPPED_UI, "FloatUp");
+      }
 			Button.EndTurn btn = (Button.EndTurn)Utils.GetScript("Button_EndTurn", "EndTurn");
       btn.Enable();
+      if (m_playerStats.IsTurnSkipped())
+      {
+        Utils.PlayAllTweenAnimation((uint)P_SKIPPED_UI, "FloatUp");
+        m_playerSkipped = true;
+        EndTurn();
+      }
     }
 
 
@@ -193,18 +212,34 @@ namespace GoopScripts.Gameplay
       {
         return;
       }
+      else if (m_playerSkipped)
+      {
+        m_timer += deltaTime;
+        if (m_timer >= SKIP_TURN_DELAY)
+        {
+          m_timer = 0.0;
+          m_playerSkipped = false;
+        }
+        return;
+      }
+
+      if (m_slotToResolve > 2)
+      {
+          isResolutionPhase = false;
+          isStartOfTurn = true;
+          m_slotToResolve = 0;
+        return;
+      }
 
       bool playerPlayedCard = false, enemyPlayedCard = false;
       CardBase playerCard = CardManager.Get(m_playerStats.m_deckMngr.m_queue[m_slotToResolve].Item1);
       CardBase enemyCard = CardManager.Get(m_enemyStats.m_deckMngr.m_queue[m_slotToResolve].Item1);
-
+      
       if (!gameEnded)
       {
-        Console.WriteLine("RESOLVING SLOT " + m_slotToResolve);
         // play player's and enemy's card
         if (playerCard.ID != CardBase.CardID.NO_CARD)
         {
-          Console.WriteLine("Player play card");
           playerCard.Play(ref m_playerStats, ref m_enemyStats);
           m_playerStats.PlayAnimation(playerCard.ID);
           playerPlayedCard = true;
@@ -212,7 +247,6 @@ namespace GoopScripts.Gameplay
 
         if (enemyCard.ID != CardBase.CardID.NO_CARD)
         {
-          Console.WriteLine("Enemy play card");
           enemyCard.Play(ref m_enemyStats, ref m_playerStats);
           m_enemyStats.PlayAnimation(enemyCard.ID);
           enemyPlayedCard = true;
@@ -224,7 +258,6 @@ namespace GoopScripts.Gameplay
         // if any side is dead, end the game loop
         if (m_playerStats.IsDead())
         {
-          Console.WriteLine("Player down");
           if (playerCard.Type == CardType.BLOCK)
           {
             m_playerStats.m_animManager.PlayShieldDeath();
@@ -238,7 +271,6 @@ namespace GoopScripts.Gameplay
         }
         else if (m_enemyStats.IsDead())
         {
-          Console.WriteLine("Enemy down");
           if (enemyCard.Type == CardType.BLOCK)
           {
             m_enemyStats.m_animManager.PlayShieldDeath();
@@ -254,44 +286,32 @@ namespace GoopScripts.Gameplay
         // if enemy attacked, play relevant animation for taking damage
         if (!playerPlayedCard && enemyCard.Type == CardType.ATTACK)
         {
-          Console.WriteLine("Player take damage");
           m_playerStats.PlayDamagedAnimation(pDamageTaken);
         }
 
         // if player attacked, play relevant animation for taking damage
         if (!enemyPlayedCard && playerCard.Type == CardType.ATTACK)
         {
-          Console.WriteLine("Enemy take damage");
           m_enemyStats.PlayDamagedAnimation(eDamageTaken);
         }
 
         // check whether a combo needs to be resolved
         if (m_slotToResolve > 0)
         {
-          //if (m_playerStats.m_deckMngr.m_queue[m_slotToResolve - 1].Item1 != CardBase.CardID.NO_CARD && m_cardsPlayedP[m_slotNum] != CardBase.CardID.NO_CARD)
-          //{
-          //  //Console.WriteLine("Player COMBOED");
-          //  ComboManager.Combo(ref m_playerStats, ref m_enemyStats, (m_slotNum - 1));
-          //}
+          if (m_playerStats.m_deckMngr.m_queue[m_slotToResolve - 1].Item1 != CardBase.CardID.NO_CARD && m_playerStats.m_deckMngr.m_queue[m_slotToResolve].Item1 != CardBase.CardID.NO_CARD)
+          {
+            ComboManager.Combo(ref m_playerStats, ref m_enemyStats, (m_slotToResolve - 1));
+          }
 
-
-          //if (m_cardsPlayedE[m_slotNum - 1] != CardBase.CardID.NO_CARD && m_cardsPlayedE[m_slotNum] != CardBase.CardID.NO_CARD)
-          //{
-          //  //Console.WriteLine("ENEMY COMBOED");
-          //  ComboManager.Combo(ref m_enemyStats, ref m_playerStats, (m_slotNum - 1));
-          //}
+          if (m_enemyStats.m_deckMngr.m_queue[m_slotToResolve - 1].Item1 != CardBase.CardID.NO_CARD && m_enemyStats.m_deckMngr.m_queue[m_slotToResolve].Item1 != CardBase.CardID.NO_CARD)
+          {
+            ComboManager.Combo(ref m_enemyStats, ref m_playerStats, (m_slotToResolve - 1));
+          }
         }
-
         HighlightQueueSlot(m_slotToResolve);
         ++m_slotToResolve;
-
-        if (m_slotToResolve > 2)
-        {
-          Console.WriteLine("End resolution");
-          isResolutionPhase = false;
-          isStartOfTurn = true;
-          m_slotToResolve = 0;
-        }
+        m_playerStats.ClearAtKBlk();
+        m_enemyStats.ClearAtKBlk();
       }
       // if game has ended
       else
@@ -320,8 +340,8 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
       \brief
-        This function is triggered t the satrt of resolution phase. This reset the variables
-        used when resolving the resolution phase
+        This function is triggered t the satrt of resolution phase. 
+        This reset the variables used when resolving the resolution phase
       ************************************************************************/
     private void StartResolution()
     {
@@ -330,13 +350,12 @@ namespace GoopScripts.Gameplay
 
 
     /*!*********************************************************************
-      \brief
-        This funciton is triggered when the user clicks the end turn button. THis function
-        starts the resolution phase
-      ************************************************************************/
+    \brief
+      This funciton is triggered when the user clicks the end turn button. 
+      This function starts the resolution phase
+    ************************************************************************/
     public void EndTurn()
     {
-      //Console.WriteLine("END TURN");
       isResolutionPhase = true;
       StartResolution();
     }
@@ -407,15 +426,12 @@ namespace GoopScripts.Gameplay
     
     void LoadEnemy(EnemyStatsInfo statsInfo)
     {
-      //uint enemyID = Utils.GetEntity("Enemy");
-      //Utils.DestroyEntity(enemyID);
       uint enemyID = Utils.SpawnPrefab(statsInfo.prefab, ENEMY_POS);
       Utils.SetEntityName(enemyID, "Enemy");
       m_enemyStats = (Stats)Utils.GetScript("Enemy", "Stats");
       m_enemyStats.OnCreate();
-      m_enemyStats.m_deckMngr.m_deck.Shuffle();
 
-			//m_enemyStats.m_type = statsInfo.characterType;
+			m_enemyStats.m_type = statsInfo.characterType;
 			m_enemyStats.m_deckMngr.Clear();
 			m_enemyStats.m_deckMngr.m_deck.m_cards = new CardID[0];
 			foreach (var elem in statsInfo.deckList)

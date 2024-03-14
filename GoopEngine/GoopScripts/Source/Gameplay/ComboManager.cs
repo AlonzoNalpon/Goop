@@ -78,7 +78,6 @@ namespace GoopScripts.Gameplay
         return;
       }
 
-      //Console.WriteLine("Applied Combo to " + source.m_type.ToString() + ": " + combo.GetName());
       
       if (combo.ApplyEffect(ref source, ref target))
       {
@@ -86,5 +85,22 @@ namespace GoopScripts.Gameplay
         ((ComboTextUpdate)Utils.GetScriptFromID((uint)source.m_comboUI[firstCardIndex], "ComboTextUpdate")).SetActive();
       }
     }
-  }
+
+
+    //public static void PlayCombo(ref Stats source, ref Stats target, CardBase.CardType c1 , CardBase.CardType c2)
+    //{
+    //  ComboPair pair = new ComboPair(c1, c2);
+    //  foreach (Buff b in m_comboList[pair].m_effects)
+    //  {
+    //    if (b.IsDebuff())
+    //    {
+    //      target.m_buffs.AddBuff(b);
+    //    }
+    //    else
+    //    {
+    //      source.m_buffs.AddBuff(b);
+    //    }
+    //  }
+    //}
+  } 
 }

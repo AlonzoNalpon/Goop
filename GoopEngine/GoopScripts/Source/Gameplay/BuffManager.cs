@@ -129,6 +129,7 @@ namespace GoopScripts.Gameplay
     uint m_maxNumOfBuffs; // This tracks the highest number of buffs ever
     CharacterType m_characterType;
 
+
     public BuffManager(int displayID, CharacterType type)
     {
       m_buffs = new List<Buff>();
@@ -155,6 +156,10 @@ namespace GoopScripts.Gameplay
     }
 
 
+    public void SetBuff(List<Buff> b)
+    {
+      m_buffs = b;
+    }
 
     public void StepTurn()
 		{

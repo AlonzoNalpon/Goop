@@ -36,7 +36,6 @@ namespace GoopScripts.AI.Enemy
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      //Console.WriteLine("Move to playerID:" + m_nodeID);
 
     }
 
@@ -67,8 +66,6 @@ namespace GoopScripts.AI.Enemy
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      //Console.WriteLine("Run Move to\n");
-
       if (PlayerExist())
       {
         uint playerID = GetPlayerID();

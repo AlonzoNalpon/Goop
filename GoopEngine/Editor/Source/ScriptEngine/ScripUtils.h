@@ -39,6 +39,7 @@ namespace GE {
 			IntArr,
 			FloatArr,
 			DoubleArr,
+			StringArr,
 			UIntArr,
 			QueueFT,
 			DeckFT,

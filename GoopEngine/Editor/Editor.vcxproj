@@ -60,7 +60,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -78,7 +78,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -99,6 +99,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AI\AISimulator.cpp" />
     <ClCompile Include="Source\AI\TreeManager.cpp" />
     <ClCompile Include="Source\ECS\ComponentTypes.cpp" />
     <ClCompile Include="Source\EditorUI\AnimEventEditor.cpp" />
@@ -109,6 +110,7 @@
     <ClCompile Include="Source\Prefabs\PrefabManager.cpp" />
     <ClCompile Include="Source\Prefabs\VariantPrefab.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptUtils.cpp" />
+    <ClCompile Include="Source\Serialization\ProxyScripts.cpp" />
     <ClCompile Include="Source\Serialization\Registration\RegisterEnumsAndFuncs.cpp" />
     <ClCompile Include="Source\Systems\AnimEvent\AnimEventsSystem.cpp" />
     <ClCompile Include="Source\Systems\Audio\AudioSystem.cpp" />
@@ -351,6 +353,7 @@
     <ClInclude Include="Source\Serialization\GooStream\GooStream.h" />
     <ClInclude Include="Source\Serialization\GooStream\IGooStream.h" />
     <ClInclude Include="Source\Serialization\JsonKeys.h" />
+    <ClInclude Include="Source\Serialization\ProxyScripts.h" />
     <ClInclude Include="Source\Serialization\Serializer.h" />
     <ClInclude Include="Source\Serialization\SpriteData.h" />
     <ClInclude Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.h" />
@@ -369,6 +372,7 @@
     <ClInclude Include="Source\Systems\Button\ButtonScriptSystem.h" />
     <ClInclude Include="Source\Systems\Button\ButtonSystem.h" />
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
+    <ClInclude Include="Source\AI\AISimulator.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
     <ClInclude Include="Source\Systems\GameSystem\GameSystem.h" />
     <ClInclude Include="Source\Systems\ParitcleSystem\ParticleSystem.h" />
