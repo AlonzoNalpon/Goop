@@ -14,8 +14,11 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  internal class LeahShoots : IAnimationEvent
+  public class LeahShoots : Entity, IAnimationEvent
   {
+    public string[] variations = new string[6];
+
+    public LeahShoots(uint entity) : base(entity) { }
     public void PlayEvent(uint entity)
     {
       Utils.PlaySoundF("SFX_Beam3", 1.0f, Utils.ChannelType.SFX, false);
