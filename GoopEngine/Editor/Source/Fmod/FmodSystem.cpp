@@ -287,10 +287,16 @@ void GE::fMOD::FmodSystem::HandleEvent(GE::Events::Event* event)
   switch (event->GetCategory())
   {
   case GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS:
-    ErrorCheck(m_masterGroup->setPaused(true));
+    SetChannelPause(BGM, true);
+    SetChannelPause(SFX, true);
+    SetChannelPause(VOICE, true);
+    //ErrorCheck(m_masterGroup->setPaused(true));
     break;
   case GE::Events::EVENT_TYPE::WINDOW_GAIN_FOCUS:
-    ErrorCheck(m_masterGroup->setPaused(false));
+    //ErrorCheck(m_masterGroup->setPaused(false));
+    SetChannelPause(BGM, false);
+    SetChannelPause(SFX, false);
+    SetChannelPause(VOICE, false);
     break;
   default:
     break;
