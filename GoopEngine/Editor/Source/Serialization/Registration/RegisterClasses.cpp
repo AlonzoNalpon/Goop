@@ -188,6 +188,11 @@ RTTR_REGISTRATION
     .property("type", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
     ;
+  rttr::registration::class_<MONO::ScriptFieldInstance<std::vector<std::string>>>("System.String[]")
+    .property("data", &MONO::ScriptFieldInstance<std::vector<std::string>>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<std::vector<std::string>>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<std::vector<std::string>>::m_scriptField)
+    ;
   rttr::registration::class_<MONO::ScriptFieldInstance<std::string>>("System.String")
     .property("data", &MONO::ScriptFieldInstance<std::string>::m_data)
     .property("type", &MONO::ScriptFieldInstance<std::string>::m_type)

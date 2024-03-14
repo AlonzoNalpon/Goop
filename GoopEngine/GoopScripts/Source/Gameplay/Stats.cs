@@ -46,6 +46,7 @@ namespace GoopScripts.Gameplay
     public DeckManager m_deckMngr;
     public Vec3<double>[] m_queueElemPos;
     public AnimationManager m_animManager;
+    public string[] m_test = { "atttttttt", "booobbobooboo" };
 
     //public string[] test = new string[5];
     //public CardBase.CardID[] test2 = new CardBase.CardID[5];
@@ -61,6 +62,7 @@ namespace GoopScripts.Gameplay
       queueElemIDs = new int[3];
       m_queueElemPos = new Vec3<double>[3];
       m_comboUI = new int[2];
+     // m_test = new string[2];
     }
 
     /*!*********************************************************************

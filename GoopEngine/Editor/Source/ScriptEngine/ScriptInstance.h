@@ -249,7 +249,7 @@ namespace GE {
 			{
 				MonoArray* newArray = GetMonoArray<T>(md, value.size());
 				for (int i = 0; i < mono_array_length(newArray); ++i) {
-					mono_array_set(newArray, int, i, value[i]);
+					mono_array_set(newArray, T, i, value[i]);
 				}
 				mono_field_set_value(m_classInst, field , newArray);
 			}
@@ -330,7 +330,7 @@ namespace GE {
 			{
 				MonoArray* newArray = GetMonoArray<T>(md, value.size());
 				for (int i = 0; i < mono_array_length(newArray); ++i) {
-					mono_array_set(newArray, int, i, value[i]);
+					mono_array_set(newArray, T, i, value[i]);
 				}
 				mono_field_set_value(obj, field, newArray);
 			}
