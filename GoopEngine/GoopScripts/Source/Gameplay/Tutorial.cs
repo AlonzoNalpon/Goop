@@ -407,7 +407,7 @@ namespace GoopScripts.Gameplay
       }
 
       m_enemyStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth, false, E_HEALTH_TEXT_UI, E_HEALTH_UI);
-      Utils.UpdateSprite(GetEntity("Background"), statsInfo.background);
+      Utils.SpawnPrefab(statsInfo.background, new Vec3<double>(0, 0, -999));
       Utils.UpdateSprite(GetEntity("Enemy Portrait"), statsInfo.portrait);
     }
   }
