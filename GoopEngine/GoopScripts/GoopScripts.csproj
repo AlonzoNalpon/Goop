@@ -121,6 +121,7 @@
     <Compile Include="Source\Button\SwitchCutScenes.cs" />
     <Compile Include="Source\Button\TextButtonBase.cs" />
     <Compile Include="Source\Button\TransitionOut.cs" />
+    <Compile Include="Source\Button\TransitionOut2.cs" />
     <Compile Include="Source\Button\Tutorial\ArrowButton.cs" />
     <Compile Include="Source\Button\Tutorial\BackTutorial.cs" />
     <Compile Include="Source\Button\Tutorial\ContinueTutorial.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Source\Transition\ChangeGameOverToMainMenu.cs" />
     <Compile Include="Source\Transition\ChangeToCredits.cs" />
     <Compile Include="Source\Transition\ChangeToCutScenes.cs" />
+    <Compile Include="Source\Transition\ChangeToDeckViewer.cs" />
     <Compile Include="Source\Transition\ChangeToDefeat.cs" />
     <Compile Include="Source\Transition\ChangeToGameScene.cs" />
     <Compile Include="Source\Transition\ChangeToHTP.cs" />
@@ -190,6 +192,7 @@
     <Compile Include="Source\Transition\ChangeToTutorial.cs" />
     <Compile Include="Source\Transition\ChangeToVictory.cs" />
     <Compile Include="Source\UI\FPS.cs" />
+    <Compile Include="Source\UI\GameNameFlicker.cs" />
     <Compile Include="Source\UI\HealthBar.cs" />
     <Compile Include="Source\UI\PauseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

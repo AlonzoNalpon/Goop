@@ -84,6 +84,13 @@ namespace GoopScripts.Gameplay
       Utils.SetTextComponent(m_comboUI[1], "");
     }
 
+    public void FakeOnCreate()
+    {
+      m_buffsDisplay = 0;
+      m_type = CharacterType.DAWSON;
+      m_buffs = new BuffManager(m_buffsDisplay, m_type);
+    }
+
     /*!*********************************************************************
     \brief  
       Initialises character's hand with the correct number of cards
@@ -190,6 +197,40 @@ namespace GoopScripts.Gameplay
       return damageTaken;
     }
 
+    public int FakeTakeDamage(float damage)
+    {
+      if (damage == 0.0f)
+      {
+        return 0;
+      }
+
+      float takenMultiplier = 1.0f;
+
+      foreach (var buff in m_buffs.Buffs)
+      {
+        switch (buff.type)
+        {
+          case Buff.BuffType.INCREASE_BLOCK:
+            AddBlock((int)buff.value);
+            break;
+
+          default:
+            break;
+        }
+      }
+      int damageTaken = (int)(damage * takenMultiplier) - m_block;
+      if (damageTaken > 0)
+      {
+        m_healthBar.m_health -= damageTaken;
+        if (m_healthBar.m_health < 0)
+        {
+          m_healthBar.m_health = 0;
+        }
+      }
+
+      return damageTaken;
+    }
+
     /*!*********************************************************************
     \brief  
       Calculates total damage dealt and applies to character's stats.
@@ -261,6 +302,13 @@ namespace GoopScripts.Gameplay
       m_buffs.UpdateBuffsUI();
     }
 
+    public void FakeEndOfTurn()
+    {
+      m_deckMngr.FakeDiscardQueue();
+      m_attack = m_block = 0;
+      m_buffs.FakeStepTurn();
+    }
+
     /*!*********************************************************************
     \brief
       Draws a card through the deck manager. If the CharacterType is
@@ -289,6 +337,17 @@ namespace GoopScripts.Gameplay
       }
       Utils.PlaySoundF("SFX_CardDraw3", 1.0f, Utils.ChannelType.SFX, false);
     }
+
+    public void FakeDraw()
+    {
+      int idx = m_deckMngr.Draw();
+      if (idx < 0)
+      {
+        return;
+      }
+    }
+
+
 
     /*!*********************************************************************
     \brief
@@ -359,6 +418,26 @@ namespace GoopScripts.Gameplay
         Utils.SetCardToQueuedState(entity, m_queueElemPos[qIdx]);
         m_deckMngr.AlignHandCards();
       }
+    }
+
+    public void QueueCardByCardID(CardBase.CardID c)
+    {
+      
+      if (m_deckMngr.IsQueueFull())
+      {
+        
+        return;
+      }
+      int ind = m_deckMngr.m_hand.FindIndex(pair => pair.Item1 == c);
+      if(ind == -1)
+      {
+#if (DEBUG)
+        Console.WriteLine("QueueCard: INDEX OUT OF RANGE!!!");
+#endif
+        return;
+      }
+      m_deckMngr.Queue(ind);
+      
     }
 
     /*!*********************************************************************

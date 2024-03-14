@@ -222,6 +222,21 @@ void FmodSystem::StopChannel(ChannelType channel)
 
 void GE::fMOD::FmodSystem::SetChannelPause(ChannelType channel, bool paused)
 {
+  bool currState;
+  ErrorCheck(m_channelGroups[channel]->getPaused(&currState)); // get the old state
+  std::cout << "CALLED " << paused << std::endl;
+  for (size_t i{}; i < m_pausePlayRequests.size(); ++i)
+  {
+    PausePlayRequest const& req{ m_pausePlayRequests[i] };
+    if (req.channel == channel)
+    {
+      m_pausePlayRequests.erase(m_pausePlayRequests.begin() + i);
+      //if (currState == req.pause)
+      //  return;
+      return;
+    }
+  }
+  std::cout << "CARRIED OUT" << std::endl;
   m_pausePlayRequests.emplace_back(paused, channel);
   if (!paused) // must play the audio
     ErrorCheck(m_channelGroups[channel]->setPaused(false));
