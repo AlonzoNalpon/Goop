@@ -363,7 +363,7 @@
         ]
     },
     {
-        "Name": "Leah_Attack_Hover",
+        "Name": "Leah_Attack_Hover_Tut",
         "ID": 2,
         "Prefab": null,
         "isActive": true,
