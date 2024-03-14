@@ -26,15 +26,11 @@ Sprite
 Sprite Animation
 Tween
 Script
-Draggable
 Enemy AI
 Text
 Game
 Audio
 Button
-Card
-Card Holder
-Card Holder Element
 Emitter
 Animation Events
 

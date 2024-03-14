@@ -65,13 +65,13 @@ namespace GoopScripts.Gameplay
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
 
       m_playerStats.m_deckMngr.m_deck.Shuffle();
-      UI.PauseManager.SetPauseState(0);
 
       // set the static variable to the entity holding the hover effect sprite
       SelectCard.m_cardHover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
       Utils.SetIsActiveEntity(SelectCard.m_cardHover, false);
       ResetGameManager();
-    }
+			Utils.SetLoseFocus(false);
+		}
 
 
     /*!*********************************************************************

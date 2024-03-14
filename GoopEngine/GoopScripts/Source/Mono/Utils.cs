@@ -459,7 +459,6 @@ namespace GoopScripts.Mono
 
     public static void ToMainMenu()
     {
-      UI.PauseManager.SetPauseState(0);
       Utils.TransitionToScene("MainMenu");
     }
 

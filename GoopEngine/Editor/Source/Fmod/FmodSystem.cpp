@@ -71,8 +71,7 @@ void FmodSystem::Update()
     ErrorCheck(m_channelGroups[curr.channel]->setVolume(volumeFactor * targetVolume));
     if (curr.timer >= FadeTime) // is it time to actually set paused?
     {
-      if (!curr.pause)
-        ErrorCheck(m_channelGroups[curr.channel]->setPaused(curr.pause));
+      ErrorCheck(m_channelGroups[curr.channel]->setPaused(curr.pause));
       m_pausePlayRequests.erase(m_pausePlayRequests.begin() + i);
       continue; // we're done. Skip to next iteration
     }
@@ -224,7 +223,10 @@ void GE::fMOD::FmodSystem::SetChannelPause(ChannelType channel, bool paused)
 {
   bool currState;
   ErrorCheck(m_channelGroups[channel]->getPaused(&currState)); // get the old state
-  std::cout << "CALLED " << paused << std::endl;
+
+  if (paused == currState)
+    return;
+
   for (size_t i{}; i < m_pausePlayRequests.size(); ++i)
   {
     PausePlayRequest const& req{ m_pausePlayRequests[i] };
@@ -236,7 +238,7 @@ void GE::fMOD::FmodSystem::SetChannelPause(ChannelType channel, bool paused)
       return;
     }
   }
-  std::cout << "CARRIED OUT" << std::endl;
+
   m_pausePlayRequests.emplace_back(paused, channel);
   if (!paused) // must play the audio
     ErrorCheck(m_channelGroups[channel]->setPaused(false));
@@ -285,10 +287,16 @@ void GE::fMOD::FmodSystem::HandleEvent(GE::Events::Event* event)
   switch (event->GetCategory())
   {
   case GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS:
-    ErrorCheck(m_masterGroup->setPaused(true));
+    SetChannelPause(BGM, true);
+    SetChannelPause(SFX, true);
+    SetChannelPause(VOICE, true);
+    //ErrorCheck(m_masterGroup->setPaused(true));
     break;
   case GE::Events::EVENT_TYPE::WINDOW_GAIN_FOCUS:
-    ErrorCheck(m_masterGroup->setPaused(false));
+    //ErrorCheck(m_masterGroup->setPaused(false));
+    SetChannelPause(BGM, false);
+    SetChannelPause(SFX, false);
+    SetChannelPause(VOICE, false);
     break;
   default:
     break;

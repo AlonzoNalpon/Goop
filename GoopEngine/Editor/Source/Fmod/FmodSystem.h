@@ -19,7 +19,6 @@ namespace GE
 	{
     class FmodSystem : public Singleton<FmodSystem>, public GE::Events::IEventListener
     {
-      static constexpr double FadeTime{ 1 };
     public:
       enum ChannelType
       {
@@ -169,6 +168,7 @@ namespace GE
       ************************************************************************/
       void SetChannelPause(ChannelType channel, bool paused);
     private:
+      static constexpr double FadeTime{ 0.3 };
       struct PausePlayRequest 
       {
         bool pause;

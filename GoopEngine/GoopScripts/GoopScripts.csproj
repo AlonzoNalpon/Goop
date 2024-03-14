@@ -194,6 +194,7 @@
     <Compile Include="Source\Transition\ChangeToHTP.cs" />
     <Compile Include="Source\Transition\ChangeToMainMenu.cs" />
     <Compile Include="Source\Transition\ChangeToOptions.cs" />
+    <Compile Include="Source\Transition\ChangeToReward.cs" />
     <Compile Include="Source\Transition\ChangeToTutorial.cs" />
     <Compile Include="Source\Transition\ChangeToVictory.cs" />
     <Compile Include="Source\UI\FPS.cs" />

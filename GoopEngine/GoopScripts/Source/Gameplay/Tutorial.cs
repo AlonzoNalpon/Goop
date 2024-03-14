@@ -52,9 +52,9 @@ namespace GoopScripts.Gameplay
       SelectCard.m_cardHover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
       Utils.SetIsActiveEntity(SelectCard.m_cardHover, false);
 
-      UI.PauseManager.SetPauseState(0);
       ResetTutorial();
-    }
+			Utils.SetLoseFocus(false);
+		}
 
     public void OnUpdate(double deltaTime)
     {

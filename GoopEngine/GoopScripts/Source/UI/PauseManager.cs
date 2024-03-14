@@ -42,14 +42,14 @@ namespace GoopScripts.UI
       if (m_pauseState != 0)
 			{
 				Utils.SetTimeScale(0.0f);
-                Utils.PauseChannel(Utils.ChannelType.SFX, true);
-                Utils.PauseChannel(Utils.ChannelType.BGM, true);
+                //Utils.PauseChannel(Utils.ChannelType.SFX, true);
+                //Utils.PauseChannel(Utils.ChannelType.BGM, true);
       }
       else
 			{
 				Utils.SetTimeScale(1.0f);
-                Utils.PauseChannel(Utils.ChannelType.SFX, false);
-                Utils.PauseChannel(Utils.ChannelType.BGM, false);
+                //Utils.PauseChannel(Utils.ChannelType.SFX, false);
+                //Utils.PauseChannel(Utils.ChannelType.BGM, false);
       }
     }
   }

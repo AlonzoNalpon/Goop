@@ -120,6 +120,14 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 		}
 		TreePop();
 	}
+
+	if (prefabPopup)
+	{
+		ImGui::OpenPopup("Create Prefab");
+		prefabPopup = false;
+	}
+	RunCreatePrefabPopup();
+
 	// Reset colour
 	style.Colors[ImGuiCol_Text] = originalTextClr;
 
@@ -379,6 +387,51 @@ namespace
 		}
 		else
 		{
+			PushID(std::to_string(entity).c_str());
+			if (IsItemClicked(ImGuiMouseButton_Right))
+			{
+				OpenPopup("EntityManip");
+				treeNodePopUp = true;
+			}
+			if (BeginPopup("EntityManip"))
+			{
+				style.Colors[ImGuiCol_Text] = ImColor{ 255,255,255 };
+				// create entity as child of selected
+				if (Selectable("Create"))
+				{
+					GE::Component::Transform trans{ {0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 } };
+					GE::CMD::PRS newPRS{ trans.m_worldPos, trans.m_worldScale, trans.m_worldRot };
+					GE::CMD::AddObjectCmd newTransCmd = GE::CMD::AddObjectCmd(newPRS);
+					GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+					cmdMan.AddCommand(newTransCmd);
+				}
+
+				if (Selectable("Duplicate"))
+				{
+					GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity);
+				}
+
+				ImGui::BeginDisabled(GE::EditorGUI::PrefabEditor::IsEditingPrefab());
+				if (Selectable("Save as Prefab"))
+				{
+					prefabPopup = true;
+					selectedEntity = entity;
+				}
+				ImGui::EndDisabled();
+
+				if (Selectable("Delete"))
+				{
+					entitiesToDestroy.push_back(entity);
+
+					if (GE::EditorGUI::PrefabEditor::IsEditingPrefab())
+					{
+						GE::Events::EventManager::GetInstance().Dispatch(GE::Events::DeletePrefabChildEvent(entity));
+					}
+				}
+				style.Colors[ImGuiCol_Text] = textClr;
+				EndPopup();
+			}
+			PopID();
 			////////////////////////////////////
 			// Handle drag and drop orderering
 			////////////////////////////////////
@@ -451,13 +504,6 @@ namespace
 				GE::EditorGUI::ImGuiHelper::SetSelectedEntity(entity);
 			}
 		}
-
-		if (prefabPopup)
-		{
-			ImGui::OpenPopup("Create Prefab");
-			prefabPopup = false;
-		}
-		RunCreatePrefabPopup();
 	}
 
 	void RunCreatePrefabPopup()
