@@ -298,6 +298,8 @@ namespace
 	************************************************************************/
 	bool  InputScriptList(std::string propertyName, std::vector<unsigned>& list, float fieldWidth, bool disabled = false);
 
+	bool InputScriptList(std::string propertyName, std::vector<std::string>& list, float fieldWidth, bool disabled = false);
+
 	/*!*********************************************************************
 	\brief
 			Wrapper to create specialized inspector list of vector of unsigned int.
@@ -1117,6 +1119,24 @@ void GE::EditorGUI::Inspector::CreateContent()
 								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
 								TableNextColumn(); 
 								if (InputScriptList("##" + sfi.m_scriptField.m_fieldName, sfi.m_data, inputWidth)){ s.SetFieldValueArr<int>(sfi.m_data,sm->m_appDomain ,sfi.m_scriptField.m_classField);};
+							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<std::string>>>())
+							{
+								GE::MONO::ScriptFieldInstance<std::vector<std::string>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<std::string>>>();
+	
+								ImGui::TableNextRow();
+								TableNextColumn();
+								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
+								TableNextColumn();
+								if (InputScriptList("##" + sfi.m_scriptField.m_fieldName, sfi.m_data, inputWidth))
+								{
+									std::vector<MonoString*> proxy{};
+									for (std::string st : sfi.m_data)
+									{
+										proxy.push_back(STDToMonoString(st));
+									}
+									s.SetFieldValueArr<MonoString*>(proxy, sm->m_appDomain, sfi.m_scriptField.m_classField);
+								};
 							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>())
 							{
@@ -2330,6 +2350,32 @@ namespace
 				ImGui::Text(propertyName.c_str());
 				ImGui::TableNextColumn();
 				if (InputInt(("##" + (propertyName + std::to_string(i))).c_str(), &list[i], 0)) { changed = true; }
+				TableNextRow();
+				ImGui::PopID();
+			}
+			EndTable();
+			ImGui::Separator();
+			ImGui::TreePop();
+		}
+		return changed;
+	}
+
+	bool InputScriptList(std::string propertyName, std::vector<std::string>& list, float fieldWidth, bool disabled)
+	{
+		// 12 characters for property name
+		float charSize = CalcTextSize("012345678901").x;
+		bool changed{ false };
+		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			Separator();
+			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
+			for (int i{}; i < list.size(); ++i)
+			{
+				PushID((std::to_string(i)).c_str());
+				ImGui::Text(propertyName.c_str());
+				ImGui::TableNextColumn();
+				if (InputText(("##" + (propertyName + std::to_string(i))).c_str(), &list[i], 0)) { changed = true; }
 				TableNextRow();
 				ImGui::PopID();
 			}

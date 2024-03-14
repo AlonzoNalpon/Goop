@@ -5,7 +5,9 @@
 \brief
 C# script containing all the internal function calls
 **************************************************************************/
+using GoopScripts.Cards;
 using GoopScripts.Input;
+using GoopScripts.Source.Mono;
 using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
@@ -289,6 +291,10 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void EndAI(uint entityID);
+
+
+   
+
 
     //[MethodImplAttribute(MethodImplOptions.InternalCall)]
     //extern public static void SetCurrentRunningNode(uint currID);

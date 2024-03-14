@@ -37,6 +37,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Audio/AudioSystem.h>
 #include <GameStateManager/GameStateManager.h>
 #include <Serialization/Deserializer.h>
+#include <AI/AISimulator.h>
 
 using namespace GE::MONO;
 
@@ -78,13 +79,14 @@ namespace GE
       { "GoopScripts.Mono.Vec3<System.Double>", ScriptFieldType::DVec3 },
       { "System.Int32[]", ScriptFieldType::IntArr },
       { "GoopScripts.Cards.CardBase.CardID[]", ScriptFieldType::UIntArr },
+      {"System.String[]",ScriptFieldType::StringArr},
       { "System.Collections.Queue", ScriptFieldType::QueueFT },
       { "GoopScripts.Gameplay.Deck", ScriptFieldType::DeckFT },
       { "GoopScripts.Gameplay.DeckManager", ScriptFieldType::DeckManagerFT },
       { "GoopScripts.Gameplay.CharacterType", ScriptFieldType::CharacterTypeFT },
       { "GoopScripts.UI.HealthBar", ScriptFieldType::HealthBarFT },
       { "GoopScripts.Gameplay.CharacterAnims", ScriptFieldType::CharacterAnimsFT }
-	
+
     };
   }
 }
@@ -195,6 +197,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
   mono_add_internal_call("GoopScripts.Mono.Utils::StartAI", GE::Systems::EnemySystem::StartAI);
   mono_add_internal_call("GoopScripts.Mono.Utils::EndAI", GE::Systems::EnemySystem::EndAI);
+
 
   // Game system stuff
   mono_add_internal_call("GoopScripts.Mono.Utils::GetAnimationTime", GE::MONO::GetAnimationTime);

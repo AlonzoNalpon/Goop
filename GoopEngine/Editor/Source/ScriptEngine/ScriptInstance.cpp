@@ -262,7 +262,6 @@ void ScriptInstance::GetFields()
       std::vector<int> value = GetFieldValueArr<int>(sm->m_appDomain, field.m_classField);
       ScriptFieldInstance<std::vector<int>> test{ field,value };
       m_scriptFieldInstList.emplace_back(test);
-
 		}
     else if (field.m_fieldType == ScriptFieldType::UIntArr)
     {
@@ -272,6 +271,19 @@ void ScriptInstance::GetFields()
       m_scriptFieldInstList.emplace_back(test);
 
     }
+    else if (field.m_fieldType == ScriptFieldType::StringArr)
+    {
+
+      std::vector<MonoString*> value = GetFieldValueArr<MonoString*>(sm->m_appDomain, field.m_classField);
+      std::vector<std::string> proxy{};
+      for (MonoString* s : value)
+      {
+        proxy.push_back(MonoStringToSTD(s));
+      }
+      ScriptFieldInstance<std::vector<std::string>> test{ field, proxy };
+      m_scriptFieldInstList.emplace_back(test);
+
+     }
     else if (field.m_fieldType == ScriptFieldType::String)
     {
       MonoString* value = GetFieldValue<MonoString*>(field.m_classField);
@@ -376,6 +388,16 @@ void ScriptInstance::SetAllFields()
     {
       GE::MONO::ScriptFieldInstance<std::vector<unsigned>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>();
       SetFieldValueArr<unsigned>(sfi.m_data, sm->m_appDomain, sfi.m_scriptField.m_classField);
+    }
+    else if (f.is_type<GE::MONO::ScriptFieldInstance<std::vector<std::string>>>())
+    {
+      GE::MONO::ScriptFieldInstance<std::vector<std::string>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<std::string>>>();
+      std::vector<MonoString*> proxy{};
+      for (std::string s : sfi.m_data)
+      {
+        proxy.push_back(STDToMonoString(s));
+      }
+      SetFieldValueArr<MonoString*>(proxy, sm->m_appDomain, sfi.m_scriptField.m_classField);
     }
 
   }
@@ -643,6 +665,17 @@ void ScriptInstance::GetAllUpdatedFields()
     {
       GE::MONO::ScriptFieldInstance<std::vector<unsigned>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>();
       sfi.m_data = GetFieldValueArr<unsigned>(sm->m_appDomain, sfi.m_scriptField.m_classField);
+    }
+    else if (f.is_type<GE::MONO::ScriptFieldInstance<std::vector<std::string>>>())
+    {
+      GE::MONO::ScriptFieldInstance<std::vector<std::string>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<std::string>>>();
+      std::vector<MonoString*> proxy = GetFieldValueArr<MonoString*>(sm->m_appDomain, sfi.m_scriptField.m_classField);
+      sfi.m_data.clear();
+      for (MonoString* s : proxy)
+      {
+        sfi.m_data.push_back(MonoStringToSTD(s));
+      }
+
     }
     else if (f.is_type<MONO::ScriptFieldInstance<CharacterAnims>>())
     {
