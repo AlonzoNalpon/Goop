@@ -188,8 +188,6 @@ namespace GoopScripts.Gameplay
       if (m_playerStats.IsTurnSkipped())
       {
         Utils.PlayAllTweenAnimation((uint)P_SKIPPED_UI, "FloatUp");
-        m_enemyStats.Draw();
-        m_enemyStats.Draw();
         m_playerSkipped = true;
         EndTurn();
       }
