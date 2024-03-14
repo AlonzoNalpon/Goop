@@ -1,7 +1,7 @@
 {
-    "Name": "Block Up",
+    "Name": "AtkUp",
     "isActive": true,
-    "Version": 3,
+    "Version": 7,
     "Components": [
         {
             "Transform": {
@@ -36,10 +36,22 @@
                             "y": 1.0
                         },
                         "width": 35,
-                        "height": 35
+                        "height": 35,
+                        "tint": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 0.0
+                        },
+                        "multiply": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        }
                     }
                 },
-                "spriteName": "Block Up",
+                "spriteName": "Atk Up",
                 "shouldRender": true
             }
         },
@@ -85,60 +97,22 @@
         {
             "ID": 2,
             "isActive": true,
-            "Name": "Backing",
-            "Parent": 1,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ 0, 0, 0 }",
-                        "scale": "{ 0.59, 0.345365, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, 0, 0 }",
-                        "worldScale": "{ 0.59, 0.345365, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Sprite": {
-                        "spriteData": {
-                            "spriteSubData": {
-                                "texCoords": {
-                                    "x": 0.0,
-                                    "y": 0.0
-                                },
-                                "texDims": {
-                                    "x": 1.0,
-                                    "y": 1.0
-                                },
-                                "width": 220,
-                                "height": 140
-                            }
-                        },
-                        "spriteName": "TempBacking",
-                        "shouldRender": true
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 3,
-            "isActive": true,
             "Name": "Text",
             "Parent": 1,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -51.9677, -9.27999, 0 }",
+                        "pos": "{ -40.7832, -8.15667, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -51.9677, -9.27999, 0 }",
+                        "worldPos": "{ -40.7832, -8.15667, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "Block Up",
+                        "text": "Atk Up",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -150,6 +124,13 @@
                     }
                 }
             ]
+        }
+    ],
+    "Removed Components": [
+        {
+            "id": 2,
+            "type": "void",
+            "version": 6
         }
     ]
 }

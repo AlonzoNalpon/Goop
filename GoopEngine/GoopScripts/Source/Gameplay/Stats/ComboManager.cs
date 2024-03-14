@@ -57,7 +57,6 @@ namespace GoopScripts.Gameplay
       m_comboList.Add(new ComboPair(CardBase.CardType.BLOCK, CardBase.CardType.SPECIAL),
         new BuffCombo("Enemy Turn Skipped", new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 1), 50));
 
-
       Buff blind = new Buff(Buff.BuffType.BLIND, 1.0f, 1);
       Buff atkUp = new Buff(Buff.BuffType.FLAT_ATK_UP, 1.0f, 1);
       m_comboList.Add(new ComboPair(CardBase.CardType.ATTACK, CardBase.CardType.SPECIAL),

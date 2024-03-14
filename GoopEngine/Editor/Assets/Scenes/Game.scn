@@ -108,16 +108,6 @@
                                     }
                                 },
                                 {
-                                    "data": [
-                                        "atttttttt",
-                                        "booobbobooboo"
-                                    ],
-                                    "type": "System.String[]",
-                                    "scriptField": {
-                                        "fieldName": "m_test"
-                                    }
-                                },
-                                {
                                     "data": "PLAYER",
                                     "type": "GoopScripts.Gameplay.CharacterType",
                                     "scriptField": {
@@ -192,22 +182,7 @@
                         {
                             "scriptName": "LeahShoots",
                             "entityID": 0,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": [
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        ""
-                                    ],
-                                    "type": "System.String[]",
-                                    "scriptField": {
-                                        "fieldName": "variations"
-                                    }
-                                }
-                            ]
+                            "scriptFieldInstList": []
                         },
                         {
                             "scriptName": "AnimationManager",
@@ -335,6 +310,100 @@
                     },
                     "scale": 0.13500000536441803,
                     "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Skipped",
+        "ID": 2,
+        "Prefab": {
+            "name": "Skipped",
+            "version": 6,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 2
+                },
+                {
+                    "key": 1,
+                    "value": 87
+                },
+                {
+                    "key": 2,
+                    "value": 88
+                },
+                {
+                    "key": 3,
+                    "value": 89
+                }
+            ],
+            "registered": true
+        },
+        "isActive": false,
+        "Parent": null,
+        "Child Entities": [
+            87
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 110.771, 46.0346, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 110.771, 46.0346, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 35.0,
+                    "height": 35.0,
+                    "min": "{ -17.5, -17.5 }",
+                    "max": "{ 17.5, 17.5 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 35,
+                            "height": 35,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Skipped",
+                    "shouldRender": true
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]

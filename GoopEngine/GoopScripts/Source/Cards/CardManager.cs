@@ -46,11 +46,11 @@ namespace GoopScripts.Cards
       { CardBase.CardID.SPECIAL_RAGE, "Leah_Berserk" },
 
       // dawson
-      { CardBase.CardID.DAWSON_BEAM, "Dawson_Attack_Hover" },
-      { CardBase.CardID.DAWSON_SWING, "Dawson_Attack2_Hover" },
-      { CardBase.CardID.DAWSON_SHIELD, "Dawson_Block_Hover" },
-      { CardBase.CardID.SPECIAL_CHARGEUP, "Dawson_ChargeUp_Hover" },
-      { CardBase.CardID.SPECIAL_TIMEWARP, "Dawson_TimeWarp_Hover" }
+      { CardBase.CardID.DAWSON_BEAM, "Dawson_Attack" },
+      { CardBase.CardID.DAWSON_SWING, "Dawson_Attack2" },
+      { CardBase.CardID.DAWSON_SHIELD, "Dawson_Block" },
+      { CardBase.CardID.SPECIAL_CHARGEUP, "Dawson_ChargeUp" },
+      { CardBase.CardID.SPECIAL_TIMEWARP, "Dawson_TimeWarp" }
     };
 
     static public readonly Dictionary<CardBase.CardID, string> m_cardIcons = new Dictionary<CardBase.CardID, string>

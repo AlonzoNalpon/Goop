@@ -324,7 +324,7 @@ namespace GoopScripts.Source.AI.Enemy.Dawson
 
           //  Console.WriteLine("Lets take dmg");
 
-            int pCalculatedDmg = fakePlayer.DamageDealt(), eCalculatedDmg = fakeEnemy.DamageDealt();
+            int pCalculatedDmg = fakePlayer.DamageDealt(i), eCalculatedDmg = fakeEnemy.DamageDealt(i);
 #if PRINT_PERM
             Console.WriteLine("Player deals: " + pCalculatedDmg);
             Console.WriteLine("Enemy deals:  " + eCalculatedDmg);

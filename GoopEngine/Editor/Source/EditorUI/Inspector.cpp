@@ -1921,7 +1921,7 @@ namespace
 	bool InputScriptList(std::string propertyName, std::vector<std::string>& list, float fieldWidth, bool disabled)
 	{
 		// 12 characters for property name
-		float charSize = CalcTextSize("012345678901").x;
+		static float charSize = CalcTextSize("SFX_BodyFallDawson2").x;
 		bool changed{ false };
 		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{

@@ -232,8 +232,8 @@ namespace GoopScripts.Gameplay
           enemyPlayedCard = true;
         }
 
-        int pCalculatedDmg = m_playerStats.DamageDealt(), eCalculatedDmg = m_enemyStats.DamageDealt();
-        int pDamageTaken = m_playerStats.TakeDamage(eCalculatedDmg), eDamageTaken = m_enemyStats.TakeDamage(pCalculatedDmg);
+        int pCalculatedDmg = m_playerStats.DamageDealt(m_slotToResolve), eCalculatedDmg = m_enemyStats.DamageDealt(m_slotToResolve);
+        int pDamageTaken = m_playerStats.TakeDamage(eCalculatedDmg, m_slotToResolve), eDamageTaken = m_enemyStats.TakeDamage(pCalculatedDmg, m_slotToResolve);
 
         // if any side is dead, end the game loop
         if (m_playerStats.IsDead())

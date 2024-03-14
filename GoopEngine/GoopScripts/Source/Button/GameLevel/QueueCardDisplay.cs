@@ -12,7 +12,7 @@ namespace GoopScripts.Button
     static readonly double X_OFFSET = 200.0;
 
     static bool m_isHovering = false;
-    static uint m_cardInstance;
+    static string m_cardInstance;
 
     public static void ShowCard(uint entity)
     {
@@ -21,10 +21,10 @@ namespace GoopScripts.Button
         return;
       }
 
-      string prefabName = Utils.GetEntityName(Utils.GetParentEntity(entity)) + "_Hover";
+      m_cardInstance = Utils.GetEntityName(Utils.GetParentEntity(entity)) + "_Hover";
       Vec3<double> pos = Utils.GetWorldPosition(entity);
       pos.X += X_OFFSET;
-      m_cardInstance = Utils.SpawnPrefab(prefabName, pos);
+      Utils.SpawnPrefab(m_cardInstance, pos);
       m_isHovering = true;
     }
 
@@ -32,10 +32,10 @@ namespace GoopScripts.Button
     {
       if (m_isHovering) return;
 
-      string prefabName = Utils.GetEntityName(entity);
+      m_cardInstance = Utils.GetEntityName(entity) + "_Hover";
       Vec3<double> pos = Utils.GetWorldPosition(entity);
       pos.X -=  X_OFFSET;
-      m_cardInstance = Utils.SpawnPrefab(prefabName, pos);
+      Utils.SpawnPrefab(m_cardInstance, pos);
       m_isHovering = true;
     }
 
@@ -46,7 +46,7 @@ namespace GoopScripts.Button
         return;
       }
 
-      Utils.DestroyEntity(m_cardInstance);
+      Utils.DestroyEntityByName(m_cardInstance);
       m_isHovering = false;
     }
   }

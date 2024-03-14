@@ -586,11 +586,19 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
-		Destroys and entity
+		Destroys an entity
 	\param entity
 		The entity to destroy
 	************************************************************************/
 	void DestroyEntity(GE::ECS::Entity entity);
+
+	/*!*********************************************************************
+	\brief
+		Destroys an entity
+	\param name
+		The name of the entity to destroy
+	************************************************************************/
+	void DestroyEntityByName(MonoString* name);
 
 	/*!******************************************************************
 	\brief
