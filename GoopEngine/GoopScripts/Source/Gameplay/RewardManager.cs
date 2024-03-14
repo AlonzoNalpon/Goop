@@ -12,7 +12,8 @@ namespace GoopScripts.Button
   {
     static readonly int REWARD_POOL_COUNT = 6, NUM_CHOICES = 5;
     static readonly double WIDTH = 1100;
-    static public List<uint> m_selectedCards;
+    static public List<CardBase.CardID> m_selectedCards;
+    static public List<uint> m_selectedEntityIDs;
     // public int m_hover;
 
     Random rng = new Random();
@@ -22,7 +23,7 @@ namespace GoopScripts.Button
 
     public RewardManager()
     {
-      m_selectedCards = new List<uint>();
+      m_selectedCards = new List<CardBase.CardID>();
     }
 
     public void OnCreate()
@@ -35,6 +36,8 @@ namespace GoopScripts.Button
         m_cardEntities[i] = Utils.SpawnPrefab(CardManager.m_cardPrefabs[generatedCard] + "_Hover", new Vec3<double>(-WIDTH * 0.5 + (WIDTH / (NUM_CHOICES - 1)) * i, 0, 0));
         Utils.SetScript(Utils.GetChildEntity(m_cardEntities[i], "Base"), "RewardCard");
         RewardCard.m_cardHover = (uint)hover;
+        RewardCard.m_type = generatedCard;
+        RewardCard.m_entityID = m_cardEntities[i];
       }
     }
 
@@ -52,6 +55,15 @@ namespace GoopScripts.Button
 
       // Console.WriteLine("Chance: " + chance + " | Card: " + m_rewardPool[i]);
       return m_rewardPool[i];
+    }
+
+    static public void AddCardsToDeck()
+    {
+      foreach (var entity in m_selectedEntityIDs)
+      {
+        Console.WriteLine(entity);
+        // Utils.GetScriptFromID(entity, "RewardCard").Deselect();
+      }
     }
   }
 }

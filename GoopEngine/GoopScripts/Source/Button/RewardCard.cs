@@ -12,9 +12,11 @@ namespace GoopScripts.Button
   public class RewardCard : IButtonClick, IButtonHoverEnter, IButtonHoverExit
   {
     static public uint m_cardHover;
-    // public CardBase.CardID m_type = CardBase.CardID.NO_CARD;
+    static public CardBase.CardID m_type = CardBase.CardID.NO_CARD;
+    static public uint m_entityID;
     uint box;
     bool selected = false;
+
 
     public RewardCard() { }
 
@@ -26,7 +28,7 @@ namespace GoopScripts.Button
         Utils.SetPosition(m_cardHover, pos);
         Utils.SetIsActiveEntity(m_cardHover, true);
         Utils.DestroyEntity(box);
-        RewardManager.m_selectedCards.Remove(box);
+        RewardManager.m_selectedCards.Remove(m_type);
       }
 
       if (RewardManager.m_selectedCards.Count() >= 3)
@@ -40,7 +42,7 @@ namespace GoopScripts.Button
         Utils.UpdateSprite(box, "CardSelected");
         Utils.SetScale(box, new Vec3<double>(1, 1, 1));
         Utils.SetIsActiveEntity(m_cardHover, false);
-        RewardManager.m_selectedCards.Add(box);
+        RewardManager.m_selectedCards.Add(m_type);
       }
 
       selected = !selected;
@@ -73,6 +75,14 @@ namespace GoopScripts.Button
       {
         Utils.SetIsActiveEntity(m_cardHover, false);
       }
+    }
+    static public void Deselect()
+    {
+      Vec3<double> pos = Utils.GetWorldPosition(m_entityID);
+      Utils.SetPosition(m_cardHover, pos);
+      Utils.SetIsActiveEntity(m_cardHover, true);
+      // Utils.DestroyEntity(Utils.GetScriptFromID(m_entityID, "RewardCard").box) ;
+      RewardManager.m_selectedCards.Remove(m_type);
     }
   }
 }

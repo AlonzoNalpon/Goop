@@ -77,7 +77,13 @@
             },
             {
                 "Scripts": {
-                    "scriptList": []
+                    "scriptList": [
+                        {
+                            "scriptName": "RewardButton",
+                            "entityID": 0,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             },
             {
@@ -277,13 +283,6 @@
                                     }
                                 },
                                 {
-                                    "data": 2,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "m_hover"
-                                    }
-                                },
-                                {
                                     "data": [
                                         4,
                                         5,
@@ -295,6 +294,13 @@
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
                                         "fieldName": "m_rewardPool"
+                                    }
+                                },
+                                {
+                                    "data": "",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "playerSavePath"
                                     }
                                 }
                             ]
