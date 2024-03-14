@@ -222,6 +222,12 @@ void FmodSystem::StopChannel(ChannelType channel)
 
 void GE::fMOD::FmodSystem::SetChannelPause(ChannelType channel, bool paused)
 {
+  for (auto const& req : m_pausePlayRequests)
+  {
+    if (req.channel == channel)
+      return;
+  }
+
   m_pausePlayRequests.emplace_back(paused, channel);
   if (!paused) // must play the audio
     ErrorCheck(m_channelGroups[channel]->setPaused(false));
