@@ -16,7 +16,7 @@ using GoopScripts.UI;
 
 namespace GoopScripts.Gameplay
 {
-  public class Tutorial : Entity
+  public class Tutorial : Entity, IOnDestroy
   {
     static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 112.0, 0.0);
     static readonly string GAME_DATA_DIR = "./Assets/GameData/";
