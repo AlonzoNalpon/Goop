@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_PropertySheetDisplayName>standard</_PropertySheetDisplayName>
+    <IncludePath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\include;$(SolutionDir)lib\stb-master;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.2.0\include;$(SolutionDir)lib\spdlog;$(ProjectDir)include;$(ProjectDir);$(SolutionDir)Editor\Systems;$(SolutionDir)Editor\Components;$(SolutionDir)Editor\ImGui;$(SolutionDir)lib\rapidjson-1.1.0;$(SolutionDir)lib\freetype-2.13.2\include;$(SolutionDir)lib\fMOD\include;$(SolutionDir)lib\mono\include;$(ProjectDir)Source;$(SolutionDir)lib\rttr-0.9.6\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022;$(SolutionDir)lib\glew-2.2.0\lib\Release\x64;$(SolutionDir)lib\freetype-2.13.2\dll\win64;$(SolutionDir)lib\fMOD\Librariesx64;$(SolutionDir)lib\mono\lib\DMono;$(SolutionDir)lib\mono\lib;$(SolutionDir)lib\rttr-0.9.6\lib\$(Configuration);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3dll.lib;glfw3.lib;freetype.lib;fmod_vc.lib;mono-2.0-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)lib\glfw-3.3.8.bin.WIN64\lib-vc2022\glfw3.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(SolutionDir)lib\glew-2.2.0\bin\Release\x64\glew32.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(SolutionDir)lib\freetype-2.13.2\dll\win64\freetype.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmod.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(SolutionDir)lib\fMOD\Librariesx64\fmodL.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(ProjectDir)Assets\" "$(TargetDir)Assets\" /E /I /Y
+xcopy "$(SolutionDir)lib\mono\4.5" "$(TargetDir)4.5" /e /y /i /r
+xcopy "$(SolutionDir)lib\rttr-0.9.6\lib\Release\*.dll" "$(OutDir)" /s /r /y /q
+RD /S /Q $(TargetDir)bin
+RD /S /Q $(TargetDir)obj
+RD /S /Q $(TargetDir)Assets\Scripts
+RD /S /Q $(TargetDir)DMono</Command>
+    </PostBuildEvent>
+    <ClCompile>
+      <PreprocessorDefinitions>GLFW_DLL;DGLEW_STATIC;_CRT_SECURE_NO_WARNINGS;IMGUI_DISABLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <CompileAsManaged>
+      </CompileAsManaged>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <PreBuildEvent>
+      <Command>xcopy "$(SolutionDir)lib\mono\lib\mono-2.0-sgen.dll" "$(OutDir)" /s /r /y /q</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>

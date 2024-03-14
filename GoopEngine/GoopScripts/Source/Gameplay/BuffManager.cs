@@ -29,6 +29,7 @@ namespace GoopScripts.Gameplay
       INCREASE_BLOCK,
       FLAT_ATK_UP, // e.g. +1
       MULTIPLICATIVE_ATK_UP, // e.g. *2
+      IMMUNE_TO_DAMAGE,
 
       // DEBUFFS MUST START HERE
       FLAT_ATK_DOWN, // e.g. -1
@@ -92,6 +93,9 @@ namespace GoopScripts.Gameplay
           break;
         case BuffType.SKIP_TURN:
           m_label = "Skipped";
+          break;
+        case BuffType.IMMUNE_TO_DAMAGE:
+          m_label = "Immune To Damage";
           break;
         default:
           m_label = string.Empty;

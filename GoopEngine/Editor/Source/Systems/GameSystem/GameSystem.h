@@ -19,9 +19,6 @@ namespace GE::Systems
   class GameSystem : public GE::ECS::System, public GE::Events::IEventListener
   {
   private:
-    bool m_shouldIterate;
-    bool m_shouldWin;
-    bool m_shouldLose;
     static bool m_loseFocus;
   public:
 

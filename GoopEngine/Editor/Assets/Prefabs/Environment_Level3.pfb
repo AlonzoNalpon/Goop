@@ -1,0 +1,1000 @@
+{
+    "Name": "Environment_Level3",
+    "isActive": true,
+    "Version": 0,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 0, 0, 0 }",
+                "scale": "{ 1, 1, 1 }",
+                "rot": "{ 0, 0, 0 }",
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "width": 1920,
+                        "height": 1080,
+                        "tint": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 0.0
+                        },
+                        "multiply": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        }
+                    }
+                },
+                "spriteName": "Environment_Level3",
+                "shouldRender": true
+            }
+        }
+    ],
+    "SubData": [
+        {
+            "ID": 1,
+            "isActive": true,
+            "Name": "Environment_VFX_L3_TorchGlow",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 608.704, 387.528, 0.1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 608.704, 387.528, 0.1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 300,
+                                "height": 300,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.7450980544090271
+                                }
+                            }
+                        },
+                        "spriteName": "Environment_VFX_L3_TorchGlow",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Tween": {
+                        "tweens": [
+                            {
+                                "key": "Fade",
+                                "value": [
+                                    {
+                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.9411764740943909
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.5,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.7215686440467834
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.1,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.9647058844566345
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.1,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.8666666746139526
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 9.0,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.9882352948188782
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 7.0,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.7254902124404907
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.1,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.9490196108818054
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.1,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.9490196108818054
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 4.7,
+                                        "animationEvent": ""
+                                    }
+                                ]
+                            }
+                        ],
+                        "paused": false,
+                        "loop": true,
+                        "playing": "Fade"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 2,
+            "isActive": true,
+            "Name": "Eyes",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0.1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0.1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 3,
+            "isActive": true,
+            "Name": "Eyes 3",
+            "Parent": 2,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 182.926, 404.027, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 182.926, 404.027, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 120,
+                                "height": 120,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
+                            }
+                        },
+                        "spriteName": "Environment_VFX_L3_Eyes01",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Tween": {
+                        "tweens": [
+                            {
+                                "key": "Fade",
+                                "value": [
+                                    {
+                                        "trans": "{ 182.926, 404.027, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 17.0,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ 182.926, 404.027, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.3,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ 182.926, 404.027, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 4.0,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ 182.926, 404.027, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.3,
+                                        "animationEvent": ""
+                                    }
+                                ]
+                            }
+                        ],
+                        "paused": false,
+                        "loop": true,
+                        "playing": "Fade"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 4,
+            "isActive": true,
+            "Name": "Eyes 2",
+            "Parent": 2,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -378.704, 485.174, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -378.704, 485.174, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 120,
+                                "height": 120,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                }
+                            }
+                        },
+                        "spriteName": "Environment_VFX_L3_Eyes02",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Tween": {
+                        "tweens": [
+                            {
+                                "key": "Fade",
+                                "value": [
+                                    {
+                                        "trans": "{ -378.704, 485.174, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 5.0,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -378.704, 485.174, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.3,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -378.704, 485.174, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 2.7,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -378.704, 485.174, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.1,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -378.704, 485.174, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.1,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -378.704, 485.174, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 5.2,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -378.704, 485.174, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.3,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -378.704, 485.174, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 8.0,
+                                        "animationEvent": ""
+                                    }
+                                ]
+                            }
+                        ],
+                        "paused": false,
+                        "loop": true,
+                        "playing": "Fade"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 5,
+            "isActive": true,
+            "Name": "Eyes 1",
+            "Parent": 2,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -911.667, 507.111, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -911.667, 507.111, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 120,
+                                "height": 120,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Environment_VFX_L3_Eyes02",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Tween": {
+                        "tweens": [
+                            {
+                                "key": "Fade",
+                                "value": [
+                                    {
+                                        "trans": "{ -911.667, 507.111, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 2.0,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -911.667, 507.111, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.1,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -911.667, 507.111, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.1,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -911.667, 507.111, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 3.0,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -911.667, 507.111, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.3,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -911.667, 507.111, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 7.45,
+                                        "animationEvent": ""
+                                    },
+                                    {
+                                        "trans": "{ -911.667, 507.111, 0 }",
+                                        "scale": "{ 1, 1, 1 }",
+                                        "rot": "{ 0, 0, 0 }",
+                                        "spriteTint": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 0.0
+                                        },
+                                        "spriteMult": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "textColor": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        },
+                                        "duration": 0.3,
+                                        "animationEvent": ""
+                                    }
+                                ]
+                            }
+                        ],
+                        "paused": false,
+                        "loop": true,
+                        "playing": "Fade"
+                    }
+                }
+            ]
+        }
+    ]
+}

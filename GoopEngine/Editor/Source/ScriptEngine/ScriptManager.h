@@ -232,17 +232,6 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
-		Gets the object instance of the game system script given the
-		entity's name
-	\param gameSysEntityName
-		Name of the GameSystem entity
-	\return
-		The object instance
-	************************************************************************/
-	MonoObject* GetGameSysScript(MonoString* gameSysEntityName);
-
-	/*!*********************************************************************
-	\brief
 		Sets the text component of an entity
 	\param entity
 		The entity to set the text component of

@@ -76,7 +76,7 @@ void TweenSystem::FixedUpdate()
 				}
 			}
 
-			double normalisedTime = tween->m_timeElapsed / duration;
+			double normalisedTime = duration == 0.f ? 1.f : tween->m_timeElapsed / duration;
 			trans->m_pos = Tweening(tween->m_originalPos, target, normalisedTime);
 			trans->m_scale = Tweening(tween->m_originalScale, scale, normalisedTime);
 			trans->m_rot = Tweening(tween->m_originalRot, rot, normalisedTime);
@@ -119,38 +119,20 @@ void TweenSystem::FixedUpdate()
 				tween->m_started = true;
 			}
 
-			if (duration == 0.f)
+			double normalisedTime = duration == 0.f ? 1.f : tween->m_timeElapsed / duration;
+			trans->m_pos = Tweening(tween->m_originalPos, target, normalisedTime);
+			trans->m_scale = Tweening(tween->m_originalScale, scale, normalisedTime);
+			trans->m_rot = Tweening(tween->m_originalRot, rot, normalisedTime);
+			if (sprite) // set the sprite color if sprite component exists
 			{
-				trans->m_pos = target;
-				trans->m_scale = scale;
-				trans->m_rot = rot;
-				if (sprite) // set the sprite color if sprite component exists
-				{
-					sprite->m_spriteData.SetTint(spriteTint);
-					sprite->m_spriteData.SetMult(spriteMult);
-				}
-				if (text) // set the text color if text component exists
-				{
-					text->SetColor(textColor);
-				}
+				sprite->m_spriteData.SetTint(
+					Tweening(tween->m_originalSpriteTint, spriteTint, normalisedTime));
+				sprite->m_spriteData.SetMult(
+					Tweening(tween->m_originalSpriteMult, spriteMult, normalisedTime));
 			}
-			else
+			if (text) // set the text color if text component exists
 			{
-				double normalisedTime = tween->m_timeElapsed / duration;
-				trans->m_pos = Tweening(tween->m_originalPos, target, normalisedTime);
-				trans->m_scale = Tweening(tween->m_originalScale, scale, normalisedTime);
-				trans->m_rot = Tweening(tween->m_originalRot, rot, normalisedTime);
-				if (sprite) // set the sprite color if sprite component exists
-				{
-					sprite->m_spriteData.SetTint(
-						Tweening(tween->m_originalSpriteTint, spriteTint, normalisedTime));
-					sprite->m_spriteData.SetMult(
-						Tweening(tween->m_originalSpriteMult, spriteMult, normalisedTime));
-				}
-				if (text) // set the text color if text component exists
-				{
-					text->SetColor(Tweening(tween->m_originalTextColor, textColor, normalisedTime));
-				}
+				text->SetColor(Tweening(tween->m_originalTextColor, textColor, normalisedTime));
 			}
 		}
 		tween->m_timeElapsed += dt;

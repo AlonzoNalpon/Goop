@@ -12,10 +12,11 @@ using System.Threading;
 using static GoopScripts.Cards.CardBase;
 using GoopScripts.Button;
 using GoopScripts.Serialization;
+using GoopScripts.UI;
 
 namespace GoopScripts.Gameplay
 {
-  public class Tutorial : Entity
+  public class Tutorial : Entity, IOnDestroy
   {
     static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 112.0, 0.0);
     static readonly string GAME_DATA_DIR = "./Assets/GameData/";
@@ -407,8 +408,12 @@ namespace GoopScripts.Gameplay
       }
 
       m_enemyStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth, false, E_HEALTH_TEXT_UI, E_HEALTH_UI);
-      Utils.UpdateSprite(GetEntity("Background"), statsInfo.background);
+      Utils.SpawnPrefab(statsInfo.background, new Vec3<double>(0, 0, -999));
       Utils.UpdateSprite(GetEntity("Enemy Portrait"), statsInfo.portrait);
-    }
-  }
+		}
+		public void OnDestroy(uint entityid)
+		{
+			PauseManager.SetPauseState(0);
+		}
+	}
 }

@@ -23,7 +23,6 @@ RTTR_REGISTRATION
   /* ------------------- SYSTEMS ------------------- */
   rttr::registration::class_<Systems::PhysicsSystem>("PhysicsSystem");
   rttr::registration::class_<Systems::CollisionSystem>("CollisionSystem");
-  rttr::registration::class_<Systems::DraggableObjectSystem>("DraggableObjectSystem");
   rttr::registration::class_<Systems::ScriptSystem>("ScriptSystem");
   rttr::registration::class_<Systems::RenderSystem>("RenderSystem");
   rttr::registration::class_<Systems::SpriteAnimSystem>("SpriteAnimSystem");
@@ -36,7 +35,6 @@ RTTR_REGISTRATION
   rttr::registration::class_<Systems::ButtonSystem>("ButtonSystem");
   rttr::registration::class_<Systems::GameSystem>("GameSystem");
   rttr::registration::class_<Systems::ButtonScriptSystem>("ButtonScriptSystem");
-  rttr::registration::class_<Systems::CardHolderSystem>("CardHolderSystem");
   rttr::registration::class_<Systems::ParticleSystem>("ParticleSystem");
   rttr::registration::class_<Systems::AnimEventsSystem>("AnimEventsSystem");
 
@@ -93,10 +91,6 @@ RTTR_REGISTRATION
     //.property("flags", &Component::SpriteAnim::flags)
     ;
 
-  rttr::registration::class_<Component::Draggable>("Draggable")
-    .constructor<>()
-    ;
-
   rttr::registration::class_<Component::EnemyAI>("EnemyAI")
     .constructor<unsigned>()
     (
@@ -135,26 +129,6 @@ RTTR_REGISTRATION
     .property("currCollided", &Component::GE_Button::m_currCollided)
     ;
 
-  rttr::registration::class_<Component::Card>("Card")
-    .constructor<>()
-    .property("cardID", &Component::Card::cardID)
-    .property("tgtEntity", &Component::Card::tgtEntity)
-    ;
-
-  rttr::registration::class_<Component::CardHolder>("CardHolder")
-    .constructor<>()
-    .property("elements", &Component::CardHolder::elements)
-    .property("dataEntity", &Component::CardHolder::targetScript)
-    .property("dataType", &Component::CardHolder::dataType)
-    .property("targetScript", &Component::CardHolder::targetScript)
-    ;
-
-  rttr::registration::class_<Component::CardHolderElem>("CardHolderElem")
-    .constructor<>()
-    .property("holder", &Component::CardHolderElem::holder)
-    .property("elemIdx", &Component::CardHolderElem::elemIdx)
-    ;
-
   rttr::registration::class_<Component::Scripts>("Scripts")
     .constructor<Component::Scripts::ScriptInstances const&>()
     .property("scriptList", &Component::Scripts::m_scriptList)
@@ -163,17 +137,6 @@ RTTR_REGISTRATION
   rttr::registration::class_<Serialization::ProxyScripts>("ProxyScripts")
     .constructor<rapidjson::Value const&>()
     .property("scriptData", &Serialization::ProxyScripts::m_scriptData)
-    ;
-
-  rttr::registration::class_<Component::Game>("Game")
-    .constructor<>()
-    .property("player", &Component::Game::m_player)
-    .property("enemy", &Component::Game::m_enemy)
-    .property("pauseMenu", &Component::Game::m_pauseMenu)
-    .property("playerHand", &Component::Game::m_playerHand)
-    .property("playerQueue", &Component::Game::m_playerQueue)
-    .property("enemyQueue", &Component::Game::m_enemyQueue)
-    .property("gameSystemScript", &Component::Game::m_gameSystemScript)
     ;
 
   rttr::registration::class_<Component::Emitter>("Emitter")

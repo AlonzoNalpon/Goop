@@ -37,6 +37,15 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Game Build|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -147,6 +156,7 @@
     <Compile Include="Source\Gameplay\CharacterType.cs" />
     <Compile Include="Source\Gameplay\Combo.cs" />
     <Compile Include="Source\Gameplay\ComboManager.cs" />
+    <Compile Include="Source\Gameplay\ComboPage.cs" />
     <Compile Include="Source\Gameplay\ComboTextUpdate.cs" />
     <Compile Include="Source\Gameplay\Deck.cs" />
     <Compile Include="Source\Gameplay\DeckManager.cs" />
@@ -180,6 +190,7 @@
     <Compile Include="Source\Transition\ChangeToTutorial.cs" />
     <Compile Include="Source\Transition\ChangeToVictory.cs" />
     <Compile Include="Source\UI\FPS.cs" />
+    <Compile Include="Source\UI\GameNameFlicker.cs" />
     <Compile Include="Source\UI\HealthBar.cs" />
     <Compile Include="Source\UI\PauseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

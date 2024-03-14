@@ -1,7 +1,6 @@
 {
   "PreRootTransformSystem": [],
   "GameSystem": [
-    "Game"
   ],
   "ScriptSystem": [
     "Scripts"
@@ -31,11 +30,6 @@
     "BoxCollider",
     "Scripts"
   ],
-  "DraggableObjectSystem": [
-    "Transform",
-    "BoxCollider",
-    "Draggable"
-  ],
   "ParticleSystem": [
     "Sprite",
     "Emitter"
@@ -55,9 +49,6 @@
   ],
   "AudioSystem": [
     "Audio"
-  ],
-  "CardHolderSystem": [
-    "CardHolder"
   ],
   "AnimEventsSystem": [
     "SpriteAnim",

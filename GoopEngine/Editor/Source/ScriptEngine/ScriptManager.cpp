@@ -29,7 +29,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 #include <filesystem>
 #include <Component/Card.h>
-#include <Component/CardHolder.h>
 #include <GameDef.h>
 #include <Graphics/GraphicsEngine.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
@@ -216,7 +215,6 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScript", GE::MONO::GetScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptFromID", GE::MONO::GetScriptFromID);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetGameSysScript", GE::MONO::GetGameSysScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptInstanceGetScriptInstance", GE::MONO::GetScriptInstance);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetScript", GE::MONO::SetScript);
 
@@ -1076,15 +1074,6 @@ void GE::MONO::SetScript(GE::ECS::Entity entity, MonoString* scriptName)
   ecs.AddComponent<GE::Component::Scripts>(entity, comp);
   GE::Component::Scripts* allScripts = ecs.GetComponent<Component::Scripts>(entity);
   allScripts->m_scriptList.emplace_back(MonoStringToSTD(scriptName), entity);
-}
-
-MonoObject* GE::MONO::GetGameSysScript(MonoString* gameSysEntityName)
-{
-  GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
-  auto gameComp = ecs.GetComponent<GE::Component::Game>(ecs.GetEntity(MonoStringToSTD(gameSysEntityName)));
-  GE::MONO::ScriptInstance& scriptinst = gameComp->m_gameSystemScript;
-
-  return scriptinst.m_classInst;
 }
 
 void GE::MONO::PlayAnimation(MonoString* animName, GE::ECS::Entity entity)

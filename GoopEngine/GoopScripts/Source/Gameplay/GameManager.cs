@@ -27,7 +27,7 @@ using GoopScripts.UI;
 
 namespace GoopScripts.Gameplay
 {
-  public class GameManager : Entity
+  public class GameManager : Entity, IOnDestroy
   {
     //static readonly double INTERVAL_TIME = 3.0;
     static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 100.0, 0.0);
@@ -188,8 +188,6 @@ namespace GoopScripts.Gameplay
       if (m_playerStats.IsTurnSkipped())
       {
         Utils.PlayAllTweenAnimation((uint)P_SKIPPED_UI, "FloatUp");
-        m_enemyStats.Draw();
-        m_enemyStats.Draw();
         m_playerSkipped = true;
         EndTurn();
       }
@@ -442,8 +440,13 @@ namespace GoopScripts.Gameplay
       }
       m_enemyStats.m_deckMngr.Init();
       m_enemyStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth, false, E_HEALTH_TEXT_UI, E_HEALTH_UI);
-      Utils.UpdateSprite(GetEntity("Background"), statsInfo.background);
+      Utils.SpawnPrefab(statsInfo.background, new Vec3<double>(0, 0, -999));
       Utils.UpdateSprite(GetEntity("Enemy Portrait"), statsInfo.portrait);
     }
-  }
+
+		public void OnDestroy(uint entityid)
+		{
+      PauseManager.SetPauseState(0);
+		}
+	}
 }

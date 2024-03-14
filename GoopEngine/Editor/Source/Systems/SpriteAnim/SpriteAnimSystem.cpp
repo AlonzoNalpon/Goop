@@ -84,7 +84,7 @@ namespace GE::Systems
         }
 
         // setting the new sprite based on data
-        sprite->m_spriteData.info = spriteAnim.frames[animData->currFrame];
+        sprite->m_spriteData.info.CopyDataNoColor(spriteAnim.frames[animData->currFrame]);
       }
     }
     frc.EndSystemTimer("Sprite Animation");

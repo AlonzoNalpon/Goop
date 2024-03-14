@@ -47,7 +47,13 @@ namespace GE::Graphics {
       multiply = rhs.multiply; 
       return *this;
     }
-
+    inline void CopyDataNoColor(SpriteSubData const& rhs)
+    {
+      texCoords = rhs.texCoords;
+      texDims = rhs.texDims;
+      width = rhs.width;
+      height = rhs.height;
+    }
     // It is possible that sprite data can have varying sizes which requires offsets. 
     // This is the place to put offset if it's to be implemented (in pixels based on dimensions).
     // pivot offset should be done in model space first before game object transform

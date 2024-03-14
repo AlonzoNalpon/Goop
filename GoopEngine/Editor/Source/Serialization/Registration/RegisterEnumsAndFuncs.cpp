@@ -95,14 +95,6 @@ RTTR_REGISTRATION
       rttr::value("SPECIAL_TIMEWRAP", GE::Component::Card::CardID::SPECIAL_TIMEWRAP)
       );
 
-  rttr::registration::enumeration<GE::Component::CardHolder::DataType>("DataType")
-    (
-      rttr::value("QUEUE", GE::Component::CardHolder::DataType::QUEUE),
-      rttr::value("DECK", GE::Component::CardHolder::DataType::DECK),
-      rttr::value("HAND", GE::Component::CardHolder::DataType::HAND),
-      rttr::value("NONE", GE::Component::CardHolder::DataType::NONE)
-      );
-
   rttr::registration::enumeration<MONO::CharacterType>("CharacterType")
     (
       rttr::value("PLAYER", MONO::CharacterType::PLAYER),

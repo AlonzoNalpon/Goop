@@ -1,4 +1,5 @@
 ﻿using GoopScripts.Button;
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,23 @@ namespace GoopScripts.Source.Button
 {
   public class RewardButton : TextButtonBase
   {
-		public override void OnClick(uint entity)
-    {
-
-    }
 
     public override void OnRelease(uint entity)
     {
-
+      m_clicked = false;
+      Utils.PlaySoundF("SFX_ButtonClick", (float)m_rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
+      // RewardManager.AddCardsToDeck();
+      if (!m_hovering)
+      {
+        Utils.UpdateSprite(entity, "Button_Base");
+        Vec4<int> clr = m_buttonClrs[BUTTON_COLORS.DEFAULT_TEXT];
+        Utils.SetTextColor(Utils.GetChildEntity(entity, "Text"), clr.X, clr.Y, clr.Z, clr.W);
+      }
+      else
+      {
+        OnHoverEnter(entity);
+      }
     }
-
-
 
   }
 }
