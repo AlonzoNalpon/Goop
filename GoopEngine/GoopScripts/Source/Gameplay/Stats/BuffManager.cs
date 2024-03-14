@@ -76,17 +76,17 @@ namespace GoopScripts.Gameplay
       switch (type)
       {
         case BuffType.INCREASE_BLOCK:
-          m_label = "+" + value + " Block";
+          m_label = "+" + value + " to Block Cards";
           break;
         case BuffType.FLAT_ATK_UP:
-          m_label = "+" + value + " Atk";
+          m_label = "+" + value + " to Atk Cards";
           break;
         case BuffType.MULTIPLICATIVE_ATK_UP:
         case BuffType.MULTIPLICATIVE_ATK_DOWN:
-          m_label = "x" + value + " Atk";
+          m_label = "x" + value + " to Atk Cards";
           break;
         case BuffType.FLAT_ATK_DOWN:
-          m_label = "-" + value + " Atk";
+          m_label = "-" + value + " to Atk Cards";
           break;
         case BuffType.BLIND:
           m_label = "Blinded";
