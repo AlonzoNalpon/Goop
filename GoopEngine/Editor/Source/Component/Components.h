@@ -7,13 +7,9 @@
 #include <Component/Transform.h>
 #include <Component/Tween.h>
 #include <Component/Velocity.h>
-#include <Component/Draggable.h>
 #include <Component/EnemyAI.h>
-#include <Component/Camera.h>
 #include <Component/Text.h>
 #include <Component/Audio.h>
 #include <Component/Button.h>
-#include <Component/Game.h>
-#include <Component/Card.h>
 #include <Component/Emitter.h>
 #include <Component/AnimEvents.h>

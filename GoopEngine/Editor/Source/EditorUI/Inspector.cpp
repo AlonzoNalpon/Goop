@@ -1301,62 +1301,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					ImGui::Separator();
 				}
 			}
-			else if (compType == rttr::type::get<Component::Game>())
-			{
-				auto* game = ecs.GetComponent<GE::Component::Game>(entity);
-				if (ImGui::CollapsingHeader("Game", ImGuiTreeNodeFlags_DefaultOpen))
-				{
-					if (RemoveComponentPopup<GE::Component::Game>("Game", entity))
-					{
-						break;
-					}
-
-					Separator();
-					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					ImGui::TableNextRow();
-
-					InputEntity("Player Entity", game->m_player);
-					ImGui::TableNextRow();
-					InputEntity("Enemy Entity", game->m_enemy);
-					ImGui::TableNextRow();
-					InputEntity("Pause Menu", game->m_pauseMenu);
-					TableNextRow();
-					InputEntity("Player Hand", game->m_playerHand);
-					TableNextRow();
-					InputEntity("Player Queue", game->m_playerQueue);
-					TableNextRow();
-					InputEntity("Enemy Queue", game->m_enemyQueue);
-					TableNextRow();
-					TableNextColumn();
-					ImGui::Text("Script");
-					TableNextColumn();
-					GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
-					if (ImGui::BeginCombo("", game->m_gameSystemScript.m_scriptName.c_str()))
-					{
-						for (const std::string& sn : sm->m_allScriptNames)
-						{
-							if (game->m_gameSystemScript.m_scriptName != sn)
-							{
-								bool is_selected = (game->m_gameSystemScript.m_scriptName.c_str() == sn);
-								if (ImGui::Selectable(sn.c_str()))
-								{
-									game->m_gameSystemScript = ScriptInstance(sn,entity);
-									game->m_gameSystemScript.GetFields();
-								}
-								if (is_selected)
-								{
-									ImGui::SetItemDefaultFocus();
-								}
-							}
-						}
-						ImGui::EndCombo();
-					}
-
-					EndTable();
-				}
-				ImGui::Separator();
-			}
 			else if (compType == rttr::type::get<Component::Emitter>())
 			{
 				auto em = ecs.GetComponent<GE::Component::Emitter>(entity);
@@ -1578,20 +1522,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						addingComponent = false;
 						break;
 					}
-					else if (compType == rttr::type::get<Component::Draggable>())
-					{
-						if (!ecs.HasComponent<Draggable>(entity))
-						{
-							Draggable comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(Draggable).name() << ". Component already exist";
-						}
-						addingComponent = false;
-						break;
-					}
 					else if (compType == rttr::type::get<Component::Text>())
 					{
 						if (!ecs.HasComponent<Component::Text>(entity))
@@ -1632,20 +1562,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						else
 						{
 							ss << "Unable to add component " << typeid(GE::Component::GE_Button).name() << ". Component already exist";
-						}
-						addingComponent = false;
-						break;
-					}
-					else if (compType == rttr::type::get<Component::Game>())
-					{
-						if (!ecs.HasComponent<GE::Component::Game>(entity))
-						{
-							GE::Component::Game comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(GE::Component::Game).name() << ". Component already exist";
 						}
 						addingComponent = false;
 						break;

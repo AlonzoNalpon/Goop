@@ -1,7 +1,6 @@
 {
   "PreRootTransformSystem": [],
   "GameSystem": [
-    "Game"
   ],
   "ScriptSystem": [
     "Scripts"

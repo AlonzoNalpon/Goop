@@ -218,17 +218,6 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetScript(uint entity, string scriptName);
 
-    /*!*********************************************************************
-		\brief
-		  Gets the object instance of the game system script given the
-			entity's name
-		\param gameSysEntityName
-			Name of the GameSystem entity
-		\return
-		  The object instance
-		************************************************************************/
-    [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static object GetGameSysScript(string gameSysEntityName);
 
     // /*!*********************************************************************
     //

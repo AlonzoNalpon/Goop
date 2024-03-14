@@ -19,8 +19,6 @@ void ObjectFactory::RegisterComponentsToSystem(std::vector<rttr::type> const& co
       ecs.RegisterComponentToSystem<GE::Component::Tween, T>();
     else if (compType == rttr::type::get<Component::Scripts>())
       ecs.RegisterComponentToSystem<GE::Component::Scripts, T>();
-    else if (compType == rttr::type::get<Component::Draggable>())
-      ecs.RegisterComponentToSystem<GE::Component::Draggable, T>();
     else if (compType == rttr::type::get<Component::EnemyAI>())
       ecs.RegisterComponentToSystem<GE::Component::EnemyAI, T>();
     else if (compType == rttr::type::get<Component::Text>())
@@ -29,8 +27,6 @@ void ObjectFactory::RegisterComponentsToSystem(std::vector<rttr::type> const& co
       ecs.RegisterComponentToSystem<GE::Component::Audio, T>();
     else if (compType == rttr::type::get<Component::GE_Button>())
       ecs.RegisterComponentToSystem<GE::Component::GE_Button, T>();
-    else if (compType == rttr::type::get<Component::Game>())
-      ecs.RegisterComponentToSystem<GE::Component::Game, T>();
     else if (compType == rttr::type::get<Component::Emitter>())
       ecs.RegisterComponentToSystem<GE::Component::Emitter, T>();
     else if (compType == rttr::type::get<Component::AnimEvents>())

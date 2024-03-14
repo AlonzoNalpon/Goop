@@ -1,5 +1,4 @@
 #pragma once
-#include <Systems/DraggableObject/DraggableObjectSystem.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <Systems/Physics/PhysicsSystem.h>
 #include <Systems/ScriptSystem/ScriptSystem.h>

@@ -227,11 +227,6 @@ void GE::Scenes::SceneManager::InvokeOnCreate() const
           script.InvokeOnCreate();
         }
       }
-      else if (ecs.HasComponent<GE::Component::Game>(e))
-      {
-        GE::Component::Game* game = ecs.GetComponent<GE::Component::Game>(e);
-        game->m_gameSystemScript.InvokeOnCreate();
-      }
     }
   }
 }

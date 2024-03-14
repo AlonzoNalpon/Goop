@@ -23,7 +23,6 @@ RTTR_REGISTRATION
   /* ------------------- SYSTEMS ------------------- */
   rttr::registration::class_<Systems::PhysicsSystem>("PhysicsSystem");
   rttr::registration::class_<Systems::CollisionSystem>("CollisionSystem");
-  rttr::registration::class_<Systems::DraggableObjectSystem>("DraggableObjectSystem");
   rttr::registration::class_<Systems::ScriptSystem>("ScriptSystem");
   rttr::registration::class_<Systems::RenderSystem>("RenderSystem");
   rttr::registration::class_<Systems::SpriteAnimSystem>("SpriteAnimSystem");
@@ -138,17 +137,6 @@ RTTR_REGISTRATION
   rttr::registration::class_<Serialization::ProxyScripts>("ProxyScripts")
     .constructor<rapidjson::Value const&>()
     .property("scriptData", &Serialization::ProxyScripts::m_scriptData)
-    ;
-
-  rttr::registration::class_<Component::Game>("Game")
-    .constructor<>()
-    .property("player", &Component::Game::m_player)
-    .property("enemy", &Component::Game::m_enemy)
-    .property("pauseMenu", &Component::Game::m_pauseMenu)
-    .property("playerHand", &Component::Game::m_playerHand)
-    .property("playerQueue", &Component::Game::m_playerQueue)
-    .property("enemyQueue", &Component::Game::m_enemyQueue)
-    .property("gameSystemScript", &Component::Game::m_gameSystemScript)
     ;
 
   rttr::registration::class_<Component::Emitter>("Emitter")
