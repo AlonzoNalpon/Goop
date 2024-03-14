@@ -9,12 +9,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -401.426, 101.667, -9 }",
+                    "pos": "{ -338.191, 101.667, -9 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -401.426, 101.667, -9 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -338.191, 101.667, -9 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
@@ -419,6 +419,204 @@
         ]
     },
     {
+        "Name": "PSkippedAnim",
+        "ID": 4,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 8,
+        "Child Entities": [
+            64
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -333.001, 212.829, 20 }",
+                    "scale": "{ 0.2805, 0.2805, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -333.001, 212.829, 20 }",
+                    "worldScale": "{ 0.2805, 0.2805, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 300,
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
+                        }
+                    },
+                    "spriteName": "Skipped",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "FloatUp",
+                            "value": [
+                                {
+                                    "trans": "{ -333.001, 212.829, 0 }",
+                                    "scale": "{ 0.2805, 0.2805, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "duration": 0.0,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ -333.001, 500, 0 }",
+                                    "scale": "{ 0.2805, 0.2805, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 1.0,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        },
+                        {
+                            "key": "FlyIn",
+                            "value": [
+                                {
+                                    "trans": "{ 0, 133, 0 }",
+                                    "scale": "{ 0.51, 0.51, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.5,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ 0, 133, 0 }",
+                                    "scale": "{ 0.51, 0.51, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "duration": 0.75,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ 1200, 133, 0 }",
+                                    "scale": "{ 0.51, 0.51, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "duration": 0.5,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": false,
+                    "playing": ""
+                }
+            }
+        ]
+    },
+    {
         "Name": "GameSystem",
         "ID": 5,
         "Prefab": null,
@@ -497,10 +695,10 @@
                                     }
                                 },
                                 {
-                                    "data": "",
-                                    "type": "System.String",
+                                    "data": 83,
+                                    "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "GAME_DATA_DIR"
+                                        "fieldName": "E_SKIPPED_UI"
                                     }
                                 },
                                 {
@@ -539,10 +737,24 @@
                                     }
                                 },
                                 {
+                                    "data": 4,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "P_SKIPPED_UI"
+                                    }
+                                },
+                                {
                                     "data": 60,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "QUIT_MENU"
+                                    }
+                                },
+                                {
+                                    "data": 1.5,
+                                    "type": "System.Double",
+                                    "scriptField": {
+                                        "fieldName": "SKIP_TURN_DELAY"
                                     }
                                 }
                             ]
@@ -636,6 +848,7 @@
         "isActive": true,
         "Parent": 7,
         "Child Entities": [
+            4,
             10,
             28,
             39,
@@ -664,6 +877,7 @@
             25,
             29,
             42,
+            83,
             86
         ],
         "Components": [
@@ -3994,6 +4208,103 @@
         ]
     },
     {
+        "Name": "Text",
+        "ID": 64,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 4,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -307.537, -269.134, 1.48859e-12 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -419.265, 137.337, 20 }",
+                    "worldScale": "{ 0.2805, 0.2805, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "FloatUp",
+                            "value": [
+                                {
+                                    "trans": "{ -307.537, -269.134, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "duration": 0.0,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ -307.537, -269.134, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 1.0,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": false,
+                    "playing": ""
+                }
+            },
+            {
+                "Text": {
+                    "text": "Turn Skipped",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 0.0
+                    },
+                    "scale": 0.10499999672174454,
+                    "fontID": 4
+                }
+            }
+        ]
+    },
+    {
         "Name": "[Image] HTP Banner",
         "ID": 65,
         "Prefab": null,
@@ -4779,6 +5090,301 @@
                     },
                     "scale": 0.17499999701976776,
                     "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "ESkippedAnim",
+        "ID": 83,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 9,
+        "Child Entities": [
+            84
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 406.117, 212.829, 20 }",
+                    "scale": "{ 0.2805, 0.2805, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 406.117, 212.829, 20 }",
+                    "worldScale": "{ 0.2805, 0.2805, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 300,
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            }
+                        }
+                    },
+                    "spriteName": "Skipped",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "FloatUp",
+                            "value": [
+                                {
+                                    "trans": "{ 406.117, 212.829, 0 }",
+                                    "scale": "{ 0.2805, 0.2805, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "duration": 0.0,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ 406.117, 500, 0 }",
+                                    "scale": "{ 0.2805, 0.2805, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 1.0,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        },
+                        {
+                            "key": "FlyIn",
+                            "value": [
+                                {
+                                    "trans": "{ 0, 133, 0 }",
+                                    "scale": "{ 0.51, 0.51, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.5,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ 0, 133, 0 }",
+                                    "scale": "{ 0.51, 0.51, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "duration": 0.75,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ 1200, 133, 0 }",
+                                    "scale": "{ 0.51, 0.51, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "duration": 0.5,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": false,
+                    "playing": ""
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 84,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 83,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -307.537, -269.134, 1.48859e-12 }",
+                    "scale": "{ 1, 1, 1.81818 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 319.853, 137.337, 20 }",
+                    "worldScale": "{ 0.2805, 0.2805, 1.81818 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "FloatUp",
+                            "value": [
+                                {
+                                    "trans": "{ -307.537, -269.134, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "duration": 0.0,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ -307.537, -269.134, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 1.0,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": false,
+                    "playing": ""
+                }
+            },
+            {
+                "Text": {
+                    "text": "Turn Skipped",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 0.0
+                    },
+                    "scale": 0.10499999672174454,
+                    "fontID": 4
                 }
             }
         ]

@@ -605,6 +605,17 @@ namespace GE::MONO
 	********************************************************************/
 	void PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animName);
 
+	/*!*********************************************************************
+	\brief
+	  Triggers a tween animation of a parent entity and all its children.
+		The animation name should be the same.
+	\param parent
+		The parent entity
+	\param animName
+		The name of the animation
+	************************************************************************/
+	void PlayAllTweenAnimation(GE::ECS::Entity parent, MonoString* animName);
+
 	float GetChannelVolume(int channel);
 
 	void SetChannelVolume(int channel, float volume);
