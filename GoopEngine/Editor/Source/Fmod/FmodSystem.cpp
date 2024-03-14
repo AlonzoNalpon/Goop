@@ -59,6 +59,25 @@ void FmodSystem::Update()
 {
   ErrorCheck(m_fModSystem->update());
   UnLoadSounds();
+
+  double dt{ GE::FPS::FrameRateController::GetInstance().GetFixedDeltaTime() };
+  for (size_t i{}; i < m_pausePlayRequests.size(); ++i)
+  {
+    PausePlayRequest& curr{ m_pausePlayRequests[i] };
+    curr.timer += dt;
+    float volumeFactor{ static_cast<float>((curr.pause ? FadeTime - curr.timer : curr.timer) / FadeTime) };
+    float targetVolume { GetChannelVolume(curr.channel) };
+    volumeFactor = (volumeFactor >= 1.f ? 1.f : volumeFactor);
+    ErrorCheck(m_channelGroups[curr.channel]->setVolume(volumeFactor * targetVolume));
+    if (curr.timer >= FadeTime) // is it time to actually set paused?
+    {
+      if (!curr.pause)
+        ErrorCheck(m_channelGroups[curr.channel]->setPaused(curr.pause));
+      m_pausePlayRequests.erase(m_pausePlayRequests.begin() + i);
+      continue; // we're done. Skip to next iteration
+    }
+
+  }
 }
 
 bool FmodSystem::LoadSound(std::string audio, bool looped)
@@ -203,7 +222,9 @@ void FmodSystem::StopChannel(ChannelType channel)
 
 void GE::fMOD::FmodSystem::SetChannelPause(ChannelType channel, bool paused)
 {
-  ErrorCheck(m_channelGroups[channel]->setPaused(paused));
+  m_pausePlayRequests.emplace_back(paused, channel);
+  if (!paused) // must play the audio
+    ErrorCheck(m_channelGroups[channel]->setPaused(false));
 }
 
 void FmodSystem::SetChannelVolume(ChannelType channel, float volume)

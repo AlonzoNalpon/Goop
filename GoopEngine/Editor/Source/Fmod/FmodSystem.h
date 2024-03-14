@@ -19,6 +19,7 @@ namespace GE
 	{
     class FmodSystem : public Singleton<FmodSystem>, public GE::Events::IEventListener
     {
+      static constexpr double FadeTime{ 1 };
     public:
       enum ChannelType
       {
@@ -168,6 +169,12 @@ namespace GE
       ************************************************************************/
       void SetChannelPause(ChannelType channel, bool paused);
     private:
+      struct PausePlayRequest 
+      {
+        bool pause;
+        ChannelType channel;
+        double timer{};
+      }; // jury rigged pause play request
       FMOD::System* m_fModSystem{ nullptr };
 
       using SoundMap = std::map<std::string, FMOD::Sound*>;
@@ -179,7 +186,7 @@ namespace GE
       ChannelGroups m_channelGroups;
       SoundChannel m_channels;
       std::map<ChannelType, float> m_volumes;
-
+      std::vector<PausePlayRequest> m_pausePlayRequests;
       /*!*********************************************************************
       \brief
         Prints out error message into console if there is an error.
