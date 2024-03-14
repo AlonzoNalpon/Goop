@@ -57,7 +57,6 @@ namespace GoopScripts.Gameplay
       m_comboList.Add(new ComboPair(CardBase.CardType.BLOCK, CardBase.CardType.SPECIAL),
         new BuffCombo("Enemy Turn Skipped", new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 1), 50));
 
-
       Buff blind = new Buff(Buff.BuffType.BLIND, 1.0f, 1);
       Buff atkUp = new Buff(Buff.BuffType.FLAT_ATK_UP, 1.0f, 1);
       m_comboList.Add(new ComboPair(CardBase.CardType.ATTACK, CardBase.CardType.SPECIAL),
@@ -87,20 +86,13 @@ namespace GoopScripts.Gameplay
     }
 
 
-    //public static void PlayCombo(ref Stats source, ref Stats target, CardBase.CardType c1 , CardBase.CardType c2)
-    //{
-    //  ComboPair pair = new ComboPair(c1, c2);
-    //  foreach (Buff b in m_comboList[pair].m_effects)
-    //  {
-    //    if (b.IsDebuff())
-    //    {
-    //      target.m_buffs.AddBuff(b);
-    //    }
-    //    else
-    //    {
-    //      source.m_buffs.AddBuff(b);
-    //    }
-    //  }
-    //}
+    public static void PlayCombo(ref Stats source, ref Stats target, CardBase.CardType c1, CardBase.CardType c2)
+    {
+      ComboPair pair = new ComboPair(c1, c2);
+#if PRINT_PERM
+      Console.WriteLine(m_comboList[pair].GetName());
+#endif
+      m_comboList[pair].FakeApplyEffect(ref source, ref target);
+    }
   } 
 }

@@ -17,8 +17,8 @@ namespace GoopScripts.Source.Mono
     public int m_enemyHealth { get; set; }
 
     //Cards played 
-    public List<int> m_cardPlayed { get; set; }
-    public List<int> m_cardstoPlay { get; set; }
+    public List<CardBase.CardID> m_cardPlayed { get; set; }
+    public List<CardBase.CardID> m_cardstoPlay { get; set; }
 
     //Deck
     public  Deck m_playerDeck;
@@ -44,8 +44,8 @@ namespace GoopScripts.Source.Mono
       m_enemyHealth = p.m_enemyHealth;
 
       //Cards played 
-      m_cardPlayed  = new List<int>(p.m_cardPlayed);
-      m_cardstoPlay = new List<int>(p.m_cardstoPlay);
+      m_cardPlayed  = new List<CardBase.CardID>(p.m_cardPlayed);
+      m_cardstoPlay = new List<CardBase.CardID>(p.m_cardstoPlay);
 
       //Deck
       m_playerDeck = new Deck(p.m_playerDeck);

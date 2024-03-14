@@ -46,7 +46,6 @@ namespace GoopScripts.Gameplay
     public DeckManager m_deckMngr;
     public Vec3<double>[] m_queueElemPos;
     public AnimationManager m_animManager;
-    public string[] m_test = { "atttttttt", "booobbobooboo" };
 
     //public string[] test = new string[5];
     //public CardBase.CardID[] test2 = new CardBase.CardID[5];
@@ -85,6 +84,13 @@ namespace GoopScripts.Gameplay
       Utils.SetTextComponent(m_comboUI[1], "");
     }
 
+    public void FakeOnCreate()
+    {
+      m_buffsDisplay = 0;
+      m_type = CharacterType.DAWSON;
+      m_buffs = new BuffManager(m_buffsDisplay, m_type);
+    }
+
     /*!*********************************************************************
     \brief  
       Initialises character's hand with the correct number of cards
@@ -110,8 +116,6 @@ namespace GoopScripts.Gameplay
     {
       m_attack = 0;
       m_block = 0;
-      //Utils.SetTextComponent(m_attackDisplay, "0");
-      //Utils.SetTextComponent(m_blockDisplay, "0");
     }
 
     /*!*********************************************************************
@@ -156,9 +160,45 @@ namespace GoopScripts.Gameplay
     Takes into account for buffs and debuffs.
     \param damage
       Total damage taken BEFORE buffs and debuffs.
+    \param queueIndex
+      The current index of the queue being resolved
+    \param the calculated damage taken
     ************************************************************************/
-    public int TakeDamage(float damage)
+    public int TakeDamage(float damage, int queueIndex)
 		{
+      if (damage == 0.0f)
+      {
+        return 0;
+      }
+
+      float takenMultiplier = 1.0f;
+      CardBase card = CardManager.Get(m_deckMngr.m_queue[queueIndex].Item1);
+      foreach (var buff in m_buffs.Buffs)
+      {
+        switch (buff.type)
+        {
+          case Buff.BuffType.INCREASE_BLOCK:
+            if (card.Type == CardBase.CardType.BLOCK)
+            {
+              AddBlock((int)buff.value);
+            }
+            break;
+
+          default:
+            break;
+        }
+      }
+      int damageTaken = (int)(damage * takenMultiplier) - m_block;
+      if (damageTaken > 0)
+      {
+        m_healthBar.DecreaseHealth(damageTaken);
+      }
+
+      return damageTaken;
+    }
+
+    public int FakeTakeDamage(float damage)
+    {
       if (damage == 0.0f)
       {
         return 0;
@@ -181,7 +221,11 @@ namespace GoopScripts.Gameplay
       int damageTaken = (int)(damage * takenMultiplier) - m_block;
       if (damageTaken > 0)
       {
-        m_healthBar.DecreaseHealth(damageTaken);
+        m_healthBar.m_health -= damageTaken;
+        if (m_healthBar.m_health < 0)
+        {
+          m_healthBar.m_health = 0;
+        }
       }
 
       return damageTaken;
@@ -193,24 +237,35 @@ namespace GoopScripts.Gameplay
       Takes into account for buffs and debuffs.
     \param damage
       Total damage dealt BEFORE buffs and debuffs.
+    \param queueIndex
+      The current index of the queue being resolved
+    \return
+      The calculated damage to be dealt
     ************************************************************************/
-    public int DamageDealt()
+    public int DamageDealt(int queueIndex)
     {
       if (m_attack == 0)
       {
         return 0;
       }
 
+      CardBase card = CardManager.Get(m_deckMngr.m_queue[queueIndex].Item1);
       foreach (Buff buff in m_buffs.Buffs)
       {
         switch (buff.type)
         {
           case Buff.BuffType.FLAT_ATK_UP:
-            AddAttack((int)buff.value);
+            if (card.Type == CardBase.CardType.ATTACK)
+            {
+              AddAttack((int)buff.value);
+            }
             break;
 
           case Buff.BuffType.MULTIPLICATIVE_ATK_UP:
-            MultiplyAttack(buff.value);
+            if (card.Type == CardBase.CardType.ATTACK)
+            {
+              MultiplyAttack(buff.value);
+            }
             break;
 
           case Buff.BuffType.BLIND:
@@ -247,6 +302,13 @@ namespace GoopScripts.Gameplay
       m_buffs.UpdateBuffsUI();
     }
 
+    public void FakeEndOfTurn()
+    {
+      m_deckMngr.FakeDiscardQueue();
+      m_attack = m_block = 0;
+      m_buffs.FakeStepTurn();
+    }
+
     /*!*********************************************************************
     \brief
       Draws a card through the deck manager. If the CharacterType is
@@ -275,6 +337,17 @@ namespace GoopScripts.Gameplay
       }
       Utils.PlaySoundF("SFX_CardDraw3", 1.0f, Utils.ChannelType.SFX, false);
     }
+
+    public void FakeDraw()
+    {
+      int idx = m_deckMngr.Draw();
+      if (idx < 0)
+      {
+        return;
+      }
+    }
+
+
 
     /*!*********************************************************************
     \brief
@@ -345,6 +418,26 @@ namespace GoopScripts.Gameplay
         Utils.SetCardToQueuedState(entity, m_queueElemPos[qIdx]);
         m_deckMngr.AlignHandCards();
       }
+    }
+
+    public void QueueCardByCardID(CardBase.CardID c)
+    {
+      
+      if (m_deckMngr.IsQueueFull())
+      {
+        
+        return;
+      }
+      int ind = m_deckMngr.m_hand.FindIndex(pair => pair.Item1 == c);
+      if(ind == -1)
+      {
+#if (DEBUG)
+        Console.WriteLine("QueueCard: INDEX OUT OF RANGE!!!");
+#endif
+        return;
+      }
+      m_deckMngr.Queue(ind);
+      
     }
 
     /*!*********************************************************************

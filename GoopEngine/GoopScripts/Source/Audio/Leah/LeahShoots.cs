@@ -16,8 +16,6 @@ namespace GoopScripts.Gameplay
 {
   public class LeahShoots : Entity, IAnimationEvent
   {
-    public string[] variations = new string[6];
-
     public LeahShoots(uint entity) : base(entity) { }
     public void PlayEvent(uint entity)
     {

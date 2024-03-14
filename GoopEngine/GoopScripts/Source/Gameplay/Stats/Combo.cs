@@ -91,6 +91,11 @@ namespace GoopScripts.Gameplay
 
     override public bool FakeApplyEffect(ref Stats source, ref Stats target)
     {
+      if (m_chance <= 100 && !(m_rand.Next(0, 100) < m_chance))
+      {
+        return false;
+      }
+
       foreach (Buff b in m_effects)
       {
         Buff newBuff = new Buff(b);
@@ -118,7 +123,7 @@ namespace GoopScripts.Gameplay
 
     override public bool FakeApplyEffect(ref Stats source, ref Stats target)
     {
-      source.Draw();
+      source.FakeDraw();
       return true;
     }
   }

@@ -696,9 +696,6 @@
             23,
             28,
             30,
-            35,
-            36,
-            37,
             116
         ],
         "Components": [
@@ -834,10 +831,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -471.167, 115, 1 }",
+                    "pos": "{ -471.167, 88.8957, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -471.167, 115, 1 }",
+                    "worldPos": "{ -471.167, 88.8957, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1010,10 +1007,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -60.5, 115, 1 }",
+                    "pos": "{ -60.5, 88.8957, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -60.5, 115, 1 }",
+                    "worldPos": "{ -60.5, 88.8957, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1291,10 +1288,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 320.833, 115, 1 }",
+                    "pos": "{ 320.833, 88.8957, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 320.833, 115, 1 }",
+                    "worldPos": "{ 320.833, 88.8957, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1461,105 +1458,6 @@
                     },
                     "spriteName": "CardIcon_LeahSpecialFlashbang",
                     "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "text5",
-        "ID": 35,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 14,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -441.353, 60, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -441.353, 60, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "blue",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.17499999701976776,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "text6",
-        "ID": 36,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 14,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -56.1126, 60, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -56.1126, 60, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "green",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.17499999701976776,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "text7",
-        "ID": 37,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 14,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 344.907, 60, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 344.907, 60, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "black",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.17499999701976776,
-                    "fontID": 2
                 }
             }
         ]

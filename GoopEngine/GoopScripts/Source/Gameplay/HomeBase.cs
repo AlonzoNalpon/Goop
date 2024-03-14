@@ -24,13 +24,15 @@ namespace GoopScripts.Gameplay
 
     public void OnCreate()
     {
+      m_tempDeck.Clear();
+      m_cards.Clear();
       var statsInfo = Serialization.SerialReader.LoadPlayerState(playerSavePath);
       foreach (var card in statsInfo.deckList)
       {
         for (int i = 0; i < card.Item2; ++i)
         {
           m_tempDeck.Add(card.Item1);
-          Console.Write(card.Item1);
+          // Console.Write(card.Item1);
         }
       }
       GetUniqueCards(m_tempDeck);
