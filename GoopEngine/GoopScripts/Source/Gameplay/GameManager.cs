@@ -27,7 +27,7 @@ using GoopScripts.UI;
 
 namespace GoopScripts.Gameplay
 {
-  public class GameManager : Entity, IOnDestroy
+  public class GameManager : Entity
   {
     //static readonly double INTERVAL_TIME = 3.0;
     static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 100.0, 0.0);
@@ -443,10 +443,5 @@ namespace GoopScripts.Gameplay
       Utils.SpawnPrefab(statsInfo.background, new Vec3<double>(0, 0, -999));
       Utils.UpdateSprite(GetEntity("Enemy Portrait"), statsInfo.portrait);
     }
-
-		public void OnDestroy(uint entityid)
-		{
-      PauseManager.SetPauseState(0);
-		}
-	}
+  }
 }
