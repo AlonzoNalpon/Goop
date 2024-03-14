@@ -32,6 +32,7 @@ void GE::EditorGUI::SceneControls::CreateContent()
         GE::fMOD::FmodSystem::GetInstance().StopAllSound();
         Events::EventManager::GetInstance().Dispatch(Events::StopSceneEvent());
         ImGuiHelper::Restart();
+        GE::FPS::FrameRateController::GetInstance().SetTimeScale(1.f);
       }
       if (Button(pause))
       {
