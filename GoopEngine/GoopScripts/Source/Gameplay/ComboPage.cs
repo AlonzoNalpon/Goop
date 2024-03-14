@@ -16,6 +16,16 @@ namespace GoopScripts.Source.Gameplay
 
         public void OnUpdate(double deltaTime)
         {
+
+            if (Utils.IsKeyHeld(Input.KeyCode.TAB))
+            {
+                Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), true);
+            }
+
+            if (Utils.IsKeyReleased(Input.KeyCode.TAB))
+            {
+                Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), false);
+            }
         }
     }
 }
