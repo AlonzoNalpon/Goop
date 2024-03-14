@@ -1860,6 +1860,36 @@
                 "Tween": {
                     "tweens": [
                         {
+                            "key": "Game",
+                            "value": [
+                                {
+                                    "trans": "{ -400, 0, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToGameScene"
+                                }
+                            ]
+                        },
+                        {
                             "key": "TransitionOut",
                             "value": [
                                 {
@@ -1912,7 +1942,7 @@
                                         "r": 1.0,
                                         "g": 1.0,
                                         "b": 1.0,
-                                        "a": 1.0
+                                        "a": 0.0
                                     },
                                     "duration": 0.3,
                                     "animationEvent": "ChangeToTutorial"
@@ -1935,6 +1965,11 @@
                         },
                         {
                             "scriptName": "ChangeToTutorial",
+                            "entityID": 44,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "ChangeToGameScene",
                             "entityID": 44,
                             "scriptFieldInstList": []
                         }

@@ -132,10 +132,22 @@ namespace GoopScripts.Gameplay
               break;
           }
         }
-        // cheat code to deal damage
+
+        // CHEAT CODES
         if (Utils.IsKeyTriggered(Input.KeyCode.U))
         {
+          // damage enemy
           m_enemyStats.m_healthBar.DecreaseHealth(1);
+        }
+        if (Utils.IsKeyTriggered(Input.KeyCode.I))
+        {
+          // heal player
+          m_playerStats.m_healthBar.IncreaseHealth(1);
+        }
+        if (Utils.IsKeyTriggered(Input.KeyCode.O))
+        {
+          // draw card
+          m_playerStats.Draw();
         }
 
         if (isResolutionPhase)
@@ -158,7 +170,7 @@ namespace GoopScripts.Gameplay
 #else
       catch (Exception)
       {
-
+        Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "MainMenu");
       }
 #endif
     }
@@ -319,10 +331,7 @@ namespace GoopScripts.Gameplay
         if (m_currentLevel == 2)
         {
           File.Copy(GAME_DATA_DIR + "DefaultStats.sav", GAME_DATA_DIR + "PlayerStats.sav", true);
-        }
-        else
-        {
-          ++m_currentLevel;
+          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
         }
 
         if (m_playerStats.IsDead())
@@ -332,7 +341,7 @@ namespace GoopScripts.Gameplay
         else
         {
           SerialReader.SavePlayerState(ref m_playerStats, m_currentLevel, GAME_DATA_DIR + "PlayerStats.sav");
-          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
+          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Reward");
         }
       }
     }
@@ -404,7 +413,15 @@ namespace GoopScripts.Gameplay
       LoadPlayer(playerStats);
 
       m_currentLevel = playerStats.levelToLoad;
-      string levelFile = GAME_DATA_DIR + "Level" + playerStats.levelToLoad + ".dat";
+      if (m_currentLevel < 0)
+      {
+        Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Tutorial");
+      } 
+      else if (m_currentLevel == 0)
+      {
+        m_currentLevel = 1;
+      }
+      string levelFile = GAME_DATA_DIR + "Level" + m_currentLevel + ".dat";
       LoadEnemy(Serialization.SerialReader.LoadEnemy(levelFile));
 
       // Load their animations

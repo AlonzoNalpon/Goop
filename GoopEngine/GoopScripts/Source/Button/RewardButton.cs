@@ -15,7 +15,7 @@ namespace GoopScripts.Source.Button
     {
       m_clicked = false;
       Utils.PlaySoundF("SFX_ButtonClick", (float)m_rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
-      // RewardManager.AddCardsToDeck();
+      ((RewardManager)Utils.GetScript("RewardManager", "RewardManager")).AddCardsToDeck();
       if (!m_hovering)
       {
         Utils.UpdateSprite(entity, "Button_Base");

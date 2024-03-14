@@ -156,7 +156,7 @@ GameTree EnemySystem::GenerateGameTree(const GE::AI::TreeTemplate& treeTemp)
 	const std::vector<NodeTemplate>& tree = treeTemp.m_tree;
 
 	GameTree newGamTree{ {},treeTemp.m_treeTempID };
-	std::cout << "\nNEW TREE---------------------------------\n";
+	//std::cout << "\nNEW TREE---------------------------------\n";
 	//Loop through each node in the tree and create a new GameNode
 	for (size_t i{ 0 }; i < tree.size(); ++i)
 	{

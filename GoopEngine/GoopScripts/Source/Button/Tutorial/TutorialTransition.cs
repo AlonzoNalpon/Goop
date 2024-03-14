@@ -19,6 +19,7 @@ namespace GoopScripts.Button
 {
 	public class TutorialTransition : TextButtonBase
 	{
+		public string animToTrigger;
 		/*!******************************************************************
 		\brief
 			Callback for when mouse is released after clicking the entity
@@ -28,8 +29,8 @@ namespace GoopScripts.Button
 		********************************************************************/
 		public override void OnRelease(uint entity)
 		{
-			base.OnRelease(entity);			
-			Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Game");
+			base.OnRelease(entity);
+			Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), animToTrigger);
 		}
 	}
 }

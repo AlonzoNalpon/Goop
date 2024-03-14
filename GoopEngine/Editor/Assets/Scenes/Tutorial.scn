@@ -108,16 +108,6 @@
                                     }
                                 },
                                 {
-                                    "data": [
-                                        "atttttttt",
-                                        "booobbobooboo"
-                                    ],
-                                    "type": "System.String[]",
-                                    "scriptField": {
-                                        "fieldName": "m_test"
-                                    }
-                                },
-                                {
                                     "data": "PLAYER",
                                     "type": "GoopScripts.Gameplay.CharacterType",
                                     "scriptField": {
@@ -140,7 +130,22 @@
                         {
                             "scriptName": "LeahDies",
                             "entityID": 0,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "endRange"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "startRange"
+                                    }
+                                }
+                            ]
                         },
                         {
                             "scriptName": "LeahBlocks",
@@ -167,17 +172,17 @@
                             "entityID": 0,
                             "scriptFieldInstList": [
                                 {
-                                    "data": [
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        ""
-                                    ],
-                                    "type": "System.String[]",
+                                    "data": 0,
+                                    "type": "System.Int32",
                                     "scriptField": {
-                                        "fieldName": "variations"
+                                        "fieldName": "endRange"
+                                    }
+                                },
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "startRange"
                                     }
                                 }
                             ]
@@ -2531,6 +2536,36 @@
                                     "animationEvent": "ChangeGameOverToMainMenu"
                                 }
                             ]
+                        },
+                        {
+                            "key": "Reward",
+                            "value": [
+                                {
+                                    "trans": "{ -400, -5.89553e-14, 1000 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 1.0
+                                    },
+                                    "duration": 0.3,
+                                    "animationEvent": "ChangeToReward"
+                                }
+                            ]
                         }
                     ],
                     "paused": false,
@@ -2548,6 +2583,11 @@
                         },
                         {
                             "scriptName": "ChangeToGameScene",
+                            "entityID": 41,
+                            "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "ChangeToReward",
                             "entityID": 41,
                             "scriptFieldInstList": []
                         }
@@ -4486,7 +4526,15 @@
                         {
                             "scriptName": "TutorialTransition",
                             "entityID": 77,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": "Reward",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "animToTrigger"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }
@@ -26145,7 +26193,15 @@
                         {
                             "scriptName": "TutorialTransition",
                             "entityID": 619,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": "Reward",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "animToTrigger"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }

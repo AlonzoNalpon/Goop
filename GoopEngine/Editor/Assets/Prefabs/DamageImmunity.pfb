@@ -1,5 +1,5 @@
 {
-    "Name": "Immune To Damage",
+    "Name": "DamageImmunity",
     "isActive": false,
     "Version": 1,
     "Components": [

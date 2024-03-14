@@ -76,7 +76,7 @@ namespace GoopScripts.AI
       if (m_childID.Count > 0)
       {
         SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
-        Console.WriteLine("RUN NODE: " + m_childID[0]);
+        //Console.WriteLine("RUN NODE: " + m_childID[0]);
         RunChildNode(m_childID[0]);
         NODE_STATES childResult = (NODE_STATES)GetChildResult();
 

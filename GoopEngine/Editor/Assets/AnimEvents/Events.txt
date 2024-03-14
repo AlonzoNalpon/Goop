@@ -11,6 +11,17 @@
         ]
     },
     {
+        "key": "ChangeToTutorial",
+        "value": [
+            {
+                "key": 0,
+                "value": [
+                    "ChangeToTutorial"
+                ]
+            }
+        ]
+    },
+    {
         "key": "DawsonDies",
         "value": [
             {
@@ -250,6 +261,17 @@
                 "key": 1,
                 "value": [
                     "MoleRatScreeches"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "Reward",
+        "value": [
+            {
+                "key": 0,
+                "value": [
+                    "ChangeToReward"
                 ]
             }
         ]

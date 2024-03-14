@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace GoopScripts.Transition
 {
@@ -51,7 +52,8 @@ namespace GoopScripts.Transition
 					switch (Scene)
 					{
 						case 0:
-							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Cutscene");
+              File.Copy("./Assets/GameData/DefaultStats.sav", "./Assets/GameData/PlayerStats.sav", true);
+              Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Cutscene");
 							break;
 						case 1: // LOAD GAME
 							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Game");

@@ -506,10 +506,10 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
       {
         if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))
         {
-          std::ostringstream oss{};
+          /*std::ostringstream oss{};
           oss << "Unable to set element " << i << " of type " << elem.get_type().get_name().to_string()
             << " to container of " << view.get_type().get_name().to_string();
-          GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+          GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());*/
         }
       }
     }
@@ -705,8 +705,9 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
     catch (Debug::IExceptionBase& e)
     {
       std::ostringstream oss{};
-      oss << "Unable to load texture: " << value["spriteName"].GetString() << " | " << e.LogSource();
-      Debug::ErrorLogger::GetInstance().LogError(oss.str());
+      //oss << "Unable to load texture: " << value["spriteName"].GetString() << " | " << e.LogSource();
+      oss << "Cannot find texture: " << value["spriteName"].GetString() << ". Was it deleted?";
+      Debug::ErrorLogger::GetInstance().LogWarning(oss.str());
     }
     return true;
   }

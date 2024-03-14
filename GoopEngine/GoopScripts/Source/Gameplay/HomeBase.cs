@@ -12,6 +12,8 @@ namespace GoopScripts.Gameplay
 {
   public class HomeBase
   {
+    static int m_levelToLoad = 0;
+
     List<CardBase.CardID> m_tempDeck = new List<CardBase.CardID>();
     static Dictionary<CardBase.CardID, int> m_cards = new Dictionary<CardBase.CardID, int>();
     public string playerSavePath;
@@ -24,9 +26,11 @@ namespace GoopScripts.Gameplay
 
     public void OnCreate()
     {
+      Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
       m_tempDeck.Clear();
       m_cards.Clear();
       var statsInfo = Serialization.SerialReader.LoadPlayerState(playerSavePath);
+      m_levelToLoad = statsInfo.levelToLoad;
       foreach (var card in statsInfo.deckList)
       {
         for (int i = 0; i < card.Item2; ++i)
@@ -60,13 +64,16 @@ namespace GoopScripts.Gameplay
 
     static public int GetCount(CardBase.CardID card)
     {
-      Console.WriteLine(card);
-
       if (m_cards.ContainsKey(card))
       {
         return m_cards[card];
       }
       return 0;
+    }
+
+    static public int GetLevelToLoad()
+    {
+      return m_levelToLoad;
     }
   }
 }

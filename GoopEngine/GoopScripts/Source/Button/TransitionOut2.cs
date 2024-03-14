@@ -1,4 +1,6 @@
 ﻿using GoopScripts.Button;
+using GoopScripts.Demo;
+using GoopScripts.Gameplay;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
@@ -20,7 +22,19 @@ namespace GoopScripts.Source.Button
     public override void OnRelease(uint entity)
     {
       base.OnRelease(entity);
-      Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "TransitionOut2");
+      if (HomeBase.GetLevelToLoad() == 0)
+      {
+        Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "TransitionOut2");
+      }
+      else
+      {
+        Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Game");
+        CrossFadeToGameBGM temp = new CrossFadeToGameBGM();
+        temp.OnClick(0);
+        Utils.FadeInAudio("CaveWithWaterDrops_Loop", 0.486f, 1.0f);
+        Utils.FadeInAudio("Fog", 0.753f, 1.0f);
+      }
+      
     }
   }
 }

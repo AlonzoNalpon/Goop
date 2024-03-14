@@ -9,6 +9,7 @@ using GoopScripts.Cards;
 using System.Diagnostics;
 using GoopScripts.Gameplay;
 using System.Security.Cryptography.X509Certificates;
+using GoopScripts.Mono;
 
 namespace GoopScripts.Serialization
 {
@@ -167,6 +168,45 @@ namespace GoopScripts.Serialization
       }
 
       return ret;
+    }
+
+    public static void AddCardsToDeck(List<CardBase.CardID> cards, string file)
+    {
+      string[] lines = File.ReadAllLines(file);
+      int targetIndex = Array.FindLastIndex(lines, line => !string.IsNullOrEmpty(line));
+      if (targetIndex == -1)
+      {
+        targetIndex = lines.Length - 1;
+      }
+
+      using (StreamWriter writer = new StreamWriter(file))
+      {
+        for (int i = 0; i <= targetIndex; ++i)
+        {
+          writer.WriteLine(lines[i]);
+        }
+
+        foreach (CardBase.CardID card in cards)
+        {
+          writer.WriteLine(card.ToString() + ", 1");
+        }
+      }
+    }
+
+    public static void IncrementLevel(string file)
+    {
+      string[] lines = File.ReadAllLines(file);
+      int level;
+      if (lines.Length == 0 || !int.TryParse(lines[1], out level))
+      {
+#if (DEBUG)
+        Utils.SendString("Unable to increment level in file: " + file);
+#endif
+        return;
+      }
+      lines[1] = (level + 1).ToString();
+
+      File.WriteAllLines(file, lines);
     }
 
     static string GetNextNonCommentLine(StreamReader sr)

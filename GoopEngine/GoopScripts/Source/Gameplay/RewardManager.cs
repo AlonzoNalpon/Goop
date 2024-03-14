@@ -12,32 +12,31 @@ namespace GoopScripts.Button
   {
     static readonly int REWARD_POOL_COUNT = 6, NUM_CHOICES = 5;
     static readonly double WIDTH = 1100;
-    static public List<CardBase.CardID> m_selectedCards;
-    static public List<uint> m_selectedEntityIDs;
+    static List<uint> m_selectedEntityIDs;
     // public int m_hover;
 
     Random rng = new Random();
     public CardBase.CardID[] m_rewardPool = new CardBase.CardID[REWARD_POOL_COUNT];
     public int[] m_dropRates = new int[REWARD_POOL_COUNT];
-    uint[] m_cardEntities = new uint[NUM_CHOICES];
+    static uint[] m_cardEntities = new uint[NUM_CHOICES];
 
     public RewardManager()
     {
-      m_selectedCards = new List<CardBase.CardID>();
+      m_selectedEntityIDs = new List<uint>();
     }
 
     public void OnCreate()
     {
       uint hover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
       Utils.SetIsActiveEntity(hover, false);
+      RewardCard.m_cardHover = (uint)hover;
       for (int i = 0; i < NUM_CHOICES; ++i)
       {
         CardBase.CardID generatedCard = GetChosenCard(rng.Next(1, 101));
-        m_cardEntities[i] = Utils.SpawnPrefab(CardManager.m_cardPrefabs[generatedCard] + "_Hover", new Vec3<double>(-WIDTH * 0.5 + (WIDTH / (NUM_CHOICES - 1)) * i, 0, 0));
-        Utils.SetScript(Utils.GetChildEntity(m_cardEntities[i], "Base"), "RewardCard");
-        RewardCard.m_cardHover = (uint)hover;
-        RewardCard.m_type = generatedCard;
-        RewardCard.m_entityID = m_cardEntities[i];
+        m_rewardPool[i] = generatedCard;
+        uint parent = Utils.SpawnPrefab(CardManager.m_cardPrefabs[generatedCard] + "_Hover", new Vec3<double>(-WIDTH * 0.5 + (WIDTH / (NUM_CHOICES - 1)) * i, 0, 0));
+        m_cardEntities[i] = Utils.GetChildEntity(parent, "Base");
+        Utils.SetScript(m_cardEntities[i], "RewardCard");
       }
     }
 
@@ -57,13 +56,29 @@ namespace GoopScripts.Button
       return m_rewardPool[i];
     }
 
-    static public void AddCardsToDeck()
+    static public void CardSelected(uint entity)
     {
-      foreach (var entity in m_selectedEntityIDs)
+      m_selectedEntityIDs.Add(entity);
+    }
+
+    static public void CardUnselected(uint entity)
+    {
+      m_selectedEntityIDs.Remove(entity);
+    }
+
+    public void AddCardsToDeck()
+    {
+      List<CardBase.CardID> selectedCards = new List<CardBase.CardID>();
+      foreach (uint e in m_selectedEntityIDs)
       {
-        Console.WriteLine(entity);
-        // Utils.GetScriptFromID(entity, "RewardCard").Deselect();
+        selectedCards.Add(m_rewardPool[Array.IndexOf(m_cardEntities, e)]);
       }
+      Serialization.SerialReader.AddCardsToDeck(selectedCards, "./Assets/GameData/PlayerStats.sav");
+    }
+
+    static public bool IsFull()
+    {
+      return m_selectedEntityIDs.Count > 3;
     }
   }
 }

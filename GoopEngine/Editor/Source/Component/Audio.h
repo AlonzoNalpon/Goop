@@ -75,7 +75,6 @@ namespace GE
 				auto& sound{ m_sounds[index] };
 				sound.m_paused = false;
 				sound.m_lastPausedState = sound.m_paused;
-				std::cout << "Played " << sound.m_sound << "\n";
 				GE::fMOD::FmodSystem::GetInstance().PlaySound(sound.m_sound, volume, sound.m_channel, sound.m_loop);
 			}
 

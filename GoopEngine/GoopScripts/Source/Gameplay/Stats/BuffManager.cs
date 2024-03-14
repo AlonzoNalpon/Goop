@@ -159,8 +159,7 @@ namespace GoopScripts.Gameplay
     {
       Buff newBuff = new Buff(buff);
       uint buffPrefab = Utils.SpawnPrefab(m_buffPrefabs[buff.type]);
-      Console.WriteLine("Spawned " + m_buffPrefabs[buff.type] + " with id " + buffPrefab);
-      Utils.SetTextComponent((int)Utils.GetChildEntity(buffPrefab, "BuffIconText"), buff.Label);
+      Utils.SetTextComponent((int)Utils.GetChildEntity(Utils.GetChildEntity(buffPrefab, "BuffIconText"), "Text"), buff.Label);
       newBuff.m_iconID = buffPrefab;
       m_buffIcons.Add(buffPrefab);
       m_buffs.Add(newBuff);

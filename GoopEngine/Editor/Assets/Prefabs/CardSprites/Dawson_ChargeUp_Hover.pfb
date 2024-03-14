@@ -1,7 +1,7 @@
 {
     "Name": "Dawson_ChargeUp_Hover",
     "isActive": true,
-    "Version": 4,
+    "Version": 5,
     "Components": [
         {
             "Transform": {
@@ -50,6 +50,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -94,6 +100,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -142,24 +154,24 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -66.6667, -65, 1 }",
+                        "pos": "{ -71.5926, -65, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -66.6667, -65, 1 }",
+                        "worldPos": "{ -71.5926, -65, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "+2 Damage for 1 turn",
+                        "text": "No cards can be played",
                         "clr": {
                             "r": 0.0,
                             "g": 0.0,
                             "b": 0.0,
                             "a": 1.0
                         },
-                        "scale": 0.054999999701976776,
+                        "scale": 0.05400000140070915,
                         "fontID": 0
                     }
                 }
@@ -173,24 +185,24 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -57.3333, -80, 1 }",
+                        "pos": "{ -69.2963, -82.1489, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -57.3333, -80, 1 }",
+                        "worldPos": "{ -69.2963, -82.1489, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "No other cards can",
+                        "text": "next turn. Afterwards,",
                         "clr": {
                             "r": 0.0,
                             "g": 0.0,
                             "b": 0.0,
                             "a": 1.0
                         },
-                        "scale": 0.054999999701976776,
+                        "scale": 0.05400000140070915,
                         "fontID": 0
                     }
                 }
@@ -204,24 +216,24 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -57.3334, -95, 1 }",
+                        "pos": "{ -67.1852, -100.014, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -57.3334, -95, 1 }",
+                        "worldPos": "{ -67.1852, -100.014, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "be played this turn",
+                        "text": "+2 Damage for 1 turn",
                         "clr": {
                             "r": 0.0,
                             "g": 0.0,
                             "b": 0.0,
                             "a": 1.0
                         },
-                        "scale": 0.054999999701976776,
+                        "scale": 0.05400000140070915,
                         "fontID": 0
                     }
                 }

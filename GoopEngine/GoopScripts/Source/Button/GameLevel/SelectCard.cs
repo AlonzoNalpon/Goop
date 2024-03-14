@@ -21,6 +21,7 @@ namespace GoopScripts.Button
   public class SelectCard : IButtonClick, IButtonHoverEnter, IButtonHoverExit
   {
     static public uint m_cardHover; // holds entity for hover effect
+    Random rng = new Random();
 
     public SelectCard() { }
 
@@ -47,7 +48,7 @@ namespace GoopScripts.Button
       }
 
       Utils.SetIsActiveEntity(m_cardHover, false);
-      Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.PlaySoundF("SFX_CardPlay" + rng.Next(1,6), 0.7f + (float)rng.NextDouble() * 0.2f, Utils.ChannelType.SFX, false);
       player.QueueCardByID(cardId);
     }
 
