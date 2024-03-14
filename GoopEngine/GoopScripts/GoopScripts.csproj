@@ -145,6 +145,7 @@
     <Compile Include="Source\Gameplay\CharacterType.cs" />
     <Compile Include="Source\Gameplay\Combo.cs" />
     <Compile Include="Source\Gameplay\ComboManager.cs" />
+    <Compile Include="Source\Gameplay\ComboPage.cs" />
     <Compile Include="Source\Gameplay\ComboTextUpdate.cs" />
     <Compile Include="Source\Gameplay\Deck.cs" />
     <Compile Include="Source\Gameplay\DeckManager.cs" />
