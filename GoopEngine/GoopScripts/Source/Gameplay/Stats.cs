@@ -33,7 +33,6 @@ using GoopScripts.UI;
 
 namespace GoopScripts.Gameplay
 {
- 
   public class Stats : Entity
   {
     public CharacterType m_type;
@@ -189,7 +188,7 @@ namespace GoopScripts.Gameplay
     /*!*********************************************************************
     \brief  
       Calculates total damage dealt and applies to character's stats.
-    Takes into account for buffs and debuffs.
+      Takes into account for buffs and debuffs.
     \param damage
       Total damage dealt BEFORE buffs and debuffs.
     ************************************************************************/
@@ -449,9 +448,9 @@ namespace GoopScripts.Gameplay
       Utils.PlaySoundF("SFX_CardDraw3", 1.0f, Utils.ChannelType.SFX, false);
     }
 
-    //public void QueueBuff(Buff buff)
-    //{
-    //  m_nextTurn.Enqueue(buff);
-    //}
+    public bool IsTurnSkipped()
+    {
+      return m_buffs.Buffs.Any(buff => buff.type == Buff.BuffType.SKIP_TURN);
+    }
   }
 }

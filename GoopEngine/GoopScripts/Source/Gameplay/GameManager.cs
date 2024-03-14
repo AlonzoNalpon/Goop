@@ -34,8 +34,9 @@ namespace GoopScripts.Gameplay
     static readonly string GAME_DATA_DIR = "./Assets/GameData/";
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
-    public int P_HEALTH_TEXT_UI, P_HEALTH_UI;
-    public int E_HEALTH_TEXT_UI, E_HEALTH_UI;
+    public int P_HEALTH_TEXT_UI, P_HEALTH_UI, E_HEALTH_TEXT_UI, E_HEALTH_UI;
+    public int P_SKIPPED_UI, E_SKIPPED_UI;
+    public double SKIP_TURN_DELAY;
 
     public Stats m_playerStats, m_enemyStats;
 
@@ -45,6 +46,8 @@ namespace GoopScripts.Gameplay
 
     //tools for resolving cards
     int m_slotToResolve = 0;
+    double m_timer;
+    bool m_playerSkipped;
     static bool isStartOfTurn = true;
     static bool gameStarted = false; // called once at the start of game
 
@@ -99,6 +102,8 @@ namespace GoopScripts.Gameplay
           m_playerStats.Init();
           m_enemyStats.Init();
           gameStarted = true;
+          m_playerSkipped = false;
+          m_timer = 0.0;
         }
 
         if (Utils.GetLoseFocus())
@@ -170,9 +175,24 @@ namespace GoopScripts.Gameplay
       m_enemyStats.EndOfTurn();
       m_playerStats.Draw();
       m_enemyStats.Draw();
-      StartAI(m_enemyStats.entityID);
+      if (!m_enemyStats.IsTurnSkipped())
+      {
+        StartAI(m_enemyStats.entityID);
+      }
+      else
+      {
+        Utils.PlayAllTweenAnimation((uint)E_SKIPPED_UI, "FloatUp");
+      }
 			Button.EndTurn btn = (Button.EndTurn)Utils.GetScript("Button_EndTurn", "EndTurn");
       btn.Enable();
+      if (m_playerStats.IsTurnSkipped())
+      {
+        Utils.PlayAllTweenAnimation((uint)P_SKIPPED_UI, "FloatUp");
+        m_enemyStats.Draw();
+        m_enemyStats.Draw();
+        m_playerSkipped = true;
+        EndTurn();
+      }
     }
 
 
@@ -192,6 +212,16 @@ namespace GoopScripts.Gameplay
       // only proceed if no animation is playing
       if (m_playerStats.IsPlayingAnimation() || m_enemyStats.IsPlayingAnimation())
       {
+        return;
+      }
+      else if (m_playerSkipped)
+      {
+        m_timer += deltaTime;
+        if (m_timer >= SKIP_TURN_DELAY)
+        {
+          m_timer = 0.0;
+          m_playerSkipped = false;
+        }
         return;
       }
 
@@ -312,8 +342,8 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
       \brief
-        This function is triggered t the satrt of resolution phase. This reset the variables
-        used when resolving the resolution phase
+        This function is triggered t the satrt of resolution phase. 
+        This reset the variables used when resolving the resolution phase
       ************************************************************************/
     private void StartResolution()
     {
@@ -322,10 +352,10 @@ namespace GoopScripts.Gameplay
 
 
     /*!*********************************************************************
-      \brief
-        This funciton is triggered when the user clicks the end turn button. THis function
-        starts the resolution phase
-      ************************************************************************/
+    \brief
+      This funciton is triggered when the user clicks the end turn button. 
+      This function starts the resolution phase
+    ************************************************************************/
     public void EndTurn()
     {
       isResolutionPhase = true;

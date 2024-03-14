@@ -143,6 +143,21 @@ namespace WindowSystem {
   private:
     static void WindowFocusedCallback(GLFWwindow* window, int focused);
     static void ErrorCallback(int error, const char* desc); //!< error callback for the window
+
+#ifndef IMGUI_DISABLE
+    /*!*********************************************************************
+    \brief
+      Callback function for dragging files into the editor. Sends the
+      filepaths received to the asset manager.
+    \param window
+      The window the file was dragged into
+    \param pathCount
+      The number of files
+    \param paths
+      The paths of the files
+    ************************************************************************/
+    static void WindowDropCallback(GLFWwindow* window, int pathCount, const char* paths[]);
+#endif
   };
 }
 #endif

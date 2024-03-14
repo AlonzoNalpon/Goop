@@ -252,6 +252,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetSpriteTint", GE::MONO::SetSpriteTint);
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeOutAudio", GE::MONO::FadeOutAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlayAllTweenAnimation", GE::MONO::PlayAllTweenAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTimeScale", GE::MONO::SetTimeScale);
   mono_add_internal_call("GoopScripts.Mono.Utils::DispatchQuitEvent", GE::MONO::DispatchQuitEvent);
 }
@@ -780,6 +781,25 @@ void GE::MONO::PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animNa
   if (tween)
   {
     tween->m_playing = MonoStringToSTD(animName);
+  }
+}
+
+void GE::MONO::PlayAllTweenAnimation(GE::ECS::Entity parent, MonoString* animName)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  std::string const anim{ MonoStringToSTD(animName) };
+  auto pTween = ecs.GetComponent<GE::Component::Tween>(parent);
+  if (pTween)
+  {
+    pTween->m_playing = anim;
+  }
+  for (GE::ECS::Entity const& child : ecs.GetChildEntities(parent))
+  {
+    auto cTween = ecs.GetComponent<GE::Component::Tween>(child);
+    if (cTween)
+    {
+      cTween->m_playing = anim;
+    }
   }
 }
 

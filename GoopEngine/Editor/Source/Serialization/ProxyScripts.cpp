@@ -14,10 +14,11 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include "ProxyScripts.h"
 #include <rapidjson/document.h>
 #include <rapidjson/stringbuffer.h>
+#include <Serialization/Serializer.h>
 
 namespace GE::Serialization
 {
-  ProxyScripts::ProxyScripts(rapidjson::Value const& data) : m_scriptData{}
+  ProxyScripts::ProxyScripts(rapidjson::Value const& data)
   {
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
@@ -25,4 +26,16 @@ namespace GE::Serialization
 
     m_scriptData = buffer.GetString();
   }
+
+  //ProxyScripts::ProxyScripts(Component::Scripts const& scripts)
+  //{
+  //  rapidjson::Document document;
+  //  rapidjson::Value data{ Serialization::Serializer::SerializeComponent(scripts, document.GetAllocator()) };
+
+  //  rapidjson::StringBuffer buffer;
+  //  rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+  //  data.Accept(writer);
+
+  //  m_scriptData = buffer.GetString();
+  //}
 } // namespace GE::Serialization
