@@ -1,25 +1,25 @@
 {
     "Name": "CardSelected",
     "isActive": true,
-    "Version": 0,
+    "Version": 1,
     "Components": [
         {
             "Transform": {
-                "pos": "{ 230, 262, 0 }",
+                "pos": "{ 0, 0, 0 }",
                 "scale": "{ 1, 1, 1 }",
                 "rot": "{ 0, -0, 0 }",
-                "worldPos": "{ 230, 262, 0 }",
+                "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, -0, 0 }"
             }
         },
         {
             "BoxCollider": {
-                "center": "{ 230, 262 }",
+                "center": "{ 0, 0 }",
                 "width": 224.0,
                 "height": 310.0,
-                "min": "{ 118, 107 }",
-                "max": "{ 342, 417 }",
+                "min": "{ -112, -155 }",
+                "max": "{ 112, 155 }",
                 "render": false
             }
         },
@@ -36,7 +36,19 @@
                             "y": 1.0
                         },
                         "width": 224,
-                        "height": 310
+                        "height": 310,
+                        "tint": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 0.0
+                        },
+                        "multiply": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        }
                     }
                 },
                 "spriteName": "CardSelected",

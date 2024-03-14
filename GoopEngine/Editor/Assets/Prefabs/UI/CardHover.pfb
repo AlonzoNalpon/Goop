@@ -1,7 +1,7 @@
 {
     "Name": "CardHover",
     "isActive": true,
-    "Version": 1,
+    "Version": 2,
     "Components": [
         {
             "Transform": {
@@ -26,7 +26,19 @@
                             "y": 1.0
                         },
                         "width": 286,
-                        "height": 375
+                        "height": 375,
+                        "tint": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 0.0
+                        },
+                        "multiply": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        }
                     }
                 },
                 "spriteName": "UI_Glow_Blue",

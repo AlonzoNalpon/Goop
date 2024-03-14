@@ -1,7 +1,7 @@
 {
     "Name": "Dawson_Attack_Hover",
     "isActive": true,
-    "Version": 5,
+    "Version": 6,
     "Components": [
         {
             "Transform": {

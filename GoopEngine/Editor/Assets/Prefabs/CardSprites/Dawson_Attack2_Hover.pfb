@@ -1,7 +1,7 @@
 {
     "Name": "Dawson_Attack2_Hover",
     "isActive": true,
-    "Version": 4,
+    "Version": 5,
     "Components": [
         {
             "Transform": {
@@ -50,6 +50,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -94,6 +100,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },

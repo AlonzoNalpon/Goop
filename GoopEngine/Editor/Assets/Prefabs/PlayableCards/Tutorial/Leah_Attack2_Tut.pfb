@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Attack2_Tut",
     "isActive": true,
-    "Version": 1,
+    "Version": 2,
     "Components": [
         {
             "Transform": {
@@ -60,6 +60,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -72,7 +78,7 @@
                         "scriptList": [
                             {
                                 "scriptName": "TutorialReturnQueue",
-                                "entityID": 27,
+                                "entityID": 1,
                                 "scriptFieldInstList": []
                             }
                         ]
@@ -185,6 +191,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -239,6 +251,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -251,7 +269,7 @@
                         "scriptList": [
                             {
                                 "scriptName": "TutorialSelectCard",
-                                "entityID": 31,
+                                "entityID": 5,
                                 "scriptFieldInstList": []
                             }
                         ]

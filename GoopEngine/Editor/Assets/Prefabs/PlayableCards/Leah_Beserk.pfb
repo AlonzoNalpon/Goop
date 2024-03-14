@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Beserk",
     "isActive": true,
-    "Version": 11,
+    "Version": 12,
     "Components": [
         {
             "Transform": {
@@ -60,6 +60,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -72,7 +78,7 @@
                         "scriptList": [
                             {
                                 "scriptName": "ReturnFromQueue",
-                                "entityID": 2,
+                                "entityID": 1,
                                 "scriptFieldInstList": []
                             }
                         ]
@@ -216,6 +222,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -270,6 +282,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
