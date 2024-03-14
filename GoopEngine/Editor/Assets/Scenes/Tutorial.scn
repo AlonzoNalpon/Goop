@@ -4502,7 +4502,7 @@
         ]
     },
     {
-        "Name": "Leah_Attack",
+        "Name": "Leah_Attack_3",
         "ID": 78,
         "Prefab": null,
         "isActive": true,
@@ -5197,7 +5197,7 @@
         ]
     },
     {
-        "Name": "Leah_Flashbang",
+        "Name": "Leah_Flashbang_2",
         "ID": 96,
         "Prefab": null,
         "isActive": true,
@@ -5478,7 +5478,7 @@
         ]
     },
     {
-        "Name": "Leah_Block",
+        "Name": "Leah_Block_1",
         "ID": 103,
         "Prefab": null,
         "isActive": true,
@@ -5706,7 +5706,7 @@
         ]
     },
     {
-        "Name": "Leah_Attack",
+        "Name": "Leah_Attack_1",
         "ID": 109,
         "Prefab": null,
         "isActive": true,
@@ -5783,7 +5783,7 @@
         ]
     },
     {
-        "Name": "Leah_Attack",
+        "Name": "Leah_Attack_2",
         "ID": 111,
         "Prefab": null,
         "isActive": true,
@@ -6011,7 +6011,7 @@
         ]
     },
     {
-        "Name": "Leah_Attack2_Hover",
+        "Name": "Leah_Attack2_Hover_1",
         "ID": 117,
         "Prefab": null,
         "isActive": true,
@@ -6752,7 +6752,7 @@
         ]
     },
     {
-        "Name": "Leah_Attack2",
+        "Name": "Leah_Attack2_Tut",
         "ID": 137,
         "Prefab": null,
         "isActive": true,
@@ -7330,7 +7330,7 @@
         ]
     },
     {
-        "Name": "Leah_Block",
+        "Name": "Leah_Block_2",
         "ID": 151,
         "Prefab": null,
         "isActive": true,
@@ -7527,7 +7527,7 @@
         ]
     },
     {
-        "Name": "Leah_Block",
+        "Name": "Leah_Block_3",
         "ID": 156,
         "Prefab": null,
         "isActive": true,
@@ -8945,7 +8945,7 @@
         ]
     },
     {
-        "Name": "Leah_Attack2",
+        "Name": "Leah_Attack2_1",
         "ID": 193,
         "Prefab": null,
         "isActive": true,
@@ -9651,7 +9651,7 @@
         ]
     },
     {
-        "Name": "Leah_Flashbang",
+        "Name": "Leah_Flashbang_3",
         "ID": 212,
         "Prefab": null,
         "isActive": true,
@@ -11764,7 +11764,7 @@
         ]
     },
     {
-        "Name": "Leah_Flashbang",
+        "Name": "Leah_Flashbang_1",
         "ID": 265,
         "Prefab": null,
         "isActive": true,
@@ -14814,7 +14814,7 @@
         ]
     },
     {
-        "Name": "Leah_Block",
+        "Name": "Leah_Block_1",
         "ID": 346,
         "Prefab": null,
         "isActive": true,

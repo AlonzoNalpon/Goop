@@ -12,6 +12,9 @@ An icon for buffs and debuffs applied will appear above the character's respecti
 Hovering over the icons will display text to show the type of buff.
 The turn ends once all cards and combos are resolved.
 
+Pausing:
+Pausing the game stops the audio as per rubric, but we also have audio controls in the options menu which now serve no purpose
+
 Controls:
 On the editor/engine, Pressing "G" when viewport is focused will hide the editor.
 "F11" on both gameplay and editor can toggle fullscreen modes
@@ -21,6 +24,7 @@ Pressing "U", in the game scene, will reduce the enemy's health by 1.
 
 Known bugs:
 Pressing hotkeys like "Esc" and "U" during the game sometimes do not detect the input, due to C# running on a seperate thread. (Help)
+Environment effects sometimes vanishes
 
 Team Roster:
 Wong Chin Kit Bryan - Tech Lead, Product Manager
