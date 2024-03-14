@@ -5,7 +5,9 @@
         "Prefab": null,
         "isActive": true,
         "Parent": null,
-        "Child Entities": [],
+        "Child Entities": [
+            3
+        ],
         "Components": [
             {
                 "Transform": {
@@ -36,6 +38,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -136,6 +144,58 @@
         ]
     },
     {
+        "Name": "[Image] Overlay",
+        "ID": 3,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 0,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, -1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "MainMenu_BG_Lines",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
         "Name": "TransitionOut",
         "ID": 9,
         "Prefab": null,
@@ -172,6 +232,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -194,6 +260,12 @@
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -219,6 +291,12 @@
                                         "b": 1.0,
                                         "a": 0.0
                                     },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "textColor": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -242,6 +320,12 @@
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -267,6 +351,12 @@
                                         "b": 1.0,
                                         "a": 0.0
                                     },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "textColor": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -290,6 +380,12 @@
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -401,6 +497,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -423,6 +525,12 @@
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -492,6 +600,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -519,6 +633,13 @@
                                     "scriptField": {
                                         "fieldName": "m_delay"
                                     }
+                                },
+                                {
+                                    "data": "",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "test"
+                                    }
                                 }
                             ]
                         }
@@ -545,11 +666,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -400, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "pos": "{ -315, 35, 0 }",
+                    "scale": "{ 0.75, 0.75, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -400, 0, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -315, 35, 0 }",
+                    "worldScale": "{ 0.75, 0.75, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
@@ -568,15 +689,260 @@
                             "width": 1058,
                             "height": 511,
                             "tint": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
                                 "r": 1.0,
                                 "g": 1.0,
                                 "b": 1.0,
-                                "a": 0.0
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "MainMenu_BG_Logo",
                     "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "Blink",
+                            "value": [
+                                {
+                                    "trans": "{ -315, 35, 0 }",
+                                    "scale": "{ 0.75, 0.75, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 2.1,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ -315, 35, 0 }",
+                                    "scale": "{ 0.75, 0.75, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.7647058963775635
+                                    },
+                                    "textColor": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.05,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ -315, 35, 0 }",
+                                    "scale": "{ 0.75, 0.75, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.05,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ -315, 35, 0 }",
+                                    "scale": "{ 0.75, 0.75, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.2,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ -315, 35, 0 }",
+                                    "scale": "{ 0.75, 0.75, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.6666666865348816
+                                    },
+                                    "textColor": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.05,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ -315, 35, 0 }",
+                                    "scale": "{ 0.75, 0.75, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.05,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ -315, 35, 0 }",
+                                    "scale": "{ 0.75, 0.75, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 4.1,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ -315, 35, 0 }",
+                                    "scale": "{ 0.75, 0.75, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.7607843279838562
+                                    },
+                                    "textColor": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.05,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ -315, 35, 0 }",
+                                    "scale": "{ 0.75, 0.75, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.05,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": true,
+                    "playing": "Blink"
                 }
             }
         ]
@@ -595,10 +961,10 @@
                 "Transform": {
                     "pos": "{ 450, 1200, -1 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 450, 1200, -1 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -620,6 +986,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -643,6 +1015,12 @@
                                         "b": 1.0,
                                         "a": 0.0
                                     },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "textColor": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -661,6 +1039,12 @@
                                         "g": 0.0,
                                         "b": 0.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 0.0,
@@ -686,6 +1070,12 @@
                                         "b": 1.0,
                                         "a": 0.0
                                     },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "textColor": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -704,6 +1094,12 @@
                                         "g": 0.0,
                                         "b": 0.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 0.0,
@@ -773,6 +1169,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -799,6 +1201,13 @@
                                     "type": "System.Double",
                                     "scriptField": {
                                         "fieldName": "m_delay"
+                                    }
+                                },
+                                {
+                                    "data": "",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "test"
                                     }
                                 }
                             ]
@@ -898,6 +1307,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -924,6 +1339,13 @@
                                     "type": "System.Double",
                                     "scriptField": {
                                         "fieldName": "m_delay"
+                                    }
+                                },
+                                {
+                                    "data": "",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "test"
                                     }
                                 }
                             ]
@@ -1023,6 +1445,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -1049,6 +1477,13 @@
                                     "type": "System.Double",
                                     "scriptField": {
                                         "fieldName": "m_delay"
+                                    }
+                                },
+                                {
+                                    "data": "",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "test"
                                     }
                                 }
                             ]
@@ -1148,6 +1583,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -1174,6 +1615,13 @@
                                     "type": "System.Double",
                                     "scriptField": {
                                         "fieldName": "m_delay"
+                                    }
+                                },
+                                {
+                                    "data": "",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "test"
                                     }
                                 }
                             ]
@@ -1273,6 +1721,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
