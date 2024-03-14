@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Attack_Hover",
     "isActive": true,
-    "Version": 21,
+    "Version": 20,
     "Components": [
         {
             "Transform": {

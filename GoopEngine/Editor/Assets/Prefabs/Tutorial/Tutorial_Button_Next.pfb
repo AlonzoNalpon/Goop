@@ -1,7 +1,7 @@
 {
     "Name": "Tutorial_Button_Next",
     "isActive": true,
-    "Version": 7,
+    "Version": 6,
     "Components": [
         {
             "Transform": {
@@ -60,12 +60,6 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
-                                },
-                                "multiply": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
                                 }
                             }
                         },
@@ -98,32 +92,32 @@
     "Removed Components": [
         {
             "id": 0,
-            "type": "void",
+            "type": "BoxCollider",
             "version": 4
         },
         {
             "id": 0,
-            "type": "void",
+            "type": "Sprite",
             "version": 4
         },
         {
             "id": 1,
-            "type": "void",
+            "type": "Transform",
             "version": 4
         },
         {
             "id": 1,
-            "type": "void",
+            "type": "Text",
             "version": 4
         },
         {
             "id": 0,
-            "type": "void",
+            "type": "Scripts",
             "version": 6
         },
         {
             "id": 0,
-            "type": "void",
+            "type": "GE_Button",
             "version": 6
         }
     ]

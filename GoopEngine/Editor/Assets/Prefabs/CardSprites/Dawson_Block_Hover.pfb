@@ -1,7 +1,7 @@
 {
     "Name": "Dawson_Block_Hover",
     "isActive": true,
-    "Version": 4,
+    "Version": 3,
     "Components": [
         {
             "Transform": {

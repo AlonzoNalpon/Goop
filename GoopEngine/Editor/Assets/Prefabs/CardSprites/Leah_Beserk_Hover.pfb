@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Beserk_Hover",
     "isActive": true,
-    "Version": 15,
+    "Version": 14,
     "Components": [
         {
             "Transform": {

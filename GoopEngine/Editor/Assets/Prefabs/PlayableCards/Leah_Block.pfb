@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Block",
     "isActive": true,
-    "Version": 10,
+    "Version": 9,
     "Components": [
         {
             "Transform": {
@@ -60,12 +60,6 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
-                                },
-                                "multiply": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
                                 }
                             }
                         },
@@ -78,7 +72,7 @@
                         "scriptList": [
                             {
                                 "scriptName": "ReturnFromQueue",
-                                "entityID": 1,
+                                "entityID": 2,
                                 "scriptFieldInstList": []
                             }
                         ]
@@ -191,12 +185,6 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
-                                },
-                                "multiply": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
                                 }
                             }
                         },
@@ -251,12 +239,6 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
-                                },
-                                "multiply": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
                                 }
                             }
                         },

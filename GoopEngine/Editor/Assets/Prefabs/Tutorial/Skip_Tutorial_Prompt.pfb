@@ -1,14 +1,14 @@
 {
     "Name": "Skip_Tutorial_Prompt",
     "isActive": true,
-    "Version": 1,
+    "Version": 0,
     "Components": [
         {
             "Transform": {
-                "pos": "{ 0, 0, 0 }",
+                "pos": "{ 0, 119, 15 }",
                 "scale": "{ 1, 1, 1 }",
                 "rot": "{ 0, 0, 0 }",
-                "worldPos": "{ 0, 0, 0 }",
+                "worldPos": "{ 0, 119, 15 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
             }
@@ -50,12 +50,6 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
-                                },
-                                "multiply": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
                                 }
                             }
                         },
@@ -114,11 +108,11 @@
                 },
                 {
                     "BoxCollider": {
-                        "center": "{ -172, -84.9668 }",
+                        "center": "{ -172, 34.0332 }",
                         "width": 200.0,
                         "height": 100.0,
-                        "min": "{ -272, -134.967 }",
-                        "max": "{ -72, -34.9668 }",
+                        "min": "{ -272, -15.9668 }",
+                        "max": "{ -72, 84.0332 }",
                         "render": false
                     }
                 },
@@ -141,12 +135,6 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
-                                },
-                                "multiply": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
                                 }
                             }
                         },
@@ -159,7 +147,7 @@
                         "scriptList": [
                             {
                                 "scriptName": "TutorialTransition",
-                                "entityID": 3,
+                                "entityID": 77,
                                 "scriptFieldInstList": []
                             }
                         ]
@@ -224,11 +212,11 @@
                 },
                 {
                     "BoxCollider": {
-                        "center": "{ 176, -84.9668 }",
+                        "center": "{ 176, 34.0332 }",
                         "width": 200.0,
                         "height": 100.0,
-                        "min": "{ 76, -134.967 }",
-                        "max": "{ 276, -34.9668 }",
+                        "min": "{ 76, -15.9668 }",
+                        "max": "{ 276, 84.0332 }",
                         "render": false
                     }
                 },
@@ -251,12 +239,6 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
-                                },
-                                "multiply": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
                                 }
                             }
                         },
@@ -269,7 +251,7 @@
                         "scriptList": [
                             {
                                 "scriptName": "ContinueTutorial",
-                                "entityID": 5,
+                                "entityID": 80,
                                 "scriptFieldInstList": []
                             }
                         ]
@@ -334,11 +316,11 @@
                 },
                 {
                     "BoxCollider": {
-                        "center": "{ 0, -119 }",
+                        "center": "{ 0, 0 }",
                         "width": 1920.0,
                         "height": 1080.0,
-                        "min": "{ -960, -659 }",
-                        "max": "{ 960, 421 }",
+                        "min": "{ -960, -540 }",
+                        "max": "{ 960, 540 }",
                         "render": false
                     }
                 },
@@ -361,12 +343,6 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
-                                },
-                                "multiply": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
                                 }
                             }
                         },

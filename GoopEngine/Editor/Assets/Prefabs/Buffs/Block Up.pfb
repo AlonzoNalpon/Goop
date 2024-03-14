@@ -1,7 +1,7 @@
 {
     "Name": "Block Up",
-    "isActive": false,
-    "Version": 4,
+    "isActive": true,
+    "Version": 3,
     "Components": [
         {
             "Transform": {
@@ -36,19 +36,7 @@
                             "y": 1.0
                         },
                         "width": 35,
-                        "height": 35,
-                        "tint": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 0.0
-                        },
-                        "multiply": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        }
+                        "height": 35
                     }
                 },
                 "spriteName": "Block Up",
@@ -108,6 +96,26 @@
                         "worldPos": "{ 0, 0, 0 }",
                         "worldScale": "{ 0.59, 0.345365, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 220,
+                                "height": 140
+                            }
+                        },
+                        "spriteName": "TempBacking",
+                        "shouldRender": true
                     }
                 }
             ]

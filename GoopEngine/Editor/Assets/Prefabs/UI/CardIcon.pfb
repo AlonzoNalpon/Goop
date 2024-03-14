@@ -1,7 +1,7 @@
 {
     "Name": "CardIcon",
-    "isActive": false,
-    "Version": 4,
+    "isActive": true,
+    "Version": 3,
     "Components": [
         {
             "Transform": {
@@ -36,19 +36,7 @@
                             "y": 1.0
                         },
                         "width": 119,
-                        "height": 111,
-                        "tint": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 0.0
-                        },
-                        "multiply": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        }
+                        "height": 111
                     }
                 },
                 "spriteName": "CardIcon_BasicAttackClawswipe",

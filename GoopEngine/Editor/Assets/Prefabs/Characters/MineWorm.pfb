@@ -1,7 +1,7 @@
 {
     "Name": "MineWorm",
-    "isActive": false,
-    "Version": 9,
+    "isActive": true,
+    "Version": 8,
     "Components": [
         {
             "Transform": {
@@ -111,16 +111,6 @@
                                 "type": "",
                                 "scriptField": {
                                     "fieldName": "m_deckMngr"
-                                }
-                            },
-                            {
-                                "data": [
-                                    "atttttttt",
-                                    "booobbobooboo"
-                                ],
-                                "type": "System.String[]",
-                                "scriptField": {
-                                    "fieldName": "m_test"
                                 }
                             },
                             {

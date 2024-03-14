@@ -1,14 +1,14 @@
 {
     "Name": "BuffIconText",
     "isActive": true,
-    "Version": 1,
+    "Version": 0,
     "Components": [
         {
             "Transform": {
-                "pos": "{ 0, 0, 0 }",
+                "pos": "{ 0, 201.679, 0 }",
                 "scale": "{ 0.4, 0.3, 1 }",
                 "rot": "{ 0, -0, 0 }",
-                "worldPos": "{ 0, 0, 0 }",
+                "worldPos": "{ 0, 201.679, 0 }",
                 "worldScale": "{ 0.4, 0.3, 1 }",
                 "worldRot": "{ 0, -0, 0 }"
             }

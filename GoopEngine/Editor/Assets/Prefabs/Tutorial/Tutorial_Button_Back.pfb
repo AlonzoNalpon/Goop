@@ -1,7 +1,7 @@
 {
     "Name": "Tutorial_Button_Back",
     "isActive": true,
-    "Version": 9,
+    "Version": 8,
     "Components": [
         {
             "Transform": {
@@ -60,12 +60,6 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
-                                },
-                                "multiply": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
                                 }
                             }
                         },
@@ -104,22 +98,22 @@
     "Removed Components": [
         {
             "id": 0,
-            "type": "void",
+            "type": "BoxCollider",
             "version": 5
         },
         {
             "id": 0,
-            "type": "void",
+            "type": "Sprite",
             "version": 5
         },
         {
             "id": 0,
-            "type": "void",
+            "type": "Scripts",
             "version": 5
         },
         {
             "id": 0,
-            "type": "void",
+            "type": "GE_Button",
             "version": 5
         }
     ]

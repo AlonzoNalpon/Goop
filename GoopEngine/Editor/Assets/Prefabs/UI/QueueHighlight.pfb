@@ -1,7 +1,7 @@
 {
     "Name": "QueueHighlight",
     "isActive": true,
-    "Version": 2,
+    "Version": 1,
     "Components": [
         {
             "Transform": {
@@ -26,19 +26,7 @@
                             "y": 1.0
                         },
                         "width": 201,
-                        "height": 201,
-                        "tint": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 0.0
-                        },
-                        "multiply": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        }
+                        "height": 201
                     }
                 },
                 "spriteName": "UI_Glow_Gold",

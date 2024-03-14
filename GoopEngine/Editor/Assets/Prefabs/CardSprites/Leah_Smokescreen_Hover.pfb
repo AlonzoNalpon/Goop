@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Smokescreen_Hover",
     "isActive": true,
-    "Version": 12,
+    "Version": 11,
     "Components": [
         {
             "Transform": {
