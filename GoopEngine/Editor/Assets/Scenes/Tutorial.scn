@@ -108,6 +108,16 @@
                                     }
                                 },
                                 {
+                                    "data": [
+                                        "atttttttt",
+                                        "booobbobooboo"
+                                    ],
+                                    "type": "System.String[]",
+                                    "scriptField": {
+                                        "fieldName": "m_test"
+                                    }
+                                },
+                                {
                                     "data": "PLAYER",
                                     "type": "GoopScripts.Gameplay.CharacterType",
                                     "scriptField": {
@@ -155,7 +165,22 @@
                         {
                             "scriptName": "LeahShoots",
                             "entityID": 0,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        "",
+                                        "",
+                                        "",
+                                        "",
+                                        "",
+                                        ""
+                                    ],
+                                    "type": "System.String[]",
+                                    "scriptField": {
+                                        "fieldName": "variations"
+                                    }
+                                }
+                            ]
                         },
                         {
                             "scriptName": "AnimationManager",
@@ -338,53 +363,52 @@
         ]
     },
     {
-        "Name": "Background",
+        "Name": "Leah_Attack_Hover",
         "ID": 2,
-        "Prefab": null,
+        "Prefab": {
+            "name": "Leah_Attack_Hover",
+            "version": 20,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 2
+                },
+                {
+                    "key": 1,
+                    "value": 98
+                },
+                {
+                    "key": 2,
+                    "value": 104
+                },
+                {
+                    "key": 3,
+                    "value": 115
+                },
+                {
+                    "key": 4,
+                    "value": 116
+                }
+            ],
+            "registered": false
+        },
         "isActive": true,
-        "Parent": null,
-        "Child Entities": [],
+        "Parent": 152,
+        "Child Entities": [
+            98,
+            104,
+            115,
+            116
+        ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, -997 }",
+                    "pos": "{ -258.815, 0, 1 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 0, 0, -997 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -258.815, 0, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1920,
-                            "height": 1080,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
-                    },
-                    "spriteName": "Environment_Level1",
-                    "shouldRender": true
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             }
         ]
@@ -4535,7 +4559,7 @@
                     "value": 155
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 88,
@@ -5264,7 +5288,7 @@
                     "value": 102
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 122,
@@ -5341,56 +5365,53 @@
         ]
     },
     {
-        "Name": "Leah_Attack",
+        "Name": "Base",
         "ID": 98,
-        "Prefab": {
-            "name": "Leah_Attack",
-            "version": 16,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 98
-                },
-                {
-                    "key": 1,
-                    "value": 104
-                },
-                {
-                    "key": 2,
-                    "value": 111
-                },
-                {
-                    "key": 3,
-                    "value": 115
-                },
-                {
-                    "key": 4,
-                    "value": 116
-                },
-                {
-                    "key": 5,
-                    "value": 117
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
-        "Parent": 152,
-        "Child Entities": [
-            104,
-            115,
-            116,
-            117
-        ],
+        "Parent": 2,
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -259.963, -19.653, 1 }",
+                    "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -259.963, -19.653, 13 }",
+                    "worldPos": "{ -258.815, 0, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 214,
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardBaseFront_Attack",
+                    "shouldRender": true
                 }
             }
         ]
@@ -5405,7 +5426,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -44, -25, 1 }",
+                    "pos": "{ -44, -25.0002, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 456, -123.474, 14 }",
@@ -5438,7 +5459,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -48.0445, -65, 1 }",
+                    "pos": "{ -48.044, -65.0002, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 451.956, -163.474, 14 }",
@@ -5471,7 +5492,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -58.7777, -80, 1 }",
+                    "pos": "{ -58.778, -80.0002, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 441.222, -178.474, 14 }",
@@ -5578,7 +5599,7 @@
                     "value": 108
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 122,
@@ -5602,53 +5623,34 @@
         ]
     },
     {
-        "Name": "Base",
+        "Name": "Title",
         "ID": 104,
         "Prefab": null,
         "isActive": true,
-        "Parent": 98,
+        "Parent": 2,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ -25, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -259.963, -19.653, 13 }",
+                    "worldPos": "{ -283.815, -25, 14 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
+                "Text": {
+                    "text": "BEAM",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
                     },
-                    "spriteName": "CardBaseFront_Attack",
-                    "shouldRender": true
+                    "scale": 0.07500000298023224,
+                    "fontID": 2
                 }
             }
         ]
@@ -5663,7 +5665,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -28, -25, 1 }",
+                    "pos": "{ -28, -25.0002, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -28, -123.474, 14 }",
@@ -5696,7 +5698,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -50.0889, -65, 1 }",
+                    "pos": "{ -50.0889, -65.0002, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -50.0889, -163.474, 14 }",
@@ -5855,7 +5857,7 @@
                     "value": 114
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 122,
@@ -5962,7 +5964,7 @@
                     "value": 140
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 171,
@@ -5975,10 +5977,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 1 }",
+                    "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 13 }",
+                    "worldPos": "{ 0, 55.5, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -5995,7 +5997,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -25, -25, 1 }",
+                    "pos": "{ -25, -25.0002, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -525, -123.474, 14 }",
@@ -6028,7 +6030,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -49.5778, -65, 1 }",
+                    "pos": "{ -49.578, -65.0002, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -549.578, -163.474, 14 }",
@@ -6104,44 +6106,11 @@
         ]
     },
     {
-        "Name": "Title",
+        "Name": "Description",
         "ID": 115,
         "Prefab": null,
         "isActive": true,
-        "Parent": 98,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -25, -25, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -284.963, -44.653, 14 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "BEAM",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.07500000298023224,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Description",
-        "ID": 116,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 98,
+        "Parent": 2,
         "Child Entities": [],
         "Components": [
             {
@@ -6149,7 +6118,7 @@
                     "pos": "{ -49.5778, -65, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -309.541, -84.653, 14 }",
+                    "worldPos": "{ -308.393, -65, 14 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6171,10 +6140,10 @@
     },
     {
         "Name": "Icon",
-        "ID": 117,
+        "ID": 116,
         "Prefab": null,
         "isActive": true,
-        "Parent": 98,
+        "Parent": 2,
         "Child Entities": [],
         "Components": [
             {
@@ -6182,7 +6151,7 @@
                     "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -259.963, 35.847, 14 }",
+                    "worldPos": "{ -258.815, 55.5, 14 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6222,19 +6191,19 @@
         ]
     },
     {
-        "Name": "Leah_Attack2",
-        "ID": 118,
+        "Name": "Leah_Attack2_Hover",
+        "ID": 117,
         "Prefab": {
-            "name": "Leah_Attack2",
-            "version": 14,
+            "name": "Leah_Attack2_Hover",
+            "version": 17,
             "objToEntity": [
                 {
                     "key": 0,
-                    "value": 118
+                    "value": 117
                 },
                 {
                     "key": 1,
-                    "value": 119
+                    "value": 118
                 },
                 {
                     "key": 2,
@@ -6247,31 +6216,60 @@
                 {
                     "key": 4,
                     "value": 125
-                },
-                {
-                    "key": 5,
-                    "value": 136
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 152,
         "Child Entities": [
+            118,
             120,
             121,
-            125,
-            136
+            125
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 233.334, -19.653, 1 }",
+                    "pos": "{ 233.852, 0, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 233.334, -19.653, 13 }",
+                    "worldPos": "{ 233.852, 0, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Title",
+        "ID": 118,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 117,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -25, -25, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 208.852, -25, 14 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "SLASH",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.07500000298023224,
+                    "fontID": 2
                 }
             }
         ]
@@ -6286,10 +6284,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ 0, -73.5544, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 13 }",
+                    "worldPos": "{ 0, -18.0544, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6329,44 +6327,11 @@
         ]
     },
     {
-        "Name": "Title",
+        "Name": "Description",
         "ID": 120,
         "Prefab": null,
         "isActive": true,
-        "Parent": 118,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -25, -25, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 208.334, -44.653, 14 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "SLASH",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.07500000298023224,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Description",
-        "ID": 121,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 118,
+        "Parent": 117,
         "Child Entities": [],
         "Components": [
             {
@@ -6374,7 +6339,7 @@
                     "pos": "{ -51.1111, -67, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 182.223, -86.653, 14 }",
+                    "worldPos": "{ 182.741, -67, 14 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6390,6 +6355,58 @@
                     },
                     "scale": 0.054999999701976776,
                     "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Icon",
+        "ID": 121,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 117,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 55.5, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 233.852, 55.5, 14 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 119,
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_LeahAttackSlash",
+                    "shouldRender": true
                 }
             }
         ]
@@ -6535,19 +6552,19 @@
         ]
     },
     {
-        "Name": "Icon",
+        "Name": "Base",
         "ID": 125,
         "Prefab": null,
         "isActive": true,
-        "Parent": 118,
+        "Parent": 117,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 233.334, 35.847, 14 }",
+                    "worldPos": "{ 233.852, 0, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6564,8 +6581,8 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 119,
-                            "height": 111,
+                            "width": 214,
+                            "height": 300,
                             "tint": {
                                 "r": 1.0,
                                 "g": 1.0,
@@ -6580,7 +6597,7 @@
                             }
                         }
                     },
-                    "spriteName": "CardIcon_LeahAttackSlash",
+                    "spriteName": "CardBaseFront_Attack",
                     "shouldRender": true
                 }
             }
@@ -6634,10 +6651,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -291.667, -65.6871, 15 }",
+                    "pos": "{ -285.612, -97.4604, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -291.667, -65.6871, 27 }",
+                    "worldPos": "{ -285.612, -97.4604, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6654,10 +6671,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -3.963, 466.54, 15 }",
+                    "pos": "{ -3.963, 466.54, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -295.63, 400.853, 42 }",
+                    "worldPos": "{ -289.575, 369.08, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6689,10 +6706,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -391.849, 259.64, 15 }",
+                    "pos": "{ -391.849, 259.64, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -683.516, 193.953, 42 }",
+                    "worldPos": "{ -677.461, 162.18, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6722,10 +6739,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 15.852, -70.995, 0 }",
+                    "pos": "{ 15.852, -70.9954, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -667.664, 122.958, 42 }",
+                    "worldPos": "{ -661.609, 91.1846, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6757,10 +6774,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 85.204, 255.583, 15 }",
+                    "pos": "{ 85.204, 255.583, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -206.463, 189.896, 42 }",
+                    "worldPos": "{ -200.408, 158.123, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6790,10 +6807,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 31.703, -70.995, 0 }",
+                    "pos": "{ 31.703, -70.9954, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -174.76, 118.901, 42 }",
+                    "worldPos": "{ -168.705, 87.1276, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6826,10 +6843,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 584.571, 324.55, 15 }",
+                    "pos": "{ 584.571, 324.55, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 292.904, 258.863, 42 }",
+                    "worldPos": "{ 298.959, 227.09, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6862,7 +6879,7 @@
                     "pos": "{ 3.722, -144.019, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 296.626, 114.844, 42 }",
+                    "worldPos": "{ 302.681, 83.0706, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6895,7 +6912,7 @@
                     "pos": "{ -21.185, -70.995, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 271.719, 187.868, 42 }",
+                    "worldPos": "{ 277.774, 156.095, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6916,53 +6933,96 @@
         ]
     },
     {
-        "Name": "Base",
+        "Name": "Tutorial_33",
         "ID": 136,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 118,
-        "Child Entities": [],
+        "Prefab": {
+            "name": "tut",
+            "version": 0,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 136
+                },
+                {
+                    "key": 1,
+                    "value": 141
+                },
+                {
+                    "key": 2,
+                    "value": 146
+                },
+                {
+                    "key": 3,
+                    "value": 147
+                },
+                {
+                    "key": 4,
+                    "value": 148
+                },
+                {
+                    "key": 5,
+                    "value": 149
+                },
+                {
+                    "key": 6,
+                    "value": 150
+                },
+                {
+                    "key": 7,
+                    "value": 160
+                },
+                {
+                    "key": 8,
+                    "value": 166
+                },
+                {
+                    "key": 9,
+                    "value": 167
+                },
+                {
+                    "key": 10,
+                    "value": 408
+                },
+                {
+                    "key": 11,
+                    "value": 409
+                },
+                {
+                    "key": 12,
+                    "value": 410
+                },
+                {
+                    "key": 13,
+                    "value": 411
+                },
+                {
+                    "key": 14,
+                    "value": 412
+                },
+                {
+                    "key": 15,
+                    "value": 413
+                }
+            ],
+            "registered": false
+        },
+        "isActive": false,
+        "Parent": null,
+        "Child Entities": [
+            141,
+            149,
+            167,
+            408
+        ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ 0, 0, 12 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 233.334, -19.653, 13 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 0, 0, 12 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
-                    },
-                    "spriteName": "CardBaseFront_Attack",
-                    "shouldRender": true
+                    "worldRot": "{ 0, -0, 0 }"
                 }
             }
         ]
@@ -6999,7 +7059,7 @@
                     "value": 145
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 254,
@@ -7032,10 +7092,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -25, -25, 1 }",
+                    "pos": "{ -25, -98.5544, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -25, -25, 14 }",
+                    "worldPos": "{ -25, -43.0544, 14 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -7065,10 +7125,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -49.5778, -65, 1 }",
+                    "pos": "{ -49.5778, -138.554, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -49.5778, -65, 14 }",
+                    "worldPos": "{ -49.5778, -83.0544, 14 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -7098,10 +7158,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ 0, -18.0544, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 55.5, 14 }",
+                    "worldPos": "{ 0, 37.4456, 14 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -7141,56 +7201,84 @@
         ]
     },
     {
-        "Name": "Leah_Attack",
+        "Name": "Dmg Up",
         "ID": 141,
-        "Prefab": {
-            "name": "Leah_Attack",
-            "version": 16,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 141
-                },
-                {
-                    "key": 1,
-                    "value": 146
-                },
-                {
-                    "key": 2,
-                    "value": 147
-                },
-                {
-                    "key": 3,
-                    "value": 148
-                },
-                {
-                    "key": 4,
-                    "value": 149
-                },
-                {
-                    "key": 5,
-                    "value": 150
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
-        "Parent": 400,
+        "Parent": 136,
         "Child Entities": [
-            146,
-            148,
-            149,
-            150
+            146
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 204, -350, 1 }",
+                    "pos": "{ 744.076, 484.25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 204, -350, 13 }",
+                    "worldPos": "{ 744.076, 484.25, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 744.076, 484.25 }",
+                    "width": 35.0,
+                    "height": 35.0,
+                    "min": "{ 726.576, 466.75 }",
+                    "max": "{ 761.576, 501.75 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 35,
+                            "height": 35,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Dmg Up",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "BuffIconInteraction",
+                            "entityID": 141,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
                 }
             }
         ]
@@ -7238,7 +7326,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -51.111, -67, 1 }",
+                    "pos": "{ -51.1111, -67, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 416.889, -417, 14 }",
@@ -7366,11 +7454,54 @@
         ]
     },
     {
-        "Name": "Base",
+        "Name": "BuffIconText",
         "ID": 146,
         "Prefab": null,
-        "isActive": true,
+        "isActive": false,
         "Parent": 141,
+        "Child Entities": [
+            147,
+            148
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 63.441, 22.139, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 807.517, 506.389, 23 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing",
+        "ID": 147,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 146,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0.59, 0.345365, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 807.517, 506.389, 23 }",
+                    "worldScale": "{ 0.59, 0.345365, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 148,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 146,
         "Child Entities": [],
         "Components": [
             {
@@ -7378,75 +7509,34 @@
                     "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 204, -350, 13 }",
+                    "worldPos": "{ 807.517, 506.389, 23 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 214,
-                            "height": 300,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
+                "Text": {
+                    "text": "Dmg Up",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
                     },
-                    "spriteName": "CardBaseFront_Attack",
-                    "shouldRender": true
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
                 }
             }
         ]
     },
     {
-        "Name": "Block Up",
-        "ID": 147,
-        "Prefab": {
-            "name": "Block Up",
-            "version": 3,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 147
-                },
-                {
-                    "key": 1,
-                    "value": 160
-                },
-                {
-                    "key": 2,
-                    "value": 166
-                },
-                {
-                    "key": 3,
-                    "value": 167
-                }
-            ],
-            "registered": true
-        },
+        "Name": "Block Up (Copy)",
+        "ID": 149,
+        "Prefab": null,
         "isActive": true,
-        "Parent": 476,
+        "Parent": 136,
         "Child Entities": [
-            160
+            150
         ],
         "Components": [
             {
@@ -7506,7 +7596,7 @@
                     "scriptList": [
                         {
                             "scriptName": "BuffIconInteraction",
-                            "entityID": 147,
+                            "entityID": 149,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -7523,119 +7613,24 @@
         ]
     },
     {
-        "Name": "Title",
-        "ID": 148,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 141,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -25, -25, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 179, -375, 14 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "BEAM",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.07500000298023224,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Description",
-        "ID": 149,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 141,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -49.578, -65, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 154.422, -415, 14 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Deals 1 Damage",
-                    "clr": {
-                        "r": 0.0,
-                        "g": 0.0,
-                        "b": 0.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.054999999701976776,
-                    "fontID": 0
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Icon",
+        "Name": "BuffIconText (Copy)",
         "ID": 150,
         "Prefab": null,
-        "isActive": true,
-        "Parent": 141,
-        "Child Entities": [],
+        "isActive": false,
+        "Parent": 149,
+        "Child Entities": [
+            160,
+            166
+        ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ 63.4408, 22.1395, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 204, -294.5, 14 }",
+                    "worldPos": "{ -680.635, 506.389, 23 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 119,
-                            "height": 111,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
-                    },
-                    "spriteName": "CardIcon_LeahAttackBeam",
-                    "shouldRender": true
                 }
             }
         ]
@@ -7672,7 +7667,7 @@
                     "value": 164
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 400,
@@ -7702,12 +7697,10 @@
         "isActive": false,
         "Parent": null,
         "Child Entities": [
-            98,
-            118,
+            2,
+            117,
             153,
-            157,
-            159,
-            165
+            157
         ],
         "Components": [
             {
@@ -7901,7 +7894,7 @@
                     "value": 192
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 88,
@@ -7931,15 +7924,17 @@
         "isActive": true,
         "Parent": 152,
         "Child Entities": [
-            158
+            158,
+            159,
+            165
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -291.667, -65.6871, 15 }",
+                    "pos": "{ -291.667, -65.6871, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -291.667, -65.6871, 27 }",
+                    "worldPos": "{ -291.667, -65.6871, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -7956,10 +7951,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -170.408, 466.54, 15 }",
+                    "pos": "{ -170.408, 466.54, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -462.075, 400.853, 42 }",
+                    "worldPos": "{ -462.075, 400.853, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -7984,15 +7979,15 @@
         "ID": 159,
         "Prefab": null,
         "isActive": true,
-        "Parent": 152,
+        "Parent": 157,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -325.352, 200.038, 30 }",
+                    "pos": "{ -33.685, 265.725, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -325.352, 200.038, 42 }",
+                    "worldPos": "{ -325.352, 200.038, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -8013,23 +8008,20 @@
         ]
     },
     {
-        "Name": "BuffIconText",
+        "Name": "Backing (Copy)",
         "ID": 160,
         "Prefab": null,
-        "isActive": false,
-        "Parent": 147,
-        "Child Entities": [
-            166,
-            167
-        ],
+        "isActive": true,
+        "Parent": 150,
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 63.441, 22.139, 10 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0.59, 0.345365, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -680.635, 506.389, 23 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldScale": "{ 0.59, 0.345365, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             }
@@ -8210,15 +8202,15 @@
         "ID": 165,
         "Prefab": null,
         "isActive": true,
-        "Parent": 152,
+        "Parent": 157,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 163.685, 200.038, 200 }",
+                    "pos": "{ 455.352, 265.725, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 163.685, 200.038, 212 }",
+                    "worldPos": "{ 163.685, 200.038, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -8239,36 +8231,16 @@
         ]
     },
     {
-        "Name": "Backing",
+        "Name": "Text (Copy)",
         "ID": 166,
         "Prefab": null,
         "isActive": true,
-        "Parent": 160,
+        "Parent": 150,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 0.59, 0.345365, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -680.635, 506.389, 23 }",
-                    "worldScale": "{ 0.59, 0.345365, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text",
-        "ID": 167,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 160,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -51.968, -9.279, 0 }",
+                    "pos": "{ -51.9677, -9.27999, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -732.603, 497.11, 23 }",
@@ -8292,11 +8264,73 @@
         ]
     },
     {
-        "Name": "Dmg Up",
+        "Name": "Background",
+        "ID": 167,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 136,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 12 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Tutorial_Menu",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Tutorial_45",
         "ID": 168,
         "Prefab": {
-            "name": "Dmg Up",
-            "version": 3,
+            "name": "tut",
+            "version": 0,
             "objToEntity": [
                 {
                     "key": 0,
@@ -8313,14 +8347,66 @@
                 {
                     "key": 3,
                     "value": 173
+                },
+                {
+                    "key": 4,
+                    "value": 267
+                },
+                {
+                    "key": 5,
+                    "value": 378
+                },
+                {
+                    "key": 6,
+                    "value": 379
+                },
+                {
+                    "key": 7,
+                    "value": 380
+                },
+                {
+                    "key": 8,
+                    "value": 414
+                },
+                {
+                    "key": 9,
+                    "value": 415
+                },
+                {
+                    "key": 10,
+                    "value": 416
                 }
             ],
             "registered": true
         },
-        "isActive": true,
-        "Parent": 476,
+        "isActive": false,
+        "Parent": null,
         "Child Entities": [
-            169
+            169,
+            378,
+            379
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 12 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 0, 0, 12 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Dmg Down (Copy)",
+        "ID": 169,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 168,
+        "Child Entities": [
+            170
         ],
         "Components": [
             {
@@ -8371,19 +8457,8 @@
                             }
                         }
                     },
-                    "spriteName": "Dmg Up",
+                    "spriteName": "Dmg Down",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "BuffIconInteraction",
-                            "entityID": 168,
-                            "scriptFieldInstList": []
-                        }
-                    ]
                 }
             },
             {
@@ -8397,43 +8472,23 @@
         ]
     },
     {
-        "Name": "BuffIconText",
-        "ID": 169,
+        "Name": "BuffIconText (Copy)",
+        "ID": 170,
         "Prefab": null,
         "isActive": false,
-        "Parent": 168,
+        "Parent": 169,
         "Child Entities": [
-            170,
-            173
+            173,
+            267
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 63.441, 22.139, 10 }",
+                    "pos": "{ 63.4408, 22.1395, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 807.517, 506.389, 23 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Backing",
-        "ID": 170,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 169,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 0.59, 0.345365, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 807.517, 506.389, 23 }",
-                    "worldScale": "{ 0.59, 0.345365, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             }
@@ -8526,34 +8581,21 @@
         ]
     },
     {
-        "Name": "Text",
+        "Name": "Backing (Copy)",
         "ID": 173,
         "Prefab": null,
         "isActive": true,
-        "Parent": 169,
+        "Parent": 170,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -47.968, -7.222, 0 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0.59, 0.345365, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 759.549, 499.167, 23 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ 807.517, 506.389, 23 }",
+                    "worldScale": "{ 0.59, 0.345365, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Dmg Up",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 0
                 }
             }
         ]
@@ -8639,10 +8681,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -291.667, -65.6871, 15 }",
+                    "pos": "{ -291.667, -65.6871, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -291.667, -65.6871, 27 }",
+                    "worldPos": "{ -291.667, -65.6871, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -8659,10 +8701,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -227.871, 313.156, 15 }",
+                    "pos": "{ -227.871, 313.156, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -519.538, 247.469, 42 }",
+                    "worldPos": "{ -519.538, 247.469, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -8694,10 +8736,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 536, 102.085, 15 }",
+                    "pos": "{ 503.667, 85.5357, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 244.333, 36.3982, 42 }",
+                    "worldPos": "{ 212, 19.8486, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -8729,10 +8771,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -89.166, 29.36, 15 }",
+                    "pos": "{ -58.629, 7.2936, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -380.833, -36.3271, 42 }",
+                    "worldPos": "{ -350.296, -58.3935, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -8764,10 +8806,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 536, -18.2987, 15 }",
+                    "pos": "{ 507.259, -38.5259, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 244.333, -83.9858, 42 }",
+                    "worldPos": "{ 215.592, -104.213, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -8797,10 +8839,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -128.796, 0, 0 }",
+                    "pos": "{ -91.073, 7.355, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 115.537, -83.9858, 42 }",
+                    "worldPos": "{ 124.519, -96.858, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -8814,7 +8856,7 @@
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.2280000001192093,
+                    "scale": 0.15000000596046448,
                     "fontID": 1
                 }
             }
@@ -8830,10 +8872,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 153.648, -2.0283, 0 }",
+                    "pos": "{ 148.259, 10.8438, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -227.185, -38.3554, 42 }",
+                    "worldPos": "{ -202.037, -47.5497, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -8847,7 +8889,7 @@
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.2280000001192093,
+                    "scale": 0.15000000596046448,
                     "fontID": 1
                 }
             }
@@ -8863,10 +8905,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -128.796, -0.63, 0 }",
+                    "pos": "{ -89.278, 6.7254, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 115.537, 35.7682, 42 }",
+                    "worldPos": "{ 122.722, 26.574, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -8880,7 +8922,7 @@
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.2280000001192093,
+                    "scale": 0.15000000596046448,
                     "fontID": 1
                 }
             }
@@ -9004,7 +9046,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 63.4408, 22.1395, 10 }",
+                    "pos": "{ 63.441, 22.139, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 807.517, 506.389, 23 }",
@@ -9044,7 +9086,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -47.9674, -7.22289, 0 }",
+                    "pos": "{ -47.968, -7.222, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 759.549, 499.167, 23 }",
@@ -9394,7 +9436,7 @@
                     "value": 211
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 88,
@@ -9657,7 +9699,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 63.4408, 22.1395, 10 }",
+                    "pos": "{ 63.441, 22.139, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -680.635, 506.389, 23 }",
@@ -10134,7 +10176,7 @@
                     "value": 345
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 88,
@@ -10419,7 +10461,7 @@
                     "width": 165.0,
                     "height": 165.0,
                     "min": "{ -882.5, -198.387 }",
-                    "max": "{ -717.5, -33.3872 }",
+                    "max": "{ -717.5, -33.387 }",
                     "render": false
                 }
             },
@@ -10606,11 +10648,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 0.59, 0.345365, 1 }",
+                    "pos": "{ 680.635, -450.889, -10 }",
+                    "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -680.635, 506.389, 23 }",
-                    "worldScale": "{ 0.59, 0.345365, 1 }",
+                    "worldPos": "{ 0, 55.5, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             }
@@ -10626,10 +10668,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -110, -20, 0 }",
+                    "pos": "{ -110, -20, 1 }",
                     "scale": "{ 0.666667, 0.666667, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 686.5, -462, 8 }",
+                    "worldPos": "{ 686.5, -462, 9 }",
                     "worldScale": "{ 0.566667, 0.566667, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -12295,7 +12337,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -51.9677, -9.27999, 0 }",
+                    "pos": "{ -51.968, -9.279, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -732.603, 497.11, 23 }",
@@ -12354,7 +12396,7 @@
                     "value": 369
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 545,
@@ -12431,106 +12473,34 @@
         ]
     },
     {
-        "Name": "Dmg Down",
+        "Name": "Text (Copy)",
         "ID": 267,
-        "Prefab": {
-            "name": "Dmg Down",
-            "version": 4,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 267
-                },
-                {
-                    "key": 1,
-                    "value": 378
-                },
-                {
-                    "key": 2,
-                    "value": 379
-                },
-                {
-                    "key": 3,
-                    "value": 380
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
-        "Parent": 586,
-        "Child Entities": [
-            378
-        ],
+        "Parent": 170,
+        "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 744.076, 484.25, 1 }",
+                    "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 744.076, 484.25, 13 }",
+                    "worldPos": "{ 807.517, 561.889, 24 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 744.076, 484.25 }",
-                    "width": 35.0,
-                    "height": 35.0,
-                    "min": "{ 726.576, 466.75 }",
-                    "max": "{ 761.576, 501.75 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 35,
-                            "height": 35,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
+                "Text": {
+                    "text": "Dmg Down",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
                     },
-                    "spriteName": "Dmg Down",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "BuffIconInteraction",
-                            "entityID": 267,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
+                    "scale": 0.08299999684095383,
+                    "fontID": 0
                 }
             }
         ]
@@ -14943,21 +14913,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -1394, 0, 0 }",
+                    "pos": "{ -1392, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -1394, 0, 12 }",
+                    "worldPos": "{ -1392, 0, 12 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -1394, 0 }",
+                    "center": "{ -1392, 0 }",
                     "width": 1920.0,
                     "height": 1080.0,
-                    "min": "{ -2354, -540 }",
-                    "max": "{ -434, 540 }",
+                    "min": "{ -2352, -540 }",
+                    "max": "{ -432, 540 }",
                     "render": false
                 }
             },
@@ -15005,21 +14975,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -325, 342.806, 0 }",
+                    "pos": "{ -324, 342.806, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -325, 342.806, 12 }",
+                    "worldPos": "{ -324, 342.806, 12 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -325, 342.806 }",
+                    "center": "{ -324, 342.806 }",
                     "width": 215.0,
                     "height": 1080.0,
-                    "min": "{ -432.5, -197.194 }",
-                    "max": "{ -217.5, 882.806 }",
+                    "min": "{ -431.5, -197.194 }",
+                    "max": "{ -216.5, 882.806 }",
                     "render": false
                 }
             },
@@ -15035,7 +15005,7 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 217,
+                            "width": 215,
                             "height": 1080,
                             "tint": {
                                 "r": 1.0,
@@ -15067,21 +15037,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -325, -1042.62, 0 }",
+                    "pos": "{ -324, -1042.62, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -325, -1042.62, 12 }",
+                    "worldPos": "{ -324, -1042.62, 12 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -325, -1042.62 }",
+                    "center": "{ -324, -1042.62 }",
                     "width": 215.0,
                     "height": 1080.0,
-                    "min": "{ -432.5, -1582.62 }",
-                    "max": "{ -217.5, -502.62 }",
+                    "min": "{ -431.5, -1582.62 }",
+                    "max": "{ -216.5, -502.62 }",
                     "render": false
                 }
             },
@@ -15097,7 +15067,7 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 217,
+                            "width": 215,
                             "height": 1080,
                             "tint": {
                                 "r": 1.0,
@@ -15245,21 +15215,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1163.34, 0, 0 }",
+                    "pos": "{ 1166, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 1163.34, 0, 12 }",
+                    "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 1163.34, 0 }",
+                    "center": "{ 533, 0 }",
                     "width": 1920.0,
                     "height": 1080.0,
-                    "min": "{ 203.34, -540 }",
-                    "max": "{ 2123.34, 540 }",
+                    "min": "{ -427, -540 }",
+                    "max": "{ 1493, 540 }",
                     "render": false
                 }
             },
@@ -15310,18 +15280,18 @@
                     "pos": "{ -2137, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -973.66, 0, 12 }",
+                    "worldPos": "{ -2137, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -973.66, 0 }",
+                    "center": "{ -1604, 0 }",
                     "width": 1920.0,
                     "height": 1080.0,
-                    "min": "{ -1933.66, -540 }",
-                    "max": "{ -13.66, 540 }",
+                    "min": "{ -2564, -540 }",
+                    "max": "{ -644, 540 }",
                     "render": false
                 }
             },
@@ -15369,21 +15339,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -1069, 342.806, 0 }",
+                    "pos": "{ -1068, 342.806, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 94.34, 342.806, 12 }",
+                    "worldPos": "{ -1068, 342.806, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 94.34, 342.806 }",
+                    "center": "{ -535, 342.806 }",
                     "width": 215.0,
                     "height": 1080.0,
-                    "min": "{ -13.16, -197.194 }",
-                    "max": "{ 201.84, 882.806 }",
+                    "min": "{ -642.5, -197.194 }",
+                    "max": "{ -427.5, 882.806 }",
                     "render": false
                 }
             },
@@ -15431,21 +15401,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -1069, -1042.62, 0 }",
+                    "pos": "{ -1068, -1042.62, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 94.34, -1042.62, 12 }",
+                    "worldPos": "{ -1068, -1042.62, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 94.34, -1042.62 }",
+                    "center": "{ -535, -1042.62 }",
                     "width": 215.0,
                     "height": 1080.0,
-                    "min": "{ -13.16, -1582.62 }",
-                    "max": "{ 201.84, -502.62 }",
+                    "min": "{ -642.5, -1582.62 }",
+                    "max": "{ -427.5, -502.62 }",
                     "render": false
                 }
             },
@@ -15922,7 +15892,7 @@
                     "value": 367
                 }
             ],
-            "registered": true
+            "registered": false
         },
         "isActive": true,
         "Parent": 88,
@@ -17237,22 +17207,86 @@
         ]
     },
     {
-        "Name": "BuffIconText",
+        "Name": "Background",
         "ID": 378,
         "Prefab": null,
-        "isActive": false,
-        "Parent": 267,
+        "isActive": true,
+        "Parent": 168,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 12 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Tutorial_Menu",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Text",
+        "ID": 379,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 168,
         "Child Entities": [
-            379,
-            380
+            380,
+            414,
+            415,
+            416
         ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 63.441, 22.139, 10 }",
+                    "pos": "{ 286.682, 357.155, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 807.517, 506.389, 23 }",
+                    "worldPos": "{ 286.682, 357.155, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -17260,54 +17294,34 @@
         ]
     },
     {
-        "Name": "Backing",
-        "ID": 379,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 378,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 0.59, 0.345365, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 807.517, 506.389, 23 }",
-                    "worldScale": "{ 0.59, 0.345365, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text",
+        "Name": "Text1 (Copy) (Copy) (Copy)",
         "ID": 380,
         "Prefab": null,
         "isActive": true,
-        "Parent": 378,
+        "Parent": 379,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -53.968, -7.222, 0 }",
+                    "pos": "{ 368.408, 113.706, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 753.549, 499.167, 23 }",
+                    "worldPos": "{ 655.09, 470.861, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Dmg Down",
+                    "text": "-->",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.08299999684095383,
-                    "fontID": 0
+                    "scale": 0.15000000596046448,
+                    "fontID": 1
                 }
             }
         ]
@@ -18144,7 +18158,6 @@
         "isActive": false,
         "Parent": null,
         "Child Entities": [
-            141,
             151,
             401,
             402
@@ -18240,10 +18253,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0.475868, 171.199, 1 }",
+                    "pos": "{ 122.182, 171.199, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0.475868, 171.199, 13 }",
+                    "worldPos": "{ 122.182, 171.199, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -18260,10 +18273,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -18.1481, -68.739, 0 }",
+                    "pos": "{ -18.148, -68.739, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -17.6722, 102.46, 13 }",
+                    "worldPos": "{ 104.034, 102.46, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -18293,10 +18306,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -7.25922, -146.768, 0 }",
+                    "pos": "{ -7.259, -146.768, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -6.78335, 24.431, 13 }",
+                    "worldPos": "{ 114.923, 24.431, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -18326,10 +18339,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 3.62957, -222.938, 0 }",
+                    "pos": "{ 3.63, -222.938, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 4.10544, -51.739, 13 }",
+                    "worldPos": "{ 125.812, -51.739, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -18362,7 +18375,7 @@
                     "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0.475868, 171.199, 13 }",
+                    "worldPos": "{ 122.182, 171.199, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -18395,7 +18408,7 @@
                     "pos": "{ 98, -300.967, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 98.4759, -129.768, 13 }",
+                    "worldPos": "{ 220.182, -129.768, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -18403,6 +18416,296 @@
             {
                 "Text": {
                     "text": "start of the turn.",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Text",
+        "ID": 408,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 136,
+        "Child Entities": [
+            409,
+            410,
+            411,
+            412,
+            413
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -920.54, 349.799, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -920.54, 349.799, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy)",
+        "ID": 409,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 408,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 13.352, -66.882, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -907.188, 282.917, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "you can now see the",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy) (Copy)",
+        "ID": 410,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 408,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 154.498, -135.621, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -766.042, 214.178, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "buff icon.",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1",
+        "ID": 411,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 408,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -920.54, 349.799, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "above the health bar,",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy) (Copy) (Copy)",
+        "ID": 412,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 408,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 206.369, 123.317, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -714.171, 473.116, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "<--",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.15000000596046448,
+                    "fontID": 1
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy) (Copy) (Copy) (Copy)",
+        "ID": 413,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 408,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 1573.35, 123.317, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 652.809, 473.116, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "-->",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.15000000596046448,
+                    "fontID": 1
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy)",
+        "ID": 414,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 379,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 5.389, -71.716, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 292.071, 285.439, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "special card is now",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy) (Copy)",
+        "ID": 415,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 379,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 10.778, -150.787, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 297.46, 206.368, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "show on the enemy.",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1",
+        "ID": 416,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 379,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 286.682, 357.155, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "the debuff from our",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -18678,16 +18981,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 800, 218.383 }",
-                    "width": 119.0,
-                    "height": 111.0,
-                    "min": "{ 740.5, 162.883 }",
-                    "max": "{ 859.5, 273.883 }",
-                    "render": false
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -18717,25 +19010,6 @@
                     },
                     "spriteName": "CardIcon_BasicAttackClawswipe",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "EnemyQueueHover",
-                            "entityID": 428,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -18759,16 +19033,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 800, 49.0801 }",
-                    "width": 119.0,
-                    "height": 111.0,
-                    "min": "{ 740.5, -6.4199 }",
-                    "max": "{ 859.5, 104.58 }",
-                    "render": false
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -18798,25 +19062,6 @@
                     },
                     "spriteName": "CardIcon_BasicAttackClawswipe",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "EnemyQueueHover",
-                            "entityID": 429,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -19050,16 +19295,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 800, 218.383 }",
-                    "width": 119.0,
-                    "height": 111.0,
-                    "min": "{ 740.5, 162.883 }",
-                    "max": "{ 859.5, 273.883 }",
-                    "render": false
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -19089,25 +19324,6 @@
                     },
                     "spriteName": "CardIcon_BasicAttackClawswipe",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "EnemyQueueHover",
-                            "entityID": 439,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -19131,16 +19347,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 800, 49.0801 }",
-                    "width": 119.0,
-                    "height": 111.0,
-                    "min": "{ 740.5, -6.4199 }",
-                    "max": "{ 859.5, 104.58 }",
-                    "render": false
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -19170,25 +19376,6 @@
                     },
                     "spriteName": "CardIcon_BasicAttackClawswipe",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "EnemyQueueHover",
-                            "entityID": 440,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -20744,284 +20931,6 @@
         ]
     },
     {
-        "Name": "Tutorial_33",
-        "ID": 476,
-        "Prefab": null,
-        "isActive": false,
-        "Parent": null,
-        "Child Entities": [
-            147,
-            168,
-            477,
-            478
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 12 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 0, 0, 12 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Background",
-        "ID": 477,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 476,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 12 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 1920.0,
-                    "height": 1080.0,
-                    "min": "{ -960, -540 }",
-                    "max": "{ 960, 540 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1920,
-                            "height": 1080,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
-                    },
-                    "spriteName": "Tutorial_Menu",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Folder] Text",
-        "ID": 478,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 476,
-        "Child Entities": [
-            479,
-            480,
-            481,
-            482,
-            483
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -920.54, 349.799, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -920.54, 349.799, 13 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text1 (Copy)",
-        "ID": 479,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 478,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 13.352, -66.882, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -907.188, 282.917, 13 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "you can now see the",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.2280000001192093,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text1 (Copy) (Copy)",
-        "ID": 480,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 478,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 154.498, -135.621, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -766.042, 214.178, 13 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "buff icon.",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.2280000001192093,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text1",
-        "ID": 481,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 478,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -920.54, 349.799, 13 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "above the health bar,",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.2280000001192093,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text1 (Copy) (Copy) (Copy)",
-        "ID": 482,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 478,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 209.813, 116.265, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -710.727, 466.064, 13 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "<--",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.2280000001192093,
-                    "fontID": 1
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text1 (Copy) (Copy) (Copy) (Copy)",
-        "ID": 483,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 478,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 1535.46, 116.265, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 614.92, 466.064, 13 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "-->",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.2280000001192093,
-                    "fontID": 1
-                }
-            }
-        ]
-    },
-    {
         "Name": "Tutorial_34",
         "ID": 489,
         "Prefab": null,
@@ -21395,10 +21304,7 @@
         "Parent": null,
         "Child Entities": [
             499,
-            500,
-            503,
-            504,
-            505
+            500
         ],
         "Components": [
             {
@@ -21419,25 +21325,29 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 498,
-        "Child Entities": [],
+        "Child Entities": [
+            503,
+            504,
+            505
+        ],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -654.5, 0, 0 }",
+                    "pos": "{ -653, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -654.5, 0, 12 }",
+                    "worldPos": "{ -653, 0, 12 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -654.5, 0 }",
+                    "center": "{ -653, 0 }",
                     "width": 1920.0,
                     "height": 1080.0,
-                    "min": "{ -1614.5, -540 }",
-                    "max": "{ 305.5, 540 }",
+                    "min": "{ -1613, -540 }",
+                    "max": "{ 307, 540 }",
                     "render": false
                 }
             },
@@ -21569,26 +21479,26 @@
         "ID": 503,
         "Prefab": null,
         "isActive": true,
-        "Parent": 498,
+        "Parent": 499,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1480.5, 0, 0 }",
+                    "pos": "{ 2135, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 1480.5, 0, 12 }",
+                    "worldPos": "{ 1482, 0, 12 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 1480.5, 0 }",
+                    "center": "{ 1482, 0 }",
                     "width": 1920.0,
                     "height": 1080.0,
-                    "min": "{ 520.5, -540 }",
-                    "max": "{ 2440.5, 540 }",
+                    "min": "{ 522, -540 }",
+                    "max": "{ 2442, 540 }",
                     "render": false
                 }
             },
@@ -21631,26 +21541,26 @@
         "ID": 504,
         "Prefab": null,
         "isActive": true,
-        "Parent": 498,
+        "Parent": 499,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 412.5, 340.19, 0 }",
+                    "pos": "{ 1068, 340.19, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 412.5, 340.19, 12 }",
+                    "worldPos": "{ 415, 340.19, 12 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 412.5, 340.19 }",
+                    "center": "{ 415, 340.19 }",
                     "width": 215.0,
                     "height": 1080.0,
-                    "min": "{ 305, -199.81 }",
-                    "max": "{ 520, 880.19 }",
+                    "min": "{ 307.5, -199.81 }",
+                    "max": "{ 522.5, 880.19 }",
                     "render": false
                 }
             },
@@ -21693,26 +21603,26 @@
         "ID": 505,
         "Prefab": null,
         "isActive": true,
-        "Parent": 498,
+        "Parent": 499,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 413.501, -1042.64, 0 }",
+                    "pos": "{ 1068, -1042.64, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 413.501, -1042.64, 12 }",
+                    "worldPos": "{ 415.001, -1042.64, 12 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 413.501, -1042.64 }",
+                    "center": "{ 415.001, -1042.64 }",
                     "width": 215.0,
                     "height": 1080.0,
-                    "min": "{ 306.001, -1582.64 }",
-                    "max": "{ 521.001, -502.64 }",
+                    "min": "{ 307.501, -1582.64 }",
+                    "max": "{ 522.501, -502.64 }",
                     "render": false
                 }
             },
@@ -24233,249 +24143,6 @@
             {
                 "Text": {
                     "text": "oh! the buff from",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.2280000001192093,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Tutorial_45",
-        "ID": 586,
-        "Prefab": null,
-        "isActive": false,
-        "Parent": null,
-        "Child Entities": [
-            267,
-            588,
-            589
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 12 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 0, 0, 12 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Background",
-        "ID": 588,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 586,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 12 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 1920.0,
-                    "height": 1080.0,
-                    "min": "{ -960, -540 }",
-                    "max": "{ 960, 540 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 1920,
-                            "height": 1080,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
-                    },
-                    "spriteName": "Tutorial_Menu",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "[Folder] Text",
-        "ID": 589,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 586,
-        "Child Entities": [
-            590,
-            591,
-            592,
-            593
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 286.682, 357.155, 1 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 286.682, 357.155, 13 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text1 (Copy) (Copy) (Copy)",
-        "ID": 590,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 589,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 330.519, 106.654, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 617.201, 463.809, 13 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "-->",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.2280000001192093,
-                    "fontID": 1
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text1 (Copy)",
-        "ID": 591,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 589,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 5.389, -71.716, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 292.071, 285.439, 13 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "special card is now",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.2280000001192093,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text1 (Copy) (Copy)",
-        "ID": 592,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 589,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 10.778, -150.787, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 297.46, 206.368, 13 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "show on the enemy.",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.2280000001192093,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text1",
-        "ID": 593,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 589,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 286.682, 357.155, 13 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "the debuff from our",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
