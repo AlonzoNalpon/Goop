@@ -41,7 +41,7 @@ namespace GoopScripts.Cards
     ************************************************************************/
     public override void Play(ref Stats source, ref Stats target)
     {
-      target.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLICATIVE_ATK_DOWN, 0.0f, 1));
+      source.m_buffs.AddBuff(new Buff(Buff.BuffType.IMMUNE_TO_DAMAGE, 0.0f, 2));
     }
   }
 }

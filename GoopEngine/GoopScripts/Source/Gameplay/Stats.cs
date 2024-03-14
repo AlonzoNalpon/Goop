@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file         Stats.cs
 \author       chengen.lau\@digipen.edu
-\co-author    c.phua\@digipen.edu, han.q@digipen.edu
+\co-author    c.phua\@digipen.edu, han.q\@digipen.edu
 \co-author    Han Qin Ding
 \date         10-January-2024
 \brief        Calculates and keep tracks of stats related to a
