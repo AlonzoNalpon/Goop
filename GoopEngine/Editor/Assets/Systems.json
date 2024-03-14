@@ -31,11 +31,6 @@
     "BoxCollider",
     "Scripts"
   ],
-  "DraggableObjectSystem": [
-    "Transform",
-    "BoxCollider",
-    "Draggable"
-  ],
   "ParticleSystem": [
     "Sprite",
     "Emitter"
@@ -55,9 +50,6 @@
   ],
   "AudioSystem": [
     "Audio"
-  ],
-  "CardHolderSystem": [
-    "CardHolder"
   ],
   "AnimEventsSystem": [
     "SpriteAnim",
