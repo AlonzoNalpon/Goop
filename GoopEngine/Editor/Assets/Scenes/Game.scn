@@ -319,7 +319,7 @@
         "ID": 2,
         "Prefab": {
             "name": "Skipped",
-            "version": 6,
+            "version": 9,
             "objToEntity": [
                 {
                     "key": 0,
@@ -332,10 +332,6 @@
                 {
                     "key": 2,
                     "value": 88
-                },
-                {
-                    "key": 3,
-                    "value": 89
                 }
             ],
             "registered": true
@@ -396,6 +392,17 @@
                     },
                     "spriteName": "Skipped",
                     "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "BuffIconInteraction",
+                            "entityID": 2,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             },
             {
@@ -4083,7 +4090,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 4.01101e-12 }",
+                    "pos": "{ -307.537, -269.134, 4.05009e-13 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -419.265, 137.337, 20 }",
@@ -4740,24 +4747,24 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -118.817, -15, 1 }",
+                    "pos": "{ -115.797, -15, 1 }",
                     "scale": "{ 1, 1, 1.5873 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 182.769, -189.75, 103 }",
+                    "worldPos": "{ 184.732, -189.75, 103 }",
                     "worldScale": "{ 0.65, 0.65, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Surrender",
+                    "text": "Quit Game",
                     "clr": {
                         "r": 0.8941176533699036,
                         "g": 0.8313725590705872,
                         "b": 0.7764706015586853,
                         "a": 1.0
                     },
-                    "scale": 0.13500000536441803,
+                    "scale": 0.14300000667572021,
                     "fontID": 2
                 }
             }
@@ -5168,7 +5175,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 4.01101e-12 }",
+                    "pos": "{ -307.537, -269.134, 4.05009e-13 }",
                     "scale": "{ 1, 1, 1.81818 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 319.853, 137.337, 20 }",
@@ -5291,6 +5298,61 @@
                     "worldPos": "{ 744.076, 484.25, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "BuffIconText",
+        "ID": 87,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 2,
+        "Child Entities": [
+            88
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 63.4408, 22.1395, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 174.212, 68.1741, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 88,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 87,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -45.9674, -8.25143, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 128.244, 59.9227, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Skipped",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
                 }
             }
         ]
