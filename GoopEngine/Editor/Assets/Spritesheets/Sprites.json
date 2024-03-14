@@ -138,8 +138,8 @@
         "id": "SS_Leah_FlashBang",
         "filePath": "SS_Leah_FlashBang",
         "slices": 3,
-        "stacks": 3,
-        "frames": 9,
+        "stacks": 4,
+        "frames": 12,
         "speed": 0.1,
         "flags": 0
     },
