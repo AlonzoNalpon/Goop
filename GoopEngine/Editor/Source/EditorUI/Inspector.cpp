@@ -780,10 +780,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 							}
 							else
 							{
+								auto trans = ecs.GetComponent<GE::Component::Transform>(entity);
+								auto sprite = ecs.HasComponent<GE::Component::Sprite>(entity) ? ecs.GetComponent<GE::Component::Sprite>(entity) : nullptr;
+								auto text = ecs.HasComponent<GE::Component::Text>(entity) ? ecs.GetComponent<GE::Component::Text>(entity) : nullptr;
+
 								invalidName = false;
 								blankName = false;
-								tween->AddTween(tweenName, { {0, 0, 0}, {1, 1, 1}, {0, 0, 0}, 
-									{1.f, 1.f, 1.f, 1.f}, {1.f, 1.f, 1.f, 1.f}, 1 });
+								tween->AddTween(tweenName, { trans->m_pos, trans->m_scale, trans->m_rot, 
+									sprite ? sprite->m_spriteData.info.tint : GE::Graphics::Colorf{0.f, 0.f, 0.f, 0.f}, 
+									sprite ? sprite->m_spriteData.info.multiply : GE::Graphics::Colorf{1.f, 1.f, 1.f, 1.f},
+									text ? text->m_clr : GE::Graphics::Colorf{1.f, 1.f, 1.f, 1.f}});
 								tweenName.clear();
 								CloseCurrentPopup();
 							}
@@ -2246,8 +2252,7 @@ namespace
 				// 20 magic number cuz the button looks good
 				if (Button("Add keyframe", { GetContentRegionMax().x, 20 }))
 				{
-					action.emplace_back(vec3{ 0, 0, 0 }, vec3{ 1, 1, 1 }, vec3{ 0, 0, 0 }, Colorf{}, 
-						Colorf{1.f, 1.f, 1.f, 1.f}, Colorf{ 1.f, 1.f, 1.f, 1.f }, 1);
+					action.push_back(action.back());
 				}
 				Indent();
 
