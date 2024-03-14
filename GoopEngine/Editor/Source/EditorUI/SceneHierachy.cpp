@@ -379,6 +379,73 @@ namespace
 		}
 		else
 		{
+			////////////////////////////////////
+			// Handle drag and drop orderering
+			////////////////////////////////////
+			if (BeginDragDropSource())
+			{
+				SetDragDropPayload(PAYLOAD, &entity, sizeof(entity));
+				// Anything between begin and end will be parented to the dragged object
+				Text(GetName(entity));
+				EndDragDropSource();
+			}
+			if (BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
+				{
+					if (payload->Data)
+					{
+						auto const& texManager = GE::Graphics::GraphicsEngine::GetInstance().textureManager;
+						const char* droppedPath = static_cast<const char*>(payload->Data);
+						std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
+						if (ecs.HasComponent<GE::Component::Sprite>(entity))
+						{
+							GE::Component::Sprite* entitySpriteData = ecs.GetComponent<GE::Component::Sprite>(entity);
+							entitySpriteData->m_spriteData.texture = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
+						}
+						else
+						{
+							auto& gEngine = GE::Graphics::GraphicsEngine::GetInstance();
+							GE::Component::Sprite sprite{ gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
+							ecs.AddComponent(entity, sprite);
+						}
+					}
+				}
+
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_FONT"))
+				{
+					if (payload->Data)
+					{
+						auto& gEngine = GE::Graphics::GraphicsEngine::GetInstance();
+
+						//auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+						const char* droppedPath = static_cast<const char*>(payload->Data);
+						std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
+						if (ecs.HasComponent<GE::Component::Text>(entity))
+						{
+							// Entity has text component, replacing the font instead
+							GE::Component::Text* entityTextData = ecs.GetComponent<GE::Component::Text>(entity);
+							entityTextData->m_fontID = gEngine.fontManager.GetFontID(GE::GoopUtils::ExtractFilename(droppedPath));
+						}
+						else
+						{
+							// Entity does not have text component, adding a text component and assigning the dropped font.
+							GE::Component::Text comp;
+							comp.m_fontID = gEngine.fontManager.GetFontID(GE::GoopUtils::ExtractFilename(droppedPath));
+							ecs.AddComponent(entity, comp);
+						}
+					}
+				}
+
+				const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
+				if (pl)
+				{
+					GE::ECS::Entity& droppedEntity{*reinterpret_cast<GE::ECS::Entity*>(pl->Data)};
+					ParentEntity(ecs, droppedEntity, &entity);
+				}
+				EndDragDropTarget();
+			}
+
 			if (IsItemClicked())
 			{
 				GE::EditorGUI::ImGuiHelper::SetSelectedEntity(entity);

@@ -85,5 +85,11 @@ namespace GoopScripts.Gameplay
         ((ComboTextUpdate)Utils.GetScriptFromID((uint)source.m_comboUI[firstCardIndex], "ComboTextUpdate")).SetActive();
       }
     }
-  }
+
+    public static Combo GetCombo(CardBase.CardType c1 , CardBase.CardType c2)
+    {
+      ComboPair pair = new ComboPair(c1, c2);
+      return (m_comboList[pair]);
+    }
+  } 
 }

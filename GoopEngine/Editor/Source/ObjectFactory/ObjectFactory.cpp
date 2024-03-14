@@ -179,10 +179,6 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::BoxCollider*>());
   }
-  else if (compType == rttr::type::get<Component::Velocity>())
-  {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Velocity*>());
-  }
   else if (compType == rttr::type::get<Component::Sprite>())
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Sprite*>());
@@ -191,39 +187,42 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::SpriteAnim*>());
   }
-  else if (compType == rttr::type::get<Component::Model>())
+  else if (compType == rttr::type::get<Serialization::ProxyScripts>())
   {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Model*>());
+    rttr::variant scriptsVar{ Component::Scripts{} };
+    Serialization::Deserializer::DeserializeScriptsComponent(scriptsVar, compVar.get_value<Serialization::ProxyScripts*>()->m_scriptData);
+    if (!scriptsVar.is_valid())
+    {
+      Debug::ErrorLogger::GetInstance().LogError("Trying to construct invalid script component for entity " + std::to_string(entity));
+      return;
+    }
+    Component::Scripts& scripts{ *scriptsVar.get_value<Component::Scripts*>() };
+    scripts.SetAllEntityID(entity);
+    ecs.AddComponent(entity, scripts);
   }
-  else if (compType == rttr::type::get<Component::Tween>())
+  else if (compType == rttr::type::get<Component::GE_Button>())
   {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Tween*>());
-  }
-  else if (compType == rttr::type::get<Component::Scripts>())
-  {
-    Component::Scripts* scripts{ compVar.get_value<Component::Scripts*>() };
-    scripts->SetAllEntityID(entity);
-    ecs.AddComponent(entity, *scripts);
-  }
-  else if (compType == rttr::type::get<Component::Draggable>())
-  {
-    ecs.AddComponent(entity, Component::Draggable{});
-  }
-  else if (compType == rttr::type::get<Component::EnemyAI>())
-  {
-    ecs.AddComponent(entity, *compVar.get_value<Component::EnemyAI*>());
+    ecs.AddComponent(entity, *compVar.get_value<Component::GE_Button*>());
   }
   else if (compType == rttr::type::get<Component::Text>())
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Text*>());
   }
+  else if (compType == rttr::type::get<Component::AnimEvents>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::AnimEvents*>());
+  }
   else if (compType == rttr::type::get<Component::Audio>())
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Audio*>());
   }
-  else if (compType == rttr::type::get<Component::GE_Button>())
+  else if (compType == rttr::type::get<Component::Velocity>())
   {
-    ecs.AddComponent(entity, *compVar.get_value<Component::GE_Button*>());
+    ecs.AddComponent(entity, *compVar.get_value<Component::Velocity*>());
+  }
+  else if (compType == rttr::type::get<Component::Tween>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Tween*>());
   }
   else if (compType == rttr::type::get<Component::Card>())
   {
@@ -245,9 +244,17 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Emitter*>());
   }
-  else if (compType == rttr::type::get<Component::AnimEvents>())
+  else if (compType == rttr::type::get<Component::Model>())
   {
-    ecs.AddComponent(entity, *compVar.get_value<Component::AnimEvents*>());
+    ecs.AddComponent(entity, *compVar.get_value<Component::Model*>());
+  }
+  else if (compType == rttr::type::get<Component::Draggable>())
+  {
+    ecs.AddComponent(entity, Component::Draggable{});
+  }
+  else if (compType == rttr::type::get<Component::EnemyAI>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::EnemyAI*>());
   }
   else
   {
@@ -268,10 +275,6 @@ rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, rttr::type const
   {
     return ecs.HasComponent<Component::BoxCollider>(id) ? std::make_shared<Component::BoxCollider>(*ecs.GetComponent<Component::BoxCollider>(id)) : rttr::variant();
   }
-  else if (compType == rttr::type::get<Component::Velocity>())
-  {
-    return ecs.HasComponent<Component::Velocity>(id) ? std::make_shared<Component::Velocity>(*ecs.GetComponent<Component::Velocity>(id)) : rttr::variant();
-  }
   else if (compType == rttr::type::get<Component::Scripts>())
   {
     return ecs.HasComponent<Component::Scripts>(id) ? std::make_shared<Component::Scripts>(*ecs.GetComponent<Component::Scripts>(id)) : rttr::variant();
@@ -284,9 +287,25 @@ rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, rttr::type const
   {
     return ecs.HasComponent<Component::SpriteAnim>(id) ? std::make_shared<Component::SpriteAnim>(*ecs.GetComponent<Component::SpriteAnim>(id)) : rttr::variant();
   }
+  else if (compType == rttr::type::get<Component::GE_Button>())
+  {
+    return ecs.HasComponent<Component::GE_Button>(id) ? std::make_shared<Component::GE_Button>(*ecs.GetComponent<Component::GE_Button>(id)) : rttr::variant();
+  }
+  else if (compType == rttr::type::get<Component::Text>())
+  {
+    return ecs.HasComponent<Component::Text>(id) ? std::make_shared<Component::Text>(*ecs.GetComponent<Component::Text>(id)) : rttr::variant();
+  }
   else if (compType == rttr::type::get<Component::Tween>())
   {
     return ecs.HasComponent<Component::Tween>(id) ? std::make_shared<Component::Tween>(*ecs.GetComponent<Component::Tween>(id)) : rttr::variant();
+  }
+  else if (compType == rttr::type::get<Component::Audio>())
+  {
+    return ecs.HasComponent<Component::Audio>(id) ? std::make_shared<Component::Audio>(*ecs.GetComponent<Component::Audio>(id)) : rttr::variant();
+  }
+  else if (compType == rttr::type::get<Component::Velocity>())
+  {
+    return ecs.HasComponent<Component::Velocity>(id) ? std::make_shared<Component::Velocity>(*ecs.GetComponent<Component::Velocity>(id)) : rttr::variant();
   }
   else if (compType == rttr::type::get<Component::EnemyAI>())
   {
@@ -295,18 +314,6 @@ rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, rttr::type const
   else if (compType == rttr::type::get<Component::Draggable>())
   {
     return ecs.HasComponent<Component::Draggable>(id) ? std::make_shared<Component::Draggable>(*ecs.GetComponent<Component::Draggable>(id)) : rttr::variant();
-  }
-  else if (compType == rttr::type::get<Component::Text>())
-  {
-    return ecs.HasComponent<Component::Text>(id) ? std::make_shared<Component::Text>(*ecs.GetComponent<Component::Text>(id)) : rttr::variant();
-  }
-  else if (compType == rttr::type::get<Component::Audio>())
-  {
-    return ecs.HasComponent<Component::Audio>(id) ? std::make_shared<Component::Audio>(*ecs.GetComponent<Component::Audio>(id)) : rttr::variant();
-  }
-  else if (compType == rttr::type::get<Component::GE_Button>())
-  {
-    return ecs.HasComponent<Component::GE_Button>(id) ? std::make_shared<Component::GE_Button>(*ecs.GetComponent<Component::GE_Button>(id)) : rttr::variant();
   }
   else if (compType == rttr::type::get<Component::Card>())
   {
@@ -371,7 +378,7 @@ void ObjectFactory::RemoveComponentFromEntity(ECS::Entity entity, rttr::type com
   {
     ecs.RemoveComponent<Tween>(entity);
   }
-  else if (compType == rttr::type::get<Component::Scripts>())
+  else if (compType == rttr::type::get<Serialization::ProxyScripts>())
   {
     ecs.RemoveComponent<Scripts>(entity);
   }
