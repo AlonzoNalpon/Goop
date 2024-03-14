@@ -12,6 +12,7 @@ using System.Threading;
 using static GoopScripts.Cards.CardBase;
 using GoopScripts.Button;
 using GoopScripts.Serialization;
+using GoopScripts.UI;
 
 namespace GoopScripts.Gameplay
 {
@@ -409,6 +410,10 @@ namespace GoopScripts.Gameplay
       m_enemyStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth, false, E_HEALTH_TEXT_UI, E_HEALTH_UI);
       Utils.SpawnPrefab(statsInfo.background, new Vec3<double>(0, 0, -999));
       Utils.UpdateSprite(GetEntity("Enemy Portrait"), statsInfo.portrait);
-    }
-  }
+		}
+		public void OnDestroy(uint entityid)
+		{
+			PauseManager.SetPauseState(0);
+		}
+	}
 }
