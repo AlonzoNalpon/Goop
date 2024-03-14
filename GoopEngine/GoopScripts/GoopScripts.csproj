@@ -190,6 +190,7 @@
     <Compile Include="Source\Transition\ChangeToTutorial.cs" />
     <Compile Include="Source\Transition\ChangeToVictory.cs" />
     <Compile Include="Source\UI\FPS.cs" />
+    <Compile Include="Source\UI\GameNameFlicker.cs" />
     <Compile Include="Source\UI\HealthBar.cs" />
     <Compile Include="Source\UI\PauseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

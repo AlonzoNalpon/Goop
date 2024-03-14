@@ -726,7 +726,7 @@
                                         "r": 1.0,
                                         "g": 1.0,
                                         "b": 1.0,
-                                        "a": 1.0
+                                        "a": 0.6117647290229797
                                     },
                                     "textColor": {
                                         "r": 0.0,
@@ -734,32 +734,7 @@
                                         "b": 0.0,
                                         "a": 0.0
                                     },
-                                    "duration": 2.1,
-                                    "animationEvent": ""
-                                },
-                                {
-                                    "trans": "{ -315, 35, 0 }",
-                                    "scale": "{ 0.75, 0.75, 1 }",
-                                    "rot": "{ 0, 0, 0 }",
-                                    "spriteTint": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "spriteMult": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 0.7647058963775635
-                                    },
-                                    "textColor": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "duration": 0.05,
+                                    "duration": 0.1,
                                     "animationEvent": ""
                                 },
                                 {
@@ -784,165 +759,26 @@
                                         "b": 0.0,
                                         "a": 0.0
                                     },
-                                    "duration": 0.05,
-                                    "animationEvent": ""
-                                },
-                                {
-                                    "trans": "{ -315, 35, 0 }",
-                                    "scale": "{ 0.75, 0.75, 1 }",
-                                    "rot": "{ 0, 0, 0 }",
-                                    "spriteTint": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "spriteMult": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 1.0
-                                    },
-                                    "textColor": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "duration": 0.2,
-                                    "animationEvent": ""
-                                },
-                                {
-                                    "trans": "{ -315, 35, 0 }",
-                                    "scale": "{ 0.75, 0.75, 1 }",
-                                    "rot": "{ 0, 0, 0 }",
-                                    "spriteTint": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "spriteMult": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 0.6666666865348816
-                                    },
-                                    "textColor": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "duration": 0.05,
-                                    "animationEvent": ""
-                                },
-                                {
-                                    "trans": "{ -315, 35, 0 }",
-                                    "scale": "{ 0.75, 0.75, 1 }",
-                                    "rot": "{ 0, 0, 0 }",
-                                    "spriteTint": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "spriteMult": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 1.0
-                                    },
-                                    "textColor": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "duration": 0.05,
-                                    "animationEvent": ""
-                                },
-                                {
-                                    "trans": "{ -315, 35, 0 }",
-                                    "scale": "{ 0.75, 0.75, 1 }",
-                                    "rot": "{ 0, 0, 0 }",
-                                    "spriteTint": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "spriteMult": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 1.0
-                                    },
-                                    "textColor": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "duration": 4.1,
-                                    "animationEvent": ""
-                                },
-                                {
-                                    "trans": "{ -315, 35, 0 }",
-                                    "scale": "{ 0.75, 0.75, 1 }",
-                                    "rot": "{ 0, 0, 0 }",
-                                    "spriteTint": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "spriteMult": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 0.7607843279838562
-                                    },
-                                    "textColor": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "duration": 0.05,
-                                    "animationEvent": ""
-                                },
-                                {
-                                    "trans": "{ -315, 35, 0 }",
-                                    "scale": "{ 0.75, 0.75, 1 }",
-                                    "rot": "{ 0, 0, 0 }",
-                                    "spriteTint": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "spriteMult": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
-                                        "a": 1.0
-                                    },
-                                    "textColor": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
-                                    },
-                                    "duration": 0.05,
+                                    "duration": 0.1,
                                     "animationEvent": ""
                                 }
                             ]
                         }
                     ],
                     "paused": false,
-                    "loop": true,
-                    "playing": "Blink"
+                    "loop": false,
+                    "playing": ""
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "GameNameFlicker",
+                            "entityID": 14,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             }
         ]
