@@ -1,7 +1,7 @@
 {
     "Name": "MoleRat",
     "isActive": true,
-    "Version": 6,
+    "Version": 7,
     "Components": [
         {
             "Transform": {
@@ -42,6 +42,12 @@
                             "g": 1.0,
                             "b": 1.0,
                             "a": 0.0
+                        },
+                        "multiply": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
                         }
                     }
                 },
@@ -98,7 +104,7 @@
                                     "Cards In Hand": [],
                                     "Cards In Queue": [
                                         "NO_CARD",
-                                        "NO_CARD",
+                                        "",
                                         "NO_CARD"
                                     ]
                                 },
@@ -162,12 +168,42 @@
                     {
                         "scriptName": "LeahDies",
                         "entityID": 0,
-                        "scriptFieldInstList": []
+                        "scriptFieldInstList": [
+                            {
+                                "data": 6,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 11,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
                     },
                     {
                         "scriptName": "MoleRatScreeches",
                         "entityID": 0,
-                        "scriptFieldInstList": []
+                        "scriptFieldInstList": [
+                            {
+                                "data": 0,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 5,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
                     },
                     {
                         "scriptName": "MoleRatBlocks",
@@ -227,19 +263,19 @@
             "AnimEvents": {
                 "eventList": [
                     {
-                        "first": 6,
+                        "first": 18,
                         "second": "MoleRatBites"
                     },
                     {
-                        "first": 19,
+                        "first": 30,
                         "second": "LeahDies"
                     },
                     {
-                        "first": 20,
+                        "first": 32,
                         "second": "MoleRatScreeches"
                     },
                     {
-                        "first": 18,
+                        "first": 29,
                         "second": "MoleRatBlocks"
                     }
                 ]

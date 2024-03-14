@@ -33,9 +33,9 @@ namespace GoopScripts.Cards
     static public readonly Dictionary<CardBase.CardID, string> m_cardPrefabs = new Dictionary<CardBase.CardID, string>
     {
       // basic enemy
-      { CardBase.CardID.BASIC_ATTACK, "Normal_Attack_Hover"  },
-      { CardBase.CardID.BASIC_SHIELD, "Normal_Block_Hover" },
-      { CardBase.CardID.SPECIAL_SCREECH, "Normal_Screech_Hover" },
+      { CardBase.CardID.BASIC_ATTACK, "Normal_Attack"  },
+      { CardBase.CardID.BASIC_SHIELD, "Normal_Block" },
+      { CardBase.CardID.SPECIAL_SCREECH, "Normal_Screech" },
 
       // player
       { CardBase.CardID.LEAH_BEAM, "Leah_Attack" },

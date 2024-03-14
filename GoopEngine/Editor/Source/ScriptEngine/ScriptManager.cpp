@@ -206,7 +206,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetChannelVolume", GE::MONO::SetChannelVolume);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetMasterVolume", GE::MONO::GetMasterVolume);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetMasterVolume", GE::MONO::SetMasterVolume);
-  mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlayRandomSound", GE::MONO::PlayRandomSound);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySoundF", GE::MONO::PlaySoundF);
   mono_add_internal_call("GoopScripts.Mono.Utils::StopSound", GE::MONO::StopSound);
   mono_add_internal_call("GoopScripts.Mono.Utils::StopChannel", GE::MONO::StopChannel);
@@ -1125,18 +1125,15 @@ double  GE::MONO::GetAnimationTime(MonoString* animName)
 }
 
 
-void GE::MONO::PlaySound(int soundIterator, GE::ECS::Entity entity)
+void GE::MONO::PlayRandomSound(int startRange, int endRange, GE::ECS::Entity entity, float volume)
 {
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   auto* comp = ecs->GetComponent<GE::Component::Audio>(entity);
 
   if (comp)
   {
-    if (soundIterator < comp->m_sounds.size())
-    {
-      comp->Play((*(comp->m_sounds.begin() + soundIterator)).m_sound);
-      return;
-    }
+    comp->PlayRandom(startRange, endRange, volume);
+    return;
   }
   GE::Debug::ErrorLogger::GetInstance().LogError("Trying to play a sound that does not exist from a script");
 }

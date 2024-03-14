@@ -18,7 +18,7 @@ namespace GoopScripts.Gameplay
   {
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("SFX_Beam", 0.8f, Utils.ChannelType.SFX, false);
+      Utils.PlaySoundF("SFX_Beam", 0.7f, Utils.ChannelType.SFX, false);
     }
   }
 }

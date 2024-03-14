@@ -61,6 +61,26 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
+			  Plays a random sound in the component given a range
+			\param startRange
+				The start of the range of sounds to play
+			\param endRange
+				The end range of sounds to play
+			\param volume
+				The volume to play the sound at
+			************************************************************************/
+			void PlayRandom(int startRange, int endRange, float volume = 1.f)
+			{
+				int index = GE::GoopUtils::RandomValue(startRange, endRange);
+				auto& sound{ m_sounds[index] };
+				sound.m_paused = false;
+				sound.m_lastPausedState = sound.m_paused;
+				std::cout << "Played " << sound.m_sound << "\n";
+				GE::fMOD::FmodSystem::GetInstance().PlaySound(sound.m_sound, volume, sound.m_channel, sound.m_loop);
+			}
+
+			/*!*********************************************************************
+			\brief
 				Plays a sound
 			************************************************************************/
 			void Play(std::string soundName)

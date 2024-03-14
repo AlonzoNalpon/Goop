@@ -330,22 +330,18 @@ namespace GE::MONO
 
 	/*!******************************************************************
 	\brief
-		Plays a sound on an audio component of an entity.
-
-	\param soundIterator
-		An iterator to which sound in the container will be played.
-		To facilliate random sound bites playing, user will 
-		randomise these values between a range which the sound 
-		is within the vector.
-
-		i.e. sounds { hurt1, hurt2, groan1, groan2, groan3 }
-		To play a groan sound, random between 2 & 4, and use that
-		resultant value is the soundIterator
-
+		Plays a random sound on an audio component of an entity given a
+		range.
+	\param startRange
+		The start index of the range of sounds to play
+	\param endRange
+		The end index of the range
 	\param entity
 		Entity who holds the sound
+	\param volume
+		The volume to play the sound at
 	********************************************************************/
-	void PlaySound(int soundIterator, GE::ECS::Entity entity);
+	void PlayRandomSound(int startRange, int endRange, GE::ECS::Entity entity, float volume = 1.f);
 
 	/*!*********************************************************************
 	\brief 

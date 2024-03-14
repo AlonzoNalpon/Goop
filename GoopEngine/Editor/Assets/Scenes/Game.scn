@@ -157,7 +157,22 @@
                         {
                             "scriptName": "LeahDies",
                             "entityID": 0,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 9,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "endRange"
+                                    }
+                                },
+                                {
+                                    "data": 12,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "startRange"
+                                    }
+                                }
+                            ]
                         },
                         {
                             "scriptName": "LeahBlocks",
@@ -182,14 +197,29 @@
                         {
                             "scriptName": "LeahShoots",
                             "entityID": 0,
-                            "scriptFieldInstList": []
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 0,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "endRange"
+                                    }
+                                },
+                                {
+                                    "data": 5,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "startRange"
+                                    }
+                                }
+                            ]
                         },
                         {
                             "scriptName": "AnimationManager",
                             "entityID": 0,
                             "scriptFieldInstList": [
                                 {
-                                    "data": "SS_Leah_BlockShield",
+                                    "data": "SS_Leah_BlockNoShield",
                                     "type": "System.String",
                                     "scriptField": {
                                         "fieldName": "m_block"
@@ -232,10 +262,94 @@
                 "Audio": {
                     "sounds": [
                         {
-                            "sound": "damageTaken_Leah",
+                            "sound": "SFX_Beam1",
                             "loop": false,
                             "playOnStart": false,
-                            "channel": "BGM",
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Beam2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Beam3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Beam4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Beam5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Beam6",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardDraw1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardDraw2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardDraw3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_BodyFall1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_BodyFall2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_BodyFall3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_BodyFall4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
                             "volume": 1.0
                         }
                     ]
@@ -270,7 +384,7 @@
                         },
                         {
                             "first": 16,
-                            "second": "LeahDies2"
+                            "second": "LeahDiesWithShield"
                         },
                         {
                             "first": 21,
@@ -317,29 +431,7 @@
     {
         "Name": "Skipped",
         "ID": 2,
-        "Prefab": {
-            "name": "Skipped",
-            "version": 6,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 2
-                },
-                {
-                    "key": 1,
-                    "value": 87
-                },
-                {
-                    "key": 2,
-                    "value": 88
-                },
-                {
-                    "key": 3,
-                    "value": 89
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": false,
         "Parent": null,
         "Child Entities": [
@@ -396,6 +488,17 @@
                     },
                     "spriteName": "Skipped",
                     "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "BuffIconInteraction",
+                            "entityID": 2,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             },
             {
@@ -4083,7 +4186,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 2.77112e-13 }",
+                    "pos": "{ -307.537, -269.134, 2.02398e-11 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -419.265, 137.337, 20 }",
@@ -5168,7 +5271,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 2.77112e-13 }",
+                    "pos": "{ -307.537, -269.134, 2.02398e-11 }",
                     "scale": "{ 1, 1, 1.81818 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 319.853, 137.337, 20 }",
@@ -5291,6 +5394,61 @@
                     "worldPos": "{ 744.076, 484.25, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "BuffIconText",
+        "ID": 87,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 2,
+        "Child Entities": [
+            88
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 63.4408, 22.1395, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 174.212, 68.1741, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 88,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 87,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -45.9674, -8.25143, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 128.244, 59.9227, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Skipped",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0
                 }
             }
         ]

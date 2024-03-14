@@ -14,11 +14,13 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  internal class MoleRatScreeches : IAnimationEvent
+  public class MoleRatScreeches : IAnimationEvent
   {
+    public int startRange, endRange;
+    Random rng = new Random();
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("SFX_Screech", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.PlayRandomSound(startRange, endRange, entity, 0.7f + (float)rng.NextDouble() * 0.3f);
     }
   }
 }

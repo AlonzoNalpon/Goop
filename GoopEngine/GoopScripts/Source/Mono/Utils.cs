@@ -303,7 +303,7 @@ namespace GoopScripts.Mono
     extern public static void PlayAnimation(string animName, uint entity);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		extern public static void PlaySound(int soundIterator, uint entity);
+		extern public static void PlayRandomSound(int startRange, int endRange, uint entity, float volume = 1.0f);
 
     public enum ChannelType
     {

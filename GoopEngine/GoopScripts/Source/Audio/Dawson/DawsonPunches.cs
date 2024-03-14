@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
-\file   LeahFlinches.cs
+\file   DawsonPunches.cs
 \date   04-February-2024
-\brief  Script to play Leah flinch sound
+\brief  Script to play Dawson punch sound
 
 Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -12,13 +12,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoopScripts.Gameplay
+namespace GoopScripts.Source.Audio.Dawson
 {
-  internal class LeahFlinches : IAnimationEvent
+  internal class DawsonPunches
   {
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("damageTaken_Leah", 0.8f, Utils.ChannelType.SFX, false);
+      Utils.PlaySoundF("LightSaber", 0.7f, Utils.ChannelType.SFX, false);
     }
   }
 }

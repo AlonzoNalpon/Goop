@@ -1,7 +1,7 @@
 {
     "Name": "Dawson",
     "isActive": true,
-    "Version": 8,
+    "Version": 11,
     "Components": [
         {
             "Transform": {
@@ -42,6 +42,12 @@
                             "g": 1.0,
                             "b": 1.0,
                             "a": 0.0
+                        },
+                        "multiply": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
                         }
                     }
                 },
@@ -98,7 +104,7 @@
                                     "Cards In Hand": [],
                                     "Cards In Queue": [
                                         "NO_CARD",
-                                        "NO_CARD",
+                                        "",
                                         "NO_CARD"
                                     ]
                                 },
@@ -155,26 +161,6 @@
                         ]
                     },
                     {
-                        "scriptName": "MoleRatBites",
-                        "entityID": 0,
-                        "scriptFieldInstList": []
-                    },
-                    {
-                        "scriptName": "LeahDies",
-                        "entityID": 0,
-                        "scriptFieldInstList": []
-                    },
-                    {
-                        "scriptName": "MoleRatScreeches",
-                        "entityID": 0,
-                        "scriptFieldInstList": []
-                    },
-                    {
-                        "scriptName": "MoleRatBlocks",
-                        "entityID": 0,
-                        "scriptFieldInstList": []
-                    },
-                    {
                         "scriptName": "AnimationManager",
                         "entityID": 0,
                         "scriptFieldInstList": [
@@ -214,6 +200,56 @@
                                 }
                             }
                         ]
+                    },
+                    {
+                        "scriptName": "DawsonDies",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 3,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 4,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "scriptName": "DawsonShoots",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 0,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 2,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "scriptName": "DawsonPunches",
+                        "entityID": 0,
+                        "scriptFieldInstList": []
+                    },
+                    {
+                        "scriptName": "DawsonFlinches",
+                        "entityID": 0,
+                        "scriptFieldInstList": []
                     }
                 ]
             }
@@ -224,11 +260,72 @@
             }
         },
         {
+            "Audio": {
+                "sounds": [
+                    {
+                        "sound": "Magical_Shield_Hit1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "Magical_Shield_Hit2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "Magical_Shield_Hit3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_BodyFallDawson1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_BodyFallDawson2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    }
+                ]
+            }
+        },
+        {
             "AnimEvents": {
                 "eventList": [
                     {
-                        "first": 24,
-                        "second": "LeahDies"
+                        "first": 0,
+                        "second": "DawsonShoots"
+                    },
+                    {
+                        "first": 7,
+                        "second": "DawsonDiesWithShield"
+                    },
+                    {
+                        "first": 5,
+                        "second": "DawsonDies"
+                    },
+                    {
+                        "first": 9,
+                        "second": "DawsonPunches"
+                    },
+                    {
+                        "first": 6,
+                        "second": "LeahBlocks"
+                    },
+                    {
+                        "first": 3,
+                        "second": "DawsonFlinches"
                     }
                 ]
             }
