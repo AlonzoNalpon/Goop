@@ -4090,7 +4090,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 4.05009e-13 }",
+                    "pos": "{ -307.537, -269.134, 4.01457e-13 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -419.265, 137.337, 20 }",
@@ -5175,7 +5175,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 4.05009e-13 }",
+                    "pos": "{ -307.537, -269.134, 4.01457e-13 }",
                     "scale": "{ 1, 1, 1.81818 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 319.853, 137.337, 20 }",
@@ -5353,6 +5353,2315 @@
                     },
                     "scale": 0.10000000149011612,
                     "fontID": 0
+                }
+            }
+        ]
+    },
+    {
+        "Name": "ComboList",
+        "ID": 89,
+        "Prefab": {
+            "name": "ComboList",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 89
+                },
+                {
+                    "key": 1,
+                    "value": 90
+                },
+                {
+                    "key": 2,
+                    "value": 91
+                },
+                {
+                    "key": 3,
+                    "value": 92
+                },
+                {
+                    "key": 4,
+                    "value": 93
+                },
+                {
+                    "key": 5,
+                    "value": 94
+                },
+                {
+                    "key": 6,
+                    "value": 95
+                },
+                {
+                    "key": 7,
+                    "value": 96
+                },
+                {
+                    "key": 8,
+                    "value": 97
+                },
+                {
+                    "key": 9,
+                    "value": 98
+                },
+                {
+                    "key": 10,
+                    "value": 99
+                },
+                {
+                    "key": 11,
+                    "value": 100
+                },
+                {
+                    "key": 12,
+                    "value": 101
+                },
+                {
+                    "key": 13,
+                    "value": 102
+                },
+                {
+                    "key": 14,
+                    "value": 103
+                },
+                {
+                    "key": 15,
+                    "value": 104
+                },
+                {
+                    "key": 16,
+                    "value": 105
+                },
+                {
+                    "key": 17,
+                    "value": 106
+                },
+                {
+                    "key": 18,
+                    "value": 107
+                },
+                {
+                    "key": 19,
+                    "value": 108
+                },
+                {
+                    "key": 20,
+                    "value": 109
+                },
+                {
+                    "key": 21,
+                    "value": 110
+                },
+                {
+                    "key": 22,
+                    "value": 111
+                },
+                {
+                    "key": 23,
+                    "value": 112
+                },
+                {
+                    "key": 24,
+                    "value": 113
+                },
+                {
+                    "key": 25,
+                    "value": 114
+                },
+                {
+                    "key": 26,
+                    "value": 115
+                },
+                {
+                    "key": 27,
+                    "value": 116
+                },
+                {
+                    "key": 28,
+                    "value": 117
+                },
+                {
+                    "key": 29,
+                    "value": 118
+                },
+                {
+                    "key": 30,
+                    "value": 119
+                },
+                {
+                    "key": 31,
+                    "value": 120
+                },
+                {
+                    "key": 32,
+                    "value": 121
+                },
+                {
+                    "key": 33,
+                    "value": 122
+                },
+                {
+                    "key": 34,
+                    "value": 123
+                },
+                {
+                    "key": 35,
+                    "value": 124
+                },
+                {
+                    "key": 36,
+                    "value": 125
+                },
+                {
+                    "key": 37,
+                    "value": 126
+                },
+                {
+                    "key": 38,
+                    "value": 127
+                },
+                {
+                    "key": 39,
+                    "value": 128
+                },
+                {
+                    "key": 40,
+                    "value": 129
+                },
+                {
+                    "key": 41,
+                    "value": 130
+                },
+                {
+                    "key": 42,
+                    "value": 131
+                },
+                {
+                    "key": 43,
+                    "value": 132
+                },
+                {
+                    "key": 44,
+                    "value": 133
+                },
+                {
+                    "key": 45,
+                    "value": 134
+                },
+                {
+                    "key": 46,
+                    "value": 135
+                },
+                {
+                    "key": 47,
+                    "value": 136
+                },
+                {
+                    "key": 48,
+                    "value": 137
+                },
+                {
+                    "key": 49,
+                    "value": 138
+                },
+                {
+                    "key": 50,
+                    "value": 139
+                },
+                {
+                    "key": 51,
+                    "value": 140
+                },
+                {
+                    "key": 52,
+                    "value": 141
+                },
+                {
+                    "key": 53,
+                    "value": 142
+                },
+                {
+                    "key": 54,
+                    "value": 143
+                }
+            ],
+            "registered": true
+        },
+        "isActive": false,
+        "Parent": 144,
+        "Child Entities": [
+            90,
+            91,
+            113
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 20 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "BG",
+        "ID": 90,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 89,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 20 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Combo_Tab_BG",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "card tpes",
+        "ID": 91,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 89,
+        "Child Entities": [
+            92,
+            110,
+            111,
+            112
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -777.684, 367.319, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -777.684, 367.319, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "card types",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.25,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Card Icons",
+        "ID": 92,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 91,
+        "Child Entities": [
+            93,
+            99,
+            103
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 703.11, -428.627, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -74.574, -61.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Attack",
+        "ID": 93,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 92,
+        "Child Entities": [
+            94,
+            95,
+            96,
+            97,
+            98
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 45.3704, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -29.2036, -61.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_LeahAttackBeam",
+        "ID": 94,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 93,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -780, 270, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -809.204, 208.692, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_LeahAttackBeam",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_LeahAttackSlash",
+        "ID": 95,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 93,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -780, 145, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -809.204, 83.692, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_LeahAttackSlash",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_BasicAttackClawswipe",
+        "ID": 96,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 93,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -780, 20, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -809.204, -41.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_BasicAttackClawswipe",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_BossAttackBeamshot",
+        "ID": 97,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 93,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -780, -105, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -809.204, -166.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_BossAttackBeamshot",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_BossAttackStrike",
+        "ID": 98,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 93,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -780, -230, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -809.204, -291.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_BossAttackStrike",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Block",
+        "ID": 99,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 92,
+        "Child Entities": [
+            100,
+            101,
+            102
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -74.574, -61.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_LeahDefenceShield",
+        "ID": 100,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 99,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -547, 270, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -621.574, 208.692, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_LeahDefenceShield",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_BasicDefenceShield",
+        "ID": 101,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 99,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -547, 145, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -621.574, 83.692, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_BasicDefenceShield",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_BossDefenceDeflect",
+        "ID": 102,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 99,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -547, 20, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -621.574, -41.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_BossDefenceDeflect",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] Special",
+        "ID": 103,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 92,
+        "Child Entities": [
+            104,
+            105,
+            106,
+            107,
+            108,
+            109
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -49.259, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -123.833, -61.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_LeahSpecialFlashbang",
+        "ID": 104,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 103,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -313, 270, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -436.833, 208.692, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_LeahSpecialFlashbang",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_LeahSpecialSmokescreen",
+        "ID": 105,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 103,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -313, 145, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -436.833, 83.692, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_LeahSpecialSmokescreen",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_LeahSpecialBerserk",
+        "ID": 106,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 103,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -313, 20, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -436.833, -41.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_LeahSpecialBerserk",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_BasicSpecialScreech",
+        "ID": 107,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 103,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -313, -105, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -436.833, -166.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_BasicSpecialScreech",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_BossSpecialChargeup",
+        "ID": 108,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 103,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -313, -230, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -436.833, -291.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_BossSpecialChargeup",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "CardIcon_BossSpecialTimewarp",
+        "ID": 109,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 103,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -313, -355, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -436.833, -416.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 100,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_BossSpecialTimewarp",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "attack",
+        "ID": 110,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 91,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -113.63, -73.627, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -891.314, 293.692, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "attack",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "block",
+        "ID": 111,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 91,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 87.87, -73.627, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -689.814, 293.692, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "block",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "special",
+        "ID": 112,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 91,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 256.222, -73.627, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -521.462, 293.692, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "special",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "card combos",
+        "ID": 113,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 89,
+        "Child Entities": [
+            114,
+            120,
+            125,
+            131,
+            139
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 121.427, 367.319, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 121.427, 367.319, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "card combos",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.25,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] atk + atk",
+        "ID": 114,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 113,
+        "Child Entities": [
+            115,
+            116,
+            117,
+            119
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -134.131, -428.627, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -12.704, -61.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "attack + attack",
+        "ID": 115,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 114,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -186.22, 320.365, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -198.924, 259.057, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "attack + attack",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "=",
+        "ID": 116,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 114,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 224.965, 320.365, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 212.261, 259.057, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "=",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "attack + attack D1",
+        "ID": 117,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 114,
+        "Child Entities": [
+            118
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 290.687, 347.569, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 277.983, 286.261, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "+1 attack to each attack",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "attack + attack D2",
+        "ID": 118,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 117,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -56.929, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 277.983, 229.332, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "card next round",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "line",
+        "ID": 119,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 114,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -203.98, 271.265, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -216.684, 209.957, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "_________________________________",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] atk + blk",
+        "ID": 120,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 113,
+        "Child Entities": [
+            121,
+            122,
+            123,
+            124
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -134.131, -428.627, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -12.704, -61.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "attack + block",
+        "ID": 121,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 120,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -153.553, 207.038, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -166.257, 145.73, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "attack + block",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "=",
+        "ID": 122,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 120,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 224.965, 207.038, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 212.261, 145.73, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "=",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "attack + defend D1",
+        "ID": 123,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 120,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 290.687, 207.038, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 277.983, 145.73, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "draw an extra card",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "line",
+        "ID": 124,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 120,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -203.98, 187.664, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -216.684, 126.356, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "_________________________________",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] blk + blk",
+        "ID": 125,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 113,
+        "Child Entities": [
+            126,
+            127,
+            128,
+            130
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -134.131, -428.627, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -12.704, -61.308, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "block + block",
+        "ID": 126,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 125,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -122.701, 95.5688, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -135.405, 34.2608, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "block + block",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "=",
+        "ID": 127,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 125,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 224.965, 95.5688, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 212.261, 34.2608, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "=",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "defend + defend D1",
+        "ID": 128,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 125,
+        "Child Entities": [
+            129
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 290.687, 122.773, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 277.983, 61.465, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "+1 block to each block",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "defend + defend D2",
+        "ID": 129,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 128,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -56.9289, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 277.983, 4.5361, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "card next round",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "line",
+        "ID": 130,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 125,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -203.98, 46.4693, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -216.684, -14.8387, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "_________________________________",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] spc + atk",
+        "ID": 131,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 113,
+        "Child Entities": [
+            132,
+            133,
+            134,
+            138
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -134.131, -571.679, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -12.704, -204.36, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "special + attack",
+        "ID": 132,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 131,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -189.85, 36.119, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -202.554, -168.241, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "special + attack",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "=",
+        "ID": 133,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 131,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 224.965, 36.119, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 212.261, -168.241, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "=",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "special + attack D1",
+        "ID": 134,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 131,
+        "Child Entities": [
+            135,
+            136,
+            137
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 290.687, 122.773, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 277.983, -81.587, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "+1 attack to each attack",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "special + attack D3",
+        "ID": 135,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 134,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -114.521, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 277.983, -196.108, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "the enemy, causing enemy",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "special + attack D2",
+        "ID": 136,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 134,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -56.929, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 277.983, -138.516, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "card next round and blinds",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "special + attack D4",
+        "ID": 137,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 134,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -168.398, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 277.983, -249.985, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "50% chance to miss",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "line",
+        "ID": 138,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 131,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -203.98, -70.573, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -216.684, -274.933, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "_________________________________",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Folder] spc + blk",
+        "ID": 139,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 113,
+        "Child Entities": [
+            140,
+            141,
+            142
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -134.131, -835.49, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -12.704, -468.171, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "special + block",
+        "ID": 140,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 139,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -157.183, 95.569, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -169.887, -372.602, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "special + block",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "=",
+        "ID": 141,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 139,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 224.965, 95.569, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 212.261, -372.602, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "=",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "special + block D1",
+        "ID": 142,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 139,
+        "Child Entities": [
+            143
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 290.687, 122.773, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 277.983, -345.398, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "50% chance to stun the",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "special + block D2",
+        "ID": 143,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 142,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -56.929, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 277.983, -402.327, 21 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "enemy in the next round",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "ComboGuide",
+        "ID": 144,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            89
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 20 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 20 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "ComboPage",
+                            "entityID": 144,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             }
         ]
