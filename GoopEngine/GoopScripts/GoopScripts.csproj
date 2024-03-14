@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\AI\Enemy\Dawson\MiniMaxDoNth.cs" />
+    <Compile Include="Source\AI\Enemy\Dawson\MinMaxPlayCard.cs" />
     <Compile Include="Source\AI\Enemy\IsOutsideAttackRange.cs" />
     <Compile Include="Source\AI\Enemy\IsWithinPlayerRange.cs" />
     <Compile Include="Source\AI\Enemy\MineWorm\CheckCombo.cs" />
@@ -156,6 +158,7 @@
     <Compile Include="Source\Gameplay\Tutorial.cs" />
     <Compile Include="Source\Input\KeyCode.cs" />
     <Compile Include="Source\Mono\Component.cs" />
+    <Compile Include="Source\Mono\EnemyAIStruct.cs" />
     <Compile Include="Source\Mono\Entity.cs" />
     <Compile Include="Source\Mono\IAnimationEvent.cs" />
     <Compile Include="Source\Mono\IOnDestroy.cs" />

@@ -455,6 +455,10 @@ namespace GE::MONO
 	************************************************************************/
 	MonoString* STDToMonoString(const std::string& str);
 
+
+	template<typename T>
+	std::vector<T> MonoArrayToSTD(MonoArray* arr);
+
 	/*!*********************************************************************
 	\brief
 		Function to check if a monostring is valid
@@ -621,4 +625,6 @@ namespace GE::MONO
 	********************************************************************/
 	void DispatchQuitEvent();
 
+
+#include "ScriptManager.tpp"
 }

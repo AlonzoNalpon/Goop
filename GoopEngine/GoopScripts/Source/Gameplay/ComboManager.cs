@@ -86,10 +86,21 @@ namespace GoopScripts.Gameplay
       }
     }
 
-    public static Combo GetCombo(CardBase.CardType c1 , CardBase.CardType c2)
-    {
-      ComboPair pair = new ComboPair(c1, c2);
-      return (m_comboList[pair]);
-    }
+
+    //public static void PlayCombo(ref Stats source, ref Stats target, CardBase.CardType c1 , CardBase.CardType c2)
+    //{
+    //  ComboPair pair = new ComboPair(c1, c2);
+    //  foreach (Buff b in m_comboList[pair].m_effects)
+    //  {
+    //    if (b.IsDebuff())
+    //    {
+    //      target.m_buffs.AddBuff(b);
+    //    }
+    //    else
+    //    {
+    //      source.m_buffs.AddBuff(b);
+    //    }
+    //  }
+    //}
   } 
 }

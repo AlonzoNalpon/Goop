@@ -99,6 +99,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AI\AISimulator.cpp" />
     <ClCompile Include="Source\AI\TreeManager.cpp" />
     <ClCompile Include="Source\ECS\ComponentTypes.cpp" />
     <ClCompile Include="Source\EditorUI\AnimEventEditor.cpp" />
@@ -375,6 +376,7 @@
     <ClInclude Include="Source\Systems\Button\ButtonSystem.h" />
     <ClInclude Include="Source\Systems\CardHolder\CardHolderSystem.h" />
     <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
+    <ClInclude Include="Source\AI\AISimulator.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
     <ClInclude Include="Source\Systems\GameSystem\GameSystem.h" />
     <ClInclude Include="Source\Systems\ParitcleSystem\ParticleSystem.h" />

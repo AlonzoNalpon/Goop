@@ -37,6 +37,7 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Audio/AudioSystem.h>
 #include <GameStateManager/GameStateManager.h>
 #include <Serialization/Deserializer.h>
+#include <AI/AISimulator.h>
 
 using namespace GE::MONO;
 
@@ -195,6 +196,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::ResetNode", GE::Systems::EnemySystem::ResetNode);
   mono_add_internal_call("GoopScripts.Mono.Utils::StartAI", GE::Systems::EnemySystem::StartAI);
   mono_add_internal_call("GoopScripts.Mono.Utils::EndAI", GE::Systems::EnemySystem::EndAI);
+
 
   // Game system stuff
   mono_add_internal_call("GoopScripts.Mono.Utils::GetAnimationTime", GE::MONO::GetAnimationTime);

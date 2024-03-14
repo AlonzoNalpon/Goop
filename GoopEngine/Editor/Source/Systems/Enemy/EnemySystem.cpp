@@ -156,13 +156,14 @@ GameTree EnemySystem::GenerateGameTree(const GE::AI::TreeTemplate& treeTemp)
 	const std::vector<NodeTemplate>& tree = treeTemp.m_tree;
 
 	GameTree newGamTree{ {},treeTemp.m_treeTempID };
-
+	std::cout << "\nNEW TREE---------------------------------\n";
 	//Loop through each node in the tree and create a new GameNode
 	for (size_t i{ 0 }; i < tree.size(); ++i)
 	{
 		NodeID ownID = static_cast<unsigned int>(i);
 		NodeID parentID = tree[i].m_parentNode;
 		unsigned int listSize = static_cast<unsigned int>(tree[i].m_childrenNode.size());
+		std::cout << tree[i].m_scriptName.c_str()  << ":" << ownID << "\n";
 
 		MonoArray* result = mono_array_new(mono_domain_get(), mono_get_uint32_class(), listSize);
 		for (unsigned int j = 0; j < listSize; j++) {
@@ -172,6 +173,7 @@ GameTree EnemySystem::GenerateGameTree(const GE::AI::TreeTemplate& treeTemp)
 		GE::MONO::ScriptInstance scriptInst = GE::MONO::ScriptInstance(tree[i].m_scriptName.c_str(), arg);
 		newGamTree.m_nodeList.push_back(GameNode(tree[i].m_nodeType, scriptInst));
 	}
+	std::cout << "---------------------------------------------\n";
 	return newGamTree;
 }
 

@@ -1,49 +1,50 @@
 ﻿/*!************************************************************************
-\file RootNode.cs
+\file DoNothing.cs
 \author Han Qin Ding
 
 \brief
-C# script attached to a Root node.
+C# script for enemyAi Tree
+Makes the enemy do nothing for that turn
+
 **************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using GoopScripts.Mono;
+using GoopScripts.Gameplay;
 using static GoopScripts.Mono.Utils;
 
-namespace GoopScripts.AI
+namespace GoopScripts.Source.AI.Enemy.Dawson
 {
 
-  internal class RootNode
+  internal class MiniMaxDoNth
   {
-    List<uint> m_childID = new List<uint>();
+    private uint m_parentID = 0;
     private uint m_nodeID = 0;
-    //uint m_parentID;
+
 
 
     /*!*********************************************************************
   \brief
-    Non default constructor of RootNode class
+    Non default constructor of DoNothing class
 
   \params enityID
    ID of the owner of this scipt
   ************************************************************************/
-    public RootNode(uint currID, uint _, uint[] temp, uint tempSize)
+    public MiniMaxDoNth(uint currID, uint parentID, uint[] temp, uint size)
     {
+      m_parentID = parentID;
       m_nodeID = currID;
-      for (uint i = 0; i < tempSize; i++)
-      {
-        m_childID.Add(temp[i]);
-      }
+      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
     /*!*********************************************************************
    \brief
-     Awake function for the RootNode script. 
+     Awake function for the DoNothing script. 
    ************************************************************************/
     public void Awake()
     {
@@ -53,7 +54,7 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
    \brief
-     Start function for the RootNode script. 
+     Start function for the DoNothing script. 
    ************************************************************************/
     public void Start()
     {
@@ -62,8 +63,8 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
     \brief
-     Update function for the RootNode script. This function is called every frame
-     if the script is attached to a root node
+     Update function for the DoNothing script. This function is called every frame
+     if the script is attached to a leaf node
     
     \param[entityID] uint
     ID of the entity
@@ -73,63 +74,43 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      if (m_childID.Count > 0)
-      {
-        SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
-        Console.WriteLine("RUN NODE: " + m_childID[0]);
-        RunChildNode(m_childID[0]);
-        NODE_STATES childResult = (NODE_STATES)GetChildResult();
-
-        if (childResult == NODE_STATES.STATE_SUCCEED)
-        {
-          ResetNode();
-        }
-        else if (childResult == NODE_STATES.STATE_FAILED)
-        {
-          ResetNode();
-        }
-        else
-        {
-          SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
-        }
-      }
-
-    }
-    public void OnFail(uint entityID)
-    {
-
+      //Console.WriteLine("Do nothing\n");
+      ResetNode();
     }
 
-    public void OnSuccess(uint entityID)
+    /*!*********************************************************************
+    \brief
+     onFail function for the DoNothing script. This function is called when the script fails.
+    it informs the tree that this script failed and jump back to the parent node
+    ************************************************************************/
+    public void OnFail()
     {
     }
 
     /*!*********************************************************************
     \brief
-     ReturnFromChild function for the RootNode script. This function is called when the child node
-    returns to this node.
-
-    \param[entityID] uint
-    ID of the entity
+     onSuccess function for the DoNothing script. This function is called when the script succeed.
+    it informs the tree that this script succeed and jump back to the parent node
     ************************************************************************/
+    public void OnSuccess()
+    {
+    }
+
+
     public void ReturnFromChild(uint entityID)
     {
-      OnExit();
+
     }
 
     public void OnExit()
     {
 
-      ResetNode();
-
     }
-
-
 
 
     /*!*********************************************************************
     \brief
-     Update function for the player script. This function is called every frame
+     Update function for the DoNothing script. This function is called every frame
      if the script is attached to an entity
     ************************************************************************/
     public void Update()
@@ -139,13 +120,12 @@ namespace GoopScripts.AI
 
     /*!*********************************************************************
     \brief
-     late Update function for the player script
+     late Update function for the DoNothing script
     ************************************************************************/
     public void LateUpdate()
     {
       // Logic for lateUpdate
     }
-
 
 
 
