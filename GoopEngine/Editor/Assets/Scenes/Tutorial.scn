@@ -3906,7 +3906,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "SurrenderToMainMenu",
+                            "scriptName": "QuitGame",
                             "entityID": 64,
                             "scriptFieldInstList": []
                         }
@@ -29689,24 +29689,24 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -80, -20, 1 }",
+                    "pos": "{ -142.4, -20, 1 }",
                     "scale": "{ 1.6, 1.6, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -50, -192.5, 103 }",
+                    "worldPos": "{ -89, -192.5, 103 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Resume",
+                    "text": "Resume Game",
                     "clr": {
                         "r": 1.1294118165969849,
                         "g": 0.8313725590705872,
                         "b": 0.7764706015586853,
                         "a": 1.0
                     },
-                    "scale": 0.13500000536441803,
+                    "scale": 0.125,
                     "fontID": 2
                 }
             }
@@ -29722,17 +29722,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -115, -20, 1 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "pos": "{ -110.384, -20, 1 }",
+                    "scale": "{ 1, 1, 1.5873 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 185.25, -193, 103 }",
-                    "worldScale": "{ 0.65, 0.65, 0.63 }",
+                    "worldPos": "{ 188.25, -193, 103 }",
+                    "worldScale": "{ 0.65, 0.65, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Surrender",
+                    "text": "Quit Game",
                     "clr": {
                         "r": 1.1294118165969849,
                         "g": 0.8313725590705872,

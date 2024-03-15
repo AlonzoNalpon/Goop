@@ -823,11 +823,6 @@
                             "scriptFieldInstList": []
                         },
                         {
-                            "scriptName": "CrossFadeToGameBGM",
-                            "entityID": 15,
-                            "scriptFieldInstList": []
-                        },
-                        {
                             "scriptName": "TransitionOut",
                             "entityID": 15,
                             "scriptFieldInstList": []

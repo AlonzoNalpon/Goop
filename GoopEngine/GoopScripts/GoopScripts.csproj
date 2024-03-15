@@ -118,6 +118,7 @@
     <Compile Include="Source\Button\Pause\MenuMainMenu.cs" />
     <Compile Include="Source\Button\Pause\MenuQuitGame.cs" />
     <Compile Include="Source\Button\Pause\MenuResume.cs" />
+    <Compile Include="Source\Button\Pause\MenuToQuit.cs" />
     <Compile Include="Source\Button\Pause\OptionSlider.cs" />
     <Compile Include="Source\Button\QuitGame.cs" />
     <Compile Include="Source\Button\RewardButton.cs" />
