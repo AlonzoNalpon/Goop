@@ -1,6 +1,6 @@
 ﻿/*!*********************************************************************
 \file   GameOverToMainMenu.cs 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   06 March 2024
 \brief  
   Button behaviour for changing victor/defeat screen back to main menu

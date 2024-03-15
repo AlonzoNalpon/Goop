@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   Exception.h
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   17 September 2023
 \brief
   Custom exception class with spdlog integration.

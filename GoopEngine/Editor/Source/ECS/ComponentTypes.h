@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   ComponentTypes.h 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   19 September 2023
 \brief  
   Contains the list of component types used for registering to the ECS

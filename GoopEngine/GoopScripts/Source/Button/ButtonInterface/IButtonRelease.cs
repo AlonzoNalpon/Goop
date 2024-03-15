@@ -1,6 +1,6 @@
 ﻿/*!*********************************************************************
 \file   IButtonRelease.cs 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   06 March 2024
 \brief  
   Entity mouse release callback interface

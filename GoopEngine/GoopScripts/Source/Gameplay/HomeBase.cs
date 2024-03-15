@@ -1,4 +1,13 @@
-﻿using GoopScripts.Cards;
+﻿/*!*********************************************************************
+\file   HomeBase.cs
+\author loh.j\@digipen.edu
+\date   15 March 2024
+\brief  
+  Scene manager for deck viewer
+ 
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Cards;
 using GoopScripts.Mono;
 using System;
 using System.Collections;
