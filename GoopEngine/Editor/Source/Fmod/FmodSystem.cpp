@@ -1,6 +1,7 @@
 /*!*********************************************************************
 \file   FmodSystem.cpp
 \author c.phua\@digipen.edu
+\co-authors a.nalpon\@digipen.edu
 \date   8 November 2023
 \brief
     Fmod system.

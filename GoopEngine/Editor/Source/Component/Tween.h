@@ -1,6 +1,7 @@
 /*!*********************************************************************
 \file   Tween.h
 \author c.phua\@digipen.edu
+\co-authors a.nalpon\@digipen.edu
 \date   20 September 2023
 \brief
 	Component for interpolation.
