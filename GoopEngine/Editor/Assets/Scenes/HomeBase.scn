@@ -822,7 +822,7 @@
         "ID": 17,
         "Prefab": {
             "name": "Leah_Smokescreen_Hover",
-            "version": 11,
+            "version": 12,
             "objToEntity": [
                 {
                     "key": 0,
@@ -864,10 +864,10 @@
             {
                 "Transform": {
                     "pos": "{ -230, -270, 0 }",
-                    "scale": "{ 1.1, 1.1, 1 }",
+                    "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -230, -270, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             }
@@ -887,7 +887,7 @@
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -230, -270, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -953,11 +953,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -56, -25, 0 }",
+                    "pos": "{ -56, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -291.6, -297.5, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -286, -295, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -986,11 +986,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -51.1109, -65, 0 }",
+                    "pos": "{ -51.111, -65, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -286.222, -341.5, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -281.111, -335, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1019,11 +1019,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -32.7109, -80, 0 }",
+                    "pos": "{ -32.711, -80, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -265.982, -358, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -262.711, -350, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1052,11 +1052,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 0 }",
+                    "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -208.95, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -230, -214.5, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -1670,6 +1670,78 @@
                     "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "FPSCounter",
+        "ID": 35,
+        "Prefab": {
+            "name": "FPSCounter",
+            "version": 0,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 35
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 861.577, 512.984, 1001 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 861.577, 512.984, 1001 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 861.577, 512.984 }",
+                    "width": 8.152580206657e-312,
+                    "height": 8.14846383731e-312,
+                    "min": "{ 861.577, 512.984 }",
+                    "max": "{ 861.577, 512.984 }",
+                    "render": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "FPS",
+                            "entityID": 35,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 35,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "FPS_COUNTER"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "Text": {
+                    "text": "FPS",
+                    "clr": {
+                        "r": 0.9411765336990356,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.12300000339746475,
+                    "fontID": 0
                 }
             }
         ]
