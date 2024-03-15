@@ -1,4 +1,13 @@
-﻿using GoopScripts.Mono;
+﻿/*!*********************************************************************
+\file   ChangeToReward.cs
+\author loh.j\@digipen.edu
+\date   15 March 2024
+\brief  
+  Change scene to reward.
+ 
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;

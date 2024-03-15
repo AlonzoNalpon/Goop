@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   ErrorLogger.h 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   17 September 2023
 \brief  
   Singleton error logger holding spdlog objects for logging.

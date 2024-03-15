@@ -1,6 +1,6 @@
 ﻿/*!*********************************************************************
 \file   ChangeToMainMenu.cs 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   12 February 2024
 \brief  
   Animation behaviour to switch to main menu
