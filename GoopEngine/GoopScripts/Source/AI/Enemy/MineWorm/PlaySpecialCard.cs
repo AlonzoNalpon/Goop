@@ -1,12 +1,12 @@
-﻿/*!************************************************************************
-\file PlaySpecialCard.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file   PlaySpecialCard.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script for enemyAi Tree
+        Makes the enemy play a special card from its hand
 
-\brief
-C# script for enemyAi Tree
-Makes the enemy play a special card from its hand
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 
 using System;
 using System.Collections.Generic;

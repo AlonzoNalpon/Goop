@@ -1,13 +1,13 @@
-﻿/*!************************************************************************
-\file IsWithinPlayerRange.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file   IsWithinPlayerRange.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script attached to a leaf node.
+        Used to check if the enemy is inside of the player's attack range.
+        If the penemy is inside of the player's attack range, it returns fail, else return success
 
-\brief
-C# script attached to a leaf node.
-Used to check if the enemy is inside of the player's attack range.
-If the penemy is inside of the player's attack range, it returns fail, else return success
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;

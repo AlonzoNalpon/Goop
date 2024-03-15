@@ -1,12 +1,13 @@
-﻿/*!************************************************************************
-\file SelectorNode.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file  SelectorNode.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script attached to a composite node.
+        Will each child node every frame.
+        if any of the child node succeeds, it will not run the rest of the child nodes
 
-\brief
-C# script attached to a composite node.
-Will each child node every frame.
-if any of the child node succeeds, it will not run the rest of the child nodes
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;

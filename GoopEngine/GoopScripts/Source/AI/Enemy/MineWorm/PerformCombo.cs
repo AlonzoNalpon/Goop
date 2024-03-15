@@ -1,12 +1,12 @@
-﻿/*!************************************************************************
-\file PerformCombo.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file  PerformCombo.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script for enemyAi Tree
+        Makes the enemy perform a combo by playing 2-3 cards this turn
 
-\brief
-C# script for enemyAi Tree
-Makes the enemy perform a combo by playing 2-3 cards this turn
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 
 using System;
 using System.Collections.Generic;

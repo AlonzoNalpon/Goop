@@ -1,11 +1,11 @@
-/*!************************************************************************
-\file Tree.h
-\author Han Qin Ding
+/*!*********************************************************************
+\file   Tree.h
+\author han.q\@digipen.edu
+\date   28-September-2023
 
-\brief
-This file contains structs, using aliases and enums that will be used by the 
-Tree Manager,Node Editor and Enemy System to build and run a Behaviour Tree
-**************************************************************************/
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include <vector>
 #include <string>

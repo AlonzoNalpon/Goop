@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   TreeManager.cpp
+\author han.q\@digipen.edu
+\date   28-September-2023
+\brief
+  Tree Manager Class that will be used for storing data for AI decision tree
+
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <AI/TreeManager.h>
 #include <Serialization/Serializer.h>

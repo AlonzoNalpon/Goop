@@ -1,15 +1,13 @@
-﻿/*!************************************************************************
-\file MinMaxPlayCard.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file   MinMaxPlayCard.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  This script handles the AI for enemy Dawson. the script uses MinMax AI 
+        Algorithm. By running different permutations, the AI is able to determine the best
+        course of action
 
-\brief
-C# script attached to a leaf node.
-This c# script implements the MinMax Algo for enemy dawson.
-The script will generate all the permutations and simulate 1 permutation per frame.
-When all the permutations have been simulated, the scenario/permutation with the most
-optimal result will be chosen.
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 //#define PRINT_PERM
 using System;
 using System.Collections;

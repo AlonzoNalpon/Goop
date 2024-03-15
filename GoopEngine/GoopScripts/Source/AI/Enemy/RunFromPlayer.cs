@@ -1,12 +1,12 @@
-﻿/*!************************************************************************
-\file RunFromPlayer.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file  RunFromPlayer.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script attached to a leaf node.
+        Used to move the enemy away from the player
 
-\brief
-C# script attached to a leaf node.
-Used to move the enemy away from the player
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;

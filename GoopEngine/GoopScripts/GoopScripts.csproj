@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\AI\Enemy\Dawson\MiniMaxDoNth.cs" />
     <Compile Include="Source\AI\Enemy\Dawson\MinMaxPlayCard.cs" />
     <Compile Include="Source\AI\Enemy\IsOutsideAttackRange.cs" />
     <Compile Include="Source\AI\Enemy\IsWithinPlayerRange.cs" />

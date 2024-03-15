@@ -1,12 +1,12 @@
-﻿/*!************************************************************************
-\file LeafNode.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file  LeafNode.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script attached to a leaf node.
+        Used by leaf node that always returns true (for testing)
 
-\brief
-C# script attached to a leaf node.
-Used by leaf node that always returns true (for testing)
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;

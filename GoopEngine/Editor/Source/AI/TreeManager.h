@@ -1,12 +1,13 @@
-/*!************************************************************************
-\file TreeManager.h
-\author Han Qin Ding
-
+/*!*********************************************************************
+\file   TreeManager.h
+\author han.q\@digipen.edu
+\date   28-September-2023
 \brief
-This file contains function declaration for the TreeManager class
-The Tree Manager class is in charge of serializing and deserializing the behaviour tree.
-The node editor and the Enemy system will get Tree data from Tree Manager.
-**************************************************************************/
+	Tree Manager Class that will be used for storing data for AI decision tree
+
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include "../Singleton/Singleton.h"
 #include <AI/Tree.h>

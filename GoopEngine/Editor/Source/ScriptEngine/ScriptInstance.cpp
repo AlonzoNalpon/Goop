@@ -1,12 +1,3 @@
-#include <pch.h>
-#include "ScriptInstance.h"
-#include "ScriptManager.h"
-#include "CSharpStructs.h"
-#include "mono/metadata/assembly.h"
-#include "mono/metadata/object.h"
-#include "mono/metadata/tabledefs.h"
-#include "mono/metadata/mono-debug.h"
-#include "mono/metadata/threads.h"
 /*!*********************************************************************
 \file   ScriptInstance.cpp
 \author han.q\@digipen.edu
@@ -18,6 +9,16 @@
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+#include <pch.h>
+#include "ScriptInstance.h"
+#include "ScriptManager.h"
+#include "CSharpStructs.h"
+#include "mono/metadata/assembly.h"
+#include "mono/metadata/object.h"
+#include "mono/metadata/tabledefs.h"
+#include "mono/metadata/mono-debug.h"
+#include "mono/metadata/threads.h"
+
 
 using namespace GE;
 using namespace MONO;

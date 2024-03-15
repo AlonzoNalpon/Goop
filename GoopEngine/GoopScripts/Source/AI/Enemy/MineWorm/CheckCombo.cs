@@ -1,12 +1,12 @@
-﻿/*!************************************************************************
-\file CheckCombo.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file  CheckCombo.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script for enemyAI Tree.
+        Checks if the enemy has enough card to perform a combo
 
-\brief
-C# script for enemyAI Tree.
-Checks if the enemy has enough card to perform a combo
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 
 using System;
 using System.Collections.Generic;

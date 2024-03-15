@@ -1,4 +1,13 @@
-﻿using GoopScripts.Cards;
+﻿/*!*********************************************************************
+\file   EnemyAIStruct.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script that contains the struct for making the MinMax AI algorithm
+        the struct will contain all the data required for 1 permutation.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Cards;
 using GoopScripts.Gameplay;
 using System;
 using System.Collections.Generic;

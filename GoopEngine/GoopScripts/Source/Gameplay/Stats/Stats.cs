@@ -46,7 +46,7 @@ namespace GoopScripts.Gameplay
     public DeckManager m_deckMngr;
     public Vec3<double>[] m_queueElemPos;
     public AnimationManager m_animManager;
-    public int m_hotReloadTest = 2022;
+    //public int m_hotReloadTest = 2022;
     //public CardBase.CardID[] test2 = new CardBase.CardID[5];
 
     public BuffManager m_buffs { get; set; }

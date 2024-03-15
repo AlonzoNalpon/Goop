@@ -36,7 +36,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/Audio/AudioSystem.h>
 #include <GameStateManager/GameStateManager.h>
 #include <Serialization/Deserializer.h>
-#include <AI/AISimulator.h>
 
 using namespace GE::MONO;
 
