@@ -19,12 +19,16 @@ Controls:
 On the editor/engine, Pressing "G" when viewport is focused will hide the editor.
 "F11" on both gameplay and editor can toggle fullscreen modes
 
-Cheats:
-Pressing "U", in the game scene, will reduce the enemy's health by 1.
+Cheats (in game scene):
+Pressing "U" will reduce the enemy's health by 1.
+Pressing "I" will heal the player's health by 1.
+Pressing "O" will draw an additional card (note that max hand size is 5)
 
 Known bugs:
 Pressing hotkeys like "Esc" and "U" during the game sometimes do not detect the input, due to C# running on a seperate thread. (Help)
 Environment effects sometimes vanishes
+Load Game will not work if "New Game" has not been clicked before as we have not fully implemented this feature.
+It will only work once you get past the tutorial.
 
 Team Roster:
 Wong Chin Kit Bryan - Tech Lead, Product Manager
