@@ -1,11 +1,13 @@
 ﻿/*!************************************************************************
-\file IsOutsideAttackRange.cs
+\file MinMaxPlayCard.cs
 \author Han Qin Ding
 
 \brief
 C# script attached to a leaf node.
-Used to check if the player is outside of the enemy's attack range.
-If the player is outside of the enemy's attack range it returns success, else return fails
+This c# script implements the MinMax Algo for enemy dawson.
+The script will generate all the permutations and simulate 1 permutation per frame.
+When all the permutations have been simulated, the scenario/permutation with the most
+optimal result will be chosen.
 
 **************************************************************************/
 //#define PRINT_PERM

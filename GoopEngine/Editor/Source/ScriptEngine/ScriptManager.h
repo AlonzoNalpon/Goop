@@ -55,7 +55,8 @@ namespace GE::MONO
 		static bool m_CSReloadPending;
 		static bool m_rebuildCS;
 		static std::string m_scnfilePath;
-
+		static std::string m_csprojPath;
+		static std::string m_batfilePath;
 		/*!*********************************************************************
 		\brief
 			Init function for Mono. Sets the assembly path, initializes the domains and Load the C# Assembly.
@@ -101,10 +102,52 @@ namespace GE::MONO
 		MonoObject* InstantiateClass(const char* className);
 
 		static void LoadAppDomain();
+
+		/*!*********************************************************************
+\brief
+	Function to add internal function calls to mono
+************************************************************************/
 		static void AddInternalCalls();
+
+		/*!*********************************************************************
+\brief
+	Function to load mono c# assembly
+************************************************************************/
 		static void LoadAssembly();
+
+		/*!*********************************************************************
+\brief
+	Function to reload all the c# scripts from mono
+************************************************************************/
 		static void ReloadAllScripts();
+
+		/*!*********************************************************************
+\brief
+	Function to pass into the file watcher. detects for any changes in the mono dll file.
+	If changes detected, it will reload the assembly and the c# scripts
+
+
+\params const std::string& path
+	class Name of the c# class object we want to instantiate
+
+\params  const filewatch::Event change_type
+	The change type of the file its watching (e.g modified, add)
+
+************************************************************************/
 		static void AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type);
+
+		/*!*********************************************************************
+\brief
+	Function to pass into the file watcher. detects for any changes in the c# project code.
+	If changes detected, it will rebuild the c# project to generate a new dll file
+
+
+\params const std::string& path
+	class Name of the c# class object we want to instantiate
+
+\params  const filewatch::Event change_type
+	The change type of the file its watching (e.g modified, add)
+************************************************************************/
 		static void CSReloadEvent(const std::string& path, const filewatch::Event change_type);
 
 
