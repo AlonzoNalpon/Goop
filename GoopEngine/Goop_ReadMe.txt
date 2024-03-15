@@ -28,7 +28,12 @@ Known bugs:
 Pressing hotkeys like "Esc" and "U" during the game sometimes do not detect the input, due to C# running on a seperate thread. (Help)
 Environment effects sometimes vanishes
 Load Game will not work if "New Game" has not been clicked before as we have not fully implemented this feature.
-It will only work once you get past the tutorial.
+	It is recommended to go through the normal flow by clicking New Game first
+	Load will only work once you get past the tutorial.
+Hovering over the icon in How To Play screen will cause the screen to flash. We did not fix this for submission.
+[EDITOR ONLY] 
+If you were to declare a new public data member without defining it and hot reload, the inspector will crash when it tries to read that data member
+
 
 Team Roster:
 Wong Chin Kit Bryan - Tech Lead, Product Manager
