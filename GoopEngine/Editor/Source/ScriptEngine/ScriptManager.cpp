@@ -621,7 +621,7 @@ ScriptFieldType GE::MONO::ScriptManager::MonoTypeToScriptFieldType(MonoType* mon
   auto it = m_ScriptFieldTypeMap.find(typeName);
   if (it == m_ScriptFieldTypeMap.end())
   {
-    GE::Debug::ErrorLogger::GetInstance().LogWarning("Unable to access c# field type" + typeName, false);
+    //GE::Debug::ErrorLogger::GetInstance().LogWarning("Unable to access c# field type" + typeName, false);
     return ScriptFieldType::Void;
   }
 
