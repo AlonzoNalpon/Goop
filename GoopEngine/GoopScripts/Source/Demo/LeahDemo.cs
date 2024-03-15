@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   LeahDemo.cs
+\date   15-March-2024
+\brief  Script used for demo
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
