@@ -316,7 +316,7 @@ namespace GoopScripts.Gameplay
             ComboManager.Combo(ref m_playerStats, ref m_enemyStats, (m_slotToResolve - 1));
           }
 
-          if (m_enemyStats.m_deckMngr.m_queue[m_slotToResolve+1].Item1 != CardBase.CardID.NO_CARD && m_enemyStats.m_deckMngr.m_queue[m_slotToResolve].Item1 != CardBase.CardID.NO_CARD)
+          if (m_enemyStats.m_deckMngr.m_queue[m_slotToResolve - 1].Item1 != CardBase.CardID.NO_CARD && m_enemyStats.m_deckMngr.m_queue[m_slotToResolve].Item1 != CardBase.CardID.NO_CARD)
           {
             ComboManager.Combo(ref m_enemyStats, ref m_playerStats, (m_slotToResolve - 1));
           }
