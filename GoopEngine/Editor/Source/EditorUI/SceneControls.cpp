@@ -1,6 +1,6 @@
 /*!**********************************************************************
 \file   SceneControls.h
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   25 October 2023
 \brief
   Wrapper class to create an EditorGUI for scene controls

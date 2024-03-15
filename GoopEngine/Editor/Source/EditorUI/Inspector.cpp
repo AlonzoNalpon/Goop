@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   Inspector.cpp
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \co-authors a.nalpon\@digipen.edu (42 lines)
 						loh.j\@digipen.edu (14 lines)
 \date   23 October 2023

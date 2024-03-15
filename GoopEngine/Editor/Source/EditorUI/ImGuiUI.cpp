@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   ImGuiUI.cpp
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   28 September 2023
 \brief
   ImGui Editor UI Wrapper

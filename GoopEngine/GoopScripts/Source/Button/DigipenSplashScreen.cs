@@ -1,6 +1,6 @@
 ﻿/*!*********************************************************************
 \file   DigipenSplashScreen.cs 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   09 March 2024
 \brief  
   Digipen Splash Screen

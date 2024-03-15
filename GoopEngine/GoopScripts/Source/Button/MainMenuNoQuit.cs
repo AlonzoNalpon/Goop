@@ -1,4 +1,13 @@
-﻿using GoopScripts.Button;
+﻿/*!*********************************************************************
+\file   MainMenuNoQuit.cs
+\author loh.j\@digipen.edu
+\date   06 March 2024
+\brief  
+  Script to attach to button to move scene
+ 
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Button;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
