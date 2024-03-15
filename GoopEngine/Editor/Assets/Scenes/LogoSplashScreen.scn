@@ -24,7 +24,7 @@
                     "height": 1080.0,
                     "min": "{ -960, -540 }",
                     "max": "{ 960, 540 }",
-                    "render": true
+                    "render": false
                 }
             },
             {
