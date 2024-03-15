@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   Tutorial.cs
+\author c.phua\@digipen.edu
+\date   15-March-2024
+\brief  Main update loop for the Tutorial scene. Triggers step by
+        step instructions by setting relevant entities to active/inactive
+        while using the same logic as the normal game scene's GameManager.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;

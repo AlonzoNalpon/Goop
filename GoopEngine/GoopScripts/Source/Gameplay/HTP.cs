@@ -1,4 +1,12 @@
-﻿using GoopScripts.Mono;
+﻿/*!*********************************************************************
+\file   HTP.cs
+\author c.phua\@digipen.edu
+\date   15-March-2024
+\brief  Script for how to play screen with arrows to control the page.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;
