@@ -12,8 +12,8 @@ namespace GoopScripts.Demo
   {
     public void PlayEvent(uint entity)
     {
-      //Utils.PlaySoundF("SFX_BodyFall3", 1.0f, Utils.ChannelType.SFX, false);
-      //Utils.SetTextComponent((int)entity, "HELLO");
+      Utils.PlaySoundF("SFX_BodyFall3", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.SetTextComponent((int)entity, "HELLO");
     }
   }
 }
