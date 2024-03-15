@@ -58,6 +58,8 @@ namespace GE
     bool GE::MONO::ScriptManager::m_CSReloadPending{};
     bool GE::MONO::ScriptManager::m_rebuildCS{};
     std::string  GE::MONO::ScriptManager::m_scnfilePath{};
+    std::string  GE::MONO::ScriptManager::m_csprojPath{};
+    std::string  GE::MONO::ScriptManager::m_batfilePath{};
 
     std::unordered_map<std::string, ScriptFieldType> GE::MONO::ScriptManager::m_ScriptFieldTypeMap
     {
@@ -143,7 +145,20 @@ void GE::MONO::ScriptManager::InitMono()
     m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssembly"), AssemblyFileSystemEvent);
     m_assemblyReloadPending = false;
 
-    m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
+    std::ifstream csfile(assetManager.GetConfigData<std::string>("CSProjPath").c_str());
+    if (csfile.good())
+    {
+      m_csprojPath = assetManager.GetConfigData<std::string>("CSProj");
+      m_batfilePath = assetManager.GetConfigData<std::string>("CSBatFilePath");
+      m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
+      csfile.close();
+    }
+    else
+    {
+      m_csprojPath = assetManager.GetConfigData<std::string>("CSProjexe");
+      m_batfilePath = assetManager.GetConfigData<std::string>("CSBatFilePathexe");
+      m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProjexe"), CSReloadEvent);
+    }
     m_CSReloadPending = false;
   }
   catch (...)
@@ -351,9 +366,9 @@ void GE::MONO::ScriptManager::ReloadAllScripts()
     if (ecs.HasComponent<GE::Component::Scripts>(s.first))
     {
       GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(s.first);
-#ifdef _DEBUG
-      std::cout << s.first << ": " << s.second.size() << " adding\n";
-#endif
+//#ifdef _DEBUG
+//      std::cout << s.first << ": " << s.second.size() << " adding\n";
+//#endif
       for (auto& si : s.second)
       {
         scripts->m_scriptList.push_back(si);
@@ -386,16 +401,14 @@ void GE::MONO::ScriptManager::TestReload()
 
 void GE::MONO::ScriptManager::AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type)
 {
-#ifdef _DEBUG
-  std::cout << "ASSReload\n";
-#endif
+
   if (!m_assemblyReloadPending && change_type == filewatch::Event::modified)
   {
     m_assemblyReloadPending = true;
     auto gsm = &GE::GSM::GameStateManager::GetInstance();
-#ifdef _DEBUG
-    std::cout << "AddCmd to main thread\n";
-#endif
+//#ifdef _DEBUG
+//    std::cout << "AddCmd to main thread\n";
+//#endif
     gsm->SubmitToMainThread([]()
       {
         m_fileWatcher.reset();
@@ -413,9 +426,9 @@ void GE::MONO::ScriptManager::CSReloadEvent(const std::string& path, const filew
 #endif
     m_CSReloadPending = true;
     auto gsm = &GE::GSM::GameStateManager::GetInstance();
-#ifdef _DEBUG
-    std::cout << "Lets rebuild\n";
-#endif
+//#ifdef _DEBUG
+//    std::cout << "Lets rebuild\n";
+//#endif
     m_rebuildCS = true;
     gsm->SubmitToMainThread([]()
       {
@@ -455,6 +468,7 @@ std::string GetVisualStudioVersion() {
 #else
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Not using Visual Studio, hotreload disabled");
 #endif
+  std::cout << VSver << "::VS VER\n";
   return VSver;
 }
 
@@ -468,8 +482,7 @@ void GE::MONO::ScriptManager::RebuildCS()
   if (m_rebuildCS)
   {
     m_rebuildCS = false;
-    Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
-    std::string const csbat = std::filesystem::absolute(assetManager.GetConfigData<std::string>("CSBatFilePath")).string();
+    std::string const csbat = std::filesystem::absolute(m_batfilePath).string();
     std::string vsVer = GetVisualStudioVersion();
 
     std::string arguments = vsVer;
@@ -481,11 +494,11 @@ void GE::MONO::ScriptManager::RebuildCS()
 
     std::string cdCMD = "\"" + csbat + "\" ";
     std::string command = cdCMD + arguments;
-#ifdef _DEBUG
-    std::cout << command.c_str() << "\n";
-#endif
+//#ifdef _DEBUG
+//    std::cout << command.c_str() << "\n";
+//#endif
     int result = system(command.c_str());
-    m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
+    m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(m_csprojPath, CSReloadEvent);
     m_CSReloadPending = false;
 
     if (result == 0) {
@@ -505,6 +518,9 @@ void GE::MONO::ScriptManager::RebuildCS()
 
 void GE::MONO::ScriptManager::ReloadAssembly()
 {
+#ifdef _DEBUG
+  std::cout << "ASSReload\n";
+#endif
   mono_domain_set(mono_get_root_domain(), false);
   mono_domain_unload(m_appDomain);
   m_monoClassMap.clear();

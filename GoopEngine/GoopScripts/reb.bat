@@ -44,7 +44,7 @@ set EDITOR_ASSET_PATH="%~dp0..\Editor\Assets\Scripts\GoopScripts.dll"
 set OUTPUT_ASSET_PATH =
 if "%BUILD_CONFIG%"=="Debug" (
  set OUTPUT_ASSET_PATH="%~dp0..\x64\Debug\Assets\Scripts"
-) else if %BUILD_CONFIG% =="Release" (
+) else if "%BUILD_CONFIG%"=="Release" (
  set OUTPUT_ASSET_PATH="%~dp0..\x64\Release\Assets\Scripts"
 )
 

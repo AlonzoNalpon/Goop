@@ -1,4 +1,4 @@
-﻿/*!*********************************************************************
+/*!*********************************************************************
 \file         Stats.cs
 \author       chengen.lau\@digipen.edu
 \co-author    c.phua\@digipen.edu, han.q\@digipen.edu
@@ -46,8 +46,7 @@ namespace GoopScripts.Gameplay
     public DeckManager m_deckMngr;
     public Vec3<double>[] m_queueElemPos;
     public AnimationManager m_animManager;
-
-    //public string[] test = new string[5];
+    public int m_hotReloadTest = 2022;
     //public CardBase.CardID[] test2 = new CardBase.CardID[5];
 
     public BuffManager m_buffs { get; set; }
@@ -61,7 +60,7 @@ namespace GoopScripts.Gameplay
       queueElemIDs = new int[3];
       m_queueElemPos = new Vec3<double>[3];
       m_comboUI = new int[2];
-     // m_test = new string[2];
+      //string[] m_test = new string[2];
     }
 
     /*!*********************************************************************

@@ -55,7 +55,8 @@ namespace GE::MONO
 		static bool m_CSReloadPending;
 		static bool m_rebuildCS;
 		static std::string m_scnfilePath;
-
+		static std::string m_csprojPath;
+		static std::string m_batfilePath;
 		/*!*********************************************************************
 		\brief
 			Init function for Mono. Sets the assembly path, initializes the domains and Load the C# Assembly.
