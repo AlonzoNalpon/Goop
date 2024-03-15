@@ -2991,6 +2991,11 @@
                             "scriptName": "ChangeToTutorial",
                             "entityID": 41,
                             "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "ChangeToVictory",
+                            "entityID": 41,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -4269,7 +4274,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 1.72413e-11 }",
+                    "pos": "{ -307.537, -269.134, 2.07478e-12 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -419.265, 137.337, 20 }",
@@ -5354,7 +5359,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 1.72413e-11 }",
+                    "pos": "{ -307.537, -269.134, 2.07478e-12 }",
                     "scale": "{ 1, 1, 1.81818 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 319.853, 137.337, 20 }",

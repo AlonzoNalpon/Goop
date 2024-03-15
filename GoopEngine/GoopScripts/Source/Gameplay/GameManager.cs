@@ -329,20 +329,22 @@ namespace GoopScripts.Gameplay
       // if game has ended
       else
       {
-        if (m_currentLevel == 2)
-        {
-          File.Copy(GAME_DATA_DIR + "DefaultStats.sav", GAME_DATA_DIR + "PlayerStats.sav", true);
-          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
-        }
-
         if (m_playerStats.IsDead())
         {
           Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Defeat");
         }
         else
         {
-          SerialReader.SavePlayerState(ref m_playerStats, m_currentLevel, GAME_DATA_DIR + "PlayerStats.sav");
-          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Reward");
+          if (m_currentLevel == 2)
+          {
+            File.Copy(GAME_DATA_DIR + "DefaultStats.sav", GAME_DATA_DIR + "PlayerStats.sav", true);
+            Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
+          }
+          else
+          {
+            SerialReader.SavePlayerState(ref m_playerStats, m_currentLevel, GAME_DATA_DIR + "PlayerStats.sav");
+            Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Reward");
+          }
         }
       }
     }
