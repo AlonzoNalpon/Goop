@@ -111,6 +111,7 @@
     <Compile Include="Source\Button\HTP\HTP_Back.cs" />
     <Compile Include="Source\Button\HTP\HTP_Next.cs" />
     <Compile Include="Source\Button\LogoSplashScreen.cs" />
+    <Compile Include="Source\Button\MainMenuNoQuit.cs" />
     <Compile Include="Source\Button\MainMenuToScene.cs" />
     <Compile Include="Source\Button\Pause\HowToPlayClose.cs" />
     <Compile Include="Source\Button\Pause\MenuClose.cs" />

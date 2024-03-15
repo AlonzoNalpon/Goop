@@ -392,24 +392,9 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "MenuClose",
+                            "scriptName": "MainMenuNoQuit",
                             "entityID": 6,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 60,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "DeeperPauseMenuID"
-                                    }
-                                },
-                                {
-                                    "data": 27,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "PauseMenuID"
-                                    }
-                                }
-                            ]
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -1973,15 +1958,7 @@
                         {
                             "scriptName": "MenuToQuit",
                             "entityID": 24,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 4,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "PauseMenuID"
-                                    }
-                                }
-                            ]
+                            "scriptFieldInstList": []
                         }
                     ]
                 }

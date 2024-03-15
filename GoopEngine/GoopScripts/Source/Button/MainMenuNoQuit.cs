@@ -6,15 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoopScripts.Source.Button.Pause
+namespace GoopScripts.Source.Button
 {
-
-  public class MenuToQuit : TextButtonBase
-  {
+	internal class MainMenuNoQuit : TextButtonBase
+	{
 		public override void OnRelease(uint entity)
-    {
-      base.OnRelease(entity);
-      Utils.SetIsActiveEntity(Utils.GetEntity("Confirm Quit"), true);
-    }
-  }
+		{
+			base.OnRelease(entity);
+			Utils.SetIsActiveEntity(Utils.GetEntity("Confirm Quit"), false);
+		}
+	}
 }
