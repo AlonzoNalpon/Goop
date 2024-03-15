@@ -8,7 +8,7 @@
   run and call all our game logic in 1 script which will then handle
   logic in scripts entirely enclosed in the C# enviroment.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "GameSystem.h"

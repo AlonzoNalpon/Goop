@@ -6,7 +6,7 @@
         This is to be used with freetype's library
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef CHARACTER_H
 #define CHARACTER_H

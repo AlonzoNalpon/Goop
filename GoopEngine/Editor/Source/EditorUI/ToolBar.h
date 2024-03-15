@@ -5,7 +5,7 @@
 \brief  
   Wrapper class to create an EditorGUI for the tool bar
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #ifndef IMGUI_DISABLE

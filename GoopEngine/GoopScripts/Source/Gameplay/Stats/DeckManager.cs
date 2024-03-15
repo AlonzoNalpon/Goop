@@ -7,7 +7,7 @@
         hand, queue and discard pile. Contains functions as an
         interface to modifying the various lists in the class.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 
 #define IMGUI_ENABLED

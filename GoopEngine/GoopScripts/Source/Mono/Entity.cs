@@ -4,7 +4,7 @@
 \brief  Definition of Entity class, which allows a script instance to
         get a component and retrieve its entity ID.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using System;
 using System.Collections.Generic;

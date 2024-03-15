@@ -6,7 +6,7 @@
         needs to be serialized/deserialized needs to be registered.
 
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <Component/Components.h>

@@ -6,7 +6,7 @@
 the card's ID
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef GAME_DEF_H
 #define GAME_DEF_H

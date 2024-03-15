@@ -6,7 +6,7 @@
         Currently only contains functions for the node tree and prefab
         for the prefab editor.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "Deserializer.h"
@@ -403,9 +403,11 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
       }
       else
       {
+#ifdef DESERIALIZER_DEBUG
         std::ostringstream oss{};
         oss << prop.get_name().to_string() << ": Unable to convert " << ret.get_type().get_name().to_string() << " to " << prop.get_type().get_name().to_string();
         GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#endif
       }
       break;
     }
@@ -523,20 +525,24 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
         rttr::variant enumValue = view.get_value_type().get_enumeration().name_to_value(indexVal.GetString());
         if (!view.set_value(i, enumValue))
         {
+#ifdef DESERIALIZER_DEBUG
           std::ostringstream oss{};
           oss << "Unable to set element " << i << " of type " << enumValue.get_type().get_name().to_string()
             << " to container of " << view.get_type().get_name().to_string();
           GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#endif
         }
       }
       else if (!view.set_value(i, elem))
       {
         if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))
         {
+#ifdef DESERIALIZER_DEBUG
           std::ostringstream oss{};
           oss << "Unable to set element " << i << " of type " << elem.get_type().get_name().to_string()
             << " to container of " << view.get_type().get_name().to_string();
           GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#endif
         }
       }
     }

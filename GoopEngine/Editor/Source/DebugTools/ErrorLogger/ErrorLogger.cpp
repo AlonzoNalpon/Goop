@@ -10,7 +10,7 @@
 	his is so the log file is easier to find as the time is closer
 	o which one would be looking for the logs.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #ifndef IMGUI_DISABLE

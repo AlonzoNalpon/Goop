@@ -6,7 +6,7 @@
 This class stores and manages all unique animation event sets.
 Upon startup, automatically loads saved event set data.
    
- Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved. 
+ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved. 
  ************************************************************************/
 #include <pch.h>
 #include <Events/AnimEventManager.h>

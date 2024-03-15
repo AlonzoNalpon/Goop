@@ -6,7 +6,7 @@
 				Contains accessors, constructors, member and non-member
 				operator overloads.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef GOOP_MAT2_H
 #define GOOP_MAT2_H

@@ -5,7 +5,7 @@
 \brief  
   Button behaviour for changing victor/defeat screen back to main menu
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Gameplay;
 using GoopScripts.Mono;

@@ -6,7 +6,7 @@
 This system is responsible for invoking animation events at any associated
 frame.
    
- Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved. 
+ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved. 
  ************************************************************************/
 #ifndef ANIM_EVENTS_SYSTEM
 #define ANIM_EVENTS_SYSTEM

@@ -8,7 +8,7 @@
         deck and a separate List that is regenerated upon shuffling
         to determine the draw order of the deck.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 
 #define IMGUI_ENABLE

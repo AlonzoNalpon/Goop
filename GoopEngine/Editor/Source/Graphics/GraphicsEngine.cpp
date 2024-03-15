@@ -6,7 +6,7 @@
         This class houses everything required to render an opengl
         framebuffer. ImGui is not included in this process.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <Graphics/GraphicsEngine.h>

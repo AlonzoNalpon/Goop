@@ -8,7 +8,7 @@
   shaderprogram instead.
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef SHADER_PROGRAM_H
 #define SHADER_PROGRAM_H

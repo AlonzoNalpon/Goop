@@ -4,7 +4,7 @@
 \date   29-September-2023
 \brief  This file contains the definition of the SpriteAnimSystem class  
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef SPRITE_ANIM_SYSTEM_H
 #define SPRITE_ANIM_SYSTEM_H

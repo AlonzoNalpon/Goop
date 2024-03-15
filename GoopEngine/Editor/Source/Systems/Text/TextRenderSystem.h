@@ -6,7 +6,7 @@
         . Part of ECS
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef TEXT_RENDER_SYSTEM_H
 #define TEXT_RENDER_SYSTEM_H

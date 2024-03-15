@@ -6,7 +6,7 @@
 class. It is a stateless namespace that holds static functions only.
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef SPRITE_ANIM_GENERATOR_H
 #define SPRITE_ANIM_GENERATOR_H

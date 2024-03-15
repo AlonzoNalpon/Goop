@@ -6,7 +6,7 @@
 \brief  
 Attack card, derived from card base.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;

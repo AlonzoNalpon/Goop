@@ -160,7 +160,6 @@
     <Compile Include="Source\Demo\StopBGM.cs" />
     <Compile Include="Source\Gameplay\Stats\AnimationManager.cs" />
     <Compile Include="Source\Gameplay\Stats\BuffManager.cs" />
-    <Compile Include="Source\Gameplay\Stats\CharacterAnims.cs" />
     <Compile Include="Source\Gameplay\Stats\CharacterType.cs" />
     <Compile Include="Source\Gameplay\Stats\Combo.cs" />
     <Compile Include="Source\Gameplay\Stats\ComboManager.cs" />

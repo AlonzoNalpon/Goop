@@ -7,7 +7,7 @@
   The class is not static as it is required to hold data ie.
   streams for output and to dump all logs to a file by default
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <spdlog/spdlog.h>

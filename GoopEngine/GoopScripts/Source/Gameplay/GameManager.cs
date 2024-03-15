@@ -6,7 +6,7 @@
 \brief      The main update loop for the game scene. A single entity
             "GameSystem" will run this script in the scene.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using System;
 using System.Collections.Generic;
@@ -76,11 +76,11 @@ namespace GoopScripts.Gameplay
 
 
     /*!*********************************************************************
-      \brief
-        OnUpdate function for GameManager
-      \param deltaTime
-        delta time since last frame
-      ************************************************************************/
+    \brief
+      OnUpdate function for GameManager
+    \param deltaTime
+      delta time since last frame
+    ************************************************************************/
     public void OnUpdate(double deltaTime)
     {
       try
@@ -316,7 +316,7 @@ namespace GoopScripts.Gameplay
             ComboManager.Combo(ref m_playerStats, ref m_enemyStats, (m_slotToResolve - 1));
           }
 
-          if (m_enemyStats.m_deckMngr.m_queue[m_slotToResolve - 1].Item1 != CardBase.CardID.NO_CARD && m_enemyStats.m_deckMngr.m_queue[m_slotToResolve].Item1 != CardBase.CardID.NO_CARD)
+          if (m_enemyStats.m_deckMngr.m_queue[m_slotToResolve+1].Item1 != CardBase.CardID.NO_CARD && m_enemyStats.m_deckMngr.m_queue[m_slotToResolve].Item1 != CardBase.CardID.NO_CARD)
           {
             ComboManager.Combo(ref m_enemyStats, ref m_playerStats, (m_slotToResolve - 1));
           }

@@ -5,7 +5,7 @@
 \brief  
   Animation behaviour to switch the game over screen to main menu
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Audio;
 using GoopScripts.Mono;

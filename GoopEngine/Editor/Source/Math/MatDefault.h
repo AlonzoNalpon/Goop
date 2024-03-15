@@ -8,7 +8,7 @@
         2-4, static_assert will be raised since our library only
         supports those sized vectors.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef GOOP_MAT_DEFAULT_H
 #define GOOP_MAT_DEFAULT_H

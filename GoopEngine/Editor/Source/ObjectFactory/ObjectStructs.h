@@ -8,7 +8,7 @@
     Used for loading of scenes, creating and duplicating of entities,
     and in editing-related engine tools.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <rttr/type.h>

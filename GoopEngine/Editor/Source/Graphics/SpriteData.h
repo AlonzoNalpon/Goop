@@ -6,7 +6,7 @@
   Sprite data differs from texture as more than 1 SpriteData could
   point to the same Texture object (to support texture atlas in future).
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef SPRITE_DATA_H
 #define SPRITE_DATA_H

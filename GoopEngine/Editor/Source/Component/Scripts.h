@@ -6,7 +6,7 @@
 \brief
 	Component for storing all the scripts attached to the entity
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <ScriptEngine/ScriptManager.h>
 #include <AssetManager/AssetManager.h>

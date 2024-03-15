@@ -6,7 +6,7 @@
   This systems calls the appropriate script of behaviour for the
   appropriate entity
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "ButtonScriptSystem.h"

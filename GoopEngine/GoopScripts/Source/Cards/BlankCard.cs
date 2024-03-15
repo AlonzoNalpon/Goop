@@ -6,7 +6,7 @@
   Blank card, derived from card base. This class serves the purpose
  of doing nothing as a default case
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Gameplay;
 using System;

@@ -6,7 +6,7 @@
 ECS related and communicates with Renderer in order to queue render requests
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <Systems/Rendering/RenderingSystem.h>

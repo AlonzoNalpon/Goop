@@ -6,7 +6,7 @@
 	System to allow entities to do something after being interacted
 	with a click.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <ECS/System/System.h>

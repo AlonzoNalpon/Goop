@@ -6,7 +6,7 @@
 to store sprite animation data
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef SPRITE_ANIMATION_H
 #define SPRITE_ANIMATION_H

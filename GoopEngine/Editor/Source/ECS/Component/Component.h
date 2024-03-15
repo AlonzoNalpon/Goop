@@ -7,7 +7,7 @@
 	should be allowed to be activated or deactivated. This does nothing
 	if the system does not check if its active or not.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <string>

@@ -16,7 +16,7 @@
   It will store the pointer to the MonoObject and its 4 main methods
 
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 
 using namespace GE;

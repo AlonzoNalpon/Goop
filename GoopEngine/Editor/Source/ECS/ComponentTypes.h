@@ -6,7 +6,7 @@
   Contains the list of component types used for registering to the ECS
 	and for serialization.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <vector>

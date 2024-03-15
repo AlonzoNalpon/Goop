@@ -6,7 +6,7 @@
 for sprite information (as well as sprite animation frame information)
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef SPRITE_SUB_DATA
 #define SPRITE_SUB_DATA

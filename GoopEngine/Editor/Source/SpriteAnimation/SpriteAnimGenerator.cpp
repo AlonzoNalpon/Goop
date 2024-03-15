@@ -7,7 +7,7 @@ class. It's for generating sprite animation information based on
 parameters, independent of actual texture data
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <SpriteAnimation/SpriteAnimGenerator.h>

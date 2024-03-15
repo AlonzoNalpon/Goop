@@ -6,7 +6,7 @@
         for game objects. These objects will be passed to renderer.
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef RENDER_DATA_H
 #define RENDER_DATA_H

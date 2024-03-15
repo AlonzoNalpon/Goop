@@ -1,4 +1,19 @@
-﻿using GoopScripts.Cards;
+﻿/*!*********************************************************************
+\file   AnimationManager.cs
+\author chengen.lau\@digipen.edu
+\date   15-March-2024
+\brief  Class that handles playing the animation for a character.
+        It stores an internal mapping of each card to animation, as
+        well as compute the time it takes for that animation to
+        play. Upon playing an animation via function call, a timer is
+        elapsed and IsPlayingAnimation() can be used to check whether
+        the animation has ended. 
+        The class also holds a string of preset actions every character
+        has to store the relevant animation names.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Cards;
 using GoopScripts.Gameplay;
 using GoopScripts.Mono;
 using System;
@@ -30,6 +45,12 @@ namespace GoopScripts.Source.Gameplay
       m_characterAnimTime = new Dictionary<string, double>();
     }
 
+    /*!*********************************************************************
+    \brief
+      Stores the mappings of CardID to animation given the dictionary
+    \param data
+      The dictionary data
+    ************************************************************************/
     public void LoadAnimations(Dictionary<CardBase.CardID, string> data)
     {
       // for each card-to-animation mapping,
@@ -50,11 +71,27 @@ namespace GoopScripts.Source.Gameplay
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      Adds a new animation into the AnimationManager
+    \param card
+      The key (CardID)
+    \param data
+      The value (animation name)
+    ************************************************************************/
     public void AddAnimation(CardBase.CardID card, string anim)
     {
       m_cardAnims.Add(card, new Tuple<string, double>(anim, Utils.GetAnimationTime(anim)));
     }
 
+    /*!*********************************************************************
+    \brief
+      Plays the animation mapped to the given CardID
+    \param card
+      The CardID of the card
+    \param backToIdle
+      Whether to return to idle state after the animation
+    ************************************************************************/
     public void PlayAnimation(CardBase.CardID card, bool backToIdle = true)
     {
       var animToPlay = m_cardAnims[card];
@@ -63,6 +100,11 @@ namespace GoopScripts.Source.Gameplay
       AnimationPlayed(backToIdle);
     }
 
+    /*!*********************************************************************
+    \brief
+      Plays the animation for the flinch action. The animation does
+    not return to idle state.
+    ************************************************************************/
     public void PlayFlinch()
     {
       Utils.PlayAnimation(m_flinch, m_statsEntity);
@@ -70,6 +112,11 @@ namespace GoopScripts.Source.Gameplay
       AnimationPlayed(true);
     }
 
+    /*!*********************************************************************
+    \brief
+      Plays the animation for the block action. The animation does not 
+    return to idle state.
+    ************************************************************************/
     public void PlayBlock()
     {
       Utils.PlayAnimation(m_block, m_statsEntity);
@@ -77,6 +124,11 @@ namespace GoopScripts.Source.Gameplay
       AnimationPlayed(true);
     }
 
+    /*!*********************************************************************
+    \brief
+      Plays the animation for the death action. The animation does not 
+      return to idle state.
+    ************************************************************************/
     public void PlayDeath()
     {
       Utils.PlayAnimation(m_death, (uint)m_statsEntity);
@@ -84,6 +136,11 @@ namespace GoopScripts.Source.Gameplay
       AnimationPlayed(false);
     }
 
+    /*!*********************************************************************
+    \brief
+      Plays the animation for the death action (with shield). The animation 
+      does not return to idle state.
+    ************************************************************************/
     public void PlayShieldDeath()
     {
       Utils.PlayAnimation(m_deathShield, (uint)m_statsEntity);
@@ -91,6 +148,11 @@ namespace GoopScripts.Source.Gameplay
       AnimationPlayed(false);
     }
 
+    /*!*********************************************************************
+    \brief
+      Updates the internal timer usign the deltaTime from the main update
+      loop.
+    ************************************************************************/
     public void Update(double dt)
     {
       if (!m_isPlaying)
@@ -110,16 +172,33 @@ namespace GoopScripts.Source.Gameplay
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      Gets the animation name mapped to the given CardID
+    \return
+      The animation name
+    ************************************************************************/
     public string GetAnimation(CardBase.CardID card)
     {
       return m_cardAnims[card].Item1;
     }
 
+    /*!*********************************************************************
+    \brief
+      Checks whether an animation is currently being played
+    \return
+      True if an animation is still playing and false otherwise
+    ************************************************************************/
     public bool IsPlayingAnimation()
     {
       return m_isPlaying;
     }
 
+    /*!*********************************************************************
+    \brief
+      Helper function to revert internal variables back to default after
+      an animation is played
+    ************************************************************************/
     void AnimationPlayed(bool backToIdle)
     {
       m_isPlaying = true;

@@ -9,7 +9,7 @@
   use of RTTR library to store components as rttr::variant objects.
   Each prefab also allows for multiple layers of components.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <vector>

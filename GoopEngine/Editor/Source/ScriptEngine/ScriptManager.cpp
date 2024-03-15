@@ -11,7 +11,7 @@
   Provides function to retrieve C# class data
   Adds internal call into mono to allow C# to call functions defined in cpp
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "ScriptManager.h"

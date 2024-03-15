@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   Demo.cs
+\author chengen.lau\@digipen.edu
+\date   27-January-2024
+\brief  Script used for the presentation demo
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

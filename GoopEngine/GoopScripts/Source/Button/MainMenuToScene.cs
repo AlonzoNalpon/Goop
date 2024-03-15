@@ -7,7 +7,7 @@
 entity to trigger the specific script attached to it after the animation
 ends.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Button;
 using GoopScripts.Demo;

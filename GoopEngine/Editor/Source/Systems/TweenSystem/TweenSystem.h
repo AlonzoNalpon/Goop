@@ -5,7 +5,7 @@
 \brief
 	Uses tweening to update entity's position.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 
 #pragma once

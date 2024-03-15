@@ -17,7 +17,7 @@
         Load Json files and save it into the class.
         Able to load Images, Config, and Animation json.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #ifndef ASSET_MANAGER_H

@@ -5,7 +5,7 @@
 \brief  This file contains the structs used to display and modify C#
         objects on the inspector.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <vector>
