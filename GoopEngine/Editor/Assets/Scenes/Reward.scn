@@ -509,12 +509,12 @@
                             "scriptFieldInstList": [
                                 {
                                     "data": [
-                                        25,
-                                        25,
-                                        41,
-                                        3,
-                                        3,
-                                        3
+                                        32,
+                                        32,
+                                        30,
+                                        2,
+                                        2,
+                                        2
                                     ],
                                     "type": "System.Int32[]",
                                     "scriptField": {
