@@ -87,7 +87,7 @@ namespace GoopScripts.Button
 
     static public bool IsFull()
     {
-      return m_selectedEntityIDs.Count > 3;
+      return m_selectedEntityIDs.Count >= 3;
     }
   }
 }
