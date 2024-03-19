@@ -206,10 +206,10 @@ namespace GoopScripts.Source.AI.Enemy.Dawson
           }
         }
 
-        List<CardBase.CardID> newChoiceP = new List<CardBase.CardID> { };
-        newP.m_cardPlayed = new List<CardBase.CardID>(newChoiceP);
-        newP.m_cardstoPlay = new List<CardBase.CardID>(newChoiceP);
-        permutationList.Add(new Permutation(newP));
+        //List<CardBase.CardID> newChoiceP = new List<CardBase.CardID> { };
+        //newP.m_cardPlayed = new List<CardBase.CardID>(newChoiceP);
+        //newP.m_cardstoPlay = new List<CardBase.CardID>(newChoiceP);
+        //permutationList.Add(new Permutation(newP));
 
         m_simStarted = true;
       }

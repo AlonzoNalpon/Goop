@@ -11,10 +11,11 @@ UI_Portrait_Dawson.png
 Environment_Level3
 
 # Enemy Health, MaxHealth
-12, 12
+15, 15
 
 # Deck List
 DAWSON_BEAM, 3
-DAWSON_SWING, 3
-DAWSON_SHIELD, 5
+DAWSON_SWING, 5
+DAWSON_SHIELD, 6
 SPECIAL_CHARGEUP, 1
+SPECIAL_TIMEWARP, 1

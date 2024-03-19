@@ -92,7 +92,12 @@ namespace GoopScripts.Gameplay
 #if PRINT_PERM
       Console.WriteLine(m_comboList[pair].GetName());
 #endif
-      m_comboList[pair].FakeApplyEffect(ref source, ref target);
+      Combo combo;
+      if (!m_comboList.TryGetValue(pair, out combo))
+      {
+        return;
+      }
+        combo.FakeApplyEffect(ref source, ref target);
     }
   } 
 }

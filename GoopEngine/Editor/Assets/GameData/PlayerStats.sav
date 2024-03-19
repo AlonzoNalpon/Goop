@@ -1,5 +1,5 @@
 # Level to load
-1
+-1
 
 # Health, MaxHealth
 10, 10
@@ -9,4 +9,3 @@ LEAH_BEAM, 4
 LEAH_STRIKE, 4
 LEAH_SHIELD, 4
 SPECIAL_FLASHBANG, 1
-LEAH_BEAM, 1
