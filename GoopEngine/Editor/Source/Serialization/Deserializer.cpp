@@ -1018,7 +1018,7 @@ Deserializer::EntityScriptsList Deserializer::DeserializeSceneScripts(std::strin
   rapidjson::Document document{};
   if (!ParseJsonIntoDocument(document, file))
   {
-    throw Debug::Exception<Deserializer>(Debug::LEVEL_ERROR, ErrMsg("Unable to parse scene file"));
+    return {};
   }
   if (!document.IsArray())
   {
