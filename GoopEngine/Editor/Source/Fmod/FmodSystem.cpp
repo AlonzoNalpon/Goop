@@ -146,6 +146,9 @@ bool FmodSystem::isPlaying(std::string audio)
 
 void FmodSystem::PlaySound(std::string audio, float volume, ChannelType channel, bool looped)
 {
+  static unsigned plays{};
+  ++plays;
+
   SoundMap::iterator soundFound = m_sounds.find(audio);
 
   if (soundFound == m_sounds.end()) //if sound not found, load sound
@@ -158,14 +161,32 @@ void FmodSystem::PlaySound(std::string audio, float volume, ChannelType channel,
     }
   }
   
-  FMOD::Channel*& soundChannel{m_channels[audio]};
+  // Only bgm has named channels to allow for individual audio fading
+  // the rest will get a unqiue name
+  if (channel == SFX)
+    audio += std::to_string(plays);
+
+  FMOD::Channel*& soundChannel{ m_channels[audio] };
 
   if (soundChannel == nullptr)
   {
-    ErrorCheck(m_fModSystem->playSound(soundFound->second, m_channelGroups[channel], true, &soundChannel));
-    ErrorCheck(soundChannel->setVolumeRamp(true));
-    ErrorCheck(soundChannel->setVolume(volume));
-    ErrorCheck(soundChannel->setPaused(false));
+    if (channel == SFX)
+    {
+      FMOD::Channel* test = nullptr;
+      std::cout << "playing new sound [" << audio << "] at addr: " << &test << std::endl;
+      ErrorCheck(m_fModSystem->playSound(soundFound->second, m_channelGroups[channel], true, &test));
+      ErrorCheck(test->setVolumeRamp(true));
+      ErrorCheck(test->setVolume(volume));
+      ErrorCheck(test->setPaused(false));
+    }
+    else
+    {
+      std::cout << "playing new sound [" << audio << "] at addr: " << &soundChannel << std::endl;
+      ErrorCheck(m_fModSystem->playSound(soundFound->second, m_channelGroups[channel], true, &soundChannel));
+      ErrorCheck(soundChannel->setVolumeRamp(true));
+      ErrorCheck(soundChannel->setVolume(volume));
+      ErrorCheck(soundChannel->setPaused(false));
+    }
   }
   else
   {
