@@ -26,7 +26,7 @@ namespace GE
 			\brief
 				System update.
 			************************************************************************/
-			void FixedUpdate();
+			void Update();
 		};
 
 	}

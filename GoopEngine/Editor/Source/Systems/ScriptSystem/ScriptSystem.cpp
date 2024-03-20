@@ -17,7 +17,7 @@ using namespace ECS;
 using namespace Systems;
 using namespace Component;
 
-void ScriptSystem::FixedUpdate() 
+void ScriptSystem::Update() 
 {
 	auto& frc = GE::FPS::FrameRateController::GetInstance();
 	frc.StartSystemTimer();
