@@ -388,6 +388,11 @@ bool GE::EditorGUI::ImGuiHelper::IsRunning()
   return m_play;
 }
 
+bool GE::EditorGUI::ImGuiHelper::IsStopped()
+{
+  return !m_play && !m_pause;
+}
+
 bool GE::EditorGUI::ImGuiHelper::ShouldRestart()
 {
   bool shouldRestart = m_restart;

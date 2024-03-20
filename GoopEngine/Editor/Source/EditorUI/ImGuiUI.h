@@ -179,6 +179,15 @@ namespace GE::EditorGUI
 
 		/*!*********************************************************************
 		\brief
+			Returns the flag of if the simulation is stopped
+
+		\return
+			Play flag
+		************************************************************************/
+		static bool IsStopped();
+
+		/*!*********************************************************************
+		\brief
 		  Returns the flag of if the simulation should be restarted. The flag
 			will be set to false after the function is called.
 		  
