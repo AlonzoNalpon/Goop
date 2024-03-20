@@ -40,6 +40,7 @@ namespace GoopScripts.Gameplay
       m_cards.Clear();
       var statsInfo = Serialization.SerialReader.LoadPlayerState(playerSavePath);
       m_levelToLoad = statsInfo.levelToLoad;
+      Console.WriteLine(m_levelToLoad);
       foreach (var card in statsInfo.deckList)
       {
         for (int i = 0; i < card.Item2; ++i)

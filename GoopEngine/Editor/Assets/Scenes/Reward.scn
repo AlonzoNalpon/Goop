@@ -25,21 +25,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -324.315, 0 }",
+                    "pos": "{ 0, -414.315, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 0, -324.315, 0 }",
+                    "worldPos": "{ 0, -414.315, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, -324.315 }",
+                    "center": "{ 0, -414.315 }",
                     "width": 370.0,
                     "height": 135.0,
-                    "min": "{ -185, -391.815 }",
-                    "max": "{ 185, -256.815 }",
+                    "min": "{ -185, -481.815 }",
+                    "max": "{ 185, -346.815 }",
                     "render": false
                 }
             },
@@ -114,7 +114,7 @@
                     "pos": "{ -85.2224, -15.704, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -85.2224, -340.019, 0 }",
+                    "worldPos": "{ -85.2224, -430.019, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -421,6 +421,72 @@
         ]
     },
     {
+        "Name": "Entity 6",
+        "ID": 6,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -251.055, 394.612, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -251.055, 394.612, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "SELECT CARDS TO ADD TO YOUR DECK",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.125,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Entity 6 (Copy)",
+        "ID": 7,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -146.667, 444, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ -146.667, 444, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "REWARDS",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2720000147819519,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
         "Name": "MainMenu_BG",
         "ID": 37,
         "Prefab": null,
@@ -476,7 +542,7 @@
                             }
                         }
                     },
-                    "spriteName": "MainMenu_BG",
+                    "spriteName": "Reward_BG",
                     "shouldRender": true
                 }
             }
@@ -533,6 +599,13 @@
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
                                         "fieldName": "m_rewardPool"
+                                    }
+                                },
+                                {
+                                    "data": "./Assets/GameData/PlayerStats.sav",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "playerSavePath"
                                     }
                                 }
                             ]

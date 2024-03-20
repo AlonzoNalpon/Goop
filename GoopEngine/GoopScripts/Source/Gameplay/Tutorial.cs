@@ -313,7 +313,7 @@ namespace GoopScripts.Gameplay
         }
         else
         {
-          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Game");
+          Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Reward");
         }
       }
     }
