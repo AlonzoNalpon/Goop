@@ -5,7 +5,7 @@
 \brief  
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "../Systems/DraggableObject/DraggableObjectSystem.h"
@@ -29,7 +29,6 @@ void EventManager::SubscribeAllListeners()
   Subscribe<MouseHeldEvent>(ecs.GetSystem<GE::Systems::DraggableObjectSystem>());
   Subscribe<MouseReleasedEvent>(ecs.GetSystem<GE::Systems::DraggableObjectSystem>());
   Subscribe<MouseTriggeredEvent>(ecs.GetSystem<GE::Systems::ButtonSystem>());
-  Subscribe<KeyTriggeredEvent>(ecs.GetSystem<GE::Systems::GameSystem>());
 
 #ifndef IMGUI_DISABLE
   EditorGUI::EditorViewport& evp{ EditorGUI::EditorViewport::GetInstance() };

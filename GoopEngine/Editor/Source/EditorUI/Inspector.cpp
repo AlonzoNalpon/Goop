@@ -1,13 +1,13 @@
 /*!*********************************************************************
 \file   Inspector.cpp
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \co-authors a.nalpon\@digipen.edu (42 lines)
 						loh.j\@digipen.edu (14 lines)
 \date   23 October 2023
 \brief
 	Wrapper class to create an EditorGUI for the tool bar
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #ifndef IMGUI_DISABLE
@@ -297,6 +297,8 @@ namespace
 		Draw disabled
 	************************************************************************/
 	bool  InputScriptList(std::string propertyName, std::vector<unsigned>& list, float fieldWidth, bool disabled = false);
+
+	bool InputScriptList(std::string propertyName, std::vector<std::string>& list, float fieldWidth, bool disabled = false);
 
 	/*!*********************************************************************
 	\brief
@@ -636,11 +638,15 @@ void GE::EditorGUI::Inspector::CreateContent()
 						spriteObj->m_spriteData.info.width = static_cast<GLint>(spriteObj->m_spriteData.info.height * ar);
 					}
 
-					// Transparency setting (1 float)
+					// Tint setting (Colorf)
 					ImGui::Text("Tint Color");
 					SameLine();
 					ImGui::ColorEdit4("##ClrSpriteTintEdit", spriteObj->m_spriteData.info.tint.rgba);
 
+					// Multiply setting (Colorf)
+					ImGui::Text("Multiply Color");
+					SameLine();
+					ImGui::ColorEdit4("##ClrSpriteMultEdit", spriteObj->m_spriteData.info.multiply.rgba);
 
 					if (hasSpriteAnim)
 						EndDisabled();
@@ -776,10 +782,16 @@ void GE::EditorGUI::Inspector::CreateContent()
 							}
 							else
 							{
+								auto trans = ecs.GetComponent<GE::Component::Transform>(entity);
+								auto sprite = ecs.HasComponent<GE::Component::Sprite>(entity) ? ecs.GetComponent<GE::Component::Sprite>(entity) : nullptr;
+								auto text = ecs.HasComponent<GE::Component::Text>(entity) ? ecs.GetComponent<GE::Component::Text>(entity) : nullptr;
+
 								invalidName = false;
 								blankName = false;
-								tween->AddTween(tweenName, { {0, 0, 0}, {1, 1, 1}, {0, 0, 0}, 
-									{1.f, 1.f, 1.f, 1.f}, {1.f, 1.f, 1.f, 1.f}, 1 });
+								tween->AddTween(tweenName, { trans->m_pos, trans->m_scale, trans->m_rot, 
+									sprite ? sprite->m_spriteData.info.tint : GE::Graphics::Colorf{0.f, 0.f, 0.f, 0.f}, 
+									sprite ? sprite->m_spriteData.info.multiply : GE::Graphics::Colorf{1.f, 1.f, 1.f, 1.f},
+									text ? text->m_clr : GE::Graphics::Colorf{1.f, 1.f, 1.f, 1.f}});
 								tweenName.clear();
 								CloseCurrentPopup();
 							}
@@ -934,6 +946,20 @@ void GE::EditorGUI::Inspector::CreateContent()
 								SetNextItemWidth(GetWindowSize().x);
 								if (ImGui::InputDouble(("##" + sfi.m_scriptField.m_fieldName).c_str(), &(sfi.m_data), 0, 0, 0)) { s.SetFieldValue<double>(sfi.m_data, sfi.m_scriptField.m_classField); }
 							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::string>>())
+							{
+								TableNextRow();
+								GE::MONO::ScriptFieldInstance<std::string>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::string>>();
+								TableNextColumn();
+								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
+								ImGui::TableNextColumn();
+								SetNextItemWidth(GetWindowSize().x);
+								std::string originalVal{ sfi.m_data };
+								if (ImGui::InputText(("##" + sfi.m_scriptField.m_fieldName).c_str(), &originalVal, 0, 0, 0))
+								{
+									mono_field_set_value(s.m_classInst, sfi.m_scriptField.m_classField, MONO::STDToMonoString(originalVal));
+								}
+							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>())
 							{
 								TableNextRow();
@@ -1027,6 +1053,11 @@ void GE::EditorGUI::Inspector::CreateContent()
 									ImGui::TableNextColumn();
 									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
 									ImGui::TableNextColumn();
+									/*std::string originalVal{ dSFI.m_data };
+									if (ImGui::InputText(("##" + dSFI.m_scriptField.m_fieldName + std::to_string(ImGui::GetColumnIndex())).c_str(), &originalVal))
+									{
+										mono_field_set_value(charAnims.m_classInst, dSFI.m_scriptField.m_classField, MONO::STDToMonoString(originalVal));
+									}*/
 									auto const& animManager{ Graphics::GraphicsEngine::GetInstance().animManager };
 									auto const& textureLT{ animManager.GetAnimLT() };
 									if (BeginCombo(("##" + dSFI.m_scriptField.m_fieldName + std::to_string(ImGui::GetColumnIndex())).c_str(), dSFI.m_data.c_str()))
@@ -1089,6 +1120,24 @@ void GE::EditorGUI::Inspector::CreateContent()
 								TableNextColumn(); 
 								if (InputScriptList("##" + sfi.m_scriptField.m_fieldName, sfi.m_data, inputWidth)){ s.SetFieldValueArr<int>(sfi.m_data,sm->m_appDomain ,sfi.m_scriptField.m_classField);};
 							}
+							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<std::string>>>())
+							{
+								GE::MONO::ScriptFieldInstance<std::vector<std::string>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<std::string>>>();
+	
+								ImGui::TableNextRow();
+								TableNextColumn();
+								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
+								TableNextColumn();
+								if (InputScriptList("##" + sfi.m_scriptField.m_fieldName, sfi.m_data, inputWidth))
+								{
+									std::vector<MonoString*> proxy{};
+									for (std::string st : sfi.m_data)
+									{
+										proxy.push_back(STDToMonoString(st));
+									}
+									s.SetFieldValueArr<MonoString*>(proxy, sm->m_appDomain, sfi.m_scriptField.m_classField);
+								};
+							}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>())
 							{
 								GE::MONO::ScriptFieldInstance<std::vector<unsigned>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<unsigned>>>();
@@ -1143,16 +1192,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						allScripts->m_scriptList.erase(it);
 					}
 			
-				}
-			}
-			else if (compType == rttr::type::get<Component::Draggable>())
-			{
-				if (CollapsingHeader("Draggable", ImGuiTreeNodeFlags_Leaf))
-				{
-					if (RemoveComponentPopup<Draggable>("Draggable", entity))
-					{
-						break;
-					}
 				}
 			}
 			else if (compType == rttr::type::get<Component::Text>())
@@ -1261,371 +1300,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 					InputText("Param", &button->m_param);
 					ImGui::Separator();
 				}
-			}
-			else if (compType == rttr::type::get<Component::Card>())
-			{
-				auto* card = ecs.GetComponent<GE::Component::Card>(entity);
-				if (ImGui::CollapsingHeader("Card", ImGuiTreeNodeFlags_DefaultOpen))
-				{
-					if (RemoveComponentPopup<Component::Card>("Card", entity))
-					{
-						break;
-					}
-
-
-					ImGui::Separator();
-					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
-					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
-					ImGui::TableNextColumn();
-
-					// Value to store in card
-					{
-
-						ImGui::Text("Target Entity: ");
-						ImGui::SameLine();
-						int newVal{ static_cast<int>(card->tgtEntity) };
-						ImGui::InputInt(("##CEntTgt" + std::to_string(entity)).c_str(), &newVal);
-						card->tgtEntity = newVal;
-
-						// check if entity has card holder
-						{
-							if (ecs.HasComponent<CardHolder>(card->tgtEntity))
-							{
-								ImGui::TextColored({ 0.f, 1.f, 0.f, 1.f }, "Target Has Holder Component");
-							}
-							else
-							{
-								ImGui::TextColored({ 1.f, 0.f, 0.f, 1.f }, "Target Missing Holder Component");
-							}
-						}
-
-
-						ImGui::Separator();
-					}
-
-					rttr::type const type{ rttr::type::get<GE::Component::Card::CardID>() };
-					
-					if (BeginCombo("Card", type.get_enumeration().value_to_name(card->cardID).to_string().c_str()))
-					{
-						ImGui::Text("This is being ported to C#");
-						//for (Card::CardID currType{}; currType != Card::CardID::TOTAL_CARDS;)
-						//{
-						//	// get the string ...
-						//	std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
-
-						//	if (Selectable(str.c_str(), currType == card->cardID))
-						//	{
-						//		card->cardID = currType; // set the current type if selected 
-						//		
-						//		if (ecs.HasComponent<Sprite>(entity))
-						//		{
-						//			auto* spriteComp = ecs.GetComponent<Sprite>(entity);
-						//			auto const& textureManager = Graphics::GraphicsEngine::GetInstance().textureManager;
-						//			GLuint texID{ textureManager.GetTextureID(CardSpriteNames[card->cardID]) };
-						//			//Graphics::Texture const& newSprite = textureManager.GetTexture(texID);
-
-						//			spriteComp->m_spriteData.texture = texID;
-						//		}
-						//	}
-						//	// and now iterate through
-						//	currType = static_cast<Card::CardID>(static_cast<int>(currType) + 1);
-						//}
-						EndCombo();
-					}
-
-					
-					EndTable();
-					Separator();
-				}
-			}
-			else if (compType == rttr::type::get<Component::CardHolder>())
-			{
-				auto* cardHolder = ecs.GetComponent<GE::Component::CardHolder>(entity);
-
-				if (ImGui::CollapsingHeader("Card Holder", ImGuiTreeNodeFlags_DefaultOpen))
-				{
-					if (RemoveComponentPopup<Component::CardHolder>("Card Holder", entity))
-					{
-						break;
-					}
-
-					ImGui::Separator();
-					BeginTable("##", 1, ImGuiTableFlags_BordersInnerV);
-					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, contentSize);
-					TableNextColumn();
-
-					rttr::type const type{ rttr::type::get<GE::Component::Card::CardID>() };
-					//ELEMENTS
-					{
-						// TITLE
-						ImGui::TextColored(ImVec4{ 1.f, .733f, 0.f, 1.f },
-							("ELEMENTS | Size: " + std::to_string(cardHolder->elements.size())).c_str());
-						
-						// + AND - BUTTONS
-						if (Button("+"))
-						{
-							cardHolder->elements.emplace_back();
-						}
-						ImGui::SameLine();
-						if (Button("-") && !cardHolder->elements.empty())
-						{
-							cardHolder->elements.pop_back();
-						}
-
-						int currElement{1}; // the current element to be displayed
-						for (auto& element : cardHolder->elements)
-						{
-							ImGui::TextColored(ImVec4{ 1.f, 1.f, 0.f, 1.f }, 
-								("Element: " + std::to_string(currElement)).c_str());
-							{
-								// THE DST ENTITY VALUE
-								{
-									ImGui::Text("Elem Entity: ");
-									ImGui::SameLine();
-									int newVal{ static_cast<int>(element.elemEntity) };
-									if (InputInt(("##CDElmID" + std::to_string(currElement)).c_str(), &newVal))
-									{
-										element.elemEntity = newVal;
-										
-										// get other sprite component if it exists
-										if (ecs.HasComponent<Sprite>(element.elemEntity))
-										{
-											auto* spriteComp = ecs.GetComponent<Sprite>(element.elemEntity);
-											element.defaultSpriteID = spriteComp->m_spriteData.texture;
-											if (ecs.HasComponent<CardHolderElem>(element.elemEntity))
-											{
-												auto* holderElem = ecs.GetComponent<CardHolderElem>(element.elemEntity);
-												holderElem->elemIdx = currElement - 1; // since element started from 1, we subtract 1
-												holderElem->holder = entity;
-											}
-											else
-												GE::Debug::ErrorLogger::GetInstance().LogWarning((std::string(ecs.GetEntityName(element.elemEntity)) + 
-													" is missing the CardHolderElem component! Add and reassign ID to Elem Entity in holder!").c_str());
-										}
-										else
-										{
-											element.defaultSpriteID = 0; // invalid
-										}
-									}
-									if (element.elemEntity != ECS::INVALID_ID)
-									{
-										// get other sprite component if it exists
-										if (ecs.HasComponent<Sprite>(element.elemEntity))
-										{
-											auto* spriteComp = ecs.GetComponent<Sprite>(element.elemEntity);
-											element.defaultSpriteID = spriteComp->m_spriteData.texture;
-										}
-										else
-										{
-											element.defaultSpriteID = 0; // invalid
-										}
-									}
-								}
-								
-								// THE SRC ENTITY VALUE
-								{
-									ImGui::Text("Card Entity: ");
-									ImGui::SameLine();
-									int newVal{ static_cast<int>(element.cardEntity) };
-									if (InputInt(("##CDEntID" + std::to_string(currElement)).c_str(), &newVal))
-									{
-										element.cardEntity = newVal;
-									}
-									if (element.cardEntity != ECS::INVALID_ID)
-									{
-										// get other sprite component if it exists
-										if (ecs.HasComponent<Sprite>(element.cardEntity))
-										{
-											auto* spriteComp = ecs.GetComponent<Sprite>(element.cardEntity);
-											element.spriteID = spriteComp->m_spriteData.texture;
-										}
-										else
-										{
-											element.spriteID = 0; // invalid
-										}
-									}
-								}
-								// THE SPRITE ID (FOR REFERENCE)
-								{
-									BeginDisabled(true);
-									// DEFAULT SPRITE
-									ImGui::Text("Default Sprite: ");
-									ImGui::SameLine();
-									auto const& textureManager{ Graphics::GraphicsEngine::GetInstance().textureManager };
-									if (element.elemEntity != ECS::INVALID_ID && element.defaultSpriteID)
-									{
-										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f },
-											(textureManager.GetTextureName(element.defaultSpriteID)
-												+ std::string(" | ")).c_str());
-										ImGui::SameLine();
-										ImGui::TextColored(ImVec4{ 1.f, .7333f, 0.f, 1.f },
-											ecs.GetEntityName(element.elemEntity).c_str());
-									}
-									else
-									{
-										ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "No Sprite");
-									}
-
-									// USED SPRITE
-									ImGui::Text("Used Sprite: ");
-									ImGui::SameLine();
-									if (element.cardEntity != ECS::INVALID_ID && element.spriteID)
-									{
-										ImGui::TextColored(ImVec4{ 0.f, 1.f, 0.f, 1.f },
-											(textureManager.GetTextureName(element.spriteID)
-												+ std::string(" | ")).c_str());
-										ImGui::SameLine();
-										ImGui::TextColored(ImVec4{ 1.f, .7333f, 0.f, 1.f },
-											ecs.GetEntityName(element.cardEntity).c_str());
-									}
-									else
-									{
-										ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "No Sprite");
-									}
-									ImGui::EndDisabled();
-								}
-
-								// THE USED FLAG
-								{
-									ImGui::Text("active");
-									ImGui::SameLine();
-									BeginDisabled(true);
-									Checkbox(("##elemAct" + std::to_string(currElement)).c_str(), &element.used);
-									ImGui::EndDisabled();
-								}
-							}
-							++currElement;
-						}
-
-						//rttr::type const type{ rttr::type::get<GE::Component::GE_Button::ButtonEventType>() };
-						rttr::type const DatatypeType{ rttr::type::get<GE::Component::CardHolder::DataType>() };
-						if (BeginCombo("BRRR", DatatypeType.get_enumeration().value_to_name(cardHolder->dataType).to_string().c_str()))
-						{
-							for (unsigned int curr{}; curr != Component::CardHolder::DataType::NONE + 1; ++curr)
-							{
-								if (Selectable(DatatypeType.get_enumeration().value_to_name(curr).to_string().c_str(), 
-									curr == cardHolder->dataType))
-								{
-									cardHolder->dataType = static_cast<Component::CardHolder::DataType>(curr);
-								}
-							}
-							EndCombo();
-						}
-						{
-							int value{static_cast<int>(cardHolder->targetScript)};
-							ImGui::Text("Target Script Entity: ");
-							ImGui::SameLine();
-							ImGui::InputInt("##tgtSE", &value);
-							cardHolder->targetScript = value;
-						}
-					}
-					//if (BeginCombo("Card", type.get_enumeration().value_to_name(card->cardID).to_string().c_str()))
-					//{
-					//	for (Card::CardID currType{}; currType != Card::CardID::TOTAL_CARDS;)
-					//	{
-					//		// get the string ...
-					//		std::string str = type.get_enumeration().value_to_name(currType).to_string().c_str();
-
-					//		if (Selectable(str.c_str(), currType == card->cardID))
-					//			card->cardID = currType; // set the current type if selected 
-					//		// and now iterate through
-					//		currType = static_cast<Card::CardID>(static_cast<int>(currType) + 1);
-					//	}
-					//	EndCombo();
-					//}
-					EndTable();
-					Separator();
-				}
-			}
-			else if (compType == rttr::type::get<Component::CardHolderElem>())
-			{
-				if (CollapsingHeader("Card Holder Element", ImGuiTreeNodeFlags_Leaf))
-				{
-					if (RemoveComponentPopup<Draggable>("Card Holder Element", entity))
-					{
-						break;
-					}
-					auto* holderElem = ecs.GetComponent<CardHolderElem>(entity);
-					// FOR MEMBER: HOLDER ID
-					{
-						ImGui::Text("holder entity ID");
-						ImGui::SameLine();
-						int newHolderID{ static_cast<int>(holderElem->holder) };
-						InputInt("##holderID", &newHolderID);
-						if (newHolderID < -1)
-							newHolderID = -1;
-						holderElem->holder = newHolderID;
-						if (holderElem->holder != ECS::INVALID_ID && ecs.HasComponent<CardHolder>(holderElem->holder))
-							ImGui::TextColored({ 0.f, 1.f, 0.f, 1.f }, "Holder ID has holder component!");
-						else
-							ImGui::TextColored({ 1.f, 0.f, 0.f, 1.f }, "Invalid holder/missing holder component!");
-					}
-					// FOR MEMBER: INDEX
-					{
-						ImGui::Text("holder entity index");
-						ImGui::SameLine();
-						ImGui::BeginDisabled();
-						int newHolderID{ static_cast<int>(holderElem->elemIdx) };
-						InputInt("##elemIdx", &newHolderID);
-						ImGui::EndDisabled();
-					}
-				}
-			}
-			else if (compType == rttr::type::get<Component::Game>())
-			{
-				auto* game = ecs.GetComponent<GE::Component::Game>(entity);
-				if (ImGui::CollapsingHeader("Game", ImGuiTreeNodeFlags_DefaultOpen))
-				{
-					if (RemoveComponentPopup<GE::Component::Game>("Game", entity))
-					{
-						break;
-					}
-
-					Separator();
-					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-					ImGui::TableNextRow();
-
-					InputEntity("Player Entity", game->m_player);
-					ImGui::TableNextRow();
-					InputEntity("Enemy Entity", game->m_enemy);
-					ImGui::TableNextRow();
-					InputEntity("Pause Menu", game->m_pauseMenu);
-					TableNextRow();
-					InputEntity("Player Hand", game->m_playerHand);
-					TableNextRow();
-					InputEntity("Player Queue", game->m_playerQueue);
-					TableNextRow();
-					InputEntity("Enemy Queue", game->m_enemyQueue);
-					TableNextRow();
-					TableNextColumn();
-					ImGui::Text("Script");
-					TableNextColumn();
-					GE::MONO::ScriptManager* sm = &GE::MONO::ScriptManager::GetInstance();
-					if (ImGui::BeginCombo("", game->m_gameSystemScript.m_scriptName.c_str()))
-					{
-						for (const std::string& sn : sm->m_allScriptNames)
-						{
-							if (game->m_gameSystemScript.m_scriptName != sn)
-							{
-								bool is_selected = (game->m_gameSystemScript.m_scriptName.c_str() == sn);
-								if (ImGui::Selectable(sn.c_str()))
-								{
-									game->m_gameSystemScript = ScriptInstance(sn,entity);
-									game->m_gameSystemScript.GetFields();
-								}
-								if (is_selected)
-								{
-									ImGui::SetItemDefaultFocus();
-								}
-							}
-						}
-						ImGui::EndCombo();
-					}
-
-					EndTable();
-				}
-				ImGui::Separator();
 			}
 			else if (compType == rttr::type::get<Component::Emitter>())
 			{
@@ -1848,20 +1522,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 						addingComponent = false;
 						break;
 					}
-					else if (compType == rttr::type::get<Component::Draggable>())
-					{
-						if (!ecs.HasComponent<Draggable>(entity))
-						{
-							Draggable comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(Draggable).name() << ". Component already exist";
-						}
-						addingComponent = false;
-						break;
-					}
 					else if (compType == rttr::type::get<Component::Text>())
 					{
 						if (!ecs.HasComponent<Component::Text>(entity))
@@ -1895,66 +1555,13 @@ void GE::EditorGUI::Inspector::CreateContent()
 						if (!ecs.HasComponent<GE::Component::GE_Button>(entity))
 						{
 							GE::Component::GE_Button comp;
+							GE::Component::Scripts scriptsComp;
 							ecs.AddComponent(entity, comp);
+							ecs.AddComponent(entity, scriptsComp);
 						}
 						else
 						{
 							ss << "Unable to add component " << typeid(GE::Component::GE_Button).name() << ". Component already exist";
-						}
-						addingComponent = false;
-						break;
-					}
-					else if (compType == rttr::type::get<Component::Card>())
-					{
-						if (!ecs.HasComponent<GE::Component::Card>(entity))
-						{
-							GE::Component::Card comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(GE::Component::Card).name() << ". Component already exist";
-						}
-						addingComponent = false;
-						break;
-					}
-					else if (compType == rttr::type::get<Component::CardHolder>())
-					{
-						if (!ecs.HasComponent<GE::Component::CardHolder>(entity))
-						{
-							GE::Component::CardHolder comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(GE::Component::CardHolder).name() << ". Component already exist";
-						}
-						addingComponent = false;
-						break;
-					}
-					else if (compType == rttr::type::get<Component::Game>())
-					{
-						if (!ecs.HasComponent<GE::Component::Game>(entity))
-						{
-							GE::Component::Game comp;
-							ecs.AddComponent(entity, comp);
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(GE::Component::Game).name() << ". Component already exist";
-						}
-						addingComponent = false;
-						break;
-					}
-					else if (compType == rttr::type::get<Component::CardHolderElem>())
-					{
-						if (!ecs.HasComponent<CardHolderElem>(entity))
-						{
-							ecs.AddComponent(entity, CardHolderElem{});
-						}
-						else
-						{
-							ss << "Unable to add component " << typeid(CardHolderElem).name() << ". Component already exist";
 						}
 						addingComponent = false;
 						break;
@@ -2156,28 +1763,21 @@ namespace
 	{
 		// 12 characters for property name
 		float charSize = CalcTextSize("012345678901").x;
-		auto removeTweenIt{ list.begin() };
 		for (auto& [animationName, action] : list)
 		{
-			std::string temp{animationName};
 			if (TreeNodeEx(("Animation: " + animationName).c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 			{
 				SameLine();
 				if (Button("Remove Animation"))
 				{
 					TreePop();
+					list.erase(animationName);
 					break;
-				}
-				else
-				{
-					++removeTweenIt;
 				}
 
 				Separator();
 				int i{};
-				int removeIndex{};
-				bool shouldRemove{ false };
-				for (auto& [target, scale, rot, spriteColor, textColor, duration, script] : action)
+				for (auto& [target, scale, rot, spriteTint, spriteMult, textColor, duration, script] : action)
 				{
 					PushID((std::to_string(i)).c_str());
 					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterH);
@@ -2192,12 +1792,17 @@ namespace
 					InputDouble3("Scale " + std::to_string(i), scale, fieldWidth, disabled);
 					InputDouble3("Rotate " + std::to_string(i), rot, fieldWidth, disabled);
 					ImGui::TableNextColumn();
-					ImGui::Text("Sprite Color");
+					ImGui::Text("Sprite Tint");
 					// SameLine();
 					
 
 					ImGui::TableNextColumn();
-					ImGui::ColorEdit4(("##spriteColor" + std::to_string(i)).c_str(), spriteColor.rgba);
+					ImGui::ColorEdit4(("##spriteColor" + std::to_string(i)).c_str(), spriteTint.rgba);
+					ImGui::TableNextColumn();
+					ImGui::Text("Sprite Multiply");
+
+					ImGui::TableNextColumn();
+					ImGui::ColorEdit4(("##spriteMult" + std::to_string(i)).c_str(), spriteMult.rgba);
 					ImGui::TableNextColumn();
 					ImGui::Text("Text Color");
 					//SameLine();
@@ -2212,17 +1817,12 @@ namespace
 					EndTable();
 					if (Button("Delete keyframe", { GetContentRegionMax().x, 20 }))
 					{
-						removeIndex = i;
-						shouldRemove = true;
+						action.erase(action.begin() + i);
 						PopID();
 						break;
 					}
 					PopID();
 					++i;
-				}
-				if (shouldRemove)
-				{
-					action.erase(action.begin() + removeIndex);
 				}
 
 				Separator();
@@ -2230,17 +1830,12 @@ namespace
 				// 20 magic number cuz the button looks good
 				if (Button("Add keyframe", { GetContentRegionMax().x, 20 }))
 				{
-					action.emplace_back(vec3{ 0, 0, 0 }, vec3{ 1, 1, 1 }, vec3{ 0, 0, 0 }, Colorf{}, Colorf{}, 1);
+					action.push_back(action.back());
 				}
 				Indent();
 
 				TreePop();
 			}
-		}
-
-		if (removeTweenIt != list.end())
-		{
-			list.erase(removeTweenIt);
 		}
 	}
 
@@ -2313,6 +1908,32 @@ namespace
 				ImGui::Text(propertyName.c_str());
 				ImGui::TableNextColumn();
 				if (InputInt(("##" + (propertyName + std::to_string(i))).c_str(), &list[i], 0)) { changed = true; }
+				TableNextRow();
+				ImGui::PopID();
+			}
+			EndTable();
+			ImGui::Separator();
+			ImGui::TreePop();
+		}
+		return changed;
+	}
+
+	bool InputScriptList(std::string propertyName, std::vector<std::string>& list, float fieldWidth, bool disabled)
+	{
+		// 12 characters for property name
+		static float charSize = CalcTextSize("SFX_BodyFallDawson2").x;
+		bool changed{ false };
+		if (TreeNodeEx((propertyName + "s").c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			Separator();
+			BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+			ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, charSize);
+			for (int i{}; i < list.size(); ++i)
+			{
+				PushID((std::to_string(i)).c_str());
+				ImGui::Text(propertyName.c_str());
+				ImGui::TableNextColumn();
+				if (InputText(("##" + (propertyName + std::to_string(i))).c_str(), &list[i], 0)) { changed = true; }
 				TableNextRow();
 				ImGui::PopID();
 			}

@@ -6,7 +6,7 @@
         This class is meant for rendering fonts with opengl calls
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef FONT_RENDERER_H
 #define FONT_RENDERER_H

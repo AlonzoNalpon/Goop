@@ -6,7 +6,7 @@
 	1st pass of computing transforms. This pass converts world transfroms
 	to local transforms.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <Math/GEM.h>

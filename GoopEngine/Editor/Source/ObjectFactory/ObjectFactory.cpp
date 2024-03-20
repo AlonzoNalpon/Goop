@@ -15,7 +15,7 @@
   deserialize again. Only when changing scenes will a full reload be
   required.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "ObjectFactory.h"
@@ -179,10 +179,6 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::BoxCollider*>());
   }
-  else if (compType == rttr::type::get<Component::Velocity>())
-  {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Velocity*>());
-  }
   else if (compType == rttr::type::get<Component::Sprite>())
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Sprite*>());
@@ -191,63 +187,50 @@ void ObjectFactory::AddComponentToEntity(ECS::Entity entity, rttr::variant const
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::SpriteAnim*>());
   }
-  else if (compType == rttr::type::get<Component::Model>())
+  else if (compType == rttr::type::get<Serialization::ProxyScripts>())
   {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Model*>());
-  }
-  else if (compType == rttr::type::get<Component::Tween>())
-  {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Tween*>());
-  }
-  else if (compType == rttr::type::get<Component::Scripts>())
-  {
-    Component::Scripts* scripts{ compVar.get_value<Component::Scripts*>() };
-    scripts->SetAllEntityID(entity);
-    ecs.AddComponent(entity, *scripts);
-  }
-  else if (compType == rttr::type::get<Component::Draggable>())
-  {
-    ecs.AddComponent(entity, Component::Draggable{});
-  }
-  else if (compType == rttr::type::get<Component::EnemyAI>())
-  {
-    ecs.AddComponent(entity, *compVar.get_value<Component::EnemyAI*>());
-  }
-  else if (compType == rttr::type::get<Component::Text>())
-  {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Text*>());
-  }
-  else if (compType == rttr::type::get<Component::Audio>())
-  {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Audio*>());
+    rttr::variant scriptsVar{ Component::Scripts{} };
+    Serialization::Deserializer::DeserializeScriptsComponent(scriptsVar, compVar.get_value<Serialization::ProxyScripts*>()->m_scriptData);
+    if (!scriptsVar.is_valid())
+    {
+      Debug::ErrorLogger::GetInstance().LogError("Trying to construct invalid script component for entity " + std::to_string(entity));
+      return;
+    }
+    Component::Scripts& scripts{ *scriptsVar.get_value<Component::Scripts*>() };
+    scripts.SetAllEntityID(entity);
+    ecs.AddComponent(entity, scripts);
   }
   else if (compType == rttr::type::get<Component::GE_Button>())
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::GE_Button*>());
   }
-  else if (compType == rttr::type::get<Component::Card>())
+  else if (compType == rttr::type::get<Component::Text>())
   {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Card*>());
+    ecs.AddComponent(entity, *compVar.get_value<Component::Text*>());
   }
-  else if (compType == rttr::type::get<Component::Game>())
+  else if (compType == rttr::type::get<Component::AnimEvents>())
   {
-    ecs.AddComponent(entity, *compVar.get_value<Component::Game*>());
+    ecs.AddComponent(entity, *compVar.get_value<Component::AnimEvents*>());
   }
-  else if (compType == rttr::type::get<Component::CardHolder>())
+  else if (compType == rttr::type::get<Component::Audio>())
   {
-    ecs.AddComponent(entity, *compVar.get_value<Component::CardHolder*>());
+    ecs.AddComponent(entity, *compVar.get_value<Component::Audio*>());
   }
-  else if (compType == rttr::type::get<Component::CardHolderElem>())
+  else if (compType == rttr::type::get<Component::Velocity>())
   {
-    ecs.AddComponent(entity, *compVar.get_value<Component::CardHolderElem*>());
+    ecs.AddComponent(entity, *compVar.get_value<Component::Velocity*>());
+  }
+  else if (compType == rttr::type::get<Component::Tween>())
+  {
+    ecs.AddComponent(entity, *compVar.get_value<Component::Tween*>());
   }
   else if (compType == rttr::type::get<Component::Emitter>())
   {
     ecs.AddComponent(entity, *compVar.get_value<Component::Emitter*>());
   }
-  else if (compType == rttr::type::get<Component::AnimEvents>())
+  else if (compType == rttr::type::get<Component::EnemyAI>())
   {
-    ecs.AddComponent(entity, *compVar.get_value<Component::AnimEvents*>());
+    ecs.AddComponent(entity, *compVar.get_value<Component::EnemyAI*>());
   }
   else
   {
@@ -268,10 +251,6 @@ rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, rttr::type const
   {
     return ecs.HasComponent<Component::BoxCollider>(id) ? std::make_shared<Component::BoxCollider>(*ecs.GetComponent<Component::BoxCollider>(id)) : rttr::variant();
   }
-  else if (compType == rttr::type::get<Component::Velocity>())
-  {
-    return ecs.HasComponent<Component::Velocity>(id) ? std::make_shared<Component::Velocity>(*ecs.GetComponent<Component::Velocity>(id)) : rttr::variant();
-  }
   else if (compType == rttr::type::get<Component::Scripts>())
   {
     return ecs.HasComponent<Component::Scripts>(id) ? std::make_shared<Component::Scripts>(*ecs.GetComponent<Component::Scripts>(id)) : rttr::variant();
@@ -284,45 +263,29 @@ rttr::variant ObjectFactory::GetEntityComponent(ECS::Entity id, rttr::type const
   {
     return ecs.HasComponent<Component::SpriteAnim>(id) ? std::make_shared<Component::SpriteAnim>(*ecs.GetComponent<Component::SpriteAnim>(id)) : rttr::variant();
   }
-  else if (compType == rttr::type::get<Component::Tween>())
+  else if (compType == rttr::type::get<Component::GE_Button>())
   {
-    return ecs.HasComponent<Component::Tween>(id) ? std::make_shared<Component::Tween>(*ecs.GetComponent<Component::Tween>(id)) : rttr::variant();
-  }
-  else if (compType == rttr::type::get<Component::EnemyAI>())
-  {
-    return ecs.HasComponent<Component::EnemyAI>(id) ? std::make_shared<Component::EnemyAI>(*ecs.GetComponent<Component::EnemyAI>(id)) : rttr::variant();
-  }
-  else if (compType == rttr::type::get<Component::Draggable>())
-  {
-    return ecs.HasComponent<Component::Draggable>(id) ? std::make_shared<Component::Draggable>(*ecs.GetComponent<Component::Draggable>(id)) : rttr::variant();
+    return ecs.HasComponent<Component::GE_Button>(id) ? std::make_shared<Component::GE_Button>(*ecs.GetComponent<Component::GE_Button>(id)) : rttr::variant();
   }
   else if (compType == rttr::type::get<Component::Text>())
   {
     return ecs.HasComponent<Component::Text>(id) ? std::make_shared<Component::Text>(*ecs.GetComponent<Component::Text>(id)) : rttr::variant();
   }
+  else if (compType == rttr::type::get<Component::Tween>())
+  {
+    return ecs.HasComponent<Component::Tween>(id) ? std::make_shared<Component::Tween>(*ecs.GetComponent<Component::Tween>(id)) : rttr::variant();
+  }
   else if (compType == rttr::type::get<Component::Audio>())
   {
     return ecs.HasComponent<Component::Audio>(id) ? std::make_shared<Component::Audio>(*ecs.GetComponent<Component::Audio>(id)) : rttr::variant();
   }
-  else if (compType == rttr::type::get<Component::GE_Button>())
+  else if (compType == rttr::type::get<Component::Velocity>())
   {
-    return ecs.HasComponent<Component::GE_Button>(id) ? std::make_shared<Component::GE_Button>(*ecs.GetComponent<Component::GE_Button>(id)) : rttr::variant();
+    return ecs.HasComponent<Component::Velocity>(id) ? std::make_shared<Component::Velocity>(*ecs.GetComponent<Component::Velocity>(id)) : rttr::variant();
   }
-  else if (compType == rttr::type::get<Component::Card>())
+  else if (compType == rttr::type::get<Component::EnemyAI>())
   {
-    return ecs.HasComponent<Component::Card>(id) ? std::make_shared<Component::Card>(*ecs.GetComponent<Component::Card>(id)) : rttr::variant();
-  }
-  else if (compType == rttr::type::get<Component::CardHolder>())
-  {
-    return ecs.HasComponent<Component::CardHolder>(id) ? std::make_shared<Component::CardHolder>(*ecs.GetComponent<Component::CardHolder>(id)) : rttr::variant();
-  }
-  else if (compType == rttr::type::get<Component::CardHolderElem>())
-  {
-    return ecs.HasComponent<Component::CardHolderElem>(id) ? std::make_shared<Component::CardHolderElem>(*ecs.GetComponent<Component::CardHolderElem>(id)) : rttr::variant();
-  }
-  else if (compType == rttr::type::get<Component::Game>())
-  {
-    return ecs.HasComponent<Component::Game>(id) ? std::make_shared<Component::Game>(*ecs.GetComponent<Component::Game>(id)) : rttr::variant();
+    return ecs.HasComponent<Component::EnemyAI>(id) ? std::make_shared<Component::EnemyAI>(*ecs.GetComponent<Component::EnemyAI>(id)) : rttr::variant();
   }
   else if (compType == rttr::type::get<Component::Emitter>())
   {
@@ -371,13 +334,9 @@ void ObjectFactory::RemoveComponentFromEntity(ECS::Entity entity, rttr::type com
   {
     ecs.RemoveComponent<Tween>(entity);
   }
-  else if (compType == rttr::type::get<Component::Scripts>())
+  else if (compType == rttr::type::get<Serialization::ProxyScripts>())
   {
     ecs.RemoveComponent<Scripts>(entity);
-  }
-  else if (compType == rttr::type::get<Component::Draggable>())
-  {
-    ecs.RemoveComponent<Draggable>(entity);
   }
   else if (compType == rttr::type::get<Component::EnemyAI>())
   {
@@ -394,22 +353,6 @@ void ObjectFactory::RemoveComponentFromEntity(ECS::Entity entity, rttr::type com
   else if (compType == rttr::type::get<Component::GE_Button>())
   {
     ecs.RemoveComponent<GE_Button>(entity);
-  }
-  else if (compType == rttr::type::get<Component::Card>())
-  {
-    ecs.RemoveComponent<Card>(entity);
-  }
-  else if (compType == rttr::type::get<Component::Game>())
-  {
-    ecs.RemoveComponent<Game>(entity);
-  }
-  else if (compType == rttr::type::get<Component::CardHolder>())
-  {
-    ecs.RemoveComponent<CardHolder>(entity);
-  }
-  else if (compType == rttr::type::get<Component::CardHolderElem>())
-  {
-    ecs.RemoveComponent<CardHolderElem>(entity);
   }
   else if (compType == rttr::type::get<Component::Emitter>())
   {
@@ -448,24 +391,14 @@ void ObjectFactory::RegisterComponentsAndSystems() const
       ecs.RegisterComponent<GE::Component::Tween>();
     else if (compType == rttr::type::get<Component::Scripts>())
       ecs.RegisterComponent<GE::Component::Scripts>();
-    else if (compType == rttr::type::get<Component::Draggable>())
-      ecs.RegisterComponent<GE::Component::Draggable>();
     else if (compType == rttr::type::get<Component::EnemyAI>())
       ecs.RegisterComponent<GE::Component::EnemyAI>();
     else if (compType == rttr::type::get<Component::Text>())
       ecs.RegisterComponent<GE::Component::Text>();
-    else if (compType == rttr::type::get<Component::Game>())
-      ecs.RegisterComponent<GE::Component::Game>();
     else if (compType == rttr::type::get<Component::Audio>())
       ecs.RegisterComponent<GE::Component::Audio>();
     else if (compType == rttr::type::get<Component::GE_Button>())
       ecs.RegisterComponent<GE::Component::GE_Button>();
-    else if (compType == rttr::type::get<Component::Card>())
-      ecs.RegisterComponent<GE::Component::Card>();
-    else if (compType == rttr::type::get<Component::CardHolder>())
-      ecs.RegisterComponent<GE::Component::CardHolder>();
-    else if (compType == rttr::type::get<Component::CardHolderElem>())
-      ecs.RegisterComponent<GE::Component::CardHolderElem>();
     else if (compType == rttr::type::get<Component::Emitter>())
       ecs.RegisterComponent<GE::Component::Emitter>();
     else if (compType == rttr::type::get<Component::AnimEvents>())
@@ -503,11 +436,6 @@ void ObjectFactory::RegisterSystemWithType(rttr::type const& systemType, std::ve
   {
     ecs.RegisterSystem<Systems::PhysicsSystem>();
     RegisterComponentsToSystem<Systems::PhysicsSystem>(components);
-  }
-  else if (systemType == rttr::type::get<Systems::DraggableObjectSystem>())
-  {
-    ecs.RegisterSystem<Systems::DraggableObjectSystem>();
-    RegisterComponentsToSystem<Systems::DraggableObjectSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::ScriptSystem>())
   {
@@ -568,11 +496,6 @@ void ObjectFactory::RegisterSystemWithType(rttr::type const& systemType, std::ve
   {
     ecs.RegisterSystem<Systems::ButtonScriptSystem>();
     RegisterComponentsToSystem<Systems::ButtonScriptSystem>(components);
-  }
-  else if (systemType == rttr::type::get<Systems::CardHolderSystem>())
-  {
-    ecs.RegisterSystem<Systems::CardHolderSystem>();
-    RegisterComponentsToSystem<Systems::CardHolderSystem>(components);
   }
   else if (systemType == rttr::type::get<Systems::ParticleSystem>())
   {

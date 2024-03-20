@@ -9,7 +9,7 @@
         is so that not much code has to be modified when any
         components/classes are changed.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <rapidjson/document.h>
@@ -74,6 +74,18 @@ namespace GE
       ************************************************************************/
       static void SerializeScene(std::string const& filename);
 
+      /*!*********************************************************************
+      \brief
+        Helper function to serialize a component into a rapidjson::Value.
+        Called by SerializeScene
+      \param var
+        The rttr::variant of the object
+      \param allocator
+        The document's allocator
+      \return
+        The resulting rapidjson::Value object
+      ************************************************************************/
+      static rapidjson::Value SerializeComponent(rttr::variant const& var, rapidjson::Document::AllocatorType& allocator);
     private:
       // helper functions
       /*!*********************************************************************
@@ -174,19 +186,6 @@ namespace GE
         The resulting radpidjson::Value object containing the entity data
       ************************************************************************/
       static rapidjson::Value SerializeEntity(ECS::Entity id, rapidjson::Document::AllocatorType& allocator);
-
-      /*!*********************************************************************
-      \brief
-        Helper function to serialize a component into a rapidjson::Value.
-        Called by SerializeScene
-      \param var
-        The rttr::variant of the object
-      \param allocator
-        The document's allocator
-      \return
-        The resulting rapidjson::Value object
-      ************************************************************************/
-      static rapidjson::Value SerializeComponent(rttr::variant const& var, rapidjson::Document::AllocatorType& allocator);
       
       /*!*********************************************************************
       \brief

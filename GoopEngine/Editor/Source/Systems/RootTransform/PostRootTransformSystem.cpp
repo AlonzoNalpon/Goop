@@ -6,7 +6,7 @@
   2nd pass of computing transforms. This pass converts local transfroms
 	to world transforms.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "PostRootTransformSystem.h"
@@ -23,14 +23,14 @@ void GE::Systems::PostRootTransformSystem::LateUpdate()
 	frc.StartSystemTimer();
 	for (GE::ECS::Entity entity : m_ecs->GetEntities())
 	{
+		if (!m_ecs->GetIsActiveEntity(entity))
+		{
+			continue;
+		}
+
 		// This is a root entity
 		if (m_ecs->GetParentEntity(entity) == GE::ECS::INVALID_ID)
 		{
-			if (!m_ecs->GetIsActiveEntity(entity))
-			{
-				continue;
-			}
-
 			// Assign own world transformation matrix
 			Math::dMat4 identity
 			{

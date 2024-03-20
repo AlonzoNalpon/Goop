@@ -6,7 +6,7 @@
 \brief  
 Attack card, derived from card base.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
@@ -25,7 +25,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public SpecialFlashBang(CardID cardID, CardType cardType, string animSprite) : base(cardID, cardType, animSprite)
+    public SpecialFlashBang(CardID cardID, CardType cardType) : base(cardID, cardType)
     {
       Value = 0.5f;
       Duration = 3;
@@ -41,6 +41,7 @@ namespace GoopScripts.Cards
     ************************************************************************/
     public override void Play(ref Stats source, ref Stats target)
     {
+     
       target.m_buffs.AddBuff(new Buff(Buff.BuffType.MULTIPLICATIVE_ATK_DOWN, 0.5f, 1));
     }
   }

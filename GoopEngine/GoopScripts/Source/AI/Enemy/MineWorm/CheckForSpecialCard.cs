@@ -1,12 +1,13 @@
-﻿/*!************************************************************************
-\file CheckForSpecialCard.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file   CheckForSpecialCard.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script for enemyAi Tree
+        Checks if the enemy has special card in its hand
 
-\brief
-C# script for enemyAi Tree
-Checks if the enemy has special card in its hand
 
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
@@ -79,13 +79,10 @@ namespace GoopScripts.AI.Enemy.MineWorm
       List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
       if (EnemyStats.m_deckMngr.m_hand.Any(item => specialCards.Contains(item.Item1)))
       {
-        //Console.WriteLine("We have special card");
         OnSuccess();
       }
       else
       {
-         //Console.WriteLine("We have no special card");
-         
         OnFail();
       }
 

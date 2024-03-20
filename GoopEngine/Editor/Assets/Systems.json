@@ -1,7 +1,6 @@
 {
   "PreRootTransformSystem": [],
   "GameSystem": [
-    "Game"
   ],
   "ScriptSystem": [
     "Scripts"
@@ -14,6 +13,14 @@
     "EnemyAI",
     "Transform"
   ],
+  "PhysicsSystem": [
+    "Transform",
+    "Velocity"
+  ],
+  "CollisionSystem": [
+    "Transform",
+    "BoxCollider"
+  ],
   "ButtonSystem": [
     "GE_Button",
     "BoxCollider"
@@ -23,22 +30,9 @@
     "BoxCollider",
     "Scripts"
   ],
-  "CollisionSystem": [
-    "Transform",
-    "BoxCollider"
-  ],
-  "DraggableObjectSystem": [
-    "Transform",
-    "BoxCollider",
-    "Draggable"
-  ],
   "ParticleSystem": [
     "Sprite",
     "Emitter"
-  ],
-  "PhysicsSystem": [
-    "Transform",
-    "Velocity"
   ],
   "PostRootTransformSystem": [],
   "SpriteAnimSystem": [
@@ -54,11 +48,7 @@
     "Transform"
   ],
   "AudioSystem": [
-    "Audio",
-    "Transform"
-  ],
-  "CardHolderSystem": [
-    "CardHolder"
+    "Audio"
   ],
   "AnimEventsSystem": [
     "SpriteAnim",

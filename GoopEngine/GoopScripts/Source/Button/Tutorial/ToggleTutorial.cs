@@ -14,7 +14,7 @@ namespace GoopScripts.Button
 		public override void OnRelease(uint entity)
 		{
 			base.OnRelease(entity);
-			int m_prev = (Tutorial.m_tut)++;
+			int m_prev = Tutorial.m_tut++;
 
 			Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{m_prev}"), false);
 			Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{Tutorial.m_tut}"), true);

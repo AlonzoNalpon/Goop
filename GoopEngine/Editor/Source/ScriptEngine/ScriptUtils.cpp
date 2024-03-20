@@ -7,7 +7,7 @@
 	C# and C++
 
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <pch.h>
@@ -46,6 +46,11 @@ namespace GE {
 	MonoArray* GetMonoArray<GE::Component::Card::CardID>(MonoDomain* md, size_t sz) {
 		return mono_array_new(md, mono_get_uint32_class(), sz);
 	}
+	template <>
+	MonoArray* GetMonoArray<MonoString*>(MonoDomain* md, size_t sz) {
+		return mono_array_new(md, mono_get_string_class(), sz);
+	}
+
 
 	}
 }

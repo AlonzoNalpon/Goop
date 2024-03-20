@@ -9,7 +9,7 @@
         the event. (E.g. input events hold the key code for the key 
         that was pressed)
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <DebugTools/ErrorLogger/ErrorLogger.h>

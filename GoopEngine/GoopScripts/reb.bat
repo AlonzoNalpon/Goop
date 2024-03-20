@@ -1,3 +1,4 @@
+@ECHO OFF
 set VS_VERSION=%1
 set BUILD_CONFIG=%2
 set DEVENV_PATH=
@@ -43,18 +44,18 @@ set EDITOR_ASSET_PATH="%~dp0..\Editor\Assets\Scripts\GoopScripts.dll"
 set OUTPUT_ASSET_PATH =
 if "%BUILD_CONFIG%"=="Debug" (
  set OUTPUT_ASSET_PATH="%~dp0..\x64\Debug\Assets\Scripts"
-) else if %BUILD_CONFIG% =="Release" (
+) else if "%BUILD_CONFIG%"=="Release" (
  set OUTPUT_ASSET_PATH="%~dp0..\x64\Release\Assets\Scripts"
 )
 
-echo VS_VERSION: %VS_VERSION%
-echo SLN_PATH: %SLN_PATH%
-echo PROJ: %PROJ%
-echo EDITOR_ASSET_PATH: %EDITOR_ASSET_PATH%
-echo BIN_PATH: %BIN_PATH%
-echo BUILD_CONFIG: %BUILD_CONFIG%
-echo OUTPUT_ASSET_PATH: %OUTPUT_ASSET_PATH%
-echo DEVENV_PATH: %DEVENV_PATH%
+@REM echo VS_VERSION: %VS_VERSION%
+@REM echo SLN_PATH: %SLN_PATH%
+@REM echo PROJ: %PROJ%
+@REM echo EDITOR_ASSET_PATH: %EDITOR_ASSET_PATH%
+@REM echo BIN_PATH: %BIN_PATH%
+@REM echo BUILD_CONFIG: %BUILD_CONFIG%
+@REM echo OUTPUT_ASSET_PATH: %OUTPUT_ASSET_PATH%
+@REM echo DEVENV_PATH: %DEVENV_PATH%
 @REM Set the relative path of the file in Goop/Test
 
 @REM Construct the full path using the batch file's directory
@@ -66,13 +67,13 @@ echo DEVENV_PATH: %DEVENV_PATH%
 
 if defined DEVENV_PATH (
     @REM echo DEVENV_PATH : %DEVENV_PATH%
-    echo Building...
+    @REM echo Building...
     "%DEVENV_PATH%" %SLN_PATH% /build %BUILD_CONFIG% /project %PROJ%
     copy /y %BIN_PATH% %EDITOR_ASSET_PATH%
     copy /y %BIN_PATH% %OUTPUT_ASSET_PATH%
     @REM "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe" "C:\Users\qindi\Documents\GitHub\Goop\GoopEngine\GoopEngine.sln" /build Debug /project "C:\Users\qindi\Documents\GitHub\Goop\GoopEngine\GoopScripts\GoopScripts.csproj"
     @REM copy /y "C:\Users\qindi\Documents\GitHub\Goop\GoopEngine\GoopScripts\bin\GoopScripts.dll" "C:\Users\qindi\Documents\GitHub\Goop\GoopEngine\Editor\Assets\Scripts\GoopScripts.dll"
-    echo Build complete!
+    @REM echo Build complete!
 ) else (
     echo Error: devenv.exe not found!
     pause

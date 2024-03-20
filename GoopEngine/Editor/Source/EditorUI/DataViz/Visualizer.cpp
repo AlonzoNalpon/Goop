@@ -7,7 +7,7 @@
         and the current fps of the engine. Draws data from the frame
         rate controller manager.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #ifndef IMGUI_DISABLE

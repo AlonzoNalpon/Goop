@@ -6,7 +6,7 @@
   2nd pass of computing transforms. This pass converts local transfroms
 	to world transforms.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <Math/GEM.h>

@@ -1,11 +1,11 @@
 /*!**********************************************************************
 \file   SceneControls.h
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   25 October 2023
 \brief
   Wrapper class to create an EditorGUI for scene controls
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #ifndef IMGUI_DISABLE
@@ -32,6 +32,11 @@ void GE::EditorGUI::SceneControls::CreateContent()
         GE::fMOD::FmodSystem::GetInstance().StopAllSound();
         Events::EventManager::GetInstance().Dispatch(Events::StopSceneEvent());
         ImGuiHelper::Restart();
+        GE::FPS::FrameRateController::GetInstance().SetTimeScale(1.f);
+        auto& fmod = GE::fMOD::FmodSystem::GetInstance();
+        fmod.SetChannelPause(GE::fMOD::FmodSystem::BGM, true);
+        fmod.SetChannelPause(GE::fMOD::FmodSystem::SFX, true);
+        fmod.SetChannelPause(GE::fMOD::FmodSystem::VOICE, true);
       }
       if (Button(pause))
       {

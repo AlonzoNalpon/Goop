@@ -6,7 +6,7 @@
 shader and mesh instances. It aims to abstract away all OpenGL calls.
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef GRAPHICS_ENGINE_H
 #define GRAPHICS_ENGINE_H

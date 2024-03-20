@@ -7,7 +7,7 @@ Animation events will store identifies to unique animation event sets
 (in AnimEventManager). Each stored animation event set ID will
 be bound to a specific animation set in the inspector.
    
- Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved. 
+ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved. 
  ************************************************************************/
 #ifndef ANIM_EVENTS_H
 #define ANIM_EVENTS_H

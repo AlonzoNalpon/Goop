@@ -17,7 +17,7 @@
         Load Json files and save it into the class.
         Able to load Images, Config, and Animation json.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #ifndef ASSET_MANAGER_H
@@ -289,6 +289,12 @@ namespace GE::Assets
     ************************************************************************/
     inline std::unordered_map<std::string, std::string> const& GetScenes() const noexcept { return m_scenes; }
 
+    /*!*********************************************************************
+     \brief
+       Returns the map of sprite sheet data as a const reference
+     \return
+       The map of sprite sheet data
+   ************************************************************************/
     inline SpriteSheetData const& GetSpriteSheetData() const noexcept { return m_loadedSpriteData; }
 
 #ifndef IMGUI_DISABLE
@@ -305,6 +311,27 @@ namespace GE::Assets
       The event to handle
     ************************************************************************/
     void HandleEvent(Events::Event* event) override;
+
+    /*!*********************************************************************
+    \brief
+      Callback function for dragging files into the editor. Retrieves the
+      paths of the files and copies them into their respective directories
+      in the assets folder via file extension filtering.
+    \param pathCount
+      The number of files
+    \param paths
+      The paths of the files
+    ************************************************************************/
+    void AddAssets(int pathCount, const char* paths[]);
+
+    /*!*********************************************************************
+    \brief
+      Copies the filepaths in the container into their respective 
+      directories in the assets folder via file extension filtering.
+    \param files
+      The container of filepahts
+    ************************************************************************/
+    void AddAssets(std::vector<std::string> files);
 #endif
 
 #include "AssetManager.tpp"

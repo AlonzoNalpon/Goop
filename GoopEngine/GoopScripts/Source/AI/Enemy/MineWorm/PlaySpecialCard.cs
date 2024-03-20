@@ -1,12 +1,12 @@
-﻿/*!************************************************************************
-\file PlaySpecialCard.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file   PlaySpecialCard.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script for enemyAi Tree
+        Makes the enemy play a special card from its hand
 
-\brief
-C# script for enemyAi Tree
-Makes the enemy play a special card from its hand
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 
 using System;
 using System.Collections.Generic;
@@ -40,7 +40,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
@@ -77,7 +76,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     public void OnUpdate(uint entityID, double dt)
     {
       Stats EnemyStats = (Stats)GetScriptFromID(entityID, "Stats");
-      //Console.WriteLine("Lets play special card\n");
       Random random = new Random();
       List<CardID> specialCards = new List<CardID> { CardID.SPECIAL_SCREECH };
       int pos = 0;

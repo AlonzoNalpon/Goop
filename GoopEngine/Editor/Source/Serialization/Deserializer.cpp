@@ -6,7 +6,7 @@
         Currently only contains functions for the node tree and prefab
         for the prefab editor.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "Deserializer.h"
@@ -346,12 +346,11 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
     if (iter == value.MemberEnd())
     {
       std::ostringstream oss{};
-      oss << "Unable to find " << prop.get_name().to_string()
-        << " property in " << object.get_type().get_name().to_string();
-      GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-#ifdef _DEBUG
-      std::cout << oss.str() << "\n";
-#endif
+//      oss << "Unable to find " << prop.get_name().to_string()
+//        << " property in " << object.get_type().get_name().to_string();
+//#ifdef _DEBUG
+//      std::cout << oss.str() << "\n";
+//#endif
       continue;
     }
 
@@ -404,9 +403,11 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
       }
       else
       {
+#ifdef DESERIALIZER_DEBUG
         std::ostringstream oss{};
         oss << prop.get_name().to_string() << ": Unable to convert " << ret.get_type().get_name().to_string() << " to " << prop.get_type().get_name().to_string();
         GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#endif
       }
       break;
     }
@@ -507,10 +508,10 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
       {
         if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))
         {
-          std::ostringstream oss{};
+          /*std::ostringstream oss{};
           oss << "Unable to set element " << i << " of type " << elem.get_type().get_name().to_string()
             << " to container of " << view.get_type().get_name().to_string();
-          GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+          GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());*/
         }
       }
     }
@@ -524,20 +525,24 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
         rttr::variant enumValue = view.get_value_type().get_enumeration().name_to_value(indexVal.GetString());
         if (!view.set_value(i, enumValue))
         {
+#ifdef DESERIALIZER_DEBUG
           std::ostringstream oss{};
           oss << "Unable to set element " << i << " of type " << enumValue.get_type().get_name().to_string()
             << " to container of " << view.get_type().get_name().to_string();
           GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#endif
         }
       }
       else if (!view.set_value(i, elem))
       {
         if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))
         {
+#ifdef DESERIALIZER_DEBUG
           std::ostringstream oss{};
           oss << "Unable to set element " << i << " of type " << elem.get_type().get_name().to_string()
             << " to container of " << view.get_type().get_name().to_string();
           GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+#endif
         }
       }
     }
@@ -636,10 +641,10 @@ void Deserializer::DeserializeComponent(rttr::variant& compVar, rttr::type const
             rapidjson::Value::ConstMemberIterator iter{ compJson.FindMember(prop.get_name().to_string().c_str()) };
             if (iter == compJson.MemberEnd())
             {
-              std::ostringstream oss{};
-              oss << "Unable to find " << prop.get_name().to_string()
-                << " property in " << compType.get_name().to_string();
-              GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
+              //std::ostringstream oss{};
+              //oss << "Unable to find " << prop.get_name().to_string()
+              //  << " property in " << compType.get_name().to_string();
+              //GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
               continue;
             }
 
@@ -703,11 +708,12 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
     {
       compVar = type.create({ sprDataVar.get_value<Graphics::SpriteData>(), std::string(value["spriteName"].GetString()), shouldRender });
     }
-    catch (Debug::IExceptionBase& e)
+    catch (Debug::IExceptionBase&)
     {
       std::ostringstream oss{};
-      oss << "Unable to load texture: " << value["spriteName"].GetString() << " | " << e.LogSource();
-      Debug::ErrorLogger::GetInstance().LogError(oss.str());
+      //oss << "Unable to load texture: " << value["spriteName"].GetString() << " | " << e.LogSource();
+      oss << "Cannot find texture: " << value["spriteName"].GetString() << ". Was it deleted?";
+      Debug::ErrorLogger::GetInstance().LogWarning(oss.str());
     }
     return true;
   }
@@ -740,21 +746,7 @@ bool Deserializer::DeserializeOtherComponents(rttr::variant& compVar, rttr::type
   }
   else if (type == rttr::type::get<Component::Scripts>())
   {
-    // get vector of script instances
-    rttr::variant scriptMap{ Component::Scripts::ScriptInstances{} };
-    rapidjson::Value::ConstMemberIterator listIter{ value.FindMember("scriptList") };
-    if (listIter == value.MemberEnd())
-    {
-      GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"scriptList\" property in Script component");
-      return true;
-    }
-    DeserializeBasedOnType(scriptMap, listIter->value);
-    for (auto& s : scriptMap.get_value<Component::Scripts::ScriptInstances>())
-    {
-      s.SetAllFields();
-    }
-    compVar = type.create({ scriptMap.get_value<Component::Scripts::ScriptInstances>() });
-
+    compVar = rttr::type::get<ProxyScripts>().create({ value });
     return true;
   }
 
@@ -773,6 +765,34 @@ std::vector<SpriteData> Deserializer::DeserializeSpriteSheetData(std::string con
   DeserializeBasedOnType(ret, document);
 
   return ret.get_value<std::vector<SpriteData>>();
+}
+
+void Deserializer::DeserializeScriptsComponent(rttr::variant& object, std::string const& data)
+{
+  rapidjson::Document value;
+  value.Parse(data.c_str());
+  if (value.HasParseError())
+  {
+    Debug::ErrorLogger::GetInstance().LogError("Unable to deserialize scripts component");
+    object = rttr::variant{};
+    return;
+  }
+
+  // get vector of script instances
+  rttr::variant scriptMap{ Component::Scripts::ScriptInstances{} };
+  rapidjson::Value::ConstMemberIterator listIter{ value.FindMember("scriptList") };
+  if (listIter == value.MemberEnd())
+  {
+    GE::Debug::ErrorLogger::GetInstance().LogError("Unable to find \"scriptList\" property in Script component");
+    object = rttr::variant{};
+    return;
+  }
+  DeserializeBasedOnType(scriptMap, listIter->value);
+  for (auto& s : scriptMap.get_value<Component::Scripts::ScriptInstances>())
+  {
+    s.SetAllFields();
+  }
+  object = rttr::type::get<Component::Scripts>().create({scriptMap.get_value<Component::Scripts::ScriptInstances>()});
 }
 
 void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value)

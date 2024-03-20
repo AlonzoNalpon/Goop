@@ -8,7 +8,7 @@
         the file) and most likely will not have to be cared about or 
         changed by external users.
   
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 namespace GE::Serialization

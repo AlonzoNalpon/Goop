@@ -4,7 +4,7 @@
 \date   8-February-2024
 \brief  This file contains the definition for the anim event editor
    
- Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved. 
+ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved. 
  ************************************************************************/
 #ifndef ANIM_EVENT_EDITOR_H
 #define ANIM_EVENT_EDITOR_H

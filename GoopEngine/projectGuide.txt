@@ -1,5 +1,5 @@
 [ Solution ]
-.NET Framework 4.72 MUST BE INSTALLED to run the project (for scripting)
+.NET Framework 4.8 MUST BE INSTALLED to run the project (for scripting)
 On startup, either select debug or release mode
 For target, set to x64 instead of "Any CPU"
 
@@ -17,7 +17,5 @@ If the entity does not currently exist in the scene, it will be updated when it 
 [ Images ]
 Only exclusively supports 32 bit depth png images.
 
-[ Disable ImGui ]
-ImGui can be disabled by including the code "#define IMGUI_DISABLE" in pch.h
-The program is may not be fully seperated from ImGui and may result in undefined behaviour, to prevent this. 
-Remove all the folders; ImGui, ImTerm, ImNode, ImGuizmo_1_83, EditorUI. To compile fully without ImGui with the macro defined
+[ Game Release ]
+Game release mode can be built via the configurations and has ImGui disabled when building in this mode

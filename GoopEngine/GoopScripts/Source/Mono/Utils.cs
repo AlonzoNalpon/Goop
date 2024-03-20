@@ -5,7 +5,9 @@
 \brief
 C# script containing all the internal function calls
 **************************************************************************/
+using GoopScripts.Cards;
 using GoopScripts.Input;
+using GoopScripts.Source.Mono;
 using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
@@ -213,18 +215,9 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static object GetScriptFromID(uint entity, string scriptName);
 
-
-    /*!*********************************************************************
-		\brief
-		  Gets the object instance of the game system script given the
-			entity's name
-		\param gameSysEntityName
-			Name of the GameSystem entity
-		\return
-		  The object instance
-		************************************************************************/
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    extern public static object GetGameSysScript(string gameSysEntityName);
+    extern public static void SetScript(uint entity, string scriptName);
+
 
     // /*!*********************************************************************
     //
@@ -288,6 +281,10 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void EndAI(uint entityID);
 
+
+   
+
+
     //[MethodImplAttribute(MethodImplOptions.InternalCall)]
     //extern public static void SetCurrentRunningNode(uint currID);
 
@@ -306,7 +303,7 @@ namespace GoopScripts.Mono
     extern public static void PlayAnimation(string animName, uint entity);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		extern public static void PlaySound(int soundIterator, uint entity);
+		extern public static void PlayRandomSound(int startRange, int endRange, uint entity, float volume = 1.0f);
 
     public enum ChannelType
     {
@@ -337,7 +334,10 @@ namespace GoopScripts.Mono
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static void StopChannel(ChannelType channel);
 
-		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+        extern public static void PauseChannel(ChannelType type, bool paused);
+
+        [MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static void GameSystemResolved();
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -459,7 +459,6 @@ namespace GoopScripts.Mono
 
     public static void ToMainMenu()
     {
-      UI.PauseManager.SetPauseState(0);
       Utils.TransitionToScene("MainMenu");
     }
 
@@ -485,7 +484,13 @@ namespace GoopScripts.Mono
 		extern public static void DestroyEntity(uint entity);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void DestroyEntityByName(string name);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void PlayTransformAnimation(uint entity, string animName);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void PlayAllTweenAnimation(uint parent, string animName);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetTimeScale(float scale);

@@ -1,7 +1,7 @@
 {
     "Name": "Dawson",
     "isActive": true,
-    "Version": 5,
+    "Version": 13,
     "Components": [
         {
             "Transform": {
@@ -42,6 +42,12 @@
                             "g": 1.0,
                             "b": 1.0,
                             "a": 0.0
+                        },
+                        "multiply": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
                         }
                     }
                 },
@@ -61,69 +67,6 @@
                         "scriptName": "Stats",
                         "entityID": 0,
                         "scriptFieldInstList": [
-                            {
-                                "data": {
-                                    "characterAnimsInst": {
-                                        "scriptName": "CharacterAnims",
-                                        "entityID": 32758,
-                                        "scriptFieldInstList": [
-                                            {
-                                                "data": "SS_Dawson_Attack",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_attack"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_Dawson_Slash",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_attack2"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_Dawson_BlockShield",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_block"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_Dawson_DeathNoShield",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_death"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_Dawson_DeathShield",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_deathShield"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_Dawson_Flinch",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_flinch"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_Dawson_Idle",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_idle"
-                                                }
-                                            }
-                                        ]
-                                    }
-                                },
-                                "type": "",
-                                "scriptField": {
-                                    "fieldName": "m_animations"
-                                }
-                            },
                             {
                                 "data": 0,
                                 "type": "System.Int32",
@@ -218,22 +161,93 @@
                         ]
                     },
                     {
-                        "scriptName": "MoleRatBites",
+                        "scriptName": "AnimationManager",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": "SS_Dawson_BlockNoShield",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_block"
+                                }
+                            },
+                            {
+                                "data": "SS_Dawson_DeathNoShield",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_death"
+                                }
+                            },
+                            {
+                                "data": "SS_Dawson_DeathShield",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_deathShield"
+                                }
+                            },
+                            {
+                                "data": "SS_Dawson_Flinch",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_flinch"
+                                }
+                            },
+                            {
+                                "data": "SS_Dawson_Idle",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_idle"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "scriptName": "DawsonDies",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 3,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 4,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "scriptName": "DawsonShoots",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 0,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 2,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "scriptName": "DawsonPunches",
                         "entityID": 0,
                         "scriptFieldInstList": []
                     },
                     {
-                        "scriptName": "LeahDies",
-                        "entityID": 0,
-                        "scriptFieldInstList": []
-                    },
-                    {
-                        "scriptName": "MoleRatScreeches",
-                        "entityID": 0,
-                        "scriptFieldInstList": []
-                    },
-                    {
-                        "scriptName": "MoleRatBlocks",
+                        "scriptName": "DawsonFlinches",
                         "entityID": 0,
                         "scriptFieldInstList": []
                     }
@@ -242,15 +256,76 @@
         },
         {
             "EnemyAI": {
-                "treeID": 12
+                "treeID": 13
+            }
+        },
+        {
+            "Audio": {
+                "sounds": [
+                    {
+                        "sound": "Magical_Shield_Hit1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "Magical_Shield_Hit2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "Magical_Shield_Hit3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_BodyFallDawson1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_BodyFallDawson2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    }
+                ]
             }
         },
         {
             "AnimEvents": {
                 "eventList": [
                     {
-                        "first": 24,
-                        "second": "LeahDies"
+                        "first": 0,
+                        "second": "DawsonShoots"
+                    },
+                    {
+                        "first": 7,
+                        "second": "DawsonDiesWithShield"
+                    },
+                    {
+                        "first": 5,
+                        "second": "DawsonDies"
+                    },
+                    {
+                        "first": 9,
+                        "second": "DawsonPunches"
+                    },
+                    {
+                        "first": 6,
+                        "second": "LeahBlocks"
+                    },
+                    {
+                        "first": 3,
+                        "second": "DawsonFlinches"
                     }
                 ]
             }

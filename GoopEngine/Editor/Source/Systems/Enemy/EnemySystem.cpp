@@ -35,6 +35,10 @@ bool EnemySystem::m_playerExist;
 
 void EnemySystem::InitTree()
 {
+	for (GE::Systems::GameTree& gt : m_treeList)
+	{
+		gt.ClearAllNodes();
+	}
 	EnemySystem::m_treeList.clear();
 	//Get all the trees
 	const std::vector<TreeTemplate>& tempTreeList = GE::AI::TreeManager::GetInstance().GetTreeList();
@@ -80,7 +84,6 @@ void EnemySystem::ReloadTrees()
 
 void EnemySystem::FixedUpdate()
 {
-	
 	auto& frc = GE::FPS::FrameRateController::GetInstance();
 	frc.StartSystemTimer();
 
@@ -153,13 +156,14 @@ GameTree EnemySystem::GenerateGameTree(const GE::AI::TreeTemplate& treeTemp)
 	const std::vector<NodeTemplate>& tree = treeTemp.m_tree;
 
 	GameTree newGamTree{ {},treeTemp.m_treeTempID };
-
+	//std::cout << "\nNEW TREE---------------------------------\n";
 	//Loop through each node in the tree and create a new GameNode
 	for (size_t i{ 0 }; i < tree.size(); ++i)
 	{
 		NodeID ownID = static_cast<unsigned int>(i);
 		NodeID parentID = tree[i].m_parentNode;
 		unsigned int listSize = static_cast<unsigned int>(tree[i].m_childrenNode.size());
+		//std::cout << tree[i].m_scriptName.c_str()  << ":" << ownID << "\n";
 
 		MonoArray* result = mono_array_new(mono_domain_get(), mono_get_uint32_class(), listSize);
 		for (unsigned int j = 0; j < listSize; j++) {
@@ -169,6 +173,7 @@ GameTree EnemySystem::GenerateGameTree(const GE::AI::TreeTemplate& treeTemp)
 		GE::MONO::ScriptInstance scriptInst = GE::MONO::ScriptInstance(tree[i].m_scriptName.c_str(), arg);
 		newGamTree.m_nodeList.push_back(GameNode(tree[i].m_nodeType, scriptInst));
 	}
+	//std::cout << "---------------------------------------------\n";
 	return newGamTree;
 }
 
@@ -316,7 +321,14 @@ void EnemySystem::EndAI(GE::ECS::Entity entityID)
 	enemyAIComp->RefreshCache();
 }
 
+void GameTree::ClearAllNodes()
+{
+	for (GameNode& g : m_nodeList)
+	{
+		g.m_script.FreeScript();
+	}
 
+}
 
 void EnemySystem::DelGameTree()
 {
@@ -331,6 +343,7 @@ void EnemySystem::DelGameTree()
 		if (iter != m_treeList.end()) 
 		{
 			m_treeList.erase(iter);
+			iter->ClearAllNodes();
 		}
 		else   // The tree should be inside the list. if its not inside, we will log a message
 		{

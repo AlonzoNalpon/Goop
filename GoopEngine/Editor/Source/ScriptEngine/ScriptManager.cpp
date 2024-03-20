@@ -11,7 +11,7 @@
   Provides function to retrieve C# class data
   Adds internal call into mono to allow C# to call functions defined in cpp
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "ScriptManager.h"
@@ -29,7 +29,6 @@ Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
 
 #include <filesystem>
 #include <Component/Card.h>
-#include <Component/CardHolder.h>
 #include <GameDef.h>
 #include <Graphics/GraphicsEngine.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
@@ -58,6 +57,8 @@ namespace GE
     bool GE::MONO::ScriptManager::m_CSReloadPending{};
     bool GE::MONO::ScriptManager::m_rebuildCS{};
     std::string  GE::MONO::ScriptManager::m_scnfilePath{};
+    std::string  GE::MONO::ScriptManager::m_csprojPath{};
+    std::string  GE::MONO::ScriptManager::m_batfilePath{};
 
     std::unordered_map<std::string, ScriptFieldType> GE::MONO::ScriptManager::m_ScriptFieldTypeMap
     {
@@ -78,13 +79,14 @@ namespace GE
       { "GoopScripts.Mono.Vec3<System.Double>", ScriptFieldType::DVec3 },
       { "System.Int32[]", ScriptFieldType::IntArr },
       { "GoopScripts.Cards.CardBase.CardID[]", ScriptFieldType::UIntArr },
+      {"System.String[]",ScriptFieldType::StringArr},
       { "System.Collections.Queue", ScriptFieldType::QueueFT },
       { "GoopScripts.Gameplay.Deck", ScriptFieldType::DeckFT },
       { "GoopScripts.Gameplay.DeckManager", ScriptFieldType::DeckManagerFT },
       { "GoopScripts.Gameplay.CharacterType", ScriptFieldType::CharacterTypeFT },
       { "GoopScripts.UI.HealthBar", ScriptFieldType::HealthBarFT },
       { "GoopScripts.Gameplay.CharacterAnims", ScriptFieldType::CharacterAnimsFT }
-	
+
     };
   }
 }
@@ -142,7 +144,20 @@ void GE::MONO::ScriptManager::InitMono()
     m_fileWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CAssembly"), AssemblyFileSystemEvent);
     m_assemblyReloadPending = false;
 
-    m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
+    std::ifstream csfile(assetManager.GetConfigData<std::string>("CSProjPath").c_str());
+    if (csfile.good())
+    {
+      m_csprojPath = assetManager.GetConfigData<std::string>("CSProj");
+      m_batfilePath = assetManager.GetConfigData<std::string>("CSBatFilePath");
+      m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
+      csfile.close();
+    }
+    else
+    {
+      m_csprojPath = assetManager.GetConfigData<std::string>("CSProjexe");
+      m_batfilePath = assetManager.GetConfigData<std::string>("CSBatFilePathexe");
+      m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProjexe"), CSReloadEvent);
+    }
     m_CSReloadPending = false;
   }
   catch (...)
@@ -196,6 +211,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::StartAI", GE::Systems::EnemySystem::StartAI);
   mono_add_internal_call("GoopScripts.Mono.Utils::EndAI", GE::Systems::EnemySystem::EndAI);
 
+
   // Game system stuff
   mono_add_internal_call("GoopScripts.Mono.Utils::GetAnimationTime", GE::MONO::GetAnimationTime);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayAnimation", GE::MONO::PlayAnimation);
@@ -204,15 +220,17 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetChannelVolume", GE::MONO::SetChannelVolume);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetMasterVolume", GE::MONO::GetMasterVolume);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetMasterVolume", GE::MONO::SetMasterVolume);
-  mono_add_internal_call("GoopScripts.Mono.Utils::PlaySound", GE::MONO::PlaySound);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlayRandomSound", GE::MONO::PlayRandomSound);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlaySoundF", GE::MONO::PlaySoundF);
   mono_add_internal_call("GoopScripts.Mono.Utils::StopSound", GE::MONO::StopSound);
   mono_add_internal_call("GoopScripts.Mono.Utils::StopChannel", GE::MONO::StopChannel);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PauseChannel", +[](GE::fMOD::FmodSystem::ChannelType type, bool paused) 
+    {GE::fMOD::FmodSystem::GetInstance().SetChannelPause(type, paused); });
   mono_add_internal_call("GoopScripts.Mono.Utils::SendString", GE::MONO::SendString);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScript", GE::MONO::GetScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptFromID", GE::MONO::GetScriptFromID);
-  mono_add_internal_call("GoopScripts.Mono.Utils::GetGameSysScript", GE::MONO::GetGameSysScript);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScriptInstanceGetScriptInstance", GE::MONO::GetScriptInstance);
+  mono_add_internal_call("GoopScripts.Mono.Utils::SetScript", GE::MONO::SetScript);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToHandState", GE::MONO::SetCardToHandState);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetCardToQueuedState", GE::MONO::SetCardToQueuedState);
@@ -232,6 +250,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetEntityName", GE::MONO::SetEntityName);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetEntityName", GE::MONO::GetEntityName);
   mono_add_internal_call("GoopScripts.Mono.Utils::DestroyEntity", GE::MONO::DestroyEntity);
+  mono_add_internal_call("GoopScripts.Mono.Utils::DestroyEntityByName", GE::MONO::DestroyEntityByName);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetIsActiveEntity", GE::MONO::GetIsActiveEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::SpawnPrefab", GE::MONO::SpawnPrefab);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetObjectWidth", GE::MONO::GetObjectWidth);
@@ -247,6 +266,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetSpriteTint", GE::MONO::SetSpriteTint);
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeOutAudio", GE::MONO::FadeOutAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlayAllTweenAnimation", GE::MONO::PlayAllTweenAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTimeScale", GE::MONO::SetTimeScale);
   mono_add_internal_call("GoopScripts.Mono.Utils::DispatchQuitEvent", GE::MONO::DispatchQuitEvent);
 }
@@ -259,6 +279,7 @@ void GE::MONO::ScriptManager::LoadAssembly()
 void GE::MONO::ScriptManager::LoadAllMonoClass()
 {
   m_monoClassMap.clear();
+  m_allScriptNames.clear();
   MonoImage* image = mono_assembly_get_image(m_coreAssembly);
   const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
   int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
@@ -344,9 +365,9 @@ void GE::MONO::ScriptManager::ReloadAllScripts()
     if (ecs.HasComponent<GE::Component::Scripts>(s.first))
     {
       GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(s.first);
-#ifdef _DEBUG
-      std::cout << s.first << ": " << s.second.size() << " adding\n";
-#endif
+//#ifdef _DEBUG
+//      std::cout << s.first << ": " << s.second.size() << " adding\n";
+//#endif
       for (auto& si : s.second)
       {
         scripts->m_scriptList.push_back(si);
@@ -379,16 +400,14 @@ void GE::MONO::ScriptManager::TestReload()
 
 void GE::MONO::ScriptManager::AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type)
 {
-#ifdef _DEBUG
-  std::cout << "ASSReload\n";
-#endif
+
   if (!m_assemblyReloadPending && change_type == filewatch::Event::modified)
   {
     m_assemblyReloadPending = true;
     auto gsm = &GE::GSM::GameStateManager::GetInstance();
-#ifdef _DEBUG
-    std::cout << "AddCmd to main thread\n";
-#endif
+//#ifdef _DEBUG
+//    std::cout << "AddCmd to main thread\n";
+//#endif
     gsm->SubmitToMainThread([]()
       {
         m_fileWatcher.reset();
@@ -401,10 +420,14 @@ void GE::MONO::ScriptManager::CSReloadEvent(const std::string& path, const filew
 {
   if (!m_CSReloadPending && change_type == filewatch::Event::modified && !m_rebuildCS)
   {
+#ifdef _DEBUG
     std::cout << "RELOAD CS\n";
+#endif
     m_CSReloadPending = true;
     auto gsm = &GE::GSM::GameStateManager::GetInstance();
-    std::cout << "Lets rebuild\n";
+//#ifdef _DEBUG
+//    std::cout << "Lets rebuild\n";
+//#endif
     m_rebuildCS = true;
     gsm->SubmitToMainThread([]()
       {
@@ -444,18 +467,21 @@ std::string GetVisualStudioVersion() {
 #else
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Not using Visual Studio, hotreload disabled");
 #endif
+  std::cout << VSver << "::VS VER\n";
   return VSver;
 }
 
 void GE::MONO::ScriptManager::RebuildCS()
 {
+
+#ifdef _DEBUG
   std::cout << "REBUILDCS\n";
+#endif
   m_CSReloadPending = false;
   if (m_rebuildCS)
   {
     m_rebuildCS = false;
-    Assets::AssetManager& assetManager{ Assets::AssetManager::GetInstance() };
-    std::string const csbat = std::filesystem::absolute(assetManager.GetConfigData<std::string>("CSBatFilePath")).string();
+    std::string const csbat = std::filesystem::absolute(m_batfilePath).string();
     std::string vsVer = GetVisualStudioVersion();
 
     std::string arguments = vsVer;
@@ -467,16 +493,22 @@ void GE::MONO::ScriptManager::RebuildCS()
 
     std::string cdCMD = "\"" + csbat + "\" ";
     std::string command = cdCMD + arguments;
-    std::cout << command.c_str() << "\n";
+//#ifdef _DEBUG
+//    std::cout << command.c_str() << "\n";
+//#endif
     int result = system(command.c_str());
-    m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(assetManager.GetConfigData<std::string>("CSProj"), CSReloadEvent);
+    m_csProjWatcher = std::make_unique < filewatch::FileWatch < std::string>>(m_csprojPath, CSReloadEvent);
     m_CSReloadPending = false;
 
     if (result == 0) {
+#ifdef _DEBUG
       std::cout << "RUN Successfuly\n";
+#endif
     }
     else {
+#ifdef _DEBUG
       std::cout << "DIDNT RUN Successfuly\n";
+#endif
     }
   }
 }
@@ -485,6 +517,9 @@ void GE::MONO::ScriptManager::RebuildCS()
 
 void GE::MONO::ScriptManager::ReloadAssembly()
 {
+#ifdef _DEBUG
+  std::cout << "ASSReload\n";
+#endif
   mono_domain_set(mono_get_root_domain(), false);
   mono_domain_unload(m_appDomain);
   m_monoClassMap.clear();
@@ -502,6 +537,16 @@ void GE::MONO::ScriptManager::ReloadAssembly()
   ReloadAllScripts();
   es->ReloadTrees();
   
+}
+
+void GE::MONO::ScriptManager::ReloadScripts()
+{
+  AddInternalCalls();
+  LoadAllMonoClass();
+  LoadAssembly();
+  ReloadAllScripts();
+  GE::Systems::EnemySystem* es = GE::ECS::EntityComponentSystem::GetInstance().GetSystem<GE::Systems::EnemySystem>();
+  es->ReloadTrees();
 }
 
 MonoAssembly* GE::MONO::ScriptManager::GetMonoAssembly()
@@ -575,7 +620,7 @@ ScriptFieldType GE::MONO::ScriptManager::MonoTypeToScriptFieldType(MonoType* mon
   auto it = m_ScriptFieldTypeMap.find(typeName);
   if (it == m_ScriptFieldTypeMap.end())
   {
-    GE::Debug::ErrorLogger::GetInstance().LogWarning("Unable to access c# field type" + typeName, false);
+    //GE::Debug::ErrorLogger::GetInstance().LogWarning("Unable to access c# field type" + typeName, false);
     return ScriptFieldType::Void;
   }
 
@@ -742,6 +787,33 @@ void GE::MONO::DestroyEntity(GE::ECS::Entity entity)
   ecs.DestroyEntity(entity);
 }
 
+void GE::MONO::DestroyEntityByName(MonoString* name)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  ECS::Entity entity{ ecs.GetEntity(MonoStringToSTD(name)) };
+
+  // Call OnDestroy function on entity
+  // Ignore if entity is inactive
+  if (ecs.GetIsActiveEntity(entity))
+  {
+    if (ecs.HasComponent<GE::Component::Scripts>(entity))
+    {
+      GE::Component::Scripts* scripts = ecs.GetComponent<GE::Component::Scripts>(entity);
+      for (auto script : scripts->m_scriptList)
+      {
+        MonoMethod* onDestroy = mono_class_get_method_from_name(script.m_scriptClass, "OnDestroy", 1);
+        if (onDestroy)
+        {
+          std::vector<void*> params = { &entity };
+          mono_runtime_invoke(onDestroy, mono_gchandle_get_target(script.m_gcHandle), params.data(), nullptr);
+        }
+        mono_gchandle_free(script.m_gcHandle);
+      }
+    }
+  }
+
+  ecs.DestroyEntity(entity);
+}
 
 
 void GE::MONO::PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animName)
@@ -751,6 +823,25 @@ void GE::MONO::PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animNa
   if (tween)
   {
     tween->m_playing = MonoStringToSTD(animName);
+  }
+}
+
+void GE::MONO::PlayAllTweenAnimation(GE::ECS::Entity parent, MonoString* animName)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  std::string const anim{ MonoStringToSTD(animName) };
+  auto pTween = ecs.GetComponent<GE::Component::Tween>(parent);
+  if (pTween)
+  {
+    pTween->m_playing = anim;
+  }
+  for (GE::ECS::Entity const& child : ecs.GetChildEntities(parent))
+  {
+    auto cTween = ecs.GetComponent<GE::Component::Tween>(child);
+    if (cTween)
+    {
+      cTween->m_playing = anim;
+    }
   }
 }
 
@@ -880,6 +971,8 @@ ScriptField GE::MONO::ScriptManager::GetScriptField(std::string className, std::
 {
   return m_monoClassMap[className].m_ScriptFieldMap[fieldName];
 }
+
+
 
 //rttr::variant  GE::MONO::ScriptManager::GetScriptFieldInst(std::string const& listType) {
 //  if (listType == "System.Int32")
@@ -1017,13 +1110,13 @@ MonoObject* GE::MONO::GetScriptFromID(GE::ECS::Entity entity, MonoString* script
   return scriptInst->m_classInst;
 }
 
-MonoObject* GE::MONO::GetGameSysScript(MonoString* gameSysEntityName)
+void GE::MONO::SetScript(GE::ECS::Entity entity, MonoString* scriptName)
 {
   GE::ECS::EntityComponentSystem& ecs{ GE::ECS::EntityComponentSystem::GetInstance() };
-  auto gameComp = ecs.GetComponent<GE::Component::Game>(ecs.GetEntity(MonoStringToSTD(gameSysEntityName)));
-  GE::MONO::ScriptInstance& scriptinst = gameComp->m_gameSystemScript;
-
-  return scriptinst.m_classInst;
+  Component::Scripts comp;
+  ecs.AddComponent<GE::Component::Scripts>(entity, comp);
+  GE::Component::Scripts* allScripts = ecs.GetComponent<Component::Scripts>(entity);
+  allScripts->m_scriptList.emplace_back(MonoStringToSTD(scriptName), entity);
 }
 
 void GE::MONO::PlayAnimation(MonoString* animName, GE::ECS::Entity entity)
@@ -1043,22 +1136,19 @@ double  GE::MONO::GetAnimationTime(MonoString* animName)
   size_t animID{ Graphics::GraphicsEngine::GetInstance().animManager.GetAnimID(str) };
   
   GE::Graphics::SpriteAnimation test = Graphics::GraphicsEngine::GetInstance().animManager.GetAnim(animID);
-  return (static_cast<double>(test.frames.size()) / static_cast<double>(test.speed));
+  return (static_cast<double>(test.frames.size()) * static_cast<double>(test.speed));
 }
 
 
-void GE::MONO::PlaySound(int soundIterator, GE::ECS::Entity entity)
+void GE::MONO::PlayRandomSound(int startRange, int endRange, GE::ECS::Entity entity, float volume)
 {
   GE::ECS::EntityComponentSystem* ecs = &(GE::ECS::EntityComponentSystem::GetInstance());
   auto* comp = ecs->GetComponent<GE::Component::Audio>(entity);
 
   if (comp)
   {
-    if (soundIterator < comp->m_sounds.size())
-    {
-      comp->Play((*(comp->m_sounds.begin() + soundIterator)).m_sound);
-      return;
-    }
+    comp->PlayRandom(startRange, endRange, volume);
+    return;
   }
   GE::Debug::ErrorLogger::GetInstance().LogError("Trying to play a sound that does not exist from a script");
 }

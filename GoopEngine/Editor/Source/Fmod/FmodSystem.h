@@ -1,13 +1,14 @@
 /*!*********************************************************************
 \file   FmodSystem.h
 \author c.phua\@digipen.edu
+\co-authors a.nalpon\@digipen.edu
 \date   8 November 2023
 \brief
     Fmod system.
     Uses the fMOD library to create sounds and channels.
     There are four channels: BGM, SFX, Voice, TotalChannels.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <fmod.hpp>
@@ -157,7 +158,24 @@ namespace GE
       ************************************************************************/
       void StopChannel(ChannelType channel);
 
+      /*!*********************************************************************
+      \brief
+        Sets whether channel should be paused
+      \param channel
+        The channel to set paused state
+      \param paused
+        The flag to indicate whether channel should be paused
+      \return
+      ************************************************************************/
+      void SetChannelPause(ChannelType channel, bool paused);
     private:
+      static constexpr double FadeTime{ 0.3 };
+      struct PausePlayRequest 
+      {
+        bool pause;
+        ChannelType channel;
+        double timer{};
+      }; // jury rigged pause play request
       FMOD::System* m_fModSystem{ nullptr };
 
       using SoundMap = std::map<std::string, FMOD::Sound*>;
@@ -169,7 +187,7 @@ namespace GE
       ChannelGroups m_channelGroups;
       SoundChannel m_channels;
       std::map<ChannelType, float> m_volumes;
-
+      std::vector<PausePlayRequest> m_pausePlayRequests;
       /*!*********************************************************************
       \brief
         Prints out error message into console if there is an error.

@@ -6,7 +6,7 @@
         Anything that needs to be serialized/deserialized needs to be
         registered.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <Component/Components.h>
@@ -93,14 +93,6 @@ RTTR_REGISTRATION
       rttr::value("DAWSON_SHIELD", GE::Component::Card::CardID::DAWSON_SHIELD),
       rttr::value("SPECIAL_CHARGEUP", GE::Component::Card::CardID::SPECIAL_CHARGEUP),
       rttr::value("SPECIAL_TIMEWRAP", GE::Component::Card::CardID::SPECIAL_TIMEWRAP)
-      );
-
-  rttr::registration::enumeration<GE::Component::CardHolder::DataType>("DataType")
-    (
-      rttr::value("QUEUE", GE::Component::CardHolder::DataType::QUEUE),
-      rttr::value("DECK", GE::Component::CardHolder::DataType::DECK),
-      rttr::value("HAND", GE::Component::CardHolder::DataType::HAND),
-      rttr::value("NONE", GE::Component::CardHolder::DataType::NONE)
       );
 
   rttr::registration::enumeration<MONO::CharacterType>("CharacterType")

@@ -9,7 +9,7 @@
 	Adds internal call into mono to allow C# to call functions defined in cpp
 
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <Singleton/Singleton.h>
 #include <mono/jit/jit.h>
@@ -55,7 +55,8 @@ namespace GE::MONO
 		static bool m_CSReloadPending;
 		static bool m_rebuildCS;
 		static std::string m_scnfilePath;
-
+		static std::string m_csprojPath;
+		static std::string m_batfilePath;
 		/*!*********************************************************************
 		\brief
 			Init function for Mono. Sets the assembly path, initializes the domains and Load the C# Assembly.
@@ -101,10 +102,52 @@ namespace GE::MONO
 		MonoObject* InstantiateClass(const char* className);
 
 		static void LoadAppDomain();
+
+		/*!*********************************************************************
+\brief
+	Function to add internal function calls to mono
+************************************************************************/
 		static void AddInternalCalls();
+
+		/*!*********************************************************************
+\brief
+	Function to load mono c# assembly
+************************************************************************/
 		static void LoadAssembly();
+
+		/*!*********************************************************************
+\brief
+	Function to reload all the c# scripts from mono
+************************************************************************/
 		static void ReloadAllScripts();
+
+		/*!*********************************************************************
+\brief
+	Function to pass into the file watcher. detects for any changes in the mono dll file.
+	If changes detected, it will reload the assembly and the c# scripts
+
+
+\params const std::string& path
+	class Name of the c# class object we want to instantiate
+
+\params  const filewatch::Event change_type
+	The change type of the file its watching (e.g modified, add)
+
+************************************************************************/
 		static void AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type);
+
+		/*!*********************************************************************
+\brief
+	Function to pass into the file watcher. detects for any changes in the c# project code.
+	If changes detected, it will rebuild the c# project to generate a new dll file
+
+
+\params const std::string& path
+	class Name of the c# class object we want to instantiate
+
+\params  const filewatch::Event change_type
+	The change type of the file its watching (e.g modified, add)
+************************************************************************/
 		static void CSReloadEvent(const std::string& path, const filewatch::Event change_type);
 
 
@@ -119,7 +162,8 @@ namespace GE::MONO
 		************************************************************************/
 		static void LoadAllMonoClass();
 
-		static void ReloadAssembly();
+		static void ReloadAssembly(); 
+		static void ReloadScripts();
 		static void RebuildCS();
 
 		/*!*********************************************************************
@@ -227,16 +271,7 @@ namespace GE::MONO
 	MonoObject* GetScriptFromID(GE::ECS::Entity entity, MonoString* scriptName);
 	MonoObject* GetScriptInstance(GE::ECS::Entity entityID, MonoString* scriptName);
 
-	/*!*********************************************************************
-	\brief
-		Gets the object instance of the game system script given the
-		entity's name
-	\param gameSysEntityName
-		Name of the GameSystem entity
-	\return
-		The object instance
-	************************************************************************/
-	MonoObject* GetGameSysScript(MonoString* gameSysEntityName);
+	void SetScript(GE::ECS::Entity entity, MonoString* scriptName);
 
 	/*!*********************************************************************
 	\brief
@@ -338,22 +373,18 @@ namespace GE::MONO
 
 	/*!******************************************************************
 	\brief
-		Plays a sound on an audio component of an entity.
-
-	\param soundIterator
-		An iterator to which sound in the container will be played.
-		To facilliate random sound bites playing, user will 
-		randomise these values between a range which the sound 
-		is within the vector.
-
-		i.e. sounds { hurt1, hurt2, groan1, groan2, groan3 }
-		To play a groan sound, random between 2 & 4, and use that
-		resultant value is the soundIterator
-
+		Plays a random sound on an audio component of an entity given a
+		range.
+	\param startRange
+		The start index of the range of sounds to play
+	\param endRange
+		The end index of the range
 	\param entity
 		Entity who holds the sound
+	\param volume
+		The volume to play the sound at
 	********************************************************************/
-	void PlaySound(int soundIterator, GE::ECS::Entity entity);
+	void PlayRandomSound(int startRange, int endRange, GE::ECS::Entity entity, float volume = 1.f);
 
 	/*!*********************************************************************
 	\brief 
@@ -451,6 +482,10 @@ namespace GE::MONO
 		The converted MonoString
 	************************************************************************/
 	MonoString* STDToMonoString(const std::string& str);
+
+
+	template<typename T>
+	std::vector<T> MonoArrayToSTD(MonoArray* arr);
 
 	/*!*********************************************************************
 	\brief
@@ -590,17 +625,36 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
-		Destroys and entity
+		Destroys an entity
 	\param entity
 		The entity to destroy
 	************************************************************************/
 	void DestroyEntity(GE::ECS::Entity entity);
+
+	/*!*********************************************************************
+	\brief
+		Destroys an entity
+	\param name
+		The name of the entity to destroy
+	************************************************************************/
+	void DestroyEntityByName(MonoString* name);
 
 	/*!******************************************************************
 	\brief
 	  Plays an animation from the tween system of an entity.
 	********************************************************************/
 	void PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animName);
+
+	/*!*********************************************************************
+	\brief
+	  Triggers a tween animation of a parent entity and all its children.
+		The animation name should be the same.
+	\param parent
+		The parent entity
+	\param animName
+		The name of the animation
+	************************************************************************/
+	void PlayAllTweenAnimation(GE::ECS::Entity parent, MonoString* animName);
 
 	float GetChannelVolume(int channel);
 
@@ -618,4 +672,6 @@ namespace GE::MONO
 	********************************************************************/
 	void DispatchQuitEvent();
 
+
+#include "ScriptManager.tpp"
 }

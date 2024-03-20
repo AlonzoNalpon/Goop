@@ -1,3 +1,12 @@
+/*!*********************************************************************
+\file   SpriteAnimEditor.cpp
+\author a.nalpon\@digipen.edu
+\date   15-March-2024
+\brief  Displays the ImGui window for the sprite animation editor.
+        Allows adding of events at certain keyframes of animations.
+ 
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #ifndef IMGUI_DISABLE
 #include <EditorUI/SpriteAnimEditor.h>

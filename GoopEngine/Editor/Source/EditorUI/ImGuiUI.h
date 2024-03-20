@@ -1,11 +1,11 @@
 /*!*********************************************************************
 \file   ImGuiUI.h 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   24 September 2023
 \brief  
   ImGui Editor UI Wrapper
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #ifndef IMGUI_DISABLE

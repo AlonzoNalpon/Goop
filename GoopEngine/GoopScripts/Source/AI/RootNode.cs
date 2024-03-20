@@ -1,10 +1,11 @@
-﻿/*!************************************************************************
-\file RootNode.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file   RootNode.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script attached to a Root node.
 
-\brief
-C# script attached to a Root node.
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,24 +77,20 @@ namespace GoopScripts.AI
       if (m_childID.Count > 0)
       {
         SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
+        //Console.WriteLine("RUN NODE: " + m_childID[0]);
         RunChildNode(m_childID[0]);
         NODE_STATES childResult = (NODE_STATES)GetChildResult();
 
         if (childResult == NODE_STATES.STATE_SUCCEED)
         {
-          // Console.WriteLine("CLEARED THE TREE!\n");
-          //Console.WriteLine("CHILD SUCCEED!\n");
           ResetNode();
         }
         else if (childResult == NODE_STATES.STATE_FAILED)
         {
-          //Console.WriteLine("CLEARED THE TREE!\n");
-          //Console.WriteLine("CHILD FAILED!\n");
           ResetNode();
         }
         else
         {
-          //Console.WriteLine("RootNode Waiting\n");
           SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
         }
       }
@@ -118,7 +115,6 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void ReturnFromChild(uint entityID)
     {
-      // Console.WriteLine("CLEARED THE TREE!\n");
       OnExit();
     }
 

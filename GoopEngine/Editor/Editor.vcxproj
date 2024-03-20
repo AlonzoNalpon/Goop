@@ -5,6 +5,10 @@
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Game Build|x64">
+      <Configuration>Game Build</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
@@ -31,6 +35,13 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -44,8 +55,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\prop-pages\standard-release.props" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\prop-pages\game release.props" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <LibraryPath>$(SolutionDir)lib\rttr-0.9.6\lib\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\filewatch;$(IncludePath)</IncludePath>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <LibraryPath>$(SolutionDir)lib\rttr-0.9.6\lib\Release;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)lib\filewatch;$(IncludePath)</IncludePath>
@@ -60,7 +81,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -78,7 +99,32 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+    </Link>
+    <PostBuildEvent />
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">
+    <ClCompile>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -109,6 +155,7 @@
     <ClCompile Include="Source\Prefabs\PrefabManager.cpp" />
     <ClCompile Include="Source\Prefabs\VariantPrefab.cpp" />
     <ClCompile Include="Source\ScriptEngine\ScriptUtils.cpp" />
+    <ClCompile Include="Source\Serialization\ProxyScripts.cpp" />
     <ClCompile Include="Source\Serialization\Registration\RegisterEnumsAndFuncs.cpp" />
     <ClCompile Include="Source\Systems\AnimEvent\AnimEventsSystem.cpp" />
     <ClCompile Include="Source\Systems\Audio\AudioSystem.cpp" />
@@ -143,34 +190,42 @@
     <ClCompile Include="Source\ImGui\backends\imgui_impl_glfw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\ImGui\backends\imgui_impl_opengl3.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\ImGui\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\ImGui\imgui_demo.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\ImGui\imgui_draw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\ImGui\imgui_tables.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\ImGui\imgui_widgets.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\ImGui\misc\cpp\imgui_stdlib.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\ImNode\imnodes.cpp" />
     <ClCompile Include="Source\ImNode\NodeEditor.cpp" />
@@ -184,7 +239,9 @@
     <ClCompile Include="Source\pch.cpp">
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\SceneManager\SceneManager.cpp" />
@@ -206,8 +263,6 @@
     <ClCompile Include="Source\Fmod\FmodSystem.cpp" />
     <ClCompile Include="Source\Systems\Button\ButtonScriptSystem.cpp" />
     <ClCompile Include="Source\Systems\Button\ButtonSystem.cpp" />
-    <ClCompile Include="Source\Systems\CardHolder\CardHolderSystem.cpp" />
-    <ClCompile Include="Source\Systems\DraggableObject\DraggableObjectSystem.cpp" />
     <ClCompile Include="Source\Systems\Enemy\EnemySystem.cpp" />
     <ClCompile Include="Source\Systems\GameSystem\GameSystem.cpp" />
     <ClCompile Include="Source\Systems\ParitcleSystem\ParticleSystem.cpp" />
@@ -235,10 +290,7 @@
     <ClInclude Include="Source\Component\Audio.h" />
     <ClInclude Include="Source\Component\Button.h" />
     <ClInclude Include="Source\Component\Card.h" />
-    <ClInclude Include="Source\Component\CardHolder.h" />
-    <ClInclude Include="Source\Component\CardHolderElem.h" />
     <ClInclude Include="Source\Component\Emitter.h" />
-    <ClInclude Include="Source\Component\Game.h" />
     <ClInclude Include="Source\EditorUI\AnimEventEditor.h" />
     <ClInclude Include="Source\EditorUI\EditorTheme.h" />
     <ClInclude Include="Source\EditorUI\SpriteAnimEditor.h" />
@@ -250,7 +302,6 @@
     <ClInclude Include="Source\Commands\ICommand.h" />
     <ClInclude Include="Source\Commands\ImGuiCommands.h" />
     <ClInclude Include="Source\Component\Camera.h" />
-    <ClInclude Include="Source\Component\Draggable.h" />
     <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\Component\Components.h" />
     <ClInclude Include="Source\Component\Grid.h" />
@@ -354,6 +405,7 @@
     <ClInclude Include="Source\Serialization\GooStream\GooStream.h" />
     <ClInclude Include="Source\Serialization\GooStream\IGooStream.h" />
     <ClInclude Include="Source\Serialization\JsonKeys.h" />
+    <ClInclude Include="Source\Serialization\ProxyScripts.h" />
     <ClInclude Include="Source\Serialization\Serializer.h" />
     <ClInclude Include="Source\Serialization\SpriteData.h" />
     <ClInclude Include="Source\SpriteAnimation\Def\SpriteAnimationFlags.h" />
@@ -371,8 +423,6 @@
     <ClInclude Include="Source\Systems\Audio\AudioSystem.h" />
     <ClInclude Include="Source\Systems\Button\ButtonScriptSystem.h" />
     <ClInclude Include="Source\Systems\Button\ButtonSystem.h" />
-    <ClInclude Include="Source\Systems\CardHolder\CardHolderSystem.h" />
-    <ClInclude Include="Source\Systems\DraggableObject\DraggableObjectSystem.h" />
     <ClInclude Include="Source\Systems\Enemy\EnemySystem.h" />
     <ClInclude Include="Source\Systems\GameSystem\GameSystem.h" />
     <ClInclude Include="Source\Systems\ParitcleSystem\ParticleSystem.h" />

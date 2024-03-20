@@ -7,7 +7,7 @@
 Blank card, derived from card base. This class serves the purpose
 of doing nothing as a default case
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Mono;
 using GoopScripts.Gameplay;
@@ -19,7 +19,7 @@ namespace GoopScripts.Cards
   {
     public enum CardID
     {
-      NO_CARD,
+      NO_CARD = 0,
 
       // Basic enemy cards
       BASIC_ATTACK,
@@ -62,13 +62,11 @@ namespace GoopScripts.Cards
     float m_actionVal;
     int m_duration;
     CardType cardType;
-    string m_animationSprite;  
 
     public float Value { get { return m_actionVal; } set { m_actionVal = value; } }
     public int Duration { get { return m_duration; } set { m_duration = value; } }
+    public CardID ID {  get {  return m_cardID; } }
     public CardType Type { get { return cardType; } }
-
-    public string SpriteAnimation { get { return m_animationSprite; } set { m_animationSprite = value; } }
 
     /*!*********************************************************************
     \brief  
@@ -76,7 +74,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public CardBase(CardID cardID, CardType cardType, string animationSprite) { this.m_cardID = cardID; this.cardType = cardType; this.m_animationSprite = animationSprite; Console.WriteLine(this.m_animationSprite); }
+    public CardBase(CardID cardID, CardType cardType) { this.m_cardID = cardID; this.cardType = cardType; }
 
     /*!*********************************************************************
     \brief

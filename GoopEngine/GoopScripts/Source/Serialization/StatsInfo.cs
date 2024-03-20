@@ -1,4 +1,13 @@
-﻿using GoopScripts.Cards;
+﻿/*!*********************************************************************
+\file   StatsInfo.cs
+\author chengen.lau\@digipen.edu
+\date   15-March-2024
+\brief  Struct encapsulating the data required to load the Player
+        and Enemy Stats object.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Cards;
 using System;
 using System.Collections.Generic;
 using System.Linq;

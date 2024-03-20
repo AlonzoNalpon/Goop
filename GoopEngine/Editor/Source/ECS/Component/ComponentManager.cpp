@@ -5,7 +5,7 @@
 \brief  
   Custom array data structure to contain components
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "ComponentManager.h"

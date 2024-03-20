@@ -1,0 +1,464 @@
+{
+    "Name": "Confirm Quit",
+    "isActive": true,
+    "Version": 0,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 0, 0, 0 }",
+                "scale": "{ 1, 1, 1 }",
+                "rot": "{ 0, 0, 0 }",
+                "worldPos": "{ 0, 0, 101 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        }
+    ],
+    "SubData": [
+        {
+            "ID": 1,
+            "isActive": true,
+            "Name": "[Image] Overlay",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, -1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, -1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 0, 0 }",
+                        "width": 1920.0,
+                        "height": 1080.0,
+                        "min": "{ -960, -540 }",
+                        "max": "{ 960, 540 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 1920,
+                                "height": 1080,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Pause_OverlayBG",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 2,
+            "isActive": true,
+            "Name": "[Button] No",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 150, -75, 1 }",
+                        "scale": "{ 0.65, 0.65, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 150, -75, 1 }",
+                        "worldScale": "{ 0.65, 0.65, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 150, -75 }",
+                        "width": 239.0,
+                        "height": 86.0,
+                        "min": "{ 30.5, -118 }",
+                        "max": "{ 269.5, -32 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 400,
+                                "height": 160,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Button_Base",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "MenuClose",
+                                "entityID": 62,
+                                "scriptFieldInstList": [
+                                    {
+                                        "data": 60,
+                                        "type": "System.Int32",
+                                        "scriptField": {
+                                            "fieldName": "DeeperPauseMenuID"
+                                        }
+                                    },
+                                    {
+                                        "data": 27,
+                                        "type": "System.Int32",
+                                        "scriptField": {
+                                            "fieldName": "PauseMenuID"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "Return|60|Show|27",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 3,
+            "isActive": true,
+            "Name": "Text",
+            "Parent": 2,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -40, -30, 1 }",
+                        "scale": "{ 1.53846, 1.53846, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -40, -30, 1 }",
+                        "worldScale": "{ 1.53846, 1.53846, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "No",
+                        "clr": {
+                            "r": 1.1294118165969849,
+                            "g": 0.8313725590705872,
+                            "b": 0.7764706015586853,
+                            "a": 1.0
+                        },
+                        "scale": 0.17499999701976776,
+                        "fontID": 2
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 4,
+            "isActive": true,
+            "Name": "[Image] Confirm Quit Base",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 650,
+                                "height": 300,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Pause_Menu_Base",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 5,
+            "isActive": true,
+            "Name": "[Button] Yes",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -150, -75, 1 }",
+                        "scale": "{ 0.65, 0.65, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -150, -75, 1 }",
+                        "worldScale": "{ 0.65, 0.65, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ -150, -75 }",
+                        "width": 239.0,
+                        "height": 86.0,
+                        "min": "{ -269.5, -118 }",
+                        "max": "{ -30.5, -32 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 400,
+                                "height": 160,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Button_Base",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "QuitGame",
+                                "entityID": 64,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 6,
+            "isActive": true,
+            "Name": "Text",
+            "Parent": 5,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -60, -30, 1 }",
+                        "scale": "{ 1.53846, 1.53846, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -60, -30, 1 }",
+                        "worldScale": "{ 1.53846, 1.53846, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Yes",
+                        "clr": {
+                            "r": 1.1294118165969849,
+                            "g": 0.8313725590705872,
+                            "b": 0.7764706015586853,
+                            "a": 1.0
+                        },
+                        "scale": 0.17499999701976776,
+                        "fontID": 2
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 7,
+            "isActive": true,
+            "Name": "[Image] Quit Game Banner",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 210, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 210, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 266,
+                                "height": 71,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Surrender_Header",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 8,
+            "isActive": true,
+            "Name": "[Image] Text_AreYouSure",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 63.2407, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 63.2407, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 281,
+                                "height": 37,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Text_AreYouSure",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        }
+    ]
+}

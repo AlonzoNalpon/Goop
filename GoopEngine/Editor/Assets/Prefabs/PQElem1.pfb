@@ -91,18 +91,6 @@
                 "lastCollided": false,
                 "currCollided": false
             }
-        },
-        {
-            "Card": {
-                "cardID": "NO_CARD",
-                "tgtEntity": 11
-            }
-        },
-        {
-            "CardHolderElem": {
-                "holder": 11,
-                "elemIdx": 0
-            }
         }
     ],
     "SubData": []

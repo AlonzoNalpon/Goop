@@ -1,12 +1,12 @@
-﻿/*!************************************************************************
-\file RunFromPlayer.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file  RunFromPlayer.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script attached to a leaf node.
+        Used to move the enemy away from the player
 
-\brief
-C# script attached to a leaf node.
-Used to move the enemy away from the player
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +36,6 @@ namespace GoopScripts.AI.Enemy
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      //Console.WriteLine("RUN fromplayerID:" + m_nodeID);
-
     }
 
 
@@ -69,7 +67,6 @@ namespace GoopScripts.AI.Enemy
     {
       if (PlayerExist())
       {
-        //Console.WriteLine("Run Move awway\n");
         uint playerID = GetPlayerID();
         Vec3<double> playerPos = GetPosition(playerID);
         Vec3<double> currPos = GetPosition(entityID);

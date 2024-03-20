@@ -6,7 +6,7 @@
         the selected card to the queue on click and triggers on hover
         events.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Gameplay;
 using GoopScripts.Mono;
@@ -21,6 +21,7 @@ namespace GoopScripts.Button
   public class SelectCard : IButtonClick, IButtonHoverEnter, IButtonHoverExit
   {
     static public uint m_cardHover; // holds entity for hover effect
+    Random rng = new Random();
 
     public SelectCard() { }
 
@@ -33,7 +34,7 @@ namespace GoopScripts.Button
 		************************************************************************/
     public void OnClick(uint entity)
     {
-      if (GameManager.IsResolutionPhase() || Tutorial.IsResolutionPhase())
+      if (GameManager.IsResolutionPhase())
       {
         return;
       }
@@ -47,9 +48,8 @@ namespace GoopScripts.Button
       }
 
       Utils.SetIsActiveEntity(m_cardHover, false);
-      Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.PlaySoundF("SFX_CardPlay" + rng.Next(1,6), 0.7f + (float)rng.NextDouble() * 0.2f, Utils.ChannelType.SFX, false);
       player.QueueCardByID(cardId);
-      QueueCardDisplay.m_cardSelected = true;
     }
 
     /*!*********************************************************************

@@ -1,6 +1,6 @@
 /*!*********************************************************************
 \file   ErrorLogger.cpp 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   17 September 2023
 \brief  
   Defines non template functions for logging. Constructor opens
@@ -10,7 +10,7 @@
 	his is so the log file is easier to find as the time is closer
 	o which one would be looking for the logs.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #ifndef IMGUI_DISABLE

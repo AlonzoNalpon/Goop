@@ -1,11 +1,12 @@
 /*!*********************************************************************
 \file   TweenSystem.cpp
 \author c.phua\@digipen.edu
+\co-authors a.nalpon\@digipen.edu
 \date   20 September 2023
 \brief
 	Uses tweening to update entity's position.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 
 #include <pch.h>
@@ -46,7 +47,7 @@ void TweenSystem::FixedUpdate()
 		if (tween->m_tweens.find(tween->m_playing) == tween->m_tweens.end())
 			continue;
 		// Find the tween being played in the map, then find the step being played of the tween
-		auto [target, scale, rot, spriteTint, textColor, duration, scriptName] 
+		auto [target, scale, rot, spriteTint, spriteMult, textColor, duration, scriptName] 
 			= tween->m_tweens[tween->m_playing][tween->m_step];
 
 		if (tween->m_timeElapsed > duration)
@@ -56,6 +57,7 @@ void TweenSystem::FixedUpdate()
 			tween->m_originalScale = scale;
 			tween->m_originalRot = rot;
 			tween->m_originalSpriteTint = spriteTint;
+			tween->m_originalSpriteMult = spriteMult;
 			tween->m_originalTextColor = textColor;
 			// Get Scripts
 			auto* scripts = m_ecs->HasComponent<GE::Component::Scripts>(entity) ? m_ecs->GetComponent<GE::Component::Scripts>(entity) : nullptr;
@@ -75,7 +77,7 @@ void TweenSystem::FixedUpdate()
 				}
 			}
 
-			double normalisedTime = tween->m_timeElapsed / duration;
+			double normalisedTime = duration == 0.f ? 1.f : tween->m_timeElapsed / duration;
 			trans->m_pos = Tweening(tween->m_originalPos, target, normalisedTime);
 			trans->m_scale = Tweening(tween->m_originalScale, scale, normalisedTime);
 			trans->m_rot = Tweening(tween->m_originalRot, rot, normalisedTime);
@@ -83,6 +85,8 @@ void TweenSystem::FixedUpdate()
 			{
 				sprite->m_spriteData.SetTint(
 					Tweening(tween->m_originalSpriteTint, spriteTint, normalisedTime));
+				sprite->m_spriteData.SetMult(
+					Tweening(tween->m_originalSpriteMult, spriteMult, normalisedTime));
 			}
 			if (text)
 			{
@@ -107,12 +111,16 @@ void TweenSystem::FixedUpdate()
 				tween->m_originalScale = trans->m_scale;
 				tween->m_originalRot = trans->m_rot;
 				if (sprite)
+				{
 					tween->m_originalSpriteTint = sprite->m_spriteData.info.tint;
+					tween->m_originalSpriteMult = sprite->m_spriteData.info.multiply;
+				}
 				if (text)
 					tween->m_originalTextColor = text->m_clr;
 				tween->m_started = true;
 			}
-			double normalisedTime = tween->m_timeElapsed / duration;
+
+			double normalisedTime = duration == 0.f ? 1.f : tween->m_timeElapsed / duration;
 			trans->m_pos = Tweening(tween->m_originalPos, target, normalisedTime);
 			trans->m_scale = Tweening(tween->m_originalScale, scale, normalisedTime);
 			trans->m_rot = Tweening(tween->m_originalRot, rot, normalisedTime);
@@ -120,6 +128,8 @@ void TweenSystem::FixedUpdate()
 			{
 				sprite->m_spriteData.SetTint(
 					Tweening(tween->m_originalSpriteTint, spriteTint, normalisedTime));
+				sprite->m_spriteData.SetMult(
+					Tweening(tween->m_originalSpriteMult, spriteMult, normalisedTime));
 			}
 			if (text) // set the text color if text component exists
 			{

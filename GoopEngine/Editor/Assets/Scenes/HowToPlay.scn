@@ -36,6 +36,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -110,6 +116,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -168,6 +180,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -295,6 +313,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -543,6 +567,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -618,6 +648,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -660,9 +696,6 @@
             23,
             28,
             30,
-            35,
-            36,
-            37,
             116
         ],
         "Components": [
@@ -755,16 +788,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ -107, -150 }",
-                    "max": "{ 107, 150 }",
-                    "render": false
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -783,30 +806,17 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "CardBaseFront_Attack",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "SelectCard",
-                            "entityID": 17,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -821,59 +831,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ -471.167, 88.8957, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 55.5, 1 }",
+                    "worldPos": "{ -471.167, 88.8957, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 55.5 }",
-                    "width": 119.0,
-                    "height": 111.0,
-                    "min": "{ -59.5, 0 }",
-                    "max": "{ 59.5, 111 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 119,
-                            "height": 111,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            }
-                        }
-                    },
-                    "spriteName": "CardIcon_LeahAttackBeam",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "ReturnFromQueue",
-                            "entityID": 18,
-                            "scriptFieldInstList": []
-                        }
-                    ]
                 }
             },
             {
@@ -887,14 +850,6 @@
                     },
                     "scale": 0.20000000298023224,
                     "fontID": 2
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -1002,6 +957,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -1046,59 +1007,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ -60.5, 88.8957, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 55.5, 1 }",
+                    "worldPos": "{ -60.5, 88.8957, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 55.5 }",
-                    "width": 119.0,
-                    "height": 111.0,
-                    "min": "{ -59.5, 0 }",
-                    "max": "{ 59.5, 111 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 119,
-                            "height": 111,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            }
-                        }
-                    },
-                    "spriteName": "CardIcon_LeahDefenceShield",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "ReturnFromQueue",
-                            "entityID": 23,
-                            "scriptFieldInstList": []
-                        }
-                    ]
                 }
             },
             {
@@ -1112,14 +1026,6 @@
                     },
                     "scale": 0.20000000298023224,
                     "fontID": 2
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -1227,6 +1133,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -1255,16 +1167,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ -107, -150 }",
-                    "max": "{ 107, 150 }",
-                    "render": false
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -1283,30 +1185,17 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "CardBaseFront_Defense",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "SelectCard",
-                            "entityID": 27,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -1356,16 +1245,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ -107, -150 }",
-                    "max": "{ 107, 150 }",
-                    "render": false
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -1384,30 +1263,17 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "CardBaseFront_Special",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "SelectCard",
-                            "entityID": 29,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -1422,59 +1288,12 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 55.5, 1 }",
+                    "pos": "{ 320.833, 88.8957, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 55.5, 1 }",
+                    "worldPos": "{ 320.833, 88.8957, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 55.5 }",
-                    "width": 119.0,
-                    "height": 111.0,
-                    "min": "{ -59.5, 0 }",
-                    "max": "{ 59.5, 111 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 119,
-                            "height": 111,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            }
-                        }
-                    },
-                    "spriteName": "CardIcon_LeahSpecialFlashbang",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "ReturnFromQueue",
-                            "entityID": 30,
-                            "scriptFieldInstList": []
-                        }
-                    ]
                 }
             },
             {
@@ -1488,14 +1307,6 @@
                     },
                     "scale": 0.20000000298023224,
                     "fontID": 2
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -1636,110 +1447,17 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "CardIcon_LeahSpecialFlashbang",
                     "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "text5",
-        "ID": 35,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 14,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -441.353, 59.6776, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -441.353, 59.6776, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "blue",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.17499999701976776,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "text6",
-        "ID": 36,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 14,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -56.1126, 59.6776, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -56.1126, 59.6776, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "green",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.17499999701976776,
-                    "fontID": 2
-                }
-            }
-        ]
-    },
-    {
-        "Name": "text7",
-        "ID": 37,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 14,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 344.907, 59.6776, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 344.907, 59.6776, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "black",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.17499999701976776,
-                    "fontID": 2
                 }
             }
         ]
@@ -1952,6 +1670,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2006,18 +1730,6 @@
                     "eventType": "UNSELECT_CARD",
                     "lastCollided": false,
                     "currCollided": false
-                }
-            },
-            {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 11
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 11,
-                    "elemIdx": 0
                 }
             }
         ]
@@ -2071,6 +1783,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2126,18 +1844,6 @@
                     "lastCollided": false,
                     "currCollided": false
                 }
-            },
-            {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 11
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 11,
-                    "elemIdx": 0
-                }
             }
         ]
     },
@@ -2188,6 +1894,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2388,6 +2100,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2443,18 +2161,6 @@
                     "lastCollided": false,
                     "currCollided": false
                 }
-            },
-            {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 11
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 11,
-                    "elemIdx": 0
-                }
             }
         ]
     },
@@ -2505,6 +2211,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2580,6 +2292,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -2634,18 +2352,6 @@
                     "eventType": "UNSELECT_CARD",
                     "lastCollided": false,
                     "currCollided": false
-                }
-            },
-            {
-                "Card": {
-                    "cardID": "NO_CARD",
-                    "tgtEntity": 11
-                }
-            },
-            {
-                "CardHolderElem": {
-                    "holder": 11,
-                    "elemIdx": 0
                 }
             }
         ]
@@ -2911,7 +2617,8 @@
             71,
             73,
             74,
-            120
+            120,
+            128
         ],
         "Components": [
             {
@@ -3781,7 +3488,7 @@
                     "width": 60.0,
                     "height": 60.0,
                     "min": "{ -148.186, -245 }",
-                    "max": "{ -88.1856, -185 }",
+                    "max": "{ -88.186, -185 }",
                     "render": false
                 }
             },
@@ -3804,6 +3511,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -3845,10 +3558,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 63.4414, 22.14, 10 }",
+                    "pos": "{ 63.4414, -51.471, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -54.7446, -192.86, 10 }",
+                    "worldPos": "{ -54.7446, -266.471, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3865,12 +3578,44 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ 0, 1, 0 }",
                     "scale": "{ 0.59, 0.345365, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -54.7446, -192.86, 10 }",
+                    "worldPos": "{ -54.7446, -265.471, 10 }",
                     "worldScale": "{ 0.59, 0.345365, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 110,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
                 }
             }
         ]
@@ -3888,7 +3633,7 @@
                     "pos": "{ -47.9674, -7.223, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -102.712, -200.083, 10 }",
+                    "worldPos": "{ -102.712, -273.694, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3933,7 +3678,7 @@
                     "center": "{ 119.74, -215 }",
                     "width": 60.0,
                     "height": 60.0,
-                    "min": "{ 89.7403, -245 }",
+                    "min": "{ 89.74, -245 }",
                     "max": "{ 149.74, -185 }",
                     "render": false
                 }
@@ -3957,6 +3702,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -3998,10 +3749,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 63.441, 22.14, 10 }",
+                    "pos": "{ 63.441, -50.429, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 183.181, -192.86, 10 }",
+                    "worldPos": "{ 183.181, -265.429, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4021,9 +3772,41 @@
                     "pos": "{ 0, 0, 0 }",
                     "scale": "{ 0.59, 0.345365, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 183.181, -192.86, 10 }",
+                    "worldPos": "{ 183.181, -265.429, 10 }",
                     "worldScale": "{ 0.59, 0.345365, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
                 }
             }
         ]
@@ -4041,7 +3824,7 @@
                     "pos": "{ -53.967, -7.223, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 129.214, -200.083, 10 }",
+                    "worldPos": "{ 129.214, -272.652, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4110,6 +3893,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -4151,10 +3940,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 63.4408, 22.139, 10 }",
+                    "pos": "{ 63.4408, -50.43, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 63.4408, -192.861, 10 }",
+                    "worldPos": "{ 63.4408, -265.43, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4174,9 +3963,41 @@
                     "pos": "{ 0, 0, 0 }",
                     "scale": "{ 0.59, 0.345365, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 63.4408, -192.861, 10 }",
+                    "worldPos": "{ 63.4408, -265.43, 10 }",
                     "worldScale": "{ 0.59, 0.345365, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 180,
+                            "height": 100,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
                 }
             }
         ]
@@ -4194,7 +4015,7 @@
                     "pos": "{ -42.9674, -9.279, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 20.4734, -202.14, 10 }",
+                    "worldPos": "{ 20.4734, -274.709, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -5072,6 +4893,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -5094,6 +4921,12 @@
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -5151,6 +4984,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -5173,6 +5012,12 @@
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -5227,11 +5072,112 @@
                     "text": "MAIN MENU",
                     "clr": {
                         "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
                         "a": 1.0
                     },
                     "scale": 0.22499999403953552,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "endturn",
+        "ID": 128,
+        "Prefab": {
+            "name": "endturn",
+            "version": 0,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 128
+                },
+                {
+                    "key": 1,
+                    "value": 129
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 61,
+        "Child Entities": [
+            129
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 4.05138, 0 }",
+                    "scale": "{ 0.85, 0.85, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 4.05138, 0 }",
+                    "worldScale": "{ 0.85, 0.85, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 400,
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 129,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 128,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -110, -20, 0 }",
+                    "scale": "{ 0.666667, 0.666667, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -93.5, -12.9486, 0 }",
+                    "worldScale": "{ 0.566667, 0.566667, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "End Turn",
+                    "clr": {
+                        "r": 1.1294118165969849,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
                     "fontID": 2
                 }
             }

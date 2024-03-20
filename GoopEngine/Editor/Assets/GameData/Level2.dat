@@ -1,5 +1,5 @@
 # Enemy Type
-BOSS_P1
+DAWSON
 
 # Enemy Prefab
 Dawson
@@ -8,13 +8,13 @@ Dawson
 UI_Portrait_Dawson.png
 
 # Background
-Environment_Level3.png
+Environment_Level3
 
 # Enemy Health, MaxHealth
 12, 12
 
 # Deck List
-DAWSON_BEAM, 2
-DAWSON_SWING, 2
+DAWSON_BEAM, 3
+DAWSON_SWING, 3
 DAWSON_SHIELD, 5
-DAWSON_CHARGE_UP, 1
+SPECIAL_CHARGEUP, 1

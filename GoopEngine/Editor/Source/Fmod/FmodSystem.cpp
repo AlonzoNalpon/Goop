@@ -1,13 +1,14 @@
 /*!*********************************************************************
 \file   FmodSystem.cpp
 \author c.phua\@digipen.edu
+\co-authors a.nalpon\@digipen.edu
 \date   8 November 2023
 \brief
     Fmod system.
     Uses the fMOD library to create sounds and channels.
     There are four channels: BGM, SFX, Voice, TotalChannels.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <Fmod/FmodSystem.h>
@@ -39,7 +40,7 @@ void FmodSystem::Init()
 
   ErrorCheck(FMOD::System_Create(&m_fModSystem)); // Create the FMOD Core system
   int maxSounds = GE::Assets::AssetManager::GetInstance().GetConfigData<int>("MaxPlayingSounds");
-  ErrorCheck(m_fModSystem->init(maxSounds, FMOD_INIT_STREAM_FROM_UPDATE, NULL)); // Initialize the FMOD Core system
+  ErrorCheck(m_fModSystem->init(maxSounds, FMOD_INIT_THREAD_UNSAFE | FMOD_INIT_STREAM_FROM_UPDATE, NULL)); // Initialize the FMOD Core system
   m_fModSystem->getMasterChannelGroup(&m_masterGroup);
 
   for (int i{}; i < TOTAL_CHANNELS; ++i)
@@ -59,6 +60,24 @@ void FmodSystem::Update()
 {
   ErrorCheck(m_fModSystem->update());
   UnLoadSounds();
+
+  double dt{ GE::FPS::FrameRateController::GetInstance().GetFixedDeltaTime() };
+  for (size_t i{}; i < m_pausePlayRequests.size(); ++i)
+  {
+    PausePlayRequest& curr{ m_pausePlayRequests[i] };
+    curr.timer += dt;
+    float volumeFactor{ static_cast<float>((curr.pause ? FadeTime - curr.timer : curr.timer) / FadeTime) };
+    float targetVolume { GetChannelVolume(curr.channel) };
+    volumeFactor = (volumeFactor >= 1.f ? 1.f : volumeFactor);
+    ErrorCheck(m_channelGroups[curr.channel]->setVolume(volumeFactor * targetVolume));
+    if (curr.timer >= FadeTime) // is it time to actually set paused?
+    {
+      ErrorCheck(m_channelGroups[curr.channel]->setPaused(curr.pause));
+      m_pausePlayRequests.erase(m_pausePlayRequests.begin() + i);
+      continue; // we're done. Skip to next iteration
+    }
+
+  }
 }
 
 bool FmodSystem::LoadSound(std::string audio, bool looped)
@@ -201,6 +220,31 @@ void FmodSystem::StopChannel(ChannelType channel)
   ErrorCheck(m_channelGroups[channel]->stop());
 }
 
+void GE::fMOD::FmodSystem::SetChannelPause(ChannelType channel, bool paused)
+{
+  bool currState;
+  ErrorCheck(m_channelGroups[channel]->getPaused(&currState)); // get the old state
+
+  if (paused == currState)
+    return;
+
+  for (size_t i{}; i < m_pausePlayRequests.size(); ++i)
+  {
+    PausePlayRequest const& req{ m_pausePlayRequests[i] };
+    if (req.channel == channel)
+    {
+      m_pausePlayRequests.erase(m_pausePlayRequests.begin() + i);
+      //if (currState == req.pause)
+      //  return;
+      return;
+    }
+  }
+
+  m_pausePlayRequests.emplace_back(paused, channel);
+  if (!paused) // must play the audio
+    ErrorCheck(m_channelGroups[channel]->setPaused(false));
+}
+
 void FmodSystem::SetChannelVolume(ChannelType channel, float volume)
 {
   ErrorCheck(m_channelGroups[channel]->setVolume(volume));
@@ -244,10 +288,16 @@ void GE::fMOD::FmodSystem::HandleEvent(GE::Events::Event* event)
   switch (event->GetCategory())
   {
   case GE::Events::EVENT_TYPE::WINDOW_LOSE_FOCUS:
-    ErrorCheck(m_masterGroup->setPaused(true));
+    SetChannelPause(BGM, true);
+    SetChannelPause(SFX, true);
+    SetChannelPause(VOICE, true);
+    //ErrorCheck(m_masterGroup->setPaused(true));
     break;
   case GE::Events::EVENT_TYPE::WINDOW_GAIN_FOCUS:
-    ErrorCheck(m_masterGroup->setPaused(false));
+    //ErrorCheck(m_masterGroup->setPaused(false));
+    SetChannelPause(BGM, false);
+    SetChannelPause(SFX, false);
+    SetChannelPause(VOICE, false);
     break;
   default:
     break;

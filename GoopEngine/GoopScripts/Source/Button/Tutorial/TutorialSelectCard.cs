@@ -6,7 +6,7 @@
         the selected card to the queue on click and triggers on hover
         events.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Gameplay;
 using GoopScripts.Mono;
@@ -20,8 +20,6 @@ namespace GoopScripts.Button
 {
   public class TutorialSelectCard : IButtonClick, IButtonHoverEnter, IButtonHoverExit
   {
-    static public uint m_cardHover; // holds entity for hover effect
-
     public TutorialSelectCard() { }
 
     /*!*********************************************************************
@@ -33,7 +31,7 @@ namespace GoopScripts.Button
 		************************************************************************/
     public void OnClick(uint entity)
     {
-      if (GameManager.IsResolutionPhase() || Tutorial.IsResolutionPhase())
+      if (Tutorial.IsResolutionPhase())
       {
         return;
       }
@@ -46,10 +44,9 @@ namespace GoopScripts.Button
         return;
       }
 
-      Utils.SetIsActiveEntity(m_cardHover, false);
+      Utils.SetIsActiveEntity(SelectCard.m_cardHover, false);
       Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
       player.QueueCardByID(cardId);
-      QueueCardDisplay.m_cardSelected = true;
       Tutorial.m_tutorialToggled = true;
     }
 
@@ -64,8 +61,8 @@ namespace GoopScripts.Button
     {
       Vec3<double> pos = Utils.GetWorldPosition(entity);
       pos.Z -= 5.0;
-      Utils.SetPosition(m_cardHover, pos);
-      Utils.SetIsActiveEntity(m_cardHover, true);
+      Utils.SetPosition(SelectCard.m_cardHover, pos);
+      Utils.SetIsActiveEntity(SelectCard.m_cardHover, true);
     }
 
     /*!*********************************************************************
@@ -77,7 +74,7 @@ namespace GoopScripts.Button
 		************************************************************************/
     public void OnHoverExit(uint entity)
     {
-      Utils.SetIsActiveEntity(m_cardHover, false);
+      Utils.SetIsActiveEntity(SelectCard.m_cardHover, false);
     }
   }
 }

@@ -1,11 +1,11 @@
 ﻿/*!*********************************************************************
 \file   ChangeToMainMenu.cs 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   12 February 2024
 \brief  
   Animation behaviour to switch to main menu
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using System;
 using System.Collections.Generic;

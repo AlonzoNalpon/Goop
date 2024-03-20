@@ -4,7 +4,7 @@
 \date   29-September-2023
 \brief  Vector 2,3 and 4 utility template functions
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef GOOP_VEC_UTILS_H
 #define GOOP_VEC_UTILS_H

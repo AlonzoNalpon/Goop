@@ -6,7 +6,7 @@
 GizmoEditor is responsible for ImGuizmo interactions with components
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef GIZMO_EDITOR_H
 #define GIZMO_EDITOR_H

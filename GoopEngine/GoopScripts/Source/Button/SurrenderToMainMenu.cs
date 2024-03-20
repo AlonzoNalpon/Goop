@@ -1,4 +1,13 @@
-﻿using GoopScripts.Button;
+﻿/*!*********************************************************************
+\file   SurrenderToMainMenu.cs
+\author loh.j\@digipen.edu
+\date   15 March 2024
+\brief  
+  Script to attach to button to go back to main menu from game.
+ 
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Button;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
@@ -21,7 +30,6 @@ namespace GoopScripts.Button
 		public override void OnRelease(uint entity)
 		{
 			base.OnRelease(entity);
-			UI.PauseManager.SetPauseState(0);
 			Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "MainMenu");
 		}
 	}

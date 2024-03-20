@@ -9,11 +9,29 @@
         "flags": 0
     },
     {
+        "id": "SS_Dawson_BlockNoShield",
+        "filePath": "SS_Dawson_BlockNoShield",
+        "slices": 4,
+        "stacks": 2,
+        "frames": 8,
+        "speed": 0.1,
+        "flags": 0
+    },
+    {
         "id": "SS_Dawson_BlockShield",
         "filePath": "SS_Dawson_BlockShield",
         "slices": 4,
         "stacks": 2,
         "frames": 8,
+        "speed": 0.1,
+        "flags": 0
+    },
+    {
+        "id": "SS_Dawson_ChargeUp",
+        "filePath": "SS_Dawson_ChargeUp",
+        "slices": 4,
+        "stacks": 2,
+        "frames": 7,
         "speed": 0.1,
         "flags": 0
     },
@@ -72,6 +90,15 @@
         "flags": 0
     },
     {
+        "id": "SS_Leah_BlockNoShield",
+        "filePath": "SS_Leah_BlockNoShield",
+        "slices": 4,
+        "stacks": 2,
+        "frames": 8,
+        "speed": 0.1,
+        "flags": 0
+    },
+    {
         "id": "SS_Leah_BlockShield",
         "filePath": "SS_Leah_BlockShield",
         "slices": 4,
@@ -83,8 +110,8 @@
     {
         "id": "SS_Leah_DeathNoShield",
         "filePath": "SS_Leah_DeathNoShield",
-        "slices": 4,
-        "stacks": 1,
+        "slices": 2,
+        "stacks": 2,
         "frames": 4,
         "speed": 0.1,
         "flags": 0
@@ -92,8 +119,8 @@
     {
         "id": "SS_Leah_DeathShield",
         "filePath": "SS_Leah_DeathShield",
-        "slices": 4,
-        "stacks": 1,
+        "slices": 2,
+        "stacks": 2,
         "frames": 4,
         "speed": 0.1,
         "flags": 0
@@ -111,8 +138,8 @@
         "id": "SS_Leah_FlashBang",
         "filePath": "SS_Leah_FlashBang",
         "slices": 3,
-        "stacks": 3,
-        "frames": 9,
+        "stacks": 4,
+        "frames": 12,
         "speed": 0.1,
         "flags": 0
     },
@@ -120,8 +147,8 @@
         "id": "SS_Leah_Flinch",
         "filePath": "SS_Leah_Flinch",
         "slices": 4,
-        "stacks": 2,
-        "frames": 8,
+        "stacks": 1,
+        "frames": 4,
         "speed": 0.1,
         "flags": 0
     },
@@ -180,6 +207,24 @@
         "flags": 1
     },
     {
+        "id": "SS_MineWorm_Shield",
+        "filePath": "SS_MineWorm_Shield",
+        "slices": 3,
+        "stacks": 3,
+        "frames": 7,
+        "speed": 0.1,
+        "flags": 0
+    },
+    {
+        "id": "SS_MineWorm_Slash",
+        "filePath": "SS_MineWorm_Slash",
+        "slices": 3,
+        "stacks": 3,
+        "frames": 9,
+        "speed": 0.1,
+        "flags": 0
+    },
+    {
         "id": "SS_MineWorm_Sneak",
         "filePath": "SS_MineWorm_Sneak",
         "slices": 4,
@@ -193,7 +238,7 @@
         "filePath": "SS_MineWorm_Spit",
         "slices": 3,
         "stacks": 3,
-        "frames": 9,
+        "frames": 8,
         "speed": 0.1,
         "flags": 0
     },
@@ -248,51 +293,6 @@
         "slices": 5,
         "stacks": 2,
         "frames": 10,
-        "speed": 0.1,
-        "flags": 0
-    },
-    {
-        "id": "SS_MineWorm_Shield",
-        "filePath": "SS_MineWorm_Shield",
-        "slices": 3,
-        "stacks": 3,
-        "frames": 7,
-        "speed": 0.1,
-        "flags": 0
-    },
-    {
-        "id": "SS_MineWorm_Slash",
-        "filePath": "SS_MineWorm_Slash",
-        "slices": 3,
-        "stacks": 3,
-        "frames": 9,
-        "speed": 0.1,
-        "flags": 0
-    },
-    {
-        "id": "SS_Dawson_BlockNoShield",
-        "filePath": "SS_Dawson_BlockNoShield",
-        "slices": 4,
-        "stacks": 2,
-        "frames": 8,
-        "speed": 0.1,
-        "flags": 0
-    },
-    {
-        "id": "SS_Dawson_ChargeUp",
-        "filePath": "SS_Dawson_ChargeUp",
-        "slices": 4,
-        "stacks": 2,
-        "frames": 7,
-        "speed": 0.1,
-        "flags": 0
-    },
-    {
-        "id": "SS_Leah_Block",
-        "filePath": "SS_Leah_Block",
-        "slices": 4,
-        "stacks": 1,
-        "frames": 4,
         "speed": 0.1,
         "flags": 0
     }

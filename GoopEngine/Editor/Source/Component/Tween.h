@@ -1,11 +1,12 @@
 /*!*********************************************************************
 \file   Tween.h
 \author c.phua\@digipen.edu
+\co-authors a.nalpon\@digipen.edu
 \date   20 September 2023
 \brief
 	Component for interpolation.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <vector>
@@ -24,6 +25,7 @@ namespace GE
 				vec3 m_scale;
 				vec3 m_rot;
 				Colorf m_spriteTint;
+				Colorf m_spriteMult{1.f, 1.f, 1.f, 1.f};
 				Colorf m_textColor;
 				double m_duration;
 				std::string m_animationEvent;
@@ -36,6 +38,7 @@ namespace GE
 			vec3 m_originalScale;
 			vec3 m_originalRot;
 			Colorf m_originalSpriteTint;
+			Colorf m_originalSpriteMult;
 			Colorf m_originalTextColor;
 			bool m_started;
 			bool m_paused;

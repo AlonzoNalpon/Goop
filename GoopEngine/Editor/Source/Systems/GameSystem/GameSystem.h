@@ -8,7 +8,7 @@
   run and call all our game logic in 1 script which will then handle
   logic in scripts entirely enclosed in the C# enviroment.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <ECS/System/System.h>
@@ -19,9 +19,6 @@ namespace GE::Systems
   class GameSystem : public GE::ECS::System, public GE::Events::IEventListener
   {
   private:
-    bool m_shouldIterate;
-    bool m_shouldWin;
-    bool m_shouldLose;
     static bool m_loseFocus;
   public:
 

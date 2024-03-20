@@ -1,0 +1,21 @@
+# Enemy Type
+DAWSON
+
+# Enemy Prefab
+Dawson
+
+# Portrait
+UI_Portrait_Dawson.png
+
+# Background
+Environment_Level3
+
+# Enemy Health, MaxHealth
+15, 15
+
+# Deck List
+DAWSON_BEAM, 3
+DAWSON_SWING, 5
+DAWSON_SHIELD, 6
+SPECIAL_CHARGEUP, 1
+SPECIAL_TIMEWARP, 1

@@ -1,11 +1,11 @@
 /*!*********************************************************************
 \file   SceneHeirachy.cpp 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   13 October 2023
 \brief  
   Defines the behaviour and logic for the scene heirachy dock
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #ifndef IMGUI_DISABLE
@@ -120,6 +120,14 @@ void GE::EditorGUI::SceneHierachy::CreateContent()
 		}
 		TreePop();
 	}
+
+	if (prefabPopup)
+	{
+		ImGui::OpenPopup("Create Prefab");
+		prefabPopup = false;
+	}
+	RunCreatePrefabPopup();
+
 	// Reset colour
 	style.Colors[ImGuiCol_Text] = originalTextClr;
 
@@ -379,18 +387,123 @@ namespace
 		}
 		else
 		{
+			PushID(std::to_string(entity).c_str());
+			if (IsItemClicked(ImGuiMouseButton_Right))
+			{
+				OpenPopup("EntityManip");
+				treeNodePopUp = true;
+			}
+			if (BeginPopup("EntityManip"))
+			{
+				style.Colors[ImGuiCol_Text] = ImColor{ 255,255,255 };
+				// create entity as child of selected
+				if (Selectable("Create"))
+				{
+					GE::Component::Transform trans{ {0, 0, 0}, { 1, 1, 1 }, { 0, 0, 0 } };
+					GE::CMD::PRS newPRS{ trans.m_worldPos, trans.m_worldScale, trans.m_worldRot };
+					GE::CMD::AddObjectCmd newTransCmd = GE::CMD::AddObjectCmd(newPRS);
+					GE::CMD::CommandManager& cmdMan = GE::CMD::CommandManager::GetInstance();
+					cmdMan.AddCommand(newTransCmd);
+				}
+
+				if (Selectable("Duplicate"))
+				{
+					GE::ObjectFactory::ObjectFactory::GetInstance().CloneObject(entity);
+				}
+
+				ImGui::BeginDisabled(GE::EditorGUI::PrefabEditor::IsEditingPrefab());
+				if (Selectable("Save as Prefab"))
+				{
+					prefabPopup = true;
+					selectedEntity = entity;
+				}
+				ImGui::EndDisabled();
+
+				if (Selectable("Delete"))
+				{
+					entitiesToDestroy.push_back(entity);
+
+					if (GE::EditorGUI::PrefabEditor::IsEditingPrefab())
+					{
+						GE::Events::EventManager::GetInstance().Dispatch(GE::Events::DeletePrefabChildEvent(entity));
+					}
+				}
+				style.Colors[ImGuiCol_Text] = textClr;
+				EndPopup();
+			}
+			PopID();
+			////////////////////////////////////
+			// Handle drag and drop orderering
+			////////////////////////////////////
+			if (BeginDragDropSource())
+			{
+				SetDragDropPayload(PAYLOAD, &entity, sizeof(entity));
+				// Anything between begin and end will be parented to the dragged object
+				Text(GetName(entity));
+				EndDragDropSource();
+			}
+			if (BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_IMAGE"))
+				{
+					if (payload->Data)
+					{
+						auto const& texManager = GE::Graphics::GraphicsEngine::GetInstance().textureManager;
+						const char* droppedPath = static_cast<const char*>(payload->Data);
+						std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
+						if (ecs.HasComponent<GE::Component::Sprite>(entity))
+						{
+							GE::Component::Sprite* entitySpriteData = ecs.GetComponent<GE::Component::Sprite>(entity);
+							entitySpriteData->m_spriteData.texture = texManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath));
+						}
+						else
+						{
+							auto& gEngine = GE::Graphics::GraphicsEngine::GetInstance();
+							GE::Component::Sprite sprite{ gEngine.textureManager.GetTextureID(GE::GoopUtils::ExtractFilename(droppedPath)) };
+							ecs.AddComponent(entity, sprite);
+						}
+					}
+				}
+
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_FONT"))
+				{
+					if (payload->Data)
+					{
+						auto& gEngine = GE::Graphics::GraphicsEngine::GetInstance();
+
+						//auto const& texManager = Graphics::GraphicsEngine::GetInstance().textureManager;
+						const char* droppedPath = static_cast<const char*>(payload->Data);
+						std::string extension = GE::GoopUtils::GetFileExtension(droppedPath);
+						if (ecs.HasComponent<GE::Component::Text>(entity))
+						{
+							// Entity has text component, replacing the font instead
+							GE::Component::Text* entityTextData = ecs.GetComponent<GE::Component::Text>(entity);
+							entityTextData->m_fontID = gEngine.fontManager.GetFontID(GE::GoopUtils::ExtractFilename(droppedPath));
+						}
+						else
+						{
+							// Entity does not have text component, adding a text component and assigning the dropped font.
+							GE::Component::Text comp;
+							comp.m_fontID = gEngine.fontManager.GetFontID(GE::GoopUtils::ExtractFilename(droppedPath));
+							ecs.AddComponent(entity, comp);
+						}
+					}
+				}
+
+				const ImGuiPayload* pl = AcceptDragDropPayload(PAYLOAD);
+				if (pl)
+				{
+					GE::ECS::Entity& droppedEntity{*reinterpret_cast<GE::ECS::Entity*>(pl->Data)};
+					ParentEntity(ecs, droppedEntity, &entity);
+				}
+				EndDragDropTarget();
+			}
+
 			if (IsItemClicked())
 			{
 				GE::EditorGUI::ImGuiHelper::SetSelectedEntity(entity);
 			}
 		}
-
-		if (prefabPopup)
-		{
-			ImGui::OpenPopup("Create Prefab");
-			prefabPopup = false;
-		}
-		RunCreatePrefabPopup();
 	}
 
 	void RunCreatePrefabPopup()

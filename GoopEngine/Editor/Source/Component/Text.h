@@ -6,7 +6,7 @@
 				ecs.
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef TEXT_H
 #define TEXT_H

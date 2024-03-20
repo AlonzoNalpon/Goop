@@ -5,7 +5,7 @@
 \brief  This file contains the definition of the SpriteAnimationManager
 class.
   
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef SPRITE_ANIMATION_MANAGER_H
 #define SPRITE_ANIMATION_MANAGER_H

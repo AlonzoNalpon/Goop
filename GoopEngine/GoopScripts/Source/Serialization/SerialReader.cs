@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*!*********************************************************************
+\file   SerialReader.cs
+\author chengen.lau\@digipen.edu
+\date   15-March-2024
+\brief  This class handles the loading and saving of game level data.
+        It primarily reads from raw text files under a specified format.
+        Improvements to be made are to generate a default save file if
+        it doesn't exist.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +18,8 @@ using System.Drawing.Drawing2D;
 using GoopScripts.Cards;
 using System.Diagnostics;
 using GoopScripts.Gameplay;
+using System.Security.Cryptography.X509Certificates;
+using GoopScripts.Mono;
 
 namespace GoopScripts.Serialization
 {
@@ -15,6 +27,17 @@ namespace GoopScripts.Serialization
   {
     static readonly string COMMENT_SYMBOL = "#";
 
+    /*!*********************************************************************
+    \brief
+      Reads from the given file and returns the data in the form of a
+      PlayerStatsInfo object. The file should be formatted in the following
+      way:
+        <level_number>
+        <health, max_health>
+        <deck_list> (in the format of <card, quantity> per line)
+    \param fileName
+      The file to load
+    ************************************************************************/
     static public PlayerStatsInfo LoadPlayerState(string fileName)
     {
       PlayerStatsInfo ret = new PlayerStatsInfo();
@@ -58,6 +81,20 @@ namespace GoopScripts.Serialization
       return ret;
     }
 
+    /*!*********************************************************************
+    \brief
+      Reads from the given file and returns the data in the form of a
+      EnemyStatsInfo object. The file should be formatted in the following
+      way:
+        <enemy_type>
+        <prefab_name>
+        <potrait_sprite>
+        <background_prefab>
+        <health, max_health>
+        <deck_list> (in the format of <card, quantity> per line)
+    \param fileName
+      The file to load
+    ************************************************************************/
     static public EnemyStatsInfo LoadEnemy(string fileName)
     {
       EnemyStatsInfo ret = new EnemyStatsInfo();
@@ -105,6 +142,21 @@ namespace GoopScripts.Serialization
       return ret;
     }
 
+    /*!*********************************************************************
+    \brief
+      Saves the player's current level, health and deck into a
+      PlayerStatsInfo object. The file will be formatted in the following
+      way:
+        <level_number>
+        <health, max_health>
+        <deck_list> (in the format of <card, quantity> per line)
+    \param stats
+      The player's stats object
+    \param currentLevel
+      The current level
+    \param fileName
+      The file to save to
+    ************************************************************************/
     static public void SavePlayerState(ref Gameplay.Stats stats, int currentLevel, string fileName)
     {
       using (StreamWriter sw = new StreamWriter(fileName))
@@ -128,6 +180,115 @@ namespace GoopScripts.Serialization
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      Reads from the file to load the mappings of each card to each
+      character's animation spritesheet. The data is returned in the form
+      of a dictionary where the key is the CharacterType enum and the
+      value is a dictionary of cardID to animation name 
+    \param file
+      The file to read from
+    ************************************************************************/
+    static public Dictionary<Gameplay.CharacterType, Dictionary<CardBase.CardID, string>> LoadAnimationMappings(string file)
+    {
+      var ret = new Dictionary<Gameplay.CharacterType, Dictionary<CardBase.CardID, string>>();
+      using (StreamReader sr = new StreamReader(file))
+      {
+        string line = GetNextNonCommentLine(sr);
+        while (line != null)
+        {
+          Gameplay.CharacterType charType;
+          if (!Enum.TryParse(line, out charType))
+          {
+#if (DEBUG)
+            Console.WriteLine("Invalid character type read:\n" + line);
+#endif  
+          }
+
+          var mappings = new Dictionary<CardBase.CardID, string>();
+          while ((line = GetNextNonCommentLine(sr)) != null)
+          {
+            string[] cardToAnim = line.Split(',');
+            CardBase.CardID card;
+            string anim;
+
+            // read until unable to parse,
+            // which means a new enemy's animations
+            if (!Enum.TryParse(cardToAnim[0], out card))
+            {
+              break;
+            }
+            anim = cardToAnim[1].Trim();
+
+            mappings.Add(card, anim);
+          }
+          ret.Add(charType, mappings);
+        }
+      }
+
+      return ret;
+    }
+
+    /*!*********************************************************************
+    \brief
+      Adds cards directly into the player save file. The data is appended
+      at the end of the file at the last line that is not a whitespace
+    \param cards
+      The List of cards to add
+    \param file
+      The file to save to
+    ************************************************************************/
+    public static void AddCardsToDeck(List<CardBase.CardID> cards, string file)
+    {
+      string[] lines = File.ReadAllLines(file);
+      int targetIndex = Array.FindLastIndex(lines, line => !string.IsNullOrEmpty(line));
+      if (targetIndex == -1)
+      {
+        targetIndex = lines.Length - 1;
+      }
+
+      using (StreamWriter writer = new StreamWriter(file))
+      {
+        for (int i = 0; i <= targetIndex; ++i)
+        {
+          writer.WriteLine(lines[i]);
+        }
+
+        foreach (CardBase.CardID card in cards)
+        {
+          writer.WriteLine(card.ToString() + ", 1");
+        }
+      }
+    }
+
+    /*!*********************************************************************
+    \brief
+      Increments the level number inside the player's save file
+    \param file
+      The file to modify
+    ************************************************************************/
+    public static void IncrementLevel(string file)
+    {
+      string[] lines = File.ReadAllLines(file);
+      int level;
+      if (lines.Length == 0 || !int.TryParse(lines[1], out level))
+      {
+#if (DEBUG)
+        Utils.SendString("Unable to increment level in file: " + file);
+#endif
+        return;
+      }
+      lines[1] = (level + 1).ToString();
+
+      File.WriteAllLines(file, lines);
+    }
+
+    /*!*********************************************************************
+    \brief
+      Reads from the file to get the next line that is not a comment
+    \param sr
+      The StreamReader object
+    ************************************************************************/
     static string GetNextNonCommentLine(StreamReader sr)
     {
       string line;

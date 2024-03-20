@@ -3,7 +3,7 @@
 \date   04-February-2024
 \brief  Script to play Leah shield sound
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Mono;
 using System;
@@ -18,7 +18,7 @@ namespace GoopScripts.Gameplay
   {
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("SFX_ShieldUp", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.PlaySoundF("SFX_ShieldUp", 0.8f, Utils.ChannelType.SFX, false);
     }
   }
 }

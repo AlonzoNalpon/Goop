@@ -1,12 +1,13 @@
-﻿/*!************************************************************************
-\file SelectorNode.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file  SelectorNode.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script attached to a composite node.
+        Will each child node every frame.
+        if any of the child node succeeds, it will not run the rest of the child nodes
 
-\brief
-C# script attached to a composite node.
-Will each child node every frame.
-if any of the child node succeeds, it will not run the rest of the child nodes
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,13 +38,10 @@ namespace GoopScripts.AI
     {
       m_nodeID = currID;
       m_parentID = parentID;
-      // Console.WriteLine("SelectorNode childs: ");
       for (uint i = 0; i < tempSize; i++)
       {
-        //  Console.WriteLine(temp[i] + ", ");
         m_childID.Add(temp[i]);
       }
-      //Console.WriteLine("\n");
     }
 
 
@@ -79,7 +77,6 @@ namespace GoopScripts.AI
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      //Console.WriteLine("RUN SELECTOR\n");
       SetResult((int)NODE_STATES.STATE_RUNNING, m_nodeID);
 
       //Get current position Index

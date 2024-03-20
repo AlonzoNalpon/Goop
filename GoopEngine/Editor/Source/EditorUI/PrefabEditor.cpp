@@ -7,7 +7,7 @@
         this class to determine which mode is currently running
         (scene or prefab editor).
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #ifndef IMGUI_DISABLE
@@ -121,7 +121,6 @@ void PrefabEditor::RenderBackToScenePopup()
     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 1.f));
     if (ImGui::Button("Discard Changes"))
     {
-      m_isEditing = false;
       Events::EventManager::GetInstance().Dispatch(Events::StopSceneEvent());
       
       ResetPrefabEditor();

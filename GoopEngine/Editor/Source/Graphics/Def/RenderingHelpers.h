@@ -5,7 +5,7 @@
 \brief  This file contains includes to graphical helper classes
 needed for rendering.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef RENDERING_HELPERS_H
 #define RENDERING_HELPERS_H

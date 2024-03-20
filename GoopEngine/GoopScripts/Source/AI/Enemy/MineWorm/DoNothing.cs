@@ -1,12 +1,12 @@
-﻿/*!************************************************************************
-\file DoNothing.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file   DoNothing.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script for enemyAi Tree
+        Makes the enemy do nothing for that turn
 
-\brief
-C# script for enemyAi Tree
-Makes the enemy do nothing for that turn
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 
 using System;
 using System.Collections.Generic;
@@ -38,7 +38,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
@@ -72,9 +71,9 @@ namespace GoopScripts.AI.Enemy.MineWorm
     \param[dt] dobule
     delta time
     ************************************************************************/
+
     public void OnUpdate(uint entityID, double dt)
     {
-      //Console.WriteLine("Do nothing\n");
       EndAI(entityID);
     }
 

@@ -4,7 +4,7 @@
 \date     09-February-2024
 \brief    Script to clear the combo text when a combo is triggered
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Mono;
 using System;

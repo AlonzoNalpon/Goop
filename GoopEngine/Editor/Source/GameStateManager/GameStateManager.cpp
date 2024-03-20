@@ -6,7 +6,7 @@
 	Currently controls the scenes but will include gamestates in the 
 	future.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <GameStateManager/GameStateManager.h>
@@ -57,9 +57,11 @@ void GameStateManager::Init()
 
 void GameStateManager::Update()
 {
+#ifndef IMGUI_DISABLE
 	// We will only reload if the scene is not running
 	if (!EditorGUI::ImGuiHelper::IsRunning())
 		ExecuteMainThreadQueue();
+#endif // !IMGUI_DISABLE
 	try
 	{
 		if (m_updated)

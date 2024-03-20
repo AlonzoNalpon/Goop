@@ -6,7 +6,7 @@
         the selected card back to hand on click and triggers on hover
         events.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Button;
 using GoopScripts.Gameplay;
@@ -20,9 +20,11 @@ using static GoopScripts.Button.TextButtonBase;
 
 namespace GoopScripts.Button
 {
-  public class EndTurn : TextButtonBase
-  {
-    private bool m_disabledEndTurn;
+	public class EndTurn : TextButtonBase
+	{
+		EndTurn() : base() { }
+
+		private bool m_disabledEndTurn;
 
 		public void Enable()
 		{
@@ -76,6 +78,7 @@ namespace GoopScripts.Button
 			{
 				m_clicked = false;
 				Disable();
+				Utils.PlaySoundF("SFX_ButtonClick", (float)m_rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
 				Gameplay.GameManager gm = (Gameplay.GameManager)Utils.GetScript("GameSystem", "GameManager");
 				gm.EndTurn();
 			}

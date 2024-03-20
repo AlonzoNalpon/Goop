@@ -7,15 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GoopScripts.Button
-{
-  internal class ContinueTutorial : TextButtonBase
+{ 
+  public class ContinueTutorial : TextButtonBase
   {
     public override void OnRelease(uint entity)
-    {
+    { 
       base.OnRelease(entity);
       Utils.SetIsActiveEntity(Utils.GetEntity("Skip_Tutorial_Prompt"), false);
       Utils.SetIsActiveEntity(Utils.GetEntity("SkipButton"), true);
-      Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{Tutorial.m_tut}"), true);
+      Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{++Tutorial.m_tut}"), true);
     }
   }
 }

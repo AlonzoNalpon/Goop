@@ -6,7 +6,7 @@
   System base class. This should be inherited by all systems, where the
 	functions will be called by the ECS.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <set>

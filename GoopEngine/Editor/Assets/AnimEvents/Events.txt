@@ -11,12 +11,79 @@
         ]
     },
     {
+        "key": "ChangeToTutorial",
+        "value": [
+            {
+                "key": 0,
+                "value": [
+                    "ChangeToTutorial"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "DawsonDies",
+        "value": [
+            {
+                "key": 0,
+                "value": [
+                    "DawsonDies"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "DawsonDiesWithShield",
+        "value": [
+            {
+                "key": 0,
+                "value": [
+                    "DawsonDies",
+                    "LeahBlocks"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "DawsonFlinches",
+        "value": [
+            {
+                "key": 0,
+                "value": [
+                    "DawsonFlinches"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "DawsonPunches",
+        "value": [
+            {
+                "key": 5,
+                "value": [
+                    "DawsonPunches"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "DawsonShoots",
+        "value": [
+            {
+                "key": 3,
+                "value": [
+                    "DawsonShoots"
+                ]
+            }
+        ]
+    },
+    {
         "key": "Demo",
         "value": [
             {
-                "key": 11,
+                "key": 6,
                 "value": [
-                    "DemoHR"
+                    "Demo"
                 ]
             }
         ]
@@ -36,7 +103,7 @@
         "key": "LeahAttacks",
         "value": [
             {
-                "key": 0,
+                "key": 6,
                 "value": [
                     "LeahAttacks"
                 ]
@@ -61,6 +128,29 @@
                 "key": 1,
                 "value": [
                     "LeahDies"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "LeahDies2",
+        "value": [
+            {
+                "key": 2,
+                "value": [
+                    "LeahDies"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "LeahDiesWithShield",
+        "value": [
+            {
+                "key": 0,
+                "value": [
+                    "LeahDies",
+                    "LeahBlocks"
                 ]
             }
         ]
@@ -91,9 +181,53 @@
         "key": "LeahShoots",
         "value": [
             {
-                "key": 2,
+                "key": 6,
                 "value": [
                     "LeahShoots"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "MineWormDeath",
+        "value": [
+            {
+                "key": 1,
+                "value": [
+                    "LeahDies"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "MineWormShield",
+        "value": [
+            {
+                "key": 1,
+                "value": [
+                    "MoleRatBlocks"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "MineWormSlash",
+        "value": [
+            {
+                "key": 0,
+                "value": [
+                    "MineWormScratches"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "MineWormSpit",
+        "value": [
+            {
+                "key": 1,
+                "value": [
+                    "MoleRatScreeches"
                 ]
             }
         ]
@@ -127,6 +261,17 @@
                 "key": 1,
                 "value": [
                     "MoleRatScreeches"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "Reward",
+        "value": [
+            {
+                "key": 0,
+                "value": [
+                    "ChangeToReward"
                 ]
             }
         ]

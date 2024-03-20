@@ -3,7 +3,7 @@
 \date   04-February-2024
 \brief  Script to play Leah death SFX
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using System;
 using System.Collections.Generic;
@@ -15,11 +15,13 @@ using GoopScripts.Gameplay;
 
 namespace GoopScripts.Gameplay
 {
-	internal class LeahDies : IAnimationEvent
+	public class LeahDies : IAnimationEvent
 	{
+		public int startRange, endRange;
+		Random rng = new Random();
 		public void PlayEvent(uint entity)
 		{
-			Utils.PlaySoundF("SFX_BodyFall3", 1.0f, Utils.ChannelType.SFX, false);
+			Utils.PlayRandomSound(startRange, endRange, entity, 0.7f + (float)rng.NextDouble() * 0.3f);
 		}
 	}
 }

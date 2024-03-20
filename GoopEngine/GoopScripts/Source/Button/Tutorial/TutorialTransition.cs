@@ -1,11 +1,11 @@
 ﻿/*!*********************************************************************
 \file   TransitionOut.cs 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   09 March 2024
 \brief  
 	Triggers the transition animation
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Mono;
 using System;
@@ -19,6 +19,7 @@ namespace GoopScripts.Button
 {
 	public class TutorialTransition : TextButtonBase
 	{
+		public string animToTrigger;
 		/*!******************************************************************
 		\brief
 			Callback for when mouse is released after clicking the entity
@@ -28,8 +29,8 @@ namespace GoopScripts.Button
 		********************************************************************/
 		public override void OnRelease(uint entity)
 		{
-			base.OnRelease(entity);			
-			Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Game");
+			base.OnRelease(entity);
+			Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), animToTrigger);
 		}
 	}
 }

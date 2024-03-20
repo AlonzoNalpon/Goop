@@ -5,7 +5,7 @@
 \brief  This file contains the definition for the camera class
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef CAMERA_H
 #define CAMERA_H

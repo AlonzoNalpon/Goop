@@ -6,7 +6,7 @@
         that needs to be serialized/deserialized needs to be registered.
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <Component/Components.h>
@@ -80,6 +80,7 @@ RTTR_REGISTRATION
     .property("scale", &Component::Tween::Action::m_scale)
     .property("rot", &Component::Tween::Action::m_rot)
     .property("spriteTint", &Component::Tween::Action::m_spriteTint)
+    .property("spriteMult", &Component::Tween::Action::m_spriteMult)
     .property("textColor", &Component::Tween::Action::m_textColor)
     .property("duration", &Component::Tween::Action::m_duration)
     .property("animationEvent", &Component::Tween::Action::m_animationEvent)
@@ -117,13 +118,13 @@ RTTR_REGISTRATION
     .property("Cards In Queue", &DeckManager::m_queue)
     ;
 
-  rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
-    .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
-    .property("cardEntity", &Component::CardHolder::CardHolderEntry::cardEntity)
-    .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)
-    .property("defaultSpriteID", &Component::CardHolder::CardHolderEntry::defaultSpriteID)
-    .property("used", &Component::CardHolder::CardHolderEntry::used)
-    ;
+  //rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
+  //  .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
+  //  .property("cardEntity", &Component::CardHolder::CardHolderEntry::cardEntity)
+  //  .property("spriteID", &Component::CardHolder::CardHolderEntry::spriteID)
+  //  .property("defaultSpriteID", &Component::CardHolder::CardHolderEntry::defaultSpriteID)
+  //  .property("used", &Component::CardHolder::CardHolderEntry::used)
+  //  ;
 
   rttr::registration::class_<Component::Audio::Sound>("Sound")
     .property("sound", &Component::Audio::Sound::m_sound)
@@ -143,6 +144,7 @@ RTTR_REGISTRATION
     .property("width", &Graphics::SpriteSubData::width)
     .property("height", &Graphics::SpriteSubData::height)
     .property("tint", &Graphics::SpriteSubData::tint)
+    .property("multiply", &Graphics::SpriteSubData::multiply)
     ;
   rttr::registration::class_<Graphics::SpriteData>("SpriteData")
     .property("spriteSubData", &Graphics::SpriteData::info)
@@ -185,6 +187,11 @@ RTTR_REGISTRATION
     .property("data", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_data)
     .property("type", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
+    ;
+  rttr::registration::class_<MONO::ScriptFieldInstance<std::vector<std::string>>>("System.String[]")
+    .property("data", &MONO::ScriptFieldInstance<std::vector<std::string>>::m_data)
+    .property("type", &MONO::ScriptFieldInstance<std::vector<std::string>>::m_type)
+    .property("scriptField", &MONO::ScriptFieldInstance<std::vector<std::string>>::m_scriptField)
     ;
   rttr::registration::class_<MONO::ScriptFieldInstance<std::string>>("System.String")
     .property("data", &MONO::ScriptFieldInstance<std::string>::m_data)

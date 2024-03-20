@@ -1,13 +1,13 @@
 /*!*********************************************************************
 \file   ErrorLogger.h 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   17 September 2023
 \brief  
   Singleton error logger holding spdlog objects for logging.
   The class is not static as it is required to hold data ie.
   streams for output and to dump all logs to a file by default
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <spdlog/spdlog.h>

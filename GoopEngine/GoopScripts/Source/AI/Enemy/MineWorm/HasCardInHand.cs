@@ -1,12 +1,12 @@
-﻿/*!************************************************************************
-\file HasCardinHand.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file   HasCardinHand.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script for enemyAi Tree
+        Checks if enemy has at leaast 1 car din its hand
 
-\brief
-C# script for enemyAi Tree
-Checks if enemy has at leaast 1 car din its hand
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 
 using System;
 using System.Collections.Generic;
@@ -40,7 +40,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 
@@ -85,12 +84,10 @@ namespace GoopScripts.AI.Enemy.MineWorm
 
       if (handSize > 0)
       {
-        //Console.WriteLine("has at least 1 card in hand");
         OnSuccess();
       }
       else
       {
-        //Console.WriteLine("no cards in hand");
         OnFail();
       }
     }

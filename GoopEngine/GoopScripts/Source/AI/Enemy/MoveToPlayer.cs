@@ -1,12 +1,12 @@
-﻿/*!************************************************************************
-\file MoveToPlayer.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file   MoveToPlayer.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script attached to a leaf node.
+        Used to move the enemy towards the player
 
-\brief
-C# script attached to a leaf node.
-Used to move the enemy towards the player
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +36,6 @@ namespace GoopScripts.AI.Enemy
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      //Console.WriteLine("Move to playerID:" + m_nodeID);
 
     }
 
@@ -67,8 +66,6 @@ namespace GoopScripts.AI.Enemy
     ************************************************************************/
     public void OnUpdate(uint entityID, double dt)
     {
-      //Console.WriteLine("Run Move to\n");
-
       if (PlayerExist())
       {
         uint playerID = GetPlayerID();

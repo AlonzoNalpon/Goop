@@ -37,6 +37,15 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Game Build|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\AI\Enemy\Dawson\MinMaxPlayCard.cs" />
     <Compile Include="Source\AI\Enemy\IsOutsideAttackRange.cs" />
     <Compile Include="Source\AI\Enemy\IsWithinPlayerRange.cs" />
     <Compile Include="Source\AI\Enemy\MineWorm\CheckCombo.cs" />
@@ -68,15 +78,20 @@
     <Compile Include="Source\AI\RootNode.cs" />
     <Compile Include="Source\AI\SelectorNode.cs" />
     <Compile Include="Source\AI\SequenceNode.cs" />
+    <Compile Include="Source\Audio\Dawson\DawsonDies.cs" />
+    <Compile Include="Source\Audio\Dawson\DawsonFlinches.cs" />
+    <Compile Include="Source\Audio\Dawson\DawsonPunches.cs" />
+    <Compile Include="Source\Audio\Dawson\DawsonShoots.cs" />
     <Compile Include="Source\Audio\Leah\LeahAttacks.cs" />
     <Compile Include="Source\Audio\Leah\LeahBlocks.cs" />
     <Compile Include="Source\Audio\Leah\LeahDies.cs" />
     <Compile Include="Source\Audio\Leah\LeahFlashBangs.cs" />
     <Compile Include="Source\Audio\Leah\LeahFlinches.cs" />
     <Compile Include="Source\Audio\Leah\LeahShoots.cs" />
-    <Compile Include="Source\Audio\MoleRat\MoleRatBites.cs" />
+    <Compile Include="Source\Audio\MineWorm\MineWormScratches.cs" />
     <Compile Include="Source\Audio\MoleRat\MoleRatBlocks.cs" />
     <Compile Include="Source\Audio\MoleRat\MoleRatScreeches.cs" />
+    <Compile Include="Source\Audio\MoleRat\MoleRatBites.cs" />
     <Compile Include="Source\Audio\StartMainMenuBGM.cs" />
     <Compile Include="Source\Audio\StopGameAudio.cs" />
     <Compile Include="Source\Button\ButtonInterface\IButtonClick.cs" />
@@ -95,6 +110,7 @@
     <Compile Include="Source\Button\HTP\HTP_Back.cs" />
     <Compile Include="Source\Button\HTP\HTP_Next.cs" />
     <Compile Include="Source\Button\LogoSplashScreen.cs" />
+    <Compile Include="Source\Button\MainMenuNoQuit.cs" />
     <Compile Include="Source\Button\MainMenuToScene.cs" />
     <Compile Include="Source\Button\Pause\HowToPlayClose.cs" />
     <Compile Include="Source\Button\Pause\MenuClose.cs" />
@@ -102,13 +118,16 @@
     <Compile Include="Source\Button\Pause\MenuMainMenu.cs" />
     <Compile Include="Source\Button\Pause\MenuQuitGame.cs" />
     <Compile Include="Source\Button\Pause\MenuResume.cs" />
+    <Compile Include="Source\Button\Pause\MenuToQuit.cs" />
     <Compile Include="Source\Button\Pause\OptionSlider.cs" />
     <Compile Include="Source\Button\QuitGame.cs" />
+    <Compile Include="Source\Button\RewardButton.cs" />
     <Compile Include="Source\Button\RewardCard.cs" />
     <Compile Include="Source\Button\SurrenderToMainMenu.cs" />
     <Compile Include="Source\Button\SwitchCutScenes.cs" />
     <Compile Include="Source\Button\TextButtonBase.cs" />
     <Compile Include="Source\Button\TransitionOut.cs" />
+    <Compile Include="Source\Button\TransitionOut2.cs" />
     <Compile Include="Source\Button\Tutorial\ArrowButton.cs" />
     <Compile Include="Source\Button\Tutorial\BackTutorial.cs" />
     <Compile Include="Source\Button\Tutorial\ContinueTutorial.cs" />
@@ -134,26 +153,28 @@
     <Compile Include="Source\Cards\SpecialTimeWrap.cs" />
     <Compile Include="Source\Demo\CrossFadeToBGM.cs" />
     <Compile Include="Source\Demo\CrossFadeToGameBGM.cs" />
-    <Compile Include="Source\Demo\DemoHR.cs" />
+    <Compile Include="Source\Demo\Demo.cs" />
     <Compile Include="Source\Demo\LeahDemo.cs" />
     <Compile Include="Source\Demo\PlayBGM.cs" />
     <Compile Include="Source\Demo\StopBGM.cs" />
-    <Compile Include="Source\Gameplay\BuffManager.cs" />
-    <Compile Include="Source\Gameplay\CharacterAnims.cs" />
-    <Compile Include="Source\Gameplay\CharacterType.cs" />
-    <Compile Include="Source\Gameplay\Combo.cs" />
-    <Compile Include="Source\Gameplay\ComboManager.cs" />
+    <Compile Include="Source\Gameplay\Stats\AnimationManager.cs" />
+    <Compile Include="Source\Gameplay\Stats\BuffManager.cs" />
+    <Compile Include="Source\Gameplay\Stats\CharacterType.cs" />
+    <Compile Include="Source\Gameplay\Stats\Combo.cs" />
+    <Compile Include="Source\Gameplay\Stats\ComboManager.cs" />
+    <Compile Include="Source\Gameplay\ComboPage.cs" />
     <Compile Include="Source\Gameplay\ComboTextUpdate.cs" />
-    <Compile Include="Source\Gameplay\Deck.cs" />
-    <Compile Include="Source\Gameplay\DeckManager.cs" />
+    <Compile Include="Source\Gameplay\Stats\Deck.cs" />
+    <Compile Include="Source\Gameplay\Stats\DeckManager.cs" />
     <Compile Include="Source\Gameplay\GameManager.cs" />
     <Compile Include="Source\Gameplay\HomeBase.cs" />
     <Compile Include="Source\Gameplay\HTP.cs" />
     <Compile Include="Source\Gameplay\RewardManager.cs" />
-    <Compile Include="Source\Gameplay\Stats.cs" />
+    <Compile Include="Source\Gameplay\Stats\Stats.cs" />
     <Compile Include="Source\Gameplay\Tutorial.cs" />
     <Compile Include="Source\Input\KeyCode.cs" />
     <Compile Include="Source\Mono\Component.cs" />
+    <Compile Include="Source\Mono\EnemyAIStruct.cs" />
     <Compile Include="Source\Mono\Entity.cs" />
     <Compile Include="Source\Mono\IAnimationEvent.cs" />
     <Compile Include="Source\Mono\IOnDestroy.cs" />
@@ -162,21 +183,22 @@
     <Compile Include="Source\Mono\Vec2.cs" />
     <Compile Include="Source\Mono\Vec3.cs" />
     <Compile Include="Source\Mono\Vec4.cs" />
-    <Compile Include="Source\Serialization\ISerializedObject.cs" />
     <Compile Include="Source\Serialization\SerialReader.cs" />
     <Compile Include="Source\Serialization\StatsInfo.cs" />
     <Compile Include="Source\Transition\ChangeGameOverToMainMenu.cs" />
     <Compile Include="Source\Transition\ChangeToCredits.cs" />
     <Compile Include="Source\Transition\ChangeToCutScenes.cs" />
+    <Compile Include="Source\Transition\ChangeToDeckViewer.cs" />
     <Compile Include="Source\Transition\ChangeToDefeat.cs" />
     <Compile Include="Source\Transition\ChangeToGameScene.cs" />
     <Compile Include="Source\Transition\ChangeToHTP.cs" />
     <Compile Include="Source\Transition\ChangeToMainMenu.cs" />
     <Compile Include="Source\Transition\ChangeToOptions.cs" />
+    <Compile Include="Source\Transition\ChangeToReward.cs" />
     <Compile Include="Source\Transition\ChangeToTutorial.cs" />
     <Compile Include="Source\Transition\ChangeToVictory.cs" />
-    <Compile Include="Source\UI\CardCounter.cs" />
     <Compile Include="Source\UI\FPS.cs" />
+    <Compile Include="Source\UI\GameNameFlicker.cs" />
     <Compile Include="Source\UI\HealthBar.cs" />
     <Compile Include="Source\UI\PauseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

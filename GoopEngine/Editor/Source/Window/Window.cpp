@@ -5,7 +5,7 @@
 \brief  This file contains the implementation of the Window class
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <Def.h>
@@ -81,7 +81,9 @@ namespace WindowSystem
     glfwSetWindowFocusCallback(m_window, WindowFocusedCallback);
     glfwSetErrorCallback(ErrorCallback);       // Error callback
     glfwSetKeyCallback(m_window, KeyCallback); // key callback
-
+#ifndef IMGUI_DISABLE
+    glfwSetDropCallback(m_window, WindowDropCallback);           // file drag n drop callback
+#endif
     if (shouldFullScreen)
     {
       ToggleFullscreen(); // Switch to fullscreen
@@ -197,4 +199,11 @@ namespace WindowSystem
     throw GE::Debug::Exception<Window>(GE::Debug::LEVEL_INFO,
       ErrMsg(std::string{ "Info: " } + desc));
   }
+
+#ifndef IMGUI_DISABLE
+  void Window::WindowDropCallback(GLFWwindow*, int pathCount, const char* paths[])
+  {
+    GE::Assets::AssetManager::GetInstance().AddAssets(pathCount, paths);
+  }
+#endif
 }

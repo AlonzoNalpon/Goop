@@ -1,11 +1,11 @@
 ﻿/*!*********************************************************************
 \file   DigipenSplashScreen.cs 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   09 March 2024
 \brief  
   Digipen Splash Screen
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Button;
 using GoopScripts.Mono;

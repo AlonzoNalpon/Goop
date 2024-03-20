@@ -6,7 +6,7 @@
 \brief  
 Attack card, derived from card base.
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Mono;
 using static GoopScripts.Mono.Utils;
@@ -25,7 +25,7 @@ namespace GoopScripts.Cards
     \param cardID
       ID of the card 
     ************************************************************************/
-    public DawsonSwing(CardID cardID, CardType cardType, string animSprite) : base(cardID, cardType, animSprite)
+    public DawsonSwing(CardID cardID, CardType cardType) : base(cardID, cardType)
     {
       Value = 2.0f;
       Duration = 1;

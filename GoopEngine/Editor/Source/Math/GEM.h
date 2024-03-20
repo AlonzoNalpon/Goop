@@ -9,7 +9,7 @@
 
         For more information on usage, refer to Math/GEM_READ_ME.txt
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef GOOP_MATH_H
 #define GOOP_MATH_H

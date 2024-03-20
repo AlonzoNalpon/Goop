@@ -6,7 +6,7 @@
         to be used with graphics engine
   
  
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef GRAPHICS_TYPES_H
 #define GRAPHICS_TYPES_H

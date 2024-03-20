@@ -5,7 +5,9 @@
         "Prefab": null,
         "isActive": true,
         "Parent": null,
-        "Child Entities": [],
+        "Child Entities": [
+            3
+        ],
         "Components": [
             {
                 "Transform": {
@@ -36,6 +38,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -136,6 +144,357 @@
         ]
     },
     {
+        "Name": "[Image] Overlay",
+        "ID": 3,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 0,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, -1 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "MainMenu_BG_Lines",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Confirm Quit",
+        "ID": 4,
+        "Prefab": {
+            "name": "Confirm Quit",
+            "version": 0,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 4
+                },
+                {
+                    "key": 1,
+                    "value": 5
+                },
+                {
+                    "key": 2,
+                    "value": 6
+                },
+                {
+                    "key": 3,
+                    "value": 7
+                },
+                {
+                    "key": 4,
+                    "value": 8
+                },
+                {
+                    "key": 5,
+                    "value": 13
+                },
+                {
+                    "key": 6,
+                    "value": 27
+                },
+                {
+                    "key": 7,
+                    "value": 28
+                },
+                {
+                    "key": 8,
+                    "value": 29
+                }
+            ],
+            "registered": true
+        },
+        "isActive": false,
+        "Parent": null,
+        "Child Entities": [
+            5,
+            6,
+            8,
+            13,
+            28,
+            29
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 5 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Overlay",
+        "ID": 5,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 4,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, -1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 4 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_OverlayBG",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] No",
+        "ID": 6,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 4,
+        "Child Entities": [
+            7
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 150, -75, 1 }",
+                    "scale": "{ 0.65, 0.65, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 150, -75, 6 }",
+                    "worldScale": "{ 0.65, 0.65, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 150, -75 }",
+                    "width": 239.0,
+                    "height": 86.0,
+                    "min": "{ 30.5, -118 }",
+                    "max": "{ 269.5, -32 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 400,
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "MainMenuNoQuit",
+                            "entityID": 6,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "Return|60|Show|27",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 7,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 6,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -40, -30, 1 }",
+                    "scale": "{ 1.53846, 1.53846, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 124, -94.5, 7 }",
+                    "worldScale": "{ 0.999999, 0.999999, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "No",
+                    "clr": {
+                        "r": 1.1294118165969849,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.17499999701976776,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Confirm Quit Base",
+        "ID": 8,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 4,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 5 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 650,
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_Menu_Base",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
         "Name": "TransitionOut",
         "ID": 9,
         "Prefab": null,
@@ -172,6 +531,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -194,6 +559,12 @@
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -219,6 +590,12 @@
                                         "b": 1.0,
                                         "a": 0.0
                                     },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "textColor": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -242,6 +619,12 @@
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -267,6 +650,12 @@
                                         "b": 1.0,
                                         "a": 0.0
                                     },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "textColor": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -290,6 +679,12 @@
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -401,6 +796,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -423,6 +824,12 @@
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -492,6 +899,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -519,8 +932,98 @@
                                     "scriptField": {
                                         "fieldName": "m_delay"
                                     }
+                                },
+                                {
+                                    "data": "",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "test"
+                                    }
                                 }
                             ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Button] Yes",
+        "ID": 13,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 4,
+        "Child Entities": [
+            27
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -150, -75, 1 }",
+                    "scale": "{ 0.65, 0.65, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -150, -75, 6 }",
+                    "worldScale": "{ 0.65, 0.65, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -150, -75 }",
+                    "width": 239.0,
+                    "height": 86.0,
+                    "min": "{ -269.5, -118 }",
+                    "max": "{ -30.5, -32 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 400,
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Button_Base",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "QuitGame",
+                            "entityID": 13,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -545,11 +1048,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -400, 0, 0 }",
-                    "scale": "{ 1, 1, 1 }",
+                    "pos": "{ -315, 35, 0 }",
+                    "scale": "{ 0.75, 0.75, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -400, 0, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
+                    "worldPos": "{ -315, 35, 0 }",
+                    "worldScale": "{ 0.75, 0.75, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
@@ -568,15 +1071,96 @@
                             "width": 1058,
                             "height": 511,
                             "tint": {
+                                "r": 0.0,
+                                "g": 0.0,
+                                "b": 0.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
                                 "r": 1.0,
                                 "g": 1.0,
                                 "b": 1.0,
-                                "a": 0.0
+                                "a": 1.0
                             }
                         }
                     },
                     "spriteName": "MainMenu_BG_Logo",
                     "shouldRender": true
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "Blink",
+                            "value": [
+                                {
+                                    "trans": "{ -315, 35, 0 }",
+                                    "scale": "{ 0.75, 0.75, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.6117647290229797
+                                    },
+                                    "textColor": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.1,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ -315, 35, 0 }",
+                                    "scale": "{ 0.75, 0.75, 1 }",
+                                    "rot": "{ 0, 0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 0.1,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": false,
+                    "playing": ""
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "GameNameFlicker",
+                            "entityID": 14,
+                            "scriptFieldInstList": []
+                        }
+                    ]
                 }
             }
         ]
@@ -595,10 +1179,10 @@
                 "Transform": {
                     "pos": "{ 450, 1200, -1 }",
                     "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
+                    "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 450, 1200, -1 }",
                     "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
@@ -620,6 +1204,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -643,6 +1233,12 @@
                                         "b": 1.0,
                                         "a": 0.0
                                     },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "textColor": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -661,6 +1257,12 @@
                                         "g": 0.0,
                                         "b": 0.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 0.0,
@@ -686,6 +1288,12 @@
                                         "b": 1.0,
                                         "a": 0.0
                                     },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
                                     "textColor": {
                                         "r": 1.0,
                                         "g": 1.0,
@@ -704,6 +1312,12 @@
                                         "g": 0.0,
                                         "b": 0.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 0.0,
@@ -773,6 +1387,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -799,6 +1419,13 @@
                                     "type": "System.Double",
                                     "scriptField": {
                                         "fieldName": "m_delay"
+                                    }
+                                },
+                                {
+                                    "data": "",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "test"
                                     }
                                 }
                             ]
@@ -898,6 +1525,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -924,6 +1557,13 @@
                                     "type": "System.Double",
                                     "scriptField": {
                                         "fieldName": "m_delay"
+                                    }
+                                },
+                                {
+                                    "data": "",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "test"
                                     }
                                 }
                             ]
@@ -1023,6 +1663,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -1049,6 +1695,13 @@
                                     "type": "System.Double",
                                     "scriptField": {
                                         "fieldName": "m_delay"
+                                    }
+                                },
+                                {
+                                    "data": "",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "test"
                                     }
                                 }
                             ]
@@ -1148,6 +1801,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -1174,6 +1833,13 @@
                                     "type": "System.Double",
                                     "scriptField": {
                                         "fieldName": "m_delay"
+                                    }
+                                },
+                                {
+                                    "data": "",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "test"
                                     }
                                 }
                             ]
@@ -1273,6 +1939,12 @@
                                 "g": 1.0,
                                 "b": 1.0,
                                 "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
                             }
                         }
                     },
@@ -1284,7 +1956,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "QuitGame",
+                            "scriptName": "MenuToQuit",
                             "entityID": 24,
                             "scriptFieldInstList": []
                         }
@@ -1363,6 +2035,143 @@
                     },
                     "scale": 0.19200000166893005,
                     "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 27,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 13,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -60, -30, 1 }",
+                    "scale": "{ 1.53846, 1.53846, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -189, -94.5, 7 }",
+                    "worldScale": "{ 0.999999, 0.999999, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Yes",
+                    "clr": {
+                        "r": 1.1294118165969849,
+                        "g": 0.8313725590705872,
+                        "b": 0.7764706015586853,
+                        "a": 1.0
+                    },
+                    "scale": 0.17499999701976776,
+                    "fontID": 2
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Quit Game Banner",
+        "ID": 28,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 4,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 210, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 210, 5 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 266,
+                            "height": 71,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Surrender_Header",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "[Image] Text_AreYouSure",
+        "ID": 29,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 4,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 63.2407, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 63.2407, 6 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 281,
+                            "height": 37,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Text_AreYouSure",
+                    "shouldRender": true
                 }
             }
         ]

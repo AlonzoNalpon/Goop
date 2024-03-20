@@ -7,7 +7,7 @@ This file contains the implementation of the animation events editor.
 This editor allows creation of a set of animation events. Each event
 is a script name bound to a frame. 
    
- Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved. 
+ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved. 
  ************************************************************************/
 #include <pch.h>
 

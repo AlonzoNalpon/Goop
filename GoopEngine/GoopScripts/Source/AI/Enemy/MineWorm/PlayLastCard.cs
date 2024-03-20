@@ -1,12 +1,12 @@
-﻿/*!************************************************************************
-\file PlayLastCard.cs
-\author Han Qin Ding
+﻿/*!*********************************************************************
+\file   PlayLastCard.cs
+\author han.q@digipen.edu
+\date   15-March-2024
+\brief  C# script for enemyAi Tree
+        Makes the enemy play the last card in its hand
 
-\brief
-C# script for enemyAi Tree
-Makes the enemy play the last card in its hand
-
-**************************************************************************/
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 
 using System;
 using System.Collections.Generic;
@@ -40,7 +40,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     {
       m_parentID = parentID;
       m_nodeID = currID;
-      // //Console.WriteLine("Is outside range ID: " + m_nodeID);
     }
 
 

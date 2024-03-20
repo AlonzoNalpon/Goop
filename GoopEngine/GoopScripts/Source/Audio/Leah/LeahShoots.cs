@@ -3,7 +3,7 @@
 \date   04-February-2024
 \brief  Script to play Leah beam sound
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Mono;
 using System;
@@ -14,11 +14,13 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  internal class LeahShoots : IAnimationEvent
+  public class LeahShoots : Entity, IAnimationEvent
   {
+    public int startRange, endRange;
+    Random rng = new Random();
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("SFX_Beam", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.PlayRandomSound(startRange, endRange, entity, 0.7f + (float)rng.NextDouble() * 0.3f);
     }
   }
 }

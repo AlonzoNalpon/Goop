@@ -1,12 +1,12 @@
 /*!*********************************************************************
 \file   ComponentTypes.h 
-\author w.chinkitbryam\@digipen.edu
+\author w.chinkitbryan\@digipen.edu
 \date   19 September 2023
 \brief  
   Contains the list of component types used for registering to the ECS
 	and for serialization.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
 #include <vector>
@@ -27,15 +27,10 @@ namespace GE
 			rttr::type::get<GE::Component::SpriteAnim>(),
 			rttr::type::get<GE::Component::Tween>(),
 			rttr::type::get<GE::Component::Scripts>(),
-			rttr::type::get<GE::Component::Draggable>(),
 			rttr::type::get<GE::Component::EnemyAI>(),
 			rttr::type::get<GE::Component::Text>(),
-			rttr::type::get<GE::Component::Game>(),
 			rttr::type::get<GE::Component::Audio>(),
 			rttr::type::get<GE::Component::GE_Button>(),
-			rttr::type::get<GE::Component::Card>(),
-			rttr::type::get<GE::Component::CardHolder>(),
-			rttr::type::get<GE::Component::CardHolderElem>(),
 			rttr::type::get<GE::Component::Emitter>(),
 			rttr::type::get<GE::Component::AnimEvents>()
 		};

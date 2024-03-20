@@ -8,7 +8,7 @@
 	Checks for AABB-to-mouse collision.
 	Updates AABB collision box of entity according to it's new center.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 
 #pragma once

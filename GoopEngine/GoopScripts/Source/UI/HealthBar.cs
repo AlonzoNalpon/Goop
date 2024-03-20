@@ -5,7 +5,7 @@
 \brief
         Script used to generate healthbar UI for both player and enemy.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Mono;
 using System;
@@ -76,7 +76,15 @@ namespace GoopScripts.UI
 
     public void UpdateBar()
     {
-      int newWidth = m_oneUnit * m_health;
+      int newWidth;
+      if (m_health <= 0)
+      {
+        newWidth = 0;
+      }
+      else
+      {
+        newWidth = m_oneUnit * m_health;
+      }
       Utils.SetObjectWidth(m_playerBarID, newWidth);
       UpdateHealthText();
     }
@@ -84,15 +92,22 @@ namespace GoopScripts.UI
     public void DecreaseHealth(int amount = 1)
     {
       m_health -= amount;
+      if (m_health < 0)
+      {
+        m_health = 0;
+      }
       UpdateBar();
       Vec3<double> a = Utils.GetPosition(m_playerBarID);
-      if (m_isPlayer)
+      for (int i = 0; i < amount; ++i)
       {
-        a.X = a.X - m_oneUnit * 0.5f;
-      }
-      else
-      {
-        a.X = a.X + m_oneUnit * 0.5f;
+        if (m_isPlayer)
+        {
+          a.X = a.X - m_oneUnit * 0.5f;
+        }
+        else
+        {
+          a.X = a.X + m_oneUnit * 0.5f;
+        }
       }
       Utils.SetPosition(m_playerBarID, a);
     }
@@ -102,13 +117,16 @@ namespace GoopScripts.UI
       m_health += amount;
       UpdateBar();
       Vec3<double> a = Utils.GetPosition(m_playerBarID);
-      if (m_isPlayer)
+      for (int i = 0; i < amount; ++i)
       {
-        a.X = a.X + m_oneUnit * 0.5f;
-      }
-      else
-      {
-        a.X = a.X - m_oneUnit * 0.5f;
+        if (m_isPlayer)
+        {
+          a.X = a.X + m_oneUnit * 0.5f;
+        }
+        else
+        {
+          a.X = a.X - m_oneUnit * 0.5f;
+        }
       }
       Utils.SetPosition(m_playerBarID, a);
     }

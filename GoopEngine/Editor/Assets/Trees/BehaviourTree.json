@@ -179,5 +179,27 @@
         ],
         "treeName": "newTree12",
         "treeTempID": 12
+    },
+    {
+        "tree": [
+            {
+                "nodeType": "ROOT_NODE",
+                "parentNode": 0,
+                "childrenNode": [
+                    1
+                ],
+                "scriptName": "RootNode",
+                "pos": "{ 279, 67 }"
+            },
+            {
+                "nodeType": "LEAF_NODE",
+                "parentNode": 0,
+                "childrenNode": [],
+                "scriptName": "MinMaxPlayCard",
+                "pos": "{ 577, 52 }"
+            }
+        ],
+        "treeName": "newTree13",
+        "treeTempID": 13
     }
 ]

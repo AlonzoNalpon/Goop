@@ -6,7 +6,7 @@
   Button script used to send to main menu screen, while setting the 
 pause menu to default state.
 
-Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Audio;
 using GoopScripts.Mono;

@@ -1,7 +1,7 @@
 {
     "Name": "MoleRat",
     "isActive": true,
-    "Version": 3,
+    "Version": 7,
     "Components": [
         {
             "Transform": {
@@ -42,6 +42,12 @@
                             "g": 1.0,
                             "b": 1.0,
                             "a": 0.0
+                        },
+                        "multiply": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
                         }
                     }
                 },
@@ -61,69 +67,6 @@
                         "scriptName": "Stats",
                         "entityID": 0,
                         "scriptFieldInstList": [
-                            {
-                                "data": {
-                                    "characterAnimsInst": {
-                                        "scriptName": "CharacterAnims",
-                                        "entityID": 32758,
-                                        "scriptFieldInstList": [
-                                            {
-                                                "data": "SS_MoleRat_Bite",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_attack"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Bite",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_attack2"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Curl",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_block"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Death",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_death"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Death",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_deathShield"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Flinch",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_flinch"
-                                                }
-                                            },
-                                            {
-                                                "data": "SS_MoleRat_Idle",
-                                                "type": "System.String",
-                                                "scriptField": {
-                                                    "fieldName": "m_idle"
-                                                }
-                                            }
-                                        ]
-                                    }
-                                },
-                                "type": "",
-                                "scriptField": {
-                                    "fieldName": "m_animations"
-                                }
-                            },
                             {
                                 "data": 0,
                                 "type": "System.Int32",
@@ -225,17 +168,88 @@
                     {
                         "scriptName": "LeahDies",
                         "entityID": 0,
-                        "scriptFieldInstList": []
+                        "scriptFieldInstList": [
+                            {
+                                "data": 6,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 11,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
                     },
                     {
                         "scriptName": "MoleRatScreeches",
                         "entityID": 0,
-                        "scriptFieldInstList": []
+                        "scriptFieldInstList": [
+                            {
+                                "data": 0,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 5,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
                     },
                     {
                         "scriptName": "MoleRatBlocks",
                         "entityID": 0,
                         "scriptFieldInstList": []
+                    },
+                    {
+                        "scriptName": "AnimationManager",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": "SS_MoleRat_Curl",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_block"
+                                }
+                            },
+                            {
+                                "data": "SS_MoleRat_Death",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_death"
+                                }
+                            },
+                            {
+                                "data": "SS_MoleRat_Death",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_deathShield"
+                                }
+                            },
+                            {
+                                "data": "SS_MoleRat_Flinch",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_flinch"
+                                }
+                            },
+                            {
+                                "data": "SS_MoleRat_Idle",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_idle"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -249,19 +263,19 @@
             "AnimEvents": {
                 "eventList": [
                     {
-                        "first": 6,
+                        "first": 18,
                         "second": "MoleRatBites"
                     },
                     {
-                        "first": 19,
+                        "first": 30,
                         "second": "LeahDies"
                     },
                     {
-                        "first": 20,
+                        "first": 32,
                         "second": "MoleRatScreeches"
                     },
                     {
-                        "first": 18,
+                        "first": 29,
                         "second": "MoleRatBlocks"
                     }
                 ]
