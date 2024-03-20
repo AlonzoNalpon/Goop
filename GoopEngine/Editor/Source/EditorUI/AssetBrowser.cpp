@@ -64,7 +64,10 @@ void AssetBrowser::CreateContentDir()
 	{
 		const char* const initialDir{ "./Assets/Scenes" };
 		auto files{ SelectFilesFromExplorer("All Files (*.*), *.*", 1, initialDir)};
-		Assets::AssetManager::GetInstance().AddAssets(files);
+		if (!files.empty())
+		{
+			Assets::AssetManager::GetInstance().AddAssets(files);
+		}
 	}
 
 	assetsDirectory = assetManager.GetConfigData<std::string>("Assets Dir");
@@ -496,7 +499,7 @@ std::vector<std::string> AssetBrowser::SelectFilesFromExplorer(const char* exten
 		return files;
 	}
 
-	throw GE::Debug::Exception<AssetBrowser>::Exception(GE::Debug::LEVEL_ERROR, ErrMsg("Unable to open file"));
+	return {};
 }
 
 std::string AssetBrowser::LoadFileFromExplorer(const char* extensionsFilter, unsigned numFilters, const char* initialDir)
