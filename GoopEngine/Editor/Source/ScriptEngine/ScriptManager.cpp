@@ -261,6 +261,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::UpdateSprite", GE::MONO::UpdateSprite);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextComponent", GE::MONO::SetTextComponent);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextColor", GE::MONO::SetTextColor);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlaySingleParticle", GE::MONO::PlaySingleParticle);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeInAudio", GE::MONO::FadeInAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetSpriteTint", GE::MONO::SetSpriteTint);
@@ -1379,5 +1380,6 @@ void GE::MONO::PlaySingleParticle(GE::ECS::Entity emitterEntityID)
   {
     em->m_emitterHasLifeCount = true;
     em->m_particleLifeCount = 1;
+    em->m_playing = true;
   }
 }
