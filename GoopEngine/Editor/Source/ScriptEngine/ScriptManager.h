@@ -672,6 +672,26 @@ namespace GE::MONO
 	********************************************************************/
 	void DispatchQuitEvent();
 
+	/*!******************************************************************
+	\brief
+		Plays 1 particle effect at transform
+
+	\param trans
+		Translation
+	\param scale
+		Scale
+	\param rot
+		Rotation
+	\param string
+		Name of sprite
+	\param drag
+		Drag force on particle
+	\param force
+		Initial Vel of the particle
+	\param grav
+		Gravity acting on the particle
+	********************************************************************/
+	void GE::MONO::PlaySingleParticle(GE::ECS::Entity emitterEntityID);
 
 #include "ScriptManager.tpp"
 }

@@ -20,6 +20,9 @@ namespace GE::Component
     float m_particleTime;
     int m_particlesPerMin;
 
+    bool m_emitterHasLifeCount;
+    int m_particleLifeCount;
+
     std::map<GE::ECS::Entity, float> m_lifeTimes;
   };
 }

@@ -1368,3 +1368,16 @@ void GE::MONO::DispatchQuitEvent()
   GE::Events::EventManager::GetInstance().Dispatch(GE::Events::StopSceneEvent());
 #endif // IMGUI_DISABLE
 }
+
+
+void GE::MONO::PlaySingleParticle(GE::ECS::Entity emitterEntityID)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+
+  auto em = ecs.GetComponent<GE::Component::Emitter>(emitterEntityID);
+  if (em)
+  {
+    em->m_emitterHasLifeCount = true;
+    em->m_particleLifeCount = 1;
+  }
+}

@@ -41,6 +41,12 @@ void GE::Systems::ParticleSystem::Update()
       {        
         while (em->m_currTime > em->m_particleTime)
         {
+          if (em->m_emitterHasLifeCount && em->m_particleLifeCount < 1)
+          {
+            // ignore if should no longer spawn
+            continue;
+          }
+
           em->m_currTime -= em->m_particleTime;
 
           // Create new particle entity
@@ -73,6 +79,10 @@ void GE::Systems::ParticleSystem::Update()
           m_ecs->AddComponent(particle, vel);
 
           em->m_lifeTimes[particle] = GE::GoopUtils::Lerp(0.f, em->m_maxLifeTime, GE::GoopUtils::RandomValue(0.f, 1.f));
+          
+          // No need to check if should reduce, if it shouldn't then this
+          // will be uninitialized but unused
+          --em->m_particleLifeCount;
         }
         
         // Update all timers
