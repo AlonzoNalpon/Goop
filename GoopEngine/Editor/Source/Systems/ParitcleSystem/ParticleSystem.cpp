@@ -19,9 +19,9 @@ void GE::Systems::ParticleSystem::Update()
         em->m_hasPlayed = true;
         em->m_playing = true;
       }
-      em->m_particleTime = 60.f / em->m_particlesPerMin;;
+      em->m_particleTime = 60.f / em->m_particlesPerMin;
       
-      // Destroy all particles that life out their lifetime
+      // Destroy all particles that live out their lifetime
       for (const auto& [particle, lifetime] : em->m_lifeTimes)
       {
         if (lifetime < 0)
@@ -31,10 +31,10 @@ void GE::Systems::ParticleSystem::Update()
         }
       }
       // Remove all particles from the container when life time is over
-      std::erase_if(em->m_lifeTimes, 
-        [](const decltype(*em->m_lifeTimes.begin())& lifetime) 
-        { 
-          return lifetime.second < 0; 
+      std::erase_if(em->m_lifeTimes,
+        [](const decltype(*em->m_lifeTimes.begin())& lifetime)
+        {
+          return lifetime.second < 0;
         });
 
       if (em->m_playing)
@@ -43,8 +43,7 @@ void GE::Systems::ParticleSystem::Update()
         {
           if (em->m_emitterHasLifeCount && em->m_particleLifeCount < 1)
           {
-            // ignore if should no longer spawn
-            continue;
+            break;
           }
 
           em->m_currTime -= em->m_particleTime;
@@ -78,7 +77,7 @@ void GE::Systems::ParticleSystem::Update()
           vel.m_gravity = em->m_gravity;
           m_ecs->AddComponent(particle, vel);
 
-          em->m_lifeTimes[particle] = GE::GoopUtils::Lerp(0.f, em->m_maxLifeTime, GE::GoopUtils::RandomValue(0.f, 1.f));
+          em->m_lifeTimes[particle] = GE::GoopUtils::Lerp(em->m_minLifeTime, em->m_maxLifeTime, GE::GoopUtils::RandomValue(0.f, 1.f));
           
           // No need to check if should reduce, if it shouldn't then this
           // will be uninitialized but unused
@@ -90,7 +89,7 @@ void GE::Systems::ParticleSystem::Update()
         std::for_each(em->m_lifeTimes.begin(), em->m_lifeTimes.end(), 
           [dt](decltype(*em->m_lifeTimes.begin())& lifetime) 
           { 
-            lifetime.second -= dt; 
+            lifetime.second -= dt;
           });
       }
     
