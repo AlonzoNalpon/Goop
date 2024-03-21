@@ -662,7 +662,7 @@
         "ID": 11,
         "Prefab": {
             "name": "FPSCounter",
-            "version": 0,
+            "version": 1,
             "objToEntity": [
                 {
                     "key": 0,
@@ -701,15 +701,7 @@
                         {
                             "scriptName": "FPS",
                             "entityID": 11,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 11,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "FPS_COUNTER"
-                                    }
-                                }
-                            ]
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
