@@ -691,7 +691,7 @@ namespace GE::MONO
 	\param grav
 		Gravity acting on the particle
 	********************************************************************/
-	void GE::MONO::PlaySingleParticle(GE::ECS::Entity emitterEntityID);
+	void PlaySingleParticle(GE::ECS::Entity emitterEntityID);
 
 #include "ScriptManager.tpp"
 }

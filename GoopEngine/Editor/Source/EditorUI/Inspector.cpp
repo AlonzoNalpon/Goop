@@ -1310,32 +1310,32 @@ void GE::EditorGUI::Inspector::CreateContent()
 					{
 						break;
 					}
+
+					// Honestly no idea why -30 makes all 3 input fields match in size but sure
+					float inputWidth = (contentSize - charSize - 30) / 3;
+
+					Separator();
+					PushID("Emitter");
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					InputDouble3("Min Vel", em->m_minVel, inputWidth);
+					TableNextRow();
+					InputDouble3("Max Vel", em->m_maxVel, inputWidth);
+					TableNextRow();
+					InputDouble3("Gravity", em->m_gravity, inputWidth);
+					TableNextRow();
+					InputCheckBox("Play On Start", em->m_playOnStart);
+					TableNextRow();
+					InputCheckBox("Playing", em->m_playing);
+					EndTable();
+					InputFloat("Min Drag", &em->m_minDrag);
+					InputFloat("Max Drag", &em->m_maxDrag);
+					InputFloat("Min Lifetime", &em->m_minLifeTime);
+					InputFloat("Max Lifetime", &em->m_maxLifeTime);
+					InputInt("Emission Rate", &em->m_particlesPerMin);
+					ImGui::Separator();
+					ImGui::PopID();
 				}
-
-				// Honestly no idea why -30 makes all 3 input fields match in size but sure
-				float inputWidth = (contentSize - charSize - 30) / 3;
-
-				Separator();
-				PushID("Emitter");
-				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-				ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-				InputDouble3("Min Vel", em->m_minVel, inputWidth);
-				TableNextRow();
-				InputDouble3("Max Vel", em->m_maxVel, inputWidth);
-				TableNextRow();
-				InputDouble3("Gravity", em->m_gravity, inputWidth);
-				TableNextRow();
-				InputCheckBox("Play On Start", em->m_playOnStart);
-				TableNextRow();
-				InputCheckBox("Playing", em->m_playing);
-				EndTable();
-				InputFloat("Min Drag", &em->m_minDrag);
-				InputFloat("Max Drag", &em->m_maxDrag);
-				InputFloat("Min Lifetime", &em->m_minLifeTime);
-				InputFloat("Max Lifetime", &em->m_maxLifeTime);
-				InputInt("Emission Rate", &em->m_particlesPerMin);
-				ImGui::Separator();
-				ImGui::PopID();
 			}
 			else if (compType == rttr::type::get<Component::AnimEvents>())
 			{
