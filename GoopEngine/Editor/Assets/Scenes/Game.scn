@@ -5,7 +5,9 @@
         "Prefab": null,
         "isActive": true,
         "Parent": null,
-        "Child Entities": [],
+        "Child Entities": [
+            145
+        ],
         "Components": [
             {
                 "Transform": {
@@ -4271,7 +4273,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 7.70939e-13 }",
+                    "pos": "{ -307.537, -269.134, 1.18661e-12 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -419.265, 137.337, 20 }",
@@ -5356,7 +5358,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 7.70939e-13 }",
+                    "pos": "{ -307.537, -269.134, 1.18661e-12 }",
                     "scale": "{ 1, 1, 1.81818 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 319.853, 137.337, 20 }",
@@ -7852,12 +7854,12 @@
         "ID": 145,
         "Prefab": null,
         "isActive": true,
-        "Parent": null,
+        "Parent": 0,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -37, 275, 10 }",
+                    "pos": "{ 301.191, 173.333, 19 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -37, 275, 10 }",
