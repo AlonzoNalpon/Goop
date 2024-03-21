@@ -27,6 +27,10 @@ void TweenSystem::Update()
 	frc.StartSystemTimer();
 
 	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
+	// I don't really know how to else to do this
+	// animations jump when there is a lag spike and it just looks bad
+	// so heres a very hacky way to prevent that but I hate it
+	dt = dt > 0.1667 ? 0.1667 : dt;
 
 	for (Entity entity : GetUpdatableEntities()) 
 	{
