@@ -29,6 +29,9 @@ namespace GE::Systems
       if (!animEvents || !spriteAnim) // skip if the event/anim components were missing
         continue;
 
+      if (animEvents->m_lastFrame == spriteAnim->currFrame) // if this frame ran before, we skip
+        continue;
+      animEvents->m_lastFrame = spriteAnim->currFrame;  // We update if it's a new frame
       auto const& eventTable{ Events::AnimEventManager::GetInstance().GetAnimEventsTable() };
       for (auto const& currEventPack : animEvents->m_eventList)
       {

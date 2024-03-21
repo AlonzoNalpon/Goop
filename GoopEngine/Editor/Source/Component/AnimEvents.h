@@ -46,6 +46,7 @@ namespace GE::Component
     // DATA MEMBERS
     //AnimEventsMap m_events; //!< DO NOT SERIALIZE
     EventCont m_eventList; // !< the events list SERIALIZE
+    Graphics::gObjID m_lastFrame{Graphics::BAD_OBJ_ID}; //!< the last frame that ran
   };
 }
 
