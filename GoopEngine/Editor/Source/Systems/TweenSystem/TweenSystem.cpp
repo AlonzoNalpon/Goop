@@ -21,12 +21,12 @@ using namespace GE::ECS;
 using namespace GE::Systems;
 using namespace GE::Component;
 
-void TweenSystem::FixedUpdate()
+void TweenSystem::Update()
 {
 	static auto& frc = GE::FPS::FrameRateController::GetInstance();
 	frc.StartSystemTimer();
 
-	double dt = GE::FPS::FrameRateController::GetInstance().GetFixedDeltaTime();
+	double dt = GE::FPS::FrameRateController::GetInstance().GetDeltaTime();
 
 	for (Entity entity : GetUpdatableEntities()) 
 	{
