@@ -1,26 +1,16 @@
 {
     "Name": "FPSCounter",
     "isActive": true,
-    "Version": 0,
+    "Version": 1,
     "Components": [
         {
             "Transform": {
-                "pos": "{ 861.577, 512.984, 1001 }",
+                "pos": "{ 0, 0, 0 }",
                 "scale": "{ 1, 1, 1 }",
                 "rot": "{ 0, -0, 0 }",
-                "worldPos": "{ 861.577, 512.984, 1001 }",
+                "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, -0, 0 }"
-            }
-        },
-        {
-            "BoxCollider": {
-                "center": "{ 861.577, 512.984 }",
-                "width": 8.152580206657e-312,
-                "height": 8.14846383731e-312,
-                "min": "{ 861.577, 512.984 }",
-                "max": "{ 861.577, 512.984 }",
-                "render": true
             }
         },
         {
@@ -28,7 +18,7 @@
                 "scriptList": [
                     {
                         "scriptName": "FPS",
-                        "entityID": 17,
+                        "entityID": 0,
                         "scriptFieldInstList": [
                             {
                                 "data": 17,
@@ -56,5 +46,12 @@
             }
         }
     ],
-    "SubData": []
+    "SubData": [],
+    "Removed Components": [
+        {
+            "id": 0,
+            "type": "BoxCollider",
+            "version": 1
+        }
+    ]
 }

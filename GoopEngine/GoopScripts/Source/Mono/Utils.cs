@@ -498,5 +498,8 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void DispatchQuitEvent();
 
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void PlaySingleParticle(uint emitterId);
+
   }
 }

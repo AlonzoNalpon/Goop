@@ -91,8 +91,6 @@ FMOD::Sound* FmodSystem::CreateSound(std::string audio, bool looped)
   FMOD_RESULT result = m_fModSystem->createSound(am.GetSound(audio).c_str(), mode, nullptr, &sound);
   if (result == FMOD_OK)
   {
-    // sound loaded, can stop
-    m_sounds[audio] = sound;
     return sound;
   }
   else
@@ -139,17 +137,18 @@ bool FmodSystem::isPlaying(std::string audio)
 
 void FmodSystem::PlaySound(std::string audio, float volume, ChannelType channel, bool looped)
 {
-  static unsigned plays{};
-  ++plays;
-
-  FMOD::Sound* sound = CreateSound(audio, looped); 
+  FMOD::Sound* sound = CreateSound(audio, looped);
 
   // Only bgm has named channels to allow for individual audio fading
   // the rest will get a unqiue name
   if (channel == SFX)
   {
+    static unsigned plays{};
+    ++plays;
     audio += std::to_string(plays);
   }
+
+  m_sounds[audio] = sound;
 
   FMOD::Channel*& soundChannel{ m_channels[audio] };
 

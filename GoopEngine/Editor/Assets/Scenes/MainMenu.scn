@@ -65,7 +65,7 @@
         ]
     },
     {
-        "Name": "FPS Counter",
+        "Name": "FPSCounter",
         "ID": 1,
         "Prefab": null,
         "isActive": true,
@@ -88,15 +88,7 @@
                         {
                             "scriptName": "FPS",
                             "entityID": 1,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 1,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "FPS_COUNTER"
-                                    }
-                                }
-                            ]
+                            "scriptFieldInstList": []
                         }
                     ]
                 }

@@ -21,12 +21,17 @@ using namespace GE::ECS;
 using namespace GE::Systems;
 using namespace GE::Component;
 
-void TweenSystem::FixedUpdate()
+void TweenSystem::Update()
 {
 	static auto& frc = GE::FPS::FrameRateController::GetInstance();
 	frc.StartSystemTimer();
 
-	double dt = GE::FPS::FrameRateController::GetInstance().GetFixedDeltaTime();
+	double dt = frc.GetDeltaTime();
+	// I don't really know how to else to do this
+	// animations jump when there is a lag spike and it just looks bad
+	// so heres a very hacky way to prevent that but I hate it
+	static double targetTime = 1/ frc.GetTargetFPS();
+	dt = dt > targetTime ? targetTime : dt;
 
 	for (Entity entity : GetUpdatableEntities()) 
 	{

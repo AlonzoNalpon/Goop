@@ -218,7 +218,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -50.2964, -15.703, 0 }",
+                    "pos": "{ -50.296, -15.703, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 692.037, 435.093, 0 }",
@@ -258,16 +258,6 @@
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -725.16, -67.1233 }",
-                    "width": 50.0,
-                    "height": 50.0,
-                    "min": "{ -750.16, -92.1233 }",
-                    "max": "{ -700.16, -42.1233 }",
-                    "render": false
-                }
             }
         ]
     },
@@ -288,49 +278,13 @@
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 475.5, -75.4077 }",
-                    "width": 50.0,
-                    "height": 50.0,
-                    "min": "{ 450.5, -100.408 }",
-                    "max": "{ 500.5, -50.4077 }",
-                    "render": false
-                }
             }
         ]
     },
     {
         "Name": "Leah_Block_Hover",
         "ID": 6,
-        "Prefab": {
-            "name": "Leah_Block_Hover",
-            "version": 12,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 6
-                },
-                {
-                    "key": 1,
-                    "value": 7
-                },
-                {
-                    "key": 2,
-                    "value": 8
-                },
-                {
-                    "key": 3,
-                    "value": 9
-                },
-                {
-                    "key": 4,
-                    "value": 10
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -489,16 +443,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 200, 170 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ 93, 20 }",
-                    "max": "{ 307, 320 }",
-                    "render": false
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -543,37 +487,7 @@
     {
         "Name": "Leah_Flashbang_Hover",
         "ID": 11,
-        "Prefab": {
-            "name": "Leah_Flashbang_Hover",
-            "version": 15,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 11
-                },
-                {
-                    "key": 1,
-                    "value": 12
-                },
-                {
-                    "key": 2,
-                    "value": 13
-                },
-                {
-                    "key": 3,
-                    "value": 14
-                },
-                {
-                    "key": 4,
-                    "value": 15
-                },
-                {
-                    "key": 5,
-                    "value": 16
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -612,16 +526,6 @@
                     "worldPos": "{ -650, -270, 0 }",
                     "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -650, -270 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ -757, -420 }",
-                    "max": "{ -543, -120 }",
-                    "render": false
                 }
             },
             {
@@ -820,37 +724,7 @@
     {
         "Name": "Leah_Smokescreen_Hover",
         "ID": 17,
-        "Prefab": {
-            "name": "Leah_Smokescreen_Hover",
-            "version": 12,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 17
-                },
-                {
-                    "key": 1,
-                    "value": 18
-                },
-                {
-                    "key": 2,
-                    "value": 19
-                },
-                {
-                    "key": 3,
-                    "value": 20
-                },
-                {
-                    "key": 4,
-                    "value": 21
-                },
-                {
-                    "key": 5,
-                    "value": 22
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -889,16 +763,6 @@
                     "worldPos": "{ -230, -270, 0 }",
                     "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -230, -270 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ -337, -420 }",
-                    "max": "{ -123, -120 }",
-                    "render": false
                 }
             },
             {
@@ -1097,37 +961,7 @@
     {
         "Name": "Leah_Beserk_Hover",
         "ID": 23,
-        "Prefab": {
-            "name": "Leah_Beserk_Hover",
-            "version": 14,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 23
-                },
-                {
-                    "key": 1,
-                    "value": 30
-                },
-                {
-                    "key": 2,
-                    "value": 31
-                },
-                {
-                    "key": 3,
-                    "value": 32
-                },
-                {
-                    "key": 4,
-                    "value": 33
-                },
-                {
-                    "key": 5,
-                    "value": 34
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -1623,16 +1457,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 200, -270 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ 93, -420 }",
-                    "max": "{ 307, -120 }",
-                    "render": false
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -1679,7 +1503,7 @@
         "ID": 35,
         "Prefab": {
             "name": "FPSCounter",
-            "version": 0,
+            "version": 1,
             "objToEntity": [
                 {
                     "key": 0,
@@ -1700,16 +1524,6 @@
                     "worldPos": "{ 861.577, 512.984, 1001 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 861.577, 512.984 }",
-                    "width": 8.152580206657e-312,
-                    "height": 8.14846383731e-312,
-                    "min": "{ 861.577, 512.984 }",
-                    "max": "{ 861.577, 512.984 }",
-                    "render": true
                 }
             },
             {
@@ -2053,33 +1867,7 @@
     {
         "Name": "Slash",
         "ID": 45,
-        "Prefab": {
-            "name": "Leah_Attack2_Hover",
-            "version": 17,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 45
-                },
-                {
-                    "key": 1,
-                    "value": 46
-                },
-                {
-                    "key": 2,
-                    "value": 47
-                },
-                {
-                    "key": 3,
-                    "value": 66
-                },
-                {
-                    "key": 4,
-                    "value": 67
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -2405,16 +2193,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ 727.519, -89.1853 }",
-                    "width": 160.0,
-                    "height": 600.0,
-                    "min": "{ 647.519, -389.185 }",
-                    "max": "{ 807.519, 210.815 }",
-                    "render": false
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -2464,16 +2242,6 @@
                     "worldPos": "{ 0, 0, -5 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 1920.0,
-                    "height": 1080.0,
-                    "min": "{ -960, -540 }",
-                    "max": "{ 960, 540 }",
-                    "render": false
                 }
             },
             {
@@ -2566,33 +2334,7 @@
     {
         "Name": "Beam",
         "ID": 57,
-        "Prefab": {
-            "name": "Leah_Attack_Hover",
-            "version": 20,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 57
-                },
-                {
-                    "key": 1,
-                    "value": 58
-                },
-                {
-                    "key": 2,
-                    "value": 59
-                },
-                {
-                    "key": 3,
-                    "value": 60
-                },
-                {
-                    "key": 4,
-                    "value": 61
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -2630,16 +2372,6 @@
                     "worldPos": "{ -650, 170, 0 }",
                     "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -650, 170 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ -757, 20 }",
-                    "max": "{ -543, 320 }",
-                    "render": false
                 }
             },
             {
@@ -2870,16 +2602,6 @@
                     "worldPos": "{ -230, 170, 0 }",
                     "worldScale": "{ 1.1, 1.1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -230, 170 }",
-                    "width": 214.0,
-                    "height": 300.0,
-                    "min": "{ -337, 20 }",
-                    "max": "{ -123, 320 }",
-                    "render": false
                 }
             },
             {

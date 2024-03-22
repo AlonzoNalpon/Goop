@@ -5,7 +5,9 @@
         "Prefab": null,
         "isActive": true,
         "Parent": null,
-        "Child Entities": [],
+        "Child Entities": [
+            145
+        ],
         "Components": [
             {
                 "Transform": {
@@ -26,10 +28,10 @@
                                 "y": 0.0
                             },
                             "texDims": {
-                                "x": 0.25,
+                                "x": 0.20000000298023224,
                                 "y": 1.0
                             },
-                            "width": 500,
+                            "width": 375,
                             "height": 750,
                             "tint": {
                                 "r": 1.0,
@@ -254,6 +256,11 @@
                                     }
                                 }
                             ]
+                        },
+                        {
+                            "scriptName": "LeahShootParticle",
+                            "entityID": 0,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -1582,15 +1589,7 @@
                         {
                             "scriptName": "FPS",
                             "entityID": 17,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 17,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "FPS_COUNTER"
-                                    }
-                                }
-                            ]
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -4274,7 +4273,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 2.02789e-11 }",
+                    "pos": "{ -307.537, -269.134, 1.18661e-12 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -419.265, 137.337, 20 }",
@@ -5359,7 +5358,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 2.02789e-11 }",
+                    "pos": "{ -307.537, -269.134, 1.18661e-12 }",
                     "scale": "{ 1, 1, 1.81818 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 319.853, 137.337, 20 }",
@@ -7846,6 +7845,72 @@
                             "scriptFieldInstList": []
                         }
                     ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Leah Particle Emitter",
+        "ID": 145,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 0,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 301.191, 173.333, 19 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -37, 275, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 276,
+                            "height": 88,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Blast_Blue_Projectile",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Emitter": {
+                    "playOnStart": false,
+                    "playing": false,
+                    "gravity": "{ 0, 0, 0 }",
+                    "minForce": "{ 2500, 0, 0 }",
+                    "maxForce": "{ 2500, 0, 0 }",
+                    "minDrag": 0.0,
+                    "maxDrag": 0.0,
+                    "maxLifeTime": 0.09000000357627869,
+                    "minLifeTime": 0.09000000357627869,
+                    "particlePerMin": 2000
                 }
             }
         ]

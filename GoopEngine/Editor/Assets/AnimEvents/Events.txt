@@ -61,7 +61,8 @@
             {
                 "key": 5,
                 "value": [
-                    "DawsonPunches"
+                    "DawsonPunches",
+                    "DawsonAttackParticle"
                 ]
             }
         ]
@@ -72,7 +73,8 @@
             {
                 "key": 3,
                 "value": [
-                    "DawsonShoots"
+                    "DawsonShoots",
+                    "DawsonShootParticle"
                 ]
             }
         ]
@@ -183,7 +185,8 @@
             {
                 "key": 6,
                 "value": [
-                    "LeahShoots"
+                    "LeahShoots",
+                    "LeahShootParticle"
                 ]
             }
         ]

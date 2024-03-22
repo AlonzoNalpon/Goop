@@ -20,8 +20,6 @@ namespace GoopScripts.UI
 {
   public class FPS : Entity
   {
-    public int FPS_COUNTER;
-
     public FPS() { }
 
     public void OnCreate()
@@ -34,7 +32,7 @@ namespace GoopScripts.UI
         // SET FPS TEXT TO FPS
         double fps = Utils.GetFPS();
         string text = string.Format("{0:N2}", fps);
-        Utils.SetTextComponent(FPS_COUNTER, text);
+        Utils.SetTextComponent((int)Utils.GetEntity("FPSCounter"), text);
       }
     }
   }

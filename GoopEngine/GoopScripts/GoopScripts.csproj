@@ -183,6 +183,9 @@
     <Compile Include="Source\Mono\Vec2.cs" />
     <Compile Include="Source\Mono\Vec3.cs" />
     <Compile Include="Source\Mono\Vec4.cs" />
+    <Compile Include="Source\Particle\DawsonAttackParticle.cs" />
+    <Compile Include="Source\Particle\DawsonShootParticle.cs" />
+    <Compile Include="Source\Particle\LeahShootParticle.cs" />
     <Compile Include="Source\Serialization\SerialReader.cs" />
     <Compile Include="Source\Serialization\StatsInfo.cs" />
     <Compile Include="Source\Transition\ChangeGameOverToMainMenu.cs" />
