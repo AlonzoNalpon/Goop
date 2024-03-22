@@ -103,4 +103,10 @@ RTTR_REGISTRATION
       rttr::value("BOSS_P2", MONO::CharacterType::BOSS_P2)
       );
 
+  rttr::registration::enumeration<GE::Component::Text::TextAlignment>("TextAlignment")
+    (
+      rttr::value("CENTER", GE::Component::Text::TextAlignment::CENTER),
+      rttr::value("LEFT", GE::Component::Text::TextAlignment::LEFT),
+      rttr::value("RIGHT", GE::Component::Text::TextAlignment::RIGHT)
+      );
 } // RTTR Registration

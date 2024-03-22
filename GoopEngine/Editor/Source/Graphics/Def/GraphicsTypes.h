@@ -208,7 +208,7 @@ namespace GE::Graphics {
 
   // GL_Data contains attribute data for transfer. Thus, it should use single precision floats
   using GL_Data   = T_GL_Data_Layout<gVec3, Colorf, gVec2, std::vector>; //!< our most common GL data type for shader attributes
-
+  //using TextLineInfo  = std::vector<GE::Graphics::Fonts::FontManager::FontLineInfo>;
   constexpr gObjID BAD_OBJ_ID{ static_cast<gObjID>(-1) }; // Our bad obj id will be the biggest number possible
 
   inline Colorf operator*(GLfloat mult, Colorf clr)

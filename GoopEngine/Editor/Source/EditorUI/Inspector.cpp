@@ -1211,8 +1211,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 					ImGui::TableNextColumn();
 					ImGui::ColorEdit4("Color", textObj->m_clr.rgba);
 					ImGui::DragFloat("Scale", &textObj->m_scale, .001f, 0.f, 5.f);
-					ImGui::DragFloat("Width", &textObj->m_width, .001f, 0.f);
-					if (ImGui::InputTextMultiline("Text", &textObj->m_text)) textObj->m_textInfo.flags.dirty = true;
+					//ImGui::DragFloat("Width", &textObj->m_width, .001f, 0.f);
+					if (ImGui::InputTextMultiline("Text", &textObj->m_text)) textObj->m_dirty = true;
 					
 					auto const& fontManager{ Graphics::GraphicsEngine::GetInstance().fontManager };
 					auto const& fontLT{ fontManager.GetFontLT() }; //lookup table for fonts (string to ID)
