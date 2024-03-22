@@ -1228,6 +1228,24 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndCombo();
 					}
+					// ALIGNMENT FOR TEXT
+					ImGui::Text("Alignment");
+					if (ImGui::RadioButton("Left", textObj->m_alignment == Text::TextAlignment::LEFT))
+					{
+						textObj->m_alignment = Text::TextAlignment::LEFT;
+						textObj->m_dirty = true;
+					}
+					if (ImGui::RadioButton("Center", textObj->m_alignment == Text::TextAlignment::CENTER))
+					{
+						textObj->m_alignment = Text::TextAlignment::CENTER;
+						textObj->m_dirty = true;
+					}
+					if (ImGui::RadioButton("Right", textObj->m_alignment == Text::TextAlignment::RIGHT))
+					{
+						textObj->m_alignment = Text::TextAlignment::RIGHT;
+						textObj->m_dirty = true;
+					}
+
 					if (BeginDragDropTarget())
 					{
 						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_FONT"))

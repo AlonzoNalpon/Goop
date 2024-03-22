@@ -202,17 +202,19 @@ namespace GE::Graphics::Rendering {
     size_t currLineIdx{}; // first position of curr line
     auto lineInfoIt{ newLines.cbegin() };
     {
-      pos.y -= fontHeight*0.5f; // update the position y value to perform "newline"
-      pos.x += lineInfoIt->baseOffset;     // and update x position based on alignment data
+      //pos.y -= fontHeight*0.5f; // update the position y value to perform "newline"
+      pos.x += scale * lineInfoIt->baseOffset;     // and update x position based on alignment data
       ++lineInfoIt;
     }
     for (auto strIt{str.cbegin()} ; strIt != str.cend(); ++strIt, ++currIdx)
     {
       char ch = *strIt;
-      if (lineInfoIt != newLines.cend() && currLineIdx != lineInfoIt->idx) // if there's a possible new line
+      if (lineInfoIt != newLines.cend()
+        && currIdx == lineInfoIt->idx - 1
+        && currLineIdx != lineInfoIt->idx) // if there's a possible new line
       {
         pos.y -= fontHeight; // update the position y value to perform "newline"
-        pos.x = oldXPos + lineInfoIt->baseOffset;     // and update x position based on alignment data
+        pos.x = oldXPos + scale * lineInfoIt->baseOffset;     // and update x position based on alignment data
 
         currLineIdx = lineInfoIt->idx; // update curr index
         ++lineInfoIt; // go to the next element of newline indexes

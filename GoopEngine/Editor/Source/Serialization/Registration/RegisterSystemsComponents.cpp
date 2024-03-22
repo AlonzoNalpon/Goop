@@ -105,7 +105,7 @@ RTTR_REGISTRATION
     .property("clr", &Component::Text::m_clr)
     .property("scale", &Component::Text::m_scale)
     .property("fontID", &Component::Text::m_fontID)
-    .property("fontID", &Component::Text::m_fontID)
+    .property("Alignment", &Component::Text::m_alignment)
     ;
 
     ;

@@ -214,7 +214,6 @@ namespace GE::Graphics::Fonts
     size_t currIdx{};
     nlInfo.clear();
     nlInfo.emplace_back(currIdx++, 0.f); // the first line
-    GLfloat fontScale{ m_fontScales.at(fontID) };
     auto const& currFont{ m_fonts.at(fontID) };
 
     for (auto ch : text)
@@ -225,7 +224,7 @@ namespace GE::Graphics::Fonts
         ++currIdx;
         continue; // skip the newline character
       }
-      GLfloat const width{ fontScale*static_cast<float>(currFont.at(ch).advance) };
+      GLfloat const width{ static_cast<float>(currFont.at(ch).advance >> 6) };
 
       switch (align)
       {
