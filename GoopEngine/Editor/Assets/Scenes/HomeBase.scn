@@ -102,10 +102,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -106.851, -15.704, 1 }",
+                    "pos": "{ 0, -15.704, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -846.88, 436.481, 1 }",
+                    "worldPos": "{ -740.029, 436.481, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -120,7 +120,8 @@
                         "a": 1.0
                     },
                     "scale": 0.19200000166893005,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -218,10 +219,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -50.296, -15.703, 0 }",
+                    "pos": "{ 0, -15.703, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 692.037, 435.093, 0 }",
+                    "worldPos": "{ 742.333, 435.093, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -236,7 +237,8 @@
                         "a": 1.0
                     },
                     "scale": 0.19200000166893005,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -334,7 +336,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -367,7 +370,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -598,7 +602,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -631,7 +636,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -664,7 +670,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -835,7 +842,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -868,7 +876,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -901,7 +910,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -994,10 +1004,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -20, -14, 1 }",
+                    "pos": "{ 0, -14, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -250, -64, 1 }",
+                    "worldPos": "{ -230, -64, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1012,7 +1022,8 @@
                         "a": 1.0
                     },
                     "scale": 0.14399999380111694,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -1315,7 +1326,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -1348,7 +1360,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -1381,7 +1394,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -1532,15 +1546,7 @@
                         {
                             "scriptName": "FPS",
                             "entityID": 35,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 35,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "FPS_COUNTER"
-                                    }
-                                }
-                            ]
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -1555,7 +1561,70 @@
                         "a": 1.0
                     },
                     "scale": 0.12300000339746475,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Red_Diamond",
+        "ID": 36,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 729.037, -118.296, 0 }",
+                    "scale": "{ 2, 2, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 729.037, -118.296, 0 }",
+                    "worldScale": "{ 2, 2, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 729.037, -118.296 }",
+                    "width": 106.0,
+                    "height": 105.0,
+                    "min": "{ 676.037, -170.796 }",
+                    "max": "{ 782.037, -65.796 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 106,
+                            "height": 105,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Red_Diamond",
+                    "shouldRender": true
                 }
             }
         ]
@@ -1917,7 +1986,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -1950,7 +2020,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -2019,10 +2090,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -20, -14, 1 }",
+                    "pos": "{ 0, -14, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -670, -64, 1 }",
+                    "worldPos": "{ -650, -64, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2037,7 +2108,8 @@
                         "a": 1.0
                     },
                     "scale": 0.14399999380111694,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -2052,10 +2124,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -20, -14, 1 }",
+                    "pos": "{ 0, -14, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 180, -64, 1 }",
+                    "worldPos": "{ 200, -64, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2070,7 +2142,8 @@
                         "a": 1.0
                     },
                     "scale": 0.14399999380111694,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -2085,10 +2158,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -20, -14, 1 }",
+                    "pos": "{ 0, -14, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -670, -504, 1 }",
+                    "worldPos": "{ -650, -504, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2103,7 +2176,8 @@
                         "a": 1.0
                     },
                     "scale": 0.14399999380111694,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -2118,10 +2192,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -20, -14, 1 }",
+                    "pos": "{ 0, -14, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -250, -504, 1 }",
+                    "worldPos": "{ -230, -504, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2136,7 +2210,8 @@
                         "a": 1.0
                     },
                     "scale": 0.14399999380111694,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -2151,10 +2226,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -20, -14, 1 }",
+                    "pos": "{ 0, -14, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 180, -504, 1 }",
+                    "worldPos": "{ 200, -504, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2169,7 +2244,8 @@
                         "a": 1.0
                     },
                     "scale": 0.14399999380111694,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -2204,8 +2280,8 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 422,
-                            "height": 855,
+                            "width": 441,
+                            "height": 873,
                             "tint": {
                                 "r": 1.0,
                                 "g": 1.0,
@@ -2220,7 +2296,7 @@
                             }
                         }
                     },
-                    "spriteName": "Menu_Map",
+                    "spriteName": "UI_Map_01",
                     "shouldRender": true
                 }
             }
@@ -2315,6 +2391,13 @@
                                     "type": "System.Int32[]",
                                     "scriptField": {
                                         "fieldName": "CardIDs"
+                                    }
+                                },
+                                {
+                                    "data": 54,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_mapID"
                                     }
                                 },
                                 {
@@ -2444,7 +2527,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -2477,7 +2561,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]

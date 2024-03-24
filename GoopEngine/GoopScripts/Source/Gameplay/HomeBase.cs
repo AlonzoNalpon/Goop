@@ -25,16 +25,42 @@ namespace GoopScripts.Gameplay
 
     public string playerSavePath;
     public int[] CardIDs = new int[6];
+    public int m_mapID;
 
     public void OnCreate()
     {
-      Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
+      //Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
       var statsInfo = Serialization.SerialReader.LoadPlayerState(playerSavePath);
       m_levelToLoad = statsInfo.levelToLoad;
-      Console.WriteLine(m_levelToLoad);
+      Console.WriteLine("Current Level: " + m_levelToLoad);
+      if (m_levelToLoad <= 0)
+      {
+        Utils.UpdateSprite((uint)m_mapID, "UI_Map_01");
+      }
+      if (m_levelToLoad == 1)
+      {
+        Utils.UpdateSprite((uint)m_mapID, "UI_Map_02");
+      }
+      if (m_levelToLoad == 2)
+      {
+        Utils.UpdateSprite((uint)m_mapID, "UI_Map_03");
+      }
+      if (m_levelToLoad == 3)
+      {
+        Utils.UpdateSprite((uint)m_mapID, "UI_Map_04");
+      }
+      if (m_levelToLoad == 4)
+      {
+        Utils.UpdateSprite((uint)m_mapID, "UI_Map_05");
+      }
+      if (m_levelToLoad >= 5)
+      {
+        Utils.UpdateSprite((uint)m_mapID, "UI_Map_06");
+      }
       int counter = 0;
       foreach (var card in statsInfo.deckList)
       {
+        Console.WriteLine("Counter: " + counter);
         Utils.SetTextComponent((int)Utils.GetChildEntity((uint)CardIDs[counter++], "Text"), "x" + card.Item2);
       }
     }

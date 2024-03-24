@@ -111,10 +111,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -85.2224, -15.704, 0 }",
+                    "pos": "{ 0, -15.704, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -85.2224, -430.019, 0 }",
+                    "worldPos": "{ 0, -430.019, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -129,7 +129,8 @@
                         "a": 1.0
                     },
                     "scale": 0.19200000166893005,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -430,10 +431,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -251.055, 394.612, 0 }",
+                    "pos": "{ 0, 394.612, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -251.055, 394.612, 0 }",
+                    "worldPos": "{ 0, 394.612, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -448,7 +449,8 @@
                         "a": 1.0
                     },
                     "scale": 0.125,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -463,10 +465,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -146.667, 444, 0 }",
+                    "pos": "{ 0, 444, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ -146.667, 444, 0 }",
+                    "worldPos": "{ 0, 444, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
@@ -481,7 +483,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2720000147819519,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
