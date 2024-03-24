@@ -43,9 +43,10 @@ namespace GoopScripts.Button
       uint hover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
       var statsInfo = Serialization.SerialReader.LoadPlayerState(playerSavePath);
       int m_levelToLoad = statsInfo.levelToLoad;
+      Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
       Utils.SetIsActiveEntity(hover, false);
       RewardCard.m_cardHover = (uint)hover;
-      if (m_levelToLoad <= 1) // tutorial
+      if (m_levelToLoad <= 0) // tutorial
       {
         for (int i = 0; i < MAX_SELECT; ++i)
         {

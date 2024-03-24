@@ -30,7 +30,6 @@ namespace GoopScripts.Button
 		public override void OnRelease(uint entity)
 		{
 			base.OnRelease(entity);
-      Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
       Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), animToTrigger);
 		}
 	}

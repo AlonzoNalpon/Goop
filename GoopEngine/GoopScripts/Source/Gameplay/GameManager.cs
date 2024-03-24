@@ -292,8 +292,8 @@ namespace GoopScripts.Gameplay
           {
             m_enemyStats.m_animManager.PlayDeath();
           }
-          gameEnded = true;
           Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
+          gameEnded = true;
           return;
         }
 

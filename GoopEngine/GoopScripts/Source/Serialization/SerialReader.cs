@@ -288,6 +288,7 @@ namespace GoopScripts.Serialization
         return;
       }
       lines[1] = (level + 1).ToString();
+      Console.WriteLine("Level is incremented from " + level + " to " + level + 1);
 
       File.WriteAllLines(file, lines);
     }
