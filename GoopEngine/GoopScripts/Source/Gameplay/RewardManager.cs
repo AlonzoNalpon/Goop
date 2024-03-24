@@ -45,7 +45,7 @@ namespace GoopScripts.Button
       int m_levelToLoad = statsInfo.levelToLoad;
       Utils.SetIsActiveEntity(hover, false);
       RewardCard.m_cardHover = (uint)hover;
-      if (m_levelToLoad <= 0) // tutorial
+      if (m_levelToLoad <= 1) // tutorial
       {
         for (int i = 0; i < MAX_SELECT; ++i)
         {

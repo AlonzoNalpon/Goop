@@ -30,7 +30,8 @@ namespace GoopScripts.Button
 		public override void OnRelease(uint entity)
 		{
 			base.OnRelease(entity);
-			Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "MainMenu");
+			PauseManager.SetPauseState(0);
+      Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "MainMenu");
 		}
 	}
 }
