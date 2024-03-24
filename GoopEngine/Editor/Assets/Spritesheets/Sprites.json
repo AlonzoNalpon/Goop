@@ -245,8 +245,8 @@
     {
         "id": "SS_MoleRat_Bite",
         "filePath": "SS_MoleRat_Bite",
-        "slices": 4,
-        "stacks": 2,
+        "slices": 3,
+        "stacks": 3,
         "frames": 7,
         "speed": 0.1,
         "flags": 0
@@ -290,9 +290,9 @@
     {
         "id": "SS_MoleRat_Rage",
         "filePath": "SS_MoleRat_Rage",
-        "slices": 5,
-        "stacks": 2,
-        "frames": 10,
+        "slices": 3,
+        "stacks": 3,
+        "frames": 9,
         "speed": 0.1,
         "flags": 0
     }
