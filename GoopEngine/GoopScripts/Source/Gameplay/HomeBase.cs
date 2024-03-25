@@ -21,7 +21,7 @@ namespace GoopScripts.Gameplay
 {
   public class HomeBase
   {
-    static int m_levelToLoad = 0;
+    public static int m_levelToLoad = 0;
 
     public string playerSavePath;
     public int[] CardIDs = new int[6];
@@ -32,7 +32,7 @@ namespace GoopScripts.Gameplay
       //Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
       var statsInfo = Serialization.SerialReader.LoadPlayerState(playerSavePath);
       m_levelToLoad = statsInfo.levelToLoad;
-      Console.WriteLine("Current Level: " + m_levelToLoad);
+      // Console.WriteLine("Current Level: " + m_levelToLoad);
       if (m_levelToLoad <= 0)
       {
         Utils.UpdateSprite((uint)m_mapID, "UI_Map_01");
@@ -60,7 +60,6 @@ namespace GoopScripts.Gameplay
       int counter = 0;
       foreach (var card in statsInfo.deckList)
       {
-        Console.WriteLine("Counter: " + counter);
         Utils.SetTextComponent((int)Utils.GetChildEntity((uint)CardIDs[counter++], "Text"), "x" + card.Item2);
       }
     }
@@ -68,6 +67,16 @@ namespace GoopScripts.Gameplay
     static public int GetLevelToLoad()
     {
       return m_levelToLoad;
+    }
+
+    public void OnUpdate(double deltaTime)
+    {
+      if (Utils.IsKeyTriggered(Input.KeyCode.L))
+      {
+        // damage enemy
+        Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
+        OnCreate();
+      }
     }
   }
 }

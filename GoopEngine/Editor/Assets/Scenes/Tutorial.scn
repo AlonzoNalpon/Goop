@@ -1252,15 +1252,7 @@
                         {
                             "scriptName": "FPS",
                             "entityID": 17,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 17,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "FPS_COUNTER"
-                                    }
-                                }
-                            ]
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -1275,7 +1267,8 @@
                         "a": 1.0
                     },
                     "scale": 0.12300000339746475,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -2147,7 +2140,8 @@
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,
-                    "fontID": 4
+                    "fontID": 4,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -2191,7 +2185,8 @@
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,
-                    "fontID": 4
+                    "fontID": 4,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -2658,10 +2653,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -193.907, 49.516, 15 }",
+                    "pos": "{ 0, 49.516, 15 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -193.907, 168.516, 35 }",
+                    "worldPos": "{ 0, 168.516, 35 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2676,7 +2671,8 @@
                         "a": 1.0
                     },
                     "scale": 0.25,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -2743,7 +2739,8 @@
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,
-                    "fontID": 4
+                    "fontID": 4,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -2787,7 +2784,8 @@
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,
-                    "fontID": 4
+                    "fontID": 4,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -3906,7 +3904,7 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "QuitGame",
+                            "scriptName": "SurrenderToMainMenu",
                             "entityID": 64,
                             "scriptFieldInstList": []
                         }
@@ -4275,10 +4273,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -340, 145, 3 }",
+                    "pos": "{ -210, 145, 3 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -340, 145, 104 }",
+                    "worldPos": "{ -210, 145, 104 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4293,7 +4291,8 @@
                         "a": 1.0
                     },
                     "scale": 0.1599999964237213,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "RIGHT"
                 }
             }
         ]
@@ -4308,10 +4307,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -272.63, 75, 3 }",
+                    "pos": "{ -210, 75, 3 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -272.63, 75, 104 }",
+                    "worldPos": "{ -210, 75, 104 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4326,7 +4325,8 @@
                         "a": 1.0
                     },
                     "scale": 0.1599999964237213,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "RIGHT"
                 }
             }
         ]
@@ -4341,10 +4341,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -302.852, 6, 3 }",
+                    "pos": "{ -210, 6, 3 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -302.852, 6, 104 }",
+                    "worldPos": "{ -210, 6, 104 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4359,7 +4359,8 @@
                         "a": 1.0
                     },
                     "scale": 0.1599999964237213,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "RIGHT"
                 }
             }
         ]
@@ -4374,10 +4375,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -278.926, -66, 3 }",
+                    "pos": "{ -210, -66, 3 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -278.926, -66, 104 }",
+                    "worldPos": "{ -210, -66, 104 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4392,7 +4393,8 @@
                         "a": 1.0
                     },
                     "scale": 0.1599999964237213,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "RIGHT"
                 }
             }
         ]
@@ -4584,10 +4586,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -50, -25, 16 }",
+                    "pos": "{ 0, -25, 16 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -209.5, 15.2832, 51 }",
+                    "worldPos": "{ -172, 15.2832, 51 }",
                     "worldScale": "{ 0.75, 0.75, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4602,7 +4604,8 @@
                         "a": 1.0
                     },
                     "scale": 0.17499999701976776,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -4809,7 +4812,8 @@
                         "a": 1.0
                     },
                     "scale": 0.25,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -5206,7 +5210,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -5239,7 +5244,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -5402,7 +5408,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -5435,7 +5442,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -5468,7 +5476,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -5578,7 +5587,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -5611,7 +5621,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -5644,7 +5655,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -5883,7 +5895,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -5916,7 +5929,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6001,7 +6015,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6111,7 +6126,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6196,7 +6212,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6473,7 +6490,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6531,7 +6549,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6566,7 +6585,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6599,7 +6619,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6634,7 +6655,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6667,7 +6689,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6703,7 +6726,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6736,7 +6760,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6769,7 +6794,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6852,7 +6878,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -6885,7 +6912,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -7053,7 +7081,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -7086,7 +7115,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -7266,7 +7296,8 @@
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -7517,7 +7548,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -7651,7 +7683,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -7684,7 +7717,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -7737,7 +7771,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -7770,7 +7805,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -7907,7 +7943,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -7940,7 +7977,8 @@
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -8260,7 +8298,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -8293,7 +8332,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -8351,7 +8391,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -8386,7 +8427,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -8421,7 +8463,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -8456,7 +8499,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -8489,7 +8533,8 @@
                         "a": 1.0
                     },
                     "scale": 0.15000000596046448,
-                    "fontID": 1
+                    "fontID": 1,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -8522,7 +8567,8 @@
                         "a": 1.0
                     },
                     "scale": 0.15000000596046448,
-                    "fontID": 1
+                    "fontID": 1,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -8555,7 +8601,8 @@
                         "a": 1.0
                     },
                     "scale": 0.15000000596046448,
-                    "fontID": 1
+                    "fontID": 1,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -8714,7 +8761,8 @@
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -9068,7 +9116,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -9101,7 +9150,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -9295,7 +9345,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -9328,7 +9379,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -9385,7 +9437,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -9418,7 +9471,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -9451,7 +9505,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -9775,7 +9830,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -9808,7 +9864,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -10192,10 +10249,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -110, -20, 1 }",
+                    "pos": "{ -4.54747e-13, -20, 1 }",
                     "scale": "{ 0.666667, 0.666667, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 686.5, -462, 9 }",
+                    "worldPos": "{ 780, -462, 9 }",
                     "worldScale": "{ 0.566667, 0.566667, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -10210,7 +10267,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -10267,7 +10325,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -10300,7 +10359,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -10333,7 +10393,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -10866,7 +10927,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -10899,7 +10961,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -10932,7 +10995,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -11274,7 +11338,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -11550,7 +11615,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -11583,7 +11649,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -11616,7 +11683,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -11674,7 +11742,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -11707,7 +11776,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -11740,7 +11810,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -11773,7 +11844,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -11806,7 +11878,8 @@
                         "a": 1.0
                     },
                     "scale": 0.10000000149011612,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -11917,7 +11990,8 @@
                         "a": 1.0
                     },
                     "scale": 0.08299999684095383,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -11950,7 +12024,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -12123,10 +12198,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -30, -25, 16 }",
+                    "pos": "{ 0, -25, 16 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 153.5, 15.2832, 51 }",
+                    "worldPos": "{ 176, 15.2832, 51 }",
                     "worldScale": "{ 0.75, 0.75, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -12141,7 +12216,8 @@
                         "a": 1.0
                     },
                     "scale": 0.17499999701976776,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -12223,7 +12299,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -12256,7 +12333,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -12509,7 +12587,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -12542,7 +12621,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -12795,7 +12875,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -12828,7 +12909,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -13122,7 +13204,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -13155,7 +13238,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -13188,7 +13272,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -13539,7 +13624,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -13572,7 +13658,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -13605,7 +13692,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -13638,7 +13726,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -13671,7 +13760,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -13704,7 +13794,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -13809,7 +13900,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -14219,7 +14311,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -14252,7 +14345,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -14504,7 +14598,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -14771,7 +14866,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -14804,7 +14900,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -14914,7 +15011,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -15183,7 +15281,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -15216,7 +15315,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -15249,7 +15349,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -15282,7 +15383,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -15315,7 +15417,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -15348,7 +15451,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -15667,7 +15771,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -15700,7 +15805,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -15785,7 +15891,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -16106,7 +16213,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -16139,7 +16247,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -16172,7 +16281,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -16292,7 +16402,8 @@
                         "a": 1.0
                     },
                     "scale": 0.15000000596046448,
-                    "fontID": 1
+                    "fontID": 1,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -16561,7 +16672,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -16594,7 +16706,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -16627,7 +16740,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -16660,7 +16774,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -16891,7 +17006,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17193,7 +17309,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17226,7 +17343,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17259,7 +17377,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17292,7 +17411,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17325,7 +17445,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17384,7 +17505,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17417,7 +17539,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17450,7 +17573,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17483,7 +17607,8 @@
                         "a": 1.0
                     },
                     "scale": 0.15000000596046448,
-                    "fontID": 1
+                    "fontID": 1,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17516,7 +17641,8 @@
                         "a": 1.0
                     },
                     "scale": 0.15000000596046448,
-                    "fontID": 1
+                    "fontID": 1,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17549,7 +17675,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17582,7 +17709,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17615,7 +17743,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -17970,7 +18099,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -18003,7 +18133,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -18036,7 +18167,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -18069,7 +18201,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -18503,7 +18636,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -18536,7 +18670,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -18569,7 +18704,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -18909,7 +19045,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -18942,7 +19079,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -18975,7 +19113,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -19301,7 +19440,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -19555,7 +19695,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -19588,7 +19729,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -19621,7 +19763,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -19917,7 +20060,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -20898,7 +21042,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -20931,7 +21076,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -20964,7 +21110,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -21224,7 +21371,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -21257,7 +21405,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -21658,7 +21807,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -21910,7 +22060,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -22051,7 +22202,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -22344,7 +22496,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -22377,7 +22530,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -22410,7 +22564,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -22738,7 +22893,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -22771,7 +22927,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -22804,7 +22961,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -23096,7 +23254,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -23129,7 +23288,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -23162,7 +23322,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -23319,7 +23480,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -23895,7 +24057,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -23928,7 +24091,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -23961,7 +24125,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -23994,7 +24159,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -24027,7 +24193,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -24066,7 +24233,8 @@
                         "a": 1.0
                     },
                     "scale": 0.25,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -24169,7 +24337,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -24468,7 +24637,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -24501,7 +24671,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -24534,7 +24705,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -25200,7 +25372,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -25534,7 +25707,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -25567,7 +25741,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -25823,7 +25998,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -25963,7 +26139,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -26226,10 +26403,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -60, -30, 1 }",
+                    "pos": "{ 0, -30, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -880, -505, 16 }",
+                    "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 0.5, 0.5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -26244,7 +26421,8 @@
                         "a": 1.0
                     },
                     "scale": 0.15000000596046448,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -27802,7 +27980,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -27837,7 +28016,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -27870,7 +28050,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -28428,7 +28609,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -28486,7 +28668,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -28519,7 +28702,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -28552,7 +28736,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -28924,7 +29109,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -28982,7 +29168,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -29015,7 +29202,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -29050,7 +29238,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -29083,7 +29272,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -29656,10 +29846,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -140, -20, 1 }",
+                    "pos": "{ 0, -15, 1 }",
                     "scale": "{ 1.6, 1.6, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -347.5, -192.5, 103 }",
+                    "worldPos": "{ -260, -189.375, 103 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -29673,8 +29863,9 @@
                         "b": 0.7764706015586853,
                         "a": 1.0
                     },
-                    "scale": 0.13500000536441803,
-                    "fontID": 2
+                    "scale": 0.11999999731779099,
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -29689,25 +29880,26 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -142.4, -20, 1 }",
+                    "pos": "{ 0, -15, 1 }",
                     "scale": "{ 1.6, 1.6, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -89, -192.5, 103 }",
+                    "worldPos": "{ 0, -189.375, 103 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Resume Game",
+                    "text": "Resume",
                     "clr": {
                         "r": 1.1294118165969849,
                         "g": 0.8313725590705872,
                         "b": 0.7764706015586853,
                         "a": 1.0
                     },
-                    "scale": 0.125,
-                    "fontID": 2
+                    "scale": 0.11999999731779099,
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -29722,25 +29914,26 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -110.384, -20, 1 }",
+                    "pos": "{ 0, -15, 1 }",
                     "scale": "{ 1, 1, 1.5873 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 188.25, -193, 103 }",
+                    "worldPos": "{ 260, -189.75, 103 }",
                     "worldScale": "{ 0.65, 0.65, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "Quit Game",
+                    "text": "Surrender",
                     "clr": {
                         "r": 1.1294118165969849,
                         "g": 0.8313725590705872,
                         "b": 0.7764706015586853,
                         "a": 1.0
                     },
-                    "scale": 0.13500000536441803,
-                    "fontID": 2
+                    "scale": 0.11999999731779099,
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -29755,10 +29948,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -40, -30, 1 }",
+                    "pos": "{ 0, -30, 1 }",
                     "scale": "{ 1.53846, 1.53846, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 124, -94.5, 103 }",
+                    "worldPos": "{ 150, -94.5, 103 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -29773,7 +29966,8 @@
                         "a": 1.0
                     },
                     "scale": 0.17499999701976776,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -29788,10 +29982,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -60, -30, 1 }",
+                    "pos": "{ 0, -30, 1 }",
                     "scale": "{ 1.53846, 1.53846, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -189, -94.5, 103 }",
+                    "worldPos": "{ -150, -94.5, 103 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -29806,7 +30000,8 @@
                         "a": 1.0
                     },
                     "scale": 0.17499999701976776,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -30667,7 +30862,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -30725,7 +30921,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -31457,7 +31654,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -31494,7 +31692,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -31527,7 +31726,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -31560,7 +31760,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -31593,7 +31794,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -31626,7 +31828,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -31683,7 +31886,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -31716,7 +31920,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -33016,7 +33221,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -33049,7 +33255,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -33082,7 +33289,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2280000001192093,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "LEFT"
                 }
             }
         ]

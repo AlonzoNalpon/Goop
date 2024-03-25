@@ -58,6 +58,18 @@ namespace GoopScripts.Button
         }
         return;
       }
+      if (m_levelToLoad == 2) // mini boss
+      {
+        for (int i = 0; i < MAX_SELECT; ++i)
+        {
+          CardBase.CardID generatedCard = (CardBase.CardID)7 + i;
+          m_generatedPool[i] = generatedCard;
+          uint parent = Utils.SpawnPrefab(CardManager.m_cardPrefabs[generatedCard] + "_Hover", new Vec3<double>(-(WIDTH / NUM_CHOICES * MAX_SELECT) * 0.5 + ((WIDTH / NUM_CHOICES * MAX_SELECT) / (MAX_SELECT - 1)) * i, Y_OFFSET, 0));
+          m_cardEntities[i] = Utils.GetChildEntity(parent, "Base");
+          Utils.SetScript(m_cardEntities[i], "RewardCard");
+        }
+        return;
+      }
       for (int i = 0; i < NUM_CHOICES; ++i)
       {
         int chance = rng.Next(1, 101);

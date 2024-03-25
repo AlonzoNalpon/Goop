@@ -1577,21 +1577,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 729.037, -118.296, 0 }",
-                    "scale": "{ 2, 2, 1 }",
+                    "pos": "{ 735.944, -118.296, 0 }",
+                    "scale": "{ 1.91779, 2, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 729.037, -118.296, 0 }",
-                    "worldScale": "{ 2, 2, 1 }",
+                    "worldPos": "{ 735.944, -118.296, 0 }",
+                    "worldScale": "{ 1.91779, 2, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 729.037, -118.296 }",
-                    "width": 106.0,
-                    "height": 105.0,
-                    "min": "{ 676.037, -170.796 }",
-                    "max": "{ 782.037, -65.796 }",
+                    "center": "{ 735.944, -118.296 }",
+                    "width": 100.0,
+                    "height": 100.0,
+                    "min": "{ 685.944, -168.296 }",
+                    "max": "{ 785.944, -68.296 }",
                     "render": false
                 }
             },
@@ -1625,6 +1625,218 @@
                     },
                     "spriteName": "Red_Diamond",
                     "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "Tooltip",
+                            "entityID": 36,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": [
+                                        40,
+                                        41,
+                                        68,
+                                        73,
+                                        78,
+                                        83
+                                    ],
+                                    "type": "System.Int32[]",
+                                    "scriptField": {
+                                        "fieldName": "tooltipID"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Tooltip",
+        "ID": 37,
+        "Prefab": {
+            "name": "Tooltip",
+            "version": 1,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 37
+                },
+                {
+                    "key": 1,
+                    "value": 38
+                },
+                {
+                    "key": 2,
+                    "value": 39
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [
+            40,
+            41,
+            68,
+            73,
+            78,
+            83
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 509.111, -125.852, 5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 509.111, -125.852, 5 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing",
+        "ID": 38,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 39,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 15, 0 }",
+                    "scale": "{ 0.95, 0.65, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 509.111, -110.852, 6 }",
+                    "worldScale": "{ 0.95, 0.65, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 110,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 39,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 40,
+        "Child Entities": [
+            38
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 6 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 509.111, -125.852, 6 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Tutorial",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.17499999701976776,
+                    "fontID": 0,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Tutorial",
+        "ID": 40,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 37,
+        "Child Entities": [
+            39
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, -5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 509.111, -125.852, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Level 1",
+        "ID": 41,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 37,
+        "Child Entities": [
+            62,
+            64
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -35.741, 0, -5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 473.37, -125.852, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             }
         ]
@@ -2348,7 +2560,7 @@
                             }
                         }
                     },
-                    "spriteName": "Menu_Home",
+                    "spriteName": "DeckViewer_BG",
                     "shouldRender": true
                 }
             }
@@ -2391,6 +2603,13 @@
                                     "type": "System.Int32[]",
                                     "scriptField": {
                                         "fieldName": "CardIDs"
+                                    }
+                                },
+                                {
+                                    "data": 54,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "m_levelToLoad"
                                     }
                                 },
                                 {
@@ -2620,6 +2839,182 @@
         ]
     },
     {
+        "Name": "Name: Mine Worm",
+        "ID": 62,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 41,
+        "Child Entities": [
+            63
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 6 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 473.37, -125.852, 6 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Mine Worm",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.17499999701976776,
+                    "fontID": 0,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing (Copy)",
+        "ID": 63,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 62,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 15, 0 }",
+                    "scale": "{ 1.30625, 0.65, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 473.37, -110.852, 6 }",
+                    "worldScale": "{ 1.30625, 0.65, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 110,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "hp",
+        "ID": 64,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 41,
+        "Child Entities": [
+            65
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -60.851, 6 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 473.37, -186.703, 6 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "HP: 8",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.11999999731779099,
+                    "fontID": 0,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing (Copy) (Copy)",
+        "ID": 65,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 64,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 12.055, -1 }",
+                    "scale": "{ 0.501411, 0.440035, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 473.37, -174.648, 5 }",
+                    "worldScale": "{ 0.501411, 0.440035, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 110,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
         "Name": "Icon",
         "ID": 66,
         "Prefab": null,
@@ -2727,6 +3122,802 @@
                     "eventType": "NO_EVENT",
                     "lastCollided": false,
                     "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Level 2 (Mini Boss)",
+        "ID": 68,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 37,
+        "Child Entities": [
+            69,
+            71
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -35.741, 0, -5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 473.37, -125.852, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Name: Dawson Phase 1",
+        "ID": 69,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 68,
+        "Child Entities": [
+            70
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -46.76, 0, 6 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 426.61, -125.852, 6 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Dawson Phase 1",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.17499999701976776,
+                    "fontID": 0,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing (Copy) (Copy)",
+        "ID": 70,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 69,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 15, 0 }",
+                    "scale": "{ 1.77035, 0.65, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 426.61, -110.852, 6 }",
+                    "worldScale": "{ 1.77035, 0.65, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 110,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "hp (Copy)",
+        "ID": 71,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 68,
+        "Child Entities": [
+            72
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 79.889, -60.851, 6 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 553.259, -186.703, 6 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "HP: 12\n",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.11999999731779099,
+                    "fontID": 0,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing (Copy) (Copy) (Copy)",
+        "ID": 72,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 71,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 12.055, -1 }",
+                    "scale": "{ 0.501411, 0.440035, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 553.259, -174.648, 5 }",
+                    "worldScale": "{ 0.501411, 0.440035, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 110,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Level 3",
+        "ID": 73,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 37,
+        "Child Entities": [
+            74,
+            76
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -43.556, 0, -5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 465.555, -125.852, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Name: Dawson Phase 1",
+        "ID": 74,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 73,
+        "Child Entities": [
+            75
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 34.167, 0, 6 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 499.722, -125.852, 6 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Mole Rat",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.17499999701976776,
+                    "fontID": 0,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing (Copy) (Copy) (Copy)",
+        "ID": 75,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 74,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 15, 0 }",
+                    "scale": "{ 1.02765, 0.65, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 499.722, -110.852, 6 }",
+                    "worldScale": "{ 1.02765, 0.65, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 110,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "hp (Copy) (Copy)",
+        "ID": 76,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 73,
+        "Child Entities": [
+            77
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 82.48, -60.851, 6 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 548.035, -186.703, 6 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "HP: 8",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.11999999731779099,
+                    "fontID": 0,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing (Copy) (Copy) (Copy) (Copy)",
+        "ID": 77,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 76,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 12.055, -1 }",
+                    "scale": "{ 0.547286, 0.440035, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 548.035, -174.648, 5 }",
+                    "worldScale": "{ 0.547286, 0.440035, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 110,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Level 4",
+        "ID": 78,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 37,
+        "Child Entities": [
+            79,
+            81
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -35.741, 0, -5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 473.37, -125.852, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Name: Mole Rat",
+        "ID": 79,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 78,
+        "Child Entities": [
+            80
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0.907, 0, 6 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 474.277, -125.852, 6 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Mine Worm",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.17499999701976776,
+                    "fontID": 0,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing (Copy) (Copy) (Copy) (Copy)",
+        "ID": 80,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 79,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 15, 0 }",
+                    "scale": "{ 1.29597, 0.65, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 474.277, -110.852, 6 }",
+                    "worldScale": "{ 1.29597, 0.65, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 110,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "hp (Copy) (Copy) (Copy)",
+        "ID": 81,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 78,
+        "Child Entities": [
+            82
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 80.593, -60.851, 6 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 553.963, -186.703, 6 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "HP: 10",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.11999999731779099,
+                    "fontID": 0,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing (Copy) (Copy) (Copy) (Copy) (Copy)",
+        "ID": 82,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 81,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 12.055, -1 }",
+                    "scale": "{ 0.501411, 0.440035, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 553.963, -174.648, 5 }",
+                    "worldScale": "{ 0.501411, 0.440035, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 110,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Level 5 (Final Boss)",
+        "ID": 83,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 37,
+        "Child Entities": [
+            84,
+            86
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -35.741, 0, -5 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 473.37, -125.852, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Name: Dawson Phase 2",
+        "ID": 84,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 83,
+        "Child Entities": [
+            85
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -46.185, 0, 6 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 427.185, -125.852, 6 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Dawson Phase 2",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.17499999701976776,
+                    "fontID": 0,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing (Copy) (Copy) (Copy) (Copy) (Copy)",
+        "ID": 85,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 84,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 15, 0 }",
+                    "scale": "{ 1.76396, 0.65, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 427.185, -110.852, 6 }",
+                    "worldScale": "{ 1.76396, 0.65, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 110,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "hp (Copy) (Copy) (Copy) (Copy)",
+        "ID": 86,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 83,
+        "Child Entities": [
+            87
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 80.111, -60.851, 6 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 553.481, -186.703, 6 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "HP: 15",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.11999999731779099,
+                    "fontID": 0,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing (Copy) (Copy) (Copy) (Copy) (Copy) (Copy)",
+        "ID": 87,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 86,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 12.055, -1 }",
+                    "scale": "{ 0.501411, 0.440035, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 553.481, -174.648, 5 }",
+                    "worldScale": "{ 0.501411, 0.440035, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 200,
+                            "height": 110,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Pause_GreyOverlay",
+                    "shouldRender": true
                 }
             }
         ]
