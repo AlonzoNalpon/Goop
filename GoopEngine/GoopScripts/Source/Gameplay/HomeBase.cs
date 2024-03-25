@@ -73,9 +73,11 @@ namespace GoopScripts.Gameplay
     {
       if (Utils.IsKeyTriggered(Input.KeyCode.L))
       {
-        // damage enemy
-        Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
-        OnCreate();
+        if (m_levelToLoad < 5)
+        {
+          Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
+          OnCreate();
+        }
       }
     }
   }
