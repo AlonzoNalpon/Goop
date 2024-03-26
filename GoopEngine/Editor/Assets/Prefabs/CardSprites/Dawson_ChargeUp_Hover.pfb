@@ -1,7 +1,7 @@
 {
     "Name": "Dawson_ChargeUp_Hover",
     "isActive": true,
-    "Version": 5,
+    "Version": 7,
     "Components": [
         {
             "Transform": {
@@ -123,10 +123,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -42, -25, 1 }",
+                        "pos": "{ 0, -25, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -42, -25, 1 }",
+                        "worldPos": "{ 0, -25, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -141,7 +141,8 @@
                             "a": 1.0
                         },
                         "scale": 0.07500000298023224,
-                        "fontID": 2
+                        "fontID": 21,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -154,17 +155,17 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -71.5926, -65, 1 }",
+                        "pos": "{ 0, -65, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -71.5926, -65, 1 }",
+                        "worldPos": "{ 0, -65, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "No cards can be played",
+                        "text": "No cards can be",
                         "clr": {
                             "r": 0.0,
                             "g": 0.0,
@@ -172,7 +173,8 @@
                             "a": 1.0
                         },
                         "scale": 0.05400000140070915,
-                        "fontID": 0
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -185,17 +187,17 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -69.2963, -82.1489, 1 }",
+                        "pos": "{ 0, -82.1489, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -69.2963, -82.1489, 1 }",
+                        "worldPos": "{ 0, -82.1489, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "next turn. Afterwards,",
+                        "text": "played next turn.",
                         "clr": {
                             "r": 0.0,
                             "g": 0.0,
@@ -203,7 +205,8 @@
                             "a": 1.0
                         },
                         "scale": 0.05400000140070915,
-                        "fontID": 0
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -216,17 +219,17 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -67.1852, -100.014, 1 }",
+                        "pos": "{ 0, -100.014, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -67.1852, -100.014, 1 }",
+                        "worldPos": "{ 0, -100.014, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "+2 Damage for 1 turn",
+                        "text": "Afterwards, +2",
                         "clr": {
                             "r": 0.0,
                             "g": 0.0,
@@ -234,7 +237,40 @@
                             "a": 1.0
                         },
                         "scale": 0.05400000140070915,
-                        "fontID": 0
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 7,
+            "isActive": true,
+            "Name": "Description4",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -117.303, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -117.303, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "damage for 1 turn",
+                        "clr": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.05400000140070915,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]

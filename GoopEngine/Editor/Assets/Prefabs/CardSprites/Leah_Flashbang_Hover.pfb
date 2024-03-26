@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Flashbang_Hover",
     "isActive": true,
-    "Version": 15,
+    "Version": 17,
     "Components": [
         {
             "Transform": {
@@ -91,10 +91,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -45, -25, 1 }",
+                        "pos": "{ 0, -25, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -45, -25, 1 }",
+                        "worldPos": "{ 0, -25, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -109,7 +109,8 @@
                             "a": 1.0
                         },
                         "scale": 0.07500000298023224,
-                        "fontID": 2
+                        "fontID": 21,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -122,10 +123,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -48.0445, -65, 1 }",
+                        "pos": "{ 0, -65, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -48.0445, -65, 1 }",
+                        "worldPos": "{ 0, -65, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -140,7 +141,8 @@
                             "a": 1.0
                         },
                         "scale": 0.054999999701976776,
-                        "fontID": 0
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -153,10 +155,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -58.7777, -80, 1 }",
+                        "pos": "{ 0, -80, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -58.7777, -80, 1 }",
+                        "worldPos": "{ 0, -80, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -171,7 +173,8 @@
                             "a": 1.0
                         },
                         "scale": 0.054999999701976776,
-                        "fontID": 0
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]

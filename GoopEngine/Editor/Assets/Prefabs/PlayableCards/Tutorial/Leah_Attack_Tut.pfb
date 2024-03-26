@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Attack_Tut",
     "isActive": true,
-    "Version": 1,
+    "Version": 3,
     "Components": [
         {
             "Transform": {
@@ -60,6 +60,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -72,7 +78,7 @@
                         "scriptList": [
                             {
                                 "scriptName": "TutorialSelectCard",
-                                "entityID": 4,
+                                "entityID": 1,
                                 "scriptFieldInstList": []
                             }
                         ]
@@ -133,6 +139,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },
@@ -145,7 +157,7 @@
                         "scriptList": [
                             {
                                 "scriptName": "TutorialReturnQueue",
-                                "entityID": 5,
+                                "entityID": 2,
                                 "scriptFieldInstList": []
                             }
                         ]
@@ -169,10 +181,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -25, -25, 1 }",
+                        "pos": "{ 0, -25, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -25, -25, 1 }",
+                        "worldPos": "{ 0, -25, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -187,7 +199,8 @@
                             "a": 1.0
                         },
                         "scale": 0.07500000298023224,
-                        "fontID": 2
+                        "fontID": 21,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -200,10 +213,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -49.5778, -65, 1 }",
+                        "pos": "{ 0, -65, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -49.5778, -65, 1 }",
+                        "worldPos": "{ 0, -65, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -218,7 +231,8 @@
                             "a": 1.0
                         },
                         "scale": 0.054999999701976776,
-                        "fontID": 0
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -258,6 +272,12 @@
                                     "g": 1.0,
                                     "b": 1.0,
                                     "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
                                 }
                             }
                         },

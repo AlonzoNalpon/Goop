@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Attack2_Hover",
     "isActive": true,
-    "Version": 17,
+    "Version": 19,
     "Components": [
         {
             "Transform": {
@@ -23,10 +23,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -25, -25, 1 }",
+                        "pos": "{ 0, -25, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -25, -25, 1 }",
+                        "worldPos": "{ 0, -25, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -41,7 +41,8 @@
                             "a": 1.0
                         },
                         "scale": 0.07500000298023224,
-                        "fontID": 2
+                        "fontID": 21,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -54,10 +55,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -51.1111, -67, 1 }",
+                        "pos": "{ 0, -67, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -51.1111, -67, 1 }",
+                        "worldPos": "{ 0, -67, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -72,7 +73,8 @@
                             "a": 1.0
                         },
                         "scale": 0.054999999701976776,
-                        "fontID": 0
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
