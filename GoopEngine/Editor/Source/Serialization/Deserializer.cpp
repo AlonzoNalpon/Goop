@@ -346,11 +346,11 @@ void Deserializer::DeserializeClassTypes(rttr::instance objInst, rapidjson::Valu
     if (iter == value.MemberEnd())
     {
       std::ostringstream oss{};
-//      oss << "Unable to find " << prop.get_name().to_string()
-//        << " property in " << object.get_type().get_name().to_string();
-//#ifdef _DEBUG
-//      std::cout << oss.str() << "\n";
-//#endif
+      //      oss << "Unable to find " << prop.get_name().to_string()
+      //        << " property in " << object.get_type().get_name().to_string();
+      //#ifdef _DEBUG
+      //      std::cout << oss.str() << "\n";
+      //#endif
       continue;
     }
 
@@ -490,7 +490,6 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
   std::cout << "Json:\n" << buffer.GetString() << "\n";
 #endif
   view.set_size(value.Size());  // set view size based on element count in rapidjson arr
-  std::vector<rttr::variant> validElements;
   for (rapidjson::SizeType i{}; i < value.Size(); ++i)
   {
     auto& indexVal = value[i];
@@ -505,20 +504,20 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
     {
       rttr::variant elem{ view.get_value(i).get_type().is_wrapper() ? view.get_value(i).extract_wrapped_value() : view.get_value(i) };
       DeserializeBasedOnType(elem, indexVal);
-      if (elem.is_valid())
+      if (!elem.is_valid())
       {
-        validElements.emplace_back(std::move(elem));
+        continue;
       }
-      //if (!view.set_value(i, elem))
-      //{
-      //  if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))
-      //  {
-      //    /*std::ostringstream oss{};
-      //    oss << "Unable to set element " << i << " of type " << elem.get_type().get_name().to_string()
-      //      << " to container of " << view.get_type().get_name().to_string();
-      //    GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());*/
-      //  }
-      //}
+      if (!view.set_value(i, elem))
+      {
+        if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))
+        {
+          /*std::ostringstream oss{};
+          oss << "Unable to set element " << i << " of type " << elem.get_type().get_name().to_string()
+            << " to container of " << view.get_type().get_name().to_string();
+          GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());*/
+        }
+      }
     }
     // else deserialize normally
     else
@@ -528,11 +527,7 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
       if (view.get_value_type().is_enumeration())
       {
         rttr::variant enumValue = view.get_value_type().get_enumeration().name_to_value(indexVal.GetString());
-        if (elem.is_valid())
-        {
-          validElements.emplace_back(std::move(elem));
-        }
-        /*if (!view.set_value(i, enumValue))
+        if (!view.set_value(i, enumValue))
         {
 #ifdef DESERIALIZER_DEBUG
           std::ostringstream oss{};
@@ -540,16 +535,11 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
             << " to container of " << view.get_type().get_name().to_string();
           GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
 #endif
-        }*/
-      }
-      else// if (!view.set_value(i, elem))
-      {
-        if (elem.is_valid())
-        {
-          validElements.emplace_back(std::move(elem));
         }
-        validElements.emplace_back(std::move(elem));
-        /*if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))
+      }
+      else if (!view.set_value(i, elem))
+      {
+        if (!view.set_value(i, TryDeserializeIntoInt(indexVal)))
         {
 #ifdef DESERIALIZER_DEBUG
           std::ostringstream oss{};
@@ -557,14 +547,9 @@ void Deserializer::DeserializeSequentialContainer(rttr::variant_sequential_view&
             << " to container of " << view.get_type().get_name().to_string();
           GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
 #endif
-        }*/
+        }
       }
     }
-  }
-
-  view.set_size(validElements.size());
-  for (size_t i = 0; i < validElements.size(); ++i) {
-    view.set_value(i, validElements[i]);
   }
 }
 
@@ -1046,7 +1031,7 @@ Deserializer::EntityScriptsList Deserializer::DeserializeSceneScripts(std::strin
 
   EntityScriptsList ret{};
   // check if scene contains all basic keys
-  if (!ScanJsonFileForMembers(document, file, 2,JsonIdKey, rapidjson::kNumberType,
+  if (!ScanJsonFileForMembers(document, file, 2, JsonIdKey, rapidjson::kNumberType,
     JsonComponentsKey, rapidjson::kArrayType))
   {
     throw Debug::Exception<Deserializer>(Debug::LEVEL_ERROR, ErrMsg("Scene file missing fields!"));
