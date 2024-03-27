@@ -59,7 +59,7 @@ void GameStateManager::Update()
 {
 #ifndef IMGUI_DISABLE
 	// We will only reload if the scene is not running
-	if (!EditorGUI::ImGuiHelper::IsRunning())
+	if (EditorGUI::ImGuiHelper::IsStopped())
 		ExecuteMainThreadQueue();
 #endif // !IMGUI_DISABLE
 	try

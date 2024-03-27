@@ -62,6 +62,7 @@ namespace GoopScripts.Serialization
 
         line = GetNextNonCommentLine(sr);
         ret.deckList = new List<Tuple<CardBase.CardID, uint>>();
+        Dictionary<CardBase.CardID, uint> deckList = new Dictionary<CardBase.CardID, uint>();
         do
         {
           string[] cardData = line.Split(',');
@@ -74,8 +75,16 @@ namespace GoopScripts.Serialization
 #endif      
             continue;
           }
-          ret.deckList.Add(new Tuple<CardBase.CardID, uint>(card, amount));
+
+          if (deckList.ContainsKey(card))
+            deckList[card] += amount;
+          else
+            deckList.Add(card, amount);
+
         } while ((line = sr.ReadLine()) != null) ;          
+
+        foreach (var cardData in deckList)
+					ret.deckList.Add(new Tuple<CardBase.CardID, uint>(cardData.Key, cardData.Value));
       }
 
       return ret;
@@ -279,6 +288,7 @@ namespace GoopScripts.Serialization
         return;
       }
       lines[1] = (level + 1).ToString();
+      Console.WriteLine("Level is incremented from " + level + " to " + (level + 1));
 
       File.WriteAllLines(file, lines);
     }

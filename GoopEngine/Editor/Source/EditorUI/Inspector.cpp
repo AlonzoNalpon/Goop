@@ -1211,8 +1211,8 @@ void GE::EditorGUI::Inspector::CreateContent()
 					ImGui::TableNextColumn();
 					ImGui::ColorEdit4("Color", textObj->m_clr.rgba);
 					ImGui::DragFloat("Scale", &textObj->m_scale, .001f, 0.f, 5.f);
-					ImGui::DragFloat("Width", &textObj->m_width, .001f, 0.f);
-					if (ImGui::InputTextMultiline("Text", &textObj->m_text)) textObj->m_textInfo.flags.dirty = true;
+					//ImGui::DragFloat("Width", &textObj->m_width, .001f, 0.f);
+					if (ImGui::InputTextMultiline("Text", &textObj->m_text)) textObj->m_dirty = true;
 					
 					auto const& fontManager{ Graphics::GraphicsEngine::GetInstance().fontManager };
 					auto const& fontLT{ fontManager.GetFontLT() }; //lookup table for fonts (string to ID)
@@ -1228,6 +1228,24 @@ void GE::EditorGUI::Inspector::CreateContent()
 						}
 						EndCombo();
 					}
+					// ALIGNMENT FOR TEXT
+					ImGui::Text("Alignment");
+					if (ImGui::RadioButton("Left", textObj->m_alignment == Text::TextAlignment::LEFT))
+					{
+						textObj->m_alignment = Text::TextAlignment::LEFT;
+						textObj->m_dirty = true;
+					}
+					if (ImGui::RadioButton("Center", textObj->m_alignment == Text::TextAlignment::CENTER))
+					{
+						textObj->m_alignment = Text::TextAlignment::CENTER;
+						textObj->m_dirty = true;
+					}
+					if (ImGui::RadioButton("Right", textObj->m_alignment == Text::TextAlignment::RIGHT))
+					{
+						textObj->m_alignment = Text::TextAlignment::RIGHT;
+						textObj->m_dirty = true;
+					}
+
 					if (BeginDragDropTarget())
 					{
 						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_BROWSER_FONT"))
@@ -1310,32 +1328,32 @@ void GE::EditorGUI::Inspector::CreateContent()
 					{
 						break;
 					}
+
+					// Honestly no idea why -30 makes all 3 input fields match in size but sure
+					float inputWidth = (contentSize - charSize - 30) / 3;
+
+					Separator();
+					PushID("Emitter");
+					BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
+					ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
+					InputDouble3("Min Vel", em->m_minVel, inputWidth);
+					TableNextRow();
+					InputDouble3("Max Vel", em->m_maxVel, inputWidth);
+					TableNextRow();
+					InputDouble3("Gravity", em->m_gravity, inputWidth);
+					TableNextRow();
+					InputCheckBox("Play On Start", em->m_playOnStart);
+					TableNextRow();
+					InputCheckBox("Playing", em->m_playing);
+					EndTable();
+					InputFloat("Min Drag", &em->m_minDrag);
+					InputFloat("Max Drag", &em->m_maxDrag);
+					InputFloat("Min Lifetime", &em->m_minLifeTime);
+					InputFloat("Max Lifetime", &em->m_maxLifeTime);
+					InputInt("Emission Rate", &em->m_particlesPerMin);
+					ImGui::Separator();
+					ImGui::PopID();
 				}
-
-				// Honestly no idea why -30 makes all 3 input fields match in size but sure
-				float inputWidth = (contentSize - charSize - 30) / 3;
-
-				Separator();
-				PushID("Emitter");
-				BeginTable("##", 2, ImGuiTableFlags_BordersInnerV);
-				ImGui::TableSetupColumn("Col1", ImGuiTableColumnFlags_WidthFixed, charSize);
-				InputDouble3("Min Vel", em->m_minVel, inputWidth);
-				TableNextRow();
-				InputDouble3("Max Vel", em->m_maxVel, inputWidth);
-				TableNextRow();
-				InputDouble3("Gravity", em->m_gravity, inputWidth);
-				TableNextRow();
-				InputCheckBox("Play On Start", em->m_playOnStart);
-				TableNextRow();
-				InputCheckBox("Playing", em->m_playing);
-				EndTable();
-				InputFloat("Min Drag", &em->m_minDrag);
-				InputFloat("Max Drag", &em->m_maxDrag);
-				InputFloat("Min Lifetime", &em->m_minLifeTime);
-				InputFloat("Max Lifetime", &em->m_maxLifeTime);
-				InputInt("Emission Rate", &em->m_particlesPerMin);
-				ImGui::Separator();
-				ImGui::PopID();
 			}
 			else if (compType == rttr::type::get<Component::AnimEvents>())
 			{

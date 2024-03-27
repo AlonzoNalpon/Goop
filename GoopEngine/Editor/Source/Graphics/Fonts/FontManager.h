@@ -31,6 +31,17 @@ namespace GE::Graphics::Fonts
   class FontManager 
   {
   public:
+    enum FontAlign : unsigned int
+    {
+      LEFT = 0u,
+      CENTER,
+      RIGHT
+    };
+    struct FontLineInfo
+    {
+      size_t	idx; // index of character that's in a new line
+      GLfloat baseOffset; // 0 for left, -width/2 for center, -width for right
+    };
     /*!*********************************************************************
     \brief
       Initializes the font manager by initializing freetype.
@@ -57,6 +68,7 @@ namespace GE::Graphics::Fonts
     using FontID_LT       = std::map<std::string, Graphics::gObjID>;
     using FontName_LT     = std::map<Graphics::gObjID, std::string>;
     using FontScales      = std::map<Graphics::gObjID, GLfloat>;
+    using FontHeight      = std::map<Graphics::gObjID, GLfloat>;
     FT_Library        m_library;
     FontMapFontMap    m_fonts;      // !< all loaded fonts' glyphs stored here
     FontID_LT         m_fontIDLT;     // !< lookup table to get font ID from string
@@ -64,6 +76,7 @@ namespace GE::Graphics::Fonts
     GLuint            m_fontQuad;
     GLuint            m_fontShader;
     FontScales        m_fontScales;
+    FontHeight        m_fontHeight;
   public:
     /*!*********************************************************************
     \brief
@@ -105,6 +118,8 @@ namespace GE::Graphics::Fonts
     ************************************************************************/
     GLfloat GetFontScale(Graphics::gObjID fontID)const;
 
+    GLfloat GetFontHeight(Graphics::gObjID fontID)const;
+
     GLuint const&     fontModel{ m_fontQuad };      // getter to font model
     GLuint const&     fontShader{ m_fontShader };   // getter to font shader
     
@@ -124,6 +139,17 @@ namespace GE::Graphics::Fonts
     \return
     ************************************************************************/
     void FreeFonts();
+
+    //GLfloat GetTextWidth(std::string const& text, Graphics::gObjID fontID, GLfloat scale);
+    GLfloat GetTextWidth(std::string::const_iterator begin, std::string::const_iterator end, 
+      Graphics::gObjID fontID, GLfloat scale);
+
+    void    TextNewLines(std::string::const_iterator begin, std::string::const_iterator end, std::vector<size_t>& nlInfo,
+      size_t currIdx = 0u)const;
+
+    void    GetTextLinesInfo(Graphics::gObjID fontID, std::string const& text, 
+      std::vector<GE::Graphics::Fonts::FontManager::FontLineInfo>& nlInfo, FontAlign align = FontAlign::LEFT)const;
+    //void    TextNewLines(std::string const& text, std::vector<size_t>& nlInfo);
 
     void              UpdateTextInfo(TextObjGroup& group);
   };

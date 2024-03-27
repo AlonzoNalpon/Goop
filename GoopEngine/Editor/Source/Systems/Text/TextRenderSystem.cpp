@@ -18,19 +18,26 @@ namespace GE::Systems
   void TextRenderSystem::LateUpdate()
   {
     auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
+    auto const& fontMan{ gEngine.fontManager };
     for (GE::ECS::Entity entity : GetUpdatableEntities())
     {
       if (!m_ecs->HasComponent<Component::Text>(entity))
         continue;
       Component::Text& textComp{ *m_ecs->GetComponent<Component::Text>(entity) };
 
-      if (textComp.m_textInfo.flags.dirty)
+      if (textComp.m_dirty)
       {
-        // Update the text to fit
+        textComp.m_textLinesInfo.clear();
+        // Get the newlines
+        fontMan.GetTextLinesInfo(textComp.m_fontID, textComp.m_text, textComp.m_textLinesInfo, textComp.m_alignment);
+        //fontMan.TextNewLines(textComp.m_text.cbegin(), textComp.m_text.cend(), textComp.m_newLines);
+        textComp.m_dirty = false;
       }
 
       Component::Transform& trans{ *m_ecs->GetComponent<Component::Transform>(entity) };
-      gEngine.GetRenderer().RenderFontObject({trans.m_worldPos.x, trans.m_worldPos.y, trans.m_worldPos.z}, textComp.m_scale, textComp.m_text, textComp.m_clr, textComp.m_fontID);
+      gEngine.GetRenderer().RenderFontObject({trans.m_worldPos.x, trans.m_worldPos.y, trans.m_worldPos.z}, 
+        textComp.m_scale, textComp.m_text, 
+        textComp.m_textLinesInfo, textComp.m_clr, textComp.m_fontID);
     }
   }
 

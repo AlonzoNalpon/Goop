@@ -261,6 +261,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::UpdateSprite", GE::MONO::UpdateSprite);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextComponent", GE::MONO::SetTextComponent);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextColor", GE::MONO::SetTextColor);
+  mono_add_internal_call("GoopScripts.Mono.Utils::PlaySingleParticle", GE::MONO::PlaySingleParticle);
 
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeInAudio", GE::MONO::FadeInAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetSpriteTint", GE::MONO::SetSpriteTint);
@@ -1367,4 +1368,18 @@ void GE::MONO::DispatchQuitEvent()
 #else
   GE::Events::EventManager::GetInstance().Dispatch(GE::Events::StopSceneEvent());
 #endif // IMGUI_DISABLE
+}
+
+
+void GE::MONO::PlaySingleParticle(GE::ECS::Entity emitterEntityID)
+{
+  static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+
+  auto em = ecs.GetComponent<GE::Component::Emitter>(emitterEntityID);
+  if (em)
+  {
+    em->m_emitterHasLifeCount = true;
+    em->m_particleLifeCount = 1;
+    em->m_playing = true;
+  }
 }

@@ -2183,16 +2183,6 @@
                 }
             },
             {
-                "BoxCollider": {
-                    "center": "{ -174.574, -183.935 }",
-                    "width": 119.0,
-                    "height": 111.0,
-                    "min": "{ -234.074, -239.435 }",
-                    "max": "{ -115.074, -128.435 }",
-                    "render": false
-                }
-            },
-            {
                 "Sprite": {
                     "spriteData": {
                         "spriteSubData": {
@@ -2222,25 +2212,6 @@
                     },
                     "spriteName": "CardIcon_BasicAttackClawswipe",
                     "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "EnemyQueueHover",
-                            "entityID": 51,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]

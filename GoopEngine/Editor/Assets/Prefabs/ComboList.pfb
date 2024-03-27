@@ -1,14 +1,14 @@
 {
     "Name": "ComboList",
     "isActive": true,
-    "Version": 1,
+    "Version": 0,
     "Components": [
         {
             "Transform": {
-                "pos": "{ 0, 0, 0 }",
+                "pos": "{ 0, 0, 30 }",
                 "scale": "{ 1, 1, 1 }",
                 "rot": "{ 0, 0, 0 }",
-                "worldPos": "{ 0, 0, 0 }",
+                "worldPos": "{ 0, 0, 30 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
             }
@@ -78,22 +78,22 @@
         {
             "ID": 2,
             "isActive": true,
-            "Name": "card tpes",
+            "Name": "card types title",
             "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -777.684, 367.319, 1 }",
+                        "pos": "{ -621.574, 420, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -777.684, 367.319, 1 }",
+                        "worldPos": "{ -621.574, 420, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "card types",
+                        "text": "Card Types",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -101,7 +101,8 @@
                             "a": 1.0
                         },
                         "scale": 0.25,
-                        "fontID": 2
+                        "fontID": 8,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -110,14 +111,14 @@
             "ID": 3,
             "isActive": true,
             "Name": "[Folder] Card Icons",
-            "Parent": 2,
+            "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 703.11, -428.627, 0 }",
+                        "pos": "{ -74.574, -14.7298, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 703.11, -428.627, 0 }",
+                        "worldPos": "{ -74.574, -14.7298, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -881,30 +882,17 @@
         {
             "ID": 21,
             "isActive": true,
-            "Name": "attack",
-            "Parent": 2,
+            "Name": "[folder] table",
+            "Parent": 0,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -113.63, -73.627, 0 }",
+                        "pos": "{ 0, 56.9289, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -113.63, -73.627, 0 }",
+                        "worldPos": "{ 0, 56.9289, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "attack",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
                     }
                 }
             ]
@@ -912,22 +900,22 @@
         {
             "ID": 22,
             "isActive": true,
-            "Name": "block",
-            "Parent": 2,
+            "Name": "divider",
+            "Parent": 21,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 87.87, -73.627, 0 }",
+                        "pos": "{ 240, 298.281, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 87.87, -73.627, 0 }",
+                        "worldPos": "{ 240, 298.281, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "block",
+                        "text": "|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -935,7 +923,8 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -943,30 +932,17 @@
         {
             "ID": 23,
             "isActive": true,
-            "Name": "special",
-            "Parent": 2,
+            "Name": "[Folder] atk + atk",
+            "Parent": 21,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 256.222, -73.627, 0 }",
+                        "pos": "{ 0, 0, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 256.222, -73.627, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "special",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
                     }
                 }
             ]
@@ -974,30 +950,31 @@
         {
             "ID": 24,
             "isActive": true,
-            "Name": "card combos",
-            "Parent": 0,
+            "Name": "attack + attack",
+            "Parent": 23,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 121.427, 367.319, 1 }",
+                        "pos": "{ 20, 260, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 121.427, 367.319, 1 }",
+                        "worldPos": "{ 20, 260, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "card combos",
+                        "text": "Attack + Attack",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
                             "b": 1.0,
                             "a": 1.0
                         },
-                        "scale": 0.25,
-                        "fontID": 2
+                        "scale": 0.20000000298023224,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -1005,95 +982,15 @@
         {
             "ID": 25,
             "isActive": true,
-            "Name": "[Folder] atk + atk",
-            "Parent": 24,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -134.131, -428.627, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -134.131, -428.627, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 26,
-            "isActive": true,
-            "Name": "attack + attack",
-            "Parent": 25,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -186.22, 320.365, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -186.22, 320.365, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "attack + attack",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 27,
-            "isActive": true,
-            "Name": "=",
-            "Parent": 25,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ 224.965, 320.365, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 224.965, 320.365, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "=",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 28,
-            "isActive": true,
             "Name": "attack + attack D1",
-            "Parent": 25,
+            "Parent": 23,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 290.687, 347.569, 0 }",
+                        "pos": "{ 565, 285, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 290.687, 347.569, 0 }",
+                        "worldPos": "{ 565, 285, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -1108,23 +1005,24 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
         },
         {
-            "ID": 29,
+            "ID": 26,
             "isActive": true,
             "Name": "attack + attack D2",
-            "Parent": 28,
+            "Parent": 25,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, -56.929, 0 }",
+                        "pos": "{ 0, -50, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, -56.929, 0 }",
+                        "worldPos": "{ 0, -50, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -1139,7 +1037,90 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 27,
+            "isActive": true,
+            "Name": "line",
+            "Parent": 23,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 340, 210, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 340, 210, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "___________________________________________",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.20000000298023224,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 28,
+            "isActive": true,
+            "Name": "[Folder] atk + blk",
+            "Parent": 21,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 29,
+            "isActive": true,
+            "Name": "attack + block",
+            "Parent": 28,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 20, 130, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 20, 130, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Attack + Block",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.20000000298023224,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -1147,22 +1128,22 @@
         {
             "ID": 30,
             "isActive": true,
-            "Name": "line",
-            "Parent": 25,
+            "Name": "attack + defend D1",
+            "Parent": 28,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -203.98, 271.265, 0 }",
+                        "pos": "{ 565, 130, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -203.98, 271.265, 0 }",
+                        "worldPos": "{ 565, 130, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "_________________________________",
+                        "text": "Draw an extra card",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -1170,7 +1151,8 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -1178,17 +1160,31 @@
         {
             "ID": 31,
             "isActive": true,
-            "Name": "[Folder] atk + blk",
-            "Parent": 24,
+            "Name": "line",
+            "Parent": 28,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -134.131, -428.627, 0 }",
+                        "pos": "{ 340, 80.0001, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -134.131, -428.627, 0 }",
+                        "worldPos": "{ 340, 80.0001, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "___________________________________________",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.20000000298023224,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -1196,30 +1192,17 @@
         {
             "ID": 32,
             "isActive": true,
-            "Name": "attack + block",
-            "Parent": 31,
+            "Name": "[Folder] blk + blk",
+            "Parent": 21,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -153.553, 207.038, 0 }",
+                        "pos": "{ 0, 0, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -153.553, 207.038, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "attack + block",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
                     }
                 }
             ]
@@ -1227,22 +1210,22 @@
         {
             "ID": 33,
             "isActive": true,
-            "Name": "=",
-            "Parent": 31,
+            "Name": "block + block",
+            "Parent": 32,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 224.965, 207.038, 0 }",
+                        "pos": "{ 20, 0, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 224.965, 207.038, 0 }",
+                        "worldPos": "{ 20, 0, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "=",
+                        "text": "Block + Block",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -1250,7 +1233,8 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -1258,157 +1242,15 @@
         {
             "ID": 34,
             "isActive": true,
-            "Name": "attack + defend D1",
-            "Parent": 31,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ 290.687, 207.038, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 290.687, 207.038, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "draw an extra card",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 35,
-            "isActive": true,
-            "Name": "line",
-            "Parent": 31,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -203.98, 187.664, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -203.98, 187.664, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "_________________________________",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 36,
-            "isActive": true,
-            "Name": "[Folder] blk + blk",
-            "Parent": 24,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -134.131, -428.627, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -134.131, -428.627, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 37,
-            "isActive": true,
-            "Name": "block + block",
-            "Parent": 36,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -122.701, 95.5688, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -122.701, 95.5688, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "block + block",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 38,
-            "isActive": true,
-            "Name": "=",
-            "Parent": 36,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ 224.965, 95.5688, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 224.965, 95.5688, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "=",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 39,
-            "isActive": true,
             "Name": "defend + defend D1",
-            "Parent": 36,
+            "Parent": 32,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 290.687, 122.773, 0 }",
+                        "pos": "{ 565, 25, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 290.687, 122.773, 0 }",
+                        "worldPos": "{ 565, 25, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -1423,16 +1265,17 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
         },
         {
-            "ID": 40,
+            "ID": 35,
             "isActive": true,
             "Name": "defend + defend D2",
-            "Parent": 39,
+            "Parent": 34,
             "Components": [
                 {
                     "Transform": {
@@ -1454,30 +1297,31 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
         },
         {
-            "ID": 41,
+            "ID": 36,
             "isActive": true,
             "Name": "line",
-            "Parent": 36,
+            "Parent": 32,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -203.98, 46.4693, 0 }",
+                        "pos": "{ 340, -50, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -203.98, 46.4693, 0 }",
+                        "worldPos": "{ 340, -50, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "_________________________________",
+                        "text": "___________________________________________",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -1485,23 +1329,24 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
         },
         {
-            "ID": 42,
+            "ID": 37,
             "isActive": true,
             "Name": "[Folder] spc + atk",
-            "Parent": 24,
+            "Parent": 21,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -134.131, -571.679, 0 }",
+                        "pos": "{ 0, 0, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -134.131, -571.679, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -1509,24 +1354,24 @@
             ]
         },
         {
-            "ID": 43,
+            "ID": 38,
             "isActive": true,
             "Name": "special + attack",
-            "Parent": 42,
+            "Parent": 37,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ -189.85, 36.119, 0 }",
+                        "pos": "{ 20, -224.882, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -189.85, 36.119, 0 }",
+                        "worldPos": "{ 20, -224.882, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "special + attack",
+                        "text": "Special + Attack",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -1534,54 +1379,24 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
         },
         {
-            "ID": 44,
-            "isActive": true,
-            "Name": "=",
-            "Parent": 42,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ 224.965, 36.119, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 224.965, 36.119, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "=",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 45,
+            "ID": 39,
             "isActive": true,
             "Name": "special + attack D1",
-            "Parent": 42,
+            "Parent": 37,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 290.687, 122.773, 0 }",
+                        "pos": "{ 565, -113.568, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 290.687, 122.773, 0 }",
+                        "worldPos": "{ 565, -113.568, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -1596,16 +1411,49 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
         },
         {
-            "ID": 46,
+            "ID": 40,
+            "isActive": true,
+            "Name": "special + attack D4",
+            "Parent": 39,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -162.162, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -162.162, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "causing enemy",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.20000000298023224,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 41,
             "isActive": true,
             "Name": "special + attack D3",
-            "Parent": 45,
+            "Parent": 39,
             "Components": [
                 {
                     "Transform": {
@@ -1619,7 +1467,7 @@
                 },
                 {
                     "Text": {
-                        "text": "the enemy, causing enemy",
+                        "text": "blinds the enemy,",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -1627,30 +1475,31 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
         },
         {
-            "ID": 47,
+            "ID": 42,
             "isActive": true,
             "Name": "special + attack D2",
-            "Parent": 45,
+            "Parent": 39,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, -56.929, 0 }",
+                        "pos": "{ 0, -56.9287, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, -56.929, 0 }",
+                        "worldPos": "{ 0, -56.9287, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
                 },
                 {
                     "Text": {
-                        "text": "card next round and blinds",
+                        "text": "card next round and",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -1658,23 +1507,24 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
         },
         {
-            "ID": 48,
+            "ID": 43,
             "isActive": true,
-            "Name": "special + attack D4",
-            "Parent": 45,
+            "Name": "special + attack D5",
+            "Parent": 39,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, -168.398, 0 }",
+                        "pos": "{ 0, -218.427, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, -168.398, 0 }",
+                        "worldPos": "{ 0, -218.427, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -1689,7 +1539,154 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 44,
+            "isActive": true,
+            "Name": "line",
+            "Parent": 37,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 340, -360, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 340, -360, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "___________________________________________",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.20000000298023224,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 45,
+            "isActive": true,
+            "Name": "[Folder] spc + blk",
+            "Parent": 21,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 46,
+            "isActive": true,
+            "Name": "special + block",
+            "Parent": 45,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 20, -478.896, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 20, -478.896, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Special + Block",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.20000000298023224,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 47,
+            "isActive": true,
+            "Name": "special + block D1",
+            "Parent": 45,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 565, -422.364, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 565, -422.364, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "50% chance to stun",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.20000000298023224,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 48,
+            "isActive": true,
+            "Name": "special + block D3",
+            "Parent": 47,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -106.958, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -106.958, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "next round",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.20000000298023224,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
                     }
                 }
             ]
@@ -1697,150 +1694,8 @@
         {
             "ID": 49,
             "isActive": true,
-            "Name": "line",
-            "Parent": 42,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -203.98, -70.573, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -203.98, -70.573, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "_________________________________",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 50,
-            "isActive": true,
-            "Name": "[Folder] spc + blk",
-            "Parent": 24,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -134.131, -835.49, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -134.131, -835.49, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 51,
-            "isActive": true,
-            "Name": "special + block",
-            "Parent": 50,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ -157.183, 95.569, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ -157.183, 95.569, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "special + block",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 52,
-            "isActive": true,
-            "Name": "=",
-            "Parent": 50,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ 224.965, 95.569, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 224.965, 95.569, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "=",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 53,
-            "isActive": true,
-            "Name": "special + block D1",
-            "Parent": 50,
-            "Components": [
-                {
-                    "Transform": {
-                        "pos": "{ 290.687, 122.773, 0 }",
-                        "scale": "{ 1, 1, 1 }",
-                        "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 290.687, 122.773, 0 }",
-                        "worldScale": "{ 1, 1, 1 }",
-                        "worldRot": "{ 0, 0, 0 }"
-                    }
-                },
-                {
-                    "Text": {
-                        "text": "50% chance to stun the",
-                        "clr": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "scale": 0.20000000298023224,
-                        "fontID": 2
-                    }
-                }
-            ]
-        },
-        {
-            "ID": 54,
-            "isActive": true,
             "Name": "special + block D2",
-            "Parent": 53,
+            "Parent": 47,
             "Components": [
                 {
                     "Transform": {
@@ -1854,7 +1709,7 @@
                 },
                 {
                     "Text": {
-                        "text": "enemy in the next round",
+                        "text": "the enemy in the",
                         "clr": {
                             "r": 1.0,
                             "g": 1.0,
@@ -1862,7 +1717,136 @@
                             "a": 1.0
                         },
                         "scale": 0.20000000298023224,
-                        "fontID": 2
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 50,
+            "isActive": true,
+            "Name": "attack",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -809.204, 346.373, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -809.204, 346.373, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Attack",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.20000000298023224,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 51,
+            "isActive": true,
+            "Name": "block",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -621.574, 346.373, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -621.574, 346.373, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Block",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.20000000298023224,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 52,
+            "isActive": true,
+            "Name": "special",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -436.833, 346.373, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -436.833, 346.373, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Special",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.20000000298023224,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 53,
+            "isActive": true,
+            "Name": "card combo title",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 240, 420, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 240, 420, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Card Combos",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 8,
+                        "Alignment": "CENTER"
                     }
                 }
             ]

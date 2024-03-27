@@ -1,7 +1,7 @@
 {
     "Name": "Dawson",
     "isActive": true,
-    "Version": 13,
+    "Version": 22,
     "Components": [
         {
             "Transform": {
@@ -250,6 +250,16 @@
                         "scriptName": "DawsonFlinches",
                         "entityID": 0,
                         "scriptFieldInstList": []
+                    },
+                    {
+                        "scriptName": "DawsonShootParticle",
+                        "entityID": 0,
+                        "scriptFieldInstList": []
+                    },
+                    {
+                        "scriptName": "DawsonAttackParticle",
+                        "entityID": 0,
+                        "scriptFieldInstList": []
                     }
                 ]
             }
@@ -331,5 +341,134 @@
             }
         }
     ],
-    "SubData": []
+    "SubData": [
+        {
+            "ID": 1,
+            "isActive": true,
+            "Name": "Dawson Particle Emitter",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -406, 135, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -406, 135, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 1.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 276,
+                                "height": 88,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Blast_Red_Projectile",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Emitter": {
+                        "playOnStart": false,
+                        "playing": false,
+                        "gravity": "{ 0, 0, 0 }",
+                        "minForce": "{ -2500, 0, 0 }",
+                        "maxForce": "{ -2500, 0, 0 }",
+                        "minDrag": 0.0,
+                        "maxDrag": 0.0,
+                        "maxLifeTime": 0.09000000357627869,
+                        "minLifeTime": 0.09000000357627869,
+                        "particlePerMin": 2000
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 2,
+            "isActive": true,
+            "Name": "Dawson Particle Emitter 2",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -250, 100, 1 }",
+                        "scale": "{ 0.5, 0.5, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -250, 100, 1 }",
+                        "worldScale": "{ 0.5, 0.5, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 544,
+                                "height": 944,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Slash_Red_Projectile",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Emitter": {
+                        "playOnStart": false,
+                        "playing": false,
+                        "gravity": "{ 0, 0, 0 }",
+                        "minForce": "{ -8000, 0, 0 }",
+                        "maxForce": "{ -8000, 0, 0 }",
+                        "minDrag": 0.0,
+                        "maxDrag": 0.0,
+                        "maxLifeTime": 0.30000001192092896,
+                        "minLifeTime": 0.30000001192092896,
+                        "particlePerMin": 2000
+                    }
+                }
+            ]
+        }
+    ]
 }

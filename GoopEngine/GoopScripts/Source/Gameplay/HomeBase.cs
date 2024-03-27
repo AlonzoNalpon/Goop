@@ -21,68 +21,64 @@ namespace GoopScripts.Gameplay
 {
   public class HomeBase
   {
-    static int m_levelToLoad = 0;
+    public static int m_levelToLoad = 0;
 
-    List<CardBase.CardID> m_tempDeck = new List<CardBase.CardID>();
-    static Dictionary<CardBase.CardID, int> m_cards = new Dictionary<CardBase.CardID, int>();
     public string playerSavePath;
     public int[] CardIDs = new int[6];
-
-    public HomeBase()
-    {
-      
-    }
+    public int m_mapID;
 
     public void OnCreate()
     {
-      Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
-      m_tempDeck.Clear();
-      m_cards.Clear();
+      //Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
       var statsInfo = Serialization.SerialReader.LoadPlayerState(playerSavePath);
       m_levelToLoad = statsInfo.levelToLoad;
+      // Console.WriteLine("Current Level: " + m_levelToLoad);
+      if (m_levelToLoad <= 0)
+      {
+        Utils.UpdateSprite((uint)m_mapID, "UI_Map_01");
+      }
+      if (m_levelToLoad == 1)
+      {
+        Utils.UpdateSprite((uint)m_mapID, "UI_Map_02");
+      }
+      if (m_levelToLoad == 2)
+      {
+        Utils.UpdateSprite((uint)m_mapID, "UI_Map_03");
+      }
+      if (m_levelToLoad == 3)
+      {
+        Utils.UpdateSprite((uint)m_mapID, "UI_Map_04");
+      }
+      if (m_levelToLoad == 4)
+      {
+        Utils.UpdateSprite((uint)m_mapID, "UI_Map_05");
+      }
+      if (m_levelToLoad >= 5)
+      {
+        Utils.UpdateSprite((uint)m_mapID, "UI_Map_06");
+      }
+      int counter = 0;
       foreach (var card in statsInfo.deckList)
       {
-        for (int i = 0; i < card.Item2; ++i)
-        {
-          m_tempDeck.Add(card.Item1);
-          // Console.Write(card.Item1);
-        }
+        Utils.SetTextComponent((int)Utils.GetChildEntity((uint)CardIDs[counter++], "Text"), "x" + card.Item2);
       }
-      GetUniqueCards(m_tempDeck);
-      for (int i = 0; i < CardIDs.Length; ++i)
-      {
-        Utils.SetTextComponent((int)Utils.GetChildEntity((uint)CardIDs[i], "Text"), "x" + HomeBase.GetCount(CardBase.CardID.LEAH_BEAM + i));
-      }
-    }
-
-    public void GetUniqueCards(List<CardBase.CardID> deck)
-    {
-      for (CardBase.CardID i = CardBase.CardID.LEAH_BEAM; i <= CardBase.CardID.SPECIAL_RAGE; ++i)
-      {
-        m_cards.Add(i, 0);
-      }
-
-      for (int i = 0; i < deck.Count; ++i)
-      {
-        if (m_cards.ContainsKey(deck[i]))
-        {
-          ++m_cards[deck[i]];
-        }
-      }
-    }
-
-    static public int GetCount(CardBase.CardID card)
-    {
-      if (m_cards.ContainsKey(card))
-      {
-        return m_cards[card];
-      }
-      return 0;
     }
 
     static public int GetLevelToLoad()
     {
       return m_levelToLoad;
+    }
+
+    public void OnUpdate(double deltaTime)
+    {
+      if (Utils.IsKeyTriggered(Input.KeyCode.L))
+      {
+        if (m_levelToLoad < 5)
+        {
+          Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
+          OnCreate();
+        }
+      }
     }
   }
 }

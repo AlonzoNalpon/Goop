@@ -30,7 +30,7 @@ namespace GoopScripts.Button
 		public override void OnRelease(uint entity)
 		{
 			base.OnRelease(entity);
-			Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), animToTrigger);
+      Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), animToTrigger);
 		}
 	}
 }

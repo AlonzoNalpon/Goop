@@ -80,15 +80,8 @@ void FmodSystem::Update()
   }
 }
 
-bool FmodSystem::LoadSound(std::string audio, bool looped)
+FMOD::Sound* FmodSystem::CreateSound(std::string audio, bool looped)
 {
-  // Check if the sound is already loaded
-  auto soundFound = m_sounds.find(audio);
-  if (soundFound != m_sounds.end())
-  {
-    return true;
-  }
-
   FMOD_MODE mode = FMOD_DEFAULT | FMOD_CREATESTREAM | (looped ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
 
   FMOD::Sound* sound = nullptr;
@@ -98,16 +91,14 @@ bool FmodSystem::LoadSound(std::string audio, bool looped)
   FMOD_RESULT result = m_fModSystem->createSound(am.GetSound(audio).c_str(), mode, nullptr, &sound);
   if (result == FMOD_OK)
   {
-    // sound loaded, can stop
-    m_sounds[audio] = sound;
-    return true;
+    return sound;
   }
   else
   {
     std::ostringstream oss{};
-    oss << "Failed to create looped sound: " << result;
+    oss << "Failed to create sound: " << result;
     GE::Debug::ErrorLogger::GetInstance().LogError(oss.str());
-    return false;
+    return sound;
   }
 }
 
@@ -146,23 +137,25 @@ bool FmodSystem::isPlaying(std::string audio)
 
 void FmodSystem::PlaySound(std::string audio, float volume, ChannelType channel, bool looped)
 {
-  SoundMap::iterator soundFound = m_sounds.find(audio);
+  FMOD::Sound* sound = CreateSound(audio, looped);
 
-  if (soundFound == m_sounds.end()) //if sound not found, load sound
+  // Only bgm has named channels to allow for individual audio fading
+  // the rest will get a unqiue name
+  if (channel == SFX)
   {
-    LoadSound(audio, looped);
-    soundFound = m_sounds.find(audio);
-    if (soundFound == m_sounds.end()) //if sound still not found, return 
-    {
-      return;
-    }
+    static unsigned plays{};
+    ++plays;
+    audio += std::to_string(plays);
   }
-  
-  FMOD::Channel*& soundChannel{m_channels[audio]};
 
+  m_sounds[audio] = sound;
+
+  FMOD::Channel*& soundChannel{ m_channels[audio] };
+
+  // Sound channel is null when its a 1 shot audio
   if (soundChannel == nullptr)
   {
-    ErrorCheck(m_fModSystem->playSound(soundFound->second, m_channelGroups[channel], true, &soundChannel));
+    ErrorCheck(m_fModSystem->playSound(sound, m_channelGroups[channel], true, &soundChannel));
     ErrorCheck(soundChannel->setVolumeRamp(true));
     ErrorCheck(soundChannel->setVolume(volume));
     ErrorCheck(soundChannel->setPaused(false));
@@ -178,7 +171,7 @@ void FmodSystem::PlaySound(std::string audio, float volume, ChannelType channel,
     }
     else
     {
-      ErrorCheck(m_fModSystem->playSound(soundFound->second, m_channelGroups[channel], true, &soundChannel));
+      ErrorCheck(m_fModSystem->playSound(sound, m_channelGroups[channel], true, &soundChannel));
       ErrorCheck(soundChannel->setVolumeRamp(true));
       ErrorCheck(soundChannel->setVolume(volume));
       ErrorCheck(soundChannel->setPaused(false));

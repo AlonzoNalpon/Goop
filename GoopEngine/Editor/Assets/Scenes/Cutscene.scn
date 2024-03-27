@@ -662,7 +662,7 @@
         "ID": 11,
         "Prefab": {
             "name": "FPSCounter",
-            "version": 0,
+            "version": 1,
             "objToEntity": [
                 {
                     "key": 0,
@@ -701,15 +701,7 @@
                         {
                             "scriptName": "FPS",
                             "entityID": 11,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 11,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "FPS_COUNTER"
-                                    }
-                                }
-                            ]
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -724,7 +716,8 @@
                         "a": 1.0
                     },
                     "scale": 0.12300000339746475,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -850,10 +843,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -34.482, -15.659, 0 }",
+                    "pos": "{ 0, -15.659, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -891.037, -503.104, 10 }",
+                    "worldPos": "{ -856.555, -503.104, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -868,7 +861,8 @@
                         "a": 1.0
                     },
                     "scale": 0.1679999977350235,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]

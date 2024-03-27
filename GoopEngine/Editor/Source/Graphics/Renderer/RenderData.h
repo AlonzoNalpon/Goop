@@ -11,7 +11,7 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #ifndef RENDER_DATA_H
 #define RENDER_DATA_H
 #include <Graphics/Def/GraphicsTypes.h>
-
+#include <Graphics/Fonts/FontManager.h>
 namespace GE::Graphics::Rendering
 {
   /*!
@@ -57,11 +57,13 @@ namespace GE::Graphics::Rendering
 
   struct FontRenderData
   {
-    gVec2               position;
-    GLfloat             scale;
-    std::string const&  str;
-    Graphics::Colorf    clr;
-    gObjID              fontID;
+    gVec2                       position;
+    GLfloat                     scale;
+    std::string const&          str;
+                 
+    std::vector<GE::Graphics::Fonts::FontManager::FontLineInfo> const& newLines;
+    Graphics::Colorf            clr;
+    gObjID                      fontID;
   };
 
   /*!

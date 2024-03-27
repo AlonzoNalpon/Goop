@@ -1,7 +1,7 @@
 {
     "Name": "Environment_Level3",
     "isActive": true,
-    "Version": 0,
+    "Version": 1,
     "Components": [
         {
             "Transform": {
@@ -102,7 +102,7 @@
                                 "key": "Fade",
                                 "value": [
                                     {
-                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "trans": "{ 608.704, 387.528, 0.1 }",
                                         "scale": "{ 1, 1, 1 }",
                                         "rot": "{ 0, 0, 0 }",
                                         "spriteTint": {
@@ -127,7 +127,7 @@
                                         "animationEvent": ""
                                     },
                                     {
-                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "trans": "{ 608.704, 387.528, 0.1 }",
                                         "scale": "{ 1, 1, 1 }",
                                         "rot": "{ 0, 0, 0 }",
                                         "spriteTint": {
@@ -152,7 +152,7 @@
                                         "animationEvent": ""
                                     },
                                     {
-                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "trans": "{ 608.704, 387.528, 0.1 }",
                                         "scale": "{ 1, 1, 1 }",
                                         "rot": "{ 0, 0, 0 }",
                                         "spriteTint": {
@@ -177,7 +177,7 @@
                                         "animationEvent": ""
                                     },
                                     {
-                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "trans": "{ 608.704, 387.528, 0.1 }",
                                         "scale": "{ 1, 1, 1 }",
                                         "rot": "{ 0, 0, 0 }",
                                         "spriteTint": {
@@ -202,7 +202,7 @@
                                         "animationEvent": ""
                                     },
                                     {
-                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "trans": "{ 608.704, 387.528, 0.1 }",
                                         "scale": "{ 1, 1, 1 }",
                                         "rot": "{ 0, 0, 0 }",
                                         "spriteTint": {
@@ -227,7 +227,7 @@
                                         "animationEvent": ""
                                     },
                                     {
-                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "trans": "{ 608.704, 387.528, 0.1 }",
                                         "scale": "{ 1, 1, 1 }",
                                         "rot": "{ 0, 0, 0 }",
                                         "spriteTint": {
@@ -252,7 +252,7 @@
                                         "animationEvent": ""
                                     },
                                     {
-                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "trans": "{ 608.704, 387.528, 0.1 }",
                                         "scale": "{ 1, 1, 1 }",
                                         "rot": "{ 0, 0, 0 }",
                                         "spriteTint": {
@@ -277,7 +277,7 @@
                                         "animationEvent": ""
                                     },
                                     {
-                                        "trans": "{ 608.704, 387.528, 0 }",
+                                        "trans": "{ 608.704, 387.528, 0.1 }",
                                         "scale": "{ 1, 1, 1 }",
                                         "rot": "{ 0, 0, 0 }",
                                         "spriteTint": {

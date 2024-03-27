@@ -205,10 +205,9 @@ namespace GE
         Boolean for if the sound is looping.
 
       \return
-        True if audio loaded succesfully
-        False if audio failed to load
+        Ptr to sound object, nullptr if failed to create sound
       ************************************************************************/
-      bool LoadSound(std::string audio, bool looped = false);
+      FMOD::Sound* CreateSound(std::string audio, bool looped = false);
 
       /*!*********************************************************************
       \brief

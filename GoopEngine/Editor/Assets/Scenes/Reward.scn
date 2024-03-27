@@ -25,21 +25,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -324.315, 0 }",
+                    "pos": "{ 0, -414.315, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 0, -324.315, 0 }",
+                    "worldPos": "{ 0, -414.315, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 0, -324.315 }",
+                    "center": "{ 0, -414.315 }",
                     "width": 370.0,
                     "height": 135.0,
-                    "min": "{ -185, -391.815 }",
-                    "max": "{ 185, -256.815 }",
+                    "min": "{ -185, -481.815 }",
+                    "max": "{ 185, -346.815 }",
                     "render": false
                 }
             },
@@ -111,10 +111,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -85.2224, -15.704, 0 }",
+                    "pos": "{ 0, -15.704, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -85.2224, -340.019, 0 }",
+                    "worldPos": "{ 0, -430.019, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -129,7 +129,8 @@
                         "a": 1.0
                     },
                     "scale": 0.19200000166893005,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -476,7 +477,7 @@
                             }
                         }
                     },
-                    "spriteName": "MainMenu_BG",
+                    "spriteName": "Reward_BG",
                     "shouldRender": true
                 }
             }
@@ -533,6 +534,13 @@
                                     "type": "GoopScripts.Cards.CardBase.CardID[]",
                                     "scriptField": {
                                         "fieldName": "m_rewardPool"
+                                    }
+                                },
+                                {
+                                    "data": "./Assets/GameData/PlayerStats.sav",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "playerSavePath"
                                     }
                                 }
                             ]

@@ -27,7 +27,8 @@ namespace GE::Graphics::Fonts
   void FontManager::LoadFont(std::string const& name, std::string const& path, GLint fontSize)
   {
     FT_Face face;
-    GLfloat constexpr inverseDefSize{ 1.f/256.f }; // to multiply with size to get inverse scale
+    // (makes all scaling identical across different fontSizes)
+    GLfloat constexpr inverseDefSize{ 1.f/256.f }; // to multiply with size to get inverse scale 
     if (FT_New_Face(m_library, path.c_str(), 0, &face))
     {
       throw GE::Debug::Exception<FontManager>(GE::Debug::LEVEL_ERROR, ErrMsg("Failed to load font: " + path));
@@ -57,7 +58,9 @@ namespace GE::Graphics::Fonts
     }
     FontMap& fontMap{ m_fonts[newID] }; // get reference to newly created map
 
-    m_fontScales[newID] = fontSize * inverseDefSize;
+    m_fontScales[newID] = 1 / (fontSize * inverseDefSize);
+    //GLfloat const fontScale{ m_fontScales[newID] };
+    GLfloat maxFontHeight{};
     // disable byte-alignment restriction (using only one byte instead of 4)
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1); 
     constexpr uChar MAX_CHARS{ 128 };
@@ -99,6 +102,11 @@ namespace GE::Graphics::Fonts
           {face->glyph->bitmap_left, face->glyph->bitmap_top},
           static_cast<GLuint>(face->glyph->advance.x)
       };
+        if (c > 32 && c < 127)
+      {
+        GLfloat currHeight = static_cast<GLfloat>(face->glyph->bitmap_top);
+        maxFontHeight = (currHeight > maxFontHeight) ? currHeight : maxFontHeight;
+      }
 #else
       // Generate a texture
       GLuint texHdl;
@@ -127,7 +135,8 @@ namespace GE::Graphics::Fonts
       };
 #endif
     }    
-    // What is this commented code: Cleanup code to be implemented elsewhere! 
+    m_fontHeight[newID] = maxFontHeight;
+          // What is this commented code: Cleanup code to be implemented elsewhere! 
     //FT_Done_Face(face); // we've gotten all the textures: we can clear freetype's resources
     //FT_Done_FreeType(m_library);
   }
@@ -150,6 +159,10 @@ namespace GE::Graphics::Fonts
   {
     return m_fontScales.at(fontID);
   }
+  GLfloat FontManager::GetFontHeight(Graphics::gObjID fontID) const
+  {
+    return m_fontHeight.at(fontID);
+  }
   FontManager::FontID_LT const& FontManager::GetFontLT() const
   {
     return m_fontIDLT;
@@ -167,6 +180,66 @@ namespace GE::Graphics::Fonts
     m_fontIDLT.clear();
     m_fonts.clear();
     m_fontScales.clear();
+  }
+
+  GLfloat FontManager::GetTextWidth(std::string::const_iterator begin, std::string::const_iterator end, Graphics::gObjID fontID, GLfloat scale)
+  {
+    GLfloat width{}; //TODO
+    FontMap const& currFont{ m_fonts[fontID] };
+    GLfloat fontScale{ m_fontScales[fontID] * scale };
+    while (begin != end)
+    {
+      auto const& glyph = currFont.at(*begin);
+      width += glyph.advance * fontScale;
+      ++begin;
+    }
+    return width;
+  }
+
+  void FontManager::TextNewLines(std::string::const_iterator begin, std::string::const_iterator end, std::vector<size_t>& nlInfo,
+    size_t currIdx)const
+  {
+    while (begin != end)
+    {
+      if (*begin == '\n')
+        nlInfo.emplace_back(currIdx);
+      ++currIdx;
+      ++begin;
+    }
+  }
+
+  void FontManager::GetTextLinesInfo(Graphics::gObjID fontID, std::string const& text, 
+    std::vector<GE::Graphics::Fonts::FontManager::FontLineInfo>& nlInfo, FontAlign align) const
+  {
+    size_t currIdx{};
+    nlInfo.clear();
+    nlInfo.emplace_back(currIdx++, 0.f); // the first line
+    auto const& currFont{ m_fonts.at(fontID) };
+
+    for (auto ch : text)
+    {
+      if (ch == '\n') // if a newline is encountered
+      {
+        nlInfo.emplace_back(currIdx, 0.f); // we now add another line to update
+        ++currIdx;
+        continue; // skip the newline character
+      }
+      GLfloat const width{ static_cast<float>(currFont.at(ch).advance >> 6) };
+
+      switch (align)
+      {
+      case FontAlign::LEFT:
+        // nothing
+        break;
+      case FontAlign::RIGHT:
+        nlInfo.back().baseOffset -= width;
+        break;
+      case FontAlign::CENTER:
+        nlInfo.back().baseOffset -= width * 0.5f;
+        break;
+      }
+      ++currIdx;
+    }
   }
 
   void Graphics::Fonts::FontManager::UpdateTextInfo(TextObjGroup& group)

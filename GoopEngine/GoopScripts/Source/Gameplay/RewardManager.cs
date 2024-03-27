@@ -19,15 +19,19 @@ namespace GoopScripts.Button
 {
   public class RewardManager
   {
-    static readonly int REWARD_POOL_COUNT = 6, NUM_CHOICES = 5;
+    static readonly int REWARD_POOL_COUNT = 6, NUM_CHOICES = 5, MAX_SELECT = 3;
     static readonly double WIDTH = 1100;
+    static readonly double Y_OFFSET = 40;
     static List<uint> m_selectedEntityIDs;
     // public int m_hover;
 
     Random rng = new Random();
     public CardBase.CardID[] m_rewardPool = new CardBase.CardID[REWARD_POOL_COUNT];
+    CardBase.CardID[] m_generatedPool = new CardBase.CardID[REWARD_POOL_COUNT];
     public int[] m_dropRates = new int[REWARD_POOL_COUNT];
+    public string playerSavePath;
     static uint[] m_cardEntities = new uint[NUM_CHOICES];
+
 
     public RewardManager()
     {
@@ -37,13 +41,42 @@ namespace GoopScripts.Button
     public void OnCreate()
     {
       uint hover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
+      var statsInfo = Serialization.SerialReader.LoadPlayerState(playerSavePath);
+      int m_levelToLoad = statsInfo.levelToLoad;
+      Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
       Utils.SetIsActiveEntity(hover, false);
       RewardCard.m_cardHover = (uint)hover;
+      if (m_levelToLoad <= 0) // tutorial
+      {
+        for (int i = 0; i < MAX_SELECT; ++i)
+        {
+          CardBase.CardID generatedCard = (CardBase.CardID)4 + i;
+          m_generatedPool[i] = generatedCard;
+          uint parent = Utils.SpawnPrefab(CardManager.m_cardPrefabs[generatedCard] + "_Hover", new Vec3<double>(-(WIDTH / NUM_CHOICES * MAX_SELECT) * 0.5 + ((WIDTH / NUM_CHOICES * MAX_SELECT) / (MAX_SELECT - 1)) * i, Y_OFFSET, 0));
+          m_cardEntities[i] = Utils.GetChildEntity(parent, "Base");
+          Utils.SetScript(m_cardEntities[i], "RewardCard");
+        }
+        return;
+      }
+      if (m_levelToLoad == 2) // mini boss
+      {
+        for (int i = 0; i < MAX_SELECT; ++i)
+        {
+          CardBase.CardID generatedCard = (CardBase.CardID)7 + i;
+          m_generatedPool[i] = generatedCard;
+          uint parent = Utils.SpawnPrefab(CardManager.m_cardPrefabs[generatedCard] + "_Hover", new Vec3<double>(-(WIDTH / NUM_CHOICES * MAX_SELECT) * 0.5 + ((WIDTH / NUM_CHOICES * MAX_SELECT) / (MAX_SELECT - 1)) * i, Y_OFFSET, 0));
+          m_cardEntities[i] = Utils.GetChildEntity(parent, "Base");
+          Utils.SetScript(m_cardEntities[i], "RewardCard");
+        }
+        return;
+      }
       for (int i = 0; i < NUM_CHOICES; ++i)
       {
-        CardBase.CardID generatedCard = GetChosenCard(rng.Next(1, 101));
-        m_rewardPool[i] = generatedCard;
-        uint parent = Utils.SpawnPrefab(CardManager.m_cardPrefabs[generatedCard] + "_Hover", new Vec3<double>(-WIDTH * 0.5 + (WIDTH / (NUM_CHOICES - 1)) * i, 0, 0));
+        int chance = rng.Next(1, 101);
+        CardBase.CardID generatedCard = GetChosenCard(chance);
+        m_generatedPool[i] = generatedCard;
+        Console.WriteLine("Card "+ i + ": " + chance + " with this generated: " + generatedCard);
+        uint parent = Utils.SpawnPrefab(CardManager.m_cardPrefabs[generatedCard] + "_Hover", new Vec3<double>(-WIDTH * 0.5 + (WIDTH / (NUM_CHOICES - 1)) * i, Y_OFFSET, 0));
         m_cardEntities[i] = Utils.GetChildEntity(parent, "Base");
         Utils.SetScript(m_cardEntities[i], "RewardCard");
       }
@@ -61,7 +94,7 @@ namespace GoopScripts.Button
         }
       }
 
-      // Console.WriteLine("Chance: " + chance + " | Card: " + m_rewardPool[i]);
+      Console.WriteLine("Chance: " + chance + " | Card: " + m_rewardPool[i]);
       return m_rewardPool[i];
     }
 
@@ -80,7 +113,7 @@ namespace GoopScripts.Button
       List<CardBase.CardID> selectedCards = new List<CardBase.CardID>();
       foreach (uint e in m_selectedEntityIDs)
       {
-        selectedCards.Add(m_rewardPool[Array.IndexOf(m_cardEntities, e)]);
+        selectedCards.Add(m_generatedPool[Array.IndexOf(m_cardEntities, e)]);
       }
       Serialization.SerialReader.AddCardsToDeck(selectedCards, "./Assets/GameData/PlayerStats.sav");
     }

@@ -30,7 +30,19 @@
                                 "y": 1.0
                             },
                             "width": 1920,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "MainMenu_BG",
@@ -70,7 +82,19 @@
                                 "y": 1.0
                             },
                             "width": 818,
-                            "height": 511
+                            "height": 511,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Pause_Menu_Base",
@@ -175,7 +199,19 @@
                                 "y": 1.0
                             },
                             "width": 227,
-                            "height": 71
+                            "height": 71,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Pause_Header2",
@@ -241,7 +277,19 @@
                                 "y": 1.0
                             },
                             "width": 400,
-                            "height": 160
+                            "height": 160,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Button_Base",
@@ -310,7 +358,19 @@
                                 "y": 1.0
                             },
                             "width": 91,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Bar",
@@ -384,7 +444,19 @@
                                 "y": 1.0
                             },
                             "width": 539,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Slider",
@@ -434,7 +506,19 @@
                                 "y": 1.0
                             },
                             "width": 91,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Bar",
@@ -508,7 +592,19 @@
                                 "y": 1.0
                             },
                             "width": 539,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Slider",
@@ -558,7 +654,19 @@
                                 "y": 1.0
                             },
                             "width": 91,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Bar",
@@ -632,7 +740,19 @@
                                 "y": 1.0
                             },
                             "width": 539,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Slider",
@@ -682,7 +802,19 @@
                                 "y": 1.0
                             },
                             "width": 91,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Bar",
@@ -756,7 +888,19 @@
                                 "y": 1.0
                             },
                             "width": 539,
-                            "height": 73
+                            "height": 73,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Slider",
@@ -775,10 +919,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -401.556, 42, 0 }",
+                    "pos": "{ -280, 42, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -401.556, 42, 0 }",
+                    "worldPos": "{ -280, 42, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -793,7 +937,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2199999988079071,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "RIGHT"
                 }
             }
         ]
@@ -808,10 +953,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -409, -162, 0 }",
+                    "pos": "{ -280, -162, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -409, -162, 0 }",
+                    "worldPos": "{ -280, -162, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -826,7 +971,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2199999988079071,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "RIGHT"
                 }
             }
         ]
@@ -841,10 +987,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -442.482, -60, 0 }",
+                    "pos": "{ -280, -60, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -442.482, -60, 0 }",
+                    "worldPos": "{ -280, -60, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -859,7 +1005,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2199999988079071,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "RIGHT"
                 }
             }
         ]
@@ -874,10 +1021,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -495.111, 143, 0 }",
+                    "pos": "{ -280, 143, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -495.111, 143, 0 }",
+                    "worldPos": "{ -280, 143, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -892,7 +1039,8 @@
                         "a": 1.0
                     },
                     "scale": 0.2199999988079071,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "RIGHT"
                 }
             }
         ]
@@ -1005,16 +1153,8 @@
                     "scriptList": [
                         {
                             "scriptName": "FPS",
-                            "entityID": 17,
-                            "scriptFieldInstList": [
-                                {
-                                    "data": 21,
-                                    "type": "System.Int32",
-                                    "scriptField": {
-                                        "fieldName": "FPS_COUNTER"
-                                    }
-                                }
-                            ]
+                            "entityID": 21,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -1029,7 +1169,8 @@
                         "a": 1.0
                     },
                     "scale": 0.12300000339746475,
-                    "fontID": 0
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
@@ -1044,10 +1185,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -100.111, -15.7037, 0 }",
+                    "pos": "{ 0, -15.704, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -100.111, -331.704, 0 }",
+                    "worldPos": "{ 0, -331.704, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1062,7 +1203,8 @@
                         "a": 1.0
                     },
                     "scale": 0.19200000166893005,
-                    "fontID": 2
+                    "fontID": 2,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -1098,7 +1240,19 @@
                                 "y": 1.0
                             },
                             "width": 2880,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Transition",
@@ -1120,6 +1274,12 @@
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,
@@ -1171,7 +1331,19 @@
                                 "y": 1.0
                             },
                             "width": 2880,
-                            "height": 1080
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
                         }
                     },
                     "spriteName": "Transition",
@@ -1193,6 +1365,12 @@
                                         "g": 1.0,
                                         "b": 1.0,
                                         "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
                                     "textColor": {
                                         "r": 1.0,

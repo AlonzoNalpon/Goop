@@ -45,10 +45,11 @@ namespace GE::Graphics::Rendering {
     )  );
   }
 
-  void Renderer::RenderFontObject(gVec3 pos, GLfloat scale, std::string const& str, Colorf color, gObjID fontID)
+  void Renderer::RenderFontObject(gVec3 pos, GLfloat scale, std::string const& str, 
+    std::vector<GE::Graphics::Fonts::FontManager::FontLineInfo> const& newLines, Colorf color, gObjID fontID)
   {
     m_renderData.emplace_back(RenderDataTypes::FONT, m_fontRenderCalls.size(), pos.z);
-    m_fontRenderCalls.emplace_back(pos, scale / r_fontManager.GetFontScale(fontID), str, color, fontID);
+    m_fontRenderCalls.emplace_back(pos, scale * r_fontManager.GetFontScale(fontID), str, newLines, color, fontID);
   }
 
   void Renderer::RenderLineDebug(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf const& clr)
@@ -127,7 +128,7 @@ namespace GE::Graphics::Rendering {
           glUseProgram(r_fontManager.fontShader);
         }
         FontRenderData const& obj{ m_fontRenderCalls[curr.element] };
-        DrawFontObj(obj.str, obj.position, obj.scale, obj.clr, obj.fontID, camera);
+        DrawFontObj(obj.str, obj.newLines, obj.position, obj.scale, obj.clr, obj.fontID, camera);
       }
         break;
       default:
@@ -176,13 +177,16 @@ namespace GE::Graphics::Rendering {
     }
   }
 
-  void Renderer::DrawFontObj(std::string const& str, gVec2 pos, GLfloat scale, Colorf const& clr, Graphics::gObjID fontID, Camera& camera)
+  void Renderer::DrawFontObj(std::string const& str, std::vector<GE::Graphics::Fonts::FontManager::FontLineInfo> const& newLines,
+    gVec2 pos, GLfloat scale, Colorf const& clr, Graphics::gObjID fontID, Camera& camera)
   {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     constexpr GLint uViewMatLocation{ 0 };
     constexpr GLint uColorLocation{ 2 };
     auto const& fontMap = r_fontManager.GetFontMap(fontID);
+    GLfloat fontHeight  = r_fontManager.GetFontHeight(fontID) * scale;
+    GLfloat const oldXPos = pos.x;
     glm::mat4 camViewProj{ camera.GetPersMtx() };
 
     // ASSUMING THAT WE USED THE SHADER BEFORE FUNCTION CALL
@@ -194,8 +198,29 @@ namespace GE::Graphics::Rendering {
     glBindVertexArray(r_fontManager.fontModel);
 
     // iterate threough the str
-    for (char ch : str)
+    size_t currIdx{}; // curr idx of the string
+    size_t currLineIdx{}; // first position of curr line
+    auto lineInfoIt{ newLines.cbegin() };
     {
+      //pos.y -= fontHeight*0.5f; // update the position y value to perform "newline"
+      pos.x += scale * lineInfoIt->baseOffset;     // and update x position based on alignment data
+      ++lineInfoIt;
+    }
+    for (auto strIt{str.cbegin()} ; strIt != str.cend(); ++strIt, ++currIdx)
+    {
+      char ch = *strIt;
+      if (lineInfoIt != newLines.cend()
+        && currIdx == lineInfoIt->idx - 1
+        && currLineIdx != lineInfoIt->idx) // if there's a possible new line
+      {
+        pos.y -= fontHeight; // update the position y value to perform "newline"
+        pos.x = oldXPos + scale * lineInfoIt->baseOffset;     // and update x position based on alignment data
+
+        currLineIdx = lineInfoIt->idx; // update curr index
+        ++lineInfoIt; // go to the next element of newline indexes
+        continue; // skip rendering this character
+      }
+
       Fonts::Character const& currGlyph{ fontMap.at(ch) };
       GLfloat xpos = pos.x + currGlyph.bearing.x * scale;
       GLfloat ypos = pos.y - (currGlyph.size.y - currGlyph.bearing.y) * scale;

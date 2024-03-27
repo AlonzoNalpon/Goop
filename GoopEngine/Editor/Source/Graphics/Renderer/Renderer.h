@@ -63,7 +63,8 @@ namespace GE::Graphics::Rendering
     ************************************************************************/
     void RenderObject(SpriteData const& sprite, GE::Math::dMat4 const& trans);
     
-    void RenderFontObject(gVec3 pos, GLfloat scale, std::string const& str, Colorf color, gObjID fontID);
+    void RenderFontObject(gVec3 pos, GLfloat scale, std::string const& str,
+      std::vector<GE::Graphics::Fonts::FontManager::FontLineInfo> const& newLines, Colorf color, gObjID fontID);
 
     void RenderLineDebug(GE::Math::dVec2 const& startPt, GE::Math::dVec2 const& endPt, Colorf const& clr);
 
@@ -92,7 +93,8 @@ namespace GE::Graphics::Rendering
       camera Camera to transform text
     \return
     ************************************************************************/
-    void DrawFontObj(std::string const& str, gVec2 pos, GLfloat scale, Colorf const& clr, Graphics::gObjID fontID, Camera& camera);
+    void DrawFontObj(std::string const& str, std::vector<GE::Graphics::Fonts::FontManager::FontLineInfo> const& newLines,
+      gVec2 pos, GLfloat scale, Colorf const& clr, Graphics::gObjID fontID, Camera& camera);
 
     /*!*********************************************************************
     \brief
