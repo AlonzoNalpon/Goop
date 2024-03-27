@@ -35,6 +35,7 @@ namespace GoopScripts.Transition
 			m_shouldTransition = false;
 		}
 
+    
     public override void OnRelease(uint entity)
     {      
 			base.OnRelease(entity);

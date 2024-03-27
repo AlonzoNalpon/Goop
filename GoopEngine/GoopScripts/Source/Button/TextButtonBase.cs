@@ -90,7 +90,8 @@ namespace GoopScripts.Button
 		********************************************************************/
 		public virtual void OnHoverEnter(uint entity)
     {
-			m_hovering = true;
+      Utils.PlaySoundF("MenuHoverOverSFX2", 0.8f, Utils.ChannelType.SFX, false);
+      m_hovering = true;
       Utils.UpdateSprite(entity, "Button_Base_Hover");
       Vec4<int> clr = m_buttonClrs[BUTTON_COLORS.HIGHLIGHT_TEXT];
       Utils.SetTextColor(Utils.GetChildEntity(entity, "Text"), clr.X, clr.Y, clr.Z, clr.W);

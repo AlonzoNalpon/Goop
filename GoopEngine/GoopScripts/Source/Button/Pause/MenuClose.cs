@@ -24,8 +24,19 @@ namespace GoopScripts.Button
 
 		public override void OnRelease(uint entity)
 		{
-			base.OnRelease(entity);
-			switch (UI.PauseManager.GetPauseState())
+      m_clicked = false;
+      Utils.PlaySoundF("Menu-Quit", (float)m_rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
+      if (!m_hovering)
+      {
+        Utils.UpdateSprite(entity, "Button_Base");
+        Vec4<int> clr = m_buttonClrs[BUTTON_COLORS.DEFAULT_TEXT];
+        Utils.SetTextColor(Utils.GetChildEntity(entity, "Text"), clr.X, clr.Y, clr.Z, clr.W);
+      }
+      else
+      {
+        OnHoverEnter(entity);
+      }
+      switch (UI.PauseManager.GetPauseState())
 			{
 				case 0:
 					Utils.PauseMenu(PauseMenuID);

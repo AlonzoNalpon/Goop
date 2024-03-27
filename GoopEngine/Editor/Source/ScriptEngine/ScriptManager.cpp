@@ -1157,6 +1157,7 @@ void GE::MONO::PlayRandomSound(int startRange, int endRange, GE::ECS::Entity ent
 void GE::MONO::PlaySoundF(MonoString* soundName, float volume, GE::fMOD::FmodSystem::ChannelType channel, bool looped)
 {
   static GE::fMOD::FmodSystem& fMod = GE::fMOD::FmodSystem::GetInstance();
+
   std::string sound = MonoStringToSTD(soundName);
   fMod.PlaySound(sound, volume, channel, looped);
 }

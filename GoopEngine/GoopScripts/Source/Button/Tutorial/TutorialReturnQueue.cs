@@ -49,7 +49,7 @@ namespace GoopScripts.Button
       }
 
       QueueCardDisplay.DestroyCard();
-      Utils.PlaySoundF("SFX_CardPlay5", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.PlaySoundF("SFX_CardPlay1", 1.0f, Utils.ChannelType.SFX, false);
       player.UnqueueCardByID(cardId);
       Tutorial.m_tutorialToggled = true;
     }

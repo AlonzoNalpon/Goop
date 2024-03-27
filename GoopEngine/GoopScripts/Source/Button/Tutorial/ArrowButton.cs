@@ -66,7 +66,8 @@ namespace GoopScripts.Source.Button.Tutorial
 		********************************************************************/
 		public virtual void OnHoverEnter(uint entity)
 		{
-			m_hovering = true;
+      Utils.PlaySoundF("MenuHoverOverSFX2", 0.8f, Utils.ChannelType.SFX, false);
+      m_hovering = true;
 			Utils.UpdateSprite(entity, "HTP_Arrow_Left_Hover");
 		}
 
