@@ -106,7 +106,7 @@ RTTR_REGISTRATION
     .property("treeName", &AI::TreeTemplate::m_treeName)
     .property("treeTempID", &AI::TreeTemplate::m_treeTempID)
     ;
-  rttr::registration::class_<Deck>("Deck")
+  /*rttr::registration::class_<Deck>("Deck")
     .property("Cards In Deck", &Deck::m_cards)
     .property("Draw Order", &Deck::m_drawOrderDisplay)
     ;
@@ -116,7 +116,7 @@ RTTR_REGISTRATION
     .property("Cards In Discard", &DeckManager::m_discardDisplay)
     .property("Cards In Hand", &DeckManager::m_hand)
     .property("Cards In Queue", &DeckManager::m_queue)
-    ;
+    ;*/
 
   //rttr::registration::class_<Component::CardHolder::CardHolderEntry>("CardHolderEntry")
   //  .property("elemEntity", &Component::CardHolder::CardHolderEntry::elemEntity)
@@ -208,7 +208,7 @@ RTTR_REGISTRATION
     .property("type", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<std::vector<unsigned>>::m_scriptField)
     ;
-  rttr::registration::class_<MONO::ScriptFieldInstance<DeckManager>>("GoopScripts.Gameplay.DeckManager")
+  /*rttr::registration::class_<MONO::ScriptFieldInstance<DeckManager>>("GoopScripts.Gameplay.DeckManager")
     .property("data", &MONO::ScriptFieldInstance<DeckManager>::m_data)
     .property("type", &MONO::ScriptFieldInstance<DeckManager>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<DeckManager>::m_scriptField)
@@ -222,7 +222,7 @@ RTTR_REGISTRATION
     .property("data", &MONO::ScriptFieldInstance<HealthBar>::m_data)
     .property("type", &MONO::ScriptFieldInstance<HealthBar>::m_type)
     .property("scriptField", &MONO::ScriptFieldInstance<HealthBar>::m_scriptField)
-    ;
+    ;*/
   rttr::registration::class_<MONO::CharacterAnims>("CharacterAnims")
     .property("characterAnimsInst", &MONO::CharacterAnims::m_characterAnimsInst)
     ;

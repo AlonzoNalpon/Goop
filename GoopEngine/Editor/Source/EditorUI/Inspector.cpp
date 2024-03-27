@@ -966,78 +966,78 @@ void GE::EditorGUI::Inspector::CreateContent()
 								GE::MONO::ScriptFieldInstance<GE::Math::dVec3>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<GE::Math::dVec3>>();
 								if (InputDouble3(("##" + sfi.m_scriptField.m_fieldName).c_str(), sfi.m_data, inputWidth)) { s.SetFieldValue<GE::Math::dVec3>(sfi.m_data, sfi.m_scriptField.m_classField); };
 							}
-							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<DeckManager>>())
-							{
-								TableNextRow();
-								GE::MONO::ScriptFieldInstance<DeckManager>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<DeckManager>>();
-								GE::MONO::ScriptInstance& deck = sfi.m_data.m_deckInstance;
-								GE::MONO::ScriptInstance& deckMan = sfi.m_data.m_deckManagerInstance;
+							//else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<DeckManager>>())
+							//{
+							//	TableNextRow();
+							//	GE::MONO::ScriptFieldInstance<DeckManager>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<DeckManager>>();
+							//	GE::MONO::ScriptInstance& deck = sfi.m_data.m_deckInstance;
+							//	GE::MONO::ScriptInstance& deckMan = sfi.m_data.m_deckManagerInstance;
 
-								for (rttr::variant& dF : deck.m_scriptFieldInstList)
-								{
-									
-									ScriptFieldInstance<std::vector<Component::Card::CardID>>& dSFI = dF.get_value<ScriptFieldInstance<std::vector<Component::Card::CardID>>>();
-									//std::cout << dSFI.m_scriptField.m_fieldName.c_str() << ":: " << dSFI.m_data.size() << "\n";
-									TableNextColumn();
-									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
-									ImGui::TableNextColumn();
-									if (InputCardID("##" + dSFI.m_scriptField.m_fieldName, dSFI.m_data, inputWidth))
-									{
-										deck.SetFieldValueArr<Component::Card::CardID>(dSFI.m_data, sm->m_appDomain, dSFI.m_scriptField.m_classField);
-										if (dSFI.m_scriptField.m_fieldName == "m_cards")
-											sfi.m_data.m_deck.m_cards = dSFI.m_data;
-										if (dSFI.m_scriptField.m_fieldName == "m_drawOrderDisplay")
-											sfi.m_data.m_deck.m_drawOrderDisplay = dSFI.m_data;
-									}
-								
-								}
+							//	for (rttr::variant& dF : deck.m_scriptFieldInstList)
+							//	{
+							//		
+							//		ScriptFieldInstance<std::vector<Component::Card::CardID>>& dSFI = dF.get_value<ScriptFieldInstance<std::vector<Component::Card::CardID>>>();
+							//		//std::cout << dSFI.m_scriptField.m_fieldName.c_str() << ":: " << dSFI.m_data.size() << "\n";
+							//		TableNextColumn();
+							//		ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
+							//		ImGui::TableNextColumn();
+							//		if (InputCardID("##" + dSFI.m_scriptField.m_fieldName, dSFI.m_data, inputWidth))
+							//		{
+							//			deck.SetFieldValueArr<Component::Card::CardID>(dSFI.m_data, sm->m_appDomain, dSFI.m_scriptField.m_classField);
+							//			if (dSFI.m_scriptField.m_fieldName == "m_cards")
+							//				sfi.m_data.m_deck.m_cards = dSFI.m_data;
+							//			if (dSFI.m_scriptField.m_fieldName == "m_drawOrderDisplay")
+							//				sfi.m_data.m_deck.m_drawOrderDisplay = dSFI.m_data;
+							//		}
+							//	
+							//	}
 
-								for (rttr::variant& dF : deckMan.m_scriptFieldInstList)
-								{
-									ScriptFieldInstance<std::vector<Component::Card::CardID>>& dSFI = dF.get_value<ScriptFieldInstance<std::vector<Component::Card::CardID>>>();
-									TableNextColumn();
-									ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
-									ImGui::TableNextColumn();
-									if (InputCardID("##" + dSFI.m_scriptField.m_fieldName, dSFI.m_data, inputWidth))
-									{
-										deckMan.SetFieldValueArr<Component::Card::CardID>(dSFI.m_data, sm->m_appDomain, dSFI.m_scriptField.m_classField);
-										if (dSFI.m_scriptField.m_fieldName == "m_hand")
-											sfi.m_data.m_hand = dSFI.m_data;
-										if (dSFI.m_scriptField.m_fieldName == "m_queue")
-											sfi.m_data.m_queue = dSFI.m_data;
-										if (dSFI.m_scriptField.m_fieldName == "m_discardDisplay")
-											sfi.m_data.m_discardDisplay = dSFI.m_data;
-									}
-								
-								}
-							}
-							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<HealthBar>>())
-							{
-								//TableNextRow();
-								//GE::MONO::ScriptFieldInstance<HealthBar>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<HealthBar>>();
-								//GE::MONO::ScriptInstance& healthBar = sfi.m_data.m_healthBarInst;
+							//	for (rttr::variant& dF : deckMan.m_scriptFieldInstList)
+							//	{
+							//		ScriptFieldInstance<std::vector<Component::Card::CardID>>& dSFI = dF.get_value<ScriptFieldInstance<std::vector<Component::Card::CardID>>>();
+							//		TableNextColumn();
+							//		ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
+							//		ImGui::TableNextColumn();
+							//		if (InputCardID("##" + dSFI.m_scriptField.m_fieldName, dSFI.m_data, inputWidth))
+							//		{
+							//			deckMan.SetFieldValueArr<Component::Card::CardID>(dSFI.m_data, sm->m_appDomain, dSFI.m_scriptField.m_classField);
+							//			if (dSFI.m_scriptField.m_fieldName == "m_hand")
+							//				sfi.m_data.m_hand = dSFI.m_data;
+							//			if (dSFI.m_scriptField.m_fieldName == "m_queue")
+							//				sfi.m_data.m_queue = dSFI.m_data;
+							//			if (dSFI.m_scriptField.m_fieldName == "m_discardDisplay")
+							//				sfi.m_data.m_discardDisplay = dSFI.m_data;
+							//		}
+							//	
+							//	}
+							//}
+							//else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<HealthBar>>())
+							//{
+							//	TableNextRow();
+							//	GE::MONO::ScriptFieldInstance<HealthBar>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<HealthBar>>();
+							//	GE::MONO::ScriptInstance& healthBar = sfi.m_data.m_healthBarInst;
 
-								//for (rttr::variant& dF : healthBar.m_scriptFieldInstList)
-								//{
+							//	for (rttr::variant& dF : healthBar.m_scriptFieldInstList)
+							//	{
 
-								//	ScriptFieldInstance<int>& dSFI = dF.get_value<ScriptFieldInstance<int>>();
-								//	//std::cout << dSFI.m_scriptField.m_fieldName.c_str() << ":: " << dSFI.m_data.size() << "\n";
-								//	TableNextColumn();
-								//	ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
-								//	ImGui::TableNextColumn();
-								//	if (ImGui::InputInt(("##" + dSFI.m_scriptField.m_fieldName).c_str(), &(dSFI.m_data), 0, 0, 0))
-								//	{
-								//		healthBar.SetFieldValue<int>(dSFI.m_data, dSFI.m_scriptField.m_classField);
-								//		if (dSFI.m_scriptField.m_fieldName == "m_health")
-								//			sfi.m_data.m_health = dSFI.m_data;
-								//		else if (dSFI.m_scriptField.m_fieldName == "m_maxHealth")
-								//			sfi.m_data.m_maxHealth = dSFI.m_data;
-								//		else if (dSFI.m_scriptField.m_fieldName == "healthBarUI")
-								//			sfi.m_data.m_healthBarUI = dSFI.m_data;
-								//	}
+							//		ScriptFieldInstance<int>& dSFI = dF.get_value<ScriptFieldInstance<int>>();
+							//		//std::cout << dSFI.m_scriptField.m_fieldName.c_str() << ":: " << dSFI.m_data.size() << "\n";
+							//		TableNextColumn();
+							//		ImGui::Text(dSFI.m_scriptField.m_fieldName.c_str());
+							//		ImGui::TableNextColumn();
+							//		if (ImGui::InputInt(("##" + dSFI.m_scriptField.m_fieldName).c_str(), &(dSFI.m_data), 0, 0, 0))
+							//		{
+							//			healthBar.SetFieldValue<int>(dSFI.m_data, dSFI.m_scriptField.m_classField);
+							//			if (dSFI.m_scriptField.m_fieldName == "m_health")
+							//				sfi.m_data.m_health = dSFI.m_data;
+							//			else if (dSFI.m_scriptField.m_fieldName == "m_maxHealth")
+							//				sfi.m_data.m_maxHealth = dSFI.m_data;
+							//			else if (dSFI.m_scriptField.m_fieldName == "healthBarUI")
+							//				sfi.m_data.m_healthBarUI = dSFI.m_data;
+							//		}
 
-								//}
-							}
+							//	}
+							//}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterAnims>>())
 							{
 								ImGui::TableNextRow();
@@ -1076,41 +1076,41 @@ void GE::EditorGUI::Inspector::CreateContent()
 								ImGui::TableNextRow(); ImGui::TableNextColumn(); ImGui::Separator();
 								ImGui::TableNextColumn(); ImGui::Separator();
 							}
-							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterType>>())
-							{
-								GE::MONO::ScriptFieldInstance<CharacterType>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterType>>();
-								//std::string pName = "##" + sfi.m_scriptField.m_fieldName;
+							//else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<CharacterType>>())
+							//{
+							//	GE::MONO::ScriptFieldInstance<CharacterType>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<CharacterType>>();
+							//	//std::string pName = "##" + sfi.m_scriptField.m_fieldName;
 
-								//std::cout << entity << "CT:: " << sfi.m_data << "\n";
-								ImGui::TableNextRow();
-								TableNextColumn();
-								ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
-								TableNextColumn();
-								if (ImGui::BeginCombo("##", CharacterTypeToString[sfi.m_data].c_str()))
-								{
+							//	//std::cout << entity << "CT:: " << sfi.m_data << "\n";
+							//	ImGui::TableNextRow();
+							//	TableNextColumn();
+							//	ImGui::Text(sfi.m_scriptField.m_fieldName.c_str());
+							//	TableNextColumn();
+							//	if (ImGui::BeginCombo("##", CharacterTypeToString[sfi.m_data].c_str()))
+							//	{
 			
-									for (size_t ic{ 0 }; ic < CharacterTypeToString.size(); ++ic)
-									{
-										bool is_selected{ false };
-										if (sfi.m_data != static_cast<CharacterType>(ic))
-										{
+							//		for (size_t ic{ 0 }; ic < CharacterTypeToString.size(); ++ic)
+							//		{
+							//			bool is_selected{ false };
+							//			if (sfi.m_data != static_cast<CharacterType>(ic))
+							//			{
 
-											//ImGui::Selectable(, is_selected);
-											if (ImGui::Selectable(CharacterTypeToString[ic].c_str(), is_selected))
-											{
-												sfi.m_data = static_cast<CharacterType>(ic);
-												s.SetFieldValue<CharacterType>(sfi.m_data, sfi.m_scriptField.m_classField);
-											}
-										}
-										if (is_selected)
-										{
-											ImGui::SetItemDefaultFocus();
-										}
-									}
-									// End the dropdown
-									ImGui::EndCombo();
-								}
-							}
+							//				//ImGui::Selectable(, is_selected);
+							//				if (ImGui::Selectable(CharacterTypeToString[ic].c_str(), is_selected))
+							//				{
+							//					sfi.m_data = static_cast<CharacterType>(ic);
+							//					s.SetFieldValue<CharacterType>(sfi.m_data, sfi.m_scriptField.m_classField);
+							//				}
+							//			}
+							//			if (is_selected)
+							//			{
+							//				ImGui::SetItemDefaultFocus();
+							//			}
+							//		}
+							//		// End the dropdown
+							//		ImGui::EndCombo();
+							//	}
+							//}
 							else if (dataType == rttr::type::get<GE::MONO::ScriptFieldInstance<std::vector<int>>>())
 							{
 								GE::MONO::ScriptFieldInstance<std::vector<int>>& sfi = f.get_value<GE::MONO::ScriptFieldInstance<std::vector<int>>>();

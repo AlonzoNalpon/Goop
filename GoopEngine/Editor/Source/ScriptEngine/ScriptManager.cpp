@@ -80,11 +80,11 @@ namespace GE
       { "System.Int32[]", ScriptFieldType::IntArr },
       { "GoopScripts.Cards.CardBase.CardID[]", ScriptFieldType::UIntArr },
       {"System.String[]",ScriptFieldType::StringArr},
-      { "System.Collections.Queue", ScriptFieldType::QueueFT },
+      { "System.Collections.Queue", ScriptFieldType::QueueFT },/*
       { "GoopScripts.Gameplay.Deck", ScriptFieldType::DeckFT },
       { "GoopScripts.Gameplay.DeckManager", ScriptFieldType::DeckManagerFT },
-      { "GoopScripts.Gameplay.CharacterType", ScriptFieldType::CharacterTypeFT },
-      { "GoopScripts.UI.HealthBar", ScriptFieldType::HealthBarFT },
+      { "GoopScripts.Gameplay.CharacterType", ScriptFieldType::CharacterTypeFT },*//*
+      { "GoopScripts.UI.HealthBar", ScriptFieldType::HealthBarFT },*/
       { "GoopScripts.Gameplay.CharacterAnims", ScriptFieldType::CharacterAnimsFT }
 
     };

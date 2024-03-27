@@ -95,13 +95,13 @@ RTTR_REGISTRATION
       rttr::value("SPECIAL_TIMEWRAP", GE::Component::Card::CardID::SPECIAL_TIMEWRAP)
       );
 
-  rttr::registration::enumeration<MONO::CharacterType>("CharacterType")
-    (
-      rttr::value("PLAYER", MONO::CharacterType::PLAYER),
-      rttr::value("BASIC_ENEMY", MONO::CharacterType::BASIC_ENEMY),
-      rttr::value("BOSS_P1", MONO::CharacterType::BOSS_P1),
-      rttr::value("BOSS_P2", MONO::CharacterType::BOSS_P2)
-      );
+  //rttr::registration::enumeration<MONO::CharacterType>("CharacterType")
+  //  (
+  //    rttr::value("PLAYER", MONO::CharacterType::PLAYER),
+  //    rttr::value("BASIC_ENEMY", MONO::CharacterType::BASIC_ENEMY),
+  //    rttr::value("BOSS_P1", MONO::CharacterType::BOSS_P1),
+  //    rttr::value("BOSS_P2", MONO::CharacterType::BOSS_P2)
+  //    );
 
   rttr::registration::enumeration<GE::Component::Text::TextAlignment>("TextAlignment")
     (

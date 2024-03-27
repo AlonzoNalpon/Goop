@@ -15,38 +15,38 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 namespace GE::MONO
 {
   // should follow order in CharacterType.cs
-  const std::vector<std::string> CharacterTypeToString
-  {
-    "PLAYER", "BASIC_ENEMY", "BOSS_P1", "BOSS_P2"
-  };
+  //const std::vector<std::string> CharacterTypeToString
+  //{
+  //  "PLAYER", "BASIC_ENEMY", "BOSS_P1", "BOSS_P2"
+  //};
 
-  enum CharacterType
-  {
-    PLAYER,
-    BASIC_ENEMY,
-    BOSS_P1,  // phase 1
-    BOSS_P2   // phase 2
-  };
+  //enum CharacterType
+  //{
+  //  PLAYER,
+  //  BASIC_ENEMY,
+  //  BOSS_P1,  // phase 1
+  //  BOSS_P2   // phase 2
+  //};
 
   // should mimic Deck.cs
-  struct Deck
-  {
-    std::vector<Component::Card::CardID> m_cards;
-    std::vector<Component::Card::CardID> m_drawOrderDisplay;
-  };
+  //struct Deck
+  //{
+  //  std::vector<Component::Card::CardID> m_cards;
+  //  std::vector<Component::Card::CardID> m_drawOrderDisplay;
+  //};
 
-  // should mimic DeckManager.cs
-  struct DeckManager
-  {
-    Deck m_deck;
-    std::vector<Component::Card::CardID> m_discardDisplay, m_hand, m_queue;
-    ScriptInstance m_deckManagerInstance, m_deckInstance; //used to cache the mono data of deck and deckmanager
-  };
+  //// should mimic DeckManager.cs
+  //struct DeckManager
+  //{
+  //  Deck m_deck;
+  //  std::vector<Component::Card::CardID> m_discardDisplay, m_hand, m_queue;
+  //  ScriptInstance m_deckManagerInstance, m_deckInstance; //used to cache the mono data of deck and deckmanager
+  //};
 
-  struct HealthBar
-  {
-    ScriptInstance m_healthBarInst; //used to cache the mono data of deck and deckmanager
-  };
+  //struct HealthBar
+  //{
+  //  ScriptInstance m_healthBarInst; //used to cache the mono data of deck and deckmanager
+  //};
 
   struct CharacterAnims
   {
