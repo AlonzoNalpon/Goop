@@ -43,8 +43,9 @@ namespace GoopScripts.UI
       m_textUI = textUI;
       m_healthBarUI = healthBarUI;
 
-      m_maxWidth = (int)Utils.GetObjectWidth((uint)m_healthBarUI);
+      m_maxWidth = (int)Utils.GetObjectWidth((uint)m_healthBarUI) - 10;
       m_alignPos = Utils.GetPosition((uint)m_healthBarUI);
+      m_alignPos.Y -= 1.0;
       m_alignPos.Z = 8.0;
       m_oneUnit = m_maxWidth / m_maxHealth;
       if (m_health < m_maxHealth)
@@ -70,7 +71,7 @@ namespace GoopScripts.UI
       {
         Utils.UpdateSprite(m_playerBarID, "UI_Health_Red");
       }
-      Utils.SetObjectHeight(m_playerBarID, (int)Utils.GetObjectHeight((uint)m_healthBarUI) * (int)Utils.GetScale((uint)m_healthBarUI).Y);
+      Utils.SetObjectHeight(m_playerBarID, (int)Utils.GetObjectHeight((uint)m_healthBarUI) * (int)Utils.GetScale((uint)m_healthBarUI).Y - 18);
       UpdateBar();
     }
 
