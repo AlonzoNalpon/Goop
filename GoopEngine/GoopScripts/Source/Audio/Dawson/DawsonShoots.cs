@@ -20,7 +20,7 @@ namespace GoopScripts.Source.Audio.Dawson
     Random rng = new Random();
     public void PlayEvent(uint entity)
     {
-      Utils.PlayRandomSound(startRange, endRange, entity, 0.7f + (float)rng.NextDouble() * 0.3f);
+      Utils.PlaySoundF("DawsonFire", 1.0f, Utils.ChannelType.SFX, false);
     }
   }
 }

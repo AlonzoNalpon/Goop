@@ -23,7 +23,18 @@ namespace GoopScripts.Source.Button.Pause
 		public override void OnRelease(uint entity)
     {
       base.OnRelease(entity);
+      //Utils.FadeOutAudio("Menu-Quit", 1.0f);
       Utils.SetIsActiveEntity(Utils.GetEntity("Confirm Quit"), true);
+      
     }
+
+    public override void OnHoverEnter(uint entity)
+    {
+      base.OnHoverEnter(entity);
+      Utils.PlaySoundF("MenuHoverOverSFX2", 1.0f, Utils.ChannelType.SFX, false);
+    }
+
   }
+
+
 }
