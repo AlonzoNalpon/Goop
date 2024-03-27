@@ -2175,10 +2175,10 @@
                 "Transform": {
                     "pos": "{ -620, 430, 3 }",
                     "scale": "{ 1, 2, 1 }",
-                    "rot": "{ 0, 0, 0 }",
+                    "rot": "{ 0, 0, 180 }",
                     "worldPos": "{ -620, 430, 3 }",
                     "worldScale": "{ 1, 2, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
+                    "worldRot": "{ 0, 0, 180 }"
                 }
             },
             {
@@ -3201,7 +3201,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 690, 4.02832e-06, 10 }",
+                    "pos": "{ 690, 0, 10 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 690, 131.201, 10 }",
@@ -4281,7 +4281,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 5.77742e-11 }",
+                    "pos": "{ -307.537, -269.134, 5.06617e-12 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -419.265, 137.337, 20 }",
@@ -5377,7 +5377,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 5.77742e-11 }",
+                    "pos": "{ -307.537, -269.134, 5.06617e-12 }",
                     "scale": "{ 1, 1, 1.81818 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 319.853, 137.337, 20 }",
@@ -5566,7 +5566,7 @@
         "ID": 89,
         "Prefab": {
             "name": "ComboList",
-            "version": 1,
+            "version": 0,
             "objToEntity": [
                 {
                     "key": 0,
@@ -5801,10 +5801,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ 0, 0, -20 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 20 }",
+                    "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -5824,7 +5824,7 @@
                     "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 20 }",
+                    "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -5888,17 +5888,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -777.684, 367.319, 1 }",
+                    "pos": "{ -621.574, 420, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -777.684, 367.319, 21 }",
+                    "worldPos": "{ -621.574, 420, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "card types",
+                    "text": "Card Types",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -5906,8 +5906,8 @@
                         "a": 1.0
                     },
                     "scale": 0.25,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 8,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -5926,10 +5926,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 703.11, -428.627, 0 }",
+                    "pos": "{ -74.574, -14.73, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -74.574, -61.308, 21 }",
+                    "worldPos": "{ -696.148, 405.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -5952,10 +5952,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 45.3704, 0, 0 }",
+                    "pos": "{ 45.37, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -29.2036, -61.308, 21 }",
+                    "worldPos": "{ -650.778, 405.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -5972,10 +5972,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -780, 270, 0 }",
+                    "pos": "{ -780.002, 270, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -809.204, 208.692, 21 }",
+                    "worldPos": "{ -1430.78, 675.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6024,10 +6024,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -780, 145, 0 }",
+                    "pos": "{ -780.002, 145, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -809.204, 83.692, 21 }",
+                    "worldPos": "{ -1430.78, 550.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6076,10 +6076,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -780, 20, 0 }",
+                    "pos": "{ -780.002, 20, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -809.204, -41.308, 21 }",
+                    "worldPos": "{ -1430.78, 425.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6128,10 +6128,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -780, -105, 0 }",
+                    "pos": "{ -780.002, -105, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -809.204, -166.308, 21 }",
+                    "worldPos": "{ -1430.78, 300.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6180,10 +6180,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -780, -230, 0 }",
+                    "pos": "{ -780.002, -230, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -809.204, -291.308, 21 }",
+                    "worldPos": "{ -1430.78, 175.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6239,7 +6239,7 @@
                     "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -74.574, -61.308, 21 }",
+                    "worldPos": "{ -696.148, 405.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6256,10 +6256,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -547, 270, 0 }",
+                    "pos": "{ -547.002, 270, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -621.574, 208.692, 21 }",
+                    "worldPos": "{ -1243.15, 675.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6308,10 +6308,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -547, 145, 0 }",
+                    "pos": "{ -547.002, 145, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -621.574, 83.692, 21 }",
+                    "worldPos": "{ -1243.15, 550.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6360,10 +6360,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -547, 20, 0 }",
+                    "pos": "{ -547.002, 20, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -621.574, -41.308, 21 }",
+                    "worldPos": "{ -1243.15, 425.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6422,7 +6422,7 @@
                     "pos": "{ -49.259, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -123.833, -61.308, 21 }",
+                    "worldPos": "{ -745.407, 405.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6439,10 +6439,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -313, 270, 0 }",
+                    "pos": "{ -313.003, 270, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -436.833, 208.692, 21 }",
+                    "worldPos": "{ -1058.41, 675.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6491,10 +6491,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -313, 145, 0 }",
+                    "pos": "{ -313.003, 145, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -436.833, 83.692, 21 }",
+                    "worldPos": "{ -1058.41, 550.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6543,10 +6543,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -313, 20, 0 }",
+                    "pos": "{ -313.003, 20, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -436.833, -41.308, 21 }",
+                    "worldPos": "{ -1058.41, 425.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6595,10 +6595,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -313, -105, 0 }",
+                    "pos": "{ -313.003, -105, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -436.833, -166.308, 21 }",
+                    "worldPos": "{ -1058.41, 300.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6647,10 +6647,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -313, -230, 0 }",
+                    "pos": "{ -313.003, -230, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -436.833, -291.308, 21 }",
+                    "worldPos": "{ -1058.41, 175.27, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6699,10 +6699,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -313, -355, 0 }",
+                    "pos": "{ -313.003, -355, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -436.833, -416.308, 21 }",
+                    "worldPos": "{ -1058.41, 50.2702, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6751,10 +6751,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -113.63, -73.627, 0 }",
+                    "pos": "{ 0, 56.929, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -891.314, 293.692, 21 }",
+                    "worldPos": "{ -621.574, 476.929, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6785,17 +6785,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 87.87, -73.627, 0 }",
+                    "pos": "{ 240, 298.281, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -689.814, 293.692, 21 }",
+                    "worldPos": "{ -381.574, 718.281, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "block",
+                    "text": "|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -6803,8 +6803,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -6819,10 +6819,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 256.222, -73.627, 0 }",
+                    "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -521.462, 293.692, 21 }",
+                    "worldPos": "{ -621.574, 420, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -6859,26 +6859,26 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 121.427, 367.319, 1 }",
+                    "pos": "{ 20, 260, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 121.427, 367.319, 21 }",
+                    "worldPos": "{ 20, 260, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "card combos",
+                    "text": "Attack + Attack",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.25,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "scale": 0.20000000298023224,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -6898,12 +6898,26 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -134.131, -428.627, 0 }",
+                    "pos": "{ 565, 285, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -12.704, -61.308, 21 }",
+                    "worldPos": "{ 585, 545, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "+1 attack to each attack",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -6918,17 +6932,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -186.22, 320.365, 0 }",
+                    "pos": "{ 0, -50, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -198.924, 259.057, 21 }",
+                    "worldPos": "{ 585, 495, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "attack + attack",
+                    "text": "card next round",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -6936,8 +6950,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -6952,17 +6966,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 224.965, 320.365, 0 }",
+                    "pos": "{ 340, 210, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 212.261, 259.057, 21 }",
+                    "worldPos": "{ 925, 755, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "=",
+                    "text": "___________________________________________",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -6970,8 +6984,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -6988,10 +7002,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 290.687, 347.569, 0 }",
+                    "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 277.983, 286.261, 21 }",
+                    "worldPos": "{ 585, 545, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -7022,17 +7036,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -56.929, 0 }",
+                    "pos": "{ 20, 130, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 277.983, 229.332, 21 }",
+                    "worldPos": "{ 605, 675, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "card next round",
+                    "text": "Attack + Block",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7040,8 +7054,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7056,17 +7070,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -203.98, 271.265, 0 }",
+                    "pos": "{ 565, 130, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -216.684, 209.957, 21 }",
+                    "worldPos": "{ 1150, 675, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "_________________________________",
+                    "text": "Draw an extra card",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7074,8 +7088,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7095,12 +7109,26 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -134.131, -428.627, 0 }",
+                    "pos": "{ 340, 80, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -12.704, -61.308, 21 }",
+                    "worldPos": "{ 360, 340, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "___________________________________________",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7115,10 +7143,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -153.553, 207.038, 0 }",
+                    "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -166.257, 145.73, 21 }",
+                    "worldPos": "{ 360, 340, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -7149,17 +7177,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 224.965, 207.038, 0 }",
+                    "pos": "{ 20, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 212.261, 145.73, 21 }",
+                    "worldPos": "{ 380, 340, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "=",
+                    "text": "Block + Block",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7167,8 +7195,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7183,17 +7211,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 290.687, 207.038, 0 }",
+                    "pos": "{ 565, 25, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 277.983, 145.73, 21 }",
+                    "worldPos": "{ 925, 365, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "draw an extra card",
+                    "text": "+1 block to each block",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7201,8 +7229,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7217,17 +7245,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -203.98, 187.664, 0 }",
+                    "pos": "{ 0, -56.929, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -216.684, 126.356, 21 }",
+                    "worldPos": "{ 360, 283.071, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "_________________________________",
+                    "text": "card next round",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7235,8 +7263,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7256,12 +7284,26 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -134.131, -428.627, 0 }",
+                    "pos": "{ 340, -50, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -12.704, -61.308, 21 }",
+                    "worldPos": "{ 360, 210, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "___________________________________________",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7276,10 +7318,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -122.701, 95.5688, 0 }",
+                    "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -135.405, 34.2608, 21 }",
+                    "worldPos": "{ 360, 210, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -7310,17 +7352,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 224.965, 95.5688, 0 }",
+                    "pos": "{ 20, -224.882, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 212.261, 34.2608, 21 }",
+                    "worldPos": "{ 380, -14.882, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "=",
+                    "text": "Special + Attack",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7328,8 +7370,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7346,17 +7388,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 290.687, 122.773, 0 }",
+                    "pos": "{ 565, -113.568, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 277.983, 61.465, 21 }",
+                    "worldPos": "{ 925, 96.432, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "+1 block to each block",
+                    "text": "+1 attack to each attack",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7364,8 +7406,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7380,17 +7422,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -56.9289, 0 }",
+                    "pos": "{ 0, -162.162, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 277.983, 4.5361, 21 }",
+                    "worldPos": "{ 925, -65.73, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "card next round",
+                    "text": "causing enemy",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7398,8 +7440,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7414,17 +7456,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -203.98, 46.4693, 0 }",
+                    "pos": "{ 0, -114.521, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -216.684, -14.8387, 21 }",
+                    "worldPos": "{ 360, 95.479, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "_________________________________",
+                    "text": "blinds the enemy,",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7432,8 +7474,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7453,12 +7495,26 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -134.131, -571.679, 0 }",
+                    "pos": "{ 0, -56.929, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -12.704, -204.36, 21 }",
+                    "worldPos": "{ 20, 203.071, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "card next round and",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7473,17 +7529,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -189.85, 36.119, 0 }",
+                    "pos": "{ 0, -218.427, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -202.554, -168.241, 21 }",
+                    "worldPos": "{ 20, -15.3557, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "special + attack",
+                    "text": "50% chance to miss",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7491,8 +7547,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7507,17 +7563,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 224.965, 36.119, 0 }",
+                    "pos": "{ 340, -360, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 212.261, -168.241, 21 }",
+                    "worldPos": "{ 360, -156.929, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "=",
+                    "text": "___________________________________________",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7525,8 +7581,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7545,10 +7601,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 290.687, 122.773, 0 }",
+                    "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 277.983, -81.587, 21 }",
+                    "worldPos": "{ 20, 203.071, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -7579,17 +7635,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -114.521, 0 }",
+                    "pos": "{ 20, -478.896, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 277.983, -196.108, 21 }",
+                    "worldPos": "{ 40, -275.825, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "the enemy, causing enemy",
+                    "text": "Special + Block",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7597,8 +7653,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7613,17 +7669,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -56.929, 0 }",
+                    "pos": "{ 565, -422.364, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 277.983, -138.516, 21 }",
+                    "worldPos": "{ 585, -219.293, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "card next round and blinds",
+                    "text": "50% chance to stun",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7631,8 +7687,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7647,17 +7703,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -168.398, 0 }",
+                    "pos": "{ 0, -106.958, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 277.983, -249.985, 21 }",
+                    "worldPos": "{ 20, 96.1133, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "50% chance to miss",
+                    "text": "next round",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7665,8 +7721,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7681,17 +7737,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -203.98, -70.573, 0 }",
+                    "pos": "{ 0, -56.929, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -216.684, -274.933, 21 }",
+                    "worldPos": "{ 20, 146.142, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "_________________________________",
+                    "text": "the enemy in the",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7699,8 +7755,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7719,12 +7775,26 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -134.131, -835.49, 0 }",
+                    "pos": "{ -809.204, 346.373, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -12.704, -468.171, 21 }",
+                    "worldPos": "{ -789.204, 606.373, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Attack",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.20000000298023224,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7739,17 +7809,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -157.183, 95.569, 0 }",
+                    "pos": "{ -621.576, 346.373, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -169.887, -372.602, 21 }",
+                    "worldPos": "{ -1410.78, 952.746, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "special + block",
+                    "text": "Block",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7757,8 +7827,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7773,17 +7843,17 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 224.965, 95.569, 0 }",
+                    "pos": "{ -436.836, 346.373, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 212.261, -372.602, 21 }",
+                    "worldPos": "{ -1226.04, 952.746, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "=",
+                    "text": "Special",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -7791,8 +7861,8 @@
                         "a": 1.0
                     },
                     "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7809,26 +7879,26 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 290.687, 122.773, 0 }",
+                    "pos": "{ 240, 419.997, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 277.983, -345.398, 21 }",
+                    "worldPos": "{ -549.204, 1026.37, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "Text": {
-                    "text": "50% chance to stun the",
+                    "text": "Card Combos",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
                         "b": 1.0,
                         "a": 1.0
                     },
-                    "scale": 0.20000000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "scale": 0.25,
+                    "fontID": 8,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -7843,10 +7913,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -56.929, 0 }",
+                    "pos": "{ 0, -56.926, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 277.983, -402.327, 21 }",
+                    "worldPos": "{ -549.204, 969.444, 2 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
