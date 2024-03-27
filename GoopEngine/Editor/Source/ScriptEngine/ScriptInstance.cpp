@@ -415,6 +415,8 @@ void ScriptInstance::SetAllFields()
 
 void ScriptInstance::SetEntityID(GE::ECS::Entity entityId)
 {
+  if (!m_scriptClass)
+    throw GE::Debug::Exception<ScriptInstance>(GE::Debug::LEVEL_WARN, ErrMsg(m_scriptName + ".cs not found"));
   m_entityID = entityId;
   MonoClass* parent = mono_class_get_parent(m_scriptClass);
   if (!parent || std::string(mono_class_get_name(parent)) != "Entity") return;

@@ -46,13 +46,12 @@ namespace GE
 					{
 						try
 						{
-						ECS::Entity garbageID{ GE::ECS::INVALID_ID };
+							ECS::Entity garbageID{ GE::ECS::INVALID_ID };
 							m_scriptList.emplace_back(s, garbageID);
 						}
 						catch (GE::Debug::IExceptionBase& e)
 						{
 							e.LogSource();
-							e.Log();
 							throw GE::Debug::Exception<ScriptManager>(GE::Debug::LEVEL_ERROR, "Failed to Instantiate the class " + s, ERRLG_FUNC, ERRLG_LINE);
 						}
 					}
