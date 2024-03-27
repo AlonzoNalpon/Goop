@@ -792,7 +792,7 @@ void Deserializer::DeserializeScriptsComponent(rttr::variant& object, std::strin
   {
     s.SetAllFields();
   }
-  object = rttr::type::get<Component::Scripts>().create({scriptMap.get_value<Component::Scripts::ScriptInstances>()});
+  object = rttr::type::get<Component::Scripts>().create({ scriptMap.get_value<Component::Scripts::ScriptInstances>() });
 }
 
 void Deserializer::DeserializeScriptFieldInstList(rttr::variant& object, rapidjson::Value const& value)
