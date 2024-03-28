@@ -93,28 +93,6 @@
                                     }
                                 },
                                 {
-                                    "data": {
-                                        "Cards In Discard": [],
-                                        "Cards In Hand": [],
-                                        "Cards In Queue": [
-                                            "NO_CARD",
-                                            "",
-                                            "NO_CARD"
-                                        ]
-                                    },
-                                    "type": "",
-                                    "scriptField": {
-                                        "fieldName": "m_deckMngr"
-                                    }
-                                },
-                                {
-                                    "data": "PLAYER",
-                                    "type": "GoopScripts.Gameplay.CharacterType",
-                                    "scriptField": {
-                                        "fieldName": "m_type"
-                                    }
-                                },
-                                {
                                     "data": [
                                         12,
                                         13,
@@ -371,7 +349,7 @@
         "Name": "CardIcon_LeahDefenceShield",
         "ID": 2,
         "Prefab": null,
-        "isActive": false,
+        "isActive": true,
         "Parent": 460,
         "Child Entities": [],
         "Components": [
@@ -6044,7 +6022,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1.11121, -335.4, 0 }",
+                    "pos": "{ 1.111, -335.399, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -800.889, -114.659, 13 }",
@@ -6150,7 +6128,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1.11121, -335.4, 0 }",
+                    "pos": "{ 1.111, -335.399, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -800.889, -114.659, 13 }",
@@ -7537,6 +7515,29 @@
         ]
     },
     {
+        "Name": "Tutorial_45",
+        "ID": 153,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": null,
+        "Child Entities": [
+            157,
+            758
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 12 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 0, 0, 12 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            }
+        ]
+    },
+    {
         "Name": "Description",
         "ID": 154,
         "Prefab": null,
@@ -7643,6 +7644,136 @@
                     "worldPos": "{ -588, -350, 13 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Background",
+        "ID": 157,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 153,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 12 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 1920,
+                            "height": 1080,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Tutorial_Menu",
+                    "shouldRender": true
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy) (Copy) (Copy) (Copy) (Copy) (Copy)",
+        "ID": 158,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 758,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -140, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, -140, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "For the tutorial, you would",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy) (Copy) (Copy) (Copy) (Copy) (Copy) (Copy)",
+        "ID": 159,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 758,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -210, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, -210, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "receive a pack of 3 cards instead.",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -8439,7 +8570,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 89.4441, 5.3842, 0 }",
+                    "pos": "{ 89.444, 5.3842, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -128.889, -49.3695, 13 }",
@@ -12642,10 +12773,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1494, 0, 0 }",
+                    "pos": "{ 1545, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 1494, 0, 12 }",
+                    "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -12665,7 +12796,7 @@
                     "pos": "{ -951, -328, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 543, -328, 12 }",
+                    "worldPos": "{ -951, -328, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -17981,7 +18112,7 @@
             },
             {
                 "Text": {
-                    "text": "same card combos as us. now,",
+                    "text": "same card combos as us. Now,",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -18927,7 +19058,7 @@
             },
             {
                 "Text": {
-                    "text": "We shall defend against his",
+                    "text": "We shall defend against its",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -21289,7 +21420,7 @@
             },
             {
                 "Text": {
-                    "text": "Let's start selecting cards!",
+                    "text": "Let's start playing some cards!",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -24948,7 +25079,7 @@
                     "pos": "{ -951, -472, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 543, -472, 12 }",
+                    "worldPos": "{ -951, -472, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -25010,7 +25141,7 @@
                     "pos": "{ -951, -492, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 543, -492, 12 }",
+                    "worldPos": "{ -951, -492, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -25072,7 +25203,7 @@
                     "pos": "{ -951, -498, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 543, -498, 12 }",
+                    "worldPos": "{ -951, -498, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -25198,10 +25329,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, 0, 0 }",
+                    "pos": "{ 52, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, 0, 12 }",
+                    "worldPos": "{ 0, 0, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -25348,7 +25479,7 @@
         ]
     },
     {
-        "Name": "Tutorial_45",
+        "Name": "Tutorial_46",
         "ID": 597,
         "Prefab": null,
         "isActive": false,
@@ -25621,7 +25752,7 @@
             },
             {
                 "Text": {
-                    "text": "Let's end him shall we?",
+                    "text": "Now, let's end it shall we?",
                     "clr": {
                         "r": 1.0,
                         "g": 1.0,
@@ -25636,7 +25767,7 @@
         ]
     },
     {
-        "Name": "Tutorial_46",
+        "Name": "Tutorial_47",
         "ID": 605,
         "Prefab": null,
         "isActive": false,
@@ -25893,7 +26024,7 @@
         ]
     },
     {
-        "Name": "Tutorial_47",
+        "Name": "Tutorial_48",
         "ID": 612,
         "Prefab": null,
         "isActive": false,
@@ -26328,7 +26459,7 @@
                     "pos": "{ -951, -328, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -951, -328, 12 }",
+                    "worldPos": "{ -951, -328, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -26390,7 +26521,7 @@
                     "pos": "{ -951, -472, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -951, -472, 12 }",
+                    "worldPos": "{ -951, -472, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -26452,7 +26583,7 @@
                     "pos": "{ -951, -492, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -951, -492, 12 }",
+                    "worldPos": "{ -951, -492, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -26514,7 +26645,7 @@
                     "pos": "{ -951, -498, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -951, -498, 12 }",
+                    "worldPos": "{ -951, -498, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -33034,6 +33165,136 @@
         ]
     },
     {
+        "Name": "[Folder] Text (Copy)",
+        "ID": 758,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 153,
+        "Child Entities": [
+            158,
+            159,
+            759,
+            760,
+            761,
+            816,
+            817
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy) (Copy)",
+        "ID": 759,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 758,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 140, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 140, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "after ever battle, you would",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy)",
+        "ID": 760,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 758,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 210, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 210, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Before we end the tutorial,",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy) (Copy) (Copy)",
+        "ID": 761,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 758,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 70, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 70, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "receive a pack of 5 cards as",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
         "Name": "[folder] left",
         "ID": 762,
         "Prefab": null,
@@ -36160,6 +36421,74 @@
         ]
     },
     {
+        "Name": "Text1 (Copy) (Copy) (Copy) (Copy)",
+        "ID": 816,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 758,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "a reward. You are allowed to",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text1 (Copy) (Copy) (Copy) (Copy) (Copy)",
+        "ID": 817,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 758,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -70, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, -70, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "choose up to 3 cards to keep.",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.2280000001192093,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
         "Name": "[folder] right",
         "ID": 820,
         "Prefab": null,
@@ -37364,21 +37693,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -1491, -328, 0 }",
+                    "pos": "{ -1495, -328, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -956, -328, 12 }",
+                    "worldPos": "{ -960, -328, 12 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -956, -328 }",
+                    "center": "{ -960, -328 }",
                     "width": 64.0,
                     "height": 256.0,
-                    "min": "{ -988, -456 }",
-                    "max": "{ -924, -200 }",
+                    "min": "{ -992, -456 }",
+                    "max": "{ -928, -200 }",
                     "render": false
                 }
             },
@@ -37426,21 +37755,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -1491, -472, 0 }",
+                    "pos": "{ -1495, -472, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -956, -472, 12 }",
+                    "worldPos": "{ -960, -472, 12 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -956, -472 }",
+                    "center": "{ -960, -472 }",
                     "width": 64.0,
                     "height": 32.0,
-                    "min": "{ -988, -488 }",
-                    "max": "{ -924, -456 }",
+                    "min": "{ -992, -488 }",
+                    "max": "{ -928, -456 }",
                     "render": false
                 }
             },
@@ -37488,21 +37817,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -1491, -492, 0 }",
+                    "pos": "{ -1495, -492, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -956, -492, 12 }",
+                    "worldPos": "{ -960, -492, 12 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -956, -492 }",
+                    "center": "{ -960, -492 }",
                     "width": 64.0,
                     "height": 8.0,
-                    "min": "{ -988, -496 }",
-                    "max": "{ -924, -488 }",
+                    "min": "{ -992, -496 }",
+                    "max": "{ -928, -488 }",
                     "render": false
                 }
             },
@@ -37550,21 +37879,21 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -1491, -498, 0 }",
+                    "pos": "{ -1495, -498, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -956, -498, 12 }",
+                    "worldPos": "{ -960, -498, 12 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -956, -498 }",
+                    "center": "{ -960, -498 }",
                     "width": 64.0,
                     "height": 4.0,
-                    "min": "{ -988, -500 }",
-                    "max": "{ -924, -496 }",
+                    "min": "{ -992, -500 }",
+                    "max": "{ -928, -496 }",
                     "render": false
                 }
             },
