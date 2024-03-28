@@ -1,19 +1,21 @@
 # Enemy Type
-MINE_WORM
+DAWSON
 
 # Enemy Prefab
-MineWorm
+Dawson
 
 # Portrait
-UI_Portrait_MineWorm.png
+UI_Portrait_Dawson.png
 
 # Background
-Environment_Level2
+Environment_Level3
 
 # Enemy Health, MaxHealth
-10, 10
+15, 15
 
 # Deck List
-BASIC_ATTACK, 4
-BASIC_SHIELD, 3
-SPECIAL_SCREECH, 1
+DAWSON_BEAM, 3
+DAWSON_SWING, 5
+DAWSON_SHIELD, 6
+SPECIAL_CHARGEUP, 1
+SPECIAL_TIMEWARP, 1

@@ -335,7 +335,7 @@ namespace GoopScripts.Gameplay
         }
         else
         {
-          if (m_currentLevel == 5)
+          if (m_currentLevel == 4)
           {
             File.Copy(GAME_DATA_DIR + "DefaultStats.sav", GAME_DATA_DIR + "PlayerStats.sav", true);
             Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
