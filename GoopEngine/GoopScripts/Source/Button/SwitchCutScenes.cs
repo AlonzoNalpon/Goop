@@ -23,10 +23,12 @@ namespace GoopScripts.Cutscene
 	internal class SwitchCutScenes : IButtonClick
 	{
 		int frame;
+		int audio;
 
 		SwitchCutScenes()
 		{
 			frame = 1;
+			audio = 1;
 		}
 
 		/*!******************************************************************
@@ -39,6 +41,7 @@ namespace GoopScripts.Cutscene
 		public void OnClick(uint entity)
 		{
 			int lastFrame = frame++;
+			int lastAudio = audio++;
 
 			// 7 is the current number of cutscenes
 			if (frame >= 9)
@@ -46,6 +49,7 @@ namespace GoopScripts.Cutscene
 				// Call existing function
 				CrossFadeToGameBGM temp = new CrossFadeToGameBGM();
 				temp.OnClick(entity);
+				Utils.StopSound($"VL_Leah_CutScene_{lastAudio}");
 				Utils.FadeInAudio("CaveWithWaterDrops_Loop", 0.486f, 1.0f);
 				Utils.FadeInAudio("Fog", 0.753f, 1.0f);
 				Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "TransitionOut");
@@ -54,7 +58,11 @@ namespace GoopScripts.Cutscene
 			{
 				Utils.SetIsActiveEntity(Utils.GetEntity($"Cutscenes_00{lastFrame}"), false);
 				Utils.SetIsActiveEntity(Utils.GetEntity($"Cutscenes_00{frame}"), true);
-			}
+
+				Utils.StopSound($"VL_Leah_CutScene_{lastAudio}");
+				Utils.FadeInAudio($"VL_Leah_CutScene_{audio}", 0.75f, 1.0f);
+
+      }
 
 		}
 	}
