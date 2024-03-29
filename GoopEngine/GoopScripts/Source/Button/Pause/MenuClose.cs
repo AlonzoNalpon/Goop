@@ -7,6 +7,7 @@
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+using GoopScripts.Gameplay;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,9 @@ namespace GoopScripts.Button
 					break;
 				case 2:
 					Utils.UndeeperPause(PauseMenuID, DeeperPauseMenuID);
-					break;
+          Utils.SetIsActiveEntity(Utils.GetEntity($"Page_{HTP_Popup.m_page}"), false);
+          Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Left"), false);
+          break;
 				default:
 					break;
 			}

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  internal class HTP : Entity
+  internal class HTP_Popup : Entity
   {
     static public int m_page;
 
@@ -27,18 +27,21 @@ namespace GoopScripts.Gameplay
 
     public void OnUpdate(double deltaTime)
     {
-      if (m_page == 1)
+      if (Utils.GetIsActiveEntity(Utils.GetEntity("[Menu] How To Play")))
       {
-        Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Left"), false);
-      }
-      else if (m_page == 11)
-      {
-        Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Right"), false);
-      }
-      else
-      {
-        Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Left"), true);
-        Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Right"), true);
+        if (m_page == 1)
+        {
+          Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Left"), false);
+        }
+        else if (m_page == 11)
+        {
+          Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Right"), false);
+        }
+        else
+        {
+          Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Left"), true);
+          Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Right"), true);
+        }
       }
     }
   }

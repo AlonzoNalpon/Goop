@@ -107,7 +107,9 @@
     <Compile Include="Source\Button\GameLevel\ReturnFromQueue.cs" />
     <Compile Include="Source\Button\GameLevel\SelectCard.cs" />
     <Compile Include="Source\Button\GameOverToMainMenu.cs" />
+    <Compile Include="Source\Button\HTP\HTP_Back_Popup.cs" />
     <Compile Include="Source\Button\HTP\HTP_Back.cs" />
+    <Compile Include="Source\Button\HTP\HTP_Next_Popup.cs" />
     <Compile Include="Source\Button\HTP\HTP_Next.cs" />
     <Compile Include="Source\Button\LogoSplashScreen.cs" />
     <Compile Include="Source\Button\MainMenuNoQuit.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="Source\Demo\LeahDemo.cs" />
     <Compile Include="Source\Demo\PlayBGM.cs" />
     <Compile Include="Source\Demo\StopBGM.cs" />
+    <Compile Include="Source\Gameplay\HTP_Popup.cs" />
     <Compile Include="Source\Gameplay\Stats\AnimationManager.cs" />
     <Compile Include="Source\Gameplay\Stats\BuffManager.cs" />
     <Compile Include="Source\Gameplay\Stats\CharacterType.cs" />
